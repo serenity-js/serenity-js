@@ -1,75 +1,86 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, PageElementList, PageElementLocation } from '@serenity-js/web';
-import { ElementArrayFinder, ElementFinder, ProtractorBrowser } from 'protractor';
-import { ensure, isDefined } from 'tiny-types';
+import { PageElement, PageElementList } from '@serenity-js/web';
+import { ElementArrayFinder, ElementFinder } from 'protractor';
 
-import { promiseOf } from '../../promiseOf';
+import { promised } from '../../promised';
+import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
-export class ProtractorPageElementList implements PageElementList {
+export class ProtractorPageElementList
+    extends PageElementList<ProtractorNativeElementSearchContext, ElementArrayFinder, ElementFinder>
+{
     constructor(
-        private readonly browser: ProtractorBrowser,
-        private readonly elements: ElementArrayFinder,
-        private readonly elementLocation: PageElementLocation,
+        context: () => Promise<ProtractorNativeElementSearchContext> | ProtractorNativeElementSearchContext,
+        locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder
     ) {
-        ensure('browser', browser, isDefined());
-        ensure('elements', elements, isDefined());
-        ensure('elementLocation', PageElementLocation, isDefined());
+        super(context, async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
+            return promised<ElementArrayFinder>(locator(context));
+        });
     }
 
-    location(): PageElementLocation {
-        return this.elementLocation;
+    of(parent: PageElement<ProtractorNativeElementSearchContext, ElementFinder>): ProtractorPageElementList {
+        return new ProtractorPageElementList(() => parent.nativeElement(), this.locator);
     }
 
-    count(): Promise<number> {
-        return promiseOf(this.elements.count());
+    async count(): Promise<number> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
+        return elements.count();
     }
 
-    first(): PageElement {
-        return this.asElement(this.elements.first());
+    async first(): Promise<ProtractorPageElement> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
+        return this.asElement(elements.first());
     }
 
-    last(): PageElement {
-        return this.asElement(this.elements.last());
+    async last(): Promise<ProtractorPageElement> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
+        return this.asElement(elements.last());
     }
 
-    get(index: number): PageElement {
-        if (! this.elements.get(index)) {
-            throw new LogicError(`There's no item at index ${ index } within elements located ${ this.elementLocation } `);
+    async get(index: number): Promise<ProtractorPageElement> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
+
+        if (! elements.get(index)) {
+            throw new LogicError(`There's no item at index ${ index }`);
         }
 
-        return this.asElement(this.elements.get(index));
+        return this.asElement(elements.get(index));
     }
 
-    map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
-        return promiseOf(
-            this.elements.map((element?: ElementFinder, i?: number) =>
-                fn(new ProtractorPageElement(this.browser, element, this.elementLocation), i, this)
-            )
+    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
+
+        return elements.map((element?: ElementFinder, i?: number) =>
+            fn(new ProtractorPageElement(this.context, _context => element), i, this)
         );
     }
 
-    filter(fn: (element: PageElement, index?: number) => boolean): PageElementList {
-        const matching = this.elements.filter(
-            (element: ElementFinder, index: number) => fn(this.asElement(element), index)
-        ) as ElementArrayFinder;
+    filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElementList {
+        return new ProtractorPageElementList(
+            this.context,
+            async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
+                const elements = await this.locator(context) as unknown as ElementArrayFinder;
 
-        // fixme: this is WDIO-specific; review
-        // matching.selector   = this.elements.selector;
-        // matching.parent     = this.elements.parent;
-        // matching.foundWith  = this.elements.foundWith;
-        // matching.props      = this.elements.props;
+                const result = elements.filter(async (nativeElement: ElementFinder, index: number) => {
+                    const element = new ProtractorPageElement(this.context, _context => nativeElement);
+                    const result = await fn(element, index);
+                    return result;
+                });
 
-        return new ProtractorPageElementList(this.browser, matching, this.elementLocation);
+                return promised<ElementArrayFinder>(result);
+            }
+        );
     }
 
-    forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
-        return promiseOf(this.elements.each((element: ElementFinder, index: number) => {
-            return fn(new ProtractorPageElement(this.browser, element, this.elementLocation), index, this);
-        }));
+    async forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
+        const elements = await this.nativeElementList() as unknown as ElementArrayFinder
+
+        return elements.each((element: ElementFinder, index: number) => {
+            return fn(new ProtractorPageElement(this.context, _context => element), index, this);
+        });
     }
 
     private asElement(elementFinder: ElementFinder): PageElement {
-        return new ProtractorPageElement(this.browser, elementFinder, this.elementLocation)
+        return new ProtractorPageElement(this.context, _context => elementFinder);
     }
 }

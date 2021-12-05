@@ -5,19 +5,19 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals, matches } from '@serenity-js/assertions';
 import { actorCalled, Check, Log, Question, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { BrowseTheWeb, by, Click, DoubleClick, Enter, Key, Navigate, Press, Target, PageElement, Value } from '@serenity-js/web';
+import { BrowseTheWeb, Click, DoubleClick, Enter, Key, Navigate, PageElement, Press, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 /** @test {Press} */
 describe('Press', () => {
 
     const InputBoxForm = {
-        textField:      Target.the('text field').located(by.id('input-box')),
+        textField:      PageElement.locatedById('input-box').describedAs('the text field'),
     };
 
     const CopyAndPasteBoxesForm = {
-        source:         Target.the('source text field').located(by.id('source')),
-        destination:    Target.the('destination text field').located(by.id('destination')),
+        source:         PageElement.locatedById('source').describedAs('source text field'),
+        destination:    PageElement.locatedById('destination').describedAs('destination text field'),
     };
 
     const OS = () => Question.about('operating system', async actor => {

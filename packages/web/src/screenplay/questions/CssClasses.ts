@@ -3,7 +3,6 @@ import { formatted } from '@serenity-js/core/lib/io';
 
 import { PageElement } from '../models';
 import { ElementQuestion } from './ElementQuestion';
-import { TargetNestedElement } from './targets';
 
 /**
  * @desc
@@ -20,7 +19,7 @@ import { TargetNestedElement } from './targets';
  * @example <caption>Retrieve CSS classes of a given WebElement</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';
+ *  import { BrowseTheWeb, by, CssClasses, Target } from '@serenity-js/webdriverio';
  *
  *  const shoppingList = () =>
  *      Target.the('shopping list').located(by.id('shopping-list'))
@@ -28,13 +27,13 @@ import { TargetNestedElement } from './targets';
  *  actorCalled('Lisa')
  *      .whoCan(BrowseTheWeb.using(browser))
  *      .attemptsTo(
- *          Ensure.that(CSSClasses.of(shoppingList()), equals([ 'active', 'favourite' ])),
+ *          Ensure.that(CssClasses.of(shoppingList()), equals([ 'active', 'favourite' ])),
  *      )
  *
  * @example <caption>Find WebElements with a given class</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, contain } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';
+ *  import { BrowseTheWeb, by, CssClasses, Target } from '@serenity-js/webdriverio';
  *
  *  class ShoppingList {
  *      static items = () =>
@@ -43,7 +42,7 @@ import { TargetNestedElement } from './targets';
  *
  *      static outstandingItems = () =>
  *          ShoppingList.items
- *              .where(CSSClasses, contain('buy'))
+ *              .where(CssClasses, contain('buy'))
  *  }
  *
  *  actorCalled('Lisa')
@@ -58,16 +57,16 @@ import { TargetNestedElement } from './targets';
  * @extends {ElementQuestion}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
-export class CSSClasses
+export class CssClasses
     extends ElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
     /**
      * @param {Question<PageElement> | PageElement} target
-     * @returns {CSSClasses}
+     * @returns {CssClasses}
      */
-    static of(target: Answerable<PageElement>): CSSClasses {
-        return new CSSClasses(target);
+    static of(target: Answerable<PageElement>): CssClasses {
+        return new CssClasses(target);
     }
 
     /**
@@ -89,7 +88,7 @@ export class CSSClasses
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new CSSClasses(new TargetNestedElement(parent, this.target));
+        return new CssClasses(PageElement.of(this.target, parent));
     }
 
     /**

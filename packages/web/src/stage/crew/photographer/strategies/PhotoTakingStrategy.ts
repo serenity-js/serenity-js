@@ -109,5 +109,8 @@ export abstract class PhotoTakingStrategy {
     private shouldIgnore(error: Error) {
         return error.name
             && (error.name === 'NoSuchSessionError');
+        // todo: add SauceLabs
+        //  [0-0] 2021-12-02T01:32:36.402Z ERROR webdriver: Request failed with status 404 due to no such window: no such window: target window already closed
+        //  [0-0] from unknown error: web view not found
     }
 }

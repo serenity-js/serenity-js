@@ -3,7 +3,6 @@ import { formatted } from '@serenity-js/core/lib/io';
 
 import { PageElement } from '../models';
 import { ElementQuestion } from './ElementQuestion';
-import { TargetNestedElement } from './targets';
 
 /**
  * @desc
@@ -60,7 +59,7 @@ export class Value
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     of(parent: Answerable<PageElement>): Question<Promise<string>> {
-        return new Value(new TargetNestedElement(parent, this.element));
+        return new Value(PageElement.of(this.element, parent));
     }
 
     /**

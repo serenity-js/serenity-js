@@ -127,7 +127,7 @@ class PressKeyInField extends PageElementInteraction {
             function focus(element: any) {
                 element.focus();
             },
-            field,
+            await field.nativeElement(),
         );
 
         return BrowseTheWeb.as(actor).sendKeys(keys);

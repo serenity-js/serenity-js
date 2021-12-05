@@ -4,9 +4,9 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, q, Question, Timestamp } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { by, Click, Cookie, CookieData, CookieMissingError, Navigate, Target, Text } from '@serenity-js/web';
-import express = require('express');
+import { Click, Cookie, CookieData, CookieMissingError, Navigate, PageElement, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
+import express = require('express');
 
 describe('Cookie', () => {
 
@@ -51,8 +51,8 @@ describe('Cookie', () => {
     describe('when setting cookies', () => {
 
         const ShowCookies = {
-            viewer:             Text.of(Target.the('cookie viewer').located(by.id('viewer'))),
-            showCookiesButton:  Target.the('show cookies button').located(by.css('button')),
+            viewer:             Text.of(PageElement.locatedById('viewer').describedAs('cookie viewer')),
+            showCookiesButton:  PageElement.locatedByCss('button').describedAs('show cookies button'),
         }
 
         it('allows the actor to add a new cookie', () =>

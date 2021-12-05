@@ -1,9 +1,9 @@
 import 'mocha';
 
-import { actorCalled, Duration, LogicError, Note, TakeNote } from '@serenity-js/core';
-import { by, Click, Navigate, Page, Target, Text, Wait } from '@serenity-js/web';
+import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
+import { Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
-import { endsWith, Ensure, equals, includes, isTrue, matches, not, startsWith } from '@serenity-js/assertions';
+import { endsWith, Ensure, equals, includes, isTrue, not, startsWith } from '@serenity-js/assertions';
 import { URL } from 'url';
 
 /** @test {Page} */
@@ -13,19 +13,19 @@ describe('Page', () => {
 
         const MainPage = {
             title:          'Main page title',
-            heading:        Text.of(Target.the('heading').located(by.css('h1'))),
-            newTabLink:     Target.the('new tab link').located(by.id('new-tab-link')),
-            newPopUpLink:   Target.the('new pop-up link').located(by.id('new-popup-link')),
+            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
+            newTabLink:     PageElement.locatedById('new-tab-link').describedAs('new tab link'),
+            newPopUpLink:   PageElement.locatedById('new-popup-link').describedAs('new pop-up link'),
         };
 
         const NewTab = {
             expectedTitle:  'New tab title',
-            heading:        Text.of(Target.the('heading').located(by.css('h1'))),
+            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
         };
 
         const Popup = {
             expectedName:   'popup-window',         // defined in main_page.html
-            heading:        Text.of(Target.the('heading').located(by.css('h1'))),
+            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
         };
 
         beforeEach(() =>
@@ -125,8 +125,8 @@ describe('Page', () => {
             describe('viewport', () => {
 
                 const RenderedViewportSize = {
-                    width:  Text.of(Target.the('viewport width').located(by.id('viewport-width'))).as(Number),
-                    height: Text.of(Target.the('viewport height').located(by.id('viewport-height'))).as(Number),
+                    width:  Text.of(PageElement.locatedById('viewport-width').describedAs('viewport width')).as(Number),
+                    height: Text.of(PageElement.locatedById('viewport-height').describedAs('viewport height')).as(Number),
                 };
 
                 const viewportSize = {

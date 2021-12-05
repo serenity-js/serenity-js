@@ -47,13 +47,13 @@ export class Click extends PageElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<PageElement>} target
+     * @param {Answerable<PageElement>} pageElement
      *  The element to be clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<PageElement>): Interaction {
-        return new Click(target);
+    static on(pageElement: Answerable<PageElement>): Interaction {
+        return new Click(pageElement);
     }
 
     /**

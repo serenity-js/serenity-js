@@ -3,11 +3,11 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { by, DoubleClick, Navigate, Target, Text } from '@serenity-js/web';
+import { DoubleClick, Navigate, PageElement, Text } from '@serenity-js/web';
 
 describe('DoubleClick', () => {
 
-    const interactiveElement = Target.the('interactive element').located(by.id('double-click-me'));
+    const interactiveElement = PageElement.locatedById('double-click-me').describedAs('the interactive element');
 
     /** @test {DoubleClick} */
     /** @test {DoubleClick.on} */

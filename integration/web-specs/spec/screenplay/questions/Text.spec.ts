@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { by, Navigate, Target, Text } from '@serenity-js/web';
+import { Navigate, PageElement, PageElementList, Text } from '@serenity-js/web';
 
 describe('Text', () => {
 
     describe('of', () => {
 
-        const header = Target.the('header').located(by.tagName('h1'));
+        const header = PageElement.locatedByCss('h1').describedAs('the header');
 
         /** @test {Text.of} */
         it('allows the actor to read the text of the DOM element matching the locator', () =>
@@ -22,7 +22,7 @@ describe('Text', () => {
         /** @test {Text.of} */
         /** @test {Text#toString} */
         it('produces a sensible description of the question being asked', () => {
-            expect(Text.of(Target.the('header').located(by.tagName('h1'))).toString())
+            expect(Text.of(PageElement.locatedByCss('h1').describedAs('the header')).toString())
                 .to.equal('the text of the header');
         });
 
@@ -55,7 +55,7 @@ describe('Text', () => {
 
     describe('ofAll', () => {
 
-        const Shopping_List_Items = Target.all('shopping list items').located(by.css('li'));
+        const Shopping_List_Items = PageElementList.locatedByCss('li').describedAs('shopping list items');
 
         /** @test {Text.ofAll} */
         it('allows the actor to read the text of all DOM elements matching the locator', () =>
@@ -66,15 +66,15 @@ describe('Text', () => {
                 Ensure.that(Text.ofAll(Shopping_List_Items), equals(['milk', 'oats'])),
             ));
 
-        // todo: relative questions
-
         /** @test {Text.ofAll} */
         it('allows for a question relative to another target to be asked', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/text/shopping_list.html'),
 
                 Ensure.that(
-                    Text.ofAll(Shopping_List_Items).of(Target.the('body').located(by.tagName('body'))),
+                    Text.ofAll(Shopping_List_Items).of(
+                        PageElement.locatedByCss('body').describedAs('body')
+                    ),
                     equals(['milk', 'oats'])
                 ),
             ));
@@ -94,7 +94,10 @@ describe('Text', () => {
                 Navigate.to('/screenplay/questions/text/percentages.html'),
 
                 Ensure.that(
-                    Text.ofAll(Target.all('possible answers').located(by.css('#answers li')))
+                    Text
+                        .ofAll(
+                            PageElementList.locatedByCss('#answers li').describedAs('possible answers')
+                        )
                         .map((answer: string) => answer.trim())
                         .map((answer: string) => answer.replace('%', ''))
                         .map((answer: string) => Number(answer)),
