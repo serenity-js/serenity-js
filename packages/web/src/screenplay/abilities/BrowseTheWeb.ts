@@ -39,14 +39,6 @@ export abstract class BrowseTheWeb implements Ability {
     abstract findAllByCss(selector: string): PageElementList;
     abstract findAllByTagName(selector: string): PageElementList;
     abstract findAllByXPath(selector: string): PageElementList;
-    // todo: consider adding
-    //  findByRole('button')
-    //  findByAccessibilityLabel('Close')
-    //  findByRoleContainingText('button', submit)
-    //
-    //  https://playwright.dev/docs/selectors/#best-practices
-    //  https://webdriver.io/docs/selectors/
-    //  https://docs.cypress.io/guides/references/best-practices#How-It-Works
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
@@ -88,13 +80,6 @@ export abstract class BrowseTheWeb implements Ability {
     abstract deleteAllCookies(): Promise<void>;
 
     abstract modalDialog(): Promise<ModalDialog>;
-
-    // todo: remove
-    abstract switchToWindow(nameOrHandleOrIndex: string | number): Promise<void>;
-    abstract switchToOriginalWindow(): Promise<void>;
-    abstract getCurrentWindowHandle(): Promise<string>;
-    abstract getAllWindowHandles(): Promise<string[]>;
-    abstract closeCurrentWindow(): Promise<void>;
 
     // todo: remove
     abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;

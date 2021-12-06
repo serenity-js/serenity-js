@@ -215,26 +215,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     switchToDefaultContent(): Promise<void> {
         throw new Error('Not implemented, yet');
     }
-    // todo: remove
-    switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    switchToOriginalWindow(): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    getCurrentWindowHandle(): Promise<string> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    getAllWindowHandles(): Promise<string[]> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    closeCurrentWindow(): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
 
     /**
      * @desc
