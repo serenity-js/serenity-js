@@ -1,7 +1,7 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList } from '@serenity-js/web';
-import { ActionSequence, by, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
-import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
+import { by, ElementArrayFinder, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
+import { Capabilities } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
 import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElementList } from '../models';
@@ -234,66 +234,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     /**
      * @desc
-     *  Interface for navigating back and forth in the browser history.
-     *
-     *  @returns {Navigation}
-     */
-    navigate(): Navigation {
-        return this.browser.navigate();
-    }
-
-    /**
-     * @desc
-     *  Interface for defining sequences of complex user interactions.
-     *  Each sequence will not be executed until `perform` is called.
-     *
-     * @returns {ActionSequence}
-     *
-     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
-     */
-    actions(): ActionSequence {
-        return this.browser.actions();
-    }
-
-    /**
-     * @desc
-     *  Interface for managing browser and driver state.
-     *
-     * @returns {Options}
-     *
-     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
-     */
-    manage(): Options {
-        /*
-        this.browser.manage().deleteCookie();
-        this.browser.manage().deleteAllCookies();
-        return this.browser.manage().getCookie('asd');
-         */
-
-        return this.browser.manage();
-    }
-
-    /**
-     * @desc
-     *  Changes focus to the active modal dialog,
-     *  such as those opened by
-     *  [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),
-     *  [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt), or
-     *  [`Window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm).
-     *
-     * The returned promise will be rejected with an [`error.NoSuchAlertError`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/error_exports_NoSuchAlertError.html)
-     * if there are no open alerts.
-     *
-     * @returns {AlertPromise}
-     *
-     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_TargetLocator.html#alert
-     */
-    alert(): AlertPromise {
-        return this.browser.switchTo().alert();
-    }
-
-    /**
-     * @desc
      *  Switches the focus to a [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
      *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) identified by `elementOrIndexOrName`,
      *  which can be specified either as {@link selenium-webdriver~WebElement}, the name of the frame, or its index.
@@ -339,107 +279,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     /**
      * @desc
-     *  Switches browser window/tab to the one identified by `nameOrHandleOrIndex`,
-     *  which can be specified as the name of the window to switch to, its handle, or numeric index.
-     *
-     * @param {string | number} nameOrHandleOrIndex
-     *
-     * @returns {Promise<void>}
-     */
-    switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
-        return typeof nameOrHandleOrIndex === 'string'
-            ? this.switchToWindowByNameOrHandle(nameOrHandleOrIndex)
-            : this.switchToWindowByIndex(nameOrHandleOrIndex);
-    }
-
-    /**
-     * @param {string} nameOrHandle
-     * @private
-     */
-    private switchToWindowByNameOrHandle(nameOrHandle: string): Promise<void> {
-        return promiseOf(this.browser.switchTo().window(nameOrHandle));
-    }
-
-    /**
-     * @param {number} index
-     * @private
-     */
-    private switchToWindowByIndex(index: number): Promise<void> {
-        return promiseOf(this.browser.getAllWindowHandles().then(handles => {
-            const handle = handles[index];
-
-            if (! handle) {
-                throw new LogicError(`Window ${ index } doesn't exist`)
-            }
-
-            return this.browser.switchTo().window(handle);
-        }));
-    }
-
-    /**
-     * @desc
-     *  Switches the window back to the original one that was used to call {@link get}.
-     *
-     * @returns {Promise<void>}
-     */
-    switchToOriginalWindow(): Promise<void> {
-        throw new Error('To be removed');
-    }
-
-    /**
-     * @desc
-     *  Returns the handle of the browser window last used to navigate to a URL.
-     *
-     * @returns {Promise<string>}
-     *  A window handle
-     *
-     * @see {@link get}
-     */
-    getOriginalWindowHandle(): Promise<string> {
-        throw new Error('To be removed');
-    }
-
-    /**
-     * @desc
-     *  Returns the current window handle.
-     *  Please note that the current handle changes with each browser window you {@link Switch} to.
-     *
-     * @returns {Promise<string>}
-     *  A window handle
-     *
-     * @see {@link get}
-     */
-    getCurrentWindowHandle(): Promise<string> {
-        throw new Error('To be removed');
-    }
-
-    /**
-     * @desc
-     *  Returns the handles of all the available windows.
-     *
-     *  Please note that while some browsers organise entries of this list in the same order
-     *  new windows have been spawned, other browsers order it alphabetically.
-     *  For this reason, you should not make any assumptions about how this list is ordered.
-     *
-     * @returns {Promise<string[]>}
-     *  A list of window handles
-     */
-    getAllWindowHandles(): Promise<string[]> {
-        throw new Error('To be removed');
-    }
-
-    /**
-     * @desc
-     *  Closes the currently active browser window/tab.
-     *
-     * @returns {Promise<void>}
-     */
-    closeCurrentWindow(): Promise<void> {
-        return promiseOf(this.browser.close());
-    }
-
-    /**
-     * @desc
      *  Returns a {@link Page} representing the currently active top-level browsing context.
      *
      * @returns {Promise<Page>}
@@ -462,28 +301,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         const windowHandles = await this.browser.getAllWindowHandles();
 
         return windowHandles.map(windowHandle => new ProtractorPage(this.browser, windowHandle));
-    }
-
-    /**
-     * @desc
-     *  Locates a single element identified by the locator
-     *
-     * @param {Locator} locator
-     * @returns {ElementFinder}
-     */
-    locate(locator: Locator): ElementFinder {
-        return this.browser.element(locator);
-    }
-
-    /**
-     * @desc
-     *  Locates all elements identified by the locator
-     *
-     * @param {Locator} locator
-     * @returns {ElementArrayFinder}
-     */
-    locateAll(locator: Locator): ElementArrayFinder {
-        return this.browser.element.all(locator);
     }
 
     /**
