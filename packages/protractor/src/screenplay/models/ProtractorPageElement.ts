@@ -2,8 +2,8 @@ import { PageElement } from '@serenity-js/web';
 import { ElementFinder, protractor } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 
-import { promised } from '../../promised';
-import { promiseOf } from '../../promiseOf';
+import { promised } from '../promised';
+import { promisedWebElement } from '../promisedWebElement';
 import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
 
 export class ProtractorPageElement
@@ -14,7 +14,7 @@ export class ProtractorPageElement
         locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementFinder> | ElementFinder
     ) {
         super(context, context => {
-            return promised<ElementFinder>(locator(context));
+            return promisedWebElement<ElementFinder>(locator(context));
         });
     }
 
@@ -55,7 +55,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
+        return promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .doubleClick()
@@ -75,7 +75,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
+        return promised(
             webElement.getDriver().executeScript('arguments[0].scrollIntoView(true);', webElement)
         );
     }
@@ -84,7 +84,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
+        return promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .perform()
@@ -95,7 +95,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
+        return promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
@@ -119,7 +119,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(webElement.getDriver().executeScript(
+        return promised(webElement.getDriver().executeScript(
             /* istanbul ignore next */
             function getValue(webElement) {
                 return webElement.value;

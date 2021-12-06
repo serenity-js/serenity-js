@@ -7,7 +7,7 @@
  * @param promiseLike
  * @returns {Promise<T>}
  */
-export function promiseOf<T>(promiseLike: PromiseLike<T>): Promise<T> {
+export function promised<T>(promiseLike: PromiseLike<T>): Promise<T> {
     return new Promise((resolve, reject) => {
         promiseLike.then(resolve, reject);
     });

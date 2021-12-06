@@ -9,7 +9,7 @@ import { WebElement } from 'protractor';
  * @param promiseLike
  * @returns {Promise<T>}
  */
-export function promised<T extends WebElement>(promiseLike: PromiseLike<T> | T): Promise<T> {
+export function promisedWebElement<T extends WebElement>(promiseLike: PromiseLike<T> | T): Promise<T> {
     if (promiseLike instanceof Promise) {
         return promiseLike;
     }

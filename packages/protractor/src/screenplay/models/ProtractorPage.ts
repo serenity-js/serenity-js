@@ -2,7 +2,7 @@ import { Page } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
-import { promiseOf } from '../../promiseOf';
+import { promised } from '../promised';
 
 export class ProtractorPage extends Page {
     constructor(
@@ -14,25 +14,25 @@ export class ProtractorPage extends Page {
 
     title(): Promise<string> {
         return this.switchToAndPerform(async browser => {
-            return promiseOf(browser.getTitle());
+            return promised(browser.getTitle());
         });
     }
 
     name(): Promise<string> {
         return this.switchToAndPerform(async browser => {
-            return promiseOf(browser.executeScript('return window.name'));
+            return promised(browser.executeScript('return window.name'));
         });
     }
 
     url(): Promise<URL> {
         return this.switchToAndPerform(async browser => {
-            return new URL(await promiseOf(browser.getCurrentUrl()));
+            return new URL(await promised(browser.getCurrentUrl()));
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
         return this.switchToAndPerform(async browser => {
-            const calculatedViewportSize = await promiseOf(browser.executeScript(
+            const calculatedViewportSize = await promised(browser.executeScript(
                 `return {
                     width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0),
                     height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
@@ -44,13 +44,13 @@ export class ProtractorPage extends Page {
             }
 
             // Chrome headless hard-codes window.innerWidth and window.innerHeight to 0
-            return promiseOf(browser.manage().window().getSize());
+            return promised(browser.manage().window().getSize());
         });
     }
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
         return this.switchToAndPerform(async browser => {
-            const desiredWindowSize: { width: number, height: number } = await promiseOf(browser.executeScript(`
+            const desiredWindowSize: { width: number, height: number } = await promised(browser.executeScript(`
                 var currentViewportWidth  = Math.max(document.documentElement.clientWidth,  window.innerWidth || 0)
                 var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
                 
@@ -60,12 +60,12 @@ export class ProtractorPage extends Page {
                 };
             `));
 
-            return promiseOf(browser.manage().window().setSize(desiredWindowSize.width, desiredWindowSize.height));
+            return promised(browser.manage().window().setSize(desiredWindowSize.width, desiredWindowSize.height));
         });
     }
 
     async close(): Promise<void> {
-        return this.switchToAndPerform(browser => promiseOf(browser.close()));
+        return this.switchToAndPerform(browser => promised(browser.close()));
     }
 
     async closeOthers(): Promise<void> {

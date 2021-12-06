@@ -2,7 +2,7 @@ import { ModalDialog } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 import { error as errors } from 'selenium-webdriver';
 
-import { promiseOf } from '../../promiseOf';
+import { promised } from '../promised';
 
 export class ProtractorModalDialog extends ModalDialog {
 
@@ -11,26 +11,26 @@ export class ProtractorModalDialog extends ModalDialog {
     }
 
     accept(): Promise<void> {
-        return promiseOf(this.browser.switchTo().alert().accept());
+        return promised(this.browser.switchTo().alert().accept());
     }
 
     dismiss(): Promise<void> {
-        return promiseOf(this.browser.switchTo().alert().dismiss());
+        return promised(this.browser.switchTo().alert().dismiss());
     }
 
     text(): Promise<string> {
-        return promiseOf(this.browser.switchTo().alert().getText());
+        return promised(this.browser.switchTo().alert().getText());
     }
 
     async enterValue(value: string | number | (string | number)[]): Promise<void> {
         const text = [].concat(value).join('');
-        await promiseOf(this.browser.switchTo().alert().sendKeys(text));
-        await promiseOf(this.browser.switchTo().alert().accept());
+        await promised(this.browser.switchTo().alert().sendKeys(text));
+        await promised(this.browser.switchTo().alert().accept());
     }
 
     // todo: remove in favour of auto-wait in the above methods
     isPresent(): Promise<boolean> {
-        return promiseOf(this.browser.switchTo().alert())
+        return promised(this.browser.switchTo().alert())
             .then(() => true, error => {
 
                 // Based on:
