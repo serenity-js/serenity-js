@@ -3,8 +3,8 @@ import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog
 import { by, ElementArrayFinder, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { promiseOf } from '../../promiseOf';
 import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElementList } from '../models';
+import { promised } from '../promised';
 
 /**
  * @desc
@@ -74,7 +74,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {
-        const capabilities = await promiseOf(this.browser.getCapabilities());
+        const capabilities = await promised(this.browser.getCapabilities());
 
         return {
             platformName:   capabilities.get('platform'),
@@ -88,7 +88,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
-        return promiseOf(this.browser.manage().addCookie({
+        return promised(this.browser.manage().addCookie({
             name:       cookieData.name,
             value:      cookieData.value,
             path:       cookieData.path,
@@ -102,7 +102,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     deleteAllCookies(): Promise<void> {
-        return promiseOf(this.browser.manage().deleteAllCookies());
+        return promised(this.browser.manage().deleteAllCookies());
     }
 
     findByCss(selector: string): PageElement<any, any> {
@@ -161,27 +161,27 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     navigateTo(destination: string): Promise<void> {
-        return promiseOf(this.browser.get(destination));
+        return promised(this.browser.get(destination));
     }
 
     navigateBack(): Promise<void> {
-        return promiseOf(this.browser.navigate().back());
+        return promised(this.browser.navigate().back());
     }
 
     navigateForward(): Promise<void> {
-        return promiseOf(this.browser.navigate().forward());
+        return promised(this.browser.navigate().forward());
     }
 
     reloadPage(): Promise<void> {
-        return promiseOf(this.browser.navigate().refresh());
+        return promised(this.browser.navigate().refresh());
     }
 
     waitFor(duration: Duration): Promise<void> {
-        return promiseOf(this.browser.sleep(duration.inMilliseconds()));
+        return promised(this.browser.sleep(duration.inMilliseconds()));
     }
 
     waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
-        return promiseOf(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
+        return promised(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {
@@ -211,7 +211,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
                 : actions;
         }, keyDownActions);
 
-        return promiseOf(keyUpActions.perform());
+        return promised(keyUpActions.perform());
     }
 
     async modalDialog(): Promise<ModalDialog> {
@@ -229,7 +229,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     get(destination: string, timeoutInMillis?: number): Promise<void> {
-        return promiseOf(this.browser.get(destination, timeoutInMillis));
+        return promised(this.browser.get(destination, timeoutInMillis));
     }
 
     /**
@@ -262,7 +262,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     switchToParentFrame(): Promise<void> {
-        return promiseOf(this.browser.driver.switchToParentFrame());
+        return promised(this.browser.driver.switchToParentFrame());
     }
 
     /**
@@ -274,7 +274,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     switchToDefaultContent(): Promise<void> {
-        return promiseOf(this.browser.switchTo().defaultContent());
+        return promised(this.browser.switchTo().defaultContent());
     }
 
     /**
@@ -329,7 +329,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<boolean>}
      */
     enableAngularSynchronisation(enable: boolean): Promise<boolean> {
-        return promiseOf(this.browser.waitForAngularEnabled(enable));
+        return promised(this.browser.waitForAngularEnabled(enable));
     }
 
     /**
@@ -379,7 +379,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     ): Promise<Result> {
         const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as InnerArguments;
 
-        return promiseOf(this.browser.executeScript(script, ...nativeArguments))
+        return promised(this.browser.executeScript(script, ...nativeArguments))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
                     result,
@@ -400,7 +400,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     async executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
         const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as Parameters<F>;
 
-        return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...nativeArguments));
+        return promised(this.browser.executeScriptWithDescription(fn, fn.name, ...nativeArguments));
     }
 
     /**
@@ -461,7 +461,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     ): Promise<Result> {
         const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as Parameters;
 
-        return promiseOf(this.browser.executeAsyncScript(script, ...nativeArguments))
+        return promised(this.browser.executeAsyncScript(script, ...nativeArguments))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
                     result,
@@ -483,7 +483,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
      */
     takeScreenshot(): Promise<string> {
-        return promiseOf(this.browser.takeScreenshot());
+        return promised(this.browser.takeScreenshot());
     }
 
     /**
@@ -497,7 +497,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<Capabilities>} The actual capabilities of this browser.
      */
     capabilities(): Promise<Capabilities> {
-        return promiseOf(this.browser.getCapabilities());
+        return promised(this.browser.getCapabilities());
     }
 
     /**
@@ -508,7 +508,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     sleep(millis: number): Promise<void> {
-        return promiseOf(this.browser.sleep(millis));
+        return promised(this.browser.sleep(millis));
     }
 
     /**
@@ -520,7 +520,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<boolean>}
      */
     wait(condition: () => Promise<boolean>, timeoutInMillis: number): Promise<boolean> {
-        return promiseOf(this.browser.wait(condition, timeoutInMillis));
+        return promised(this.browser.wait(condition, timeoutInMillis));
     }
 
     /**

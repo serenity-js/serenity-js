@@ -2,7 +2,7 @@ import { LogicError } from '@serenity-js/core';
 import { PageElement, PageElementList } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 
-import { promised } from '../../promised';
+import { promisedWebElement } from '../promisedWebElement';
 import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
@@ -14,7 +14,7 @@ export class ProtractorPageElementList
         locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder
     ) {
         super(context, async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
-            return promised<ElementArrayFinder>(locator(context));
+            return promisedWebElement<ElementArrayFinder>(locator(context));
         });
     }
 
@@ -67,7 +67,7 @@ export class ProtractorPageElementList
                     return result;
                 });
 
-                return promised<ElementArrayFinder>(result);
+                return promisedWebElement<ElementArrayFinder>(result);
             }
         );
     }

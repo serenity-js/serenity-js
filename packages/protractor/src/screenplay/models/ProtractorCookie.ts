@@ -3,7 +3,7 @@ import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 import { ensure, isDefined } from 'tiny-types';
 
-import { promiseOf } from '../../promiseOf';
+import { promised } from '../promised';
 
 export class ProtractorCookie extends Cookie {
 
@@ -13,7 +13,7 @@ export class ProtractorCookie extends Cookie {
     }
 
     delete(): Promise<void> {
-        return promiseOf(this.browser.manage().deleteCookie(this.cookieName));
+        return promised(this.browser.manage().deleteCookie(this.cookieName));
     }
 
     /**
