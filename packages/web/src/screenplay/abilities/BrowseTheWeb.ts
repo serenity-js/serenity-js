@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElementList } from '../models';
+import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElements } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -36,9 +36,9 @@ export abstract class BrowseTheWeb implements Ability {
     abstract findByTagName(selector: string): PageElement;
     abstract findByXPath(selector: string): PageElement;
 
-    abstract findAllByCss(selector: string): PageElementList;
-    abstract findAllByTagName(selector: string): PageElementList;
-    abstract findAllByXPath(selector: string): PageElementList;
+    abstract findAllByCss(selector: string): PageElements;
+    abstract findAllByTagName(selector: string): PageElements;
+    abstract findAllByXPath(selector: string): PageElements;
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 

@@ -1,7 +1,7 @@
 import { Answerable, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElementList } from '../models';
+import { PageElement, PageElements } from '../models';
 
 /**
  * @desc
@@ -102,7 +102,7 @@ export class Selected {
      * @see {@link Select.values}
      */
     static valuesOf(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
-        return PageElementList.locatedByCss('option:checked')
+        return PageElements.locatedByCss('option:checked')
             .of(pageElement)
             .map(item => item.value())
             .describedAs(formatted `values selected in ${ pageElement }`) as Question<Promise<string[]>>;
@@ -204,7 +204,7 @@ export class Selected {
      * @see {@link Select.options}
      */
     static optionsIn(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
-        return PageElementList.locatedByCss('option:checked')
+        return PageElements.locatedByCss('option:checked')
             .of(pageElement)
             .map(item => item.text())
             .describedAs(formatted `options selected in ${ pageElement }`) as Question<Promise<string[]>>;

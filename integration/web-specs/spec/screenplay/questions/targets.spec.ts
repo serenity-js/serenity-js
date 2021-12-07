@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Answerable } from '@serenity-js/core';
-import { Click, CssClasses, Navigate, PageElement, PageElementList, TakeScreenshot, Text } from '@serenity-js/web';
+import { Click, CssClasses, Navigate, PageElement, PageElements, TakeScreenshot, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 /**
@@ -18,8 +18,8 @@ describe('Target', () => {
 
         static header = PageElement.locatedByTagName('h1').describedAs('header');
         static list = PageElement.locatedByTagName('ul').describedAs('shopping list');
-        static items = PageElementList.locatedByTagName('li').describedAs('items').of(ShoppingList.app);
-        static boughtItems = PageElementList.locatedByCss('.bought').describedAs('bought items').of(ShoppingList.list);
+        static items = PageElements.locatedByTagName('li').describedAs('items').of(ShoppingList.app);
+        static boughtItems = PageElements.locatedByCss('.bought').describedAs('bought items').of(ShoppingList.list);
     }
 
     describe('allows the actor to locate', () => {
@@ -128,11 +128,11 @@ describe('Target', () => {
     describe('when filtering a list of targets', () => {
 
         class AdvancedShoppingList {
-            static Items = PageElementList.locatedByCss('li').describedAs('shopping list items');
+            static Items = PageElements.locatedByCss('li').describedAs('shopping list items');
             static Item = PageElement.locatedByCss('li').describedAs('shopping list item');
-            static Titles = PageElementList.locatedByCss('li span.item-name').describedAs('shopping list item titles');
+            static Titles = PageElements.locatedByCss('li span.item-name').describedAs('shopping list item titles');
             static Item_Name = PageElement.locatedByCss('span.item-name').describedAs('item name');
-            static Item_Names = PageElementList.locatedByCss('span.item-name').describedAs('item names');
+            static Item_Names = PageElements.locatedByCss('span.item-name').describedAs('item names');
         }
 
         describe('and no filters are applied', () => {

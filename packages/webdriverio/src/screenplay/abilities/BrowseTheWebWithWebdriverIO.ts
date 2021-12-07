@@ -2,7 +2,7 @@ import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementSearchContext, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementSearchContext, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElements } from '../models';
 
 /**
  * @desc
@@ -123,15 +123,15 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.find(context => context.$(selector));
     }
 
-    findAllByCss(selector: string): WebdriverIOPageElementList {
+    findAllByCss(selector: string): WebdriverIOPageElements {
         return this.findAll(context => context.$$(selector));
     }
 
-    findAllByTagName(selector: string): WebdriverIOPageElementList {
+    findAllByTagName(selector: string): WebdriverIOPageElements {
         return this.findAll(context => context.$$(`<${ selector } />`));
     }
 
-    findAllByXPath(selector: string): WebdriverIOPageElementList {
+    findAllByXPath(selector: string): WebdriverIOPageElements {
         return this.findAll(context => context.$$(selector));
     }
 
@@ -142,8 +142,8 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         );
     }
 
-    private findAll(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElementList {
-        return new WebdriverIOPageElementList(
+    private findAll(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElements {
+        return new WebdriverIOPageElements(
             () => this.browser,
             locator as unknown as (root: WebdriverIONativeElementSearchContext) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
         );

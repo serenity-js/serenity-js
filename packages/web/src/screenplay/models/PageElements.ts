@@ -4,12 +4,11 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { BrowseTheWeb } from '../abilities';
 import { PageElement } from './PageElement';
 
-// todo: rename to PageElements
-export abstract class PageElementList<NativeElementContext = any, NativeElementList = any, NativeElement = any>
+export abstract class PageElements<NativeElementContext = any, NativeElementList = any, NativeElement = any>
 // todo: implements List (Attribute.spec.ts)
 {
-    static of(childElements: Answerable<PageElementList>, parentElement: Answerable<PageElement>): Question<Promise<PageElementList>> & Adapter<PageElementList> {
-        return Question.about<Promise<PageElementList>>(formatted `${ childElements } of ${ parentElement })`, async actor => {
+    static of(childElements: Answerable<PageElements>, parentElement: Answerable<PageElement>): Question<Promise<PageElements>> & Adapter<PageElements> {
+        return Question.about<Promise<PageElements>>(formatted `${ childElements } of ${ parentElement })`, async actor => {
             const children  = await actor.answer(childElements);
             const parent    = await actor.answer(parentElement);
 
@@ -17,22 +16,22 @@ export abstract class PageElementList<NativeElementContext = any, NativeElementL
         });
     }
 
-    static locatedByCss(selector: Answerable<string>): Question<Promise<PageElementList>> & Adapter<PageElementList> {
-        return Question.about<Promise<PageElementList>>(formatted `page element list located by css (${selector})`, async actor => {
+    static locatedByCss(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+        return Question.about<Promise<PageElements>>(formatted `page element list located by css (${selector})`, async actor => {
             const value = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByCss(value);
         });
     }
 
-    static locatedByTagName(selector: Answerable<string>): Question<Promise<PageElementList>> & Adapter<PageElementList> {
-        return Question.about<Promise<PageElementList>>(formatted `page element list located by tag name (${selector})`, async actor => {
+    static locatedByTagName(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+        return Question.about<Promise<PageElements>>(formatted `page element list located by tag name (${selector})`, async actor => {
             const tagNameSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByTagName(tagNameSelector);
         });
     }
 
-    static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElementList>> & Adapter<PageElementList> {
-        return Question.about<Promise<PageElementList>>(formatted `page element list located by xpath (${selector})`, async actor => {
+    static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+        return Question.about<Promise<PageElements>>(formatted `page element list located by xpath (${selector})`, async actor => {
             const xpathSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByXPath(xpathSelector);
         });
@@ -44,7 +43,7 @@ export abstract class PageElementList<NativeElementContext = any, NativeElementL
     ) {
     }
 
-    abstract of(parent: PageElement): PageElementList;
+    abstract of(parent: PageElement): PageElements;
 
     async nativeElementList(): Promise<NativeElementList> {
         try {
@@ -61,9 +60,9 @@ export abstract class PageElementList<NativeElementContext = any, NativeElementL
     abstract last(): Promise<PageElement<NativeElementContext, NativeElement>>;
     abstract get(index: number): Promise<PageElement<NativeElementContext, NativeElement>>;
 
-    abstract map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]>;
+    abstract map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]>;
 
-    abstract filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElementList;
+    abstract filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElements;
 
     abstract forEach(fn: (element: PageElement, index?: number) => Promise<void> | void): Promise<void>;
 }

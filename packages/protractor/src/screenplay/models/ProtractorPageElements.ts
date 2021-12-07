@@ -1,13 +1,13 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, PageElementList } from '@serenity-js/web';
+import { PageElement, PageElements } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 
 import { promisedWebElement } from '../promisedWebElement';
 import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
-export class ProtractorPageElementList
-    extends PageElementList<ProtractorNativeElementSearchContext, ElementArrayFinder, ElementFinder>
+export class ProtractorPageElements
+    extends PageElements<ProtractorNativeElementSearchContext, ElementArrayFinder, ElementFinder>
 {
     constructor(
         context: () => Promise<ProtractorNativeElementSearchContext> | ProtractorNativeElementSearchContext,
@@ -18,8 +18,8 @@ export class ProtractorPageElementList
         });
     }
 
-    of(parent: PageElement<ProtractorNativeElementSearchContext, ElementFinder>): ProtractorPageElementList {
-        return new ProtractorPageElementList(() => parent.nativeElement(), this.locator);
+    of(parent: PageElement<ProtractorNativeElementSearchContext, ElementFinder>): ProtractorPageElements {
+        return new ProtractorPageElements(() => parent.nativeElement(), this.locator);
     }
 
     async count(): Promise<number> {
@@ -47,7 +47,7 @@ export class ProtractorPageElementList
         return this.asElement(elements.get(index));
     }
 
-    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
+    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]> {
         const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
 
         return elements.map((element?: ElementFinder, i?: number) =>
@@ -55,8 +55,8 @@ export class ProtractorPageElementList
         );
     }
 
-    filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElementList {
-        return new ProtractorPageElementList(
+    filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElements {
+        return new ProtractorPageElements(
             this.context,
             async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
                 const elements = await this.locator(context) as unknown as ElementArrayFinder;
@@ -72,7 +72,7 @@ export class ProtractorPageElementList
         );
     }
 
-    async forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
+    async forEach(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<void> | void): Promise<void> {
         const elements = await this.nativeElementList() as unknown as ElementArrayFinder
 
         return elements.each((element: ElementFinder, index: number) => {

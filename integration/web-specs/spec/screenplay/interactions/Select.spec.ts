@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Navigate, PageElement, PageElementList, Select, Selected, Text } from '@serenity-js/web';
+import { Navigate, PageElement, PageElements, Select, Selected, Text } from '@serenity-js/web';
 
 /** @test {Select} */
 describe('Select', () => {
@@ -18,8 +18,8 @@ describe('Select', () => {
     class MultiSelectPage {
         static pageName = 'multi-select';
         static selector = PageElement.locatedById('multi-option-select').describedAs('the country selector');
-        static countryCodes = PageElementList.locatedByCss('#country-of-interest-codes li').describedAs('country codes');
-        static countryNames = PageElementList.locatedByCss('#country-of-interest-names li').describedAs('country names');
+        static countryCodes = PageElements.locatedByCss('#country-of-interest-codes li').describedAs('country codes');
+        static countryNames = PageElements.locatedByCss('#country-of-interest-names li').describedAs('country names');
         static anotherCountryCode = PageElement.locatedByCss('#another-country-of-interest-code').describedAs('another country code');
         static anotherCountryName = PageElement.locatedByCss('#another-country-of-interest-name').describedAs('another country name');
     }
