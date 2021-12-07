@@ -3,7 +3,7 @@ import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { PageElement, PageElementList } from '../models';
+import { PageElement, PageElements } from '../models';
 import { SelectBuilder } from './SelectBuilder';
 
 /**
@@ -131,7 +131,7 @@ export class Select {
 
                     const desiredValues = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
 
-                    const options: PageElementList  = await PageElementList.locatedByCss(`option`).of(pageElement).answeredBy(actor);
+                    const options: PageElements  = await PageElements.locatedByCss(`option`).of(pageElement).answeredBy(actor);
                     const shouldSelect: boolean[]   = await options.map(optionsToSelect(hasValueEqualOneOf(desiredValues)));
 
                     return options.forEach((option, index) => {
@@ -262,7 +262,7 @@ export class Select {
 
                     const desiredOptions = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
 
-                    const options: PageElementList  = await PageElementList.locatedByCss(`option`).of(pageElement).answeredBy(actor);
+                    const options: PageElements  = await PageElements.locatedByCss(`option`).of(pageElement).answeredBy(actor);
                     const shouldSelect: boolean[]   = await options.map(optionsToSelect(hasTextEqualOneOf(desiredOptions)));
 
                     return options.forEach((option, index) => {

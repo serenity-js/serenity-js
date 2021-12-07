@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, LogicError, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElementList } from '../models';
+import { PageElement, PageElements } from '../models';
 
 /**
  * @desc
@@ -41,11 +41,11 @@ export abstract class ElementQuestion<T>
      * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
      * @param {@serenity-js/core/lib/screenplay~Answerable<Element|ElementList>} element
      *
-     * @returns {Promise<PageElement|PageElementList>}
+     * @returns {Promise<PageElement|PageElements>}
      *
      * @protected
      */
-    protected async resolve<T=PageElement|PageElementList>(
+    protected async resolve<T=PageElement|PageElements>(
         actor: AnswersQuestions,
         element: Answerable<T>,
     ): Promise<T> {

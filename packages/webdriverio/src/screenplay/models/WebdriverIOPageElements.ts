@@ -1,15 +1,15 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, PageElementList } from '@serenity-js/web';
+import { PageElement, PageElements } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIONativeElementSearchContext } from './WebdriverIONativeElementSearchContext';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
-export class WebdriverIOPageElementList
-    extends PageElementList<WebdriverIONativeElementSearchContext, wdio.ElementArray, wdio.Element<'async'>>
+export class WebdriverIOPageElements
+    extends PageElements<WebdriverIONativeElementSearchContext, wdio.ElementArray, wdio.Element<'async'>>
 {
-    of(parent: PageElement<WebdriverIONativeElementSearchContext, wdio.Element<'async'>>): WebdriverIOPageElementList {
-        return new WebdriverIOPageElementList(() => parent.nativeElement(), this.locator);
+    of(parent: PageElement<WebdriverIONativeElementSearchContext, wdio.Element<'async'>>): WebdriverIOPageElements {
+        return new WebdriverIOPageElements(() => parent.nativeElement(), this.locator);
     }
 
     async count(): Promise<number> {
@@ -42,7 +42,7 @@ export class WebdriverIOPageElementList
         return new WebdriverIOPageElement(this.context, () => elements[index])
     }
 
-    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
+    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]> {
         const elements = await this.nativeElementList();
 
         return Promise.all(
@@ -52,9 +52,9 @@ export class WebdriverIOPageElementList
         );
     }
 
-    filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): WebdriverIOPageElementList {
+    filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): WebdriverIOPageElements {
 
-        return new WebdriverIOPageElementList(this.context, async context => {
+        return new WebdriverIOPageElements(this.context, async context => {
             const elements = await this.locator(context);
 
             const matching = await Promise.all(
@@ -81,7 +81,7 @@ export class WebdriverIOPageElementList
         });
     }
 
-    async forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
+    async forEach(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<void> | void): Promise<void> {
         const elements = await this.nativeElementList();
 
         return elements.reduce((previous: Promise<void>, element: wdio.Element<'async'>, index: number) => {

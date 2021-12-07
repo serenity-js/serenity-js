@@ -1,9 +1,9 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElements } from '@serenity-js/web';
 import { by, ElementArrayFinder, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElementList } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElements } from '../models';
 import { promised } from '../promised';
 
 /**
@@ -125,18 +125,18 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return this.find(context => context.element(by.xpath(selector)));
     }
 
-    findAllByCss(selector: string): PageElementList<any, any, any> {
+    findAllByCss(selector: string): PageElements<any, any, any> {
         return this.findAll(context => context.all(by.css(selector)));
     }
 
-    findAllByTagName(selector: string): PageElementList<any, any, any> {
+    findAllByTagName(selector: string): PageElements<any, any, any> {
         return this.findAll(context => {
             const result = context.all(by.tagName(selector))
             return result;
         });
     }
 
-    findAllByXPath(selector: string): PageElementList<any, any, any> {
+    findAllByXPath(selector: string): PageElements<any, any, any> {
         return this.findAll(context => context.all(by.xpath(selector)));
     }
 
@@ -150,8 +150,8 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         );
     }
 
-    private findAll(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElementList {
-        return new ProtractorPageElementList(
+    private findAll(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElements {
+        return new ProtractorPageElements(
             () => ({
                 element: this.browser.element.bind(this.browser),
                 all: this.browser.element.all.bind(this.browser),

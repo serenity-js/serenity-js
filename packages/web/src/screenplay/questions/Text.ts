@@ -1,6 +1,6 @@
 import { Adapter, Answerable, AnswersQuestions, createAdapter, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { PageElement, PageElementList } from '../models';
+import { PageElement, PageElements } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 
 /**
@@ -99,12 +99,12 @@ export class Text {
      *  Retrieves text of a group of {@link WebElement}s,
      *  represented by Answerable<{@link @wdio/types~ElementList}>
      *
-     * @param {Answerable<PageElementList>} elements
+     * @param {Answerable<PageElements>} elements
      * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<PageElementList>):
+    static ofAll(elements: Answerable<PageElements>):
         Question<Promise<string[]>> &                               // eslint-disable-line @typescript-eslint/indent
         MetaQuestion<Answerable<PageElement>, Promise<string[]>> &  // eslint-disable-line @typescript-eslint/indent
         Adapter<string[]>                                              // eslint-disable-line @typescript-eslint/indent
@@ -138,12 +138,12 @@ class TextOfMultipleElements
     extends ElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
-    constructor(private readonly elements: Answerable<PageElementList>) {
+    constructor(private readonly elements: Answerable<PageElements>) {
         super(`the text of ${ elements }`);
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new TextOfMultipleElements(PageElementList.of(this.elements, parent));
+        return new TextOfMultipleElements(PageElements.of(this.elements, parent));
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {

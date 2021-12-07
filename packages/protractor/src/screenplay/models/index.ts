@@ -3,5 +3,5 @@ export * from './ProtractorModalDialog';
 export * from './ProtractorNativeElementSearchContext';
 export * from './ProtractorPage';
 export * from './ProtractorPageElement';
-export * from './ProtractorPageElementList';
+export * from './ProtractorPageElements';
 

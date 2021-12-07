@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Navigate, PageElement, PageElementList, Text } from '@serenity-js/web';
+import { Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('Text', () => {
 
@@ -55,7 +55,7 @@ describe('Text', () => {
 
     describe('ofAll', () => {
 
-        const Shopping_List_Items = PageElementList.locatedByCss('li').describedAs('shopping list items');
+        const Shopping_List_Items = PageElements.locatedByCss('li').describedAs('shopping list items');
 
         /** @test {Text.ofAll} */
         it('allows the actor to read the text of all DOM elements matching the locator', () =>
@@ -96,7 +96,7 @@ describe('Text', () => {
                 Ensure.that(
                     Text
                         .ofAll(
-                            PageElementList.locatedByCss('#answers li').describedAs('possible answers')
+                            PageElements.locatedByCss('#answers li').describedAs('possible answers')
                         )
                         .map((answer: string) => answer.trim())
                         .map((answer: string) => answer.replace('%', ''))

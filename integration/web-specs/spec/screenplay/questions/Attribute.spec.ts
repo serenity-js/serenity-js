@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { Attribute, Navigate, PageElement, PageElementList, Text } from '@serenity-js/web';
+import { Attribute, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('Attribute', () => {
 
@@ -34,7 +34,7 @@ describe('Attribute', () => {
                 Ensure.that(Attribute.called('lang'), equals('en')),
             )).to.be.rejectedWith(LogicError, `Target not specified`));
 
-        const ItemsOfInterest = PageElementList.locatedByTagName('li').describedAs('items of interest')
+        const ItemsOfInterest = PageElements.locatedByTagName('li').describedAs('items of interest')
             .filter(async element => {
                 const cssClass = await element.attribute('class');
 
