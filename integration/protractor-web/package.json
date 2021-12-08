@@ -1,6 +1,6 @@
 {
   "name": "@integration/protractor-web",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Internal module to help test integration of Serenity/JS with Protractor",
   "author": {
     "name": "Jan Molak",
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8081 start-server-and-test start http://localhost:8081 test:acceptance:run",
@@ -39,14 +39,14 @@
     "npm": "^6 || ^7 || ^8"
   },
   "devDependencies": {
-    "@integration/testing-tools": "2.0.0",
-    "@integration/web-specs": "2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/console-reporter": "^2.0.0",
-    "@serenity-js/mocha": "^2.0.0",
-    "@serenity-js/protractor": "^2.0.0",
-    "@serenity-js/serenity-bdd": "^2.0.0",
-    "@serenity-js/web": "^2.0.0",
+    "@integration/testing-tools": "3.0.0",
+    "@integration/web-specs": "3.0.0",
+    "@serenity-js/core": "^3.0.0-rc",
+    "@serenity-js/console-reporter": "^3.0.0-rc",
+    "@serenity-js/mocha": "^3.0.0-rc",
+    "@serenity-js/protractor": "^3.0.0-rc",
+    "@serenity-js/serenity-bdd": "^3.0.0-rc",
+    "@serenity-js/web": "^3.0.0-rc",
     "@types/mocha": "^9.0.0",
     "chromedriver": "^96.0.0",
     "cross-env": "^7.0.3",

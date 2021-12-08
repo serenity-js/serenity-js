@@ -1,6 +1,6 @@
 {
   "name": "@integration/cucumber-6",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Specs verifying integration between Serenity/JS and Cucumber.js",
   "author": {
     "name": "Jan Molak",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test": "mocha --parallel --config .mocharc.yml"
   },
   "repository": {
@@ -30,10 +30,10 @@
     "npm": "^6 || ^7 || ^8"
   },
   "devDependencies": {
-    "@integration/testing-tools": "2.0.0",
-    "@integration/cucumber-specs": "2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/cucumber": "^2.0.0",
+    "@integration/testing-tools": "3.0.0",
+    "@integration/cucumber-specs": "3.0.0",
+    "@serenity-js/core": "^3.0.0-rc",
+    "@serenity-js/cucumber": "^3.0.0-rc",
     "@types/mocha": "^9.0.0",
     "@types/chai": "^4.3.0",
     "cucumber": "6.0.5",

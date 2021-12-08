@@ -1,6 +1,6 @@
 {
   "name": "@examples/webdriverio-cucumber",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Example implementation of a test suite using WebdriverIO and Cucumber",
   "author": {
     "name": "Jan Molak",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "wdio wdio.conf.ts",
     "test:report": "serenity-bdd run",
@@ -35,11 +35,11 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.1",
-    "@serenity-js/console-reporter": "^2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/cucumber": "^2.0.0",
-    "@serenity-js/webdriverio": "^2.0.0",
-    "@serenity-js/serenity-bdd": "^2.0.0",
+    "@serenity-js/console-reporter": "3.0.0-rc.0",
+    "@serenity-js/core": "3.0.0-rc.0",
+    "@serenity-js/cucumber": "3.0.0-rc.0",
+    "@serenity-js/webdriverio": "3.0.0-rc.0",
+    "@serenity-js/serenity-bdd": "3.0.0-rc.0",
     "@wdio/cli": "^7.16.10",
     "@wdio/cucumber-framework": "^7.16.6",
     "@wdio/local-runner": "^7.16.10",
