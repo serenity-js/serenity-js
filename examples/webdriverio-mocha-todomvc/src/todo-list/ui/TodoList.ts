@@ -1,4 +1,4 @@
-import { PageElement, PageElementList } from '@serenity-js/web';
+import { PageElement, PageElements } from '@serenity-js/web';
 
 export class TodoList {
     static newTodoInput =
@@ -10,7 +10,7 @@ export class TodoList {
         PageElement.locatedByCss('.todo-list li.editing .edit').describedAs('edit field');
 
     static items =
-        PageElementList.locatedByCss('.todo-list li').describedAs('list of items');
+        PageElements.locatedByCss('.todo-list li').describedAs('list of items');
 
     static itemCalled = (name: string) =>
         TodoList.items

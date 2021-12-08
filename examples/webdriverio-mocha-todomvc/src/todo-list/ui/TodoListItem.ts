@@ -3,8 +3,8 @@ import { PageElement } from '@serenity-js/web';
 
 export class TodoListItem {
     static label =
-        // Target.the(`label`).located(by.css('label'));
-        PageElement.locatedByCss(`label`).describedAs(`label`);
+        // Target.the(`label`).located(by.css('label'));            // Serenity/JS 2.x
+        PageElement.locatedByCss(`label`).describedAs(`label`);     // Serenity/JS 3.x
 
     static toggleButton =
         // Target.the(`toggle button`).located(by.css('input.toggle'));
