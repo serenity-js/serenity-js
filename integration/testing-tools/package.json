@@ -1,6 +1,6 @@
 {
   "name": "@integration/testing-tools",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Internal module to help test integration of Serenity/JS with test runners and frameworks",
   "author": {
     "name": "Jan Molak",
@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {
@@ -36,10 +36,10 @@
     "npm": "^6 || ^7 || ^8"
   },
   "peerDependencies": {
-    "@serenity-js/core": "^2.0.0"
+    "@serenity-js/core": "^3.0.0-rc"
   },
   "devDependencies": {
-    "@serenity-js/core": "^2.0.0"
+    "@serenity-js/core": "3.0.0-rc.0"
   },
   "dependencies": {
     "@types/chai": "^4.3.0",

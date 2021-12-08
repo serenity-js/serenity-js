@@ -1,6 +1,6 @@
 {
   "name": "@integration/protractor-jasmine",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Protractor/Jasmine integration tests",
   "author": {
     "name": "Jan Molak",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test": "mocha --config ../../.mocharc.yml --timeout 60000 'spec/**/*.spec.*'"
   },
   "repository": {
@@ -30,11 +30,11 @@
     "npm": "^6 || ^7 || ^8"
   },
   "dependencies": {
-    "@integration/testing-tools": "2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/jasmine": "^2.0.0",
-    "@serenity-js/protractor": "^2.0.0",
-    "@serenity-js/web": "^2.0.0",
+    "@integration/testing-tools": "3.0.0",
+    "@serenity-js/core": "^3.0.0-rc",
+    "@serenity-js/jasmine": "^3.0.0-rc",
+    "@serenity-js/protractor": "^3.0.0-rc",
+    "@serenity-js/web": "^3.0.0-rc",
     "jasmine": "^3.10.0",
     "protractor": "^7.0.0"
   },

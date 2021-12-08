@@ -1,6 +1,6 @@
 {
   "name": "@examples/cucumber-domain-level-testing",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Example implementation",
   "author": {
     "name": "Jan Molak",
@@ -17,7 +17,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cucumber-js",
     "test:report": "serenity-bdd run",
@@ -37,13 +37,13 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.1",
-    "@examples/calculator-app": "2.0.0",
-    "@serenity-js/assertions": "^2.0.0",
-    "@serenity-js/console-reporter": "^2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/cucumber": "^2.0.0",
-    "@serenity-js/rest": "^2.0.0",
-    "@serenity-js/serenity-bdd": "^2.0.0",
+    "@examples/calculator-app": "3.0.0",
+    "@serenity-js/assertions": "3.0.0-rc.0",
+    "@serenity-js/console-reporter": "3.0.0-rc.0",
+    "@serenity-js/core": "3.0.0-rc.0",
+    "@serenity-js/cucumber": "3.0.0-rc.0",
+    "@serenity-js/rest": "3.0.0-rc.0",
+    "@serenity-js/serenity-bdd": "3.0.0-rc.0",
     "@types/chai": "^4.3.0",
     "npm-failsafe": "^0.4.3",
     "ts-node": "^10.4.0",
