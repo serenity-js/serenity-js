@@ -1,11 +1,13 @@
-import { Adapter, Answerable, LogicError, Question } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Adapter, Answerable, format, LogicError, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
+const d = format({ markQuestions: false });
+const f = format({ markQuestions: true });
+
 export abstract class PageElement<NativeElementContext = any, NativeElement = any> {
     static of(childElement: Answerable<PageElement>, parentElement: Answerable<PageElement>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `${ childElement } of ${ parentElement })`, async actor => {
+        return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
             const parent    = await actor.answer(parentElement);
 
@@ -14,7 +16,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
     }
 
     static locatedByCss(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `page element located by css (${selector})`, async actor => {
+        return Question.about(f`page element located by css (${selector})`, async actor => {
             const cssSelector = await actor.answer(selector);
 
             return BrowseTheWeb.as(actor).findByCss(cssSelector);
@@ -22,7 +24,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
     }
 
     static locatedByCssContainingText(selector: Answerable<string>, text: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `page element located by css (${selector}) containing text ${ text }`, async actor => {
+        return Question.about(f`page element located by css (${selector}) containing text ${ text }`, async actor => {
             const cssSelector = await actor.answer(selector);
             const desiredText = await actor.answer(text);
 
@@ -31,23 +33,23 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
     }
 
     static locatedById(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `page element located by id (${selector})`, async actor => {
+        return Question.about(f`page element located by id (${selector})`, async actor => {
             const idSelector = await actor.answer(selector);
 
             return BrowseTheWeb.as(actor).findById(idSelector);
         });
     }
 
-    static locatedByTagName(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `page element located by tag name (${selector})`, async actor => {
-            const tagNameSelector = await actor.answer(selector);
+    static locatedByTagName(tagName: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+        return Question.about(f`page element located by tag name (${tagName})`, async actor => {
+            const tagNameSelector = await actor.answer(tagName);
 
             return BrowseTheWeb.as(actor).findByTagName(tagNameSelector);
         });
     }
 
     static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
-        return Question.about<Promise<PageElement>>(formatted `page element located by xpath (${selector})`, async actor => {
+        return Question.about(f`page element located by xpath (${selector})`, async actor => {
             const xpathSelector = await actor.answer(selector);
 
             return BrowseTheWeb.as(actor).findByXPath(xpathSelector);

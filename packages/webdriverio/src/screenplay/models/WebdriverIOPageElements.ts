@@ -2,13 +2,13 @@ import { LogicError } from '@serenity-js/core';
 import { PageElement, PageElements } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIONativeElementSearchContext } from './WebdriverIONativeElementSearchContext';
+import { WebdriverIONativeElementRoot } from './WebdriverIONativeElementRoot';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
 export class WebdriverIOPageElements
-    extends PageElements<WebdriverIONativeElementSearchContext, wdio.ElementArray, wdio.Element<'async'>>
+    extends PageElements<WebdriverIONativeElementRoot, wdio.ElementArray, wdio.Element<'async'>>
 {
-    of(parent: PageElement<WebdriverIONativeElementSearchContext, wdio.Element<'async'>>): WebdriverIOPageElements {
+    of(parent: PageElement<WebdriverIONativeElementRoot, wdio.Element<'async'>>): WebdriverIOPageElements {
         return new WebdriverIOPageElements(() => parent.nativeElement(), this.locator);
     }
 

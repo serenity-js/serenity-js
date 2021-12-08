@@ -4,21 +4,21 @@ import { WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
 import { promisedWebElement } from '../promisedWebElement';
-import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
+import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
 
 export class ProtractorPageElement
-    extends PageElement<ProtractorNativeElementSearchContext, ElementFinder>
+    extends PageElement<ProtractorNativeElementRoot, ElementFinder>
 {
     constructor(
-        context: () => Promise<ProtractorNativeElementSearchContext> | ProtractorNativeElementSearchContext,
-        locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementFinder> | ElementFinder
+        context: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
+        locator: (root: ProtractorNativeElementRoot) => Promise<ElementFinder> | ElementFinder
     ) {
         super(context, context => {
             return promisedWebElement<ElementFinder>(locator(context));
         });
     }
 
-    of(parent: ProtractorPageElement): PageElement<ProtractorNativeElementSearchContext, ElementFinder> {
+    of(parent: ProtractorPageElement): PageElement<ProtractorNativeElementRoot, ElementFinder> {
         return new ProtractorPageElement(() => parent.nativeElement(), this.locator);
     }
 

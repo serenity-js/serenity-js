@@ -1,12 +1,12 @@
 import { PageElement } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIONativeElementSearchContext } from './WebdriverIONativeElementSearchContext';
+import { WebdriverIONativeElementRoot } from './WebdriverIONativeElementRoot';
 
 export class WebdriverIOPageElement
-    extends PageElement<WebdriverIONativeElementSearchContext, wdio.Element<'async'>>
+    extends PageElement<WebdriverIONativeElementRoot, wdio.Element<'async'>>
 {
-    of(parent: WebdriverIOPageElement): PageElement<WebdriverIONativeElementSearchContext, wdio.Element<'async'>> {
+    of(parent: WebdriverIOPageElement): PageElement<WebdriverIONativeElementRoot, wdio.Element<'async'>> {
         return new WebdriverIOPageElement(() => parent.nativeElement(), this.locator);
     }
 
