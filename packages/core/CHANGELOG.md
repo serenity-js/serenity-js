@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.0](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v3.0.0-rc.0) (2021-12-08)
+
+
+### Bug Fixes
+
+* **core:** `formatted` can be configured to produce single- or multi-line descriptions ([21145a3](https://github.com/serenity-js/serenity-js/commit/21145a3dda17e87ea7bd950da4526b90f37a1edc))
+* **core:** `inspected` produces a better description of functions used as parameters ([15535c6](https://github.com/serenity-js/serenity-js/commit/15535c675469651b835c0b358649a590f2c15b5d))
+* **core:** 3.0 RC ([469d54e](https://github.com/serenity-js/serenity-js/commit/469d54e4f81ef430566b93852e3174826f8ef672)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+* **core:** answerProxy renamed to ProxyAnswer to better reflect its purpose ([a98fe41](https://github.com/serenity-js/serenity-js/commit/a98fe41378bc8475f027946e0f01a30f4789d57a))
+* **core:** corrected type defs of Question.as ([681ce22](https://github.com/serenity-js/serenity-js/commit/681ce22259bf75161df7ce2454f4b6d73ea87259))
+* **core:** exported createProxyAnswer to make it easier to use ([5471989](https://github.com/serenity-js/serenity-js/commit/547198985025d0ede2ab47ea89d8944960fb980d))
+* **core:** removed Loop as it will be replaced ([0b63d27](https://github.com/serenity-js/serenity-js/commit/0b63d27745c905001adf3c219dd0e3cf44756320))
+* **core:** removed Property as it will be replaced by new Question ([fd7fa10](https://github.com/serenity-js/serenity-js/commit/fd7fa10dfbaa0c0cba059c5f18920609c4bac014))
+* **core:** removed Transform and mapping functions as they'll be replaced with new Question ([506eaea](https://github.com/serenity-js/serenity-js/commit/506eaeaf2df22cfde5d7ca6a8f413fc053556c2b))
+* **core:** renamed "Model" type to "Adapter" to better reflect its purpose ([b4ea7a1](https://github.com/serenity-js/serenity-js/commit/b4ea7a100fac2c896990bf15cbc906de641196b8)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+* **cucumber:** support for recognising non-Serenity AssertionErrors in older version of Cucumber ([31e9e99](https://github.com/serenity-js/serenity-js/commit/31e9e9919c2fd1e87b3f4405d9b2a6ae0164e893))
+* **web:** wordsmithing of interface names ([5a1e76a](https://github.com/serenity-js/serenity-js/commit/5a1e76a9c162370e17238fcccc9f08e109d543c3))
+
+
+### Features
+
+* **core:** question.about creates a proxy around the answer to simplify the API ([25e0841](https://github.com/serenity-js/serenity-js/commit/25e084116ad28a02b55fbd8814b6ffa0375ec433))
+* **core:** question.about produces "props" that proxy the methods of the underlying model ([f771872](https://github.com/serenity-js/serenity-js/commit/f771872c56b487e404002c3800fc8f3baaed804f))
+* **web:** Page.url() and Page.title() replace Website.url() and Website.title() ([49fe009](https://github.com/serenity-js/serenity-js/commit/49fe0094422ab53ec67d4ba303f80c33e382eebd)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+* **web:** removed Target in favour of PageElement ([69496c4](https://github.com/serenity-js/serenity-js/commit/69496c47c4a1ec7b92e7ab6c83da1559e926f28e)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+* **web:** support for working with cookies ([39cde6d](https://github.com/serenity-js/serenity-js/commit/39cde6de7a36d27a8b1c596493efbec94900af6b)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+### BREAKING CHANGES
+
+* **core:** Introduced @serenity-js/web - a shared library for Serenity/JS Web integration
+modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
+
+
+
+
+
 ## [2.32.5](https://github.com/serenity-js/serenity-js/compare/v2.32.4...v2.32.5) (2021-12-08)
 
 **Note:** Version bump only for package @serenity-js/core

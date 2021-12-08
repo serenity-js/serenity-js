@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.0](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v3.0.0-rc.0) (2021-12-08)
+
+
+### Bug Fixes
+
+* **core:** 3.0 RC ([469d54e](https://github.com/serenity-js/serenity-js/commit/469d54e4f81ef430566b93852e3174826f8ef672)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+### BREAKING CHANGES
+
+* **core:** Introduced @serenity-js/web - a shared library for Serenity/JS Web integration
+modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
+
+
+
+
+
 ## [2.32.5](https://github.com/serenity-js/serenity-js/compare/v2.32.4...v2.32.5) (2021-12-08)
 
 **Note:** Version bump only for package @serenity-js/mocha
