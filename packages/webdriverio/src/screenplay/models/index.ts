@@ -1,6 +1,6 @@
 export * from './WebdriverIOCookie';
 export * from './WebdriverIOModalDialog';
-export * from './WebdriverIONativeElementSearchContext';
+export * from './WebdriverIONativeElementRoot';
 export * from './WebdriverIOPage';
 export * from './WebdriverIOPageElement';
 export * from './WebdriverIOPageElements';

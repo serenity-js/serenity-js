@@ -2,7 +2,7 @@ import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementSearchContext, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElements } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementRoot, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElements } from '../models';
 
 /**
  * @desc
@@ -104,48 +104,67 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     }
 
     findByCss(selector: string): WebdriverIOPageElement {
-        return this.find(context => context.$(selector));
+        return this.find(root => root.$(selector));
     }
 
-    findByCssContainingText(selector: string, text: string): WebdriverIOPageElement {
-        return this.find(context => context.$(`${ selector }*=${ text }`));
+    /**
+     * @desc
+     *  Retrieves a {@link @serenity-js/web/lib/screenplay/models~PageElement} which text includes `text`
+     *  and which can be located using the CSS `selector`.
+     *
+     *  Under the hood, this command uses https://webdriver.io/docs/selectors#element-with-certain-text
+     *
+     *  This means that only some selectors are supported. For example:
+     *  - 'h1'
+     *  - 'h1.some-class'
+     *  - '#someId'
+     *  - 'h1[attribute-name="attribute-selector"]
+     *
+     *  Notably, complex CSS selectors such as 'header h1' or 'header > h1' **WON'T WORK**.
+     *
+     * @param {string} selector
+     * @param {string} text
+     * @returns {@serenity-js/web/lib/screenplay/models~PageElement}
+     */
+    findByCssContainingText(selector: string, text: RegExp | string): WebdriverIOPageElement {
+        return this.find(root => root.$(`${ selector }*=${ text }`));
     }
 
     findById(selector: string): WebdriverIOPageElement {
-        return this.find(context => context.$(`#${selector}`));
+        return this.find(root => root.$(`#${selector}`));
     }
 
     findByTagName(selector: string): WebdriverIOPageElement {
-        return this.find(context => context.$(`<${ selector } />`));
+        return this.find(root => root.$(`<${ selector } />`));
     }
 
     findByXPath(selector: string): WebdriverIOPageElement {
-        return this.find(context => context.$(selector));
+        return this.find(root => root.$(selector));
     }
 
     findAllByCss(selector: string): WebdriverIOPageElements {
-        return this.findAll(context => context.$$(selector));
+        return this.findAll(root => root.$$(selector));
     }
 
     findAllByTagName(selector: string): WebdriverIOPageElements {
-        return this.findAll(context => context.$$(`<${ selector } />`));
+        return this.findAll(root => root.$$(`<${ selector } />`));
     }
 
     findAllByXPath(selector: string): WebdriverIOPageElements {
-        return this.findAll(context => context.$$(selector));
+        return this.findAll(root => root.$$(selector));
     }
 
-    private find(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseElement<Promise<wdio.Element<'async'>>> | Promise<wdio.Element<'async'>>): WebdriverIOPageElement {
+    private find(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseElement<Promise<wdio.Element<'async'>>> | Promise<wdio.Element<'async'>>): WebdriverIOPageElement {
         return new WebdriverIOPageElement(
             () => this.browser,
-            locator as unknown as (root: WebdriverIONativeElementSearchContext) => Promise<wdio.Element<'async'>>,    // We don't need the ChainablePromiseElement
+            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.Element<'async'>>,    // We don't need the ChainablePromiseElement
         );
     }
 
-    private findAll(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElements {
+    private findAll(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElements {
         return new WebdriverIOPageElements(
             () => this.browser,
-            locator as unknown as (root: WebdriverIONativeElementSearchContext) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
+            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
         );
     }
 

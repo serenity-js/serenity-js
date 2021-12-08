@@ -89,8 +89,7 @@ export const config: WebdriverIOConfig = {
     },
 
     specs: [
-        // './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-        './node_modules/@integration/web-specs/spec/**/PageElement.spec.ts',
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
     ],
 
     reporters: [

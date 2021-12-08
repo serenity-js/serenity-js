@@ -3,7 +3,7 @@ import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog
 import { by, ElementArrayFinder, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElements } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementRoot, ProtractorPage, ProtractorPageElement, ProtractorPageElements } from '../models';
 import { promised } from '../promised';
 
 /**
@@ -106,41 +106,38 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     findByCss(selector: string): PageElement<any, any> {
-        return this.find(context => context.element(by.css(selector)));
+        return this.find(root => root.element(by.css(selector)));
     }
 
     findByCssContainingText(selector: string, text: string): PageElement<any, any> {
-        return this.find(context => context.element(by.cssContainingText(selector, text)));
+        return this.find(root => root.element(by.cssContainingText(selector, text)));
     }
 
     findById(selector: string): PageElement<any, any> {
-        return this.find(context => context.element(by.id(selector)));
+        return this.find(root => root.element(by.id(selector)));
     }
 
     findByTagName(selector: string): PageElement<any, any> {
-        return this.find(context => context.element(by.tagName(selector)));
+        return this.find(root => root.element(by.tagName(selector)));
     }
 
     findByXPath(selector: string): PageElement<any, any> {
-        return this.find(context => context.element(by.xpath(selector)));
+        return this.find(root => root.element(by.xpath(selector)));
     }
 
     findAllByCss(selector: string): PageElements<any, any, any> {
-        return this.findAll(context => context.all(by.css(selector)));
+        return this.findAll(root => root.all(by.css(selector)));
     }
 
     findAllByTagName(selector: string): PageElements<any, any, any> {
-        return this.findAll(context => {
-            const result = context.all(by.tagName(selector))
-            return result;
-        });
+        return this.findAll(root => root.all(by.tagName(selector)));
     }
 
     findAllByXPath(selector: string): PageElements<any, any, any> {
-        return this.findAll(context => context.all(by.xpath(selector)));
+        return this.findAll(root => root.all(by.xpath(selector)));
     }
 
-    private find(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementFinder> | ElementFinder): ProtractorPageElement {
+    private find(locator: (root: ProtractorNativeElementRoot) => Promise<ElementFinder> | ElementFinder): ProtractorPageElement {
         return new ProtractorPageElement(
             () => ({
                 element: this.browser.element.bind(this.browser),
@@ -150,7 +147,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         );
     }
 
-    private findAll(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElements {
+    private findAll(locator: (root: ProtractorNativeElementRoot) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElements {
         return new ProtractorPageElements(
             () => ({
                 element: this.browser.element.bind(this.browser),

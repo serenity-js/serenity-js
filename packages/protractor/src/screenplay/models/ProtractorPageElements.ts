@@ -3,22 +3,22 @@ import { PageElement, PageElements } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
 
 import { promisedWebElement } from '../promisedWebElement';
-import { ProtractorNativeElementSearchContext } from './ProtractorNativeElementSearchContext';
+import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 export class ProtractorPageElements
-    extends PageElements<ProtractorNativeElementSearchContext, ElementArrayFinder, ElementFinder>
+    extends PageElements<ProtractorNativeElementRoot, ElementArrayFinder, ElementFinder>
 {
     constructor(
-        context: () => Promise<ProtractorNativeElementSearchContext> | ProtractorNativeElementSearchContext,
-        locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder
+        context: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
+        locator: (root: ProtractorNativeElementRoot) => Promise<ElementArrayFinder> | ElementArrayFinder
     ) {
-        super(context, async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
+        super(context, async (context: ProtractorNativeElementRoot): Promise<ElementArrayFinder> => {
             return promisedWebElement<ElementArrayFinder>(locator(context));
         });
     }
 
-    of(parent: PageElement<ProtractorNativeElementSearchContext, ElementFinder>): ProtractorPageElements {
+    of(parent: PageElement<ProtractorNativeElementRoot, ElementFinder>): ProtractorPageElements {
         return new ProtractorPageElements(() => parent.nativeElement(), this.locator);
     }
 
@@ -58,7 +58,7 @@ export class ProtractorPageElements
     filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElements {
         return new ProtractorPageElements(
             this.context,
-            async (context: ProtractorNativeElementSearchContext): Promise<ElementArrayFinder> => {
+            async (context: ProtractorNativeElementRoot): Promise<ElementArrayFinder> => {
                 const elements = await this.locator(context) as unknown as ElementArrayFinder;
 
                 const result = elements.filter(async (nativeElement: ElementFinder, index: number) => {

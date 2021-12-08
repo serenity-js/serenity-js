@@ -7,6 +7,7 @@ export * from './ErrorStackParser';
 export * from './FileFinder';
 export * from './FileSystem';
 export * from './FileSystemLocation';
+export * from './format';
 export * from './formatted';
 export * from './json';
 export * from './ModuleLoader';

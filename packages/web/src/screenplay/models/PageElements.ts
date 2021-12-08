@@ -1,14 +1,17 @@
-import { Adapter, Answerable, LogicError, Question } from '@serenity-js/core';
+import { Adapter, Answerable, format, LogicError, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
 import { PageElement } from './PageElement';
 
+const d = format({ markQuestions: false });
+const f = format({ markQuestions: true });
+
 export abstract class PageElements<NativeElementContext = any, NativeElementList = any, NativeElement = any>
 // todo: implements List (Attribute.spec.ts)
 {
     static of(childElements: Answerable<PageElements>, parentElement: Answerable<PageElement>): Question<Promise<PageElements>> & Adapter<PageElements> {
-        return Question.about<Promise<PageElements>>(formatted `${ childElements } of ${ parentElement })`, async actor => {
+        return Question.about(d `${ childElements } of ${ parentElement })`, async actor => {
             const children  = await actor.answer(childElements);
             const parent    = await actor.answer(parentElement);
 
@@ -17,21 +20,21 @@ export abstract class PageElements<NativeElementContext = any, NativeElementList
     }
 
     static locatedByCss(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
-        return Question.about<Promise<PageElements>>(formatted `page element list located by css (${selector})`, async actor => {
+        return Question.about(f `page elements located by css (${selector})`, async actor => {
             const value = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByCss(value);
         });
     }
 
     static locatedByTagName(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
-        return Question.about<Promise<PageElements>>(formatted `page element list located by tag name (${selector})`, async actor => {
+        return Question.about(f `page elements located by tag name (${selector})`, async actor => {
             const tagNameSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByTagName(tagNameSelector);
         });
     }
 
     static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
-        return Question.about<Promise<PageElements>>(formatted `page element list located by xpath (${selector})`, async actor => {
+        return Question.about(f `page elements located by xpath (${selector})`, async actor => {
             const xpathSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByXPath(xpathSelector);
         });

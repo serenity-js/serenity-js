@@ -1,6 +1,6 @@
 import { ElementArrayFinder, ElementFinder, Locator } from 'protractor';
 
-export interface ProtractorNativeElementSearchContext {
+export interface ProtractorNativeElementRoot {
     element: (selector: Locator) => ElementFinder;
     all: (selector: Locator) => ElementArrayFinder;
 }
