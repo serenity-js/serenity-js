@@ -1,5 +1,4 @@
 import { Adapter, Answerable, format, LogicError, Question } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
 import { PageElement } from './PageElement';
