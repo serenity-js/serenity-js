@@ -1,13 +1,13 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
-import { Navigate, Website } from '@serenity-js/web';
+import { Navigate, Page } from '@serenity-js/web';
 import { RecordItem } from './RecordItem';
 
 export class Start {
     static withAnEmptyList = () =>
         Task.where(`#actor starts with an empty list`,
             Navigate.to('https://todo-app.serenity-js.org/'),
-            Ensure.that(Website.title(), equals('Serenity/JS TodoApp')),
+            Ensure.that(Page.current().title(), equals('Serenity/JS TodoApp')),
         )
 
     static withAListContaining = (...items: string[]) =>
