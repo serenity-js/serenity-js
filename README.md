@@ -1,24 +1,26 @@
 # Serenity/JS
 [![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fcore.svg)](https://badge.fury.io/js/%40serenity-js%2Fcore)
 [![Downloads](https://img.shields.io/npm/dm/@serenity-js/core.svg)](https://npm-stat.com/charts.html?package=@serenity-js/core)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
-
-[![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/jan-molak)](https://app.saucelabs.com/u/jan-molak)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
 [![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@serenity-js/core)](https://libraries.io/npm/@serenity-js%2Fcore)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
-[![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=main)](https://coveralls.io/github/serenity-js/serenity-js?branch=main)
+
+[![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
+[![Sauce Test Status](https://saucelabs.com/buildstatus/jan-molak)](https://app.saucelabs.com/u/jan-molak)
 [![CodeFactor](https://www.codefactor.io/repository/github/serenity-js/serenity-js/badge)](https://www.codefactor.io/repository/github/serenity-js/serenity-js)
+[![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=main)](https://coveralls.io/github/serenity-js/serenity-js?branch=main)
+
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Rate on Openbase](https://badges.openbase.io/js/rating/@serenity-js/core.svg)](https://openbase.io/js/@serenity-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 [![Serenity/JS on GitHub](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
 [![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
-[![Rate on Openbase](https://badges.openbase.io/js/rating/@serenity-js/core.svg)](https://openbase.io/js/@serenity-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/SerenityJS?style=social)](https://twitter.com/@SerenityJS)
 [![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
+
 
 [Serenity/JS](https://serenity-js.org) is a Node.js framework designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.
