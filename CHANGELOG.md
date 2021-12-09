@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.0...v3.0.0-rc.1) (2021-12-09)
+
+
+### Bug Fixes
+
+* **examples:** migrated Protractor TodoMVC example to Serenity/JS 3.0 ([85a7cd9](https://github.com/serenity-js/serenity-js/commit/85a7cd98816fcf27eb643eea4b2138c9c5c7841d))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 2.6.0 ([93c32f2](https://github.com/serenity-js/serenity-js/commit/93c32f267709e20f5a27a4eed712a233711c8d31))
+
+
+
+
+
 # [3.0.0-rc.0](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v3.0.0-rc.0) (2021-12-08)
 
 
