@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.2](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.1...v3.0.0-rc.2) (2021-12-09)
+
+
+### Bug Fixes
+
+* **lerna:** corrected versions of internal deps ([582b922](https://github.com/serenity-js/serenity-js/commit/582b922dbade08e970cb796f15aca909f606c079))
+
+
+
+
+
 # [3.0.0-rc.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.0...v3.0.0-rc.1) (2021-12-09)
 
 
