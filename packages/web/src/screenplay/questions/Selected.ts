@@ -1,8 +1,7 @@
-import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { by, PageElement } from '../models';
-import { ElementQuestion } from './ElementQuestion';
+import { PageElement, PageElements } from '../models';
 
 /**
  * @desc
@@ -47,15 +46,18 @@ export class Selected {
      *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
      *      );
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
-     *  A {@link Target} identifying the `<select>` element of interest
+     * @param {Answerable<PageElement>} pageElement
+     *  A {@link PageElement} identifying the `<select>` element of interest
      *
      * @returns {Question<Promise<string>>}
      *
      * @see {@link Select.value}
      */
-    static valueOf(target: Answerable<PageElement>): Question<Promise<string>> {
-        return new SelectedValue(target);
+    static valueOf(pageElement: Answerable<PageElement>): Question<Promise<string>> {
+        return PageElement.locatedByCss('option:checked')
+            .of(pageElement)
+            .value()
+            .describedAs(formatted `value selected in ${ pageElement }`);
     }
 
     /**
@@ -92,15 +94,18 @@ export class Selected {
      *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
      *      );
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<PageElement>} pageElement
      *  A {@link Target} identifying the `<select>` element of interest
      *
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Select.values}
      */
-    static valuesOf(target: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new SelectedValues(target);
+    static valuesOf(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
+        return PageElements.locatedByCss('option:checked')
+            .of(pageElement)
+            .map(item => item.value())
+            .describedAs(formatted `values selected in ${ pageElement }`) as Question<Promise<string[]>>;
     }
 
     /**
@@ -140,15 +145,18 @@ export class Selected {
      *          ),
      *      );
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<PageElement>} pageElement
      *  A {@link Target} identifying the `<select>` element of interest
      *
      * @returns {Question<Promise<string>>}
      *
      * @see {@link Select.option}
      */
-    static optionIn(target: Answerable<PageElement>): Question<Promise<string>> {
-        return new SelectedOption(target);
+    static optionIn(pageElement: Answerable<PageElement>): Question<Promise<string>> {
+        return PageElement.locatedByCss('option:checked')
+            .of(pageElement)
+            .text()
+            .describedAs(formatted `option selected in ${ pageElement }`);
     }
 
     /**
@@ -188,85 +196,17 @@ export class Selected {
      *          ),
      *      );
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<PageElement>} pageElement
      *  A {@link Target} identifying the `<select>` element of interest
      *
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Select.options}
      */
-    static optionsIn(target: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new SelectedOptions(target);
-    }
-}
-
-/**
- * @package
- */
-class SelectedValue extends ElementQuestion<Promise<string>> {
-
-    constructor(private readonly target: Answerable<PageElement>) {
-        super(formatted `value selected in ${ target }`);
-    }
-
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-
-        const target    = await this.resolve(actor, this.target);
-        const selected  = await target.locateChildElement(by.css('option:checked'));
-
-        return selected.value();
-    }
-}
-
-/**
- * @package
- */
-class SelectedValues extends ElementQuestion<Promise<string[]>> {
-
-    constructor(private readonly target: Answerable<PageElement>) {
-        super(formatted `values selected in ${ target }`);
-    }
-
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-
-        const target    = await this.resolve(actor, this.target);
-        const selected  = await target.locateAllChildElements(by.css('option:checked'));
-
-        return selected.map(item => item.value());
-    }
-}
-
-/**
- * @package
- */
-class SelectedOption extends ElementQuestion<Promise<string>> {
-
-    constructor(private target: Answerable<PageElement>) {
-        super(formatted `option selected in ${ target }`);
-    }
-
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const target    = await this.resolve(actor, this.target);
-        const selected  = await target.locateChildElement(by.css('option:checked'));
-
-        return selected.text();
-    }
-}
-
-/**
- * @package
- */
-class SelectedOptions extends ElementQuestion<Promise<string[]>> {
-
-    constructor(private target: Answerable<PageElement>) {
-        super(formatted `options selected in ${ target }`);
-    }
-
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-
-        const target    = await this.resolve(actor, this.target);
-        const selected  = await target.locateAllChildElements(by.css('option:checked'));
-
-        return selected.map(item => item.text());
+    static optionsIn(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
+        return PageElements.locatedByCss('option:checked')
+            .of(pageElement)
+            .map(item => item.text())
+            .describedAs(formatted `options selected in ${ pageElement }`) as Question<Promise<string[]>>;
     }
 }

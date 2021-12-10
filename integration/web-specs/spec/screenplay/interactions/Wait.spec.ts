@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
-import { by, Click, Navigate, Target, Text, Wait } from '@serenity-js/web';
+import { Click, Navigate, PageElement, Text, Wait } from '@serenity-js/web';
 
 /** @test {Wait} */
 describe('Wait', () => {
 
-    const status = Target.the('header').located(by.id('status'));
-    const loadButton = Target.the('load button').located(by.id('load'));
+    const status = PageElement.locatedById('status').describedAs('the header');
+    const loadButton = PageElement.locatedById('load').describedAs('load button');
 
     describe('for', () => {
 

@@ -1,24 +1,44 @@
 import { Timestamp } from '@serenity-js/core';
-import { Cookie } from '@serenity-js/web';
+import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
 import { ensure, isDefined } from 'tiny-types';
 import * as wdio from 'webdriverio';
 
 export class WebdriverIOCookie extends Cookie {
+
     constructor(
         private readonly browser: wdio.Browser<'async'>,
-        name: string,
-        value: string,
-        domain?: string,
-        path?: string,
-        expiry?: Timestamp,
-        httpOnly?: boolean,
-        secure?: boolean,
+        cookieName: string,
     ) {
-        super(name, value, domain, path, expiry, httpOnly, secure);
+        super(cookieName);
         ensure('browser', browser, isDefined());
     }
 
-    delete(): Promise<void> {
+    async delete(): Promise<void> {
         return this.browser.deleteCookies(this.cookieName) as Promise<void>;
+    }
+
+    protected async read(): Promise<CookieData> {
+        const [ cookie ] = await this.browser.getCookies(this.cookieName);
+
+        if (! cookie) {
+            throw new CookieMissingError(`Cookie '${ this.cookieName }' not set`);
+        }
+
+        // There _might_ be a bug in WDIO where the expiry date is set on "expires" rather than the "expiry" key
+        // and possibly another one around deserialising the timestamp, since WDIO seems to add several hundred milliseconds
+        // to the original expiry date
+        const expiry: number | undefined = cookie.expiry || (cookie as any).expires;
+
+        return {
+            name:       cookie.name,
+            value:      cookie.value,
+            domain:     cookie.domain,
+            path:       cookie.path,
+            expiry:     expiry !== undefined
+                ? Timestamp.fromTimestampInSeconds(Math.round(expiry))
+                : undefined,
+            httpOnly:   cookie.httpOnly,
+            secure:     cookie.secure,
+        }
     }
 }

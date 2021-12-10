@@ -1,47 +1,25 @@
-import { PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
-import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
+import { PageElement } from '@serenity-js/web';
+import { ElementFinder, protractor } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
-import { ensure, isDefined } from 'tiny-types';
 
-import { promiseOf } from '../../promiseOf';
-import { ProtractorPageElementList } from './ProtractorPageElementList';
-import { ProtractorPageElementLocator } from './ProtractorPageElementLocator';
+import { promised } from '../promised';
+import { promisedWebElement } from '../promisedWebElement';
+import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
 
-export class ProtractorPageElement implements PageElement {
-    private readonly $:  PageElementLocator<ElementFinder>;
-    private readonly $$: PageElementLocator<ElementArrayFinder>;
-
+export class ProtractorPageElement
+    extends PageElement<ProtractorNativeElementRoot, ElementFinder>
+{
     constructor(
-        private readonly browser: ProtractorBrowser,
-        private readonly element: ElementFinder,
-        private readonly elementLocation: PageElementLocation,
+        context: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
+        locator: (root: ProtractorNativeElementRoot) => Promise<ElementFinder> | ElementFinder
     ) {
-        ensure('browser', browser, isDefined());
-        ensure('element', element, isDefined());
-        ensure('elementLocation', PageElementLocation, isDefined());
-
-        this.$  = new ProtractorPageElementLocator(this.element.element.bind(this.element) as (selector: Locator) => ElementFinder);
-        this.$$ = new ProtractorPageElementLocator(this.element.all.bind(this.element) as (selector: Locator) => ElementArrayFinder);
+        super(context, context => {
+            return promisedWebElement<ElementFinder>(locator(context));
+        });
     }
 
-    nativeElement(): any {
-        return this.element;
-    }
-
-    location(): PageElementLocation {
-        return this.elementLocation;
-    }
-
-    locateChildElement(location: PageElementLocation): Promise<PageElement> {
-        return this.$
-            .locate(location)
-            .then(element => new ProtractorPageElement(this.browser, element, location));
-    }
-
-    locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
-        return this.$$
-            .locate(location)
-            .then(elements => new ProtractorPageElementList(this.browser, elements, location));
+    of(parent: ProtractorPageElement): PageElement<ProtractorNativeElementRoot, ElementFinder> {
+        return new ProtractorPageElement(() => parent.nativeElement(), this.locator);
     }
 
     async clearValue(): Promise<void> {
@@ -62,107 +40,128 @@ export class ProtractorPageElement implements PageElement {
         const currentValue = await this.value();
 
         if (currentValue !== null && currentValue !== undefined) {
-            return removeCharactersFrom(this.nativeElement(), currentValue.length);
+            const element = await this.nativeElement();
+            return removeCharactersFrom(element, currentValue.length);
         }
     }
 
-    click(): Promise<void> {
-        return promiseOf(
-            this.element.click()
-        );
+    async click(): Promise<void> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.click();
     }
 
     async doubleClick(): Promise<void> {
-        const webElement = await this.element.getWebElement();
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
-            this.browser.actions()
+        return promised(
+            webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .doubleClick()
                 .perform()
         );
     }
 
-    enterValue(value: string | number | Array<string | number>): Promise<void> {
-        return promiseOf(
-            this.element.sendKeys([].concat(value).join(''))
+    async enterValue(value: string | number | Array<string | number>): Promise<void> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.sendKeys(
+            [].concat(value).join('')
         );
     }
 
-    scrollIntoView(): Promise<void> {
-        return promiseOf(
-            this.browser.executeScript('arguments[0].scrollIntoView(true);', this.element)
+    async scrollIntoView(): Promise<void> {
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
+
+        return promised(
+            webElement.getDriver().executeScript('arguments[0].scrollIntoView(true);', webElement)
         );
     }
 
     async hoverOver(): Promise<void> {
-        const webElement = await this.element.getWebElement();
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
-            this.browser.actions()
+        return promised(
+            webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .perform()
         );
     }
 
     async rightClick(): Promise<void> {
-        const webElement = await this.element.getWebElement();
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
 
-        return promiseOf(
-            this.browser.actions()
+        return promised(
+            webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
                 .perform()
         );
     }
 
-    attribute(name: string): Promise<string> {
-        return promiseOf(this.element.getAttribute(name));
+    async attribute(name: string): Promise<string> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.getAttribute(name);
     }
 
-    text(): Promise<string> {
-        return promiseOf(this.element.getText());
+    async text(): Promise<string> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.getText();
     }
 
-    value(): Promise<string> {
-        return promiseOf(this.browser.executeScript(
+    async value(): Promise<string> {
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
+
+        return promised(webElement.getDriver().executeScript(
             /* istanbul ignore next */
             function getValue(webElement) {
                 return webElement.value;
             },
-            this.element.getWebElement(),
+            webElement,
         ));
     }
 
-    isActive(): Promise<boolean> {
-        return promiseOf(this.element.getWebElement().then(element =>
-            element.getDriver().switchTo().activeElement().then((active: WebElement) =>
-                this.element.equals(active),
-            ),
-        ));
+    async isActive(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
+
+        return webElement.getDriver().switchTo().activeElement().then((active: WebElement) =>
+            element.equals(active),
+        );
     }
 
-    isClickable(): Promise<boolean> {
+    async isClickable(): Promise<boolean> {
         return this.isEnabled();
     }
 
-    isDisplayed(): Promise<boolean> {
-        return promiseOf(this.element.isDisplayed());
+    async isDisplayed(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.isDisplayed();
     }
 
-    isEnabled(): Promise<boolean> {
-        return promiseOf(this.element.isEnabled());
+    async isEnabled(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.isEnabled();
     }
 
-    isPresent(): Promise<boolean> {
-        return promiseOf(this.element.isPresent());
+    async isPresent(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
+
+        return element.isPresent();
     }
 
-    isSelected(): Promise<boolean> {
-        return promiseOf(this.element.isSelected());
-    }
+    async isSelected(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
 
-    toString(): string {
-        return this.element.toString(); // todo: or location?
+        return element.isSelected();
     }
 }

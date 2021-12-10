@@ -1,8 +1,8 @@
-import { Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementRoot, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElements } from '../models';
 
 /**
  * @desc
@@ -12,8 +12,6 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIO
  *  *Please note*: this class is still marked as experimental while new WebdriverIO Interactions and Questions are being developed.
  *  This means that its interface can change without affecting the major version of Serenity/JS itself.
  *  In particular, please don't rely on the `browser` field to remain `public` in future releases.
- *
- * @experimental
  *
  * @example <caption>Using the WebdriverIO browser</caption>
  *  import { Actor } from '@serenity-js/core';
@@ -40,13 +38,6 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIO
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
-    private $:  PageElementLocator<wdio.Element<'async'>>;
-    private $$: PageElementLocator<wdio.ElementArray>;
-
-    /**
-     * @private
-     */
-    private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     /**
      * @param {@wdio/types~Browser} browserInstance
@@ -70,6 +61,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     }
 
     /**
+     * @private
+     */
+    private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /**
      * @param {@wdio/types~Browser} browser
      */
     constructor(public readonly browser: wdio.Browser<'async'>) {
@@ -78,9 +74,98 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         if (! this.browser.$ || ! this.browser.$$) {
             throw new LogicError(`WebdriverIO browser object is not initalised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
         }
+    }
 
-        this.$  = new WebdriverIOPageElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
-        this.$$ = new WebdriverIOPageElementLocator(this.browser.$$.bind(this.browser));
+    browserCapabilities(): Promise<BrowserCapabilities> {
+        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
+    }
+
+    async cookie(name: string): Promise<Cookie> {
+        return new WebdriverIOCookie(this.browser, name);
+    }
+
+    async setCookie(cookieData: CookieData): Promise<void> {
+        return this.browser.setCookies({
+            name:       cookieData.name,
+            value:      cookieData.value,
+            path:       cookieData.path,
+            domain:     cookieData.domain,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expiry:     cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+            sameSite:   cookieData.sameSite,
+        });
+    }
+
+    deleteAllCookies(): Promise<void> {
+        return this.browser.deleteCookies() as Promise<void>;
+    }
+
+    findByCss(selector: string): WebdriverIOPageElement {
+        return this.find(root => root.$(selector));
+    }
+
+    /**
+     * @desc
+     *  Retrieves a {@link @serenity-js/web/lib/screenplay/models~PageElement} which text includes `text`
+     *  and which can be located using the CSS `selector`.
+     *
+     *  Under the hood, this command uses https://webdriver.io/docs/selectors#element-with-certain-text
+     *
+     *  This means that only some selectors are supported. For example:
+     *  - 'h1'
+     *  - 'h1.some-class'
+     *  - '#someId'
+     *  - 'h1[attribute-name="attribute-selector"]
+     *
+     *  Notably, complex CSS selectors such as 'header h1' or 'header > h1' **WON'T WORK**.
+     *
+     * @param {string} selector
+     * @param {string} text
+     * @returns {@serenity-js/web/lib/screenplay/models~PageElement}
+     */
+    findByCssContainingText(selector: string, text: RegExp | string): WebdriverIOPageElement {
+        return this.find(root => root.$(`${ selector }*=${ text }`));
+    }
+
+    findById(selector: string): WebdriverIOPageElement {
+        return this.find(root => root.$(`#${selector}`));
+    }
+
+    findByTagName(selector: string): WebdriverIOPageElement {
+        return this.find(root => root.$(`<${ selector } />`));
+    }
+
+    findByXPath(selector: string): WebdriverIOPageElement {
+        return this.find(root => root.$(selector));
+    }
+
+    findAllByCss(selector: string): WebdriverIOPageElements {
+        return this.findAll(root => root.$$(selector));
+    }
+
+    findAllByTagName(selector: string): WebdriverIOPageElements {
+        return this.findAll(root => root.$$(`<${ selector } />`));
+    }
+
+    findAllByXPath(selector: string): WebdriverIOPageElements {
+        return this.findAll(root => root.$$(selector));
+    }
+
+    private find(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseElement<Promise<wdio.Element<'async'>>> | Promise<wdio.Element<'async'>>): WebdriverIOPageElement {
+        return new WebdriverIOPageElement(
+            () => this.browser,
+            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.Element<'async'>>,    // We don't need the ChainablePromiseElement
+        );
+    }
+
+    private findAll(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElements {
+        return new WebdriverIOPageElements(
+            () => this.browser,
+            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
+        );
     }
 
     /**
@@ -107,56 +192,12 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.refresh();
     }
 
-    title(): Promise<string> {
-        return this.browser.getTitle();
-    }
-
-    currentUrl(): Promise<string> {
-        return this.browser.getUrl();
-    }
-
-    browserCapabilities(): Promise<BrowserCapabilities> {
-        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
-    }
-
-    locateElementAt(location: PageElementLocation): Promise<PageElement> {
-        return this.$.locate(location)
-            .then(element => new WebdriverIOPageElement(this.browser, element, location));
-    }
-
-    locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
-        return this.$$.locate(location)
-            .then(elements => new WebdriverIOPageElementList(this.browser, elements, location));
-    }
-
-    async cookie(name: string): Promise<Cookie> {
-        const [ cookie ] = await this.browser.getCookies(name);
-
-        if (! cookie) {
-            throw new CookieMissingError(`Cookie '${ name }' not set`);
-        }
-
-        // There _might_ be a bug in WDIO where the expiry date is set on "expires" rather than the "expiry" key
-        // and possibly another one around deserialising the timestamp, since WDIO seems to add several hundred milliseconds
-        // to the original expiry date
-        const expiry: number | undefined = cookie.expiry || (cookie as any).expires;
-
-        return new WebdriverIOCookie(
-            this.browser,
-            name,
-            cookie.value,
-            cookie.domain,
-            cookie.path,
-            expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.round(expiry)) : undefined,
-            cookie.httpOnly,
-            cookie.secure,
-        );
-    }
-
-    deleteAllCookies(): Promise<void> {
-        return this.browser.deleteCookies() as Promise<void>;
-    }
-
+    /**
+     * @desc
+     *  Returns a {@link Page} representing the currently active top-level browsing context.
+     *
+     * @returns {Promise<Page>}
+     */
     async currentPage(): Promise<Page> {
 
         const windowHandle = await this.browser.getWindowHandle();
@@ -164,12 +205,17 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return new WebdriverIOPage(this.browser, windowHandle);
     }
 
-    async pageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+    /**
+     * @desc
+     *  Returns an array of {@link Page} objects representing all the available
+     *  top-level browsing context, e.g. all the open browser tabs.
+     *
+     * @returns {Promise<Array<Page>>}
+     */
+    async allPages(): Promise<Array<Page>> {
+        const windowHandles = await this.browser.getWindowHandles();
 
-        // const windowHandles = await this.browser.getWindowHandle();
-
-        // return new WebdriverIOPage(this.browser, windowHandle);
-        throw new Error('Not implemented, yet');
+        return windowHandles.map(windowHandle => new WebdriverIOPage(this.browser, windowHandle));
     }
 
     async modalDialog(): Promise<ModalDialog> {
@@ -186,26 +232,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     }
     // todo: remove
     switchToDefaultContent(): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    switchToOriginalWindow(): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    getCurrentWindowHandle(): Promise<string> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    getAllWindowHandles(): Promise<string[]> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    closeCurrentWindow(): Promise<void> {
         throw new Error('Not implemented, yet');
     }
 
@@ -287,11 +313,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript<Result, InnerArguments extends any[]>(
+    async executeScript<Result, InnerArguments extends any[]>(
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg) as InnerArguments;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg)) as InnerArguments;
 
         return this.browser.execute(script, ...nativeArguments)
             .then(result => {
@@ -353,11 +379,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeAsyncScript<Result, Parameters extends any[]>(
+    async executeAsyncScript<Result, Parameters extends any[]>(
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg) as Parameters;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg)) as Parameters;
 
         return this.browser.executeAsync<Result, Parameters>(script, ...nativeArguments)
             .then(result => {

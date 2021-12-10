@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { Attribute, by, Navigate, Target, Text } from '@serenity-js/web';
+import { Attribute, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('Attribute', () => {
 
     describe('called', () => {
 
-        const dom = Target.the('DOM').located(by.tagName('html'));
+        const dom = PageElement.locatedByTagName('html').describedAs('DOM');
 
         /** @test {Attribute.called} */
         it('allows the actor to read an attribute of a DOM element matching the locator', () =>
@@ -23,7 +23,7 @@ describe('Attribute', () => {
         /** @test {Attribute#toString} */
         it('produces a sensible description of the question being asked', () => {
             expect(Attribute.called('lang').of(dom).toString())
-                .to.equal('"lang" attribute of the DOM');
+                .to.equal('"lang" attribute of DOM');
         });
 
         /** @test {Attribute.called} */
@@ -34,8 +34,14 @@ describe('Attribute', () => {
                 Ensure.that(Attribute.called('lang'), equals('en')),
             )).to.be.rejectedWith(LogicError, `Target not specified`));
 
-        const ItemsOfInterest = Target.all('items of interest').located(by.tagName('li'))
-            .where(Attribute.called('class'), equals('enabled'))
+        const ItemsOfInterest = PageElements.locatedByTagName('li').describedAs('items of interest')
+            .filter(async element => {
+                const cssClass = await element.attribute('class');
+
+                return cssClass === 'enabled';
+            });
+            // todo: re-introduce list filters
+            // .where(Attribute.called('class'), equals('enabled'))
 
         /** @test {Attribute.called} */
         /** @test {Target.all} */

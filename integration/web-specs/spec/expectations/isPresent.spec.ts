@@ -4,13 +4,13 @@ import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
-import { by, isPresent, Navigate, Target, Wait } from '@serenity-js/web';
+import { isPresent, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isPresent', function () {
 
     const Page = {
-        presentHeader:         Target.the('header').located(by.tagName('h1')),
-        nonExistentHeader:    Target.the('non-existent header').located(by.tagName('h2')),
+        presentHeader:        PageElement.locatedByCss('h1').describedAs('the header'),
+        nonExistentHeader:    PageElement.locatedByCss('h2').describedAs('the non-existent header'),
     };
 
     beforeEach(() =>

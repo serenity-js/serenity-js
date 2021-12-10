@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, ModalDialog, Page, PageElement, PageElementList, PageElementLocation } from '../models';
+import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElements } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -30,13 +30,15 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
-    abstract locateElementAt(location: PageElementLocation): Promise<PageElement>;
+    abstract findByCss(selector: string): PageElement;
+    abstract findByCssContainingText(selector: string, text: string): PageElement;
+    abstract findById(selector: string): PageElement;
+    abstract findByTagName(selector: string): PageElement;
+    abstract findByXPath(selector: string): PageElement;
 
-    abstract locateAllElementsAt(location: PageElementLocation): Promise<PageElementList>;
-
-    abstract title(): Promise<string>;
-
-    abstract currentUrl(): Promise<string>;
+    abstract findAllByCss(selector: string): PageElements;
+    abstract findAllByTagName(selector: string): PageElements;
+    abstract findAllByXPath(selector: string): PageElements;
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
@@ -56,10 +58,25 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract takeScreenshot(): Promise<string>;
 
+    /**
+     * @desc
+     *  Returns a {@link Page} representing the currently active top-level browsing context.
+     *
+     * @returns {Promise<Page>}
+     */
     abstract currentPage(): Promise<Page>;
-    abstract pageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
+
+    /**
+     * @desc
+     *  Returns an array of {@link Page} objects representing all the available
+     *  top-level browsing context, e.g. all the open browser tabs.
+     *
+     * @returns {Promise<Array<Page>>}
+     */
+    abstract allPages(): Promise<Array<Page>>;
 
     abstract cookie(name: string): Promise<Cookie>;
+    abstract setCookie(cookieData: CookieData): Promise<void>;
     abstract deleteAllCookies(): Promise<void>;
 
     abstract modalDialog(): Promise<ModalDialog>;
@@ -68,11 +85,5 @@ export abstract class BrowseTheWeb implements Ability {
     abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
     abstract switchToParentFrame(): Promise<void>;
     abstract switchToDefaultContent(): Promise<void>;
-    abstract switchToWindow(nameOrHandleOrIndex: string | number): Promise<void>;
-    abstract switchToOriginalWindow(): Promise<void>;
-    abstract getCurrentWindowHandle(): Promise<string>;
-    abstract getAllWindowHandles(): Promise<string[]>;
-
-    abstract closeCurrentWindow(): Promise<void>;
 }
 

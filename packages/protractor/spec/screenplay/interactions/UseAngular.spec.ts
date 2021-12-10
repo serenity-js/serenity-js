@@ -6,7 +6,7 @@ import { actorCalled, engage, Question } from '@serenity-js/core';
 import { protractor } from 'protractor';
 
 import { UseAngular } from '../../../src';
-import { promiseOf } from '../../../src/promiseOf';
+import { promised } from '../../../src/screenplay/promised';
 import { UIActors } from '../../UIActors';
 
 /** @test {UseAngular} */
@@ -21,11 +21,11 @@ describe('UseAngular', function () {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         const IsSynchronisationEnabled = () =>
             Question.about('angular synchronisation',
-                actor => promiseOf(protractor.browser.waitForAngularEnabled()),
+                actor => promised(protractor.browser.waitForAngularEnabled()),
             );
 
         describe('when enabled', () => {
-            beforeEach(() => promiseOf(protractor.browser.waitForAngularEnabled(true)));
+            beforeEach(() => promised(protractor.browser.waitForAngularEnabled(true)));
 
             /** @test {UseAngular.disableSynchronisation} */
             it('can be disabled', () => actorCalled('Bernie').attemptsTo(
@@ -35,7 +35,7 @@ describe('UseAngular', function () {
         });
 
         describe('when disabled', () => {
-            beforeEach(() => promiseOf(protractor.browser.waitForAngularEnabled(false)));
+            beforeEach(() => promised(protractor.browser.waitForAngularEnabled(false)));
 
             /** @test {UseAngular.enableSynchronisation} */
             it('can be enabled', () => actorCalled('Bernie').attemptsTo(

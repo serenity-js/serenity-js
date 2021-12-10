@@ -1,5 +1,5 @@
 import 'mocha';
-import { by, Click, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions, Target, Text, Wait } from '@serenity-js/web';
+import { Click, ModalDialog, Navigate, PageElement, Photographer, TakePhotosOfInteractions, Text, Wait } from '@serenity-js/web';
 import { actorCalled, Clock, Duration, serenity, Serenity } from '@serenity-js/core';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
@@ -9,8 +9,8 @@ import { Name } from '@serenity-js/core/lib/model';
 describe('ModalDialog', () => {
 
     const Example = {
-        trigger:    Target.the('alert trigger').located(by.id('trigger')),
-        result:     Target.the('result').located(by.id('result')),
+        trigger:    PageElement.locatedById('trigger').describedAs('the alert trigger'),
+        result:     PageElement.locatedById('result').describedAs('result'),
     }
 
     describe('when working with alert(),', () => {

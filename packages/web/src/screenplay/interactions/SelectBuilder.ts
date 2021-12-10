@@ -21,7 +21,7 @@ export interface SelectBuilder {
      *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  to interact with
      *
-     * @param {Answerable<PageElement>} target
+     * @param {Answerable<PageElement>} pageElement
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
@@ -32,5 +32,5 @@ export interface SelectBuilder {
      * @see {@link Select.values}
      * @see {@link Target}
      */
-    from: (target: Answerable<PageElement>) => Interaction;
+    from: (pageElement: Answerable<PageElement>) => Interaction;
 }

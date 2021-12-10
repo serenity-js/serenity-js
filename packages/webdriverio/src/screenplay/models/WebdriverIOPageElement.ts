@@ -1,107 +1,92 @@
-import { PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { PageElement } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOPageElementList } from './WebdriverIOPageElementList';
-import { WebdriverIOPageElementLocator } from './WebdriverIOPageElementLocator';
+import { WebdriverIONativeElementRoot } from './WebdriverIONativeElementRoot';
 
-export class WebdriverIOPageElement implements PageElement {
-    private readonly $:  PageElementLocator<wdio.Element<'async'>>;
-    private readonly $$: PageElementLocator<wdio.ElementArray>;
-
-    constructor(
-        private readonly browser: wdio.Browser<'async'>,
-        private readonly element: wdio.Element<'async'>,
-        private readonly elementLocation: PageElementLocation,
-    ) {
-        this.$  = new WebdriverIOPageElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
-        this.$$ = new WebdriverIOPageElementLocator(this.element.$$.bind(this.element));
+export class WebdriverIOPageElement
+    extends PageElement<WebdriverIONativeElementRoot, wdio.Element<'async'>>
+{
+    of(parent: WebdriverIOPageElement): PageElement<WebdriverIONativeElementRoot, wdio.Element<'async'>> {
+        return new WebdriverIOPageElement(() => parent.nativeElement(), this.locator);
     }
 
-    nativeElement(): any {
-        return this.element;
+    async clearValue(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.clearValue();
     }
 
-    location(): PageElementLocation {
-        return this.elementLocation;
+    async click(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.click();
     }
 
-    locateChildElement(location: PageElementLocation): Promise<PageElement> {
-        return this.$
-            .locate(location)
-            .then(element => new WebdriverIOPageElement(this.browser, element, location));
+    async doubleClick(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.doubleClick();
     }
 
-    locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
-        return this.$$
-            .locate(location)
-            .then(elements => new WebdriverIOPageElementList(this.browser, elements, location));
+    async enterValue(value: string | number | Array<string | number>): Promise<void> {
+        const element = await this.nativeElement();
+        return element.addValue(value);
     }
 
-    clearValue(): Promise<void> {
-        return this.element.clearValue();
+    async scrollIntoView(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.scrollIntoView();
     }
 
-    click(): Promise<void> {
-        return this.element.click();
+    async hoverOver(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.moveTo();
     }
 
-    doubleClick(): Promise<void> {
-        return this.element.doubleClick();
+    async rightClick(): Promise<void> {
+        const element = await this.nativeElement();
+        return element.click({ button: 'right' });
     }
 
-    enterValue(value: string | number | Array<string | number>): Promise<void> {
-        return this.element.addValue(value);
+    async attribute(name: string): Promise<string> {
+        const element = await this.nativeElement();
+        return element.getAttribute(name);
     }
 
-    scrollIntoView(): Promise<void> {
-        return this.element.scrollIntoView();
+    async text(): Promise<string> {
+        const element = await this.nativeElement();
+        return element.getText();
     }
 
-    hoverOver(): Promise<void> {
-        return this.element.moveTo();
+    async value(): Promise<string> {
+        const element = await this.nativeElement();
+        return element.getValue();
     }
 
-    rightClick(): Promise<void> {
-        return this.element.click({ button: 'right' });
+    async isActive(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isFocused();
     }
 
-    attribute(name: string): Promise<string> {
-        return this.element.getAttribute(name);
+    async isClickable(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isClickable();
     }
 
-    text(): Promise<string> {
-        return this.element.getText();
+    async isDisplayed(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isDisplayed();
     }
 
-    value(): Promise<string> {
-        return this.element.getValue();
+    async isEnabled(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isEnabled();
     }
 
-    isActive(): Promise<boolean> {
-        return this.element.isFocused();
+    async isPresent(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isExisting();
     }
 
-    isClickable(): Promise<boolean> {
-        return this.element.isClickable();
-    }
-
-    isDisplayed(): Promise<boolean> {
-        return this.element.isDisplayed();
-    }
-
-    isEnabled(): Promise<boolean> {
-        return this.element.isEnabled();
-    }
-
-    isPresent(): Promise<boolean> {
-        return this.element.isExisting();
-    }
-
-    isSelected(): Promise<boolean> {
-        return this.element.isSelected();
-    }
-
-    toString(): string {
-        return this.element.toString(); // todo: or location?
+    async isSelected(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.isSelected();
     }
 }

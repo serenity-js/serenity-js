@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { by, isEnabled, Navigate, Target, Wait } from '@serenity-js/web';
+import { isEnabled, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isEnabled', function () {
 
     const Page = {
-        enabledButton:     Target.the('enabled button').located(by.id('enabled')),
-        disabledButton:    Target.the('disabled button').located(by.id('disabled')),
-        hiddenButton:      Target.the('hidden button').located(by.id('hidden')),
+        enabledButton:     PageElement.locatedById('enabled').describedAs('the enabled button'),
+        disabledButton:    PageElement.locatedById('disabled').describedAs('the disabled button'),
+        hiddenButton:      PageElement.locatedById('hidden').describedAs('the hidden button'),
     };
 
     beforeEach(() =>
