@@ -372,15 +372,15 @@ export class BrowseTheWeb implements Ability {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    public async evaluate<Argument, R>(
-        script: PageFunction<Argument, R>,
-        args: Argument,
-    ): Promise<R> {
-        const workingContext = await this.workingContext();
-        const result = await workingContext.evaluate(script, args);
-        this._lastScriptExecutionResult = result;
-        return result;
-    }
+    //public async evaluate<Argument, R>(
+    //    script: PageFunction<Argument, R>,
+    //    args: Argument,
+    //): Promise<R> {
+    //    const workingContext = await this.workingContext();
+    //    const result = await workingContext.evaluate(script, args);
+    //    this._lastScriptExecutionResult = result;
+    //    return result;
+    //}
 
     public lastScriptExecutionResult(): unknown {
         return this._lastScriptExecutionResult;
