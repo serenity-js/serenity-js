@@ -1,6 +1,5 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
 import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, LaunchOptions, Mouse, Page, Response } from 'playwright';
-import { PageFunction } from 'playwright/types/structs';
 
 import { Stack } from '../../utils';
 import { NavigateOptions } from '../interactions';
@@ -105,10 +104,8 @@ export class BrowseTheWeb implements Ability {
      */
     private async browserContext(): Promise<BrowserContext> {
         if (!this._browseContext) {
-            this._browseContext =
-                await (
-                    await this.browser()
-                ).newContext();
+            const browser = await this.browser();
+            this._browseContext = await browser.newContext()
         }
         return this._browseContext;
     }
@@ -123,10 +120,8 @@ export class BrowseTheWeb implements Ability {
      */
     private async page(): Promise<Page> {
         if (!this._page) {
-            this._page =
-                await (
-                    await this.browserContext()
-                ).newPage();
+            const browserContext = await this.browserContext();
+            this._page = await browserContext.newPage();
         }
         return this._page;
     }
@@ -137,9 +132,8 @@ export class BrowseTheWeb implements Ability {
      *  All open pages
      */
     private async pages(): Promise<Array<Page>> {
-        return (
-            await this.browserContext()
-        ).pages();
+        const browserContext = await this.browserContext();
+        return browserContext.pages();
     }
 
     private _lastScriptExecutionResult: unknown;
@@ -201,9 +195,8 @@ export class BrowseTheWeb implements Ability {
             waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
         },
     ): Promise<Response> {
-        return (
-            await this.workingContext()
-        ).goto(destination, options);
+        const workingContext = await this.workingContext();
+        return workingContext.goto(destination, options);
     }
 
     /**
@@ -236,9 +229,8 @@ export class BrowseTheWeb implements Ability {
      * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
      */
     async mouse(): Promise<Mouse> {
-        return (
-            await this.page()
-        ).mouse;
+        const page = await this.page();
+        return page.mouse;
     }
 
     /**
@@ -263,9 +255,8 @@ export class BrowseTheWeb implements Ability {
      */
     public async getFrame(selector: string): Promise<Frame> {
         const page = await this.workingContext();
-        return (
-            await page.$(selector)
-        ).contentFrame();
+        const element = await page.$(selector)
+        return element.contentFrame();
     }
 
     /**
@@ -275,9 +266,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     async closeBrowser(): Promise<void> {
-        await (
-            await this.browser()
-        ).close();
+        const browser = await this.browser();
+        await browser.close();
         this._browser = undefined;
         this.clearContext();
     }
@@ -289,9 +279,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     async closePage(): Promise<void> {
-        await (
-            await this.page()
-        ).close();
+        const page = await this.page();
+        await page.close();
         this._page = undefined;
         this.clearContext();
     }
@@ -317,9 +306,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<ElementHandle>}
      */
     public async $(selector: string): Promise<ElementHandle> {
-        return (
-            await this.workingContext()
-        ).$(selector);
+        const workingContext = await this.workingContext();
+        return workingContext.$(selector);
     }
 
     /**
@@ -330,18 +318,16 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<ElementHandle[]>}
      */
     public async $$(selector: string): Promise<ElementHandle[]> {
-        return (
-            await this.workingContext()
-        ).$$(selector);
+        const workingContext = await this.workingContext();
+        return workingContext.$$(selector);
     }
 
     public async waitForSelector(
         selector: string,
         options: PageWaitForSelectorOptions,
     ): Promise<null | ElementHandle> {
-        return (
-            await this.workingContext()
-        ).waitForSelector(selector, options);
+        const workingContext = await this.workingContext();
+        return workingContext.waitForSelector(selector, options);
     }
 
     public async click(
@@ -361,21 +347,18 @@ export class BrowseTheWeb implements Ability {
             trial?: boolean;
         },
     ): Promise<void> {
-        return (
-            await this.workingContext()
-        ).click(selector, options);
+        const workingContext = await this.workingContext();
+        return workingContext.click(selector, options);
     }
 
     public async doubleClick(selector: string): Promise<void> {
-        return (
-            await this.workingContext()
-        ).dblclick(selector);
+        const workingContext = await this.workingContext();
+        return workingContext.dblclick(selector);
     }
 
     public async hover(selector: string): Promise<void> {
-        return (
-            await this.workingContext()
-        ).hover(selector);
+        const workingContext = await this.workingContext();
+        return workingContext.hover(selector);
     }
 
     /**
@@ -393,9 +376,8 @@ export class BrowseTheWeb implements Ability {
         script: PageFunction<Argument, R>,
         args: Argument,
     ): Promise<R> {
-        const result = await (
-            await this.workingContext()
-        ).evaluate(script, args);
+        const workingContext = await this.workingContext();
+        const result = await workingContext.evaluate(script, args);
         this._lastScriptExecutionResult = result;
         return result;
     }
@@ -417,9 +399,8 @@ export class BrowseTheWeb implements Ability {
      * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
      */
     public async takeScreenshot(options?: ScreenshotOptions): Promise<Buffer> {
-        return (
-            await this.page()
-        ).screenshot(options);
+        const page = await this.page();
+        return page.screenshot(options);
     }
 
     /**
@@ -431,9 +412,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<string>}
      */
     public async getPageTitle(): Promise<string> {
-        return (
-            await this.page()
-        ).title();
+        const page = await this.page();
+        return page.title();
     }
 
     /**
@@ -443,9 +423,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<string>}
      */
     public async getCurrentUrl(): Promise<string> {
-        return (
-            await this.page()
-        ).url();
+        const page = await this.page();
+        return page.url();
     }
 
     /**
@@ -456,9 +435,8 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<void>}
      */
     public async waitForTimeout(millis: number): Promise<void> {
-        return (
-            await this.page()
-        ).waitForTimeout(millis);
+        const page = await this.page();
+        return page.waitForTimeout(millis);
     }
 
     /**
@@ -469,9 +447,8 @@ export class BrowseTheWeb implements Ability {
         height: number;
         width: number;
     }): Promise<void> {
-        (
-            await this.page()
-        ).setViewportSize(size);
+        const page = await this.page();
+        page.setViewportSize(size);
     }
 
     /**
@@ -482,9 +459,8 @@ export class BrowseTheWeb implements Ability {
         height: number;
         width: number;
     }> {
-        return (
-            await this.page()
-        ).viewportSize();
+        const page = await this.page();
+        return page.viewportSize();
     }
 
     public async switchToFrame(
