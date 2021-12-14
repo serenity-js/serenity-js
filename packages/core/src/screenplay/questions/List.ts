@@ -1,255 +1,116 @@
-import { formatted } from '../../io';
+import { LogicError } from '../../errors';
+import { format } from '../../io';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
+import { Adapter } from '../model';
 import { Question } from '../Question';
 import { Expectation } from './Expectation';
-import { ArrayListAdapter, ListAdapter } from './lists';
+import { ExpectationMet } from './expectations';
 import { MetaQuestion } from './MetaQuestion';
 
-/**
- * @desc
- *  Filters an {@link Answerable} list of items based on the criteria provided.
- *  Instantiate via {@link List.of}
- *
- * @example <caption>Example data structure</caption>
- *  interface TestAccount {
- *      username: string;
- *      role: string;
- *      environments: string[];
- *  }
- *
- *  const testAccounts: TestAccount[] = [
- *      {
- *          "username": "tester.one@example.com",
- *          "role": "test-automation"
- *          "environments": [ "dev", "sit" ],
- *      },
- *      {
- *          "username": "tester.two@example.com",
- *          "role": "test-automation"
- *          "environments": [ "dev", "sit", "prod" ],
- *      },
- *      {
- *          "username": "release.bot@example.com",
- *          "role": "release-automation"
- *          "environments": [ "dev", "sit", "prod" ],
- *      }
- *  ]
- *
- * @example <caption>Using with Property</caption>
- *  import { actorCalled, List, Property } from '@serenity-js/core';
- *  import { contain, Ensure, equals } from '@serenity-js/assertions';
- *
- *  actorCalled('Lisa').attemptsTo(
- *      Ensure.that(
- *          Property.of(
- *              List.of(testAccounts)
- *                  .where(Property.at<TestAccount>().environments, contain('prod'))
- *                  .where(Property.at<TestAccount>().role, equals('test-automation'))
- *                  .first()
- *              ).username,
- *          equals('tester.two@example.com')
- *      )
- *  )
- *
- * @extends {Question}
- * @see {@link MetaQuestion}
- */
-export class List<
-    List_Adapter_Type extends ListAdapter<Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type>,
-    Item_Type,
-    Collection_Type,
-    Item_Return_Type = Item_Type,
-    Collection_Return_Type = Collection_Type,
->
-    extends Question<Collection_Return_Type>
-{
+const f = format({ markQuestions: false });
+
+export interface Mappable<Item_Type, Collection_Type> {
+    map<Mapped_Item_Type>(
+        mapping: (item: Item_Type, index?: number, collection?: Collection_Type) => Mapped_Item_Type
+    ): Promise<Array<Awaited<Mapped_Item_Type>>> | Array<Mapped_Item_Type>;
+}
+
+export class List<Item_Type, Collection_Type> extends Question<Promise<Array<Item_Type>>> {
+    private readonly predicates: Array<Predicate<Item_Type, unknown>> = [];
     private subject: string;
 
-    /**
-     * @desc
-     *  Instantiates a new {@link List} configured to support standard {@link Array}.
-     *
-     *  **Please note:** Don't use `List.of` to wrap `Question<ElementArrayFinder>` returned by
-     *  [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).
-     *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),
-     *  which uses a Protractor-specific {@link ListAdapter}.
-     *
-     * @param {Answerable<Item_Type[]>} items
-     *
-     * @returns {List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>}
-     */
-    static of<Item_Type>(items: Answerable<Item_Type[]>): List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>> {
-        return new List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>(
-            new ArrayListAdapter(items)
-        );
+    static of<IT, CT>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT> {
+        return new List<IT, CT>(collection);
     }
 
-    /**
-     * @param {List_Adapter_Type} collection
-     */
-    constructor(private readonly collection: List_Adapter_Type) {
+    constructor(private readonly collection: Answerable<Mappable<Item_Type, Collection_Type>>) {
         super();
-        this.subject = formatted`${ collection }`;
+        this.subject = f`${ collection }`;
     }
 
-    /**
-     * @desc
-     *  Returns the number of items left after applying any filters,
-     *
-     * @example <caption>Counting items</caption>
-     *  import { actorCalled, List } from '@serenity-js/core';
-     *  import { Ensure, equals, property } from '@serenity-js/assertions';
-     *
-     *  actorCalled('Lisa').attemptsTo(
-     *      Ensure.that(
-     *          List.of(testAccounts).count(),
-     *          equals(3)
-     *      )
-     *  )
-     *
-     * @returns {Question<Promise<number>>}
-     *
-     * @see {@link List#where}
-     */
-    count(): Question<Promise<number>> {
-        return Question.about(`the number of ${ this.collection.toString() }`, actor =>
-            this.collection.count(actor)
-        );
-    }
-
-    /**
-     * @desc
-     *  Returns the first of items left after applying any filters,
-     *
-     * @example <caption>Retrieving the first item</caption>
-     *  import { actorCalled, List } from '@serenity-js/core';
-     *  import { Ensure, equals, property } from '@serenity-js/assertions';
-     *
-     *  actorCalled('Lisa').attemptsTo(
-     *      Ensure.that(
-     *          List.of(testAccounts).first(),
-     *          property('username', equals('tester.one@example.com'))
-     *      )
-     *  )
-     *
-     * @returns {Question<Item_Return_Type>}
-     *
-     * @see {@link List#where}
-     */
-    first(): Question<Item_Return_Type> {
-        return Question.about(`the first of ${ this.collection.toString() }`, actor =>
-            this.collection.first(actor)
-        );
-    }
-
-    /**
-     * @desc
-     *  Returns the last of items left after applying any filters,
-     *
-     * @example <caption>Retrieving the last item</caption>
-     *  import { actorCalled, List } from '@serenity-js/core';
-     *  import { Ensure, equals, property } from '@serenity-js/assertions';
-     *
-     *  actorCalled('Lisa').attemptsTo(
-     *      Ensure.that(
-     *          List.of(testAccounts).last(),
-     *          property('username', equals('release.bot@example.com'))
-     *      )
-     *  )
-     *
-     * @returns {Question<Item_Return_Type>}
-     *
-     * @see {@link List#where}
-     */
-    last(): Question<Item_Return_Type> {
-        return Question.about(`the last of ${ this.collection.toString() }`, actor =>
-            this.collection.last(actor)
-        );
-    }
-
-    /**
-     * @desc
-     *  Returns the nth of the items left after applying any filters,
-     *
-     * @example <caption>Retrieving the nth item</caption>
-     *  import { actorCalled, List } from '@serenity-js/core';
-     *  import { Ensure, equals, property } from '@serenity-js/assertions';
-     *
-     *  actorCalled('Lisa').attemptsTo(
-     *      Ensure.that(
-     *          List.of(testAccounts).get(1),
-     *          property('username', equals('tester.two@example.com'))
-     *      )
-     *  )
-     *
-     * @param {number} index
-     *  Zero-based index of the item to return
-     *
-     * @returns {Question<Item_Return_Type>}
-     *
-     * @see {@link List#where}
-     */
-    get(index: number): Question<Item_Return_Type> {
-        return Question.about(`the ${ List.ordinalSuffixOf(index + 1) } of ${ this.collection }`, actor =>
-            this.collection.get(actor, index)
-        );
-    }
-
-    /**
-     * @desc
-     *  Filters the underlying collection so that the result contains only those elements that meet the {@link Expectation}
-     *
-     * @example <caption>Filtering a list</caption>
-     *  import { actorCalled, List, Property } from '@serenity-js/core';
-     *  import { contain, Ensure, equals, property } from '@serenity-js/assertions';
-     *
-     *  actorCalled('Lisa').attemptsTo(
-     *      Ensure.that(
-     *          List.of(testAccounts)
-     *              .where(Property.at<TestAccount>().environments, contain('prod'))
-     *              .where(Property.at<TestAccount>().role, equals('test-automation'))
-     *              .first(),
-     *          property('username', equals('tester.two@example.com'))
-     *      )
-     *  )
-     *
-     * @param {MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>} question
-     * @param {Expectation<any, Answer_Type>} expectation
-     *
-     * @returns {List<List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type>}
-     */
     where<Answer_Type>(
         question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
-        expectation: Expectation<any, Answer_Type>,
-    ): List<List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type> {
-        return new List<List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type>(
-            this.collection.withFilter(question, expectation) as List_Adapter_Type,
+        expectation: Expectation<any, Answer_Type>
+    ): this {
+
+        this.predicates.push(new Predicate(question, expectation));
+
+        return this;
+    }
+
+    count(): Question<Promise<number>> & Adapter<number> {
+        return Question.about(`the number of ${ this.subject }`, async actor => {
+            const items = await this.answeredBy(actor);
+            return items.length;
+        });
+    }
+
+    first(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+        return Question.about(`the first of ${ this.subject }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (items.length === 0) {
+                throw new LogicError(f`Can't retrieve the first item from a list with 0 items: ${ items }`)
+            }
+
+            return items[0];
+        });
+    }
+
+    last(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+        return Question.about(`the last of ${ this.subject }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (items.length === 0) {
+                throw new LogicError(f`Can't retrieve the last item from a list with 0 items: ${ items }`)
+            }
+
+            return items[items.length - 1];
+        });
+    }
+
+    get(index: number): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+        return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (index < 0 || items.length <= index) {
+                throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + f`${ items }`)
+            }
+
+            return items[index];
+        });
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
+        const collection = await actor.answer(this.collection);
+
+        if (! (collection && typeof collection.map === 'function')) {
+            throw new LogicError(f`A \`List\` has to wrap a mappable object, such as Array or PageElements. \`${ collection }\` has no \`.map()\` method`)
+        }
+
+        const promisedResults = collection.map(async item => {
+            for(const predicate of this.predicates) {
+                if (! await predicate.appliedTo(item).answeredBy(actor)) {
+                    return { item, keep: false };
+                }
+            }
+            return { item, keep: true };
+        });
+
+        const results = await (
+            Array.isArray(promisedResults)
+                ? Promise.all(promisedResults)
+                : Promise.resolve(promisedResults)
         );
+
+        return results.reduce((acc, result) => {
+            return result.keep
+                ? acc.concat(result.item)
+                : acc
+        }, [])
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link Actor} answer this {@link Question} and return the underlying collection.
-     *
-     * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Collection_Return_Type}
-     *
-     * @see {@link Actor}
-     * @see {@link AnswersQuestions}
-     * @see {@link UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Collection_Return_Type {
-        return this.collection.items(actor);
-    }
-
-    /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
     describedAs(subject: string): this {
         this.subject = subject;
         return this;
@@ -258,21 +119,80 @@ export class List<
     toString(): string {
         return this.subject;
     }
+}
 
-    private static ordinalSuffixOf(index: number): string {
-        const
-            lastDigit = index % 10,
-            lastTwoDigits = index % 100;
+/**
+ * @package
+ * @param {number} index
+ */
+function ordinal(index: number): string {
+    const
+        lastDigit     = Math.abs(index) % 10,
+        lastTwoDigits = Math.abs(index) % 100;
 
-        switch (true) {
-            case (lastDigit === 1 && lastTwoDigits !== 11):
-                return index + 'st';
-            case (lastDigit === 2 && lastTwoDigits !== 12):
-                return index + 'nd';
-            case (lastDigit === 3 && lastTwoDigits !== 13):
-                return index + 'rd';
-            default:
-                return index + 'th';
+    switch (true) {
+        case (lastDigit === 1 && lastTwoDigits !== 11):
+            return index + 'st';
+        case (lastDigit === 2 && lastTwoDigits !== 12):
+            return index + 'nd';
+        case (lastDigit === 3 && lastTwoDigits !== 13):
+            return index + 'rd';
+        default:
+            return index + 'th';
+    }
+}
+
+/**
+ * @package
+ */
+class Predicate<Item_Type, Answer_Type> {
+    constructor(
+        private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
+        private readonly expectation: Expectation<any, Answer_Type>
+    ) {
+    }
+
+    appliedTo(item: Item_Type): AppliedPredicate<Answer_Type> {
+        return new AppliedPredicate<Answer_Type>(this.question.of(item), this.expectation);
+    }
+}
+
+/**
+ * @package
+ */
+class AppliedPredicate<Answer_Type> extends Question<Promise<boolean>>{
+
+    private subject: string;
+
+    constructor(
+        private readonly question: Question<Promise<Answer_Type> | Answer_Type>,
+        private readonly expectation: Expectation<any, Answer_Type>,
+    ) {
+        super();
+        this.subject = format({ markQuestions: false })`${ question }  does ${ expectation }`;
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
+
+        try {
+            const answer        = await actor.answer(this.question);
+            const expectation   = await actor.answer(this.expectation);
+
+            const result = await expectation(answer);
+
+            return result instanceof ExpectationMet;
+        } catch (error) {
+            throw new LogicError(`Couldn't check if ${ this.question } does ${ this.expectation }`, error);
         }
+
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }

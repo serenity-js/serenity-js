@@ -62,7 +62,7 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
         return stringifiedToJson(value, inline);
     }
 
-    return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: ! inline, sorted: false  });
+    return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: inline ? 3 : false, sorted: false  });
 }
 
 function stringifiedToJson(value: any, inline: boolean): string {

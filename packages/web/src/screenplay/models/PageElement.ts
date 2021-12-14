@@ -5,8 +5,8 @@ import { BrowseTheWeb } from '../abilities';
 const d = format({ markQuestions: false });
 const f = format({ markQuestions: true });
 
-export abstract class PageElement<NativeElementContext = any, NativeElement = any> {
-    static of(childElement: Answerable<PageElement>, parentElement: Answerable<PageElement>): Question<Promise<PageElement>> & Adapter<PageElement> {
+export abstract class PageElement<NativeElementRoot = any, NativeElement = any> {
+    static of<NER, NE>(childElement: Answerable<PageElement<NER, NE>>, parentElement: Answerable<PageElement<NER, NE>>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
             const parent    = await actor.answer(parentElement);
@@ -15,7 +15,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
         });
     }
 
-    static locatedByCss(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+    static locatedByCss<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(f`page element located by css (${selector})`, async actor => {
             const cssSelector = await actor.answer(selector);
 
@@ -23,7 +23,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
         });
     }
 
-    static locatedByCssContainingText(selector: Answerable<string>, text: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+    static locatedByCssContainingText<NER, NE>(selector: Answerable<string>, text: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(f`page element located by css (${selector}) containing text ${ text }`, async actor => {
             const cssSelector = await actor.answer(selector);
             const desiredText = await actor.answer(text);
@@ -32,7 +32,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
         });
     }
 
-    static locatedById(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+    static locatedById<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(f`page element located by id (${selector})`, async actor => {
             const idSelector = await actor.answer(selector);
 
@@ -40,7 +40,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
         });
     }
 
-    static locatedByTagName(tagName: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+    static locatedByTagName<NER, NE>(tagName: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(f`page element located by tag name (${tagName})`, async actor => {
             const tagNameSelector = await actor.answer(tagName);
 
@@ -48,7 +48,7 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
         });
     }
 
-    static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElement>> & Adapter<PageElement> {
+    static locatedByXPath<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(f`page element located by xpath (${selector})`, async actor => {
             const xpathSelector = await actor.answer(selector);
 
@@ -57,12 +57,12 @@ export abstract class PageElement<NativeElementContext = any, NativeElement = an
     }
 
     constructor(
-        protected readonly context: () => Promise<NativeElementContext> | NativeElementContext,
-        protected readonly locator: (root: NativeElementContext) => Promise<NativeElement> | NativeElement
+        protected readonly context: () => Promise<NativeElementRoot> | NativeElementRoot,
+        protected readonly locator: (root: NativeElementRoot) => Promise<NativeElement> | NativeElement
     ) {
     }
 
-    abstract of(parent: PageElement): PageElement;
+    abstract of(parent: PageElement<NativeElementRoot, NativeElement>): PageElement<NativeElementRoot, NativeElement>;
 
     async nativeElement(): Promise<NativeElement> {
         try {

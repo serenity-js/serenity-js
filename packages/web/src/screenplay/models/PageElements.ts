@@ -6,10 +6,10 @@ import { PageElement } from './PageElement';
 const d = format({ markQuestions: false });
 const f = format({ markQuestions: true });
 
-export abstract class PageElements<NativeElementContext = any, NativeElementList = any, NativeElement = any>
+export abstract class PageElements<NativeElementRoot = any, NativeElementList = any, NativeElement = any>
 // todo: implements List (Attribute.spec.ts)
 {
-    static of(childElements: Answerable<PageElements>, parentElement: Answerable<PageElement>): Question<Promise<PageElements>> & Adapter<PageElements> {
+    static of<NER, NEL, NE>(childElements: Answerable<PageElements<NER, NEL, NE>>, parentElement: Answerable<PageElement<NER, NE>>): Question<Promise<PageElements<NER, NEL, NE>>> & Adapter<PageElements<NER, NEL, NE>> {
         return Question.about(d `${ childElements } of ${ parentElement })`, async actor => {
             const children  = await actor.answer(childElements);
             const parent    = await actor.answer(parentElement);
@@ -18,21 +18,21 @@ export abstract class PageElements<NativeElementContext = any, NativeElementList
         });
     }
 
-    static locatedByCss(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+    static locatedByCss<NER, NEL, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEL, NE>>> & Adapter<PageElements<NER, NEL, NE>> {
         return Question.about(f `page elements located by css (${selector})`, async actor => {
             const value = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByCss(value);
         });
     }
 
-    static locatedByTagName(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+    static locatedByTagName<NER, NEL, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEL, NE>>> & Adapter<PageElements<NER, NEL, NE>> {
         return Question.about(f `page elements located by tag name (${selector})`, async actor => {
             const tagNameSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByTagName(tagNameSelector);
         });
     }
 
-    static locatedByXPath(selector: Answerable<string>): Question<Promise<PageElements>> & Adapter<PageElements> {
+    static locatedByXPath<NER, NEL, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEL, NE>>> & Adapter<PageElements<NER, NEL, NE>> {
         return Question.about(f `page elements located by xpath (${selector})`, async actor => {
             const xpathSelector = await actor.answer(selector);
             return BrowseTheWeb.as(actor).findAllByXPath(xpathSelector);
@@ -40,12 +40,12 @@ export abstract class PageElements<NativeElementContext = any, NativeElementList
     }
 
     constructor(
-        protected readonly context: () => Promise<NativeElementContext> | NativeElementContext,
-        protected readonly locator: (root: NativeElementContext) => Promise<NativeElementList> | NativeElementList
+        protected readonly context: () => Promise<NativeElementRoot> | NativeElementRoot,
+        protected readonly locator: (root: NativeElementRoot) => Promise<NativeElementList> | NativeElementList
     ) {
     }
 
-    abstract of(parent: PageElement): PageElements;
+    abstract of(parent: PageElement<NativeElementRoot, NativeElement>): PageElements<NativeElementRoot, NativeElementList, NativeElement>;
 
     async nativeElementList(): Promise<NativeElementList> {
         try {
@@ -57,14 +57,15 @@ export abstract class PageElements<NativeElementContext = any, NativeElementList
         }
     }
 
+    // todo: delegate to List
     abstract count(): Promise<number>;
-    abstract first(): Promise<PageElement<NativeElementContext, NativeElement>>;
-    abstract last(): Promise<PageElement<NativeElementContext, NativeElement>>;
-    abstract get(index: number): Promise<PageElement<NativeElementContext, NativeElement>>;
+    abstract first(): Promise<PageElement<NativeElementRoot, NativeElement>>;
+    abstract last(): Promise<PageElement<NativeElementRoot, NativeElement>>;
+    abstract get(index: number): Promise<PageElement<NativeElementRoot, NativeElement>>;
 
-    abstract map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]>;
+    abstract map<O>(fn: (element: PageElement<NativeElementRoot, NativeElement>, index?: number, elements?: PageElements<NativeElementRoot, NativeElementList, NativeElement>) => Promise<O> | O): Promise<O[]>;
 
-    abstract filter(fn: (element: PageElement, index?: number) => Promise<boolean> | boolean): PageElements;
+    abstract filter(fn: (element: PageElement<NativeElementRoot, NativeElement>, index?: number) => Promise<boolean> | boolean): PageElements<NativeElementRoot, NativeElementList, NativeElement>;
 
-    abstract forEach(fn: (element: PageElement, index?: number) => Promise<void> | void): Promise<void>;
+    abstract forEach(fn: (element: PageElement<NativeElementRoot, NativeElement>, index?: number) => Promise<void> | void): Promise<void>;
 }
