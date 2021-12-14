@@ -4,7 +4,6 @@ import { contain, Ensure, equals, isFalse, isTrue } from '@serenity-js/assertion
 import { actorCalled, Question } from '@serenity-js/core';
 import { Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
-import { given } from 'mocha-testdata';
 
 /** @test {PageElements} */
 describe('PageElements', () => {
