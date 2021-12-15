@@ -1,42 +1,22 @@
-import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
-import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, LaunchOptions, Mouse, Page, Response } from 'playwright';
+import { Ability, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page as SerenityPage, PageElement, PageElements } from '@serenity-js/web';
+import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Mouse, Page, Response } from 'playwright';
 
 import { Stack } from '../../utils';
-import { NavigateOptions } from '../interactions';
+import {PlaywrightNativeRootElement} from '../models/PlaywrightNativeRootElement';
+import { PlaywrightPageElement } from '../models/PlaywrightPageElement';
 import { ScreenshotOptions } from '../options/screenshotOptions';
 
 type Context = Page | Frame;
 
-/**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to interact with web front-ends using {@link protractor}.
- *
- * @example <caption>Using the protractor.browser</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { BrowseTheWeb, Navigate, Target } from 'serenityjs-playwright';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { chromium } from 'playwright';
- *
- *  const actor = Actor.named('Wendy').whoCan(
- *      BrowseTheWeb.using(chromium),
- *  );
- *
- *  const HomePage = {
- *      Title: Target.the('title').located(by.css('h1')),
- *  };
- *
- *  actor.attemptsTo(
- *      Navigate.to(`https://serenity-js.org`),
- *      Ensure.that(Text.of(HomePage.Title), equals('Serenity/JS')),
- *  );
- *
- * @see https://www.protractortest.org/
- *
- * @public
- * @implements {@serenity-js/core/lib/screenplay~Ability}
- * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
- */
-export class BrowseTheWeb implements Ability {
+export type Modifier = 'Shift' | 'Control' | 'Alt' | 'Meta' | 'ShiftLeft';
+
+export interface NormalizedKey {
+    key: string;
+    modifiers?: Modifier[];
+}
+
+export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     private static actorMap = new Map();
 
     /**
@@ -136,6 +116,11 @@ export class BrowseTheWeb implements Ability {
         return browserContext.pages();
     }
 
+    private async keyboard(): Promise<Keyboard> {
+        const page = await this.page();
+        return page.keyboard;
+    }
+
     private _lastScriptExecutionResult: unknown;
 
     /**
@@ -143,23 +128,23 @@ export class BrowseTheWeb implements Ability {
      *  Ability to interact with web front-ends using a given playwright browser instance.
      *
      * @param {Browser} browserType
-     * @returns {BrowseTheWeb}
+     * @returns {BrowseTheWebWithPlaywright}
      */
-    public static using(browserType: BrowserType): BrowseTheWeb {
-        return new BrowseTheWeb(browserType);
+    public static using(browserType: BrowserType): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(browserType);
     }
 
     /**
      * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWeb} from within the {@link Interaction} classes,
+     *  Used to access the Actor's ability to {@link BrowseTheWebWithPlaywright} from within the {@link Interaction} classes,
      *  such as {@link Navigate}.
      *
      * @param {UsesAbilities} actor
-     * @return {BrowseTheWeb}
+     * @return {BrowseTheWebWithPlaywright}
      */
-    public static as(actor: UsesAbilities): BrowseTheWeb {
+    public static as(actor: UsesAbilities): BrowseTheWebWithPlaywright {
         if (!this.actorMap.has(actor)) {
-            this.actorMap.set(actor, actor.abilityTo(BrowseTheWeb));
+            this.actorMap.set(actor, actor.abilityTo(BrowseTheWebWithPlaywright));
         }
         return this.actorMap.get(actor);
     }
@@ -169,404 +154,533 @@ export class BrowseTheWeb implements Ability {
      *  An instance of a protractor browser
      */
     private constructor(protected browserType: BrowserType) {
+        super();
         this.storedContext = new Stack();
     }
 
-    public withOptions(options: LaunchOptions): BrowseTheWeb {
-        this.launchOptions = options;
-        return this;
-    }
-
-    /**
-     * @desc
-     *  Navigate to the given destination and loads mock modules before Angular.
-     *  Assumes that the page being loaded uses Angular.
-     *
-     * @param {string} destination
-     * @param {number?} timeoutInMillis
-     *
-     * @returns {Promise<void>}
-     */
-    async open(
-        destination: string,
-        options?: {
-            referer?: string;
-            timeout?: number;
-            waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
-        },
-    ): Promise<Response> {
+    async navigateTo(destination: string): Promise<void> {
         const workingContext = await this.workingContext();
-        return workingContext.goto(destination, options);
+        await workingContext.goto(destination);
     }
-
-    /**
-     * @desc
-     *  Interface for navigating back and forth in the browser history.
-     *
-     *  @returns {Navigation}
-     */
-    async navigate(
-        where: 'back' | 'forward' | 'reload',
-        options: NavigateOptions,
-    ): Promise<Response> {
+    async navigateBack(): Promise<void> {
         const page = await this.page();
-        switch (where) {
-            case 'back':
-                return page.goBack(options);
-            case 'forward':
-                return page.goForward(options);
-            default:
-                return page.reload(options);
-        }
+        page.goBack();
     }
-
-    /**
-     * @desc
-     *  Interface for defining sequences of complex user interactions.
-     *
-     * @returns {ActionSequence}
-     *
-     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
-     */
-    async mouse(): Promise<Mouse> {
+    async navigateForward(): Promise<void> {
         const page = await this.page();
-        return page.mouse;
+        page.goForward();
     }
-
-    /**
-     * @desc
-     *  Interface for managing browser and driver state.
-     *
-     * @returns {Options}
-     *
-     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
-     */
-    context(): Promise<BrowserContext> {
-        return this.browserContext();
-    }
-
-    /**
-     * @desc
-     *  returns Fram by a selector
-     *
-     * @param {string} selector
-     *
-     * @returns {Promise<Frame>}
-     */
-    public async getFrame(selector: string): Promise<Frame> {
-        const page = await this.workingContext();
-        const element = await page.$(selector)
-        return element.contentFrame();
-    }
-
-    /**
-     * @desc
-     *  Closes the browser
-     *
-     * @returns {Promise<void>}
-     */
-    async closeBrowser(): Promise<void> {
-        const browser = await this.browser();
-        await browser.close();
-        this._browser = undefined;
-        this.clearContext();
-    }
-
-    /**
-     * @desc
-     *  Closes the browser
-     *
-     * @returns {Promise<void>}
-     */
-    async closePage(): Promise<void> {
+    async reloadPage(): Promise<void> {
         const page = await this.page();
-        await page.close();
-        this._page = undefined;
-        this.clearContext();
+        page.reload();
+    }
+    waitFor(duration: Duration): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    findByCss(selector: string): PageElement<any, any> {
+        return this.findElement(root => root.$(selector));
+    }
+    findByCssContainingText(selector: string, text: string): PageElement<any, any> {
+        return this.findElement(root => root.$(`text=${selector}`));
+    }
+    findById(selector: string): PageElement<any, any> {
+        return this.findElement(root => root.$(`id=${selector}`));
+    }
+    findByTagName(selector: string): PageElement<any, any> {
+        return this.findElement(root => root.$(selector));
+    }
+    findByXPath(selector: string): PageElement<any, any> {
+        return this.findElement(root => root.$(`xpath=${selector}`));
     }
 
-    /**
-     * @desc
-     *  Closes the browser
-     *
-     * @returns {Promise<void>}
-     */
-    async closeAllOtherWindows(): Promise<void> {
-        const windows = await this.pages();
-        const windowToKeep = await this.page();
-        const windowsToClose = windows.filter((window) => window !== windowToKeep);
-        await Promise.all(windowsToClose.map((window) => window.close()));
+    private findElement(locator: (root: PlaywrightNativeRootElement) => Promise<ElementHandle>): PageElement<any, any> {
+        return new PlaywrightPageElement(
+            () => this.page(),
+            locator as unknown as (root: PlaywrightNativeRootElement) => Promise<ElementHandle>,
+        );
     }
 
-    /**
-     * @desc
-     *  Locates a single element identified by the selector
-     *
-     * @param {string} selector
-     * @returns {Promise<ElementHandle>}
-     */
-    public async $(selector: string): Promise<ElementHandle> {
-        const workingContext = await this.workingContext();
-        return workingContext.$(selector);
+    findAllByCss(selector: string): PageElements<any, any, any> {
+        throw new Error('Method not implemented.');
+    }
+    findAllByTagName(selector: string): PageElements<any, any, any> {
+        throw new Error('Method not implemented.');
+    }
+    findAllByXPath(selector: string): PageElements<any, any, any> {
+        throw new Error('Method not implemented.');
+    }
+    browserCapabilities(): Promise<BrowserCapabilities> {
+        throw new Error('Method not implemented.');
+    }
+    async sendKeys(keys: (string | Key)[]): Promise<void> {
+        throw new Error('Method not implemented.');
+        // const keyboard = await this.keyboard()
+        // function isModifier(maybeKey: string | Key): boolean {
+        //     return Key.isKey(maybeKey) && maybeKey.isModifier;
+        // }
+
+        // function asCodePoint(maybeKey: string | Key): string {
+        //     if (! Key.isKey(maybeKey)) {
+        //         return maybeKey;
+        //     }
+
+        //     return maybeKey.utf16codePoint;
+        // }
+
+        // // keyDown for any modifier keys and sendKeys otherwise
+        // const keyDownActions = keys.reduce((actions, key) => {
+        //     return isModifier(key)
+        //         ? actions.keyDown(asCodePoint(key))
+        //         : actions.sendKeys(asCodePoint(key))
+        // }, this.browser.actions());
+
+        // // keyUp for any modifier keys, ignore for regular keys
+        // const keyUpActions = keys.reduce((actions, key) => {
+        //     return isModifier(key)
+        //         ? actions.keyUp(asCodePoint(key))
+        //         : actions;
+        // }, keyDownActions);
+
+        // return promised(keyUpActions.perform());
+    }
+    executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
+        throw new Error('Method not implemented.');
+    }
+    executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
+        throw new Error('Method not implemented.');
+    }
+    currentPage(): Promise<SerenityPage> {
+        throw new Error('Method not implemented.');
+    }
+    allPages(): Promise<SerenityPage[]> {
+        throw new Error('Method not implemented.');
+    }
+    cookie(name: string): Promise<Cookie> {
+        throw new Error('Method not implemented.');
+    }
+    setCookie(cookieData: CookieData): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    deleteAllCookies(): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    modalDialog(): Promise<ModalDialog> {
+        throw new Error('Method not implemented.');
+    }
+    lastScriptExecutionResult<R = any>(): R {
+        throw new Error('Method not implemented.');
+    }
+    takeScreenshot(): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+    switchToFrame(targetOrIndex: string | number | PageElement<any, any>): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    switchToParentFrame(): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    switchToDefaultContent(): Promise<void> {
+        throw new Error('Method not implemented.');
     }
 
-    /**
-     * @desc
-     *  Locates all elements identified by the selector
-     *
-     * @param {string} selector
-     * @returns {Promise<ElementHandle[]>}
-     */
-    public async $$(selector: string): Promise<ElementHandle[]> {
-        const workingContext = await this.workingContext();
-        return workingContext.$$(selector);
-    }
+//    public withOptions(options: LaunchOptions): BrowseTheWebWithPlaywright {
+//        this.launchOptions = options;
+//        return this;
+//    }
+//
+//    /**
+//     * @desc
+//     *  Navigate to the given destination and loads mock modules before Angular.
+//     *  Assumes that the page being loaded uses Angular.
+//     *
+//     * @param {string} destination
+//     * @param {number?} timeoutInMillis
+//     *
+//     * @returns {Promise<void>}
+//     */
+//    async open(
+//        destination: string,
+//        options?: {
+//            referer?: string;
+//            timeout?: number;
+//            waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+//        },
+//    ): Promise<Response> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.goto(destination, options);
+//    }
+//
+//    /**
+//     * @desc
+//     *  Interface for navigating back and forth in the browser history.
+//     *
+//     *  @returns {Navigation}
+//     */
+//    async navigate(
+//        where: 'back' | 'forward' | 'reload',
+//        options: NavigateOptions,
+//    ): Promise<Response> {
+//        const page = await this.page();
+//        switch (where) {
+//            case 'back':
+//                return page.goBack(options);
+//            case 'forward':
+//                return page.goForward(options);
+//            default:
+//                return page.reload(options);
+//        }
+//    }
+//
+//    /**
+//     * @desc
+//     *  Interface for defining sequences of complex user interactions.
+//     *
+//     * @returns {ActionSequence}
+//     *
+//     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
+//     */
+//    async mouse(): Promise<Mouse> {
+//        const page = await this.page();
+//        return page.mouse;
+//    }
+//
+//    /**
+//     * @desc
+//     *  Interface for managing browser and driver state.
+//     *
+//     * @returns {Options}
+//     *
+//     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
+//     */
+//    context(): Promise<BrowserContext> {
+//        return this.browserContext();
+//    }
+//
+//    /**
+//     * @desc
+//     *  returns Fram by a selector
+//     *
+//     * @param {string} selector
+//     *
+//     * @returns {Promise<Frame>}
+//     */
+//    public async getFrame(selector: string): Promise<Frame> {
+//        const page = await this.workingContext();
+//        const element = await page.$(selector)
+//        return element.contentFrame();
+//    }
+//
+//    /**
+//     * @desc
+//     *  Closes the browser
+//     *
+//     * @returns {Promise<void>}
+//     */
+//    async closeBrowser(): Promise<void> {
+//        const browser = await this.browser();
+//        await browser.close();
+//        this._browser = undefined;
+//        this.clearContext();
+//    }
 
-    public async waitForSelector(
-        selector: string,
-        options: PageWaitForSelectorOptions,
-    ): Promise<null | ElementHandle> {
-        const workingContext = await this.workingContext();
-        return workingContext.waitForSelector(selector, options);
-    }
+   /**
+    * @desc
+    *  Closes the browser
+    *
+    * @returns {Promise<void>}
+    */
+   private async closePage(): Promise<void> {
+       const page = await this.page();
+       await page.close();
+       this._page = undefined;
+       this.clearContext();
+   }
 
-    public async click(
-        selector: string,
-        options?: {
-            button?: 'left' | 'right' | 'middle';
-            clickCount?: number;
-            delay?: number;
-            force?: boolean;
-            modifiers?: ('Alt' | 'Control' | 'Meta' | 'Shift')[];
-            noWaitAfter?: boolean;
-            position?: {
-                x: number;
-                y: number;
-            };
-            timeout?: number;
-            trial?: boolean;
-        },
-    ): Promise<void> {
-        const workingContext = await this.workingContext();
-        return workingContext.click(selector, options);
-    }
-
-    public async doubleClick(selector: string): Promise<void> {
-        const workingContext = await this.workingContext();
-        return workingContext.dblclick(selector);
-    }
-
-    public async hover(selector: string): Promise<void> {
-        const workingContext = await this.workingContext();
-        return workingContext.hover(selector);
-    }
-
-    /**
-     * @desc
-     *  Evaluates the function on the page with arguments
-     *
-     * @param {PageFunction<any[], unknown>} script
-     * @param {any[]} args
-     *
-     * @returns {Promise<unknown>}
-     *
-     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
-     */
-    //public async evaluate<Argument, R>(
-    //    script: PageFunction<Argument, R>,
-    //    args: Argument,
-    //): Promise<R> {
-    //    const workingContext = await this.workingContext();
-    //    const result = await workingContext.evaluate(script, args);
-    //    this._lastScriptExecutionResult = result;
-    //    return result;
-    //}
-
-    public lastScriptExecutionResult(): unknown {
-        return this._lastScriptExecutionResult;
-    }
-
-    /**
-     * @desc
-     *  Schedule a command to take a screenshot. The driver makes a best effort to
-     *  return a base64-encoded screenshot of the following, in order of preference:
-     *
-     *  1. Entire page
-     *  2. Current window
-     *  3. Visible portion of the current frame
-     *  4. The entire display containing the browser
-     *
-     * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
-     */
-    public async takeScreenshot(options?: ScreenshotOptions): Promise<Buffer> {
-        const page = await this.page();
-        return page.screenshot(options);
-    }
-
-    /**
-     * @desc
-     *  Returns the title of the current page.
-     *
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
-     *
-     * @returns {Promise<string>}
-     */
-    public async getPageTitle(): Promise<string> {
-        const page = await this.page();
-        return page.title();
-    }
-
-    /**
-     * @desc
-     *  Returns the url of the current page.
-     *
-     * @returns {Promise<string>}
-     */
-    public async getCurrentUrl(): Promise<string> {
-        const page = await this.page();
-        return page.url();
-    }
-
-    /**
-     * @desc
-     *  Pause the actor flow for a specified number of milliseconds.
-     *
-     * @param {number} millis
-     * @returns {Promise<void>}
-     */
-    public async waitForTimeout(millis: number): Promise<void> {
-        const page = await this.page();
-        return page.waitForTimeout(millis);
-    }
-
-    /**
-     * @desc
-     * Resizes browser window
-     */
-    public async resizeBrowserWindow(size: {
-        height: number;
-        width: number;
-    }): Promise<void> {
-        const page = await this.page();
-        page.setViewportSize(size);
-    }
-
-    /**
-     * @desc
-     * Resizes browser window
-     */
-    public async windowSize(): Promise<{
-        height: number;
-        width: number;
-    }> {
-        const page = await this.page();
-        return page.viewportSize();
-    }
-
-    public async switchToFrame(
-        handleOrNameOrIndex: ElementHandle | number | string,
-    ): Promise<void> {
-        const frame = await this.normalizeFrame(handleOrNameOrIndex);
-        this.setWorkingContext(frame);
-    }
-
-    public async switchToParentFrame(): Promise<void> {
-        const context = await this.workingContext();
-        if ((
-            context as Frame
-        ).parentFrame) {
-            if ((
-                context as Frame
-            ).parentFrame()) {
-                this.setWorkingContext((
-                    context as Frame
-                ).parentFrame());
-            } else {
-                this.setWorkingContext(await this.page());
-            }
-        }
-    }
-
-    public async switchToDefaultContent(): Promise<void> {
-        this.setWorkingContext(await this.page());
-    }
-
-    public async switchToWindow(nameOrIndex: string | number): Promise<void> {
-        const type = typeof nameOrIndex;
-        const context = await this.context();
-        switch (type) {
-            case 'number': {
-                this.setWorkingContext(
-                    context.pages()[nameOrIndex as number],
-                );
-                break;
-            }
-            case 'string': {
-                const pagesWithTitles = await Promise.all(context
-                    .pages()
-                    .map(async (page) => (
-                        { page, title: await page.title() }
-                    )));
-                this.setWorkingContext(
-                    pagesWithTitles.find(
-                        (pageWithTitle) => pageWithTitle.title === nameOrIndex,
-                    ).page,
-                );
-                break;
-            }
-            default:
-                throw new Error(
-                    'Unsupported window name or index type. How did you even get here? Don\'t use \'any\', I\'m watching you.',
-                );
-        }
-    }
-
-    public async memorizeContext(): Promise<string> {
-        this.storedContext.push(await this.workingContext());
-        return '';
-    }
-
-    public async restoreContext(): Promise<void> {
-        this.setWorkingContext(this.storedContext.pop());
-    }
-
-    public async switchToLastOpenedWindow(): Promise<void> {
-        const pages = await this.pages();
-        if (1 === pages.length) {
-            throw new LogicError(`No new window has been opened to switch to`);
-        }
-        this.setWorkingContext(pages[pages.length - 1]);
-    }
-
-    public async switchToOriginalWindow(): Promise<void> {
-        const pages = await this.pages();
-        if (1 === pages.length) {
-            throw new LogicError(
-                `Only one window is open - already on original window`,
-            );
-        }
-        this.setWorkingContext(pages[0]);
-    }
-
-    private async normalizeFrame(
-        nameorIndexOrHandle: string | number | ElementHandle,
-    ): Promise<Frame> {
-        const page = await this.page();
-        const type = typeof nameorIndexOrHandle;
-        switch (type) {
-            case 'number': {
-                return page.frames()[nameorIndexOrHandle as number];
-            }
-            case 'string': {
-                return page.frame({ name: nameorIndexOrHandle as string });
-            }
-            default: {
-                return (
-                    nameorIndexOrHandle as ElementHandle
-                ).contentFrame();
-            }
-        }
-    }
+//    /**
+//     * @desc
+//     *  Closes the browser
+//     *
+//     * @returns {Promise<void>}
+//     */
+//    async closeAllOtherWindows(): Promise<void> {
+//        const windows = await this.pages();
+//        const windowToKeep = await this.page();
+//        const windowsToClose = windows.filter((window) => window !== windowToKeep);
+//        await Promise.all(windowsToClose.map((window) => window.close()));
+//    }
+//
+//    /**
+//     * @desc
+//     *  Locates a single element identified by the selector
+//     *
+//     * @param {string} selector
+//     * @returns {Promise<ElementHandle>}
+//     */
+//    public async $(selector: string): Promise<ElementHandle> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.$(selector);
+//    }
+//
+//    /**
+//     * @desc
+//     *  Locates all elements identified by the selector
+//     *
+//     * @param {string} selector
+//     * @returns {Promise<ElementHandle[]>}
+//     */
+//    public async $$(selector: string): Promise<ElementHandle[]> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.$$(selector);
+//    }
+//
+//    public async waitForSelector(
+//        selector: string,
+//        options: PageWaitForSelectorOptions,
+//    ): Promise<null | ElementHandle> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.waitForSelector(selector, options);
+//    }
+//
+//    public async click(
+//        selector: string,
+//        options?: {
+//            button?: 'left' | 'right' | 'middle';
+//            clickCount?: number;
+//            delay?: number;
+//            force?: boolean;
+//            modifiers?: ('Alt' | 'Control' | 'Meta' | 'Shift')[];
+//            noWaitAfter?: boolean;
+//            position?: {
+//                x: number;
+//                y: number;
+//            };
+//            timeout?: number;
+//            trial?: boolean;
+//        },
+//    ): Promise<void> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.click(selector, options);
+//    }
+//
+//    public async doubleClick(selector: string): Promise<void> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.dblclick(selector);
+//    }
+//
+//    public async hover(selector: string): Promise<void> {
+//        const workingContext = await this.workingContext();
+//        return workingContext.hover(selector);
+//    }
+//
+//    /**
+//     * @desc
+//     *  Evaluates the function on the page with arguments
+//     *
+//     * @param {PageFunction<any[], unknown>} script
+//     * @param {any[]} args
+//     *
+//     * @returns {Promise<unknown>}
+//     *
+//     * @see {@link BrowseTheWebWithPlaywright#getLastScriptExecutionResult}
+//     */
+//    //public async evaluate<Argument, R>(
+//    //    script: PageFunction<Argument, R>,
+//    //    args: Argument,
+//    //): Promise<R> {
+//    //    const workingContext = await this.workingContext();
+//    //    const result = await workingContext.evaluate(script, args);
+//    //    this._lastScriptExecutionResult = result;
+//    //    return result;
+//    //}
+//
+//    public lastScriptExecutionResult(): unknown {
+//        return this._lastScriptExecutionResult;
+//    }
+//
+//    /**
+//     * @desc
+//     *  Schedule a command to take a screenshot. The driver makes a best effort to
+//     *  return a base64-encoded screenshot of the following, in order of preference:
+//     *
+//     *  1. Entire page
+//     *  2. Current window
+//     *  3. Visible portion of the current frame
+//     *  4. The entire display containing the browser
+//     *
+//     * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
+//     */
+//    public async takeScreenshot(options?: ScreenshotOptions): Promise<Buffer> {
+//        const page = await this.page();
+//        return page.screenshot(options);
+//    }
+//
+//    /**
+//     * @desc
+//     *  Returns the title of the current page.
+//     *
+//     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
+//     *
+//     * @returns {Promise<string>}
+//     */
+//    public async getPageTitle(): Promise<string> {
+//        const page = await this.page();
+//        return page.title();
+//    }
+//
+//    /**
+//     * @desc
+//     *  Returns the url of the current page.
+//     *
+//     * @returns {Promise<string>}
+//     */
+//    public async getCurrentUrl(): Promise<string> {
+//        const page = await this.page();
+//        return page.url();
+//    }
+//
+//    /**
+//     * @desc
+//     *  Pause the actor flow for a specified number of milliseconds.
+//     *
+//     * @param {number} millis
+//     * @returns {Promise<void>}
+//     */
+//    public async waitForTimeout(millis: number): Promise<void> {
+//        const page = await this.page();
+//        return page.waitForTimeout(millis);
+//    }
+//
+//    /**
+//     * @desc
+//     * Resizes browser window
+//     */
+//    public async resizeBrowserWindow(size: {
+//        height: number;
+//        width: number;
+//    }): Promise<void> {
+//        const page = await this.page();
+//        page.setViewportSize(size);
+//    }
+//
+//    /**
+//     * @desc
+//     * Resizes browser window
+//     */
+//    public async windowSize(): Promise<{
+//        height: number;
+//        width: number;
+//    }> {
+//        const page = await this.page();
+//        return page.viewportSize();
+//    }
+//
+//    public async switchToFrame(
+//        handleOrNameOrIndex: ElementHandle | number | string,
+//    ): Promise<void> {
+//        const frame = await this.normalizeFrame(handleOrNameOrIndex);
+//        this.setWorkingContext(frame);
+//    }
+//
+//    public async switchToParentFrame(): Promise<void> {
+//        const context = await this.workingContext();
+//        if ((
+//            context as Frame
+//        ).parentFrame) {
+//            if ((
+//                context as Frame
+//            ).parentFrame()) {
+//                this.setWorkingContext((
+//                    context as Frame
+//                ).parentFrame());
+//            } else {
+//                this.setWorkingContext(await this.page());
+//            }
+//        }
+//    }
+//
+//    public async switchToDefaultContent(): Promise<void> {
+//        this.setWorkingContext(await this.page());
+//    }
+//
+//    public async switchToWindow(nameOrIndex: string | number): Promise<void> {
+//        const type = typeof nameOrIndex;
+//        const context = await this.context();
+//        switch (type) {
+//            case 'number': {
+//                this.setWorkingContext(
+//                    context.pages()[nameOrIndex as number],
+//                );
+//                break;
+//            }
+//            case 'string': {
+//                const pagesWithTitles = await Promise.all(context
+//                    .pages()
+//                    .map(async (page) => (
+//                        { page, title: await page.title() }
+//                    )));
+//                this.setWorkingContext(
+//                    pagesWithTitles.find(
+//                        (pageWithTitle) => pageWithTitle.title === nameOrIndex,
+//                    ).page,
+//                );
+//                break;
+//            }
+//            default:
+//                throw new Error(
+//                    'Unsupported window name or index type. How did you even get here? Don\'t use \'any\', I\'m watching you.',
+//                );
+//        }
+//    }
+//
+//    public async memorizeContext(): Promise<string> {
+//        this.storedContext.push(await this.workingContext());
+//        return '';
+//    }
+//
+//    public async restoreContext(): Promise<void> {
+//        this.setWorkingContext(this.storedContext.pop());
+//    }
+//
+//    public async switchToLastOpenedWindow(): Promise<void> {
+//        const pages = await this.pages();
+//        if (1 === pages.length) {
+//            throw new LogicError(`No new window has been opened to switch to`);
+//        }
+//        this.setWorkingContext(pages[pages.length - 1]);
+//    }
+//
+//    public async switchToOriginalWindow(): Promise<void> {
+//        const pages = await this.pages();
+//        if (1 === pages.length) {
+//            throw new LogicError(
+//                `Only one window is open - already on original window`,
+//            );
+//        }
+//        this.setWorkingContext(pages[0]);
+//    }
+//
+//    private async normalizeFrame(
+//        nameorIndexOrHandle: string | number | ElementHandle,
+//    ): Promise<Frame> {
+//        const page = await this.page();
+//        const type = typeof nameorIndexOrHandle;
+//        switch (type) {
+//            case 'number': {
+//                return page.frames()[nameorIndexOrHandle as number];
+//            }
+//            case 'string': {
+//                return page.frame({ name: nameorIndexOrHandle as string });
+//            }
+//            default: {
+//                return (
+//                    nameorIndexOrHandle as ElementHandle
+//                ).contentFrame();
+//            }
+//        }
+//    }
 }
 
 interface PageWaitForSelectorOptions {
