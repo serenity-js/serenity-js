@@ -47,7 +47,7 @@ export class ProtractorPageElements
         return this.asElement(elements.get(index));
     }
 
-    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]> {
+    async map<Mapped_Type>(fn: (element: PageElement, index?: number, elements?: PageElements) => Mapped_Type): Promise<Array<Awaited<Mapped_Type>>> {
         const elements = await this.nativeElementList() as unknown as ElementArrayFinder;
 
         return elements.map((element?: ElementFinder, i?: number) =>

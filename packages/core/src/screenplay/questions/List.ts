@@ -6,21 +6,16 @@ import { Adapter } from '../model';
 import { Question } from '../Question';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
+import { Mappable } from './Mappable';
 import { MetaQuestion } from './MetaQuestion';
 
 const f = format({ markQuestions: false });
 
-export interface Mappable<Item_Type, Collection_Type> {
-    map<Mapped_Item_Type>(
-        mapping: (item: Item_Type, index?: number, collection?: Collection_Type) => Mapped_Item_Type
-    ): Promise<Array<Awaited<Mapped_Item_Type>>> | Array<Mapped_Item_Type>;
-}
-
-export class List<Item_Type, Collection_Type> extends Question<Promise<Array<Item_Type>>> {
+export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collection_Type>> extends Question<Promise<Array<Item_Type>>> {
     private readonly predicates: Array<Predicate<Item_Type, unknown>> = [];
     private subject: string;
 
-    static of<IT, CT>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT> {
+    static of<IT, CT extends Mappable<IT, CT>>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT> {
         return new List<IT, CT>(collection);
     }
 

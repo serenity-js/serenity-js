@@ -5,7 +5,7 @@ import { BrowseTheWeb } from '../abilities';
 const d = format({ markQuestions: false });
 const f = format({ markQuestions: true });
 
-export abstract class PageElement<NativeElementRoot = any, NativeElement = any> {
+export abstract class PageElement<Native_Element_Root_Type = any, Native_Element_Type = any> {
     static of<NER, NE>(childElement: Answerable<PageElement<NER, NE>>, parentElement: Answerable<PageElement<NER, NE>>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
@@ -57,14 +57,14 @@ export abstract class PageElement<NativeElementRoot = any, NativeElement = any> 
     }
 
     constructor(
-        protected readonly context: () => Promise<NativeElementRoot> | NativeElementRoot,
-        protected readonly locator: (root: NativeElementRoot) => Promise<NativeElement> | NativeElement
+        protected readonly context: () => Promise<Native_Element_Root_Type> | Native_Element_Root_Type,
+        protected readonly locator: (root: Native_Element_Root_Type) => Promise<Native_Element_Type> | Native_Element_Type
     ) {
     }
 
-    abstract of(parent: PageElement<NativeElementRoot, NativeElement>): PageElement<NativeElementRoot, NativeElement>;
+    abstract of(parent: PageElement<Native_Element_Root_Type, Native_Element_Type>): PageElement<Native_Element_Root_Type, Native_Element_Type>;
 
-    async nativeElement(): Promise<NativeElement> {
+    async nativeElement(): Promise<Native_Element_Type> {
         try {
             const context = await this.context();
             return this.locator(context);
