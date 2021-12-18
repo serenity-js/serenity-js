@@ -42,7 +42,7 @@ export class WebdriverIOPageElements
         return new WebdriverIOPageElement(this.context, () => elements[index])
     }
 
-    async map<O>(fn: (element: PageElement, index?: number, elements?: PageElements) => Promise<O> | O): Promise<O[]> {
+    async map<Mapped_Type>(fn: (element: PageElement, index?: number, elements?: PageElements) => Mapped_Type): Promise<Array<Awaited<Mapped_Type>>> {
         const elements = await this.nativeElementList();
 
         return Promise.all(

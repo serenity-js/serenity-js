@@ -1,8 +1,6 @@
 import { Answerable, AnswersQuestions, LogicError, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElements } from '../models';
-
 /**
  * @desc
  *  A base class for questions about {@link PageElement}s.
@@ -45,7 +43,7 @@ export abstract class ElementQuestion<T>
      *
      * @protected
      */
-    protected async resolve<T=PageElement|PageElements>(
+    protected async resolve<T>(
         actor: AnswersQuestions,
         element: Answerable<T>,
     ): Promise<T> {
