@@ -93,7 +93,7 @@ describe('PlaywrightPageElement', () => {
         await page.setContent(`
             <html>
                 <button id="to-hide">Hide me!</button>
-                i<br/>
+                <br/>
                 <button
                         id="to-hover"
                         onmouseover="
@@ -150,7 +150,25 @@ describe('PlaywrightPageElement', () => {
         expect(await element.isActive()).to.be.false;
     });
 
-    it('can return isClickable');
+    it('can return isClickable', async () => {
+        const element = await PlaywrightPageElement.locatedByTagName('button').answeredBy(actor);
+
+        await page.setContent(`
+                <button
+                        onclick="
+                                document.getElementById('to-hide').style.display = 'none';"
+                >
+                    Click me!
+                </button>
+        `);
+        expect(await element.isClickable()).to.be.true;
+
+        await page.setContent(`
+            <button id='test-input' style="display: none">Click me!</button>
+        `);
+        expect(await element.isClickable()).to.be.false;
+    });
+
     it('can return isDisplayed');
     it('can return isEnabled');
     it('can return isPresent');
