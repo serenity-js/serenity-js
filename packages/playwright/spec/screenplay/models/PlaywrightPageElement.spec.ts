@@ -183,7 +183,20 @@ describe('PlaywrightPageElement', () => {
         expect(await element.isDisplayed()).to.be.false;
     });
 
-    it('can return isEnabled');
+    it('can return isEnabled', async () => {
+        const element = await PlaywrightPageElement.locatedByTagName('button').answeredBy(actor);
+
+        await page.setContent(`
+            <button id='test-input'>Click me!</button>
+        `);
+        expect(await element.isEnabled()).to.be.true;
+
+        await page.setContent(`
+            <button id='test-input' disabled>Click me!</button>
+        `);
+        expect(await element.isEnabled()).to.be.false;
+    });
+
     it('can return isPresent');
     it('can return isSelected');
     it('can be a child of another element');
