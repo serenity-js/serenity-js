@@ -127,7 +127,15 @@ describe('PlaywrightPageElement', () => {
         expect(actualName).to.be.equal(expectedName);
     });
 
-    it('can return value');
+    it('can return value', async () => {
+        const expectedValue = 'entered value';
+        await page.setContent("<input id='test-input'></input>");
+        const element = await PlaywrightPageElement.locatedById('test-input').answeredBy(actor);
+        await element.enterValue(expectedValue);
+        let text = await element.value();
+        expect(text).to.be.equal(expectedValue);
+    });
+
     it('can return isActive');
     it('can return isClickable');
     it('can return isDisplayed');
