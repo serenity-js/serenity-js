@@ -50,8 +50,9 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.inputValue();
     }
-    isActive(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async isActive(): Promise<boolean> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.evaluate((el) => el === document.activeElement);
     }
     isClickable(): Promise<boolean> {
         throw new Error('Method not implemented.');

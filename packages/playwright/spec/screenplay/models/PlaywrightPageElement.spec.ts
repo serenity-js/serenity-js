@@ -136,7 +136,20 @@ describe('PlaywrightPageElement', () => {
         expect(text).to.be.equal(expectedValue);
     });
 
-    it('can return isActive');
+    it('can return isActive', async () => {
+        const element = await PlaywrightPageElement.locatedById('test-input').answeredBy(actor);
+
+        await page.setContent(`
+            <input id='test-input'></input>
+            <input id='another-input'></input>
+        `);
+        await (await page.$('id=test-input')).focus();
+        expect(await element.isActive()).to.be.true;
+
+        await (await page.$('id=another-input')).focus();
+        expect(await element.isActive()).to.be.false;
+    });
+
     it('can return isClickable');
     it('can return isDisplayed');
     it('can return isEnabled');
