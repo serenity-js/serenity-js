@@ -19,8 +19,9 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.click();
     }
-    doubleClick(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async doubleClick(): Promise<void> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.dblclick();
     }
     scrollIntoView(): Promise<void> {
         throw new Error('Method not implemented.');

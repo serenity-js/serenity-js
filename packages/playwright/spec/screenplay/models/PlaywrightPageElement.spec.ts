@@ -68,21 +68,25 @@ describe('PlaywrightPageElement', () => {
     });
 
     it('can double click', async () => {
-        // await page.setContent(`
-            // <html>
-                // <button
-                        // id='to-hide'
-                        // ondblclick="
-                                // document.getElementById('to-hide').style.display = 'none';"
-                // >
-                    // Click me!
-                // </button>
-            // </html>`
-        // );
-        // expect(await page.$('button')).to.not.be.null;
-        // const element = await PlaywrightPageElement.locatedById('to-hide').answeredBy(actor);
-        // await element.doubleClick();
-        // expect(await page.$('button')).to.be.null;
+        await page.setContent(`
+            <html>
+                <button
+                        id='to-hide'
+                        ondblclick="
+                                document.getElementById('to-hide').style.display = 'none';"
+                >
+                    Click me!
+                </button>
+            </html>`
+        );
+        let foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.true;
+
+        const element = await PlaywrightPageElement.locatedById('to-hide').answeredBy(actor);
+        await element.doubleClick();
+
+        foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.false;
     });
     it('can scroll into view');
     it('can hover over');
