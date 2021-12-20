@@ -90,9 +90,11 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         return !isDisabled;
     }
 
-    isPresent(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async isPresent(): Promise<boolean> {
+        const nativeElement = await this.nativeElement();
+        return Boolean(nativeElement);
     }
+
     isSelected(): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
