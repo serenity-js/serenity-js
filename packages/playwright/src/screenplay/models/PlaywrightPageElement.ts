@@ -1,11 +1,10 @@
-import { Adapter, Answerable, Question } from '@serenity-js/core';
 import { PageElement } from '@serenity-js/web';
 import { ElementHandle } from 'playwright';
 import { PlaywrightNativeRootElement } from './PlaywrightNativeRootElement';
 
 export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootElement, ElementHandle> {
-    of(parent: PageElement<any, any>): PageElement<any, any> {
-        throw new Error('Method not implemented.');
+    of(parent: PlaywrightPageElement): PageElement<PlaywrightNativeRootElement, ElementHandle> {
+        return new PlaywrightPageElement(() => parent.nativeElement(), this.locator);
     }
 
     async enterValue(value: string | number | (string | number)[]): Promise<void> {
