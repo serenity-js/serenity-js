@@ -7,36 +7,44 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
     of(parent: PageElement<any, any>): PageElement<any, any> {
         throw new Error('Method not implemented.');
     }
+
     async enterValue(value: string | number | (string | number)[]): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.fill(value as string);
     }
+
     async clearValue(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.fill('');
     }
+
     async click(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.click();
     }
+
     async doubleClick(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.dblclick();
     }
+
     async scrollIntoView(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.scrollIntoViewIfNeeded();
     }
+
     async hoverOver(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.hover();
     }
+
     async rightClick(): Promise<void> {
         const nativeElement = await this.nativeElement();
         return nativeElement.click({
             button: 'right',
         });
     }
+
     async attribute(name: string): Promise<string> {
         const nativeElement = await this.nativeElement();
         return nativeElement.getAttribute(name);
@@ -46,14 +54,17 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.textContent();
     }
+
     async value(): Promise<string> {
         const nativeElement = await this.nativeElement();
         return nativeElement.inputValue();
     }
+
     async isActive(): Promise<boolean> {
         const nativeElement = await this.nativeElement();
         return nativeElement.evaluate((el) => el === document.activeElement);
     }
+
     async isClickable(): Promise<boolean> {
         try {
             const nativeElement = await this.nativeElement();
@@ -67,8 +78,10 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
             return false;
         }
     }
-    isDisplayed(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    async isDisplayed(): Promise<boolean> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.isVisible();
     }
     isEnabled(): Promise<boolean> {
         throw new Error('Method not implemented.');
