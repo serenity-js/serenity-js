@@ -14,13 +14,7 @@ describe('Page', () => {
         const MainPage = {
             title:          'Main page title',
             heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
-            newTabLink:     PageElement.locatedById('new-tab-link').describedAs('new tab link'),
             newPopUpLink:   PageElement.locatedById('new-popup-link').describedAs('new pop-up link'),
-        };
-
-        const NewTab = {
-            expectedTitle:  'New tab title',
-            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
         };
 
         const Popup = {
