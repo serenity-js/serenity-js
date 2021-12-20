@@ -1,4 +1,4 @@
-import { Question } from '@serenity-js/core';
+import { Adapter, Question } from '@serenity-js/core';
 
 import { CallAnApi } from '../abilities';
 
@@ -28,6 +28,31 @@ import { CallAnApi } from '../abilities';
  *          author: 'Robert M. Pirsig',
  *      })),
  *  );
+ *
+ * @example <caption>Use Serenity/JS adapters to navigate complex response objects</caption>
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
+ *
+ *  interface Developer {
+ *      name: string;
+ *      id: string;
+ *      projects: Project[];
+ *  }
+ *
+ *  interface Project {
+ *      name: string;
+ *      repoUrl: string;
+ *  }
+ *
+ *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+ *
+ *  actor.attemptsTo(
+ *      Send.a(GetRequest.to('/developers/jan-molak')),
+ *      Ensure.that(LastResponse.status(), equals(200)),
+ *      Ensure.that(LastResponse.body<Developer>().name, equals('Jan Molak')),
+ *      Ensure.that(LastResponse.body<Developer>().projects[0].name, equals('Serenity/JS')),
+ *  );
  */
 export class LastResponse {
 
@@ -37,7 +62,7 @@ export class LastResponse {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<number>}
      */
-    static status(): Question<number> {
+    static status(): Question<number> & Adapter<number> {
         return Question.about<number>(`the status of the last response`, actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.status);
         });
@@ -99,7 +124,7 @@ export class LastResponse {
      * @see {@link @serenity-js/core/lib/screenplay/questions~Property}
      * @see {@link @serenity-js/core/lib/screenplay/questions~List}
      */
-    static body<T = any>(): Question<T> {
+    static body<T = any>(): Question<T> & Adapter<T> {
         return Question.about<T>(`the body of the last response`, actor => {
             return CallAnApi.as(actor).mapLastResponse<T>(response => response.data as T);
         });
@@ -112,7 +137,7 @@ export class LastResponse {
      * @param {string} name
      * @returns {@serenity-js/core/lib/screenplay~Question<string>}
      */
-    static header(name: string): Question<string> {
+    static header(name: string): Question<string> & Adapter<string> {
         return Question.about<string>(`the '${ name }' header of the last response`, actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.headers[name]);
         });
@@ -125,7 +150,7 @@ export class LastResponse {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}
      */
-    static headers(): Question<Record<string, string>> {
+    static headers(): Question<Record<string, string>> & Adapter<Record<string, string>> {
         return Question.about<Record<string, string>>(`the headers or the last response`, actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.headers);
         });
