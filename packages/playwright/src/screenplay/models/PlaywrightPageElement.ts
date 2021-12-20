@@ -31,8 +31,11 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.hover();
     }
-    rightClick(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async rightClick(): Promise<void> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.click({
+            button: 'right',
+        });
     }
     attribute(name: string): Promise<string> {
         throw new Error('Method not implemented.');
