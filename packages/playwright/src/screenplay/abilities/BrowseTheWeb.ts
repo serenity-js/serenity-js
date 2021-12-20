@@ -174,11 +174,15 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         const page = await this.page();
         page.reload();
     }
-    waitFor(duration: Duration): Promise<void> {
-        throw new Error('Method not implemented.');
+    async waitFor(duration: Duration): Promise<void> {
+        const page = await this.page();
+        return page.waitForTimeout(duration.inMilliseconds());
     }
-    waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
-        throw new Error('Method not implemented.');
+    async waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
+        const page = await this.page();
+        page.waitForFunction(condition, {
+            timeout: timeout.inMilliseconds(),
+        });
     }
     findByCss(selector: string): PageElement<any, any> {
         return this.findElement(root => root.$(selector));
