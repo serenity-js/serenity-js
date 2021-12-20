@@ -41,8 +41,10 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.getAttribute(name);
     }
-    text(): Promise<string> {
-        throw new Error('Method not implemented.');
+
+    async text(): Promise<string> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.textContent();
     }
     value(): Promise<string> {
         throw new Error('Method not implemented.');

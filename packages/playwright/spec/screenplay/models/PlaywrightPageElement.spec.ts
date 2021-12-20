@@ -126,7 +126,7 @@ describe('PlaywrightPageElement', () => {
 
         expect(actualName).to.be.equal(expectedName);
     });
-    it('can can return text');
+
     it('can return value');
     it('can return isActive');
     it('can return isClickable');
