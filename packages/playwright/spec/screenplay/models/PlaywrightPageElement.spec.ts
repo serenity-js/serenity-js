@@ -210,6 +210,23 @@ describe('PlaywrightPageElement', () => {
         expect(await element.isPresent()).to.be.false;
     });
 
-    it('can return isSelected');
-    it('can be a child of another element');
+    it('can return isSelected', async () => {
+        await page.setContent(`
+            <select id='test-select'>
+                <option id="option-a" value="a">a</option>
+                <option id="option-b" value="b">b</option>
+                <option value="c">c</option>
+            </select>
+        `);
+
+        const select = await page.$('select');
+        await select.selectOption('a');
+        expect(await select.inputValue()).to.be.equal('a');
+
+        let element = await PlaywrightPageElement.locatedById('option-a').answeredBy(actor);
+        expect(await element.isSelected()).to.be.true;
+
+        element = await PlaywrightPageElement.locatedById('option-b').answeredBy(actor);
+        expect(await element.isSelected()).to.be.false;
+    });
 });

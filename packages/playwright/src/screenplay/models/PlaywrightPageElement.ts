@@ -94,8 +94,13 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         return Boolean(nativeElement);
     }
 
-    isSelected(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async isSelected(): Promise<boolean> {
+        const nativeElement = await this.nativeElement();
+        const result = await nativeElement.evaluate((el) => {
+            const parentElement = el.parentElement;
+            return (parentElement as any).options[(parentElement as any).selectedIndex] === el;
+        });
+        return result;
     }
 
 }
