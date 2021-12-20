@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Actor, actorCalled } from '@serenity-js/core';
 
-import { Browser, chromium, Page,  } from 'playwright';
+import { Browser, chromium, Page } from 'playwright';
 import { BrowseTheWebWithPlaywright } from '../../../src';
 
 import { PlaywrightPageElement } from '../../../src/screenplay/models/PlaywrightPageElement';
@@ -50,7 +50,7 @@ describe('PlaywrightPageElement', () => {
         await page.setContent(`
             <html>
                 <button
-                        id="to-hide"
+                        id='to-hide'
                         onclick="
                                 document.getElementById('to-hide').style.display = 'none';"
                 >
@@ -58,12 +58,32 @@ describe('PlaywrightPageElement', () => {
                 </button>
             </html>`
         );
+        let foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.true;
+
         const element = await PlaywrightPageElement.locatedById('to-hide').answeredBy(actor);
         await element.click();
-        expect(await page.$('id=to=hide')).to.be.null;
+        foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.false;
     });
 
-    it('can double click');
+    it('can double click', async () => {
+        // await page.setContent(`
+            // <html>
+                // <button
+                        // id='to-hide'
+                        // ondblclick="
+                                // document.getElementById('to-hide').style.display = 'none';"
+                // >
+                    // Click me!
+                // </button>
+            // </html>`
+        // );
+        // expect(await page.$('button')).to.not.be.null;
+        // const element = await PlaywrightPageElement.locatedById('to-hide').answeredBy(actor);
+        // await element.doubleClick();
+        // expect(await page.$('button')).to.be.null;
+    });
     it('can scroll into view');
     it('can hover over');
     it('can right click');
