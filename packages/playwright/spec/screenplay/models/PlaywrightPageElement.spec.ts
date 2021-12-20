@@ -113,8 +113,19 @@ describe('PlaywrightPageElement', () => {
         expect(await foundElement.isVisible()).to.be.false;
     });
 
-    it('can right click');
-    it('can return attribute');
+    it('can return attribute', async () => {
+        const expectedName = "Heisenberg";
+        await page.setContent(`
+            <html>
+                <div id="who" data-name="${expectedName}">Say my name!</div>
+            </html>`
+        );
+
+        const element = await PlaywrightPageElement.locatedById('who').answeredBy(actor);
+        const actualName = await element.attribute("data-name");
+
+        expect(actualName).to.be.equal(expectedName);
+    });
     it('can can return text');
     it('can return value');
     it('can return isActive');

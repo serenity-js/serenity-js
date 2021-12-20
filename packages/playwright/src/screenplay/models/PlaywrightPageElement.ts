@@ -37,8 +37,9 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
             button: 'right',
         });
     }
-    attribute(name: string): Promise<string> {
-        throw new Error('Method not implemented.');
+    async attribute(name: string): Promise<string> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.getAttribute(name);
     }
     text(): Promise<string> {
         throw new Error('Method not implemented.');
