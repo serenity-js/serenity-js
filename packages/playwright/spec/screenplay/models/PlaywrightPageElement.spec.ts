@@ -88,8 +88,31 @@ describe('PlaywrightPageElement', () => {
         foundElement = await page.$('id=to-hide');
         expect(await foundElement.isVisible()).to.be.false;
     });
-    it('can scroll into view');
-    it('can hover over');
+
+    it('can hover over', async () => {
+        await page.setContent(`
+            <html>
+                <button id="to-hide">Hide me!</button>
+                i<br/>
+                <button
+                        id="to-hover"
+                        onmouseover="
+                                document.getElementById('to-hide').style.display = 'none';"
+                >
+                    Click me!
+                </button>
+            </html>`
+        );
+        let foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.true;
+
+        const element = await PlaywrightPageElement.locatedById('to-hover').answeredBy(actor);
+        await element.hoverOver();
+
+        foundElement = await page.$('id=to-hide');
+        expect(await foundElement.isVisible()).to.be.false;
+    });
+
     it('can right click');
     it('can return attribute');
     it('can can return text');

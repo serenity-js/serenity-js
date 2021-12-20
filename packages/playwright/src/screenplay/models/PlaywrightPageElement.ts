@@ -23,11 +23,13 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
         const nativeElement = await this.nativeElement();
         return nativeElement.dblclick();
     }
-    scrollIntoView(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async scrollIntoView(): Promise<void> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.scrollIntoViewIfNeeded();
     }
-    hoverOver(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async hoverOver(): Promise<void> {
+        const nativeElement = await this.nativeElement();
+        return nativeElement.hover();
     }
     rightClick(): Promise<void> {
         throw new Error('Method not implemented.');
