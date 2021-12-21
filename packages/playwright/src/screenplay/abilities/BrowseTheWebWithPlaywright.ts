@@ -161,40 +161,50 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         const workingContext = await this.workingContext();
         await workingContext.goto(destination);
     }
+
     async navigateBack(): Promise<void> {
         const page = await this.page();
         page.goBack();
     }
+
     async navigateForward(): Promise<void> {
         const page = await this.page();
         page.goForward();
     }
+
     async reloadPage(): Promise<void> {
         const page = await this.page();
         page.reload();
     }
+
     async waitFor(duration: Duration): Promise<void> {
         const page = await this.page();
         return page.waitForTimeout(duration.inMilliseconds());
     }
+
     async waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
         const page = await this.page();
         page.waitForFunction(condition, {
             timeout: timeout.inMilliseconds(),
         });
     }
+
     findByCss(selector: string): PageElement<any, any> {
         return this.findElement(root => root.$(selector));
     }
+
     findByCssContainingText(selector: string, text: string): PageElement<any, any> {
         return this.findElement(root => root.$(`text=${selector}`));
     }
+
     findById(selector: string): PageElement<any, any> {
         return this.findElement(root => root.$(`id=${selector}`));
     }
+
     findByTagName(selector: string): PageElement<any, any> {
         return this.findElement(root => root.$(selector));
     }
+
     findByXPath(selector: string): PageElement<any, any> {
         return this.findElement(root => root.$(`xpath=${selector}`));
     }
@@ -209,9 +219,11 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     findAllByCss(selector: string): PageElements<any, any, any> {
         return this.findElements(root => root.$$(selector));
     }
+
     findAllByTagName(selector: string): PageElements<any, any, any> {
         return this.findElements(root => root.$$(selector));
     }
+
     findAllByXPath(selector: string): PageElements<any, any, any> {
         return this.findElements(root => root.$$(`xpath=${selector}`));
     }
@@ -262,42 +274,55 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
         // return promised(keyUpActions.perform());
     }
+
     executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
         throw new Error('Method not implemented.');
     }
+
     executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
         throw new Error('Method not implemented.');
     }
+
     currentPage(): Promise<SerenityPage> {
         throw new Error('Method not implemented.');
     }
+
     allPages(): Promise<SerenityPage[]> {
         throw new Error('Method not implemented.');
     }
+
     cookie(name: string): Promise<Cookie> {
         throw new Error('Method not implemented.');
     }
+
     setCookie(cookieData: CookieData): Promise<void> {
         throw new Error('Method not implemented.');
     }
+
     deleteAllCookies(): Promise<void> {
         throw new Error('Method not implemented.');
     }
+
     modalDialog(): Promise<ModalDialog> {
         throw new Error('Method not implemented.');
     }
+
     lastScriptExecutionResult<R = any>(): R {
         throw new Error('Method not implemented.');
     }
+
     takeScreenshot(): Promise<string> {
         throw new Error('Method not implemented.');
     }
+
     switchToFrame(targetOrIndex: string | number | PageElement<any, any>): Promise<void> {
         throw new Error('Method not implemented.');
     }
+
     switchToParentFrame(): Promise<void> {
         throw new Error('Method not implemented.');
     }
+
     switchToDefaultContent(): Promise<void> {
         throw new Error('Method not implemented.');
     }
@@ -402,18 +427,18 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 //        this.clearContext();
 //    }
 
-   /**
-    * @desc
-    *  Closes the browser
-    *
-    * @returns {Promise<void>}
-    */
-   private async closePage(): Promise<void> {
-       const page = await this.page();
-       await page.close();
-       this._page = undefined;
-       this.clearContext();
-   }
+   // /**
+    // * @desc
+    // *  Closes the browser
+    // *
+    // * @returns {Promise<void>}
+    // */
+   // private async closePage(): Promise<void> {
+       // const page = await this.page();
+       // await page.close();
+       // this._page = undefined;
+       // this.clearContext();
+   // }
 
 //    /**
 //     * @desc
