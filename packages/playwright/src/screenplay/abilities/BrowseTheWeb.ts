@@ -5,7 +5,8 @@ import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, L
 import { Stack } from '../../utils';
 import {PlaywrightNativeRootElement} from '../models/PlaywrightNativeRootElement';
 import { PlaywrightPageElement } from '../models/PlaywrightPageElement';
-import { ScreenshotOptions } from '../options/screenshotOptions';
+import { PlaywrightPageElements } from '../models/PlaywrightPageElements';
+// import { ScreenshotOptions } from '../options/screenshotOptions';
 
 type Context = Page | Frame;
 
@@ -208,14 +209,22 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     }
 
     findAllByCss(selector: string): PageElements<any, any, any> {
-        throw new Error('Method not implemented.');
+        return this.findElements(root => root.$$(selector));
     }
     findAllByTagName(selector: string): PageElements<any, any, any> {
-        throw new Error('Method not implemented.');
+        return this.findElements(root => root.$$(selector));
     }
     findAllByXPath(selector: string): PageElements<any, any, any> {
-        throw new Error('Method not implemented.');
+        return this.findElements(root => root.$$(`xpath=${selector}`));
     }
+
+    private findElements(locator: (root: PlaywrightNativeRootElement) => Promise<ElementHandle[]>): PageElements<any, any> {
+        return new PlaywrightPageElements(
+            () => this.page(),
+            locator as unknown as (root: PlaywrightNativeRootElement) => Promise<ElementHandle[]>,
+        );
+    }
+
     browserCapabilities(): Promise<BrowserCapabilities> {
         throw new Error('Method not implemented.');
     }
