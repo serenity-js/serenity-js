@@ -1,6 +1,7 @@
 import 'mocha';
 
 import { given } from 'mocha-testdata';
+import { TinyType } from 'tiny-types';
 
 import { actorCalled, Answerable, Expectation, List, LogicError, Mappable, Question } from '../../../src';
 import { expect } from '../../expect';
@@ -125,7 +126,7 @@ describe('List', () => {
         it('returns all items from the underlying collection when no filters are applied', async () => {
             const items = [ 1, 2, 3 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list.answeredBy(Fiona)
 
@@ -135,7 +136,7 @@ describe('List', () => {
         it('returns only those items that match the filter', async () => {
             const items = [ 1, 2, 3, 4, 5 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list
                 .where(Value, isGreaterThan(2))
@@ -147,7 +148,7 @@ describe('List', () => {
         it('returns only those items that match all the filters', async () => {
             const items = [ 1, 2, 3, 4, 5 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list
                 .where(Value, isGreaterThan(2))
@@ -160,7 +161,7 @@ describe('List', () => {
         it('describes the filters applied', () => {
             const items = [ 1, 2, 3, 4, 5 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = list
                 .where(Value, isGreaterThan(2))
@@ -176,7 +177,7 @@ describe('List', () => {
         it('returns all items from the underlying collection when no filters are applied', async () => {
             const items = new Collection([ 1, 2, 3 ]);
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list.answeredBy(Fiona)
 
@@ -186,7 +187,7 @@ describe('List', () => {
         it('returns only those items that match the filter', async () => {
             const items = new Collection([ 1, 2, 3, 4, 5 ]);
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list
                 .where(Value, isGreaterThan(2))
@@ -198,7 +199,7 @@ describe('List', () => {
         it('returns only those items that match all the filters', async () => {
             const items = new Collection([ 1, 2, 3, 4, 5 ]);
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await list
                 .where(Value, isGreaterThan(2))
@@ -208,10 +209,23 @@ describe('List', () => {
             expect(result).to.deep.equal([ 3, 4 ]);
         });
 
+        it('allows for a custom collector to process the result returned when the question is answered', async () => {
+            const collection = new Collection([ 1, 2, 3, 4, 5 ]);
+
+            const list = new List(collection, mappedItems => new Collection(mappedItems));
+
+            const result: Collection<number> = await list
+                .where(Value, isGreaterThan(2))
+                .where(Value, isLessThan(5))
+                .answeredBy(Fiona)
+
+            expect(result).to.equal(new Collection([ 3, 4 ]));
+        });
+
         it('describes the filters applied', () => {
             const items = new Collection([ 1, 2, 3, 4, 5 ]);
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = list
                 .where(Value, isGreaterThan(2))
@@ -240,7 +254,7 @@ describe('List', () => {
             expectedMessage:    '`InvalidCollection {}` has no `.map()` method',
         } ]).
         it('complains when given a non-mappable answerable', ({ answerable, expectedMessage }) => {
-            const filter = new List(answerable);
+            const filter = List.of(answerable);
 
             return expect(filter.first().answeredBy(Fiona))
                 .to.be.rejectedWith(LogicError, 'A `List` has to wrap a mappable object, such as Array or PageElements. ' + expectedMessage);
@@ -248,31 +262,31 @@ describe('List', () => {
 
         it('complains when asked to retrieved the first item from an empty collection', () => {
             const items  = [ ];
-            const list = new List(items);
+            const list = List.of(items);
 
             return expect(list.first().answeredBy(Fiona))
                 .to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`);
         });
 
-        it('complains when asked to retrieved the last item from an empty collection', () => {
+        it('complains when asked to retrieve the last item from an empty collection', () => {
             const items  = [ ];
-            const list = new List(items);
+            const list = List.of(items);
 
             return expect(list.last().answeredBy(Fiona))
                 .to.be.rejectedWith(LogicError, `Can't retrieve the last item from a list with 0 items: [ ]`);
         });
 
-        it('complains when asked to retrieved nth item from an empty collection', () => {
+        it('complains when asked to retrieve nth item from an empty collection', () => {
             const items  = [ 'a', 'b' ];
-            const list = new List(items);
+            const list = List.of(items);
 
             return expect(list.get(10).answeredBy(Fiona))
                 .to.be.rejectedWith(LogicError, `Can't retrieve the 10th item from a list with 2 items: [ 'a', 'b' ]`);
         });
 
-        it('complains when asked to retrieved item with a negative index', () => {
+        it('complains when asked to retrieve item with a negative index', () => {
             const items  = [ 'a', 'b' ];
-            const list = new List(items);
+            const list = List.of(items);
 
             return expect(list.get(-1).answeredBy(Fiona))
                 .to.be.rejectedWith(LogicError, `Can't retrieve the -1st item from a list with 2 items: [ 'a', 'b' ]`);
@@ -281,7 +295,7 @@ describe('List', () => {
         it('propagates any errors thrown when answering the question', async () => {
             const items = [ 1, 2, 3 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await expect(
                 list
@@ -296,7 +310,7 @@ describe('List', () => {
         it('propagates any errors thrown when applying the expectation', async () => {
             const items = [ 1, 2, 3 ];
 
-            const list = new List(items);
+            const list = List.of(items);
 
             const result = await expect(
                 list
@@ -306,6 +320,25 @@ describe('List', () => {
 
             expect(result.cause).to.be.instanceOf(Error);
             expect(result.cause.message).to.equal('Some error in expectation');
+        });
+
+        it('complains when given an invalid collector', () => {
+            const items = [ 'a', 'b' ];
+
+            expect(() => new List(items, undefined))
+                .to.throw(Error, `collector function should be defined`);
+        });
+
+        it('propagates any errors thrown within the collector', async () => {
+            const items  = [ 'a', 'b' ];
+            const list = new List(items, _mappedItems => { throw new Error('Error during collection'); });
+
+            const result = await expect(
+                list.answeredBy(Fiona)
+            ).to.be.rejectedWith(LogicError, `Error thrown when collecting mapped items of [ 'a', 'b' ]`)
+
+            expect(result.cause).to.be.instanceOf(Error);
+            expect(result.cause.message).to.equal('Error during collection');
         });
     });
 });
@@ -323,8 +356,9 @@ class ThrowsError {
         });
 }
 
-class Collection<Item_Type> implements Mappable<Item_Type, Collection<Item_Type>> {
+class Collection<Item_Type> extends TinyType implements Mappable<Item_Type, Collection<Item_Type>> {
     constructor(private readonly items: Item_Type[]) {
+        super();
     }
 
     map<Mapped_Item_Type>(mapping: (item: Item_Type, index?: number, collection?: Collection<Item_Type>) => Mapped_Item_Type): Promise<Array<Awaited<Mapped_Item_Type>>> {

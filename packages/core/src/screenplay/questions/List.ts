@@ -1,3 +1,5 @@
+import { ensure, isDefined, isFunction } from 'tiny-types';
+
 import { LogicError } from '../../errors';
 import { format } from '../../io';
 import { AnswersQuestions, UsesAbilities } from '../actor';
@@ -11,17 +13,25 @@ import { MetaQuestion } from './MetaQuestion';
 
 const f = format({ markQuestions: false });
 
-export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collection_Type>> extends Question<Promise<Array<Item_Type>>> {
+export class List<
+    Item_Type,
+    Collection_Type extends Mappable<Item_Type, Collection_Type>,
+    Result_Collection_Type
+> extends Question<Promise<Result_Collection_Type>> {
     private readonly predicates: Array<Predicate<Item_Type, unknown>> = [];
     private subject: string;
 
-    static of<IT, CT extends Mappable<IT, CT>>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT> {
-        return new List<IT, CT>(collection);
+    static of<IT, CT extends Mappable<IT, CT>>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT, IT[]> {
+        return new List<IT, CT, IT[]>(collection, Array.from);
     }
 
-    constructor(private readonly collection: Answerable<Mappable<Item_Type, Collection_Type>>) {
+    constructor(
+        private readonly collection: Answerable<Mappable<Item_Type, Collection_Type>>,
+        private readonly collector: (items: Array<Item_Type>) => Result_Collection_Type,
+    ) {
         super();
         this.subject = f`${ collection }`;
+        ensure('collector function', collector, isDefined(), isFunction())
     }
 
     where<Answer_Type>(
@@ -36,14 +46,14 @@ export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collect
 
     count(): Question<Promise<number>> & Adapter<number> {
         return Question.about(`the number of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
+            const items = await this.items(actor);
             return items.length;
         });
     }
 
     first(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the first of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
+            const items = await this.items(actor);
 
             if (items.length === 0) {
                 throw new LogicError(f`Can't retrieve the first item from a list with 0 items: ${ items }`)
@@ -55,7 +65,7 @@ export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collect
 
     last(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the last of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
+            const items = await this.items(actor);
 
             if (items.length === 0) {
                 throw new LogicError(f`Can't retrieve the last item from a list with 0 items: ${ items }`)
@@ -67,7 +77,7 @@ export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collect
 
     get(index: number): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
+            const items = await this.items(actor);
 
             if (index < 0 || items.length <= index) {
                 throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + f`${ items }`)
@@ -77,7 +87,7 @@ export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collect
         });
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
+    private async items(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
         const collection = await actor.answer(this.collection);
 
         if (! (collection && typeof collection.map === 'function')) {
@@ -103,7 +113,18 @@ export class List<Item_Type, Collection_Type extends Mappable<Item_Type, Collect
             return result.keep
                 ? acc.concat(result.item)
                 : acc
-        }, [])
+        }, []);
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Result_Collection_Type> {
+        const items = await this.items(actor);
+
+        try {
+            return await this.collector(items);
+        }
+        catch (error) {
+            throw new LogicError(f`Error thrown when collecting mapped items of ${ this }`, error);
+        }
     }
 
     describedAs(subject: string): this {
