@@ -1,6 +1,6 @@
-import { Ability, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Duration, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page as SerenityPage, PageElement, PageElements } from '@serenity-js/web';
-import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Mouse, Page, Response } from 'playwright';
+import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Page } from 'playwright';
 
 import { Stack } from '../../utils';
 import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
