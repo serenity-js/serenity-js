@@ -3,9 +3,7 @@ import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog
 import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Mouse, Page, Response } from 'playwright';
 
 import { Stack } from '../../utils';
-import {PlaywrightNativeRootElement} from '../models/PlaywrightNativeRootElement';
-import { PlaywrightPageElement } from '../models/PlaywrightPageElement';
-import { PlaywrightPageElements } from '../models/PlaywrightPageElements';
+import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
 // import { ScreenshotOptions } from '../options/screenshotOptions';
 
 type Context = Page | Frame;

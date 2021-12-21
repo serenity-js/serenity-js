@@ -6,7 +6,7 @@ import { Actor, actorCalled } from '@serenity-js/core';
 import { Browser, chromium, Page } from 'playwright';
 import { BrowseTheWebWithPlaywright } from '../../../src';
 
-import { PlaywrightPageElement } from '../../../src/screenplay/models/PlaywrightPageElement';
+import { PlaywrightPageElement } from '../../../src';
 
 
 describe('PlaywrightPageElement', () => {
