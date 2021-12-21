@@ -223,9 +223,14 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         );
     }
 
-    browserCapabilities(): Promise<BrowserCapabilities> {
-        throw new Error('Method not implemented.');
+    async browserCapabilities(): Promise<BrowserCapabilities> {
+        const browser = await this.browser();
+        return {
+            browserName: this.browserType.name(),
+            browserVersion: browser.version(),
+        };
     }
+
     async sendKeys(keys: (string | Key)[]): Promise<void> {
         throw new Error('Method not implemented.');
         // const keyboard = await this.keyboard()
