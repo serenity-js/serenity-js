@@ -44,7 +44,7 @@ describe('PageElement', () => {
                     Ensure.that(PageElement.locatedByCssContainingText('li.todo', 'Coffee').isPresent(), isTrue()),
                 ));
 
-            it.only('can locate an element by css containing text, where the selector or text are provided as questions', () =>
+            it('can locate an element by css containing text, where the selector or text are provided as questions', () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
                         PageElement.locatedByCssContainingText(
