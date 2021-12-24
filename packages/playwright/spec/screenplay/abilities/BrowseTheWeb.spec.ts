@@ -1,9 +1,9 @@
 import "mocha";
 
 import { expect } from "@integration/testing-tools";
-import { Browser, BrowserContext, BrowserType, chromium, Page } from "playwright";
+import { Browser, BrowserContext, BrowserType, chromium, Keyboard, Page } from "playwright";
 import { createSandbox } from "sinon";
-import { BrowseTheWeb } from '@serenity-js/web';
+import { BrowseTheWeb, Key } from '@serenity-js/web';
 
 import { BrowseTheWebWithPlaywright } from "../../../src/screenplay/abilities";
 
@@ -49,6 +49,62 @@ describe("BrowseTheWeb ability", () => {
         page = await (ability as any).page();
 
         expect(page.url()).to.be.equal(url);
+    });
+
+    it('can sen keys', async () => {
+        const keys = [
+            'a',
+            'b',
+            Key.Shift,
+            'c',
+            'd',
+        ];
+        const expectedKeys = [
+            {
+                key: 'a',
+                method: 'press',
+            },
+            {
+                key: 'b',
+                method: 'press',
+            },
+            {
+                key: 'Shift',
+                method: 'down',
+            },
+            {
+                key: 'c',
+                method: 'press',
+            },
+            {
+                key: 'd',
+                method: 'press',
+            },
+            {
+                key: 'Shift',
+                method: 'up',
+            },
+        ];
+
+        const actualKeys = [];
+        page.keyboard = {
+            up: (key: any) => actualKeys.push({
+                method: 'up',
+                key
+            }),
+            down: (key: any) => actualKeys.push({
+                method: 'down',
+                key
+            }),
+            press: (key: any) => actualKeys.push({
+                method: 'press',
+                key
+            }),
+        } as unknown as Keyboard;
+
+        await ability.sendKeys(keys);
+
+        expect(actualKeys).to.be.deep.equal(expectedKeys);
     });
 
     it('can execute script');

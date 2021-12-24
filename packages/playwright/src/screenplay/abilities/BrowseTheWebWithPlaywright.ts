@@ -244,35 +244,30 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {
-        throw new Error('Method not implemented.');
-        // const keyboard = await this.keyboard()
-        // function isModifier(maybeKey: string | Key): boolean {
-        //     return Key.isKey(maybeKey) && maybeKey.isModifier;
-        // }
+        const keyboard = await this.keyboard()
+        const isModifier = (maybeKey: string | Key): boolean => {
+            return Key.isKey(maybeKey) && maybeKey.isModifier;
+        }
 
-        // function asCodePoint(maybeKey: string | Key): string {
-        //     if (! Key.isKey(maybeKey)) {
-        //         return maybeKey;
-        //     }
+        function asString(maybeKey: string | Key): string {
+            if (! Key.isKey(maybeKey)) {
+                return maybeKey;
+            }
 
-        //     return maybeKey.utf16codePoint;
-        // }
+            return maybeKey.devtoolsName;
+        }
 
-        // // keyDown for any modifier keys and sendKeys otherwise
-        // const keyDownActions = keys.reduce((actions, key) => {
-        //     return isModifier(key)
-        //         ? actions.keyDown(asCodePoint(key))
-        //         : actions.sendKeys(asCodePoint(key))
-        // }, this.browser.actions());
+        const pressKey = (maybeKey: string | Key): Promise<void> => {
+            if (isModifier(maybeKey)) {
+                return keyboard.down(asString(maybeKey));
+            }
+            return keyboard.press(asString(maybeKey));
+        }
 
-        // // keyUp for any modifier keys, ignore for regular keys
-        // const keyUpActions = keys.reduce((actions, key) => {
-        //     return isModifier(key)
-        //         ? actions.keyUp(asCodePoint(key))
-        //         : actions;
-        // }, keyDownActions);
+        const result = keys.map(pressKey);
+        keys.filter(isModifier).forEach((modifierKey) => result.push(keyboard.up(asString(modifierKey))));
 
-        // return promised(keyUpActions.perform());
+        await Promise.all(result);
     }
 
     executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
