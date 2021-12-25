@@ -1,5 +1,4 @@
 export * from './AssertionReportDiffer';
-export * from './collections';
 export * from './commaSeparated';
 export * from './Config';
 export * from './ErrorSerialiser';
