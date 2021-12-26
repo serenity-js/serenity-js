@@ -4,7 +4,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { Navigate, PageElement, Switch, Text } from '@serenity-js/web';
+import { By, Navigate, PageElement, Switch, Text } from '@serenity-js/web';
 import { error } from 'selenium-webdriver';
 
 import { pageFromTemplate } from '../../fixtures';
@@ -14,8 +14,8 @@ import { UIActors } from '../../UIActors';
 describe('Switch', () => {
 
     const
-        h1 = PageElement.locatedByCss('h1').describedAs('the header'),
-        iframe = PageElement.locatedByTagName('iframe').describedAs('test iframe');
+        h1      = PageElement.located(By.css('h1')).describedAs('the header'),
+        iframe  = PageElement.located(By.tagName('iframe')).describedAs('test iframe');
 
     const page =
         (header: string) =>

@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, isGreaterThan, isLessThan } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { ExecuteScript, LastScriptExecution, Navigate, PageElement, Scroll } from '@serenity-js/web';
+import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Scroll } from '@serenity-js/web';
 
 /** @test {Scroll} */
 describe('Scroll', function () {
 
     const Page = {
-        Execute_Button: PageElement.locatedById('cast').describedAs('the "Cast!" button'),
+        Execute_Button: PageElement.located(By.id('cast')).describedAs('the "Cast!" button'),
     };
 
     /** @test {Scroll.to} */

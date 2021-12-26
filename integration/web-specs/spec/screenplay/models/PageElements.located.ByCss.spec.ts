@@ -2,7 +2,7 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
-import { Navigate, PageElements } from '@serenity-js/web';
+import { By, Navigate, PageElements, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 
 /** @test {PageElements} */
@@ -21,24 +21,24 @@ describe('PageElements', () => {
                 ));
 
             it('generates a description for PageElements without a custom description', () => {
-                expect(PageElements.locatedByCss('ul > li.todo').toString())
+                expect(PageElements.located(By.css('ul > li.todo')).toString())
                     .to.equal(`page elements located by css ('ul > li.todo')`)
             });
 
             it('generates a description for PageElements without a custom description, where the selector is provided as question', () => {
-                expect(PageElements.locatedByCss(question('my selector', 'ul > li.todo')).toString())
+                expect(PageElements.located(By.css(question('my selector', 'ul > li.todo'))).toString())
                     .to.equal(`page elements located by css (<<my selector>>)`)
             });
 
             it('uses a custom description when provided', () => {
-                expect(PageElements.locatedByCss('ul > li.todo').describedAs('outstanding shopping list item').toString())
+                expect(PageElements.located(By.css('ul > li.todo')).describedAs('outstanding shopping list item').toString())
                     .to.equal(`outstanding shopping list item`)
             });
 
             it('can locate elements by css', () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
-                        PageElements.locatedByCss('ul > li.todo').map(element => element.text()),
+                        PageElements.located(By.css('ul > li.todo')).eachMappedTo(Text),
                         equals(['Coconut milk', 'Coffee'])
                     ),
                 ));
@@ -46,7 +46,7 @@ describe('PageElements', () => {
             it('can locate elements by css, where the selector is provided as question', () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
-                        PageElements.locatedByCss(question('my selector', 'ul > li.todo')).count(),
+                        PageElements.located(By.css(question('my selector', 'ul > li.todo'))).count(),
                         equals(2)
                     ),
                 ));
@@ -54,7 +54,7 @@ describe('PageElements', () => {
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
-                        PageElements.locatedByCss('ul > li.invalid').count(),
+                        PageElements.located(By.css('ul > li.invalid')).count(),
                         equals(0)
                     ),
                 ));

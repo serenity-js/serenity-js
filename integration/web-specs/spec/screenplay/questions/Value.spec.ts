@@ -2,7 +2,7 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, Navigate, PageElement, Value } from '@serenity-js/web';
 
 describe('Value', () => {
 
@@ -14,7 +14,7 @@ describe('Value', () => {
             actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/questions/value/username_form.html'),
 
-                Ensure.that(Value.of(PageElement.locatedByTagName('input').describedAs('username field')), equals('jan-molak')),
+                Ensure.that(Value.of(PageElement.located(By.tagName('input')).describedAs('username field')), equals('jan-molak')),
             ));
 
         /** @test {Value} */
@@ -23,7 +23,7 @@ describe('Value', () => {
             actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/questions/value/username_form.html'),
 
-                Ensure.that(Value.of(PageElement.locatedByTagName('input').describedAs('username field')), equals('jan-molak')),
+                Ensure.that(Value.of(PageElement.located(By.tagName('input')).describedAs('username field')), equals('jan-molak')),
             ));
 
         /** @test {Value} */
@@ -33,8 +33,8 @@ describe('Value', () => {
                 Navigate.to('/screenplay/questions/value/username_form.html'),
 
                 Ensure.that(
-                    Value.of(PageElement.locatedByTagName('input').describedAs('username field'))
-                        .of(PageElement.locatedByTagName('form').describedAs(`form`)),
+                    Value.of(PageElement.located(By.tagName('input')).describedAs('username field'))
+                        .of(PageElement.located(By.tagName('form')).describedAs(`form`)),
                     equals('jan-molak'),
                 ),
             ));

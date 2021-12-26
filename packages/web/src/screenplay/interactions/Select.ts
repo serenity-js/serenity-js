@@ -3,7 +3,7 @@ import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { PageElement, PageElements } from '../models';
+import { By, PageElement, PageElements } from '../models';
 import { SelectBuilder } from './SelectBuilder';
 
 /**
@@ -68,7 +68,7 @@ export class Select {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(formatted `#actor selects value ${ value } from ${ pageElement }`, async actor => {
-                    return PageElement.locatedByCss(q`option[value=${ value }]`)
+                    return PageElement.located(By.css(q`option[value=${ value }]`))
                         .of(pageElement)
                         .click()
                         .performAs(actor);
@@ -131,8 +131,8 @@ export class Select {
 
                     const desiredValues = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
 
-                    const options: PageElements  = await PageElements.locatedByCss(`option`).of(pageElement).answeredBy(actor);
-                    const shouldSelect: boolean[]   = await options.map(optionsToSelect(hasValueEqualOneOf(desiredValues)));
+                    const options: PageElement[]  = await PageElements.located(By.css(`option`)).of(pageElement).answeredBy(actor);
+                    const shouldSelect: boolean[]   = await Promise.all(options.map(optionsToSelect(hasValueEqualOneOf(desiredValues))));
 
                     return options.forEach((option, index) => {
                         if (shouldSelect[index]) {
@@ -197,7 +197,7 @@ export class Select {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(formatted `#actor selects ${ value } from ${ pageElement }`, async actor => {
-                    return PageElement.locatedByCssContainingText('option', value)
+                    return PageElement.located(By.cssContainingText('option', value))
                         .of(pageElement)
                         .click()
                         .performAs(actor);
@@ -262,8 +262,8 @@ export class Select {
 
                     const desiredOptions = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
 
-                    const options: PageElements  = await PageElements.locatedByCss(`option`).of(pageElement).answeredBy(actor);
-                    const shouldSelect: boolean[]   = await options.map(optionsToSelect(hasTextEqualOneOf(desiredOptions)));
+                    const options: PageElement[]    = await PageElements.located(By.css(`option`)).of(pageElement).answeredBy(actor);
+                    const shouldSelect: boolean[]   = await Promise.all(options.map(optionsToSelect(hasTextEqualOneOf(desiredOptions))));
 
                     return options.forEach((option, index) => {
                         if (shouldSelect[index]) {

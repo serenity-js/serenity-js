@@ -104,7 +104,7 @@ export class Text {
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<PageElements>):
+    static ofAll(elements: PageElements):
         Question<Promise<string[]>> &                               // eslint-disable-line @typescript-eslint/indent
         MetaQuestion<Answerable<PageElement>, Promise<string[]>> &  // eslint-disable-line @typescript-eslint/indent
         Adapter<string[]>                                              // eslint-disable-line @typescript-eslint/indent
@@ -138,16 +138,18 @@ class TextOfMultipleElements
     extends ElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
-    constructor(private readonly elements: Answerable<PageElements>) {
+    constructor(private readonly elements: PageElements) {
         super(`the text of ${ elements }`);
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new TextOfMultipleElements(PageElements.of(this.elements, parent));
+        // todo: return Question.about directly?
+        return new TextOfMultipleElements(this.elements.of(parent));
     }
 
+    // todo: clean it up
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const elements = await this.resolve(actor, this.elements);
-        return elements.map(element => element.text());
+        const elements: PageElement[] = await this.resolve(actor, this.elements) as any;
+        return Promise.all(elements.map(element => element.text()));
     }
 }

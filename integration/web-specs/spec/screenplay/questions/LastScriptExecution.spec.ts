@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { Enter, ExecuteScript, LastScriptExecution, Navigate, PageElement } from '@serenity-js/web';
+import { By, Enter, ExecuteScript, LastScriptExecution, Navigate, PageElement } from '@serenity-js/web';
 
 /** @test {LastScriptExecution} */
 describe('LastScriptExecution', function () {
 
     class Sandbox {
-        static Input = PageElement.locatedById('name').describedAs('input field');
+        static Input = PageElement.located(By.id('name')).describedAs('input field');
     }
 
     describe('when used with ExecuteScript.sync', () => {

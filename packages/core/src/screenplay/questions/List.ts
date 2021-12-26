@@ -27,14 +27,18 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     eachMappedTo<Mapped_Item_Type>(
         question: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
     ): List<Mapped_Item_Type> {
-        return new List(new EachMappedTo(this.collection, question));
+        return new List(
+            new EachMappedTo(this.collection, question, this.subject)
+        );
     }
 
     where<Answer_Type>(
         question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>
     ): this {
-        return new List<Item_Type>(new Where(this.collection, question, expectation)) as this;
+        return new List<Item_Type>(
+            new Where(this.collection, question, expectation, this.subject)
+        ) as this;
     }
 
     count(): Question<Promise<number>> & Adapter<number> {
@@ -132,15 +136,16 @@ class Where<Item_Type, Answer_Type>
     constructor(
         private readonly collection: Answerable<Array<Item_Type>>,
         private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
-        private readonly expectation: Expectation<any, Answer_Type>
+        private readonly expectation: Expectation<any, Answer_Type>,
+        originalSubject: string,
     ) {
         super();
 
         const prefix = this.collection instanceof Where
-            ? 'and'
-            : 'where';
+            ? ' and'
+            : ' where';
 
-        this.subject = f `${ collection } ` + prefix + f ` ${ question } does ${ expectation }`;
+        this.subject = originalSubject + prefix + f ` ${ question } does ${ expectation }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
@@ -185,10 +190,11 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
     constructor(
         private readonly collection: Answerable<Array<Item_Type>>,
         private readonly mapping: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
+        originalSubject: string,
     ) {
         super();
 
-        this.subject = f `${ collection } mapped to ${ this.mapping }`;
+        this.subject = originalSubject + f ` mapped to ${ this.mapping }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Mapped_Item_Type>> {

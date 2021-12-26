@@ -2,7 +2,7 @@ import 'mocha';
 
 import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
-import { Navigate, PageElement } from '@serenity-js/web';
+import { By, Navigate, PageElement } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 
 /** @test {PageElement} */
@@ -21,45 +21,44 @@ describe('PageElement', () => {
                 ));
 
             it('generates a description for a PageElement without a custom description', () => {
-                expect(PageElement.locatedByCssContainingText('li.todo', 'Coffee').toString())
+                expect(PageElement.located(By.cssContainingText('li.todo', 'Coffee')).toString())
                     .to.equal(`page element located by css ('li.todo') containing text 'Coffee'`)
             });
 
             it('generates a description for a PageElement without a custom description, where the selector and/or text are provided as questions', () => {
                 expect(
-                    PageElement.locatedByCssContainingText(
+                    PageElement.located(By.cssContainingText(
                         question('my selector', 'li.todo'),
                         question('desired text', 'Coffee'),
-                    ).toString()
+                    )).toString()
                 ).to.equal(`page element located by css (<<my selector>>) containing text <<desired text>>`)
             });
 
             it('uses a custom description when provided', () => {
-                expect(PageElement.locatedByCssContainingText('ul > li.todo', 'coffee').describedAs('a shopping list item').toString())
+                expect(PageElement.located(By.cssContainingText('ul > li.todo', 'coffee')).describedAs('a shopping list item').toString())
                     .to.equal(`a shopping list item`)
             });
 
             it('can locate an element by css containing text', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.locatedByCssContainingText('li.todo', 'Coffee').isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'Coffee')).isPresent(), isTrue()),
                 ));
 
             it('can locate an element by css containing text, where the selector or text are provided as questions', () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
-                        PageElement.locatedByCssContainingText(
+                        PageElement.located(By.cssContainingText(
                             question('my selector', 'li.todo'),
                             question('desired text', 'Coffee'),
-                        ).isPresent(),
+                        )).isPresent(),
                         isTrue()
                     ),
                 ));
 
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.locatedByCssContainingText('li.todo', 'blueberries').isPresent(), isFalse()),
+                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'blueberries')).isPresent(), isFalse()),
                 ));
         });
-
     });
 });

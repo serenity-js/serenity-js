@@ -1,3 +1,4 @@
+export * from './By';
 export * from './ByCss';
 export * from './ByCssContainingText';
 export * from './ById';
