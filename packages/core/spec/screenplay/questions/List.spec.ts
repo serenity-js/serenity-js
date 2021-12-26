@@ -1,11 +1,11 @@
 import 'mocha';
 
 import { given } from 'mocha-testdata';
-import { TinyType } from 'tiny-types';
 
-import { actorCalled, Answerable, Expectation, List, LogicError, Mappable, Question } from '../../../src';
+import { actorCalled, Answerable, Expectation, List, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
+/** @test {List} */
 describe('List', () => {
 
     const Fiona = actorCalled('Fiona');
@@ -121,7 +121,7 @@ describe('List', () => {
         });
     });
 
-    describe('when filtering an Array', () => {
+    describe('when filtering', () => {
 
         it('returns all items from the underlying collection when no filters are applied', async () => {
             const items = [ 1, 2, 3 ];
@@ -168,18 +168,81 @@ describe('List', () => {
                 .where(Value, isLessThan(5))
                 .first();
 
-            expect(result.toString()).to.equal('the first of [ 1, 2, 3, 4, 5 ]');
+            expect(result.toString()).to.equal(
+                'the first of [ 1, 2, 3, 4, 5 ] where Value does have value greater than 2 and Value does have value less than 5'
+            );
         });
     });
 
-    describe('when filtering a custom collection', () => {
+    describe('when mapping the items of a collection', () => {
+        const accounts: Account[] = [
+            { id: 1, name: 'Alice' },
+            { id: 2, name: 'Arbnor' },
+            { id: 3, name: 'Bob' },
+        ];
+
+        it('supports MetaQuestions', async () => {
+            const list = List.of(accounts);
+
+            const result = await list
+                .eachMappedTo(AccountName)
+                .answeredBy(Fiona)
+
+            expect(result).to.deep.equal(['Alice', 'Arbnor', 'Bob']);
+        });
+
+        it('describes MetaQuestion used to map the items', () => {
+            const list = List.of(accounts);
+
+            const result = list
+                .eachMappedTo(AccountName)
+
+            expect(result.toString()).to.equal(`[ {"id":1,"name":"Alice"}, {"id":2,"name":"Arbnor"}, {"id":3,"name":"Bob"} ] mapped to AccountName`);
+        });
+
+        it('allows for the default description to be overridden', () => {
+            const list = List.of(accounts);
+
+            const result = list
+                .eachMappedTo(AccountName)
+                .describedAs('all account names')
+                .toString()
+
+            expect(result).to.equal(`all account names`);
+        });
+
+        it('supports combining filters and MetaQuestions', async () => {
+            const list = List.of(accounts);
+
+            const result = await list
+                .where(AccountName, startsWith('A'))
+                .eachMappedTo(AccountName)
+                .answeredBy(Fiona);
+
+            expect(result).to.deep.equal(['Alice', 'Arbnor']);
+        });
+
+        it('describes both the filters and the MetaQuestion used to map the items', () => {
+            const list = List.of(accounts);
+
+            const result = list
+                .where(AccountName, startsWith('A'))
+                .eachMappedTo(AccountName)
+                .first()
+                .toString();
+
+            expect(result).to.equal(
+                `the first of [ {"id":1,"name":"Alice"}, {"id":2,"name":"Arbnor"}, {"id":3,"name":"Bob"} ] where AccountName does start with 'A' mapped to AccountName`
+            );
+        });
+    });
+
+    describe('when used as a base of a custom collection', () => {
 
         it('returns all items from the underlying collection when no filters are applied', async () => {
             const items = new Collection([ 1, 2, 3 ]);
 
-            const list = List.of(items);
-
-            const result = await list.answeredBy(Fiona)
+            const result = await items.answeredBy(Fiona)
 
             expect(result).to.deep.equal([ 1, 2, 3 ]);
         });
@@ -187,9 +250,7 @@ describe('List', () => {
         it('returns only those items that match the filter', async () => {
             const items = new Collection([ 1, 2, 3, 4, 5 ]);
 
-            const list = List.of(items);
-
-            const result = await list
+            const result = await items
                 .where(Value, isGreaterThan(2))
                 .answeredBy(Fiona)
 
@@ -209,30 +270,17 @@ describe('List', () => {
             expect(result).to.deep.equal([ 3, 4 ]);
         });
 
-        it('allows for a custom collector to process the result returned when the question is answered', async () => {
-            const collection = new Collection([ 1, 2, 3, 4, 5 ]);
-
-            const list = new List(collection, mappedItems => new Collection(mappedItems));
-
-            const result: Collection<number> = await list
-                .where(Value, isGreaterThan(2))
-                .where(Value, isLessThan(5))
-                .answeredBy(Fiona)
-
-            expect(result).to.equal(new Collection([ 3, 4 ]));
-        });
-
         it('describes the filters applied', () => {
             const items = new Collection([ 1, 2, 3, 4, 5 ]);
 
-            const list = List.of(items);
-
-            const result = list
+            const result = items
                 .where(Value, isGreaterThan(2))
                 .where(Value, isLessThan(5))
                 .first();
 
-            expect(result.toString()).to.equal('the first of my collection items');
+            expect(result.toString()).to.equal(
+                'the first of lazily-fetched items where Value does have value greater than 2 and Value does have value less than 5'
+            );
         });
     });
 
@@ -243,21 +291,21 @@ describe('List', () => {
         given([ {
             description:        'null',
             answerable:         null,                           // eslint-disable-line unicorn/no-null
-            expectedMessage:    '`null` has no `.map()` method',
+            expectedMessage:    'null given',
         }, {
             description:        'undefined',
             answerable:         undefined,
-            expectedMessage:    '`undefined` has no `.map()` method',
+            expectedMessage:    'undefined given',
         }, {
             description:        'object',
             answerable:         new InvalidCollection(),
-            expectedMessage:    '`InvalidCollection {}` has no `.map()` method',
+            expectedMessage:    'InvalidCollection {} given',
         } ]).
-        it('complains when given a non-mappable answerable', ({ answerable, expectedMessage }) => {
+        it('complains when given a non-Array answerable', ({ answerable, expectedMessage }) => {
             const filter = List.of(answerable);
 
             return expect(filter.first().answeredBy(Fiona))
-                .to.be.rejectedWith(LogicError, 'A `List` has to wrap a mappable object, such as Array or PageElements. ' + expectedMessage);
+                .to.be.rejectedWith(LogicError, 'A List has to wrap an Array-compatible object. ' + expectedMessage);
         });
 
         it('complains when asked to retrieved the first item from an empty collection', () => {
@@ -299,9 +347,9 @@ describe('List', () => {
 
             const result = await expect(
                 list
-                    .where(ThrowsError, isGreaterThan(1))
+                    .where(BrokenQuestion, isGreaterThan(1))
                     .answeredBy(Fiona)
-            ).to.be.rejectedWith(LogicError, `Couldn't check if question subject does have value greater than 1`)
+            ).to.be.rejectedWith(LogicError, `Couldn't check if BrokenQuestion of an item of [ 1, 2, 3 ] does have value greater than 1`)
 
             expect(result.cause).to.be.instanceOf(Error);
             expect(result.cause.message).to.equal('Some error that prevented the question from being answered');
@@ -316,53 +364,42 @@ describe('List', () => {
                 list
                     .where(Value, throws('Some error in expectation'))
                     .answeredBy(Fiona)
-            ).to.be.rejectedWith(LogicError, `Couldn't check if some value does have value greater than 42`)
+            ).to.be.rejectedWith(LogicError, `Couldn't check if Value of an item of [ 1, 2, 3 ] does have value greater than 42`)
 
             expect(result.cause).to.be.instanceOf(Error);
             expect(result.cause.message).to.equal('Some error in expectation');
         });
-
-        it('complains when given an invalid collector', () => {
-            const items = [ 'a', 'b' ];
-
-            expect(() => new List(items, undefined))
-                .to.throw(Error, `collector function should be defined`);
-        });
-
-        it('propagates any errors thrown within the collector', async () => {
-            const items  = [ 'a', 'b' ];
-            const list = new List(items, _mappedItems => { throw new Error('Error during collection'); });
-
-            const result = await expect(
-                list.answeredBy(Fiona)
-            ).to.be.rejectedWith(LogicError, `Error thrown when collecting mapped items of [ 'a', 'b' ]`)
-
-            expect(result.cause).to.be.instanceOf(Error);
-            expect(result.cause.message).to.equal('Error during collection');
-        });
     });
 });
 
+interface Account {
+    id: number;
+    name: string;
+}
+
+class AccountName {
+    static of = (account: Account) =>
+        Question.about('account name', actor => account.name)
+}
+
 class Value {
-    static of<T>(item: T) {
+    static of<T>(item: T): Question<Promise<T>> {
         return Question.about('some value', actor => Promise.resolve(item));
     }
 }
 
-class ThrowsError {
+class BrokenQuestion {
     static of = <T>(_item: T) =>
-        Question.about('question subject', actor => {
+        Question.about('broken question', actor => {
             throw new Error(`Some error that prevented the question from being answered`);
         });
 }
 
-class Collection<Item_Type> extends TinyType implements Mappable<Item_Type, Collection<Item_Type>> {
-    constructor(private readonly items: Item_Type[]) {
-        super();
-    }
-
-    map<Mapped_Item_Type>(mapping: (item: Item_Type, index?: number, collection?: Collection<Item_Type>) => Mapped_Item_Type): Promise<Array<Awaited<Mapped_Item_Type>>> {
-        return Promise.all(this.items.map((item, index) => mapping(item, index, this)));
+class Collection<Item_Type>
+    extends List<Item_Type>
+{
+    constructor(items: Item_Type[]) {
+        super(Question.about('lazily-fetched items', actor => items));
     }
 
     toString() {
@@ -387,3 +424,7 @@ function isLessThan(expected: Answerable<number>): Expectation<number> {
         .soThat((actualValue, expectedValue) => actualValue < expectedValue);
 }
 
+function startsWith(expected: Answerable<string>): Expectation<string> {
+    return Expectation.thatActualShould<string, string>('start with', expected)
+        .soThat((actualValue, expectedValue) => actualValue.startsWith(expectedValue));
+}
