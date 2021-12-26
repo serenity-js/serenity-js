@@ -1,5 +1,3 @@
-import { ensure, isDefined, isFunction } from 'tiny-types';
-
 import { LogicError } from '../../errors';
 import { format } from '../../io';
 import { AnswersQuestions, UsesAbilities } from '../actor';
@@ -8,52 +6,47 @@ import { Adapter } from '../model';
 import { Question } from '../Question';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
-import { Mappable } from './Mappable';
 import { MetaQuestion } from './MetaQuestion';
 
 const f = format({ markQuestions: false });
 
-export class List<
-    Item_Type,
-    Collection_Type extends Mappable<Item_Type, Collection_Type>,
-    Result_Collection_Type
-> extends Question<Promise<Result_Collection_Type>> {
-    private readonly predicates: Array<Predicate<Item_Type, unknown>> = [];
+export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     private subject: string;
 
-    static of<IT, CT extends Mappable<IT, CT>>(collection: Answerable<Mappable<IT, CT>>): List<IT, CT, IT[]> {
-        return new List<IT, CT, IT[]>(collection, Array.from);
+    static of<IT>(collection: Answerable<Array<IT>>): List<IT> {
+        return new List<IT>(collection);
     }
 
     constructor(
-        private readonly collection: Answerable<Mappable<Item_Type, Collection_Type>>,
-        private readonly collector: (items: Array<Item_Type>) => Result_Collection_Type,
+        protected readonly collection: Answerable<Array<Item_Type>>,
     ) {
         super();
         this.subject = f`${ collection }`;
-        ensure('collector function', collector, isDefined(), isFunction())
+    }
+
+    eachMappedTo<Mapped_Item_Type>(
+        question: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
+    ): List<Mapped_Item_Type> {
+        return new List(new EachMappedTo(this.collection, question));
     }
 
     where<Answer_Type>(
         question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>
     ): this {
-
-        this.predicates.push(new Predicate(question, expectation));
-
-        return this;
+        return new List<Item_Type>(new Where(this.collection, question, expectation)) as this;
     }
 
     count(): Question<Promise<number>> & Adapter<number> {
         return Question.about(`the number of ${ this.subject }`, async actor => {
-            const items = await this.items(actor);
+            const items = await this.answeredBy(actor);
             return items.length;
         });
     }
 
     first(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the first of ${ this.subject }`, async actor => {
-            const items = await this.items(actor);
+            const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
                 throw new LogicError(f`Can't retrieve the first item from a list with 0 items: ${ items }`)
@@ -65,7 +58,7 @@ export class List<
 
     last(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the last of ${ this.subject }`, async actor => {
-            const items = await this.items(actor);
+            const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
                 throw new LogicError(f`Can't retrieve the last item from a list with 0 items: ${ items }`)
@@ -77,7 +70,7 @@ export class List<
 
     get(index: number): Question<Promise<Item_Type>> & Adapter<Item_Type> {
         return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
-            const items = await this.items(actor);
+            const items = await this.answeredBy(actor);
 
             if (index < 0 || items.length <= index) {
                 throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + f`${ items }`)
@@ -87,44 +80,14 @@ export class List<
         });
     }
 
-    private async items(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
         const collection = await actor.answer(this.collection);
 
-        if (! (collection && typeof collection.map === 'function')) {
-            throw new LogicError(f`A \`List\` has to wrap a mappable object, such as Array or PageElements. \`${ collection }\` has no \`.map()\` method`)
+        if (! Array.isArray(collection)) {
+            throw new LogicError(f`A List has to wrap an Array-compatible object. ${ collection } given.`);
         }
 
-        const promisedResults = collection.map(async item => {
-            for(const predicate of this.predicates) {
-                if (! await predicate.appliedTo(item).answeredBy(actor)) {
-                    return { item, keep: false };
-                }
-            }
-            return { item, keep: true };
-        });
-
-        const results = await (
-            Array.isArray(promisedResults)
-                ? Promise.all(promisedResults)
-                : Promise.resolve(promisedResults)
-        );
-
-        return results.reduce((acc, result) => {
-            return result.keep
-                ? acc.concat(result.item)
-                : acc
-        }, []);
-    }
-
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Result_Collection_Type> {
-        const items = await this.items(actor);
-
-        try {
-            return await this.collector(items);
-        }
-        catch (error) {
-            throw new LogicError(f`Error thrown when collecting mapped items of ${ this }`, error);
-        }
+        return collection;
     }
 
     describedAs(subject: string): this {
@@ -161,46 +124,83 @@ function ordinal(index: number): string {
 /**
  * @package
  */
-class Predicate<Item_Type, Answer_Type> {
+class Where<Item_Type, Answer_Type>
+    extends Question<Promise<Array<Item_Type>>>
+{
+    private subject: string;
+
     constructor(
+        private readonly collection: Answerable<Array<Item_Type>>,
         private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
         private readonly expectation: Expectation<any, Answer_Type>
     ) {
+        super();
+
+        const prefix = this.collection instanceof Where
+            ? 'and'
+            : 'where';
+
+        this.subject = f `${ collection } ` + prefix + f ` ${ question } does ${ expectation }`;
     }
 
-    appliedTo(item: Item_Type): AppliedPredicate<Answer_Type> {
-        return new AppliedPredicate<Answer_Type>(this.question.of(item), this.expectation);
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
+        try {
+            const collection    = await actor.answer(this.collection);
+            const expectation   = await actor.answer(this.expectation);
+
+            const results: Item_Type[] = [];
+
+            for (const item of collection) {
+                const answer = await actor.answer(this.question.of(item));
+                const expectationOutcome = await expectation(answer);
+
+                if (expectationOutcome instanceof ExpectationMet) {
+                    results.push(item);
+                }
+            }
+
+            return results;
+        } catch (error) {
+            throw new LogicError(f`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }`, error);
+        }
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }
 
 /**
  * @package
  */
-class AppliedPredicate<Answer_Type> extends Question<Promise<boolean>>{
+class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<Mapped_Item_Type>>> {
 
     private subject: string;
 
     constructor(
-        private readonly question: Question<Promise<Answer_Type> | Answer_Type>,
-        private readonly expectation: Expectation<any, Answer_Type>,
+        private readonly collection: Answerable<Array<Item_Type>>,
+        private readonly mapping: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
     ) {
         super();
-        this.subject = format({ markQuestions: false })`${ question }  does ${ expectation }`;
+
+        this.subject = f `${ collection } mapped to ${ this.mapping }`;
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Mapped_Item_Type>> {
+        const collection: Array<Item_Type> = await actor.answer(this.collection);
 
-        try {
-            const answer        = await actor.answer(this.question);
-            const expectation   = await actor.answer(this.expectation);
+        const mapped: Mapped_Item_Type[] = [];
 
-            const result = await expectation(answer);
-
-            return result instanceof ExpectationMet;
-        } catch (error) {
-            throw new LogicError(`Couldn't check if ${ this.question } does ${ this.expectation }`, error);
+        for (const item of collection) {
+            mapped.push(await actor.answer(this.mapping.of(item)))
         }
 
+        return mapped;
     }
 
     describedAs(subject: string): this {
