@@ -1,9 +1,21 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElements } from '@serenity-js/web';
-import { by, ElementArrayFinder, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
+import {
+    BrowserCapabilities,
+    BrowseTheWeb,
+    Cookie,
+    CookieData,
+    Key,
+    ModalDialog,
+    NativeElementLocator,
+    Page,
+    PageElement,
+    PassThroughNativeElementLocator,
+    Selector,
+} from '@serenity-js/web';
+import { ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementRoot, ProtractorPage, ProtractorPageElement, ProtractorPageElements } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementLocator, ProtractorPage, ProtractorPageElement } from '../models';
 import { promised } from '../promised';
 
 /**
@@ -35,7 +47,7 @@ import { promised } from '../promised';
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithProtractor extends BrowseTheWeb {
+export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
 
     /**
      * @desc
@@ -105,56 +117,21 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promised(this.browser.manage().deleteAllCookies());
     }
 
-    findByCss(selector: string): PageElement<any, any> {
-        return this.find(root => root.element(by.css(selector)));
+    locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<ElementFinder>): ProtractorPageElement {
+        return new ProtractorPageElement(selector, locator ?? this.nativeElementLocator());
     }
 
-    findByCssContainingText(selector: string, text: string): PageElement<any, any> {
-        return this.find(root => root.element(by.cssContainingText(selector, text)));
-    }
+    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<ElementFinder>): Promise<ProtractorPageElement[]> {
+        const l = locator ?? this.nativeElementLocator();
+        const elements = await l.locateAll(selector);
 
-    findById(selector: string): PageElement<any, any> {
-        return this.find(root => root.element(by.id(selector)));
-    }
-
-    findByTagName(selector: string): PageElement<any, any> {
-        return this.find(root => root.element(by.tagName(selector)));
-    }
-
-    findByXPath(selector: string): PageElement<any, any> {
-        return this.find(root => root.element(by.xpath(selector)));
-    }
-
-    findAllByCss(selector: string): PageElements<any, any, any> {
-        return this.findAll(root => root.all(by.css(selector)));
-    }
-
-    findAllByTagName(selector: string): PageElements<any, any, any> {
-        return this.findAll(root => root.all(by.tagName(selector)));
-    }
-
-    findAllByXPath(selector: string): PageElements<any, any, any> {
-        return this.findAll(root => root.all(by.xpath(selector)));
-    }
-
-    private find(locator: (root: ProtractorNativeElementRoot) => Promise<ElementFinder> | ElementFinder): ProtractorPageElement {
-        return new ProtractorPageElement(
-            () => ({
-                element: this.browser.element.bind(this.browser),
-                all: this.browser.element.all.bind(this.browser),
-            }),
-            locator,
+        return elements.map(element =>
+            new ProtractorPageElement(selector, new PassThroughNativeElementLocator<ElementFinder>(locator, element)),
         );
     }
 
-    private findAll(locator: (root: ProtractorNativeElementRoot) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElements {
-        return new ProtractorPageElements(
-            () => ({
-                element: this.browser.element.bind(this.browser),
-                all: this.browser.element.all.bind(this.browser),
-            }),
-            locator,
-        );
+    nativeElementLocator(): NativeElementLocator<ElementFinder> {
+        return new ProtractorNativeElementLocator(() => this.browser);
     }
 
     navigateTo(destination: string): Promise<void> {

@@ -1,12 +1,22 @@
 import { Adapter, Answerable, format, LogicError, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
+import { NativeElementLocator } from './NativeElementLocator';
+import { Selector } from './selectors';
 
 const d = format({ markQuestions: false });
-const f = format({ markQuestions: true });
 
-export abstract class PageElement<Native_Element_Root_Type = any, Native_Element_Type = any> {
-    static of<NER, NE>(childElement: Answerable<PageElement<NER, NE>>, parentElement: Answerable<PageElement<NER, NE>>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
+export abstract class PageElement<Native_Element_Type = any> {
+
+    static located<NET, SP extends unknown[]>(selector: Answerable<Selector<SP>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
+        return Question.about(d`page element located ${ selector }`, async actor => {
+            const bySelector = await actor.answer(selector);
+            return BrowseTheWeb.as(actor).locate<SP>(bySelector);
+        });
+    }
+
+    // --- todo: review
+    static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
             const parent    = await actor.answer(parentElement);
@@ -15,63 +25,29 @@ export abstract class PageElement<Native_Element_Root_Type = any, Native_Element
         });
     }
 
-    static locatedByCss<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
-        return Question.about(f`page element located by css (${selector})`, async actor => {
-            const cssSelector = await actor.answer(selector);
-
-            return BrowseTheWeb.as(actor).findByCss(cssSelector);
-        });
-    }
-
-    static locatedByCssContainingText<NER, NE>(selector: Answerable<string>, text: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
-        return Question.about(f`page element located by css (${selector}) containing text ${ text }`, async actor => {
-            const cssSelector = await actor.answer(selector);
-            const desiredText = await actor.answer(text);
-
-            return BrowseTheWeb.as(actor).findByCssContainingText(cssSelector, desiredText);
-        });
-    }
-
-    static locatedById<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
-        return Question.about(f`page element located by id (${selector})`, async actor => {
-            const idSelector = await actor.answer(selector);
-
-            return BrowseTheWeb.as(actor).findById(idSelector);
-        });
-    }
-
-    static locatedByTagName<NER, NE>(tagName: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
-        return Question.about(f`page element located by tag name (${tagName})`, async actor => {
-            const tagNameSelector = await actor.answer(tagName);
-
-            return BrowseTheWeb.as(actor).findByTagName(tagNameSelector);
-        });
-    }
-
-    static locatedByXPath<NER, NE>(selector: Answerable<string>): Question<Promise<PageElement<NER, NE>>> & Adapter<PageElement<NER, NE>> {
-        return Question.about(f`page element located by xpath (${selector})`, async actor => {
-            const xpathSelector = await actor.answer(selector);
-
-            return BrowseTheWeb.as(actor).findByXPath(xpathSelector);
-        });
-    }
-
     constructor(
-        protected readonly context: () => Promise<Native_Element_Root_Type> | Native_Element_Root_Type,
-        protected readonly locator: (root: Native_Element_Root_Type) => Promise<Native_Element_Type> | Native_Element_Type
+        protected readonly selector: Selector<unknown[]>,
+        private readonly locator: NativeElementLocator<Native_Element_Type>,
     ) {
     }
 
-    abstract of(parent: PageElement<Native_Element_Root_Type, Native_Element_Type>): PageElement<Native_Element_Root_Type, Native_Element_Type>;
+    abstract of(parent: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
     async nativeElement(): Promise<Native_Element_Type> {
         try {
-            const context = await this.context();
-            return this.locator(context);
+            return this.locator.locate(this.selector);
         }
         catch (error) {
             throw new LogicError(`Couldn't find element`, error);
         }
+    }
+
+    nativeElementLocator(): NativeElementLocator<Native_Element_Type> {
+        return this.locator;
+    }
+
+    toString(): string {
+        return `PageElement located ${ this.selector }`
     }
 
     abstract enterValue(value: string | number | Array<string | number>): Promise<void>;

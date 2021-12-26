@@ -6,13 +6,13 @@ import { actorCalled, Question, serenity, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
-import { ExecuteScript, LastScriptExecution, Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Value } from '@serenity-js/web';
 
 /** @test {ExecuteScript} */
 describe('ExecuteSynchronousScript', function () {
 
     class Sandbox {
-        static Input = PageElement.locatedById('name').describedAs('input field');
+        static Input = PageElement.located(By.id('name')).describedAs('input field');
     }
 
     /** @test {ExecuteScript.sync} */

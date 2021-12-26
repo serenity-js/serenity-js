@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { Attribute, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
+import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('Attribute', () => {
 
     describe('called', () => {
 
-        const dom = PageElement.locatedByTagName('html').describedAs('DOM');
+        const dom = PageElement.located(By.tagName('html')).describedAs('DOM');
 
         /** @test {Attribute.called} */
         it('allows the actor to read an attribute of a DOM element matching the locator', () =>
@@ -34,14 +34,8 @@ describe('Attribute', () => {
                 Ensure.that(Attribute.called('lang'), equals('en')),
             )).to.be.rejectedWith(LogicError, `Target not specified`));
 
-        const ItemsOfInterest = PageElements.locatedByTagName('li').describedAs('items of interest')
-            .filter(async element => {
-                const cssClass = await element.attribute('class');
-
-                return cssClass === 'enabled';
-            });
-            // todo: re-introduce list filters
-            // .where(Attribute.called('class'), equals('enabled'))
+        const ItemsOfInterest = PageElements.located(By.tagName('li')).describedAs('items of interest')
+            .where(Attribute.called('class'), equals('enabled'))
 
         /** @test {Attribute.called} */
         /** @test {Target.all} */

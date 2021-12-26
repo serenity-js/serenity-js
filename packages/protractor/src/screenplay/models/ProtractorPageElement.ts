@@ -3,23 +3,13 @@ import { ElementFinder, protractor } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
-import { promisedWebElement } from '../promisedWebElement';
-import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
+import { ProtractorNativeElementLocator } from './ProtractorNativeElementLocator';
 
 export class ProtractorPageElement
-    extends PageElement<ProtractorNativeElementRoot, ElementFinder>
+    extends PageElement<ElementFinder>
 {
-    constructor(
-        context: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
-        locator: (root: ProtractorNativeElementRoot) => Promise<ElementFinder> | ElementFinder
-    ) {
-        super(context, context => {
-            return promisedWebElement<ElementFinder>(locator(context));
-        });
-    }
-
-    of(parent: ProtractorPageElement): PageElement<ProtractorNativeElementRoot, ElementFinder> {
-        return new ProtractorPageElement(() => parent.nativeElement(), this.locator);
+    of(parent: ProtractorPageElement): PageElement<ElementFinder> {
+        return new ProtractorPageElement(this.selector, new ProtractorNativeElementLocator(() => parent.nativeElement()));
     }
 
     async clearValue(): Promise<void> {

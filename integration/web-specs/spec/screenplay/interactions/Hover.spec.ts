@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Attribute, Hover, Navigate, PageElement } from '@serenity-js/web';
+import { Attribute, By, Hover, Navigate, PageElement } from '@serenity-js/web';
 
 /** @test {Hover} */
 describe('Hover', function () {
 
     const Page = {
-        header: PageElement.locatedByCss('h1').describedAs('header'),
-        link:   PageElement.locatedByCss('a').describedAs('the link'),
+        header: PageElement.located(By.css('h1')).describedAs('header'),
+        link:   PageElement.located(By.css('a')).describedAs('the link'),
     };
 
     /** @test {Hover.over} */

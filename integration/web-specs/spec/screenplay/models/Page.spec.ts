@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
-import { Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
+import { By, Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isTrue, not, startsWith } from '@serenity-js/assertions';
 import { URL } from 'url';
@@ -13,13 +13,13 @@ describe('Page', () => {
 
         const MainPage = {
             title:          'Main page title',
-            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
-            newPopUpLink:   PageElement.locatedById('new-popup-link').describedAs('new pop-up link'),
+            heading:        Text.of(PageElement.located(By.css('h1')).describedAs('heading')),
+            newPopUpLink:   PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
         };
 
         const Popup = {
             expectedName:   'popup-window',         // defined in main_page.html
-            heading:        Text.of(PageElement.locatedByCss('h1').describedAs('heading')),
+            heading:        Text.of(PageElement.located(By.css('h1')).describedAs('heading')),
         };
 
         beforeEach(() =>
@@ -119,8 +119,8 @@ describe('Page', () => {
             describe('viewport', () => {
 
                 const RenderedViewportSize = {
-                    width:  Text.of(PageElement.locatedById('viewport-width').describedAs('viewport width')).as(Number),
-                    height: Text.of(PageElement.locatedById('viewport-height').describedAs('viewport height')).as(Number),
+                    width:  Text.of(PageElement.located(By.id('viewport-width')).describedAs('viewport width')).as(Number),
+                    height: Text.of(PageElement.located(By.id('viewport-height')).describedAs('viewport height')).as(Number),
                 };
 
                 const viewportSize = {

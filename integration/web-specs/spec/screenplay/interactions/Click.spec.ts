@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Click, isSelected, Navigate, PageElement } from '@serenity-js/web';
+import { By, Click, isSelected, Navigate, PageElement } from '@serenity-js/web';
 
 /** @test {Click} */
 describe('Click', () => {
 
     const Form = {
-        checkbox: PageElement.locatedById('no-spam-please').describedAs('the checkbox'),
+        checkbox: PageElement.located(By.id('no-spam-please')).describedAs('the checkbox'),
     };
 
     /** @test {Click.on} */

@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, TestCompromisedError } from '@serenity-js/core';
-import { Navigate, Page, PageElement, Text } from '@serenity-js/web';
+import { By, Navigate, Page, PageElement, Text } from '@serenity-js/web';
 
 /** @test {Navigate} */
 describe('Navigate', () => {
@@ -15,7 +15,7 @@ describe('Navigate', () => {
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/hello_world.html'),
 
-                Ensure.that(Text.of(PageElement.locatedByCss('h1')), equals('Hello World')),
+                Ensure.that(Text.of(PageElement.located(By.css('h1'))), equals('Hello World')),
             ));
 
         /** @test {Navigate.to} */
@@ -90,7 +90,7 @@ describe('Navigate', () => {
 
                 Navigate.reloadPage(),
 
-                Ensure.that(Text.of(PageElement.locatedById('h')), equals('Reloaded')),
+                Ensure.that(Text.of(PageElement.located(By.id('h'))), equals('Reloaded')),
             ));
 
         /** @test {Navigate.reloadPage} */

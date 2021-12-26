@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { ExecuteScript, Navigate, PageElement, Text } from '@serenity-js/web';
+import { By, ExecuteScript, Navigate, PageElement, Text } from '@serenity-js/web';
 
 // todo: introduce question about baseUrl
 const port = process.env.PORT ?? 8080;
@@ -15,7 +15,7 @@ describe('ExecuteScriptFromUrl', function () {
     this.timeout(10 * 1000);
 
     class Sandbox {
-        static Result = PageElement.locatedById('result').describedAs('sandbox result');
+        static Result = PageElement.located(By.id('result')).describedAs('sandbox result');
     }
 
     /** @test {ExecuteScript.from} */

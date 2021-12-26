@@ -3,13 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { Click, isActive, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { By, Click, isActive, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isActive', function () {
 
     const Page = {
-        activeInput:       PageElement.locatedById('active').describedAs('the active input'),
-        inactiveInput:     PageElement.locatedById('inactive').describedAs('the inactive input'),
+        activeInput:    PageElement.located(By.id('active')).describedAs('the active input'),
+        inactiveInput:  PageElement.located(By.id('inactive')).describedAs('the inactive input'),
     };
 
     beforeEach(() =>

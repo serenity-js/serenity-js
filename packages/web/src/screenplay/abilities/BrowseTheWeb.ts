@@ -1,10 +1,10 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElements } from '../models';
+import { Cookie, CookieData, ModalDialog, NativeElementLocator, Page, PageElement, Selector } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
-export abstract class BrowseTheWeb implements Ability {
+export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
     /**
      * @desc
      *  Used to access the Actor's ability to {@link BrowseTheWeb}
@@ -30,15 +30,9 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
-    abstract findByCss(selector: string): PageElement;
-    abstract findByCssContainingText(selector: string, text: string): PageElement;
-    abstract findById(selector: string): PageElement;
-    abstract findByTagName(selector: string): PageElement;
-    abstract findByXPath(selector: string): PageElement;
-
-    abstract findAllByCss(selector: string): PageElements;
-    abstract findAllByTagName(selector: string): PageElements;
-    abstract findAllByXPath(selector: string): PageElements;
+    abstract locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<Native_Element_Type>): PageElement<Native_Element_Type>;
+    abstract locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<Native_Element_Type>): Promise<Array<PageElement<Native_Element_Type>>>;
+    abstract nativeElementLocator(): NativeElementLocator<Native_Element_Type>;
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 

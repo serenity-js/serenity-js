@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { isClickable, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { By, isClickable, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isClickable', function () {
 
     const Page = {
-        enabledButton:     PageElement.locatedById('enabled').describedAs('the enabled button'),
-        disabledButton:    PageElement.locatedById('disabled').describedAs('the disabled button'),
-        hiddenButton:      PageElement.locatedById('hidden').describedAs('the hidden button'),
+        enabledButton:     PageElement.located(By.id('enabled')).describedAs('the enabled button'),
+        disabledButton:    PageElement.located(By.id('disabled')).describedAs('the disabled button'),
+        hiddenButton:      PageElement.located(By.id('hidden')).describedAs('the hidden button'),
     };
 
     beforeEach(() =>

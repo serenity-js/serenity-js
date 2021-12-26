@@ -1,8 +1,8 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, NativeElementLocator, Page, PageElement, PassThroughNativeElementLocator, Selector } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementRoot, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElements } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementLocator, WebdriverIOPage, WebdriverIOPageElement } from '../models';
 
 /**
  * @desc
@@ -37,7 +37,7 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementRoot
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
 
     /**
      * @param {@wdio/types~Browser} browserInstance
@@ -72,7 +72,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         super();
 
         if (! this.browser.$ || ! this.browser.$$) {
-            throw new LogicError(`WebdriverIO browser object is not initalised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
+            throw new LogicError(`WebdriverIO browser object is not initialised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
         }
     }
 
@@ -103,69 +103,21 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.deleteCookies() as Promise<void>;
     }
 
-    findByCss(selector: string): WebdriverIOPageElement {
-        return this.find(root => root.$(selector));
+    locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<wdio.Element<'async'>>): WebdriverIOPageElement {
+        return new WebdriverIOPageElement(selector, locator ?? this.nativeElementLocator());
     }
 
-    /**
-     * @desc
-     *  Retrieves a {@link @serenity-js/web/lib/screenplay/models~PageElement} which text includes `text`
-     *  and which can be located using the CSS `selector`.
-     *
-     *  Under the hood, this command uses https://webdriver.io/docs/selectors#element-with-certain-text
-     *
-     *  This means that only some selectors are supported. For example:
-     *  - 'h1'
-     *  - 'h1.some-class'
-     *  - '#someId'
-     *  - 'h1[attribute-name="attribute-selector"]
-     *
-     *  Notably, complex CSS selectors such as 'header h1' or 'header > h1' **WON'T WORK**.
-     *
-     * @param {string} selector
-     * @param {string} text
-     * @returns {@serenity-js/web/lib/screenplay/models~PageElement}
-     */
-    findByCssContainingText(selector: string, text: RegExp | string): WebdriverIOPageElement {
-        return this.find(root => root.$(`${ selector }*=${ text }`));
-    }
+    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<wdio.Element<'async'>>): Promise<WebdriverIOPageElement[]> {
+        const l = locator ?? this.nativeElementLocator();
+        const elements = await l.locateAll(selector);
 
-    findById(selector: string): WebdriverIOPageElement {
-        return this.find(root => root.$(`#${selector}`));
-    }
-
-    findByTagName(selector: string): WebdriverIOPageElement {
-        return this.find(root => root.$(`<${ selector } />`));
-    }
-
-    findByXPath(selector: string): WebdriverIOPageElement {
-        return this.find(root => root.$(selector));
-    }
-
-    findAllByCss(selector: string): WebdriverIOPageElements {
-        return this.findAll(root => root.$$(selector));
-    }
-
-    findAllByTagName(selector: string): WebdriverIOPageElements {
-        return this.findAll(root => root.$$(`<${ selector } />`));
-    }
-
-    findAllByXPath(selector: string): WebdriverIOPageElements {
-        return this.findAll(root => root.$$(selector));
-    }
-
-    private find(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseElement<Promise<wdio.Element<'async'>>> | Promise<wdio.Element<'async'>>): WebdriverIOPageElement {
-        return new WebdriverIOPageElement(
-            () => this.browser,
-            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.Element<'async'>>,    // We don't need the ChainablePromiseElement
+        return elements.map(element =>
+            new WebdriverIOPageElement(selector, new PassThroughNativeElementLocator<wdio.Element<'async'>>(locator, element)),
         );
     }
 
-    private findAll(locator: (root: WebdriverIONativeElementRoot) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElements {
-        return new WebdriverIOPageElements(
-            () => this.browser,
-            locator as unknown as (root: WebdriverIONativeElementRoot) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
-        );
+    nativeElementLocator(): NativeElementLocator<wdio.Element<'async'>> {
+        return new WebdriverIONativeElementLocator(() => this.browser);
     }
 
     /**

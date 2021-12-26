@@ -1,47 +1,45 @@
 import 'mocha';
 
-import { contain, Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
-import { actorCalled, Question } from '@serenity-js/core';
-import { Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
+import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
+import { actorCalled, Answerable } from '@serenity-js/core';
+import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
+import { given } from 'mocha-testdata';
 
 /** @test {PageElements} */
 describe('PageElements', () => {
 
     class ShoppingList {
         static app = () =>
-            PageElement.locatedById('shopping-list-app')
+            PageElement.located(By.id('shopping-list-app'))
                 .describedAs('shopping list app');
 
         static progress = () =>
-            PageElement.locatedByCss('.progress')
+            PageElement.located(By.css('.progress'))
                 .describedAs('progress bar')
                 .of(ShoppingList.app());
 
         static numberOfItemsLeft = () =>
-            PageElement.locatedByCss('span')
+            PageElement.located(By.css('span'))
                 .describedAs('number of items left')
                 .of(ShoppingList.progress());
 
         static header = () =>
-            PageElement.locatedByTagName('h1').describedAs('header');
+            PageElement.located(By.tagName('h1')).describedAs('header');
 
         static list = () =>
-            PageElement.locatedByTagName('ul').describedAs('shopping list');
+            PageElement.located(By.tagName('ul')).describedAs('shopping list');
 
         static items = () =>
-            PageElements.locatedByTagName('li')
+            PageElements.located(By.tagName('li'))
                 .describedAs('items')
                 .of(ShoppingList.app());
 
         static boughtItems = () =>
-            PageElements.locatedByCss('.bought')
+            PageElements.located(By.css('.bought'))
                 .describedAs('bought items')
                 .of(ShoppingList.list());
     }
-
-    const question = <T>(name: string, value: T) =>
-        Question.about(name, _actor => value);
 
     describe('allows the actor to locate', () => {
 
@@ -59,11 +57,9 @@ describe('PageElements', () => {
                 Ensure.that(Text.ofAll(ShoppingList.items()), contain('oats')),
             ));
 
-
         it('an element relative to another target', () =>
             actorCalled('Elle').attemptsTo(
                 Navigate.to('/screenplay/models/page-elements/shopping_list.html'),
-
                 Ensure.that(ShoppingList.numberOfItemsLeft().text().as(Number), equals(2)),
             ));
 
@@ -108,19 +104,19 @@ describe('PageElements', () => {
 
         class AdvancedShoppingList {
             static items = () =>
-                PageElements.locatedByCss('li').describedAs('shopping list items');
+                PageElements.located(By.css('li')).describedAs('shopping list items');
 
             static item = () =>
-                PageElement.locatedByCss('li').describedAs('shopping list item');
+                PageElement.located(By.css('li')).describedAs('shopping list item');
 
             static titles = () =>
-                PageElements.locatedByCss('li span.item-name').describedAs('shopping list item titles');
+                PageElements.located(By.css('li span.item-name')).describedAs('shopping list item titles');
 
             static itemName = () =>
-                PageElement.locatedByCss('span.item-name').describedAs('item name');
+                PageElement.located(By.css('span.item-name')).describedAs('item name');
 
             static itemNames = () =>
-                PageElements.locatedByCss('span.item-name').describedAs('item names');
+                PageElements.located(By.css('span.item-name')).describedAs('item names');
         }
 
         beforeEach(() =>
@@ -157,6 +153,240 @@ describe('PageElements', () => {
                         Ensure.that(Text.of(AdvancedShoppingList.titles().get(1)), equals('coconut milk')),
                     ));
             });
+        });
+
+        describe('provides a sensible description when it', () => {
+
+            it('returns the number of items', () =>
+                expect(AdvancedShoppingList.items().count().toString())
+                    .to.equal('the number of shopping list items'));
+
+            it('picks all the items', () =>
+                expect(AdvancedShoppingList.items().toString())
+                    .to.equal('shopping list items'));
+
+            it('picks the first item', () =>
+                expect(AdvancedShoppingList.items().first().toString())
+                    .to.equal('the first of shopping list items'));
+
+            it('picks the last item', () =>
+                expect(AdvancedShoppingList.items().last().toString())
+                    .to.equal('the last of shopping list items'));
+
+            given([
+                { description: '1st', index: 0 },
+                { description: '2nd', index: 1 },
+                { description: '3rd', index: 2 },
+                { description: '4th', index: 3 },
+                { description: '5th', index: 4 },
+                { description: '10th', index: 9 },
+                { description: '11th', index: 10 },
+                { description: '20th', index: 19 },
+                { description: '42nd', index: 41 },
+                { description: '115th', index: 114 },
+                { description: '1522nd', index: 1521 },
+            ]).
+            it('picks the nth item', ({ description, index }) => {
+                expect(AdvancedShoppingList.items().get(index).toString())
+                    .to.equal(`the ${ description } of shopping list items`);
+            });
+        });
+
+        describe('and a filter is applied', () => {
+
+            const list = AdvancedShoppingList.items()
+                .where(CssClasses, contain('buy'));
+
+            describe('lets the actor filter the list of matching elements so that it', () => {
+
+                it('gets the number of items', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(list.count(), equals(2)),
+                    ));
+
+                it('picks all the items', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.ofAll(list), contain('coconut milk x')),
+                    ));
+
+                it('picks the first item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.first()), startsWith('oats')),
+                    ));
+
+                it('picks the last item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
+                    ));
+
+                it('picks the nth item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.get(1)), startsWith('coconut milk')),
+                    ));
+            });
+
+            describe('provides a sensible description when it', () => {
+
+                it('returns the number of items', () =>
+                    expect(list.count().toString())
+                        .to.equal(`the number of shopping list items where CssClasses does contain 'buy'`));
+
+                it('picks all the items', () =>
+                    expect(list.toString())
+                        .to.equal(`shopping list items where CssClasses does contain 'buy'`));
+
+                it('picks the first item', () =>
+                    expect(list.first().toString())
+                        .to.equal(`the first of shopping list items where CssClasses does contain 'buy'`));
+
+                it('picks the last item', () =>
+                    expect(list.last().toString())
+                        .to.equal(`the last of shopping list items where CssClasses does contain 'buy'`));
+
+                given([
+                    { description: '1st', index: 0 },
+                    { description: '2nd', index: 1 },
+                    { description: '3rd', index: 2 },
+                    { description: '4th', index: 3 },
+                    { description: '5th', index: 4 },
+                    { description: '10th', index: 9 },
+                    { description: '11th', index: 10 },
+                    { description: '20th', index: 19 },
+                    { description: '42nd', index: 41 },
+                    { description: '115th', index: 114 },
+                    { description: '1522nd', index: 1521 },
+                ]).
+                it('picks the nth item', ({ description, index }) => {
+                    expect(list.get(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy'`);
+                });
+            });
+        });
+
+        describe('and multiple filters are applied', () => {
+
+            const list = AdvancedShoppingList.items()
+                .where(CssClasses, contain('buy'))
+                .where(Text, startsWith('coconut'));
+
+            describe('lets the actor filter the list of matching elements so that it', () => {
+
+                it('gets the number of items', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(list.count(), equals(1)),
+                    ));
+
+                it('picks all the items', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.ofAll(list), contain('coconut milk x')),
+                    ));
+
+                it('picks the first item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
+                    ));
+
+                it('picks the last item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
+                    ));
+
+                it('picks the nth item', () =>
+                    actorCalled('Wendy').attemptsTo(
+                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                        Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
+                    ));
+            });
+
+            describe('provides a sensible description when it', () => {
+
+                it('returns the number of answers', () =>
+                    expect(list.count().toString())
+                        .to.equal(`the number of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+
+                it('picks all the items', () =>
+                    expect(list.toString())
+                        .to.equal(`shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+
+                it('picks the first item', () =>
+                    expect(list.first().toString())
+                        .to.equal(`the first of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+
+                it('picks the last item', () =>
+                    expect(list.last().toString())
+                        .to.equal(`the last of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+
+                given([
+                    { description: '1st', index: 0 },
+                    { description: '2nd', index: 1 },
+                    { description: '3rd', index: 2 },
+                    { description: '4th', index: 3 },
+                    { description: '5th', index: 4 },
+                    { description: '10th', index: 9 },
+                    { description: '11th', index: 10 },
+                    { description: '20th', index: 19 },
+                    { description: '42nd', index: 41 },
+                    { description: '115th', index: 114 },
+                    { description: '1522nd', index: 1521 },
+                ]).
+                it('picks the nth item', ({ description, index }) => {
+                    expect(list.get(index).toString())
+                        .to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`);
+                });
+            });
+        });
+
+        describe('and interacting with elements on screen', () => {
+
+            const ItemCalled = (name: string) =>    // eslint-disable-line unicorn/consistent-function-scoping
+                AdvancedShoppingList.items()
+                    .where(Text.of(AdvancedShoppingList.itemName()), equals(name))
+                    .first();
+
+            const ItemsLeftToBuy = () =>            // eslint-disable-line unicorn/consistent-function-scoping
+                AdvancedShoppingList.items()
+                    .where(CssClasses, contain('buy'));
+
+            // eslint-disable-next-line unicorn/consistent-function-scoping
+            const LinkTo = (item: Answerable<PageElement>) =>
+                PageElement.located(By.css('a')).of(item).describedAs('link to element');
+
+            it('makes it easy for an actor to pick the element of interest', () =>
+                actorCalled('Wendy').attemptsTo(
+                    Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                    Click.on(LinkTo(ItemCalled('coffee'))),
+
+                    Ensure.that(CssClasses.of(ItemCalled('coffee')), contain('buy')),
+                ));
+
+            it('makes it easy for an actor to pick all elements of interest', () =>
+                actorCalled('Wendy').attemptsTo(
+                    Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+
+                    Click.on(LinkTo(ItemCalled('coconut milk'))),
+                    Click.on(LinkTo(ItemCalled('coffee'))),
+
+                    Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals([ 'oats x', 'coffee x' ])),
+                ));
         });
     });
 });

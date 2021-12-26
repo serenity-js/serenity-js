@@ -3,25 +3,25 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Navigate, PageElement, PageElements, Select, Selected, Text } from '@serenity-js/web';
+import { By, Navigate, PageElement, PageElements, Select, Selected, Text } from '@serenity-js/web';
 
 /** @test {Select} */
 describe('Select', () => {
 
     class SingleSelectPage {
         static pageName = 'single-select';
-        static selector = PageElement.locatedById('single-option-select').describedAs('the country selector');
-        static countryCode = PageElement.locatedById('country-of-interest-code').describedAs('the country code');
-        static countryName = PageElement.locatedById('country-of-interest-name').describedAs('the country name');
+        static selector = PageElement.located(By.id('single-option-select')).describedAs('the country selector');
+        static countryCode = PageElement.located(By.id('country-of-interest-code')).describedAs('the country code');
+        static countryName = PageElement.located(By.id('country-of-interest-name')).describedAs('the country name');
     }
 
     class MultiSelectPage {
         static pageName = 'multi-select';
-        static selector = PageElement.locatedById('multi-option-select').describedAs('the country selector');
-        static countryCodes = PageElements.locatedByCss('#country-of-interest-codes li').describedAs('country codes');
-        static countryNames = PageElements.locatedByCss('#country-of-interest-names li').describedAs('country names');
-        static anotherCountryCode = PageElement.locatedByCss('#another-country-of-interest-code').describedAs('another country code');
-        static anotherCountryName = PageElement.locatedByCss('#another-country-of-interest-name').describedAs('another country name');
+        static selector = PageElement.located(By.id('multi-option-select')).describedAs('the country selector');
+        static countryCodes = PageElements.located(By.css('#country-of-interest-codes li')).describedAs('country codes');
+        static countryNames = PageElements.located(By.css('#country-of-interest-names li')).describedAs('country names');
+        static anotherCountryCode = PageElement.located(By.css('#another-country-of-interest-code')).describedAs('another country code');
+        static anotherCountryName = PageElement.located(By.css('#another-country-of-interest-name')).describedAs('another country name');
     }
 
     describe('when working with single-option selects', () => {

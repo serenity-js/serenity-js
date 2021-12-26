@@ -1,75 +1,64 @@
-import { Adapter, Answerable, format, LogicError, Mappable, Question } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, format, List, Question, UsesAbilities } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 import { PageElement } from './PageElement';
+import { Selector } from './selectors';
 
-const d = format({ markQuestions: false });
 const f = format({ markQuestions: true });
 
-export abstract class PageElements<Native_Element_Root_Type = any, Native_Element_Collection_Type = any, Native_Element_Type = any>
-    implements Mappable<PageElement<Native_Element_Root_Type, Native_Element_Type>, PageElements<Native_Element_Root_Type, Native_Element_Collection_Type, Native_Element_Type>>    // eslint-disable-line @typescript-eslint/indent
+export class PageElements<Native_Element_Type = any>
+    extends List<PageElement<Native_Element_Type>>
 {
-    // todo: childElements: Answerable<PageElements<NER, NEL, NE>> -> MetaQuestion
-    static of<NER, NEC, NE>(
-        childElements: Answerable<PageElements<NER, NEC, NE>>,
-        parentElement: Answerable<PageElement<NER, NE>>
-    ): Question<Promise<PageElements<NER, NEC, NE>>> & Adapter<PageElements<NER, NEC, NE>> {
-        return Question.about(d `${ childElements } of ${ parentElement })`, async actor => {
-            const children  = await actor.answer(childElements);
-            const parent    = await actor.answer(parentElement);
-
-            return children.of(parent);
-        });
+    static located<NET, SP extends unknown[]>(selector: Answerable<Selector<SP>>): PageElements<NET> {
+        return new PageElements(selector);
     }
 
-    static locatedByCss<NER, NEC, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEC, NE>>> & Adapter<PageElements<NER, NEC, NE>> {
-        return Question.about(f `page elements located by css (${selector})`, async actor => {
-            const value = await actor.answer(selector);
-            return BrowseTheWeb.as(actor).findAllByCss(value);
-        });
-    }
-
-    static locatedByTagName<NER, NEC, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEC, NE>>> & Adapter<PageElements<NER, NEC, NE>> {
-        return Question.about(f `page elements located by tag name (${selector})`, async actor => {
-            const tagNameSelector = await actor.answer(selector);
-            return BrowseTheWeb.as(actor).findAllByTagName(tagNameSelector);
-        });
-    }
-
-    static locatedByXPath<NER, NEC, NE>(selector: Answerable<string>): Question<Promise<PageElements<NER, NEC, NE>>> & Adapter<PageElements<NER, NEC, NE>> {
-        return Question.about(f `page elements located by xpath (${selector})`, async actor => {
-            const xpathSelector = await actor.answer(selector);
-            return BrowseTheWeb.as(actor).findAllByXPath(xpathSelector);
-        });
-    }
-
+    /**
+     * @param {Answerable<Selector<unknown[]>>} selector
+     * @param {Answerable<PageElement>} [parent]
+     *  if not specified, browser root selector is used
+     */
     constructor(
-        protected readonly context: () => Promise<Native_Element_Root_Type> | Native_Element_Root_Type,
-        protected readonly locator: (root: Native_Element_Root_Type) => Promise<Native_Element_Collection_Type> | Native_Element_Collection_Type
+        protected readonly selector: Answerable<Selector<unknown[]>>,
+        private readonly parent?: Answerable<PageElement>
     ) {
+        super(new PageElementCollection<Native_Element_Type>(selector, parent));
     }
 
-    abstract of(parent: PageElement<Native_Element_Root_Type, Native_Element_Type>): PageElements<Native_Element_Root_Type, Native_Element_Collection_Type, Native_Element_Type>;
+    of(parent: Answerable<PageElement<Native_Element_Type>>): PageElements<Native_Element_Type> {
+        return new PageElements<Native_Element_Type>(this.selector, parent)
+            .describedAs(`<<${this.toString()}>>` + f`.of(${ parent })`);
+    }
+}
 
-    async nativeElementList(): Promise<Native_Element_Collection_Type> {
-        try {
-            const context = await this.context();
-            return this.locator(context);
-        }
-        catch (error) {
-            throw new LogicError(`Couldn't find elements`, error);
-        }
+/**
+ * @package
+ */
+class PageElementCollection<Native_Element_Type = any>
+    extends Question<Promise<Array<PageElement<Native_Element_Type>>>>
+{
+    private subject: string;
+    constructor(
+        private readonly selector: Answerable<Selector<unknown[]>>,
+        private readonly parent?: Answerable<PageElement>,
+    ) {
+        super();
+        this.subject = `page elements located ${ selector.toString() }`;
     }
 
-    // todo: delegate to List
-    abstract count(): Promise<number>;
-    abstract first(): Promise<PageElement<Native_Element_Root_Type, Native_Element_Type>>;
-    abstract last(): Promise<PageElement<Native_Element_Root_Type, Native_Element_Type>>;
-    abstract get(index: number): Promise<PageElement<Native_Element_Root_Type, Native_Element_Type>>;
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<PageElement<Native_Element_Type>>> {
+        const bySelector = await actor.answer(this.selector);
+        const parent     = await actor.answer(this.parent);
 
-    abstract map<Mapped_Type>(fn: (element: PageElement<Native_Element_Root_Type, Native_Element_Type>, index?: number, elements?: PageElements<Native_Element_Root_Type, Native_Element_Collection_Type, Native_Element_Type>) => Mapped_Type): Promise<Array<Awaited<Mapped_Type>>>;
+        return BrowseTheWeb.as(actor).locateAll(bySelector, parent ? parent.nativeElementLocator() : undefined);
+    }
 
-    abstract filter(fn: (element: PageElement<Native_Element_Root_Type, Native_Element_Type>, index?: number) => Promise<boolean> | boolean): PageElements<Native_Element_Root_Type, Native_Element_Collection_Type, Native_Element_Type>;
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
 
-    abstract forEach(fn: (element: PageElement<Native_Element_Root_Type, Native_Element_Type>, index?: number) => Promise<void> | void): Promise<void>;
+    toString(): string {
+        return this.subject;
+    }
 }

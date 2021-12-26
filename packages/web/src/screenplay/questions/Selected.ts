@@ -1,7 +1,9 @@
 import { Answerable, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElements } from '../models';
+import { By, PageElement, PageElements } from '../models';
+import { Text } from './Text';
+import { Value } from './Value';
 
 /**
  * @desc
@@ -54,7 +56,7 @@ export class Selected {
      * @see {@link Select.value}
      */
     static valueOf(pageElement: Answerable<PageElement>): Question<Promise<string>> {
-        return PageElement.locatedByCss('option:checked')
+        return PageElement.located(By.css('option:checked'))
             .of(pageElement)
             .value()
             .describedAs(formatted `value selected in ${ pageElement }`);
@@ -102,9 +104,9 @@ export class Selected {
      * @see {@link Select.values}
      */
     static valuesOf(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
-        return PageElements.locatedByCss('option:checked')
+        return PageElements.located(By.css('option:checked'))
             .of(pageElement)
-            .map(item => item.value())
+            .eachMappedTo(Value)
             .describedAs(formatted `values selected in ${ pageElement }`) as Question<Promise<string[]>>;
     }
 
@@ -153,7 +155,7 @@ export class Selected {
      * @see {@link Select.option}
      */
     static optionIn(pageElement: Answerable<PageElement>): Question<Promise<string>> {
-        return PageElement.locatedByCss('option:checked')
+        return PageElement.located(By.css('option:checked'))
             .of(pageElement)
             .text()
             .describedAs(formatted `option selected in ${ pageElement }`);
@@ -204,9 +206,9 @@ export class Selected {
      * @see {@link Select.options}
      */
     static optionsIn(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
-        return PageElements.locatedByCss('option:checked')
+        return PageElements.located(By.css('option:checked'))
             .of(pageElement)
-            .map(item => item.text())
+            .eachMappedTo(Text)
             .describedAs(formatted `options selected in ${ pageElement }`) as Question<Promise<string[]>>;
     }
 }

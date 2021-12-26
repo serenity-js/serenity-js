@@ -2,7 +2,7 @@ import 'mocha';
 
 import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { CssClasses, Navigate, PageElement } from '@serenity-js/web';
+import { By, CssClasses, Navigate, PageElement } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 describe('CssClasses', () => {
@@ -28,7 +28,7 @@ describe('CssClasses', () => {
         it('allows the actor to read the css classes of a DOM element matching the locator', ({ description, expected }) =>
             actorCalled('Bernie').attemptsTo(
                 Ensure.that(
-                    CssClasses.of(PageElement.locatedById(description).describedAs(`Element with ${ description }`)),
+                    CssClasses.of(PageElement.located(By.id(description)).describedAs(`Element with ${ description }`)),
                     equals(expected),
                 ),
             ));
@@ -38,8 +38,8 @@ describe('CssClasses', () => {
         it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Ensure.that(
                 CssClasses.of(
-                    PageElement.locatedById('single-class').describedAs(`Element with single-class`),
-                ).of(PageElement.locatedByTagName('ul').describedAs(`list`)),
+                    PageElement.located(By.id('single-class')).describedAs(`Element with single-class`),
+                ).of(PageElement.located(By.tagName('ul')).describedAs(`list`)),
                 contain('pretty'),
             ),
         ));

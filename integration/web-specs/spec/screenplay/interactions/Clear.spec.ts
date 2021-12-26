@@ -4,13 +4,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { Clear, Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, Clear, Navigate, PageElement, Value } from '@serenity-js/web';
 
 /** @test {Clear} */
 describe('Clear', () => {
 
     const Form = {
-        field: PageElement.locatedById('field').describedAs('the input field'),
+        field: PageElement.located(By.id('field')).describedAs('the input field'),
     };
 
     /** @test {Clear} */
