@@ -107,7 +107,17 @@ describe("BrowseTheWeb ability", () => {
         expect(actualKeys).to.be.deep.equal(expectedKeys);
     });
 
-    it('can execute script');
+    it('can execute script', async () => {
+        const mock = (...args: any) => args;
+        const actualResult = await ability.executeScript(mock, 1, 2, 3);
+        expect(actualResult).to.be.deep.equal([1,2,3]);
+    });
+
+    it('can execute string script', async () => {
+        const actualResult = await ability.executeScript('"mock"');
+        expect(actualResult).to.be.deep.equal('mock');
+    });
+
     it('can execute async script');
     it('can return current page');
     it('can return all pages');

@@ -270,8 +270,24 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         await Promise.all(result);
     }
 
-    executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
-        throw new Error('Method not implemented.');
+    async executeScript<Result, InnerArguments extends any[]>(
+        script: string | ((...parameters: InnerArguments) => Result),
+        ...args: InnerArguments
+    ): Promise<Result> {
+        const nativeArguments = await Promise.all(
+            args.map(
+                arg => arg instanceof PlaywrightPageElement ? arg.nativeElement() : arg
+            )
+        ) as InnerArguments;
+
+        const stringifyScript = (script: string | ((...parameters: InnerArguments) => Result)) =>
+            typeof script === 'function'
+            ? `(${script}).apply(null, [ ${nativeArguments} ])`
+            : script
+
+        const page =  await this.page();
+        const stringFunction = stringifyScript(script);
+        return page.evaluate(stringFunction, nativeArguments);
     }
 
     executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
