@@ -1,9 +1,7 @@
-import { and } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
-import { isPresent } from './isPresent';
 
 /**
  * @desc
@@ -17,12 +15,5 @@ import { isPresent } from './isPresent';
  * @see {@link Wait}
  */
 export function isVisible(): Expectation<boolean, PageElement> {
-    return Expectation.to<PageElement>('become visible').soThatActual(and(
-        isPresent(),
-        isDisplayed(),
-    ));
-}
-
-function isDisplayed(): Expectation<any, PageElement> {
-    return ElementExpectation.forElementTo('become displayed', actual => actual.isDisplayed());
+    return ElementExpectation.forElementTo('become visible', actual => actual.isVisible());
 }

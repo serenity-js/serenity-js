@@ -1,6 +1,33 @@
 <html lang="en">
+<head>
+    <style>
+        span {
+            background: pink;
+        }
+        .outer {
+            position: relative;
+        }
+        .inner {
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
 <body>
-<h1>visible</h1>
-<h2 style="display:none;">invisible</h2>
+    <ul>
+        <li>Visible: <span id="displayed" style="display: inline-block">.</span></li>
+        <li>Not displayed: <span id="display-none" style="display: none">.</span></li>
+        <li>Hidden: <span id="visibility-hidden" style="visibility: hidden">.</span></li>
+        <li>Not in viewport: <span id="not-in-viewport" style="position:absolute; left: 9999999px">.</span></li>
+        <li>Opacity Zero: <span id="opacity-zero" style="opacity: 0">.</span></li>
+    </ul>
+
+    <div class="outer">
+        <div id="foreground" class="inner" style="background: darkgoldenrod; z-index: 1">FG</div>
+        <div id="background" class="inner" style="background: darkblue; z-index: 0">BG</div>
+    </div>
 </body>
 </html>
