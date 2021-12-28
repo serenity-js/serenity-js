@@ -131,12 +131,6 @@ export class ProtractorPageElement
         return this.isEnabled();
     }
 
-    async isDisplayed(): Promise<boolean> {
-        const element: ElementFinder = await this.nativeElement();
-
-        return element.isDisplayed();
-    }
-
     async isEnabled(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
@@ -153,5 +147,39 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
 
         return element.isSelected();
+    }
+
+    async isVisible(): Promise<boolean> {
+        const element: ElementFinder = await this.nativeElement();
+
+        if (! await element.isDisplayed()) {
+            return false;
+        }
+
+        const webElement: WebElement = await element.getWebElement();
+
+        // get element at cx/cy and see if the element we found is our element, and therefore it's visible.
+        return promised(webElement.getDriver().executeScript(
+            `
+            var  elem = arguments[0];
+            
+            if (! elem.getBoundingClientRect) {
+                return false;
+            }
+            
+            var
+                box = elem.getBoundingClientRect(),
+                cx = box.left + box.width / 2,
+                cy = box.top + box.height / 2,
+                e = document.elementFromPoint(cx, cy);
+            
+            for (; e; e = e.parentElement) {
+                if (e === elem)
+                    return true;
+            }
+            return false;
+            `,
+            webElement,
+        ));
     }
 }

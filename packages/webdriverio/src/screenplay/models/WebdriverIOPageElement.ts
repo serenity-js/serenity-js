@@ -70,11 +70,6 @@ export class WebdriverIOPageElement
         return element.isClickable();
     }
 
-    async isDisplayed(): Promise<boolean> {
-        const element = await this.nativeElement();
-        return element.isDisplayed();
-    }
-
     async isEnabled(): Promise<boolean> {
         const element = await this.nativeElement();
         return element.isEnabled();
@@ -88,5 +83,63 @@ export class WebdriverIOPageElement
     async isSelected(): Promise<boolean> {
         const element = await this.nativeElement();
         return element.isSelected();
+    }
+
+    /**
+     * @desc
+     *  Checks if the PageElement:
+     *  - is displayed,
+     *  - is visible within the browser viewport,
+     *  - has not its center covered by other elements
+     *
+     * @see https://webdriver.io/docs/api/element/isDisplayedInViewport/
+     */
+    async isVisible(): Promise<boolean> { // isVisible?
+        const element = await this.nativeElement();
+
+        if (! await element.isDisplayed()) {
+            return false;
+        }
+
+        if (! await element.isDisplayedInViewport()) {
+            return false;
+        }
+
+        const browser = await this.browserFor(element);
+
+        /* eslint-disable no-var */
+
+        // get element at cx/cy and see if the element we found is our element, and therefore it's visible.
+        return browser.execute(
+            /* istanbul ignore next */
+            function isVisible(element: any) {
+                if (! element.getBoundingClientRect) {
+                    return false;
+                }
+
+                var
+                    box = element.getBoundingClientRect(),
+                    cx = box.left + box.width / 2,
+                    cy = box.top + box.height / 2,
+                    e = document.elementFromPoint(cx, cy);
+
+                for (; e; e = e.parentElement) {
+                    if (e === element)
+                        return true;
+                }
+                return false;
+            },
+            element,
+        );
+
+        /* eslint-enable no-var */
+    }
+
+    // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
+    private async browserFor(nativeElement: wdio.Element<'async'> | wdio.Browser<'async'>): Promise<wdio.Browser<'async'>> {
+        const element = nativeElement as wdio.Element<'async'>;
+        return element.parent
+            ? this.browserFor(element.parent)
+            : nativeElement
     }
 }

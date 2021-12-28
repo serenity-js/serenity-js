@@ -64,8 +64,8 @@ export abstract class PageElement<Native_Element_Type = any> {
 
     abstract isActive(): Promise<boolean>;
     abstract isClickable(): Promise<boolean>;
-    abstract isDisplayed(): Promise<boolean>;
     abstract isEnabled(): Promise<boolean>;
     abstract isPresent(): Promise<boolean>;
     abstract isSelected(): Promise<boolean>;
+    abstract isVisible(): Promise<boolean>;
 }
