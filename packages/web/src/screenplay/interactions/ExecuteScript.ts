@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { asyncMap, formatted } from '@serenity-js/core/lib/io';
 import { Name, TextData } from '@serenity-js/core/lib/model';
 
 import { BrowseTheWeb } from '../abilities';
@@ -221,17 +221,18 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): PromiseLike<void> {
-        // todo: interaction should store the result on the ability; the ability should not have a side-effect (?)
-        return Promise.all(this.args.map(arg => actor.answer(arg)))
-            .then(args => this.executeAs(actor, args))
-            .then(() => actor.collect(
-                TextData.fromJSON({
-                    contentType:    'text/javascript;charset=UTF-8',
-                    data:           this.script.toString(),
-                }),
-                new Name('Script source'),
-            ));
+    async performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        const args = await asyncMap(this.args, arg => actor.answer(arg));
+
+        await this.executeAs(actor, args);
+
+        actor.collect(
+            TextData.fromJSON({
+                contentType:    'text/javascript;charset=UTF-8',
+                data:           this.script.toString(),
+            }),
+            new Name('Script source'),
+        );
     }
 
     protected abstract executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any>;

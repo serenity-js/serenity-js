@@ -1,5 +1,5 @@
 import { Answerable, q } from '@serenity-js/core';
-import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
+import { asyncMap, commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
@@ -129,16 +129,19 @@ export class Select {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects values ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
 
-                    const desiredValues = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
+                    const answers = await asyncMap(values, value => actor.answer(value));
+                    const desiredValues = answers.flat();
 
-                    const options: PageElement[]  = await PageElements.located(By.css(`option`)).of(pageElement).answeredBy(actor);
-                    const shouldSelect: boolean[]   = await Promise.all(options.map(optionsToSelect(hasValueEqualOneOf(desiredValues))));
+                    const options: PageElement[] = await PageElements.located(By.css(`option`))
+                        .of(pageElement)
+                        .answeredBy(actor);
 
-                    return options.forEach((option, index) => {
-                        if (shouldSelect[index]) {
-                            return option.click()
+                    for (const option of options) {
+                        const shouldSelect = await optionsToSelect(hasValueEqualOneOf(desiredValues))(option);
+                        if (shouldSelect) {
+                            await option.click();
                         }
-                    });
+                    }
                 }),
         };
     }
@@ -260,16 +263,17 @@ export class Select {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
 
-                    const desiredOptions = (await Promise.all(values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
+                    const answers = await asyncMap(values, value => actor.answer(value));
+                    const desiredOptions = answers.flat();
 
                     const options: PageElement[]    = await PageElements.located(By.css(`option`)).of(pageElement).answeredBy(actor);
-                    const shouldSelect: boolean[]   = await Promise.all(options.map(optionsToSelect(hasTextEqualOneOf(desiredOptions))));
 
-                    return options.forEach((option, index) => {
-                        if (shouldSelect[index]) {
-                            return option.click()
+                    for (const option of options) {
+                        const shouldSelect = await optionsToSelect(hasTextEqualOneOf(desiredOptions))(option);
+                        if (shouldSelect) {
+                            await option.click()
                         }
-                    });
+                    }
                 }),
         };
     }

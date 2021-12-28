@@ -67,14 +67,14 @@ export class TakeScreenshot extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
-        return Promise.all([
-            BrowseTheWeb.as(actor).takeScreenshot(),
-            actor.answer(this.name),
-        ]).then(([ screenshot, name ]) => actor.collect(
+    async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
+        const screenshot    = await BrowseTheWeb.as(actor).takeScreenshot();
+        const name          = await actor.answer(this.name);
+
+        actor.collect(
             Photo.fromBase64(screenshot),
             new Name(name),
-        ));
+        );
     }
 
     /**

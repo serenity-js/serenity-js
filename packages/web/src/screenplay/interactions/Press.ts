@@ -1,5 +1,5 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { asyncMap, formatted } from '@serenity-js/core/lib/io';
 
 import { Key } from '../../input';
 import { BrowseTheWeb } from '../abilities';
@@ -149,12 +149,12 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
         this.subject = KeySequence.describe(keys);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<string | Key>> {
-        return Promise.all(
-            this.keys.map(part => actor.answer(part))
-        ).then(keys => {
-            return keys.flat().filter(key => !! key)
-        })
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<string | Key>> {
+        const keys = await asyncMap(this.keys, key => actor.answer(key));
+
+        return keys
+            .flat()
+            .filter(key => !! key);
     }
 
     /**
