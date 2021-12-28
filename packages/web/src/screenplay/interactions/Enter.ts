@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { asyncMap, formatted } from '@serenity-js/core/lib/io';
 
 import { PageElement } from '../models';
 import { EnterBuilder } from './EnterBuilder';
@@ -43,30 +43,30 @@ export class Enter extends PageElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Array<Answerable<string | number | string[] | number[]>>} value
+     * @param {Array<Answerable<string | number | string[] | number[]>>} values
      *  The value to be entered
      *
      * @returns {EnterBuilder}
      */
-    static theValue(...value: Array<Answerable<string | number | string[] | number[]>>): EnterBuilder {
+    static theValue(...values: Array<Answerable<string | number | string[] | number[]>>): EnterBuilder {
         return {
             into: (field: Answerable<PageElement>  /* todo Question<AlertPromise> | AlertPromise */) =>
-                new Enter(value, field),
+                new Enter(values, field),
         };
     }
 
     /**
-     * @param {Array<Answerable<string | number | string[] | number[]>>} value
+     * @param {Array<Answerable<string | number | string[] | number[]>>} values
      *  The value to be entered
      *
      * @param {Answerable<PageElement>} field
      *  The field to enter the value into
      */
     constructor(
-        private readonly value: Array<Answerable<string | number | string[] | number[]>>,
+        private readonly values: Array<Answerable<string | number | string[] | number[]>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(formatted `#actor enters ${ value.join(', ') } into ${ field }`);
+        super(formatted `#actor enters ${ values.join(', ') } into ${ field }`);
     }
 
     /**
@@ -84,9 +84,10 @@ export class Enter extends PageElementInteraction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const values = await Promise.all(this.value.map(part => actor.answer(part)));
         const field  = await this.resolve(actor, this.field);
 
-        return field.enterValue(values.flat());
+        const valuesToEnter = await asyncMap(this.values, value => actor.answer(value))
+
+        return field.enterValue(valuesToEnter.flat());
     }
 }

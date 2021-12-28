@@ -1,4 +1,5 @@
 import { Adapter, Answerable, AnswersQuestions, createAdapter, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { PageElement, PageElements } from '../models';
 import { ElementQuestion } from './ElementQuestion';
@@ -147,9 +148,9 @@ class TextOfMultipleElements
         return new TextOfMultipleElements(this.elements.of(parent));
     }
 
-    // todo: clean it up
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const elements: PageElement[] = await this.resolve(actor, this.elements) as any;
-        return Promise.all(elements.map(element => element.text()));
+        const elements: PageElement[] = await this.resolve(actor, this.elements);
+
+        return asyncMap(elements, element => element.text());
     }
 }
