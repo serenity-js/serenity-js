@@ -1,3 +1,4 @@
+export * from './ElementExpectation';
 export * from './isActive';
 export * from './isClickable';
 export * from './isEnabled';
