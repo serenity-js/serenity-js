@@ -16,11 +16,11 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
                 }
             }
 
-            if (key in target) {
+            if (shouldReflect(target, key)) {
                 return Reflect.get(target, key, receiver);
             }
 
-            if (doNotProxy(key)) {
+            if (! shouldProxy(key)) { // ! shouldProxy
                 return;
             }
 
@@ -29,7 +29,7 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
                 : `.${ String(key) }`;  // field/method name
 
             // when property is invoked as a method
-            function proxy(...originalParameters) {
+            function __serenityProxy(...originalParameters) {
 
                 const parameterDescriptions = [
                     '(',
@@ -65,7 +65,7 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
 
             const originalSubject = inspected(question, { inline: true, markQuestions: true });
 
-            proxy.subject = originalSubject + fieldDescription
+            __serenityProxy.subject = originalSubject + fieldDescription
 
             // when property is accessed as a field
             const body = async (actor: Actor) => {
@@ -78,37 +78,44 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
                 return answer[key];
             };
 
-            proxy.answeredBy = body;
-            proxy.performAs = body;
+            __serenityProxy.answeredBy = body;
+            __serenityProxy.performAs = body;
 
-            proxy.toString = () => {
-                return proxy.subject;
+            __serenityProxy.toString = () => {
+                return __serenityProxy.subject;
             };
 
-            proxy.describedAs = (newSubject: string) => {
-                proxy.subject = newSubject;
+            __serenityProxy.describedAs = (newSubject: string) => {
+                __serenityProxy.subject = newSubject;
 
-                return proxy;
+                return __serenityProxy;
             }
 
-            proxy.as = <O>(mapping: (answer: Awaited<A>) => O): Question<Promise<O>> => {
-                return Question.about<Promise<O>>(`${ proxy.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
-                    const answer = await actor.answer(proxy)
+            __serenityProxy.as = <O>(mapping: (answer: Awaited<A>) => O): Question<Promise<O>> => {
+                return Question.about<Promise<O>>(`${ __serenityProxy.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+                    const answer = await actor.answer(__serenityProxy)
                     return mapping(answer);
                 });
             }
 
-            return createAdapter(proxy as any);
+            return createAdapter(__serenityProxy as any);
         }
     }) as Q & Adapter<Awaited<A>>
 }
 
-function doNotProxy(key: string | symbol | number) {
+function shouldReflect<A, Q extends Question<A> = Question<A>>(target: Q & { name?: string }, key: string | symbol | number): boolean {
+    // return the actual value
+    return key in target
+        // unless target is a proxy function, because proxy function has a built-in .length attribute that could shadow Array.length of the wrapped object
+        && !((target as any).name === '__serenityProxy' && key === 'length')
+}
+
+function shouldProxy(key: string | symbol | number) {
     const prohibited: Array<string | symbol | number> = [
         'then', // don't proxy Promises
     ];
 
-    return prohibited.includes(key)
+    return ! prohibited.includes(key)
 }
 
 class DynamicProp<T> extends Interaction implements Question<T> {
