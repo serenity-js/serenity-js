@@ -1,7 +1,11 @@
-import { LogicError } from '@serenity-js/core';
+import { format, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, NativeElementLocator, Selector } from '@serenity-js/web';
+import { match } from 'tiny-types';
 import * as wdio from 'webdriverio';
+
 import { WebdriverIONativeElementRoot } from './WebdriverIONativeElementRoot';
+
+const f = format({ markQuestions: false });
 
 export class WebdriverIONativeElementLocator implements NativeElementLocator<wdio.Element<'async'>> {
     constructor(private readonly resolver: () => Promise<WebdriverIONativeElementRoot> | WebdriverIONativeElementRoot) {
@@ -22,53 +26,53 @@ export class WebdriverIONativeElementLocator implements NativeElementLocator<wdi
      *
      *  Notably, complex CSS selectors such as 'header h1' or 'header > h1' **WON'T WORK**.
      *
-     * @param {string} selector
-     * @param {string} text
-     * @returns {@serenity-js/web/lib/screenplay/models~PageElement}
+     * @param {Selector<T>} selector
+     * @returns {Promise<wdio.Element<'async'>>}
      */
-    async locate<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<wdio.Element<'async'>> {
+    async locate<T>(selector: Selector<T>): Promise<wdio.Element<'async'>> {
         const resolver = await this.resolver();
-        if (selector instanceof ByCss) {
-            return resolver.$(selector.parameters[0]);
-        }
 
-        if (selector instanceof ByCssContainingText) {
-            return resolver.$(`${ selector.parameters[0] }*=${ selector.parameters[1] }`);
-        }
+        const byLocator = match<Selector<unknown>, string>(selector)
+            .when(ByCss, (s: ByCss) =>
+                s.value,
+            )
+            .when(ByCssContainingText, (s: ByCssContainingText) =>
+                `${ s.value }*=${ s.text }`,
+            )
+            .when(ById, (s: ById) =>
+                `#${ s.value }`,
+            )
+            .when(ByTagName, (s: ByTagName) =>
+                `<${ s.value } />`,
+            )
+            .when(ByXPath, (s: ByXPath) =>
+                s.value,
+            )
+            .else(() => {
+                throw new LogicError(f`Selector ${ selector } not supported`);
+            });
 
-        if (selector instanceof ById) {
-            return resolver.$(`#${selector.parameters[0]}`);
-        }
-
-        if (selector instanceof ByTagName) {
-            return resolver.$(`<${ selector.parameters[0] } />`);
-        }
-
-        if (selector instanceof ByXPath) {
-            return resolver.$(selector.parameters[0]);
-        }
-
-        throw new LogicError(`Selector ${ selector } not supported`);
+        return resolver.$(byLocator);
     }
 
-    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<Array<wdio.Element<'async'>>> {
+    async locateAll<T>(selector: Selector<T>): Promise<Array<wdio.Element<'async'>>> {
         const resolver = await this.resolver();
 
-        if (selector instanceof ByCss) {
-            return resolver.$$(selector.parameters[0])
-                .map(element => element);
-        }
+        const byLocator = match<Selector<unknown>, string>(selector)
+            .when(ByCss, (s: ByCss) =>
+                s.value,
+            )
+            .when(ByTagName, (s: ByTagName) =>
+                `<${ s.value } />`,
+            )
+            .when(ByXPath, (s: ByXPath) =>
+                s.value,
+            )
+            .else(() => {
+                throw new LogicError(f`Selector ${ selector } not supported`);
+            });
 
-        if (selector instanceof ByTagName) {
-            return resolver.$$(`<${ selector.parameters[0] } />`)
-                .map(element => element);
-        }
-
-        if (selector instanceof ByXPath) {
-            return resolver.$$(selector.parameters[0])
-                .map(element => element);
-        }
-
-        throw new LogicError(`Selector ${ selector } not supported`);
+        return resolver.$$(byLocator);
     }
 }
+

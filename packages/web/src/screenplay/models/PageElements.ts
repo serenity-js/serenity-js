@@ -9,17 +9,17 @@ const f = format({ markQuestions: true });
 export class PageElements<Native_Element_Type = any>
     extends List<PageElement<Native_Element_Type>>
 {
-    static located<NET, SP extends unknown[]>(selector: Answerable<Selector<SP>>): PageElements<NET> {
+    static located<NET, ST>(selector: Answerable<Selector<ST>>): PageElements<NET> {
         return new PageElements(selector);
     }
 
     /**
-     * @param {Answerable<Selector<unknown[]>>} selector
+     * @param {Answerable<Selector<unknown>>} selector
      * @param {Answerable<PageElement>} [parent]
      *  if not specified, browser root selector is used
      */
     constructor(
-        protected readonly selector: Answerable<Selector<unknown[]>>,
+        protected readonly selector: Answerable<Selector<unknown>>,
         private readonly parent?: Answerable<PageElement>
     ) {
         super(new PageElementCollection<Native_Element_Type>(selector, parent));
@@ -39,7 +39,7 @@ class PageElementCollection<Native_Element_Type = any>
 {
     private subject: string;
     constructor(
-        private readonly selector: Answerable<Selector<unknown[]>>,
+        private readonly selector: Answerable<Selector<unknown>>,
         private readonly parent?: Answerable<PageElement>,
     ) {
         super();

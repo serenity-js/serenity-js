@@ -2,21 +2,15 @@ import { format } from '@serenity-js/core';
 
 const f = format({ markQuestions: true });
 
-export abstract class Selector<Parameters extends unknown[]> {
+export abstract class Selector<T> {
 
-    public readonly parameters: Parameters;
-    public readonly subject: string;
-
-    constructor(...parameters: Parameters) {
-        const selectorDescription   = this.constructor.name.replace(/([a-z]+)([A-Z])/g, '$1 $2').toLowerCase();
-        const parametersDescription = parameters.map(selector => f`${selector}`).join(', ');
-
-        this.subject = `${ selectorDescription } (${ parametersDescription })`;
-
-        this.parameters = parameters;
+    constructor(public readonly value: T) {
     }
 
     toString(): string {
-        return this.subject;
+        const selectorDescription   = this.constructor.name.replace(/([a-z]+)([A-Z])/g, '$1 $2').toLowerCase();
+        const parametersDescription = Object.keys(this).map(field => f`${this[field]}`).join(', ');
+
+        return `${ selectorDescription } (${ parametersDescription })`;
     }
 }

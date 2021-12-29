@@ -8,14 +8,13 @@ const d = format({ markQuestions: false });
 
 export abstract class PageElement<Native_Element_Type = any> {
 
-    static located<NET, SP extends unknown[]>(selector: Answerable<Selector<SP>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
+    static located<NET, ST>(selector: Answerable<Selector<ST>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
             const bySelector = await actor.answer(selector);
-            return BrowseTheWeb.as(actor).locate<SP>(bySelector);
+            return BrowseTheWeb.as(actor).locate<ST>(bySelector);
         });
     }
 
-    // --- todo: review
     static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
@@ -26,7 +25,7 @@ export abstract class PageElement<Native_Element_Type = any> {
     }
 
     constructor(
-        protected readonly selector: Selector<unknown[]>,
+        protected readonly selector: Selector<unknown>,
         private readonly locator: NativeElementLocator<Native_Element_Type>,
     ) {
     }

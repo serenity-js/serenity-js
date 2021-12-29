@@ -117,11 +117,11 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
         return promised(this.browser.manage().deleteAllCookies());
     }
 
-    locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<ElementFinder>): ProtractorPageElement {
+    locate<T>(selector: Selector<T>, locator?: NativeElementLocator<ElementFinder>): ProtractorPageElement {
         return new ProtractorPageElement(selector, locator ?? this.nativeElementLocator());
     }
 
-    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<ElementFinder>): Promise<ProtractorPageElement[]> {
+    async locateAll<T>(selector: Selector<T>, locator?: NativeElementLocator<ElementFinder>): Promise<ProtractorPageElement[]> {
         const l = locator ?? this.nativeElementLocator();
         const elements = await l.locateAll(selector);
 

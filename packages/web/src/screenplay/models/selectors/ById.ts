@@ -1,4 +1,4 @@
 import { Selector } from './Selector';
 
-export class ById extends Selector<[ string ]> {
+export class ById extends Selector<string> {
 }
