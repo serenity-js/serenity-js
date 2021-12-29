@@ -103,11 +103,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
         return this.browser.deleteCookies() as Promise<void>;
     }
 
-    locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<wdio.Element<'async'>>): WebdriverIOPageElement {
+    locate<T>(selector: Selector<T>, locator?: NativeElementLocator<wdio.Element<'async'>>): WebdriverIOPageElement {
         return new WebdriverIOPageElement(selector, locator ?? this.nativeElementLocator());
     }
 
-    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<wdio.Element<'async'>>): Promise<WebdriverIOPageElement[]> {
+    async locateAll<T>(selector: Selector<T>, locator?: NativeElementLocator<wdio.Element<'async'>>): Promise<WebdriverIOPageElement[]> {
         const l = locator ?? this.nativeElementLocator();
         const elements = await l.locateAll(selector);
 

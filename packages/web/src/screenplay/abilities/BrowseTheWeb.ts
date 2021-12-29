@@ -30,8 +30,8 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
-    abstract locate<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<Native_Element_Type>): PageElement<Native_Element_Type>;
-    abstract locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>, locator?: NativeElementLocator<Native_Element_Type>): Promise<Array<PageElement<Native_Element_Type>>>;
+    abstract locate<T>(selector: Selector<T>, locator?: NativeElementLocator<Native_Element_Type>): PageElement<Native_Element_Type>;
+    abstract locateAll<T>(selector: Selector<T>, locator?: NativeElementLocator<Native_Element_Type>): Promise<Array<PageElement<Native_Element_Type>>>;
     abstract nativeElementLocator(): NativeElementLocator<Native_Element_Type>;
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;

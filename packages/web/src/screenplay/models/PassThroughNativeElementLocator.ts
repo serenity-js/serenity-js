@@ -8,11 +8,11 @@ export class PassThroughNativeElementLocator<Native_Element_Type = any> implemen
     ) {
     }
 
-    async locate<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<Native_Element_Type> {
+    async locate<T>(selector: Selector<T>): Promise<Native_Element_Type> {
         return this.element;
     }
 
-    locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<Native_Element_Type[]> {
+    locateAll<T>(selector: Selector<T>): Promise<Native_Element_Type[]> {
         return this.locator.locateAll(selector);
     }
 }

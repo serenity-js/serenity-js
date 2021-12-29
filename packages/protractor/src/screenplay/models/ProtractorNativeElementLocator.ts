@@ -1,58 +1,65 @@
-import { LogicError } from '@serenity-js/core';
+import { format, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, NativeElementLocator, Selector } from '@serenity-js/web';
-import { by, ElementFinder } from 'protractor';
+import { by, ElementFinder, Locator } from 'protractor';
+import { match } from 'tiny-types';
 
 import { promisedWebElement } from '../promisedWebElement';
 import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
+
+const f = format({ markQuestions: false });
 
 export class ProtractorNativeElementLocator implements NativeElementLocator<ElementFinder> {
     constructor(private readonly resolver: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot) {
     }
 
-    async locate<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<ElementFinder> {
+    async locate<T>(selector: Selector<T>): Promise<ElementFinder> {
         const resolver = await this.resolver();
-        if (selector instanceof ByCss) {
-            return promisedWebElement(resolver.element(by.css(selector.parameters[0])));
-        }
 
-        if (selector instanceof ByCssContainingText) {
-            return promisedWebElement(resolver.element(by.cssContainingText(selector.parameters[0], selector.parameters[1])));
-        }
+        const byLocator = match<Selector<unknown>, Locator>(selector)
+            .when(ByCss, (s: ByCss) =>
+                by.css(s.value)
+            )
+            .when(ByCssContainingText, (s: ByCssContainingText) =>
+                by.cssContainingText(s.value, s.text)
+            )
+            .when(ById, (s: ById) =>
+                by.id(s.value)
+            )
+            .when(ByTagName, (s: ByTagName) =>
+                by.tagName(s.value)
+            )
+            .when(ByXPath, (s: ByXPath) =>
+                by.xpath(s.value)
+            )
+            .else(() => {
+                throw new LogicError(f `Selector ${ selector } not supported`);
+            });
 
-        if (selector instanceof ById) {
-            return promisedWebElement(resolver.element(by.id(selector.parameters[0])));
-        }
-
-        if (selector instanceof ByTagName) {
-            return promisedWebElement(resolver.element(by.tagName(selector.parameters[0])));
-        }
-
-        if (selector instanceof ByXPath) {
-            return promisedWebElement(resolver.element(by.xpath(selector.parameters[0])));
-        }
-
-        throw new LogicError(`Selector ${ selector } not supported`);
+        return promisedWebElement(resolver.element(byLocator));
     }
 
-    async locateAll<Parameters extends unknown[]>(selector: Selector<Parameters>): Promise<Array<ElementFinder>> {
+    async locateAll<T>(selector: Selector<T>): Promise<Array<ElementFinder>> {
         const resolver = await this.resolver();
         const all = resolver.element.all || resolver.all;
 
-        if (selector instanceof ByCss) {
-            const eaf: ElementFinder[] = await all(by.css(selector.parameters[0]));
-            return Promise.all(eaf.map(element => promisedWebElement(element)));
-        }
+        const byLocator = match<Selector<unknown>, Locator>(selector)
+            .when(ByCss, (s: ByCss) =>
+                by.css(s.value)
+            )
+            .when(ByTagName, (s: ByTagName) =>
+                by.tagName(s.value)
+            )
+            .when(ByXPath, (s: ByXPath) =>
+                by.xpath(s.value)
+            )
+            .else(() => {
+                throw new LogicError(f `Selector ${ selector } not supported`);
+            });
 
-        if (selector instanceof ByTagName) {
-            const eaf: ElementFinder[] = await all(by.tagName(selector.parameters[0]));
-            return Promise.all(eaf.map(element => promisedWebElement(element)));
-        }
+        const eaf: ElementFinder[] = await all(byLocator);
 
-        if (selector instanceof ByXPath) {
-            const eaf: ElementFinder[] = await all(by.xpath(selector.parameters[0]));
-            return Promise.all(eaf.map(element => promisedWebElement(element)));
-        }
-
-        throw new LogicError(`Selector ${ selector } not supported`);
+        return Promise.all(eaf.map(element =>
+            promisedWebElement(element)
+        ));
     }
 }

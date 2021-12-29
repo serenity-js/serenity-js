@@ -18,20 +18,18 @@ describe('Selector', () => {
 
     describe('when read', () => {
 
-        it('provides access to selector parameters', async () => {
-            const parameters: [string] = new ByReactComponentName('header').parameters;
-            expect(parameters).to.deep.equal([ 'header' ]);
-        });
-
-        it('resolves to a tuple containing all the values of the selector', async () => {
-            const parameters: [string, string] = new ByReactComponentNameContainingText('header', 'expected text').parameters;
-            expect(parameters).to.deep.equal([ 'header', 'expected text' ]);
+        it('provides access to selector value', async () => {
+            const value: string = new ByReactComponentName('header').value;
+            expect(value).to.equal('header');
         });
     });
 });
 
-class ByReactComponentName extends Selector<[string]> {
+class ByReactComponentName extends Selector<string> {
 }
 
-class ByReactComponentNameContainingText extends Selector<[string, string]> {
+class ByReactComponentNameContainingText extends Selector<string> {
+    constructor(value: string, public readonly text: string) {
+        super(value);
+    }
 }
