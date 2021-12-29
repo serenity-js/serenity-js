@@ -72,9 +72,9 @@ describe('Text', () => {
                 Navigate.to('/screenplay/questions/text/shopping_list.html'),
 
                 Ensure.that(
-                    Text.ofAll(Shopping_List_Items).of(
+                    Text.ofAll(Shopping_List_Items.of(
                         PageElement.located(By.css('body')).describedAs('body')
-                    ),
+                    )),
                     equals(['milk', 'oats'])
                 ),
             ));
