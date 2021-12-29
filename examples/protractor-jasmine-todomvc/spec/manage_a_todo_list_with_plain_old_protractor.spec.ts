@@ -1,4 +1,4 @@
-import { browser, by, element, protractor } from 'protractor';
+import { browser, by, element, ExpectedConditions, protractor } from 'protractor';
 
 describe('Todo List App', function () {
 
@@ -44,6 +44,7 @@ describe('Todo List App', function () {
                 await browser.get('https://todo-app.serenity-js.org/#/');
                 await browser.executeScript(`window.localStorage.clear()`);
                 await browser.refresh();
+                await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('.new-todo'))));
             },
 
             recordItemCalled: async (itemName: string) => {

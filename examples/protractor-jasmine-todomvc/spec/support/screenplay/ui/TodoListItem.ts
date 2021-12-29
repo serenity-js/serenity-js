@@ -1,11 +1,11 @@
-import { PageElement } from '@serenity-js/web';
+import { By, PageElement } from '@serenity-js/web';
 
 export class TodoListItem {
-    static label = PageElement.locatedByTagName('label').describedAs(`label`);
+    static label = PageElement.located(By.tagName('label')).describedAs(`label`);
 
-    static toggleButton = PageElement.locatedByCss('input.toggle').describedAs(`toggle button`);
+    static toggleButton = PageElement.located(By.css('input.toggle')).describedAs(`toggle button`);
 
-    static destroyButton = PageElement.locatedByCss('button.destroy').describedAs(`destroy button`);
+    static destroyButton = PageElement.located(By.css('button.destroy')).describedAs(`destroy button`);
 
-    static editItemNameInput = PageElement.locatedByCss('.edit').describedAs(`edit item name input`);
+    static editItemNameInput = PageElement.located(By.css('.edit')).describedAs(`edit item name input`);
 }
