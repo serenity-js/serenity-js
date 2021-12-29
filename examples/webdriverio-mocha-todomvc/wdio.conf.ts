@@ -69,7 +69,8 @@ export const config: WebdriverIOConfig = {
         }
     }],
 
-    logLevel: 'debug',
+    logLevel: 'info',
+    // logLevel: 'debug',
 
     waitforTimeout: 10_000,
 
