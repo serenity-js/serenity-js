@@ -1,9 +1,10 @@
 import { LogicError } from '../../errors';
 import { format } from '../../io';
-import { AnswersQuestions, UsesAbilities } from '../actor';
+import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Adapter } from '../model';
 import { Question } from '../Question';
+import { Task } from '../Task';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 import { MetaQuestion } from './MetaQuestion';
@@ -30,6 +31,10 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         return new List(
             new EachMappedTo(this.collection, question, this.subject)
         );
+    }
+
+    forEach(callback: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void): Task {
+        return new ForEachLoop(this.collection, this.subject, callback);
     }
 
     where<Answer_Type>(
@@ -217,4 +222,35 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
     toString(): string {
         return this.subject;
     }
+}
+
+/**
+ * @package
+ */
+class ForEachLoop<Item_Type> extends Task {
+
+    constructor(
+        private readonly collection: Answerable<Array<Item_Type>>,
+        private readonly subject: string,
+        private readonly fn: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void,
+    ) {
+        super();
+    }
+
+    async performAs(actor: Actor): Promise<void> {
+        const collection: Array<Item_Type> = await actor.answer(this.collection);
+
+        for (const [index, item] of collection.entries()) {
+            await this.fn({ actor, item }, index, collection);
+        }
+    }
+
+    toString(): string {
+        return `#actor iterates over ${ this.subject }`;
+    }
+}
+
+export interface CurrentItem<Item_Type> {
+    item: Item_Type;
+    actor: Actor;
 }

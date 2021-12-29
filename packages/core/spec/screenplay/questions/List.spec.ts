@@ -2,7 +2,7 @@ import 'mocha';
 
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, Expectation, List, LogicError, Question } from '../../../src';
+import { actorCalled, Answerable, Expectation, Interaction, List, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
 /** @test {List} */
@@ -174,7 +174,7 @@ describe('List', () => {
         });
     });
 
-    describe('when mapping the items of a collection', () => {
+    describe('when mapping items of a collection', () => {
         const accounts: Account[] = [
             { id: 1, name: 'Alice' },
             { id: 2, name: 'Arbnor' },
@@ -235,6 +235,81 @@ describe('List', () => {
                 `the first of [ {"id":1,"name":"Alice"}, {"id":2,"name":"Arbnor"}, {"id":3,"name":"Bob"} ] where AccountName does start with 'A' mapped to AccountName`
             );
         });
+    });
+
+    describe('when iterating over the collection', () => {
+
+        it('executes the provided callback for every item', async () => {
+
+            const accounts: Account[] = [
+                { id: 1, name: 'Alice', enabled: false },
+                { id: 2, name: 'Bob',   enabled: false },
+                { id: 3, name: 'Cindy', enabled: false },
+            ];
+
+            await Fiona.attemptsTo(
+                List.of(accounts)
+                    .forEach(async ({ item, actor }) => {
+                        await actor.attemptsTo(Toggle.the(item));
+                    })
+            );
+
+            expect(accounts).to.deep.equal([
+                { id: 1, name: 'Alice', enabled: true },
+                { id: 2, name: 'Bob',   enabled: true },
+                { id: 3, name: 'Cindy', enabled: true },
+            ]);
+        });
+
+        it('supports nested loops', async () => {
+
+            const accounts: Account[][] = [
+                [ { id: 1, name: 'Alice', enabled: false } ],
+                [ { id: 2, name: 'Bob',   enabled: false }, { id: 3, name: 'Cindy', enabled: false } ],
+            ];
+
+            await Fiona.attemptsTo(
+                List.of(accounts).forEach(({ item, actor }) =>
+                    actor.attemptsTo(
+                        List.of(item).forEach(({ item, actor }) =>
+                            actor.attemptsTo(Toggle.the(item))
+                        )
+                    )
+                )
+            );
+
+            expect(accounts).to.deep.equal([
+                [ { id: 1, name: 'Alice', enabled: true } ],
+                [ { id: 2, name: 'Bob',   enabled: true }, { id: 3, name: 'Cindy', enabled: true } ]
+            ]);
+        });
+
+        it('provides access to the current index and the collection items themselves', async () => {
+
+            const entries = [
+                { expectedIndex: 0, name: 'A' },
+                { expectedIndex: 1, name: 'B' },
+                { expectedIndex: 2, name: 'C' },
+            ];
+
+            await Fiona.attemptsTo(
+                List.of(entries)
+                    .forEach(async ({ item, actor }, index, items) => {
+                        expect(index).to.equal(item.expectedIndex);
+                        expect(items).to.deep.equal(entries);
+                    })
+            );
+        });
+
+        it('provides a sensible description of the task being performed', () => {
+            const description = List.of([ 1, 2, 3 ])
+                .forEach(({ item, actor }) => {
+                    // do nothing
+                })
+                .toString();
+
+            expect(description).to.equal('#actor iterates over [ 1, 2, 3 ]');
+        })
     });
 
     describe('when used as a base of a custom collection', () => {
@@ -375,11 +450,19 @@ describe('List', () => {
 interface Account {
     id: number;
     name: string;
+    enabled?: boolean;
 }
 
 class AccountName {
     static of = (account: Account) =>
         Question.about('account name', actor => account.name)
+}
+
+class Toggle {
+    static the = (account: Account) =>
+        Interaction.where(`#actor toggles the account`, actor => {
+            account.enabled = ! account.enabled;
+        });
 }
 
 class Value {

@@ -6,40 +6,66 @@ import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from
 import { expect } from '@integration/testing-tools';
 import { given } from 'mocha-testdata';
 
+class ShoppingList {
+    static app = () =>
+        PageElement.located(By.id('shopping-list-app'))
+            .describedAs('shopping list app');
+
+    static progress = () =>
+        PageElement.located(By.css('.progress'))
+            .describedAs('progress bar')
+            .of(ShoppingList.app());
+
+    static numberOfItemsLeft = () =>
+        PageElement.located(By.css('span'))
+            .describedAs('number of items left')
+            .of(ShoppingList.progress());
+
+    static header = () =>
+        PageElement.located(By.tagName('h1')).describedAs('header');
+
+    static list = () =>
+        PageElement.located(By.tagName('ul')).describedAs('shopping list');
+
+    static items = () =>
+        PageElements.located(By.tagName('li'))
+            .describedAs('items')
+            .of(ShoppingList.app());
+
+    static boughtItems = () =>
+        PageElements.located(By.css('.bought'))
+            .describedAs('bought items')
+            .of(ShoppingList.list());
+}
+
+class AdvancedShoppingList {
+    static items = () =>
+        PageElements.located(By.css('li')).describedAs('shopping list items');
+
+    static item = () =>
+        PageElement.located(By.css('li')).describedAs('shopping list item');
+
+    static titles = () =>
+        PageElements.located(By.css('li span.item-name')).describedAs('shopping list item titles');
+
+    static itemName = () =>
+        PageElement.located(By.css('span.item-name')).describedAs('item name');
+}
+
+const ItemCalled = (name: string) =>
+    AdvancedShoppingList.items()
+        .where(Text.of(AdvancedShoppingList.itemName()), equals(name))
+        .first();
+
+const ItemsLeftToBuy = () =>
+    AdvancedShoppingList.items()
+        .where(CssClasses, contain('buy'));
+
+const LinkTo = (item: Answerable<PageElement>) =>
+    PageElement.located(By.css('a')).of(item).describedAs('link to element');
+
 /** @test {PageElements} */
 describe('PageElements', () => {
-
-    class ShoppingList {
-        static app = () =>
-            PageElement.located(By.id('shopping-list-app'))
-                .describedAs('shopping list app');
-
-        static progress = () =>
-            PageElement.located(By.css('.progress'))
-                .describedAs('progress bar')
-                .of(ShoppingList.app());
-
-        static numberOfItemsLeft = () =>
-            PageElement.located(By.css('span'))
-                .describedAs('number of items left')
-                .of(ShoppingList.progress());
-
-        static header = () =>
-            PageElement.located(By.tagName('h1')).describedAs('header');
-
-        static list = () =>
-            PageElement.located(By.tagName('ul')).describedAs('shopping list');
-
-        static items = () =>
-            PageElements.located(By.tagName('li'))
-                .describedAs('items')
-                .of(ShoppingList.app());
-
-        static boughtItems = () =>
-            PageElements.located(By.css('.bought'))
-                .describedAs('bought items')
-                .of(ShoppingList.list());
-    }
 
     describe('allows the actor to locate', () => {
 
@@ -57,15 +83,15 @@ describe('PageElements', () => {
                 Ensure.that(Text.ofAll(ShoppingList.items()), contain('oats')),
             ));
 
-        it('an element relative to another target', () =>
+        it('an element relative to another page element', () =>
             actorCalled('Elle').attemptsTo(
                 Navigate.to('/screenplay/models/page-elements/shopping_list.html'),
                 Ensure.that(ShoppingList.numberOfItemsLeft().text().as(Number), equals(2)),
             ));
 
-        it('all elements relative to another target', () =>
+        it('all elements relative to another page element', () =>
             actorCalled('Elle').attemptsTo(
-                Navigate.to('/screenplay/questions/targets/shopping_list.html'),
+                Navigate.to('/screenplay/questions/page-elements/shopping_list.html'),
 
                 Ensure.that(Text.ofAll(ShoppingList.boughtItems()), equals([ 'coffee' ])),
             ));
@@ -100,24 +126,38 @@ describe('PageElements', () => {
         });
     });
 
-    describe('when filtering a list of targets', () => {
+    describe.only('when iterating over page elements', () => {
 
-        class AdvancedShoppingList {
-            static items = () =>
-                PageElements.located(By.css('li')).describedAs('shopping list items');
+        beforeEach(() =>
+            actorCalled('Elle').attemptsTo(
+                Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+            ));
 
-            static item = () =>
-                PageElement.located(By.css('li')).describedAs('shopping list item');
+        it('lets the actor perform a given task for each one of them', () =>
+            actorCalled('Elle').attemptsTo(
 
-            static titles = () =>
-                PageElements.located(By.css('li span.item-name')).describedAs('shopping list item titles');
+                Ensure.that(
+                    Text.ofAll(AdvancedShoppingList.items()),
+                    equals(['oats x', 'coconut milk x', 'coffee x'])
+                ),
+                Ensure.that(
+                    Text.ofAll(AdvancedShoppingList.items().where(CssClasses, contain('buy'))),
+                    equals(['oats x', 'coconut milk x'])
+                ),
 
-            static itemName = () =>
-                PageElement.located(By.css('span.item-name')).describedAs('item name');
+                AdvancedShoppingList.items()
+                    .forEach(({ item, actor }) => actor.attemptsTo(
+                        Click.on(LinkTo(item))
+                    )),
 
-            static itemNames = () =>
-                PageElements.located(By.css('span.item-name')).describedAs('item names');
-        }
+                Ensure.that(
+                    Text.ofAll(AdvancedShoppingList.items().where(CssClasses, contain('buy'))),
+                    equals(['coffee x'])
+                ),
+            ));
+    });
+
+    describe('when filtering a list of page elements', () => {
 
         beforeEach(() =>
             actorCalled('Elle').attemptsTo(
@@ -201,35 +241,35 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(2)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('oats')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(1)), startsWith('coconut milk')),
                     ));
@@ -282,35 +322,35 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(1)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
                     ));
@@ -356,22 +396,9 @@ describe('PageElements', () => {
 
         describe('and interacting with elements on screen', () => {
 
-            const ItemCalled = (name: string) =>    // eslint-disable-line unicorn/consistent-function-scoping
-                AdvancedShoppingList.items()
-                    .where(Text.of(AdvancedShoppingList.itemName()), equals(name))
-                    .first();
-
-            const ItemsLeftToBuy = () =>            // eslint-disable-line unicorn/consistent-function-scoping
-                AdvancedShoppingList.items()
-                    .where(CssClasses, contain('buy'));
-
-            // eslint-disable-next-line unicorn/consistent-function-scoping
-            const LinkTo = (item: Answerable<PageElement>) =>
-                PageElement.located(By.css('a')).of(item).describedAs('link to element');
-
             it('makes it easy for an actor to pick the element of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coffee'))),
 
@@ -380,7 +407,7 @@ describe('PageElements', () => {
 
             it('makes it easy for an actor to pick all elements of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/questions/targets/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coconut milk'))),
                     Click.on(LinkTo(ItemCalled('coffee'))),
