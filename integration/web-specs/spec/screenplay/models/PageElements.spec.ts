@@ -91,7 +91,7 @@ describe('PageElements', () => {
 
         it('all elements relative to another page element', () =>
             actorCalled('Elle').attemptsTo(
-                Navigate.to('/screenplay/questions/page-elements/shopping_list.html'),
+                Navigate.to('/screenplay/models/page-elements/shopping_list.html'),
 
                 Ensure.that(Text.ofAll(ShoppingList.boughtItems()), equals([ 'coffee' ])),
             ));
@@ -126,7 +126,7 @@ describe('PageElements', () => {
         });
     });
 
-    describe.only('when iterating over page elements', () => {
+    describe('when iterating over page elements', () => {
 
         beforeEach(() =>
             actorCalled('Elle').attemptsTo(
@@ -135,14 +135,22 @@ describe('PageElements', () => {
 
         it('lets the actor perform a given task for each one of them', () =>
             actorCalled('Elle').attemptsTo(
-
                 Ensure.that(
-                    Text.ofAll(AdvancedShoppingList.items()),
-                    equals(['oats x', 'coconut milk x', 'coffee x'])
+                    Text.ofAll(
+                        AdvancedShoppingList
+                            .items()
+                            .eachMappedTo(AdvancedShoppingList.itemName())
+                    ),
+                    equals(['oats', 'coconut milk', 'coffee'])
                 ),
                 Ensure.that(
-                    Text.ofAll(AdvancedShoppingList.items().where(CssClasses, contain('buy'))),
-                    equals(['oats x', 'coconut milk x'])
+                    Text.ofAll(
+                        AdvancedShoppingList
+                            .items()
+                            .where(CssClasses, contain('buy'))
+                            .eachMappedTo(AdvancedShoppingList.itemName())
+                    ),
+                    equals(['oats', 'coconut milk'])
                 ),
 
                 AdvancedShoppingList.items()
@@ -151,8 +159,12 @@ describe('PageElements', () => {
                     )),
 
                 Ensure.that(
-                    Text.ofAll(AdvancedShoppingList.items().where(CssClasses, contain('buy'))),
-                    equals(['coffee x'])
+                    Text.ofAll(
+                        AdvancedShoppingList.items()
+                            .where(CssClasses, contain('buy'))
+                            .eachMappedTo(AdvancedShoppingList.itemName())
+                    ),
+                    equals(['coffee'])
                 ),
             ));
     });
@@ -241,35 +253,35 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(2)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('oats')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(1)), startsWith('coconut milk')),
                     ));
@@ -322,35 +334,35 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(1)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
                     ));
@@ -398,7 +410,7 @@ describe('PageElements', () => {
 
             it('makes it easy for an actor to pick the element of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coffee'))),
 
@@ -407,7 +419,7 @@ describe('PageElements', () => {
 
             it('makes it easy for an actor to pick all elements of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/questions/page-elements/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coconut milk'))),
                     Click.on(LinkTo(ItemCalled('coffee'))),
