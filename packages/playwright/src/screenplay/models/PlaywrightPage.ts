@@ -8,7 +8,10 @@ export class PlaywrightPage extends Page {
         return new this(originalPage, handle);
     }
 
-    private constructor(private readonly originalPage: pw.Page, handle: string) {
+    private constructor(
+        private readonly originalPage: pw.Page,
+        handle: string
+    ) {
         super(handle);
     }
 
@@ -37,14 +40,18 @@ export class PlaywrightPage extends Page {
     }
 
     switchTo(): Promise<void> {
-        throw new Error("Method not implemented.");
+        return this.originalPage.bringToFront();
     }
 
     close(): Promise<void> {
         return this.originalPage.close();
     }
 
-    closeOthers(): Promise<void> {
-        throw new Error("Method not implemented.");
+    async closeOthers(): Promise<void> {
+        const context = this.originalPage.context();
+        const pages = context.pages();
+        await Promise.all(pages
+            .filter((page) => page !== this.originalPage)
+            .map((page) => page.close()));
     }
 }
