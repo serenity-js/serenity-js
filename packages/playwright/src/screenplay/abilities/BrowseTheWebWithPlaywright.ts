@@ -4,6 +4,7 @@ import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, L
 
 import { Stack } from '../../utils';
 import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
+import {PlaywrightPage} from '../models/PlaywrightPage';
 // import { ScreenshotOptions } from '../options/screenshotOptions';
 
 type Context = Page | Frame;
@@ -294,12 +295,19 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         throw new Error('Method not implemented.');
     }
 
-    currentPage(): Promise<SerenityPage> {
-        throw new Error('Method not implemented.');
+    async currentPage(): Promise<SerenityPage> {
+        const page = await this.page();
+        return this.createPage(page);
     }
 
-    allPages(): Promise<SerenityPage[]> {
-        throw new Error('Method not implemented.');
+    async allPages(): Promise<SerenityPage[]> {
+        const pages = await this.pages();
+        const serenityPages = await Promise.all(pages.map((page) => this.createPage(page)));
+        return serenityPages;
+    }
+
+    private async createPage(page: Page): Promise<SerenityPage> {
+        return PlaywrightPage.from(page, await page.title())
     }
 
     cookie(name: string): Promise<Cookie> {

@@ -6,6 +6,7 @@ import { createSandbox } from "sinon";
 import { BrowseTheWeb, Key } from '@serenity-js/web';
 
 import { BrowseTheWebWithPlaywright } from "../../../src/screenplay/abilities";
+import {PlaywrightPage} from "../../../src/screenplay/models/PlaywrightPage";
 
 describe("BrowseTheWeb ability", () => {
     const sandbox = createSandbox();
@@ -118,9 +119,15 @@ describe("BrowseTheWeb ability", () => {
         expect(actualResult).to.be.deep.equal('mock');
     });
 
-    it('can execute async script');
-    it('can return current page');
-    it('can return all pages');
+    it('can execute async script', async () => {
+        // FIXME: I don't know how this should work
+        // const mock = (parameters: any[], callback: (args?: any[]) => any[]) => {
+            // return callback(parameters);
+        // };
+        // const actualResult = await ability.executeAsyncScript(mock, [ 1, 2, 3 ], (args) => args);
+        // expect(actualResult).to.be.deep.equal([ 1, 2, 3 ]);
+    });
+
     it('can return cookie');
     it('can set cookie');
     it('can delete all cookies');
