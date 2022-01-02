@@ -126,6 +126,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
      * @private
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+    private _lastScriptExecutionResult: unknown;
 
     /**
      * @desc
@@ -359,17 +360,57 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         return screenhot.toString('base64');
     }
 
-    switchToFrame(targetOrIndex: string | number | PageElement<any, any>): Promise<void> {
-        throw new Error('Method not implemented.');
+    // todo: remove
+    public async switchToFrame(
+        targetOrIndex: string | number | PageElement<any, any>
+    ): Promise<void> {
+        throw new Error('Not implemented, yet');
+        // const frame = await this.normalizeFrame(targetOrIndex);
+        // this.setWorkingContext(frame);
     }
 
-    switchToParentFrame(): Promise<void> {
-        throw new Error('Method not implemented.');
+    // todo: remove
+    public async switchToParentFrame(): Promise<void> {
+        throw new Error('Not implemented, yet');
+        // const context = await this.workingContext();
+        // if ((context as Frame).parentFrame) {
+            // if ((
+                // context as Frame
+            // ).parentFrame()) {
+                // this.setWorkingContext((
+                    // context as Frame
+                // ).parentFrame());
+            // } else {
+                // this.setWorkingContext(await this.page());
+            // }
+        // }
     }
 
-    switchToDefaultContent(): Promise<void> {
-        throw new Error('Method not implemented.');
+    // todo: remove
+    public async switchToDefaultContent(): Promise<void> {
+        throw new Error('Not implemented, yet');
+        // this.setWorkingContext(await this.page());
     }
+
+    // private async normalizeFrame(
+        // targetOrIndex: string | number | PageElement<any, any>
+    // ): Promise<Frame> {
+        // const page = await this.page();
+        // const type = typeof targetOrIndex;
+        // switch (type) {
+            // case 'number': {
+                // return page.frames()[targetOrIndex as number];
+            // }
+            // case 'string': {
+                // return page.frame({ name: targetOrIndex as string });
+            // }
+            // default: {
+                // return (
+                    // targetOrIndex as ElementHandle
+                // ).contentFrame();
+            // }
+        // }
+    // }
 
 //    public withOptions(options: LaunchOptions): BrowseTheWebWithPlaywright {
 //        this.launchOptions = options;
@@ -662,34 +703,6 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 //        return page.viewportSize();
 //    }
 //
-//    public async switchToFrame(
-//        handleOrNameOrIndex: ElementHandle | number | string,
-//    ): Promise<void> {
-//        const frame = await this.normalizeFrame(handleOrNameOrIndex);
-//        this.setWorkingContext(frame);
-//    }
-//
-//    public async switchToParentFrame(): Promise<void> {
-//        const context = await this.workingContext();
-//        if ((
-//            context as Frame
-//        ).parentFrame) {
-//            if ((
-//                context as Frame
-//            ).parentFrame()) {
-//                this.setWorkingContext((
-//                    context as Frame
-//                ).parentFrame());
-//            } else {
-//                this.setWorkingContext(await this.page());
-//            }
-//        }
-//    }
-//
-//    public async switchToDefaultContent(): Promise<void> {
-//        this.setWorkingContext(await this.page());
-//    }
-//
 //    public async switchToWindow(nameOrIndex: string | number): Promise<void> {
 //        const type = typeof nameOrIndex;
 //        const context = await this.context();
@@ -747,25 +760,6 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 //        this.setWorkingContext(pages[0]);
 //    }
 //
-//    private async normalizeFrame(
-//        nameorIndexOrHandle: string | number | ElementHandle,
-//    ): Promise<Frame> {
-//        const page = await this.page();
-//        const type = typeof nameorIndexOrHandle;
-//        switch (type) {
-//            case 'number': {
-//                return page.frames()[nameorIndexOrHandle as number];
-//            }
-//            case 'string': {
-//                return page.frame({ name: nameorIndexOrHandle as string });
-//            }
-//            default: {
-//                return (
-//                    nameorIndexOrHandle as ElementHandle
-//                ).contentFrame();
-//            }
-//        }
-//    }
 }
 
 interface PageWaitForSelectorOptions {
