@@ -334,8 +334,10 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         throw new Error('Method not implemented.');
     }
 
-    takeScreenshot(): Promise<string> {
-        throw new Error('Method not implemented.');
+    async takeScreenshot(): Promise<string> {
+        const page = await this.page();
+        const screenhot: Buffer = await page.screenshot();
+        return screenhot.toString('base64');
     }
 
     switchToFrame(targetOrIndex: string | number | PageElement<any, any>): Promise<void> {
