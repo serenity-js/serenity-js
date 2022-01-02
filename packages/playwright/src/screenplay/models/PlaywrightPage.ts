@@ -23,8 +23,9 @@ export class PlaywrightPage extends Page {
         return new URL(this.originalPage.url());
     }
 
-    name(): Promise<string> {
-        return this.name();
+    async name(): Promise<string> {
+        const name = await this.originalPage.evaluate<string>('window.name');
+        return name;
     }
 
     async isPresent(): Promise<boolean> {
