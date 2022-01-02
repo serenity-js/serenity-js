@@ -4,6 +4,7 @@ import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, L
 
 import { Stack } from '../../utils';
 import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
+import {PlaywrightCookie} from '../models/PlaywrightCookie';
 import {PlaywrightPage} from '../models/PlaywrightPage';
 // import { ScreenshotOptions } from '../options/screenshotOptions';
 
@@ -310,16 +311,19 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         return PlaywrightPage.from(page, await page.title())
     }
 
-    cookie(name: string): Promise<Cookie> {
-        throw new Error('Method not implemented.');
+    async cookie(name: string): Promise<Cookie> {
+        const page = await this.page();
+        return PlaywrightCookie.from(name, page);
     }
 
-    setCookie(cookieData: CookieData): Promise<void> {
-        throw new Error('Method not implemented.');
+    async setCookie(cookieData: CookieData): Promise<void> {
+        const context = await this.browserContext();
+        return context.addCookies([ cookieData ]);
     }
 
-    deleteAllCookies(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async deleteAllCookies(): Promise<void> {
+        const context = await this.browserContext();
+        return context.clearCookies();
     }
 
     modalDialog(): Promise<ModalDialog> {

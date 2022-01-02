@@ -128,9 +128,6 @@ describe("BrowseTheWeb ability", () => {
         // expect(actualResult).to.be.deep.equal([ 1, 2, 3 ]);
     });
 
-    it('can return cookie');
-    it('can set cookie');
-    it('can delete all cookies');
     it('can return modal dialog');
     it('can return last script execution result');
     it('can take a screenshot');
