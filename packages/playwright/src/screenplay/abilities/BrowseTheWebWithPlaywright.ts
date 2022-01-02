@@ -1,4 +1,4 @@
-import { Duration, UsesAbilities } from '@serenity-js/core';
+import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page as SerenityPage, PageElement, PageElements } from '@serenity-js/web';
 import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Page } from 'playwright';
 
@@ -122,7 +122,10 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         return page.keyboard;
     }
 
-    private _lastScriptExecutionResult: unknown;
+    /**
+     * @private
+     */
+    private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     /**
      * @desc
@@ -289,11 +292,19 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
         const page =  await this.page();
         const stringFunction = stringifyScript(script);
-        return page.evaluate(stringFunction, nativeArguments);
+        const result: Result = await page.evaluate(stringFunction, nativeArguments);
+        return this.cacheExecutionResult(result);
     }
 
     executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
         throw new Error('Method not implemented.');
+    }
+
+    private cacheExecutionResult<R>(result: R): R {
+        this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
+            result,
+        );
+        return result;
     }
 
     async currentPage(): Promise<SerenityPage> {
@@ -330,8 +341,16 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         throw new Error('Method not implemented.');
     }
 
-    lastScriptExecutionResult<R = any>(): R {
-        throw new Error('Method not implemented.');
+    lastScriptExecutionResult<Result = any>(): Result {
+        if (! this.lastScriptExecutionSummary) {
+            throw new LogicError(`Make sure to execute a script before checking on the result`);
+        }
+
+        // Selenium returns `null` when the script it executed returns `undefined`
+        // so we're mapping the result back.
+        return this.lastScriptExecutionSummary.result !== null
+            ? this.lastScriptExecutionSummary.result as Result
+            : undefined;
     }
 
     async takeScreenshot(): Promise<string> {
@@ -768,4 +787,11 @@ interface PageWaitForSelectorOptions {
      * or [page.setDefaultTimeout(timeout)](https://playwright.dev/docs/api/class-page#pagesetdefaulttimeouttimeout) methods.
      */
     timeout?: number;
+}
+
+/**
+ * @package
+ */
+class LastScriptExecutionSummary<Result = any> {
+    constructor(public readonly result: Result) {}
 }
