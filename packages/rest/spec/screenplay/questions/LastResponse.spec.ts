@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, List, LogicError } from '@serenity-js/core';
 
 import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance } from '../../actors';
@@ -94,7 +94,8 @@ describe('LastResponse', () => {
                 ]
             }, headers);
 
-            mock.onGet(productDetails).reply(200, apple, headers);
+            mock.onGet(`/products/${ orange.id }` ).reply(200, orange, headers);
+            mock.onGet(`/products/${ apple.id }` ).reply(200, apple, headers);
         });
 
         /**
@@ -155,6 +156,19 @@ describe('LastResponse', () => {
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.headers()['Content-Type'], equals('application/json;charset=utf-8')),
+            )
+        );
+
+        it('allows for an Adapter<Array> to be wrapped in a List', () =>
+            actor.attemptsTo(
+                Send.a(GetRequest.to(`/products/`)),
+                List.of<Product>(LastResponse.body<{ products: Product[] }>().products)
+                    .forEach(({ item, actor }) =>
+                        actor.attemptsTo(
+                            Send.a(GetRequest.to(`/products/${ item.id }`)),
+                            Ensure.that(LastResponse.body<Product>().id, equals(item.id)),
+                        )
+                    ),
             )
         );
     });
