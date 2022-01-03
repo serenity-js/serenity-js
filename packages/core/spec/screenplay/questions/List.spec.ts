@@ -309,7 +309,7 @@ describe('List', () => {
                 .toString();
 
             expect(description).to.equal('#actor iterates over [ 1, 2, 3 ]');
-        })
+        });
     });
 
     describe('when used as a base of a custom collection', () => {
