@@ -104,10 +104,13 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
 }
 
 function shouldReflect<A, Q extends Question<A> = Question<A>>(target: Q & { name?: string }, key: string | symbol | number): boolean {
+
+    const proxyKeys: Array<string | symbol | number> = ['arguments', 'caller', 'length', 'name'];
+
     // return the actual value
     return key in target
-        // unless target is a proxy function, because proxy function has a built-in .length attribute that could shadow Array.length of the wrapped object
-        && !((target as any).name === '__serenityProxy' && key === 'length')
+        // unless target is a proxy function, because proxy function has built-in .length and .name attribute that could shadow Array.length of the wrapped object
+        && !((target as any).name === '__serenityProxy' && (proxyKeys.includes(key)))
 }
 
 function shouldProxy(key: string | symbol | number) {

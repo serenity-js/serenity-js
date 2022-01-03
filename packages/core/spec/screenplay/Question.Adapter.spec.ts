@@ -577,9 +577,61 @@ describe('Question', () => {
                     });
                 });
             });
+
+            describe(`correctly proxies calls to fields, even if they exist on the proxy itself`, () => {
+
+                const Response = () =>
+                    Question.about<{ users: User[] }>(`users`, (actor: Actor) => ({
+                        users: [
+                            // "caller" and "argument" are here to show how a proxy resolves conflicts
+                            // between a built-in fields like function.caller and function.arguments
+                            // and properties of the wrapped object of the same name
+                            { name: 'Alice',    caller: 'Bob',      arguments: false },
+                            { name: 'Bob',      caller: 'Alice',    arguments: true  },
+                        ]
+                    }));
+
+                it('proxies "arguments"', async () => {
+                    const args: Question<Promise<boolean>> = Response().users[0].arguments;
+
+                    const result: boolean = await args.answeredBy(Quentin);
+
+                    expect(result).to.equal(false);
+                });
+
+                it('proxies "caller"', async () => {
+                    const caller: Question<Promise<string>> = Response().users[0].caller;
+
+                    const result: string = await caller.answeredBy(Quentin);
+
+                    expect(result).to.equal('Bob');
+                });
+
+                it('proxies "length"', async () => {
+                    const length: Question<Promise<number>> = Response().users.length;
+
+                    const result: number = await length.answeredBy(Quentin);
+
+                    expect(result).to.equal(2);
+                });
+
+                it('proxies "name"', async () => {
+                    const name: Question<Promise<string>> = Response().users[0].name;
+
+                    const result: string = await name.answeredBy(Quentin);
+
+                    expect(result).to.equal('Alice');
+                });
+            });
         });
     });
 });
+
+interface User {
+    name: string;
+    caller: string;
+    arguments: boolean;
+}
 
 class Counter {
     constructor(public current: number = 0) {
