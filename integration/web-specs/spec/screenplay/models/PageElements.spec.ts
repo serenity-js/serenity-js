@@ -38,7 +38,7 @@ class ShoppingList {
             .of(ShoppingList.list());
 }
 
-class AdvancedShoppingList {
+class DynamicShoppingList {
     static items = () =>
         PageElements.located(By.css('li')).describedAs('shopping list items');
 
@@ -53,12 +53,12 @@ class AdvancedShoppingList {
 }
 
 const ItemCalled = (name: string) =>
-    AdvancedShoppingList.items()
-        .where(Text.of(AdvancedShoppingList.itemName()), equals(name))
+    DynamicShoppingList.items()
+        .where(Text.of(DynamicShoppingList.itemName()), equals(name))
         .first();
 
 const ItemsLeftToBuy = () =>
-    AdvancedShoppingList.items()
+    DynamicShoppingList.items()
         .where(CssClasses, contain('buy'));
 
 const LinkTo = (item: Answerable<PageElement>) =>
@@ -130,41 +130,41 @@ describe('PageElements', () => {
 
         beforeEach(() =>
             actorCalled('Elle').attemptsTo(
-                Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
             ));
 
         it('lets the actor perform a given task for each one of them', () =>
             actorCalled('Elle').attemptsTo(
                 Ensure.that(
                     Text.ofAll(
-                        AdvancedShoppingList
+                        DynamicShoppingList
                             .items()
-                            .eachMappedTo(AdvancedShoppingList.itemName())
+                            .eachMappedTo(DynamicShoppingList.itemName())
                     ),
-                    equals(['oats', 'coconut milk', 'coffee'])
+                    equals([ 'oats', 'coconut milk', 'coffee' ])
                 ),
                 Ensure.that(
                     Text.ofAll(
-                        AdvancedShoppingList
+                        DynamicShoppingList
                             .items()
                             .where(CssClasses, contain('buy'))
-                            .eachMappedTo(AdvancedShoppingList.itemName())
+                            .eachMappedTo(DynamicShoppingList.itemName())
                     ),
-                    equals(['oats', 'coconut milk'])
+                    equals([ 'oats', 'coconut milk' ])
                 ),
 
-                AdvancedShoppingList.items()
+                DynamicShoppingList.items()
                     .forEach(({ item, actor }) => actor.attemptsTo(
                         Click.on(LinkTo(item))
                     )),
 
                 Ensure.that(
                     Text.ofAll(
-                        AdvancedShoppingList.items()
+                        DynamicShoppingList.items()
                             .where(CssClasses, contain('buy'))
-                            .eachMappedTo(AdvancedShoppingList.itemName())
+                            .eachMappedTo(DynamicShoppingList.itemName())
                     ),
-                    equals(['coffee'])
+                    equals([ 'coffee' ])
                 ),
             ));
     });
@@ -173,7 +173,7 @@ describe('PageElements', () => {
 
         beforeEach(() =>
             actorCalled('Elle').attemptsTo(
-                Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
             ));
 
         describe('and no filters are applied', () => {
@@ -182,27 +182,27 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(AdvancedShoppingList.titles().count(), equals(3)),
+                        Ensure.that(DynamicShoppingList.titles().count(), equals(3)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(Text.ofAll(AdvancedShoppingList.titles()), contain('coconut milk')),
+                        Ensure.that(Text.ofAll(DynamicShoppingList.titles()), contain('coconut milk')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(Text.of(AdvancedShoppingList.titles().first()), equals('oats')),
+                        Ensure.that(Text.of(DynamicShoppingList.titles().first()), equals('oats')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(Text.of(AdvancedShoppingList.titles().last()), equals('coffee')),
+                        Ensure.that(Text.of(DynamicShoppingList.titles().last()), equals('coffee')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(Text.of(AdvancedShoppingList.titles().get(1)), equals('coconut milk')),
+                        Ensure.that(Text.of(DynamicShoppingList.titles().get(1)), equals('coconut milk')),
                     ));
             });
         });
@@ -210,19 +210,19 @@ describe('PageElements', () => {
         describe('provides a sensible description when it', () => {
 
             it('returns the number of items', () =>
-                expect(AdvancedShoppingList.items().count().toString())
+                expect(DynamicShoppingList.items().count().toString())
                     .to.equal('the number of shopping list items'));
 
             it('picks all the items', () =>
-                expect(AdvancedShoppingList.items().toString())
+                expect(DynamicShoppingList.items().toString())
                     .to.equal('shopping list items'));
 
             it('picks the first item', () =>
-                expect(AdvancedShoppingList.items().first().toString())
+                expect(DynamicShoppingList.items().first().toString())
                     .to.equal('the first of shopping list items'));
 
             it('picks the last item', () =>
-                expect(AdvancedShoppingList.items().last().toString())
+                expect(DynamicShoppingList.items().last().toString())
                     .to.equal('the last of shopping list items'));
 
             given([
@@ -239,49 +239,49 @@ describe('PageElements', () => {
                 { description: '1522nd', index: 1521 },
             ]).
             it('picks the nth item', ({ description, index }) => {
-                expect(AdvancedShoppingList.items().get(index).toString())
+                expect(DynamicShoppingList.items().get(index).toString())
                     .to.equal(`the ${ description } of shopping list items`);
             });
         });
 
         describe('and a filter is applied', () => {
 
-            const list = AdvancedShoppingList.items()
+            const list = DynamicShoppingList.items()
                 .where(CssClasses, contain('buy'));
 
             describe('lets the actor filter the list of matching elements so that it', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(2)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('oats')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(1)), startsWith('coconut milk')),
                     ));
@@ -317,8 +317,7 @@ describe('PageElements', () => {
                     { description: '42nd', index: 41 },
                     { description: '115th', index: 114 },
                     { description: '1522nd', index: 1521 },
-                ]).
-                it('picks the nth item', ({ description, index }) => {
+                ]).it('picks the nth item', ({ description, index }) => {
                     expect(list.get(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy'`);
                 });
             });
@@ -326,7 +325,7 @@ describe('PageElements', () => {
 
         describe('and multiple filters are applied', () => {
 
-            const list = AdvancedShoppingList.items()
+            const list = DynamicShoppingList.items()
                 .where(CssClasses, contain('buy'))
                 .where(Text, startsWith('coconut'));
 
@@ -334,35 +333,35 @@ describe('PageElements', () => {
 
                 it('gets the number of items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(list.count(), equals(1)),
                     ));
 
                 it('picks all the items', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.ofAll(list), contain('coconut milk x')),
                     ));
 
                 it('picks the first item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.first()), startsWith('coconut milk')),
                     ));
 
                 it('picks the last item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.last()), startsWith('coconut milk')),
                     ));
 
                 it('picks the nth item', () =>
                     actorCalled('Wendy').attemptsTo(
-                        Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                        Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                         Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
                     ));
@@ -410,7 +409,7 @@ describe('PageElements', () => {
 
             it('makes it easy for an actor to pick the element of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coffee'))),
 
@@ -419,7 +418,7 @@ describe('PageElements', () => {
 
             it('makes it easy for an actor to pick all elements of interest', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Navigate.to('/screenplay/models/page-elements/advanced_shopping_list.html'),
+                    Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
                     Click.on(LinkTo(ItemCalled('coconut milk'))),
                     Click.on(LinkTo(ItemCalled('coffee'))),
