@@ -161,7 +161,7 @@ describe('LastResponse', () => {
 
         it('allows for an Adapter<Array> to be wrapped in a List', () =>
             actor.attemptsTo(
-                Send.a(GetRequest.to(`/products/`)),
+                Send.a(GetRequest.to(`/products`)),
                 List.of<Product>(LastResponse.body<{ products: Product[] }>().products)
                     .forEach(({ item, actor }) =>
                         actor.attemptsTo(
