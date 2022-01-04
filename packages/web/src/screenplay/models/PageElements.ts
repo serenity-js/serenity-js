@@ -1,6 +1,7 @@
-import { Answerable, AnswersQuestions, format, List, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, format, List, MetaQuestion, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
+import { Locator } from './Locator';
 import { PageElement } from './PageElement';
 import { Selector } from './selectors';
 
@@ -8,25 +9,21 @@ const f = format({ markQuestions: true });
 
 export class PageElements<Native_Element_Type = any>
     extends List<PageElement<Native_Element_Type>>
+    implements MetaQuestion<Answerable<PageElement<Native_Element_Type>>, Promise<Array<PageElement<Native_Element_Type>>>>
 {
-    static located<NET, ST>(selector: Answerable<Selector<ST>>): PageElements<NET> {
-        return new PageElements(selector);
+    static located<NET>(selector: Answerable<Selector>): PageElements<NET> {
+        return new PageElements(relativeToDocumentRoot(selector));
     }
 
     /**
-     * @param {Answerable<Selector<unknown>>} selector
-     * @param {Answerable<PageElement>} [parent]
-     *  if not specified, browser root selector is used
+     * @param locator
      */
-    constructor(
-        protected readonly selector: Answerable<Selector<unknown>>,
-        private readonly parent?: Answerable<PageElement>
-    ) {
-        super(new PageElementCollection<Native_Element_Type>(selector, parent));
+    constructor(protected readonly locator: Question<Promise<Locator<Native_Element_Type>>>) {
+        super(allElementsOf(locator));
     }
 
     of(parent: Answerable<PageElement<Native_Element_Type>>): PageElements<Native_Element_Type> {
-        return new PageElements<Native_Element_Type>(this.selector, parent)
+        return new PageElements<Native_Element_Type>(relativeToParent(this.locator, parent))
             .describedAs(`<<${this.toString()}>>` + f`.of(${ parent })`);
     }
 }
@@ -34,31 +31,31 @@ export class PageElements<Native_Element_Type = any>
 /**
  * @package
  */
-class PageElementCollection<Native_Element_Type = any>
-    extends Question<Promise<Array<PageElement<Native_Element_Type>>>>
-{
-    private subject: string;
-    constructor(
-        private readonly selector: Answerable<Selector<unknown>>,
-        private readonly parent?: Answerable<PageElement>,
-    ) {
-        super();
-        this.subject = `page elements located ${ selector.toString() }`;
-    }
+function relativeToDocumentRoot<Native_Element_Type>(selector: Answerable<Selector>): Question<Promise<Locator<Native_Element_Type>>> {
+    return Question.about(selector.toString(), async actor => {
+        const bySelector = await actor.answer(selector);
+        return BrowseTheWeb.as(actor).locate(bySelector);
+    });
+}
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<PageElement<Native_Element_Type>>> {
-        const bySelector = await actor.answer(this.selector);
-        const parent     = await actor.answer(this.parent);
+/**
+ * @package
+ */
+function relativeToParent<Native_Element_Type>(relativeLocator: Answerable<Locator<Native_Element_Type>>, parent: Answerable<PageElement<Native_Element_Type>>): Question<Promise<Locator<Native_Element_Type>>> {
+    return Question.about(relativeLocator.toString() + f`.of${ parent }`, async actor => {
+        const locator: Locator<Native_Element_Type>             = await actor.answer(relativeLocator);
+        const parentElement: PageElement<Native_Element_Type>   = await actor.answer(parent);
 
-        return BrowseTheWeb.as(actor).locateAll(bySelector, parent ? parent.nativeElementLocator() : undefined);
-    }
+        return locator.of(parentElement.locator);
+    });
+}
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
-    }
+/**
+ * @package
+ */
+function allElementsOf<Native_Element_Type>(locator: Question<Promise<Locator<Native_Element_Type>>>): Question<Promise<Array<PageElement<Native_Element_Type>>>> {
+    return Question.about(`page elements located ${ locator.toString() }`, async actor => {
+        const resolved: Locator<Native_Element_Type> = await actor.answer(locator);
+        return resolved.allElements();
+    });
 }

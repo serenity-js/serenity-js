@@ -1,21 +1,10 @@
-import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import {
-    BrowserCapabilities,
-    BrowseTheWeb,
-    Cookie,
-    CookieData,
-    Key,
-    ModalDialog,
-    NativeElementLocator,
-    Page,
-    PageElement,
-    PassThroughNativeElementLocator,
-    Selector,
-} from '@serenity-js/web';
-import { ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
+import { ConfigurationError, Duration, LogicError } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
+import { by, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementLocator, ProtractorPage, ProtractorPageElement } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
+import { ProtractorLocator, ProtractorNativeElementRoot } from '../models/locators';
 import { promised } from '../promised';
 
 /**
@@ -47,7 +36,7 @@ import { promised } from '../promised';
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
+export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, ProtractorNativeElementRoot> {
 
     /**
      * @desc
@@ -61,18 +50,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
     }
 
     /**
-     * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWebWithProtractor} from within the {@link Interaction} classes,
-     *  such as {@link Navigate}.
-     *
-     * @param {UsesAbilities} actor
-     * @return {BrowseTheWebWithProtractor}
-     */
-    static as(actor: UsesAbilities): BrowseTheWebWithProtractor {
-        return actor.abilityTo(BrowseTheWebWithProtractor);
-    }
-
-    /**
      * @private
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
@@ -82,7 +59,13 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
      *  An instance of a protractor browser
      */
     constructor(protected browser: ProtractorBrowser) {
-        super();
+        super(new Map()
+            .set(ByCss,                 (selector: ByCss)               => ProtractorLocator.createRootLocator(this.browser, selector, by.css(selector.value)))
+            .set(ByCssContainingText,   (selector: ByCssContainingText) => ProtractorLocator.createRootLocator(this.browser, selector, by.cssContainingText(selector.value, selector.text)))
+            .set(ById,                  (selector: ById)                => ProtractorLocator.createRootLocator(this.browser, selector, by.id(selector.value)))
+            .set(ByTagName,             (selector: ByTagName)           => ProtractorLocator.createRootLocator(this.browser, selector, by.tagName(selector.value)))
+            .set(ByXPath,               (selector: ByXPath)             => ProtractorLocator.createRootLocator(this.browser, selector, by.xpath(selector.value)))
+        );
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {
@@ -115,23 +98,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder> {
 
     deleteAllCookies(): Promise<void> {
         return promised(this.browser.manage().deleteAllCookies());
-    }
-
-    locate<T>(selector: Selector<T>, locator?: NativeElementLocator<ElementFinder>): ProtractorPageElement {
-        return new ProtractorPageElement(selector, locator ?? this.nativeElementLocator());
-    }
-
-    async locateAll<T>(selector: Selector<T>, locator?: NativeElementLocator<ElementFinder>): Promise<ProtractorPageElement[]> {
-        const l = locator ?? this.nativeElementLocator();
-        const elements = await l.locateAll(selector);
-
-        return elements.map(element =>
-            new ProtractorPageElement(selector, new PassThroughNativeElementLocator<ElementFinder>(locator, element)),
-        );
-    }
-
-    nativeElementLocator(): NativeElementLocator<ElementFinder> {
-        return new ProtractorNativeElementLocator(() => this.browser);
     }
 
     navigateTo(destination: string): Promise<void> {

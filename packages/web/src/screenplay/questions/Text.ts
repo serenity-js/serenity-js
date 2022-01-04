@@ -1,7 +1,7 @@
 import { Adapter, Answerable, AnswersQuestions, createAdapter, format, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
-import { PageElement } from '../models';
+import { PageElement, PageElements } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 
 const f = format({ markQuestions: false });
@@ -107,13 +107,20 @@ export class Text {
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<PageElement[]>): Question<Promise<string[]>> & Adapter<string[]> {
-        return Question.about(f `the text of ${ elements }`, async actor => {
+    static ofAll(elements: PageElements): Question<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> & Adapter<string[]>
+    static ofAll(elements: Answerable<PageElement[]>): Question<Promise<string[]>> & Adapter<string[]>
+    static ofAll(elements: PageElements | Answerable<PageElement[]>): Question<Promise<string[]>> & Adapter<string[]> {
+        if (elements instanceof PageElements) {
+            return createAdapter<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
+                new TextOfMultipleElements(elements)
+            );
+        }
 
+        return Question.about(f `the text of ${ elements }`, async actor => {
             const pageElements: PageElement[] = await actor.answer(elements);
 
             return asyncMap(pageElements, element => element.text());
-        })
+        });
     }
 }
 
@@ -133,5 +140,24 @@ class TextOfSingleElement
         const element = await actor.answer(this.element);
 
         return element.text();
+    }
+}
+
+class TextOfMultipleElements
+    extends ElementQuestion<Promise<string[]>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
+{
+    constructor(private readonly elements: PageElements) {
+        super(f `the text of ${ elements }`);
+    }
+
+    of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
+        return new TextOfMultipleElements(this.elements.of(parent));
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
+        const elements: PageElement[] = await actor.answer(this.elements);
+
+        return asyncMap(elements, element => element.text());
     }
 }

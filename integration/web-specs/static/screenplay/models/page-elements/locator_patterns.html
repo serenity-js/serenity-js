@@ -1,0 +1,79 @@
+<html lang="en">
+<body>
+    <section data-test-id="direct-locator-pattern">
+        <div class="element">expected</div>
+    </section>
+
+    <section data-test-id="child-parent-locator-pattern">
+        <ul class="parent" data-test-id="parent-1">
+            <li class="child" data-test-id="child-1-1">child 1.1</li>
+        </ul>
+        <ul class="parent" data-test-id="parent-2">
+            <li class="child" data-test-id="child-2-1">child 2.1</li>
+        </ul>
+    </section>
+
+    <section data-test-id="filter-locator-pattern">
+        <ul class="parent" data-test-id="parent-1">
+            <li class="child" data-test-id="child-1-1">tea</li>
+            <li class="child" data-test-id="child-1-2">juice</li>
+        </ul>
+        <ul class="parent" data-test-id="parent-2">
+            <li class="child" data-test-id="child-2-1">tea</li>
+            <li class="child" data-test-id="child-2-2">coffee</li>
+        </ul>
+        <ul class="parent" data-test-id="parent-3">
+            <li class="child" data-test-id="child-3-1">coffee</li>
+            <li class="child" data-test-id="child-3-2">juice</li>
+        </ul>
+    </section>
+
+    <section data-test-id="filter-locator-with-mapping-pattern">
+        <div class="container">
+            <h1>First shopping list</h1>
+            <ul>
+                <li>biscuits</li>
+                <li>coffee</li>
+                <li>milk</li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Second shopping list</h1>
+            <ul>
+                <li>coffee</li>
+                <li>cake</li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Third shopping list</h1>
+            <ul>
+                <li>apples</li>
+                <li>oranges</li>
+            </ul>
+        </div>
+    </section>
+
+<!--    <div class="container">-->
+<!--        <h1>First shopping list</h1>-->
+<!--        <ul>-->
+<!--            <li>coffee</li>-->
+<!--            <li>biscuits</li>-->
+<!--            <li>milk</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="container">-->
+<!--        <h1>Second shopping list</h1>-->
+<!--        <ul>-->
+<!--            <li>cake</li>-->
+<!--            <li>coffee</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="container">-->
+<!--        <h1>Third shopping list</h1>-->
+<!--        <ul>-->
+<!--            <li>apples</li>-->
+<!--            <li>oranges</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+</body>
+</html>

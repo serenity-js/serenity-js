@@ -64,7 +64,7 @@ export class ProtractorParam
     static called<R>(name: Answerable<string>): Question<Promise<R>> & Adapter<R> {
         return Question.about<Promise<R>>(formatted `the ${ name } param specified in Protractor config`, actor => {
             return actor.answer(name)
-                .then(name => BrowseTheWebWithProtractor.as(actor).param(name));
+                .then(name => (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).param(name));
         });
     }
 }

@@ -7,6 +7,10 @@ import { Actors } from './src/Actors';
 
 const port = process.env.PORT || 8080;
 
+const specs = [
+    './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+];
+
 const localBrowser: Partial<WebdriverIOConfig> = {
     headless: true,
     automationProtocol: 'devtools',
@@ -88,9 +92,7 @@ export const config: WebdriverIOConfig = {
         timeout: 60_000,
     },
 
-    specs: [
-        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-    ],
+    specs,
 
     reporters: [
         'spec',

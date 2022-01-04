@@ -1,8 +1,9 @@
-import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, NativeElementLocator, Page, PageElement, PassThroughNativeElementLocator, Selector } from '@serenity-js/web';
+import { Duration, LogicError } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementLocator, WebdriverIOPage, WebdriverIOPageElement } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
+import { WebdriverIOLocator, WebdriverIONativeElementRoot } from '../models/locators';
 
 /**
  * @desc
@@ -37,7 +38,7 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementLoca
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>, WebdriverIONativeElementRoot> {
 
     /**
      * @param {@wdio/types~Browser} browserInstance
@@ -45,19 +46,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
      */
     static using(browserInstance: wdio.Browser<'async'>): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(browserInstance);
-    }
-
-    /**
-     * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWebWithWebdriverIO}
-     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
-     *  such as {@link @serenity-js/web/lib/screenplay/interactions~Navigate}.
-     *
-     * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities} actor
-     * @return {BrowseTheWebWithWebdriverIO}
-     */
-    static as(actor: UsesAbilities): BrowseTheWebWithWebdriverIO {
-        return actor.abilityTo(BrowseTheWebWithWebdriverIO);
     }
 
     /**
@@ -69,7 +57,13 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
      * @param {@wdio/types~Browser} browser
      */
     constructor(public readonly browser: wdio.Browser<'async'>) {
-        super();
+        super(new Map()
+            .set(ByCss,                 (selector: ByCss)               => WebdriverIOLocator.createRootLocator(this.browser, selector, selector.value))
+            .set(ByCssContainingText,   (selector: ByCssContainingText) => WebdriverIOLocator.createRootLocator(this.browser, selector, `${ selector.value }*=${ selector.text }`))
+            .set(ById,                  (selector: ById)                => WebdriverIOLocator.createRootLocator(this.browser, selector, `#${ selector.value }`))
+            .set(ByTagName,             (selector: ByTagName)           => WebdriverIOLocator.createRootLocator(this.browser, selector, `<${ selector.value } />`))
+            .set(ByXPath,               (selector: ByXPath)             => WebdriverIOLocator.createRootLocator(this.browser, selector, selector.value))
+        );
 
         if (! this.browser.$ || ! this.browser.$$) {
             throw new LogicError(`WebdriverIO browser object is not initialised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
@@ -101,23 +95,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
 
     deleteAllCookies(): Promise<void> {
         return this.browser.deleteCookies() as Promise<void>;
-    }
-
-    locate<T>(selector: Selector<T>, locator?: NativeElementLocator<wdio.Element<'async'>>): WebdriverIOPageElement {
-        return new WebdriverIOPageElement(selector, locator ?? this.nativeElementLocator());
-    }
-
-    async locateAll<T>(selector: Selector<T>, locator?: NativeElementLocator<wdio.Element<'async'>>): Promise<WebdriverIOPageElement[]> {
-        const l = locator ?? this.nativeElementLocator();
-        const elements = await l.locateAll(selector);
-
-        return elements.map(element =>
-            new WebdriverIOPageElement(selector, new PassThroughNativeElementLocator<wdio.Element<'async'>>(locator, element)),
-        );
-    }
-
-    nativeElementLocator(): NativeElementLocator<wdio.Element<'async'>> {
-        return new WebdriverIONativeElementLocator(() => this.browser);
     }
 
     /**
