@@ -9,12 +9,9 @@ import { WebElement } from 'protractor';
  * @param promiseLike
  * @returns {Promise<T>}
  */
-export function promisedWebElement<T extends WebElement>(promiseLike: PromiseLike<T> | T): Promise<T> {
-    if (promiseLike instanceof Promise) {
-        return promiseLike;
-    }
+export function unpromisedWebElement<T extends WebElement>(promiseLike: T): T {
 
-    return Promise.resolve(new Proxy(promiseLike, {
+    return new Proxy(promiseLike, {
         has: (target, property) =>
             property !== 'then',
         ownKeys: (target) =>
@@ -24,5 +21,5 @@ export function promisedWebElement<T extends WebElement>(promiseLike: PromiseLik
             (property in receiver)
                 ? target[property]
                 : undefined,
-    }));
+    });
 }

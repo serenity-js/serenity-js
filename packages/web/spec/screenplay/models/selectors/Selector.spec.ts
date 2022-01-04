@@ -25,11 +25,14 @@ describe('Selector', () => {
     });
 });
 
-class ByReactComponentName extends Selector<string> {
+class ByReactComponentName extends Selector {
+    constructor(public readonly value: string) {
+        super();
+    }
 }
 
-class ByReactComponentNameContainingText extends Selector<string> {
-    constructor(value: string, public readonly text: string) {
-        super(value);
+class ByReactComponentNameContainingText extends Selector {
+    constructor(public readonly value: string, public readonly text: string) {
+        super();
     }
 }

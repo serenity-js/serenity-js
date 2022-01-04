@@ -1,13 +1,11 @@
 import { PageElement } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIONativeElementLocator } from './WebdriverIONativeElementLocator';
-
 export class WebdriverIOPageElement
     extends PageElement<wdio.Element<'async'>>
 {
     of(parent: WebdriverIOPageElement): WebdriverIOPageElement {
-        return new WebdriverIOPageElement(this.selector, new WebdriverIONativeElementLocator(() => parent.nativeElement()));
+        return new WebdriverIOPageElement(this.locator.of(parent.locator))
     }
 
     async clearValue(): Promise<void> {

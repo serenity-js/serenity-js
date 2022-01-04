@@ -53,7 +53,7 @@ export class UseAngular {
      */
     static disableSynchronisation(): Interaction {
         return Interaction.where(`#actor disables synchronisation with Angular`, actor =>
-            BrowseTheWebWithProtractor.as(actor).enableAngularSynchronisation(false).then(() => void 0));
+            (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).enableAngularSynchronisation(false).then(() => void 0));
     }
 
     /**
@@ -65,6 +65,6 @@ export class UseAngular {
      */
     static enableSynchronisation(): Interaction {
         return Interaction.where(`#actor enables synchronisation with Angular`, actor =>
-            BrowseTheWebWithProtractor.as(actor).enableAngularSynchronisation(true).then(() => void 0));
+            (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).enableAngularSynchronisation(true).then(() => void 0));
     }
 }

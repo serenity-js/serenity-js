@@ -1,20 +1,22 @@
-import { Adapter, Answerable, format, LogicError, Question } from '@serenity-js/core';
+import { Adapter, Answerable, format, Question } from '@serenity-js/core';
+import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
-import { NativeElementLocator } from './NativeElementLocator';
+import { Locator } from './Locator';
 import { Selector } from './selectors';
 
 const d = format({ markQuestions: false });
 
 export abstract class PageElement<Native_Element_Type = any> {
 
-    static located<NET, ST>(selector: Answerable<Selector<ST>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
+    static located<NET>(selector: Answerable<Selector>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
             const bySelector = await actor.answer(selector);
-            return BrowseTheWeb.as(actor).locate<ST>(bySelector);
+            return BrowseTheWeb.as<NET>(actor).locate(bySelector).element();
         });
     }
 
+    // todo: review usages and consider removing if not used
     static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
@@ -24,29 +26,18 @@ export abstract class PageElement<Native_Element_Type = any> {
         });
     }
 
-    constructor(
-        protected readonly selector: Selector<unknown>,
-        private readonly locator: NativeElementLocator<Native_Element_Type>,
-    ) {
+    constructor(public readonly locator: Locator<Native_Element_Type>) {
+        ensure('native element locator', locator, isDefined());
     }
 
-    abstract of(parent: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
+    abstract of(parentElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
     async nativeElement(): Promise<Native_Element_Type> {
-        try {
-            return this.locator.locate(this.selector);
-        }
-        catch (error) {
-            throw new LogicError(`Couldn't find element`, error);
-        }
-    }
-
-    nativeElementLocator(): NativeElementLocator<Native_Element_Type> {
-        return this.locator;
+        return this.locator.nativeElement();
     }
 
     toString(): string {
-        return `PageElement located ${ this.selector }`
+        return `PageElement located ${ this.locator.toString() }`;
     }
 
     abstract enterValue(value: string | number | Array<string | number>): Promise<void>;
