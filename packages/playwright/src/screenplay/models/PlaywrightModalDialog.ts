@@ -6,27 +6,37 @@ export class PlaywrightModalDialog extends ModalDialog {
         return new this(dialog);
     }
 
+    private _isPresent: boolean;
+    private valueToEnter: string;
+
     private constructor(private readonly dialog: pw.Dialog) {
         super();
+        this._isPresent = true;
     }
 
-    accept(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async accept(): Promise<void> {
+        await this.dialog.accept(this.valueToEnter);
+        this.notPresent();
     }
 
-    dismiss(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async dismiss(): Promise<void> {
+        await this.dialog.dismiss();
+        this.notPresent();
     }
 
-    text(): Promise<string> {
-        throw new Error('Method not implemented.');
+    async text(): Promise<string> {
+        return this.dialog.message();
     }
 
-    enterValue(value: string | number | (string | number)[]): Promise<void> {
-        throw new Error('Method not implemented.');
+    async enterValue(value: string | number | (string | number)[]): Promise<void> {
+        this.valueToEnter = value.toString();
     }
 
-    isPresent(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async isPresent(): Promise<boolean> {
+        return this._isPresent;
+    }
+
+    private notPresent() {
+        this._isPresent = false;
     }
 }
