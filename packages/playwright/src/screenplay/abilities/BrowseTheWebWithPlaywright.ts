@@ -43,32 +43,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     /**
      * @private
      */
-    private _workingContext: Context;
-
-    /**
-     * @private
-     */
-    private storedContext: Stack<Context>;
-
-    /**
-     * @private
-     */
     private activeDialog: ModalDialog;
-
-    protected async workingContext(): Promise<Context> {
-        if (!this._workingContext) {
-            this._workingContext = await this.page();
-        }
-        return this._workingContext;
-    }
-
-    protected setWorkingContext(newContext: Context): void {
-        this._workingContext = newContext;
-    }
-
-    protected clearContext(): void {
-        this._workingContext = undefined;
-    }
 
     /**
      * @private
@@ -167,7 +142,6 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
      */
     private constructor(protected browserType: BrowserType) {
         super();
-        this.storedContext = new Stack();
     }
 
     navigateTo(destination: string): Promise<void> {

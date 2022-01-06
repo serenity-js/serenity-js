@@ -6,7 +6,6 @@ import { createSandbox } from "sinon";
 import { BrowseTheWeb, Key } from '@serenity-js/web';
 
 import { BrowseTheWebWithPlaywright } from "../../../src/screenplay/abilities";
-import {PlaywrightPage} from "../../../src/screenplay/models/PlaywrightPage";
 
 describe("BrowseTheWeb ability", () => {
     const sandbox = createSandbox();
@@ -121,18 +120,11 @@ describe("BrowseTheWeb ability", () => {
 
     it('can execute async script', async () => {
         // FIXME: I don't know how this should work
-        // const mock = (parameters: any[], callback: (args?: any[]) => any[]) => {
+        // const mock: (...args: [...parameters: any[], callback: (result: any[]) => void]) => void = (parameters: any[], callback: (args?: any[]) => any[]) => {
             // return callback(parameters);
         // };
-        // const actualResult = await ability.executeAsyncScript(mock, [ 1, 2, 3 ], (args) => args);
+        // const actualResult = await ability.executeAsyncScript(mock, 1, 2, 3, (args: any) => args);
         // expect(actualResult).to.be.deep.equal([ 1, 2, 3 ]);
     });
-
-    it('can return modal dialog');
-    it('can return last script execution result');
-    it('can take a screenshot');
-    it('can swtch to frame');
-    it('can switch to parent frame');
-    it('can switch to default content');
 });
 
