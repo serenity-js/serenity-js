@@ -1,10 +1,11 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page as SerenityPage, PageElement, PageElements } from '@serenity-js/web';
-import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Page } from 'playwright';
+import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Page, Dialog } from 'playwright';
 
 import { Stack } from '../../utils';
 import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
 import {PlaywrightCookie} from '../models/PlaywrightCookie';
+import {PlaywrightModalDialog} from '../models/PlaywrightModalDialog';
 import {PlaywrightPage} from '../models/PlaywrightPage';
 // import { ScreenshotOptions } from '../options/screenshotOptions';
 
@@ -48,6 +49,11 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
      * @private
      */
     private storedContext: Stack<Context>;
+
+    /**
+     * @private
+     */
+    private activeDialog: ModalDialog;
 
     protected async workingContext(): Promise<Context> {
         if (!this._workingContext) {
@@ -103,6 +109,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         if (!this._page) {
             const browserContext = await this.browserContext();
             this._page = await browserContext.newPage();
+            this.navigate('new');
         }
         return this._page;
     }
@@ -163,24 +170,35 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         this.storedContext = new Stack();
     }
 
-    async navigateTo(destination: string): Promise<void> {
-        const workingContext = await this.workingContext();
-        await workingContext.goto(destination);
+    navigateTo(destination: string): Promise<void> {
+        return this.navigate('goto', destination);
     }
 
-    async navigateBack(): Promise<void> {
-        const page = await this.page();
-        page.goBack();
+    navigateBack(): Promise<void> {
+        return this.navigate('goBack');
     }
 
-    async navigateForward(): Promise<void> {
-        const page = await this.page();
-        page.goForward();
+    navigateForward(): Promise<void> {
+        return this.navigate('goForward');
     }
 
-    async reloadPage(): Promise<void> {
+    reloadPage(): Promise<void> {
+        return this.navigate('reload');
+    }
+
+    private async navigate(
+        strategy: 'new' | 'goto' | 'goBack' | 'goForward' | 'reload',
+        destination?: string
+    ) {
         const page = await this.page();
-        page.reload();
+        if ('new' !== strategy) {
+            if ('goto' === strategy) {
+                await page[strategy](destination);
+            } else {
+                await page[strategy]();
+            }
+        }
+        page.on('dialog', this.handleDialog.bind(this));
     }
 
     async waitFor(duration: Duration): Promise<void> {
@@ -338,8 +356,12 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
         return context.clearCookies();
     }
 
-    modalDialog(): Promise<ModalDialog> {
-        throw new Error('Method not implemented.');
+    async modalDialog(): Promise<ModalDialog> {
+        return this.activeDialog;
+    }
+
+    private handleDialog(dialog: Dialog) {
+        this.activeDialog = PlaywrightModalDialog.from(dialog);
     }
 
     lastScriptExecutionResult<Result = any>(): Result {
