@@ -1,8 +1,8 @@
+import { Cookie, CookieData } from '@serenity-js/web';
 import * as pw from 'playwright';
-import { Cookie, CookieData } from "@serenity-js/web";
 
 export class PlaywrightCookie extends Cookie {
-    public static from(name: string, page: pw.Page) {
+    public static from(name: string, page: pw.Page): Cookie {
         return new this(name, page);
     }
 

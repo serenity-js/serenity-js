@@ -1,8 +1,9 @@
-import {LogicError} from "@serenity-js/core";
-import { PageElement, PageElements } from "@serenity-js/web";
-import * as pw from "playwright";
-import { PlaywrightNativeRootElement } from "./PlaywrightNativeRootElement";
-import { PlaywrightPageElement } from "./PlaywrightPageElement";
+import {LogicError} from '@serenity-js/core';
+import { PageElement, PageElements } from '@serenity-js/web';
+import * as pw from 'playwright';
+
+import { PlaywrightNativeRootElement } from './PlaywrightNativeRootElement';
+import { PlaywrightPageElement } from './PlaywrightPageElement';
 
 export class PlaywrightPageElements
     extends PageElements<PlaywrightNativeRootElement, pw.ElementHandle[], pw.ElementHandle>

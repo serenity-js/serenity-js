@@ -1,16 +1,13 @@
-import "mocha";
+import 'mocha';
 
-import { expect } from "@integration/testing-tools";
-import { Browser, BrowserContext, BrowserType, chromium, Keyboard, Page } from "playwright";
-import { createSandbox } from "sinon";
+import { expect } from '@integration/testing-tools';
 import { BrowseTheWeb, Key } from '@serenity-js/web';
+import { Browser, BrowserType, chromium, Keyboard, Page } from 'playwright';
 
-import { BrowseTheWebWithPlaywright } from "../../../src/screenplay/abilities";
+import { BrowseTheWebWithPlaywright } from '../../../src/screenplay/abilities';
 
-describe("BrowseTheWeb ability", () => {
-    const sandbox = createSandbox();
+describe('BrowseTheWeb ability', () => {
     let page: Page;
-    let browserContext: BrowserContext;
     let browser: Browser;
     let browserType: BrowserType;
     let ability: BrowseTheWeb;
@@ -37,12 +34,12 @@ describe("BrowseTheWeb ability", () => {
         // expect(browser.isConnected()).to.be.false;
     });
 
-    it("stores browser", async () => {
+    it('stores browser', async () => {
         expect((ability as any).browserType).to.be.equal(browserType);
     });
 
-    it("opens page", async () => {
-        const url = "https://www.google.com/";
+    it('opens page', async () => {
+        const url = 'https://www.google.com/';
 
         await ability.navigateTo(url);
 
@@ -108,8 +105,7 @@ describe("BrowseTheWeb ability", () => {
     });
 
     it('can execute script', async () => {
-        const mock = (...args: any) => args;
-        const actualResult = await ability.executeScript(mock, 1, 2, 3);
+        const actualResult = await ability.executeScript((...args: any) => args, 1, 2, 3);
         expect(actualResult).to.be.deep.equal([1,2,3]);
     });
 
@@ -121,7 +117,7 @@ describe("BrowseTheWeb ability", () => {
     it('can execute async script', async () => {
         // FIXME: I don't know how this should work
         // const mock: (...args: [...parameters: any[], callback: (result: any[]) => void]) => void = (parameters: any[], callback: (args?: any[]) => any[]) => {
-            // return callback(parameters);
+        // return callback(parameters);
         // };
         // const actualResult = await ability.executeAsyncScript(mock, 1, 2, 3, (args: any) => args);
         // expect(actualResult).to.be.deep.equal([ 1, 2, 3 ]);

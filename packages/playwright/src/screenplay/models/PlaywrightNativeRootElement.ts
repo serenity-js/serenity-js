@@ -1,4 +1,4 @@
-import { Page } from "playwright";
+import { Page } from 'playwright';
 
 export type PlaywrightNativeRootElement = Pick<Page, '$' | '$$'>;
 

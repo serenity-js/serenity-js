@@ -1,5 +1,6 @@
 import { PageElement } from '@serenity-js/web';
 import { ElementHandle } from 'playwright';
+
 import { PlaywrightNativeRootElement } from './PlaywrightNativeRootElement';
 
 export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootElement, ElementHandle> {
@@ -61,7 +62,7 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
 
     async isActive(): Promise<boolean> {
         const nativeElement = await this.nativeElement();
-        return nativeElement.evaluate((el) => el === document.activeElement);
+        return nativeElement.evaluate((element) => element === document.activeElement);
     }
 
     async isClickable(): Promise<boolean> {
@@ -73,7 +74,7 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
                 trial: true // tries to click without clicking
             });
             return true;
-        } catch(err) {
+        } catch{
             return false;
         }
     }
@@ -96,9 +97,9 @@ export class PlaywrightPageElement extends PageElement<PlaywrightNativeRootEleme
 
     async isSelected(): Promise<boolean> {
         const nativeElement = await this.nativeElement();
-        const result = await nativeElement.evaluate((el) => {
-            const parentElement = el.parentElement;
-            return (parentElement as any).options[(parentElement as any).selectedIndex] === el;
+        const result = await nativeElement.evaluate((element) => {
+            const parentElement = element.parentElement;
+            return (parentElement as any).options[(parentElement as any).selectedIndex] === element;
         });
         return result;
     }

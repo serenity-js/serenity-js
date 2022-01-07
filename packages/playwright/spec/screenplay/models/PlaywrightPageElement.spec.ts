@@ -2,12 +2,10 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, actorCalled } from '@serenity-js/core';
-
 import { Browser, chromium, Page } from 'playwright';
+
 import { BrowseTheWebWithPlaywright } from '../../../src';
-
 import { PlaywrightPageElement } from '../../../src';
-
 
 describe('PlaywrightPageElement', () => {
     let browser: Browser;
@@ -38,11 +36,13 @@ describe('PlaywrightPageElement', () => {
         await page.setContent("<input id='test-input'></input>");
         const element = await PlaywrightPageElement.locatedById('test-input').answeredBy(actor);
         await element.enterValue(expectedValue);
-        let text = await (await page.$('id=test-input')).inputValue();
+        let pwElement = await page.$('id=test-input');
+        let text = await (pwElement).inputValue();
         expect(text).to.be.equal(expectedValue);
 
         await element.clearValue();
-        text = await (await page.$('id=test-input')).inputValue();
+        pwElement = await page.$('id=test-input');
+        text = await (pwElement).inputValue();
         expect(text).to.be.equal('');
     });
 
@@ -114,7 +114,7 @@ describe('PlaywrightPageElement', () => {
     });
 
     it('can return attribute', async () => {
-        const expectedName = "Heisenberg";
+        const expectedName = 'Heisenberg';
         await page.setContent(`
             <html>
                 <div id="who" data-name="${expectedName}">Say my name!</div>
@@ -122,7 +122,7 @@ describe('PlaywrightPageElement', () => {
         );
 
         const element = await PlaywrightPageElement.locatedById('who').answeredBy(actor);
-        const actualName = await element.attribute("data-name");
+        const actualName = await element.attribute('data-name');
 
         expect(actualName).to.be.equal(expectedName);
     });
@@ -132,7 +132,7 @@ describe('PlaywrightPageElement', () => {
         await page.setContent("<input id='test-input'></input>");
         const element = await PlaywrightPageElement.locatedById('test-input').answeredBy(actor);
         await element.enterValue(expectedValue);
-        let text = await element.value();
+        const text = await element.value();
         expect(text).to.be.equal(expectedValue);
     });
 
@@ -143,10 +143,12 @@ describe('PlaywrightPageElement', () => {
             <input id='test-input'></input>
             <input id='another-input'></input>
         `);
-        await (await page.$('id=test-input')).focus();
+        let pwElement = await page.$('id=test-input');
+        await (pwElement).focus();
         expect(await element.isActive()).to.be.true;
 
-        await (await page.$('id=another-input')).focus();
+        pwElement = await page.$('id=another-input');
+        await (pwElement).focus();
         expect(await element.isActive()).to.be.false;
     });
 

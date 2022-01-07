@@ -2,13 +2,11 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Actor, actorCalled } from '@serenity-js/core';
-
-import { Browser, chromium, Page } from 'playwright';
-import { BrowseTheWebWithPlaywright } from '../../../src';
-
-import { PlaywrightPageElements } from '../../../src';
 import { PageElements } from '@serenity-js/web';
+import { Browser, chromium, Page } from 'playwright';
 
+import { BrowseTheWebWithPlaywright } from '../../../src';
+import { PlaywrightPageElements } from '../../../src';
 
 describe('PlaywrightPageElements', () => {
     let browser: Browser;
@@ -75,24 +73,24 @@ describe('PlaywrightPageElements', () => {
     });
 
     it('can apply mapping function', async () => {
-        const names = await elements.map((el) => el.attribute('data-name'));
+        const names = await elements.map((element) => element.attribute('data-name'));
         expect(names).to.be.deep.equal([
             'Heisenberg', 'Quentin', 'Tim'
         ]);
     });
 
     it('can filter elements', async () => {
-        const filtered = elements.filter(async (el) => 'Heisenberg' === await el.attribute('data-name'));
+        const filtered = elements.filter(async (element) => 'Heisenberg' === await element.attribute('data-name'));
         expect(await filtered.count()).to.be.equal(1);
         const firstElement = await elements.first();
         expect(await firstElement.attribute('id')).to.be.equal('person-1');
     });
 
     it('can execute function for each element', async () => {
-        await elements.forEach((el) => {
-            return el.click();
+        await elements.forEach((element) => {
+            return element.click();
         });
-        const isDisplayed = await elements.map((el) => el.isDisplayed());
+        const isDisplayed = await elements.map((element) => element.isDisplayed());
         expect(isDisplayed).to.be.deep.equal([
             false, false, false
         ]);

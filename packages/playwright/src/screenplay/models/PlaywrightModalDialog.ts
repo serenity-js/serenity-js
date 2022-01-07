@@ -1,8 +1,8 @@
-import * as pw from 'playwright';
 import { ModalDialog } from '@serenity-js/web';
+import * as pw from 'playwright';
 
 export class PlaywrightModalDialog extends ModalDialog {
-    public static from(dialog: pw.Dialog) {
+    public static from(dialog: pw.Dialog): ModalDialog {
         return new this(dialog);
     }
 

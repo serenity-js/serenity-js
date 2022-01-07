@@ -1,10 +1,9 @@
+import { Page } from '@serenity-js/web';
 import * as pw from 'playwright';
-
-import { Page } from "@serenity-js/web";
-import { URL } from "url";
+import { URL } from 'url';
 
 export class PlaywrightPage extends Page {
-    public static from(originalPage: pw.Page, handle: string) {
+    public static from(originalPage: pw.Page, handle: string): Page {
         return new this(originalPage, handle);
     }
 

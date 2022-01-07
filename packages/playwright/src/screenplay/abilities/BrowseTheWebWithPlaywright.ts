@@ -1,15 +1,12 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page as SerenityPage, PageElement, PageElements } from '@serenity-js/web';
-import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, Keyboard, LaunchOptions, Page, Dialog } from 'playwright';
+import { Browser, BrowserContext, BrowserType, Dialog,ElementHandle, Keyboard, LaunchOptions, Page } from 'playwright';
 
-import { Stack } from '../../utils';
-import { PlaywrightPageElement, PlaywrightPageElements, PlaywrightNativeRootElement } from '../models';
+import { PlaywrightNativeRootElement,PlaywrightPageElement, PlaywrightPageElements } from '../models';
 import {PlaywrightCookie} from '../models/PlaywrightCookie';
 import {PlaywrightModalDialog} from '../models/PlaywrightModalDialog';
 import {PlaywrightPage} from '../models/PlaywrightPage';
 // import { ScreenshotOptions } from '../options/screenshotOptions';
-
-type Context = Page | Frame;
 
 export type Modifier = 'Shift' | 'Control' | 'Alt' | 'Meta' | 'ShiftLeft';
 
@@ -166,11 +163,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     ) {
         const page = await this.page();
         if ('new' !== strategy) {
-            if ('goto' === strategy) {
-                await page[strategy](destination);
-            } else {
-                await page[strategy]();
-            }
+            await ('goto' === strategy ? page[strategy](destination) : page[strategy]());
         }
         page.on('dialog', this.handleDialog.bind(this));
     }
@@ -280,8 +273,8 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
         const stringifyScript = (script: string | ((...parameters: InnerArguments) => Result)) =>
             typeof script === 'function'
-            ? `(${script}).apply(null, [ ${nativeArguments} ])`
-            : script
+                ? `(${script}).apply(null, [ ${nativeArguments} ])`
+                : script
 
         const page =  await this.page();
         const stringFunction = stringifyScript(script);
