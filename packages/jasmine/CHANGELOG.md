@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.5](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.4...v3.0.0-rc.5) (2022-01-07)
+
+
+### Bug Fixes
+
+* **jasmine:** integrated with Jasmine 3.99.0 ([7f03bb5](https://github.com/serenity-js/serenity-js/commit/7f03bb56d4dc50209b01bdd0ed147eb7da7cfb93))
+
+
+
+
+
 # [3.0.0-rc.4](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.3...v3.0.0-rc.4) (2021-12-30)
 
 **Note:** Version bump only for package @serenity-js/jasmine
