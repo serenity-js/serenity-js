@@ -29,7 +29,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Lint
@@ -55,7 +54,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Compile
@@ -92,7 +90,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
@@ -149,7 +146,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
@@ -187,7 +183,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
@@ -220,7 +215,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download code coverage reports
@@ -276,7 +270,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Publish artifacts
@@ -327,7 +320,6 @@ jobs:
 
       - name: Remove malicious colors.js
         run: |
-          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Build Serenity/JS website

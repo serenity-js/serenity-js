@@ -2,7 +2,7 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, engage, Transform } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { Navigate, UseAngular, Website } from '@serenity-js/protractor';
-import { After, Before, Then, When } from 'cucumber';
+import { After, Before, Then, When } from '@cucumber/cucumber';
 import { Actors } from '../support/screenplay';
 
 Before(() => {
