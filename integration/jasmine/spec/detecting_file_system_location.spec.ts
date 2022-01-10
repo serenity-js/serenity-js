@@ -18,7 +18,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.details.name).to.equal(new Name('Jasmine'));
                     expect(event.details.location.path.value).to.match(/location.spec.js$/);
                     expect(event.details.location.line).to.equal(1);
-                    // expect(event.value.location.column).to.equal(1);
+                    expect(event.details.location.column).to.equal(1);
                 })
                 .next(TestSuiteStarts,         event => {
                     expect(event.details.name).to.equal(new Name('Detecting file system location'));
@@ -48,7 +48,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.details.name).to.equal(new Name('Jasmine'));
                     expect(event.details.location.path.value).to.match(/location.spec.js$/);
                     expect(event.details.location.line).to.equal(1);
-                    // expect(event.value.location.column).to.equal(1);
+                    expect(event.details.location.column).to.equal(1);
                 })
             ;
         }));

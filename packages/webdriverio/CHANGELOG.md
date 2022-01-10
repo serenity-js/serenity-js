@@ -103,6 +103,14 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 
 
 
+## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
 ## [2.32.5](https://github.com/serenity-js/serenity-js/compare/v2.32.4...v2.32.5) (2021-12-08)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
