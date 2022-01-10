@@ -27,6 +27,11 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
+
       - name: Lint
         run: make lint
 
@@ -47,6 +52,11 @@ jobs:
           install-command: make BOOTSTRAP=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Compile
         run: make compile
@@ -79,6 +89,11 @@ jobs:
           install-command: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -132,6 +147,11 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -165,6 +185,11 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -192,6 +217,11 @@ jobs:
           install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
@@ -244,6 +274,11 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
+
       - name: Publish artifacts
         run: npm run lerna:publish
         env:
@@ -289,6 +324,11 @@ jobs:
           install-command: make BOOTSTRAP=@documentation install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Remove malicious colors.js
+        run: |
+          find . -type d -path "*/node_modules/@cucumber/cucumber/node_modules/colors" -exec rm -r {} +
+          find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Build Serenity/JS website
         run: make site
