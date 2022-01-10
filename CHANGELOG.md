@@ -160,7 +160,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### BREAKING CHANGES
 
 * **core:** Introduced @serenity-js/web - a shared library for Serenity/JS Web integration
-modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
+  modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
+
+
+## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
+
+
+### Bug Fixes
+
+* **cucumber:** updated cli-table3 to avoid potential issue with (optional) colors.js ([e91adb4](https://github.com/serenity-js/serenity-js/commit/e91adb44952afc8d12c436de6fc4652424a0ae4c)), closes [cli-table/cli-table3#251](https://github.com/cli-table/cli-table3/issues/251) [Marak/colors.js#285](https://github.com/Marak/colors.js/issues/285) [/github.com/Marak/colors.js/issues/285#issuecomment-1008212640](https://github.com//github.com/Marak/colors.js/issues/285/issues/issuecomment-1008212640)
+* **deps:** update dependency @babel/parser to ^7.16.7 ([4bef4ff](https://github.com/serenity-js/serenity-js/commit/4bef4ff64ec996692291ef7b87c2c4b3052c311f))
+* **jasmine:** updated jasmine to 3.99.0 ([e79dbb3](https://github.com/serenity-js/serenity-js/commit/e79dbb337c760b85f1eaa26777b38d5fcbcadad7))
+* **security:** removed colors > 1.4.0 from Serenity/JS monorepo ([7b69037](https://github.com/serenity-js/serenity-js/commit/7b69037ee8c29b66aec5d269d0162902d44450ab)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
 
 
 
