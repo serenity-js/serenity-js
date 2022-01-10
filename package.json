@@ -1,6 +1,6 @@
 {
   "name": "serenity-js-monorepo",
-  "version": "2.0.0-monorepo",
+  "version": "3.0.0-monorepo",
   "description": "Serenity/JS: Next generation acceptance testing library for modern web applications.",
   "private": true,
   "author": {
@@ -24,7 +24,7 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "rimraf '**/node_modules/cucumber/node_modules/colors",
+    "postinstall": "rimraf '**/node_modules/cucumber/node_modules/colors'",
     "clean": "rimraf target && lerna run clean --parallel",
     "lint": "lerna run lint --parallel",
     "lint:fix": "lerna run lint:fix --parallel",
