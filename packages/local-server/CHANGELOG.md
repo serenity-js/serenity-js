@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.7](https://github.com/serenity-js/serenity-js/compare/v2.32.6...v2.32.7) (2022-01-10)
+
+**Note:** Version bump only for package @serenity-js/local-server
+
+
+
+
+
 ## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
 
 **Note:** Version bump only for package @serenity-js/local-server
