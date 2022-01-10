@@ -337,7 +337,7 @@
             <span class="token keyword">const</span>
                 fs <span class="token operator">=</span> FakeFS<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
                     <span class="token punctuation">[</span> processCWD<span class="token punctuation">.</span>value <span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                        <span class="token string">'file.txt'</span><span class="token operator">:</span> <span class="token string">'content'</span>
+                        <span class="token string-property property">'file.txt'</span><span class="token operator">:</span> <span class="token string">'content'</span>
                     <span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
                 out <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystem</span><span class="token punctuation">(</span>processCWD<span class="token punctuation">,</span> fs<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -349,7 +349,7 @@
             <span class="token keyword">const</span>
                 fs <span class="token operator">=</span> FakeFS<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
                     <span class="token punctuation">[</span> processCWD<span class="token punctuation">.</span>value <span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                        <span class="token string">'mydir'</span><span class="token operator">:</span> FakeFS<span class="token punctuation">.</span>Empty_Directory
+                        <span class="token string-property property">'mydir'</span><span class="token operator">:</span> FakeFS<span class="token punctuation">.</span>Empty_Directory
                     <span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
                 out <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystem</span><span class="token punctuation">(</span>processCWD<span class="token punctuation">,</span> fs<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -439,8 +439,8 @@
                         <span class="token punctuation">[</span>processCWD<span class="token punctuation">.</span>value<span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
                             outlet<span class="token operator">:</span> <span class="token punctuation">{</span>
                                 subdir<span class="token operator">:</span> <span class="token punctuation">{</span>
-                                    <span class="token string">'file-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
-                                    <span class="token string">'file-not-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
+                                    <span class="token string-property property">'file-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
+                                    <span class="token string-property property">'file-not-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
                                 <span class="token punctuation">}</span><span class="token punctuation">,</span>
                             <span class="token punctuation">}</span><span class="token punctuation">,</span>
                         <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -474,10 +474,10 @@
                         <span class="token punctuation">[</span>processCWD<span class="token punctuation">.</span>value<span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">{</span>
                             outlet<span class="token operator">:</span> <span class="token punctuation">{</span>
                                 subdir<span class="token operator">:</span> <span class="token punctuation">{</span>
-                                    <span class="token string">'file-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
+                                    <span class="token string-property property">'file-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
                                 <span class="token punctuation">}</span><span class="token punctuation">,</span>
                                 another<span class="token operator">:</span> <span class="token punctuation">{</span>
-                                    <span class="token string">'file-not-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
+                                    <span class="token string-property property">'file-not-to-be-deleted.json'</span><span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>
                                 <span class="token punctuation">}</span><span class="token punctuation">,</span>
                             <span class="token punctuation">}</span><span class="token punctuation">,</span>
                         <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -498,7 +498,7 @@
 
         <span class="token keyword">const</span>
             fs <span class="token operator">=</span> FakeFS<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'/var/tmp'</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'/var/tmp'</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             os <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token function-variable function">tmpdir</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">'/var/tmp'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
             out <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystem</span><span class="token punctuation">(</span>processCWD<span class="token punctuation">,</span> fs<span class="token punctuation">,</span> os <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

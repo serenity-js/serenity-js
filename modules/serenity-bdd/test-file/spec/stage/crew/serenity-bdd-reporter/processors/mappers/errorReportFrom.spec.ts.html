@@ -188,9 +188,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// eslint-disable-line unicorn/no-null</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -198,9 +198,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line unicorn/no-useless-undefined</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'undefined'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'undefined'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -209,9 +209,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Object'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'Object'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -220,9 +220,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Array'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'Array'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -230,9 +230,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Number'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'404'</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'Number'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token string">'404'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -240,9 +240,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token string">'skipped step'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'String'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'skipped step'</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'String'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token string">'skipped step'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -250,9 +250,9 @@
             <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
             <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Boolean'</span><span class="token punctuation">,</span>
-                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'false'</span><span class="token punctuation">,</span>
-                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'errorType'</span><span class="token operator">:</span> <span class="token string">'Boolean'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'message'</span><span class="token operator">:</span> <span class="token string">'false'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

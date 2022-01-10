@@ -852,7 +852,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
   var delay    = arguments[0];
   var callback = arguments[arguments.length - 1];
 
@@ -861,7 +861,7 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Return a value asynchronously</div>
-      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
   var callback = arguments[arguments.length - 1];
 
   callback('some return value')
@@ -971,7 +971,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
   return arguments[0].tagName;
 </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'header'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span>h1<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
     </div>

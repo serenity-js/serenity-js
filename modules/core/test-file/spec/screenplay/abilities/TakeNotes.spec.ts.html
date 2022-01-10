@@ -340,10 +340,10 @@
     <span class="token punctuation">}</span>
 
     <span class="token keyword">const</span> drinks <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token string">'Alice'</span><span class="token operator">:</span> <span class="token string">'Apple Juice'</span><span class="token punctuation">,</span>
-        <span class="token string">'Bob'</span><span class="token operator">:</span> <span class="token string">'Beer'</span><span class="token punctuation">,</span>
-        <span class="token string">'Emma'</span><span class="token operator">:</span> <span class="token string">'Earl Grey tea'</span><span class="token punctuation">,</span>
-        <span class="token string">'Wendy'</span><span class="token operator">:</span> <span class="token string">'Water'</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'Alice'</span><span class="token operator">:</span> <span class="token string">'Apple Juice'</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'Bob'</span><span class="token operator">:</span> <span class="token string">'Beer'</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'Emma'</span><span class="token operator">:</span> <span class="token string">'Earl Grey tea'</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'Wendy'</span><span class="token operator">:</span> <span class="token string">'Water'</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">const</span> <span class="token function-variable function">AFavouriteDrink</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
@@ -383,7 +383,7 @@
          */</span>
         <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables the actor to take note of an answer to a given question under a custom name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
             <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Emma'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-                TakeNote<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">AFavouriteDrink</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span><span class="token string">'favourite drink'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                TakeNote<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">AFavouriteDrink</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span><span class="token string">'favourite drink'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
                 <span class="token function">EnsureSame</span><span class="token punctuation">(</span>Note<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'favourite drink'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> drinks<span class="token punctuation">.</span>Emma<span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 

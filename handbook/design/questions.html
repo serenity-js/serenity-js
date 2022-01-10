@@ -195,7 +195,7 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 
 <span class="token keyword">const</span> <span class="token function-variable function">WebsiteTitle</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
     Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'the title of the website'</span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> 
-        BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// returns Promise&lt;string&gt;</span>
+        BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// returns Promise&lt;string&gt;</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In the above example we retrieve actor's ability to <code>BrowseTheWeb</code> and then use that to perform the lower-level call.</p>

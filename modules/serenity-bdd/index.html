@@ -173,11 +173,11 @@ serenity<span class="token punctuation">.</span><span class="token function">con
 
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
-        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">'./target/site/serenity'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span>

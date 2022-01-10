@@ -243,7 +243,7 @@ Alice<span class="token punctuation">.</span><span class="token function">attemp
 </div>
 
 <p>However, if you try to run the file with the above code, you'll notice that it doesn't produce any output:</p>
-<pre class="language-shell"><code class="lang-shell-session">node hello-serenity.js
+<pre class="language-shell"><code class="lang-shell-session"><span class="token function">node</span> hello-serenity.js
 </code></pre>
 <p>To understand why this is the case, I need to tell you more about how Serenity/JS reporting features work.</p>
 <h2 id="reporting">Reporting</h2>
@@ -266,7 +266,7 @@ so let's add  <a href="/modules/console-reporter"><code>@serenity-js/console-rep
 <span class="token keyword">const</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span>    <span class="token comment">// 2</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                             <span class="token comment">// 3</span>
     <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -291,7 +291,7 @@ Alice<span class="token punctuation">.</span><span class="token function">attemp
 </div>
 
 <p>When you run the scenario again, you should now see the following output:</p>
-<pre class="language-shell"><code class="lang-shell-session">node hello-serenity.js 
+<pre class="language-shell"><code class="lang-shell-session"><span class="token function">node</span> hello-serenity.js 
 
   ✓ Alice logs: Hello Serenity/JS <span class="token punctuation">(</span>2ms<span class="token punctuation">)</span>
     <span class="token string">'Hello Serenity/JS'</span>

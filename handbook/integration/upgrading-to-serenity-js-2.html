@@ -202,12 +202,12 @@ are backwards compatible. However, the latest version of Serenity/JS introduces 
 as a <strong>collection of NPM modules</strong> under the <a href="https://www.npmjs.com/search?q=%40serenity-js"><code>@serenity-js/*</code> namespace</a>.</p>
 <p>While this distribution model requires you to think a little bit more about what parts of the framework you'll actually need for your project, it also makes the overall design much easier for you to extend and the framework itself more lightweight. Check out <a href="/modules/">the modules page</a> to see what official Serenity/JS modules are currently available. </p>
 <p>So, assuming that your Serenity/JS 1.x-based project interacted with the Web interface of your system (after all, that was the most common use case), the first thing you'll need to do is to add the following Serenity/JS 2.x modules to the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> or <a href="https://docs.npmjs.com/files/package.json#devdependencies"><code>devDependencies</code></a> section of your <code>packages.json</code>:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token string">"@serenity-js/assertions"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@serenity-js/console-reporter"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@serenity-js/core"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@serenity-js/protractor"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@serenity-js/rest"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@serenity-js/serenity-bdd"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span>
+<pre class="language-javascript"><code class="lang-javascript"><span class="token string-property property">"@serenity-js/assertions"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@serenity-js/console-reporter"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@serenity-js/core"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@serenity-js/protractor"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@serenity-js/rest"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@serenity-js/serenity-bdd"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span>
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
@@ -224,15 +224,15 @@ as a <strong>collection of NPM modules</strong> under the <a href="https://www.n
 
 <p>Since test runner adapters are no longer part of the core framework but instead live in their own independent modules, the next thing you'll need to do is to pick such adapter for your test runner of choice.</p>
 <p>For example, if you were using Serenity/JS with Cucumber, you'll need the <a href="/modules/cucumber">Serenity/JS Cucumber adapter</a>:</p>
-<pre class="language-typescript"><code><span class="token string">"@serenity-js/cucumber"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<pre class="language-typescript"><code><span class="token string-property property">"@serenity-js/cucumber"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
 </code></pre><p>If you were using <code>mocha</code>, you can continue to do so by using <a href="/modules/mocha"><code>@serenity-js/mocha</code></a> adapter and a recent version of <a href="https://mochajs.org/"><code>mocha</code></a> itself:</p>
-<pre class="language-typescript"><code><span class="token string">"@serenity-js/mocha"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"mocha"</span><span class="token operator">:</span> <span class="token string">"^8.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@types/mocha"</span><span class="token operator">:</span> <span class="token string">"latest"</span><span class="token punctuation">,</span>
+<pre class="language-typescript"><code><span class="token string-property property">"@serenity-js/mocha"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"mocha"</span><span class="token operator">:</span> <span class="token string">"^8.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@types/mocha"</span><span class="token operator">:</span> <span class="token string">"latest"</span><span class="token punctuation">,</span>
 </code></pre><p>Alternatively, you can also switch to <a href="/modules/jasmine"><code>jasmine</code></a> if you prefer that test runner:</p>
-<pre class="language-typescript"><code><span class="token string">"@serenity-js/jasmine"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-<span class="token string">"jasmine"</span><span class="token operator">:</span> <span class="token string">"^3.5.0"</span><span class="token punctuation">,</span>
-<span class="token string">"@types/jasmine"</span><span class="token operator">:</span> <span class="token string">"^3.5.10"</span><span class="token punctuation">,</span>
+<pre class="language-typescript"><code><span class="token string-property property">"@serenity-js/jasmine"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"jasmine"</span><span class="token operator">:</span> <span class="token string">"^3.5.0"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@types/jasmine"</span><span class="token operator">:</span> <span class="token string">"^3.5.10"</span><span class="token punctuation">,</span>
 </code></pre><div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
@@ -257,13 +257,13 @@ as a <strong>collection of NPM modules</strong> under the <a href="https://www.n
 <li><code>serenity-cli</code> has been merged with other code that enables integration of Serenity/JS and Serenity BDD and is available as <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>. </li>
 </ul>
 <p>All the above means that you can remove the following entries from the <a href="https://docs.npmjs.com/files/package.json#dependencies"><code>dependencies</code></a> or <a href="https://docs.npmjs.com/files/package.json#devdependencies"><code>devDependencies</code></a> section of your <code>packages.json</code>: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token string">"@types/chai"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"@types/chai-as-promised"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"chai"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"chai-as-promised"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"chai-smoothie"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"serenity-cli"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
-<span class="token string">"serenity-js"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<pre class="language-javascript"><code class="lang-javascript"><span class="token string-property property">"@types/chai"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"@types/chai-as-promised"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"chai"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"chai-as-promised"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"chai-smoothie"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"serenity-cli"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+<span class="token string-property property">"serenity-js"</span><span class="token operator">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
 </code></pre>
 <h3 id="updated-scripts">Updated scripts</h3>
 <p>In Serenity/JS 2.0, the old <code>serenity-cli</code> module that used to provide a wrapper around Serenity BDD CLI, has been merged with other code integrating Serenity/JS with Serenity BDD and is now available as <a href="/modules/serenity-bdd"><code>@serenity-js/serenity-bdd</code></a>.</p>
@@ -384,11 +384,11 @@ using syntax similar to version 1.x, as per the code sample below.</p>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
     <span class="token comment">// Serenity/JS config</span>
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
-        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">"./target/site/serenity"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             Photographer<span class="token punctuation">.</span><span class="token function">whoWill</span><span class="token punctuation">(</span>TakePhotosOfFailures<span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -421,11 +421,11 @@ exports<span class="token punctuation">.</span>config <span class="token operato
     <span class="token comment">// Serenity/JS config [...] </span>
 
     <span class="token comment">// Test runner config</span>
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
 
-    mochaOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        ui<span class="token operator">:</span> <span class="token string">'bdd'</span><span class="token punctuation">,</span>
-        compiler<span class="token operator">:</span> <span class="token string">'ts:ts-node/register'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">mochaOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">ui</span><span class="token operator">:</span> <span class="token string">'bdd'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">compiler</span><span class="token operator">:</span> <span class="token string">'ts:ts-node/register'</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
     <span class="token comment">// Other Protractor config [...]</span>
@@ -441,10 +441,10 @@ exports<span class="token punctuation">.</span>config <span class="token operato
     <span class="token comment">// Serenity/JS config [...] </span>
 
     <span class="token comment">// Test runner config</span>
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
 
-    mochaOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        require<span class="token operator">:</span> <span class="token punctuation">[</span> 
+    <span class="token literal-property property">mochaOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span> 
             <span class="token string">'ts-node/register'</span><span class="token punctuation">,</span>
             <span class="token string">'spec/setup.ts'</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -484,15 +484,15 @@ exports<span class="token punctuation">.</span>config <span class="token operato
     <span class="token comment">// Serenity/JS config [...] </span>
 
     <span class="token comment">// Test runner config</span>
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
 
-    cucumberOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        require<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">cucumberOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'features/step_definitions/**/*.ts'</span><span class="token punctuation">,</span>
             <span class="token string">'features/support/setup.ts'</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">tags</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
     <span class="token comment">// Other Protractor config [...]</span>
@@ -852,7 +852,7 @@ into the browser using Protractor's <a href="https://www.protractortest.org/#/ap
 
     <span class="token decorator"><span class="token at operator">@</span><span class="token function">step</span></span><span class="token punctuation">(</span><span class="token string">'{0} enables #target'</span><span class="token punctuation">)</span>
     <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span>
+        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span>
             <span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].removeAttribute("disabled");</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -873,7 +873,7 @@ into the browser using Protractor's <a href="https://www.protractortest.org/#/ap
 
     <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>element <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
                 <span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].removeAttribute("disabled");</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -900,7 +900,7 @@ easier. For instance, the above code sample could be implemented as follows:</p>
         Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor enables </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> target <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
                 <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>element <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+                    <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
                         <span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].removeAttribute("disabled");</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -1026,7 +1026,7 @@ This is where <a href="/modules/protractor/class/src/screenplay/questions/Pick.t
 
     <span class="token decorator"><span class="token at operator">@</span><span class="token function">step</span></span><span class="token punctuation">(</span><span class="token string">'{0} enables #target'</span><span class="token punctuation">)</span>
     <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span>
+        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span>
             <span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].removeAttribute("disabled");</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -1057,7 +1057,7 @@ method calls: </p>
         <span class="token comment">// so that it can pass a Protractor-specific</span>
         <span class="token comment">// ElementFinder object to BrowseTheWeb</span>
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>element<span class="token operator">:</span> ElementFinder<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
                 <span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].removeAttribute("disabled");</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

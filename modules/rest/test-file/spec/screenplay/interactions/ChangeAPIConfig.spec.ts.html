@@ -247,8 +247,8 @@
             <span class="token keyword">const</span> dataMatcher <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
             mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">,</span> dataMatcher<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replyOnce</span><span class="token punctuation">(</span><span class="token number">401</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">,</span> dataMatcher<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-                <span class="token string">'Accept'</span><span class="token operator">:</span> <span class="token string">'application/json, text/plain, */*'</span><span class="token punctuation">,</span>
-                <span class="token string">'Authorization'</span><span class="token operator">:</span> <span class="token string">'my-token'</span>
+                <span class="token string-property property">'Accept'</span><span class="token operator">:</span> <span class="token string">'application/json, text/plain, */*'</span><span class="token punctuation">,</span>
+                <span class="token string-property property">'Authorization'</span><span class="token operator">:</span> <span class="token string">'my-token'</span>
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replyOnce</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 

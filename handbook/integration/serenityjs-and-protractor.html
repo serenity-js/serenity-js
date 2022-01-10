@@ -292,22 +292,22 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
 <pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
-        runner<span class="token operator">:</span> <span class="token string">'cucumber'</span><span class="token punctuation">,</span>
-        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'cucumber'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token comment">// ... reporting services</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    cucumberOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        require<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">cucumberOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'features/step_definitions/**/*.ts'</span><span class="token punctuation">,</span>    <span class="token comment">// or *.js</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">// to add support for TypeScript</span>
+        <span class="token string-property property">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">// to add support for TypeScript</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
@@ -326,23 +326,23 @@ exports<span class="token punctuation">.</span>config <span class="token operato
 <pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    cucumberOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        format<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'features/*.feature'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">cucumberOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">format</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'usage'</span><span class="token punctuation">,</span>                <span class="token comment">// or 'usage:usage.txt' to print to file</span>
             <span class="token string">'html:cucumber.html'</span><span class="token punctuation">,</span>
             <span class="token string">'snippets:snippets.txt'</span><span class="token punctuation">,</span>
             <span class="token string">'summary:summary.txt'</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        require<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'features/step_definitions/**/*.ts'</span><span class="token punctuation">,</span>    <span class="token comment">// or *.js</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">// to add support for TypeScript</span>
-        tags<span class="token operator">:</span>    <span class="token punctuation">[</span><span class="token string">'~@wip'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        strict<span class="token operator">:</span>  <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string-property property">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">// to add support for TypeScript</span>
+        <span class="token literal-property property">tags</span><span class="token operator">:</span>    <span class="token punctuation">[</span><span class="token string">'~@wip'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">strict</span><span class="token operator">:</span>  <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
@@ -428,19 +428,19 @@ and configure it to execute your Jasmine "<code>specs</code>":</p>
 <pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
-        runner<span class="token operator">:</span> <span class="token string">'jasmine'</span><span class="token punctuation">,</span>
-        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'jasmine'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token comment">// ... reporting services</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>                   <span class="token comment">// or *.spec.js</span>
-    jasmineNodeOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        requires<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>                   <span class="token comment">// or *.spec.js</span>
+    <span class="token literal-property property">jasmineNodeOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">requires</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'ts-node/register'</span><span class="token punctuation">,</span>                     <span class="token comment">// to add support for TypeScript</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -515,20 +515,20 @@ and configure it to execute your Mocha "<code>specs</code>":</p>
 <pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
-    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
-        runner<span class="token operator">:</span> <span class="token string">'mocha'</span><span class="token punctuation">,</span>
-        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'mocha'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token comment">// ... reporting services</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>                   <span class="token comment">// or *.spec.js</span>
+    <span class="token literal-property property">specs</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>                   <span class="token comment">// or *.spec.js</span>
 
-    mochaOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
-        require<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token literal-property property">mochaOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'ts-node/register'</span><span class="token punctuation">,</span>                     <span class="token comment">// to add support for TypeScript</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>

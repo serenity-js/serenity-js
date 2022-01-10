@@ -190,7 +190,7 @@
     <span class="token punctuation">}</span>
 
     <span class="token keyword">if</span> <span class="token punctuation">(</span>env<span class="token punctuation">.</span>npm_config_user_agent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        options<span class="token punctuation">.</span>headers <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">'User-Agent'</span><span class="token operator">:</span> env<span class="token punctuation">.</span>npm_config_user_agent <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        options<span class="token punctuation">.</span>headers <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string-property property">'User-Agent'</span><span class="token operator">:</span> env<span class="token punctuation">.</span>npm_config_user_agent <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">return</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
