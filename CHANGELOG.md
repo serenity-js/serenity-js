@@ -163,6 +163,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
 
 
+## [2.32.7](https://github.com/serenity-js/serenity-js/compare/v2.32.6...v2.32.7) (2022-01-10)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 7.3.2 to address Marak/colors.js[#285](https://github.com/serenity-js/serenity-js/issues/285) ([b9896ce](https://github.com/serenity-js/serenity-js/commit/b9896cedbcaf07c05f179007f61d2d4dd86c8a9f)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
+* **webdriverio:** SECURITY: updated WebdriverIO to 7.16.13 ([2062dfd](https://github.com/serenity-js/serenity-js/commit/2062dfd3277b68335502082df1abe7a5bcb4ca7f)), closes [Marak/colors.js#285](https://github.com/Marak/colors.js/issues/285)
+
+
+
+
+
 ## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
 
 

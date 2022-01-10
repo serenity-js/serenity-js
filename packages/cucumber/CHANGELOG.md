@@ -64,6 +64,17 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 
 
 
+## [2.32.7](https://github.com/serenity-js/serenity-js/compare/v2.32.6...v2.32.7) (2022-01-10)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 7.3.2 to address Marak/colors.js[#285](https://github.com/serenity-js/serenity-js/issues/285) ([b9896ce](https://github.com/serenity-js/serenity-js/commit/b9896cedbcaf07c05f179007f61d2d4dd86c8a9f)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
+
+
+
+
+
 ## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
 
 
