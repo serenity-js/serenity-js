@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
+
+
+### Bug Fixes
+
+* **jasmine:** updated jasmine to 3.99.0 ([e79dbb3](https://github.com/serenity-js/serenity-js/commit/e79dbb337c760b85f1eaa26777b38d5fcbcadad7))
+
+
+
+
+
 ## [2.32.5](https://github.com/serenity-js/serenity-js/compare/v2.32.4...v2.32.5) (2021-12-08)
 
 **Note:** Version bump only for package @serenity-js/jasmine

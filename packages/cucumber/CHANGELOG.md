@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
+
+
+### Bug Fixes
+
+* **cucumber:** updated cli-table3 to avoid potential issue with (optional) colors.js ([e91adb4](https://github.com/serenity-js/serenity-js/commit/e91adb44952afc8d12c436de6fc4652424a0ae4c)), closes [cli-table/cli-table3#251](https://github.com/cli-table/cli-table3/issues/251) [Marak/colors.js#285](https://github.com/Marak/colors.js/issues/285) [/github.com/Marak/colors.js/issues/285#issuecomment-1008212640](https://github.com//github.com/Marak/colors.js/issues/285/issues/issuecomment-1008212640)
+* **security:** removed colors > 1.4.0 from Serenity/JS monorepo ([7b69037](https://github.com/serenity-js/serenity-js/commit/7b69037ee8c29b66aec5d269d0162902d44450ab)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
+
+
+
+
+
 ## [2.32.5](https://github.com/serenity-js/serenity-js/compare/v2.32.4...v2.32.5) (2021-12-08)
 
 **Note:** Version bump only for package @serenity-js/cucumber
