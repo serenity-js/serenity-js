@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.7](https://github.com/serenity-js/serenity-js/compare/v2.32.6...v2.32.7) (2022-01-10)
+
+
+### Bug Fixes
+
+* **webdriverio:** SECURITY: updated WebdriverIO to 7.16.13 ([2062dfd](https://github.com/serenity-js/serenity-js/commit/2062dfd3277b68335502082df1abe7a5bcb4ca7f)), closes [Marak/colors.js#285](https://github.com/Marak/colors.js/issues/285)
+
+
+
+
+
 ## [2.32.6](https://github.com/serenity-js/serenity-js/compare/v2.32.5...v2.32.6) (2022-01-10)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
