@@ -24,7 +24,6 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "rimraf '**/node_modules/cucumber/node_modules/colors'",
     "clean": "rimraf target && lerna run clean --parallel",
     "lint": "lerna run lint --parallel",
     "lint:fix": "lerna run lint:fix --parallel",
