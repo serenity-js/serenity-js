@@ -1,4 +1,4 @@
-import { Answerable, Interaction, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
+import { Answerable, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
 
@@ -6,7 +6,7 @@ import { CookieMissingError } from '../../errors';
 import { BrowseTheWeb } from '../abilities';
 import { CookieData } from './CookieData';
 
-export abstract class Cookie {
+export abstract class Cookie implements Optional {
 
     /**
      * @desc

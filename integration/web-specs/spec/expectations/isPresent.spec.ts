@@ -1,10 +1,10 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure } from '@serenity-js/assertions';
+import { Ensure, isPresent } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
-import { By, isPresent, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { By, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isPresent', function () {
 

@@ -1,7 +1,7 @@
 import 'mocha';
 import { By, Click, ModalDialog, Navigate, PageElement, Photographer, TakePhotosOfInteractions, Text, Wait } from '@serenity-js/web';
 import { actorCalled, Clock, Duration, serenity, Serenity } from '@serenity-js/core';
-import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, equals, isFalse, isPresent, isTrue, not } from '@serenity-js/assertions';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
@@ -157,9 +157,9 @@ describe('ModalDialog', () => {
         /** @test {Wait.until} */
         it('allows the actor to wait until a modal dialog is present', () =>
             actorCalled('Nick').attemptsTo(
-                Ensure.that(ModalDialog.window().isPresent(), isFalse()),   // todo: (ModalDialog.window().isPresent(), isFalse())  -> (ModalDialog.window(), not(isPresent()))
+                Ensure.that(ModalDialog.window(), not(isPresent())),
                 Click.on(Example.trigger),
-                Wait.until(ModalDialog.window().isPresent(), isTrue()),     // todo: (ModalDialog.window().isPresent(), isTrue())  -> (ModalDialog.window(), isPresent())
+                Wait.until(ModalDialog.window(), isPresent()),
                 ModalDialog.window().accept(),
                 Ensure.that(Text.of(Example.result), equals('And the wait is over :-)')),
             ),

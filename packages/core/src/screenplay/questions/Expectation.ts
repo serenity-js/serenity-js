@@ -7,7 +7,7 @@ import { ExpectationMet, ExpectationNotMet, ExpectationOutcome  } from './expect
  *
  * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>
  */
-export type Predicate<A, E> = (actual: A, expected: E) => boolean;
+export type Predicate<A, E> = (actual: A, expected: E) => Answerable<boolean>;
 
 /**
  * @desc
@@ -45,7 +45,7 @@ export abstract class Expectation<Expected, Actual = Expected>
      *
      * @returns {"soThat": function(predicate: Predicate<A,E>): Expectation<E, A>}
      */
-    static thatActualShould<E, A>(relationshipName: string, expectedValue: Answerable<E>): {
+    static thatActualShould<E, A>(relationshipName: string, expectedValue: Answerable<E>): {    // todo: allow for no expectedValue
         soThat: (predicate: Predicate<A, E>) => Expectation<E, A>,
     } {
         return ({
@@ -123,13 +123,14 @@ class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expe
     }
 
     answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>> {
+        return async (actual: Actual) => {
+            const expected: Expected = await actor.answer(this.expectedValue);
+            const result: boolean    = await actor.answer(this.predicate(actual, expected));
 
-        return (actual: Actual) => actor.answer(this.expectedValue)
-            .then(expected => {
-                return this.predicate(actual, expected)
-                    ? new ExpectationMet(this.toString(), expected, actual)
-                    : new ExpectationNotMet(this.toString(), expected, actual);
-            });
+            return result
+                ? new ExpectationMet(this.toString(), expected, actual)
+                : new ExpectationNotMet(this.toString(), expected, actual);
+        }
     }
 }
 

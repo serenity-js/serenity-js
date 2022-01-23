@@ -17,9 +17,6 @@ describe('PageElements', () => {
 
         describe('to find a specific element', () => {
 
-            const nonexistent = () =>
-                PageElement.located(By.css('.non-existent'));
-
             describe('using a direct locator pattern', () => {
 
                 const element = () =>
