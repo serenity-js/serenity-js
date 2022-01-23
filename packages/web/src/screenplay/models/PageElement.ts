@@ -1,11 +1,9 @@
-import { Adapter, Answerable, format, Question } from '@serenity-js/core';
+import { Adapter, Answerable, d, Question } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
 import { Selector } from './selectors';
-
-const d = format({ markQuestions: false });
 
 export abstract class PageElement<Native_Element_Type = any> {
 

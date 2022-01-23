@@ -1,11 +1,9 @@
-import { Answerable, format, List, MetaQuestion, Question } from '@serenity-js/core';
+import { Answerable, f, List, MetaQuestion, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
 import { PageElement } from './PageElement';
 import { Selector } from './selectors';
-
-const f = format({ markQuestions: true });
 
 export class PageElements<Native_Element_Type = any>
     extends List<PageElement<Native_Element_Type>>

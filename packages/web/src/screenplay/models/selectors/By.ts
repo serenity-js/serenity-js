@@ -1,12 +1,10 @@
-import { Answerable, format, Question } from '@serenity-js/core';
+import { Answerable, f, Question } from '@serenity-js/core';
 
 import { ByCss } from './ByCss';
 import { ByCssContainingText } from './ByCssContainingText';
 import { ById } from './ById';
 import { ByTagName } from './ByTagName';
 import { ByXPath } from './ByXPath';
-
-const f = format({ markQuestions: true });
 
 export class By {
     static css(selector: Answerable<string>): Question<Promise<ByCss>> {
