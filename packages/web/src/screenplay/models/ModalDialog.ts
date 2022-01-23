@@ -1,10 +1,10 @@
-import { Adapter, Question } from '@serenity-js/core';
+import { Optional, Question, QuestionAdapter } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
-export abstract class ModalDialog {
-    static window(): Question<Promise<ModalDialog>> & Adapter<ModalDialog> {
-        return Question.about<Promise<ModalDialog>>('modal dialog', actor => {
+export abstract class ModalDialog implements Optional {
+    static window(): QuestionAdapter<ModalDialog> {
+        return Question.about<ModalDialog>('modal dialog', actor => {
             return BrowseTheWeb.as(actor).modalDialog();
         });
     }

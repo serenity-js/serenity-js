@@ -10,7 +10,7 @@ import { UseFileSystem } from '../abilities';
 export const Checksum = {
     of: (destination: Path) => ({   // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         calculatedUsing: (hashingAlgorithm: string) =>
-            Question.about<Promise<string>>(`checksum of ${ destination.value }`, actor => {
+            Question.about<string>(`checksum of ${ destination.value }`, actor => {
                 const hash = createHash(hashingAlgorithm);
 
                 const input = UseFileSystem.as(actor).createReadStream(destination);

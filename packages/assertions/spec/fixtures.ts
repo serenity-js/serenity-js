@@ -1,10 +1,10 @@
-import { Actor, Expectation, Question } from '@serenity-js/core';
+import { Actor, Expectation, Question, QuestionAdapter } from '@serenity-js/core';
 
 export function p<T>(value: T): Promise<T> {
     return Promise.resolve(value);
 }
 
-export function q<T>(value: T): Question<T> {
+export function q<T>(value: T): QuestionAdapter<Awaited<T>> {
     return Question.about(`something`, (_: Actor) => value);
 }
 

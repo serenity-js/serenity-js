@@ -2,7 +2,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled } from '../../src';
+import { actorCalled, QuestionAdapter } from '../../src';
 import { Actor, Question } from '../../src/screenplay';
 import { expect } from '../expect';
 
@@ -24,11 +24,11 @@ describe('Question', () => {
             describe('body', () => {
 
                 /** @test {Question.about} */
-                it('returns a static value', () => {
+                it('returns a static value', async () => {
                     const Name = () =>
                         Question.about('a name', (actor: Actor) => actor.name);
 
-                    const answer = Name().answeredBy(actorCalled('Jacques'));
+                    const answer = await actorCalled('Jacques').answer(Name());
 
                     expect(answer).to.equal('Jacques');
                 });
@@ -88,7 +88,7 @@ describe('Question', () => {
                     const Alex = actorCalled('Alex');
 
                     const Value = <V>(value: V) =>
-                        Question.about<Promise<V>>('a value', (actor: Actor) =>
+                        Question.about<V>('a value', (actor: Actor) =>
                             Promise.resolve(value)
                         );
 
@@ -120,7 +120,7 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as Number');
+                    expect(subject).to.equal('<<some answer>>.as(Number)');
                 });
 
                 it('can be mapped from a sync value to another type', async () => {
@@ -131,11 +131,11 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as Number');
+                    expect(subject).to.equal('<<some answer>>.as(Number)');
                 });
 
                 it('can be mapped to another Array type', async () => {
-                    const input: Question<Promise<string[]>> = q('list of strings', p([ '1', '2', '3' ]));
+                    const input: QuestionAdapter<string[]> = q('list of strings', p([ '1', '2', '3' ]));
 
                     const question: Question<Promise<number[]>> = input.as(function numbers(items: string[]) {
                         return items.map(Number);
@@ -145,7 +145,7 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal([ 1, 2, 3 ]);
-                    expect(subject).to.equal('list of strings as numbers');
+                    expect(subject).to.equal('<<list of strings>>.as(numbers)');
                 });
             });
         });

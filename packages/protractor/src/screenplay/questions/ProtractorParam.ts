@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { Adapter, Answerable, Question } from '@serenity-js/core';
+import { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
@@ -61,8 +61,8 @@ export class ProtractorParam
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
      * @returns {Question<Promise<R>> & Adapter<R>}
      */
-    static called<R>(name: Answerable<string>): Question<Promise<R>> & Adapter<R> {
-        return Question.about<Promise<R>>(formatted `the ${ name } param specified in Protractor config`, actor => {
+    static called<R>(name: Answerable<string>): QuestionAdapter<R> {
+        return Question.about<R>(formatted `the ${ name } param specified in Protractor config`, actor => {
             return actor.answer(name)
                 .then(name => (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).param(name));
         });

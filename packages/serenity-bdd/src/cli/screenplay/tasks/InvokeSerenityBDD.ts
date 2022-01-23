@@ -1,5 +1,5 @@
 import { equals } from '@serenity-js/assertions';
-import { AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 
 import { Spawn } from '../interactions';
@@ -14,18 +14,18 @@ export class InvokeSerenityBDD extends Task {
         return new InvokeSerenityBDD(pathToArtifact);
     }
 
-    withArguments(args: Question<string[]>): InvokeSerenityBDD {
+    withArguments(args: Answerable<string[]>): InvokeSerenityBDD {
         return new InvokeSerenityBDD(this.pathToArtifact, args, this.props);
     }
 
-    withProperties(properties: Question<string[]>): InvokeSerenityBDD {
+    withProperties(properties: Answerable<string[]>): InvokeSerenityBDD {
         return new InvokeSerenityBDD(this.pathToArtifact, this.args, properties);
     }
 
     constructor(
         private readonly pathToArtifact: Path,
-        private readonly args: Question<string[]>  = Question.about(`no arguments`, actor => []),
-        private readonly props: Question<string[]> = Question.about(`no properties`, actor => []),
+        private readonly args: Answerable<string[]>  = Question.about(`no arguments`, actor => []),
+        private readonly props: Answerable<string[]> = Question.about(`no properties`, actor => []),
     ) {
         super();
     }
