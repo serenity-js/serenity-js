@@ -1,6 +1,6 @@
-import { LogicError, Question } from '@serenity-js/core';
+import { LogicError, Question, QuestionAdapter } from '@serenity-js/core';
 import { AddressInfo } from 'net';
-import { parse } from 'url';
+import { URL } from 'url';
 
 import { ManageALocalServer } from '../abilities';
 
@@ -18,7 +18,7 @@ export class LocalServer {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<string>}
      */
-    static url(): Question<string> {
+    static url(): QuestionAdapter<string> {
         return Question.about<string>('the URL of the local server', actor => {
             return ManageALocalServer.as(actor).mapInstance((server, protocol) => {
                 const info = server.address();
@@ -54,11 +54,11 @@ export class LocalServer {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<number>}
      */
-    static port(): Question<number> {
-        return Question.about(`local server port number`, actor => {
-            const url = LocalServer.url().answeredBy(actor);
+    static port(): QuestionAdapter<number> {
+        return Question.about(`local server port number`, async actor => {
+            const url = await actor.answer(LocalServer.url());
 
-            return Number.parseInt(parse(url).port, 10);
+            return Number.parseInt(new URL(url).port, 10);
         });
     }
 }

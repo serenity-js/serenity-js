@@ -1,4 +1,4 @@
-import { Question } from '@serenity-js/core';
+import { Question, QuestionAdapter } from '@serenity-js/core';
 
 import { Argv } from '../../Argv';
 
@@ -6,7 +6,7 @@ import { Argv } from '../../Argv';
  * @package
  */
 export const SystemProperties = {
-    of: (argv: Argv): Question<string[]> =>
+    of: (argv: Argv): QuestionAdapter<string[]> =>
         Question.about<string[]>('system properties', actor =>
             Object.keys(argv)
                 .map(arg => `-D${ arg }=${ argv[arg] }`)),

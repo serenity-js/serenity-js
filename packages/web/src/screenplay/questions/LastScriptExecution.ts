@@ -1,4 +1,4 @@
-import { Question } from '@serenity-js/core';
+import { Question, QuestionAdapter } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
@@ -14,7 +14,7 @@ export class LastScriptExecution {
      *
      * @returns {Question<R>}
      */
-    static result<R>(): Question<R> {
+    static result<R>(): QuestionAdapter<R> {
         return Question.about(`last script execution result`, actor =>
             BrowseTheWeb.as(actor).lastScriptExecutionResult());
     }

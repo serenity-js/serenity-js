@@ -1,4 +1,4 @@
-import { Adapter, Answerable, d, Question } from '@serenity-js/core';
+import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
@@ -7,7 +7,7 @@ import { Selector } from './selectors';
 
 export abstract class PageElement<Native_Element_Type = any> {
 
-    static located<NET>(selector: Answerable<Selector>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
+    static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
             const bySelector = await actor.answer(selector);
             return BrowseTheWeb.as<NET>(actor).locate(bySelector).element();
@@ -15,7 +15,7 @@ export abstract class PageElement<Native_Element_Type = any> {
     }
 
     // todo: review usages and consider removing if not used
-    static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): Question<Promise<PageElement<NET>>> & Adapter<PageElement<NET>> {
+    static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): QuestionAdapter<PageElement<NET>> {
         return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
             const child     = await actor.answer(childElement);
             const parent    = await actor.answer(parentElement);

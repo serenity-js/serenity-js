@@ -1,4 +1,4 @@
-import { Adapter, Answerable, AnswersQuestions, createAdapter, d, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { PageElement, PageElements } from '../models';
@@ -86,13 +86,10 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static of(element: Answerable<PageElement>):
-        Question<Promise<string>> &                                 // eslint-disable-line @typescript-eslint/indent
-        MetaQuestion<Answerable<PageElement>, Promise<string>> &    // eslint-disable-line @typescript-eslint/indent
-        Adapter<string>                                                // eslint-disable-line @typescript-eslint/indent
+        QuestionAdapter<string> &                                 // eslint-disable-line @typescript-eslint/indent
+        MetaQuestion<Answerable<PageElement>, Promise<string>>    // eslint-disable-line @typescript-eslint/indent
     {
-        return createAdapter<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
-            new TextOfSingleElement(element)
-        );
+        return TextOfSingleElement.of(element);
     }
 
     /**
@@ -105,13 +102,11 @@ export class Text {
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: PageElements): Question<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> & Adapter<string[]>
-    static ofAll(elements: Answerable<PageElement[]>): Question<Promise<string[]>> & Adapter<string[]>
-    static ofAll(elements: PageElements | Answerable<PageElement[]>): Question<Promise<string[]>> & Adapter<string[]> {
+    static ofAll(elements: PageElements): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>
+    static ofAll(elements: Answerable<PageElement[]>): QuestionAdapter<string[]>
+    static ofAll(elements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
         if (elements instanceof PageElements) {
-            return createAdapter<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
-                new TextOfMultipleElements(elements)
-            );
+            return TextOfMultipleElements.of(elements);
         }
 
         return Question.about(d`the text of ${ elements }`, async actor => {
@@ -126,6 +121,10 @@ class TextOfSingleElement
     extends ElementQuestion<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
+    static of(element: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+        return Question.createAdapter(new TextOfSingleElement(element)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
+    }
+
     constructor(private readonly element: Answerable<PageElement>) {
         super(`the text of ${ element }`);
     }
@@ -145,6 +144,10 @@ class TextOfMultipleElements
     extends ElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
+    static of(elements: PageElements): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> {
+        return Question.createAdapter(new TextOfMultipleElements(elements)) as QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>;
+    }
+
     constructor(private readonly elements: PageElements) {
         super(d`the text of ${ elements }`);
     }

@@ -8,7 +8,7 @@ import { UseFileSystem } from '../abilities';
  */
 export const FileExists = {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    at: (path: Path) => Question.about<Promise<boolean>>(`${ path.value } exists`, actor =>
+    at: (path: Path) => Question.about<boolean>(`${ path.value } exists`, actor =>
         UseFileSystem.as(actor).attributesOf(path)
             .then(_ => true)
             .catch(error => {

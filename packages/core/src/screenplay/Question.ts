@@ -1,6 +1,8 @@
-import { inspected } from '../io/inspected';
+import { f } from '../io';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { Adapter, createAdapter } from './model';
+import { Answerable } from './Answerable';
+import { Interaction } from './Interaction';
+import { Optional } from './Optional';
 
 /**
  * @desc
@@ -52,7 +54,6 @@ import { Adapter, createAdapter } from './model';
  * @abstract
  */
 export abstract class Question<T> {
-
     /**
      * @desc
      *  Factory method that simplifies the process of defining custom questions.
@@ -68,8 +69,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & Adapter<Awaited<R>> {
-        return createAdapter<R>(new AnonymousQuestion<R>(description, body));
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => Promise<R> | R): QuestionAdapter<Awaited<R>> {
+        return Question.createAdapter(new QuestionStatement(description, body));
     }
 
     /**
@@ -85,6 +86,82 @@ export abstract class Question<T> {
      */
     static isAQuestion<T>(maybeQuestion: unknown): maybeQuestion is Question<T> {
         return !! maybeQuestion && !! (maybeQuestion as any).answeredBy;
+    }
+
+    protected static createAdapter<AT>(statement: Question<AT>): Question<Promise<Awaited<AT>>> & Interaction & Optional & ProxiedAnswer<Awaited<AT>> {
+        return new Proxy<() => Question<AT>, QuestionStatement<AT>>(() => statement, {
+
+            get(currentStatement: () => Question<AT>, key: string | symbol, receiver: any) {
+                const target = currentStatement();
+
+                if (key === Symbol.toPrimitive) {
+                    return (_hint: 'number' | 'string' | 'default') => {
+                        return target.toString();
+                    }
+                }
+
+                if (key in target) {
+                    return Reflect.get(target, key)
+                }
+
+                // todo: extract function to determine the subject
+                const originalSubject = f`${ target }`;
+
+                const fieldDescription = (typeof key === 'number' || /^\d+$/.test(String(key)))
+                    ? `[${ String(key) }]`  // array index
+                    : `.${ String(key) }`;  // field/method name
+                // / todo
+
+                return Question.about(`${ originalSubject }${ fieldDescription }`, async (actor: AnswersQuestions & UsesAbilities) => {
+                    const answer = await actor.answer(target as Answerable<AT>);
+
+                    if (! isDefined(answer)) {
+                        return undefined;       // eslint-disable-line unicorn/no-useless-undefined
+                    }
+
+                    const field = answer[key];
+
+                    return typeof field === 'function'
+                        ? field.bind(answer)
+                        : field;
+                })
+            },
+
+            set(currentStatement: () => Question<AT>, key: string | symbol, value: any, receiver: any): boolean {
+                const target = currentStatement();
+
+                return Reflect.set(target, key, value);
+            },
+
+            apply(currentStatement: () => Question<AT>, _thisArgument: any, parameters: unknown[]): QuestionAdapter<AT> {
+
+                const target = currentStatement();
+
+                const parameterDescriptions = [
+                    '(',
+                    parameters.map(p => f`${ p }`).join(', '),
+                    ')'
+                ].join('');
+
+                return Question.about(target.toString() + parameterDescriptions, async actor => {
+                    const params = [] as any;
+                    for (const parameter of parameters) {
+                        const answered = await actor.answer(parameter);
+                        params.push(answered);
+                    }
+
+                    const field = await actor.answer(target);
+
+                    return typeof field === 'function'
+                        ? field(...params)
+                        : field;
+                });
+            },
+
+            getPrototypeOf(currentStatement: () => Question<AT>): object | null {
+                return Reflect.getPrototypeOf(currentStatement());
+            },
+        }) as any;
     }
 
     /**
@@ -106,13 +183,93 @@ export abstract class Question<T> {
 
     /**
      * @abstract
-     * // todo check why api docs are not getting generated for this methods
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
-    public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): Question<Promise<O>> {
-        return Question.about<Promise<O>>(`${ this.toString() } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+    public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): QuestionAdapter<O> {
+        return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
             const answer = (await actor.answer(this)) as Awaited<T>;
+            return mapping(answer);
+        });
+    }
+}
+
+declare global  {
+    interface ProxyConstructor {
+        new <Source_Type extends object, Target_Type extends object>(target: Source_Type, handler: ProxyHandler<Source_Type>): Target_Type;
+    }
+}
+
+/* eslint-disable @typescript-eslint/indent */
+export type ProxiedAnswer<Original_Type> = {
+    [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
+        // is it a method?
+        Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
+            // make the method signature asynchronous, accepting Answerables and returning a Promise
+            ? (...args: { [P in keyof OriginalParameters]: Answerable<OriginalParameters[P]> }) =>
+                QuestionStatement<Awaited<OriginalMethodResult>> & QuestionAdapter<Awaited<OriginalMethodResult>>
+                // is it an object? wrap each field
+                : QuestionStatement<Awaited<Original_Type[Field]>> & QuestionAdapter<Awaited<Original_Type[Field]>>
+};
+/* eslint-enable @typescript-eslint/indent */
+
+export type QuestionAdapter<Original_Type> =
+    Question<Promise<Original_Type>> &
+    Interaction &
+    Optional &
+    ProxiedAnswer<Original_Type>;
+
+class QuestionStatement<Answer_Type>
+    extends Interaction
+    implements Question<Promise<Answer_Type>>
+{
+    constructor(
+        private subject: string,
+        private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
+    ) {
+        super();
+    }
+
+    /**
+     * @desc
+     *  Returns a Question that resolves to `true` if the {@link QuestionStatement} resolves
+     *  to a value other than `null` or `undefined`
+     *
+     * @returns {Question<Promise<boolean>>}
+     */
+    isPresent(): Question<Promise<boolean>> {
+        return new IsPresent(f`${ this }.isPresent()`, this.body);
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
+        const result = await this.body(actor);
+
+        return isDefined(result)
+            ? result
+            : undefined;
+    }
+
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        await this.body(actor);
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
+
+    as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O>{
+        return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
+            const answer = await actor.answer(this);
+
+            if (! isDefined(answer)) {
+                return undefined;   // eslint-disable-line unicorn/no-useless-undefined
+            }
+
             return mapping(answer);
         });
     }
@@ -121,29 +278,48 @@ export abstract class Question<T> {
 /**
  * @package
  */
-class AnonymousQuestion<T> extends Question<T> {
-    constructor(private subject: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
+class IsPresent<T> extends Question<Promise<boolean>> {
+
+    constructor(
+        private subject: string,
+        private readonly body: (actor: AnswersQuestions & UsesAbilities) => T,
+    ) {
         super();
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): T {
-        return this.body(actor);
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
+        const answer    = await this.body(actor);
+
+        if (answer === undefined || answer === null) {
+            return false;
+        }
+
+        if (this.isOptional(answer)) {
+            return await actor.answer(answer.isPresent());
+        }
+
+        return true;
     }
 
-    /**
-     * Changes the description of this question's subject
-     * and produces a new instance without mutating the original one.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
+    private isOptional(maybeOptional: any): maybeOptional is Optional {
+        return typeof maybeOptional === 'object'
+            && Reflect.has(maybeOptional, 'isPresent');
+    }
+
     describedAs(subject: string): this {
         this.subject = subject;
-
         return this;
     }
 
     toString(): string {
         return this.subject;
     }
+}
+
+/**
+ * @package
+ */
+function isDefined<T>(value: T): boolean {
+    return value !== undefined
+        && value !== null;
 }

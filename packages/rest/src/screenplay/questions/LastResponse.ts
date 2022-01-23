@@ -1,4 +1,4 @@
-import { Adapter, Question } from '@serenity-js/core';
+import { Question, QuestionAdapter } from '@serenity-js/core';
 
 import { CallAnApi } from '../abilities';
 
@@ -62,8 +62,8 @@ export class LastResponse {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<number>}
      */
-    static status(): Question<number> & Adapter<number> {
-        return Question.about<number>(`the status of the last response`, actor => {
+    static status(): QuestionAdapter<number> {
+        return Question.about<number>(`the status of the last response`, async actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.status);
         });
     }
@@ -124,8 +124,8 @@ export class LastResponse {
      * @see {@link @serenity-js/core/lib/screenplay/questions~Property}
      * @see {@link @serenity-js/core/lib/screenplay/questions~List}
      */
-    static body<T = any>(): Question<T> & Adapter<T> {
-        return Question.about<T>(`the body of the last response`, actor => {
+    static body<T = any>(): QuestionAdapter<T> {
+        return Question.about<T>(`the body of the last response`, async actor => {
             return CallAnApi.as(actor).mapLastResponse<T>(response => response.data as T);
         });
     }
@@ -137,8 +137,8 @@ export class LastResponse {
      * @param {string} name
      * @returns {@serenity-js/core/lib/screenplay~Question<string>}
      */
-    static header(name: string): Question<string> & Adapter<string> {
-        return Question.about<string>(`the '${ name }' header of the last response`, actor => {
+    static header(name: string): QuestionAdapter<string> {
+        return Question.about<string>(`the '${ name }' header of the last response`, async actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.headers[name]);
         });
     }
@@ -150,8 +150,8 @@ export class LastResponse {
      *
      * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}
      */
-    static headers(): Question<Record<string, string>> & Adapter<Record<string, string>> {
-        return Question.about<Record<string, string>>(`the headers or the last response`, actor => {
+    static headers(): QuestionAdapter<Record<string, string>> {
+        return Question.about<Record<string, string>>(`the headers or the last response`, async actor => {
             return CallAnApi.as(actor).mapLastResponse(response => response.headers);
         });
     }

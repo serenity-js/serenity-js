@@ -2,8 +2,7 @@ import { LogicError } from '../../errors';
 import { d } from '../../io';
 import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
-import { Adapter } from '../model';
-import { Question } from '../Question';
+import { Question, QuestionAdapter } from '../Question';
 import { Task } from '../Task';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
@@ -44,14 +43,14 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         ) as this;
     }
 
-    count(): Question<Promise<number>> & Adapter<number> {
+    count(): QuestionAdapter<number> {
         return Question.about(`the number of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
             return items.length;
         });
     }
 
-    first(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+    first(): QuestionAdapter<Item_Type> {
         return Question.about(`the first of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
 
@@ -63,7 +62,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         });
     }
 
-    last(): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+    last(): QuestionAdapter<Item_Type> {
         return Question.about(`the last of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
 
@@ -75,7 +74,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         });
     }
 
-    get(index: number): Question<Promise<Item_Type>> & Adapter<Item_Type> {
+    get(index: number): QuestionAdapter<Item_Type> {
         return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
 

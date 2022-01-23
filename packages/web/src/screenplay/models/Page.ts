@@ -1,16 +1,16 @@
-import { Adapter, Expectation, ExpectationMet, ExpectationOutcome, LogicError, Question } from '@serenity-js/core';
+import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Question, QuestionAdapter } from '@serenity-js/core';
 import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 
 export abstract class Page {
-    static current(): Question<Promise<Page>> & Adapter<Page> {
-        return Question.about<Promise<Page>>('current page', actor => {
+    static current(): QuestionAdapter<Page> {
+        return Question.about<Page>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();
         });
     }
 
-    static whichName(expectation: Expectation<any, string>): Question<Promise<Page>> & Adapter<Page> {
+    static whichName(expectation: Expectation<any, string>): QuestionAdapter<Page> {
         return Question.about(`page which name does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
             const matcher   = await actor.answer(expectation);
@@ -23,7 +23,7 @@ export abstract class Page {
         });
     }
 
-    static whichTitle(expectation: Expectation<any, string>): Question<Promise<Page>> & Adapter<Page> {
+    static whichTitle(expectation: Expectation<any, string>): QuestionAdapter<Page> {
         return Question.about(`page which title does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
             const matcher   = await actor.answer(expectation);
@@ -38,7 +38,7 @@ export abstract class Page {
         });
     }
 
-    static whichUrl(expectation: Expectation<any, string>): Question<Promise<Page>> & Adapter<Page> {
+    static whichUrl(expectation: Expectation<any, string>): QuestionAdapter<Page> {
         return Question.about(`page which URL does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
             const matcher   = await actor.answer(expectation);
