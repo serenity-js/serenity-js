@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, not } from '@serenity-js/assertions';
+import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
 import { By, isClickable, Navigate, PageElement, Wait } from '@serenity-js/web';
 

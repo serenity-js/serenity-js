@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 import { By, Navigate, PageElement } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
@@ -38,20 +38,20 @@ describe('PageElement', () => {
 
             it('can locate an element by xpath', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.xpath('//ul/li[contains(text(), "Coffee")]')).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.xpath('//ul/li[contains(text(), "Coffee")]')), isPresent()),
                 ));
 
             it('can locate an element by xpath, where the selector is provided as question', () =>
                 actorCalled('Elle').attemptsTo(
                     Ensure.that(
-                        PageElement.located(By.xpath(question('my selector', '//ul/li[contains(text(), "Coffee")]'))).isPresent(),
-                        isTrue()
+                        PageElement.located(By.xpath(question('my selector', '//ul/li[contains(text(), "Coffee")]'))),
+                        isPresent()
                     ),
                 ));
 
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.xpath('//input')).isPresent(), isFalse()),
+                    Ensure.that(PageElement.located(By.xpath('//input')), not(isPresent())),
                 ));
         });
     });

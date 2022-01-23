@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, isPresent, isTrue, not } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 import { By, Navigate, PageElement } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
@@ -41,7 +41,7 @@ describe('PageElement', () => {
 
             it('can locate an element by css containing text', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'Coffee')).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'Coffee')), isPresent()),
                 ));
 
             it('can locate an element by css containing text, where the selector or text are provided as questions', () =>
@@ -50,14 +50,14 @@ describe('PageElement', () => {
                         PageElement.located(By.cssContainingText(
                             question('my selector', 'li.todo'),
                             question('desired text', 'Coffee'),
-                        )).isPresent(),
-                        isTrue()
+                        )),
+                        isPresent()
                     ),
                 ));
 
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'blueberries')).isPresent(), isFalse()),
+                    Ensure.that(PageElement.located(By.cssContainingText('li.todo', 'blueberries')), not(isPresent())),
                 ));
         });
     });

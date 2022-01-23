@@ -1,9 +1,8 @@
-import { and } from '@serenity-js/assertions';
+import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
-import { isPresent } from './isPresent';
 
 /**
  * @desc

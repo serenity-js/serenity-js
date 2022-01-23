@@ -10,6 +10,7 @@ export * from './isBefore';
 export * from './isFalse';
 export * from './isGreaterThan';
 export * from './isLessThan';
+export * from './isPresent';
 export * from './isTrue';
 export * from './matches';
 export * from './not';

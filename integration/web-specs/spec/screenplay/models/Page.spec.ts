@@ -3,7 +3,7 @@ import 'mocha';
 import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
-import { endsWith, Ensure, equals, includes, isTrue, not, startsWith } from '@serenity-js/assertions';
+import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
 import { URL } from 'url';
 
 /** @test {Page} */
@@ -88,7 +88,7 @@ describe('Page', () => {
                 actorCalled('Bernie').attemptsTo(
                     Navigate.to('/screenplay/models/page/main_page.html'),
                     Click.on(MainPage.newPopUpLink),
-                    Wait.until(Page.whichName(equals(Popup.expectedName)).isPresent(), isTrue()),
+                    Wait.until(Page.whichName(equals(Popup.expectedName)), isPresent()),
                     Page.whichTitle(equals(MainPage.title)).switchTo(),
                 ));
 

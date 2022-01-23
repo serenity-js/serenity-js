@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 import { By, Navigate, PageElement } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
@@ -37,17 +37,17 @@ describe('PageElement', () => {
 
             it('can locate an element by css', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.css('ul > li.todo:first-child')).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.css('ul > li.todo:first-child')), isPresent()),
                 ));
 
             it('can locate an element by css, where the selector is provided as question', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.css(question('my selector', 'ul > li.todo:first-child'))).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.css(question('my selector', 'ul > li.todo:first-child'))), isPresent()),
                 ));
 
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.css('ul > li.invalid')).isPresent(), isFalse()),
+                    Ensure.that(PageElement.located(By.css('ul > li.invalid')), not(isPresent())),
                 ));
         });
     });

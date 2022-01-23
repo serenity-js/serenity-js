@@ -1,9 +1,9 @@
-import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Question, QuestionAdapter } from '@serenity-js/core';
+import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Optional, Question, QuestionAdapter } from '@serenity-js/core';
 import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 
-export abstract class Page {
+export abstract class Page implements Optional {
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();

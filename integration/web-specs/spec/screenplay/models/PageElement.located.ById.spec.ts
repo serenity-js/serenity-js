@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 import { By, Navigate, PageElement } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
@@ -37,17 +37,17 @@ describe('PageElement', () => {
 
             it('can locate an element by id', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.id('button-of-interest')).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.id('button-of-interest')), isPresent()),
                 ));
 
             it('can locate an element by id, where the selector is provided as question', () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.id(question('my selector', 'button-of-interest'))).isPresent(), isTrue()),
+                    Ensure.that(PageElement.located(By.id(question('my selector', 'button-of-interest'))), isPresent()),
                 ));
 
             it(`can tell when an element is not present`, () =>
                 actorCalled('Elle').attemptsTo(
-                    Ensure.that(PageElement.located(By.id('invalid')).isPresent(), isFalse()),
+                    Ensure.that(PageElement.located(By.id('invalid')), not(isPresent())),
                 ));
         });
     });

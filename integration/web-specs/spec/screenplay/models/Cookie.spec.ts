@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
+import { Ensure, equals, isFalse, isPresent, isTrue, not } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, q, Question, Timestamp } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { By, Click, Cookie, CookieData, CookieMissingError, Navigate, PageElement, Text } from '@serenity-js/web';
@@ -59,14 +59,14 @@ describe('Cookie', () => {
             actorCalled('Sid').attemptsTo(
                 Navigate.to('/screenplay/models/cookie/show_cookies.html'),
                 Ensure.that(ShowCookies.viewer, equals('No cookies found')),
-                Ensure.that(Cookie.called('favourite').isPresent(), isFalse()),
+                Ensure.that(Cookie.called('favourite'), not(isPresent())),
 
                 Cookie.set({
                     name:  'favourite',
                     value: 'triple chocolate',
                 }),
 
-                Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+                Ensure.that(Cookie.called('favourite'), isPresent()),
                 Click.on(ShowCookies.showCookiesButton),
                 Ensure.that(ShowCookies.viewer, equals('favourite=triple chocolate')),
             )
@@ -98,7 +98,7 @@ describe('Cookie', () => {
                     value: 'triple chocolate',
                 }))),
 
-                Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+                Ensure.that(Cookie.called('favourite'), isPresent()),
             )
         );
     });
@@ -109,23 +109,23 @@ describe('Cookie', () => {
             it('allows the actor to check if a given cookie is set', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+                    Ensure.that(Cookie.called('favourite'), isPresent()),
                 )
             );
 
             it('allows the actor to confirm that a given cooke is not set', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.called('not-so-favourite').isPresent(), isFalse()),
+                    Ensure.that(Cookie.called('not-so-favourite'), not(isPresent())),
                 )
             );
 
             it('allows the actor to remove a specific cookie', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+                    Ensure.that(Cookie.called('favourite'), isPresent()),
                     Cookie.called('favourite').delete(),
-                    Ensure.that(Cookie.called('favourite').isPresent(), isFalse()),
+                    Ensure.that(Cookie.called('favourite'), not(isPresent())),
                 )
             );
         });

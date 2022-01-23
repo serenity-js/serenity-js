@@ -1,11 +1,11 @@
-import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
+import { Answerable, d, Optional, Question, QuestionAdapter } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
 import { Selector } from './selectors';
 
-export abstract class PageElement<Native_Element_Type = any> {
+export abstract class PageElement<Native_Element_Type = any> implements Optional {
 
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {

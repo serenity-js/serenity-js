@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, Initialisable, See } from '../../src/screenplay';
+import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
@@ -215,3 +215,26 @@ describe('Actor', () => {
         });
     });
 });
+
+type Assertion<A> = (actual: A) => void;
+
+class See<S> extends Interaction {
+    static if<T>(question: Question<T>, assertion: Assertion<T>): Interaction {
+        return new See<T>(question, assertion);
+    }
+
+    constructor(
+        private question: Question<S>,
+        private assert: Assertion<S>,
+    ) {
+        super();
+    }
+
+    performAs(actor: AnswersQuestions): PromiseLike<void> {
+        return actor.answer(this.question).then(this.assert);
+    }
+
+    toString(): string {
+        return `#actor checks ${this.question}`;
+    }
+}
