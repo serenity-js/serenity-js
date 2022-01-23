@@ -7,4 +7,3 @@ export * from './StageCrewMember';
 export * from './StageCrewMemberBuilder';
 export * from './StageCrewMemberBuilderDependencies';
 export * from './StageManager';
-export * from './WithStage';
