@@ -1,10 +1,8 @@
-import { Adapter, Answerable, AnswersQuestions, createAdapter, format, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Adapter, Answerable, AnswersQuestions, createAdapter, d, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { PageElement, PageElements } from '../models';
 import { ElementQuestion } from './ElementQuestion';
-
-const f = format({ markQuestions: false });
 
 /**
  * @desc
@@ -116,7 +114,7 @@ export class Text {
             );
         }
 
-        return Question.about(f `the text of ${ elements }`, async actor => {
+        return Question.about(d`the text of ${ elements }`, async actor => {
             const pageElements: PageElement[] = await actor.answer(elements);
 
             return asyncMap(pageElements, element => element.text());
@@ -148,7 +146,7 @@ class TextOfMultipleElements
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
     constructor(private readonly elements: PageElements) {
-        super(f `the text of ${ elements }`);
+        super(d`the text of ${ elements }`);
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {

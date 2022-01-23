@@ -1,5 +1,5 @@
 import { LogicError } from '../../errors';
-import { format } from '../../io';
+import { d } from '../../io';
 import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Adapter } from '../model';
@@ -8,8 +8,6 @@ import { Task } from '../Task';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 import { MetaQuestion } from './MetaQuestion';
-
-const f = format({ markQuestions: false });
 
 export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     private subject: string;
@@ -22,7 +20,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         protected readonly collection: Answerable<Array<Item_Type>>,
     ) {
         super();
-        this.subject = f`${ collection }`;
+        this.subject = d`${ collection }`;
     }
 
     eachMappedTo<Mapped_Item_Type>(
@@ -58,7 +56,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
-                throw new LogicError(f`Can't retrieve the first item from a list with 0 items: ${ items }`)
+                throw new LogicError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
             }
 
             return items[0];
@@ -70,7 +68,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
-                throw new LogicError(f`Can't retrieve the last item from a list with 0 items: ${ items }`)
+                throw new LogicError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
             }
 
             return items[items.length - 1];
@@ -82,7 +80,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (index < 0 || items.length <= index) {
-                throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + f`${ items }`)
+                throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
             }
 
             return items[index];
@@ -93,7 +91,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         const collection = await actor.answer(this.collection);
 
         if (! Array.isArray(collection)) {
-            throw new LogicError(f`A List has to wrap an Array-compatible object. ${ collection } given.`);
+            throw new LogicError(d`A List has to wrap an Array-compatible object. ${ collection } given.`);
         }
 
         return collection;
@@ -150,7 +148,7 @@ class Where<Item_Type, Answer_Type>
             ? ' and'
             : ' where';
 
-        this.subject = originalSubject + prefix + f ` ${ question } does ${ expectation }`;
+        this.subject = originalSubject + prefix + d` ${ question } does ${ expectation }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
@@ -171,7 +169,7 @@ class Where<Item_Type, Answer_Type>
 
             return results;
         } catch (error) {
-            throw new LogicError(f`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }`, error);
+            throw new LogicError(d`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }`, error);
         }
     }
 
@@ -199,7 +197,7 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
     ) {
         super();
 
-        this.subject = originalSubject + f ` mapped to ${ this.mapping }`;
+        this.subject = originalSubject + d` mapped to ${ this.mapping }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Mapped_Item_Type>> {

@@ -1,10 +1,8 @@
-import { Ability, Duration, format, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, Duration, f, LogicError, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
 import { Cookie, CookieData, Locator, ModalDialog, Page, PageElement, Selector } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
-
-const f = format({ markQuestions: true });
 
 export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Element_Type = unknown> implements Ability {
     /**

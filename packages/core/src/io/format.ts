@@ -44,3 +44,6 @@ export function format(config: { markQuestions: boolean }): (templates: Template
             .join('');
     }
 }
+
+export const f = format({ markQuestions: true });
+export const d = format({ markQuestions: false });
