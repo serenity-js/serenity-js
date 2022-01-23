@@ -152,7 +152,8 @@ function isADate(v: Answerable<any>): v is Date {
  * @param {Answerable<any>} v
  */
 function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
-    return !! (v as any).then;
+    return typeof v === 'object'
+        && 'then' in v;
 }
 
 /**
