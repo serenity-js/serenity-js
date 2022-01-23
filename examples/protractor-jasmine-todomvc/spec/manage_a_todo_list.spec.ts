@@ -26,13 +26,6 @@ describe('Managing a Todo List', () => {
                 Ensure.that(RecordedItems(), property('length', equals(0))),
             ));
 
-            // it('marks an item as completed', function (this: WithStage) {
-            //     return this.stage.theActorCalled('Jasmine').attemptsTo(
-            //         Start.withAListContaining('Buy a cake'),
-            //         ToggleItem.called('Buy a cake'),
-            //     );
-            // });
-
             it('edits an item', () => actorCalled('Jasmine').attemptsTo(
                 Start.withAListContaining('Buy a cake'),
                 RenameItem.called('Buy a cake').to('Buy an apple'),
