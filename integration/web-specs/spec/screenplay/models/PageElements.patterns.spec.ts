@@ -4,6 +4,7 @@ import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
+import { ExportedPageElements } from './fixtures/ExportedPageElements';
 
 /** @test {PageElements} */
 describe('PageElements', () => {
@@ -60,6 +61,15 @@ describe('PageElements', () => {
                         Ensure.that(
                             Text.of(child().of(parent2())),
                             equals('child 2.1')
+                        ),
+                    ));
+
+                // see https://github.com/serenity-js/serenity-js/issues/1106
+                it(`supports exported PageElements`, () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Text.of(child().of(ExportedPageElements.parent())),
+                            equals('child 1.1')
                         ),
                     ));
             });
@@ -130,23 +140,6 @@ describe('PageElements', () => {
                             not(isPresent())
                         ),
                     ));
-
-                // it(`allows to supply an alternative element, if the one of interest is not present`, () =>
-                //     expect(
-                //         actorCalled('Peggy').answer(
-                //             Attribute.called('data-test-id').of(
-                //                 parents()
-                //                     .where(Text.ofAll(children()), contain('water'))
-                //
-                //                     // .where(Text.ofAll(children()), contain('tea'))
-                //                     // .where(Text.ofAll(children()), contain('coffee'))
-                //                     // .where(Text.ofAll(children()), contain('juice'))
-                //                     // there's no parent container with all the three items
-                //                     .first().orElse()
-                //             )
-                //         )
-                //     ).to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`)
-                // );
             });
         });
 
