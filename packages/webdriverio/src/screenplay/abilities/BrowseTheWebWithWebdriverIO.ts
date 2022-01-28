@@ -56,7 +56,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
     /**
      * @param {@wdio/types~Browser} browser
      */
-    constructor(public readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: wdio.Browser<'async'>) {
         super(new Map()
             .set(ByCss,                 (selector: ByCss)               => WebdriverIOLocator.createRootLocator(this.browser, selector, selector.value))
             .set(ByCssContainingText,   (selector: ByCssContainingText) => WebdriverIOLocator.createRootLocator(this.browser, selector, `${ selector.value }*=${ selector.text }`))
