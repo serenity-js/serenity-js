@@ -14,6 +14,6 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isVisible(): Expectation<boolean, PageElement> {
+export function isVisible(): Expectation<PageElement> {
     return ElementExpectation.forElementTo('become visible', actual => actual.isVisible());
 }

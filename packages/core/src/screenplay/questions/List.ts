@@ -36,7 +36,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
 
     where<Answer_Type>(
         question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
-        expectation: Expectation<any, Answer_Type>
+        expectation: Expectation<Answer_Type>
     ): this {
         return new List<Item_Type>(
             new Where(this.collection, question, expectation, this.subject)
@@ -138,7 +138,7 @@ class Where<Item_Type, Answer_Type>
     constructor(
         private readonly collection: Answerable<Array<Item_Type>>,
         private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
-        private readonly expectation: Expectation<any, Answer_Type>,
+        private readonly expectation: Expectation<Answer_Type>,
         originalSubject: string,
     ) {
         super();
@@ -153,13 +153,11 @@ class Where<Item_Type, Answer_Type>
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
         try {
             const collection    = await actor.answer(this.collection);
-            const expectation   = await actor.answer(this.expectation);
-
             const results: Item_Type[] = [];
 
             for (const item of collection) {
-                const answer = await actor.answer(this.question.of(item));
-                const expectationOutcome = await expectation(answer);
+                const actual = this.question.of(item) as Answerable<Answer_Type>;
+                const expectationOutcome = await actor.answer(this.expectation.isMetFor(actual));
 
                 if (expectationOutcome instanceof ExpectationMet) {
                     results.push(item);

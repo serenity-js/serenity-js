@@ -132,7 +132,7 @@ export class Wait {
      */
     static upTo(duration: Duration): WaitBuilder {
         return {
-            until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<any, Actual>): Interaction =>
+            until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): Interaction =>
                 new WaitUntil(actual, expectation, duration),
         };
     }
@@ -154,7 +154,7 @@ export class Wait {
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<any, Actual>): Interaction {
+    static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): Interaction {
         return new WaitUntil(actual, expectation, Wait.Default_Timeout);
     }
 }
@@ -201,7 +201,7 @@ class WaitFor extends Interaction {
 class WaitUntil<Actual> extends Interaction {
     constructor(
         private readonly actual: Answerable<Actual>,
-        private readonly expectation: Expectation<any, Actual>,
+        private readonly expectation: Expectation<Actual>,
         private readonly timeout: Duration,
     ) {
         super();
@@ -222,21 +222,17 @@ class WaitUntil<Actual> extends Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         const
             actual      = this.actual,
-            expectation = this.expectation.answeredBy(actor);
+            expectation = this.expectation;
 
         let expectationOutcome: ExpectationOutcome<any, Actual>;
 
         return BrowseTheWeb.as(actor)
-            .waitUntil(function () {
-                return actor.answer(actual)
-                    .then(act => expectation(act))
-                    .then(outcome => {
-                        expectationOutcome = outcome;
-
-                        return outcome instanceof ExpectationMet;
-                    });
-            },
-            this.timeout
+            .waitUntil(
+                async function () {
+                    expectationOutcome = await actor.answer(expectation.isMetFor(actual));
+                    return expectationOutcome instanceof ExpectationMet;
+                },
+                this.timeout
             )
             .catch(error => {
                 if (expectationOutcome) {

@@ -30,5 +30,5 @@ export interface WaitBuilder {
      *
      * @see {@link Target}
      */
-    until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<any, Actual>) => Interaction;
+    until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => Interaction;
 }

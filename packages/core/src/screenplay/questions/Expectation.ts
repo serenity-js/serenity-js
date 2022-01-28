@@ -1,13 +1,15 @@
-import { formatted } from '../../io';
-import { Answerable, AnswersQuestions, Question } from '../';
-import { ExpectationMet, ExpectationNotMet, ExpectationOutcome  } from './expectations';
+import { d } from '../../io';
+import { Answerable, AnswersQuestions, ExpectationMet, ExpectationNotMet, Question, QuestionAdapter } from '../';
+import { ExpectationOutcome } from './expectations';
 
 /**
  * @public
  *
- * @typedef {function(actual: A, expected: E) => boolean} Predicate<A,E>
+ * @typedef {function(actual: Answerable<Actual>) => Promise<ExpectationOutcome<Expected, Actual>> | ExpectationOutcome<unknown, Actual>} Predicate<Actual>
  */
-export type Predicate<A, E> = (actual: A, expected: E) => Answerable<boolean>;
+export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Actual>) =>
+    Promise<ExpectationOutcome<unknown, Actual>> | ExpectationOutcome<unknown, Actual>;     // eslint-disable-line @typescript-eslint/indent
+
 
 /**
  * @desc
@@ -16,12 +18,7 @@ export type Predicate<A, E> = (actual: A, expected: E) => Answerable<boolean>;
  *
  * @extends {Question}
  */
-export abstract class Expectation<Expected, Actual = Expected>
-    extends Question<(actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>>
-{
-    constructor(protected subject: string) {
-        super();
-    }
+export class Expectation<Actual> {
 
     /**
      * @desc
@@ -43,14 +40,28 @@ export abstract class Expectation<Expected, Actual = Expected>
      * @param {string} relationshipName
      * @param {@serenity-js/core/lib/screenplay~Answerable<E>} expectedValue
      *
-     * @returns {"soThat": function(predicate: Predicate<A,E>): Expectation<E, A>}
+     * @returns {"soThat": function(predicate: Predicate<Expected, Actual>): Expectation<Expected, Actual>}
      */
-    static thatActualShould<E, A>(relationshipName: string, expectedValue: Answerable<E>): {    // todo: allow for no expectedValue
-        soThat: (predicate: Predicate<A, E>) => Expectation<E, A>,
+    static thatActualShould<E, A>(relationshipName: string, expectedValue?: Answerable<E>): {
+        soThat: (simplifiedPredicate: (actualValue: A, expectedValue: E) => Promise<boolean> | boolean) => Expectation<A>,
     } {
         return ({
-            soThat: (predicate: Predicate<A, E>): Expectation<E, A> => {
-                return new DynamicallyGeneratedExpectation<E, A>(relationshipName, predicate, expectedValue);
+            soThat: (simplifiedPredicate: (actualValue: A, expectedValue: E) => Promise<boolean> | boolean): Expectation<A> => {
+                const subject = relationshipName + ' ' + d`${expectedValue}`;
+
+                return new Expectation<A>(
+                    subject,
+                    async (actor: AnswersQuestions, actualValue: Answerable<A>): Promise<ExpectationOutcome<E, A>> => {
+                        const expected = await actor.answer(expectedValue);
+                        const actual   = await actor.answer(actualValue);
+
+                        const result   = await simplifiedPredicate(actual, expected);
+
+                        return result
+                            ? new ExpectationMet(subject, expected, actual)
+                            : new ExpectationNotMet(subject, expected, actual);
+                    }
+                );
             },
         });
     }
@@ -80,25 +91,33 @@ export abstract class Expectation<Expected, Actual = Expected>
      *
      * @returns {"soThat": function(...expectations: Array<Expectation<any, A>>): Expectation<any, A>}
      */
-    static to<A>(relationshipName: string): {
-        soThatActual: (...expectations: Array<Expectation<any, A>>) => Expectation<any, A>,
+    static to<E, A>(relationshipName: string): {
+        soThatActual: (...expectations: Array<Expectation<A>>) => Expectation<A>,
     } {
         return {
-            soThatActual: (expectation: Expectation<any, A>): Expectation<any, A> => {
-                return new ExpectationAlias<A>(relationshipName, expectation);
+            soThatActual: (expectation: Expectation<A>): Expectation<A> => {
+                return new Expectation<A>(
+                    relationshipName,
+                    async (actor: AnswersQuestions, actualValue: Answerable<A>): Promise<ExpectationOutcome<E, A>> => {
+                        const outcome  = await actor.answer(expectation.isMetFor(actualValue));
+
+                        return outcome as ExpectationOutcome<E, A>;
+                    }
+                );
             },
         };
     }
 
-    abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>;
+    protected constructor(
+        private subject: string,
+        private readonly predicate: Predicate<Actual>,
+    ) {
+    }
 
-    /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
+    isMetFor(actual: Answerable<Actual>): QuestionAdapter<ExpectationOutcome<unknown, Actual>> {
+        return Question.about(this.subject, actor => this.predicate(actor, actual));
+    }
+
     describedAs(subject: string): this {
         this.subject = subject;
         return this;
@@ -106,51 +125,5 @@ export abstract class Expectation<Expected, Actual = Expected>
 
     toString(): string {
         return this.subject;
-    }
-}
-
-/**
- * @package
- */
-class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
-
-    constructor(
-        description: string,
-        private readonly predicate: Predicate<Actual, Expected>,
-        private readonly expectedValue: Answerable<Expected>,
-    ) {
-        super(`${ description } ${ formatted `${ expectedValue }` }`);
-    }
-
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>> {
-        return async (actual: Actual) => {
-            const expected: Expected = await actor.answer(this.expectedValue);
-            const result: boolean    = await actor.answer(this.predicate(actual, expected));
-
-            return result
-                ? new ExpectationMet(this.toString(), expected, actual)
-                : new ExpectationNotMet(this.toString(), expected, actual);
-        }
-    }
-}
-
-/**
- * @package
- */
-class ExpectationAlias<Actual> extends Expectation<any, Actual> {
-
-    constructor(
-        subject: string,
-        private readonly expectation: Expectation<any, Actual>,
-    ) {
-        super(subject);
-    }
-
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
-
-        return (actual: Actual) =>
-            this.expectation.answeredBy(actor)(actual).then(_ => _ instanceof ExpectationMet
-                ? new ExpectationMet(this.subject, _.expected, _.actual)
-                : new ExpectationNotMet(_.message, _.expected, _.actual));
     }
 }

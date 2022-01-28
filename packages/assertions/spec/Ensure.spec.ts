@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, ExpectationOutcome, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { given } from 'mocha-testdata';
@@ -54,20 +54,21 @@ describe('Ensure', () => {
     });
 
     /** @test {Ensure.that} */
-    it('complains when given an Expectation that doesn\'t conform to the interface', () => {
-        class BrokenExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
+    it(`complains when given an Expectation that doesn't conform to the interface`, () => {
+        class BrokenExpectation<Actual> extends Expectation<Actual> {
             constructor() {
-                super(`broken`);
-            }
-
-            answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
-                return (actual: Actual) => Promise.resolve(null);   // eslint-disable-line unicorn/no-null
+                super(
+                    `broken`,
+                    (_actor: AnswersQuestions, _actual: Answerable<Actual>) => {
+                        return undefined as any;    // eslint-disable-line unicorn/no-useless-undefined
+                    }
+                );
             }
         }
 
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, new BrokenExpectation()),
-        )).to.be.rejectedWith(LogicError, 'An Expectation should return an instance of an ExpectationOutcome, not null');
+        )).to.be.rejectedWith(LogicError, 'Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not undefined');
     });
 
     describe('when emitting an artifact', () => {

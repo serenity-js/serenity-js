@@ -1,4 +1,4 @@
-import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
 
@@ -40,7 +40,7 @@ import { PageElement } from '../screenplay';
  * @public
  * @extends {@serenity-js/core/lib/screenplay/questions~Expectation}
  */
-export class ElementExpectation extends Expectation<any, PageElement> {
+export class ElementExpectation extends Expectation<PageElement> {
 
     /**
      * @desc
@@ -76,7 +76,7 @@ export class ElementExpectation extends Expectation<any, PageElement> {
      *
      * @returns {ElementExpectation<any, PageElement>}
      */
-    static forElementTo(description: string, fn: (actual: PageElement) => Promise<boolean>): Expectation<any, PageElement> {
+    static forElementTo(description: string, fn: (actual: PageElement) => Promise<boolean>): Expectation<PageElement> {
         return new ElementExpectation(description, fn);
     }
 
@@ -88,23 +88,21 @@ export class ElementExpectation extends Expectation<any, PageElement> {
         description: string,
         private readonly fn: (actual: PageElement) => Promise<boolean>,
     ) {
-        super(description);
-    }
+        super(
+            description,
+            async (actor: AnswersQuestions, actual: Answerable<PageElement>) => {
+                const pageElement = await actor.answer(actual);
 
-    /**
-     * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
-     * @returns {function(actual: PageElement): Promise<ExpectationOutcome<boolean, PageElement>>}
-     */
-    answeredBy(actor: AnswersQuestions): (actual: PageElement) => Promise<ExpectationOutcome<boolean, PageElement>> {
-        return (actual: PageElement) =>
-            this.fn(actual)
-                .then(expectationMet =>
-                    expectationMet
-                        ? new ExpectationMet(this.toString(), undefined, actual)
-                        : new ExpectationNotMet(this.toString(), undefined, actual),
-                )
-                .catch(error => {
-                    return new ExpectationNotMet(`${ this.toString() } (${ error.message })`, undefined, actual);
-                });
+                try {
+                    const result = await fn(pageElement);
+
+                    return result
+                        ? new ExpectationMet(this.toString(), undefined, pageElement)
+                        : new ExpectationNotMet(this.toString(), undefined, pageElement);
+                } catch(error) {
+                    return new ExpectationNotMet(`${ description } (${ error.message })`, undefined, pageElement);
+                }
+            }
+        );
     }
 }

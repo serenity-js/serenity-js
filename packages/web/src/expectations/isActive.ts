@@ -16,7 +16,7 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link Wait}
  */
 // todo: isFocused?
-export function isActive(): Expectation<boolean, PageElement> {
+export function isActive(): Expectation<PageElement> {
     return ElementExpectation.forElementTo('become active', actual => actual.isActive());
 }
 

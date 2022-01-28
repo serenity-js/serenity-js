@@ -104,6 +104,10 @@ export abstract class Question<T> {
                     return Reflect.get(target, key)
                 }
 
+                if (key === 'then') {
+                    return;
+                }
+
                 // todo: extract function to determine the subject
                 const originalSubject = f`${ target }`;
 
@@ -232,8 +236,8 @@ class QuestionStatement<Answer_Type>
 
     /**
      * @desc
-     *  Returns a Question that resolves to `true` if the {@link QuestionStatement} resolves
-     *  to a value other than `null` or `undefined`
+     *  Returns a Question that resolves to `true` if resolving the {@link QuestionStatement}
+     *  returns a value other than `null` or `undefined` and doesn't throw errors.
      *
      * @returns {Question<Promise<boolean>>}
      */
@@ -288,17 +292,21 @@ class IsPresent<T> extends Question<Promise<boolean>> {
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
-        const answer    = await this.body(actor);
+        try  {
+            const answer = await this.body(actor);
 
-        if (answer === undefined || answer === null) {
+            if (answer === undefined || answer === null) {
+                return false;
+            }
+
+            if (this.isOptional(answer)) {
+                return await actor.answer(answer.isPresent());
+            }
+
+            return true;
+        } catch {
             return false;
         }
-
-        if (this.isOptional(answer)) {
-            return await actor.answer(answer.isPresent());
-        }
-
-        return true;
     }
 
     private isOptional(maybeOptional: any): maybeOptional is Optional {

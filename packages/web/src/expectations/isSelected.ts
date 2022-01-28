@@ -15,8 +15,8 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isSelected(): Expectation<boolean, PageElement> {
-    return Expectation.to<PageElement>('become selected').soThatActual(and(
+export function isSelected(): Expectation<PageElement> {
+    return Expectation.to<boolean, PageElement>('become selected').soThatActual(and(
         isPresent(),
         ElementExpectation.forElementTo('become selected', actual => actual.isSelected()),
     ));

@@ -1,29 +1,30 @@
-import { AnswersQuestions, Expectation, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationNotMet } from '@serenity-js/core';
 import { match } from 'tiny-types';
 
-export function and<Actual>(...expectations: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
+export function and<Actual>(...expectations: Array<Expectation<Actual>>): Expectation<Actual> {
     return new And(expectations);
 }
 
 /**
  * @package
  */
-class And<Actual> extends Expectation<any, Actual> {
-    constructor(private readonly expectations: Array<Expectation<any, Actual>>) {
-        super(expectations.map(assertion => assertion.toString()).join(' and '));
-    }
+class And<Actual> extends Expectation<Actual> {
+    private static readonly Separator = ' and ';
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
-
-        return (actual: any) =>
-            this.expectations.reduce(
-                (previous, current) =>
-                    previous.then(outcome =>
-                        match(outcome)
-                            .when(ExpectationNotMet, o => o)
-                            .else(_ => current.answeredBy(actor)(actual)),
-                    ),
-                Promise.resolve(void 0),
-            );
+    constructor(private readonly expectations: Array<Expectation<Actual>>) {
+        super(
+            expectations.map(expectation => expectation.toString()).join(And.Separator),
+            (actor: AnswersQuestions, actual: Answerable<Actual>) => {
+                return expectations.reduce(
+                    (previous, current) =>
+                        previous.then(outcome =>
+                            match(outcome)
+                                .when(ExpectationNotMet, o => o)
+                                .else(_ => actor.answer(current.isMetFor(actual))),
+                        ),
+                    Promise.resolve(void 0),
+                );
+            }
+        );
     }
 }

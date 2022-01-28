@@ -10,43 +10,40 @@ export abstract class Page implements Optional {
         });
     }
 
-    static whichName(expectation: Expectation<any, string>): QuestionAdapter<Page> {
+    static whichName(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which name does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
-            const matcher   = await actor.answer(expectation);
 
             return Page.findMatchingPage(
                 `name does ${ expectation }`,
                 pages,
-                page => page.name().then(matcher)
+                page => actor.answer(expectation.isMetFor(page.name())),
             );
         });
     }
 
-    static whichTitle(expectation: Expectation<any, string>): QuestionAdapter<Page> {
+    static whichTitle(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which title does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
-            const matcher   = await actor.answer(expectation);
 
             return Page.findMatchingPage(
                 `title does ${ expectation }`,
                 pages,
-                page => page.title().then(title => {
-                    return matcher(title);
-                })
+                page => actor.answer(expectation.isMetFor(page.title())),
             );
         });
     }
 
-    static whichUrl(expectation: Expectation<any, string>): QuestionAdapter<Page> {
+    static whichUrl(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which URL does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
-            const matcher   = await actor.answer(expectation);
 
             return Page.findMatchingPage(
                 `url does ${ expectation }`,
                 pages,
-                page => page.url().then(url => matcher(url.toString()))
+                page => actor.answer(expectation.isMetFor(
+                    page.url().then(url => url.toString()))
+                )
             );
         });
     }

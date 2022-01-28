@@ -1,4 +1,4 @@
-import { formatted } from '../../io';
+import { d } from '../../io';
 import { Activity } from '../Activity';
 import { AnswersQuestions, PerformsActivities } from '../actor';
 import { Answerable } from '../Answerable';
@@ -44,7 +44,7 @@ import { ExpectationMet } from './expectations';
  */
 export class Check<Actual> extends Task {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    static whether<A>(actual: Answerable<A>, expectation: Expectation<any, A>) {
+    static whether<A>(actual: Answerable<A>, expectation: Expectation<A>) {
         return {
             andIfSo: (...activities: Activity[]) => new Check(actual, expectation, activities),
         };
@@ -59,7 +59,7 @@ export class Check<Actual> extends Task {
      */
     constructor(
         private readonly actual: Answerable<Actual>,
-        private readonly expectation: Expectation<any, Actual>,
+        private readonly expectation: Expectation<Actual>,
         private readonly activities: Activity[],
         private readonly alternativeActivities: Activity[] = [],
     ) {
@@ -86,17 +86,12 @@ export class Check<Actual> extends Task {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
      */
-    performAs(actor: AnswersQuestions & PerformsActivities): PromiseLike<void> {
-        return Promise.all([
-            actor.answer(this.actual),
-            actor.answer(this.expectation),
-        ]).then(([actual, expectation]) =>
-            expectation(actual).then(outcome =>
-                outcome instanceof ExpectationMet
-                    ? actor.attemptsTo(...this.activities)
-                    : actor.attemptsTo(...this.alternativeActivities),
-            ),
-        );
+    async performAs(actor: AnswersQuestions & PerformsActivities): Promise<void> {
+        const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
+
+        return outcome instanceof ExpectationMet
+            ? actor.attemptsTo(...this.activities)
+            : actor.attemptsTo(...this.alternativeActivities);
     }
 
     /**
@@ -106,6 +101,6 @@ export class Check<Actual> extends Task {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor checks whether ${ this.actual } does ${ this.expectation }`;
+        return d`#actor checks whether ${ this.actual } does ${ this.expectation }`;
     }
 }
