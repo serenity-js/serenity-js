@@ -21,7 +21,10 @@
     "internal"
   ],
   "scripts": {
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml"
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
+    "lint:fix": "npm run lint -- --fix",
+    "compile": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",

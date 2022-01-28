@@ -7,11 +7,14 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
   },
 
+  "include": [
+    "spec"
+  ],
+
   "exclude": [
-    "spec",
     "node_modules"
   ]
 }

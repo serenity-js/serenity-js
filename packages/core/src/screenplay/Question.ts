@@ -88,7 +88,7 @@ export abstract class Question<T> {
         return !! maybeQuestion && !! (maybeQuestion as any).answeredBy;
     }
 
-    protected static createAdapter<AT>(statement: Question<AT>): Question<Promise<Awaited<AT>>> & Interaction & Optional & ProxiedAnswer<Awaited<AT>> {
+    protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
         return new Proxy<() => Question<AT>, QuestionStatement<AT>>(() => statement, {
 
             get(currentStatement: () => Question<AT>, key: string | symbol, receiver: any) {
@@ -211,9 +211,9 @@ export type ProxiedAnswer<Original_Type> = {
         Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
             // make the method signature asynchronous, accepting Answerables and returning a Promise
             ? (...args: { [P in keyof OriginalParameters]: Answerable<OriginalParameters[P]> }) =>
-                QuestionStatement<Awaited<OriginalMethodResult>> & QuestionAdapter<Awaited<OriginalMethodResult>>
-                // is it an object? wrap each field
-                : QuestionStatement<Awaited<Original_Type[Field]>> & QuestionAdapter<Awaited<Original_Type[Field]>>
+                { isPresent(): Question<Promise<boolean>> } & QuestionAdapter<Awaited<OriginalMethodResult>>
+            // is it an object? wrap each field
+            : { isPresent(): Question<Promise<boolean>> } & QuestionAdapter<Awaited<Original_Type[Field]>>
 };
 /* eslint-enable @typescript-eslint/indent */
 
@@ -223,10 +223,8 @@ export type QuestionAdapter<Original_Type> =
     Optional &
     ProxiedAnswer<Original_Type>;
 
-class QuestionStatement<Answer_Type>
-    extends Interaction
-    implements Question<Promise<Answer_Type>>
-{
+class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
+
     constructor(
         private subject: string,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
