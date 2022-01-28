@@ -14,6 +14,6 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isEnabled(): Expectation<boolean, PageElement> {
+export function isEnabled(): Expectation<PageElement> {
     return ElementExpectation.forElementTo('become enabled', actual => actual.isEnabled());
 }

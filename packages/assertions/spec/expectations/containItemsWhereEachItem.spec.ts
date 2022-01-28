@@ -5,6 +5,7 @@ import { actorCalled, AssertionError, Question } from '@serenity-js/core';
 
 import { containItemsWhereEachItem, Ensure, equals, isGreaterThan } from '../../src';
 
+/** @test {containItemsWhereEachItem} */
 describe('containItemsWhereEachItem', () => {
 
     /** @test {containItemsWhereEachItem} */

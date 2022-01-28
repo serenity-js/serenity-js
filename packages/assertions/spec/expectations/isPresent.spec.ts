@@ -45,8 +45,11 @@ describe('isPresent', () => {
             Ensure.that(value, isPresent()),
         )).to.be.rejectedWith(AssertionError, `Expected ${ description } to become present`)
             .then((error: AssertionError) => {
-                expect(error.expected).to.equal(true);
-                expect(error.actual).to.equal(value);
+                // return undefined in both cases
+                // since there's nothing meaningful
+                // we can show when the thing is "not present"
+                expect(error.expected).to.equal(undefined);
+                expect(error.actual).to.equal(undefined);
             });
     });
 

@@ -23,8 +23,8 @@ import { isVisible } from './isVisible';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isClickable(): Expectation<boolean, PageElement> {
-    return Expectation.to<PageElement>('become clickable').soThatActual(and(
+export function isClickable(): Expectation<PageElement> {
+    return Expectation.to<boolean, PageElement>('become clickable').soThatActual(and(
         isVisible(),
         isEnabled(),
         ElementExpectation.forElementTo('become clickable', actual => actual.isClickable())

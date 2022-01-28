@@ -1,4 +1,4 @@
-import { Answerable, Expectation, Optional } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, Optional } from '@serenity-js/core';
 
 /**
  * @desc
@@ -12,24 +12,47 @@ import { Answerable, Expectation, Optional } from '@serenity-js/core';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isPresent(): Expectation<Answerable<boolean>, any> {
-    return Expectation.thatActualShould<Answerable<boolean>, any>(`become present`, true)
-        .soThat((actualValue, expectedValue) => {
-            if (actualValue === undefined || actualValue === null) {
-                return false;
-            }
-
-            if (isOptional(actualValue)) {
-                return actualValue.isPresent();
-            }
-
-            return true;
-        })
-        .describedAs('become present');
+export function isPresent<Actual>(): Expectation<Actual> {
+    return new IsPresent<Actual>();
 }
 
-function isOptional(value: any): value is Optional {
-    if (typeof value === 'object' && Reflect.has(value, 'isPresent')) {
-        return value.isPresent();
+class IsPresent<Actual> extends Expectation<Actual> {
+    private static isOptional(value: any): value is Optional {
+        return value !== undefined
+            && value !== null
+            && typeof value.isPresent === 'function';
+    }
+
+    private static valueToCheck<A>(actual: Answerable<A>, actor: AnswersQuestions): Answerable<A> {
+        if (IsPresent.isOptional(actual)) {
+            return actual;
+        }
+
+        return actor.answer(actual);
+    }
+
+    private static async isPresent<A>(value: Answerable<A>, actor: AnswersQuestions): Promise<boolean> {
+        if (IsPresent.isOptional(value)) {
+            return actor.answer(value.isPresent());
+        }
+
+        return value !== undefined
+            && value !== null;
+    }
+
+    constructor() {
+        super(
+            'become present',
+            async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
+
+                const value = await IsPresent.valueToCheck(actual, actor);
+
+                const result = await IsPresent.isPresent(value, actor);
+
+                return result
+                    ? new ExpectationMet('become present', undefined, undefined)
+                    : new ExpectationNotMet('become present', undefined, undefined);
+            }
+        );
     }
 }

@@ -1,41 +1,44 @@
-import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome, LogicError } from '@serenity-js/core';
 
-export function or<Actual>(...assertions: Array<Expectation<any, Actual>>): Expectation<any, Actual> {
+export function or<Actual>(...assertions: Array<Expectation<Actual>>): Expectation<Actual> {
     return new Or(assertions);
 }
 
 /**
  * @package
  */
-class Or<Actual> extends Expectation<any, Actual> {
+class Or<Actual> extends Expectation<Actual> {
     private static readonly Separator = ' or ';
 
-    constructor(private readonly expectations: Array<Expectation<any, Actual>>) {
-        super(expectations
-            .map(assertion => assertion.toString())
-            .join(Or.Separator));
+    private static descriptionFor<A>(expectations: Array<Expectation<A>>): string {
+        return expectations
+            .map(expectation => expectation.toString())
+            .join(Or.Separator);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<any, Actual>> {
+    constructor(private readonly expectations: Array<Expectation<Actual>>) {
+        super(
+            Or.descriptionFor(expectations),
+            async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
+                if (! expectations || expectations.length === 0) {
+                    throw new LogicError(`No expectations provided to or()`);
+                }
 
-        return (actual: any) =>
-            this.expectations.reduce(
-                (previous, current) =>
-                    previous.then((outcomesSoFar: Array<ExpectationOutcome<any, Actual>>) =>
-                        current.answeredBy(actor)(actual)
-                            .then(outcome => outcomesSoFar.concat(outcome)),        // todo: should stop on the first met expectation
-                    ),
-                Promise.resolve([]),
-            ).
-            then((outcomes: Array<ExpectationOutcome<any, Actual>>) => {
+                let outcome: ExpectationOutcome<unknown, Actual>;
+                for (const expectation of expectations) {
+                    outcome = await actor.answer(expectation.isMetFor(actual));
 
-                const
-                    unmetExpectations = outcomes.filter(outcome => outcome instanceof ExpectationNotMet),
-                    message = outcomes.map(outcome => outcome.message).join(Or.Separator);
+                    if (outcome instanceof ExpectationMet) {
+                        return outcome;
+                    }
+                }
 
-                return unmetExpectations.length === this.expectations.length
-                    ? new ExpectationNotMet(message, outcomes[0].expected, outcomes[0].actual)
-                    : new ExpectationMet(message, outcomes[0].expected, outcomes[0].actual);
-            });
+                return new ExpectationNotMet(
+                    Or.descriptionFor(expectations),
+                    outcome.expected,
+                    outcome.actual,
+                );
+            }
+        );
     }
 }

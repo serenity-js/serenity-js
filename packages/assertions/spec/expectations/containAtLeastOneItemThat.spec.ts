@@ -5,6 +5,7 @@ import { actorCalled, AssertionError, Question } from '@serenity-js/core';
 
 import { containAtLeastOneItemThat, Ensure, equals, isGreaterThan } from '../../src';
 
+/** @test {containAtLeastOneItemThat} */
 describe('containAtLeastOneItemThat', () => {
 
     /** @test {containAtLeastOneItemThat} */

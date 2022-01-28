@@ -30,7 +30,7 @@ describe('or', () => {
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
         )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'`)
             .then((error: AssertionError) => {
-                expect(error.expected).to.equal('¡Hola');
+                expect(error.expected).to.equal('Mundo!');
                 expect(error.actual).to.equal('Hello World!');
             });
     });

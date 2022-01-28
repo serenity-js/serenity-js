@@ -3,16 +3,17 @@ import {
     AnswersQuestions,
     AssertionError,
     CollectsArtifacts,
+    d,
     Expectation,
     ExpectationMet,
     ExpectationNotMet,
     ExpectationOutcome,
+    f,
     Interaction,
     LogicError,
     RuntimeError,
     UsesAbilities,
 } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
@@ -68,7 +69,7 @@ export class Ensure<Actual> extends Interaction {
      *
      * @returns {Ensure<A>}
      */
-    static that<A>(actual: Answerable<A>, expectation: Expectation<any, A>): Ensure<A> {
+    static that<A>(actual: Answerable<A>, expectation: Expectation<A>): Ensure<A> {
         return new Ensure(actual, expectation);
     }
 
@@ -96,24 +97,19 @@ export class Ensure<Actual> extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
-        return Promise.all([
-            actor.answer(this.actual),
-            actor.answer(this.expectation),
-        ]).then(([ actual, expectation ]) =>
-            expectation(actual).then(outcome =>
-                match<ExpectationOutcome<unknown, Actual>, void>(outcome)
-                    .when(ExpectationNotMet, o => {
-                        actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
+    async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
+        const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
 
-                        throw this.errorForOutcome(o);
-                    })
-                    .when(ExpectationMet, _ => void 0)
-                    .else(o => {
-                        throw new LogicError(formatted `An Expectation should return an instance of an ExpectationOutcome, not ${ o }`);
-                    }),
-            ),
-        );
+        return match<ExpectationOutcome<unknown, Actual>, void>(outcome)
+            .when(ExpectationNotMet, o => {
+                actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
+
+                throw this.errorForOutcome(o);
+            })
+            .when(ExpectationMet, _ => void 0)
+            .else(o => {
+                throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ o }`);
+            });
     }
 
     /**
@@ -123,7 +119,7 @@ export class Ensure<Actual> extends Interaction {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor ensures that ${ this.actual } does ${ this.expectation }`;
+        return d`#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }
 
     /**
@@ -167,7 +163,7 @@ export class Ensure<Actual> extends Interaction {
      */
     protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
         return new AssertionError(
-            `Expected ${ formatted`${ this.actual }` } to ${ outcome.message }`,
+            `Expected ${ d`${ this.actual }` } to ${ outcome.message }`,
             outcome.expected,
             outcome.actual,
         );

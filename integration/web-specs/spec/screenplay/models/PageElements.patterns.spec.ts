@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
@@ -91,7 +91,20 @@ describe('PageElements', () => {
                         ),
                     ));
 
-                it(`complains if the element can't be found`, () =>
+
+                it(`allows to check if the element of interest is present`, () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            parents()
+                                .where(Text.ofAll(children()), contain('tea'))
+                                // AND
+                                .where(Text.ofAll(children()), contain('coffee'))
+                                .first(),
+                            isPresent(),
+                        ),
+                    ));
+
+                it(`complains if the element is not present`, () =>
                     expect(
                         actorCalled('Peggy').answer(
                             parents()
@@ -105,6 +118,35 @@ describe('PageElements', () => {
                     ).to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`)
                 );
 
+                it(`allows to check if the element of interest is not present`, () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            parents()
+                                .where(Text.ofAll(children()), contain('tea'))
+                                .where(Text.ofAll(children()), contain('coffee'))
+                                .where(Text.ofAll(children()), contain('juice'))
+                                // there's no parent container with all the three items
+                                .first(),
+                            not(isPresent())
+                        ),
+                    ));
+
+                // it(`allows to supply an alternative element, if the one of interest is not present`, () =>
+                //     expect(
+                //         actorCalled('Peggy').answer(
+                //             Attribute.called('data-test-id').of(
+                //                 parents()
+                //                     .where(Text.ofAll(children()), contain('water'))
+                //
+                //                     // .where(Text.ofAll(children()), contain('tea'))
+                //                     // .where(Text.ofAll(children()), contain('coffee'))
+                //                     // .where(Text.ofAll(children()), contain('juice'))
+                //                     // there's no parent container with all the three items
+                //                     .first().orElse()
+                //             )
+                //         )
+                //     ).to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`)
+                // );
             });
         });
 
