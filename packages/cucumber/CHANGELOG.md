@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.7](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.6...v3.0.0-rc.7) (2022-01-28)
+
+
+### Bug Fixes
+
+* **cucumber:** SECURITY: removed overrides for colors.js since the issue has now been addressed ([481e327](https://github.com/serenity-js/serenity-js/commit/481e327cbe4e1655eac62d22b12807445f21ae1f)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
+
+
+
+
+
 # [3.0.0-rc.6](https://github.com/serenity-js/serenity-js/compare/v2.32.7...v3.0.0-rc.6) (2022-01-10)
 
 

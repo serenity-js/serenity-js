@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.7](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.6...v3.0.0-rc.7) (2022-01-28)
+
+
+### Bug Fixes
+
+* **core:** removed deprecated interface DressingRoom; please use Cast instead ([d68b44b](https://github.com/serenity-js/serenity-js/commit/d68b44b545f50f6533523ab07008f9f89ac34433))
+* **core:** removed deprecated interface WithStage ([45d1c2b](https://github.com/serenity-js/serenity-js/commit/45d1c2b3e0ff1946ccff97d148d0776f2fa60065))
+* **core:** removed deprecated task to See.if ([dd5e2f5](https://github.com/serenity-js/serenity-js/commit/dd5e2f5c7e61444d40899f70d413f38bc9f6691a))
+* **cucumber:** SECURITY: removed overrides for colors.js since the issue has now been addressed ([481e327](https://github.com/serenity-js/serenity-js/commit/481e327cbe4e1655eac62d22b12807445f21ae1f)), closes [cucumber/cucumber-js#1885](https://github.com/cucumber/cucumber-js/issues/1885)
+
+
+### Features
+
+* **assertions:** isPresent works with any Optional ([cea75dc](https://github.com/serenity-js/serenity-js/commit/cea75dc1c728e45e06a87aaf9c1573a237334285)), closes [#1103](https://github.com/serenity-js/serenity-js/issues/1103)
+* **core:** `f` and `d` question description formatters ([c9f3fad](https://github.com/serenity-js/serenity-js/commit/c9f3fadd86ec0196f2cdbf76d9628bbef0a3fcba))
+* **core:** replaced `Adapter` with `QuestionAdapter` and introduced `Optional` ([8d84ad3](https://github.com/serenity-js/serenity-js/commit/8d84ad3863e3c726533d0f21934fb1e2fa8b3022)), closes [#1103](https://github.com/serenity-js/serenity-js/issues/1103)
+* **core:** support for Optional chaining, expectation isPresent, refactored Expectations ([1841ee5](https://github.com/serenity-js/serenity-js/commit/1841ee5fc48cfa403ddc53358f75764d9a010c21)), closes [#1099](https://github.com/serenity-js/serenity-js/issues/1099) [#1099](https://github.com/serenity-js/serenity-js/issues/1099) [#1103](https://github.com/serenity-js/serenity-js/issues/1103)
+
+
+
+
+
 # [3.0.0-rc.6](https://github.com/serenity-js/serenity-js/compare/v2.32.7...v3.0.0-rc.6) (2022-01-10)
 
 
