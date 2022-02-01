@@ -14,6 +14,11 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     onPrepare: function () {
+
+        require('ts-node').register({
+            project: require('path').join(__dirname, './tsconfig.json')
+        });
+
         return require('protractor').browser.waitForAngularEnabled(false);
     },
 
@@ -41,9 +46,6 @@ exports.config = {
 
     mochaOpts: {
         timeout: 60_000,
-        require: [
-            'ts-node/register',
-        ],
     },
 
     chromeDriver: require(`chromedriver`).path,
