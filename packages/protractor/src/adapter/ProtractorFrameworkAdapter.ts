@@ -2,6 +2,7 @@ import { ArtifactArchiver, Serenity } from '@serenity-js/core';
 import { isPlainObject } from 'is-plain-object'; // fails when using default import
 import { protractor, Runner } from 'protractor';
 import deepmerge = require('deepmerge');
+const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
 
 import { BrowserDetector, StandardisedCapabilities } from './browser-detector';
 import { Config } from './Config';
@@ -26,6 +27,10 @@ export class ProtractorFrameworkAdapter {
      * @return {Promise<ProtractorReport>}
      */
     run(specs: string[]): Promise<ProtractorReport> {
+
+        if (! this.protractorRunner.plugins_?.pluginObjs?.some(plugin => plugin.name === querySelectorShadowDomPlugin.name)) {
+            this.protractorRunner.plugins_?.pluginObjs?.push(querySelectorShadowDomPlugin);
+        }
 
         const runner    = this.detector.runnerFor(this.protractorRunner.getConfig());
         const reporter  = new ProtractorReporter(this.protractorRunner, runner.successThreshold());

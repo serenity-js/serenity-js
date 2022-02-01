@@ -60,7 +60,13 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, Prot
      */
     constructor(protected browser: ProtractorBrowser) {
         super(new Map()
-            .set(ByCss,                 (selector: ByCss)               => ProtractorLocator.createRootLocator(this.browser, selector, by.css(selector.value)))
+            .set(ByCss,                 (selector: ByCss)               =>
+                // todo: this is a temporary experiment; target state is for all CSS selectors to support Shadow DOM by default
+                ProtractorLocator.createRootLocator(this.browser, selector,
+                    selector.value.startsWith('>>>') && !! by.shadowDomCss
+                        ? by.shadowDomCss(selector.value.replace('>>>', ''))
+                        : by.css(selector.value))
+            )
             .set(ByCssContainingText,   (selector: ByCssContainingText) => ProtractorLocator.createRootLocator(this.browser, selector, by.cssContainingText(selector.value, selector.text)))
             .set(ById,                  (selector: ById)                => ProtractorLocator.createRootLocator(this.browser, selector, by.id(selector.value)))
             .set(ByTagName,             (selector: ByTagName)           => ProtractorLocator.createRootLocator(this.browser, selector, by.tagName(selector.value)))

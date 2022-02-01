@@ -108,13 +108,11 @@ export abstract class Question<T> {
                     return;
                 }
 
-                // todo: extract function to determine the subject
                 const originalSubject = f`${ target }`;
 
                 const fieldDescription = (typeof key === 'number' || /^\d+$/.test(String(key)))
                     ? `[${ String(key) }]`  // array index
                     : `.${ String(key) }`;  // field/method name
-                // / todo
 
                 return Question.about(`${ originalSubject }${ fieldDescription }`, async (actor: AnswersQuestions & UsesAbilities) => {
                     const answer = await actor.answer(target as Answerable<AT>);
