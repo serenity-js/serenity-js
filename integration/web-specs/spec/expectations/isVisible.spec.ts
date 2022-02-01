@@ -94,7 +94,7 @@ describe('isVisible', function () {
         });
     });
 
-    describe.only('when working with Shadow DOM', () => {
+    describe('when working with Shadow DOM', () => {
 
         const Elements = {
             cvcLabel:       PageElement.located(By.tagName('label')).describedAs('popup label'),
