@@ -9,7 +9,7 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
 
     this.timeout(30000);
 
-    it('recognises a passing scenario', () =>
+    it('supports native Cucumber formatters', () =>
         protractor(
             './examples/protractor.conf.js',
             '--cucumberOpts.format=usage',

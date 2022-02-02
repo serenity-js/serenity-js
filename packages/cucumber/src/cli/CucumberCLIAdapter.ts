@@ -1,6 +1,7 @@
 /* istanbul ignore file covered in integration tests */
 import { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
+import * as path from 'path';   // eslint-disable-line unicorn/import-style
 
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
@@ -56,10 +57,15 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
      * @returns {Promise<void>}
      */
     async load(pathsToScenarios: string[]): Promise<void> {
-        // todo: implement loading
-        this.pathsToScenarios = pathsToScenarios;
+        this.pathsToScenarios = pathsToScenarios.map(maybeAbsolutePathToScenario => {
+            // Ensure paths provided to Cucumber are relative
+            // see https://github.com/cucumber/cucumber-js/issues/1900
+            return path.isAbsolute(maybeAbsolutePathToScenario)
+                ? path.relative(this.loader.cwd, maybeAbsolutePathToScenario)
+                : maybeAbsolutePathToScenario;
+        });
 
-        return Promise.resolve();
+        // todo: implement loading, so parsing feature files to determine how many executable we have
     }
 
     /**
@@ -72,8 +78,9 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
      * @returns {number}
      */
     scenarioCount(): number {
-        // todo: implement counting
-        return 1;
+        // todo: we should count the actual executable scenarios to avoid launching a WebdriverIO worked
+        //  for a feature file without any scenarios.
+        return this.pathsToScenarios.length;
 
         // if (this.totalScenarios === undefined) {
         //     throw new LogicError('Make sure to call `load` before calling `scenarioCount`');

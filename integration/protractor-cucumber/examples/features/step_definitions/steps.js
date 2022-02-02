@@ -13,3 +13,7 @@ configure({
 Given('a passing step', () => {
 
 });
+
+Given('a failing step', () => {
+    throw new Error('step failed');
+});
