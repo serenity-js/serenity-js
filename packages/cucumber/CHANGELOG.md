@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.33.0](https://github.com/serenity-js/serenity-js/compare/v2.32.7...v2.33.0) (2022-02-03)
+
+
+### Features
+
+* **cucumber:** support for executing individual scenarios given line number they're on ([d6804f9](https://github.com/serenity-js/serenity-js/commit/d6804f9d61f574243296ddc2befef321a3018ae4)), closes [cucumber/cucumber-js#1900](https://github.com/cucumber/cucumber-js/issues/1900) [protractor-cucumber-framework/protractor-cucumber-framework#238](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework/issues/238)
+
+
+
+
+
 ## [2.32.7](https://github.com/serenity-js/serenity-js/compare/v2.32.6...v2.32.7) (2022-01-10)
 
 
