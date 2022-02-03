@@ -8,14 +8,10 @@ import { createCoverageMap } from 'istanbul-lib-coverage';
 const coverageMap = createCoverageMap({ });
 
 const input = [
-    path.join(path.resolve(__dirname, `../target/coverage/`),  `*/coverage-final.json`),
+    path.join(path.resolve(__dirname, `../target/coverage/`),  `**/coverage-final.json`),
 ];
 
 console.log('Reading coverage reports from', input);
-
-const outputDir = path.resolve(__dirname, '../target/coverage');
-
-mkdirSync(outputDir, { recursive: true });
 
 const paths = glob(input, { onlyFiles: false, globstar: false, absolute: true });
 
@@ -37,6 +33,10 @@ for (const pathToCoverageFile of paths) {
 }
 
 const output = JSON.stringify(coverageMap.toJSON(), null, 0);
+
+const outputDir = path.resolve(__dirname, '../target/coverage');
+
+mkdirSync(outputDir, { recursive: true });
 
 console.log(`Writing ${ output.length }B coverage data to ${ outputDir }/coverage-final.json`)
 
