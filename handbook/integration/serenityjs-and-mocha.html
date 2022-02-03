@@ -176,26 +176,27 @@ graph TB
     CF["fas:fa-file config.ts"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --&gt; TR
-    TR -- loads --&gt; CF
-    TR -- notifies --&gt; TRA
-    TRA -- notifies --&gt; SC
-    CF -- configures --&gt; SC
-    SC -- notifies --&gt; R
+<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">CF</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">CF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
 
-    class R socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
 
-    click R "/handbook/reporting/index.html"
-    click SC "/modules/core"
-    click TRA "/modules/mocha"
+click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
+click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">TRA</span> <span class="token string">"/modules/mocha"</span>
+</code></pre>
 </div>
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-        Integration architecture described in this chapter is applicable when you want to invoke <code>mocha</code> command line interface directly, for example for domain-level or <a href="/modules/rest">REST/HTTP API-level</a> testing. 
+        Integration architecture described in this chapter is applicable when you want to invoke `mocha` command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing. 
     </p>
-    <p>If you want your Mocha scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> instead.
+    <p>If you want your Mocha scenarios to interact with Web interfaces, check out [Integrating with Protractor](/handbook/integration/serenityjs-and-protractor.html) instead.
     </p></div>
 </div>
 
@@ -207,14 +208,14 @@ graph TB
 <li><a href="https://www.npmjs.com/package/mocha"><code>mocha</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,mocha<span class="token punctuation">}</span> mocha
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,mocha<span class="token punctuation">}</span> mocha
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node @types/<span class="token punctuation">{</span>mocha,node<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node @types/<span class="token punctuation">{</span>mocha,node<span class="token punctuation">}</span>
 </code></pre>
 <h4 id="configuration">Configuration</h4>
 <p>In a <a href="https://www.typescriptlang.org/">TypeScript</a> project, create a configuration file in a location of your choosing, i.e. <code>spec/config.ts</code>. This file will inform Serenity/JS what <a href="/handbook/reporting/">reporting services</a> you wish to use:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/config.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/config.ts</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -224,7 +225,7 @@ graph TB
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In a JavaScript project, create a configuration file at <code>spec/config.js</code> instead:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// spec/config.js</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// spec/config.js</span>
 <span class="token keyword">const</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -237,12 +238,12 @@ graph TB
 <h4 id="reporting">Reporting</h4>
 <p>To register <code>@serenity-js/mocha</code> test runner adapter with Mocha, use the <a href="https://mochajs.org/#command-line-usage"><code>--reporter</code></a> option when invoking the runner.</p>
 <p>For example, when running Mocha in a JavaScript project:</p>
-<pre class="language-bash"><code class="lang-bash">npx mocha --reporter <span class="token string">'@serenity-js/mocha'</span> <span class="token punctuation">\</span>
+<pre class="language-bash"><code class="language-bash">npx mocha --reporter <span class="token string">'@serenity-js/mocha'</span> <span class="token punctuation">\</span>
     --require <span class="token string">'spec/config.js'</span> <span class="token punctuation">\</span>
     <span class="token punctuation">[</span><span class="token punctuation">..</span>. any other options<span class="token punctuation">]</span>
 </code></pre>
 <p>To make Mocha support test scenarios and configuration written in TypeScript, you'll need to add a dev dependency on <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a> and register it via <a href="https://mochajs.org/#command-line-usage"><code>--require</code></a>:</p>
-<pre class="language-bash"><code class="lang-bash">npx mocha --reporter <span class="token string">'@serenity-js/mocha'</span> <span class="token punctuation">\</span>
+<pre class="language-bash"><code class="language-bash">npx mocha --reporter <span class="token string">'@serenity-js/mocha'</span> <span class="token punctuation">\</span>
     --require <span class="token string">'ts-node/register'</span> <span class="token punctuation">\</span>
     --require <span class="token string">'spec/config.ts'</span> <span class="token punctuation">\</span> 
     <span class="token punctuation">[</span><span class="token punctuation">..</span>. any other options<span class="token punctuation">]</span>

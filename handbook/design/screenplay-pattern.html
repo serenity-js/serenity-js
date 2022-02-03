@@ -167,13 +167,13 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    The Screenplay Pattern uses the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance where each test scenario is
-    like a little <a href="https://en.wikipedia.org/wiki/Screenplay">screenplay</a>
+    The Screenplay Pattern uses the [system metaphor](https://wiki.c2.com/?SystemMetaphor) of a stage performance where each test scenario is
+    like a little [screenplay](https://en.wikipedia.org/wiki/Screenplay)
     describing how the actors should go about performing their activities
     while interacting with the system under test.</p>
     <p>
     The "screen" in "screenplay" has nothing to do with the computer screen.
-    On the contrary, the Screenplay Pattern is a general method of modelling acceptance tests interacting with <em>any</em> external interface of your system. In fact, the Serenity/JS implementation of the Screenplay Pattern can help you break free from UI-only-based testing!
+    On the contrary, the Screenplay Pattern is a general method of modelling acceptance tests interacting with _any_ external interface of your system. In fact, the Serenity/JS implementation of the Screenplay Pattern can help you break free from UI-only-based testing!
     </p></div>
 </div>
 
@@ -181,7 +181,7 @@
 <p>The Screenplay Pattern is beautiful in its simplicity. It's made up of five elements, five types of building blocks that Serenity/JS gives you to design any functional acceptance test you need, no matter how sophisticated or how simple. </p>
 <p>The key elements of the pattern are: actors, abilities, interactions, questions, and tasks.</p>
 <figure>
-<img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
+![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -190,7 +190,7 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you'd like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Serenity/JS-Jasmine-Protractor template</a>.
+        If you'd like to follow along with the coding, please use the [Serenity/JS-Jasmine-Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template).
     </p></div>
 </div>
 
@@ -198,7 +198,7 @@
 <p>The Screenplay Pattern is a user-centric model with users and external systems interacting with the system under test represented as <em>actors</em>. 
 Actors are a key element of the pattern as they are the ones performing the test scenarios.</p>
 <p>In Serenity/JS, an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>Actor</code></a> is defined using an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> convenience method:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
@@ -210,11 +210,11 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    Just like the five core elements of the Screenplay Pattern, the term "role" comes from the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance. It should be interpreted as the role a given actor plays in the performance,
+    Just like the five core elements of the Screenplay Pattern, the term "role" comes from the [system metaphor](https://wiki.c2.com/?SystemMetaphor) of a stage performance. It should be interpreted as the role a given actor plays in the performance,
     the role they play in the system - "a doctor", "a trader", "a writer" are all good examples of actor roles.
     </p>
     <p>
-    While a "role" often implies the <em>permissions</em> a given actor has in the system they interact with (i.e. a "writer" writes articles, a "publisher" publishes articles), this is not a mechanism to <em>prevent</em> the actor from performing activities inconsistent with their role.
+    While a "role" often implies the _permissions_ a given actor has in the system they interact with (i.e. a "writer" writes articles, a "publisher" publishes articles), this is not a mechanism to _prevent_ the actor from performing activities inconsistent with their role.
     In particular, Serenity/JS will not prevent you from writing scenarios where a "writer" tries to impersonate a "publisher"
     and publish an article. If it did, you would not be able to test if your system correctly implemented its access control mechanisms!
     </p>
@@ -225,7 +225,7 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <h2 id="interactions">Interactions</h2>
 <p>The job of an actor is to <em>attempt to perform</em> a series of interactions with the system under test, such as navigating to websites, clicking on buttons, entering values into form fields, or sending HTTP requests to a REST API. </p>
 <p>This series of interactions, provided as arguments to the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>actor.attemptsTo(..)</code></a> method, constitutes a test scenario (also referred to as an <em>actor flow</em>):</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
@@ -233,7 +233,7 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-
+    
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'helps engineers learn Serenity/JS'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
         <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'James'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
             Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/'</span><span class="token punctuation">)</span>
@@ -245,7 +245,7 @@ the <a href="'http://todomvc.com/examples/angularjs/'">TodoMVC app</a>.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you're following along with the coding, you can implement the above scenario under <code>spec/todo.spec.ts</code>.
+        If you're following along with the coding, you can implement the above scenario under `spec/todo.spec.ts`.
     </p></div>
 </div>
 
@@ -261,14 +261,14 @@ Well, it doesn't unless you tell it, and that's where <em>abilities</em> come in
 <p>You can think of an <a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html"><code>Ability</code></a> as a thin wrapper around a client of a specific interface you'd like the actor to use.
 Those abilities is what the interactions use under the hood and what enables the actor to perform interactions with the system under test.</p>
 <p>For example, here's an ability that enables the actor to browse the Web using <code>protractor.browser</code> and enables Web-specific interactions such as <code>Navigate</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> browseTheWeb<span class="token operator">:</span> Ability <span class="token operator">=</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Now, you <em>could</em> give an actor this ability directly, using the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan"><code>actor.whoCan(..)</code></a> API:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
@@ -277,7 +277,7 @@ Those abilities is what the interactions use under the hood and what enables the
 <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-
+    
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'helps engineers learn Serenity/JS'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
         <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'James'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -288,7 +288,7 @@ Those abilities is what the interactions use under the hood and what enables the
 </code></pre>
 <p>However, there's a more elegant way to do it that doesn't require you to <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">repeat yourself</a> in every test you write.</p>
 <p>The alternative is to <a href="/modules/core/function/index.html#static-function-engage"><code>engage(..)</code></a> a <a href="/modules/core/class/src/stage/Cast.ts~Cast.html"><code>Cast</code></a> of actors, who gain their abilities when they prepare for the performance before the scenario starts:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> actorCalled<span class="token punctuation">,</span> Cast<span class="token punctuation">,</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
@@ -305,7 +305,7 @@ Those abilities is what the interactions use under the hood and what enables the
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'helps engineers learn Serenity/JS'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
         <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'James'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
             Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/'</span><span class="token punctuation">)</span>
@@ -315,7 +315,7 @@ Those abilities is what the interactions use under the hood and what enables the
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you're following along with the coding, you can execute the test you've just implemented by running <code>npm test</code> in your terminal.
+        If you're following along with the coding, you can execute the test you've just implemented by running `npm test` in your terminal.
     </p></div>
 </div>
 
@@ -324,13 +324,13 @@ Those abilities is what the interactions use under the hood and what enables the
 <p>The fourth building block of the Screenplay Pattern is <em>questions</em>, and just like with interactions, questions are interface-specific and enabled by abilities.
 Answering a <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> provides actor with information about the state of the system under test.</p>
 <p>For example, you have a question that retrieves the <a href="/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title">title of the website</a>: </p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Website <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> title<span class="token operator">:</span> Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> Website<span class="token punctuation">.</span><span class="token function">title</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>Or the one that <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">retrieves a web element</a> for the actor's interactions to target:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by<span class="token punctuation">,</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
@@ -338,31 +338,31 @@ Answering a <a href="/modules/core/class/src/screenplay/Question.ts~Question.htm
 </code></pre>
 <p>You also have higher-order questions that can be passed other questions as arguments.</p>
 <p>For example, this is how you retrieve the text of the header web element from the sample above:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> headerText<span class="token operator">:</span> Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>header<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>So what can you do with those questions? A great many things!</p>
 <p>You can use them with most Serenity/JS interactions, such as the one that <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html">logs the answer</a> to the question so that it can be <a href="/modules/console-reporter/">printed to the terminal</a> (useful when debugging your test scenarios):</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>headerText<span class="token punctuation">)</span>
 </code></pre>
 <p>More importantly, you can also use them with <a href="/modules/assertions/">assertions</a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
 Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>headerText<span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'todos'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <p>As well as for <a href="/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html">synchronising your tests with the UI</a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Wait<span class="token punctuation">,</span> isPresent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Wait<span class="token punctuation">,</span> isPresent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
 Wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span>header<span class="token punctuation">,</span> <span class="token function">isPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 Wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span>headerText<span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'todos'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <p>If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
@@ -398,7 +398,7 @@ Wait<span class="token punctuation">.</span><span class="token function">until</
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you'd like to see the above scenario in action, paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal.
+        If you'd like to see the above scenario in action, paste the code above in `spec/todo.spec.ts` and run `npm test` in your terminal.
     </p></div>
 </div>
 
@@ -406,7 +406,7 @@ Wait<span class="token punctuation">.</span><span class="token function">until</
 <h2 id="tasks">Tasks</h2>
 <p>The final piece of the puzzle is <em>tasks</em>. <a href="/modules/core/class/src/screenplay/Task.ts~Task.html"><code>Tasks</code></a> are the <a href="https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555">higher-level abstractions</a> that model the activities an actor needs to perform in business domain terms.</p>
 <p>For example, the three interactions we've just discussed could be modelled as a task to "launch the app":</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
 
@@ -422,7 +422,7 @@ Wait<span class="token punctuation">.</span><span class="token function">until</
     <span class="token punctuation">)</span>
 </code></pre>
 <p>To make an actor perform a task, you pass it to the <code>attemptsTo(..)</code> method, just like we did with the interactions.</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/todo.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/todo.spec.ts</span>
 <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
@@ -473,7 +473,8 @@ Todo List App<span class="token operator">:</span> helps engineers learn Serenit
     ✓ James ensures that the text <span class="token keyword">of</span> the header does equal <span class="token string">'todos'</span> <span class="token punctuation">(</span>18ms<span class="token punctuation">)</span>
 
 ✓ Execution <span class="token function">successful</span> <span class="token punctuation">(</span>1s 39ms<span class="token punctuation">)</span>
-</code></pre><p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/tasks.html">learn more about tasks</a>.</p>
+</code></pre>
+<p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/tasks.html">learn more about tasks</a>.</p>
 <hr>
 <p>Now that you understand one of the core patterns behind Serenity/JS it's time to move on to the next one, the <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a>.</p>
 <p>In this <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">next article</a> we'll improve the test we've just written and look at ways to structure our code better.</p>
@@ -489,19 +490,19 @@ Todo List App<span class="token operator">:</span> helps engineers learn Serenit
             It all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.
         </p>
         <p>
-            <a href="http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html">"In praise of abstraction"</a>, a talk given by Kevin Lawrence, inspired <a href="http://antonymarcano.com/Site/Home.html">Antony Marcano</a>
+            ["In praise of abstraction"](http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html), a talk given by Kevin Lawrence, inspired [Antony Marcano](http://antonymarcano.com/Site/Home.html)
             to implement a fluent DSL based on Kevin's idea to use the language of Interaction Designers to model the layers of abstraction in an acceptance test.
-            With the help of <a href="http://andypalmer.com">Andy Palmer</a>, this fluent DSL is what became
-            <a href="https://bitbucket.org/testingreflections/jnarrate/wiki/Home">JNarrate</a> a year later (2008).
+            With the help of [Andy Palmer](http://andypalmer.com), this fluent DSL is what became
+            [JNarrate](https://bitbucket.org/testingreflections/jnarrate/wiki/Home) a year later (2008).
         </p>
         <p>
-            In the late 2012, Antony and Andy joined forces with <a href="https://janmolak.com/">Jan Molak</a>.
-            Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of the <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects">PageObject Pattern</a> and apply <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID design principles</a>
-            to acceptance testing is what <a href="http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern">became known in 2013</a>
-            as <a href="https://github.com/screenplay/screenplay-jvm">screenplay-jvm</a>.
+            In the late 2012, Antony and Andy joined forces with [Jan Molak](https://janmolak.com/).
+            Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of the [PageObject Pattern](https://github.com/SeleniumHQ/selenium/wiki/PageObjects) and apply [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+            to acceptance testing is what [became known in 2013](http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern)
+            as [screenplay-jvm](https://github.com/screenplay/screenplay-jvm).
         </p>
         <p>
-            In 2015, when Antony, Andy and Jan started working with <a href="http://johnfergusonsmart.com/">John Ferguson Smart</a>, what became known as the Screenplay Pattern found its way into <a href="http://serenity-bdd.info">Serenity BDD</a>, a popular acceptance testing and reporting library written in Java.
+            In 2015, when Antony, Andy and Jan started working with [John Ferguson Smart](http://johnfergusonsmart.com/), what became known as the Screenplay Pattern found its way into [Serenity BDD](http://serenity-bdd.info), a popular acceptance testing and reporting library written in Java.
         </p>
         <p>
             In 2016, you can use both the Screenplay Pattern and the powerful Serenity BDD reports on JavaScript projects thanks to Serenity/JS!
@@ -509,8 +510,8 @@ Todo List App<span class="token operator">:</span> helps engineers learn Serenit
         <p>
             If you'd like to find out more about the thought process behind the Screenplay Pattern, check out:
             </p><ul>
-                <li><a href="https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay">"Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.</li>
-                <li><a href="https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp">"Page Objects Refactored: SOLID Steps to the Screenplay Pattern"</a> by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.</li>
+                <li>["Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay) by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.</li>
+                <li>["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp) by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.</li>
              </ul>
         <p></p>
     </div>

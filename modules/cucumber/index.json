@@ -2271,7 +2271,7 @@
     "__docId__": 196,
     "kind": "file",
     "name": "src/cli/CucumberCLIAdapter.ts",
-    "content": "/* istanbul ignore file covered in integration tests */\nimport { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';\n\nimport { CucumberConfig } from './CucumberConfig';\nimport { CucumberOptions } from './CucumberOptions';\nimport { OutputDescriptor, SerenityFormatterOutput } from './output';\n\n/**\n * @desc\n *  Allows for programmatic execution of Cucumber test scenarios.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class CucumberCLIAdapter implements TestRunnerAdapter {\n\n    private pathsToScenarios: string[] = [];\n\n    private readonly options: CucumberOptions;\n\n    /**\n     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     * @param {SerenityFormatterOutput} output\n     *\n     * @see {@link CucumberConfig}\n     */\n    constructor(\n        config: CucumberConfig,\n        private readonly loader: ModuleLoader,\n        fileSystem: FileSystem,\n        private readonly output: SerenityFormatterOutput,\n    ) {\n        this.options = new CucumberOptions(fileSystem, config);\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return this.options.isStrict()\n            ? ExecutionIgnored\n            : ImplementationPending;\n    }\n\n    /**\n     * @desc\n     *  Loads feature files.\n     *\n     * @param {string[]} pathsToScenarios\n     *  Absolute or relative paths to feature files\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        // todo: implement loading\n        this.pathsToScenarios = pathsToScenarios;\n\n        return Promise.resolve();\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {@serenity-js/core/lib/errors~LogicError}\n     *  If called before `load`\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        // todo: implement counting\n        return 1;\n\n        // if (this.totalScenarios === undefined) {\n        //     throw new LogicError('Make sure to call `load` before calling `scenarioCount`');\n        // }\n        //\n        // return this.totalScenarios;\n    }\n\n    /**\n     * @desc\n     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`\n     *\n     * @returns {Promise<void>}\n     */\n    async run(): Promise<void> {\n        const version = this.loader.hasAvailable('@cucumber/cucumber')\n            ? this.loader.versionOf('@cucumber/cucumber')\n            : this.loader.versionOf('cucumber');\n\n        const serenityListener = this.loader.resolve('@serenity-js/cucumber');\n\n        return this.runScenarios(version, serenityListener, this.pathsToScenarios);\n    }\n\n    private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const argv = this.options.asArgumentsForCucumber(version);\n\n        if (version.isAtLeast(new Version('7.0.0'))) {\n            return this.runWithCucumber7(argv, serenityListener, pathsToScenarios);\n        }\n\n        if (version.isAtLeast(new Version('3.0.0'))) {\n            return this.runWithCucumber3to6(argv, serenityListener, pathsToScenarios);\n        }\n\n        if (version.isAtLeast(new Version('2.0.0'))) {\n            return this.runWithCucumber2(argv, serenityListener, pathsToScenarios);\n        }\n\n        return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);\n    }\n\n    private runWithCucumber7(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber  = this.loader.require('@cucumber/cucumber');\n        const output    = this.output.get();\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        })\n        .run()\n        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));\n    }\n\n    private runWithCucumber3to6(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber  = this.loader.require('cucumber');\n        const output    = this.output.get();\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        })\n        .run()\n        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));\n    }\n\n    private runWithCucumber2(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber = this.loader.require('cucumber');\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--require', pathToSerenityListener, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        }).run();\n    }\n\n    private runWithCucumber0to1(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.loader.require('cucumber')\n                .Cli(argv.concat('--require', pathToSerenityListener, ...pathsToScenarios))\n                .run((wasSuccessful: boolean) => resolve());\n        })\n    }\n}\n\n/**\n * @private\n */\nfunction cleanUpAndPassThrough<T>(output: OutputDescriptor): (result: T) => Promise<T> {\n    return (result: T) => {\n        return output.cleanUp()\n            .then(() => result);\n    }\n}\n\n/**\n * @private\n */\nfunction cleanUpAndReThrow(output: OutputDescriptor): (error: Error) => Promise<void> {\n    return (error: Error) => {\n        return output.cleanUp()\n            .then(() => {\n                throw error;\n            }, ignoredError => {\n                throw error;\n            });\n    }\n}\n",
+    "content": "/* istanbul ignore file covered in integration tests */\nimport { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';\nimport * as path from 'path';   // eslint-disable-line unicorn/import-style\n\nimport { CucumberConfig } from './CucumberConfig';\nimport { CucumberOptions } from './CucumberOptions';\nimport { OutputDescriptor, SerenityFormatterOutput } from './output';\n\n/**\n * @desc\n *  Allows for programmatic execution of Cucumber test scenarios.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class CucumberCLIAdapter implements TestRunnerAdapter {\n\n    private pathsToScenarios: string[] = [];\n\n    private readonly options: CucumberOptions;\n\n    /**\n     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     * @param {SerenityFormatterOutput} output\n     *\n     * @see {@link CucumberConfig}\n     */\n    constructor(\n        config: CucumberConfig,\n        private readonly loader: ModuleLoader,\n        fileSystem: FileSystem,\n        private readonly output: SerenityFormatterOutput,\n    ) {\n        this.options = new CucumberOptions(fileSystem, config);\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return this.options.isStrict()\n            ? ExecutionIgnored\n            : ImplementationPending;\n    }\n\n    /**\n     * @desc\n     *  Loads feature files.\n     *\n     * @param {string[]} pathsToScenarios\n     *  Absolute or relative paths to feature files\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        this.pathsToScenarios = pathsToScenarios.map(maybeAbsolutePathToScenario => {\n            // Ensure paths provided to Cucumber are relative\n            // see https://github.com/cucumber/cucumber-js/issues/1900\n            return path.isAbsolute(maybeAbsolutePathToScenario)\n                ? path.relative(this.loader.cwd, maybeAbsolutePathToScenario)\n                : maybeAbsolutePathToScenario;\n        });\n\n        // todo: implement loading, so parsing feature files to determine how many executable we have\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {@serenity-js/core/lib/errors~LogicError}\n     *  If called before `load`\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        // todo: we should count the actual executable scenarios to avoid launching a WebdriverIO worked\n        //  for a feature file without any scenarios.\n        return this.pathsToScenarios.length;\n\n        // if (this.totalScenarios === undefined) {\n        //     throw new LogicError('Make sure to call `load` before calling `scenarioCount`');\n        // }\n        //\n        // return this.totalScenarios;\n    }\n\n    /**\n     * @desc\n     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`\n     *\n     * @returns {Promise<void>}\n     */\n    async run(): Promise<void> {\n        const version = this.loader.hasAvailable('@cucumber/cucumber')\n            ? this.loader.versionOf('@cucumber/cucumber')\n            : this.loader.versionOf('cucumber');\n\n        const serenityListener = this.loader.resolve('@serenity-js/cucumber');\n\n        return this.runScenarios(version, serenityListener, this.pathsToScenarios);\n    }\n\n    private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const argv = this.options.asArgumentsForCucumber(version);\n\n        if (version.isAtLeast(new Version('7.0.0'))) {\n            return this.runWithCucumber7(argv, serenityListener, pathsToScenarios);\n        }\n\n        if (version.isAtLeast(new Version('3.0.0'))) {\n            return this.runWithCucumber3to6(argv, serenityListener, pathsToScenarios);\n        }\n\n        if (version.isAtLeast(new Version('2.0.0'))) {\n            return this.runWithCucumber2(argv, serenityListener, pathsToScenarios);\n        }\n\n        return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);\n    }\n\n    private runWithCucumber7(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber  = this.loader.require('@cucumber/cucumber');\n        const output    = this.output.get();\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        })\n        .run()\n        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));\n    }\n\n    private runWithCucumber3to6(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber  = this.loader.require('cucumber');\n        const output    = this.output.get();\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        })\n        .run()\n        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));\n    }\n\n    private runWithCucumber2(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        const cucumber = this.loader.require('cucumber');\n\n        return new cucumber.Cli({\n            argv:   argv.concat('--require', pathToSerenityListener, ...pathsToScenarios),\n            cwd:    this.loader.cwd,\n            stdout: process.stdout,\n        }).run();\n    }\n\n    private runWithCucumber0to1(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.loader.require('cucumber')\n                .Cli(argv.concat('--require', pathToSerenityListener, ...pathsToScenarios))\n                .run((wasSuccessful: boolean) => resolve());\n        })\n    }\n}\n\n/**\n * @private\n */\nfunction cleanUpAndPassThrough<T>(output: OutputDescriptor): (result: T) => Promise<T> {\n    return (result: T) => {\n        return output.cleanUp()\n            .then(() => result);\n    }\n}\n\n/**\n * @private\n */\nfunction cleanUpAndReThrow(output: OutputDescriptor): (error: Error) => Promise<void> {\n    return (error: Error) => {\n        return output.cleanUp()\n            .then(() => {\n                throw error;\n            }, ignoredError => {\n                throw error;\n            });\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/src/cli/CucumberCLIAdapter.ts",
     "access": "public",
@@ -2290,7 +2290,7 @@
     "importPath": "@serenity-js/cucumber/lib/cli",
     "importStyle": "{CucumberCLIAdapter}",
     "description": " Allows for programmatic execution of Cucumber test scenarios.",
-    "lineNumber": 22,
+    "lineNumber": 23,
     "interface": false,
     "implements": [
       "TestRunnerAdapter"
@@ -2305,7 +2305,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#pathsToScenarios",
     "access": "private",
     "description": " ",
-    "lineNumber": 17,
+    "lineNumber": 18,
     "type": {
       "nullable": null,
       "types": [
@@ -2325,7 +2325,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#options",
     "access": "private",
     "description": " ",
-    "lineNumber": 19,
+    "lineNumber": 20,
     "type": {
       "nullable": null,
       "types": [
@@ -2350,7 +2350,7 @@
     "see": [
       "{@link CucumberConfig}"
     ],
-    "lineNumber": 57,
+    "lineNumber": 58,
     "params": [
       {
         "nullable": null,
@@ -2395,7 +2395,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#successThreshold",
     "access": "public",
     "description": " Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}",
-    "lineNumber": 83,
+    "lineNumber": 84,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2424,7 +2424,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#load",
     "access": "public",
     "description": " Loads feature files.",
-    "lineNumber": 122,
+    "lineNumber": 123,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2463,7 +2463,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#scenarioCount",
     "access": "public",
     "description": " Returns the number of loaded scenarios",
-    "lineNumber": 149,
+    "lineNumber": 155,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2499,7 +2499,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#run",
     "access": "public",
     "description": " Instructs Cucumber to execute feature files located at `pathsToScenarios`",
-    "lineNumber": 177,
+    "lineNumber": 184,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2527,7 +2527,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#runScenarios",
     "access": "private",
     "description": " ",
-    "lineNumber": 101,
+    "lineNumber": 108,
     "params": [
       {
         "nullable": null,
@@ -2581,7 +2581,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#runWithCucumber7",
     "access": "private",
     "description": " ",
-    "lineNumber": 119,
+    "lineNumber": 126,
     "params": [
       {
         "nullable": null,
@@ -2635,7 +2635,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#runWithCucumber3to6",
     "access": "private",
     "description": " ",
-    "lineNumber": 132,
+    "lineNumber": 139,
     "params": [
       {
         "nullable": null,
@@ -2689,7 +2689,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#runWithCucumber2",
     "access": "private",
     "description": " ",
-    "lineNumber": 145,
+    "lineNumber": 152,
     "params": [
       {
         "nullable": null,
@@ -2743,7 +2743,7 @@
     "longname": "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#runWithCucumber0to1",
     "access": "private",
     "description": " ",
-    "lineNumber": 155,
+    "lineNumber": 162,
     "params": [
       {
         "nullable": null,
@@ -2800,7 +2800,7 @@
     "importPath": "@serenity-js/cucumber/src/cli/CucumberCLIAdapter.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 349,
+    "lineNumber": 356,
     "ignore": true,
     "params": [
       {
@@ -2830,7 +2830,7 @@
     "importPath": "@serenity-js/cucumber/src/cli/CucumberCLIAdapter.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 370,
+    "lineNumber": 377,
     "ignore": true,
     "params": [
       {

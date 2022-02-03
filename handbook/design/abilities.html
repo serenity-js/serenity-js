@@ -168,13 +168,13 @@ the <a href="/handbook/design/actors.html">actor</a> to interact with the system
 is an implementation of <a href="https://en.wikipedia.org/wiki/Adapter_pattern">the adapter pattern</a>.
 An "ability" is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you'd call from an <a href="/handbook/design/interactions.html">interaction</a> or <a href="/handbook/design/questions.html">question</a> class to access the system under test.</p>
 <figure>
-<img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
+![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
 <h2 id="implementing-abilities">Implementing Abilities</h2>
 <p>Consider the <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> ability from the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BrowseTheWeb</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BrowseTheWeb</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">static</span> <span class="token function">using</span><span class="token punctuation">(</span>browser<span class="token operator">:</span> ProtractorBrowser<span class="token punctuation">)</span><span class="token operator">:</span> BrowseTheWeb <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BrowseTheWeb</span><span class="token punctuation">(</span>browser<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -195,7 +195,7 @@ An "ability" is a thin wrapper around a lower-level, interface-specific client s
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In order to enable the actor to <code>BrowseTheWeb</code>, we'd give it an instance of said ability, linked with the lower-level client - in this case <code>protractor.browser</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
@@ -203,7 +203,7 @@ An "ability" is a thin wrapper around a lower-level, interface-specific client s
 </code></pre>
 <p>So how would our actor make use of their newly acquired ability? That's what <a href="(/handbook/design/interactions.html">interactions</a> are for!</p>
 <p>Let's take the below, <em>much simplified</em>, version of the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> interaction, where <code>BrowseTheWeb</code> is used to locate the element of interest and perform the <code>.click()</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Locator <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
@@ -216,7 +216,7 @@ An "ability" is a thin wrapper around a lower-level, interface-specific client s
 </code></pre>
 <p>With the interaction in place, we can tell the actor to perform the click as part of their <a href="/handbook/design/actors.html">interaction flow</a>,
 and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript">actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+<pre class="language-typescript"><code class="language-typescript">actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
     Click<span class="token punctuation">.</span><span class="token function">onElement</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">)</span>
 </code></pre>
@@ -228,8 +228,8 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
 </ul>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the <code>Click</code> interaction that
-    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> in your tests instead.</p></div>
+    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the `Click` interaction that
+    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original [`Click`](/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html) in your tests instead.</p></div>
 </div>
 </body></html>
                         </section>

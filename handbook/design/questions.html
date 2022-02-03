@@ -165,18 +165,18 @@
 <p>Answering a question enables the <a href="/handbook/design/actors.html">actor</a> to retrieve information about the state of the system under test or its execution environment. </p>
 <p>Such information can then be passed to an <a href="/handbook/design.interactions.html">interaction</a>, <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html">asserted on</a>, or used to <a href="/modules/assertions/class/src/Check.ts~Check.html">control flow</a> of the scenario.</p>
 <figure>
-<img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
+![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
 <h2 id="implementing-questions">Implementing Questions</h2>
 <p>Serenity/JS modules provide you with <a href="/modules">dozens of questions</a>
 you can use in your acceptance tests. You'll find the ones you'll need in your Web-based tests in the <a href="/modules/protractor/identifiers.html#screenplay-questions"><code>@serenity-js/protractor</code></a> module, and the ones dedicated to REST API-based tests in <a href="/modules/rest/identifiers.html#screenplay-questions"><code>@serenity-js/rest</code></a>.</p>
-<h3 id="a-question-about-">A <code>Question.about</code>...</h3>
+<h3 id="a-questionabout">A <code>Question.about</code>...</h3>
 <p>The <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#static-method-about"><code>Question.about</code></a> <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method</a> is the easiest way to define a custom question.</p>
 <p>Let's say that we wanted to define a question called <code>NameOfTheActor()</code> that returned the name of the <a href="/handbook/design/actors.html">actor</a> who answers it. </p>
 <p>Here's how we could go about it:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">NameOfTheActor</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> 
     Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'the name of the actor'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -189,7 +189,7 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 </ul>
 <p>While in the above example we return the answer to the question directly, a much more common and idiomatic approach is to use the actor's <a href="/handbook/design/abilities.html">abilities</a> to produce it.</p>
 <p>For example, a question to retrieve the title of the current page could be designed to use the ability to <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">WebsiteTitle</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
@@ -202,17 +202,17 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The function provided as a question body can return an answer either synchronously or asynchronously using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>.
+    The function provided as a question body can return an answer either synchronously or asynchronously using a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
     </p></div>
 </div>
 
 <h2 id="questions-and-interactions">Questions and Interactions</h2>
-<p>Most Serenity/JS <a href="/handbook/design/interactions.html">interactions</a> can be parameterised, and those that can be parameterised will accept both synchronous and asynchronous questions, as well as regular static and <code>Promise</code>d values - referred to collectively as <a href="/modules/core/typedef/index.html#static-typedef-Answerable<T"><code>Answerable</code>s</a>.</p>
+<p>Most Serenity/JS <a href="/handbook/design/interactions.html">interactions</a> can be parameterised, and those that can be parameterised will accept both synchronous and asynchronous questions, as well as regular static and <code>Promise</code>d values - referred to collectively as <a href="/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E"><code>Answerable</code>s</a>.</p>
 <p>This design gives you an incredibly flexible and powerful mechanism to form the foundation of your tests. It also means
 that you don't need to worry if a given interaction is synchronous or asynchronous, or if a given question returns a static value or a <code>Promise</code> -  Serenity/JS will synchronise them all for you and help you keep your code free of callback mess.</p>
 <p>To illustrate how questions and interactions work together, let's look at <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html"><code>Target</code></a> - a question we use to identify interactive elements on a website.</p>
 <p>Consider the below <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">HTML form</a> component, allowing readers to add a comment to an article on an imaginary website:</p>
-<pre class="language-markup"><code class="lang-markup">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>new-comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<pre class="language-markup"><code class="language-markup">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>new-comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Comment:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>textarea</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>textarea</span><span class="token punctuation">&gt;</span></span>
@@ -227,22 +227,22 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <p>To interact with the component, we define a <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Object</a> called <code>NewComment</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">NewComment</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> Form <span class="token operator">=</span>
         Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'"new comment" form'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'new-comment'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token keyword">static</span> NameField <span class="token operator">=</span>
         Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'name field'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token keyword">static</span> CommentField <span class="token operator">=</span>
         Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'comment field'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'comment'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+    
     <span class="token keyword">static</span> SubmitButton <span class="token operator">=</span>
         Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'submit button'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>NewComment<span class="token punctuation">.</span>Form<span class="token punctuation">)</span>            <span class="token comment">// &lt;- a nested Target</span>
@@ -252,19 +252,19 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-        All those <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the"><code>Target.the</code></a> 
-        statements above create questions that, when <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-answer">answered</a> by the actor,
-        resolve to <a href="https://www.protractortest.org/#/api?view=ElementFinder"><code>ElementFinder</code></a> objects (or in case of
-        <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all"><code>Target.all</code></a> -
-        <a href="https://www.protractortest.org/#/api?view=ElementArrayFinder"><code>ElementArrayFinder</code></a> objects),
+        All those [`Target.the`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the) 
+        statements above create questions that, when [answered](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-answer) by the actor,
+        resolve to [`ElementFinder`](https://www.protractortest.org/#/api?view=ElementFinder) objects (or in case of
+        [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all) -
+        [`ElementArrayFinder`](https://www.protractortest.org/#/api?view=ElementArrayFinder) objects),
         which are Protractor's extensions of the regular
-        <a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html"><code>WebElement</code></a>
-        class coming from the <a href="https://www.npmjs.com/package/selenium-webdriver"><code>selenium-webdriver</code></a> module.
+        [`WebElement`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html)
+        class coming from the [`selenium-webdriver`](https://www.npmjs.com/package/selenium-webdriver) module.
     </p></div>
 </div>
 
 <p>Now, to fill out the form, we define a sequence of parameterised interactions and give them to an actor to perform:  </p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Enter<span class="token punctuation">,</span> Click <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
@@ -288,14 +288,14 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 <h3 id="mapping-the-answers">Mapping the answers</h3>
 <p>So now you know how to retrieve information about the system under test and its execution environment, but what if this information needs some processing before it can be used further?</p>
 <p>Let's say for example that we have the following widget, describing a discount a customer would get on our website:</p>
-<pre class="language-markup"><code class="lang-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>order-summary<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<pre class="language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>order-summary<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token comment">&lt;!-- other entries of the order summary --&gt;</span> 
 
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>percentage-discount<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>7.5%<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <p>We can, of course, get its text using the <a href="/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of"><code>Text.of</code></a> question and then pass it to an interaction like <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> (responsible for performing <a href="/handbook/design/assertions.html">assertions</a>):</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
@@ -313,7 +313,7 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 <p>In many cases, asserting on a text value of an element is perfectly fine, but what if our test needed to check if the discount applied is <strong>less than 10%</strong>?</p>
 <p>We'd have to first convert the text value to a number, wouldn't we?</p>
 <p>That's where <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-map"><code>Question#map</code></a> comes into play!</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> isLessThan <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> isLessThan <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> trim<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
@@ -348,13 +348,13 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 </li>
 <li>it works on <em>any question</em>, including the custom ones, i.e. <code>NameOfTheActor().map(toUpperCase())</code></li>
 <li>you can use the same technique to map both a question returning a single value, but also a question returning a list of values. This is particularly useful when you need to apply the same transformation to all the rows in an HTML table, or all entries returned in an <a href="modules/rest/class/src/screenplay/questions/LastResponse.ts~LastResponse.html">API response</a></li>
-<li>all the parameterised mapping functions accept <a href="/modules/core/typedef/index.html#static-typedef-Answerable<T"><code>Answerable</code>s</a> too.</li>
+<li>all the parameterised mapping functions accept <a href="/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E"><code>Answerable</code>s</a> too.</li>
 </ul>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The interaction to <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> is responsible for performing assertions and comes from the <code>@serenity-js/assertions</code> module.
-    You'll learn more about them in the <a href="/handbook/design/assertions.html">next chapter</a>.
+    The interaction to [`Ensure`](/modules/assertions/class/src/Ensure.ts~Ensure.html) is responsible for performing assertions and comes from the `@serenity-js/assertions` module.
+    You'll learn more about them in the [next chapter](/handbook/design/assertions.html).
     </p></div>
 </div>
 
@@ -368,7 +368,7 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 </ul>
 <p>However, this also means that in more complex cases this description can become quite a mouthful.</p>
 <p>Consider the below example that uses <a href="/modules/protractor/test-file/spec/screenplay/questions/Target.spec.ts.html">nested targets</a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> trim<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> trim<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
@@ -391,7 +391,7 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 </code></pre>
 <p>In this case, <code>OrderSummary.DiscountPercentage</code> would get reported as <code>"text of the discount widget of the order summary"</code>. </p>
 <p>To override this automatically-generated description of the question's subject with a custom one, use <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs"><code>Question#describedAs()</code></a>: </p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
     <span class="token comment">// other fields omitted for brevity</span>
 
     <span class="token keyword">static</span> DiscountPercentage <span class="token operator">=</span>

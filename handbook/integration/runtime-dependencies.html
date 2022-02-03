@@ -161,17 +161,17 @@
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="runtime-dependencies">Runtime dependencies</h1>
-<h2 id="node-js">Node.js</h2>
+<h2 id="nodejs">Node.js</h2>
 <p>Serenity/JS is a Node.js program. To help ensure maximum stability, it relies on a recent (<strong>^12 | ^14 | ^16</strong>)
 <a href="https://github.com/nodejs/Release">Long-Term Support (LTS)</a> version of the <a href="https://nodejs.org/">Node.js platform</a>.</p>
 <p>You can get both Node.js and the Node Package Manager (npm) either from the <a href="https://nodejs.org/">nodejs.org</a> website, which provides convenient
 installers for all the major operating systems, or using the <a href="http://nvm.sh">Node Version Manager (nvm)</a>.
 The second option is more appropriate if you need to work with several versions of the Node.js platform simultaneously.</p>
 <p>To check if you machine is set up correctly, execute the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash">$ <span class="token function">node</span> --version
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">node</span> --version
 v14.18.3
 </code></pre>
-<h2 id="a-node-js-project">A Node.js project</h2>
+<h2 id="a-nodejs-project">A Node.js project</h2>
 <p>Serenity/JS is typically installed
 as a <a href="https://docs.npmjs.com/files/package.json#devdependencies">dev dependency</a>
 of a <a href="https://docs.npmjs.com/files/package.json">Node.js project</a>,
@@ -180,13 +180,13 @@ so that it doesn't get accidentally bundled together with your production depend
 create <code>package.json</code> - a Node.js project descriptor file, which would already be part of your project.</p>
 <p>To create a Node.js project from scratch, create a new directory, such as <code>example</code>,
 and initialise a new project accepting the default configuration suggested by the npm with these terminal commands:</p>
-<pre class="language-bash"><code class="lang-bash">$ <span class="token function">mkdir</span> example
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">mkdir</span> example
 $ <span class="token builtin class-name">cd</span> example
 $ <span class="token function">npm</span> init
 </code></pre>
 <p>Your actions should result in a basic <a href="https://docs.npmjs.com/files/package.json"><code>package.json</code> file</a>
 appearing under <code>example</code>, with contents similar to the following:</p>
-<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span>
   <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
   <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
@@ -205,7 +205,7 @@ a <a href="http://www.oracle.com/technetwork/java/javase/overview/index.html">Ja
 <p>You can download the JRE from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">oracle.com</a>, <a href="https://adoptopenjdk.net/">adoptopenjdk.net</a>,
 or by using the excellent <a href="https://sdkman.io/">Software Development Kit Manager (SDKMan)</a></p>
 <p>To verify that you have the JRE installed, execute the below command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash">$ java -version
+<pre class="language-bash"><code class="language-bash">$ java -version
 java version <span class="token string">"1.8.0_181"</span>
 Java<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> SE Runtime Environment <span class="token punctuation">(</span>build <span class="token number">1.8</span>.0_181-b13<span class="token punctuation">)</span>
 Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> <span class="token number">64</span>-Bit Server VM <span class="token punctuation">(</span>build <span class="token number">25.181</span>-b13, mixed mode<span class="token punctuation">)</span>
@@ -214,7 +214,7 @@ Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctua
 your <code>JAVA_HOME</code> environment variable
 to the correct version.</p>
 <p>On MacOS this could be:</p>
-<pre class="language-bash"><code class="lang-bash">$ <span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span>
+<pre class="language-bash"><code class="language-bash">$ <span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span>
 /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
 </code></pre>
 <p>Please consult the <a href="https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html">Oracle documentation</a>

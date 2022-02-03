@@ -165,16 +165,16 @@
 <p>Linking from your Serenity BDD report to a ticket in an issue tracker does not affect the status of the ticket
 and is meant to make it easier for you and your team to understand and document the context that led to the feature being implemented.</p>
 <p>In this chapter, I'll show you how to create those links automatically in three easy steps.</p>
-<h2 id="step-1-create-a-serenity-js-project">Step 1 - Create a Serenity/JS project</h2>
+<h2 id="step-1---create-a-serenityjs-project">Step 1 - Create a Serenity/JS project</h2>
 <p>First, you'll need a Node.js project with Serenity/JS and Cucumber. </p>
 <p>The easiest way to create such project is to use one of the <a href="https://github.com/serenity-js/">Serenity/JS template projects</a>, for example <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template"><code>serenity-js-cucumber-protractor-template</code></a>.</p>
-<h2 id="step-2-tag-your-scenarios-and-features">Step 2 - Tag your scenarios and features</h2>
+<h2 id="step-2---tag-your-scenarios-and-features">Step 2 - Tag your scenarios and features</h2>
 <p>The next step is to tag your Cucumber scenarios and features with appropriate ticket IDs.</p>
 <p>Let's say you have created a "My Serenity/JS Project" in Jira, Trello, or a similar issue tracker.
 If your issue tracker of choice identifies tickets using unique ticket IDs (i.e. <code>MSP-1</code>, <code>MSP-2</code>, etc.), and allows you to access them at unique URLs (i.e. <code>https://jira.my-company.com/browse/MSP-1</code>), you can link to the issue tickets from your Serenity BDD reports.</p>
 <p>To do that, tag either <code>Feature</code> or <code>Scenario</code> nodes of your Cucumber <code>.feature</code> files with <code>@issue:&lt;issueId&gt;</code> or <code>@issues:&lt;issueIds&gt;</code> tags to create the links automatically when the report is generated.</p>
 <p>The below <code>.feature</code> file demonstrates usage of both <code>@issue</code> and <code>@issues</code> tags:</p>
-<pre class="language-gherkin"><code class="lang-gherkin"><span class="token tag">@issue:MSP-1</span>
+<pre class="language-gherkin"><code class="language-gherkin"><span class="token tag">@issue:MSP-1</span>
 <span class="token feature"><span class="token keyword">Feature:</span><span class="token important"> Basic arithmetic operations</span>
 </span>
   The feature itself, as well as all the scenarios in this file will be linked
@@ -220,39 +220,39 @@ If your issue tracker of choice identifies tickets using unique ticket IDs (i.e.
      <span class="token atrule">And</span> she enters 8
     <span class="token atrule">Then</span> she should get a result of 16
 </code></pre>
-<h2 id="step-3-tell-serenity-bdd-where-your-issue-tracker-is">Step 3 - Tell Serenity BDD where your issue tracker is</h2>
+<h2 id="step-3---tell-serenity-bdd-where-your-issue-tracker-is">Step 3 - Tell Serenity BDD where your issue tracker is</h2>
 <p>To make Serenity BDD generate links to tickets in your issue tracker, you need to tell it where your issue tracker is.</p>
 <p>Serenity BDD works with issue trackers that provide a Web UI and support <a href="https://en.wikipedia.org/wiki/Deep_linking">deep linking</a>.
 You can configure the location of your issue tracker using a command line parameter passed to the <code>serenity-bdd run</code> command.</p>
 <p>Since all the <a href="https://github.com/serenity-js">Serenity/JS template projects</a> have a <code>test:report</code> script invoking <code>serenity-bdd run</code> <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template/blob/518285a5578a9cb3600a44eb3d10f4413bde8428/package.json#L12">defined in their <code>package.json</code> file</a>, this is what you need to configure. </p>
 <h3 id="jira">Jira</h3>
 <p>If your Jira server can be accessed at <code>https://jira.my-company.com</code>, you can configure its location using the <code>--jiraUrl</code> parameter:</p>
-<pre class="language-json"><code class="lang-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span><span class="token punctuation">,</span>
+<pre class="language-json"><code class="language-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span><span class="token punctuation">,</span>
 </code></pre>
 <h3 id="other-issue-trackers">Other issue trackers</h3>
 <p>If you're using a different issue tracker, you can configure its location using the <code>--issueTrackerUrl</code> parameter, where the <code>{0}</code> token
 will be replaced with the <code>issueId</code>:</p>
-<pre class="language-json"><code class="lang-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span><span class="token punctuation">,</span>
+<pre class="language-json"><code class="language-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span><span class="token punctuation">,</span>
 </code></pre>
 <p>The above configuration will produce links such as <code>https://trello.com/c/MyBoardId/MSP-1</code></p>
 <h2 id="summary">Summary</h2>
 <p>Tagging <code>Feature</code> and <code>Scenario</code> nodes of your Cucumber <code>.feature</code> files with <code>@issues</code> and <code>@issue</code> and providing either a <code>--jiraUrl</code> or an <code>--issueTrackerUrl</code> when invoking the <code>serenity-bdd run</code> command instructs the Serenity BDD reporter to augment the scenario reports with
 links to your issue tracker: </p>
 <figure>
-<img src="/handbook/integration/images/jira-and-other-issue-trackers/scenario-report.png" alt="Serenity BDD Scenario Report">
+![Serenity BDD Scenario Report](/handbook/integration/images/jira-and-other-issue-trackers/scenario-report.png)
     <figcaption><span>Scenario report</span></figcaption>
 </figure>
 
 <p>However, this is just one of the benefits. Another one is that once Serenity understands what scenarios and features concern what tickets,
 it can provide you with another way to slice your reports:</p>
 <figure>
-<img src="/handbook/integration/images/jira-and-other-issue-trackers/summary-report.png" alt="Serenity BDD Summary Report">
+![Serenity BDD Summary Report](/handbook/integration/images/jira-and-other-issue-trackers/summary-report.png)
     <figcaption><span>Summary report with an additional section describing the "Issues"</span></figcaption>
 </figure>
 
 <p>This is particularly useful if you need a way to see all the scenarios that cover a given ticket:</p>
 <figure>
-<img src="/handbook/integration/images/jira-and-other-issue-trackers/issue-report.png" alt="Serenity BDD Issue Report">
+![Serenity BDD Issue Report](/handbook/integration/images/jira-and-other-issue-trackers/issue-report.png)
     <figcaption><span>Report showing test scenarios concerning a given ticket</span></figcaption>
 </figure>
 </body></html>

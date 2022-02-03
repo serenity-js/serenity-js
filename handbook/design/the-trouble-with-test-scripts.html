@@ -166,7 +166,7 @@ for the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC app</a> -&nbs
 that allows its users to manage a to-do list.</p>
 <p>To make things a bit more interesting, let's say that the <a href="https://en.wikipedia.org/wiki/User_story">user story</a>
 we want to write an acceptance test for looks as follows:</p>
-<pre class="language-plaintext"><code class="lang-plaintext">In order to focus on my outstanding tasks
+<pre class="language-plaintext"><code class="language-plaintext">In order to focus on my outstanding tasks
 As a forgetful person
 I want to be able to filter my todos to see active items only
 </code></pre>
@@ -185,7 +185,7 @@ I want to be able to filter my todos to see active items only
 and exhibit few or no business-focused abstractions.</p>
 <p>Below is an example test following the scripting approach, implemented using raw <a href="https://www.protractortest.org/#">Protractor</a> and <a href="https://jasmine.github.io/">Jasmine</a>.
 Please note, however, that this style is by no means specific to those particular tools as you'll see it often being used with other similar libraries and frameworks:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the user to show active items only'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// low-level navigation and synchronisation code</span>
@@ -248,7 +248,7 @@ Please note, however, that this style is by no means specific to those particula
 <p>Simon Stewart</p>
 </blockquote>
 <p>So let's see what we can do about this sorry state of affairs and find a way to improve our test and encapsulate and reuse some of the common parts.</p>
-<h2 id="the-page-object-s-pattern">The Page Object(s) Pattern</h2>
+<h2 id="the-page-objects-pattern">The Page Object(s) Pattern</h2>
 <p>As Selenium WebDriver became more popular in the late 2000s, and test suites began to grow bigger,
 developers and testers new to browser-based test automation needed a way to address issues with test scripts.</p>
 <p>In response to this need, the <a href="https://docs.seleniumhq.org/">Selenium team</a> proposed the <a href="https://selenium.dev/documentation/en/guidelines_and_recommendations/page_object_models/">Page Object Pattern</a>.
@@ -257,7 +257,7 @@ This simple pattern focuses on the user interface and models it in terms of page
 <p>What you'll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
 For simplicity, I've implemented the page object representing the <code>TodoList</code> in the same file as the test using it, as well as the test-specific <a href="https://jasmine.github.io/api/3.5/global.html#afterEach">teardown method</a>
 that prevents the application state from leaking between the tests. I've also annotated the code to highlight the features and limitations of this implementation:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
     <span class="token comment">// The page object representing the Todo list:</span>
     <span class="token keyword">class</span> <span class="token class-name">TodoList</span> <span class="token punctuation">{</span>
@@ -394,7 +394,7 @@ Just as we shape our tools, they shape us too - instead of placing the primary f
 <p>What such a move would definitely help us with is to introduce a layer of domain-specific language we could use to capture the vernacular of the business stakeholders.
 Additionally, expressing acceptance test scenarios in a human-readable language, such as English, makes it easier for non-technical stakeholders to work with and review.</p>
 <p>At the business level, our test scenario could be expressed as follows:</p>
-<pre class="language-gherkin"><code class="lang-gherkin"><span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Filter the list to show active items</span></span>
+<pre class="language-gherkin"><code class="language-gherkin"><span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Filter the list to show active items</span></span>
 
   <span class="token atrule">Given</span> James has a list containing: Play some guitar, Read a book, Write some code
    <span class="token atrule">When</span> he completes the item called Write some code
@@ -403,7 +403,7 @@ Additionally, expressing acceptance test scenarios in a human-readable language,
 </code></pre>
 <p>This looks better, doesn't it?</p>
 <p>Let's look at the implementation of the <a href="https://cucumber.io/docs/gherkin/step-organization/">step library</a> that powers this test, though:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> Given<span class="token punctuation">,</span> Then<span class="token punctuation">,</span> When<span class="token punctuation">,</span> Before<span class="token punctuation">,</span> After <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> Given<span class="token punctuation">,</span> Then<span class="token punctuation">,</span> When<span class="token punctuation">,</span> Before<span class="token punctuation">,</span> After <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">Before</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/#/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

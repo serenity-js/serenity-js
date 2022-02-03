@@ -164,13 +164,13 @@
 <p><a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>, available as part of the <a href="/modules/console-reporter"><code>@serenity-js/console-reporter</code></a> module, writes text-based reports to your computer terminal.</p>
 <p>The reporter supports colour schemes for both light and dark terminals.</p>
 <figure>
-<img src="/handbook/reporting/images/console-reporter.png" alt="Report produced by `ConsoleReporter`">
-    <figcaption><span>Example report produced by <a href="/modules/console-reporter"><code>ConsoleReporter</code></a></span></figcaption>
+![Report produced by `ConsoleReporter`](/handbook/reporting/images/console-reporter.png)
+    <figcaption><span>Example report produced by [`ConsoleReporter`](/modules/console-reporter)</span></figcaption>
 </figure>
 
 <h2 id="installation">Installation</h2>
 <p>To install the module, run the following command in your computer terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,console-reporter<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,console-reporter<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="integration">Integration</h2>
 <p><a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a> listens to <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a> emitted by <a href="/handbook/design/actors.html"><code>Actors</code></a> and Serenity/JS test runner adapters.</p>
@@ -179,35 +179,36 @@ graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
 
-    S["Serenity"]
-    CR["ConsoleReporter"]
-    T["fas:fa-terminal text report"]
+<pre class="language-typescript"><code><span class="token constant">S</span><span class="token punctuation">[</span><span class="token string">"Serenity"</span><span class="token punctuation">]</span>
+<span class="token constant">CR</span><span class="token punctuation">[</span><span class="token string">"ConsoleReporter"</span><span class="token punctuation">]</span>
+<span class="token constant">T</span><span class="token punctuation">[</span><span class="token string">"fas:fa-terminal text report"</span><span class="token punctuation">]</span>
 
-    TRA -- notifies --&gt; S
-    A -- notify --&gt; S
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
+<span class="token constant">A</span> <span class="token operator">--</span> notify <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
 
-    S -- notifies --&gt; CR
-    CR -- prints --&gt; T
+<span class="token constant">S</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">CR</span>
+<span class="token constant">CR</span> <span class="token operator">--</span> prints <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">T</span>
 
-    subgraph "core"
-    S
-    end
+subgraph <span class="token string">"core"</span>
+<span class="token constant">S</span>
+end
 
-    subgraph "console-reporter"
-    CR
-    end
+subgraph <span class="token string">"console-reporter"</span>
+<span class="token constant">CR</span>
+end
 
-    class A socket
-    class TRA socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">A</span></span> socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
 
-    click A "/handbook/design/actors.html"
-    click S "/modules/core/class/src/Serenity.ts~Serenity.html"
-    click CR "/modules/console-reporter"
+click <span class="token constant">A</span> <span class="token string">"/handbook/design/actors.html"</span>
+click <span class="token constant">S</span> <span class="token string">"/modules/core/class/src/Serenity.ts~Serenity.html"</span>
+click <span class="token constant">CR</span> <span class="token string">"/modules/console-reporter"</span>
+</code></pre>
 </div>
 
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>

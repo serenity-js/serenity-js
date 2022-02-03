@@ -165,19 +165,19 @@
 <p>This reporter emits <a href="/modules/core/class/src/model/Artifact.ts~Artifact.html"><code>Artifacts</code></a> containing Serenity BDD-standard JSON reports, which can be stored to disk by <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>, and then turned into Serenity BDD HTML reports by <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD Reporting CLI</a>.</p>
 <p>The resulting report contains screenshots, details of HTTP traffic for any <a href="/modules/rest">REST API</a> interactions, details of any activities performed by Serenity/JS <a href="/handbook/design/actors.html"><code>Actors</code></a> and more.</p>
 <figure>
-<img src="/handbook/reporting/images/serenity-bdd-reporter.png" alt="Serenity BDD report">
+![Serenity BDD report](/handbook/reporting/images/serenity-bdd-reporter.png)
     <figcaption><span>Example Serenity BDD report</span></figcaption>
 </figure>
 
 <h2 id="installation">Installation</h2>
 <p>To use the <code>SerenityBDDReporter</code>, install the <code>@serenity-js/serenity-bdd</code> module:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,serenity-bdd<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,serenity-bdd<span class="token punctuation">}</span>
 </code></pre>
 <p>To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the <code>serenity-bdd</code> command available as part of this module:</p>
-<pre class="language-bash"><code class="lang-bash">npx @serenity-js/serenity-bdd update
+<pre class="language-bash"><code class="language-bash">npx @serenity-js/serenity-bdd update
 </code></pre>
 <p>The best way to ensure you always have the latest version of the CLI available is to run <code>serenity-bdd update</code> whenever you run <code>npm install</code>. To automate this process, add the below entry to your <code>package.json</code>: </p>
-<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update"</span>
   <span class="token punctuation">}</span>
@@ -194,58 +194,59 @@ graph TB
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
     DEV(["fas:fa-laptop-code Developer"])
 
-    S["Serenity"]
-    AA["ArtifactArchiver"]
-    SBDDR["SerenityBDDReporter"]
-    SBDDW["fas:fa-terminal serenity-bdd run"]
-    TA["fas:fa-file json, png, etc."]
-    SBDDCLI(["fab:fa-java serenity-bdd-cli.jar"])
+<pre class="language-markup"><code>S["Serenity"]
+AA["ArtifactArchiver"]
+SBDDR["SerenityBDDReporter"]
+SBDDW["fas:fa-terminal serenity-bdd run"]
+TA["fas:fa-file json, png, etc."]
+SBDDCLI(["fab:fa-java serenity-bdd-cli.jar"])
 
-    HTML["fas:fa-chart-pie Serenity BDD HTML reports"]
+HTML["fas:fa-chart-pie Serenity BDD HTML reports"]
 
-    A -- notify --&gt; S
-    TRA -- notifies --&gt; S
-    DEV -- invokes -----&gt; SBDDW
+A -- notify --&gt; S
+TRA -- notifies --&gt; S
+DEV -- invokes -----&gt; SBDDW
 
-    S -- notifies ---&gt; SBDDR
-    S -- "notifies<br>[ArtifactGenerated]" ---&gt; AA
-    AA -- "stores<br>[Artifact]" ----&gt; TA
+S -- notifies ---&gt; SBDDR
+S -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" ---&gt; AA
+AA -- "stores<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[Artifact]" ----&gt; TA
 
-    SBDDR -- "notifies<br>[ArtifactGenerated]" --&gt; S
-    SBDDW -- manages --&gt; SBDDCLI
-    SBDDCLI -- reads --&gt; TA
-    SBDDCLI -- produces --&gt; HTML
+SBDDR -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" --&gt; S
+SBDDW -- manages --&gt; SBDDCLI
+SBDDCLI -- reads --&gt; TA
+SBDDCLI -- produces --&gt; HTML
 
-    subgraph "serenity-bdd"
-    SBDDR
-    SBDDCLI
-    SBDDW
-    end
+subgraph "serenity-bdd"
+SBDDR
+SBDDCLI
+SBDDW
+end
 
-    subgraph "core"
-    S
-    AA
-    end
+subgraph "core"
+S
+AA
+end
 
-    subgraph "file system"
-    TA
-    HTML
-    end
+subgraph "file system"
+TA
+HTML
+end
 
-    class A socket
-    class TRA socket
-    class R socket
+class A socket
+class TRA socket
+class R socket
 
-    click A "/handbook/design/actors.html"
-    click S "/modules/core/class/src/Serenity.ts~Serenity.html"
-    click AA "handbook/reporting/artifact-archiver.html"
-    click SBDDR "/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"
-    click SBDDW "/modules/serenity-bdd"
+click A "/handbook/design/actors.html"
+click S "/modules/core/class/src/Serenity.ts~Serenity.html"
+click AA "handbook/reporting/artifact-archiver.html"
+click SBDDR "/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"
+click SBDDW "/modules/serenity-bdd"
+</code></pre>
 </div>
 
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"><code>SerenityBDDReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>, together with the <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -256,13 +257,13 @@ graph TB
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash">npx @serenity-js/serenity-bdd run
+<pre class="language-bash"><code class="language-bash">npx @serenity-js/serenity-bdd run
 </code></pre>
 <p>To automate this process, install the following additional modules:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev rimraf npm-failsafe
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev rimraf npm-failsafe
 </code></pre>
 <p>Next, add the below scripts to your <code>package.json</code>:</p>
-<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update"</span><span class="token punctuation">,</span>
     <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"failsafe test:clean test:run test:report"</span><span class="token punctuation">,</span>
@@ -273,7 +274,7 @@ graph TB
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Now to run your test suite, execute:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
 </code></pre>
 <p>The above command invokes:</p>
 <ul>

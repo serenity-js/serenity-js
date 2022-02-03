@@ -165,7 +165,7 @@
 a low-level activity, directly exercising the <a href="/handbook/design/actors.html">actor's</a> <a href="/handbook/design/abilities.html">ability</a>
  to interact with a specific external interface of the system under test or perform a <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side-effect</a>. Such external interface could be a website, a mobile app, a web service, but also a file system, a database, or pretty much anything else a Node.js program can integrate with.</p>
 <figure>
-<img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
+![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -175,7 +175,7 @@ However, if you ever need to implement a custom interaction, there are two ways 
 <p>For the sake of argument, let's say that we wanted to enable our actor to write arbitrary messages to an output stream,
 such as a file or a computer terminal, and that we already have created a custom <a href="/handbook/design/abilities.html">ability</a>
 that took care of the low-level integration:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> WriteStream <span class="token operator">=</span> NodeJS<span class="token punctuation">.</span>WriteStream<span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> WriteStream <span class="token operator">=</span> NodeJS<span class="token punctuation">.</span>WriteStream<span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">WriteToStream</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
@@ -200,14 +200,14 @@ that took care of the low-level integration:</p>
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
     If you'd like the actor to print messages to your computer terminal,
-    consider using the built-in <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html"><code>Log</code></a> interaction.
+    consider using the built-in [`Log`](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html) interaction.
     </p></div>
 </div>
 
-<h3 id="an-interaction-where-">An <code>Interaction.where</code>...</h3>
+<h3 id="an-interactionwhere">An <code>Interaction.where</code>...</h3>
 <p>The <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html#static-method-where"><code>Interaction.where</code></a>
 <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method</a> provides an easy pattern to define a custom interaction:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">GreetTheWorld</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
     Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor greets the world</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span>
@@ -224,14 +224,14 @@ the interaction,</li>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The <code>#actor</code> part of the description will get replaced by the actor
+    The `#actor` part of the description will get replaced by the actor
     name when the interaction is reported.
     </p></div>
 </div>
 
 <p>An interaction defined using the <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html#static-method-where"><code>Interaction.where</code></a>
 factory method can be then given to an actor to perform:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> actor <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Ernest'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>WriteToStream<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>stdout<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -244,7 +244,7 @@ actor<span class="token punctuation">.</span><span class="token function">attemp
 <p>This is useful if the interaction you're designing requires helper methods to convert the data from one format to another,
 or you'd like to <a href="/handbook/design/creational-patterns.html">implement a builder pattern</a> to simplify how the interaction
 is configured.</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Greet</span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
     <span class="token keyword">static</span> <span class="token function">all</span><span class="token punctuation">(</span><span class="token operator">...</span>names<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -280,13 +280,13 @@ is configured.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    All Serenity/JS interactions <strong>must</strong> extend the base <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a>
-    class to allow for the framework to correctly distinguish them from other activities, such as <a href="/handbook/design/tasks.html">tasks</a>.
+    All Serenity/JS interactions **must** extend the base [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html)
+    class to allow for the framework to correctly distinguish them from other activities, such as [tasks](/handbook/design/tasks.html).
     </p></div>
 </div>
 
 <p>In the above example, the interaction to <code>Greet</code> could be given to an actor to perform as follows:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> actor <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Ernest'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>WriteToStream<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>stdout<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -298,9 +298,9 @@ actor<span class="token punctuation">.</span><span class="token function">attemp
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    Interactions extending the base <code>Interaction</code> class <strong>have to</strong> return a <code>Promise&lt;void&gt;</code>.<br>
-    Interactions created using <code>Interaction.where</code> can return either <code>Promise&lt;void&gt;</code> or <code>void</code>.
-    </p></div>
+    Interactions extending the base `Interaction` class **have to** return a `Promise<void>`.<br>
+    Interactions created using `Interaction.where` can return either `Promise<void>` or `void`.
+    </void></void></p></div>
 </div>
 
 

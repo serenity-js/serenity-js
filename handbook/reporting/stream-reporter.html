@@ -165,7 +165,7 @@
 <p>This service is useful for debugging any custom extensions you create for Serenity/JS, or debugging the framework itself.</p>
 <h2 id="installation">Installation</h2>
 <p>To install the module, run the following command in your computer terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/core
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/core
 </code></pre>
 <h2 id="integration">Integration</h2>
 <p><a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a> listens to any <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a> emitted by <a href="/handbook/design/actors.html"><code>Actors</code></a> and Serenity/JS test runner adapters. It then streams them to a <a href="https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_writable_streams"><code>Writable</code></a> stream, such as <a href="https://nodejs.org/docs/latest-v14.x/api/process.html#process_process_stdout"><code>process.stdout</code></a>, or one created via <a href="https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_fs_createwritestream_path_options"><code>fs.createWriteStream(filename)</code></a>.</p>
@@ -174,32 +174,33 @@ graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
 
-    S["Serenity"]
-    SR[StreamReporter]
-    T["fas:fa-terminal serialised events"]
-    Log["fas:fa-file log.ndjson"]
+<pre class="language-typescript"><code><span class="token constant">S</span><span class="token punctuation">[</span><span class="token string">"Serenity"</span><span class="token punctuation">]</span>
+<span class="token constant">SR</span><span class="token punctuation">[</span>StreamReporter<span class="token punctuation">]</span>
+<span class="token constant">T</span><span class="token punctuation">[</span><span class="token string">"fas:fa-terminal serialised events"</span><span class="token punctuation">]</span>
+Log<span class="token punctuation">[</span><span class="token string">"fas:fa-file log.ndjson"</span><span class="token punctuation">]</span>
 
-    TRA -- notifies --&gt; S
-    A -- notify --&gt; S
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
+<span class="token constant">A</span> <span class="token operator">--</span> notify <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
 
-    subgraph "core"
-    S -- notifies --&gt; SR
-    end
+subgraph <span class="token string">"core"</span>
+<span class="token constant">S</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SR</span>
+end
 
-    SR -- prints --&gt; T
-    SR -- writes --&gt; Log
+<span class="token constant">SR</span> <span class="token operator">--</span> prints <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">T</span>
+<span class="token constant">SR</span> <span class="token operator">--</span> writes <span class="token operator">--</span><span class="token operator">&gt;</span> Log
 
-    class A socket
-    class TRA socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">A</span></span> socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
 
-    click A "/handbook/design/actors.html"
-    click S "/modules/core"
-    click SR "/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"
+click <span class="token constant">A</span> <span class="token string">"/handbook/design/actors.html"</span>
+click <span class="token constant">S</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">SR</span> <span class="token string">"/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"</span>
+</code></pre>
 </div>
 
 <h2 id="usage">Usage</h2>
 <p>To use <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> StreamReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> StreamReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span><span class="token punctuation">;</span>
 
 <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>

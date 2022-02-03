@@ -160,7 +160,7 @@
                                 <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="test-runners-and-serenity-js-reporting">Test Runners and Serenity/JS Reporting</h1>
+                            <html><head></head><body><h1 id="test-runners-and-serenityjs-reporting">Test Runners and Serenity/JS Reporting</h1>
 <p>In the <a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html">previous chapter</a>, you've learnt how to write and run your first Serenity/JS scenario in both JavaScript and TypeScript.</p>
 <p>In this chapter, you'll learn how to integrate Serenity/JS with a test runner to create the foundations of your very own test framework, and how Serenity/JS reporting services will make analysing your test results easier. That's even if your tests don't follow the <a href="/handbook/design/screenplay-pattern.html">Screenplay Pattern</a> (yet!).</p>
 <p>If you prefer to dive straight into the code, you can experiment with:</p>
@@ -175,61 +175,62 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    While you could <em>just clone</em> the original repository, creating a <a href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">fork</a> and cloning a forked copy instead will give you a place where you can <a href="https://github.com/git-guides/git-commit">commit</a> and <a href="https://github.com/git-guides/git-push">push</a> your local changes for future reference.<br>    </p></div>
+    While you could _just clone_ the original repository, creating a [fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and cloning a forked copy instead will give you a place where you can [commit](https://github.com/git-guides/git-commit) and [push](https://github.com/git-guides/git-push) your local changes for future reference.  
+    </p></div>
 </div>
 
 <h2 id="mocha">Mocha</h2>
 <p>Serenity/JS supports a number of popular test runners, including <a href="/modules/cucumber">Cucumber</a>, <a href="/modules/jasmine">Jasmine</a>, <a href="/modules/mocha">Mocha</a>, <a href="/modules/protractor">Protractor</a>, and <a href="/modules/webdriverio">WebdriverIO</a>. </p>
 <p>In this chapter we'll be working with <a href="https://mochajs.org/">Mocha</a>, but the concepts you'll learn are easily applicable to other test runners too.</p>
 <p>To use Mocha, add <a href="https://www.npmjs.com/package/mocha"><code>mocha</code></a>, its <a href="https://www.npmjs.com/package/@types/mocha">TypeScript type definitions</a>, and a <a href="/modules/mocha"><code>@serenity-js/mocha</code></a> adapter to your project:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">npm</span> <span class="token function">install</span> --save-dev mocha @types/mocha @serenity-js/mocha
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">npm</span> <span class="token function">install</span> --save-dev mocha @types/mocha @serenity-js/mocha
 </code></pre>
 <p>Next, create a directory for the test scenarios:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">mkdir</span> spec
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">mkdir</span> spec
 </code></pre>
 <p>We'll also need a file called <code>mocha.spec.ts</code> under <code>spec</code> where in just a moment we'll write our test scenarios:</p>
-<pre class="language-shell"><code class="lang-shell-session">npx <span class="token function">touch</span> spec/mocha.spec.ts
+<pre class="language-shell"><code class="language-shell-session">npx <span class="token function">touch</span> spec/mocha.spec.ts
 </code></pre>
 <p>To test your installation, run the following command in your computer terminal:</p>
-<pre class="language-shell"><code class="lang-shell-session">npx mocha --require <span class="token string">'ts-node/register'</span> <span class="token string">'spec/**.spec.ts'</span> 
+<pre class="language-shell"><code class="language-shell-session">npx mocha --require <span class="token string">'ts-node/register'</span> <span class="token string">'spec/**.spec.ts'</span> 
 </code></pre>
 <p>This should produce a result similar to:</p>
-<pre class="language-shell"><code class="lang-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
+<pre class="language-shell"><code class="language-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
     Neither Mocha nor Serenity/JS force you to use any specific name or location of your test directory.
     </p><p>
-    Since I'm a practitioner of <a href="https://en.wikipedia.org/wiki/Behavior-driven_development">Behaviour-Driven Development</a>, I like to call this directory <code>spec</code> to highlight that it contains <a href="https://en.wikipedia.org/wiki/Specification_by_example">executable specifications</a> of the system I'm working on. If you prefer a different name that's perfectly fine too 😊
+    Since I'm a practitioner of [Behaviour-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development), I like to call this directory `spec` to highlight that it contains [executable specifications](https://en.wikipedia.org/wiki/Specification_by_example) of the system I'm working on. If you prefer a different name that's perfectly fine too 😊
     </p></div>
 </div>
 
 <h3 id="mocha-configuration-file">Mocha configuration file</h3>
 <p>To make things easier and avoid having to type in the entire command every time you want to run the tests it's better to use a <a href="https://mochajs.org/#configuring-mocha-nodejs">configuration file</a> instead, though.</p>
 <p>To configure Mocha, create a file called <code>.mocharc.yml</code> with the following contents and place it in the root directory of your project:</p>
-<pre class="language-yaml"><code class="lang-yaml"><span class="token comment"># .mocharc.yml</span>
+<pre class="language-yaml"><code class="language-yaml"><span class="token comment"># .mocharc.yml</span>
 <span class="token key atrule">require</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> ts<span class="token punctuation">-</span>node/register
 <span class="token key atrule">spec</span><span class="token punctuation">:</span> <span class="token string">'spec/**/*.spec.ts'</span>
 <span class="token key atrule">timeout</span><span class="token punctuation">:</span> <span class="token number">5000</span>
 </code></pre>
 <p>You can now run the tests without having to provide any configuration parameters: </p>
-<pre class="language-shell"><code class="lang-shell-session">npx mocha 
+<pre class="language-shell"><code class="language-shell-session">npx mocha 
 </code></pre>
 <p>The above command should again produce a result similar to:</p>
-<pre class="language-shell"><code class="lang-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
+<pre class="language-shell"><code class="language-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Mocha repository on GitHub contains a <a href="https://github.com/mochajs/mocha/blob/09ffc30b43db53b0cb3f54670132270271d8fe97/example/config/.mocharc.yml">great example</a> of all the configuration properties you can specify in <code>.mocharc.yml</code>
+    Mocha repository on GitHub contains a [great example](https://github.com/mochajs/mocha/blob/09ffc30b43db53b0cb3f54670132270271d8fe97/example/config/.mocharc.yml) of all the configuration properties you can specify in `.mocharc.yml`
     </p></div>
 </div>
 
-<h3 id="mocha-npm-integration">Mocha / NPM integration</h3>
+<h3 id="mocha--npm-integration">Mocha / NPM integration</h3>
 <p>Instead of invoking Mocha directly using the <code>npx mocha</code> command, a more standard and developer-friendly way is to define an <a href="https://docs.npmjs.com/cli/v7/commands/npm-test">npm <code>test</code> script</a> in <code>package.json</code>:</p>
-<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token comment">// ...</span>
   <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"mocha"</span>
@@ -238,15 +239,15 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>With the script in place, people or automated services trying to run the tests are no longer required to know that your project uses Mocha and can run them using the standard <a href="https://docs.npmjs.com/cli/v7/commands/npm-test"><code>npm test</code></a> command:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span> 
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span> 
 </code></pre>
 <p>Which, as you expected, should produce a result similar to:</p>
-<pre class="language-shell"><code class="lang-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
+<pre class="language-shell"><code class="language-shell-session">  <span class="token number">0</span> passing <span class="token punctuation">(</span>1ms<span class="token punctuation">)</span>
 </code></pre>
 <h3 id="default-mocha-reporting">Default Mocha Reporting</h3>
 <p>So far our project uses Mocha's default test reporter called <a href="https://mochajs.org/#spec">"spec"</a>. This reporter responsible for listening to events emitted by Mocha and producing console output you've seen in the previous section.</p>
 <p>To better understand the differences between the results it produces and those provided by <a href="/handbook/reporting/index.html">Serenity/JS reporting services</a>, edit <code>spec/mocha.spec.ts</code> and add a couple of example test scenarios:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/mocha.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/mocha.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> strictEqual <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> describe<span class="token punctuation">,</span> it <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha'</span>
@@ -272,10 +273,10 @@
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>When you run the tests again:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
 </code></pre>
 <p>you should see results similar to the below:</p>
-<pre class="language-shell"><code class="lang-shell-session">  Mocha
+<pre class="language-shell"><code class="language-shell-session">  Mocha
     reports a scenario that
       - has no body as <span class="token string">"pending"</span>
       ✔ has no errors as <span class="token string">"passing"</span>
@@ -296,7 +297,7 @@
 
       -false
       +true
-
+      
       at Context.<span class="token operator">&lt;</span>anonymous<span class="token operator">&gt;</span> <span class="token punctuation">(</span>spec/mocha.spec.ts:19:13<span class="token punctuation">)</span>
       at processImmediate <span class="token punctuation">(</span>internal/timers.js:461:21<span class="token punctuation">)</span>
 
@@ -311,14 +312,15 @@
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
     <p><strong>Did you notice?</strong>
-    In the example above, any test that throws an <code>Error</code> is marked as "failing", no matter the <em>kind</em> of error it throws. 
+    In the example above, any test that throws an `Error` is marked as "failing", no matter the _kind_ of error it throws. 
     </p><p>
     This might not be a problem when it comes to unit tests, since the scope they operate on is small. However, in the context of high-level acceptance or integration tests, being able to differentiate between assertion failures, test errors and infrastructure-related issues can save you a lot of time when analysing the results.
     </p><p>
-    This is where Serenity/JS reporting services come into play.<br>    </p></div>
+    This is where Serenity/JS reporting services come into play.  
+    </p></div>
 </div>
 
-<h2 id="serenity-js-mocha">Serenity/JS Mocha</h2>
+<h2 id="serenityjs-mocha">Serenity/JS Mocha</h2>
 <p>So now is the time to replace Mocha's default test reporter with Serenity/JS reporting services.</p>
 <p>To do that, we need to:</p>
 <ul>
@@ -327,7 +329,7 @@
 </ul>
 <h3 id="adapter">Adapter</h3>
 <p>To integrate Mocha with Serenity/JS reporting services, modify the <code>.mocharc.yml</code> and instruct the runner to use the <code>@serenity-js/mocha</code> reporter:</p>
-<pre class="language-yaml"><code class="lang-yaml"><span class="token comment"># .mocharc.yml</span>
+<pre class="language-yaml"><code class="language-yaml"><span class="token comment"># .mocharc.yml</span>
 <span class="token key atrule">require</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> ts<span class="token punctuation">-</span>node/register
 <span class="token key atrule">reporter</span><span class="token punctuation">:</span> <span class="token string">'@serenity-js/mocha'</span>
@@ -340,7 +342,7 @@
 <h3 id="reporting">Reporting</h3>
 <p>Just like in the <a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html#reporting">previous chapter</a>, we need to <a href="/modules/core/function/index.html#static-function-configure"><code>configure</code></a> Serenity/JS to use the <a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>.</p>
 <p>To do that, create a file called <code>config.ts</code> and place it under <code>spec</code>:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/config.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/config.ts</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
@@ -354,7 +356,7 @@
 <p>Here again the name of this file and its location is entirely up to you.</p>
 <p>Next, instruct Mocha to load the configuration file by modifying <code>.mocharc.yml</code>
 to add a new entry under <code>require</code>:</p>
-<pre class="language-yaml"><code class="lang-yaml"><span class="token comment"># .mocharc.yml</span>
+<pre class="language-yaml"><code class="language-yaml"><span class="token comment"># .mocharc.yml</span>
 <span class="token key atrule">require</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span> ts<span class="token punctuation">-</span>node/register
   <span class="token punctuation">-</span> spec/config.ts
@@ -364,10 +366,10 @@ to add a new entry under <code>require</code>:</p>
 </code></pre>
 <p>And we're done!</p>
 <p>Now, when you run the tests again:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
 </code></pre>
 <p>you should see output similar to the below:</p>
-<pre class="language-shell"><code class="lang-shell-session">--------------------------------------------------------------------------------
+<pre class="language-shell"><code class="language-shell-session">--------------------------------------------------------------------------------
 /Users/jan/Projects/serenity-js/tutorial-test-runners/spec/mocha.spec.ts
 
 Mocha: reports a scenario that has no body as <span class="token string">"pending"</span>
@@ -422,7 +424,7 @@ Scenarios:  <span class="token number">4</span>
 <h3 id="screenplay-pattern">Screenplay Pattern</h3>
 <p>Another important thing about Serenity/JS reporting services is that they understand the Screenplay Pattern and can provide you with much more thorough reports on test scenarios that follow it.</p>
 <p>To see how it works, add a new scenario just like the one from the previous chapter:</p>
-<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/mocha.spec.ts</span>
+<pre class="language-typescript"><code class="language-typescript"><span class="token comment">// spec/mocha.spec.ts</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> strictEqual <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> describe<span class="token punctuation">,</span> it <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha'</span>
@@ -431,7 +433,7 @@ Scenarios:  <span class="token number">4</span>
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Mocha'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
     <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'reports a scenario that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-
+        
         <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'follows the Screenplay Pattern'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
                 Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'Hello Serenity/JS'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -445,7 +447,7 @@ Scenarios:  <span class="token number">4</span>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you notice?</strong>
-        The <code>return</code> statement in the code sample above ensures that the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a> returned by <code>actorCalled(...).attemptsTo(...)</code>
+        The `return` statement in the code sample above ensures that the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) returned by `actorCalled(...).attemptsTo(...)`
         is handed over to Mocha. This is how a Serenity/JS scenario gets synchronised with the test runner.
     </p><p>
         We'll talk more about it in the next chapter.
@@ -453,10 +455,10 @@ Scenarios:  <span class="token number">4</span>
 </div>
 
 <p>Next, run the tests again:</p>
-<pre class="language-shell"><code class="lang-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
+<pre class="language-shell"><code class="language-shell-session"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
 </code></pre>
 <p>You should see output similar to the below, where apart from the location and result of a given test scenario, you'll also see all the activities that the actors have performed:</p>
-<pre class="language-shell"><code class="lang-shell-session">--------------------------------------------------------------------------------
+<pre class="language-shell"><code class="language-shell-session">--------------------------------------------------------------------------------
 /Users/jan/Projects/serenity-js/tutorial-test-runners/spec/mocha.spec.ts
 
 Mocha: reports a scenario that follows the Screenplay Pattern

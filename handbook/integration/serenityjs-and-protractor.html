@@ -175,7 +175,7 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS and Protractor is to use one of the <a href="https://github.com/serenity-js/">template projects</a> available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS and Protractor is to use one of the [template projects](https://github.com/serenity-js/) available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div> 
 
@@ -204,32 +204,33 @@ graph TB
     SPECS["fas:fa-tasks specs"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --&gt; PCLI
-    PCLI -- loads --&gt; PCF
-    PCLI -- uses --&gt; SPA
-    PCF -- configures --&gt; SC
-    SPA -- registers --&gt; TRA
-    SPA -- manages --&gt; TR
-    TR -- notifies --&gt; TRA
-    TR -- executes --&gt; SPECS
-    SPECS -- use --&gt; SP
-    SP -- notifies --&gt; SC
-    SP -- uses --&gt; P
-    P -- interacts with --&gt; SUT
-    TRA -- notifies --&gt; SC
-    SC -- notifies --&gt; R
+<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
+<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> executes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
+<span class="token constant">SPECS</span> <span class="token operator">--</span> use <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SP</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
+<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
 
-    class TR socket
-    class TRA socket
-    class SPECS socket
-    class R socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TR</span></span> socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">SPECS</span></span> socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
 
-    click SP "/modules/protractor"
-    click SC "/modules/core"
-    click R "/handbook/reporting/index.html"
+click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
+click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
+</code></pre>
 </div>
 
-<h2 id="integrating-protractor-with-serenity-js-and-cucumber">Integrating Protractor with Serenity/JS and Cucumber</h2>
+<h2 id="integrating-protractor-with-serenityjs-and-cucumber">Integrating Protractor with Serenity/JS and Cucumber</h2>
 <p>To integrate Serenity/JS with Protractor and Cucumber, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Cucumber "formatter" available as part of the <a href="/handbook/integration/serenityjs-and-cucumber.html"><code>@serenity-js/cucumber</code> module</a>.</p>
 <p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-cucumber.html">Cucumber standalone</a>, or Cucumber running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
 <div class="mermaid">
@@ -244,31 +245,32 @@ graph TB
     SC(["@serenity-js/core"])
     TR(["@cucumber/cucumber"])
     TRA(["@serenity-js/cucumber"])
-    SPECS["fas:fa-tasks *.feature"]
+    SPECS["fas:fa-tasks \*.feature"]
     STEPS["fas:fa-file step_definitions/*.ts"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --&gt; PCLI
-    PCLI -- loads --&gt; PCF
-    PCLI -- uses --&gt; SPA
-    PCF -- configures --&gt; SC
-    SPA -- registers --&gt; TRA
-    SPA -- manages --&gt; TR
-    TR -- notifies --&gt; TRA
-    TR -- parses --&gt; SPECS
-    TR -- uses --&gt; STEPS
-    STEPS -- use --&gt; SP
-    SP -- notifies --&gt; SC
-    SP -- uses --&gt; P
-    P -- interacts with --&gt; SUT
-    TRA -- notifies --&gt; SC
-    SC -- notifies --&gt; R
+<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
+<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> parses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">STEPS</span>
+<span class="token constant">STEPS</span> <span class="token operator">--</span> use <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SP</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
+<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
 
-    class R socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
 
-    click SP "/modules/protractor"
-    click SC "/modules/core"
-    click R "/handbook/reporting/index.html"
+click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
+click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
+</code></pre>
 </div>
 
 <h3 id="installation">Installation</h3>
@@ -280,20 +282,20 @@ graph TB
 <li><a href="https://www.npmjs.com/package/@cucumber/cucumber"><code>@cucumber/cucumber</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,cucumber,protractor<span class="token punctuation">}</span> @cucumber/cucumber
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,cucumber,protractor<span class="token punctuation">}</span> @cucumber/cucumber
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
 </code></pre>
 <h3 id="configuration">Configuration</h3>
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Protractor-speak) and <code>require</code> your Cucumber step definitions:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
-
+    
     <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
     <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-
+    
     <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'cucumber'</span><span class="token punctuation">,</span>
         <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -308,7 +310,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token string-property property">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment">// to add support for TypeScript</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-
+    
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
@@ -322,7 +324,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
 <h4 id="using-native-cucumber-reporters">Using native Cucumber reporters</h4>
 <p>You can use <a href="https://github.com/cucumber/cucumber-js/tree/master/src/formatter">native Cucumber reporters</a> together with, or instead of those provided by Serenity/JS.</p>
 <p>To do that, specify them using a <code>&lt;formatterName:outputFileName&gt;</code> format to save their output to a file, or simply <code>&lt;formatterName&gt;</code> to print their output to terminal. For example:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
     <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
@@ -343,7 +345,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
         <span class="token literal-property property">tags</span><span class="token operator">:</span>    <span class="token punctuation">[</span><span class="token string">'~@wip'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token literal-property property">strict</span><span class="token operator">:</span>  <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-
+    
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
@@ -353,14 +355,14 @@ exports<span class="token punctuation">.</span>config <span class="token operato
         Cucumber.js supports <strong>only one native formatter per output</strong>.
         In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
     </p><p>
-        Please also note that when you configure Serenity/JS to use any of its <a href="https://serenity-js.org/handbook/reporting/index.html">reporting services</a> (via the <code>serenity.crew</code> option), the framework will <strong>automatically disable</strong>
+        Please also note that when you configure Serenity/JS to use any of its [reporting services](https://serenity-js.org/handbook/reporting/index.html) (via the `serenity.crew` option), the framework will <strong>automatically disable</strong>
         any native Cucumber reporters printing to the terminal to avoid overlapping output.
     </p><p>
-        You can, however, redirect output of such reporter to a file, so instead of <code>usage</code> use <code>usage:usage.txt</code>.
+        You can, however, redirect output of such reporter to a file, so instead of `usage` use `usage:usage.txt`.
     </p></div>
 </div>
 
-<h2 id="integrating-protractor-with-serenity-js-and-jasmine">Integrating Protractor with Serenity/JS and Jasmine</h2>
+<h2 id="integrating-protractor-with-serenityjs-and-jasmine">Integrating Protractor with Serenity/JS and Jasmine</h2>
 <p>To integrate Serenity/JS with Protractor and Jasmine, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Jasmine reporter available as part of the <a href="/handbook/integration/serenityjs-and-jasmine.html"><code>@serenity-js/jasmine</code> module</a>.</p>
 <p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-jasmine.html">Jasmine standalone</a>, or Jasmine running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
 <div class="mermaid">
@@ -375,32 +377,33 @@ graph TB
     SC(["@serenity-js/core"])
     TR(["jasmine"])
     TRA(["@serenity-js/jasmine"])
-    SPECS["fas:fa-tasks *.spec.ts"]
+    SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --&gt; SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --&gt; PCLI
-    PCLI -- loads --&gt; PCF
-    PCLI -- uses --&gt; SPA
-    PCF -- configures --&gt; SC
-    SPA -- registers --&gt; TRA
-    SPA -- manages --&gt; TR
-    TR -- notifies --&gt; TRA
-    TR -- runs --&gt; SPECS
-    SP -- notifies --&gt; SC
-    SP -- uses --&gt; P
-    P -- interacts with --&gt; SUT
-    TRA -- notifies --&gt; SC
-    SC -- notifies --&gt; R
+<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
+<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> runs <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
+<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
 
-    class R socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
 
-    click SP "/modules/protractor"
-    click SC "/modules/core"
-    click R "/handbook/reporting/index.html"
+click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
+click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
+</code></pre>
 </div>
 
-<h3 id="installation">Installation</h3>
+<h3 id="installation-1">Installation</h3>
 <p>Assuming you already have a <a href="https://github.com/angular/protractor/blob/master/docs/getting-started.md">Protractor project</a> set up, add the following dev dependencies:</p>
 <ul>
 <li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
@@ -409,27 +412,27 @@ graph TB
 <li><a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,jasmine,protractor<span class="token punctuation">}</span> jasmine@3
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,jasmine,protractor<span class="token punctuation">}</span> jasmine@3
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    <code>@serenity-js/jasmine</code> module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
+    `@serenity-js/jasmine` module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
     </p></div>
 </div>
 
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration-1">Configuration</h3>
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Jasmine "<code>specs</code>":</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
-
+    
     <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
     <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-
+    
     <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'jasmine'</span><span class="token punctuation">,</span>
         <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -443,7 +446,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
             <span class="token string">'ts-node/register'</span><span class="token punctuation">,</span>                     <span class="token comment">// to add support for TypeScript</span>
         <span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-
+    
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
@@ -454,7 +457,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
 <li><a href="https://github.com/angular/protractor/blob/master/lib/config.ts"><code>ProtractorConfig</code></a></li>
 </ul>
 <p>To install and configure Serenity/JS reporting modules appropriate for your project (a.k.a. the <code>crew</code>) - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
-<h2 id="integrating-protractor-with-serenity-js-and-mocha">Integrating Protractor with Serenity/JS and Mocha</h2>
+<h2 id="integrating-protractor-with-serenityjs-and-mocha">Integrating Protractor with Serenity/JS and Mocha</h2>
 <p>To integrate Serenity/JS with Protractor and Jasmine, <code>@serenity-js/protractor/adapter</code> uses a test runner adapter and a Mocha reporter available as part of the <a href="/handbook/integration/serenityjs-and-mocha.html"><code>@serenity-js/mocha</code> module</a>.</p>
 <p>This means that no matter whether your test suite uses <a href="/handbook/integration/serenityjs-and-mocha.html">Mocha standalone</a>, or Mocha running behind Protractor, the lower-level integration with Serenity/JS works exactly the same and provides the same capabilities.</p>
 <div class="mermaid">
@@ -469,32 +472,33 @@ graph TB
     SC(["@serenity-js/core"])
     TR(["mocha"])
     TRA(["@serenity-js/mocha"])
-    SPECS["fas:fa-tasks *.spec.ts"]
+    SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --&gt; SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
 
-    DEV -- invokes --&gt; PCLI
-    PCLI -- loads --&gt; PCF
-    PCLI -- uses --&gt; SPA
-    PCF -- configures --&gt; SC
-    SPA -- registers --&gt; TRA
-    SPA -- manages --&gt; TR
-    TR -- notifies --&gt; TRA
-    TR -- runs --&gt; SPECS
-    SP -- notifies --&gt; SC
-    SP -- uses --&gt; P
-    P -- interacts with --&gt; SUT
-    TRA -- notifies --&gt; SC
-    SC -- notifies --&gt; R
+<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
+<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
+<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
+<span class="token constant">TR</span> <span class="token operator">--</span> runs <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
+<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
+<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
+<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
 
-    class R socket
+<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
 
-    click SP "/modules/protractor"
-    click SC "/modules/core"
-    click R "/handbook/reporting/index.html"
+click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
+click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
+click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
+</code></pre>
 </div>
 
-<h3 id="installation">Installation</h3>
+<h3 id="installation-2">Installation</h3>
 <p>Assuming you already have a <a href="https://github.com/angular/protractor/blob/master/docs/getting-started.md">Protractor project</a> set up, add the following dev dependencies:</p>
 <ul>
 <li><a href="/modules/core"><code>@serenity-js/core</code></a></li>
@@ -503,20 +507,20 @@ graph TB
 <li><a href="https://www.npmjs.com/package/mocha"><code>mocha</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,mocha,protractor<span class="token punctuation">}</span> mocha
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,mocha,protractor<span class="token punctuation">}</span> mocha
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node
 </code></pre>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration-2">Configuration</h3>
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Mocha "<code>specs</code>":</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// protractor.conf.js</span>
 exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
-
+    
     <span class="token literal-property property">framework</span><span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
     <span class="token literal-property property">frameworkPath</span><span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-
+    
     <span class="token literal-property property">serenity</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token literal-property property">runner</span><span class="token operator">:</span> <span class="token string">'mocha'</span><span class="token punctuation">,</span>
         <span class="token literal-property property">crew</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -531,7 +535,7 @@ exports<span class="token punctuation">.</span>config <span class="token operato
             <span class="token string">'ts-node/register'</span><span class="token punctuation">,</span>                     <span class="token comment">// to add support for TypeScript</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-
+    
     <span class="token comment">// ... other Protractor config omitted for brevity </span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>

@@ -118,7 +118,7 @@
                                 <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="serenity-js-2-x-migration-guide">Serenity/JS 2.x Migration Guide</h1>
+                            <html><head></head><body><h1 id="serenityjs-2x-migration-guide">Serenity/JS 2.x Migration Guide</h1>
 <h2 id="introduction">Introduction</h2>
 <p>This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes (<a href="https://serenity-js.org/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a>, 
 <a href="https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html">Task</a>, <a href="https://serenity-js.org/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a> and <a href="https://serenity-js.org/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a>) 
@@ -132,12 +132,16 @@ So this documentation attempts to provide straightforward distillation of likely
 <p>The changes are laid out in the following sequence:</p>
 <ol>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#introduction">Introduction</a></li>
-<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-package-json">Migrating package.json</a><ul>
+<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-package-json">Migrating package.json</a></li>
+</ol>
+<ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#updating-dependencies">Updating dependencies</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#updating-scripts">Updating scripts</a></li>
 </ul>
-</li>
-<li><a href="/handbook/integration/serenity-2-migration-guide.html##protractor-configuration-protractorconfjs">Protractor configuration (protractor.conf.js)</a><ul>
+<ol start="3">
+<li><a href="/handbook/integration/serenity-2-migration-guide.html##protractor-configuration-protractorconfjs">Protractor configuration (protractor.conf.js)</a></li>
+</ol>
+<ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#the-crew">The Crew</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#the-new-consolereporter">The new ConsoleReporter</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#runner-specific-configurations">Runner specific configurations</a><ul>
@@ -149,8 +153,10 @@ So this documentation attempts to provide straightforward distillation of likely
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#creating-a-dressing-room-for-the-actors">Creating a Dressing Room for the Actors</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#browser-synchronisation">Browser Synchronisation</a></li>
 </ul>
-</li>
-<li><a href="/handbook/integration/serenity-2-migration-guide.html#source-file-changes">Source file changes</a><ul>
+<ol start="4">
+<li><a href="/handbook/integration/serenity-2-migration-guide.html#source-file-changes">Source file changes</a></li>
+</ol>
+<ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#globally-replacing-imports">Globally replacing imports</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#target-argument-types">Target argument types</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#webelement-of-">WebElement.of()</a></li>
@@ -163,8 +169,10 @@ So this documentation attempts to provide straightforward distillation of likely
 </ul>
 </li>
 </ul>
-</li>
-<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-activity-code">Migrating Activity code</a><ul>
+<ol start="6">
+<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-activity-code">Migrating Activity code</a></li>
+</ol>
+<ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-step-annotations">Migrating @step annotations</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.md#simplifying-tasks-using-taskwhere">Simplifying Tasks using Task.where</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#alert-handling">Alert handling</a><ul>
@@ -172,13 +180,15 @@ So this documentation attempts to provide straightforward distillation of likely
 </ul>
 </li>
 </ul>
-</li>
-<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-assertions">Migrating Assertions</a><ul>
+<ol start="7">
+<li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-assertions">Migrating Assertions</a></li>
+</ol>
+<ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#chai">chai</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-see-if-to-ensure-that">Migrating See.if to Ensure.that</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#is-no-longer-is-">Is no longer Is :-)</a></li>
 </ul>
-</li>
+<ol start="8">
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-questions">Migrating Questions</a></li>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#migrating-script-execution-tasks">Migrating Script Execution Tasks</a><ul>
 <li><a href="/handbook/integration/serenity-2-migration-guide.html#serenity-js-1-x-implementation-of-hide-task">Serenity/JS 1.x implementation of Hide Task</a></li>
@@ -186,7 +196,7 @@ So this documentation attempts to provide straightforward distillation of likely
 </ul>
 </li>
 </ol>
-<h2 id="migrating-package-json">Migrating package.json</h2>
+<h2 id="migrating-packagejson">Migrating package.json</h2>
 <h3 id="updating-dependencies">Updating dependencies</h3>
 <p>Various libraries are no longer needed. Here's a high-level summary of changes:</p>
 <ul>
@@ -195,50 +205,51 @@ So this documentation attempts to provide straightforward distillation of likely
 <li>serenity-cli has been replaced by <code>@serenity-js/serenity-bdd</code>. </li>
 </ul>
 <p>So remove all of these from your dependencies section:</p>
-<pre class="language-javascript"><code class="lang-javascript">    <span class="token string">"@types/chai"</span>
-    <span class="token string">"@types/chai-as-promised"</span>
-    <span class="token string">"@types/mocha"</span>
-    <span class="token string">"chai"</span>
-    <span class="token string">"chai-as-promised"</span>
-    <span class="token string">"chai-smoothie"</span>
-    <span class="token string">"mocha"</span><span class="token punctuation">,</span>
-    <span class="token string">"serenity-cli"</span>
+<pre class="language-javascript"><code class="language-javascript"> <span class="token string">"@types/chai"</span>
+ <span class="token string">"@types/chai-as-promised"</span>
+ <span class="token string">"@types/mocha"</span>
+ <span class="token string">"chai"</span>
+ <span class="token string">"chai-as-promised"</span>
+ <span class="token string">"chai-smoothie"</span>
+ <span class="token string">"mocha"</span><span class="token punctuation">,</span>
+ <span class="token string">"serenity-cli"</span>
 </code></pre>
 <p>Now that Serenity/JS 2.x is officially released, versions can be set to "^2.0.0" in order to get the latest for this release:</p>
-<pre class="language-javascript"><code class="lang-javascript">    <span class="token string-property property">"@serenity-js/assertions"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/console-reporter"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/core"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/cucumber"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/jasmine"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/protractor"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/rest"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token string-property property">"@serenity-js/serenity-bdd"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span>
+<pre class="language-javascript"><code class="language-javascript"> <span class="token string-property property">"@serenity-js/assertions"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/console-reporter"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/core"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/cucumber"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/jasmine"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/protractor"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/rest"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+ <span class="token string-property property">"@serenity-js/serenity-bdd"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span>
 </code></pre>
 <p>If you want to want to stay on a fixed version, use that instead. You can find out the latest available version by visiting the <a href="https://github.com/jan-molak/serenity-js/releases">releases page</a>.</p>
 <p>You may have other dependencies such as express, jasmine, node, sinon, in your existing project, but you won't need to have these unless you need to use them directly. 
 Adding the above Serenity/JS dependencies should bring all runtime dependencies across. If you do need them and you want to pick a compatible version, see the versions in the <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template">Protractor</a>, <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Jasmine</a> or <a href="https://github.com/serenity-js/serenity-js-mocha-protractor-template">Mocha</a> template repos.</p>
 <h3 id="updating-scripts">Updating scripts</h3>
 <p>If you have <code>--verbose</code> as an argument in your lint script, remove it as the version of tslint that you now have does not support this parameter. (verbose can now be supplied as a format but stylish is probably better):     </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token string-property property">"lint"</span><span class="token operator">:</span> <span class="token string">"tslint --config ./tslint.json --project ./tsconfig.json --format stylish"</span><span class="token punctuation">,</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token string-property property">"lint"</span><span class="token operator">:</span> <span class="token string">"tslint --config ./tslint.json --project ./tsconfig.json --format stylish"</span><span class="token punctuation">,</span>
 </code></pre>
 <p>Any scripts that used to run <code>serenity update</code> or <code>webdriver-manager update</code>  should now be updated to <code>serenity-bdd update</code>. So for instance:</p>
 <pre class="language-typescript"><code><span class="token string-property property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update --ignoreSSL"</span><span class="token punctuation">,</span> 
-</code></pre><p>For further information, please see <a href="https://serenity-js.org/modules/serenity-bdd">the modules section of the serenity/JS website</a>           </p>
-<h2 id="protractor-configuration-protractor-conf-js-">Protractor configuration (protractor.conf.js)</h2>
+</code></pre>
+<p>For further information, please see <a href="https://serenity-js.org/modules/serenity-bdd">the modules section of the serenity/JS website</a>           </p>
+<h2 id="protractor-configuration-protractorconfjs">Protractor configuration (protractor.conf.js)</h2>
 <h3 id="the-crew">The Crew</h3>
 <p>Previously you will have had a single import for crew as follows:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> crew <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"serenity-js/lib/stage_crew"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> crew <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"serenity-js/lib/stage_crew"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>But a new <code>@serenity-js/console-reporter</code> module has now superseded the experimental (and now deleted) <code>ConsoleReporter</code> class that used to ship with <code>@serenity-js/core</code>.</p>
 <p>So replace your previous crew import sections with the following:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span>ConsoleReporter<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span>ConsoleReporter<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">{</span>ArtifactArchiver<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"@serenity-js/core"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">{</span>Photographer<span class="token punctuation">,</span> TakePhotosOfInteractions<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">{</span>SerenityBDDReporter<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"@serenity-js/serenity-bdd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Also remove whatever was in the <code>crew []</code> section in the <code>serenity</code> object as this all needs to be replaced.</p>
 <p>Make the following changes in your config object so that it looks like this:</p>
-<pre class="language-javascript"><code class="lang-javascript">exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript">exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
     <span class="token literal-property property">chromeDriver</span><span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'chromedriver/lib/chromedriver'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">,</span>
     <span class="token constant">SELENIUM_PROMISE_MANAGER</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token literal-property property">directConnect</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
@@ -259,7 +270,7 @@ Adding the above Serenity/JS dependencies should bring all runtime dependencies 
 </code></pre>
 <h3 id="the-new-consolereporter">The new ConsoleReporter</h3>
 <p>The new ConsoleReporter supports several colour themes, which you can choose by calling either of the following factory methods:</p>
-<pre class="language-javascript"><code class="lang-javascript">ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="language-javascript"><code class="language-javascript">ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 ConsoleReporter<span class="token punctuation">.</span><span class="token function">forMonochromaticTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 ConsoleReporter<span class="token punctuation">.</span><span class="token function">forLightTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -270,14 +281,14 @@ ConsoleReporter<span class="token punctuation">.</span><span class="token functi
 Jasmine is recommended as the switch to it should be trivial. There are very few differences between how mocha and jasmine specs now look, 
 given that assertions for all runners will use the new <code>@serenity-js/assertions</code>, exposing a uniform <code>Ensure</code> API.
 So if you previously used mocha then remove your <code>mochaOpts</code> section:</p>
-<pre class="language-javascript"><code class="lang-javascript"> <span class="token literal-property property">mochaOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"> <span class="token literal-property property">mochaOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token literal-property property">ui</span><span class="token operator">:</span> <span class="token string">"bdd"</span><span class="token punctuation">,</span>
     <span class="token literal-property property">compiler</span><span class="token operator">:</span> <span class="token string">"ts:ts-node/register"</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <h4 id="cucumber">Cucumber</h4>
 <p>If you use Cucumber, you'll need a section similar to this: </p>
-<pre class="language-javascript"><code class="lang-javascript"> <span class="token literal-property property">cucumberOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"> <span class="token literal-property property">cucumberOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token literal-property property">require</span><span class="token operator">:</span> <span class="token punctuation">[</span>
             <span class="token string">'features/step_definitions/**/*.ts'</span><span class="token punctuation">,</span>
             <span class="token string">'features/support/*.ts'</span><span class="token punctuation">,</span>
@@ -289,7 +300,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <p>Make sure you add a folder (e.g. support) and reference a setup.ts file this within the require array section where you can add any global configuration and setup (explained below)</p>
 <h4 id="jasmine">Jasmine</h4>
 <p>If you use Jasmine, you'll need a section similar to this:</p>
-<pre class="language-javascript"><code class="lang-javascript"> <span class="token literal-property property">jasmineNodeOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"> <span class="token literal-property property">jasmineNodeOpts</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token literal-property property">requires</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"ts-node/register"</span>
     <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -301,7 +312,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <p>Make sure you add a folder (e.g. support) and reference a setup.ts file this within the require array section where you can add any global configuration and setup (explained in next section)</p>
 <h3 id="changes-to-the-cast">Changes to the Cast</h3>
 <p>If you had a <code>Cast</code> implementation that set up the default abilities on your actors like this in your 1.x project:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> BrowseTheWeb<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay-protractor"</span><span class="token punctuation">;</span>
 
@@ -313,10 +324,9 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
             <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>notepad<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-
 </code></pre>
 <p>Then this will now need to be replaced by a version 2.x equivalent:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 
@@ -330,7 +340,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Your Cast may configure different abilities, if for example you are using a local HTTP server or calling an API:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ManageALocalServer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/local-server'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> CallAnApi <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
 
@@ -348,7 +358,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <p>The above file will need to be placed in the <code>support</code> location specified for your test runner. See previous test runner sections where the specifics of each are explained.</p>
 <p>If you want to perform global setup for all of your features, you can create a file e.g. called <code>configure_cast.ts</code> containing the following and place in the <code>support</code> location specified for your test runner:</p>
 <p>For Jasmine: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Actors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../screenplay/actors"</span><span class="token punctuation">;</span>
 
 <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -356,7 +366,7 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>For Cucumber: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Actors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../screenplay/actors"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Before <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'cucumber'</span><span class="token punctuation">;</span>
 
@@ -365,12 +375,12 @@ So if you previously used mocha then remove your <code>mochaOpts</code> section:
 <p>Alternatively, this can be added at the top of your test(s) if you don't wish to apply this configuration globally.</p>
 <h3 id="browser-synchronisation">Browser Synchronisation</h3>
 <p>If your Serenity/JS project is testing a non-angular site you may have an <code>onPrepare</code> section in your protractor.config that contains the following:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     browser<span class="token punctuation">.</span>ignoreSynchronization <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <p>If this is the case you will need to change this to the new syntax as follows:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     browser<span class="token punctuation">.</span><span class="token function">waitForAngularEnabled</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
@@ -385,46 +395,44 @@ However, this can get tedious very quickly as you'll find yourself repeating the
 <thead>
 <tr>
 <th>from</th>
-<th>to </th>
+<th>to</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> serenity-js/lib/serenity-protractor</td>
-<td>@serenity-js/protractor </td>
-</tr>
-<tr>
-<td> serenity-js/lib/screenplay-protractor</td>
-<td>@serenity-js/protractor </td>
-</tr>
-<tr>
-<td> serenity-js/protractor</td>
+<tbody><tr>
+<td>serenity-js/lib/serenity-protractor</td>
 <td>@serenity-js/protractor</td>
 </tr>
 <tr>
-<td> serenity-js/lib/screenplay</td>
+<td>serenity-js/lib/screenplay-protractor</td>
+<td>@serenity-js/protractor</td>
+</tr>
+<tr>
+<td>serenity-js/protractor</td>
+<td>@serenity-js/protractor</td>
+</tr>
+<tr>
+<td>serenity-js/lib/screenplay</td>
 <td>@serenity-js/core</td>
 </tr>
 <tr>
-<td> @serenity-js/core/lib/screenplay</td>
+<td>@serenity-js/core/lib/screenplay</td>
 <td>@serenity-js/core</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="changes-to-target-arguments">Changes to Target arguments</h3>
 <h4 id="target-argument-types">Target argument types</h4>
 <p>It's quite likely that you'll have written some custom <code>Activity</code> classes in your project where a <code>Target</code> has been passed as an argument - for instance in the constructor:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> <span class="token literal-property property">target</span><span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> <span class="token literal-property property">target</span><span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>In the task you are likely to be passing the target to a built-in task like <code>Click.on(this.target))</code>. If this is the case you will now find that there is a compilation error on <code>Click</code> as <code>Target</code> is now passed using a different type.
 So, any place that you used to pass Target as a type will now need to be changed to a union type: <code>Question&lt;ElementFinder&gt; | ElementFinder</code>. So now your constructor will look like this: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> <span class="token literal-property property">target</span><span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> <span class="token literal-property property">target</span><span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>This will need additional imports to added as follows:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 </code></pre>
-<h4 id="webelement-of-">WebElement.of()</h4>
+<h4 id="webelementof">WebElement.of()</h4>
 <p>In Serenity/JS 1.x <code>WebElement.of()</code> could be used to wrap a <code>Target</code> in order to return a <code>WebElement</code> but this is no longer valid syntax and should be replaced with <code>answeredby()</code> as explained in the next section. </p>
 <h4 id="migration-of-target-to-webelement-resolution-code">Migration of Target to WebElement resolution code</h4>
 <p>In Serenity/JS 1.x, a <code>Target</code> was resolved to a <code>WebElement</code> by means of the <code>locate</code> method on the <code>BrowseTheWeb</code> ability. 
@@ -433,8 +441,8 @@ However this approach will no longer work because <code>locate()</code> now take
 <p>All areas of your 1.x code that use the above method of <code>Target</code> resolution will need to be migrated to call the <code>answeredBy</code> method on the the <code>ElementFinder</code>.
 This approach is perhaps better demonstrated by means of a simple example <code>Question</code> called <code>CheckedValue</code> which takes a <code>Target</code> as an argument and in the <code>answeredBy</code> method the Target is resolved to a WebElement
  and the <code>isSelected()</code> value is resolved from it. The code for <code>CheckedValue</code> is now shown using both Serenity/JS 1.x and Serenity/JS 2.x implementations:</p>
-<h5 id="serenity-js-1-x-implementation-of-checkedvalue-question">Serenity/JS 1.x implementation of CheckedValue Question</h5>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
+<h5 id="serenityjs-1x-implementation-of-checkedvalue-question">Serenity/JS 1.x implementation of CheckedValue Question</h5>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckedValue</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
@@ -449,7 +457,6 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 
   <span class="token function-variable function">toString</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">the checked value of </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-
 </code></pre>
 <p>In the example above:</p>
 <ol>
@@ -457,8 +464,8 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 <li>the <code>BrowseTheWeb</code> ability was used to resolve a <code>WebElement</code> by passing the <code>Target</code> to the <code>locate</code> method.</li>
 <li><code>isSelected()</code> method is called on the <code>WebElement</code>. </li>
 </ol>
-<h5 id="serenity-js-2-x-implementation-of-checkedvalue-question">Serenity/JS 2.x implementation of CheckedValue Question</h5>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
+<h5 id="serenityjs-2x-implementation-of-checkedvalue-question">Serenity/JS 2.x implementation of CheckedValue Question</h5>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 
@@ -478,7 +485,7 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 <p>In the example above:</p>
 <ol>
 <li><code>Question&lt;ElementFinder&gt; | ElementFinder</code> is now passed in the constructor.</li>
-<li><code>answeredBy</code> method is called on the the <code>ElementFinder</code> which returns a <code>WebElement</code>. </li>
+<li> <code>answeredBy</code> method is called on the the <code>ElementFinder</code> which returns a <code>WebElement</code>. </li>
 <li><code>isSelected()</code> method is called on the <code>WebElement</code>. </li>
 <li>Note also that <code>promiseOf</code> is used as a wrapper in order to ensure that a native <code>Promise</code> is returned as described in <a href="/handbook/integration/serenity-2-migration-guide.html#migrate-promiselike-to-promise">Migrate PromiseLike to Promise</a>.</li>
 </ol>
@@ -494,16 +501,15 @@ For instance it was common place to see <code>BrowseTheWeb.as(actor).locateAll(t
 <li>call the <code>answeredBy</code> method on the <code>TargetElements</code> using the form: <code>&lt;TargetElements&gt;.answeredBy(actor)</code>. This will return a <code>WebElement[]</code> array which you can then transform, interact with and/or return values from.</li>
 </ul>
 <p>Note that the <code>TargetElements</code>, is new to Serenity/JS 2.x. An object of this type is created by calling the <code>all()</code> method on <code>Target</code> in contrast to the historically used <code>the()</code> method. For instance:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> <span class="token literal-property property">bookTitles</span><span class="token operator">:</span> TargetElements <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">"book titles"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"book-title"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token literal-property property">bookTitles</span><span class="token operator">:</span> TargetElements <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">"book titles"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"book-title"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Here is an example <code>answeredBy()</code> method body of a <code>Question</code> showing how <code>TargetElements</code> can be resolved to a <code>WebElement[]</code> array and then filtered and mapped in order to extract the element text:  </p>
-<pre class="language-javascript"><code class="lang-javascript">   <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>string<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript">   <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>string<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
      <span class="token keyword">const</span> <span class="token literal-property property">bookTitles</span><span class="token operator">:</span> TargetElements <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">"book titles"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"book-title"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
      <span class="token keyword">return</span> <span class="token function">promiseOf</span><span class="token punctuation">(</span>bookTitles<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">option</span> <span class="token operator">=&gt;</span> option<span class="token punctuation">.</span><span class="token function">isSelected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">values</span> <span class="token operator">=&gt;</span> values<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token punctuation">}</span>
-
 </code></pre>
 <h3 id="migrate-promiselike-to-promise">Migrate PromiseLike to Promise</h3>
 <h4 id="background">Background</h4>
@@ -512,7 +518,7 @@ The selenium / webdriver project is now moving towards Native Promise support wi
 <p>Because controlflow promise chains do not return true promises, they return data via the <code>PromiseLike</code> interface which returns only a basic <a href="https://promisesaplus.com/#point-7">thenable</a> object containing the <code>then</code> method.</p>
 <p>However, <code>Promise</code> also implements a <code>catch</code> method enabling better structured and documented error handling to be implemented, combined with superior flow control in the event of exceptions thrown within a promise chain. 
 For example, you could use the <code>catch</code> method to implement a retry of your question in the event of a specific webdriver exception such as <code>StaleElementReferenceError</code> condition as follows:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">result<span class="token punctuation">,</span> rowIndex</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">doSomething</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> rowIndex<span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">doSomethingElse</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">doAfinalThing</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -525,7 +531,6 @@ For example, you could use the <code>catch</code> method to implement a retry of
       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token punctuation">}</span>
-
 </code></pre>
 <p>Previously error handling would have to be implemented by passing the error handling function as the second <code>onRejected</code> argument <code>then</code> which is far less obvious to someone maintaining or debugging the code. </p>
 <h4 id="how-to-migrate-promise-code">How to migrate Promise code</h4>
@@ -534,7 +539,7 @@ The first step of the process is to perform a global replacement of <code>Promis
 <p>Once you have done this, You may find that some of your <code>answeredBy</code> methods on your <code>Question</code> types , now fail to compile due to the following error <code>Error:(x, y) TS2739: Type 'Promise&lt;boolean&gt;' is missing the following properties from type 'Promise&lt;boolean&gt;': [Symbol.toStringTag], finally</code>:
 For example in the <code>UploadError Question</code> below <code>WalksTargets.uploadResultSummary</code> is a <code>TargetElement</code>, however this will not compile because any method on WebElement returns a 
 webdriver promise <code>wdpromise.Promise</code> which is not the same as a native <code>Promise</code>:</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> WalksTargets <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../ui/ramblers/walksTargets"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">UploadError</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
@@ -553,7 +558,7 @@ webdriver promise <code>wdpromise.Promise</code> which is not the same as a nati
 </code></pre>
 <p>So to get over this, you will need to wrap the returned statement in <code>promiseOf</code>. This function resolves the <code>wdpromise.Promise</code>, then returns that value in a new native Promise. 
 So, to get the code to compile it will now look like this: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> WalksTargets <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../ui/ramblers/walksTargets"</span><span class="token punctuation">;</span>
 
@@ -577,7 +582,7 @@ then try adding <code>as Promise&lt;any&gt;</code> instead to see whether your c
 <h2 id="migrating-activity-code">Migrating Activity code</h2>
 <h3 id="migrating-step-annotations">Migrating @step annotations</h3>
 <p>It's quite possible that you have classes in your 1.x project that have <code>@step</code> annotations. An example <code>Task</code> is as shown in <code>(1)</code> below which disables Angular synchronisation and then opens a supplied <code>url</code>: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NavigateToNonAngular</span> <span class="token keyword">implements</span> <span class="token class-name">Task</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NavigateToNonAngular</span> <span class="token keyword">implements</span> <span class="token class-name">Task</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">static</span> <span class="token function">url</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">url</span><span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">NavigateToNonAngular</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -597,18 +602,18 @@ then try adding <code>as Promise&lt;any&gt;</code> instead to see whether your c
 </code></pre>
 <p>If you have used <code>@step</code> annotations as in the above example, you will now have to re-implement them with an equivalent <code>toString()</code> method as <code>@step</code> has been removed in version 2.x. 
 An equivalent example of the <code>toString()</code> method for the above is as follows :  </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token string">"#actor navigates to #url"</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
 <p>There isn't really a straightforward using search/replace to accomplish this task as it requires the original string passed to the annotation to be cut from its original location and appended to the return statement. 
 Be sure to replace the actor placeholder <code>{0}</code> with <code>#actor</code> in the final string. You will also have to remove the step import as well:  </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> step <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/recording"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> step <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/recording"</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="simplifying-tasks-using-task-where">Simplifying Tasks using Task.where</h3>
+<h3 id="simplifying-tasks-using-taskwhere">Simplifying Tasks using Task.where</h3>
 <p>Serenity/JS 2.x now has factory for creating tasks by means of <a href="https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where">Task.where</a>. 
 For instance here is a re-written version of the <code>NavigateToNonAngular</code> example <code>Task</code> described in the previous section:</p>
-<pre class="language-javascript"><code class="lang-javascript">Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor navigates to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>url<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+<pre class="language-javascript"><code class="language-javascript">Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor navigates to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>url<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
     UseAngular<span class="token punctuation">.</span><span class="token function">disableSynchronisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     Open<span class="token punctuation">.</span><span class="token function">browserOn</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">)</span><span class="token punctuation">}</span>
@@ -621,50 +626,47 @@ Whilst this syntax was available in Serenity/JS 1.x, but it may be worth re-writ
 <thead>
 <tr>
 <th>from</th>
-<th>to  </th>
+<th>to</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> WaitForAlert.toBePresent()</td>
-<td>Wait.until(Alert.visibility(), equals(true)) </td>
+<tbody><tr>
+<td>WaitForAlert.toBePresent()</td>
+<td>Wait.until(Alert.visibility(), equals(true))</td>
 </tr>
 <tr>
-<td> WaitForAlert.toBeAbsent()</td>
-<td>Wait.until(Alert.visibility(), equals(false)) </td>
+<td>WaitForAlert.toBeAbsent()</td>
+<td>Wait.until(Alert.visibility(), equals(false))</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h4 id="alert-related-imports">Alert related imports</h4>
 <p>These can be removed</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Alert <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor/screenplay/interactions/alert"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Alert <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor/screenplay/interactions/alert"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> WaitForAlert <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor/screenplay/interactions/waitForAlert"</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="migrating-assertions">Migrating Assertions</h2>
 <h3 id="chai">chai</h3>
 <p>If you previously had a chai configuration class in your project you can delete / deference this as this will no longer be needed. </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> chai <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"chai"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> chai <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"chai"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> chaiAsPromised <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"chai-as-promised"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 chai<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>chaiAsPromised<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">const</span> expect <span class="token operator">=</span> chai<span class="token punctuation">.</span>expect<span class="token punctuation">;</span>
 </code></pre>
-<h3 id="migrating-see-if-to-ensure-that">Migrating See.if to Ensure.that</h3>
+<h3 id="migrating-seeif-to-ensurethat">Migrating See.if to Ensure.that</h3>
 <p>Serenity/JS 2.x now has a completely rewritten <a href="https://serenity-js.org/modules/assertions/">assertions</a> library. 
 in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, however the new assertion syntax now begins with <a href="https://serenity-js.org/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure.that</a>.<br>All assertions and expectations can be found in <code>@serenity-js/assertions</code>, so you'll typically see all imports grouped together as follows: </p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> Ensure<span class="token punctuation">,</span> and<span class="token punctuation">,</span> or<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan<span class="token punctuation">,</span> equals<span class="token punctuation">,</span> not <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/assertions"</span><span class="token punctuation">;</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> Ensure<span class="token punctuation">,</span> and<span class="token punctuation">,</span> or<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan<span class="token punctuation">,</span> equals<span class="token punctuation">,</span> not <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/assertions"</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Some examples of how the 1.x syntax can be migrated to the the 2.x syntax are as follows:</p>
 <table>
 <thead>
 <tr>
 <th>from</th>
-<th>to </th>
+<th>to</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>See.if(WalksAndEventsManagerQuestions.LoginStatus, equals("Login"))</td>
 <td>Ensure.that(WalksAndEventsManagerQuestions.LoginStatus, equals("Login"))</td>
 </tr>
@@ -672,21 +674,19 @@ in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, howe
 <td>Wait.upTo(Duration.ofSeconds(10)).until(WalksTargets.chatWindow, Is.invisible())</td>
 <td>Wait.upTo(Duration.ofSeconds(10)).until(WalksTargets.chatWindow, not(isVisible()))</td>
 </tr>
-</tbody>
-</table>
-<h3 id="is-no-longer-is-">Is no longer "Is" :-)</h3>
+</tbody></table>
+<h3 id="is-no-longer-is--">Is no longer "Is" :-)</h3>
 <p>The <code>Is</code> class from 1.x has now been replaced with <a href="https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations">expectations</a> that can be used with both Wait and Ensure. <code>Is</code> was previously in <code>serenity-js/lib/serenity-protractor</code>, but now <a href="https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations">expectations</a> can be found in <code>@serenity-js/protractor</code>. Some examples of replacements that might need to be made are as follows:</p>
 <table>
 <thead>
 <tr>
 <th>from</th>
-<th>to  </th>
+<th>to</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Is.clickable()</td>
-<td>isClickable()  </td>
+<td>isClickable()</td>
 </tr>
 <tr>
 <td>Is.enabled()</td>
@@ -704,15 +704,14 @@ in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, howe
 <td>Is.visible()</td>
 <td>isVisible()</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>A full reference of the API can be found in the <a href="https://serenity-js.org/modules/protractor/identifiers.html#expectations">expectations documentation</a>.</p>
 <h2 id="migrating-questions">Migrating Questions</h2>
 <p>The method signature for the <code>answeredBy()</code> method has changed in that the <code>PerformsTasks</code> ability has now been renamed to  <code>AnswersQuestions</code>,
 so you will need to globally replace <code>PerformsTasks</code> with <code>AnswersQuestions</code> in your entire codebase. This is pretty straightforward as the import is still from <code>@serenity-js/core/lib/screenplay</code>.</p>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsTasks <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> 
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsTasks <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> 
 </code></pre>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsActivities <span class="token operator">&amp;</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span>
+<pre class="language-javascript"><code class="language-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsActivities <span class="token operator">&amp;</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span>
 </code></pre>
 <h2 id="migrating-script-execution-tasks">Migrating Script Execution Tasks</h2>
 <p>There are some cases when you may wish to perform a low level page interaction that cannot be accomplished by means of the standard protractor API. 
@@ -724,8 +723,8 @@ The purpose of the <code>Task</code> is to first determine whether the element i
 This might be used in cases where a floating window is overlaying another element that you wish to interact with and the presence of the floating window is sometimes causing an <code>ElementClickInterceptedException</code> to be thrown resulting in your test failing or being 
 <a href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html">flaky</a>.</p>
 <p>The code for <code>Hide</code> is now shown using both Serenity/JS 1.x and Serenity/JS 2.x implementations:</p>
-<h3 id="serenity-js-1-x-implementation-of-hide-task">Serenity/JS 1.x implementation of Hide Task</h3>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> PerformsTasks<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay"</span><span class="token punctuation">;</span>
+<h3 id="serenityjs-1x-implementation-of-hide-task">Serenity/JS 1.x implementation of Hide Task</h3>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> PerformsTasks<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Hide</span> <span class="token keyword">implements</span> <span class="token class-name">Task</span> <span class="token punctuation">{</span>
@@ -758,8 +757,8 @@ This might be used in cases where a floating window is overlaying another elemen
 </ul>
 </li>
 </ol>
-<h3 id="serenity-js-2-x-implementation-of-hide-task">Serenity/JS 2.x implementation of Hide Task</h3>
-<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> PerformsActivities<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<h3 id="serenityjs-2x-implementation-of-hide-task">Serenity/JS 2.x implementation of Hide Task</h3>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> PerformsActivities<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ExecuteScript <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
