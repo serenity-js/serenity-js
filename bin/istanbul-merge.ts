@@ -13,7 +13,7 @@ const input = [
 
 console.log('Reading coverage reports from', input);
 
-const paths = glob(input, { onlyFiles: false, globstar: false, absolute: true });
+const paths = glob(input, { onlyFiles: false, globstar: true, absolute: true });
 
 for (const pathToCoverageFile of paths) {
     const contents = readFileSync(pathToCoverageFile).toString('utf-8');
