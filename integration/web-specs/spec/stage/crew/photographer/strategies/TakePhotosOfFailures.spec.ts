@@ -4,10 +4,12 @@ import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
-import { BrowseTheWeb, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
+import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures, Wait } from '@serenity-js/web';
 
 import { create } from '../create';
 import { Perform } from '../fixtures';
+import { Duration } from '@serenity-js/core';
+import { isPresent } from '@serenity-js/assertions';
 
 describe('Photographer', () => {
 
@@ -44,6 +46,24 @@ describe('Photographer', () => {
                         expect(event.artifact).to.be.instanceof(Photo);
                     });
             })));
+
+        it.only('takes a photo when a timeout is reached', () =>
+            expect(
+                stage.theActorCalled('Betty')
+                    .attemptsTo(
+                        Wait.upTo(Duration.ofMilliseconds(100))
+                            .until(PageElement.located(By.css('#invalid')), isPresent())
+                    )
+            ).to.be.rejected.then(() =>
+                stage.waitForNextCue().then(() => {
+
+                    PickEvent.from(recorder.events)
+                        .next(ActivityRelatedArtifactGenerated, event => {
+                            expect(event.name.value).to.match(/Betty waits up to 100ms/);
+                            expect(event.artifact).to.be.instanceof(Photo);
+                        });
+                }))
+        );
 
         it(`correlates the photo with the activity it is concerning`, () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
