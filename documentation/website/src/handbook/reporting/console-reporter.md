@@ -10,8 +10,8 @@ cta: cta-share
 The reporter supports colour schemes for both light and dark terminals.
 
 <figure>
-![Report produced by `ConsoleReporter`](/handbook/reporting/images/console-reporter.png)
-    <figcaption><span>Example report produced by [`ConsoleReporter`](/modules/console-reporter)</span></figcaption>
+    <img src="/handbook/reporting/images/console-reporter.png" alt="Report produced by `ConsoleReporter`" />
+    <figcaption>Example report produced by <a href="/modules/console-reporter"><code>ConsoleReporter</code></a></figcaption>
 </figure>
 
 ## Installation
@@ -30,28 +30,21 @@ npm install --save-dev @serenity-js/{core,console-reporter}
 graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
-
     S["Serenity"]
     CR["ConsoleReporter"]
     T["fas:fa-terminal text report"]
-    
     TRA -- notifies --> S
     A -- notify --> S
-
     S -- notifies --> CR
     CR -- prints --> T
-    
     subgraph "core"
     S
     end
-
     subgraph "console-reporter"
     CR
     end
-
     class A socket
     class TRA socket
-    
     click A "/handbook/design/actors.html"
     click S "/modules/core/class/src/Serenity.ts~Serenity.html"
     click CR "/modules/console-reporter"

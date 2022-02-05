@@ -25,25 +25,19 @@ npm install --save-dev @serenity-js/core
 graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
-
     S["Serenity"]
     SR[StreamReporter]
     T["fas:fa-terminal serialised events"]
     Log["fas:fa-file log.ndjson"]
-    
     TRA -- notifies --> S
     A -- notify --> S
-
     subgraph "core"
-    S -- notifies --> SR
+        S -- notifies --> SR
     end
-
     SR -- prints --> T
-    SR -- writes --> Log
-    
+    SR -- writes --> Log 
     class A socket
     class TRA socket
-
     click A "/handbook/design/actors.html"
     click S "/modules/core"
     click SR "/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"

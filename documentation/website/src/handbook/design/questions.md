@@ -11,7 +11,7 @@ Answering a question enables the [actor](/handbook/design/actors.html) to retrie
 Such information can then be passed to an [interaction](/handbook/design.interactions.html), [asserted on](/modules/assertions/class/src/Ensure.ts~Ensure.html), or used to [control flow](/modules/assertions/class/src/Check.ts~Check.html) of the scenario.
 
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern" />
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -61,7 +61,7 @@ In the above example we retrieve actor's ability to `BrowseTheWeb` and then use 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The function provided as a question body can return an answer either synchronously or asynchronously using a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+    The function provided as a question body can return an answer either synchronously or asynchronously using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>.
     </p></div>
 </div>
 
@@ -121,14 +121,14 @@ class NewComment {
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-        All those [`Target.the`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the) 
-        statements above create questions that, when [answered](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-answer) by the actor,
-        resolve to [`ElementFinder`](https://www.protractortest.org/#/api?view=ElementFinder) objects (or in case of
-        [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all) -
-        [`ElementArrayFinder`](https://www.protractortest.org/#/api?view=ElementArrayFinder) objects),
+        All those <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-the"><code>Target.the</code></a> 
+        statements above create questions that, when <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-answer">answered</a> by the actor,
+        resolve to <a href="https://www.protractortest.org/#/api?view=ElementFinder"><code>ElementFinder</code></a> objects (or in case of
+        <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all"><code>Target.all</code></a> -
+        <a href="https://www.protractortest.org/#/api?view=ElementArrayFinder"><code>ElementArrayFinder</code></a> objects),
         which are Protractor's extensions of the regular
-        [`WebElement`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html)
-        class coming from the [`selenium-webdriver`](https://www.npmjs.com/package/selenium-webdriver) module.
+        <a href="https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html"><code>WebElement</code></a>
+        class coming from the <a href="https://www.npmjs.com/package/selenium-webdriver"><code>selenium-webdriver</code></a> module.
     </p></div>
 </div>
 
@@ -233,8 +233,8 @@ There's more to `.map()` method, though:
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The interaction to [`Ensure`](/modules/assertions/class/src/Ensure.ts~Ensure.html) is responsible for performing assertions and comes from the `@serenity-js/assertions` module.
-    You'll learn more about them in the [next chapter](/handbook/design/assertions.html).
+    The interaction to <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> is responsible for performing assertions and comes from the <code>@serenity-js/assertions</code> module.
+    You'll learn more about them in the <a href="/handbook/design/assertions.html">next chapter</a>.
     </p></div>
 </div>
 

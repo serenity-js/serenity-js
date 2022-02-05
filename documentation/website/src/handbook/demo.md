@@ -17,15 +17,18 @@ Check out the [demo project](https://github.com/serenity-js/full-stack-acceptanc
 
 <div class="pro-tip">
     <div class="icon"><i class="fab fa-youtube"></i></div>
-    <div class="text"><p><strong>New demo using WebdriverIO is coming soon!</strong>
-
-    Follow us on Twitter and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when it's available.
-    </p><p>
-    <a href="https://twitter.com/@SerenityJS" class="img-link">
-        <img src="https://img.shields.io/twitter/follow/SerenityJS?style=social" alt="Follow SerenityJS on Twitter" />
-    </a>
-    <a href="https://twitter.com/@JanMolak" class="img-link">
-        <img src="https://img.shields.io/twitter/follow/JanMolak?style=social" alt="Follow JanMolak on Twitter" />
-    </a>
-</p></div>
+    <div class="text">
+        <p>
+            <strong>New demo using WebdriverIO is coming soon!</strong>
+            Follow us on Twitter and subscribe to <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q">Serenity/JS YouTube channel</a> to get notified when it's available.
+        </p>
+        <p>
+            <a href="https://twitter.com/@SerenityJS" class="img-link">
+                <img src="https://img.shields.io/twitter/follow/SerenityJS?style=social" alt="Follow SerenityJS on Twitter" />
+            </a>
+            <a href="https://twitter.com/@JanMolak" class="img-link">
+                <img src="https://img.shields.io/twitter/follow/JanMolak?style=social" alt="Follow JanMolak on Twitter" />
+            </a>
+        </p>
+    </div>
 </div>

@@ -9,7 +9,7 @@ a low-level activity, directly exercising the [actor's](/handbook/design/actors.
  to interact with a specific external interface of the system under test or perform a [side-effect](https://en.wikipedia.org/wiki/Side_effect_&#40;computer_science&#41;). Such external interface could be a website, a mobile app, a web service, but also a file system, a database, or pretty much anything else a Node.js program can integrate with.
 
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern" />
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -50,7 +50,7 @@ With this simple "ability" in place, let's now look into the different ways we c
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
     If you'd like the actor to print messages to your computer terminal,
-    consider using the built-in [`Log`](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html) interaction.
+    consider using the built-in <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html"><code>Log</code></a> interaction.
     </p></div>
 </div>
 
@@ -77,7 +77,7 @@ the interaction,
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The `#actor` part of the description will get replaced by the actor
+    The <code>#actor</code> part of the description will get replaced by the actor
     name when the interaction is reported.
     </p></div>
 </div>
@@ -141,8 +141,8 @@ However, the inheritance approach allows you to add helper methods, such as `joi
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    All Serenity/JS interactions **must** extend the base [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html)
-    class to allow for the framework to correctly distinguish them from other activities, such as [tasks](/handbook/design/tasks.html).
+    All Serenity/JS interactions <strong>must</strong> extend the base <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a>
+    class to allow for the framework to correctly distinguish them from other activities, such as <a href="/handbook/design/tasks.html">tasks</a>.
     </p></div>
 </div>
 
@@ -161,11 +161,13 @@ actor.attemptsTo(
 Performing this interaction will result in the actor printing `Hello Alice, Bob and Cindy!` to the output stream.
 
 <div class="pro-tip">
-    <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong>
-    Interactions extending the base `Interaction` class **have to** return a `Promise<void>`.<br />
-    Interactions created using `Interaction.where` can return either `Promise<void>` or `void`.
-    </p></div>
+  <div class="icon"><i class="fas fa-lightbulb"></i></div>
+   <div class="text">
+     <p><strong>PRO TIP:</strong>
+       Interactions extending the base <code>Interaction</code> class <strong>have to</strong> return a <code>Promise&lt;void&gt;</code>.
+       Interactions created using <code>Interaction.where</code> can return either <code>Promise&lt;void&gt;</code> or <code>void</code>.
+     </p>
+   </div>
 </div>
 
 

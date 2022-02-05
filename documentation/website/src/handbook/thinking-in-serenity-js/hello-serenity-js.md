@@ -58,7 +58,12 @@ npm install --save-dev @serenity-js/core
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Apart from providing modules to integrate your test scenarios with the various interfaces of your system, Serenity/JS also provides adapters for popular test runners, such as [Mocha](/modules/mocha), [Jasmine](/modules/jasmine), [Cucumber](/modules/cucumber), [Protractor](/modules/protractor) and [WebdriverIO](/modules/webdriverio). We'll talk more about that in the next chapter.
+    Apart from providing modules to integrate your test scenarios with the various interfaces of your system, Serenity/JS also provides adapters for popular test runners, such as 
+    <a href="/modules/mocha">Mocha</a>, 
+    <a href="/modules/jasmine">Jasmine</a>, 
+    <a href="/modules/cucumber">Cucumber</a>, 
+    <a href="/modules/protractor">Protractor</a> and 
+    <a href="/modules/webdriverio">WebdriverIO</a>. We'll talk more about that in the next chapter.
     </p></div>
 </div>
 
@@ -109,7 +114,7 @@ In the code sample above, you'll notice that we've:
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    [`Log.the`](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html#static-method-the) is a factory method that instantiates a new [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) to [`Log`](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html). 
+    <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html#static-method-the"><code>Log.the</code></a> is a factory method that instantiates a new <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a> to <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html"><code>Log</code></a>. 
     <br />
     All the built-in Serenity/JS interactions leverage either "factory method" or "builder" design patterns to help you write code that's easy to read and understand.
     </p></div>
@@ -171,7 +176,7 @@ In the code sample above, we:
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Just like the [design patterns](/handbook/design/index.html) in the Serenity/JS scenarios revolve around the [system metaphor](http://www.extremeprogramming.org/rules/metaphor.html) of a [stage performance](/handbook/design/screenplay-pattern.html), Serenity/JS _reporting_ and _supporting_ services follow the metaphor of a [stage crew](https://en.wikipedia.org/wiki/Running_crew).
+    Just like the <a href="/handbook/design/index.html">design patterns</a> in the Serenity/JS scenarios revolve around the <a href="http://www.extremeprogramming.org/rules/metaphor.html">system metaphor</a> of a <a href="/handbook/design/screenplay-pattern.html">stage performance</a>, Serenity/JS <em>reporting</em> and <em>supporting</em> services follow the metaphor of a <a href="https://en.wikipedia.org/wiki/Running_crew">stage crew</a>.
     </p></div>
 </div>
 
@@ -193,7 +198,7 @@ If you haven't used TypeScript before, don't worry! I'll show you enough to beco
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Serenity/JS was born in June 2016, and to my knowledge was the first test framework written entirely in [TypeScript](https://www.typescriptlang.org/) from the very beginning.
+    Serenity/JS was born in June 2016, and to my knowledge was the first test framework written entirely in <a href="https://www.typescriptlang.org/">TypeScript</a> from the very beginning.
   </p></div>
 </div>
 
@@ -250,7 +255,7 @@ The output produced by the TypeScript version of your scenario should remain the
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    When Serenity/JS is used with a test runner like Cucumber or WebdriverIO, you can configure the test runner to use `ts-node`, so that you don't have to invoke the module explicitly.
+    When Serenity/JS is used with a test runner like Cucumber or WebdriverIO, you can configure the test runner to use <code>ts-node</code>, so that you don't have to invoke the module explicitly.
   </p><p>
     We'll talk more about it in the next chapter
  </p></div>

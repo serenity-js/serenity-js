@@ -113,7 +113,6 @@ Metalsmith(__dirname)
         }
     }))
     .use(autotoc({selector: 'h2'}))
-    // todo: Do I need this?
     .use(highlightPrism(Prism))
     .use(pathToFile())
     .use(layouts({
