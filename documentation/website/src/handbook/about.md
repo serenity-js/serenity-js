@@ -24,9 +24,14 @@ If you'd like to dive straight into the code, visit [Serenity/JS GitHub](https:/
             The Serenity/JS Handbook is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.
         </p>
         <p>
-            However, just like the Serenity/JS framework itself, this book is open-source too. If there are topics you'd like to see explained in more detail, please [consider contributing](/contributing.html) by raising a ticket, correcting any errors or typos, or [sponsoring the evolution](/support.html) of the Serenity/JS project. 
+            However, just like the Serenity/JS framework itself, this book is open-source too. If there are topics you'd like to see explained in more detail, please <a href="/contributing.html">consider contributing</a> by raising a ticket, correcting any errors or typos, or <a href="/support.html">sponsoring the evolution</a> of the Serenity/JS project. 
+        </p>        
+        <p>
+            <a class="github-button" 
+                href="https://github.com/sponsors/serenity-js" 
+                data-icon="octicon-heart" 
+                data-size="large" 
+                aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
         </p>
-        
-        <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
     </div>
 </div>

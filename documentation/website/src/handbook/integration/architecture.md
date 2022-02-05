@@ -15,7 +15,7 @@ In order to do that, Serenity/JS:
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS is by using one of the [template projects available on GitHub](https://github.com/serenity-js/). Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS is by using one of the <a href="https://github.com/serenity-js/">template projects available on GitHub</a>. Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div> 
 
@@ -25,7 +25,7 @@ Serenity/JS Framework is a collection of [modules](/modules) you compose togethe
 If you wish, you could also extend Serenity/JS to use a different integration library or interact with an interface that the framework itself doesn't support yet.
 
 <figure>
-![Serenity/JS modules](/images/architecture.png)
+    <img src="/images/architecture.png" alt="Serenity/JS modules" />
     <figcaption><span>Serenity/JS Modules</span></figcaption>
 </figure>
 
@@ -105,7 +105,7 @@ On the other hand, if you were interested in basic reporting capabilities and we
     <div class="icon"><i class="fas fa-tools"></i></div>
     <div class="text">
         <p>
-            This section is coming soon. Stay tuned or learn how you can [support the project](/support.html)!
+            This section is coming soon. Stay tuned or learn how you can <a href="/support.html">support the project</a>!
         </p>
         <p><a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a></p>
     </div>

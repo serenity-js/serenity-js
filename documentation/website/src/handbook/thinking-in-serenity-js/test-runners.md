@@ -25,7 +25,7 @@ Alternatively, you can [fork](https://docs.github.com/en/get-started/quickstart/
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    While you could _just clone_ the original repository, creating a [fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and cloning a forked copy instead will give you a place where you can [commit](https://github.com/git-guides/git-commit) and [push](https://github.com/git-guides/git-push) your local changes for future reference.  
+    While you could <em>just clone</em> the original repository, creating a <a href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">fork</a> and cloning a forked copy instead will give you a place where you can <a href="https://github.com/git-guides/git-commit">commit</a> and <a href="https://github.com/git-guides/git-push">push</a> your local changes for future reference.  
     </p></div>
 </div>
 
@@ -68,7 +68,7 @@ This should produce a result similar to:
     <div class="text"><p><strong>Did you know?</strong>
     Neither Mocha nor Serenity/JS force you to use any specific name or location of your test directory.
     </p><p>
-    Since I'm a practitioner of [Behaviour-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development), I like to call this directory `spec` to highlight that it contains [executable specifications](https://en.wikipedia.org/wiki/Specification_by_example) of the system I'm working on. If you prefer a different name that's perfectly fine too 😊
+    Since I'm a practitioner of <a href="https://en.wikipedia.org/wiki/Behavior-driven_development">Behaviour-Driven Development</a>, I like to call this directory <code>spec</code> to highlight that it contains <a href="https://en.wikipedia.org/wiki/Specification_by_example">executable specifications</a> of the system I'm working on. If you prefer a different name that's perfectly fine too 😊
     </p></div>
 </div>
 
@@ -100,7 +100,7 @@ The above command should again produce a result similar to:
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Mocha repository on GitHub contains a [great example](https://github.com/mochajs/mocha/blob/09ffc30b43db53b0cb3f54670132270271d8fe97/example/config/.mocharc.yml) of all the configuration properties you can specify in `.mocharc.yml`
+    Mocha repository on GitHub contains a <a href="https://github.com/mochajs/mocha/blob/09ffc30b43db53b0cb3f54670132270271d8fe97/example/config/.mocharc.yml">great example</a> of all the configuration properties you can specify in <code>.mocharc.yml</code>
     </p></div>
 </div>
 
@@ -205,7 +205,7 @@ you should see results similar to the below:
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
     <p><strong>Did you notice?</strong>
-    In the example above, any test that throws an `Error` is marked as "failing", no matter the _kind_ of error it throws. 
+    In the example above, any test that throws an <code>Error</code> is marked as "failing", no matter the <em>kind</em> of error it throws. 
     </p><p>
     This might not be a problem when it comes to unit tests, since the scope they operate on is small. However, in the context of high-level acceptance or integration tests, being able to differentiate between assertion failures, test errors and infrastructure-related issues can save you a lot of time when analysing the results.
     </p><p>
@@ -366,12 +366,14 @@ describe('Mocha', () => {
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>Did you notice?</strong>
-        The `return` statement in the code sample above ensures that the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) returned by `actorCalled(...).attemptsTo(...)`
-        is handed over to Mocha. This is how a Serenity/JS scenario gets synchronised with the test runner.
-    </p><p>
-        We'll talk more about it in the next chapter.
-    </p></div>
+    <div class="text">
+        <p><strong>Did you notice?</strong>
+            The <code>return</code> statement in the code sample above ensures that the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a> returned by <code>actorCalled(...).attemptsTo(...)</code> is handed over to Mocha. This is how a Serenity/JS scenario gets synchronised with the test runner.
+        </p>
+        <p>
+            We'll talk more about it in the next chapter.
+        </p>
+    </div>
 </div>
 
 Next, run the tests again:
