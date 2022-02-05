@@ -164,8 +164,8 @@
 <p><a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>, available as part of the <a href="/modules/console-reporter"><code>@serenity-js/console-reporter</code></a> module, writes text-based reports to your computer terminal.</p>
 <p>The reporter supports colour schemes for both light and dark terminals.</p>
 <figure>
-![Report produced by `ConsoleReporter`](/handbook/reporting/images/console-reporter.png)
-    <figcaption><span>Example report produced by [`ConsoleReporter`](/modules/console-reporter)</span></figcaption>
+    <img src="/handbook/reporting/images/console-reporter.png" alt="Report produced by `ConsoleReporter`">
+    <figcaption>Example report produced by <a href="/modules/console-reporter"><code>ConsoleReporter</code></a></figcaption>
 </figure>
 
 <h2 id="installation">Installation</h2>
@@ -178,32 +178,24 @@
 graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
-
-<pre class="language-typescript"><code><span class="token constant">S</span><span class="token punctuation">[</span><span class="token string">"Serenity"</span><span class="token punctuation">]</span>
-<span class="token constant">CR</span><span class="token punctuation">[</span><span class="token string">"ConsoleReporter"</span><span class="token punctuation">]</span>
-<span class="token constant">T</span><span class="token punctuation">[</span><span class="token string">"fas:fa-terminal text report"</span><span class="token punctuation">]</span>
-
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
-<span class="token constant">A</span> <span class="token operator">--</span> notify <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
-
-<span class="token constant">S</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">CR</span>
-<span class="token constant">CR</span> <span class="token operator">--</span> prints <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">T</span>
-
-subgraph <span class="token string">"core"</span>
-<span class="token constant">S</span>
-end
-
-subgraph <span class="token string">"console-reporter"</span>
-<span class="token constant">CR</span>
-end
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">A</span></span> socket
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
-
-click <span class="token constant">A</span> <span class="token string">"/handbook/design/actors.html"</span>
-click <span class="token constant">S</span> <span class="token string">"/modules/core/class/src/Serenity.ts~Serenity.html"</span>
-click <span class="token constant">CR</span> <span class="token string">"/modules/console-reporter"</span>
-</code></pre>
+    S["Serenity"]
+    CR["ConsoleReporter"]
+    T["fas:fa-terminal text report"]
+    TRA -- notifies --&gt; S
+    A -- notify --&gt; S
+    S -- notifies --&gt; CR
+    CR -- prints --&gt; T
+    subgraph "core"
+    S
+    end
+    subgraph "console-reporter"
+    CR
+    end
+    class A socket
+    class TRA socket
+    click A "/handbook/design/actors.html"
+    click S "/modules/core/class/src/Serenity.ts~Serenity.html"
+    click CR "/modules/console-reporter"
 </div>
 
 <h2 id="usage">Usage</h2>

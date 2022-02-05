@@ -175,7 +175,7 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS and Protractor is to use one of the [template projects](https://github.com/serenity-js/) available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS and Protractor is to use one of the <a href="https://github.com/serenity-js/">template projects</a> available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div> 
 
@@ -203,31 +203,27 @@ graph TB
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
     SPECS["fas:fa-tasks specs"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
-<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
-<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> executes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
-<span class="token constant">SPECS</span> <span class="token operator">--</span> use <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SP</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
-<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TR</span></span> socket
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">SPECS</span></span> socket
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
-
-click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
-click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
-click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
-</code></pre>
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- executes --&gt; SPECS
+    SPECS -- use --&gt; SP
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+    class TR socket
+    class TRA socket
+    class SPECS socket
+    class R socket
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
 </div>
 
 <h2 id="integrating-protractor-with-serenityjs-and-cucumber">Integrating Protractor with Serenity/JS and Cucumber</h2>
@@ -248,29 +244,25 @@ graph TB
     SPECS["fas:fa-tasks \*.feature"]
     STEPS["fas:fa-file step_definitions/*.ts"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
-<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
-<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> parses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">STEPS</span>
-<span class="token constant">STEPS</span> <span class="token operator">--</span> use <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SP</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
-<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
-
-click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
-click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
-click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
-</code></pre>
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- parses --&gt; SPECS
+    TR -- uses --&gt; STEPS
+    STEPS -- use --&gt; SP
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+    class R socket
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
 </div>
 
 <h3 id="installation">Installation</h3>
@@ -355,10 +347,10 @@ exports<span class="token punctuation">.</span>config <span class="token operato
         Cucumber.js supports <strong>only one native formatter per output</strong>.
         In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
     </p><p>
-        Please also note that when you configure Serenity/JS to use any of its [reporting services](https://serenity-js.org/handbook/reporting/index.html) (via the `serenity.crew` option), the framework will <strong>automatically disable</strong>
+        Please also note that when you configure Serenity/JS to use any of its <a href="https://serenity-js.org/handbook/reporting/index.html">reporting services</a> (via the <code>serenity.crew</code> option), the framework will <strong>automatically disable</strong>
         any native Cucumber reporters printing to the terminal to avoid overlapping output.
     </p><p>
-        You can, however, redirect output of such reporter to a file, so instead of `usage` use `usage:usage.txt`.
+        You can, however, redirect output of such reporter to a file, so instead of <code>usage</code> use <code>usage:usage.txt</code>.
     </p></div>
 </div>
 
@@ -380,27 +372,23 @@ graph TB
     SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --&gt; SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
-<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
-<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> runs <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
-<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
-
-click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
-click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
-click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
-</code></pre>
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- runs --&gt; SPECS
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+    class R socket
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
 </div>
 
 <h3 id="installation-1">Installation</h3>
@@ -420,7 +408,7 @@ click <span class="token constant">R</span> <span class="token string">"/handboo
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    `@serenity-js/jasmine` module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
+    <code>@serenity-js/jasmine</code> module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
     </p></div>
 </div>
 
@@ -475,27 +463,23 @@ graph TB
     SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --&gt; SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
-<pre class="language-typescript"><code><span class="token constant">DEV</span> <span class="token operator">--</span> invokes <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCLI</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> loads <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">PCF</span>
-<span class="token constant">PCLI</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPA</span>
-<span class="token constant">PCF</span> <span class="token operator">--</span> configures <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> registers <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">SPA</span> <span class="token operator">--</span> manages <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TR</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">TRA</span>
-<span class="token constant">TR</span> <span class="token operator">--</span> runs <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SPECS</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SP</span> <span class="token operator">--</span> uses <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">P</span>
-<span class="token constant">P</span> <span class="token operator">--</span> interacts <span class="token keyword">with</span> <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SUT</span>
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SC</span>
-<span class="token constant">SC</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">R</span>
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">R</span></span> socket
-
-click <span class="token constant">SP</span> <span class="token string">"/modules/protractor"</span>
-click <span class="token constant">SC</span> <span class="token string">"/modules/core"</span>
-click <span class="token constant">R</span> <span class="token string">"/handbook/reporting/index.html"</span>
-</code></pre>
+    DEV -- invokes --&gt; PCLI
+    PCLI -- loads --&gt; PCF
+    PCLI -- uses --&gt; SPA
+    PCF -- configures --&gt; SC
+    SPA -- registers --&gt; TRA
+    SPA -- manages --&gt; TR
+    TR -- notifies --&gt; TRA
+    TR -- runs --&gt; SPECS
+    SP -- notifies --&gt; SC
+    SP -- uses --&gt; P
+    P -- interacts with --&gt; SUT
+    TRA -- notifies --&gt; SC
+    SC -- notifies --&gt; R
+    class R socket
+    click SP "/modules/protractor"
+    click SC "/modules/core"
+    click R "/handbook/reporting/index.html"
 </div>
 
 <h3 id="installation-2">Installation</h3>

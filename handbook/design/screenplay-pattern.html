@@ -167,13 +167,13 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    The Screenplay Pattern uses the [system metaphor](https://wiki.c2.com/?SystemMetaphor) of a stage performance where each test scenario is
-    like a little [screenplay](https://en.wikipedia.org/wiki/Screenplay)
+    The Screenplay Pattern uses the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance where each test scenario is
+    like a little <a href="https://en.wikipedia.org/wiki/Screenplay">screenplay</a>
     describing how the actors should go about performing their activities
     while interacting with the system under test.</p>
     <p>
     The "screen" in "screenplay" has nothing to do with the computer screen.
-    On the contrary, the Screenplay Pattern is a general method of modelling acceptance tests interacting with _any_ external interface of your system. In fact, the Serenity/JS implementation of the Screenplay Pattern can help you break free from UI-only-based testing!
+    On the contrary, the Screenplay Pattern is a general method of modelling acceptance tests interacting with <em>any</em> external interface of your system. In fact, the Serenity/JS implementation of the Screenplay Pattern can help you break free from UI-only-based testing!
     </p></div>
 </div>
 
@@ -181,7 +181,7 @@
 <p>The Screenplay Pattern is beautiful in its simplicity. It's made up of five elements, five types of building blocks that Serenity/JS gives you to design any functional acceptance test you need, no matter how sophisticated or how simple. </p>
 <p>The key elements of the pattern are: actors, abilities, interactions, questions, and tasks.</p>
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -190,7 +190,7 @@
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you'd like to follow along with the coding, please use the [Serenity/JS-Jasmine-Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template).
+        If you'd like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Serenity/JS-Jasmine-Protractor template</a>.
     </p></div>
 </div>
 
@@ -210,11 +210,11 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    Just like the five core elements of the Screenplay Pattern, the term "role" comes from the [system metaphor](https://wiki.c2.com/?SystemMetaphor) of a stage performance. It should be interpreted as the role a given actor plays in the performance,
+    Just like the five core elements of the Screenplay Pattern, the term "role" comes from the <a href="https://wiki.c2.com/?SystemMetaphor">system metaphor</a> of a stage performance. It should be interpreted as the role a given actor plays in the performance,
     the role they play in the system - "a doctor", "a trader", "a writer" are all good examples of actor roles.
     </p>
     <p>
-    While a "role" often implies the _permissions_ a given actor has in the system they interact with (i.e. a "writer" writes articles, a "publisher" publishes articles), this is not a mechanism to _prevent_ the actor from performing activities inconsistent with their role.
+    While a "role" often implies the <em>permissions</em> a given actor has in the system they interact with (i.e. a "writer" writes articles, a "publisher" publishes articles), this is not a mechanism to <em>prevent</em> the actor from performing activities inconsistent with their role.
     In particular, Serenity/JS will not prevent you from writing scenarios where a "writer" tries to impersonate a "publisher"
     and publish an article. If it did, you would not be able to test if your system correctly implemented its access control mechanisms!
     </p>
@@ -245,7 +245,7 @@ the <a href="'http://todomvc.com/examples/angularjs/'">TodoMVC app</a>.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you're following along with the coding, you can implement the above scenario under `spec/todo.spec.ts`.
+        If you're following along with the coding, you can implement the above scenario under <code>spec/todo.spec.ts</code>.
     </p></div>
 </div>
 
@@ -315,7 +315,7 @@ Those abilities is what the interactions use under the hood and what enables the
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you're following along with the coding, you can execute the test you've just implemented by running `npm test` in your terminal.
+        If you're following along with the coding, you can execute the test you've just implemented by running <code>npm test</code> in your terminal.
     </p></div>
 </div>
 
@@ -398,7 +398,7 @@ Wait<span class="token punctuation">.</span><span class="token function">until</
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you'd like to see the above scenario in action, paste the code above in `spec/todo.spec.ts` and run `npm test` in your terminal.
+        If you'd like to see the above scenario in action, paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal.
     </p></div>
 </div>
 
@@ -490,19 +490,19 @@ Todo List App<span class="token operator">:</span> helps engineers learn Serenit
             It all started at the Agile Alliance Functional Testing Tools workshop (AAFTT) back in 2007.
         </p>
         <p>
-            ["In praise of abstraction"](http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html), a talk given by Kevin Lawrence, inspired [Antony Marcano](http://antonymarcano.com/Site/Home.html)
+            <a href="http://www.developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html">"In praise of abstraction"</a>, a talk given by Kevin Lawrence, inspired <a href="http://antonymarcano.com/Site/Home.html">Antony Marcano</a>
             to implement a fluent DSL based on Kevin's idea to use the language of Interaction Designers to model the layers of abstraction in an acceptance test.
-            With the help of [Andy Palmer](http://andypalmer.com), this fluent DSL is what became
-            [JNarrate](https://bitbucket.org/testingreflections/jnarrate/wiki/Home) a year later (2008).
+            With the help of <a href="http://andypalmer.com">Andy Palmer</a>, this fluent DSL is what became
+            <a href="https://bitbucket.org/testingreflections/jnarrate/wiki/Home">JNarrate</a> a year later (2008).
         </p>
         <p>
-            In the late 2012, Antony and Andy joined forces with [Jan Molak](https://janmolak.com/).
-            Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of the [PageObject Pattern](https://github.com/SeleniumHQ/selenium/wiki/PageObjects) and apply [SOLID design principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
-            to acceptance testing is what [became known in 2013](http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern)
-            as [screenplay-jvm](https://github.com/screenplay/screenplay-jvm).
+            In the late 2012, Antony and Andy joined forces with <a href="https://janmolak.com/">Jan Molak</a>.
+            Their experiments with Kevin's model, combined with a desire to address problems with shortcomings of the <a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects">PageObject Pattern</a> and apply <a href="https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID design principles</a>
+            to acceptance testing is what <a href="http://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern">became known in 2013</a>
+            as <a href="https://github.com/screenplay/screenplay-jvm">screenplay-jvm</a>.
         </p>
         <p>
-            In 2015, when Antony, Andy and Jan started working with [John Ferguson Smart](http://johnfergusonsmart.com/), what became known as the Screenplay Pattern found its way into [Serenity BDD](http://serenity-bdd.info), a popular acceptance testing and reporting library written in Java.
+            In 2015, when Antony, Andy and Jan started working with <a href="http://johnfergusonsmart.com/">John Ferguson Smart</a>, what became known as the Screenplay Pattern found its way into <a href="http://serenity-bdd.info">Serenity BDD</a>, a popular acceptance testing and reporting library written in Java.
         </p>
         <p>
             In 2016, you can use both the Screenplay Pattern and the powerful Serenity BDD reports on JavaScript projects thanks to Serenity/JS!
@@ -510,8 +510,14 @@ Todo List App<span class="token operator">:</span> helps engineers learn Serenit
         <p>
             If you'd like to find out more about the thought process behind the Screenplay Pattern, check out:
             </p><ul>
-                <li>["Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay) by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.</li>
-                <li>["Page Objects Refactored: SOLID Steps to the Screenplay Pattern"](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp) by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.</li>
+                <li>
+                    <a href="https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay">"Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern"</a>
+                    by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, InfoQ, 2016.
+                </li>
+                <li>
+                    <a href="https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp">"Page Objects Refactored: SOLID Steps to the Screenplay Pattern"</a>
+                    by Antony Marcano, Andy Palmer, John Ferguson Smart and Jan Molak, DZone, 2016.
+                </li>
              </ul>
         <p></p>
     </div>

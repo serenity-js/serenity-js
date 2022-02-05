@@ -175,22 +175,16 @@ graph TB
     S["Serenity"]
     AA["ArtifactArchiver"]
     HDD(["fas:fa-hdd File system"])
-
-<pre class="language-markup"><code>SCM -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" --&gt; S
-
-subgraph "core" 
-S -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactArchived]" --&gt; SCM
-S -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" --&gt; AA
-AA -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactArchived]" --&gt; S
-end
-
-AA -- "writes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>[files]" --&gt; HDD
-
-class SCM socket
-
-click S "/modules/core"
-click AA "/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"
-</code></pre>
+    SCM -- "notifies<br>[ArtifactGenerated]" --&gt; S
+    subgraph "core" 
+        S -- "notifies<br>[ArtifactArchived]" --&gt; SCM
+        S -- "notifies<br>[ArtifactGenerated]" --&gt; AA
+        AA -- "notifies<br>[ArtifactArchived]" --&gt; S
+    end
+    AA -- "writes<br>[files]" --&gt; HDD
+    class SCM socket
+    click S "/modules/core"
+    click AA "/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"
 </div>
 
 <h2 id="usage">Usage</h2>

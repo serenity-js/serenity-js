@@ -165,7 +165,7 @@
 <p>This reporter emits <a href="/modules/core/class/src/model/Artifact.ts~Artifact.html"><code>Artifacts</code></a> containing Serenity BDD-standard JSON reports, which can be stored to disk by <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>, and then turned into Serenity BDD HTML reports by <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD Reporting CLI</a>.</p>
 <p>The resulting report contains screenshots, details of HTTP traffic for any <a href="/modules/rest">REST API</a> interactions, details of any activities performed by Serenity/JS <a href="/handbook/design/actors.html"><code>Actors</code></a> and more.</p>
 <figure>
-![Serenity BDD report](/handbook/reporting/images/serenity-bdd-reporter.png)
+    <img src="/handbook/reporting/images/serenity-bdd-reporter.png" alt="Serenity BDD report">
     <figcaption><span>Example Serenity BDD report</span></figcaption>
 </figure>
 
@@ -193,55 +193,44 @@ graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
     DEV(["fas:fa-laptop-code Developer"])
-
-<pre class="language-markup"><code>S["Serenity"]
-AA["ArtifactArchiver"]
-SBDDR["SerenityBDDReporter"]
-SBDDW["fas:fa-terminal serenity-bdd run"]
-TA["fas:fa-file json, png, etc."]
-SBDDCLI(["fab:fa-java serenity-bdd-cli.jar"])
-
-HTML["fas:fa-chart-pie Serenity BDD HTML reports"]
-
-A -- notify --&gt; S
-TRA -- notifies --&gt; S
-DEV -- invokes -----&gt; SBDDW
-
-S -- notifies ---&gt; SBDDR
-S -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" ---&gt; AA
-AA -- "stores<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[Artifact]" ----&gt; TA
-
-SBDDR -- "notifies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>[ArtifactGenerated]" --&gt; S
-SBDDW -- manages --&gt; SBDDCLI
-SBDDCLI -- reads --&gt; TA
-SBDDCLI -- produces --&gt; HTML
-
-subgraph "serenity-bdd"
-SBDDR
-SBDDCLI
-SBDDW
-end
-
-subgraph "core"
-S
-AA
-end
-
-subgraph "file system"
-TA
-HTML
-end
-
-class A socket
-class TRA socket
-class R socket
-
-click A "/handbook/design/actors.html"
-click S "/modules/core/class/src/Serenity.ts~Serenity.html"
-click AA "handbook/reporting/artifact-archiver.html"
-click SBDDR "/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"
-click SBDDW "/modules/serenity-bdd"
-</code></pre>
+    S["Serenity"]
+    AA["ArtifactArchiver"]
+    SBDDR["SerenityBDDReporter"]
+    SBDDW["fas:fa-terminal serenity-bdd run"]
+    TA["fas:fa-file json, png, etc."]
+    SBDDCLI(["fab:fa-java serenity-bdd-cli.jar"])
+    HTML["fas:fa-chart-pie Serenity BDD HTML reports"]
+    A -- notify --&gt; S
+    TRA -- notifies --&gt; S
+    DEV -- invokes -----&gt; SBDDW
+    S -- notifies ---&gt; SBDDR
+    S -- "notifies<br>[ArtifactGenerated]" ---&gt; AA
+    AA -- "stores<br>[Artifact]" ----&gt; TA
+    SBDDR -- "notifies<br>[ArtifactGenerated]" --&gt; S
+    SBDDW -- manages --&gt; SBDDCLI
+    SBDDCLI -- reads --&gt; TA
+    SBDDCLI -- produces --&gt; HTML
+    subgraph "serenity-bdd"
+        SBDDR
+        SBDDCLI
+        SBDDW
+    end
+    subgraph "core"
+    S
+    AA
+    end
+    subgraph "file system"
+        TA
+        HTML
+    end
+    class A socket
+    class TRA socket
+    class R socket
+    click A "/handbook/design/actors.html"
+    click S "/modules/core/class/src/Serenity.ts~Serenity.html"
+    click AA "handbook/reporting/artifact-archiver.html"
+    click SBDDR "/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"
+    click SBDDW "/modules/serenity-bdd"
 </div>
 
 <h2 id="usage">Usage</h2>

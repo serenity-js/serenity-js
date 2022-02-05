@@ -168,7 +168,7 @@ the <a href="/handbook/design/actors.html">actor</a> to interact with the system
 is an implementation of <a href="https://en.wikipedia.org/wiki/Adapter_pattern">the adapter pattern</a>.
 An "ability" is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you'd call from an <a href="/handbook/design/interactions.html">interaction</a> or <a href="/handbook/design/questions.html">question</a> class to access the system under test.</p>
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -228,8 +228,8 @@ and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
 </ul>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the `Click` interaction that
-    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original [`Click`](/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html) in your tests instead.</p></div>
+    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the <code>Click</code> interaction that
+    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> in your tests instead.</p></div>
 </div>
 </body></html>
                         </section>

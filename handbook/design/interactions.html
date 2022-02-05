@@ -165,7 +165,7 @@
 a low-level activity, directly exercising the <a href="/handbook/design/actors.html">actor's</a> <a href="/handbook/design/abilities.html">ability</a>
  to interact with a specific external interface of the system under test or perform a <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side-effect</a>. Such external interface could be a website, a mobile app, a web service, but also a file system, a database, or pretty much anything else a Node.js program can integrate with.</p>
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern">
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -200,7 +200,7 @@ that took care of the low-level integration:</p>
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
     If you'd like the actor to print messages to your computer terminal,
-    consider using the built-in [`Log`](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html) interaction.
+    consider using the built-in <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html"><code>Log</code></a> interaction.
     </p></div>
 </div>
 
@@ -224,7 +224,7 @@ the interaction,</li>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The `#actor` part of the description will get replaced by the actor
+    The <code>#actor</code> part of the description will get replaced by the actor
     name when the interaction is reported.
     </p></div>
 </div>
@@ -280,8 +280,8 @@ is configured.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    All Serenity/JS interactions **must** extend the base [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html)
-    class to allow for the framework to correctly distinguish them from other activities, such as [tasks](/handbook/design/tasks.html).
+    All Serenity/JS interactions <strong>must</strong> extend the base <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a>
+    class to allow for the framework to correctly distinguish them from other activities, such as <a href="/handbook/design/tasks.html">tasks</a>.
     </p></div>
 </div>
 
@@ -296,11 +296,13 @@ actor<span class="token punctuation">.</span><span class="token function">attemp
 </code></pre>
 <p>Performing this interaction will result in the actor printing <code>Hello Alice, Bob and Cindy!</code> to the output stream.</p>
 <div class="pro-tip">
-    <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong>
-    Interactions extending the base `Interaction` class **have to** return a `Promise<void>`.<br>
-    Interactions created using `Interaction.where` can return either `Promise<void>` or `void`.
-    </void></void></p></div>
+  <div class="icon"><i class="fas fa-lightbulb"></i></div>
+   <div class="text">
+     <p><strong>PRO TIP:</strong>
+       Interactions extending the base <code>Interaction</code> class <strong>have to</strong> return a <code>Promise&lt;void&gt;</code>.
+       Interactions created using <code>Interaction.where</code> can return either <code>Promise&lt;void&gt;</code> or <code>void</code>.
+     </p>
+   </div>
 </div>
 
 

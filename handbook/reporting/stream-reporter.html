@@ -173,29 +173,22 @@
 graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
-
-<pre class="language-typescript"><code><span class="token constant">S</span><span class="token punctuation">[</span><span class="token string">"Serenity"</span><span class="token punctuation">]</span>
-<span class="token constant">SR</span><span class="token punctuation">[</span>StreamReporter<span class="token punctuation">]</span>
-<span class="token constant">T</span><span class="token punctuation">[</span><span class="token string">"fas:fa-terminal serialised events"</span><span class="token punctuation">]</span>
-Log<span class="token punctuation">[</span><span class="token string">"fas:fa-file log.ndjson"</span><span class="token punctuation">]</span>
-
-<span class="token constant">TRA</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
-<span class="token constant">A</span> <span class="token operator">--</span> notify <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">S</span>
-
-subgraph <span class="token string">"core"</span>
-<span class="token constant">S</span> <span class="token operator">--</span> notifies <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">SR</span>
-end
-
-<span class="token constant">SR</span> <span class="token operator">--</span> prints <span class="token operator">--</span><span class="token operator">&gt;</span> <span class="token constant">T</span>
-<span class="token constant">SR</span> <span class="token operator">--</span> writes <span class="token operator">--</span><span class="token operator">&gt;</span> Log
-
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">A</span></span> socket
-<span class="token keyword">class</span> <span class="token class-name"><span class="token constant">TRA</span></span> socket
-
-click <span class="token constant">A</span> <span class="token string">"/handbook/design/actors.html"</span>
-click <span class="token constant">S</span> <span class="token string">"/modules/core"</span>
-click <span class="token constant">SR</span> <span class="token string">"/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"</span>
-</code></pre>
+    S["Serenity"]
+    SR[StreamReporter]
+    T["fas:fa-terminal serialised events"]
+    Log["fas:fa-file log.ndjson"]
+    TRA -- notifies --&gt; S
+    A -- notify --&gt; S
+    subgraph "core"
+        S -- notifies --&gt; SR
+    end
+    SR -- prints --&gt; T
+    SR -- writes --&gt; Log 
+    class A socket
+    class TRA socket
+    click A "/handbook/design/actors.html"
+    click S "/modules/core"
+    click SR "/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"
 </div>
 
 <h2 id="usage">Usage</h2>
