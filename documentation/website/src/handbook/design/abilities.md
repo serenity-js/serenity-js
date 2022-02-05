@@ -13,7 +13,7 @@ is an implementation of [the adapter pattern](https://en.wikipedia.org/wiki/Adap
 An "ability" is a thin wrapper around a lower-level, interface-specific client such as a web browser driver, a HTTP client, a database client and so on, that you'd call from an [interaction](/handbook/design/interactions.html) or [question](/handbook/design/questions.html) class to access the system under test.
 
 <figure>
-![The Screenplay Pattern](/handbook/design/images/the-screenplay-pattern.png)
+    <img src="/handbook/design/images/the-screenplay-pattern.png" alt="The Screenplay Pattern" />
     <figcaption><span>The Screenplay Pattern</span></figcaption>
 </figure>
 
@@ -86,6 +86,6 @@ If you're wondering why you'd want to create a wrapper around the lower-level cl
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
-    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the `Click` interaction that
-    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original [`Click`](/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html) in your tests instead.</p></div>
+    <div class="text"><p><strong>PRO TIP:</strong> This is a simplified implementation of the <code>Click</code> interaction that
+    doesn't account for the many quirks of the Protractor API and is intended for demonstration purposes only. Please use the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> in your tests instead.</p></div>
 </div>

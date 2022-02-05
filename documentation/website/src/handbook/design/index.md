@@ -9,6 +9,6 @@ This part of the Serenity/JS Handbook will help you gain a deeper understanding 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Please note:</strong> 
-     The public APIs of [Serenity/JS modules](/modules) have their usage demonstrated in unit tests, linked from the documentation of each API.
+     The public APIs of <a href="/modules">Serenity/JS modules</a> have their usage demonstrated in unit tests, linked from the documentation of each API.
     </p></div>
 </div>

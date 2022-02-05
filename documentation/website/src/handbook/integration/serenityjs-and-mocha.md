@@ -25,16 +25,13 @@ graph TB
     TRA(["@serenity-js/mocha"])
     CF["fas:fa-file config.ts"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
     DEV -- invokes --> TR
     TR -- loads --> CF
     TR -- notifies --> TRA
     TRA -- notifies --> SC
     CF -- configures --> SC
     SC -- notifies --> R
-
     class R socket
-
     click R "/handbook/reporting/index.html"
     click SC "/modules/core"
     click TRA "/modules/mocha"
@@ -43,7 +40,7 @@ graph TB
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-        Integration architecture described in this chapter is applicable when you want to invoke `mocha` command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing. 
+        Integration architecture described in this chapter is applicable when you want to invoke <code>mocha</code> command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing. 
     </p>
     <p>If you want your Mocha scenarios to interact with Web interfaces, check out [Integrating with Protractor](/handbook/integration/serenityjs-and-protractor.html) instead.
     </p></div>

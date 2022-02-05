@@ -26,19 +26,14 @@ graph TB
     S["Serenity"]
     AA["ArtifactArchiver"]
     HDD(["fas:fa-hdd File system"])
-
     SCM -- "notifies<br>[ArtifactGenerated]" --> S
-
     subgraph "core" 
-    S -- "notifies<br>[ArtifactArchived]" --> SCM
-    S -- "notifies<br>[ArtifactGenerated]" --> AA
-    AA -- "notifies<br>[ArtifactArchived]" --> S
+        S -- "notifies<br>[ArtifactArchived]" --> SCM
+        S -- "notifies<br>[ArtifactGenerated]" --> AA
+        AA -- "notifies<br>[ArtifactArchived]" --> S
     end
-
     AA -- "writes<br />[files]" --> HDD
-    
     class SCM socket
-
     click S "/modules/core"
     click AA "/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"
 </div>
