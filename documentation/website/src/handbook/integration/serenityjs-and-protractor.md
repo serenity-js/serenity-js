@@ -21,7 +21,7 @@ If you'd like to jump straight into the code, [Serenity/JS GitHub repository](ht
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS and Protractor is to use one of the [template projects](https://github.com/serenity-js/) available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS and Protractor is to use one of the <a href="https://github.com/serenity-js/">template projects</a> available on GitHub. Serenity/JS template projects come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div> 
 
@@ -53,7 +53,6 @@ graph TB
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
     SPECS["fas:fa-tasks specs"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
     DEV -- invokes --> PCLI
     PCLI -- loads --> PCF
     PCLI -- uses --> SPA
@@ -68,12 +67,10 @@ graph TB
     P -- interacts with --> SUT
     TRA -- notifies --> SC
     SC -- notifies --> R
-
     class TR socket
     class TRA socket
     class SPECS socket
     class R socket
-
     click SP "/modules/protractor"
     click SC "/modules/core"
     click R "/handbook/reporting/index.html"
@@ -100,7 +97,6 @@ graph TB
     SPECS["fas:fa-tasks \*.feature"]
     STEPS["fas:fa-file step_definitions/*.ts"]
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
     DEV -- invokes --> PCLI
     PCLI -- loads --> PCF
     PCLI -- uses --> SPA
@@ -116,9 +112,7 @@ graph TB
     P -- interacts with --> SUT
     TRA -- notifies --> SC
     SC -- notifies --> R
-
     class R socket
-
     click SP "/modules/protractor"
     click SC "/modules/core"
     click R "/handbook/reporting/index.html"
@@ -219,10 +213,10 @@ exports.config = {
         Cucumber.js supports <strong>only one native formatter per output</strong>.
         In particular, you can't have more than one Cucumber.js formatter writing to standard output or to the same file.
     </p><p>
-        Please also note that when you configure Serenity/JS to use any of its [reporting services](https://serenity-js.org/handbook/reporting/index.html) (via the `serenity.crew` option), the framework will <strong>automatically disable</strong>
+        Please also note that when you configure Serenity/JS to use any of its <a href="https://serenity-js.org/handbook/reporting/index.html">reporting services</a> (via the <code>serenity.crew</code> option), the framework will <strong>automatically disable</strong>
         any native Cucumber reporters printing to the terminal to avoid overlapping output.
     </p><p>
-        You can, however, redirect output of such reporter to a file, so instead of `usage` use `usage:usage.txt`.
+        You can, however, redirect output of such reporter to a file, so instead of <code>usage</code> use <code>usage:usage.txt</code>.
     </p></div>
 </div>
 
@@ -247,7 +241,6 @@ graph TB
     SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --> SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
     DEV -- invokes --> PCLI
     PCLI -- loads --> PCF
     PCLI -- uses --> SPA
@@ -261,9 +254,7 @@ graph TB
     P -- interacts with --> SUT
     TRA -- notifies --> SC
     SC -- notifies --> R
-
     class R socket
-
     click SP "/modules/protractor"
     click SC "/modules/core"
     click R "/handbook/reporting/index.html"
@@ -290,7 +281,7 @@ npm install --save-dev typescript ts-node
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    `@serenity-js/jasmine` module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
+    <code>@serenity-js/jasmine</code> module enables your tests to use the latest version of Jasmine test runner, version 3. This version is newer than version 2 that ships with Protractor.
     </p></div>
 </div>
 
@@ -352,7 +343,6 @@ graph TB
     SPECS["fas:fa-tasks \*.spec.ts"]
     SPECS -- use --> SP
     R(["fas:fa-chart-pie Serenity/JS reporting services"])
-
     DEV -- invokes --> PCLI
     PCLI -- loads --> PCF
     PCLI -- uses --> SPA
@@ -366,9 +356,7 @@ graph TB
     P -- interacts with --> SUT
     TRA -- notifies --> SC
     SC -- notifies --> R
-
     class R socket
-
     click SP "/modules/protractor"
     click SC "/modules/core"
     click R "/handbook/reporting/index.html"

@@ -24,6 +24,6 @@ Please make sure to always update the modules together and use the same version 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-    The easiest way to get started with Serenity/JS is by using one of the [template projects available on GitHub](https://github.com/serenity-js/). Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+    The easiest way to get started with Serenity/JS is by using one of the <a href="https://github.com/serenity-js/">template projects available on GitHub</a>. Serenity/JS template project come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
     </p></div>
 </div>

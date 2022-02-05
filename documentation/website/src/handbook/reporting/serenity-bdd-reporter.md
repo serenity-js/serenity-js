@@ -13,7 +13,7 @@ This reporter emits [`Artifacts`](/modules/core/class/src/model/Artifact.ts~Arti
 The resulting report contains screenshots, details of HTTP traffic for any [REST API](/modules/rest) interactions, details of any activities performed by Serenity/JS [`Actors`](/handbook/design/actors.html) and more.
 
 <figure>
-![Serenity BDD report](/handbook/reporting/images/serenity-bdd-reporter.png)
+    <img src="/handbook/reporting/images/serenity-bdd-reporter.png" alt="Serenity BDD report" />
     <figcaption><span>Example Serenity BDD report</span></figcaption>
 </figure>
 
@@ -57,49 +57,39 @@ graph TB
     A(["fas:fa-users Actors"])
     TRA(["fas:fa-plug Serenity/JS test runner adapter"])
     DEV(["fas:fa-laptop-code Developer"])
-
     S["Serenity"]
     AA["ArtifactArchiver"]
     SBDDR["SerenityBDDReporter"]
     SBDDW["fas:fa-terminal serenity-bdd run"]
     TA["fas:fa-file json, png, etc."]
     SBDDCLI(["fab:fa-java serenity-bdd-cli.jar"])
-
     HTML["fas:fa-chart-pie Serenity BDD HTML reports"]
-
     A -- notify --> S
     TRA -- notifies --> S
     DEV -- invokes -----> SBDDW
-
     S -- notifies ---> SBDDR
     S -- "notifies<br>[ArtifactGenerated]" ---> AA
     AA -- "stores<br>[Artifact]" ----> TA
-
     SBDDR -- "notifies<br>[ArtifactGenerated]" --> S
     SBDDW -- manages --> SBDDCLI
     SBDDCLI -- reads --> TA
     SBDDCLI -- produces --> HTML
-
     subgraph "serenity-bdd"
-    SBDDR
-    SBDDCLI
-    SBDDW
+        SBDDR
+        SBDDCLI
+        SBDDW
     end
-
     subgraph "core"
     S
     AA
     end
-
     subgraph "file system"
-    TA
-    HTML
+        TA
+        HTML
     end
-
     class A socket
     class TRA socket
     class R socket
-
     click A "/handbook/design/actors.html"
     click S "/modules/core/class/src/Serenity.ts~Serenity.html"
     click AA "handbook/reporting/artifact-archiver.html"

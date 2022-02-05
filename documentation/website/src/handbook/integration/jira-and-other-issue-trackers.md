@@ -110,7 +110,7 @@ Tagging `Feature` and `Scenario` nodes of your Cucumber `.feature` files with `@
 links to your issue tracker: 
 
 <figure>
-![Serenity BDD Scenario Report](/handbook/integration/images/jira-and-other-issue-trackers/scenario-report.png)
+    <img src="/handbook/integration/images/jira-and-other-issue-trackers/scenario-report.png" alt="Serenity BDD Scenario Report" />
     <figcaption><span>Scenario report</span></figcaption>
 </figure>
 
@@ -118,13 +118,13 @@ However, this is just one of the benefits. Another one is that once Serenity und
 it can provide you with another way to slice your reports:
 
 <figure>
-![Serenity BDD Summary Report](/handbook/integration/images/jira-and-other-issue-trackers/summary-report.png)
+    <img src="/handbook/integration/images/jira-and-other-issue-trackers/summary-report.png" alt="Serenity BDD Summary Report" />
     <figcaption><span>Summary report with an additional section describing the "Issues"</span></figcaption>
 </figure>
 
 This is particularly useful if you need a way to see all the scenarios that cover a given ticket:
 
 <figure>
-![Serenity BDD Issue Report](/handbook/integration/images/jira-and-other-issue-trackers/issue-report.png)
+    <img src="/handbook/integration/images/jira-and-other-issue-trackers/issue-report.png" alt="Serenity BDD Issue Report" />
     <figcaption><span>Report showing test scenarios concerning a given ticket</span></figcaption>
 </figure>
