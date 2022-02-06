@@ -1,6 +1,6 @@
 import { AssertionError } from '@serenity-js/core';
-import { defineSupportCode, TableDefinition } from 'cucumber';
 import * as assert from 'assert';
+import { defineSupportCode, TableDefinition } from 'cucumber';
 
 defineSupportCode(({ Given }) => {
     Given(/^.*step .* passes$/, function () {

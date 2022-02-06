@@ -1,9 +1,11 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
+import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
-import { expect } from '@integration/testing-tools';
+
 import { ExportedPageElements } from './fixtures/ExportedPageElements';
 
 /** @test {PageElements} */
@@ -100,7 +102,6 @@ describe('PageElements', () => {
                             equals('parent-2')
                         ),
                     ));
-
 
                 it(`allows to check if the element of interest is present`, () =>
                     actorCalled('Peggy').attemptsTo(

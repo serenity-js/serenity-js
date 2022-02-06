@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
 import { BrowserTag, ExecutionSuccessful, FeatureTag, Name, PlatformTag, Timestamp } from '@serenity-js/core/lib/model';
+
 import { wdio } from '../src';
 
 describe('@serenity-js/webdriverio', function () {
@@ -15,11 +16,11 @@ describe('@serenity-js/webdriverio', function () {
             '--spec=examples/passing_scenario.spec.ts',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(StdOutReporter.parse(res.stdout))
+            PickEvent.from(StdOutReporter.parse(result.stdout))
                 .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario passes')))
                 .next(SceneTagged,         event => expect(event.tag).to.be.instanceOf(BrowserTag))

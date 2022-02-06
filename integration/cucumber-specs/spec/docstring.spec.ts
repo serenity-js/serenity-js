@@ -11,10 +11,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises a scenario with a DocString step', () =>
         cucumber('features/doc_strings.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(
                         'Given a step that receives a doc string:\n' +
                         'Dear customer,\n' +

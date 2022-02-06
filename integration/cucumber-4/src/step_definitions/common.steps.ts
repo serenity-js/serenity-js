@@ -1,6 +1,6 @@
 import { AssertionError } from '@serenity-js/core';
-import { Given, TableDefinition } from 'cucumber';
 import * as assert from 'assert';
+import { Given, TableDefinition } from 'cucumber';
 
 Given(/^.*step .* passes$/, function () {
     return Promise.resolve();

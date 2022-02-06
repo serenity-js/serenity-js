@@ -1,9 +1,9 @@
 import 'mocha';
 
+import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Answerable } from '@serenity-js/core';
 import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
-import { expect } from '@integration/testing-tools';
 import { given } from 'mocha-testdata';
 
 class ShoppingList {

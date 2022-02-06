@@ -1,13 +1,14 @@
 import 'mocha';
 
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Question } from '@serenity-js/core';
 import { By, Navigate, PageElements, Text } from '@serenity-js/web';
-import { expect } from '@integration/testing-tools';
 
 /** @test {PageElements} */
 describe('PageElements', () => {
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     const question = <T>(name: string, value: T) =>
         Question.about(name, _actor => value);
 

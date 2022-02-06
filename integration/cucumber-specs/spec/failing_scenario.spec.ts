@@ -14,6 +14,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber, cucumberVersion } from '../src';
 
 describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
@@ -21,10 +22,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises a failing scenario', () =>
         cucumber('features/failing_scenario.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       event => expect(event).to.be.instanceOf(TestRunStarts))
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A failing scenario')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))

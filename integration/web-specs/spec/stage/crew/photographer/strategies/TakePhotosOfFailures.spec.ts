@@ -1,6 +1,8 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { isPresent } from '@serenity-js/assertions';
+import { Duration } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
@@ -8,8 +10,6 @@ import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures, Wait
 
 import { create } from '../create';
 import { Perform } from '../fixtures';
-import { Duration } from '@serenity-js/core';
-import { isPresent } from '@serenity-js/assertions';
 
 describe('Photographer', () => {
 
@@ -47,7 +47,7 @@ describe('Photographer', () => {
                     });
             })));
 
-        it.only('takes a photo when a timeout is reached', () =>
+        it('takes a photo when a timeout is reached', () =>
             expect(
                 stage.theActorCalled('Betty')
                     .attemptsTo(

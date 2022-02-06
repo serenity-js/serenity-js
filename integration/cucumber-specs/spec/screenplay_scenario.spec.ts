@@ -12,10 +12,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
         .it('recognises Screenplay activities in any part of the Cucumber scenario (cucumber <= 6)', () =>
             cucumber('features/screenplay_scenario.feature', 'screenplay.steps.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(res => {
-                    expect(res.exitCode).to.equal(0);
+                .then(result => {
+                    expect(result.exitCode).to.equal(0);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))
@@ -46,10 +46,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
         .it('recognises Screenplay activities in any part of the Cucumber scenario (7 <= cucumber', () =>
             cucumber('features/screenplay_scenario.feature', 'screenplay.steps.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(res => {
-                    expect(res.exitCode).to.equal(0);
+                .then(result => {
+                    expect(result.exitCode).to.equal(0);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))

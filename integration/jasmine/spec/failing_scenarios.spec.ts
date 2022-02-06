@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { AssertionError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
@@ -12,11 +13,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('has an explicit call to fail()', () => jasmine('examples/failing/marked-as-failing.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when marked as failed')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
@@ -31,11 +32,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('throws an error', () => jasmine('examples/failing/error-thrown.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
@@ -50,11 +51,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('fails because of a failing assertion', () => jasmine('examples/failing/assertion-fails.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
@@ -75,11 +76,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('has multiple failing assertions, which will be wrapped in individual activities', () => jasmine('examples/failing/multiple-failures.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario can fail with multiple failures')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))

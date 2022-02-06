@@ -37,6 +37,15 @@ describe('@serenity-js/local-server', () => {
 
     describe('when managing a local server', () => {
 
+        let Nadia: Actor, Phillip: Actor;
+
+        const port = 5555;
+
+        beforeEach(() =>  {
+            Nadia = actorCalled('Nadia');
+            Phillip = actorCalled('Phillip');
+        });
+
         /**
          * @test {ManageALocalServer}
          * @test {StartLocalServer}
@@ -62,18 +71,6 @@ describe('@serenity-js/local-server', () => {
                 .next(ActivityFinished, hasName(`Nadia stops the local server`))
             ;
         }));
-    });
-
-    describe('when managing a local server', () => {
-
-        let Nadia: Actor, Phillip: Actor;
-
-        const port = 5555;
-
-        beforeEach(() =>  {
-            Nadia = actorCalled('Nadia');
-            Phillip = actorCalled('Phillip');
-        });
 
         it(`it falls back to a random port if the preferred one is taken`, () =>
             expect(Nadia.attemptsTo(

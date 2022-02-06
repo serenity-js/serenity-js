@@ -1,4 +1,4 @@
-import { Given, DataTable } from '@cucumber/cucumber';
+import { DataTable, Given } from '@cucumber/cucumber';
 import { AssertionError } from '@serenity-js/core';
 import * as assert from 'assert';
 

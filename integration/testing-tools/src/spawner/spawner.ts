@@ -17,7 +17,7 @@ export function spawner(pathToScript: string, options?: childProcess.ForkOptions
         return new Promise((resolve, reject) => {
             const spawned = childProcess.fork(pathToScript, args, {
                 ...options,
-                ...{silent: true},
+                silent: true,
             });
 
             spawned.on('message', (message: DTO) => {

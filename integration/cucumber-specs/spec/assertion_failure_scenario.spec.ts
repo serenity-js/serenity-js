@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { AssertionError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+
 import { cucumber, cucumberVersion } from '../src';
 
 describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
@@ -11,10 +12,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises a scenario failing due to an assertion failure', () =>
         cucumber('features/assertion_failure_scenario.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An assertion failure scenario')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))
@@ -38,10 +39,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises a scenario failing due to a non-Serenity/JS assertion error being thrown', () =>
         cucumber('features/non_serenity_assertion_failure_scenario.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An assertion failure scenario')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))

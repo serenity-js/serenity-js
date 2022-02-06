@@ -1,9 +1,9 @@
 import 'mocha';
 
-import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
-import { By, Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
+import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
+import { By, Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
 import { URL } from 'url';
 
 /** @test {Page} */

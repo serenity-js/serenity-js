@@ -15,7 +15,8 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
+    "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
+    "lint:fix": "npm run lint -- --fix",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {

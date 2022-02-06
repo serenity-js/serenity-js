@@ -5,7 +5,6 @@ import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetecte
 import { trimmed } from '@serenity-js/core/lib/io';
 import { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 
-
 import { cucumber, cucumberVersion } from '../src';
 
 describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {

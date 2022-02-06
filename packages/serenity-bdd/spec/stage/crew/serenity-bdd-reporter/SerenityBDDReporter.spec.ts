@@ -308,32 +308,6 @@ describe('SerenityBDDReporter', () => {
              * @test {SceneStarts}
              * @test {SceneFinished}
              * @test {TestRunFinishes}
-             * @test {TestCompromisedError}
-             * @test {ExecutionCompromised}
-             */
-            it('has been compromised', () => {
-
-                // const assertionError = new AssertionError('expected true to equal false', false, true);
-                const assertionError = new TestCompromisedError('expected true to equal false');
-
-                given(reporter).isNotifiedOfFollowingEvents(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionCompromised(assertionError)),
-                    new TestRunFinishes(),
-                );
-
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
-
-                expect(report.result).to.equal('COMPROMISED');
-                expect(report.testFailureCause.errorType).to.equal('TestCompromisedError');
-                expect(report.testFailureCause.message).to.equal('expected true to equal false');
-                expect(report.testFailureCause.stackTrace).to.be.an('array');
-            });
-
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
              * @test {ExecutionFailedWithError}
              */
             it('has failed with a non-assertion error', () => {
@@ -502,19 +476,19 @@ describe('SerenityBDDReporter', () => {
             describe('reports information from the cucumber feature file', () => {
 
                 /** @test {SerenityBDDReporter} */
-                it('reports the scenario-level narrative');
+                it('reports the scenario-level narrative'); // eslint-disable-line mocha/no-pending-tests
 
                 /** @test {SerenityBDDReporter} */
-                it('reports the scenario-level background title');
+                it('reports the scenario-level background title');  // eslint-disable-line mocha/no-pending-tests
 
                 /** @test {SerenityBDDReporter} */
-                it('reports the scenario-level background description');
+                it('reports the scenario-level background description');    // eslint-disable-line mocha/no-pending-tests
             });
         });
     });
 
     describe('attachements', () => {
-        it('todo');
+        it('todo'); // eslint-disable-line mocha/no-pending-tests
         // todo:
         // - screenshots
         // - html source
@@ -525,6 +499,6 @@ describe('SerenityBDDReporter', () => {
     describe('Error handling', () => {
 
         // todo: node-cleanup
-        it('generates the report even when the test runner has crashed');
+        it('generates the report even when the test runner has crashed');   // eslint-disable-line mocha/no-pending-tests
     });
 });

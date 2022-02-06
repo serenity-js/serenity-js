@@ -2,7 +2,7 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Question, serenity, Serenity } from '@serenity-js/core';
+import { actorCalled, Question, Serenity,serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';

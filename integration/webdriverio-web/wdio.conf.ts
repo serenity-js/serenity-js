@@ -1,8 +1,9 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, Duration } from '@serenity-js/core';
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+
 import { Actors } from './src/Actors';
 
 const port = process.env.PORT || 8080;

@@ -19,7 +19,7 @@ export class StdOutReporter implements StageCrewMember {
 
     constructor(
         private readonly output: Writable = process.stdout,
-        private readonly stage: Stage = null,
+        private readonly stage?: Stage,
     ) {
     }
 

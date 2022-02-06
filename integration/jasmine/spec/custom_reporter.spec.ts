@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
@@ -21,11 +22,11 @@ describe('@serenity-js/jasmine', function () {
                 '--random=false',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestSuiteStarts,      event => expect(event.details.name).to.equal(new Name(`a suite`)))
                     .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`a spec`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag('a suite')))
@@ -54,11 +55,11 @@ describe('@serenity-js/jasmine', function () {
                 '--random=false',
             )
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`pending suite will be pending`)))
                     .next(SceneTagged,          event => expect(event.tag).to.equal(new FeatureTag(`focused suite, excludes other suites and specs`)))
                     .next(SceneFinished,        event => expect(event.outcome).to.be.instanceof(ImplementationPending))

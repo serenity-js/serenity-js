@@ -597,7 +597,5 @@ describe('WebdriverIONotifier', () => {
                 expect(result.error.stack).to.match(/^AssertionError: Expected false to be true/);
             });
         });
-
-        it('notifies of async operations...');
     });
 })
