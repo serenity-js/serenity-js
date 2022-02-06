@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, CorrelationId, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -12,13 +13,13 @@ describe('@serenity-js/mocha', function () {
     it('reports each retry of a retryable scenario', () =>
         mocha('examples/retries.spec.js', '--retries=2')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(0);
+                expect(result.exitCode).to.equal(0);
 
                 let sceneId: CorrelationId;
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
                     .next(SceneStarts,         event => {
@@ -65,9 +66,9 @@ describe('@serenity-js/mocha', function () {
     it(`doesn't announce retries if the scenario is not being retried`, () =>
         mocha('examples/passing.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                const sceneTaggedEvents = res.events.filter(e => e instanceof SceneTagged) as SceneTagged[];
+                const sceneTaggedEvents = result.events.filter(e => e instanceof SceneTagged) as SceneTagged[];
 
                 expect(sceneTaggedEvents).to.have.lengthOf(1);
 

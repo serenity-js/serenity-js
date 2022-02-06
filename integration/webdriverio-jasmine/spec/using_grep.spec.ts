@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { BrowserTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name, PlatformTag } from '@serenity-js/core/lib/model';
+
 import { wdio } from '../src';
 
 describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
@@ -16,11 +17,11 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
             '--jasmineOpts.grep=".*passes.*"',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(StdOutReporter.parse(res.stdout))
+            PickEvent.from(StdOutReporter.parse(result.stdout))
                 .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name('A scenario passes')))
                 .next(SceneTagged,          event => expect(event.tag).to.be.instanceOf(BrowserTag))
                 .next(SceneTagged,          event => expect(event.tag).to.be.instanceOf(PlatformTag))
@@ -44,11 +45,11 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
             '--jasmineOpts.invertGrep=true',
         ).
         then(ifExitCodeIsOtherThan(0, logOutput)).
-        then(res => {
+        then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(StdOutReporter.parse(res.stdout))
+            PickEvent.from(StdOutReporter.parse(result.stdout))
                 .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name('A scenario passes')))
                 .next(SceneTagged,          event => expect(event.tag).to.be.instanceOf(BrowserTag))
                 .next(SceneTagged,          event => expect(event.tag).to.be.instanceOf(PlatformTag))

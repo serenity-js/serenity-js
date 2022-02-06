@@ -9,7 +9,7 @@ export class CucumberRunner {
     ) {
     }
 
-    run(pathToFeatureFile: string, stepDefinitionsFileNames: string[], scenarioArgs: string[]): Promise<SpawnResult> {
+    run(pathToFeatureFile: string, stepDefinitionsFileNames: string[], scenarioArguments: string[]): Promise<SpawnResult> {
         const cucumber = spawner(
             this.pathToCucumberExecutable,
             { cwd: this.cwd },
@@ -22,7 +22,7 @@ export class CucumberRunner {
             ...this.args,
             ...runnerSpecificRequires,
             `../cucumber-specs/${ pathToFeatureFile }`,
-            ...scenarioArgs,
+            ...scenarioArguments,
         );
     }
 }

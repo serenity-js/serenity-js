@@ -11,8 +11,8 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises scenario outlines as sequences of scenes', () =>
         cucumber('features/scenario_outlines.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(1);
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
 
                 const
                     expectedScenarioName = new Name('Sample outline'),
@@ -24,7 +24,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                     expectedExamplesName = new Name('Example results'),
                     expectedExamplesDescription = new Description('Description of the examples');
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneSequenceDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
@@ -106,6 +106,6 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(thirdScenarioLine);
                     })
-                })
-            );
+            })
+    );
 });

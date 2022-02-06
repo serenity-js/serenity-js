@@ -11,10 +11,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it(`recognises a pending scenario where some steps are marked as 'pending'`, () =>
         cucumber('features/pending_scenarios.feature', 'common.steps.ts', [ '--name', 'A scenario with steps marked as pending', '--no-strict' ])
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
                 // expect(res.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps marked as pending')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
@@ -29,10 +29,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it(`recognises a pending scenario where some steps have not been implemented yet`, () =>
         cucumber('features/pending_scenarios.feature', 'common.steps.ts', [ '--name', 'A scenario with steps that have not been implemented yet', '--no-strict' ])
             // .then(ifExitCodeIsOtherThan(0, logOutput)).   // cucumber 3 ignores the --no-strict mode
-            .then(res => {
-                // expect(res.exitCode).to.equal(0);        // cucumber 3 ignores the --no-strict mode
+            .then(result => {
+                // expect(result.exitCode).to.equal(0);        // cucumber 3 ignores the --no-strict mode
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
@@ -51,10 +51,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 '--no-strict',  // considered only when steps are explicitly marked as 'pending'
             ])
                 .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(res => {
+                .then(result => {
                     // expect(res.exitCode).to.equal(0);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
@@ -75,10 +75,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 '--name', 'A scenario which tag marks it as pending'
             ])
                 .then(ifExitCodeIsOtherThan(1, logOutput))
-                .then(res => {
-                    expect(res.exitCode).to.equal(1);
+                .then(result => {
+                    expect(result.exitCode).to.equal(1);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
@@ -100,10 +100,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 '--no-strict',  // considered only when steps are explicitly marked as 'pending'
             ])
                 .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(res => {
-                    expect(res.exitCode).to.equal(0);
+                .then(result => {
+                    expect(result.exitCode).to.equal(0);
 
-                    PickEvent.from(res.events)
+                    PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))

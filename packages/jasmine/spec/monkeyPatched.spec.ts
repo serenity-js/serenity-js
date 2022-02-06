@@ -65,19 +65,6 @@ describe('@serenity-js/jasmine', () => {
                 expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');
             });
 
-            /**
-             * @test {bootstrap}
-             * @test {monkeyPatched}
-             */
-            it('has all the static members of the original constructor function', () => {
-
-                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';
-
-                serenityReporterForJasmine(jasmine);
-
-                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');
-            });
-
             it('correctly reports the stacktrace of an error', () => {
                 const error = new TestCompromisedError('DB is down', new Error('Connection error'));
 

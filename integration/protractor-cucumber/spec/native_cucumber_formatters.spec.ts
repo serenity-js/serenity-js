@@ -3,6 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
@@ -16,11 +17,11 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
             '--specs=examples/features/passing.feature',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A passing scenario')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
@@ -38,6 +39,6 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
             // │   a passing step │ 2ms      │ features/passing.feature:5           │
             // └──────────────────┴──────────┴──────────────────────────────────────┘
 
-            expect(res.stdout).to.match(/Pattern \/ Text.*?Duration.*?Location/);
+            expect(result.stdout).to.match(/Pattern \/ Text.*?Duration.*?Location/);
         }));
 });

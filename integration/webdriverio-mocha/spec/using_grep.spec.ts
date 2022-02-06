@@ -1,6 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, StdOutReporter } from '@integration/testing-tools';
+
 import { wdio } from '../src';
 
 describe('@serenity-js/mocha', function () {
@@ -14,13 +15,13 @@ describe('@serenity-js/mocha', function () {
             '--mochaOpts.grep=".*passes.*"',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
             // WebdriverIO won't even touch the scenarios that have been excluded using grep
             // so they won't emit any events
-            const events = StdOutReporter.parse(res.stdout);
+            const events = StdOutReporter.parse(result.stdout);
             expect(events).to.have.lengthOf(0);
         }));
 });

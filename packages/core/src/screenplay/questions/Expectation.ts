@@ -10,7 +10,6 @@ import { ExpectationOutcome } from './expectations';
 export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Actual>) =>
     Promise<ExpectationOutcome<unknown, Actual>> | ExpectationOutcome<unknown, Actual>;     // eslint-disable-line @typescript-eslint/indent
 
-
 /**
  * @desc
  *  Defines an expectation to be used with [assertions](/modules/assertions)

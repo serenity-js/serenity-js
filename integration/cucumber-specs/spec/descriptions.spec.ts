@@ -11,10 +11,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
     it('recognises scenario descriptions', () =>
         cucumber('features/descriptions.feature', 'common.steps.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
-                expect(res.exitCode).to.equal(0);
+            .then(result => {
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('First scenario')))
                     .next(FeatureNarrativeDetected, event => {
                         expect(event.description).to.equal(new Description(

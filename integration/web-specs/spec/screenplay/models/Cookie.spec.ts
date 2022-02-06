@@ -25,6 +25,7 @@ describe('Cookie', () => {
             }).status(200).send();
         });
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     function cookieCutterURLFor(path: Answerable<string>): Question<Promise<string>> {
         return q`${ LocalServer.url() }${ path }`;
     }
@@ -146,7 +147,7 @@ describe('Cookie', () => {
             it(`complains it the cookie doesn't exist`, () =>
                 expect(actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                    Ensure.that(Cookie.called('not-so-favourite').value(), equals(undefined)),
+                    Ensure.that(Cookie.called('not-so-favourite').value(), equals(undefined)),  // eslint-disable-line unicorn/no-useless-undefined
                 )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
             );
 
@@ -172,7 +173,7 @@ describe('Cookie', () => {
             it(`complains it the cookie doesn't exist`, () =>
                 expect(actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                    Ensure.that(Cookie.called('not-so-favourite').path(), equals(undefined)),
+                    Ensure.that(Cookie.called('not-so-favourite').path(), equals(undefined)),   // eslint-disable-line unicorn/no-useless-undefined
                 )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
             );
 
@@ -198,7 +199,7 @@ describe('Cookie', () => {
             it(`complains it the cookie doesn't exist`, () =>
                 expect(actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                    Ensure.that(Cookie.called('not-so-favourite').domain(), equals(undefined)),
+                    Ensure.that(Cookie.called('not-so-favourite').domain(), equals(undefined)), // eslint-disable-line unicorn/no-useless-undefined
                 )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
             );
 
@@ -227,7 +228,7 @@ describe('Cookie', () => {
             it(`complains it the cookie doesn't exist`, () =>
                 expect(actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                    Ensure.that(Cookie.called('not-so-favourite').isHttpOnly(), equals(undefined)),
+                    Ensure.that(Cookie.called('not-so-favourite').isHttpOnly(), equals(undefined)), // eslint-disable-line unicorn/no-useless-undefined
                 )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
             );
 
@@ -239,8 +240,7 @@ describe('Cookie', () => {
 
         describe('when working with an expiry date', () => {
 
-            const futureDate = new Timestamp(new Date('3000-01-01T09:00:00.500Z'));
-
+            // eslint-disable-next-line unicorn/consistent-function-scoping
             function tomorrow(): Timestamp {
                 const now = new Timestamp();
 
@@ -263,7 +263,7 @@ describe('Cookie', () => {
             it(`complains it the cookie doesn't exist`, () =>
                 expect(actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                    Ensure.that(Cookie.called('not-so-favourite').expiry(), equals(undefined)),
+                    Ensure.that(Cookie.called('not-so-favourite').expiry(), equals(undefined)), // eslint-disable-line unicorn/no-useless-undefined
                 )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
             );
 
@@ -299,7 +299,7 @@ describe('Cookie', () => {
         it(`complains it the cookie doesn't exist`, () =>
             expect(actorCalled('Sid').attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
-                Ensure.that(Cookie.called('not-so-favourite').isSecure(), equals(undefined)),
+                Ensure.that(Cookie.called('not-so-favourite').isSecure(), equals(undefined)),   // eslint-disable-line unicorn/no-useless-undefined
             )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
         );
 

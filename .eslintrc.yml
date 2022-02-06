@@ -13,13 +13,14 @@ parserOptions:
 plugins:
   - "@typescript-eslint"
   - import
-  - mocha-no-only
+  - mocha
   - simple-import-sort
   - unused-imports
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:mocha/recommended
   - plugin:unicorn/recommended
 rules:
   simple-import-sort/imports: error
@@ -27,8 +28,6 @@ rules:
   sort-imports: 'off'
   import/order: 'off'
   unused-imports/no-unused-imports: error
-  mocha-no-only/mocha-no-only:
-    - error
   no-multiple-empty-lines:
     - warn
     - max: 1
@@ -53,6 +52,9 @@ rules:
     - args: none
       vars: all
       varsIgnorePattern: "^.*_$"
+  mocha/no-exclusive-tests: 'error'
+  mocha/no-mocha-arrows: 'off'
+  mocha/no-setup-in-describe: 'off'
   unicorn/empty-brace-spaces: 'off'
   unicorn/filename-case:
     - error
@@ -61,17 +63,25 @@ rules:
         pascalCase: true
         camelCase: true
       ignore:
+        - "[a-z0-9_]+.spec.ts$"
+        - "[a-z0-9_]+.steps.ts$"
+        - "configure_serenity.ts"
         - API
         - AST
         - BDD
         - CLI
         - CSS
+        - DTO
         - GAV
         - FS
         - HTTP
         - JSON
         - UI
         - WebdriverIO
+  unicorn/import-style:
+    - error
+    - styles:
+        path: false
   unicorn/no-array-for-each: 'off'
   unicorn/no-array-reduce: 'off'
   unicorn/no-array-callback-reference: 'off'

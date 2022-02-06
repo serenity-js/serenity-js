@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -14,11 +15,11 @@ describe('@serenity-js/mocha', function () {
 
         it('throws an error', () => mocha('examples/failing/error-thrown.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
@@ -33,11 +34,11 @@ describe('@serenity-js/mocha', function () {
 
         it('passes a non-error to done()', () => mocha('examples/failing/non-error-in-done.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when a non-error is passed to done()')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
@@ -52,11 +53,11 @@ describe('@serenity-js/mocha', function () {
 
         it('passes an error to done()', () => mocha('examples/failing/error-in-done.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is passed to done()')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
@@ -69,14 +70,13 @@ describe('@serenity-js/mocha', function () {
                 ;
             }));
 
-
         it('fails because of a failing assertion', () => mocha('examples/failing/failing-assertion.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
@@ -94,11 +94,11 @@ describe('@serenity-js/mocha', function () {
 
         it('is compromised', () => mocha('examples/failing/test-compromised.spec.js')
             .then(ifExitCodeIsOtherThan(1, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(1);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario is compromised')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))

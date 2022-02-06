@@ -14,6 +14,7 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+
 import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
@@ -22,11 +23,11 @@ describe('@serenity-js/mocha', function () {
 
     it('recognises nested suites', () => mocha('examples/suites.spec.js')
         .then(ifExitCodeIsOtherThan(1, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(1);
+            expect(result.exitCode).to.equal(1);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
                 .next(TestSuiteStarts,     event => expect(event.details.name).to.equal(new Name('Mocha reporting')))

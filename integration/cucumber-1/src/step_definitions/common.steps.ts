@@ -1,7 +1,8 @@
 import { AssertionError } from '@serenity-js/core';
-import { TableDefinition } from 'cucumber';
 import * as assert from 'assert';
+import { TableDefinition } from 'cucumber';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export = function () {
     this.Given(/^.*step .* passes$/, function () {
         return Promise.resolve();

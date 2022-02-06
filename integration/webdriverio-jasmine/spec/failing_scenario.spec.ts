@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } f
 import { AssertionError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { BrowserTag, ExecutionFailedWithAssertionError, FeatureTag, Name, PlatformTag, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { wdio } from '../src';
 
 describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
@@ -16,11 +17,11 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
             '--spec=examples/failing.spec.js',
         )
         .then(ifExitCodeIsOtherThan(1, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(1);
+            expect(result.exitCode).to.equal(1);
 
-            PickEvent.from(StdOutReporter.parse(res.stdout))
+            PickEvent.from(StdOutReporter.parse(result.stdout))
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails')))
                 .next(SceneTagged,         event => expect(event.tag).to.be.instanceOf(BrowserTag))
                 .next(SceneTagged,         event => expect(event.tag).to.be.instanceOf(PlatformTag))

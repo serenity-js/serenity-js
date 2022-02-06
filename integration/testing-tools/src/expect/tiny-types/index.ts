@@ -1,5 +1,6 @@
 import { equals } from './equals';
 
-export function assertions(chai, utils) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function assertions(chai, utils): void {
     equals(chai, utils);
 }

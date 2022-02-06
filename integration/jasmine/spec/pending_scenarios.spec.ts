@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { ImplementationPendingError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+
 import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
@@ -14,11 +15,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('is missing the body', () => jasmine('examples/pending/missing-implementation.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(0);
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending when it hasn't been implemented yet`)))
                     .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
@@ -33,11 +34,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('is marked as pending (xit)', () => jasmine('examples/pending/marked-as-pending-xit.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(0);
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
                     .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
@@ -52,11 +53,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('is marked as pending (xdescribe)', () => jasmine('examples/pending/marked-as-pending-xdescribe.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(0);
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
                     .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {
@@ -71,11 +72,11 @@ describe('@serenity-js/jasmine', function () {
 
         it('is marked as pending with reason', () => jasmine('examples/pending/marked-as-pending-with-reason.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
-            .then(res => {
+            .then(result => {
 
-                expect(res.exitCode).to.equal(0);
+                expect(result.exitCode).to.equal(0);
 
-                PickEvent.from(res.events)
+                PickEvent.from(result.events)
                     .next(SceneStarts, event => expect(event.details.name).to.equal(new Name(`A scenario is marked as pending`)))
                     .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(SceneFinished, event => {

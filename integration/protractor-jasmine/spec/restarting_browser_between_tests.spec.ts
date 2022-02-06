@@ -1,7 +1,9 @@
+import 'mocha';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
 import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
-import 'mocha';
+
 import { protractor } from '../src/protractor';
 
 describe('@serenity-js/jasmine', function () {
@@ -21,11 +23,11 @@ describe('@serenity-js/jasmine', function () {
             '--restartBrowserBetweenTests',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
                 .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine disables synchronisation with Angular`)))
                 .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://version/'`)))
@@ -66,11 +68,11 @@ describe('@serenity-js/jasmine', function () {
             '--specs=examples/multiple_passing_scenarios.spec.js',
         )
         .then(ifExitCodeIsOtherThan(0, logOutput))
-        .then(res => {
+        .then(result => {
 
-            expect(res.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-            PickEvent.from(res.events)
+            PickEvent.from(result.events)
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
                 .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine disables synchronisation with Angular`)))
                 .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://version/'`)))

@@ -46,9 +46,7 @@ describe('ProtractorFrameworkAdapter', () => {
         testRunnerDetector.runnerFor.returns(testRunnerAdapter);
 
         adapter = new ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector as unknown as TestRunnerDetector);
-    });
 
-    beforeEach(() => {
         protractorRunner.getConfig.returns({ });
     });
 
