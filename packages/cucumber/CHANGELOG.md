@@ -206,6 +206,17 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 
 
 
+## [2.33.1](https://github.com/serenity-js/serenity-js/compare/v2.33.0...v2.33.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to ^1.17.0 ([7b7d6fd](https://github.com/serenity-js/serenity-js/commit/7b7d6fda08f5db7199d8608ff4cf1389a6e84d3c))
+
+
+
+
+
 # [2.33.0](https://github.com/serenity-js/serenity-js/compare/v2.32.7...v2.33.0) (2022-02-03)
 
 
