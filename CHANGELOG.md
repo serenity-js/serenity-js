@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.1](https://github.com/serenity-js/serenity-js/compare/v2.33.0...v2.33.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-glob to ^3.2.11 ([b980fb1](https://github.com/serenity-js/serenity-js/commit/b980fb10374086f679b7b3584810a74ac5988299))
+* **deps:** update dependency graceful-fs to ^4.2.9 ([c1228bc](https://github.com/serenity-js/serenity-js/commit/c1228bc8b79a0d1a1dbda6906240442ef40f6543))
+* **deps:** update dependency tiny-types to ^1.17.0 ([7b7d6fd](https://github.com/serenity-js/serenity-js/commit/7b7d6fda08f5db7199d8608ff4cf1389a6e84d3c))
+
+
+
+
+
 # [2.33.0](https://github.com/serenity-js/serenity-js/compare/v2.32.7...v2.33.0) (2022-02-03)
 
 
