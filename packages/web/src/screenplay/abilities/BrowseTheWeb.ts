@@ -18,11 +18,10 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
         return actor.abilityTo(BrowseTheWeb) as BrowseTheWeb<NET, NRET>;
     }
 
-    constructor(
+    protected constructor(
         protected locators: Map<
-        new (...args: unknown[]) => Selector,
-        (selector: Selector) =>
-        Locator<Native_Element_Type, Native_Root_Element_Type>
+            new (...args: unknown[]) => Selector,
+            (selector: Selector) => Locator<Native_Element_Type, Native_Root_Element_Type>
         >
     ) {
     }
