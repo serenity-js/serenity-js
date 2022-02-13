@@ -1,4 +1,5 @@
 import * as parser from 'error-stack-parser';
+import StackFrame = require('stackframe');
 
 /**
  * @desc
@@ -9,7 +10,7 @@ import * as parser from 'error-stack-parser';
  * @package
  */
 export class ErrorStackParser {
-    parse(error: Error): parser.StackFrame[] {
+    parse(error: Error): StackFrame[] {
         return parser.parse(error);
     }
 }
