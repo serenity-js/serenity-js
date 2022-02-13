@@ -92,8 +92,16 @@ export class ProtractorPage extends Page {
         return isOpen;
     }
 
-    async switchTo(): Promise<void> {
+    async switchTo(): Promise<{ switchBack(): Promise<void> }> {
+        const originalWindowHandle = await this.browser.getWindowHandle();
+
         await this.browser.switchTo().window(this.handle);
+
+        return {
+            switchBack: async (): Promise<void> => {
+                await this.browser.switchTo().window(originalWindowHandle);
+            }
+        }
     }
 
     private async switchToAndPerform<T>(action: (browser: ProtractorBrowser) => Promise<T> | T): Promise<T> {

@@ -1,10 +1,11 @@
 import { Ability, Duration, f, LogicError, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, Locator, ModalDialog, Page, PageElement, Selector } from '../models';
+import { Cookie, CookieData, Frame, Locator, ModalDialog, Page, Selector } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Element_Type = unknown> implements Ability {
+
     /**
      * @desc
      *  Used to access the Actor's ability to {@link BrowseTheWeb}
@@ -19,19 +20,13 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
     }
 
     protected constructor(
-        protected locators: Map<
-            new (...args: unknown[]) => Selector,
-            (selector: Selector) => Locator<Native_Element_Type, Native_Root_Element_Type>
-        >
+        protected locators: Map<new (...args: unknown[]) => Selector, (selector: Selector) => Locator<Native_Element_Type, Native_Root_Element_Type>>
     ) {
     }
 
     abstract navigateTo(destination: string): Promise<void>;
-
     abstract navigateBack(): Promise<void>;
-
     abstract navigateForward(): Promise<void>;
-
     abstract reloadPage(): Promise<void>;
 
     abstract waitFor(duration: Duration): Promise<void>;
@@ -66,6 +61,8 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
 
     abstract takeScreenshot(): Promise<string>;
 
+    abstract frame(bySelector: Selector): Promise<Frame>;
+
     /**
      * @desc
      *  Returns a {@link Page} representing the currently active top-level browsing context.
@@ -88,10 +85,5 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
     abstract deleteAllCookies(): Promise<void>;
 
     abstract modalDialog(): Promise<ModalDialog>;
-
-    // todo: remove
-    abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
-    abstract switchToParentFrame(): Promise<void>;
-    abstract switchToDefaultContent(): Promise<void>;
 }
 

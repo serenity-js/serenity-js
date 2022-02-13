@@ -1,9 +1,9 @@
 import { ConfigurationError, Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
-import { by, ElementFinder, ProtractorBrowser, WebElementPromise } from 'protractor';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Frame, Key, ModalDialog, Page, Selector } from '@serenity-js/web';
+import { by, ElementFinder, ProtractorBrowser } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
+import { ProtractorCookie, ProtractorFrame, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
 import { ProtractorLocator, ProtractorNativeElementRoot } from '../models/locators';
 import { promised } from '../promised';
 
@@ -164,6 +164,12 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, Prot
         return new ProtractorModalDialog(this.browser);
     }
 
+    async frame(bySelector: Selector): Promise<Frame> {
+        const locator = this.locate(bySelector);
+
+        return new ProtractorFrame(this.browser, locator);
+    }
+
     /**
      * @desc
      *  Navigate to the given destination and loads mock modules before Angular.
@@ -176,51 +182,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, Prot
      */
     get(destination: string, timeoutInMillis?: number): Promise<void> {
         return promised(this.browser.get(destination, timeoutInMillis));
-    }
-
-    /**
-     * @desc
-     *  Switches the focus to a [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
-     *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) identified by `elementOrIndexOrName`,
-     *  which can be specified either as {@link selenium-webdriver~WebElement}, the name of the frame, or its index.
-     *
-     * @param {number | string | WebElement} elementOrIndexOrName
-     *
-     * @returns {Promise<void>}
-     */
-    async switchToFrame(elementOrIndexOrName: number | string | PageElement): Promise<void> {
-        if (elementOrIndexOrName instanceof ProtractorPageElement) {
-            const nativeElement = await elementOrIndexOrName.nativeElement();
-            const webElement = await nativeElement.getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739;
-
-            return this.browser.switchTo().frame(webElement);
-        }
-
-        // incorrect type definition in selenium-webdriver prevents us from providing a string argument
-        return this.browser.switchTo().frame(elementOrIndexOrName as any);
-    }
-
-    /**
-     * @desc
-     *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
-     *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to its parent iframe.
-     *
-     * @returns {Promise<void>}
-     */
-    switchToParentFrame(): Promise<void> {
-        return promised(this.browser.driver.switchToParentFrame());
-    }
-
-    /**
-     * @desc
-     *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame)
-     *  or [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to default content,
-     *  a.k.a. "the main window".
-     *
-     * @returns {Promise<void>}
-     */
-    switchToDefaultContent(): Promise<void> {
-        return promised(this.browser.switchTo().defaultContent());
     }
 
     /**

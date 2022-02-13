@@ -92,9 +92,6 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
 
-        // todo
-        it('loads specs using @serenity-js/cucumber when configured to do so');
-
         it('complains when configured with an invalid runner', () => {
             const config = defaultConfig({
                 serenity: {
