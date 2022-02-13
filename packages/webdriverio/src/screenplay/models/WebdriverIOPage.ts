@@ -96,8 +96,16 @@ export class WebdriverIOPage extends Page {
         return isOpen;
     }
 
-    async switchTo(): Promise<void> {
+    async switchTo(): Promise<{ switchBack(): Promise<void> }> {
+        const originalWindowHandle = await this.browser.getWindowHandle();
+
         await this.browser.switchToWindow(this.handle);
+
+        return {
+            switchBack: async (): Promise<void> => {
+                await this.browser.switchToWindow(originalWindowHandle);
+            }
+        }
     }
 
     private async switchToAndPerform<T>(action: (browser: wdio.Browser<'async'>) => Promise<T> | T): Promise<T> {

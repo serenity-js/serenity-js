@@ -1,8 +1,8 @@
 import { Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Frame, Key, ModalDialog, Page, Selector } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
+import { WebdriverIOCookie, WebdriverIOFrame, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
 import { WebdriverIOLocator, WebdriverIONativeElementRoot } from '../models/locators';
 
 /**
@@ -147,21 +147,13 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
         return windowHandles.map(windowHandle => new WebdriverIOPage(this.browser, windowHandle));
     }
 
-    async modalDialog(): Promise<ModalDialog> {
-        return new WebdriverIOModalDialog(this.browser);
+    async frame(bySelector: Selector): Promise<Frame<any>> {
+        const locator = this.locate(bySelector);
+        return new WebdriverIOFrame(this.browser, locator);
     }
 
-    // todo: remove
-    switchToFrame(targetOrIndex: PageElement | number | string): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    switchToParentFrame(): Promise<void> {
-        throw new Error('Not implemented, yet');
-    }
-    // todo: remove
-    switchToDefaultContent(): Promise<void> {
-        throw new Error('Not implemented, yet');
+    async modalDialog(): Promise<ModalDialog> {
+        return new WebdriverIOModalDialog(this.browser);
     }
 
     /**

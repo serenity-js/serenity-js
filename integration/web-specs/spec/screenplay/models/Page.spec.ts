@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
 import { actorCalled, LogicError, Note, TakeNote } from '@serenity-js/core';
-import { By, Click, Navigate, Page, PageElement, Text, Wait } from '@serenity-js/web';
+import { By, Click, Navigate, Page, PageElement, Switch, Text, Wait } from '@serenity-js/web';
 import { URL } from 'url';
 
 /** @test {Page} */
@@ -11,15 +11,21 @@ describe('Page', () => {
 
     describe('when managing the browsing context', () => {
 
+        const heading = Text.of(PageElement.located(By.css('h1')).describedAs('heading'));
+
         const MainPage = {
             title:          'Main page title',
-            heading:        Text.of(PageElement.located(By.css('h1')).describedAs('heading')),
             newPopUpLink:   PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
+            newTabLink:     PageElement.located(By.id('new-tab-link')).describedAs('new tab link'),
+        };
+
+        const NewTab = {
+            title:      'New tab title',
+            heading:    'New tab',
         };
 
         const Popup = {
             expectedName:   'popup-window',         // defined in main_page.html
-            heading:        Text.of(PageElement.located(By.css('h1')).describedAs('heading')),
         };
 
         beforeEach(() =>
@@ -100,16 +106,35 @@ describe('Page', () => {
             it('automatically switches back to the original context when the action is finished', () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.whichName(startsWith('popup')).name(), equals(Popup.expectedName)),
-                    Ensure.that(MainPage.heading, equals('Main page')),
+                    Ensure.that(heading, equals('Main page')),
                 ));
 
-            it('complains if the page the actor wants to switch todoes not exist', async () =>
+            it('complains if the page the actor wants to switch to does not exist', async () =>
                 expect(actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.whichName(startsWith('invalid')).title(), equals(`this won't pass`)),
                 )).to.be.rejectedWith(LogicError, `Couldn't find a page which name does start with 'invalid'`),
             );
         });
 
+        describe('Switch.to(Page)', () => {
+
+            it('automatically switches back to the origin page after performing activities in the context of another page', () =>
+                actorCalled('Bernie').attemptsTo(
+                    Click.on(MainPage.newTabLink),
+
+                    Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+
+                    // click automatically switches context,
+                    // so make sure we're on the main page
+                    Switch.to(Page.whichTitle(equals(MainPage.title))),
+
+                    Switch.to(Page.whichTitle(equals(NewTab.title))).and(
+                        Ensure.that(heading, equals(NewTab.heading)),
+                    ),
+
+                    Ensure.that(Page.current().title(), equals(MainPage.title)),
+                ));
+        });
     });
 
     describe('when managing the viewport size', () => {
@@ -262,6 +287,4 @@ describe('Page', () => {
             });
         });
     });
-
-    // todo: frames
 });

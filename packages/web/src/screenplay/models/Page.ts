@@ -2,8 +2,9 @@ import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Optional, 
 import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
+import { Switchable } from './Switchable';
 
-export abstract class Page implements Optional {
+export abstract class Page implements Optional, Switchable {
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();
@@ -116,11 +117,13 @@ export abstract class Page implements Optional {
 
     /**
      * @desc
-     *  Switches the current top-level browsing context to the given page
+     *  Switches the current browsing context to the given pare
+     *  and returns an object that allows the caller to switch back
+     *  to the previous context if needed.
      *
-     * @returns {Promise<void>}
+     * @returns {Promise<{ switchBack(): Promise<void> }>}
      */
-    abstract switchTo(): Promise<void>;
+    abstract switchTo(): Promise<{ switchBack(): Promise<void> }>;
 
     /**
      * @desc
