@@ -2,7 +2,7 @@ import 'mocha';
 
 import { given } from 'mocha-testdata';
 
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, FeatureTag, IssueTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, FeatureTag, IssueTag, ManualLastTestedTag, ManualResultTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';
 import { expect } from '../expect';
 
 /**
@@ -16,6 +16,9 @@ import { expect } from '../expect';
 describe('Tag', () => {
 
     given<string, Tag[]>(
+        [ '@manual-last-tested:2021.9.0', [ new ManualLastTestedTag('2021.9.0')                                  ] ],
+        [ '@manual-result:passed', [ new ManualResultTag('passed')                                  ] ],
+        [ '@manual-result:failed',        [ new ManualResultTag('failed')                                  ] ],
         [ '@manual',                    [ new ManualTag()                                  ] ],
         [ '@issue:ABC-123',             [ new IssueTag('ABC-123')                          ] ],
         [ '@issues:ABC-123',            [ new IssueTag('ABC-123')                          ] ],
@@ -41,6 +44,9 @@ describe('Tag', () => {
         new ContextTag('mac osx'),
         new FeatureTag('testability'),
         new IssueTag('abc-123'),
+        new ManualLastTestedTag('2021.9.0'),
+        new ManualResultTag('passed'),
+        new ManualResultTag('failed'),
         new ManualTag(),
         new ThemeTag('sales'),
     ]).

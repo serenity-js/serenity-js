@@ -3,10 +3,15 @@ import { Tag } from './Tag';
 /**
  * @access public
  */
-export class ManualTag extends Tag {
-    static readonly Type = 'External Tests';
+export class ManualLastTestedTag extends Tag {
+    private readonly lastTested;
+    static readonly Type = 'External Test Time';
 
-    constructor(name = 'Manual') {  // parametrised constructor to make all tag constructors compatible
-        super(name, ManualTag.Type);
+    constructor(lastTested: string) {
+        super(lastTested, ManualLastTestedTag.Type);
+        this.lastTested = lastTested;
+    }
+    getLastTested(): string {
+        return this.lastTested;
     }
 }
