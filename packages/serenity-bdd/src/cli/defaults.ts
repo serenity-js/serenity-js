@@ -15,7 +15,7 @@
  * @public
  */
 export const defaults = {
-    artifact:    'net.serenity-bdd:serenity-cli:jar:3.2.0',
+    artifact:    'net.serenity-bdd:serenity-cli:jar:3.1.0',
     repository:  'https://repo1.maven.org/maven2/',
     cacheDir:    'node_modules/@serenity-js/serenity-bdd/cache',
     sourceDir:   'target/site/serenity',
