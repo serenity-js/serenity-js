@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 485,
+  "end": 521,
   "loc": {
     "start": {
       "line": 1,
@@ -9,16 +9,16 @@
       "index": 0
     },
     "end": {
-      "line": 36,
+      "line": 37,
       "column": 0,
-      "index": 485
+      "index": 521
     }
   },
   "errors": [],
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 485,
+    "end": 521,
     "loc": {
       "start": {
         "line": 1,
@@ -26,9 +26,9 @@
         "index": 0
       },
       "end": {
-        "line": 36,
+        "line": 37,
         "column": 0,
-        "index": 485
+        "index": 521
       }
     },
     "sourceType": "module",
@@ -110,41 +110,118 @@
             "raw": "'error-stack-parser'"
           },
           "value": "error-stack-parser"
+        }
+      },
+      {
+        "type": "TSImportEqualsDeclaration",
+        "start": 46,
+        "end": 88,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0,
+            "index": 46
+          },
+          "end": {
+            "line": 2,
+            "column": 42,
+            "index": 88
+          }
+        },
+        "importKind": "value",
+        "isExport": false,
+        "id": {
+          "type": "Identifier",
+          "start": 53,
+          "end": 63,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 7,
+              "index": 53
+            },
+            "end": {
+              "line": 2,
+              "column": 17,
+              "index": 63
+            },
+            "identifierName": "StackFrame"
+          },
+          "name": "StackFrame"
+        },
+        "moduleReference": {
+          "type": "TSExternalModuleReference",
+          "start": 66,
+          "end": 87,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 20,
+              "index": 66
+            },
+            "end": {
+              "line": 2,
+              "column": 41,
+              "index": 87
+            }
+          },
+          "expression": {
+            "type": "StringLiteral",
+            "start": 74,
+            "end": 86,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 28,
+                "index": 74
+              },
+              "end": {
+                "line": 2,
+                "column": 40,
+                "index": 86
+              }
+            },
+            "extra": {
+              "rawValue": "stackframe",
+              "raw": "'stackframe'"
+            },
+            "value": "stackframe"
+          }
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 46,
-            "end": 91,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 89,
+            "end": 134,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 3,
                 "column": 0,
-                "index": 46
+                "index": 89
               },
               "end": {
-                "line": 7,
+                "line": 8,
                 "column": 3,
-                "index": 91
+                "index": 134
               }
             }
           },
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  A thin wrapper around error-stack-parser module\n *\n * @see https://www.npmjs.com/package/error-stack-parser\n *\n * @package\n ",
-            "start": 94,
-            "end": 237,
+            "start": 137,
+            "end": 280,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 11,
                 "column": 0,
-                "index": 94
+                "index": 137
               },
               "end": {
-                "line": 17,
+                "line": 18,
                 "column": 3,
-                "index": 237
+                "index": 280
               }
             }
           }
@@ -152,18 +229,18 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 238,
-        "end": 484,
+        "start": 281,
+        "end": 520,
         "loc": {
           "start": {
-            "line": 18,
+            "line": 19,
             "column": 0,
-            "index": 238
+            "index": 281
           },
           "end": {
-            "line": 35,
+            "line": 36,
             "column": 1,
-            "index": 484
+            "index": 520
           }
         },
         "exportKind": "value",
@@ -171,34 +248,34 @@
         "source": null,
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 245,
-          "end": 484,
+          "start": 288,
+          "end": 520,
           "loc": {
             "start": {
-              "line": 18,
+              "line": 19,
               "column": 7,
-              "index": 245
+              "index": 288
             },
             "end": {
-              "line": 35,
+              "line": 36,
               "column": 1,
-              "index": 484
+              "index": 520
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 251,
-            "end": 267,
+            "start": 294,
+            "end": 310,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 19,
                 "column": 13,
-                "index": 251
+                "index": 294
               },
               "end": {
-                "line": 18,
+                "line": 19,
                 "column": 29,
-                "index": 267
+                "index": 310
               },
               "identifierName": "ErrorStackParser"
             },
@@ -207,52 +284,52 @@
           "superClass": null,
           "body": {
             "type": "ClassBody",
-            "start": 268,
-            "end": 484,
+            "start": 311,
+            "end": 520,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 19,
                 "column": 30,
-                "index": 268
+                "index": 311
               },
               "end": {
-                "line": 35,
+                "line": 36,
                 "column": 1,
-                "index": 484
+                "index": 520
               }
             },
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 398,
-                "end": 482,
+                "start": 441,
+                "end": 518,
                 "loc": {
                   "start": {
-                    "line": 32,
+                    "line": 33,
                     "column": 4,
-                    "index": 398
+                    "index": 441
                   },
                   "end": {
-                    "line": 34,
+                    "line": 35,
                     "column": 5,
-                    "index": 482
+                    "index": 518
                   }
                 },
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 398,
-                  "end": 403,
+                  "start": 441,
+                  "end": 446,
                   "loc": {
                     "start": {
-                      "line": 32,
+                      "line": 33,
                       "column": 4,
-                      "index": 398
+                      "index": 441
                     },
                     "end": {
-                      "line": 32,
+                      "line": 33,
                       "column": 9,
-                      "index": 403
+                      "index": 446
                     },
                     "identifierName": "parse"
                   },
@@ -266,68 +343,68 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 404,
-                    "end": 416,
+                    "start": 447,
+                    "end": 459,
                     "loc": {
                       "start": {
-                        "line": 32,
+                        "line": 33,
                         "column": 10,
-                        "index": 404
+                        "index": 447
                       },
                       "end": {
-                        "line": 32,
+                        "line": 33,
                         "column": 22,
-                        "index": 416
+                        "index": 459
                       },
                       "identifierName": "error"
                     },
                     "name": "error",
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 409,
-                      "end": 416,
+                      "start": 452,
+                      "end": 459,
                       "loc": {
                         "start": {
-                          "line": 32,
+                          "line": 33,
                           "column": 15,
-                          "index": 409
+                          "index": 452
                         },
                         "end": {
-                          "line": 32,
+                          "line": 33,
                           "column": 22,
-                          "index": 416
+                          "index": 459
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 411,
-                        "end": 416,
+                        "start": 454,
+                        "end": 459,
                         "loc": {
                           "start": {
-                            "line": 32,
+                            "line": 33,
                             "column": 17,
-                            "index": 411
+                            "index": 454
                           },
                           "end": {
-                            "line": 32,
+                            "line": 33,
                             "column": 22,
-                            "index": 416
+                            "index": 459
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 411,
-                          "end": 416,
+                          "start": 454,
+                          "end": 459,
                           "loc": {
                             "start": {
-                              "line": 32,
+                              "line": 33,
                               "column": 17,
-                              "index": 411
+                              "index": 454
                             },
                             "end": {
-                              "line": 32,
+                              "line": 33,
                               "column": 22,
-                              "index": 416
+                              "index": 459
                             },
                             "identifierName": "Error"
                           },
@@ -339,189 +416,153 @@
                 ],
                 "returnType": {
                   "type": "TSTypeAnnotation",
-                  "start": 417,
-                  "end": 438,
+                  "start": 460,
+                  "end": 474,
                   "loc": {
                     "start": {
-                      "line": 32,
+                      "line": 33,
                       "column": 23,
-                      "index": 417
+                      "index": 460
                     },
                     "end": {
-                      "line": 32,
-                      "column": 44,
-                      "index": 438
+                      "line": 33,
+                      "column": 37,
+                      "index": 474
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSArrayType",
-                    "start": 419,
-                    "end": 438,
+                    "start": 462,
+                    "end": 474,
                     "loc": {
                       "start": {
-                        "line": 32,
+                        "line": 33,
                         "column": 25,
-                        "index": 419
+                        "index": 462
                       },
                       "end": {
-                        "line": 32,
-                        "column": 44,
-                        "index": 438
+                        "line": 33,
+                        "column": 37,
+                        "index": 474
                       }
                     },
                     "elementType": {
                       "type": "TSTypeReference",
-                      "start": 419,
-                      "end": 436,
+                      "start": 462,
+                      "end": 472,
                       "loc": {
                         "start": {
-                          "line": 32,
+                          "line": 33,
                           "column": 25,
-                          "index": 419
+                          "index": 462
                         },
                         "end": {
-                          "line": 32,
-                          "column": 42,
-                          "index": 436
+                          "line": 33,
+                          "column": 35,
+                          "index": 472
                         }
                       },
                       "typeName": {
-                        "type": "TSQualifiedName",
-                        "start": 419,
-                        "end": 436,
+                        "type": "Identifier",
+                        "start": 462,
+                        "end": 472,
                         "loc": {
                           "start": {
-                            "line": 32,
+                            "line": 33,
                             "column": 25,
-                            "index": 419
+                            "index": 462
                           },
                           "end": {
-                            "line": 32,
-                            "column": 42,
-                            "index": 436
-                          }
-                        },
-                        "left": {
-                          "type": "Identifier",
-                          "start": 419,
-                          "end": 425,
-                          "loc": {
-                            "start": {
-                              "line": 32,
-                              "column": 25,
-                              "index": 419
-                            },
-                            "end": {
-                              "line": 32,
-                              "column": 31,
-                              "index": 425
-                            },
-                            "identifierName": "parser"
+                            "line": 33,
+                            "column": 35,
+                            "index": 472
                           },
-                          "name": "parser"
+                          "identifierName": "StackFrame"
                         },
-                        "right": {
-                          "type": "Identifier",
-                          "start": 426,
-                          "end": 436,
-                          "loc": {
-                            "start": {
-                              "line": 32,
-                              "column": 32,
-                              "index": 426
-                            },
-                            "end": {
-                              "line": 32,
-                              "column": 42,
-                              "index": 436
-                            },
-                            "identifierName": "StackFrame"
-                          },
-                          "name": "StackFrame"
-                        }
+                        "name": "StackFrame"
                       }
                     }
                   }
                 },
                 "body": {
                   "type": "BlockStatement",
-                  "start": 439,
-                  "end": 482,
+                  "start": 475,
+                  "end": 518,
                   "loc": {
                     "start": {
-                      "line": 32,
-                      "column": 45,
-                      "index": 439
+                      "line": 33,
+                      "column": 38,
+                      "index": 475
                     },
                     "end": {
-                      "line": 34,
+                      "line": 35,
                       "column": 5,
-                      "index": 482
+                      "index": 518
                     }
                   },
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 449,
-                      "end": 476,
+                      "start": 485,
+                      "end": 512,
                       "loc": {
                         "start": {
-                          "line": 33,
+                          "line": 34,
                           "column": 8,
-                          "index": 449
+                          "index": 485
                         },
                         "end": {
-                          "line": 33,
+                          "line": 34,
                           "column": 35,
-                          "index": 476
+                          "index": 512
                         }
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 456,
-                        "end": 475,
+                        "start": 492,
+                        "end": 511,
                         "loc": {
                           "start": {
-                            "line": 33,
+                            "line": 34,
                             "column": 15,
-                            "index": 456
+                            "index": 492
                           },
                           "end": {
-                            "line": 33,
+                            "line": 34,
                             "column": 34,
-                            "index": 475
+                            "index": 511
                           }
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 456,
-                          "end": 468,
+                          "start": 492,
+                          "end": 504,
                           "loc": {
                             "start": {
-                              "line": 33,
+                              "line": 34,
                               "column": 15,
-                              "index": 456
+                              "index": 492
                             },
                             "end": {
-                              "line": 33,
+                              "line": 34,
                               "column": 27,
-                              "index": 468
+                              "index": 504
                             }
                           },
                           "object": {
                             "type": "Identifier",
-                            "start": 456,
-                            "end": 462,
+                            "start": 492,
+                            "end": 498,
                             "loc": {
                               "start": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 15,
-                                "index": 456
+                                "index": 492
                               },
                               "end": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 21,
-                                "index": 462
+                                "index": 498
                               },
                               "identifierName": "parser"
                             },
@@ -530,18 +571,18 @@
                           "computed": false,
                           "property": {
                             "type": "Identifier",
-                            "start": 463,
-                            "end": 468,
+                            "start": 499,
+                            "end": 504,
                             "loc": {
                               "start": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 22,
-                                "index": 463
+                                "index": 499
                               },
                               "end": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 27,
-                                "index": 468
+                                "index": 504
                               },
                               "identifierName": "parse"
                             },
@@ -551,18 +592,18 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 469,
-                            "end": 474,
+                            "start": 505,
+                            "end": 510,
                             "loc": {
                               "start": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 28,
-                                "index": 469
+                                "index": 505
                               },
                               "end": {
-                                "line": 33,
+                                "line": 34,
                                 "column": 33,
-                                "index": 474
+                                "index": 510
                               },
                               "identifierName": "error"
                             },
@@ -577,19 +618,19 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Error} error \n * @return \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 270,
-                    "end": 392,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @param \n * {Error} error \n * @return \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 313,
+                    "end": 435,
                     "loc": {
                       "start": {
-                        "line": 19,
+                        "line": 20,
                         "column": 0,
-                        "index": 270
+                        "index": 313
                       },
                       "end": {
-                        "line": 30,
+                        "line": 31,
                         "column": 3,
-                        "index": 392
+                        "index": 435
                       }
                     }
                   }
@@ -600,37 +641,37 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-              "start": 46,
-              "end": 91,
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+              "start": 89,
+              "end": 134,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 0,
-                  "index": 46
+                  "index": 89
                 },
                 "end": {
-                  "line": 7,
+                  "line": 8,
                   "column": 3,
-                  "index": 91
+                  "index": 134
                 }
               }
             },
             {
               "type": "CommentBlock",
               "value": "*\n * @desc\n *  A thin wrapper around error-stack-parser module\n *\n * @see https://www.npmjs.com/package/error-stack-parser\n *\n * @package\n ",
-              "start": 94,
-              "end": 237,
+              "start": 137,
+              "end": 280,
               "loc": {
                 "start": {
-                  "line": 10,
+                  "line": 11,
                   "column": 0,
-                  "index": 94
+                  "index": 137
                 },
                 "end": {
-                  "line": 17,
+                  "line": 18,
                   "column": 3,
-                  "index": 237
+                  "index": 280
                 }
               }
             }
@@ -640,37 +681,37 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 46,
-            "end": 91,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 89,
+            "end": 134,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 3,
                 "column": 0,
-                "index": 46
+                "index": 89
               },
               "end": {
-                "line": 7,
+                "line": 8,
                 "column": 3,
-                "index": 91
+                "index": 134
               }
             }
           },
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  A thin wrapper around error-stack-parser module\n *\n * @see https://www.npmjs.com/package/error-stack-parser\n *\n * @package\n ",
-            "start": 94,
-            "end": 237,
+            "start": 137,
+            "end": 280,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 11,
                 "column": 0,
-                "index": 94
+                "index": 137
               },
               "end": {
-                "line": 17,
+                "line": 18,
                 "column": 3,
-                "index": 237
+                "index": 280
               }
             }
           }
@@ -682,55 +723,55 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-      "start": 46,
-      "end": 91,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+      "start": 89,
+      "end": 134,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 3,
           "column": 0,
-          "index": 46
+          "index": 89
         },
         "end": {
-          "line": 7,
+          "line": 8,
           "column": 3,
-          "index": 91
+          "index": 134
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * @desc\n *  A thin wrapper around error-stack-parser module\n *\n * @see https://www.npmjs.com/package/error-stack-parser\n *\n * @package\n ",
-      "start": 94,
-      "end": 237,
+      "start": 137,
+      "end": 280,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 11,
           "column": 0,
-          "index": 94
+          "index": 137
         },
         "end": {
-          "line": 17,
+          "line": 18,
           "column": 3,
-          "index": 237
+          "index": 280
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n * @param \n * {Error} error \n * @return \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-      "start": 270,
-      "end": 392,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @param \n * {Error} error \n * @return \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+      "start": 313,
+      "end": 435,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 20,
           "column": 0,
-          "index": 270
+          "index": 313
         },
         "end": {
-          "line": 30,
+          "line": 31,
           "column": 3,
-          "index": 392
+          "index": 435
         }
       }
     }

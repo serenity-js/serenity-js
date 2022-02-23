@@ -307,6 +307,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/ErrorStackParser.ts</h1>
 <pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> parser <span class="token keyword">from</span> <span class="token string">'error-stack-parser'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> StackFrame <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'stackframe'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
  * @desc
@@ -317,7 +318,7 @@
  * @package
  */</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ErrorStackParser</span> <span class="token punctuation">{</span>
-    <span class="token function">parse</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> parser<span class="token punctuation">.</span>StackFrame<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+    <span class="token function">parse</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> StackFrame<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> parser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
