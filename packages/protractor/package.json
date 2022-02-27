@@ -34,7 +34,7 @@
     "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
     "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
-    "test": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
+    "test": "nyc protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -101,27 +101,5 @@
     "start-server-and-test": "^1.14.0",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/**/*.d.ts",
-      "lib",
-      "node_modules",
-      "spec"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "json"
-    ],
-    "cache": true,
-    "all": true
   }
 }
