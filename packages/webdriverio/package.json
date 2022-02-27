@@ -33,7 +33,7 @@
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "nyc --report-dir ../../target/coverage/webdriverio/mocha mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
+    "test": "nyc mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -92,25 +92,5 @@
     "mocha-testdata": "^1.2.0",
     "start-server-and-test": "^1.14.0",
     "webdriverio": "^7.16.16"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/**/*.d.ts",
-      "lib",
-      "node_modules",
-      "spec"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [],
-    "reporter": [
-      "json"
-    ],
-    "cache": true,
-    "all": false
   }
 }

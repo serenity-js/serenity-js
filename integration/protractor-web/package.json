@@ -23,7 +23,7 @@
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8081 start-server-and-test start http://localhost:8081 test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "nyc --report-dir='../target/coverage/integration-protractor-web' protractor protractor.conf.js",
+    "test:acceptance:run": "nyc protractor protractor.conf.js",
     "test:report": "serenity-bdd run"
   },
   "repository": {

@@ -29,7 +29,7 @@
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "nyc --report-dir ../../target/coverage/core mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -71,27 +71,5 @@
   "engines": {
     "node": "^14 || ^16",
     "npm": "^6 || ^7 || ^8"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/**/*.d.ts",
-      "lib",
-      "spec",
-      "node_modules"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "json"
-    ],
-    "cache": true,
-    "all": true
   }
 }

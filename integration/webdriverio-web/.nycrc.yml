@@ -1,0 +1,15 @@
+extends: '../../.nycrc.yml'
+cwd: '../../packages'
+reportDir: '../target/coverage/integration-webdriverio-web'
+tempDir: '../.nyc_output'
+include:
+  - 'web/src/**/*.ts'
+  - 'web/lib/**/*.js'
+  - 'webdriverio/src/**/*.ts'
+  - 'webdriverio/lib/**/*.js'
+exclude:
+  - '**/.esdoc.js'
+  - '**/target/**'
+  - '**/spec/**'
+  - '**/*.d.ts'
+  - '**/*.spec.ts'
