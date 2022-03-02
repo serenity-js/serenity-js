@@ -200,8 +200,9 @@ jobs:
   #
 
   test-integration-saucelabs:
-    if: github.event.pull_request.head.repo.full_name == github.repository
     name: integration (SauceLabs)
+    # don't run on forks which won't have access to secrets
+    if: ${{ !github.event.pull_request.head.repo.fork }}
     needs:
       - compile
     runs-on: ubuntu-latest
