@@ -11,10 +11,10 @@ export interface UsesAbilities {
 
     /**
      * @desc
-     *  Grants access to the Actor's ability
+     *  Provides access to the {@link Actor}'s {@link Ability} to do something
      *
-     * @param {AbilityType<T extends Ability>} doSomething
-     * @returns {T}
+     * @type {function<T extends Ability>(doSomething: AbilityType<T>): T}
+     * @public
      */
-    abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
+    abilityTo: <T extends Ability>(doSomething: AbilityType<T>) => T;
 }

@@ -7,5 +7,13 @@ import { Answerable } from '../Answerable';
  * @public
  */
 export interface AnswersQuestions {
-    answer<T>(knownUnknown: Answerable<T>): Promise<T>;
+
+    /**
+     * @desc
+     *  Makes the {@link Actor} evaluate an {@link Answerable}
+     *  and return the value it holds.
+     *
+     * @type {function<T>>(answerable: Answerable<T>): Promise<T>}
+     */
+    answer: <T>(answerable: Answerable<T>) => Promise<T>;
 }
