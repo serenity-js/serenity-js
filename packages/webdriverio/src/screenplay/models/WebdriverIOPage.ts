@@ -54,14 +54,14 @@ export class WebdriverIOPage extends Page {
 
             if (! browser.isDevTools) {
                 desiredWindowSize = await browser.execute(`
-                var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-                var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-                
-                return {
-                    width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
-                    height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
-                };
-            `);
+                    var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+                    var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+                    
+                    return {
+                        width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
+                        height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
+                    };
+                `);
             }
 
             return browser.setWindowSize(desiredWindowSize.width, desiredWindowSize.height);
