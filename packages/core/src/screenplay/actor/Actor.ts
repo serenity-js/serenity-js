@@ -12,6 +12,17 @@ import { CollectsArtifacts } from './CollectsArtifacts';
 import { PerformsActivities } from './PerformsActivities';
 import { UsesAbilities } from './UsesAbilities';
 
+/**
+ * @desc
+ *  Core element of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html),
+ *  an {@link Actor} represents a user or an external system interacting with the system under test.
+ *
+ * @implements {PerformsActivities}
+ * @implements {UsesAbilities}
+ * @implements {CanHaveAbilities}
+ * @implements {AnswersQuestions}
+ * @implements {CollectsArtifacts}
+ */
 export class Actor implements
     PerformsActivities,
     UsesAbilities,
@@ -32,19 +43,21 @@ export class Actor implements
 
     /**
      * @desc
-     *  Retrieves actor's {@link Ability} to `doSomething`.
+     *  Retrieves actor's {@link Ability} of `abilityType`, or one that extends `abilityType`.
      *
-     *  Please note that this method performs an [`instancepf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
-     *  check against abilities given to this actor via {@link Actor#whoCan}. Please also note that {@link Actor#whoCan} performs
-     *  the same check when abilities are assigned to the actor to ensure the actor has at most one instance of a given ability type.
+     *  Please note that this method performs an {@link instanceof} check against abilities
+     *  given to this actor via {@link Actor#whoCan}.
+     *  Please also note that {@link Actor#whoCan} performs the same check when abilities are assigned to the actor
+     *  to ensure the actor has at most one instance of a given ability type.
      *
-     * @param doSomething
+     * @param {AbilityType<T>} abilityType
+     * @returns {T}
      */
-    abilityTo<T extends Ability>(doSomething: AbilityType<T>): T {
-        const found = this.findAbilityTo(doSomething);
+    abilityTo<T extends Ability>(abilityType: AbilityType<T>): T {
+        const found = this.findAbilityTo(abilityType);
 
         if (! found) {
-            throw new ConfigurationError(`${ this.name } can't ${ doSomething.name } yet. ` +
+            throw new ConfigurationError(`${ this.name } can't ${ abilityType.name } yet. ` +
                 `Did you give them the ability to do so?`);
         }
 
