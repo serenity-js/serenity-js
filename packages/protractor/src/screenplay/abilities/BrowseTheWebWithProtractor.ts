@@ -1,9 +1,9 @@
 import { ConfigurationError, Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Frame, Key, ModalDialog, Page, Selector } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import { by, ElementFinder, ProtractorBrowser } from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
-import { ProtractorCookie, ProtractorFrame, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
 import { ProtractorLocator, ProtractorNativeElementRoot } from '../models/locators';
 import { promised } from '../promised';
 
@@ -162,12 +162,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, Prot
 
     async modalDialog(): Promise<ModalDialog> {
         return new ProtractorModalDialog(this.browser);
-    }
-
-    async frame(bySelector: Selector): Promise<Frame> {
-        const locator = this.locate(bySelector);
-
-        return new ProtractorFrame(this.browser, locator);
     }
 
     /**

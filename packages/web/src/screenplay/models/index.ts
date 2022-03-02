@@ -1,6 +1,5 @@
 export * from './Cookie';
 export * from './CookieData';
-export * from './Frame';
 export * from './Locator';
 export * from './ModalDialog';
 export * from './Page';
@@ -8,3 +7,4 @@ export * from './PageElement';
 export * from './PageElements';
 export * from './selectors';
 export * from './Switchable';
+export * from './SwitchableOrigin';

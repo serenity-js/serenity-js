@@ -4,8 +4,10 @@ import { ensure, isDefined } from 'tiny-types';
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
 import { Selector } from './selectors';
+import { Switchable } from './Switchable';
+import { SwitchableOrigin } from './SwitchableOrigin';
 
-export abstract class PageElement<Native_Element_Type = any> implements Optional {
+export abstract class PageElement<Native_Element_Type = any> implements Optional, Switchable {
 
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
@@ -50,10 +52,36 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract text(): Promise<string>;
     abstract value(): Promise<string>;
 
+    /**
+     * @desc
+     *  When the element represents an {@link iframe}, calling this method
+     *  switches the current browsing context to the given {@link iframe}.
+     *
+     *  In other cases, calling this method will have the same result
+     *  as calling {@link HTMLElement#focus}
+     *
+     * @returns {Promise<SwitchableOrigin>}
+     *  Returns an object that allows the caller to switch back
+     *  to the previous context if needed.
+     *
+     * @see {@link Switch}
+     * @see {@link Switchable}
+     */
+    abstract switchTo(): Promise<SwitchableOrigin>;
+
     abstract isActive(): Promise<boolean>;
     abstract isClickable(): Promise<boolean>;
     abstract isEnabled(): Promise<boolean>;
+
+    /**
+     * @desc
+     *  Returns an {@link Promise} that resolves to `true` when the element
+     *  is present, `false` otherwise.
+     *
+     * @returns {Promise<boolean>}
+     */
     abstract isPresent(): Promise<boolean>;
+
     abstract isSelected(): Promise<boolean>;
     abstract isVisible(): Promise<boolean>;
 }

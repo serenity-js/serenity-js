@@ -1,7 +1,7 @@
 import { Ability, Duration, f, LogicError, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, Frame, Locator, ModalDialog, Page, Selector } from '../models';
+import { Cookie, CookieData, Locator, ModalDialog, Page, Selector } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Element_Type = unknown> implements Ability {
@@ -60,8 +60,6 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
     abstract lastScriptExecutionResult<R = any>(): R;
 
     abstract takeScreenshot(): Promise<string>;
-
-    abstract frame(bySelector: Selector): Promise<Frame>;
 
     /**
      * @desc

@@ -1,8 +1,8 @@
 import { Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Frame, Key, ModalDialog, Page, Selector } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOFrame, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
 import { WebdriverIOLocator, WebdriverIONativeElementRoot } from '../models/locators';
 
 /**
@@ -145,11 +145,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
         const windowHandles = await this.browser.getWindowHandles();
 
         return windowHandles.map(windowHandle => new WebdriverIOPage(this.browser, windowHandle));
-    }
-
-    async frame(bySelector: Selector): Promise<Frame<any>> {
-        const locator = this.locate(bySelector);
-        return new WebdriverIOFrame(this.browser, locator);
     }
 
     async modalDialog(): Promise<ModalDialog> {
