@@ -1,4 +1,4 @@
-import { Page } from '@serenity-js/web';
+import { Page, SwitchableOrigin } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
@@ -92,7 +92,7 @@ export class ProtractorPage extends Page {
         return isOpen;
     }
 
-    async switchTo(): Promise<{ switchBack(): Promise<void> }> {
+    async switchTo(): Promise<SwitchableOrigin> {
         const originalWindowHandle = await this.browser.getWindowHandle();
 
         await this.browser.switchTo().window(this.handle);

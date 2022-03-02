@@ -3,6 +3,7 @@ import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 import { Switchable } from './Switchable';
+import { SwitchableOrigin } from './SwitchableOrigin';
 
 export abstract class Page implements Optional, Switchable {
     static current(): QuestionAdapter<Page> {
@@ -121,9 +122,9 @@ export abstract class Page implements Optional, Switchable {
      *  and returns an object that allows the caller to switch back
      *  to the previous context if needed.
      *
-     * @returns {Promise<{ switchBack(): Promise<void> }>}
+     * @returns {Promise<SwitchableOrigin>}
      */
-    abstract switchTo(): Promise<{ switchBack(): Promise<void> }>;
+    abstract switchTo(): Promise<SwitchableOrigin>;
 
     /**
      * @desc

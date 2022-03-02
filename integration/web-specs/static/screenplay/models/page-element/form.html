@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <script>
+        function displayMessage() {
+            document.getElementById('result').value = document.getElementById('message').value;
+            return false;
+        }
+    </script>
+</head>
+<body>
+<h1>Form</h1>
+<form onsubmit="return displayMessage();">
+    <label for="message">Message:
+        <input type="text" id="message" name="message" tabindex="1" />
+    </label>
+    <button id="submit" type="submit" tabindex="2">Submit</button>
+</form>
+
+<label for="result">Result:
+    <input type="text" id="result" name="result" value="Unknown" />
+</label>
+</body>
+</html>

@@ -1,12 +1,12 @@
-import { PageElement } from '@serenity-js/web';
+import { LogicError } from '@serenity-js/core';
+import { PageElement, SwitchableOrigin } from '@serenity-js/web';
 import { ElementFinder, protractor } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
 
-export class ProtractorPageElement
-    extends PageElement<ElementFinder>
-{
+export class ProtractorPageElement extends PageElement<ElementFinder> {
+
     of(parent: ProtractorPageElement): PageElement<ElementFinder> {
         return new ProtractorPageElement(this.locator.of(parent.locator));
     }
@@ -48,7 +48,7 @@ export class ProtractorPageElement
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .doubleClick()
-                .perform()
+                .perform(),
         );
     }
 
@@ -56,7 +56,7 @@ export class ProtractorPageElement
         const element: ElementFinder = await this.nativeElement();
 
         return element.sendKeys(
-            [].concat(value).join('')
+            [].concat(value).join(''),
         );
     }
 
@@ -65,7 +65,7 @@ export class ProtractorPageElement
         const webElement: WebElement = await element.getWebElement();
 
         return promised(
-            webElement.getDriver().executeScript('arguments[0].scrollIntoView(true);', webElement)
+            webElement.getDriver().executeScript('arguments[0].scrollIntoView(true);', webElement),
         );
     }
 
@@ -76,7 +76,7 @@ export class ProtractorPageElement
         return promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
-                .perform()
+                .perform(),
         );
     }
 
@@ -88,7 +88,7 @@ export class ProtractorPageElement
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
-                .perform()
+                .perform(),
         );
     }
 
@@ -115,6 +115,44 @@ export class ProtractorPageElement
             },
             webElement,
         ));
+    }
+
+    async switchTo(): Promise<SwitchableOrigin> {
+        const element: ElementFinder = await this.locator.nativeElement();
+
+        try {
+            // https://github.com/angular/protractor/issues/1846#issuecomment-82634739;
+            const webElement = await element.getWebElement();
+
+            const tagName = await element.getTagName();
+
+            const browser = element.browser_;
+
+            if ([ 'iframe', 'frame' ].includes(tagName)) {
+                // switchToFrame
+                await browser.switchTo().frame(webElement);
+
+                return {
+                    switchBack: async (): Promise<void> => {
+                        await browser.driver.switchToParentFrame();
+                    },
+                };
+            }
+            else {
+                // focus on element
+                const previouslyFocusedElement = await webElement.getDriver().switchTo().activeElement();
+
+                await webElement.getDriver().executeScript(`arguments[0].focus()`, webElement);
+
+                return {
+                    switchBack: async (): Promise<void> => {
+                        await webElement.getDriver().executeScript(`arguments[0].focus()`, previouslyFocusedElement);
+                    },
+                };
+            }
+        } catch (error) {
+            throw new LogicError(`Couldn't switch to page element located ${ this.locator }`, error);
+        }
     }
 
     async isActive(): Promise<boolean> {
@@ -151,7 +189,7 @@ export class ProtractorPageElement
     async isVisible(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        if (! await element.isDisplayed()) {
+        if (!await element.isDisplayed()) {
             return false;
         }
 

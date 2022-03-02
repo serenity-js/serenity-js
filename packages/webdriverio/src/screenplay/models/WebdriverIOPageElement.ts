@@ -1,4 +1,5 @@
-import { PageElement } from '@serenity-js/web';
+import { LogicError } from '@serenity-js/core';
+import { PageElement, SwitchableOrigin } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 export class WebdriverIOPageElement
@@ -56,6 +57,58 @@ export class WebdriverIOPageElement
     async value(): Promise<string> {
         const element = await this.nativeElement();
         return element.getValue();
+    }
+
+    async switchTo(): Promise<SwitchableOrigin> {
+        try {
+            const element: wdio.Element<'async'> = await this.locator.nativeElement()
+
+            if (element.error) {
+                throw element.error;
+            }
+
+            const tagName = await element.getTagName();
+
+            const browser = await this.browserFor(element);
+
+            if ([ 'iframe', 'frame' ].includes(tagName)) {
+                // switchToFrame
+                await browser.switchToFrame(element);
+
+                return {
+                    switchBack: async (): Promise<void> => {
+                        await browser.switchToParentFrame();
+                    }
+                }
+            }
+            else {
+                // focus on element
+                const previouslyFocusedElement = await browser.execute(
+                    /* istanbul ignore next */
+                    function focusOn(element: any) {
+                        const currentlyFocusedElement = document.activeElement;
+                        element.focus();
+                        return currentlyFocusedElement;
+                    },
+                    element
+                );
+
+                return {
+                    switchBack: async (): Promise<void> => {
+                        await browser.execute(
+                            /* istanbul ignore next */
+                            function focusOn(element: any) {
+                                element.focus();
+                            },
+                            previouslyFocusedElement
+                        );
+                    }
+                }
+            }
+        }
+        catch(error) {
+            throw new LogicError(`Couldn't switch to page element located ${ this.locator }`, error);
+        }
     }
 
     async isActive(): Promise<boolean> {
