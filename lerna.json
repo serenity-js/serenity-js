@@ -49,18 +49,7 @@
     }
   },
   "ignoreChanges": [
-    "./.eslintrc.js",
-    "./.esdoc.js",
-    "./.esdoc-patches.js",
-    "./.mocharc.yml",
-    "./.npmignore",
-    "./.nvmrc",
-    "./.whitesource",
-    "./Makefile",
-    "bin/**",
-    "**/*.md",
-    "**/spec/**",
-    "./package.json",
-    "./.github/**"
+    "!packages/**/*.{js,json,md,ts}",
+    "packages/**/spec/**"
   ]
 }
