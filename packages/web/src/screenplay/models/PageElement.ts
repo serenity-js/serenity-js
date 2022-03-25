@@ -82,5 +82,15 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract isPresent(): Promise<boolean>;
 
     abstract isSelected(): Promise<boolean>;
+
+    /**
+     * @desc
+     *  Checks if the PageElement:
+     *  - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
+     *  - is within the browser viewport
+     *  - doesn't have its centre covered by other elements
+     *
+     * @returns {Promise<boolean>}
+     */
     abstract isVisible(): Promise<boolean>;
 }

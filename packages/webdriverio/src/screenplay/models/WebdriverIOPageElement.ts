@@ -2,6 +2,9 @@ import { LogicError } from '@serenity-js/core';
 import { PageElement, SwitchableOrigin } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
+/**
+ * @extends {@serenity-js/web/lib/screenplay/models~PageElement}
+ */
 export class WebdriverIOPageElement
     extends PageElement<wdio.Element<'async'>>
 {
@@ -139,11 +142,13 @@ export class WebdriverIOPageElement
     /**
      * @desc
      *  Checks if the PageElement:
-     *  - is displayed,
-     *  - is visible within the browser viewport,
-     *  - has not its center covered by other elements
+     *  - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
+     *  - is within the browser viewport
+     *  - doesn't have its centre covered by other elements
      *
-     * @see https://webdriver.io/docs/api/element/isDisplayedInViewport/
+     * @returns {Promise<boolean>}
+     *
+     * @see {@link @serenity-js/web/lib/screenplay/models~PageElement}
      */
     async isVisible(): Promise<boolean> { // isVisible?
         const element = await this.nativeElement();

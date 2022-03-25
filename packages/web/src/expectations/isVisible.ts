@@ -5,7 +5,10 @@ import { ElementExpectation } from './ElementExpectation';
 
 /**
  * @desc
- *  Expectation that the element is present in the DOM of the page and visible.
+ *  Expectation that the element is present in the DOM of the page and:
+ *  - is not hidden, so doesn't have `display: none`, `visibility: hidden` or `opacity: 0`
+ *  - is within the browser viewport
+ *  - doesn't have its centre covered by other elements
  *
  * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
  *
