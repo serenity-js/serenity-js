@@ -16,9 +16,8 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         });
     }
 
-    // todo: review usages and consider removing if not used
     static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): QuestionAdapter<PageElement<NET>> {
-        return Question.about(d`${ childElement } of ${ parentElement })`, async actor => {
+        return Question.about(d`${ childElement } of ${ parentElement }`, async actor => {
             const child     = await actor.answer(childElement);
             const parent    = await actor.answer(parentElement);
 
