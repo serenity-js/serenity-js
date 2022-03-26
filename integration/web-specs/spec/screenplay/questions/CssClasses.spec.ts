@@ -107,10 +107,16 @@ describe('CssClasses', () => {
         const section   = PageElement.located(By.css('section')).describedAs('a section');
         const heading   = PageElement.located(By.css('h1')).describedAs('the heading');
 
-        it('provides a human-readable description of the regular question', () => {
+        it('provides a human-readable description of a regular question', () => {
             const description = CssClasses.of(heading).toString();
 
             expect(description).to.equal('CSS classes of the heading')
+        });
+
+        it('allows for the description to be altered', () => {
+            const description = CssClasses.of(heading).describedAs('style').toString();
+
+            expect(description).to.equal('style')
         });
 
         it('provides a human-readable description of the meta-question', () => {
@@ -119,7 +125,7 @@ describe('CssClasses', () => {
             expect(description).to.equal('CSS classes of the heading of a section')
         });
 
-        it('provides a human-readable description of the reqular question used in a filter', () => {
+        it('provides a human-readable description of a reqular question used in a filter', () => {
             const found = sections.where(CssClasses, equals(['important']));
 
             const description = found.toString();
@@ -135,5 +141,5 @@ describe('CssClasses', () => {
 
             expect(description).to.equal(`sections where CSS classes of the heading does equal [ 'important' ]`)
         });
-    })
+    });
 });

@@ -1,11 +1,10 @@
-import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
 /**
  * @desc
- *  Returns the value of the given HTML attribute of a given {@link WebElement},
- *  represented by Answerable<{@link @wdio/types~Element}>
+ *  Returns the value of the specified HTML attribute of a given {@link PageElement}.
  *
  * @example <caption>Example widget</caption>
  *  <ul id="shopping-list" data-items-left="2">
@@ -14,37 +13,60 @@ import { PageElement } from '../models';
  *    <li data-state="buy">Chocolate<li>
  *  </ul>
  *
- * @example <caption>Retrieve a HTML attribute of a given WebElement</caption>
+ * @example <caption>Retrieve an HTML attribute of a given PageElement</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { Attribute, by, BrowseTheWeb, Target } from '@serenity-js/webdriverio';
+ *  import { Attribute, By, PageElement } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  const shoppingList = () =>
- *      Target.the('shopping list').located(by.id('shopping-list'))
+ *      PageElement.located(By.id('shopping-list')).describedAs('shopping list');
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
- *          Ensure.that(Attribute.called('data-items-left').of(shoppingList()), equals('2')),
+ *          Ensure.that(
+ *              Attribute.called('data-items-left').of(shoppingList()),
+ *              equals('2')
+ *          ),
  *      )
  *
- * @example <caption>Find WebElements with a given attribute</caption>
+ * @example <caption>Using Attribute as QuestionAdapter</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
+ *  import { Attribute, By, PageElement } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ *
+ *  const shoppingList = () =>
+ *      PageElement.located(By.css('#shopping-list')).describedAs('shopping list')
+ *
+ *  actorCalled('Lisa')
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ *      .attemptsTo(
+ *          Ensure.that(
+ *              Attribute.called('id').of(shoppingList()).toLocaleUpperCase(),
+ *              equals('SHOPPING-LIST')
+ *          ),
+ *      )
+ *
+ * @example <caption>Find PageElements with a given attribute</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, includes } from '@serenity-js/assertions';
- *  import { Attribute, BrowseTheWeb, by, Target } from '@serenity-js/webdriverio';
+ *  import { Attribute, By, PageElements } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  class ShoppingList {
  *      static items = () =>
- *          Target.all('items')
- *              .located(by.css('#shopping-list li'))
+ *          PageElements.located(By.css('#shopping-list li'))
+ *              .describedAs('items');
  *
  *      static outstandingItems = () =>
- *          ShoppingList.items
- *              .where(Attribute.called('data-state'), includes('buy'))
+ *          ShoppingList.items()
+ *              .where(Attribute.called('data-state'), includes('buy'));
  *  }
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
  *          Ensure.that(
  *              Text.ofAll(ShoppingList.outstandingItems()),
@@ -52,7 +74,7 @@ import { PageElement } from '../models';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question<Promise<string>>}
+ * @extends {@serenity-js/core/lib/screenplay~Question}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Attribute
@@ -96,13 +118,15 @@ export class Attribute
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<PageElement>): Question<Promise<string>> {
-        return new Attribute(
-            this.name,
-            this.element
-                ? PageElement.of(this.element, parent)
-                : parent
-        );
+    of(parent: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+        return Question.createAdapter(
+            new Attribute(
+                this.name,
+                this.element
+                    ? PageElement.of(this.element, parent)
+                    : parent
+            )
+        ) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {

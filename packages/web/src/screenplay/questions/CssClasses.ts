@@ -79,7 +79,7 @@ import { PageElement } from '../models';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question<Promise<string>>}
+ * @extends {@serenity-js/core/lib/screenplay~Question}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class CssClasses
@@ -95,7 +95,6 @@ export class CssClasses
      * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} pageElement
      * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static of(pageElement: Answerable<PageElement>): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> {
@@ -148,7 +147,6 @@ export class CssClasses
                 .filter(cssClass => !! cssClass),
             );
     }
-
 
     /**
      * @desc
