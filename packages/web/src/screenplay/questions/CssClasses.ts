@@ -1,8 +1,6 @@
-import { Answerable, AnswersQuestions, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
-import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
@@ -81,13 +79,18 @@ import { ElementQuestion } from './ElementQuestion';
  *          ),
  *      )
  *
- * @extends {ElementQuestion}
+ * @extends {@serenity-js/core/lib/screenplay~Question<Promise<string>>}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class CssClasses
-    extends ElementQuestion<Promise<string[]>>
+    extends Question<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
+    /**
+     * @private
+     */
+    private subject: string;
+
     /**
      * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} pageElement
      * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
@@ -103,7 +106,8 @@ export class CssClasses
      * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} pageElement
      */
     protected constructor(private readonly pageElement: Answerable<PageElement>) {
-        super(formatted `CSS classes of ${ pageElement}`);
+        super();
+        this.subject = d`CSS classes of ${ pageElement}`;
     }
 
     /**
@@ -133,7 +137,7 @@ export class CssClasses
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const element = await this.resolve(actor, this.pageElement);
+        const element = await actor.answer(this.pageElement);
 
         return element.attribute('class')
             .then(attribute => attribute ?? '')
@@ -143,5 +147,26 @@ export class CssClasses
                 .split(' ')
                 .filter(cssClass => !! cssClass),
             );
+    }
+
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * @returns {string}
+     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
+    toString(): string {
+        return this.subject;
     }
 }

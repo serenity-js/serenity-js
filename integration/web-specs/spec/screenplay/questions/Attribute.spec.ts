@@ -23,7 +23,7 @@ describe('Attribute', () => {
         /** @test {Attribute#toString} */
         it('produces a sensible description of the question being asked', () => {
             expect(Attribute.called('lang').of(dom).toString())
-                .to.equal('"lang" attribute of DOM');
+                .to.equal(`'lang' attribute of DOM`);
         });
 
         /** @test {Attribute.called} */
@@ -32,7 +32,7 @@ describe('Attribute', () => {
                 Navigate.to('/screenplay/questions/attribute/language.html'),
 
                 Ensure.that(Attribute.called('lang'), equals('en')),
-            )).to.be.rejectedWith(LogicError, `Target not specified`));
+            )).to.be.rejectedWith(LogicError, `Couldn't read attribute 'lang' of an unspecified page element.`));
 
         const ItemsOfInterest = PageElements.located(By.tagName('li')).describedAs('items of interest')
             .where(Attribute.called('class'), equals('enabled'))

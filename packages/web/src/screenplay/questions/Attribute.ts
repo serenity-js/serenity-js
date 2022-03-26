@@ -1,7 +1,6 @@
-import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
-import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
@@ -53,13 +52,18 @@ import { ElementQuestion } from './ElementQuestion';
  *          ),
  *      )
  *
- * @extends {ElementQuestion}
+ * @extends {@serenity-js/core/lib/screenplay~Question<Promise<string>>}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Attribute
-    extends ElementQuestion<Promise<string>>
+    extends Question<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
+    /**
+     * @private
+     */
+    private subject: string;
+
     /**
      * @param {Answerable<string>} name
      * @returns {Attribute}
@@ -72,22 +76,24 @@ export class Attribute
      * @param {Answerable<string>} name
      * @param {@serenity-js/core/lib/screenplay~Answerable<Element>} [element]
      */
-    constructor(
+    protected constructor(
         private readonly name: Answerable<string>,
         private readonly element?: Answerable<PageElement>,
     ) {
-        super(`"${ name }" attribute of ${ element }`);
+        super();
+        this.subject = element
+            ? d`${ name } attribute of ${ element }`
+            : d`${ name } attribute`
     }
 
     /**
      * @desc
-     *  Resolves to the value of a HTML attribute of the `target` element,
+     *  Resolves to the value of an HTML attribute of the `target` element,
      *  located in the context of a `parent` element.
      *
      * @param {Answerable<PageElement>} parent
      * @returns {Question<Promise<string[]>>}
      *
-     * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     of(parent: Answerable<PageElement>): Question<Promise<string>> {
@@ -100,13 +106,34 @@ export class Attribute
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
+        const name = await actor.answer(this.name);
+
         if (! this.element) {
-            throw new LogicError(`Target not specified`);   // todo: better error message?
+            throw new LogicError(d`Couldn't read attribute ${ name } of an unspecified page element.`);
         }
 
         const element = await actor.answer(this.element);
-        const name    = await actor.answer(this.name);
 
         return element.attribute(name);
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * @returns {string}
+     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
+    toString(): string {
+        return this.subject;
     }
 }

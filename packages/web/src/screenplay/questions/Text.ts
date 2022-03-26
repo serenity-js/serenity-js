@@ -2,7 +2,6 @@ import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapte
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { PageElement, PageElements } from '../models';
-import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
@@ -118,15 +117,21 @@ export class Text {
 }
 
 class TextOfSingleElement
-    extends ElementQuestion<Promise<string>>
+    extends Question<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
+    /**
+     * @private
+     */
+    private subject: string;
+
     static of(element: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
         return Question.createAdapter(new TextOfSingleElement(element)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
 
-    constructor(private readonly element: Answerable<PageElement>) {
-        super(`the text of ${ element }`);
+    protected constructor(private readonly element: Answerable<PageElement>) {
+        super();
+        this.subject = d`the text of ${ element }`;
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<string>> {
@@ -138,18 +143,44 @@ class TextOfSingleElement
 
         return element.text();
     }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * @returns {string}
+     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
+    toString(): string {
+        return this.subject;
+    }
 }
 
 class TextOfMultipleElements
-    extends ElementQuestion<Promise<string[]>>
+    extends Question<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
+    /**
+     * @private
+     */
+    private subject: string;
+
     static of(elements: PageElements): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> {
         return Question.createAdapter(new TextOfMultipleElements(elements)) as QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>;
     }
 
-    constructor(private readonly elements: PageElements) {
-        super(d`the text of ${ elements }`);
+    protected constructor(private readonly elements: PageElements) {
+        super();
+        this.subject = d`the text of ${ elements }`;
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
@@ -160,5 +191,25 @@ class TextOfMultipleElements
         const elements: PageElement[] = await actor.answer(this.elements);
 
         return asyncMap(elements, element => element.text());
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * @returns {string}
+     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
+    toString(): string {
+        return this.subject;
     }
 }
