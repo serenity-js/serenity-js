@@ -1,8 +1,6 @@
-import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
-import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
@@ -30,9 +28,14 @@ import { ElementQuestion } from './ElementQuestion';
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Value
-    extends ElementQuestion<Promise<string>>
+    extends Question<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
+    /**
+     * @private
+     */
+    private subject: string;
+
     /**
      * @param {Answerable<PageElement>} element
      * @returns {Value}
@@ -45,7 +48,8 @@ export class Value
      * @param {Answerable<PageElement>} element
      */
     constructor(private readonly element: Answerable<PageElement>) {
-        super(formatted`the value of ${ element }`);
+        super();
+        this.subject = d`the value of ${ element }`;
     }
 
     /**
@@ -75,8 +79,28 @@ export class Value
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const element = await this.resolve(actor, this.element);
+        const element = await actor.answer(this.element);
 
         return element.value();
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    /**
+     * @returns {string}
+     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     */
+    toString(): string {
+        return this.subject;
     }
 }
