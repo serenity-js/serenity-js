@@ -67,7 +67,7 @@ export abstract class Question<T> {
      * @param {string} description
      * @param {function(actor: AnswersQuestions & UsesAbilities): R} body
      *
-     * @returns {Question<R>}
+     * @returns {QuestionAdapter<Awaited<R>>}
      */
     static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => Promise<R> | R): QuestionAdapter<Awaited<R>> {
         return Question.createAdapter(new QuestionStatement(description, body));
@@ -215,11 +215,21 @@ export type ProxiedAnswer<Original_Type> = {
 };
 /* eslint-enable @typescript-eslint/indent */
 
-export type QuestionAdapter<Original_Type> =
-    Question<Promise<Original_Type>> &
+/**
+ * @desc
+ *  A union type representing a proxy object returned by {@link Question.about}.
+ *  `QuestionAdapter` proxies the methods and fields of the wrapped object recursively,
+ *  allowing them to be used as either {@link Question} or {@link Interaction}
+ *
+ * @public
+ *
+ * @typedef {Question<Promise<T>> & Interaction & Optional & ProxiedAnswer<T>} QuestionAdapter<T>
+ */
+export type QuestionAdapter<T> =
+    Question<Promise<T>> &
     Interaction &
     Optional &
-    ProxiedAnswer<Original_Type>;
+    ProxiedAnswer<T>;
 
 class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
 
