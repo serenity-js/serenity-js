@@ -1,4 +1,4 @@
-import { Answerable, Question } from '@serenity-js/core';
+import { Answerable, List, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { By, PageElement, PageElements } from '../models';
@@ -99,15 +99,15 @@ export class Selected {
      * @param {Answerable<PageElement>} pageElement
      *  A {@link Target} identifying the `<select>` element of interest
      *
-     * @returns {Question<Promise<string[]>>}
+     * @returns {@serenity-js/core/lib/screenplay/questions~List<string>}
      *
      * @see {@link Select.values}
      */
-    static valuesOf(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
+    static valuesOf(pageElement: Answerable<PageElement>): List<string> {
         return PageElements.located(By.css('option:checked'))
             .of(pageElement)
             .eachMappedTo(Value)
-            .describedAs(formatted `values selected in ${ pageElement }`) as Question<Promise<string[]>>;
+            .describedAs(formatted `values selected in ${ pageElement }`);
     }
 
     /**
@@ -201,14 +201,14 @@ export class Selected {
      * @param {Answerable<PageElement>} pageElement
      *  A {@link Target} identifying the `<select>` element of interest
      *
-     * @returns {Question<Promise<string[]>>}
+     * @returns {@serenity-js/core/lib/screenplay/questions~List<string>}
      *
      * @see {@link Select.options}
      */
-    static optionsIn(pageElement: Answerable<PageElement>): Question<Promise<string[]>> {
+    static optionsIn(pageElement: Answerable<PageElement>): List<string> {
         return PageElements.located(By.css('option:checked'))
             .of(pageElement)
             .eachMappedTo(Text)
-            .describedAs(formatted `options selected in ${ pageElement }`) as Question<Promise<string[]>>;
+            .describedAs(formatted `options selected in ${ pageElement }`);
     }
 }
