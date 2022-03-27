@@ -1,9 +1,9 @@
 import 'mocha';
 
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals, not } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Value } from '@serenity-js/web';
-import { expect } from '@integration/testing-tools';
 
 /** @test {Value} */
 describe('Value', () => {
