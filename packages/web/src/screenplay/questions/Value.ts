@@ -1,27 +1,45 @@
-import { Answerable, AnswersQuestions, d, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
 /**
  * @desc
- *  Returns the `value` attribute of a given {@link WebElement},
- *  represented by Answerable<{@link @wdio/types~Element}>
+ *  Retrieves the `value` attribute of a given {@link PageElement}.
  *
  * @example <caption>Example widget</caption>
  *  <input type="text" id="username" value="Alice" />
  *
- * @example <caption>Retrieve CSS classes of a given WebElement</caption>
+ * @example <caption>Retrieve the `value` of a given PageElement</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, Value, Target } from '@serenity-js/webdriverio';
+ *  import { By, PageElement, Value } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  const usernameField = () =>
- *      Target.the('username field').located(by.id('username'))
+ *      PageElement.located(By.id('username')).describedAs('username field')
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
  *          Ensure.that(Value.of(usernameField), equals('Alice')),
+ *      )
+ *
+ * @example <caption>Using Value as QuestionAdapter</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
+ *  import { By, PageElement, Value } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ *
+ *  const usernameField = () =>
+ *      PageElement.located(By.id('username')).describedAs('username field')
+ *
+ *  actorCalled('Lisa')
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ *      .attemptsTo(
+ *          Ensure.that(
+ *              Value.of(usernameField).toLocaleLowerCase()[0],
+ *              equals('a')  // [a]lice
+ *          ),
  *      )
  *
  * @extends {@serenity-js/core/lib/screenplay~Question}
@@ -37,11 +55,16 @@ export class Value
     private subject: string;
 
     /**
-     * @param {Answerable<PageElement>} element
-     * @returns {Value}
+     * @desc
+     *  Retrieves the `value` attribute of a given {@link PageElement}.
+     *
+     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} element
+     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static of(element: Answerable<PageElement>): Question<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
-        return new Value(element);
+    static of(element: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+        return Question.createAdapter(new Value(element)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
 
     /**
@@ -54,11 +77,11 @@ export class Value
 
     /**
      * @desc
-     *  Resolves to the value of a given [`input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
-     *  {@link WebElement}, located in the context of a `parent` element.
+     *  Retrieves the `value` attribute of a given {@link PageElement}.
+     *  located within the `parent` element.
      *
-     * @param {Answerable<PageElement>} parent
-     * @returns {Question<Promise<string>>}
+     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} parent
+     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
