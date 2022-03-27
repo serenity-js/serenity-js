@@ -111,10 +111,10 @@ export class Attribute
     /**
      * @desc
      *  Resolves to the value of an HTML attribute of the `target` element,
-     *  located in the context of a `parent` element.
+     *  located within the `parent` element.
      *
-     * @param {Answerable<PageElement>} parent
-     * @returns {Question<Promise<string[]>>}
+     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} parent
+     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */

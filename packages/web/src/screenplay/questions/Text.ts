@@ -6,8 +6,8 @@ import { PageElement, PageElements } from '../models';
 /**
  * @desc
  *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
- *  - a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>
- *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~ElementList}>
+ *  - a given {@link PageElement}
+ *  - a group of {@link PageElements}
  *
  *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
@@ -22,13 +22,15 @@ import { PageElement, PageElements } from '../models';
  * @example <caption>Retrieve text of a single element</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';
+ *  import { By, PageElement, Text } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  const header = () =>
- *      Target.the('header').located(by.tagName('h1'))
+ *      PageElement.located(By.css('h1'))
+ *          .describedAs('header')
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
  *          Ensure.that(Text.of(header()), equals('Shopping list')),
  *      )
@@ -36,13 +38,15 @@ import { PageElement, PageElements } from '../models';
  * @example <caption>Retrieve text of a multiple elements</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';
+ *  import { By, PageElement, Text } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  const shoppingListItems = () =>
- *      Target.the('shopping list items').located(by.css('#shopping-list li'))
+ *      PageElements.located(By.css('#shopping-list li'))
+ *         .describedAs('shopping list items')
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
  *          Ensure.that(
  *              Text.ofAll(shoppingListItems()),
@@ -53,15 +57,17 @@ import { PageElement, PageElements } from '../models';
  * @example <caption>Find element with matching text</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { contain, Ensure } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, by, CssClasses, Target, Text } from '@serenity-js/webdriverio';
+ *  import { By, CssClasses, PageElement, Text } from '@serenity-js/web';
+ *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  const shoppingListItemCalled = (name: string) =>
- *      Target.the('shopping list items').located(by.css('#shopping-list li'))
+ *      PageElements.located(By.css('#shopping-list li'))
+ *          .describedAs('shopping list items')
  *          .where(Text, equals(name))
  *          .first()
  *
  *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWeb.using(browser))
+ *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
  *      .attemptsTo(
  *          Ensure.that(
  *              CssClasses.of(shoppingListItemCalled('Honey)),
@@ -76,11 +82,10 @@ export class Text {
 
     /**
      * @desc
-     *  Retrieves text of a single {@link WebElement},
-     *  represented by Answerable<{@link @wdio/types~Element}>.
+     *  Retrieves text of a single {@link PageElement}.
      *
      * @param {Answerable<PageElement>} element
-     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>}
+     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
@@ -93,11 +98,10 @@ export class Text {
 
     /**
      * @desc
-     *  Retrieves text of a group of {@link WebElement}s,
-     *  represented by Answerable<{@link @wdio/types~ElementList}>
+     *  Retrieves text of a group of {@link PageElements}.
      *
-     * @param {Answerable<PageElement[]>} elements
-     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>}
+     * @param {Answerable<PageElements | PageElement[]>} elements
+     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
