@@ -108,7 +108,7 @@ describe('PageElements', () => {
 
             it('is nested', () => {
                 expect(ShoppingList.numberOfItemsLeft().toString())
-                    .to.equal('<<number of items left>>.of(<<progress bar>>.of(<<shopping list app>>))');
+                    .to.equal('number of items left of progress bar of shopping list app');
             });
         });
 
@@ -116,12 +116,12 @@ describe('PageElements', () => {
 
             it('are being located', () => {
                 expect(ShoppingList.items().toString())
-                    .to.equal('<<items>>.of(<<shopping list app>>)');
+                    .to.equal('items of shopping list app');
             });
 
             it('are nested', () => {
                 expect(ShoppingList.boughtItems().toString())
-                    .to.equal('<<bought items>>.of(<<shopping list>>)');
+                    .to.equal('bought items of shopping list');
             });
         });
     });
