@@ -22,7 +22,7 @@ export interface Activity {
      * @see {@link UsesAbilities}
      * @see {@link AnswersQuestions}
      */
-    performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): PromiseLike<any>;
+    performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 
     /**
      * @desc

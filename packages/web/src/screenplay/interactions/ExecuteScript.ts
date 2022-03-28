@@ -215,7 +215,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
      * @param {UsesAbilities & AnswersQuestions} actor
      *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
      *
-     * @returns {PromiseLike<void>}
+     * @returns {Promise<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
@@ -280,7 +280,7 @@ class ExecuteScriptFromUrl extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
+    performAs(actor: UsesAbilities & AnswersQuestions): Promise<any> {
         return BrowseTheWeb.as(actor)
             .executeAsyncScript(
                 /* istanbul ignore next */

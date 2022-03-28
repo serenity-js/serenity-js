@@ -180,13 +180,13 @@ class NavigateToUrl extends Interaction {
      *  An {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
      *
-     * @returns {PromiseLike<void>}
+     * @returns {Promise<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return actor.answer(this.url)
             .then(url =>
                 BrowseTheWeb.as(actor)

@@ -19,7 +19,7 @@ export class TrackedActivity implements Activity {
     ) {
     }
 
-    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): PromiseLike<void> {
+    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): Promise<void> {
         const
             sceneId = this.stage.currentSceneId(),
             activityId = this.stage.assignNewActivityId(),

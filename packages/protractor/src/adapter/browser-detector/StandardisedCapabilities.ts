@@ -11,34 +11,33 @@ export class StandardisedCapabilities {
     constructor(private currentBrowser: () => ProtractorBrowser) {
     }
 
-    browserName(): PromiseLike<string> {
+    browserName(): Promise<string | undefined> {
         return this.get(
             caps => caps.get('browserName'),
         );
     }
 
-    browserVersion(): PromiseLike<string> {
-        return this.get(
+    async browserVersion(): Promise<string | undefined> {
+        const version = await this.get(
             caps => caps.get('version'),
             caps => caps.get('browserVersion'),
             caps => caps.has('deviceManufacturer') && caps.has('deviceModel')
                 ? `${ caps.get('deviceManufacturer') } ${ caps.get('deviceModel') }`
                 : undefined,
             caps => caps.has('mobile') && caps.get('mobile').version,
-        ).
-        then(version =>
-            this.get(
-                caps => !! caps.get('mobileEmulationEnabled') && '(mobile emulation)',
-            ).then(suffix =>
-                [
-                    version,
-                    suffix,
-                ].filter(_ => !!_).join(' '),
-            ),
         );
+
+        const suffix = await this.get(
+            caps => !! caps.get('mobileEmulationEnabled') && '(mobile emulation)',
+        );
+
+        return [
+            version,
+            suffix,
+        ].filter(_ => !!_).join(' ');
     }
 
-    platformName(): PromiseLike<string> {
+    platformName(): Promise<string | undefined> {
         return this.get(
             caps => (!! caps.get('platformName') && ! /any/i.test(caps.get('platformName')))
                 ? caps.get('platformName')
@@ -46,21 +45,22 @@ export class StandardisedCapabilities {
         );
     }
 
-    platformVersion(): PromiseLike<string> {
+    platformVersion(): Promise<string | undefined> {
         return this.get(
             caps => caps.get('platformVersion'),
         );
     }
 
-    private get(...fetchers: Array<(capabilities: Capabilities) => string>): PromiseLike<string> {
-        return this.currentBrowser().getCapabilities().then(caps => {
-            for (const fetcher of fetchers) {
-                const result = fetcher(caps);
-                if (result) {
-                    return result;
-                }
+    private async get(...fetchers: Array<(capabilities: Capabilities) => string>): Promise<string | undefined> {
+        const capabilities = await this.currentBrowser().getCapabilities();
+
+        for (const fetcher of fetchers) {
+            const result = fetcher(capabilities);
+            if (result) {
+                return result;
             }
-            return undefined;   // eslint-disable-line unicorn/no-useless-undefined
-        });
+        }
+
+        return undefined;   // eslint-disable-line unicorn/no-useless-undefined
     }
 }

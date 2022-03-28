@@ -32,7 +32,7 @@ export class Spawn extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         return actor.answer(this.pathToExecutable)
             .then(pathToExecutable => new Promise((resolve, reject) => {
                 actor.collect(Notification.fromJSON({ message: `Spawning: ${ pathToExecutable.value } ${ this.args.join(' ') }` }));

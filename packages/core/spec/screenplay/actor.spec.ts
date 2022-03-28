@@ -10,7 +10,7 @@ import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
 
-const equals = (expected: number) => (actual: PromiseLike<number>) => expect(actual).to.equal(expected);
+const equals = (expected: number) => (actual: Promise<number>) => expect(actual).to.equal(expected);
 
 describe('Actor', () => {
 
@@ -230,7 +230,7 @@ class See<S> extends Interaction {
         super();
     }
 
-    performAs(actor: AnswersQuestions): PromiseLike<void> {
+    performAs(actor: AnswersQuestions): Promise<void> {
         return actor.answer(this.question).then(this.assert);
     }
 

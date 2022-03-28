@@ -89,7 +89,7 @@ export class DoubleClick extends PageElementInteraction {
      * @param {UsesAbilities & AnswersQuestions} actor
      *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
      *
-     * @returns {PromiseLike<void>}
+     * @returns {Promise<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}

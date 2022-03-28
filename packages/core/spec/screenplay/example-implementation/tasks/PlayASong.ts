@@ -11,7 +11,7 @@ export class PlayASong extends Task {
         super();
     }
 
-    performAs(actor: PerformsActivities): PromiseLike<void> {
+    performAs(actor: PerformsActivities): Promise<void> {
         return actor.attemptsTo(
             ...this.musicSheet.chords.map(chord => PlayAChord.of(chord)),
         );

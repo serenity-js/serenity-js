@@ -217,7 +217,12 @@ describe('ProtractorFrameworkAdapter', () => {
                 return expect(adapter.run([
                     sample('passing.spec.ts').path,
                 ]))
-                .to.be.rejectedWith(expectedError);
+                .to.be.rejectedWith(Error, [
+                    `1 async operation has failed to complete:`,
+                    `[ProtractorReporter] Invoking ProtractorRunner.afterEach... - ${ expectedError.stack }`,
+                    `---`,
+                    '',
+                ].join('\n'));
             });
 
             it('fails the test run when runner.afterEach rejects the promise', () => {

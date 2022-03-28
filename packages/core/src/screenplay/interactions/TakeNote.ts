@@ -90,7 +90,7 @@ export class TakeNote<Answer> extends Interaction {
      * @see {@link UsesAbilities}
      * @see {@link AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return actor.answer(this.question)
             .then(answer => TakeNotes.as(actor).record(this.subject, answer));
     }

@@ -219,7 +219,7 @@ class WaitUntil<Actual> extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const
             actual      = this.actual,
             expectation = this.expectation;
