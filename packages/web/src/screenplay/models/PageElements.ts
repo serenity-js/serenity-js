@@ -1,4 +1,4 @@
-import { Answerable, f, List, MetaQuestion, Question } from '@serenity-js/core';
+import { Answerable, List, MetaQuestion, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
@@ -22,7 +22,7 @@ export class PageElements<Native_Element_Type = any>
 
     of(parent: Answerable<PageElement<Native_Element_Type>>): PageElements<Native_Element_Type> {
         return new PageElements<Native_Element_Type>(relativeToParent(this.locator, parent))
-            .describedAs(`<<${this.toString()}>>` + f`.of(${ parent })`);
+            .describedAs(`${ this.toString() } of ${ parent }`);
     }
 }
 
@@ -40,7 +40,7 @@ function relativeToDocumentRoot<Native_Element_Type>(selector: Answerable<Select
  * @package
  */
 function relativeToParent<Native_Element_Type>(relativeLocator: Answerable<Locator<Native_Element_Type>>, parent: Answerable<PageElement<Native_Element_Type>>): Question<Promise<Locator<Native_Element_Type>>> {
-    return Question.about(relativeLocator.toString() + f`.of${ parent }`, async actor => {
+    return Question.about(`${ relativeLocator.toString() } of ${ parent }`, async actor => {
         const locator: Locator<Native_Element_Type>             = await actor.answer(relativeLocator);
         const parentElement: PageElement<Native_Element_Type>   = await actor.answer(parent);
 

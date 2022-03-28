@@ -108,13 +108,7 @@ export abstract class Question<T> {
                     return;
                 }
 
-                const originalSubject = f`${ target }`;
-
-                const fieldDescription = (typeof key === 'number' || /^\d+$/.test(String(key)))
-                    ? `[${ String(key) }]`  // array index
-                    : `.${ String(key) }`;  // field/method name
-
-                return Question.about(`${ originalSubject }${ fieldDescription }`, async (actor: AnswersQuestions & UsesAbilities) => {
+                return Question.about(Question.fieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
                     const answer = await actor.answer(target as Answerable<AT>);
 
                     if (! isDefined(answer)) {
@@ -139,13 +133,7 @@ export abstract class Question<T> {
 
                 const target = currentStatement();
 
-                const parameterDescriptions = [
-                    '(',
-                    parameters.map(p => f`${ p }`).join(', '),
-                    ')'
-                ].join('');
-
-                return Question.about(target.toString() + parameterDescriptions, async actor => {
+                return Question.about(Question.methodDescription(target, parameters), async actor => {
                     const params = [] as any;
                     for (const parameter of parameters) {
                         const answered = await actor.answer(parameter);
@@ -164,6 +152,40 @@ export abstract class Question<T> {
                 return Reflect.getPrototypeOf(currentStatement());
             },
         }) as any;
+    }
+
+    private static fieldDescription<AT>(target: Question<AT>, key: string | symbol): string {
+
+        // "of" is characteristic of Serenity/JS MetaQuestion
+        if (key === 'of') {
+            return `${ target } ${ key }`;
+        }
+
+        const originalSubject = f`${ target }`;
+
+        const fieldDescription = (typeof key === 'number' || /^\d+$/.test(String(key)))
+            ? `[${ String(key) }]`  // array index
+            : `.${ String(key) }`;  // field/method name
+
+        return `${ originalSubject }${ fieldDescription }`;
+    }
+
+    private static methodDescription<AT>(target: Question<AT>, parameters: unknown[]): string {
+
+        const targetDescription = target.toString();
+
+        // this is a Serenity/JS MetaQuestion, of(singleParameter)
+        if (targetDescription.endsWith(' of') && parameters.length === 1) {
+            return `${ targetDescription } ${ parameters[0] }`
+        }
+
+        const parameterDescriptions = [
+            '(',
+            parameters.map(p => f`${ p }`).join(', '),
+            ')'
+        ].join('');
+
+        return `${ targetDescription }${ parameterDescriptions }`
     }
 
     /**

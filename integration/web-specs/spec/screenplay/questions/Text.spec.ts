@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
@@ -19,11 +19,47 @@ describe('Text', () => {
                 Ensure.that(Text.of(header), equals('Hello World!')),
             ));
 
-        /** @test {Text.of} */
         /** @test {Text#toString} */
-        it('produces a sensible description of the question being asked', () => {
-            expect(Text.of(PageElement.located(By.css('h1')).describedAs('the header')).toString())
-                .to.equal('the text of the header');
+        describe('toString', () => {
+
+            const sections  = PageElements.located(By.css('section')).describedAs('sections');
+            const section   = PageElement.located(By.css('section')).describedAs('a section');
+            const heading   = PageElement.located(By.css('h1')).describedAs('the heading');
+
+            it('provides a human-readable description of a regular question', () => {
+                const description = Text.of(heading).toString();
+
+                expect(description).to.equal('the text of the heading')
+            });
+
+            it('allows for the description to be altered', () => {
+                const description = Text.of(heading).describedAs('article title').toString();
+
+                expect(description).to.equal('article title')
+            });
+
+            it('provides a human-readable description of the meta-question', () => {
+                const description = Text.of(heading).of(section).toString();
+
+                expect(description).to.equal('the text of the heading of a section')
+            });
+
+            it('provides a human-readable description of a reqular question used in a filter', () => {
+                const found = sections.where(Text, includes('5 things every tester should know'));
+
+                const description = found.toString();
+
+                expect(description).to.equal(`sections where Text does include '5 things every tester should know'`)
+            });
+
+            it('provides a human-readable description of a meta-question used in a filter', () => {
+                const found = sections
+                    .where(Text.of(heading), includes('5 things every tester should know'));
+
+                const description = found.toString();
+
+                expect(description).to.equal(`sections where the text of the heading does include '5 things every tester should know'`)
+            });
         });
 
         describe('when mapping', () => {
@@ -55,7 +91,8 @@ describe('Text', () => {
 
     describe('ofAll', () => {
 
-        const Shopping_List_Items = PageElements.located(By.css('li')).describedAs('shopping list items');
+        const body = PageElement.located(By.css('body')).describedAs('body');
+        const shoppingListItems = PageElements.located(By.css('li')).describedAs('the shopping list items');
 
         /** @test {Text.ofAll} */
         it('allows the actor to read the text of all DOM elements matching the locator', () =>
@@ -63,7 +100,7 @@ describe('Text', () => {
 
                 Navigate.to('/screenplay/questions/text/shopping_list.html'),
 
-                Ensure.that(Text.ofAll(Shopping_List_Items), equals(['milk', 'oats'])),
+                Ensure.that(Text.ofAll(shoppingListItems), equals(['milk', 'oats'])),
             ));
 
         /** @test {Text.ofAll} */
@@ -72,18 +109,51 @@ describe('Text', () => {
                 Navigate.to('/screenplay/questions/text/shopping_list.html'),
 
                 Ensure.that(
-                    Text.ofAll(Shopping_List_Items.of(
-                        PageElement.located(By.css('body')).describedAs('body')
-                    )),
+                    Text.ofAll(shoppingListItems.of(body)),
                     equals(['milk', 'oats'])
                 ),
             ));
 
-        /** @test {Text.ofAll} */
         /** @test {Text#toString} */
-        it('produces sensible description of the question being asked', () => {
-            expect(Text.ofAll(Shopping_List_Items).toString())
-                .to.equal('the text of shopping list items');       // todo: the text of ALL, of THE ?
+        describe('toString', () => {
+
+            const shoppingList = PageElement.located(By.css('section')).describedAs('the shopping list');
+            const reviews = PageElements.located(By.css('li.review')).describedAs('reviews');
+
+            it('provides a human-readable description of a regular question', () => {
+                const description = Text.ofAll(shoppingListItems).toString();
+
+                expect(description).to.equal('the text of the shopping list items')
+            });
+
+            it('allows for the description to be altered', () => {
+                const description = Text.ofAll(shoppingListItems).describedAs('things to buy').toString();
+
+                expect(description).to.equal('things to buy')
+            });
+
+            it('provides a human-readable description of the meta-question', () => {
+                const description = Text.ofAll(shoppingListItems).of(shoppingList).toString();
+
+                expect(description).to.equal('the text of the shopping list items of the shopping list')
+            });
+
+            it('provides a human-readable description of a reqular question used in a filter', () => {
+                const found = shoppingListItems.where(Text, includes('coconut oil'));
+
+                const description = found.toString();
+
+                expect(description).to.equal(`the shopping list items where Text does include 'coconut oil'`)
+            });
+
+            it('provides a human-readable description of a meta-question used in a filter', () => {
+                const found = shoppingListItems
+                    .where(Text.ofAll(reviews), contain('great purchase'));
+
+                const description = found.toString();
+
+                expect(description).to.equal(`the shopping list items where the text of reviews does contain 'great purchase'`)
+            });
         });
 
         /** @test {Text.ofAll} */
