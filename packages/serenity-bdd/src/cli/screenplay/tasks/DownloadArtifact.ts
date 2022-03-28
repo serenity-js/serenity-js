@@ -41,7 +41,7 @@ export class DownloadArtifact extends Task {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
+    performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): Promise<void> | Promise<any> {
         const
             tempFileName        = new Path(`${ this.gav.toPath().value }.download`),    // eslint-disable-line unicorn/prevent-abbreviations
             pathToTempFile      = this.destinationDirectory.join(tempFileName),         // eslint-disable-line unicorn/prevent-abbreviations

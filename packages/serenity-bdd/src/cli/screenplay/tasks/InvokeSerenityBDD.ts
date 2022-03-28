@@ -43,7 +43,7 @@ export class InvokeSerenityBDD extends Task {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): PromiseLike<void> | PromiseLike<any> {
+    performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): Promise<void> | Promise<any> {
 
         return Promise.all([
             actor.answer(this.args),

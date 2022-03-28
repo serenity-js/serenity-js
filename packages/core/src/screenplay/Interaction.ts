@@ -13,7 +13,7 @@ import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './act
 export abstract class Interaction implements Activity {
     static where(
         description: string,
-        interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => PromiseLike<void> | void,
+        interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ): Interaction {
         return new DynamicallyGeneratedInteraction(description, interaction);
     }
@@ -30,7 +30,7 @@ export abstract class Interaction implements Activity {
      * @see {@link UsesAbilities}
      * @see {@link AnswersQuestions}
      */
-    abstract performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void>;
+    abstract performAs(actor: UsesAbilities & AnswersQuestions): Promise<void>;
 }
 
 /**
@@ -39,7 +39,7 @@ export abstract class Interaction implements Activity {
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
         private readonly description: string,
-        private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => PromiseLike<void> | void,
+        private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ) {
         super();
     }
@@ -54,7 +54,7 @@ class DynamicallyGeneratedInteraction extends Interaction {
      *
      * @see {@link Actor}
      */
-    performAs(actor: Actor): PromiseLike<void> {
+    performAs(actor: Actor): Promise<void> {
         try {
             return Promise.resolve(this.interaction(actor));
         } catch (error) {

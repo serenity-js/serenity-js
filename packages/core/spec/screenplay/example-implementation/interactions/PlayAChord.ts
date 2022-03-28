@@ -11,7 +11,7 @@ export class PlayAChord extends Interaction {
         super();
     }
 
-    performAs(actor: UsesAbilities): PromiseLike<void> {
+    performAs(actor: UsesAbilities): Promise<void> {
         return PlayAGuitar.as(actor).play(this.chord);
     }
 

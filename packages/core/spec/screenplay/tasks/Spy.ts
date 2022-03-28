@@ -23,7 +23,7 @@ export class Spy extends Interaction {
         super();
     }
 
-    performAs(actor: AnswersQuestions): PromiseLike<void> {
+    performAs(actor: AnswersQuestions): Promise<void> {
         return Promise.all(
             this.answerables.map(answerable => actor.answer(answerable))
         ).then(answers => {

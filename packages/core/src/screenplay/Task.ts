@@ -59,7 +59,7 @@ export abstract class Task implements Activity {
      * @see {@link Actor}
      * @see {@link PerformsActivities}
      */
-    abstract performAs(actor: PerformsActivities): PromiseLike<void>;
+    abstract performAs(actor: PerformsActivities): Promise<void>;
 }
 
 /**
@@ -81,7 +81,7 @@ class DynamicallyGeneratedTask extends Task {
      * @see {@link Actor}
      * @see {@link PerformsActivities}
      */
-    performAs(actor: PerformsActivities): PromiseLike<void> {
+    performAs(actor: PerformsActivities): Promise<void> {
         return actor.attemptsTo(...this.activities);
     }
 
@@ -115,7 +115,7 @@ class NotImplementedTask extends Task {
      * @see {@link Actor}
      * @see {@link PerformsActivities}
      */
-    performAs(actor: PerformsActivities): PromiseLike<void> {
+    performAs(actor: PerformsActivities): Promise<void> {
         return Promise.reject(
             new ImplementationPendingError(`A task where "${ this.toString() }" has not been implemented yet`),
         );

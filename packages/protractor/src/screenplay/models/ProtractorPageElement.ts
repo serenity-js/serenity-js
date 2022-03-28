@@ -15,13 +15,13 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     }
 
     async clearValue(): Promise<void> {
-        function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): PromiseLike<void> {
-            return numberOfCharacters === 0
-                ? Promise.resolve(void 0)
-                : elf.sendKeys(
+        async function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): Promise<void> {
+            if (numberOfCharacters > 0) {
+                await elf.sendKeys(
                     protractor.Key.END,
                     ...times(numberOfCharacters, protractor.Key.BACK_SPACE),
                 );
+            }
         }
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -40,7 +40,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async click(): Promise<void> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.click();
+        return promised(element.click());
     }
 
     async doubleClick(): Promise<void> {
@@ -58,9 +58,9 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.sendKeys(
+        return promised(element.sendKeys(
             [].concat(value).join(''),
-        );
+        ));
     }
 
     async scrollIntoView(): Promise<void> {
@@ -98,13 +98,13 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async attribute(name: string): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.getAttribute(name);
+        return promised(element.getAttribute(name));
     }
 
     async text(): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.getText();
+        return promised(element.getText());
     }
 
     async value(): Promise<string> {
@@ -137,7 +137,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await browser.driver.switchToParentFrame();
+                        await promised(browser.driver.switchToParentFrame());
                     },
                 };
             }
@@ -149,7 +149,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await webElement.getDriver().executeScript(`arguments[0].focus()`, previouslyFocusedElement);
+                        await promised(webElement.getDriver().executeScript(`arguments[0].focus()`, previouslyFocusedElement));
                     },
                 };
             }
@@ -162,9 +162,9 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return webElement.getDriver().switchTo().activeElement().then((active: WebElement) =>
+        return promised(webElement.getDriver().switchTo().activeElement().then((active: WebElement) =>
             element.equals(active),
-        );
+        ));
     }
 
     async isClickable(): Promise<boolean> {
@@ -174,19 +174,19 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async isEnabled(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.isEnabled();
+        return promised(element.isEnabled());
     }
 
     async isPresent(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.isPresent();
+        return promised(element.isPresent());
     }
 
     async isSelected(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return element.isSelected();
+        return promised(element.isSelected());
     }
 
     /**

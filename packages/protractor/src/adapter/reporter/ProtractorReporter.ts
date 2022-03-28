@@ -85,7 +85,7 @@ export class ProtractorReporter implements StageCrewMember {
         });
     }
 
-    private afterEach(): PromiseLike<void> {
+    private async afterEach(): Promise<void> {
         if (! this.runner.afterEach) {
             return Promise.resolve();
         }
@@ -98,16 +98,16 @@ export class ProtractorReporter implements StageCrewMember {
             this.stage.currentTime(),
         ));
 
-        return Promise.resolve(this.runner.afterEach() as PromiseLike<void> | undefined)
-            .then(
-                () =>
-                    this.stage.announce(new AsyncOperationCompleted(
-                        new Description(`[${ this.constructor.name }] ProtractorRunner.afterEach succeeded`),
-                        id,
-                        this.stage.currentTime(),
-                    )),
-                error =>
-                    this.stage.announce(new AsyncOperationFailed(error, id, this.stage.currentTime())),
-            );
+        try {
+            await this.runner.afterEach();
+
+            this.stage.announce(new AsyncOperationCompleted(
+                new Description(`[${ this.constructor.name }] ProtractorRunner.afterEach succeeded`),
+                id,
+                this.stage.currentTime(),
+            ));
+        } catch (error) {
+            this.stage.announce(new AsyncOperationFailed(error, id, this.stage.currentTime()));
+        }
     }
 }
