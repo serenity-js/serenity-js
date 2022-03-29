@@ -1404,6 +1404,12 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "serenitybddreporter src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts~serenitybddreporter,serenitybddreporter",
+    "test-file/spec/stage/crew/serenity-bdd-reporter/snapshots/events_before_and_after_scenario.spec.ts.html#lineNumber45",
+    "SerenityBDDReporter ",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/dealing_with_out_of_order_events.spec.ts.html#lineNumber31",
     "SerenityBDDReporter ",

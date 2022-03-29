@@ -327,6 +327,10 @@
  * @see {@link engage}
  */</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Stage</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @private
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> unknownSceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'unknown'</span><span class="token punctuation">)</span>
 
     <span class="token comment">/**
      * @desc
@@ -357,7 +361,7 @@
     <span class="token keyword">private</span> actorInTheSpotlight<span class="token operator">:</span> Actor <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
 
     <span class="token keyword">private</span> currentActivity<span class="token operator">:</span> CorrelationId <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> currentScene<span class="token operator">:</span> CorrelationId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'unknown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> currentScene<span class="token operator">:</span> CorrelationId <span class="token operator">=</span> Stage<span class="token punctuation">.</span>unknownSceneId<span class="token punctuation">;</span>
 
     <span class="token comment">/**
      * @param {Cast} cast
