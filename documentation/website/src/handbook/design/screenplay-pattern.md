@@ -37,7 +37,7 @@ The key elements of the pattern are: actors, abilities, interactions, questions,
 
 ## Screenplay by example
 
-The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Mocha](https://serenity-js.org/modules/mocha/) for now to keep things simple.
+The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](https://todo-app.serenity-js.org/) we've introduced in the [previous chapter](/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](/modules/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Mocha](/modules/mocha/) for now to keep things simple.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
@@ -100,7 +100,7 @@ describe('Todo List App', () => {
     
     it('helps engineers learn Serenity/JS', () =>
         actorCalled('James').attemptsTo(
-            Navigate.to('http://todomvc.com/examples/angularjs/')
+            Navigate.to('https://todo-app.serenity-js.org/')
         ));
 });
 ```
@@ -117,7 +117,7 @@ the [TodoMVC app]('http://todomvc.com/examples/angularjs/').
 
 There are two interesting points about the scenario above that I'd like to draw your attention to:
 1. The [`actor.attemptsTo(..)`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo) method returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which allows Mocha to [synchronise](https://mochajs.org/#asynchronous-code) the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.
-2. The interaction to [`Navigate`](/modules/web/class/src/screenplay/interactions/Navigate.ts~Navigate.html), just like many other common interactions you'll need to write your Web tests, ships as part of the [`@serenity-js/web`](/modules/web/) module. Serenity/JS [modules](/modules) provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can [easily create them yourself](/handbook/design/interactions.html) and [contribute back](/contributing.html) to the community &#x1F60A;
+2. The interaction to [`Navigate`](/modules/web/class/src/screenplay/interactions/Navigate.ts~Navigate.html), just like many other common interactions you'll need to write your Web tests, ships as part of the [`@serenity-js/web`](/modules/web/) module. [Serenity/JS modules](/modules) provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can [easily create them yourself](/handbook/design/interactions.html) and [contribute back](/contributing.html) to the community &#x1F60A;
 
 Check out the [Design Guide](/handbook/design) to [learn more about interactions](/handbook/design/interactions.html). 
 
@@ -204,7 +204,7 @@ Check out the [Design Guide](/handbook/design) to [learn more about abilities](/
 The fourth building block of the Screenplay Pattern is _questions_, and just like with interactions, questions are interface-specific and enabled by abilities.
 Answering a [`Question`](/modules/core/class/src/screenplay/Question.ts~Question.html) provides actor with information about the state of the system under test.
 
-For example, you have a question that retrieves the [title of the web page](modules/web/class/src/screenplay/models/Page.ts~Page.html#static-method-current): 
+For example, you have a question that retrieves the [title of the web page](/modules/web/class/src/screenplay/models/Page.ts~Page.html#static-method-current): 
 
 ```typescript
 import { Question } from '@serenity-js/core';
@@ -213,18 +213,18 @@ import { Page } from '@serenity-js/web';
 const title: Question<Promise<string>> = Page.current().title()
 ```
 
-Or the one that [retrieves a web element](/modules/web/class/src/screenplay/models/PageElement.ts~PageElement.html) for the actor's interactions to target:
+Or the one that [retrieves a page element](/modules/web/class/src/screenplay/models/PageElement.ts~PageElement.html) for the actor to interact with:
 
 ```typescript
 import { Answerable } from '@serenity-js/core';
 import { By, PageElement} from '@serenity-js/web';
 
-const header: Answerable<PageElement<any>> = PageElement.located(By.css('h1').describedAs('header'));
+const header: Answerable<PageElement<any>> = PageElement.located(By.css('h1')).describedAs('header');
 ```
 
-You also have higher-order questions that can be passed other questions as arguments.
+You also have higher-order questions that can receive other questions as arguments.
 
-For example, this is how you retrieve the text of the header web element from the sample above:
+For example, this is how you retrieve the text of the header web element from the example above:
 
 ```typescript
 import { Question } from '@serenity-js/core';
