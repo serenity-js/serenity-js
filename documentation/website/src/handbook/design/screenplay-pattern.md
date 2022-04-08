@@ -37,12 +37,12 @@ The key elements of the pattern are: actors, abilities, interactions, questions,
 
 ## Screenplay by example
 
-The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](http://todomvc.com/examples/angularjs/#/) we've introduced in the [previous chapter](handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](http://todomvc.com/examples/angularjs/#/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Jasmine](https://serenity-js.org/modules/jasmine/) for now to keep things simple.
+The best way to illustrate the Screenplay Pattern is through a practical example, so let's continue experimenting with the [TodoMVC application](https://todo-app.serenity-js.org/) we've introduced in the [previous chapter](/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html). And while Serenity/JS supports [several test runners](/modules/) (including [Cucumber.js](/modules/cucumber/), which we'll look into later on in the book), we'll use [Mocha](/modules/mocha/) for now to keep things simple.
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-laptop-code"></i></div>
     <div class="text"><p>
-        If you'd like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Serenity/JS-Jasmine-Protractor template</a>.
+        If you'd like to follow along with the coding, please use the <a href="https://github.com/serenity-js/serenity-js-mocha-webdriverio-template">Serenity/JS-Mocha-WebdriverIO template</a>.
     </p></div>
 </div>
 
@@ -91,21 +91,21 @@ This series of interactions, provided as arguments to the [`actor.attemptsTo(..)
 ```typescript
 // spec/todo.spec.ts
 
-import 'jasmine';
+import 'mocha';
 
 import { actorCalled } from '@serenity-js/core';
-import { Navigate } from '@serenity-js/protractor';
+import { Navigate } from '@serenity-js/web';
 
 describe('Todo List App', () => {
     
     it('helps engineers learn Serenity/JS', () =>
         actorCalled('James').attemptsTo(
-            Navigate.to('http://todomvc.com/examples/angularjs/')
+            Navigate.to('https://todo-app.serenity-js.org/')
         ));
 });
 ```
 
-In the example above, you see an actor performing an [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) to [`Navigate.to`](/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-to)
+In the example above, you see an actor performing an [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) to [`Navigate.to`](/modules/web/class/src/screenplay/interactions/Navigate.ts~Navigate.html#static-method-to)
 the [TodoMVC app]('http://todomvc.com/examples/angularjs/').
 
 <div class="pro-tip">
@@ -116,8 +116,8 @@ the [TodoMVC app]('http://todomvc.com/examples/angularjs/').
 </div>
 
 There are two interesting points about the scenario above that I'd like to draw your attention to:
-1. The [`actor.attemptsTo(..)`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo) method returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which allows Jasmine to [synchronise](https://jasmine.github.io/tutorials/async#promises) the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.
-2. The interaction to [`Navigate`](/modules/protractor/class/src/screenplay/interactions/Navigate.ts~Navigate.html), just like many other common interactions you'll need to write your Web tests, ships as part of the [`@serenity-js/protractor`](/modules/protractor/) module. Serenity/JS [modules](/modules) provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can [easily create them yourself](/handbook/design/interactions.html) and [contribute back](/contributing.html) to the community &#x1F60A;
+1. The [`actor.attemptsTo(..)`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo) method returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which allows Mocha to [synchronise](https://mochajs.org/#asynchronous-code) the chain of actor's interactions with the test runner. Serenity/JS does not try to pretend that the world of JavaScript is not asynchronous. Instead, it gives you patterns and tools to deal with this in an elegant way.
+2. The interaction to [`Navigate`](/modules/web/class/src/screenplay/interactions/Navigate.ts~Navigate.html), just like many other common interactions you'll need to write your Web tests, ships as part of the [`@serenity-js/web`](/modules/web/) module. [Serenity/JS modules](/modules) provide dozens of interactions to cover most of your test automation needs, and if there are any missing you can [easily create them yourself](/handbook/design/interactions.html) and [contribute back](/contributing.html) to the community &#x1F60A;
 
 Check out the [Design Guide](/handbook/design) to [learn more about interactions](/handbook/design/interactions.html). 
 
@@ -129,14 +129,13 @@ Well, it doesn't unless you tell it, and that's where _abilities_ come into play
 You can think of an [`Ability`](/modules/core/class/src/screenplay/Ability.ts~Ability.html) as a thin wrapper around a client of a specific interface you'd like the actor to use.
 Those abilities is what the interactions use under the hood and what enables the actor to perform interactions with the system under test.
 
-For example, here's an ability that enables the actor to browse the Web using `protractor.browser` and enables Web-specific interactions such as `Navigate`:
+For example, here's an ability that enables the actor to browse the Web using `webdriverio.browser` and enables Web-specific interactions such as `Navigate`:
 
 ```typescript
 import { Ability } from '@serenity-js/core';
-import { BrowseTheWeb } from '@serenity-js/protractor';
-import { protractor } from 'protractor';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
-const browseTheWeb: Ability = BrowseTheWeb.using(protractor.browser);
+const browseTheWeb: Ability = BrowseTheWebWithWebdriverIO.using(browser);
 ```
 
 Now, you _could_ give an actor this ability directly, using the [`actor.whoCan(..)`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan) API:
@@ -144,17 +143,17 @@ Now, you _could_ give an actor this ability directly, using the [`actor.whoCan(.
 ```typescript
 // spec/todo.spec.ts
 
-import 'jasmine';
+import 'mocha';
 
 import { actorCalled } from '@serenity-js/core';
-import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';
-import { protractor } from 'protractor';
+import { Navigate } from '@serenity-js/web';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
 describe('Todo List App', () => {
     
     it('helps engineers learn Serenity/JS', () =>
         actorCalled('James')
-            .whoCan(BrowseTheWeb.using(protractor.browser))
+            .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
             .attemptsTo(
                 Navigate.to('http://todomvc.com/examples/angularjs/')
             ));
@@ -169,13 +168,13 @@ The alternative is to [`engage(..)`](/modules/core/function/index.html#static-fu
 // spec/todo.spec.ts
 
 import { Actor, actorCalled, Cast, engage } from '@serenity-js/core';
-import { BrowseTheWeb, Navigate } from '@serenity-js/protractor';
-import { protractor } from 'protractor';
+import { Navigate } from '@serenity-js/web';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
 class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+            BrowseTheWebWithWebdriverIO.using(browser),
         );
     }
 }
@@ -205,32 +204,31 @@ Check out the [Design Guide](/handbook/design) to [learn more about abilities](/
 The fourth building block of the Screenplay Pattern is _questions_, and just like with interactions, questions are interface-specific and enabled by abilities.
 Answering a [`Question`](/modules/core/class/src/screenplay/Question.ts~Question.html) provides actor with information about the state of the system under test.
 
-For example, you have a question that retrieves the [title of the website](/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title): 
+For example, you have a question that retrieves the [title of the web page](/modules/web/class/src/screenplay/models/Page.ts~Page.html#static-method-current): 
 
 ```typescript
 import { Question } from '@serenity-js/core';
-import { Website } from '@serenity-js/protractor';
+import { Page } from '@serenity-js/web';
 
-const title: Question<Promise<string>> = Website.title()
+const title: Question<Promise<string>> = Page.current().title()
 ```
 
-Or the one that [retrieves a web element](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html) for the actor's interactions to target:
+Or the one that [retrieves a page element](/modules/web/class/src/screenplay/models/PageElement.ts~PageElement.html) for the actor to interact with:
 
 ```typescript
-import { Question } from '@serenity-js/core';
-import { Target } from '@serenity-js/protractor';
-import { by, ElementFinder } from 'protractor';
+import { Answerable } from '@serenity-js/core';
+import { By, PageElement} from '@serenity-js/web';
 
-const header: Question<ElementFinder> = Target.the('header').located(by.css('h1'));
+const header: Answerable<PageElement<any>> = PageElement.located(By.css('h1')).describedAs('header');
 ```
 
-You also have higher-order questions that can be passed other questions as arguments.
+You also have higher-order questions that can receive other questions as arguments.
 
-For example, this is how you retrieve the text of the header web element from the sample above:
+For example, this is how you retrieve the text of the header web element from the example above:
 
 ```typescript
 import { Question } from '@serenity-js/core';
-import { Text } from '@serenity-js/protractor';
+import { Text } from '@serenity-js/web';
 
 const headerText: Question<Promise<string>> = Text.of(header);
 ```
@@ -253,10 +251,10 @@ import { Ensure, equals } from '@serenity-js/assertions';
 Ensure.that(headerText, equals('todos'))
 ```
 
-As well as for [synchronising your tests with the UI](/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html):
+As well as for [synchronising your tests with the UI](/modules/web/class/src/screenplay/interactions/Wait.ts~Wait.html):
 
 ```typescript
-import { Wait, isPresent } from '@serenity-js/protractor';
+import { Wait, isPresent } from '@serenity-js/web';
 import { equals } from '@serenity-js/assertions';
 
 Wait.until(header, isPresent())
@@ -267,24 +265,24 @@ If you wanted to experiment with some of the above questions, you could expand t
 
 ```typescript
 // spec/todo.spec.ts
-import 'jasmine';
+import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor, actorCalled, Cast, engage } from '@serenity-js/core';
-import { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } from '@serenity-js/protractor';
-import { by, protractor } from 'protractor';
+import { By, isVisible, Navigate, PageElement, Text, Wait } from '@serenity-js/web';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
 class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+            BrowseTheWebWithWebdriverIO.using(browser),
         );
     }
 }
 
 // this is what I call a Lean Page Object, more on those later on in the book
 class TodoListApp {
-    static header = Target.the('header').located(by.css('h1'));
+    static header = PageElement.located(By.css('h1')).describedAs('header'));
 }
 
 describe('Todo List App', () => {
@@ -317,12 +315,12 @@ For example, the three interactions we've just discussed could be modelled as a 
 
 ```typescript
 // spec/todo.spec.ts
-import 'jasmine';
+import 'mocha';
 
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
-import { isVisible, Navigate, Text, Wait } from '@serenity-js/protractor';
+import { isVisible, Navigate, Text, Wait } from '@serenity-js/web';
 
 const LaunchTheApp = () =>
     Task.where(`#actor launches the app`, 
@@ -336,24 +334,24 @@ To make an actor perform a task, you pass it to the `attemptsTo(..)` method, jus
 
 ```typescript
 // spec/todo.spec.ts
-import 'jasmine';
+import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor, actorCalled, Cast, engage, Task } from '@serenity-js/core';
-import { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } from '@serenity-js/protractor';
-import { by, protractor } from 'protractor';
+import { By, BrowseTheWeb, isVisible, Navigate, PageElement, Text, Wait } from '@serenity-js/web';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
 class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+            BrowseTheWebWithWebdriverIO.using(browser),
         );
     }
 }
 
 // this is what I call a Lean Page Object, more on those later on in the book
 class TodoListApp {
-    static header = Target.the('header').located(by.css('h1'));
+    static header = PageElement.located(by.css('h1')).describedAs('header');
 }
 
 const LaunchTheApp = () =>
