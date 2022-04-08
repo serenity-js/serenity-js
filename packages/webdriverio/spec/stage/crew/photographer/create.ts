@@ -10,7 +10,7 @@ class UIActors implements Cast {
             case 'Adam':
                 return actor;
 
-            case 'Betty':
+            case 'Betty':   // eslint-disable-line unicorn/no-useless-switch-case
             default:
                 return actor.whoCan(BrowseTheWeb.using(browser));
         }

@@ -48,7 +48,7 @@ export class ProtractorFrameworkAdapter {
             .then(() => this.protractorRunner.runTestPreparer(TestRunnerDetector.protractorCliOptions()))
             .then(() => runner.load(specs))
             .then(() => runner.run())
-            .then(() => Promise.resolve((config.onComplete || noop)()))
+            .then(() => (config.onComplete || noop)())
             .then(() => reporter.report());
     }
 
