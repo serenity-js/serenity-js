@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.4](https://github.com/serenity-js/serenity-js/compare/v2.33.3...v2.33.4) (2022-03-29)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** corrected reporting of interactions that occur in beforeAll hooks ([74ec88e](https://github.com/serenity-js/serenity-js/commit/74ec88e5976daebda9bf2e5d5b4b553d59a18672)), closes [#1162](https://github.com/serenity-js/serenity-js/issues/1162)
+
+
+
+
+
 ## [2.33.3](https://github.com/serenity-js/serenity-js/compare/v2.33.2...v2.33.3) (2022-03-19)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
