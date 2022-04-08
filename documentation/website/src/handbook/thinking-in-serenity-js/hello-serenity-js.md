@@ -24,7 +24,7 @@ If you don't have Node.js already, follow the [installation instructions](/handb
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>Did you know?</strong>
-    Every single build of Serenity/JS is tested against the latest three Node.js LTS versions, so **%package.engines.node%**.
+    Every single build of Serenity/JS is tested against the latest two Node.js LTS versions, so <strong>%package.engines.node%</strong>.
     </p></div>
 </div>
 
