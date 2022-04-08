@@ -14,7 +14,7 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
@@ -39,7 +39,7 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
@@ -75,7 +75,7 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -131,7 +131,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -168,7 +168,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -200,7 +200,7 @@ jobs:
     needs:    test-linux-node-lts-active
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
@@ -241,7 +241,7 @@ jobs:
       - test-linux-node-lts-other
       - integration-test-linux-node-lts
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
@@ -293,7 +293,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: ./.github/actions/setup-lerna
         if: github.ref == 'refs/heads/master'
         with:

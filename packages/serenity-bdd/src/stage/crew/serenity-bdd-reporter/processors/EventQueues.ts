@@ -49,7 +49,10 @@ export class EventQueues {
             return exactMatch.queueId;
         }
 
-        const sameScenarioMatch = this.queueIndex.find(entry => entry.details.equals(event.details));
+        const sameScenarioMatch = this.queueIndex.find(entry =>
+            entry.details &&
+            entry.details.equals(event.details)
+        );
 
         if (sameScenarioMatch) {
             this.queueIndex.push({

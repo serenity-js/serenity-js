@@ -19,6 +19,10 @@ import { StageManager } from './StageManager';
  * @see {@link engage}
  */
 export class Stage {
+    /**
+     * @private
+     */
+    private static readonly unknownSceneId = new CorrelationId('unknown')
 
     /**
      * @desc
@@ -49,7 +53,7 @@ export class Stage {
     private actorInTheSpotlight: Actor = undefined;
 
     private currentActivity: CorrelationId = undefined;
-    private currentScene: CorrelationId = new CorrelationId('unknown');
+    private currentScene: CorrelationId = Stage.unknownSceneId;
 
     /**
      * @param {Cast} cast
