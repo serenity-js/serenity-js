@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
+
+
+### Bug Fixes
+
+* **protractor:** simplified implementation of ProtractorFrameworkAdapter ([eaaf5d3](https://github.com/serenity-js/serenity-js/commit/eaaf5d318013486c6c0b9ce3c07cb9c6be877970))
+
+
+
+
+
 ## [2.33.4](https://github.com/serenity-js/serenity-js/compare/v2.33.3...v2.33.4) (2022-03-29)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
