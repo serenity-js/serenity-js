@@ -61,7 +61,7 @@ jobs:
 
       - name: Compress Libs
         run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           retention-days: 3
           name: compiled-libs
@@ -113,7 +113,7 @@ jobs:
       #          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
       #          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           retention-days: 3
           name: test-reports
@@ -278,7 +278,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           retention-days: 3
           name: changelog
