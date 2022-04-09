@@ -93,7 +93,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -149,7 +149,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -186,7 +186,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -218,7 +218,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download code coverage reports
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: test-reports
 
@@ -251,7 +251,7 @@ jobs:
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Download compiled libs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -303,7 +303,7 @@ jobs:
           npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Download changelog
         if: needs.release.result == 'success'
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: changelog
       - name: Setup Node 14.x
