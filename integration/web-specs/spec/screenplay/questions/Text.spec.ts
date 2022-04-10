@@ -170,7 +170,7 @@ describe('Text', () => {
                         )
                         .map((answer: string) => answer.trim())
                         .map((answer: string) => answer.replace('%', ''))
-                        .map((answer: string) => Number(answer)),
+                        .map(Number),
                     equals([6.67, 3.34])
                 ),
             ));
