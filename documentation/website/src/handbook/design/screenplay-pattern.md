@@ -217,7 +217,7 @@ Or the one that [retrieves a page element](/modules/web/class/src/screenplay/mod
 
 ```typescript
 import { Answerable } from '@serenity-js/core';
-import { By, PageElement} from '@serenity-js/web';
+import { By, PageElement } from '@serenity-js/web';
 
 const header: Answerable<PageElement<any>> = PageElement.located(By.css('h1')).describedAs('header');
 ```
@@ -235,12 +235,14 @@ const headerText: Question<Promise<string>> = Text.of(header);
 
 So what can you do with those questions? A great many things!
 
-You can use them with most Serenity/JS interactions, such as the one that [logs the answer](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html) to the question so that it can be [printed to the terminal](/modules/console-reporter/) (useful when debugging your test scenarios):
+You can use them with most Serenity/JS [interactions](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html), such as the one that [logs the answer](/modules/core/class/src/screenplay/interactions/Log.ts~Log.html) to the question so that it can be [printed to the terminal](/modules/console-reporter/) (useful when debugging your test scenarios):
 
 ```typescript
 import { Log } from '@serenity-js/core';
 
-Log.the(headerText)
+actorCalled('James').attemptsTo(
+    Log.the(headerText)
+)
 ```
 
 More importantly, you can also use them with [assertions](/modules/assertions/):
@@ -248,7 +250,9 @@ More importantly, you can also use them with [assertions](/modules/assertions/):
 ```typescript
 import { Ensure, equals } from '@serenity-js/assertions';
 
-Ensure.that(headerText, equals('todos'))
+actorCalled('James').attemptsTo(
+    Ensure.that(headerText, equals('todos'))
+)
 ```
 
 As well as for [synchronising your tests with the UI](/modules/web/class/src/screenplay/interactions/Wait.ts~Wait.html):
@@ -257,9 +261,22 @@ As well as for [synchronising your tests with the UI](/modules/web/class/src/scr
 import { Wait, isPresent } from '@serenity-js/web';
 import { equals } from '@serenity-js/assertions';
 
-Wait.until(header, isPresent())
-Wait.until(headerText, equals('todos'))
+actorCalled('James').attemptsTo(
+    Wait.until(header, isPresent()),
+    Wait.until(headerText, equals('todos')),
+)
 ```
+
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-laptop-code"></i></div>
+    <div class="text"><p>
+        Remember that whenever you want an <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html"><code>Actor</code></a> 
+        to perform a <a href="/modules/core/class/src/screenplay/Task.ts~Task.html"><code>Task</code></a>
+        or an <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a>,
+        you need to pass it to its <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-attemptsTo"><code>attemptsTo(activity)</code></a> method,
+        which conveniently accepts a <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#rest-parameters-and-arguments">variable number of arguments</a>. 
+    </p></div>
+</div>
 
 If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:
 
