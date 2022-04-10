@@ -87,7 +87,7 @@ export class ProtractorReporter implements StageCrewMember {
 
     private async afterEach(): Promise<void> {
         if (! this.runner.afterEach) {
-            return Promise.resolve();
+            return;
         }
 
         const id = CorrelationId.create();
