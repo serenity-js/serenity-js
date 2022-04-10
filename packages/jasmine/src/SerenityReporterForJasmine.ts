@@ -212,7 +212,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
                 return new ImplementationPending(new ImplementationPendingError((result as any).pendingReason || ''));
             case 'excluded':
                 return new ExecutionSkipped();
-            case 'passed':
+            case 'passed':  // eslint-disable-line unicorn/no-useless-switch-case
             default:
                 return new ExecutionSuccessful();
         }

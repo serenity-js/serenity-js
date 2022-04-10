@@ -74,6 +74,14 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 
 
 
+## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
+
+**Note:** Version bump only for package @serenity-js/mocha
+
+
+
+
+
 ## [2.33.4](https://github.com/serenity-js/serenity-js/compare/v2.33.3...v2.33.4) (2022-03-29)
 
 **Note:** Version bump only for package @serenity-js/mocha

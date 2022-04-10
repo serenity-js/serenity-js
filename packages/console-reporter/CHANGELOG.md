@@ -78,6 +78,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
 
 
+## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
 ## [2.33.4](https://github.com/serenity-js/serenity-js/compare/v2.33.3...v2.33.4) (2022-03-29)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
