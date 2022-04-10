@@ -20,8 +20,8 @@ describe('TakeNotes', () => {
                     return actor.whoCan(
                         TakeNotes.usingASharedNotepad(),
                     );
-                case 'Emma':
-                case 'Wendy':
+                case 'Emma':    // eslint-disable-line unicorn/no-useless-switch-case
+                case 'Wendy':   // eslint-disable-line unicorn/no-useless-switch-case
                 default:
                     return actor.whoCan(
                         TakeNotes.usingAnEmptyNotepad()

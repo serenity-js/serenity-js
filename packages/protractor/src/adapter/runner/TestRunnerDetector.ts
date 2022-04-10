@@ -53,7 +53,7 @@ export class TestRunnerDetector {
                 return this.useCucumber(config);
             case !! config.mochaOpts:
                 return this.useMocha(config);
-            case !! config.jasmineNodeOpts:
+            case !! config.jasmineNodeOpts:     // eslint-disable-line unicorn/no-useless-switch-case
             default:
                 return this.useJasmine(config);
         }
