@@ -26,6 +26,7 @@ describe('GetRequest', () => {
             headers: {
                 Accept: 'application/json',
             },
+            maxRedirects: 0,
         }))).
         to.eventually.deep.equal({
             method: 'GET',
@@ -33,6 +34,7 @@ describe('GetRequest', () => {
             headers: {
                 Accept: 'application/json',
             },
+            maxRedirects: 0,
         }));
 
     /** @test {GetRequest#toString} */
