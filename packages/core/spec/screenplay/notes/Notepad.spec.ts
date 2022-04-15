@@ -4,6 +4,7 @@ import { actorCalled, engage, Note, Notepad } from '../../../src';
 import { EnsureSame } from '../EnsureSame';
 import { Actors } from './Actors';
 import { ExampleNotes } from './ExampleNotes';
+import { expect } from '../../expect';
 
 /** @test {Notepad} */
 describe('Notepad', () => {
@@ -18,7 +19,30 @@ describe('Notepad', () => {
                 Notepad.clear(),
             ));
 
-    describe('.with')
+    describe('.empty()', () => {
+
+        /** @test {Notepad.empty} */
+        it('instantiates a new empty notepad', () => {
+
+            const notepad = Notepad.empty();
+
+            expect(notepad.size()).equals(0);
+        });
+    });
+
+    describe('.with(notes)', () => {
+
+        /** @test {Notepad.with} */
+        it('instantiates a new notepad with an initial state', () => {
+
+            const notepad = Notepad.with({
+                'my_note': 'value'
+            });
+
+            expect(notepad.size()).equals(1);
+            expect(notepad.read('my_note')).equals('value');
+        });
+    });
 
     describe('.import(notes)', () => {
 
