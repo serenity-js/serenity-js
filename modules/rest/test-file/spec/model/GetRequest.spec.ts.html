@@ -178,6 +178,7 @@
             headers<span class="token operator">:</span> <span class="token punctuation">{</span>
                 Accept<span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            maxRedirects<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
         to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
             method<span class="token operator">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span>
@@ -185,6 +186,7 @@
             headers<span class="token operator">:</span> <span class="token punctuation">{</span>
                 Accept<span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            maxRedirects<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test {GetRequest#toString} */</span>
