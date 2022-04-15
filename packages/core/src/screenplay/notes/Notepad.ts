@@ -1,8 +1,8 @@
 import { LogicError } from '../../errors';
 import { d } from '../../io';
+import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import { TakeNotes } from './TakeNotes';
-import { Answerable } from '../Answerable';
 
 /**
  * @desc
@@ -290,5 +290,15 @@ export class Notepad<Notes extends Record<string, any>> {
         for (const key of keys) {
             this.remove(key);
         }
+    }
+
+    /**
+     * @desc
+     *  Returns the number of notes stored in the notepad.
+     *
+     * @returns {number}
+     */
+    size(): number {
+        return Object.keys(this.notes).length;
     }
 }
