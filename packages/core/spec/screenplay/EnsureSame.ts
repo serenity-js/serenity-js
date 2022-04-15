@@ -1,10 +1,10 @@
 import { AssertionError } from '../../src/errors';
-import { Interaction, Question } from '../../src/screenplay';
+import { Answerable, Interaction } from '../../src/screenplay';
 
-export const EnsureSame = <T>(actual: Question<Promise<T>> | Question<T>, expected: T): Interaction =>
-    Interaction.where(`#actor ensures that both values are the same`, actor =>
-        actor.answer(actual).then(answer => {
-            if (answer !== expected) {
-                throw new AssertionError(`Expected ${ answer } to be the same as ${ expected }`, expected, actual);
-            }
-        }));
+export const EnsureSame = <T>(answerable: Answerable<T>, expected: T): Interaction =>
+    Interaction.where(`#actor ensures that both values are the same`, async actor => {
+        const actual = await actor.answer(answerable);
+        if (actual !== expected) {
+            throw new AssertionError(`Expected ${ actual } to be the same as ${ expected }`, expected, actual);
+        }
+    });
