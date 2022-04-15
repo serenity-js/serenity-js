@@ -1,10 +1,10 @@
 import 'mocha';
 
 import { actorCalled, engage, Note, Notepad } from '../../../src';
+import { expect } from '../../expect';
 import { EnsureSame } from '../EnsureSame';
 import { Actors } from './Actors';
 import { ExampleNotes } from './ExampleNotes';
-import { expect } from '../../expect';
 
 /** @test {Notepad} */
 describe('Notepad', () => {
