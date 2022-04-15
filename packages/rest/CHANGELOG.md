@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
+
+
+### Bug Fixes
+
+* **rest:** Allow disabling maxRedirects. Closes [#1181](https://github.com/serenity-js/serenity-js/issues/1181) ([e819409](https://github.com/serenity-js/serenity-js/commit/e81940946adb6e67948ea2591023cb16e178b94c))
+
+
+
+
+
 ## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
 
 **Note:** Version bump only for package @serenity-js/rest
