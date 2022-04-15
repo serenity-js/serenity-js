@@ -190,6 +190,17 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
 
 
+## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
+
+
+### Bug Fixes
+
+* **rest:** Allow disabling maxRedirects. Closes [#1181](https://github.com/serenity-js/serenity-js/issues/1181) ([e819409](https://github.com/serenity-js/serenity-js/commit/e81940946adb6e67948ea2591023cb16e178b94c))
+
+
+
+
+
 ## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
 
 **Note:** Version bump only for package @serenity-js/rest
