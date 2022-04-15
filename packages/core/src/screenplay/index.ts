@@ -6,6 +6,7 @@ export * from './actor';
 export * from './Answerable';
 export * from './Interaction';
 export * from './interactions';
+export * from './notes';
 export * from './Optional';
 export * from './Question';
 export * from './questions';
