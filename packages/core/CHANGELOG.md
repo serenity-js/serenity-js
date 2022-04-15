@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency graceful-fs to ^4.2.10 ([eb7ac15](https://github.com/serenity-js/serenity-js/commit/eb7ac15973e4318689483771db8d655f1bf1eb9a))
+* **deps:** update dependency moment to ^2.29.2 ([e3bb6d9](https://github.com/serenity-js/serenity-js/commit/e3bb6d922143a2c1b7c31aa6121ccf8761db9917))
+
+
+
+
+
 ## [2.33.5](https://github.com/serenity-js/serenity-js/compare/v2.33.4...v2.33.5) (2022-04-08)
 
 
