@@ -9,7 +9,9 @@ cta: cta-share
 
 When you integrate Mocha with Serenity/JS, the framework augments your test reports with additional information about your test scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet!
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Mocha and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/mocha-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-mocha) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
+
+Those reference implementations demonstrate writing REST API-based acceptance tests using [plain Mocha and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/mocha-rest-api-level-testing), as well as Web-based tests using [Serenity/JS, Mocha and Protractor](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-mocha) or [Serenity/JS, Mocha and WebdriverIO](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha).
 
 ## Integration architecture
 
@@ -40,9 +42,9 @@ graph TB
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
-        Integration architecture described in this chapter is applicable when you want to invoke <code>mocha</code> command line interface directly, for example for domain-level or [REST/HTTP API-level](/modules/rest) testing. 
+        Integration architecture described in this chapter is applicable when you want to invoke <code>mocha</code> command line interface directly, for example for domain-level or <a href="(/modules/rest">REST/HTTP API-level</a> testing. 
     </p>
-    <p>If you want your Mocha scenarios to interact with Web interfaces, check out [Integrating with Protractor](/handbook/integration/serenityjs-and-protractor.html) instead.
+    <p>If you want your Mocha scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> or <a href="/handbook/integration/serenityjs-and-webdriverio.html">Integrating with WebdriverIO</a> instead.
     </p></div>
 </div>
 

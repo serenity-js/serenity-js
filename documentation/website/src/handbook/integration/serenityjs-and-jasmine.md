@@ -9,7 +9,9 @@ cta: cta-share
 
 When you integrate Jasmine with Serenity/JS, the test framework augments your test reports with additional information about your test scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet!
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Jasmine and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/jasmine-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). 
+
+Those reference implementations demonstrate using Jasmine and Serenity/JS to write both [REST API-](https://github.com/serenity-js/serenity-js/tree/main/examples/jasmine-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-jasmine) acceptance tests.
 
 ## Integration architecture
 
@@ -42,7 +44,7 @@ graph TB
     <div class="text"><p><strong>PRO TIP:</strong>
         Integration architecture described in this chapter is applicable when you want to invoke <code>jasmine</code> command line interface directly, for example for domain-level or <a href="/modules/rest">REST/HTTP API-level</a> testing. 
     </p>
-    <p>If you want your Jasmine scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> instead.
+    <p>If you want your Jasmine scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> or <a href="/handbook/integration/serenityjs-and-webdriverio.html">Integrating with WebdriverIO</a> instead.
     </p></div>
 </div>
 
