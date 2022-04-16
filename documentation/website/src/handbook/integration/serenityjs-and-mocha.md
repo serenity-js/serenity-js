@@ -9,7 +9,9 @@ cta: cta-share
 
 When you integrate Mocha with Serenity/JS, the framework augments your test reports with additional information about your test scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet!
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Mocha and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/main/examples/mocha-rest-api-level-testing) and Web-based either using [WebdriverIO]((https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha) or [Protractor](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-mocha) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
+
+Those reference implementations demonstrate writing REST API-based acceptance tests using [plain Mocha and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/mocha-rest-api-level-testing), as well as Web-based tests using [Serenity/JS, Mocha and Protractor](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-mocha) or [Serenity/JS, Mocha and WebdriverIO](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha).
 
 ## Integration architecture
 
