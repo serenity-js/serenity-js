@@ -465,7 +465,9 @@ jobs:
         run: make SITE_SCOPE=@documentation site
 
       - name: Publish website
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
         if: github.ref == 'refs/heads/master'
-        run: npm run site:publish
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          BRANCH: gh-pages
+          FOLDER: documentation/website/target/site
+          CLEAN: true
