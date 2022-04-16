@@ -10,7 +10,8 @@ cta: cta-share
 When you integrate Cucumber.js with Serenity/JS, the framework gathers and reports additional data about your Cucumber scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet! Information reported includes scenario details, details of executed Cucumber steps, their arguments, provide code snippets for steps with missing implementation, and much more.
 
 If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
-Those implementations demonstrate using Cucumber and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/main/examples/cucumber-rest-api-level-testing) and Web-based acceptance tests, either [WebdriverIO](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-cucumber) or [Protractor](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-cucumber).
+
+Those reference implementations demonstrate writing REST API-based acceptance tests using [plain Cucumber and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/cucumber-rest-api-level-testing), as well as Web-based tests using [Serenity/JS, Cucumber and Protractor](https://github.com/serenity-js/serenity-js/tree/main/examples/protractor-cucumber) or [Serenity/JS, Cucumber and WebdriverIO](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-cucumber).
 
 ## Integration architecture
 
@@ -43,7 +44,7 @@ graph TB
     <div class="text"><p><strong>PRO TIP:</strong>
         Integration architecture described in this chapter is applicable when you want to invoke <code>cucumber-js</code> command line interface directly, for example for domain-level or <a href="/modules/rest">REST/HTTP API-level</a> testing. 
     </p>
-    <p>If you want your Cucumber scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-webdriverio.html">Integrating with WebdriverIO</a> or <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> instead.
+    <p>If you want your Cucumber scenarios to interact with Web interfaces, check out <a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a> or <a href="/handbook/integration/serenityjs-and-webdriverio.html">Integrating with WebdriverIO</a> instead.
     </p></div>
 </div>
 
