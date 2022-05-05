@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to ^5.0.1 ([c738406](https://github.com/serenity-js/serenity-js/commit/c738406434dfe0a2b927d6de416bf6f2d8291a2c))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
