@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cli-table3 to ^0.6.2 ([7762f8e](https://github.com/serenity-js/serenity-js/commit/7762f8ee9be80634cc98c8e4120b6e7b9251a8e3))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 **Note:** Version bump only for package @serenity-js/cucumber
