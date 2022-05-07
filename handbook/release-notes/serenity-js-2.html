@@ -23,11 +23,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
-    <title>Upgrading to Serenity/JS 2.0 | Serenity/JS</title>
-    <meta property="og:title" content="Upgrading to Serenity/JS 2.0 | Serenity/JS"/>
+    <title>Serenity/JS 2.0 | Serenity/JS</title>
+    <meta property="og:title" content="Serenity/JS 2.0 | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/handbook/integration/upgrading-to-serenity-js-2.html"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/release-notes/serenity-js-2.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -114,6 +114,10 @@
                                 <li class="chapter"><a href="/support.html">Support</a></li>
                                 <li class="chapter"><a href="/contributing.html">Contributing</a></li>
                                 <li class="chapter"><a href="/license.html">License</a></li>
+                                <li class="header"><a href="/handbook/release-notes/index.html">What&#x27;s new 🎁</a></li>
+                                <li class="chapter"><a href="/handbook/release-notes/versioning.html">Serenity/JS versioning</a></li>
+                                <li class="chapter"><a href="/handbook/release-notes/serenity-js-2.html">Serenity/JS 2.0</a></li>
+                                <li class="chapter"><a href="/handbook/release-notes/serenity-js-3.html">Serenity/JS 3.0 (RC)</a></li>
                                 <li class="header"><a href="/handbook/thinking-in-serenity-js/index.html">Thinking in Serenity/JS</a></li>
                                 <li class="chapter"><a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html">Hello, Serenity/JS!</a></li>
                                 <li class="chapter"><a href="/handbook/thinking-in-serenity-js/test-runners.html">Test Runners and Reporting</a></li>
@@ -133,14 +137,12 @@
                                 <li class="header"><a href="/handbook/integration/index.html">Integration Guide</a></li>
                                 <li class="chapter"><a href="/handbook/integration/architecture.html">Architecture</a></li>
                                 <li class="chapter"><a href="/handbook/integration/runtime-dependencies.html">Runtime dependencies</a></li>
-                                <li class="chapter"><a href="/handbook/integration/versioning.html">Versioning</a></li>
                                 <li class="chapter"><a href="/handbook/integration/installation.html">Installation</a></li>
                                 <li class="chapter"><a href="/handbook/integration/serenityjs-and-cucumber.html">Integrating with Cucumber</a></li>
                                 <li class="chapter"><a href="/handbook/integration/serenityjs-and-jasmine.html">Integrating with Jasmine</a></li>
                                 <li class="chapter"><a href="/handbook/integration/serenityjs-and-mocha.html">Integrating with Mocha</a></li>
                                 <li class="chapter"><a href="/handbook/integration/serenityjs-and-protractor.html">Integrating with Protractor</a></li>
                                 <li class="chapter"><a href="/handbook/integration/jira-and-other-issue-trackers.html">Jira and other issue trackers</a></li>
-                                <li class="chapter"><a href="/handbook/integration/upgrading-to-serenity-js-2.html">Upgrading to Serenity/JS 2.0</a></li>
                                 <li class="header"><a href="/handbook/reporting/index.html">Reporting</a></li>
                                 <li class="chapter"><a href="/handbook/reporting/console-reporter.html">Console Reporter</a></li>
                                 <li class="chapter"><a href="/handbook/reporting/serenity-bdd-reporter.html">Serenity BDD Reporter</a></li>
@@ -156,12 +158,12 @@
                 <div class="col-lg-9 col-md-12">
                     <article class="content">
                         <nav class="article-tools">
-                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/upgrading-to-serenity-js-2.md">
+                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/release-notes/serenity-js-2.md">
                                 <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="upgrading-to-serenityjs-20">Upgrading to Serenity/JS 2.0</h1>
-<p>If you wish to upgrade your existing Serenity/JS 1.x project to use version 2.0 of the framework - this guide is for you!</p>
+<p>This guide will help you upgrade your existing Serenity/JS 1.x project to version 2 of the framework.</p>
 <p>The upgrade path is relatively straightforward as the main Screenplay classes, such as <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html"><code>Actor</code></a>, 
 <a href="/modules/core/class/src/screenplay/Task.ts~Task.html"><code>Task</code></a>, <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html"><code>Interaction</code></a> and <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> 
 are backwards compatible. However, the latest version of Serenity/JS introduces a number of significant new features, which will give you an opportunity to simplify your existing code.</p>
@@ -459,7 +461,7 @@ I'll explain it in more depth in the next section.</p>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>I'd still rather use Jest, or Ava, or Karma...)</h4>
+        <h4>I'd still rather use Jest, or Ava, or Karma...</h4>
         <p>
             Sure thing, and we'd love to support it! However, with limited time and virtually unlimited possibilities for extending Serenity/JS, we have to be very strict about our priorities.
         </p>
@@ -1200,12 +1202,12 @@ and can help you to write even better acceptance tests.</p>
 
 
                         <footer class="d-print-none">
-                                <a class="previous" href="/handbook/integration/jira-and-other-issue-trackers.html">
+                                <a class="previous" href="/handbook/release-notes/versioning.html">
                                     <i class="fa fa-chevron-left"></i>
-                                    <span>Jira and other issue trackers</span>
+                                    <span>Serenity/JS versioning</span>
                                 </a>
-                                <a class="next" href="/handbook/reporting/index.html">
-                                    <span>Reporting</span>
+                                <a class="next" href="/handbook/release-notes/serenity-js-3.html">
+                                    <span>Serenity/JS 3.0 (RC)</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>
