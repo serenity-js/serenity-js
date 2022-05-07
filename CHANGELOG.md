@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cli-table3 to ^0.6.2 ([7762f8e](https://github.com/serenity-js/serenity-js/commit/7762f8ee9be80634cc98c8e4120b6e7b9251a8e3))
+* **deps:** update dependency https-proxy-agent to ^5.0.1 ([c738406](https://github.com/serenity-js/serenity-js/commit/c738406434dfe0a2b927d6de416bf6f2d8291a2c))
+* **deps:** update dependency moment to ^2.29.3 ([9a14e46](https://github.com/serenity-js/serenity-js/commit/9a14e46a08ec3024edaaf3c9d76ee87a9deca85a))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 
