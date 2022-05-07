@@ -1,5 +1,6 @@
 const Prism = require('prismjs');
 require('prismjs/components/prism-bash');
+require('prismjs/components/prism-diff');
 require('prismjs/components/prism-gherkin');
 require('prismjs/components/prism-javascript');
 require('prismjs/components/prism-json');
