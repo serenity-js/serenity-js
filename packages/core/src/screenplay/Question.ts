@@ -225,15 +225,19 @@ declare global  {
 }
 
 /* eslint-disable @typescript-eslint/indent */
+export type ProxiedReturnType<Original_Return_Type> = {
+    isPresent(): Question<Promise<boolean>>
+} & QuestionAdapter<Awaited<Original_Return_Type>>
+
 export type ProxiedAnswer<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
         // is it a method?
         Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
             // make the method signature asynchronous, accepting Answerables and returning a Promise
-            ? (...args: { [P in keyof OriginalParameters]: Answerable<OriginalParameters[P]> }) =>
-                { isPresent(): Question<Promise<boolean>> } & QuestionAdapter<Awaited<OriginalMethodResult>>
+            ? (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
+                ProxiedReturnType<OriginalMethodResult>
             // is it an object? wrap each field
-            : { isPresent(): Question<Promise<boolean>> } & QuestionAdapter<Awaited<Original_Type[Field]>>
+            : ProxiedReturnType<Original_Type[Field]>
 };
 /* eslint-enable @typescript-eslint/indent */
 
