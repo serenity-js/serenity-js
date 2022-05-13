@@ -1,5 +1,7 @@
 import 'mocha';
 
+import { q, Question } from '@serenity-js/core';
+
 import { OptionsRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -34,6 +36,25 @@ describe('OptionsRequest', () => {
                 Accept: 'application/json',
             },
         }));
+
+    it('accepts dynamic records', () =>
+        expect(
+            actor.answer(OptionsRequest.to('/products/2')
+                .using({
+                    headers: {
+                        Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
+                    },
+                })
+            )
+        ).
+        to.eventually.deep.equal({
+            method: 'OPTIONS',
+            url: '/products/2',
+            headers: {
+                Authorization: 'Bearer some-token',
+            },
+        })
+    );
 
     /** @test {Options#toString} */
     it('provides a sensible description of the interaction being performed', () => {

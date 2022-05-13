@@ -1,7 +1,6 @@
 import 'mocha';
 
-import { Dictionary, q, Question } from '@serenity-js/core';
-import { AxiosRequestConfig } from 'axios';
+import { q, Question } from '@serenity-js/core';
 
 import { PostRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
@@ -45,14 +44,14 @@ describe('PostRequest', () => {
         })
     );
 
-    it('works with a Dictionary', () =>
+    it('accepts dynamic records', () =>
         expect(
             actor.answer(PostRequest.to('/products/2').with({ name: 'apple' })
-                .using(Dictionary.of<AxiosRequestConfig>({
+                .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
                     },
-                }))
+                })
             )
         ).
         to.eventually.deep.equal({

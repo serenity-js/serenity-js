@@ -3,14 +3,8 @@ import { isPlainObject, Success } from 'tiny-types';
 import { LogicError } from '../../errors';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
+import { DynamicRecord } from '../DynamicRecord';
 import { Question, QuestionAdapter } from '../Question';
-
-export type DynamicRecord<T extends object> = {
-    [K in keyof T]:
-        T[K] extends object
-            ? Answerable<DynamicRecord<T[K]>>
-            : Answerable<T[K]>;
-}
 
 /**
  * @desc

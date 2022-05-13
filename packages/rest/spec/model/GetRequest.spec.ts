@@ -1,5 +1,7 @@
 import 'mocha';
 
+import { q, Question } from '@serenity-js/core';
+
 import { GetRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -36,6 +38,25 @@ describe('GetRequest', () => {
             },
             maxRedirects: 0,
         }));
+
+    it('accepts dynamic records', () =>
+        expect(
+            actor.answer(GetRequest.to('/products/2')
+                .using({
+                    headers: {
+                        Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
+                    },
+                })
+            )
+        ).
+        to.eventually.deep.equal({
+            method: 'GET',
+            url: '/products/2',
+            headers: {
+                Authorization: 'Bearer some-token',
+            },
+        })
+    );
 
     /** @test {GetRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {

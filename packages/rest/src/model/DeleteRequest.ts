@@ -1,4 +1,4 @@
-import { Answerable } from '@serenity-js/core';
+import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -60,12 +60,12 @@ export class DeleteRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
+     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {DeleteRequest}
      */
-    using(config: Answerable<AxiosRequestConfig>): DeleteRequest {
-        return new DeleteRequest(this.resourceUri, undefined, config);
+    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): DeleteRequest {
+        return new DeleteRequest(this.resourceUri, undefined, Dictionary.of(config));
     }
 }
