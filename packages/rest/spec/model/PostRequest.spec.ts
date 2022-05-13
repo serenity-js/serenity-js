@@ -1,5 +1,8 @@
 import 'mocha';
 
+import { Dictionary, q, Question } from '@serenity-js/core';
+import { AxiosRequestConfig } from 'axios';
+
 import { PostRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -37,6 +40,26 @@ describe('PostRequest', () => {
             url: '/products/2',
             headers: {
                 Accept: 'application/json',
+            },
+            data: { name: 'apple' },
+        })
+    );
+
+    it('works with a Dictionary', () =>
+        expect(
+            actor.answer(PostRequest.to('/products/2').with({ name: 'apple' })
+                .using(Dictionary.of<AxiosRequestConfig>({
+                    headers: {
+                        Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
+                    },
+                }))
+            )
+        ).
+        to.eventually.deep.equal({
+            method: 'POST',
+            url: '/products/2',
+            headers: {
+                Authorization: 'Bearer some-token',
             },
             data: { name: 'apple' },
         })
