@@ -379,6 +379,108 @@ For example:
 Ensure.that(User().toUpperCase().slice(1, 4), equals('JAN'))
 ```
 
+## `@serenity-js/rest`
+
+### `DynamicRecord<AxiosRequestConfig>` in HTTP requests
+
+All HTTP requests now accept dynamic `DynamicRecord<AxiosRequestConfig>`, which means you can now specify additional
+HTTP request configuration using a configuration object with nested `Question`s, `QuestionAdapter`s and `Promise`s.
+
+For example:
+
+```typescript
+import { actorCalled } from '@serenity-js/core';
+import { Send, PostRequest } from '@serenity-js/rest';
+
+actorCalled('René').attemptsTo(
+    Send.a(
+        PostRequest.to('/products/2')
+            .with({ name: 'apple' })
+            .using({
+                headers: {
+                    Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`, 
+                },
+            })
+    )
+);
+
+/*
+ sends a request with:
+ 
+    headers: {
+        Authorization: 'Bearer some-token',
+    },
+ */
+```
+
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <p><strong>PRO TIP:</strong>
+            The code sample above uses <a href="/modules/core/function/index.html#static-function-q"><code>q</code></a>, 
+    a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates">tagged template</a> 
+    function converting a `string` template parameterised with <code>Question&lt;string | number&gt;</code> into a <code>QuestionAdapter&lt;string&gt;</code>. Useful when you need to quickly concatenate <code>string</code>`s and <code>Question&lt;string&gt;</code>
+        </p>
+    </div>
+</div>
+
+## `@serenity-js/core`
+
+### Screenplay-style `Dictionary<T>`
+
+A new Screenplay-style data structure, `Dictionary<T>` will help you convert and merge plain JavaScript objects with nested [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E) into a `QuestionAdapter<T>`.
+
+For example:
+
+```typescript
+
+import { actorCalled } from '@serenity-js/core';
+import { Send, PostRequest } from '@serenity-js/rest';
+
+interface AddProductRequestData {
+    name:       string;
+    quantity:   number;
+}
+
+actorCalled('René').attemptsTo(
+    Send.a(
+        PostRequest.to('/products')
+            .with(
+                Dictionary.of<AddProductRequestData>({
+                    name:       Text.of(someElement),
+                    quantity:   Text.of(someOtherElement).as(Number)
+                })
+            )
+    )
+);
+```
+
+To merge several objects, pass them to `Dictionary.of` as per the example below:
+
+```typescript
+Dictionary.of<AddProductRequestData>(  
+    // initial values
+    { name: 'unknown', quantity: 0 },
+    // overrides
+    { name: Text.of(someElement) },
+    // other overrides
+    { quantity: Text.of(someOtherElement).as(Number) },    
+)
+```
+
+Note that in the above code sample, the first object contains values for all the fields
+required by AddProductRequestData interface. If not all the fields are required, make sure
+to mark them as [optional](https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties).
+
+For example:
+
+```typescript
+interface AddProductRequestData {
+    name:       string;
+    quantity?:  number; // optional
+}
+```
+
 ## More coming soon!
 
 
