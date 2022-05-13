@@ -1,5 +1,7 @@
 import 'mocha';
 
+import { q, Question } from '@serenity-js/core';
+
 import { PutRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
@@ -46,6 +48,26 @@ describe('PutRequest', () => {
             url: '/products/2',
             headers: {
                 Accept: 'application/json',
+            },
+            data: { name: 'apple' },
+        })
+    );
+
+    it('accepts dynamic records', () =>
+        expect(
+            actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })
+                .using({
+                    headers: {
+                        Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
+                    },
+                })
+            )
+        ).
+        to.eventually.deep.equal({
+            method: 'PUT',
+            url: '/products/2',
+            headers: {
+                Authorization: 'Bearer some-token',
             },
             data: { name: 'apple' },
         })

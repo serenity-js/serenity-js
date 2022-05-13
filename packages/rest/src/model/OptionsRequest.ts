@@ -1,4 +1,4 @@
-import { Answerable } from '@serenity-js/core';
+import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -55,12 +55,12 @@ export class OptionsRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
+     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {OptionsRequest}
      */
-    using(config: Answerable<AxiosRequestConfig>): OptionsRequest {
-        return new OptionsRequest(this.resourceUri, undefined, config);
+    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): OptionsRequest {
+        return new OptionsRequest(this.resourceUri, undefined, Dictionary.of(config));
     }
 }

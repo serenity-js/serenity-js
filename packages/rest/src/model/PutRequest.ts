@@ -1,4 +1,4 @@
-import { Answerable } from '@serenity-js/core';
+import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -75,12 +75,12 @@ export class PutRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
+     * @param {@serenity-js/core/lib/screenplay/questions~DynamicRecord<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {PutRequest}
      */
-    using(config: Answerable<AxiosRequestConfig>): PutRequest {
-        return new PutRequest(this.resourceUri, this.data, config);
+    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): PutRequest {
+        return new PutRequest(this.resourceUri, this.data, Dictionary.of(config));
     }
 }

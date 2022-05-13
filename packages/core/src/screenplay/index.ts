@@ -4,6 +4,7 @@ export * from './AbilityType';
 export * from './Activity';
 export * from './actor';
 export * from './Answerable';
+export * from './DynamicRecord';
 export * from './Interaction';
 export * from './interactions';
 export * from './notes';

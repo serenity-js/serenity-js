@@ -1,4 +1,4 @@
-import { Answerable } from '@serenity-js/core';
+import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -52,12 +52,12 @@ export class HeadRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config
+     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {HeadRequest}
      */
-    using(config: Answerable<AxiosRequestConfig>): HeadRequest {
-        return new HeadRequest(this.resourceUri, undefined, config);
+    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): HeadRequest {
+        return new HeadRequest(this.resourceUri, undefined, Dictionary.of(config));
     }
 }
