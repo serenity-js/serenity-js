@@ -1,4 +1,5 @@
 export * from './Check';
+export * from './Dictionary';
 export * from './Expectation';
 export * from './expectations';
 export * from './List';
