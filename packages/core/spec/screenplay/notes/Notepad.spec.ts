@@ -2,7 +2,7 @@ import 'mocha';
 
 import { actorCalled, engage, Note, Notepad } from '../../../src';
 import { expect } from '../../expect';
-import { EnsureSame } from '../EnsureSame';
+import { Ensure } from '../Ensure';
 import { Actors } from './Actors';
 import { ExampleNotes } from './ExampleNotes';
 
@@ -50,16 +50,16 @@ describe('Notepad', () => {
         it(`adds notes to Actor's notepad`, () =>
             actorCalled('Leonard')
                 .attemptsTo(
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note').isPresent(), false),
 
                     Notepad.import<ExampleNotes>({
                         example_note: 'first',
                         another_example_note: 'second',
                     }),
 
-                    EnsureSame(Note.of<ExampleNotes>('example_note'), 'first'),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note'), 'second'),
+                    Ensure.same(Note.of<ExampleNotes>('example_note'), 'first'),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note'), 'second'),
                 ));
 
         /** @test {Notepad.import} */
@@ -73,8 +73,8 @@ describe('Notepad', () => {
                         example_note: 'overwritten',
                     }),
 
-                    EnsureSame(Note.of<ExampleNotes>('example_note'), 'overwritten'),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note'), 'second original'),
+                    Ensure.same(Note.of<ExampleNotes>('example_note'), 'overwritten'),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note'), 'second original'),
                 ));
     });
 
@@ -85,14 +85,14 @@ describe('Notepad', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', 'first'),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), true),
 
                     Note.record<ExampleNotes>('another_example_note', 'second'),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
 
                     Notepad.clear(),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note').isPresent(), false),
                 ));
     });
 
@@ -103,19 +103,19 @@ describe('Notepad', () => {
             // "actors with shared notepad" are defined in ./Actors.ts
             await actorCalled('Alice with shared notepad')
                 .attemptsTo(
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
                 );
 
             await actorCalled('Bob with shared notepad')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', 'shared note'),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), true),
                 );
 
             await actorCalled('Alice with shared notepad')
                 .attemptsTo(
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), true),
-                    EnsureSame(Note.of<ExampleNotes>('example_note'), 'shared note'),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note'), 'shared note'),
                 );
         });
     });

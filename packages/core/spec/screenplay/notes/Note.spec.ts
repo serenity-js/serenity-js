@@ -4,7 +4,7 @@ import { given } from 'mocha-testdata';
 
 import { actorCalled, Answerable, engage, Log, LogicError, Note, Notepad, Question } from '../../../src';
 import { expect } from '../../expect';
-import { EnsureSame } from '../EnsureSame';
+import { Ensure } from '../Ensure';
 import { Actors } from './Actors';
 import { ExampleNotes } from './ExampleNotes';
 
@@ -37,7 +37,7 @@ describe('Note', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', expectedValue),
-                    EnsureSame(Note.of<ExampleNotes>('example_note'), expectedValue),
+                    Ensure.same(Note.of<ExampleNotes>('example_note'), expectedValue),
                 ));
 
         /** @test {Note.of} */
@@ -45,21 +45,21 @@ describe('Note', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', expectedValue),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), true),
                 ));
 
         /** @test {Note.of} */
         it('allows to ensure that a given note is not present', () =>
             actorCalled('Leonard')
                 .attemptsTo(
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
                 ));
 
         /** @test {Note.of} */
         it('complains if a note to be retrieved has not been recorded', () =>
             expect(actorCalled('Leonard')
                 .attemptsTo(
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
                     Log.the(Note.of<ExampleNotes>('example_note')),
                 )).to.be.rejectedWith(LogicError, `Note of 'example_note' cannot be retrieved because it's never been recorded`)
         );
@@ -69,7 +69,7 @@ describe('Note', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', 'abc'),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').charAt(1), 'b'),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').charAt(1), 'b'),
                 ));
     });
 
@@ -86,7 +86,7 @@ describe('Note', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', value),
-                    EnsureSame(Note.of<ExampleNotes>('example_note'), expectedValue),
+                    Ensure.same(Note.of<ExampleNotes>('example_note'), expectedValue),
                 ));
     });
 
@@ -97,14 +97,14 @@ describe('Note', () => {
             actorCalled('Leonard')
                 .attemptsTo(
                     Note.record<ExampleNotes>('example_note', 'first'),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), true),
 
                     Note.record<ExampleNotes>('another_example_note', 'second'),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
 
                     Note.remove<ExampleNotes>('example_note'),
-                    EnsureSame(Note.of<ExampleNotes>('example_note').isPresent(), false),
-                    EnsureSame(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
+                    Ensure.same(Note.of<ExampleNotes>('example_note').isPresent(), false),
+                    Ensure.same(Note.of<ExampleNotes>('another_example_note').isPresent(), true),
                 ));
     });
 });
