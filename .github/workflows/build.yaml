@@ -14,9 +14,9 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node 14.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -39,9 +39,9 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node 14.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -61,7 +61,7 @@ jobs:
 
       - name: Compress Libs
         run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           retention-days: 3
           name: compiled-libs
@@ -75,9 +75,9 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -93,7 +93,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -113,7 +113,7 @@ jobs:
       #          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
       #          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           retention-days: 3
           name: test-reports
@@ -131,9 +131,9 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -149,7 +149,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -168,9 +168,9 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -186,7 +186,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -200,9 +200,9 @@ jobs:
     needs:    test-linux-node-lts-active
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Node 14.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -218,7 +218,7 @@ jobs:
           find . -type d -path "*/node_modules/cucumber/node_modules/colors" -exec rm -r {} +
 
       - name: Download code coverage reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: test-reports
 
@@ -241,7 +241,7 @@ jobs:
       - test-linux-node-lts-other
       - integration-test-linux-node-lts
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
@@ -251,13 +251,13 @@ jobs:
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
       - name: Setup Node 14.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -278,7 +278,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           retention-days: 3
           name: changelog
@@ -293,7 +293,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - uses: ./.github/actions/setup-lerna
         if: github.ref == 'refs/heads/master'
         with:
@@ -303,11 +303,11 @@ jobs:
           npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Download changelog
         if: needs.release.result == 'success'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: changelog
       - name: Setup Node 14.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # tag=v3
         with:
           node-version: 14.x
 
@@ -326,7 +326,7 @@ jobs:
         run: make site
 
       - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc # tag=v4.3.3
         if: github.ref == 'refs/heads/master'
         with:
           BRANCH: gh-pages
