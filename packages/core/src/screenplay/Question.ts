@@ -225,19 +225,17 @@ declare global  {
 }
 
 /* eslint-disable @typescript-eslint/indent */
-export type ProxiedReturnType<Original_Return_Type> = {
-    isPresent(): Question<Promise<boolean>>
-} & QuestionAdapter<Awaited<Original_Return_Type>>
-
-export type ProxiedAnswer<Original_Type> = {
+export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
         // is it a method?
         Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
-            // make the method signature asynchronous, accepting Answerables and returning a Promise
+            // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
             ? (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
-                ProxiedReturnType<OriginalMethodResult>
+                QuestionAdapter<Awaited<OriginalMethodResult>>
             // is it an object? wrap each field
-            : ProxiedReturnType<Original_Type[Field]>
+            : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
+                ? QuestionAdapter<Awaited<Original_Type[Field]>>
+                : any;
 };
 /* eslint-enable @typescript-eslint/indent */
 
@@ -249,13 +247,13 @@ export type ProxiedAnswer<Original_Type> = {
  *
  * @public
  *
- * @typedef {Question<Promise<T>> & Interaction & Optional & ProxiedAnswer<T>} QuestionAdapter<T>
+ * @typedef {Question<Promise<T>> & Interaction & Optional & QuestionAdapterFieldDecorator<T>} QuestionAdapter<T>
  */
 export type QuestionAdapter<T> =
-    Question<Promise<T>> &
-    Interaction &
-    Optional &
-    ProxiedAnswer<T>;
+    & Question<Promise<T>>
+    & Interaction
+    & { isPresent(): Question<Promise<boolean>>; }  // more specialised Optional
+    & QuestionAdapterFieldDecorator<T>;
 
 class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
 
