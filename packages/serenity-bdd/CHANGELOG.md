@@ -344,6 +344,33 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 
 
 
+## [2.33.9](https://github.com/serenity-js/serenity-js/compare/v2.33.8...v2.33.9) (2022-06-02)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.33.8](https://github.com/serenity-js/serenity-js/compare/v2.33.7...v2.33.8) (2022-05-07)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to ^5.0.1 ([c738406](https://github.com/serenity-js/serenity-js/commit/c738406434dfe0a2b927d6de416bf6f2d8291a2c))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

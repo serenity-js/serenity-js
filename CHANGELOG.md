@@ -807,6 +807,43 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
 
 
+## [2.33.9](https://github.com/serenity-js/serenity-js/compare/v2.33.8...v2.33.9) (2022-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.18.4 ([b29ee5e](https://github.com/serenity-js/serenity-js/commit/b29ee5e75bfd91898bf39bcd0aaf547a5708652b))
+
+
+
+
+
+## [2.33.8](https://github.com/serenity-js/serenity-js/compare/v2.33.7...v2.33.8) (2022-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cli-table3 to ^0.6.2 ([92d83ab](https://github.com/serenity-js/serenity-js/commit/92d83ab78da01d8fb76d90bbd64c7ee652c557cb))
+* **deps:** update dependency https-proxy-agent to ^5.0.1 ([d07f00f](https://github.com/serenity-js/serenity-js/commit/d07f00f7ee6b4ae037e0b0f32ad329ba5df07c03))
+* **deps:** update dependency moment to ^2.29.3 ([0676b72](https://github.com/serenity-js/serenity-js/commit/0676b728ae1cbb016154614a12a1c261577f2d71))
+
+
+
+
+
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cli-table3 to ^0.6.2 ([7762f8e](https://github.com/serenity-js/serenity-js/commit/7762f8ee9be80634cc98c8e4120b6e7b9251a8e3))
+* **deps:** update dependency https-proxy-agent to ^5.0.1 ([c738406](https://github.com/serenity-js/serenity-js/commit/c738406434dfe0a2b927d6de416bf6f2d8291a2c))
+* **deps:** update dependency moment to ^2.29.3 ([9a14e46](https://github.com/serenity-js/serenity-js/commit/9a14e46a08ec3024edaaf3c9d76ee87a9deca85a))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 
