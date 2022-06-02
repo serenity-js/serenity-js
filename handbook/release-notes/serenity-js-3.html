@@ -332,26 +332,30 @@ have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main
 <span class="token keyword">import</span> <span class="token punctuation">{</span> TakeNotes<span class="token punctuation">,</span> Note<span class="token punctuation">,</span> Notepad <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token comment">// example interface describing the notes stored in the Notepad</span>
-<span class="token keyword">interface</span> <span class="token class-name">MyCredentials</span> <span class="token punctuation">{</span>
-  username<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-  password<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token keyword">interface</span> <span class="token class-name">MyNotes</span> <span class="token punctuation">{</span>
+  credentials<span class="token operator">:</span> <span class="token punctuation">{</span>
+    username<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    password<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Leonard'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
-    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
 </code></pre>
-<p>You can then record and retrieve notes using the interface describing the notepad:</p>
-<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log<span class="token punctuation">,</span> Note<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<p>You can then record and retrieve notes using <code>Notepad.notes&lt;T&gt;()</code>, or a convenient alias - <code>notes&lt;T&gt;()</code>, which replaced <code>Note</code>:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> notes<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Leonard'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
-    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-    Note<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">record</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'username'</span><span class="token punctuation">,</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>Note<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'username'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token generic-function"><span class="token function">notes</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'credentials'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> username<span class="token operator">:</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">,</span> password<span class="token operator">:</span> <span class="token string">'P@ssw0rd!'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>
+        <span class="token generic-function"><span class="token function">notes</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'credentials'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>username    <span class="token comment">// note that `username` is a QuestionAdapter&lt;string&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 </code></pre>
 <p>While you can still initialise the ability to <code>TakeNotes.usingAnEmptyNotepad()</code> (which is an alias for <code>TakeNotes.using(Notepad.empty())</code>), you can now also provide an initial state:</p>
@@ -359,59 +363,73 @@ have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main
 
 <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Leonard'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
-    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">with</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-      username<span class="token operator">:</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">,</span>
-      password<span class="token operator">:</span> <span class="token string">'SuperSecretP@ssword1'</span><span class="token punctuation">,</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>
+      Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">with</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        credentials<span class="token operator">:</span> <span class="token punctuation">{</span>
+          username<span class="token operator">:</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">,</span> 
+          password<span class="token operator">:</span> <span class="token string">'SuperSecretP@ssword1'</span><span class="token punctuation">,</span> 
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
 </code></pre>
 <p>The factory method <code>TakeNotes.usingASharedNotepad()</code> has been removed, so if you'd like the actors to share notes, you'll need to give them the same instance of the Notepad to work with:</p>
 <pre class="language-typescript"><code class="language-typescript"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
  <span class="token keyword">interface</span> <span class="token class-name">AuthCredentials</span> <span class="token punctuation">{</span>
-     username<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
-     password<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+     username<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+     password<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+ 
+ <span class="token keyword">interface</span> <span class="token class-name">MyNotes</span> <span class="token punctuation">{</span>
+     credentials<span class="token operator">:</span> AuthCredentials<span class="token punctuation">;</span>
  <span class="token punctuation">}</span>
 
  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
 
      <span class="token comment">// initialise a shared notepad when the Actors class is initialised</span>
-     <span class="token keyword">private</span> <span class="token keyword">readonly</span> sharedNotepad <span class="token operator">=</span> Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">with</span><span class="token generic class-name"><span class="token operator">&lt;</span>AuthCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-         username<span class="token operator">:</span> <span class="token string">'test-user'</span><span class="token punctuation">,</span>
-         password<span class="token operator">:</span> <span class="token string">'SuperSecretP@ssword!'</span><span class="token punctuation">,</span>
+     <span class="token keyword">private</span> <span class="token keyword">readonly</span> sharedNotepad <span class="token operator">=</span> Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">with</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+         credentials<span class="token operator">:</span> <span class="token punctuation">{</span>
+             username<span class="token operator">:</span> <span class="token string">'test-user'</span><span class="token punctuation">,</span>
+             password<span class="token operator">:</span> <span class="token string">'SuperSecretP@ssword!'</span><span class="token punctuation">,</span>
+         <span class="token punctuation">}</span>
      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
      <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
-         <span class="token keyword">switch</span> <span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+         <span class="token keyword">switch</span> <span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
            <span class="token keyword">case</span> <span class="token string">'Alice'</span><span class="token operator">:</span>
            <span class="token keyword">case</span> <span class="token string">'Bob'</span><span class="token operator">:</span>
                <span class="token comment">// Alice and Bob should share notes</span>
                <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>sharedNotepad<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
            <span class="token keyword">default</span><span class="token operator">:</span>
                <span class="token comment">// other actors should have their own notepads</span>
-              <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>AuthCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
          <span class="token punctuation">}</span>
      <span class="token punctuation">}</span>
  <span class="token punctuation">}</span>
 </code></pre>
-<p>Another improvement is that <code>Note.of</code> now returns a <code>QuestionAdapter</code>. The adapter creates a Screenplay Pattern-style proxy around the underlying value, so you can invoke its methods and the adapter will generate <code>Interaction</code>s and <code>Question</code>s as needed:</p>
-<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log<span class="token punctuation">,</span> Note<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<p>Another improvement is that <code>notes&lt;T&gt;().get(noteName)</code> now returns a <code>QuestionAdapter</code>. The adapter creates a Screenplay Pattern-style proxy around the underlying value, so when you invoke its methods the adapter generates <code>Interaction</code>s and <code>Question</code>s as needed:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> notes<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Leonard'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
-    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>Notepad<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">empty</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-    Note<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">record</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'username'</span><span class="token punctuation">,</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    notes<span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'credentials'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+        username<span class="token operator">:</span> <span class="token string">'leonard@example.org'</span><span class="token punctuation">,</span>
+        password<span class="token operator">:</span> <span class="token string">'SuperSecretP@ssword1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>
-      Note<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyCredentials<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'username'</span><span class="token punctuation">)</span>  <span class="token comment">// returns QuestionAdapter&lt;string&gt;</span>
+      <span class="token generic-function"><span class="token function">notes</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyNotes<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'credentials'</span><span class="token punctuation">)</span> <span class="token comment">// returns QuestionAdapter&lt;AuthCredentials&gt;</span>
+        <span class="token punctuation">.</span>username                         <span class="token comment">// returns QuestionAdapter&lt;string&gt;  </span>
         <span class="token punctuation">.</span><span class="token function">toLocaleUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token comment">// proxies toLocaleUpperCase and generates an Interaction around it</span>
         <span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>                        <span class="token comment">// proxies charAt and generates a proxy, etc.</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// emits "L"</span>
   <span class="token punctuation">)</span>
 </code></pre>
 <h3 id="using-an-untyped-notepad">Using an untyped Notepad</h3>
-<p>If you don't want to use the typed notepad in the first steps of your migration, you can still use an untyped notepad:</p>
+<p>If you don't want to use the typed notepad in the first steps of your migration, you can still use an untyped version:</p>
 <pre class="language-typescript"><code class="language-typescript"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast<span class="token punctuation">,</span> Notepad<span class="token punctuation">,</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
@@ -420,7 +438,7 @@ have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main
      <span class="token keyword">private</span> <span class="token keyword">readonly</span> sharedNotepad <span class="token operator">=</span> Notepad<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
      <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
-         <span class="token keyword">switch</span> <span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+         <span class="token keyword">switch</span> <span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
            <span class="token keyword">case</span> <span class="token string">'Alice'</span><span class="token operator">:</span>
            <span class="token keyword">case</span> <span class="token string">'Bob'</span><span class="token operator">:</span>
                <span class="token comment">// Alice and Bob should share notes</span>
@@ -432,17 +450,18 @@ have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main
      <span class="token punctuation">}</span>
  <span class="token punctuation">}</span>
 </code></pre>
-<p>You can then record and retrieve notes using your subject of choice:</p>
+<p>You can then record and retrieve notes using your subject of choice, defined using a <code>string</code>:</p>
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Log<span class="token punctuation">,</span> Note <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
 <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-    Note<span class="token punctuation">.</span><span class="token function">record</span><span class="token punctuation">(</span><span class="token string">'shopping list item'</span><span class="token punctuation">,</span> <span class="token string">'milk'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">notes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'shopping list item'</span><span class="token punctuation">,</span> <span class="token string">'milk'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>
-      Note<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">'shopping list item'</span><span class="token punctuation">)</span>
+      <span class="token function">notes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'shopping list item'</span><span class="token punctuation">)</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 </code></pre>
+<p>The untyped flavour gives you access to <code>QuestionAdapter</code>s just like the typed version, however your text editor might not be able to provide you with as much support as it would if your notepad had been typed.</p>
 <h2 id="serenity-jsassertions"><code>@serenity-js/assertions</code></h2>
 <h3 id="property-removed"><code>property</code> removed</h3>
 <p><code>property</code> helper function has been removed since it's no longer needed.</p>
@@ -468,6 +487,89 @@ actorCalled('Alice').attemptsTo
 <p><code>QuestionAdapter</code> also creates a <code>Proxy</code> object around the returned value, allowing for the properties and methods of the returned value to be invoked on the <code>QuestionAdapter</code> itself, and their return values to be wrapped in <code>Interaction</code> or <code>Question</code> automatically so that they're compatible with other Serenity/JS interfaces.</p>
 <p>For example:</p>
 <pre class="language-typescript"><code>Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token function">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'JAN'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="serenity-jsrest"><code>@serenity-js/rest</code></h2>
+<h3 id="dynamicrecordaxiosrequestconfig-in-http-requests"><code>DynamicRecord&lt;AxiosRequestConfig&gt;</code> in HTTP requests</h3>
+<p>All HTTP requests now accept dynamic <code>DynamicRecord&lt;AxiosRequestConfig&gt;</code>, which means you can now specify additional
+HTTP request configuration using a configuration object with nested <code>Question</code>s, <code>QuestionAdapter</code>s and <code>Promise</code>s.</p>
+<p>For example:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Send<span class="token punctuation">,</span> PostRequest <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
+
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'René'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>
+        PostRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/products/2'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'apple'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    Authorization<span class="token operator">:</span> q<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Bearer </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'token'</span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token string">'some-token'</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> 
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/*
+ sends a request with:
+ 
+    headers: {
+        Authorization: 'Bearer some-token',
+    },
+ */</span>
+</code></pre>
+<div class="pro-tip">
+    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+    <div class="text">
+        <p><strong>PRO TIP:</strong>
+            The code sample above uses <a href="/modules/core/function/index.html#static-function-q"><code>q</code></a>, 
+    a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates">tagged template</a> 
+    function converting a `string` template parameterised with <code>Question&lt;string | number&gt;</code> into a <code>QuestionAdapter&lt;string&gt;</code>. Useful when you need to quickly concatenate <code>string</code>`s and <code>Question&lt;string&gt;</code>
+        </p>
+    </div>
+</div>
+
+<h2 id="serenity-jscore"><code>@serenity-js/core</code></h2>
+<h3 id="screenplay-style-dictionaryt">Screenplay-style <code>Dictionary&lt;T&gt;</code></h3>
+<p>A new Screenplay-style data structure, <code>Dictionary&lt;T&gt;</code> will help you convert and merge plain JavaScript objects with nested <a href="/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E"><code>Answerable</code>s</a> into a <code>QuestionAdapter&lt;T&gt;</code>.</p>
+<p>For example:</p>
+<pre class="language-typescript"><code class="language-typescript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Send<span class="token punctuation">,</span> PostRequest <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">AddProductRequestData</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span>       <span class="token builtin">string</span><span class="token punctuation">;</span>
+    quantity<span class="token operator">:</span>   <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'René'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>
+        PostRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/products'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>
+                Dictionary<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    name<span class="token operator">:</span>       Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someElement<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    quantity<span class="token operator">:</span>   Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someOtherElement<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>Number<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>To merge several objects, pass them to <code>Dictionary.of</code> as per the example below:</p>
+<pre class="language-typescript"><code class="language-typescript">Dictionary<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>  
+    <span class="token comment">// initial values</span>
+    <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'unknown'</span><span class="token punctuation">,</span> quantity<span class="token operator">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// overrides</span>
+    <span class="token punctuation">{</span> name<span class="token operator">:</span> Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someElement<span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// other overrides</span>
+    <span class="token punctuation">{</span> quantity<span class="token operator">:</span> Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someOtherElement<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>Number<span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>    
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Note that in the above code sample, the first object contains values for all the fields
+required by AddProductRequestData interface. If not all the fields are required, make sure
+to mark them as <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties">optional</a>.</p>
+<p>For example:</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">interface</span> <span class="token class-name">AddProductRequestData</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span>       <span class="token builtin">string</span><span class="token punctuation">;</span>
+    quantity<span class="token operator">?</span><span class="token operator">:</span>  <span class="token builtin">number</span><span class="token punctuation">;</span> <span class="token comment">// optional</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="more-coming-soon">More coming soon!</h2>
 <div class="pro-tip">
