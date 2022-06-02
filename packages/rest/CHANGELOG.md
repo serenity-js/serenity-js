@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.17](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.16...v3.0.0-rc.17) (2022-06-02)
+
+
+### Features
+
+* **core:** Screenplay-style Dictionary<T> to help resolve objects with nested Questions ([6a66778](https://github.com/serenity-js/serenity-js/commit/6a667788b7579f94edb70c36103d82ca3f146eed)), closes [#1219](https://github.com/serenity-js/serenity-js/issues/1219)
+* **rest:** all HTTP requests accept DynamicRecord<AxiosRequestConfig> ([c28b47c](https://github.com/serenity-js/serenity-js/commit/c28b47cde53e2e0d3ee8313a1e21e15cbe78df9a)), closes [#463](https://github.com/serenity-js/serenity-js/issues/463)
+
+
+
+
+
 # [3.0.0-rc.16](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v3.0.0-rc.16) (2022-04-15)
 
 
