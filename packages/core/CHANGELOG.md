@@ -505,6 +505,33 @@ modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped su
 modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
 
   
+## [2.33.9](https://github.com/serenity-js/serenity-js/compare/v2.33.8...v2.33.9) (2022-06-02)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [2.33.8](https://github.com/serenity-js/serenity-js/compare/v2.33.7...v2.33.8) (2022-05-07)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [2.33.7](https://github.com/serenity-js/serenity-js/compare/v2.33.6...v2.33.7) (2022-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency moment to ^2.29.3 ([9a14e46](https://github.com/serenity-js/serenity-js/commit/9a14e46a08ec3024edaaf3c9d76ee87a9deca85a))
+
+
+
+
+
 ## [2.33.6](https://github.com/serenity-js/serenity-js/compare/v2.33.5...v2.33.6) (2022-04-15)
 
 

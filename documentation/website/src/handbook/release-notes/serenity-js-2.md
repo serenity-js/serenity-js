@@ -1,11 +1,11 @@
 ---
-title: Upgrading to Serenity/JS 2.0
+title: Serenity/JS 2.0
 layout: handbook.hbs
 ---
 
 # Upgrading to Serenity/JS 2.0
 
-If you wish to upgrade your existing Serenity/JS 1.x project to use version 2.0 of the framework - this guide is for you!
+This guide will help you upgrade your existing Serenity/JS 1.x project to version 2 of the framework.
 
 The upgrade path is relatively straightforward as the main Screenplay classes, such as [`Actor`](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html), 
 [`Task`](/modules/core/class/src/screenplay/Task.ts~Task.html), [`Interaction`](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) and [`Question`](/modules/core/class/src/screenplay/Question.ts~Question.html) 
@@ -373,7 +373,7 @@ I'll explain it in more depth in the next section.
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text">
-        <h4>I'd still rather use Jest, or Ava, or Karma...)</h4>
+        <h4>I'd still rather use Jest, or Ava, or Karma...</h4>
         <p>
             Sure thing, and we'd love to support it! However, with limited time and virtually unlimited possibilities for extending Serenity/JS, we have to be very strict about our priorities.
         </p>

@@ -1,8 +1,8 @@
 ---
-title: Versioning
+title: Serenity/JS versioning
 layout: handbook.hbs
 ---
-# Versioning
+# Serenity/JS versioning
 
 Serenity/JS complies with [Semantic Versioning 2.0.0](https://semver.org/), with release versions [determined automatically](/contributing.html#the-serenity-js-framework) based on the changes introduced to the `master` branch since the most recent release.
 
