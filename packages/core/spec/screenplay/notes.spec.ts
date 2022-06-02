@@ -2,7 +2,7 @@ import 'mocha';
 
 import { given } from 'mocha-testdata';
 
-import { Ability, Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
+import { Ability, actorCalled, Cast, Log, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
 import { expect } from '../expect';
 import { Ensure } from './Ensure';
 

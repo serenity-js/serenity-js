@@ -166,24 +166,25 @@ import { Notepad } from './Notepad';
  *  }
  *
  *  actorCalled('Leonard')
- *      .whoCan(
- *          TakeNotes.using(
- *              Notepad.with<AuthCredentials>({
- *                  auth: {
- *                      username: 'leonard@example.org',
- *                      password: 'SuperSecretP@ssword!',
- *                  }
- *              })
- *          )
- *      )
- *      .attemptsTo(
- *          Log.the(
- *              notes<MyNotes>('auth')              // returns QuestionAdapter<AuthCredentials>
- *                  .password                       // returns QuestionAdapter<string>
- *                  .charAt(0)
- *                  .toLocaleLowerCase(),
- *          ), // emits 's'
- *      );
+ *     .whoCan(
+ *         TakeNotes.using(
+ *             Notepad.with<MyNotes>({     // typed initial state
+ *                 auth: {
+ *                     username: 'leonard@example.org',
+ *                     password: 'SuperSecretP@ssword!',
+ *                 }
+ *             })
+ *         )
+ *     )
+ *     .attemptsTo(
+ *         Log.the(
+ *             notes<MyNotes>()            // typed notes
+ *                 .get('auth')            // returns QuestionAdapter<AuthCredentials>
+ *                 .password               // returns QuestionAdapter<string>
+ *                 .charAt(0)
+ *                 .toLocaleLowerCase(),   // emits "s"
+ *         ),
+ *     );
  *
  * @see {@link Note}
  * @see {@link Notepad}
