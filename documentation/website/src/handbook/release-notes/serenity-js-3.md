@@ -209,29 +209,33 @@ At the high level, there's a new class that represents the `Notepad`. You can ty
 import { TakeNotes, Note, Notepad } from '@serenity-js/core';
 
 // example interface describing the notes stored in the Notepad
-interface MyCredentials {
-  username?: string;
-  password?: string;
+interface MyNotes {
+  credentials: {
+    username?: string;
+    password?: string;
+  }
 }
 
 actorCalled('Leonard')
   .whoCan(
-    TakeNotes.using(Notepad.empty<MyCredentials>())
+    TakeNotes.using(Notepad.empty<MyNotes>())
   )
 ```
 
-You can then record and retrieve notes using the interface describing the notepad:
+You can then record and retrieve notes using `Notepad.notes<T>()`, or a convenient alias - `notes<T>()`, which replaced `Note`:
 
 ```typescript
-import { Log, Note, Notepad, TakeNotes } from '@serenity-js/core';
+import { Log, Notepad, notes, TakeNotes } from '@serenity-js/core';
 
 actorCalled('Leonard')
   .whoCan(
-    TakeNotes.using(Notepad.empty<MyCredentials>())
+    TakeNotes.using(Notepad.empty<MyNotes>())
   )
   .attemptsTo(
-    Note.record<MyCredentials>('username', 'leonard@example.org'),
-    Log.the(Note.of<MyCredentials>('username')),
+    notes<MyNotes>().set('credentials', { username: 'leonard@example.org', password: 'P@ssw0rd!' }),
+    Log.the(
+        notes<MyNotes>().get('credentials').username    // note that `username` is a QuestionAdapter<string>
+    ),
   )
 ```
 
@@ -242,10 +246,14 @@ import { Note, Notepad, TakeNotes } from '@serenity-js/core';
 
 actorCalled('Leonard')
   .whoCan(
-    TakeNotes.using(Notepad.with<MyCredentials>({
-      username: 'leonard@example.org',
-      password: 'SuperSecretP@ssword1',
-    })
+    TakeNotes.using(
+      Notepad.with<MyNotes>({
+        credentials: {
+          username: 'leonard@example.org', 
+          password: 'SuperSecretP@ssword1', 
+        }
+      })
+    )
   )
 ```
 
@@ -255,46 +263,55 @@ The factory method `TakeNotes.usingASharedNotepad()` has been removed, so if you
  import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core';
 
  interface AuthCredentials {
-     username?: string;
-     password?: string;
+     username: string;
+     password: string;
+ }
+ 
+ interface MyNotes {
+     credentials: AuthCredentials;
  }
 
  export class Actors implements Cast {
 
      // initialise a shared notepad when the Actors class is initialised
-     private readonly sharedNotepad = Notepad.with<AuthCredentials>({
-         username: 'test-user',
-         password: 'SuperSecretP@ssword!',
+     private readonly sharedNotepad = Notepad.with<MyNotes>({
+         credentials: {
+             username: 'test-user',
+             password: 'SuperSecretP@ssword!',
+         }
      });
 
      prepare(actor: Actor): Actor {
-         switch (actor.name) {}
+         switch (actor.name) {
            case 'Alice':
            case 'Bob':
                // Alice and Bob should share notes
                return actor.whoCan(TakeNotes.using(this.sharedNotepad));
            default:
                // other actors should have their own notepads
-              return actor.whoCan(TakeNotes.using(Notepad.empty<AuthCredentials>()));
+              return actor.whoCan(TakeNotes.using(Notepad.empty<MyNotes>()));
          }
      }
  }
 ```
 
-Another improvement is that `Note.of` now returns a `QuestionAdapter`. The adapter creates a Screenplay Pattern-style proxy around the underlying value, so you can invoke its methods and the adapter will generate `Interaction`s and `Question`s as needed:
-
+Another improvement is that `notes<T>().get(noteName)` now returns a `QuestionAdapter`. The adapter creates a Screenplay Pattern-style proxy around the underlying value, so when you invoke its methods the adapter generates `Interaction`s and `Question`s as needed:
 
 ```typescript
-import { Log, Note, Notepad, TakeNotes } from '@serenity-js/core';
+import { Log, Notepad, notes, TakeNotes } from '@serenity-js/core';
 
 actorCalled('Leonard')
   .whoCan(
-    TakeNotes.using(Notepad.empty<MyCredentials>())
+    TakeNotes.using(Notepad.empty<MyNotes>())
   )
   .attemptsTo(
-    Note.record<MyCredentials>('username', 'leonard@example.org'),
+    notes<MyNotes>.set('credentials', { 
+        username: 'leonard@example.org',
+        password: 'SuperSecretP@ssword1',
+    }),
     Log.the(
-      Note.of<MyCredentials>('username')  // returns QuestionAdapter<string>
+      notes<MyNotes>().get('credentials') // returns QuestionAdapter<AuthCredentials>
+        .username                         // returns QuestionAdapter<string>  
         .toLocaleUpperCase()              // proxies toLocaleUpperCase and generates an Interaction around it
         .charAt(0)                        // proxies charAt and generates a proxy, etc.
     ), // emits "L"
@@ -303,7 +320,7 @@ actorCalled('Leonard')
 
 ### Using an untyped Notepad
 
-If you don't want to use the typed notepad in the first steps of your migration, you can still use an untyped notepad:
+If you don't want to use the typed notepad in the first steps of your migration, you can still use an untyped version:
 
 ```typescript
  import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core';
@@ -314,7 +331,7 @@ If you don't want to use the typed notepad in the first steps of your migration,
      private readonly sharedNotepad = Notepad.empty();
 
      prepare(actor: Actor): Actor {
-         switch (actor.name) {}
+         switch (actor.name) {
            case 'Alice':
            case 'Bob':
                // Alice and Bob should share notes
@@ -327,19 +344,21 @@ If you don't want to use the typed notepad in the first steps of your migration,
  }
 ```
 
-You can then record and retrieve notes using your subject of choice:
+You can then record and retrieve notes using your subject of choice, defined using a `string`:
 
 ```typescript
 import { Log, Note } from '@serenity-js/core';
 
 actorCalled('Alice')
   .attemptsTo(
-    Note.record('shopping list item', 'milk'),
+    notes().set('shopping list item', 'milk'),
     Log.the(
-      Note.of('shopping list item')
+      notes().get('shopping list item')
     ),
   )
- ```
+```
+
+The untyped flavour gives you access to `QuestionAdapter`s just like the typed version, however your text editor might not be able to provide you with as much support as it would if your notepad had been typed.
 
 ## `@serenity-js/assertions`
 
