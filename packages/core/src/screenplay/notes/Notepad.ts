@@ -1,50 +1,55 @@
+import { TinyType } from 'tiny-types';
+
 import { LogicError } from '../../errors';
 import { d } from '../../io';
-import { Answerable } from '../Answerable';
-import { Interaction } from '../Interaction';
+import { Question, QuestionAdapter } from '../Question';
 import { TakeNotes } from './TakeNotes';
 
 /**
  * @desc
  *  Stores notes recorded by an {@link Actor}.
  *
- *  See {@link TakeNotes} and {@link Note} for more usage examples.
+ *  See {@link TakeNotes} and {@link notes} for more usage examples.
  *
  * @example <caption>Sharing a notepad between actors</caption>
  *  import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core';
  *
- *  interface AuthCredentials {
- *      username?: string;
- *      password?: string;
+ *  interface MyNotes {
+ *      auth: {
+ *        username: string;
+ *        password: string;
+ *      }
  *  }
  *
  *  export class Actors implements Cast {
  *
  *      // initialise a shared notepad when the Actors class is initialised
- *      private readonly sharedNotepad = Notepad.with<AuthCredentials>({
- *          username: 'test-user',
- *          password: 'SuperSecretP@ssword!',
+ *      private readonly sharedNotepad = Notepad.with<MyNotes>({
+ *          auth: {
+ *              username: 'test-user',
+ *              password: 'SuperSecretP@ssword!',
+ *          }
  *      });
  *
  *      prepare(actor: Actor): Actor {
- *          switch (actor.name) {}
+ *          switch (actor.name) {
  *            case 'Alice':
  *            case 'Bob':
- *                // Alice and Bob should share notes
+ *                // Alice and Bob will share their notepad
  *                return actor.whoCan(TakeNotes.using(this.sharedNotepad));
  *            default:
- *                // other actors should have their own notepads
+ *                // other actors will get their own notepads
  *               return actor.whoCan(TakeNotes.using(Notepad.empty<AuthCredentials>()));
  *          }
  *      }
  *  }
  *
  * @see {@link TakeNotes}
- * @see {@link Note}
+ * @see {@link notes}
  *
- * @extends {Record<string, any>}
+ * @extends {TinyType}
  */
-export class Notepad<Notes extends Record<string, any>> {
+export class Notepad<Notes extends Record<any, any>> extends TinyType {
 
     /**
      * @desc
@@ -52,8 +57,8 @@ export class Notepad<Notes extends Record<string, any>> {
      *
      * @returns {Notepad<N>}
      */
-    static empty<N extends Record<string, any>>(): Notepad<N> {
-        return new Notepad<N>({});
+    static empty<N extends Record<any, any>>(): Notepad<N> {
+        return new Notepad<N>({} as N);
     }
 
     /**
@@ -61,131 +66,57 @@ export class Notepad<Notes extends Record<string, any>> {
      *  Instantiates a new Notepad with an initial state.
      *
      * @example
-     *  import { actorCalled, Note, Notepad, TakeNotes } from '@serenity-js/core';
+     *  import { actorCalled, Notepad, notes, TakeNotes } from '@serenity-js/core';
      *  import { Ensure, equals } from '@serenity-js/assertions';
      *
-     *  interface PersonalDetails {
-     *      first_name: string;
-     *      last_name: string;
+     *  interface MyNotes {
+     *      personalDetails: {
+     *          firstName: string;
+     *          lastName: string;
+     *      }
      *  }
      *
      *  actorCalled('Leonard')
      *      .whoCan(
      *          TakeNotes.using(
-     *              Notepad.with<PersonalDetails>({
-     *                  first_name: 'Leonard',
+     *              Notepad.with<MyNotes>({
+     *                  personalDetails: {
+     *                      firstName: 'Leonard',
+     *                      lastName: 'McLaud',
+     *                  }
      *              })
      *          )
      *      )
      *      .attemptsTo(
      *          Ensure.that(
-     *              Note.of<PersonalDetails>('first_name'),
+     *              notes<MyNotes>().get('personalDetails').firstName,
      *              equals('Leonard')
      *          ),
      *      );
      *
-     * @param {Partial<N>} notes
+     * @param {N extends Record<any, any>} notes
      * @returns {Notepad<N>}
      */
-    static with<N extends Record<string, any>>(notes: Partial<N>): Notepad<N> {
+    static with<N extends Record<any, any>>(notes: N): Notepad<N> {
         return new Notepad<N>(notes);
     }
 
     /**
      * @desc
-     *  Imports notes to be combined with any already existing ones.
+     *  Creates a {@link QuestionAdapter} that simplifies access to the notes
+     *  stored in this notepad. Allows the {@link Actor} to record, read, and remove notes.
      *
-     *  **Please note** that this is a shallow merge internally performed by {@link Object.assign}.
-     *  If the `notes` object contains a note under key called `my_note`,
-     *  and a note has already been recorded under the same key, the imported note will overwrite
-     *  the existing note.
+     *  See {@link TakeNotes} and {@link Notepad} for more usage examples.
      *
-     * @example
-     *  import { actorCalled, Note, Notepad, TakeNotes } from '@serenity-js/core';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
+     * @returns {QuestionAdapter<Notepad<N>>}
      *
-     *  interface PersonalDetails {
-     *      first_name: string;
-     *      last_name: string;
-     *  }
-     *
-     *  actorCalled('Leonard')
-     *      .whoCan(
-     *          TakeNotes.using(
-     *              Notepad.with<PersonalDetails>({
-     *                  first_name: 'Leo',
-     *                  last_name: 'Shelby',
-     *              })
-     *          )
-     *      )
-     *      .attemptsTo(
-     *          Notepad.import<PersonalDetails>({
-     *              first_name: 'Leonard',
-     *          }),
-     *
-     *          Ensure.that(
-     *              Note.of<PersonalDetails>('first_name'),
-     *              equals('Leonard')
-     *          ),
-     *          Ensure.that(
-     *              Note.of<PersonalDetails>('last_name'),
-     *              equals('Shelby')
-     *          ),
-     *      );
-     *
-     * @param {Answerable<Partial<N>>} notes
-     *  The notes to be imported by the {@link Actor} performing this interaction
-     *
-     * @returns {Interaction}
+     * @see {@link notes}
+     * @see {@link Notepad}
+     * @see {@link TakeNotes}
      */
-    static import<N extends Record<string, any>>(notes: Answerable<Partial<N>>): Interaction {
-        return Interaction.where(`#actor imports notes`, async actor => {
-            const notesToImport = await actor.answer(notes);
-            TakeNotes.as<N>(actor).import(notesToImport);
-        });
-    }
-
-    /**
-     * @desc
-     *  Removes all the notes from the {@link Notepad} held by the {@link Actor}
-     *  performing this {@link Interaction}.
-     *
-     * @example
-     *  import { actorCalled, Note, Notepad, TakeNotes } from '@serenity-js/core';
-     *  import { Ensure, isPresent, not } from '@serenity-js/assertions';
-     *
-     *  interface PersonalDetails {
-     *      first_name: string;
-     *      last_name: string;
-     *  }
-     *
-     *  actorCalled('Leonard')
-     *      .whoCan(
-     *          TakeNotes.using(
-     *              Notepad.with<PersonalDetails>({
-     *                  first_name: 'Leonard',
-     *                  last_name: 'Shelby',
-     *              })
-     *          )
-     *      )
-     *      .attemptsTo(
-     *          Notepad.clear(),
-     *
-     *          Ensure.that(
-     *              Note.of<PersonalDetails>('first_name'),
-     *              not(isPresent())
-     *          ),
-     *          Ensure.that(
-     *              Note.of<PersonalDetails>('last_name'),
-     *              not(isPresent())
-     *          ),
-     *      );
-     *
-     * @returns {Interaction}
-     */
-    static clear(): Interaction {
-        return Interaction.where(`#actor removes all notes from their notepad`, async actor => {
-            TakeNotes.as(actor).clearNotepad();
+    static notes<N extends Record<any, any>>(): QuestionAdapter<Notepad<N>> {
+        return Question.about('notes', actor => {
+            return TakeNotes.as(actor).notepad;
         });
     }
 
@@ -193,21 +124,25 @@ export class Notepad<Notes extends Record<string, any>> {
      * @desc
      *  Instantiates a {@link Notepad} with an initial state.
      *
-     * @param {Partial<Notes>} notes
+     * @param {Notes} notes
      * @protected
      */
-    protected constructor(private readonly notes: Partial<Notes>) {
+    protected constructor(private readonly notes: Notes) {
+        super();
     }
 
     /**
      * @desc
-     *  Imports `notes` and combines them with ones that already exist in the notepad.
+     *  Checks if a note identified by `subject` exists in the notepad.
      *
-     * @param {Partial<Notes>} notes
-     * @returns {void}
+     * @param {Subject extends keyof Notes} subject
+     *   A subject (name) that uniquely identifies a given note
+     *
+     * @returns {boolean}
+     *  `true` if the note exists, `false` otherwise
      */
-    import(notes: Partial<Notes>): void {
-        Object.assign(this.notes, notes);
+    has<Subject extends keyof Notes>(subject: Subject): boolean {
+        return Object.prototype.hasOwnProperty.call(this.notes, subject);
     }
 
     /**
@@ -224,7 +159,7 @@ export class Notepad<Notes extends Record<string, any>> {
      *  Throws a {@link LogicError} if the note with a given `subject`
      *  has never been recorded.
      */
-    read<Subject extends keyof Notes>(subject: Subject): Notes[Subject] {
+    get<Subject extends keyof Notes>(subject: Subject): Notes[Subject] {
         if (! this.has(subject)) {
             throw new LogicError(d`Note of ${ subject } cannot be retrieved because it's never been recorded`);
         }
@@ -234,44 +169,32 @@ export class Notepad<Notes extends Record<string, any>> {
 
     /**
      * @desc
-     *  Checks if a note identified by `subject` exists in a notepad.
-     *
-     * @param {Subject extends keyof Notes} subject
-     *   A subject (name) that uniquely identifies a given note
-     *
-     * @returns {boolean}
-     *  `true` if the note exists, `false` otherwise
-     */
-    has<Subject extends keyof Notes>(subject: Subject): boolean {
-        return Object.prototype.hasOwnProperty.call(this.notes, subject);
-    }
-
-    /**
-     * @desc
-     *  Stores a given `value`, uniquely identified by `subject`, in a notepad.
+     *  Stores a given `value` uniquely identified by `subject` in the notepad.
      *
      * @param {Subject extends keyof Notes} subject
      *   A subject (name) that uniquely identifies a given note
      *
      * @param {Notes[Subject]} value
-     *  The value to remember
+     *  The value to record.
      *
-     * @returns {Notepad}
+     * @returns {Notepad<Notes>}
      */
-    write<Subject extends keyof Notes>(subject: Subject, value: Notes[Subject]): this {
+    set<Subject extends keyof Notes>(subject: Subject, value: Notes[Subject]): Notepad<Notes> {
         this.notes[subject] = value;
         return this;
     }
 
     /**
      * @desc
-     *  Removes the note, identified by `subject`, from the notepad.
+     *  Removes the note identified by `subject` from the notepad.
      *
-     * @param {keyof Notes} subject
+     * @param {Subject extends keyof Notes} subject
+     *
      * @returns {boolean}
-     *  `true` if the item in the Notepad object existed and has been removed, `false` otherwise.
+     *  `true` if the item in the Notepad object existed and has been removed,
+     *  `false` otherwise.
      */
-    remove<Subject extends keyof Notes>(subject: Subject): boolean {
+    delete<Subject extends keyof Notes>(subject: Subject): boolean {
         if (this.has(subject)) {
             return delete this.notes[subject];
         }
@@ -280,15 +203,15 @@ export class Notepad<Notes extends Record<string, any>> {
 
     /**
      * @desc
-     *  Deletes all the notes stored in the notepad.
+     *  Deletes all the notes stored in this notepad.
      *
      * @returns {void}
      */
     clear(): void {
-        const keys = Object.keys(this.notes) as Array<keyof Notes>;
+        const keys = Object.keys(this.notes);
 
         for (const key of keys) {
-            this.remove(key);
+            this.delete(key);
         }
     }
 
