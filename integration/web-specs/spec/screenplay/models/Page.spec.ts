@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, LogicError, Note } from '@serenity-js/core';
+import { actorCalled, LogicError, notes } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text, Wait } from '@serenity-js/web';
 import { URL } from 'url';
 
@@ -157,17 +157,17 @@ describe('Page', () => {
                 before(() =>
                     actorCalled('Bernie').attemptsTo(
                         Navigate.to('/screenplay/models/page/viewport_size.html'),
-                        Note.record('original_viewport_size', Page.current().viewportSize()),
+                        notes().set('original_viewport_size', Page.current().viewportSize()),
                     ));
 
                 beforeEach(() =>
                     actorCalled('Bernie').attemptsTo(
-                        Page.current().setViewportSize(Note.of('original_viewport_size')),
+                        Page.current().setViewportSize(notes().get('original_viewport_size')),
                     ));
 
                 after(() =>
                     actorCalled('Bernie').attemptsTo(
-                        Page.current().setViewportSize(Note.of('original_viewport_size')),
+                        Page.current().setViewportSize(notes().get('original_viewport_size')),
                     ));
 
                 describe('setViewportSize()', () => {

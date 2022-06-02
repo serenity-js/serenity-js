@@ -1,5 +1,5 @@
 import { Ability } from '../Ability';
-import { AnswersQuestions, UsesAbilities } from '../actor';
+import { UsesAbilities } from '../actor';
 import { Notepad } from './Notepad';
 
 /**
@@ -14,64 +14,74 @@ import { Notepad } from './Notepad';
  *  can be useful when the data to be recorded is not known upfront - for example when we want
  *  the actor to remember a JWT stored in the browser and then use it when sending API requests.
  *
- *  **Please note** that {@link TakeNotes}, {@link Notepad} and {@link Note} can be typed
+ *  **Pro tip:** {@link TakeNotes}, {@link Notepad} and {@link notes} can be typed
  *  using {@link TypeScript~generics} to help you avoid typos when specifying note names.
  *
- *  See {@link Note} and {@link Notepad} for more usage examples.
+ *  See {@link notes} and {@link Notepad} for more usage examples.
  *
  * @example <caption>Remembering and retrieving a value</caption>
  *
- *  import { actorCalled, Log, Note, TakeNotes } from '@serenity-js/core';
+ *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
  *
  *  actorCalled('Leonard')
  *      .whoCan(TakeNotes.usingAnEmptyNotepad())
  *      .attemptsTo(
- *          Note.record('my_note', 'some value'),
- *          Log.the(Note.of('my_note')),
+ *          notes().set('my_note', 'some value'),
+ *          Log.the(notes().get('my_note')),    // emits 'some value'
  *      );
  *
  * @example <caption>Using generics</caption>
- *  import { actorCalled, Log, Note, TakeNotes } from '@serenity-js/core';
+ *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
  *
- *  interface PersonalDetails {
- *      first_name?: string;
- *      last_name?: string;
+ *  interface MyNotes {
+ *      personalDetails: {
+ *          firstName: string;
+ *          lastName: string;
+ *      }
  *  }
  *
  *  actorCalled('Leonard')
- *      .whoCan(TakeNotes.usingAnEmptyNotepad<PersonalDetails>())
+ *      .whoCan(TakeNotes.usingAnEmptyNotepad<MyNotes>())
  *      .attemptsTo(
- *          Note.record<PersonalDetails>('first_name', 'Leonard'),
- *          Log.the(Note.of<PersonalDetails>('first_name')),       // emits 'Leonard'
+ *          Log.the(notes<MyNotes>().has('personalDetails')),                       // emits false
+ *          Log.the(notes<MyNotes>().get('personalDetails').isPresent()),           // emits false
+ *
+ *          notes<MyNotes>().set('personalDetails', { firstName: 'Leonard', lastName: 'McLaud' }),
+ *
+ *          Log.the(notes<MyNotes>().has('personalDetails')),                       // emits true
+ *          Log.the(notes<MyNotes>().get('personalDetails').isPresent()),           // emits true
+ *          Log.the(notes().get('personalDetails').firstName),                      // emits 'Leonard'
+ *          Log.the(notes().get('personalDetails').firstName.toLocaleUpperCase()),  // emits 'LEONARD'
  *      );
  *
  * @example <caption>Populating the notepad with initial state</caption>
  *  import { actorCalled, Log, Note, Notepad, TakeNotes } from '@serenity-js/core';
  *
- *  interface PersonalDetails {
- *      first_name?: string;
- *      last_name?: string;
+ *  interface MyNotes {
+ *      firstName: string;
+ *      lastName: string;
  *  }
  *
  *  actorCalled('Leonard')
  *      .whoCan(
- *          TakeNotes.using(Notepad.with<PersonalDetails>({
- *              first_name: 'Leonard',
+ *          TakeNotes.using(Notepad.with<MyNotes>({
+ *              firstName: 'Leonard',
+ *              lastName: 'McLaud',
  *          })
  *      )
  *      .attemptsTo(
- *          Note.record<PersonalDetails>('last_name', 'Shelby'),
- *          Log.the(Note.of<PersonalDetails>('first_name')),      // emits 'Leonard'
- *          Log.the(Note.of<PersonalDetails>('last_name')),       // emits 'Shelby'
+ *          notes<MyNotes>().set('lastName', 'Shelby'),
+ *          Log.the(notes().get('firstName')),          // emits 'Leonard'
+ *          Log.the(notes().get('lastName')),           // emits 'Shelby'
  *      );
  *
  * @example <caption>Recording a dynamic note</caption>
- *  import { actorCalled, Log, Note, Notepad, TakeNotes } from '@serenity-js/core';
+ *  import { actorCalled, Log, Notepad, notes, TakeNotes } from '@serenity-js/core';
  *  import { By, Text, PageElement } from '@serenity-js/web';
  *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
  *
  *  interface OnlineShoppingNotes {
- *      promo_code?: string;
+ *      promoCode: string;
  *  }
  *
  *  const promoCodeBanner = () =>
@@ -88,9 +98,9 @@ import { Notepad } from './Notepad';
  *          TakeNotes.using(Notepad.empty<OnlineShoppingNotes>())
  *      )
  *      .attemptsTo(
- *          Note.record<OnlineShoppingNotes>('promo_code', Text.of(promoCode()),
+ *          notes<OnlineShoppingNotes>().set('promoCode', Text.of(promoCode()),
  *          // ...
- *          Enter.theValue(Note.of<OnlineShoppingNotes>('promo_code'))
+ *          Enter.theValue(notes<OnlineShoppingNotes>().get('promoCode'))
  *              .into(promoCodeInput())
  *      );
  *
@@ -100,7 +110,7 @@ import { Notepad } from './Notepad';
  * beforeEach(() =>
  *   actorCalled('Leonard')
  *      .attemptsTo(
- *          Notepad.clear(),
+ *          notes().clear(),
  *      ));
  *
  * @example <caption>Clearing a notepad before each test scenario (Cucumber)</caption>
@@ -109,10 +119,10 @@ import { Notepad } from './Notepad';
  * Before(() =>
  *   actorCalled('Leonard')
  *      .attemptsTo(
- *          Notepad.clear(),
+ *          notes().clear(),
  *      ));
  *
- * @example <caption>Importing notes dynamically</caption>
+ * @example <caption>Importing notes from an API response</caption>
  *  // given an example API:
  *  //   GET /generate-test-user
  *  // which returns:
@@ -122,43 +132,56 @@ import { Notepad } from './Notepad';
  *  import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
  *
  *  interface PersonalDetails {
- *      first_name?: string;
- *      last_name?: string;
+ *      first_name: string;
+ *      last_name: string;
+ *  }
+ *
+ *  interface MyNotes {
+ *      personalDetails?: PersonalDetails;
  *  }
  *
  *  actorCalled('Leonard')
  *      .whoCan(
  *          CallAnApi.at('https://api.example.org/'),
- *          TakeNotes.using(Notepad.empty())
+ *          TakeNotes.using(Notepad.empty<MyNotes>())
  *      )
  *      .attemptsTo(
  *          Send.a(GetRequest.to('/generate-test-user')),
- *          Notepad.import(LastResponse.body<PersonalDetails>()),
- *          Log.the(Note.of<PersonalDetails>('first_name')),      // emits 'Leonard'
- *          Log.the(Note.of<PersonalDetails>('last_name')),       // emits 'Shelby'
+ *          notes<MyNotes>().set('personalDetails', LastResponse.body<PersonalDetails>()),
+ *
+ *          Log.the(notes<MyNotes>().get('personalDetails').first_name),    // emits 'Leonard'
+ *          Log.the(notes<MyNotes>().get('personalDetails').last_name),     // emits 'Shelby'
  *      );
  *
  * @example <caption>Using the QuestionAdapter</caption>
- *  import { actorCalled, Log, Note, Notepad, TakeNotes } from '@serenity-js/core';
+ *  import { actorCalled, Log, Notepad, notes, TakeNotes } from '@serenity-js/core';
  *
  *  interface AuthCredentials {
  *      username?: string;
  *      password?: string;
  *  }
  *
+ *  interface MyNotes {
+ *      auth: AuthCredentials;
+ *  }
+ *
  *  actorCalled('Leonard')
  *      .whoCan(
  *          TakeNotes.using(
  *              Notepad.with<AuthCredentials>({
- *                  username: 'leonard@example.org',
- *                  password: 'SuperSecretP@ssword!',
+ *                  auth: {
+ *                      username: 'leonard@example.org',
+ *                      password: 'SuperSecretP@ssword!',
+ *                  }
  *              })
  *          )
  *      )
  *      .attemptsTo(
  *          Log.the(
- *              Note.of<AuthCredentials>('password')    // returns QuestionAdapter<string>
- *                .charAt(0).toLocaleLowerCase(),
+ *              notes<MyNotes>('auth')              // returns QuestionAdapter<AuthCredentials>
+ *                  .password                       // returns QuestionAdapter<string>
+ *                  .charAt(0)
+ *                  .toLocaleLowerCase(),
  *          ), // emits 's'
  *      );
  *
@@ -167,15 +190,14 @@ import { Notepad } from './Notepad';
  *
  * @implements {Ability}
  */
-export class TakeNotes<Notes extends Record<string, any>> implements Ability {
-
+export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
     /**
      * @desc
      *  Initialises an {@link Ability} to {@link TakeNotes} with {@link Notepad.empty}
      *
      * @returns {TakeNotes<N>}
      */
-    static usingAnEmptyNotepad<N extends Record<string, any>>(): TakeNotes<N> {
+    static usingAnEmptyNotepad<N extends Record<any, any>>(): TakeNotes<N> {
         return TakeNotes.using<N>(Notepad.empty<N>());
     }
 
@@ -188,7 +210,7 @@ export class TakeNotes<Notes extends Record<string, any>> implements Ability {
      *
      * @returns {TakeNotes<N>}
      */
-    static using<N extends Record<string, any>>(notepad: Notepad<N>): TakeNotes<N> {
+    static using<N extends Record<any, any>>(notepad: Notepad<N>): TakeNotes<N> {
         return new TakeNotes<N>(notepad);
     }
 
@@ -200,7 +222,7 @@ export class TakeNotes<Notes extends Record<string, any>> implements Ability {
      * @param {UsesAbilities} actor
      * @returns {TakeNotes<N>}
      */
-    static as<N extends Record<string, any>>(actor: UsesAbilities & AnswersQuestions): TakeNotes<N> {
+    static as<N extends Record<any, any>>(actor: UsesAbilities): TakeNotes<N> {
         return actor.abilityTo(TakeNotes) as TakeNotes<N>;
     }
 
@@ -208,69 +230,6 @@ export class TakeNotes<Notes extends Record<string, any>> implements Ability {
      * @param {Notepad<Notes>} notepad
      * @protected
      */
-    protected constructor(private readonly notepad: Notepad<Notes>) {
-    }
-
-    /**
-     * @desc
-     *  Import all the notes from the provided object and merge them with the existing notes.
-     *  Overwrites any existing notes with the same subject.
-     *
-     * @param {Partial<Notes>} notes
-     * @returns {void}
-     */
-    public import(notes: Partial<Notes>): void {
-        return this.notepad.import(notes);
-    }
-
-    /**
-     * @desc
-     *  Return the value of a note with a given `subject`.
-     *
-     * @param {Subject extends keyof Notes} subject
-     *  The subject (name) that uniquely identifies a given note
-     *
-     * @returns {Notes[Subject]}
-     */
-    public read<Subject extends keyof Notes>(subject: Subject): Notes[Subject] {
-        return this.notepad.read(subject);
-    }
-
-    /**
-     * @desc
-     *  Record a note under a given `subject`.
-     *
-     * @param {Subject extends keyof Notes} subject
-     *  The subject (name) to uniquely identify a given note
-     *
-     * @param {Notes[Subject]} value
-     *  The value to record
-     */
-    public write<Subject extends keyof Notes>(subject: Subject, value: Notes[Subject]): void {
-        this.notepad.write(subject, value);
-    }
-
-    /**
-     * @desc
-     *  Removes a note identified by the given subject (name).
-     *
-     * @param {Subject extends keyof Notes} subject
-     *  The subject (name) that uniquely identifies a given note
-     *
-     * @returns {boolean}
-     *  Returns `true` if the note existed, `false` otherwise.
-     */
-    public remove<Subject extends keyof Notes>(subject: Subject): boolean {
-        return this.notepad.remove(subject);
-    }
-
-    /**
-     * @desc
-     *  Removes all the notes from the {@link Notepad} associated with a given {@link Actor}.
-     *
-     * @returns {void}
-     */
-    public clearNotepad(): void {
-        return this.notepad.clear();
+    constructor(public readonly notepad: Notepad<Notes_Type>) {
     }
 }
