@@ -186,7 +186,7 @@ import { Notepad } from './Notepad';
  *         ),
  *     );
  *
- * @see {@link Note}
+ * @see {@link notes}
  * @see {@link Notepad}
  *
  * @implements {Ability}
