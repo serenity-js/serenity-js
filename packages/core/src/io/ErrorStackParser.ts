@@ -1,5 +1,4 @@
-const parser = require('error-stack-parser');   // eslint-disable-line @typescript-eslint/no-var-requires
-import StackFrame from 'stackframe';
+import * as parser from 'error-stack-parser';
 
 /**
  * @desc
@@ -10,7 +9,7 @@ import StackFrame from 'stackframe';
  * @package
  */
 export class ErrorStackParser {
-    parse(error: Error): StackFrame[] {
+    parse(error: Error): parser.StackFrame[] {
         return parser.parse(error);
     }
 }
