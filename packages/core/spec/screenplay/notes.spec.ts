@@ -6,19 +6,70 @@ import { Ability, Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '
 import { expect } from '../expect';
 import { Ensure } from './Ensure';
 
+/**
+ * @test {notes}
+ * @test {Notepad}
+ * @test {NotepadAdapter}
+ */
 describe('Notepad', () => {
 
-    it('provides a human-friendly description by default', async () => {
-        const [ actor ] = actors('Leonard')
-            .whoCan(TakeNotes.using(Notepad.empty()));
+    describe('when producing a description', () => {
 
-        await actor.attemptsTo(
-            Ensure.equal(notes().toString(), 'notes'),
-        );
+        /** @test {NotepadAdapter#toString} **/
+        it('provides a human-friendly description of the NotepadAdapter', async () => {
+            expect(notes().toString()).to.equal('notes');
+        });
+
+        /** @test {NotepadAdapter#get} **/
+        it('provides a human-friendly description of NotepadAdapter.get', async () => {
+            expect(notes().get('myNote').toString()).to.equal('a note of myNote');
+        });
+
+        /** @test {NotepadAdapter#set} **/
+        it('provides a human-friendly description of NotepadAdapter.set', async () => {
+            expect(notes().set('myNote', 'value').toString()).to.equal('#actor takes note of myNote');
+        });
+
+        /** @test {NotepadAdapter#set} **/
+        it('provides a human-friendly description of chained NotepadAdapter.set', async () => {
+            expect(
+                notes()
+                    .set('firstNote', 'value')
+                    .set('secondNote', 'value')
+                    .set('thirdNote', 'value')
+                    .toString()
+            ).to.equal('#actor takes note of firstNote, secondNote and thirdNote');
+        });
+
+        /** @test {NotepadAdapter#has} **/
+        it('provides a human-friendly description of NotepadAdapter.has', async () => {
+            expect(notes().has('myNote').toString()).to.equal('a note of myNote exists');
+        });
+
+        /** @test {NotepadAdapter#delete} **/
+        it('provides a human-friendly description of NotepadAdapter.delete', async () => {
+            expect(notes().delete('myNote').toString()).to.equal('#actor deletes a note of myNote');
+        });
+
+        /** @test {NotepadAdapter#clear} **/
+        it('provides a human-friendly description of NotepadAdapter.clear', async () => {
+            expect(notes().clear().toString()).to.equal('#actor clears their notepad');
+        });
+
+        /** @test {NotepadAdapter#size} **/
+        it('provides a human-friendly description of NotepadAdapter.size', async () => {
+            expect(notes().size().toString()).to.equal('number of notes');
+        });
+
+        /** @test {NotepadAdapter#toJSON} **/
+        it('provides a human-friendly description of NotepadAdapter.toJSON', async () => {
+            expect(notes().toJSON().toString()).to.equal('notepad serialised to JSON');
+        });
     });
 
     describe('when recording notes', () => {
 
+        /** @test {NotepadAdapter#set} **/
         it('allows the actor to record a note to be recalled later', async () => {
 
             const [ actor ] = actors('Leonard')
@@ -30,9 +81,34 @@ describe('Notepad', () => {
             await actor.attemptsTo(
                 notes().set(name, content),
                 Ensure.equal(notes().get(name), content)
-            )
+            );
         });
 
+        /** @test {NotepadAdapter#set} **/
+        it('allows the actor to record several notes at the same time', async () => {
+
+            interface MyNotes {
+                firstNote: string;
+                secondNote: number;
+            }
+
+            const [ actor ] = actors('Leonard')
+                .whoCan(TakeNotes.usingAnEmptyNotepad());
+
+            await actor.attemptsTo(
+                notes<MyNotes>()
+                    .set('firstNote', 'example')
+                    .set('secondNote', Promise.resolve(42))
+                    .set('firstNote', 'another example'),
+
+                Ensure.equal(notes().toJSON(), {
+                    firstNote: 'another example',
+                    secondNote: 42,
+                })
+            );
+        });
+
+        /** @test {NotepadAdapter#get} **/
         it('complains when the note to be retrieved has not been set', async () => {
 
             const [ actor ] = actors('Leonard')
@@ -45,6 +121,10 @@ describe('Notepad', () => {
             ).to.be.rejectedWith(LogicError, `Note of 'myNote' cannot be retrieved because it's never been recorded`)
         });
 
+        /**
+         * @test {NotepadAdapter#get}
+         * @test {NotepadAdapter#has}
+         */
         describe('enables the actor to check for the presence of information that', () => {
 
             given([
@@ -62,15 +142,18 @@ describe('Notepad', () => {
 
                 await actor.attemptsTo(
                     Ensure.equal(notes().get(name).isPresent(), false),
+                    Ensure.equal(notes().has(name), false),
 
                     notes().set(name, value),
 
                     Ensure.equal(notes().get(name).isPresent(), true),
+                    Ensure.equal(notes().has(name), true),
 
                     Ensure.same(notes().get(name), value),
                 );
             });
 
+            /** @test {NotepadAdapter#get} **/
             it('is represented using plain JavaScript objects', async () => {
 
                 const noteName = 'myNote';
@@ -97,6 +180,10 @@ describe('Notepad', () => {
 
         describe('provides QuestionAdapters to make it easier to interact with notes recorded in a notepad that', () => {
 
+            /**
+             * @test {NotepadAdapter#set}
+             * @test {NotepadAdapter#get}
+             */
             it('is untyped', async () => {
 
                 const expectedValue = 'hello!';
@@ -122,6 +209,10 @@ describe('Notepad', () => {
                 );
             });
 
+            /**
+             * @test {NotepadAdapter#get}
+             * @test {NotepadAdapter#set}
+             */
             it('is typed', async () => {
 
                 interface ExampleNotes {
@@ -159,6 +250,10 @@ describe('Notepad', () => {
 
     describe('when removing notes individually', () => {
 
+        /**
+         * @test {NotepadAdapter#delete}
+         * @test {Notepad.with}
+         */
         it('allows the actor to remove one note at a time', async () => {
 
             const [ actor ] = actors('Leonard')
@@ -175,6 +270,10 @@ describe('Notepad', () => {
             );
         });
 
+        /**
+         * @test {NotepadAdapter#delete}
+         * @test {Notepad.with}
+         */
         it('returns true if the note to be deleted existed before and has been deleted successfully', async () => {
             const [ actor ] = actors('Leonard')
                 .whoCan(TakeNotes.using(Notepad.with({ key: 'value' })));
@@ -184,6 +283,9 @@ describe('Notepad', () => {
             );
         });
 
+        /**
+         * @test {NotepadAdapter#delete}
+         */
         it('returns false if the note to be deleted did not exist in the first place', async () => {
             const [ actor ] = actors('Leonard')
                 .whoCan(TakeNotes.using(Notepad.empty()));
@@ -196,6 +298,10 @@ describe('Notepad', () => {
 
     describe('when clearing the notepad', () => {
 
+        /**
+         * @test {NotepadAdapter#clear}
+         * @test {Notepad.with}
+         */
         it('removes all the notes', async () => {
             const [ actor ] = actors('Leonard')
                 .whoCan(TakeNotes.using(Notepad.with({
@@ -212,6 +318,7 @@ describe('Notepad', () => {
 
     describe('when checking the size of the notepad', () => {
 
+        /** @test {NotepadAdapter#size} **/
         it('allows the actor to check the number of recorded notes', async () => {
 
             const [ actor ] = actors('Leonard')
@@ -236,6 +343,10 @@ describe('Notepad', () => {
 
         describe('toJSON', () => {
 
+            /**
+             * @test {NotepadAdapter#toJSON}
+             * @test {Notepad.with}
+             */
             it('serialises primitive data types', async () => {
                 const data = {
                     string: 'example',
@@ -254,6 +365,46 @@ describe('Notepad', () => {
                 );
             });
 
+            /** @test {NotepadAdapter#toJSON} **/
+            it('serialises ES Map to plain object', async () => {
+                const data = {
+                    map: new Map(Object.entries({ key: 'value' })),
+                };
+
+                const expectedJson = {
+                    map: { key: 'value' },
+                };
+
+                const [ actor ] = actors('Leonard')
+                    .whoCan(TakeNotes.using(Notepad.with(data)));
+
+                await actor.attemptsTo(
+                    Ensure.equal(notes().toJSON(), expectedJson),
+                );
+            });
+
+            /**
+             * @test {NotepadAdapter#toJSON}
+             * @test {Notepad.with}
+             */
+            it('serialises ES Set to Array', async () => {
+                const data = {
+                    set: new Set([ 'first', 'second', 'third' ]),
+                };
+
+                const expectedJson = {
+                    set: [ 'first', 'second', 'third' ],
+                };
+
+                const [ actor ] = actors('Leonard')
+                    .whoCan(TakeNotes.using(Notepad.with(data)));
+
+                await actor.attemptsTo(
+                    Ensure.equal(notes().toJSON(), expectedJson),
+                );
+            });
+
+            /** @test {NotepadAdapter#toJSON} **/
             it('serialises types that provide a custom toJSON method', async () => {
                 class Person {
                     constructor(private readonly name: string, private readonly age: number) {
@@ -291,6 +442,10 @@ describe('Notepad', () => {
 
     describe('when mutating the recorded notes', () => {
 
+        /**
+         * @test {NotepadAdapter#get}
+         * @test {Notepad.with}
+         */
         it('allows to add items to an Array', async () => {
             interface Notes {
                 items: string[];
@@ -313,6 +468,10 @@ describe('Notepad', () => {
             );
         });
 
+        /**
+         * @test {NotepadAdapter#get}
+         * @test {Notepad.with}
+         */
         it('allows to set values in a Map', async () => {
             interface Notes {
                 items: Map<string, number>;
@@ -339,6 +498,10 @@ describe('Notepad', () => {
             );
         });
 
+        /**
+         * @test {NotepadAdapter#get}
+         * @test {Notepad.with}
+         */
         it('allows to add items to a Set', async () => {
 
             interface Notes {
@@ -373,6 +536,10 @@ describe('Notepad', () => {
 
     describe('when shared across multiple actors', () => {
 
+        /**
+         * @test {TakeNotes.using}
+         * @test {Notepad.with}
+         */
         it('allows the actors to share notes', async () => {
             interface Notes {
                 apiKey?: string;

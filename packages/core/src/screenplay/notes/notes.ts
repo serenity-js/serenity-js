@@ -1,12 +1,12 @@
-import { QuestionAdapter } from '../Question';
 import { Notepad } from './Notepad';
+import { NotepadAdapter } from './NotepadAdapter';
 
 /**
  * @desc
  *  Alias for {@link Notepad.notes}.
  *
- * **Pro tip:** `notes<T>().get(subject)` returns a {@link QuestionAdapter} to make accessing the APIs
- *  of the underlying type easier.
+ *  **Pro tip:** `notes<T>().get(subject)` returns a {@link NotepadAdapter} to make accessing the APIs
+ *  of the underlying type easier. Check {@link NotepadAdapter} for more examples.
  *
  * @example <caption>Working with untyped notes</caption>
  *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
@@ -78,10 +78,11 @@ import { Notepad } from './Notepad';
  *            // emits 'apples', 'bananas', 'cucumbers'
  *      );
  *
- * @returns {QuestionAdapter<Notepad<N>>}
+ * @returns {NotepadAdapter<N>}
  *
+ * @see {@link NotepadAdapter}
  * @see {@link Notepad.notes}
  */
-export function notes<N extends Record<any, any>>(): QuestionAdapter<Notepad<N>> {
+export function notes<N extends Record<any, any>>(): NotepadAdapter<N> {
     return Notepad.notes<N>();
 }

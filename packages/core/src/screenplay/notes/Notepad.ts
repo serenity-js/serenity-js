@@ -2,8 +2,7 @@ import { TinyType } from 'tiny-types';
 
 import { LogicError } from '../../errors';
 import { d } from '../../io';
-import { Question, QuestionAdapter } from '../Question';
-import { TakeNotes } from './TakeNotes';
+import { NotepadAdapter } from './NotepadAdapter';
 
 /**
  * @desc
@@ -114,20 +113,20 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @see {@link Notepad}
      * @see {@link TakeNotes}
      */
-    static notes<N extends Record<any, any>>(): QuestionAdapter<Notepad<N>> {
-        return Question.about('notes', actor => {
-            return TakeNotes.as(actor).notepad;
-        });
+    static notes<N extends Record<any, any>>(): NotepadAdapter<N> {
+        return new NotepadAdapter<N>();
     }
 
     /**
      * @desc
      *  Instantiates a {@link Notepad} with an initial state.
      *
-     * @param {Notes} notes
+     * @param {Notes} recordedNotes
+     *  Initial state of the notepad
+     *
      * @protected
      */
-    protected constructor(private readonly notes: Notes) {
+    protected constructor(private readonly recordedNotes: Notes) {
         super();
     }
 
@@ -142,7 +141,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      *  `true` if the note exists, `false` otherwise
      */
     has<Subject extends keyof Notes>(subject: Subject): boolean {
-        return Object.prototype.hasOwnProperty.call(this.notes, subject);
+        return Object.prototype.hasOwnProperty.call(this.recordedNotes, subject);
     }
 
     /**
@@ -164,7 +163,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
             throw new LogicError(d`Note of ${ subject } cannot be retrieved because it's never been recorded`);
         }
 
-        return this.notes[subject];
+        return this.recordedNotes[subject];
     }
 
     /**
@@ -180,7 +179,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @returns {Notepad<Notes>}
      */
     set<Subject extends keyof Notes>(subject: Subject, value: Notes[Subject]): Notepad<Notes> {
-        this.notes[subject] = value;
+        this.recordedNotes[subject] = value;
         return this;
     }
 
@@ -196,7 +195,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      */
     delete<Subject extends keyof Notes>(subject: Subject): boolean {
         if (this.has(subject)) {
-            return delete this.notes[subject];
+            return delete this.recordedNotes[subject];
         }
         return false;
     }
@@ -208,7 +207,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @returns {void}
      */
     clear(): void {
-        const keys = Object.keys(this.notes);
+        const keys = Object.keys(this.recordedNotes);
 
         for (const key of keys) {
             this.delete(key);
@@ -222,6 +221,6 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @returns {number}
      */
     size(): number {
-        return Object.keys(this.notes).length;
+        return Object.keys(this.recordedNotes).length;
     }
 }
