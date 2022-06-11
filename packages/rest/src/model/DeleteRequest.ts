@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -10,13 +10,13 @@ import { HTTPRequest } from './HTTPRequest';
  *  functionality.
  *
  * @example <caption>Create and remove a resource</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest'
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { CallAnApi, DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest';
  *  import { Ensure, equals, startsWith } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      // create a new test user account
  *      Send.a(PostRequest.to('/users').with({
  *          login: 'tester',
@@ -28,7 +28,7 @@ import { HTTPRequest } from './HTTPRequest';
  *      // delete the test user account
  *      Send.a(DeleteRequest.to(LastResponse.header('Location'))),
  *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ *    );
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE
  * @see https://tools.ietf.org/html/rfc7231#section-4.3.5
@@ -60,12 +60,12 @@ export class DeleteRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {DeleteRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): DeleteRequest {
-        return new DeleteRequest(this.resourceUri, undefined, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): DeleteRequest {
+        return new DeleteRequest(this.resourceUri, undefined, Question.fromObject(config));
     }
 }

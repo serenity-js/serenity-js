@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -17,13 +17,13 @@ import { HTTPRequest } from './HTTPRequest';
  *  calling it once or several times successively has the same effect (that is no _side effect_).
  *
  * @example <caption>Create a new resource at a known location</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, LastResponse, PutRequest, Send } from '@serenity-js/rest'
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { CallAnApi, LastResponse, PutRequest, Send } from '@serenity-js/rest';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(PutRequest.to('/books/0-688-00230-7').with({
  *          isbn: '0-688-00230-7',
  *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
@@ -75,12 +75,12 @@ export class PutRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {@serenity-js/core/lib/screenplay/questions~DynamicRecord<AxiosRequestConfig>} config
+     * @param {WithAnswerableProperties<AxiosRequestConfig>} config
      *  Axios request configuration overrides
      *
      * @returns {PutRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): PutRequest {
-        return new PutRequest(this.resourceUri, this.data, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): PutRequest {
+        return new PutRequest(this.resourceUri, this.data, Question.fromObject(config));
     }
 }

@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -18,13 +18,13 @@ import { HTTPRequest } from './HTTPRequest';
  *  a correctly implemented HTTP REST API will create N resources with N different URIs.
  *
  * @example <caption>Add new resource to a collection</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(PostRequest.to('/books').with({
  *          isbn: '0-688-00230-7',
  *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
@@ -34,21 +34,21 @@ import { HTTPRequest } from './HTTPRequest';
  *      Ensure.that(LastResponse.header('Location'), equals('/books/0-688-00230-7')),
  *  );
  *
- * @example <caption>Submit a HTML form</caption>
- *  import { Actor } from '@serenity-js/core';
+ * @example <caption>Submit an HTML form</caption>
+ *  import { actorCalled } from '@serenity-js/core';
  *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *  import { stringify } from 'querystring';
  *
- *  const
- *      actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com')),
- *      formData = stringify({
- *          name: actor.name,
- *          email: `${ actor.name }@example.com`,
- *          text: 'Your website is great! Learnt a lot :-)'
- *      });
+ *  const formData = stringify({
+ *      name: actor.name,
+ *      email: `${ actor.name }@example.com`,
+ *      text: 'Your website is great! Learnt a lot :-)'
+ *  });
  *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(PostRequest.to('/feedback').with(postData).using({
  *          headers: {
  *              'Content-Type': 'application/x-www-form-urlencoded',
@@ -102,12 +102,12 @@ export class PostRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {PostRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): PostRequest {
-        return new PostRequest(this.resourceUri, this.data, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): PostRequest {
+        return new PostRequest(this.resourceUri, this.data, Question.fromObject(config));
     }
 }

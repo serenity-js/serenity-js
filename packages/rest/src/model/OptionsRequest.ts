@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -13,13 +13,13 @@ import { HTTPRequest } from './HTTPRequest';
  *  resource action.
  *
  * @example <caption>File download test</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { CallAnApi, OptionsRequest, LastResponse, Send } from '@serenity-js/rest';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(OptionsRequest.to('/downloads/my-test-document.pdf')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *      Ensure.that(LastResponse.header('Allow'), equals('OPTIONS, GET, HEAD')),
@@ -55,12 +55,12 @@ export class OptionsRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {OptionsRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): OptionsRequest {
-        return new OptionsRequest(this.resourceUri, undefined, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): OptionsRequest {
+        return new OptionsRequest(this.resourceUri, undefined, Question.fromObject(config));
     }
 }

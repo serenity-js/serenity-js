@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -10,17 +10,17 @@ import { HTTPRequest } from './HTTPRequest';
  *  Such a request can be done before deciding to download a large resource to save bandwidth, for example.
  *
  * @example <caption>File download test</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, HeadRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { CallAnApi, HeadRequest, LastResponse, Send } from '@serenity-js/rest';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(HeadRequest.to('/downloads/my-test-document.pdf')),
  *      Ensure.that(LastResponse.status(), equals(200)),
  *      Ensure.that(LastResponse.header('Content-Length'), equals(256)),    // assuming we know the size of the document
- *  );
+ *    );
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD
  * @see https://tools.ietf.org/html/rfc7231#section-4.3.2
@@ -52,12 +52,12 @@ export class HeadRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {HeadRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): HeadRequest {
-        return new HeadRequest(this.resourceUri, undefined, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): HeadRequest {
+        return new HeadRequest(this.resourceUri, undefined, Question.fromObject(config));
     }
 }

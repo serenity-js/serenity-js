@@ -1,15 +1,20 @@
+import { isRecord } from 'tiny-types/lib/objects';
+
+import { LogicError } from '../errors';
 import { f } from '../io';
 import { AnswersQuestions, UsesAbilities } from './actor';
 import { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
 import { Optional } from './Optional';
+import { RecursivelyAnswered } from './RecursivelyAnswered';
+import { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
  * @desc
  *  Enables the {@link Actor} to query the system under test.
  *
  * @example <caption>A basic Question</caption>
- *  import { Actor, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
+ *  import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
  *  import { Ensure, equals } from '@serenity-js/assertions'
  *
  *  const LastItemOf = <T>(list: T[]): Question<T> =>
@@ -17,7 +22,7 @@ import { Optional } from './Optional';
  *          return list[list.length - 1];
  *      });
  *
- *  Actor.named('Quentin').attemptsTo(
+ *  await actorCalled('Quentin').attemptsTo(
  *      Ensure.that(LastItemFrom([1,2,3]), equals(3)),
  *  );
  *
@@ -30,8 +35,8 @@ import { Optional } from './Optional';
  *          return CallAnApi.as(actor).mapLastResponse(response => response.statusText);
  *      });
  *
- *  @example <caption>Mapping answers to other questions</caption>
- *  import { Actor, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
+ * @example <caption>Mapping answers to other questions</caption>
+ *  import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
  *  import { CallAnApi, LastResponse } from '@serenity-js/rest'
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
@@ -40,12 +45,12 @@ import { Optional } from './Optional';
  *          return LastResponse.status().answeredBy(actor) === 200;
  *      });
  *
- *  const actor = Actor.named('Quentin').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Quentin')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'));
+ *    .attemptsTo(
  *      Send.a(GetRequest.to('/books/0-688-00230-7')),
  *      Ensure.that(RequestWasSuccessful(), isTrue()),
- *  );
+ *    );
  *
  * @see {@link Actor}
  * @see {@link Interaction}
@@ -75,6 +80,80 @@ export abstract class Question<T> {
 
     /**
      * @desc
+     *  Generates a {@link QuestionAdapter} that recursively resolves
+     *  any {@link Answerable} fields of the provided object,
+     *  including {@link Answerable} fields of nested objects.
+     *
+     *  Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`, producing a new merged object.
+     *
+     *  Overrides are applied from left to right, with subsequent objects overwriting property assignments of the previous ones.
+     *
+     * @example <caption>Resolving an object recursively</caption>
+     *  import { actorCalled, Question } from '@serenity-js/core'
+     *  import { Send, PostRequest } from '@serenity-js/rest'
+     *  import { By, Text, PageElement } from '@serenity-js/web'
+     *
+     *  actorCalled('Daisy')
+     *    .whoCan(CallAnApi.at('https://api.example.org'))
+     *    .attemptsTo(
+     *      Send.a(
+     *        PostRequest.to('/products/2')
+     *          .with(Question.fromObject({
+     *              name: Text.of(PageElement.located(By.css('.name'))),
+     *          }))
+     *        )
+     *    );
+     *
+     * @example <caption>Resolving an object recursively</caption>
+     *  import { actorCalled, Question } from '@serenity-js/core'
+     *  import { Send, PostRequest } from '@serenity-js/rest'
+     *  import { By, Text, PageElement } from '@serenity-js/web'
+     *
+     *  actorCalled('Daisy')
+     *    .whoCan(CallAnApi.at('https://api.example.org'))
+     *    .attemptsTo(
+     *      Send.a(
+     *        PostRequest.to('/products/2')
+     *          .with(Question.fromObject({
+     *              name: Text.of(PageElement.located(By.css('.name'))),
+     *              quantity: undefined,
+     *          }, {
+     *              quantity: 2,
+     *          }))
+     *        )
+     *    );
+     *
+     * @param {Answerable<O>} source
+     * @param {Array<Answerable<Partial<O>>>} overrides
+     *
+     * @returns {QuestionAdapter<Record<Key, Value>>>}
+     *
+     * @see {@link WithAnswerableProperties}
+     * @see {@link RecursivelyAnswered}
+     */
+    static fromObject<Source_Type extends object>(
+        source: Answerable<WithAnswerableProperties<Source_Type>>,
+        ...overrides: Array<Answerable<Partial<WithAnswerableProperties<Source_Type>>>>
+    ): QuestionAdapter<RecursivelyAnswered<Source_Type>> {
+        return Question.about<RecursivelyAnswered<Source_Type>>('value', async actor => {
+            if (source === null || source === undefined) {
+                return source;
+            }
+
+            const sources: Array<Partial<RecursivelyAnswered<Source_Type>>> = [];
+
+            for (const [ i, currentSource ] of [ source, ...overrides ].entries()) {
+                sources.push(
+                    await recursivelyAnswer(actor, currentSource as any, `argument ${ i }`) as Partial<RecursivelyAnswered<Source_Type>>,
+                );
+            }
+
+            return Object.assign({}, ...sources);
+        });
+    }
+
+    /**
+     * @desc
      *  Checks if the value is a {@link Question}.
      *
      * @static
@@ -97,11 +176,11 @@ export abstract class Question<T> {
                 if (key === Symbol.toPrimitive) {
                     return (_hint: 'number' | 'string' | 'default') => {
                         return target.toString();
-                    }
+                    };
                 }
 
                 if (key in target) {
-                    return Reflect.get(target, key)
+                    return Reflect.get(target, key);
                 }
 
                 if (key === 'then') {
@@ -111,7 +190,7 @@ export abstract class Question<T> {
                 return Question.about(Question.fieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
                     const answer = await actor.answer(target as Answerable<AT>);
 
-                    if (! isDefined(answer)) {
+                    if (!isDefined(answer)) {
                         return undefined;       // eslint-disable-line unicorn/no-useless-undefined
                     }
 
@@ -120,7 +199,7 @@ export abstract class Question<T> {
                     return typeof field === 'function'
                         ? field.bind(answer)
                         : field;
-                })
+                });
             },
 
             set(currentStatement: () => Question<AT>, key: string | symbol, value: any, receiver: any): boolean {
@@ -176,16 +255,14 @@ export abstract class Question<T> {
 
         // this is a Serenity/JS MetaQuestion, of(singleParameter)
         if (targetDescription.endsWith(' of') && parameters.length === 1) {
-            return `${ targetDescription } ${ parameters[0] }`
+            return `${ targetDescription } ${ parameters[0] }`;
         }
 
         const parameterDescriptions = [
-            '(',
-            parameters.map(p => f`${ p }`).join(', '),
-            ')'
+            '(', parameters.map(p => f`${ p }`).join(', '), ')',
         ].join('');
 
-        return `${ targetDescription }${ parameterDescriptions }`
+        return `${ targetDescription }${ parameterDescriptions }`;
     }
 
     /**
@@ -218,24 +295,24 @@ export abstract class Question<T> {
     }
 }
 
-declare global  {
+declare global {
     interface ProxyConstructor {
-        new <Source_Type extends object, Target_Type extends object>(target: Source_Type, handler: ProxyHandler<Source_Type>): Target_Type;
+        new<Source_Type extends object, Target_Type extends object>(target: Source_Type, handler: ProxyHandler<Source_Type>): Target_Type;
     }
 }
 
 /* eslint-disable @typescript-eslint/indent */
 export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
-        // is it a method?
-        Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
-            // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
-            ? (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
-                QuestionAdapter<Awaited<OriginalMethodResult>>
-            // is it an object? wrap each field
-            : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
-                ? QuestionAdapter<Awaited<Original_Type[Field]>>
-                : any;
+    // is it a method?
+    Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
+        // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
+        ? (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
+            QuestionAdapter<Awaited<OriginalMethodResult>>
+        // is it an object? wrap each field
+        : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
+            ? QuestionAdapter<Awaited<Original_Type[Field]>>
+            : any;
 };
 /* eslint-enable @typescript-eslint/indent */
 
@@ -276,11 +353,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
-        const result = await this.body(actor);
-
-        return isDefined(result)
-            ? result
-            : undefined;
+        return await this.body(actor);
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
@@ -296,7 +369,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return this.subject;
     }
 
-    as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O>{
+    as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O> {
         return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
             const answer = await actor.answer(this);
 
@@ -322,7 +395,7 @@ class IsPresent<T> extends Question<Promise<boolean>> {
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
-        try  {
+        try {
             const answer = await this.body(actor);
 
             if (answer === undefined || answer === null) {
@@ -360,4 +433,48 @@ class IsPresent<T> extends Question<Promise<boolean>> {
 function isDefined<T>(value: T): boolean {
     return value !== undefined
         && value !== null;
+}
+
+/**
+ * @package
+ */
+const maxRecursiveCallsLimit = 100;
+
+/**
+ * @package
+ */
+async function recursivelyAnswer<K extends number | string | symbol, V> (
+    actor: AnswersQuestions & UsesAbilities,
+    answerable: Answerable<Partial<Record<K, Answerable<V>>>>,
+    description: string,
+    currentRecursion = 0,
+): Promise<Record<K, V>> {
+    if (currentRecursion >= maxRecursiveCallsLimit) {
+        throw new LogicError(`Question.fromObject() has reached the limit of ${ maxRecursiveCallsLimit } recursive calls while trying to resolve ${ description }. Could it contain cyclic references?`);
+    }
+
+    const answer = await actor.answer(answerable) as any;
+
+    if (isRecord(answer)) {
+        const entries = Object.entries(answer);
+        const answeredEntries = [];
+
+        for (const [ key, value ] of entries) {
+            answeredEntries.push([ key, await recursivelyAnswer(actor, value as any, description, currentRecursion + 1) ]);
+        }
+
+        return Object.fromEntries(answeredEntries) as Record<K, V>;
+    }
+
+    if (Array.isArray(answer)) {
+        const answeredEntries: Array<V> = [];
+
+        for (const item of answer) {
+            answeredEntries.push(await recursivelyAnswer(actor, item, description, currentRecursion + 1) as V);
+        }
+
+        return answeredEntries as unknown as Record<K, V>;
+    }
+
+    return answer as Record<K, V>;
 }

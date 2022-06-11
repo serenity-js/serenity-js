@@ -1,0 +1,42 @@
+import { Question } from './Question';
+
+/**
+ * @desc
+ *  Describes a recursively resolved plain JavaScript {@link WithAnswerableProperties}.
+ *  Typically, used in conjunction with {@link Question.fromObject}.
+ *
+ * @example
+ *  import {
+ *    actorCalled, notes, q, Question, QuestionAdapter, WithAnswerableProperties
+ *  } from '@serenity-js/core';
+ *
+ *  interface RequestConfiguration {
+ *      headers: Record<string, string>;
+ *  }
+ *
+ *  const requestConfiguration: WithAnswerableProperties<RequestConfiguration> = {
+ *      headers: {
+ *          Authorization: q`Bearer ${ notes().get('authDetails').token }`
+ *      }
+ *  }
+ *
+ *  const question: QuestionAdapter<RequestConfiguration> =
+ *      Question.fromObject<RequestConfiguration>(requestConfiguration)
+ *
+ *  const answer = await actorCalled('Annie').answer(question);
+ *
+ *  const a1: RequestConfiguration = answer;
+ *  const a2: RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>> = answer;
+ *
+ *  // RequestConfiguration === RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>>
+ *
+ * @public
+ *
+ * @typedef {object} RecursivelyAnswered<T>
+ */
+export type RecursivelyAnswered<T> =
+    T extends null | undefined ? T :          // special case for `null | undefined` when not in `--strictNullChecks` mode
+        T extends Question<Promise<infer A>> | Question<infer A> | Promise<infer A> ? RecursivelyAnswered<Awaited<A>> :
+            T extends object ? { [K in keyof T]: RecursivelyAnswered<T[K]> } :
+                T
+;
