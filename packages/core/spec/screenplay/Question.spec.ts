@@ -2,8 +2,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, QuestionAdapter } from '../../src';
-import { Actor, Question } from '../../src/screenplay';
+import { actorCalled, Answerable, LogicError, QuestionAdapter, RecursivelyAnswered } from '../../src';
+import { Actor, Question, WithAnswerableProperties } from '../../src/screenplay';
 import { expect } from '../expect';
 
 /** @test {Question} */
@@ -166,6 +166,319 @@ describe('Question', () => {
         ]).
         it('recognises if something is a question', ({ value, isAQuestion }) => {
             expect(Question.isAQuestion(value)).to.equal(isAQuestion);
+        });
+    });
+
+    const emptyObject = {};
+
+    describe('fromObject()', () => {
+
+        describe('creates a QuestionAdapter which', () => {
+
+            given([
+                { description: 'empty object',  input: { }                              },
+                { description: 'flat object',   input: { key: 'value' }                 },
+                { description: 'nested object', input: { key_0: { key_1: 'value' } }    },
+            ]).
+            it('resolves to the value itself for plain JavaScript objects', async ({ input }) => {
+
+                const question  = Question.fromObject(input);
+                const answer    = await Quentin.answer(question);
+
+                expect(answer).to.deep.equal(input);
+            });
+
+            given([
+                { description: 'value',                     input: { key: 'value' }                     },
+                { description: 'Promise<value>',            input: p({ key: 'value' })                  },
+                { description: 'Question<value>',           input: q('example', { key: 'value' })       },
+                { description: 'Question<Promise<value>>',  input: q('example', p({ key: 'value' }))    },
+            ]).
+            it(`can wrap any Answerable`, async ({ input }) => {
+
+                const question = Question.fromObject(input);
+                const answer = await Quentin.answer(question.key);
+
+                expect(answer).to.equal('value');
+            });
+
+            describe('when used with null-ish values', () => {
+
+                it(`resolves to undefined for undefined`, async () => {
+                    const question: QuestionAdapter<undefined> = Question.fromObject(undefined);    // eslint-disable-line unicorn/no-useless-undefined
+                    const answer = await Quentin.answer(question);
+
+                    expect(answer).to.equal(undefined);
+                });
+
+                it(`resolves to null for null`, async () => {
+                    const question: QuestionAdapter<null> = Question.fromObject(null);
+                    const answer = await Quentin.answer(question);
+
+                    expect(answer).to.equal(null);
+                });
+            });
+
+            describe('when used with nested data structures', () => {
+
+                it(`is symmetric`, () => {
+                    interface Example {
+                        nested: string;
+                    }
+
+                    const e1: Example = { nested: 'example' };
+                    const e2: RecursivelyAnswered<WithAnswerableProperties<Example>> = { nested: 'example' };
+
+                    expect(e1).to.deep.equal(e2);
+                })
+
+                it(`recursively resolves nested objects`, async () => {
+                    interface Example {
+                        nested: string;
+                    }
+
+                    const input: Answerable<Example> = p({
+                        nested: 'example',
+                    })
+
+                    const question: QuestionAdapter<Example> = Question.fromObject<Example>(input);
+                    const answer = await Quentin.answer(question);
+
+                    expect(answer).to.deep.equal({
+                        nested: 'example',
+                    });
+                })
+
+                it(`recursively resolves nested promises`, async () => {
+                    interface Example {
+                        nested: { promised: { key: string } }
+                    }
+
+                    const input: Answerable<WithAnswerableProperties<Example>> = p({
+                        nested: {
+                            // promised: p({ key: 'example'})
+                            // promised: { key: 'example'}
+                            promised: { key: p('example') }
+                        }
+                    })
+
+                    const question: QuestionAdapter<Example> = Question.fromObject<Example>(input);
+                    const answer = await Quentin.answer(question);
+
+                    expect(answer).to.deep.equal({
+                        nested: {
+                            promised: { key: 'example' }
+                        }
+                    });
+                });
+
+                it(`recursively resolves nested questions`, async () => {
+                    interface Example {
+                        nested: {
+                            promised: string
+                        }
+                    }
+
+                    const input: Answerable<WithAnswerableProperties<Example>> = p({
+                        nested: {
+                            promised: q('question', p('example'))
+                        }
+                    })
+
+                    const question: QuestionAdapter<Example> = Question.fromObject<Example>(input);
+                    const answer = await Quentin.answer(question);
+
+                    expect(answer).to.deep.equal({
+                        nested: {
+                            promised: 'example'
+                        }
+                    });
+                });
+            });
+
+            it(`recursively resolves arrays of promises`, async () => {
+                interface Example {
+                    nested: Array<number>
+                }
+
+                const input: Answerable<WithAnswerableProperties<Example>> = p({
+                    nested: [ p(1), p(2) ]
+                })
+
+                const question: QuestionAdapter<Example> = Question.fromObject<Example>(input);
+                const answer = await Quentin.answer(question);
+
+                expect(answer).to.deep.equal({
+                    nested: [ 1, 2 ]
+                });
+            });
+
+            it(`recursively resolves arrays of questions`, async () => {
+
+                interface Example {
+                    nested: Array<number>
+                }
+
+                const input: Promise<WithAnswerableProperties<Example>> = p({
+                    nested: [ q('first', p(1)), q('second', p(2)) ]
+                })
+
+                const question: QuestionAdapter<Example> = Question.fromObject<Example>(input);
+                const answer = await Quentin.answer(question);
+
+                expect(answer).to.deep.equal({
+                    nested: [ 1, 2 ]
+                });
+            });
+
+            it(`makes it easy to access fields and methods of the wrapped value`, async () => {
+                const questionAdapter = Question.fromObject(p({ key_0: { key_1: 'value' } }));
+
+                const answer = await Quentin.answer(questionAdapter.key_0.key_1.toLocaleUpperCase());
+
+                expect(answer).to.deep.equal('VALUE');
+            });
+
+            it('provides a human-readable description', () => {
+                const description = Question.fromObject(emptyObject).toString();
+                expect(description).to.equal('value');
+            });
+
+            it('can have its description overridden', () => {
+                const description = Question.fromObject(emptyObject).describedAs('age').toString();
+                expect(description).to.equal('age');
+            });
+        });
+
+        describe('when used to merge objects', () => {
+
+            it('creates a new object, overriding the properties of the source object, without mutating the original', async () => {
+
+                const original = { key_0: 'value_0', key_1: '' };
+                const input_0  = { key_0: 'value_0', key_1: '' };
+                const input_1  = { key_1: 'value_1' };
+
+                const expected = {
+                    key_0: 'value_0',
+                    key_1: 'value_1',
+                };
+
+                const result = Question.fromObject(input_0, input_1);
+
+                const answer = await Quentin.answer(result);
+
+                expect(answer).to.deep.equal(expected);
+                expect(input_0).to.deep.equal(original);
+            });
+
+            it('ensures the properties of the latter objects override the properties of any former objects', async () => {
+
+                interface Example {
+                    key_0: string;
+                    key_1: string;
+                    key_2: string;
+                }
+
+                const input_0 = { key_0: 'value_0', key_1: 'value_0', key_2: 'value_0' };
+                const input_1 = { key_1: 'value_1', key_2: 'value_2' };
+                const input_2 = { key_2: 'value_2' };
+
+                const expected = {
+                    key_0: 'value_0',
+                    key_1: 'value_1',
+                    key_2: 'value_2',
+                };
+
+                const result: QuestionAdapter<Example> =
+                    Question.fromObject(
+                        input_0,
+                        input_1,
+                        input_2,
+                    );
+
+                const answer = await Quentin.answer(result);
+
+                expect(answer).to.deep.equal(expected);
+            });
+
+            it('ensures that a property explicitly set to `undefined` unsets a previously set property, but a missing property does not (same as Object.assign)', async () => {
+
+                interface Example {
+                    key_0: string;
+                    key_1: string;
+                    key_2: string;
+                }
+
+                const input_0 = { key_0: 'value_0', key_1: 'value_0', key_2: 'value_0' };
+                const input_1 = { key_1: undefined, key_2: 'value_2' };
+                const input_2 = { key_2: undefined };
+
+                const expected = {
+                    key_0: 'value_0',
+                    key_1: undefined,
+                    key_2: undefined,
+                };
+
+                const result: QuestionAdapter<Example> =
+                    Question.fromObject(
+                        input_0,
+                        input_1,
+                        input_2,
+                    );
+
+                const answer = await Quentin.answer(result);
+
+                expect(answer).to.deep.equal(expected);
+            });
+
+            it(`should complain if it can't fully resolve a given object in 100 recursive calls`, async () => {
+
+                const input_0 = { references: [] };
+
+                const input_1 = { references: [] };
+                const input_2 = { references: [] };
+
+                input_1.references.push(q('question', p(input_2)));
+                input_2.references.push(q('question', p(input_1)));
+
+                const result = Question.fromObject(input_0, input_1, input_2);
+
+                await expect(Quentin.answer(result))
+                    .to.be.rejectedWith(LogicError, `Question.fromObject() has reached the limit of 100 recursive calls while trying to resolve argument 1. Could it contain cyclic references?`);
+            });
+
+            describe('when working with Answerable<T>', () => {
+
+                it('should be able to merge regular Answerables', async () => {
+
+                    interface Example {
+                        key_0: string;
+                        key_1: string;
+                        key_2: string;
+                    }
+
+                    const input_0 = q('question', p({ key_0: 'value_0', key_1: 'value_0', key_2: 'value_0' }));
+                    const input_1 = q('question', { key_1: 'value_1', key_2: 'value_2' });
+                    const input_2 = p({ key_2: 'value_2' });
+
+                    const expected = {
+                        key_0: 'value_0',
+                        key_1: 'value_1',
+                        key_2: 'value_2',
+                    };
+
+                    const result: QuestionAdapter<Example> =
+                        Question.fromObject<Example>(
+                            input_0,
+                            input_1,
+                            input_2,
+                        );
+
+                    const answer = await Quentin.answer(result);
+
+                    expect(answer).to.deep.equal(expected);
+                });
+            });
         });
     });
 });

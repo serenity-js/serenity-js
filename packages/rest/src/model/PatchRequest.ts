@@ -1,4 +1,4 @@
-import { Answerable, Dictionary, DynamicRecord } from '@serenity-js/core';
+import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
 import { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
@@ -10,12 +10,12 @@ import { HTTPRequest } from './HTTPRequest';
  *
  * @example <caption>Add new resource to a collection</caption>
  *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest'
+ *  import { CallAnApi, LastResponse, PatchRequest, Send } from '@serenity-js/rest';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
- *
- *  actor.attemptsTo(
+ *  await actorCalled('Apisit')
+ *    .whoCan(CallAnApi.at('https://myapp.com/api'))
+ *    .attemptsTo(
  *      Send.a(PatchRequest.to('/books/0-688-00230-7').with({
  *          lastReadOn: '2016-06-16',
  *      })),
@@ -65,12 +65,12 @@ export class PatchRequest extends HTTPRequest {
      *  Overrides the default Axios request configuration provided
      *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * @param {Answerable<DynamicRecord<AxiosRequestConfig>>} config
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
      *
      * @returns {PatchRequest}
      */
-    using(config: Answerable<DynamicRecord<AxiosRequestConfig>>): PatchRequest {
-        return new PatchRequest(this.resourceUri, this.data, Dictionary.of(config));
+    using(config: Answerable<WithAnswerableProperties<AxiosRequestConfig>>): PatchRequest {
+        return new PatchRequest(this.resourceUri, this.data, Question.fromObject(config));
     }
 }

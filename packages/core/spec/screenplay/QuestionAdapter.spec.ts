@@ -22,8 +22,8 @@ describe('Question', () => {
                 describe('answeredBy()', () => {
 
                     given([
-                        { description: 'null', actual: null, expected: undefined },                                     // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
-                        { description: 'Promise<null>', actual: p(null), expected: undefined },                         // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
+                        { description: 'null', actual: null, expected: null },                                     // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
+                        { description: 'Promise<null>', actual: p(null), expected: null },                         // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
                         { description: 'undefined', actual: undefined, expected: undefined },                           // eslint-disable-line unicorn/no-useless-undefined
                         { description: 'Promise<undefined>', actual: p(undefined), expected: undefined },               // eslint-disable-line unicorn/no-useless-undefined
                         { description: 'object', actual: { name: 'Alice' }, expected: { name: 'Alice' } },
