@@ -60,7 +60,7 @@ export function activityRelatedArtifact<Context extends SerenityBDDReportContext
             .else(_ => report)
 }
 
-function mapToString(dictionary: {[key: string]: string}) {
+function mapToString(dictionary: Record<string, string | number | boolean>) {
     return Object.keys(dictionary).map(key => `${key}: ${dictionary[key]}`).join('\n');
 }
 
@@ -88,9 +88,9 @@ function httpRequestResponse<Context extends SerenityBDDReportContext>(activityI
                 method:          requestResponse.request.method.toUpperCase(),
                 path:            requestResponse.request.url,
                 content:         bodyToString(requestResponse.request.data),
-                contentType:     requestResponse.request.headers['Content-Type'] || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
-                requestHeaders:  mapToString(requestResponse.request.headers)  || '',
-                requestCookies:  requestResponse.request.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
+                contentType:     String(requestResponse.request.headers['Content-Type'] || ''), // todo: add a case insensitive proxy around this RFC 2616: 4.2
+                requestHeaders:  mapToString(requestResponse.request.headers || {})  || '',
+                requestCookies:  String(requestResponse.request.headers.Cookie || ''), // todo: add a case insensitive proxy around this RFC 2616: 4.2
                 statusCode:      requestResponse.response.status,
                 responseHeaders: mapToString(requestResponse.response.headers) || '',
                 responseCookies: requestResponse.response.headers.Cookie || '', // todo: add a case insensitive proxy around this RFC 2616: 4.2
