@@ -1,6 +1,6 @@
 import { ArtifactArchiver, Serenity } from '@serenity-js/core';
-import { isPlainObject } from 'is-plain-object'; // fails when using default import
 import { protractor, Runner } from 'protractor';
+import { isRecord } from 'tiny-types/lib/objects';
 import deepmerge = require('deepmerge');
 const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -36,7 +36,7 @@ export class ProtractorFrameworkAdapter {
         const reporter  = new ProtractorReporter(this.protractorRunner, runner.successThreshold());
 
         const config    = deepmerge<Config>(this.defaultConfig(), this.protractorRunner.getConfig(), {
-            isMergeableObject: isPlainObject,
+            isMergeableObject: isRecord,
         });
 
         this.serenity.configure({

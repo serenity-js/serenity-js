@@ -2,7 +2,7 @@ import { ArtifactArchiver, Serenity } from '@serenity-js/core';
 import { ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
-import { isPlainObject } from 'is-plain-object';
+import { isRecord } from 'tiny-types/lib/objects';
 
 import { BrowserCapabilitiesReporter, InitialisesReporters, OutputStreamBuffer, ProvidesWriteStream } from './reporter';
 import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter';
@@ -30,7 +30,7 @@ export class WebdriverIOFrameworkAdapter {
         reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
     ) {
         const config = deepmerge<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
-            isMergeableObject: isPlainObject,
+            isMergeableObject: isRecord,
         });
 
         this.adapter = new TestRunnerLoader(this.loader, this.cwd, this.cid)
