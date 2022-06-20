@@ -1,4 +1,4 @@
-import 'mocha';
+import { after, before, describe, it } from 'mocha';
 
 import { equals } from '@serenity-js/assertions';
 import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';

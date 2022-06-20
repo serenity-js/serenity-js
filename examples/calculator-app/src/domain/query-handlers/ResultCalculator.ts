@@ -1,17 +1,7 @@
 import { match } from 'tiny-types';
 
 import { CalculatorEvent, OperandEntered, OperatorUsed } from '../events';
-import {
-    AdditionOperator,
-    ArithmeticOperator,
-    DivisionOperator,
-    LeftParenthesisOperator,
-    MultiplicationOperator,
-    Operand,
-    Operator,
-    RightParenthesisOperator,
-    SubtractionOperator,
-} from '../model';
+import { AdditionOperator, ArithmeticOperator, DivisionOperator, LeftParenthesisOperator, MultiplicationOperator, Operand, Operator, RightParenthesisOperator, SubtractionOperator } from '../model';
 
 import { QueryHandler } from './QueryHandler';
 

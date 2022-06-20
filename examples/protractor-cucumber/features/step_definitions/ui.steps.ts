@@ -1,9 +1,9 @@
 import { After, Before, Then, When } from '@cucumber/cucumber';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, actorInTheSpotlight, engage, Transform } from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, engage, q } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { UseAngular } from '@serenity-js/protractor';
-import { Navigate, Website } from '@serenity-js/web';
+import { Navigate, Page } from '@serenity-js/web';
 import { Actors } from '../support/screenplay';
 
 Before(() => {
@@ -21,12 +21,12 @@ When(/^(.*) navigates to the test website number (.*?)$/, (actorName: string, id
     actorCalled(actorName).attemptsTo(
         StartLocalServer.onRandomPort(),
         UseAngular.disableSynchronisation(),
-        Navigate.to(Transform.the(LocalServer.url(), url => `${ url }/${ id }`)),
+        Navigate.to(q`${ LocalServer.url() }/${ id }`),
     ));
 
 Then(/(?:he|she|they) should see the title of "(.*)"/, (expectedTitle: string) =>
     actorInTheSpotlight().attemptsTo(
-        Ensure.that(Website.title(), equals(expectedTitle)),
+        Ensure.that(Page.current().title(), equals(expectedTitle)),
     ));
 
 After(() =>

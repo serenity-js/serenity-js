@@ -1,10 +1,8 @@
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver, StreamReporter } from '@serenity-js/core';
+import { ArtifactArchiver } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
-import { createWriteStream } from 'fs';
 import { resolve } from 'path';
-import Inspector from './src/Inspector';
 
 export const config: WebdriverIOConfig = {
 

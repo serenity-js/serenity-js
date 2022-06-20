@@ -1,4 +1,4 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { Calculator } from '../src';
