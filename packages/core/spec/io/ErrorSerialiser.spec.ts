@@ -1,11 +1,11 @@
-import 'mocha';
-
 import { strictEqual } from 'assert';
-const { format } = require('assertion-error-formatter');    // eslint-disable-line @typescript-eslint/no-var-requires
+import { describe, it } from 'mocha';
 
 import { AssertionError } from '../../src/errors';
 import { ErrorSerialiser, parse } from '../../src/io';
 import { expect } from '../expect';
+
+const { format } = require('assertion-error-formatter');    // eslint-disable-line @typescript-eslint/no-var-requires
 
 describe ('ErrorSerialiser', () => {
 

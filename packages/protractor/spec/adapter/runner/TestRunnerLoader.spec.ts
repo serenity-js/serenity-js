@@ -1,8 +1,7 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { CucumberFormat, StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
+import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 

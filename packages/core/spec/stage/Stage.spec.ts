@@ -1,5 +1,4 @@
-import 'mocha';
-
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';

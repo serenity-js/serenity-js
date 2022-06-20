@@ -1,8 +1,7 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isTrue } from '@serenity-js/assertions';
 import { actorCalled, engage, Question } from '@serenity-js/core';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 import { protractor } from 'protractor';
 
 import { UseAngular } from '../../../src';

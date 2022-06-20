@@ -1,5 +1,4 @@
-import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepStarted } from '@cucumber/messages';
-import { TestStepResultStatus } from '@cucumber/messages';
+import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepResultStatus, TestStepStarted } from '@cucumber/messages';
 import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     BusinessRuleDetected,

@@ -1,6 +1,5 @@
-import 'mocha';
-
 import { expect, ifExitCodeIsOtherThan, logOutput, StdOutReporter } from '@integration/testing-tools';
+import { describe, it } from 'mocha';
 
 import { wdio } from '../src';
 

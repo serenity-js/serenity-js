@@ -17,7 +17,7 @@ import {
     Outcome,
     ScenarioDetails,
     TestSuiteDetails,
-    Timestamp
+    Timestamp,
 } from '@serenity-js/core/lib/model';
 
 function thrown<T extends Error>(error: T): T {

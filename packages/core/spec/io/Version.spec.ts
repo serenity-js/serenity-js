@@ -1,4 +1,4 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 
 import { Version } from '../../src/io';
 import { expect } from '../expect';

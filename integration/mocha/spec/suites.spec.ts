@@ -1,5 +1,3 @@
-import 'mocha';
-
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
     SceneFinished,
@@ -14,6 +12,7 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';
 

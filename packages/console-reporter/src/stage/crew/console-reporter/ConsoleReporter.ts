@@ -29,7 +29,7 @@ import {
     ProblemIndication,
     Timestamp,
 } from '@serenity-js/core/lib/model';
-import { Instance as ChalkInstance } from 'chalk';  // eslint-disable-line unicorn/import-style
+import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
 
 import { Printer } from './Printer';

@@ -1,11 +1,10 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
+import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import Gherkin = require('gherkin');
 import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';
+import Gherkin = require('gherkin');
 
 describe('FeatureFileLoader', () => {
 

@@ -1,5 +1,4 @@
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
-
 import filenamify = require('filenamify');
 import path = require('upath');
 

@@ -1,11 +1,10 @@
 /*eslint-disable unicorn/filename-case */
 
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';

@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import 'mocha';
-
+import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { has } from '../../../src/io';

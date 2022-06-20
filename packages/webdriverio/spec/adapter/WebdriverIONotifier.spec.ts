@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/filename-case */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
 import { RemoteCapability } from '@wdio/types/build/Capabilities';
+import { Suite, Test, TestResult } from '@wdio/types/build/Frameworks';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { WebdriverIOConfig } from '../../src';
@@ -35,7 +35,6 @@ import {
 } from './fixtures';
 import EventEmitter = require('events');
 import sinon = require('sinon');
-import { Suite, Test, TestResult } from '@wdio/types/build/Frameworks';
 
 describe('WebdriverIONotifier', () => {
 

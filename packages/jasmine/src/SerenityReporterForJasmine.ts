@@ -9,7 +9,8 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected, TestRunStarts,
+    TestRunnerDetected,
+    TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';

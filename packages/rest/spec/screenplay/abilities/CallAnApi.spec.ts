@@ -1,8 +1,7 @@
-import 'mocha';
-
 import { ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import axios, { Method } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { CallAnApi } from '../../../src';

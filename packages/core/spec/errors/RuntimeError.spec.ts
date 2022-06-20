@@ -1,4 +1,4 @@
-import 'mocha';
+import { beforeEach, describe, it } from 'mocha';
 
 import { RuntimeError } from '../../src/errors';
 import { expect } from '../expect';

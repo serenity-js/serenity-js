@@ -1,5 +1,4 @@
-import 'mocha';
-
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { actorCalled, Answerable, Expectation, Interaction, List, LogicError, Question } from '../../../src';

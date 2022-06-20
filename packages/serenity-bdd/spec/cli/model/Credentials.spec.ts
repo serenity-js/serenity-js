@@ -1,6 +1,5 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
+import { describe, it } from 'mocha';
 
 import { Credentials } from '../../../src/cli/model';
 

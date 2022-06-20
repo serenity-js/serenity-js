@@ -13,7 +13,8 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunFinishes,
-    TestRunnerDetected, TestRunStarts,
+    TestRunnerDetected,
+    TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { Serenity } from '@serenity-js/core/lib/Serenity';

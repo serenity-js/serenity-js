@@ -2,8 +2,10 @@ import { Duration } from '@serenity-js/core';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError, ExecutionIgnored,
-    ExecutionSkipped, ExecutionSuccessful,
+    ExecutionFailedWithError,
+    ExecutionIgnored,
+    ExecutionSkipped,
+    ExecutionSuccessful,
     ImplementationPending,
     Outcome,
     ScenarioDetails,

@@ -1,13 +1,7 @@
 import { match } from 'tiny-types';
 
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ImplementationPending,
-    ProblemIndication,
-} from '../../model';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ImplementationPending, ProblemIndication } from '../../model';
 
 /** @package */
 export class OutcomeMatcher {

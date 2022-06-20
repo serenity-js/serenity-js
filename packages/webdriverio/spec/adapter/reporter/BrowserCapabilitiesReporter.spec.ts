@@ -1,17 +1,16 @@
-import 'mocha';
-
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { Capabilities } from '@wdio/types';
 import { RunnerStart } from '@wdio/types/build/Options';
+import { beforeEach, describe, it } from 'mocha';
 import { PassThrough } from 'stream';
 
 import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter';
 
 describe('BrowserCapabilitiesReporter', () => {
-    
+
     const
         someTestStartEvent  = {},
         now                 = new Date(0),
@@ -20,7 +19,7 @@ describe('BrowserCapabilitiesReporter', () => {
     let browserDetector: BrowserCapabilitiesReporter,
         serenity: Serenity,
         recorder: EventRecorder;
-    
+
     beforeEach(() => {
 
         serenity = new Serenity(frozenClock);
@@ -39,7 +38,7 @@ describe('BrowserCapabilitiesReporter', () => {
     describe('when working with a single browser/device', () => {
 
         it('records browser and platform tags when the test run starts and emits them upon start of the scenario', () => {
-            
+
             // record tags
             browserDetector.emit('runner:start', runnerStart({
                 isMultiremote: false,
@@ -53,7 +52,7 @@ describe('BrowserCapabilitiesReporter', () => {
 
             // pretend a new scenario has started
             const sceneId = serenity.assignNewSceneId();
-            
+
             // trigger tag emission
             browserDetector.emit('test:start', someTestStartEvent);
 

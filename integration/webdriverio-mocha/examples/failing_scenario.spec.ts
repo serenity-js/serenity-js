@@ -1,6 +1,5 @@
-import 'mocha';
-
 import * as assert from 'assert';
+import { describe, it } from 'mocha';
 
 describe('Mocha', () => {
 

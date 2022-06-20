@@ -1,5 +1,4 @@
-import 'mocha';
-
+import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { FileFinder, Path } from '../../src/io';

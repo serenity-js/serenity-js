@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-zero-fractions,unicorn/prevent-abbreviations */
-import 'mocha';
-
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { parse, stringify } from '../../../src/io';

@@ -1,10 +1,9 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src';

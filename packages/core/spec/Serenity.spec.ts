@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import 'mocha';
+import { describe, it } from 'mocha';
 
-import sinon = require('sinon');
 import { ConfigurationError } from '../src';
 import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } from '../src/events';
 import { OutputStream } from '../src/io';
@@ -11,6 +10,7 @@ import { Serenity } from '../src/Serenity';
 import { Cast, Clock, ListensToDomainEvents, Stage, StageCrewMember, StageCrewMemberBuilder } from '../src/stage';
 import { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMemberBuilderDependencies';
 import { expect } from './expect';
+import sinon = require('sinon');
 
 /** @test {Serenity} */
 describe('Serenity', () => {

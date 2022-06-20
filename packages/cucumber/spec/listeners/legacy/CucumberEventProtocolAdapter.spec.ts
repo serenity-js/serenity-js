@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import 'mocha';
-
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { ImplementationPendingError, Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, ModuleLoader, Path, Version } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { EventEmitter } from 'events';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { JSONObject } from 'tiny-types';
 
