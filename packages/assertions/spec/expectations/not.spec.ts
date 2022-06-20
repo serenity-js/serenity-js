@@ -1,24 +1,8 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Expectation } from '@serenity-js/core';
+import { describe, it } from 'mocha';
 
-import {
-    and,
-    contain,
-    containAtLeastOneItemThat,
-    endsWith,
-    Ensure,
-    equals,
-    includes,
-    isFalse,
-    isGreaterThan,
-    isLessThan,
-    isTrue,
-    not,
-    or,
-    startsWith,
-} from '../../src';
+import { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, includes, isFalse, isGreaterThan, isLessThan, isTrue, not, or, startsWith } from '../../src';
 
 describe('not', () => {
 

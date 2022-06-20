@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { TestCompromisedError } from '@serenity-js/core';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import serenityReporterForJasmine = require('../src');
 

@@ -6,7 +6,8 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-    Outcome, ProblemIndication,
+    Outcome,
+    ProblemIndication,
 } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../../errors';

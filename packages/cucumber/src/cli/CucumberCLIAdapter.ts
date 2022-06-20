@@ -1,7 +1,7 @@
 /* istanbul ignore file covered in integration tests */
 import { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
-import * as path from 'path';   // eslint-disable-line unicorn/import-style
+import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 import { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';

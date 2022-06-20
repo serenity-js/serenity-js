@@ -1,5 +1,3 @@
-import 'mocha';
-
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { configure } from '@serenity-js/core';
 import {
@@ -16,8 +14,9 @@ import {
 } from '@serenity-js/core/lib/events';
 import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { beforeEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
-import * as path from 'path';   // eslint-disable-line unicorn/import-style
+import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
 import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';

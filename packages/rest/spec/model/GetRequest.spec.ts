@@ -1,6 +1,5 @@
-import 'mocha';
-
 import { q, Question } from '@serenity-js/core';
+import { describe, it } from 'mocha';
 
 import { GetRequest } from '../../src/model';
 import { actorUsingAMockedAxiosInstance } from '../actors';

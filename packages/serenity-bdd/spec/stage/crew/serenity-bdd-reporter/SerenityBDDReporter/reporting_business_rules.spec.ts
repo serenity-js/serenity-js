@@ -1,19 +1,10 @@
 /* eslint-disable unicorn/filename-case */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import {
-    BusinessRuleDetected,
-    SceneFinished,
-    SceneParametersDetected,
-    SceneSequenceDetected,
-    SceneStarts,
-    SceneTemplateDetected,
-    TestRunFinishes,
-} from '@serenity-js/core/lib/events';
+import { BusinessRuleDetected, SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { BusinessRule, Category, CorrelationId, Description, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src';

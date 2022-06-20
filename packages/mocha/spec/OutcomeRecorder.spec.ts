@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 
 import { MochaOutcomeMapper } from '../src/mappers';
 import { OutcomeRecorder } from '../src/OutcomeRecorder';

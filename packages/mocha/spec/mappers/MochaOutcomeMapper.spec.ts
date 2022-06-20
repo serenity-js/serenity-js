@@ -1,5 +1,3 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import {
@@ -13,7 +11,7 @@ import {
     ProblemIndication,
 } from '@serenity-js/core/lib/model';
 import { strictEqual } from 'assert';
-import { Test } from 'mocha';
+import { describe, it, Test } from 'mocha';
 
 import { MochaOutcomeMapper } from '../../src/mappers';
 

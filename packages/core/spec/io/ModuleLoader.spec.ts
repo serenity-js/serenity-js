@@ -1,8 +1,8 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 
-import path = require('path');
 import { ModuleLoader, Version } from '../../src/io';
 import { expect } from '../expect';
+import path = require('path');
 
 describe('ModuleLoader', () => {
 

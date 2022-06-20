@@ -1,5 +1,3 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
@@ -20,6 +18,7 @@ import {
     ScenarioDetails,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import { Runner } from 'protractor';
 import * as sinon from 'sinon';

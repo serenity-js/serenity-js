@@ -1,8 +1,7 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { CucumberAdapterConfig, TestRunnerDetector, TestRunnerLoader } from '../../../src/adapter/runner';

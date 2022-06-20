@@ -1,20 +1,10 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
-import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
+import { describe, it } from 'mocha';
 
-import {
-    Background,
-    Feature,
-    FeatureFileMap,
-    FeatureFileMapper,
-    FeatureFileParser,
-    Scenario,
-    ScenarioOutline,
-    Step,
-} from '../../../../../src/listeners/legacy/gherkin';
+import { Background, Feature, FeatureFileMap, FeatureFileMapper, FeatureFileParser, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
+import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
 describe('FeatureFileMapper', () => {
 

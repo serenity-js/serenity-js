@@ -1,4 +1,4 @@
-import { ensure, isNotBlank,isString } from 'tiny-types';
+import { ensure, isNotBlank, isString } from 'tiny-types';
 
 /**
  * @desc

@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance } from '../../actors';

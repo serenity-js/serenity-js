@@ -1,10 +1,9 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
-import 'mocha';
-
 import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integration/testing-tools';
 import { Clock, Duration, Stage, StageManager } from '@serenity-js/core';
 import { ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Extras } from '@serenity-js/core/lib/stage/Extras';
+import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';
 

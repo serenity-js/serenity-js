@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 
 import { TagPrinter } from '../../../src/adapter/reporter';
 

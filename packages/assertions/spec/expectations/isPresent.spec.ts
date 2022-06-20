@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Optional, Question } from '@serenity-js/core';
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { Ensure, isPresent } from '../../src';

@@ -1,4 +1,4 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 
 import { Description, Name, ScenarioParameters } from '../../src/model';
 import { expect } from '../expect';

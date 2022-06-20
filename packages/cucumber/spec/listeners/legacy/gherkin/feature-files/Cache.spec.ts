@@ -1,7 +1,6 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
+import { describe, it } from 'mocha';
 
 import { Cache } from '../../../../../src/listeners/legacy/gherkin';
 

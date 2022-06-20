@@ -1,22 +1,24 @@
 /* eslint-disable unicorn/no-null */
-import 'mocha';
-
 import { expect, PickEvent } from '@integration/testing-tools';
 import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
     SceneStarts,
-    SceneTagged, TaskFinished,
+    SceneTagged,
+    TaskFinished,
     TaskStarts,
     TestRunFinished,
-    TestRunnerDetected, TestRunStarts,
+    TestRunnerDetected,
+    TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
 import {
-    CorrelationId, ExecutionCompromised, ExecutionFailedWithAssertionError,
+    CorrelationId,
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
@@ -26,6 +28,7 @@ import {
     TestSuiteDetails,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine';
 

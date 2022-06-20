@@ -1,9 +1,8 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, ConfigurationError, engage } from '@serenity-js/core';
+import { beforeEach, describe, it } from 'mocha';
 
 import { ProtractorParam } from '../../../src';
 import { UIActors } from '../../UIActors';

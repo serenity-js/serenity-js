@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import 'mocha';
-
+import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { ImplementationPendingError, TestCompromisedError } from '../../src/errors';

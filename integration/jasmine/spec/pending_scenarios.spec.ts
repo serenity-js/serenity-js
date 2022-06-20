@@ -1,9 +1,8 @@
-import 'mocha';
-
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { ImplementationPendingError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 

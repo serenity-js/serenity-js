@@ -1,8 +1,7 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '@serenity-js/assertions';
 import { Actor, actorCalled, actorInTheSpotlight, Cast, configure } from '@serenity-js/core';
+import { afterEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import { Server } from 'net';
 import { satisfies } from 'semver';

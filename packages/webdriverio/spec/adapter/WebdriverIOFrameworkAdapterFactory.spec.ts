@@ -1,18 +1,16 @@
 /* eslint-disable unicorn/filename-case */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
 import { ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 import Reporter from '@wdio/reporter';
 import type { Capabilities, Reporters } from '@wdio/types';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { WebdriverIOConfig } from '../../src';
 import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter';
 import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter';
-
 import EventEmitter = require('events');
 
 describe('WebdriverIOFrameworkAdapterFactory', () => {

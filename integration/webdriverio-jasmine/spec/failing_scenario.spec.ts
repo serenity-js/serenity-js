@@ -1,9 +1,8 @@
-import 'mocha';
-
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { BrowserTag, ExecutionFailedWithAssertionError, FeatureTag, Name, PlatformTag, ProblemIndication } from '@serenity-js/core/lib/model';
+import { describe, it } from 'mocha';
 
 import { wdio } from '../src';
 

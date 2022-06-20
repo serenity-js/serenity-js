@@ -1,19 +1,10 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
-import {
-    ActivityRelatedArtifactArchived,
-    ActivityRelatedArtifactGenerated,
-    SceneFinished,
-    SceneStarts,
-    TaskFinished,
-    TaskStarts,
-    TestRunFinishes,
-} from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactArchived, ActivityRelatedArtifactGenerated, SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';

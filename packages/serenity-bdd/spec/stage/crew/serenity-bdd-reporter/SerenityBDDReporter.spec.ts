@@ -1,6 +1,4 @@
 /* eslint-disable unicorn/filename-case */
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, StageManager, TestCompromisedError } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
@@ -22,6 +20,7 @@ import {
     TestReport,
     Timestamp,
 } from '@serenity-js/core/lib/model';
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../src/stage';

@@ -1,4 +1,4 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 
 describe('Mocha', () => {
 

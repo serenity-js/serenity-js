@@ -1,10 +1,9 @@
-import 'mocha';
-
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor, actorCalled, actorInTheSpotlight, Cast, configure, Log } from '@serenity-js/core';
 import { CallAnApi } from '@serenity-js/rest';
 import axios from 'axios';
+import { afterEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import { satisfies } from 'semver';
 

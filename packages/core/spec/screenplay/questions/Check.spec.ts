@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
-import 'mocha';
-
+import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { actorCalled, Check, Interaction } from '../../../src';

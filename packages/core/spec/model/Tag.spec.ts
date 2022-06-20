@@ -1,5 +1,4 @@
-import 'mocha';
-
+import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, FeatureTag, IssueTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';

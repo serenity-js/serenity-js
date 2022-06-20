@@ -1,4 +1,4 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
 import { CorrelationId, Description, Duration } from '../../src/model';
