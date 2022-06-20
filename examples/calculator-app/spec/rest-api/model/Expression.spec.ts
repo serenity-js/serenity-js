@@ -1,15 +1,7 @@
-import 'mocha';
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import {
-    AdditionOperator,
-    DivisionOperator,
-    LeftParenthesisOperator,
-    MultiplicationOperator,
-    Operand,
-    RightParenthesisOperator,
-    SubtractionOperator,
-} from '../../../src/domain/model';
+import { AdditionOperator, DivisionOperator, LeftParenthesisOperator, MultiplicationOperator, Operand, RightParenthesisOperator, SubtractionOperator } from '../../../src/domain/model';
 import { Expression } from '../../../src/rest-api/model';
 
 import { expect } from '../../expect';

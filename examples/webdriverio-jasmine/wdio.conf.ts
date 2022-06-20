@@ -1,9 +1,6 @@
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { StreamReporter } from '@serenity-js/core';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
-import { createWriteStream } from 'fs';
-import Inspector from './src/Inspector';
 
 export const config: WebdriverIOConfig = {
 

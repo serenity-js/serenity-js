@@ -1,5 +1,5 @@
 // import { by, Target } from '@serenity-js/web';   // Serenity/JS 2.x
-import { By, PageElement } from '@serenity-js/web';     // Serenity/JS 3.x
+import { By, PageElement } from '@serenity-js/web'; // Serenity/JS 3.x
 
 export class TodoListItem {
     static label =

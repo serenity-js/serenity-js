@@ -2,15 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { match } from 'tiny-types';
 
-import {
-    CalculationId,
-    Calculator,
-    EnterOperandCommand,
-    GetCalculationResult,
-    Operand,
-    Operator,
-    UseOperatorCommand,
-} from '../';
+import { CalculationId, Calculator, EnterOperandCommand, GetCalculationResult, Operand, Operator, UseOperatorCommand } from '../';
 import { Expression } from './model';
 
 export function controllers(api: express.Application, calculator: Calculator) {

@@ -1,15 +1,5 @@
 import { match } from 'tiny-types';
-import {
-    CalculatorCommand,
-    CalculatorEvent,
-    CalculatorQuery,
-    EnterOperandCommand,
-    GetCalculationResult,
-    OperandEntered,
-    OperatorUsed,
-    ResultCalculator,
-    UseOperatorCommand,
-} from './domain';
+import { CalculatorCommand, CalculatorEvent, CalculatorQuery, EnterOperandCommand, GetCalculationResult, OperandEntered, OperatorUsed, ResultCalculator, UseOperatorCommand } from './domain';
 
 export class Calculator {
     constructor(private readonly events: Array<CalculatorEvent<any>> = []) {

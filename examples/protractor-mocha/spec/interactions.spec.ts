@@ -1,10 +1,10 @@
-import 'mocha';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, Check, engage, Interaction } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { UseAngular } from '@serenity-js/protractor';
-import { Navigate, Website } from '@serenity-js/web';
+import { Navigate, Page } from '@serenity-js/web';
 import { Actors } from './support/Actors';
 
 /**
@@ -28,7 +28,7 @@ describe('Interaction flow', () => {
             UseAngular.disableSynchronisation(),
             Navigate.to(LocalServer.url()),
             Check.whether(counter++, equals(3))
-                .andIfSo(Ensure.that(Website.title(), equals('Test Website')))
+                .andIfSo(Ensure.that(Page.current().title(), equals('Test Website')))
                 .otherwise(FailTheTest()),
         );
     });

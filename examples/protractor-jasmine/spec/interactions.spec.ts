@@ -2,7 +2,7 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, engage } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { UseAngular } from '@serenity-js/protractor';
-import { Navigate, Website } from '@serenity-js/web';
+import { Navigate, Page } from '@serenity-js/web';
 import { Actors } from './support/Actors';
 
 describe('Interaction flow', () => {
@@ -14,7 +14,7 @@ describe('Interaction flow', () => {
             StartLocalServer.onRandomPort(),
             UseAngular.disableSynchronisation(),
             Navigate.to(LocalServer.url()),
-            Ensure.that(Website.title(), equals('Test Website')),
+            Ensure.that(Page.current().title(), equals('Test Website')),
         );
     });
 
