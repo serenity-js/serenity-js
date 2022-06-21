@@ -1,8 +1,10 @@
-import { Page, SwitchableOrigin } from '@serenity-js/web';
-import { ProtractorBrowser } from 'protractor';
+import { Page, PageElement, PageElements, Selector, SwitchableOrigin } from '@serenity-js/web';
+import { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
+import { ProtractorLocator, ProtractorNativeElementRoot } from './locators';
+import { ProtractorPageElement } from './ProtractorPageElement';
 
 export class ProtractorPage extends Page {
     constructor(
@@ -10,6 +12,28 @@ export class ProtractorPage extends Page {
         handle: string
     ) {
         super(handle);
+    }
+
+    locate(selector: Selector): PageElement<ElementFinder> {
+        const parentRoot: ProtractorNativeElementRoot = {
+            element: this.browser.element.bind(this.browser),
+            all: this.browser.element.all.bind(this.browser),
+        }
+
+        return new ProtractorPageElement(
+            new ProtractorLocator(() => parentRoot, selector)
+        )
+    }
+
+    locateAll(selector: Selector): PageElements<ElementFinder> {
+        const parentRoot: ProtractorNativeElementRoot = {
+            element: this.browser.element.bind(this.browser),
+            all: this.browser.element.all.bind(this.browser),
+        }
+
+        return new PageElements(
+            new ProtractorLocator(() => parentRoot, selector)
+        );
     }
 
     title(): Promise<string> {

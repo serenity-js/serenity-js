@@ -1,22 +1,25 @@
 import { PageElement } from './PageElement';
 import { Selector } from './selectors';
 
-export abstract class Locator<Native_Element_Type, Native_Root_Element_Type = any, Selector_Type extends Selector = Selector> {
+// todo: remove Native_Selector_Type once Native_Root_Element_Type is an interface
+export abstract class Locator<Native_Element_Type, Native_Root_Element_Type = any, Native_Selector_Type = any> {
     constructor(
         protected readonly parentRoot: () => Promise<Native_Root_Element_Type> | Native_Root_Element_Type,
-        protected readonly selector: Selector_Type,
-        protected readonly locateElement: (root: Native_Root_Element_Type) => Promise<Native_Element_Type> | Native_Element_Type,
-        protected readonly locateAllElements: (root: Native_Root_Element_Type) => Promise<Array<Native_Element_Type>> | Array<Native_Element_Type>,
+        protected readonly selector: Selector,
     ) {
     }
 
-    public async nativeElement(): Promise<Native_Element_Type> {
-        return this.locateElement(await this.parentRoot());
-    }
+    protected abstract nativeSelector(): Native_Selector_Type;
+    public abstract nativeElement(): Promise<Native_Element_Type>;
+    protected abstract allNativeElements(): Promise<Array<Native_Element_Type>>;
 
     abstract of(parent: Locator<Native_Element_Type, Native_Root_Element_Type>): Locator<Native_Element_Type, Native_Root_Element_Type>;
+    abstract locate(child: Locator<Native_Element_Type, Native_Root_Element_Type>): Locator<Native_Element_Type, Native_Root_Element_Type>;
 
+    // todo: remove?
     abstract element(): PageElement<Native_Element_Type>;
+
+    // todo: remove?
     abstract allElements(): Promise<Array<PageElement<Native_Element_Type>>>;
 
     toString(): string {

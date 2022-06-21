@@ -1,5 +1,4 @@
-import { Answerable, AnswersQuestions, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
@@ -66,7 +65,7 @@ export class Clear extends PageElementInteraction {
      *  The element to be clicked on
      */
     constructor(private readonly field: Answerable<PageElement>) {
-        super(formatted `#actor clears the value of ${ field }`);
+        super(d`#actor clears the value of ${ field }`);
     }
 
     /**
@@ -85,15 +84,29 @@ export class Clear extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element   = await this.resolve(actor, this.field);
-        const value     = await element.value();
 
-        if (value === null || value === undefined) {
-            throw new LogicError(
-                this.capitaliseFirstLetter(formatted `${ this.field } doesn't seem to have a 'value' attribute that could be cleared.`),
-            );
-        }
+        await this.ensureElementCanBeCleared(element);
 
         return element.clearValue();
+    }
+
+    private async ensureElementCanBeCleared(element: PageElement): Promise<void> {
+        let threwError: Error,
+            hasValueAttribute = false;
+
+        try {
+            const value = await element.value();
+            hasValueAttribute = value !== null && value !== undefined;
+        } catch (error) {
+            threwError = error;
+        }
+
+        if (! hasValueAttribute || threwError) {
+            throw new LogicError(
+                this.capitaliseFirstLetter(d`${ this.field } doesn't seem to have a 'value' attribute that could be cleared.`),
+                threwError
+            );
+        }
     }
 
     private capitaliseFirstLetter(text: string) {

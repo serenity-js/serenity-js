@@ -1,9 +1,8 @@
 import { Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
 import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement } from '../models';
-import { WebdriverIOLocator, WebdriverIONativeElementRoot } from '../models/locators';
 
 /**
  * @desc
@@ -38,8 +37,7 @@ import { WebdriverIOLocator, WebdriverIONativeElementRoot } from '../models/loca
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>, WebdriverIONativeElementRoot> {
-
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
     /**
      * @param {@wdio/types~Browser} browserInstance
      * @returns {BrowseTheWebWithWebdriverIO}
@@ -57,13 +55,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
      * @param {@wdio/types~Browser} browser
      */
     constructor(protected readonly browser: wdio.Browser<'async'>) {
-        super(new Map()
-            .set(ByCss,                 (selector: ByCss)               => WebdriverIOLocator.createRootLocator(this.browser, selector, selector.value))
-            .set(ByCssContainingText,   (selector: ByCssContainingText) => WebdriverIOLocator.createRootLocator(this.browser, selector, `${ selector.value }*=${ selector.text }`))
-            .set(ById,                  (selector: ById)                => WebdriverIOLocator.createRootLocator(this.browser, selector, `#${ selector.value }`))
-            .set(ByTagName,             (selector: ByTagName)           => WebdriverIOLocator.createRootLocator(this.browser, selector, `<${ selector.value } />`))
-            .set(ByXPath,               (selector: ByXPath)             => WebdriverIOLocator.createRootLocator(this.browser, selector, selector.value))
-        );
+        super();
 
         if (! this.browser.$ || ! this.browser.$$) {
             throw new LogicError(`WebdriverIO browser object is not initialised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
