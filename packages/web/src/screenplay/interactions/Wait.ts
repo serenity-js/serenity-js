@@ -94,6 +94,7 @@ import { WaitBuilder } from './WaitBuilder';
  *
  * @see {@link @serenity-js/core/lib/screenplay~Interaction}
  */
+// todo: migrate to core
 export class Wait {
 
     /**
@@ -103,6 +104,14 @@ export class Wait {
      * @type {@serenity-js/core~Duration}
      */
     static readonly Default_Timeout = Duration.ofSeconds(5);
+
+    /**
+     * @desc
+     *  Default interval of 500ms between condition checks used with {@link Wait.until}.
+     *
+     * @type {@serenity-js/core~Duration}
+     */
+    static readonly Default_Interval = Duration.ofMilliseconds(500);
 
     /**
      * @desc
@@ -133,7 +142,7 @@ export class Wait {
     static upTo(duration: Duration): WaitBuilder {
         return {
             until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): Interaction =>
-                new WaitUntil(actual, expectation, duration),
+                new WaitUntil(actual, expectation, duration, Wait.Default_Interval),
         };
     }
 
@@ -152,10 +161,10 @@ export class Wait {
      * @param {@serenity-js/core/lib/screenplay/questions~<any,Actual>} expectation
      *  An {@link @serenity-js/core/lib/screenplay/questions~Expectation} to be met before proceeding
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @returns {WaitUntil<Actual>}
      */
-    static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): Interaction {
-        return new WaitUntil(actual, expectation, Wait.Default_Timeout);
+    static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
+        return new WaitUntil(actual, expectation, Wait.Default_Timeout, Wait.Default_Interval);
     }
 }
 
@@ -195,16 +204,18 @@ class WaitFor extends Interaction {
     }
 }
 
-/**
- * @package
- */
-class WaitUntil<Actual> extends Interaction {
+export class WaitUntil<Actual> extends Interaction {
     constructor(
         private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<Actual>,
         private readonly timeout: Duration,
+        private readonly pollingInterval: Duration,
     ) {
         super();
+    }
+
+    pollingEvery(interval: Duration): Interaction {
+        return new WaitUntil(this.actual, this.expectation, this.timeout, this.pollingInterval);
     }
 
     /**

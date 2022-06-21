@@ -1,50 +1,97 @@
-import { Locator, PageElement, Selector } from '@serenity-js/web';
-import { ElementFinder, Locator as ProtractorNativeLocator, ProtractorBrowser } from 'protractor';
+import { f, LogicError } from '@serenity-js/core';
+import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, Selector } from '@serenity-js/web';
+import * as protractor from 'protractor';
+import { ElementFinder } from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
 import { ProtractorPageElement } from '../ProtractorPageElement';
 import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
 
-export class ProtractorLocator<Selector_Type extends Selector> extends Locator<ElementFinder, ProtractorNativeElementRoot, Selector_Type> {
+export class ProtractorLocator extends Locator<protractor.ElementFinder, ProtractorNativeElementRoot, protractor.Locator> {
 
-    static createRootLocator<ST extends Selector>(browser: ProtractorBrowser, selector: ST, protractorBy: ProtractorNativeLocator): ProtractorLocator<ST> {
-        const parentRoot: ProtractorNativeElementRoot = {
-            element: browser.element.bind(browser),
-            all: browser.element.all.bind(browser),
+    // todo: refactor; replace with a map and some more generic lookup mechanism
+    protected nativeSelector(): protractor.Locator {
+        if (this.selector instanceof ByCss) {
+            return this.selector.value.startsWith('>>>') && !! protractor.by.shadowDomCss
+                ? protractor.by.shadowDomCss(this.selector.value.replace('>>>', ''))
+                : protractor.by.css(this.selector.value);
         }
 
-        return new ProtractorLocator(
-            () => parentRoot,
-            selector,
-            (root: ProtractorNativeElementRoot) => unpromisedWebElement(root.element(protractorBy)),
-            async (root: ProtractorNativeElementRoot) => root.all(protractorBy)
-        );
+        if (this.selector instanceof ByCssContainingText) {
+            return protractor.by.cssContainingText(this.selector.value, this.selector.text);
+        }
+
+        if (this.selector instanceof ById) {
+            return protractor.by.id(this.selector.value);
+        }
+
+        if (this.selector instanceof ByTagName) {
+            return protractor.by.tagName(this.selector.value);
+        }
+
+        if (this.selector instanceof ByXPath) {
+            return protractor.by.xpath(this.selector.value);
+        }
+
+        throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
-    of(parent: ProtractorLocator<unknown>): Locator<ElementFinder, ProtractorNativeElementRoot, Selector_Type> {
-        return new ProtractorLocator(
-            () => parent.nativeElement(),
-            this.selector,
-            (parentRoot: ProtractorNativeElementRoot) => this.locateElement(parentRoot),
-            (parentRoot: ProtractorNativeElementRoot) => this.locateAllElements(parentRoot),
-        );
+    // todo: refactor; lift method to Locator
+    async nativeElement(): Promise<protractor.ElementFinder> {
+        const parent = await this.parentRoot();
+        return unpromisedWebElement(parent.element(this.nativeSelector()));
     }
 
-    element(): PageElement<ElementFinder> {
+    // todo: refactor; lift method to Locator
+    protected async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
+        const parent = await this.parentRoot();
+        return parent.all(this.nativeSelector()) as unknown as Array<protractor.ElementFinder>;
+    }
+
+    of(parent: ProtractorLocator): Locator<protractor.ElementFinder, ProtractorNativeElementRoot, protractor.Locator> {
+        return new ProtractorLocator(() => parent.nativeElement(), this.selector);
+    }
+
+    locate(child: ProtractorLocator): Locator<protractor.ElementFinder, ProtractorNativeElementRoot, any> {
+        return new ProtractorLocator(() => this.nativeElement(), child.selector);
+    }
+
+    element(): PageElement<protractor.ElementFinder> {
         return new ProtractorPageElement(this);
     }
 
-    async allElements(): Promise<Array<PageElement<ElementFinder>>> {
-        const parentRoot    = await this.parentRoot()
-        const elements      = await this.locateAllElements(parentRoot);
+    async allElements(): Promise<Array<PageElement<protractor.ElementFinder>>> {
+        const elements      = await this.allNativeElements();
 
         return Promise.all(elements.map(childElement =>
-            new ProtractorPageElement(new ProtractorLocator(
-                this.parentRoot,
-                this.selector,
-                () => unpromisedWebElement(childElement),
-                () => [ unpromisedWebElement(childElement) ],
-            ))
+            new ProtractorPageElement(
+                new ExistingElementLocator(
+                    this.parentRoot,
+                    this.selector,
+                    unpromisedWebElement(childElement)
+                )
+            )
         ));
+    }
+}
+
+/**
+ * @private
+ */
+class ExistingElementLocator extends ProtractorLocator {
+    constructor(
+        parentRoot: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
+        selector: Selector,
+        private readonly existingNativeElement: ElementFinder,
+    ) {
+        super(parentRoot, selector);
+    }
+
+    async nativeElement(): Promise<ElementFinder> {
+        return this.existingNativeElement;
+    }
+
+    protected async allNativeElements(): Promise<Array<ElementFinder>> {
+        return [ this.existingNativeElement ];
     }
 }

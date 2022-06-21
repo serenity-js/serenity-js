@@ -1,10 +1,10 @@
-import { Ability, Duration, f, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, Locator, ModalDialog, Page, Selector } from '../models';
+import { Cookie, CookieData, ModalDialog, Page } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
-export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Element_Type = unknown> implements Ability {
+export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
 
     /**
      * @desc
@@ -15,13 +15,8 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
      * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities} actor
      * @return {BrowseTheWeb}
      */
-    static as<NET = any, NRET = unknown>(actor: UsesAbilities): BrowseTheWeb<NET, NRET> {
-        return actor.abilityTo(BrowseTheWeb) as BrowseTheWeb<NET, NRET>;
-    }
-
-    protected constructor(
-        protected locators: Map<new (...args: unknown[]) => Selector, (selector: Selector) => Locator<Native_Element_Type, Native_Root_Element_Type>>
-    ) {
+    static as<NET = any>(actor: UsesAbilities): BrowseTheWeb<NET> {
+        return actor.abilityTo(BrowseTheWeb) as BrowseTheWeb<NET>;
     }
 
     abstract navigateTo(destination: string): Promise<void>;
@@ -32,16 +27,6 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
     abstract waitFor(duration: Duration): Promise<void>;
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
-
-    locate(selector: Selector): Locator<Native_Element_Type, Native_Root_Element_Type> {
-        for (const [ type, locatorFactory ] of this.locators) {
-            if (selector instanceof type) {
-                return locatorFactory(selector);
-            }
-        }
-
-        throw new LogicError(f `${ selector } is not supported by ${ this.constructor.name }`);
-    }
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
@@ -67,7 +52,7 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
      *
      * @returns {Promise<Page>}
      */
-    abstract currentPage(): Promise<Page>;
+    abstract currentPage(): Promise<Page<Native_Element_Type>>;
 
     /**
      * @desc
@@ -76,7 +61,7 @@ export abstract class BrowseTheWeb<Native_Element_Type = any, Native_Root_Elemen
      *
      * @returns {Promise<Array<Page>>}
      */
-    abstract allPages(): Promise<Array<Page>>;
+    abstract allPages(): Promise<Array<Page<Native_Element_Type>>>;
 
     abstract cookie(name: string): Promise<Cookie>;
     abstract setCookie(cookieData: CookieData): Promise<void>;

@@ -1,13 +1,14 @@
 import { ArtifactArchiver, Serenity } from '@serenity-js/core';
 import { protractor, Runner } from 'protractor';
 import { isRecord } from 'tiny-types/lib/objects';
-import deepmerge = require('deepmerge');
-const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
 
 import { BrowserDetector, StandardisedCapabilities } from './browser-detector';
 import { Config } from './Config';
 import { ProtractorReport, ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './runner';
+import deepmerge = require('deepmerge');
+
+const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * @private

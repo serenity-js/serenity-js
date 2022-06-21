@@ -2,10 +2,13 @@ import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Optional, 
 import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
+import { PageElement } from './PageElement';
+import { PageElements } from './PageElements';
+import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
 
-export abstract class Page implements Optional, Switchable {
+export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();
@@ -63,9 +66,15 @@ export abstract class Page implements Optional, Switchable {
     }
 
     constructor(
-        protected readonly handle: string,
+        protected readonly handle: string,        // todo: remove handle; incompatible with Playwright
     ) {
     }
+
+    // todo: document
+    abstract locate(selector: Selector): PageElement<Native_Element_Type>;
+
+    // todo: document
+    abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
 
     /**
      * @desc

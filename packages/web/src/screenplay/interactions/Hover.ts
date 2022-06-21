@@ -62,11 +62,11 @@ export class Hover extends PageElementInteraction {
     }
 
     /**
-     * @param {Answerable<PageElement>} target
+     * @param {Answerable<PageElement>} element
      *  The element to be hovered over
      */
-    constructor(private readonly target: Answerable<PageElement>) {
-        super(formatted `#actor hovers the mouse over ${ target }`);
+    constructor(private readonly element: Answerable<PageElement>) {
+        super(formatted `#actor hovers the mouse over ${ element }`);
     }
 
     /**
@@ -84,7 +84,7 @@ export class Hover extends PageElementInteraction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const element = await this.resolve(actor, this.target);
+        const element = await this.resolve(actor, this.element);
         return element.hoverOver();
     }
 }

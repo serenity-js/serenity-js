@@ -3,6 +3,10 @@
  */
 
 /**
+ * @external {protractor~ProtractorBrowser} https://www.protractortest.org/#/api?view=ProtractorBrowser
+ */
+
+/**
  * @external {protractor~Runner} https://github.com/angular/protractor/blob/master/lib/runner.ts
  */
 

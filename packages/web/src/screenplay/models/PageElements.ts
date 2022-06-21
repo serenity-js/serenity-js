@@ -16,7 +16,7 @@ export class PageElements<Native_Element_Type = any>
     /**
      * @param locator
      */
-    constructor(protected readonly locator: Question<Promise<Locator<Native_Element_Type>>>) {
+    constructor(protected readonly locator: Answerable<Locator<Native_Element_Type>>) {
         super(allElementsOf(locator));
     }
 
@@ -30,9 +30,10 @@ export class PageElements<Native_Element_Type = any>
  * @package
  */
 function relativeToDocumentRoot<Native_Element_Type>(selector: Answerable<Selector>): Question<Promise<Locator<Native_Element_Type>>> {
-    return Question.about(selector.toString(), async actor => {
+    return Question.about(String(selector), async actor => {
         const bySelector = await actor.answer(selector);
-        return BrowseTheWeb.as(actor).locate(bySelector);
+        const currentPage = await BrowseTheWeb.as(actor).currentPage();
+        return currentPage.locate(bySelector).locator;
     });
 }
 
@@ -51,8 +52,8 @@ function relativeToParent<Native_Element_Type>(relativeLocator: Answerable<Locat
 /**
  * @package
  */
-function allElementsOf<Native_Element_Type>(locator: Question<Promise<Locator<Native_Element_Type>>>): Question<Promise<Array<PageElement<Native_Element_Type>>>> {
-    return Question.about(`page elements located ${ locator.toString() }`, async actor => {
+function allElementsOf<Native_Element_Type>(locator: Answerable<Locator<Native_Element_Type>>): Question<Promise<Array<PageElement<Native_Element_Type>>>> {
+    return Question.about(`page elements located ${ String(locator) }`, async actor => {
         const resolved: Locator<Native_Element_Type> = await actor.answer(locator);
         return resolved.allElements();
     });

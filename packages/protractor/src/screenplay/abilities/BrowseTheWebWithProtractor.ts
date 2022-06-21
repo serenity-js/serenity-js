@@ -1,10 +1,9 @@
 import { ConfigurationError, Duration, LogicError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
-import { by, ElementFinder, ProtractorBrowser } from 'protractor';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
+import * as protractor from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
 
 import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement } from '../models';
-import { ProtractorLocator, ProtractorNativeElementRoot } from '../models/locators';
 import { promised } from '../promised';
 
 /**
@@ -36,16 +35,16 @@ import { promised } from '../promised';
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, ProtractorNativeElementRoot> {
+export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementFinder> {
 
     /**
      * @desc
      *  Ability to interact with web front-ends using a given protractor browser instance.
      *
-     * @param {ProtractorBrowser} browser
+     * @param {protractor~ProtractorBrowser} browser
      * @returns {BrowseTheWebWithProtractor}
      */
-    static using(browser: ProtractorBrowser): BrowseTheWebWithProtractor {
+    static using(browser: protractor.ProtractorBrowser): BrowseTheWebWithProtractor {
         return new BrowseTheWebWithProtractor(browser);
     }
 
@@ -58,20 +57,8 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<ElementFinder, Prot
      * @param {ProtractorBrowser} browser
      *  An instance of a protractor browser
      */
-    constructor(protected browser: ProtractorBrowser) {
-        super(new Map()
-            .set(ByCss,                 (selector: ByCss)               =>
-                // todo: this is a temporary experiment; target state is for all CSS selectors to support Shadow DOM by default
-                ProtractorLocator.createRootLocator(this.browser, selector,
-                    selector.value.startsWith('>>>') && !! by.shadowDomCss
-                        ? by.shadowDomCss(selector.value.replace('>>>', ''))
-                        : by.css(selector.value))
-            )
-            .set(ByCssContainingText,   (selector: ByCssContainingText) => ProtractorLocator.createRootLocator(this.browser, selector, by.cssContainingText(selector.value, selector.text)))
-            .set(ById,                  (selector: ById)                => ProtractorLocator.createRootLocator(this.browser, selector, by.id(selector.value)))
-            .set(ByTagName,             (selector: ByTagName)           => ProtractorLocator.createRootLocator(this.browser, selector, by.tagName(selector.value)))
-            .set(ByXPath,               (selector: ByXPath)             => ProtractorLocator.createRootLocator(this.browser, selector, by.xpath(selector.value)))
-        );
+    constructor(protected browser: protractor.ProtractorBrowser) {
+        super();
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {

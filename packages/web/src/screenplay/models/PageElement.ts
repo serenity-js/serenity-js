@@ -11,8 +11,10 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
 
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
-            const bySelector = await actor.answer(selector);
-            return BrowseTheWeb.as<NET>(actor).locate(bySelector).element();
+            const bySelector  = await actor.answer(selector);
+            const currentPage = await BrowseTheWeb.as<NET>(actor).currentPage();
+
+            return currentPage.locate(bySelector);
         });
     }
 

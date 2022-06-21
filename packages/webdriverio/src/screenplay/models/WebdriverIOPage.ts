@@ -1,6 +1,9 @@
-import { Page, SwitchableOrigin } from '@serenity-js/web';
+import { Page, PageElement, PageElements, Selector, SwitchableOrigin } from '@serenity-js/web';
 import { URL } from 'url';
 import * as wdio from 'webdriverio';
+
+import { WebdriverIOLocator } from './locators';
+import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
 export class WebdriverIOPage extends Page {
     constructor(
@@ -8,6 +11,18 @@ export class WebdriverIOPage extends Page {
         handle: string
     ) {
         super(handle);
+    }
+
+    locate(selector: Selector): PageElement<wdio.Element<'async'>> {
+        return new WebdriverIOPageElement(
+            new WebdriverIOLocator(() => this.browser, selector)
+        )
+    }
+
+    locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
+        return new PageElements(
+            new WebdriverIOLocator(() => this.browser, selector)
+        );
     }
 
     title(): Promise<string> {

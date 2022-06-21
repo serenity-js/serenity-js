@@ -1,0 +1,15 @@
+extends: '../../.nycrc.yml'
+cwd: '../../packages'
+reportDir: '../target/coverage/integration-playwright-web'
+tempDir: '../.nyc_output'
+include:
+  - 'web/src/**/*.ts'
+  - 'web/lib/**/*.js'
+  - 'playwright/src/**/*.ts'
+  - 'playwright/lib/**/*.js'
+exclude:
+  - '**/.esdoc.js'
+  - '**/target/**'
+  - '**/spec/**'
+  - '**/*.d.ts'
+  - '**/*.spec.ts'
