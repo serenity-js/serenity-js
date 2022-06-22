@@ -84,7 +84,7 @@ describe('LastScriptExecution', function () {
     /** @test {ExecuteAsynchronousScript} */
     /** @test {LastScriptExecution} */
     it(`complains if the script hasn't been executed yet`, () =>
-        expect(actorCalled('Joe').attemptsTo(
+        expect(actorCalled('Bob').attemptsTo(
             Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),

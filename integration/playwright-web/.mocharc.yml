@@ -9,25 +9,40 @@ require:
 timeout: 30000
 v8-stack-trace-limit: 100
 spec:
-#  - './node_modules/@integration/web-specs/spec/expectations/isActive.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/isClickable.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/isEnabled.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/isPresent.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/isSelected.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/isVisible.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/expectations/*.spec.ts'
-
+# DONE
+  - './node_modules/@integration/web-specs/spec/screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/interactions/execute-script/ExecuteScriptFromUrl.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/Clear.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/Click.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/DoubleClick.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/Enter.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/Hover.spec.ts'
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/Navigate.spec.ts'
-#  - './node_modules/@integration/web-specs/spec/screenplay/interactions/Press.spec.ts'     # todo
   - './node_modules/@integration/web-specs/spec/screenplay/interactions/RightClick.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.*.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/questions/Attribute.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/questions/CssClasses.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts'
+  - './node_modules/@integration/web-specs/spec/screenplay/questions/Value.spec.ts'
+
+# WIP
+
+
+
+# TODO
+#  - './node_modules/@integration/web-specs/spec/expectations/isActive.spec.ts'
+#  - './node_modules/@integration/web-specs/spec/expectations/isClickable.spec.ts'
+#  - './node_modules/@integration/web-specs/spec/expectations/isEnabled.spec.ts'            # todo Wait.until
+#  - './node_modules/@integration/web-specs/spec/expectations/isPresent.spec.ts'
+#  - './node_modules/@integration/web-specs/spec/expectations/isSelected.spec.ts'
+#  - './node_modules/@integration/web-specs/spec/expectations/isVisible.spec.ts'
+
+#  - './node_modules/@integration/web-specs/spec/screenplay/interactions/Press.spec.ts'     # todo
+
 #  - './node_modules/@integration/web-specs/spec/screenplay/interactions/Scroll.spec.ts'    # todo
-#  - './node_modules/@integration/web-specs/spec/screenplay/interactions/Select.spec.ts'    # todo
-#  - './node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.*.spec.ts'
+#  - './node_modules/@integration/web-specs/spec/screenplay/interactions/Select.spec.ts'    # todo  PageElement.selectOptionByValue() PageElement.selectOptionByLabel()
 
 #  - './node_modules/@integration/web-specs/spec/stage/*.spec.ts'
 
