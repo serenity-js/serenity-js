@@ -70,14 +70,26 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
     async browserCapabilities(): Promise<BrowserCapabilities> {
         return {
-            browserName: (this.browser as any)._initializer.name,   // todo: expose in Playwright
-            platformName: '',                                       // todo: get the actual platform from Playwright
+            browserName: (this.browser as any)._initializer.name,   // todo: raise a PR to Playwright to expose this information
+            platformName: process.platform,                         // todo: get the actual platform from Playwright
             browserVersion: this.browser.version()
         }
     }
 
-    sendKeys(keys: (string | Key)[]): Promise<void> {
-        throw new Error('Method not implemented.');
+    async sendKeys(keys: (string | Key)[]): Promise<void> {
+        const page = await this.page();
+
+        const keySequence = keys.map(key => {
+            if (! Key.isKey(key)) {
+                return key;
+            }
+
+            return key.devtoolsName;
+        });
+
+        await page.keyboard.press(
+            keySequence.join('+'),
+        );
     }
 
     async executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
