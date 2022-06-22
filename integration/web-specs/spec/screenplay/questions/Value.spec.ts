@@ -15,17 +15,17 @@ describe('Value', () => {
         const form = PageElement.located(By.tagName('form')).describedAs(`form`);
 
         before(() =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/value/username_form.html'),
             ));
 
         it('allows the actor to read the "value" attribute of a DOM element matching the locator', () =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Ensure.that(Value.of(input), equals('jan-molak')),
             ));
 
         it('allows for a meta-question relative to another PageElement to be asked', () =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Ensure.that(
                     Value.of(input).of(form),
                     equals('jan-molak'),
@@ -38,7 +38,7 @@ describe('Value', () => {
         });
 
         it('produces a QuestionAdapter that enables access to the underlying value', () =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Ensure.that(
                     Value.of(input).length,
                     equals(9),
@@ -59,7 +59,7 @@ describe('Value', () => {
                 .first();
 
         before(() =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/value/filtering.html'),
             ));
 

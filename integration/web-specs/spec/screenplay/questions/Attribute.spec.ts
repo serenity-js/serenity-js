@@ -16,7 +16,7 @@ describe('Attribute', () => {
         const body = PageElement.located(By.css('body')).describedAs('document body');
 
         before(() =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/attribute/language.html'),
             ));
 
@@ -36,7 +36,7 @@ describe('Attribute', () => {
             )).to.be.rejectedWith(LogicError, `Couldn't read attribute 'lang' of an unspecified page element.`));
 
         it('produces a QuestionAdapter that enables access to the underlying value', () =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Ensure.that(
                     Attribute.called('lang').of(dom).length,
                     equals(2),
@@ -48,7 +48,7 @@ describe('Attribute', () => {
             ));
 
         it('allows for a meta-question relative to another PageElement to be asked', () =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Ensure.that(
                     Attribute.called('class').of(body).of(dom),
                     equals('example-class'),
@@ -65,7 +65,7 @@ describe('Attribute', () => {
                 .where(Attribute.called('class'), equals('enabled'))
 
         before(() =>
-            actorCalled('Bernie').attemptsTo(
+            actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/attribute/lists.html'),
             ));
 

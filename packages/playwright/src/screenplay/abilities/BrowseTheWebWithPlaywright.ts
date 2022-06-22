@@ -82,11 +82,27 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
     async executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await Promise.all(args.map(arg => arg instanceof PlaywrightPageElement ? arg.nativeElement() : arg)) as InnerArguments;
+        const nativeArguments = await Promise.all(
+            args.map(arg =>
+                arg instanceof PlaywrightPageElement
+                    ? arg.nativeElement()
+                    : arg
+            )
+        ) as InnerArguments;
 
         const page = await this.page();
 
-        const result = await page.evaluate<Result, typeof nativeArguments>(script as structs.PageFunction<typeof nativeArguments, Result>, nativeArguments);
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
+
+        const result = await page.evaluate<Result, typeof nativeArguments>(
+            new Function(`
+                const parameters = arguments[0];
+                return (${ serialisedScript }).apply(null, parameters);
+            `) as structs.PageFunction<typeof nativeArguments, Result>,
+            nativeArguments
+        );
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
             result,
@@ -94,8 +110,43 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
 
         return result;
     }
-    executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
-        throw new Error('Method not implemented.');
+
+    async executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
+
+        const nativeArguments = await Promise.all(
+            args.map(arg =>
+                arg instanceof PlaywrightPageElement
+                    ? arg.nativeElement()
+                    : arg
+            )
+        ) as Parameters;
+
+        const page = await this.page();
+
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
+
+        const result = await page.evaluate<Result, typeof nativeArguments>(
+            new Function(`
+                const parameters = arguments[0];
+                
+                return new Promise((resolve, reject) => {
+                    try {
+                        return (${ serialisedScript }).apply(null, parameters.concat(resolve));
+                    } catch (error) {
+                        return reject(error);
+                    }
+                })
+            `) as structs.PageFunction<typeof nativeArguments, Result>,
+            nativeArguments
+        );
+
+        this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
+            result,
+        );
+
+        return result;
     }
 
     /**
