@@ -1,4 +1,4 @@
-import { ConfigurationError, Duration, LogicError } from '@serenity-js/core';
+import { ConfigurationError, LogicError } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import * as protractor from 'protractor';
 import { Capabilities } from 'selenium-webdriver';
@@ -107,14 +107,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
 
     reloadPage(): Promise<void> {
         return promised(this.browser.navigate().refresh());
-    }
-
-    waitFor(duration: Duration): Promise<void> {
-        return promised(this.browser.sleep(duration.inMilliseconds()));
-    }
-
-    waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
-        return promised(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {

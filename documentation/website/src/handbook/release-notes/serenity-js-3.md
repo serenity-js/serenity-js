@@ -360,6 +360,45 @@ actorCalled('Alice')
 
 The untyped flavour gives you access to `QuestionAdapter`s just like the typed version, however your text editor might not be able to provide you with as much support as it would if your notepad had been typed.
 
+## Waiting
+
+In Serenity/JS 2, interactions to `Wait.for` and `Wait.until` relied on browser-specific wait APIs, such as Protractor [`wait`](https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.wait) or WebdriverIO [`waitUntil`](https://webdriver.io/docs/api/browser/waitUntil/). 
+Since the interactions were specific to browser integration tools, they'd also come as part of `@serenity-js/protractor` or `@serenity-js/webdriverio` modules.
+
+In Serenity/JS 3, interactions to `Wait` **don't rely on any browser integration tool** and are, in fact, completely browser-independent. 
+What this means in practice is that you can use `Wait` for both browser and API tests.
+
+Since `Wait` is no longer tied to the browser, it's also been moved to `@serenity-js/core`:
+
+```diff
+import { actorCalled, Duration } from '@serenity-js/core';
+- import { Wait } from '@serenity-js/protractor';
+- import { Wait } from '@serenity-js/webdriverio';
++ import { Wait } from '@serenity-js/core';
+
+actorCalled('Alice').attemptsTo(
+    Wait.for(Duration.ofSeconds(1)),
+    
+    Wait.until(someQuestion, someExpectation)
+        .pollingEvery(Duration.ofMilliseconds(10)),
+    
+    Wait.upTo(Duration.ofSeconds(5)
+        .until(someQuestion, someExpectation)
+        .pollingEvery(Duration.ofMilliseconds(10)),
+)
+```
+
+Additionally, `Wait.until` has also received a new API allowing you to configure its polling interval (500ms by default):
+
+```typescript
+import { actorCalled, Duration, Wait } from '@serenity-js/core';
+
+actorCalled('Alice').attemptsTo(
+    Wait.until(someQuestion, someExpectation)
+        .pollingEvery(Duration.ofMilliseconds(10)),
+)
+```
+
 ## `@serenity-js/assertions`
 
 ### `property` removed
@@ -400,9 +439,9 @@ Ensure.that(User().toUpperCase().slice(1, 4), equals('JAN'))
 
 ## `@serenity-js/rest`
 
-### `DynamicRecord<AxiosRequestConfig>` in HTTP requests
+### `Answerable<WithAnswerableProperties<AxiosRequestConfig>>` in HTTP requests
 
-All HTTP requests now accept dynamic `DynamicRecord<AxiosRequestConfig>`, which means you can now specify additional
+All HTTP requests now accept `Answerable<WithAnswerableProperties<AxiosRequestConfig>>`, which means you can now specify additional
 HTTP request configuration using a configuration object with nested `Question`s, `QuestionAdapter`s and `Promise`s.
 
 For example:
@@ -445,9 +484,10 @@ actorCalled('René').attemptsTo(
 
 ## `@serenity-js/core`
 
-### Screenplay-style `Dictionary<T>`
+### Screenplay-style dictionaries with `Question.fromObject`
 
-A new Screenplay-style data structure, `Dictionary<T>` will help you convert and merge plain JavaScript objects with nested [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E) into a `QuestionAdapter<T>`.
+A new Screenplay-style data structure, `Answerable<WithAnswerableProperties<Source_Type>>` will help you convert 
+and merge plain JavaScript objects with nested [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E) into a `QuestionAdapter<T>`.
 
 For example:
 
@@ -465,7 +505,7 @@ actorCalled('René').attemptsTo(
     Send.a(
         PostRequest.to('/products')
             .with(
-                Dictionary.of<AddProductRequestData>({
+                Question.fromObject<AddProductRequestData>({
                     name:       Text.of(someElement),
                     quantity:   Text.of(someOtherElement).as(Number)
                 })
@@ -474,10 +514,10 @@ actorCalled('René').attemptsTo(
 );
 ```
 
-To merge several objects, pass them to `Dictionary.of` as per the example below:
+To merge several objects, pass them to `Question.fromObject` as per the example below:
 
 ```typescript
-Dictionary.of<AddProductRequestData>(  
+Question.fromObject<AddProductRequestData>(  
     // initial values
     { name: 'unknown', quantity: 0 },
     // overrides
@@ -488,8 +528,10 @@ Dictionary.of<AddProductRequestData>(
 ```
 
 Note that in the above code sample, the first object contains values for all the fields
-required by AddProductRequestData interface. If not all the fields are required, make sure
-to mark them as [optional](https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties).
+required by `AddProductRequestData` interface. 
+
+If not all the fields are required, make sure to mark them 
+as [optional](https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties).
 
 For example:
 
@@ -501,7 +543,6 @@ interface AddProductRequestData {
 ```
 
 ## More coming soon!
-
 
 <div class="pro-tip">
     <div class="icon"><i class="fab fa-github"></i></div>

@@ -1,4 +1,4 @@
-import { Duration, LogicError } from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import * as Buffer from 'buffer';
 import * as playwright from 'playwright-core';
@@ -51,21 +51,6 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     async reloadPage(): Promise<void> {
         const page = await this.page();
         await page.reload(/* todo: consider making options configurable */);
-    }
-
-    waitFor(duration: Duration): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
-    async waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
-        const page = await this.page();
-
-        // https://playwright.dev/docs/api/class-page#page-wait-for-function
-        await page.waitForFunction(
-            condition,
-            undefined,
-            { timeout: timeout.inMilliseconds() }
-        );
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {

@@ -27,8 +27,8 @@ import { PageElement } from '../screenplay';
  *  );
  *
  * @example <caption>Using an expectation in a synchronisation statement</caption>
- *  import { actorCalled, Duration } from '@serenity-js/core';
- *  import { By, PageElement, Wait } from '@serenity-js/web';
+ *  import { actorCalled, Duration, Wait } from '@serenity-js/core';
+ *  import { By, PageElement } from '@serenity-js/web';
  *
  *  const submitButton = () =>
  *      PageElement.located(By.css('.submit')).describedAs('submit button');

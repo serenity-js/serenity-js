@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
-import { By, Click, Navigate, PageElement, Text, Wait } from '@serenity-js/web';
+import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
+import { By, Click, Navigate, PageElement, Text } from '@serenity-js/web';
 
 /** @test {Wait} */
 describe('Wait', () => {
@@ -57,22 +57,19 @@ describe('Wait', () => {
                 Ensure.that(Text.of(status), equals('Not ready')),
                 Click.on(loadButton),
 
-                Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(status), equals('Ready!')),
+                Wait.upTo(Duration.ofMilliseconds(100)).until(Text.of(status), equals('Ready!')).pollingEvery(Duration.ofMilliseconds(50)),
 
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 10ms for the text of the header to equal 'Ready!'`);
+                expect(error.message).to.be.equal(`Waited 100ms, polling every 50ms, for the text of the header to equal 'Ready!'`);
                 expect(error.actual).to.be.equal('Loading...');
                 expect(error.expected).to.be.equal('Ready!');
-
-                expect(error.cause).to.be.instanceOf(Error);
-                expect(error.cause.message).to.match(/^Wait timed out after.*/);
             }));
 
         /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(status), equals('Ready!')).toString())
-                .to.equal(`#actor waits up to 10ms until the text of the header does equal 'Ready!'`);
+                .to.equal(`#actor waits up to 10ms, polling every 500ms, until the text of the header does equal 'Ready!'`);
         });
     });
 });

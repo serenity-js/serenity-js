@@ -10,7 +10,7 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationN
  *
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link Wait}
+ * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
  */
 export function isPresent<Actual>(): Expectation<Actual> {
     return new IsPresent<Actual>();

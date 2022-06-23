@@ -2,9 +2,9 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, isPresent } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
+import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
-import { By, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { By, Navigate, PageElement } from '@serenity-js/web';
 
 describe('isPresent', function () {
 
@@ -29,7 +29,7 @@ describe('isPresent', function () {
     it('breaks the actor flow when element does not become present in the DOM', () =>
         expect(actorCalled('Wendy').attemptsTo(
             Wait.upTo(Duration.ofMilliseconds(250)).until(Page.nonExistentHeader, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Waited 250ms for the non-existent header to become present`));
+        )).to.be.rejectedWith(AssertionError, `Waited 250ms, polling every 500ms, for the non-existent header to become present`));
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () =>
@@ -55,6 +55,6 @@ describe('isPresent', function () {
     /** @test {isPresent} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Page.presentHeader, isPresent()).toString())
-            .to.equal(`#actor waits up to 5s until the header does become present`);
+            .to.equal(`#actor waits up to 5s, polling every 500ms, until the header does become present`);
     });
 });

@@ -38,8 +38,8 @@ import { PageElementInteraction } from './PageElementInteraction';
  *  }
  *
  * @example <caption>Double-clicking on an element</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } from '@serenity-js/webdriverio';
+ *  import { actorCalled, Wait } from '@serenity-js/core';
+ *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text } from '@serenity-js/webdriverio';
  *  import { Ensure, equals, not } from '@serenity-js/assertions';
  *
  *  actorCalled('Dorothy')

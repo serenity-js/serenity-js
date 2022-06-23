@@ -12,7 +12,7 @@ import { ElementExpectation } from './ElementExpectation';
  * @see https://webdriver.io/docs/api/element/isEnabled/
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link Wait}
+ * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
  */
 export function isEnabled(): Expectation<PageElement> {
     return ElementExpectation.forElementTo('become enabled', actual => actual.isEnabled());

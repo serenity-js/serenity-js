@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
-import { By, Click, isActive, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { By, Click, isActive, Navigate, PageElement } from '@serenity-js/web';
 
 describe('isActive', function () {
 
@@ -42,6 +42,6 @@ describe('isActive', function () {
     /** @test {isActive} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Page.activeInput, isActive()).toString())
-            .to.equal(`#actor waits up to 5s until the active input does become active`);
+            .to.equal(`#actor waits up to 5s, polling every 500ms, until the active input does become active`);
     });
 });

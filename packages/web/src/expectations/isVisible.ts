@@ -15,7 +15,7 @@ import { ElementExpectation } from './ElementExpectation';
  * @see https://webdriver.io/docs/api/element/isDisplayed/
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link Wait}
+ * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
  */
 export function isVisible(): Expectation<PageElement> {
     return ElementExpectation.forElementTo('become visible', actual => actual.isVisible());
