@@ -2,11 +2,11 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { isPresent } from '@serenity-js/assertions';
-import { Duration } from '@serenity-js/core';
+import { Duration, Wait } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
-import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures, Wait } from '@serenity-js/web';
+import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 
 import { create } from '../create';
 import { Perform } from '../fixtures';

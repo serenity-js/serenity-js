@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError } from '@serenity-js/core';
-import { By, isEnabled, Navigate, PageElement, Wait } from '@serenity-js/web';
+import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { By, isEnabled, Navigate, PageElement } from '@serenity-js/web';
 
 describe('isEnabled', function () {
 
@@ -40,6 +40,6 @@ describe('isEnabled', function () {
     /** @test {isEnabled} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Page.enabledButton, isEnabled()).toString())
-            .to.equal(`#actor waits up to 5s until the enabled button does become enabled`);
+            .to.equal(`#actor waits up to 5s, polling every 500ms, until the enabled button does become enabled`);
     });
 });

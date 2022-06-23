@@ -2,10 +2,10 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, Clock, Duration, Serenity,serenity } from '@serenity-js/core';
+import { actorCalled, Clock, Duration, Serenity, serenity, Wait } from '@serenity-js/core';
 import { AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
-import { By, Click, ModalDialog, Navigate, PageElement, Photographer, TakePhotosOfInteractions, Text, Wait } from '@serenity-js/web';
+import { By, Click, ModalDialog, Navigate, PageElement, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
 
 describe('ModalDialog', () => {
 

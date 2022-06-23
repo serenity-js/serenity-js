@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, not } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
-import { Attribute, By, Hover, isVisible, Navigate, PageElement, Text, Wait } from '@serenity-js/web';
+import { actorCalled, Wait } from '@serenity-js/core';
+import { Attribute, By, Hover, isVisible, Navigate, PageElement, Text } from '@serenity-js/web';
 
 describe('isVisible', function () {
 
@@ -90,7 +90,7 @@ describe('isVisible', function () {
         /** @test {isVisible} */
         it('contributes to a human-readable description of a wait', () => {
             expect(Wait.until(Elements.displayed, isVisible()).toString())
-                .to.equal(`#actor waits up to 5s until visible element does become visible`);
+                .to.equal(`#actor waits up to 5s, polling every 500ms, until visible element does become visible`);
         });
     });
 

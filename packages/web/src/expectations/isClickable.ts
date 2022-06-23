@@ -21,7 +21,7 @@ import { isVisible } from './isVisible';
  * @see https://webdriver.io/docs/api/element/isClickable/
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link Wait}
+ * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
  */
 export function isClickable(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become clickable').soThatActual(and(

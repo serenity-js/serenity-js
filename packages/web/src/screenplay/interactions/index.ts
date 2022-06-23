@@ -13,4 +13,3 @@ export * from './Select';
 export * from './SelectBuilder';
 export * from './Switch';
 export * from './TakeScreenshot';
-export * from './Wait';

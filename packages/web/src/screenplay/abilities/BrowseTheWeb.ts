@@ -1,4 +1,4 @@
-import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
+import { Ability, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
 import { Cookie, CookieData, ModalDialog, Page } from '../models';
@@ -23,10 +23,6 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
     abstract navigateBack(): Promise<void>;
     abstract navigateForward(): Promise<void>;
     abstract reloadPage(): Promise<void>;
-
-    abstract waitFor(duration: Duration): Promise<void>;
-
-    abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
