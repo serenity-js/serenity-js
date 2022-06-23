@@ -4,7 +4,7 @@ import * as Buffer from 'buffer';
 import * as playwright from 'playwright-core';
 import * as structs from 'playwright-core/types/structs';
 
-import { PlaywrightPage, PlaywrightPageElement } from '../models';
+import { PlaywrightCookie, PlaywrightPage, PlaywrightPageElement } from '../models';
 import { PlaywrightOptions } from './PlaywrightOptions';
 
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discardable {
@@ -185,15 +185,35 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discarda
     async allPages(): Promise<Page[]> {
         throw new Error('Method not implemented.');
     }
-    cookie(name: string): Promise<Cookie> {
-        throw new Error('Method not implemented.');
-    }
-    setCookie(cookieData: CookieData): Promise<void> {
-        throw new Error('Method not implemented.');
+
+    async cookie(name: string): Promise<Cookie> {
+        return new PlaywrightCookie(await this.context(), name);
     }
 
-    deleteAllCookies(): Promise<void> {
-        throw new Error('Method not implemented.');
+    async setCookie(cookieData: CookieData): Promise<void> {
+        const context = await this.context();
+        const page = await this.page();
+
+        await context.addCookies([{
+            name:       cookieData.name,
+            value:      cookieData.value,
+            domain:     cookieData.domain,
+            path:       cookieData.path,
+            url:        !(cookieData.domain && cookieData.path)
+                ? await page.url()
+                : undefined,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expires:    cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+            sameSite:   cookieData.sameSite,
+        }]);
+    }
+
+    async deleteAllCookies(): Promise<void> {
+        const context = await this.context()
+        await context.clearCookies();
     }
 
     modalDialog(): Promise<ModalDialog> {
