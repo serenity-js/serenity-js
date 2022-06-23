@@ -85,6 +85,32 @@ describe('Wait', () => {
                 expect(error.actual).to.be.greaterThanOrEqual(50);
             }));
 
+        it('fails the actor flow when asking the question results in an error', () =>
+            expect(
+                serenity.theActorCalled('Wendy')
+                    .attemptsTo(
+                        Wait.upTo(Duration.ofMilliseconds(50))
+                            .until(Question.about<number>('error', actor => { throw Error('error in question') }), isGreaterThan(250))
+                            .pollingEvery(Duration.ofMilliseconds(10)),
+                    )
+            ).to.be.rejected.then((error: Error) => {
+                expect(error).to.be.instanceOf(Error);
+                expect(error.message).to.be.equal(`error in question`);
+            }));
+
+        it('fails the actor flow when invoking the expectation results in an error', () =>
+            expect(
+                serenity.theActorCalled('Wendy')
+                    .attemptsTo(
+                        Wait.upTo(Duration.ofMilliseconds(50))
+                            .until(undefined, brokenExpectationThatThrows('error in expectation'))
+                            .pollingEvery(Duration.ofMilliseconds(10)),
+                    )
+            ).to.be.rejected.then((error: Error) => {
+                expect(error).to.be.instanceOf(Error);
+                expect(error.message).to.be.equal(`error in expectation`);
+            }));
+
         /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(
@@ -95,6 +121,13 @@ describe('Wait', () => {
         });
     });
 });
+
+function brokenExpectationThatThrows(message: string): Expectation<any> {
+    return Expectation.thatActualShould<any, any>('throw an Exception', undefined)
+        .soThat((actualValue, expectedValue) => {
+            throw new Error(message);
+        });
+}
 
 function isGreaterThan(expected: Answerable<number>): Expectation<number> {
     return Expectation.thatActualShould<number, number>('have value greater than', expected)

@@ -247,25 +247,33 @@ export class WaitUntil<Actual> extends Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         let pollerId: NodeJS.Timeout,
             timeoutId: NodeJS.Timeout,
-            expectationOutcome: ExpectationOutcome<any, Actual>;
+            expectationOutcome: ExpectationOutcome<any, Actual>,
+            thrown: Error;
 
-        const poll = (resolve: () => void) => async () => {
+        const poll = (resolve: () => void, reject: (error: Error) => void) => async () => {
             clearTimeout(pollerId);
 
-            expectationOutcome = await actor.answer(
-                this.expectation.isMetFor(this.actual)
-            );
+            try {
+                expectationOutcome = await actor.answer(
+                    this.expectation.isMetFor(this.actual)
+                );
 
-            if (expectationOutcome instanceof ExpectationMet) {
+                if (expectationOutcome instanceof ExpectationMet) {
+                    clearTimeout(timeoutId);
+                    return resolve();
+                }
+
+                pollerId = setTimeout(poll(resolve, reject), this.pollingInterval.inMilliseconds());
+
+            } catch (error) {
                 clearTimeout(timeoutId);
-                return resolve();
-            }
 
-            pollerId = setTimeout(poll(resolve), this.pollingInterval.inMilliseconds());
+                return reject(error);
+            }
         }
 
-        const poller = () => new Promise<void>(resolve => {
-            poll(resolve)();
+        const poller = () => new Promise<void>((resolve, reject) => {
+            poll(resolve, reject)();
         });
 
         const timeout = () =>
@@ -278,6 +286,7 @@ export class WaitUntil<Actual> extends Interaction {
                         d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
                         expectationOutcome?.expected,
                         expectationOutcome?.actual,
+                        thrown
                     ));
 
                 }, this.timeout.inMilliseconds())
