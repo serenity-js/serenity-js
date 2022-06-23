@@ -8,8 +8,9 @@ import { By, Click, isActive, Navigate, PageElement } from '@serenity-js/web';
 describe('isActive', function () {
 
     const Page = {
-        activeInput:    PageElement.located(By.id('active')).describedAs('the active input'),
-        inactiveInput:  PageElement.located(By.id('inactive')).describedAs('the inactive input'),
+        activeInput:        PageElement.located(By.id('active')).describedAs('the active input'),
+        autofocusedInput:   PageElement.located(By.id('autofocused')).describedAs('the autofocused input'),
+        inactiveInput:      PageElement.located(By.id('inactive')).describedAs('the inactive input'),
     };
 
     beforeEach(() =>
@@ -20,11 +21,14 @@ describe('isActive', function () {
     /** @test {isActive} */
     it('allows the actor flow to continue when the element is active', () =>
         expect(actorCalled('Wendy').attemptsTo(
-            Wait.until(Page.activeInput, not(isActive())),
-            Ensure.that(Page.activeInput, not(isActive())),
-            Click.on(Page.activeInput),
-            Wait.until(Page.activeInput, isActive()),
-            Ensure.that(Page.activeInput, isActive()),
+            Wait.until(Page.autofocusedInput, isActive()),
+            Ensure.that(Page.autofocusedInput, isActive()),
+
+            Ensure.that(Page.inactiveInput, not(isActive())),
+            Click.on(Page.inactiveInput),
+
+            Wait.until(Page.inactiveInput, isActive()),
+            Ensure.that(Page.inactiveInput, isActive()),
         )).to.be.fulfilled);
 
     /** @test {isActive} */

@@ -68,8 +68,12 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         throw new Error('Method not implemented. switchTo');
     }
 
-    isActive(): Promise<boolean> {
-        throw new Error('Method not implemented. isActive');
+    async isActive(): Promise<boolean> {
+        const element = await this.nativeElement();
+        return element.evaluate(
+            /* istanbul ignore next */
+            domNode => domNode === document.activeElement
+        );
     }
 
     async isClickable(): Promise<boolean> {
@@ -93,7 +97,9 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         return element.isChecked();
     }
 
-    isVisible(): Promise<boolean> {
-        throw new Error('Method not implemented. isVisible');
+    async isVisible(): Promise<boolean> {
+        const element = await this.nativeElement();
+
+        return element.isVisible();
     }
 }
