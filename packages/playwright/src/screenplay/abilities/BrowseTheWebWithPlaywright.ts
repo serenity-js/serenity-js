@@ -1,19 +1,20 @@
-import { LogicError } from '@serenity-js/core';
+import { Discardable, LogicError } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page } from '@serenity-js/web';
 import * as Buffer from 'buffer';
 import * as playwright from 'playwright-core';
 import * as structs from 'playwright-core/types/structs';
 
 import { PlaywrightPage, PlaywrightPageElement } from '../models';
+import { PlaywrightOptions } from './PlaywrightOptions';
 
-export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
+export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discardable {
 
     /**
      * @param {playwright~Browser} browser
-     * @param {playwright~BrowserContextOptions} options
+     * @param {PlaywrightOptions} options
      * @returns {BrowseTheWebWithPlaywright}
      */
-    static using(browser: playwright.Browser, options?: playwright.BrowserContextOptions): BrowseTheWebWithPlaywright {
+    static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(browser, options);
     }
 
@@ -29,28 +30,39 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
      * @param {playwright~Browser} browser
      * @param {playwright~BrowserContextOptions} browserContextOptions
      */
-    protected constructor(protected readonly browser: playwright.Browser, protected readonly browserContextOptions: playwright.BrowserContextOptions = {}) {
+    protected constructor(protected readonly browser: playwright.Browser, protected readonly browserContextOptions: PlaywrightOptions = {}) {
         super();
+    }
+
+    async discard(): Promise<void> {
+        if (this.currentBrowserContext) {
+            await this.currentBrowserContext.close();
+
+            this.currentBrowserContext = undefined;
+            this.currentBrowserPage = undefined;
+        }
+
+        this.lastScriptExecutionSummary = undefined
     }
 
     async navigateTo(destination: string): Promise<void> {
         const page = await this.page();
-        await page.goto(destination, /* todo: consider making options configurable */)
+        await page.goto(destination);
     }
 
     async navigateBack(): Promise<void> {
         const page = await this.page();
-        await page.goBack(/* todo: consider making options configurable */);
+        await page.goBack();
     }
 
     async navigateForward(): Promise<void> {
         const page = await this.page();
-        await page.goForward(/* todo: consider making options configurable */);
+        await page.goForward();
     }
 
     async reloadPage(): Promise<void> {
         const page = await this.page();
-        await page.reload(/* todo: consider making options configurable */);
+        await page.reload();
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {
@@ -191,13 +203,21 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb {
     private async context(): Promise<playwright.BrowserContext> {
         if (! this.currentBrowserContext) {
             this.currentBrowserContext = await this.browser.newContext(this.browserContextOptions);
+
+            if (this.browserContextOptions?.defaultNavigationTimeout) {
+                this.currentBrowserContext.setDefaultNavigationTimeout(this.browserContextOptions?.defaultNavigationTimeout);
+            }
+
+            if (this.browserContextOptions?.defaultTimeout) {
+                this.currentBrowserContext.setDefaultTimeout(this.browserContextOptions?.defaultTimeout);
+            }
         }
 
         return this.currentBrowserContext;
     }
 
     private async page(): Promise<playwright.Page> {
-        if (! this.currentBrowserPage) {
+        if (! this.currentBrowserPage || this.currentBrowserPage.isClosed()) {
             const context = await this.context();
             this.currentBrowserPage = await context.newPage();
         }
