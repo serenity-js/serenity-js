@@ -93,15 +93,11 @@ export class ElementExpectation extends Expectation<PageElement> {
             async (actor: AnswersQuestions, actual: Answerable<PageElement>) => {
                 const pageElement = await actor.answer(actual);
 
-                try {
-                    const result = await fn(pageElement);
+                const result = await fn(pageElement);
 
-                    return result
-                        ? new ExpectationMet(this.toString(), undefined, pageElement)
-                        : new ExpectationNotMet(this.toString(), undefined, pageElement);
-                } catch(error) {
-                    return new ExpectationNotMet(`${ description } (${ error.message })`, undefined, pageElement);
-                }
+                return result
+                    ? new ExpectationMet(this.toString(), undefined, pageElement)
+                    : new ExpectationNotMet(this.toString(), undefined, pageElement);
             }
         );
     }
