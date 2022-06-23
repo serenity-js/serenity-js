@@ -353,7 +353,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
-        return await this.body(actor);
+        return this.body(actor);
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
