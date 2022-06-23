@@ -123,7 +123,7 @@ describe('Wait', () => {
 });
 
 function brokenExpectationThatThrows(message: string): Expectation<any> {
-    return Expectation.thatActualShould<any, any>('throw an Error', undefined)
+    return Expectation.thatActualShould<any, any>('throw an Error', undefined)  // eslint-disable-line unicorn/no-useless-undefined
         .soThat((actualValue, expectedValue) => {
             throw new Error(message);
         });
