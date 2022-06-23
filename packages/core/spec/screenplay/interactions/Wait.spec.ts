@@ -90,7 +90,7 @@ describe('Wait', () => {
                 serenity.theActorCalled('Wendy')
                     .attemptsTo(
                         Wait.upTo(Duration.ofMilliseconds(50))
-                            .until(Question.about<number>('error', actor => { throw Error('error in question') }), isGreaterThan(250))
+                            .until(Question.about<number>('error', actor => { throw new Error('error in question') }), isGreaterThan(250))
                             .pollingEvery(Duration.ofMilliseconds(10)),
                     )
             ).to.be.rejected.then((error: Error) => {
@@ -123,7 +123,7 @@ describe('Wait', () => {
 });
 
 function brokenExpectationThatThrows(message: string): Expectation<any> {
-    return Expectation.thatActualShould<any, any>('throw an Exception', undefined)
+    return Expectation.thatActualShould<any, any>('throw an Error', undefined)
         .soThat((actualValue, expectedValue) => {
             throw new Error(message);
         });
