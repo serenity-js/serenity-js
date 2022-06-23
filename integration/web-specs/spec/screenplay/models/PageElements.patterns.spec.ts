@@ -164,7 +164,7 @@ describe('PageElements', () => {
                     .describedAs('list items');
 
             it('allows for the found elements to be mapped to child elements', () =>
-                actorCalled('Elle').attemptsTo(
+                actorCalled('Peggy').attemptsTo(
                     Ensure.that(
                         Text.ofAll(
                             containers()
@@ -176,7 +176,7 @@ describe('PageElements', () => {
                 ));
 
             it('allows for a list of found PageElement[] to be mapped to lists of Text.ofAll(children) of those elements', () =>
-                actorCalled('Elle').attemptsTo(
+                actorCalled('Peggy').attemptsTo(
                     Ensure.that(
                         containers().eachMappedTo(Text.ofAll(listItems())),
                         equals([
