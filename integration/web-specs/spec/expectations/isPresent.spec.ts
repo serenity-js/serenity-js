@@ -29,7 +29,7 @@ describe('isPresent', function () {
     it('breaks the actor flow when element does not become present in the DOM', () =>
         expect(actorCalled('Wendy').attemptsTo(
             Wait.upTo(Duration.ofMilliseconds(250)).until(Page.nonExistentHeader, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Waited 250ms, polling every 500ms, for the non-existent header to become present`));
+        )).to.be.rejectedWith(AssertionError, `Waited 250ms, polling every 250ms, for the non-existent header to become present`));
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () =>

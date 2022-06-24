@@ -1,3 +1,5 @@
+import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
+
 import { AssertionError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
@@ -102,15 +104,31 @@ export class Wait {
      *
      * @type {Duration}
      */
-    static readonly Default_Timeout = Duration.ofSeconds(5);
+    static readonly defaultTimeout = Duration.ofSeconds(5);
 
     /**
      * @desc
-     *  Default interval of 500ms between condition checks used with {@link Wait.until}.
+     *  Minimum timeout of 250 milliseconds used with {@link Wait.until}.
      *
      * @type {Duration}
      */
-    static readonly Default_Interval = Duration.ofMilliseconds(500);
+    static readonly minimumTimeout = Duration.ofMilliseconds(250);
+
+    /**
+     * @desc
+     *  Default polling interval of 500ms between condition checks, used with {@link Wait.until}.
+     *
+     * @type {Duration}
+     */
+    static readonly defaultPollingInterval = Duration.ofMilliseconds(500);
+
+    /**
+     * @desc
+     *  Minimum polling interval of 50ms between condition checks, used with {@link Wait.until}.
+     *
+     * @type {Duration}
+     */
+    static readonly minimumPollingInterval = Duration.ofMilliseconds(50);
 
     /**
      * @desc
@@ -132,24 +150,31 @@ export class Wait {
      *  configured to wait until the answer to the question (`actual`) meets the `expectation`,
      *  or a custom timeout expires.
      *
-     * @param {Duration} duration
-     *  Custom timeout to override {@link Wait.Default_Timeout}
+     *  The minimum timeout is
+     *
+     * @param {Duration} timeout
+     *  Custom timeout to override {@link Wait.defaultTimeout}
      *
      * @returns {WaitBuilder}
      */
-    static upTo(duration: Duration): WaitBuilder {
+    static upTo(timeout: Duration): WaitBuilder {
         return {
             until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> =>
-                new WaitUntil(actual, expectation, duration, Wait.Default_Interval),
+                new WaitUntil(
+                    actual,
+                    expectation,
+                    timeout,
+                    Wait.defaultPollingInterval.isLessThan(timeout) ? Wait.defaultPollingInterval : timeout
+                ),
         };
     }
 
     /**
      * @desc
      *  Instantiates a version of this {@link Interaction} configured to
-     *  poll every {@link Wait.Default_Interval} for the result of the provided
+     *  poll every {@link Wait.defaultPollingInterval} for the result of the provided
      *  question (`actual`) until it meets the `expectation`,
-     *  or the {@link Wait.Default_Timeout} expires.
+     *  or the {@link Wait.defaultTimeout} expires.
      *
      * @param {Answerable<Actual>} actual
      *  A {@link Question} that the {@link Actor} will keep asking until the answer meets
@@ -161,7 +186,12 @@ export class Wait {
      * @returns {WaitUntil<Actual>}
      */
     static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
-        return new WaitUntil(actual, expectation, Wait.Default_Timeout, Wait.Default_Interval);
+        return new WaitUntil(
+            actual,
+            expectation,
+            Wait.defaultTimeout,
+            Wait.defaultPollingInterval
+        );
     }
 }
 
@@ -220,6 +250,8 @@ export class WaitUntil<Actual> extends Interaction {
         private readonly pollingInterval: Duration,
     ) {
         super();
+        ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()))
+        ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()))
     }
 
     /**
