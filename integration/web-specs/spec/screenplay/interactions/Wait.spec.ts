@@ -52,24 +52,24 @@ describe('Wait', () => {
         /** @test {Wait.until} */
         it('fails the actor flow when the timeout expires', () =>
             expect(actorCalled('Wendy').attemptsTo(
-                Navigate.to('/screenplay/interactions/wait/loader.html'),
+                Navigate.to('/screenplay/interactions/wait/slow_loader.html'),
 
                 Ensure.that(Text.of(status), equals('Not ready')),
                 Click.on(loadButton),
 
-                Wait.upTo(Duration.ofMilliseconds(100)).until(Text.of(status), equals('Ready!')).pollingEvery(Duration.ofMilliseconds(50)),
+                Wait.upTo(Duration.ofSeconds(1)).until(Text.of(status), equals('Ready!')).pollingEvery(Duration.ofMilliseconds(250)),
 
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 100ms, polling every 50ms, for the text of the header to equal 'Ready!'`);
+                expect(error.message).to.be.equal(`Waited 1s, polling every 250ms, for the text of the header to equal 'Ready!'`);
                 expect(error.actual).to.be.equal('Loading...');
                 expect(error.expected).to.be.equal('Ready!');
             }));
 
         /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
-            expect(Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(status), equals('Ready!')).toString())
-                .to.equal(`#actor waits up to 10ms, polling every 500ms, until the text of the header does equal 'Ready!'`);
+            expect(Wait.upTo(Duration.ofSeconds(1)).until(Text.of(status), equals('Ready!')).toString())
+                .to.equal(`#actor waits up to 1s, polling every 500ms, until the text of the header does equal 'Ready!'`);
         });
     });
 });
