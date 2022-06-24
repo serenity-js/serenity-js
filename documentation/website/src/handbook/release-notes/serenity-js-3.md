@@ -189,7 +189,7 @@ export class TodoList {
 }
 ```
 
-To see the new `PageElement` and `PageElements` APIs in actions, including using advanced element filters and mapping, 
+To see the new `PageElement` and `PageElements` APIs in action, including using advanced element filters and mapping, 
 have a look at the [PageElements patterns spec](https://github.com/serenity-js/serenity-js/blob/main/integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts).
 
 If you'd like to see a tutorial or screencast on this topic, let us know on Twitter!
