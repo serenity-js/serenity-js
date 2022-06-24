@@ -51,7 +51,7 @@ describe('Photographer', () => {
             expect(
                 stage.theActorCalled('Betty')
                     .attemptsTo(
-                        Wait.upTo(Duration.ofMilliseconds(100))
+                        Wait.upTo(Duration.ofMilliseconds(250))
                             .until(PageElement.located(By.css('#invalid')), isPresent())
                     )
             ).to.be.rejected.then(() =>
@@ -59,7 +59,7 @@ describe('Photographer', () => {
 
                     PickEvent.from(recorder.events)
                         .next(ActivityRelatedArtifactGenerated, event => {
-                            expect(event.name.value).to.match(/Betty waits up to 100ms/);
+                            expect(event.name.value).to.match(/Betty waits up to 250ms/);
                             expect(event.artifact).to.be.instanceof(Photo);
                         });
                 }))
