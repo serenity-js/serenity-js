@@ -6,9 +6,9 @@ import { URL } from 'url';
 
 import { promised } from '../promised';
 import { ProtractorLocator, ProtractorNativeElementRoot } from './locators';
+import { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
 import { ProtractorCookie } from './ProtractorCookie';
 import { ProtractorPageElement } from './ProtractorPageElement';
-import { ProtractorPagesContext } from './ProtractorPagesContext';
 
 /**
  * @desc
@@ -24,11 +24,11 @@ export class ProtractorPage extends Page {
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
-        context: ProtractorPagesContext,
+        session: ProtractorBrowsingSession,
         private readonly browser: ProtractorBrowser,
         id: CorrelationId
     ) {
-        super(context, id);
+        super(session, id);
     }
 
     locate(selector: Selector): PageElement<ElementFinder> {
@@ -291,11 +291,11 @@ export class ProtractorPage extends Page {
     }
 
     async closeOthers(): Promise<void> {
-        await this.context.closePagesOtherThan(this);
+        await this.session.closePagesOtherThan(this);
     }
 
     async isPresent(): Promise<boolean> {
-        const allPages = await this.context.allPages();
+        const allPages = await this.session.allPages();
         for (const page of allPages) {
             if (page === this) {
                 return true;
@@ -305,13 +305,13 @@ export class ProtractorPage extends Page {
     }
 
     private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
-        const originalPage = await this.context.currentPage();
+        const originalPage = await this.session.currentPage();
 
-        await this.context.changeCurrentPageTo(this);
+        await this.session.changeCurrentPageTo(this);
 
         const result = await action();
 
-        await this.context.changeCurrentPageTo(originalPage);
+        await this.session.changeCurrentPageTo(originalPage);
 
         return result;
     }

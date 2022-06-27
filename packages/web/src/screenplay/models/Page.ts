@@ -4,11 +4,11 @@ import { URL } from 'url';
 
 import { Key } from '../../input';
 import { BrowseTheWeb } from '../abilities';
+import { BrowsingSession } from './BrowsingSession';
 import { Cookie } from './Cookie';
 import { CookieData } from './CookieData';
 import { PageElement } from './PageElement';
 import { PageElements } from './PageElements';
-import { PagesContext } from './PagesContext';
 import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
@@ -71,7 +71,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     constructor(
-        protected readonly context: PagesContext<Page<Native_Element_Type>>,
+        protected readonly session: BrowsingSession<Page<Native_Element_Type>>,
         public readonly id: CorrelationId,
     ) {
     }
@@ -362,13 +362,13 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      */
     async switchTo(): Promise<SwitchableOrigin> {
 
-        const originalPage = await this.context.currentPage();
+        const originalPage = await this.session.currentPage();
 
-        await this.context.changeCurrentPageTo(this);
+        await this.session.changeCurrentPageTo(this);
 
         return {
             switchBack: async (): Promise<void> => {
-                await this.context.changeCurrentPageTo(originalPage);
+                await this.session.changeCurrentPageTo(originalPage);
             }
         }
     }

@@ -11,7 +11,7 @@ import { Page } from './Page';
  *
  * @abstract
  */
-export abstract class PagesContext<Page_Type extends Page> {
+export abstract class BrowsingSession<Page_Type extends Page> {
     protected currentBrowserPage: Page_Type;
     protected readonly pages: Map<CorrelationId, Page_Type> = new Map<CorrelationId, Page_Type>();
 
@@ -50,7 +50,7 @@ export abstract class PagesContext<Page_Type extends Page> {
 
     /**
      * @desc
-     *  Registers given {@link Page}s to be managed by this {@link PagesContext}.
+     *  Registers given {@link Page}s to be managed by this {@link BrowsingSession}.
      *
      * @param {...Page[]} pages
      * @returns {void}
@@ -63,7 +63,7 @@ export abstract class PagesContext<Page_Type extends Page> {
 
     /**
      * @desc
-     *  Informs this {@link PagesContext} that it should no longer manage {@link Page}s
+     *  Informs this {@link BrowsingSession} that it should no longer manage {@link Page}s
      *  identified by the given `pageIds`.
      *
      * @param {...CorrelationId[]} pageIds
@@ -88,7 +88,7 @@ export abstract class PagesContext<Page_Type extends Page> {
 
     /**
      * @desc
-     *  Returns the ids of any {@link Page}s this {@link PagesContext} is aware of.
+     *  Returns the ids of any {@link Page}s this {@link BrowsingSession} is aware of.
      *
      * @returns {Array<CorrelationId>}
      */
@@ -98,7 +98,7 @@ export abstract class PagesContext<Page_Type extends Page> {
 
     /**
      * @desc
-     *  Informs the {@link PagesContext} that the "current page" has changed to `page`.
+     *  Informs the {@link BrowsingSession} that the "current page" has changed to `page`.
      *
      *  Please note that different Web integration tools have a different definition of what a "current page" is.
      *  For example, Selenium or WebdriverIO use a single "focused" window that a developer

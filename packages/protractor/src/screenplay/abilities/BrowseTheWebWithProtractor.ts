@@ -2,7 +2,7 @@ import { ConfigurationError } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, ModalDialog } from '@serenity-js/web';
 import * as protractor from 'protractor';
 
-import { ProtractorModalDialog, ProtractorPagesContext } from '../models';
+import { ProtractorBrowsingSession, ProtractorModalDialog } from '../models';
 import { promised } from '../promised';
 
 /**
@@ -53,7 +53,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
      *  An instance of a protractor browser
      */
     constructor(protected browser: protractor.ProtractorBrowser) {
-        super(new ProtractorPagesContext(browser));
+        super(new ProtractorBrowsingSession(browser));
     }
 
     async browserCapabilities(): Promise<BrowserCapabilities> {

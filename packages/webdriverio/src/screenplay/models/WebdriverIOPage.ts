@@ -5,9 +5,9 @@ import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOLocator } from './locators';
+import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
 import { WebdriverIOCookie } from './WebdriverIOCookie';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
-import { WebdriverIOPagesContext } from './WebdriverIOPagesContext';
 
 /**
  * @desc
@@ -23,11 +23,11 @@ export class WebdriverIOPage extends Page {
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
-        context: WebdriverIOPagesContext,
+        session: WebdriverIOBrowsingSession,
         private readonly browser: wdio.Browser<'async'>,
         id: CorrelationId,
     ) {
-        super(context, id);
+        super(session, id);
     }
 
     locate(selector: Selector): PageElement<wdio.Element<'async'>> {
@@ -233,11 +233,11 @@ export class WebdriverIOPage extends Page {
     }
 
     async closeOthers(): Promise<void> {
-        await this.context.closePagesOtherThan(this);
+        await this.session.closePagesOtherThan(this);
     }
 
     async isPresent(): Promise<boolean> {
-        const allPages = await this.context.allPages();
+        const allPages = await this.session.allPages();
         for (const page of allPages) {
             if (page === this) {
                 return true;
@@ -247,13 +247,13 @@ export class WebdriverIOPage extends Page {
     }
 
     private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
-        const originalPage = await this.context.currentPage();
+        const originalPage = await this.session.currentPage();
 
-        await this.context.changeCurrentPageTo(this);
+        await this.session.changeCurrentPageTo(this);
 
         const result = await action();
 
-        await this.context.changeCurrentPageTo(originalPage);
+        await this.session.changeCurrentPageTo(originalPage);
 
         return result;
     }

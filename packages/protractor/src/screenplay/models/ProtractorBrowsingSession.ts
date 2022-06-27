@@ -1,5 +1,5 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { PagesContext } from '@serenity-js/web';
+import { BrowsingSession } from '@serenity-js/web';
 import * as protractor from 'protractor';
 
 import { ProtractorPage } from '../models';
@@ -7,11 +7,11 @@ import { promised } from '../promised';
 
 /**
  * @desc
- *  Protractor-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~PagesContext}.
+ *  Protractor-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
  *
  * @see {@link @serenity-js/web/lib/screenplay/models~Page}
  */
-export class ProtractorPagesContext extends PagesContext<ProtractorPage> {
+export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
 
     constructor(protected readonly browser: protractor.ProtractorBrowser) {
         super();
@@ -19,7 +19,7 @@ export class ProtractorPagesContext extends PagesContext<ProtractorPage> {
 
     async allPages(): Promise<Array<ProtractorPage>> {
         // scan all the active window handles and add any newly opened windows if needed
-        const windowHandles: string[]            = await promised(this.browser.getAllWindowHandles());
+        const windowHandles: string[] = await promised(this.browser.getAllWindowHandles());
 
         // remove pages that are no longer open
         const closedPageIds = this.registeredPageIds()

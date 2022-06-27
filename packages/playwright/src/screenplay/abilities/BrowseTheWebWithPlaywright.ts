@@ -3,7 +3,7 @@ import { BrowserCapabilities, BrowseTheWeb, ModalDialog } from '@serenity-js/web
 import * as playwright from 'playwright-core';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';
-import { PlaywrightPagesContext } from '../models';
+import { PlaywrightBrowsingSession } from '../models';
 
 /**
  * @desc
@@ -53,18 +53,18 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discarda
      * @param {PlaywrightOptions} browserContextOptions
      */
     protected constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
-        super(new PlaywrightPagesContext(browser, browserContextOptions));
+        super(new PlaywrightBrowsingSession(browser, browserContextOptions));
     }
 
     /**
      * @desc
      *  Automatically closes any open {@link Page}s when the {@link SceneFinishes}
      *
-     * @see {@link PlaywrightPagesContext#closeAllPages}
+     * @see {@link PlaywrightBrowsingSession#closeAllPages}
      * @see {@link @serenity-js/core/lib/screenplay/abilities~Discardable}
      */
     async discard(): Promise<void> {
-        await this.pages.closeAllPages();
+        await this.session.closeAllPages();
     }
 
     /**
