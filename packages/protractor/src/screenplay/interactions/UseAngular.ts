@@ -1,6 +1,7 @@
 import { Interaction } from '@serenity-js/core';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
+import { ProtractorPage } from '../models';
 
 /**
  * @desc
@@ -52,8 +53,11 @@ export class UseAngular {
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     static disableSynchronisation(): Interaction {
-        return Interaction.where(`#actor disables synchronisation with Angular`, actor =>
-            (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).enableAngularSynchronisation(false).then(() => void 0));
+        return Interaction.where(`#actor disables synchronisation with Angular`, async actor => {
+            const page = await (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).currentPage() as ProtractorPage;
+
+            await page.enableAngularSynchronisation(false)
+        });
     }
 
     /**
@@ -64,7 +68,10 @@ export class UseAngular {
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     static enableSynchronisation(): Interaction {
-        return Interaction.where(`#actor enables synchronisation with Angular`, actor =>
-            (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).enableAngularSynchronisation(true).then(() => void 0));
+        return Interaction.where(`#actor enables synchronisation with Angular`,  async actor => {
+            const page = await (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).currentPage() as ProtractorPage;
+
+            await page.enableAngularSynchronisation(true)
+        });
     }
 }

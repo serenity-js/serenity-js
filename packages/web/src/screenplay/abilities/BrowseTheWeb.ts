@@ -1,7 +1,6 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 
-import { Key } from '../../input';
-import { Cookie, CookieData, ModalDialog, Page } from '../models';
+import { ModalDialog, Page, PagesContext } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
@@ -19,28 +18,21 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
         return actor.abilityTo(BrowseTheWeb) as BrowseTheWeb<NET>;
     }
 
-    abstract navigateTo(destination: string): Promise<void>;
-    abstract navigateBack(): Promise<void>;
-    abstract navigateForward(): Promise<void>;
-    abstract reloadPage(): Promise<void>;
+    /**
+     * @param {PagesContext<Page>} pages
+     *
+     * @protected
+     */
+    protected constructor(protected readonly pages: PagesContext<Page<Native_Element_Type>>) {
+    }
 
+    /**
+     * @desc
+     *  Returns basic meta-data about the browser associated with this ability.
+     *
+     * @returns {Promise<BrowserCapabilities>}
+     */
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
-
-    abstract sendKeys(keys: Array<Key | string>): Promise<void>;
-
-    abstract executeScript<Result, InnerArguments extends any[]>(
-        script: string | ((...parameters: InnerArguments) => Result),
-        ...args: InnerArguments
-    ): Promise<Result>;
-
-    abstract executeAsyncScript<Result, Parameters extends any[]>(
-        script: string | ((...args: [ ...parameters: Parameters, callback: (result: Result) => void ]) => void),
-        ...args: Parameters
-    ): Promise<Result>;
-
-    abstract lastScriptExecutionResult<R = any>(): R;
-
-    abstract takeScreenshot(): Promise<string>;
 
     /**
      * @desc
@@ -48,7 +40,9 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
      *
      * @returns {Promise<Page>}
      */
-    abstract currentPage(): Promise<Page<Native_Element_Type>>;
+    async currentPage(): Promise<Page<Native_Element_Type>> {
+        return this.pages.currentPage();
+    }
 
     /**
      * @desc
@@ -57,11 +51,9 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
      *
      * @returns {Promise<Array<Page>>}
      */
-    abstract allPages(): Promise<Array<Page<Native_Element_Type>>>;
-
-    abstract cookie(name: string): Promise<Cookie>;
-    abstract setCookie(cookieData: CookieData): Promise<void>;
-    abstract deleteAllCookies(): Promise<void>;
+    allPages(): Promise<Array<Page<Native_Element_Type>>> {
+        return this.pages.allPages();
+    }
 
     abstract modalDialog(): Promise<ModalDialog>;
 }

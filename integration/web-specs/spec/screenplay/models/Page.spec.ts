@@ -9,24 +9,25 @@ import { URL } from 'url';
 /** @test {Page} */
 describe('Page', () => {
 
+    const heading = Text.of(PageElement.located(By.css('h1')).describedAs('heading'));
+
+    const MainPage = {
+        title:          'Main page title',
+        newPopUpLink:   PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
+        newTabLink:     PageElement.located(By.id('new-tab-link')).describedAs('new tab link'),
+    };
+
+    const NewTab = {
+        title:      'New tab title',
+        heading:    'New tab',
+        closeLink:  PageElement.located(By.id('close')).describedAs('close window link'),
+    };
+
+    const Popup = {
+        expectedName:   'popup-window',         // defined in main_page.html
+    };
+
     describe('when managing the browsing context', () => {
-
-        const heading = Text.of(PageElement.located(By.css('h1')).describedAs('heading'));
-
-        const MainPage = {
-            title:          'Main page title',
-            newPopUpLink:   PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
-            newTabLink:     PageElement.located(By.id('new-tab-link')).describedAs('new tab link'),
-        };
-
-        const NewTab = {
-            title:      'New tab title',
-            heading:    'New tab',
-        };
-
-        const Popup = {
-            expectedName:   'popup-window',         // defined in main_page.html
-        };
 
         beforeEach(() =>
             actorCalled('Bernie').attemptsTo(
@@ -35,7 +36,7 @@ describe('Page', () => {
 
         afterEach(() =>
             actorCalled('Bernie').attemptsTo(
-                Page.whichUrl(includes(`/screenplay/models/page/main_page.html`)).switchTo(),
+                Switch.to(Page.whichUrl(includes(`/screenplay/models/page/main_page.html`))),
                 Page.current().closeOthers()
             ));
 
@@ -135,6 +136,44 @@ describe('Page', () => {
                     Ensure.that(Page.current().title(), equals(MainPage.title)),
                 ));
         });
+    });
+
+    describe('when managing closed windows', () => {
+
+        beforeEach(() =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to('/screenplay/models/page/main_page.html'),
+            ));
+
+        afterEach(() =>
+            actorCalled('Bernie').attemptsTo(
+                Switch.to(Page.whichUrl(includes(`/screenplay/models/page/main_page.html`))),
+                Page.current().closeOthers()
+            ));
+
+        it('correctly discards of Pages that have been closed by JavaScript', () =>
+            actorCalled('Bernie').attemptsTo(
+                Click.on(MainPage.newTabLink),
+
+                Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+
+                Switch.to(Page.whichTitle(equals(NewTab.title))).and(
+                    Click.on(NewTab.closeLink),
+                ),
+
+                Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+            ));
+
+        it('correctly discards of Pages that have been explicitly closed', () =>
+            actorCalled('Bernie').attemptsTo(
+                Click.on(MainPage.newTabLink),
+
+                Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+
+                Page.whichTitle(equals(NewTab.title)).close(),
+
+                Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+            ));
     });
 
     describe('when managing the viewport size', () => {

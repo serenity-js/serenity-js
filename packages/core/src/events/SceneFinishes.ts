@@ -3,6 +3,13 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, Outcome, ScenarioDetails, SerialisedOutcome, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @desc
+ *  Emitted by a Serenity/JS test runner adapter, right before a test and all its associated test hooks finish.
+ *  Triggers any clean-up operations that might be required, such as discarding of the {@link Discardable} abilities.
+ *
+ * @extends {DomainEvent}
+ */
 export class SceneFinishes extends DomainEvent {
     static fromJSON(o: JSONObject): SceneFinishes {
         return new SceneFinishes(
