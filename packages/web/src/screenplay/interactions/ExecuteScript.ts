@@ -246,8 +246,9 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
         return new ExecuteAsynchronousScript(this.script, args);
     }
 
-    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
-        return BrowseTheWeb.as(actor).executeAsyncScript(this.script as unknown as any, ...args);   // todo: fix types
+    protected async executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
+        const page = await BrowseTheWeb.as(actor).currentPage();
+        return page.executeAsyncScript(this.script as unknown as any, ...args);   // todo: fix types
     }
 
     toString(): string {
@@ -280,38 +281,39 @@ class ExecuteScriptFromUrl extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<any> {
-        return BrowseTheWeb.as(actor)
-            .executeAsyncScript(
-                /* istanbul ignore next */
-                function executeScriptFromUrl(sourceUrl: string, callback: (message?: string) => void) {
-                    const alreadyLoadedScripts = Array.prototype.slice
-                            .call(document.querySelectorAll('script'))
-                            .map(script => script.src);
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<any> {
+        const page = await BrowseTheWeb.as(actor).currentPage();
 
-                    if (~ alreadyLoadedScripts.indexOf(sourceUrl)) {
-                        return callback('Script from ' + sourceUrl + ' has already been loaded');
-                    }
+        return page.executeAsyncScript(
+            /* istanbul ignore next */
+            function executeScriptFromUrl(sourceUrl: string, callback: (message?: string) => void) {
+                const alreadyLoadedScripts = Array.prototype.slice
+                        .call(document.querySelectorAll('script'))
+                        .map(script => script.src);
 
-                    const script = document.createElement('script');
-                    script.addEventListener('load', function() {
-                        callback();
-                    });
-                    script.addEventListener('error', function () {
-                        return callback('Couldn\'t load script from ' + sourceUrl);
-                    });
-
-                    script.src = sourceUrl;
-                    script.async = true;
-                    document.head.append(script);
-                },
-                this.sourceUrl
-            )
-            .then(errorMessage => {
-                if (errorMessage) {
-                    throw new LogicError(errorMessage);
+                if (~ alreadyLoadedScripts.indexOf(sourceUrl)) {
+                    return callback('Script from ' + sourceUrl + ' has already been loaded');
                 }
-            });
+
+                const script = document.createElement('script');
+                script.addEventListener('load', function() {
+                    callback();
+                });
+                script.addEventListener('error', function () {
+                    return callback('Couldn\'t load script from ' + sourceUrl);
+                });
+
+                script.src = sourceUrl;
+                script.async = true;
+                document.head.append(script);
+            },
+            this.sourceUrl
+        )
+        .then(errorMessage => {
+            if (errorMessage) {
+                throw new LogicError(errorMessage);
+            }
+        });
     }
 
     /**
@@ -334,8 +336,9 @@ class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
         return new ExecuteSynchronousScript(this.script, args);
     }
 
-    protected executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
-        return BrowseTheWeb.as(actor).executeScript(this.script as unknown as any, ...args);    // todo fix type
+    protected async executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
+        const page = await BrowseTheWeb.as(actor).currentPage();
+        return page.executeScript(this.script as unknown as any, ...args);    // todo fix type
     }
 
     toString(): string {

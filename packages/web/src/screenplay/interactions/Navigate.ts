@@ -90,9 +90,11 @@ export class Navigate {
      * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
      */
     static back(): Interaction {
-        return Interaction.where(`#actor navigates back in the browser history`, actor =>
-            BrowseTheWeb.as(actor).navigateBack(),
-        );
+        return Interaction.where(`#actor navigates back in the browser history`, async actor => {
+            const page = await BrowseTheWeb.as(actor).currentPage();
+
+            await page.navigateBack();
+        });
     }
 
     /**
@@ -125,9 +127,11 @@ export class Navigate {
      * @see https://webdriver.io/docs/api/webdriver/#forward
      */
     static forward(): Interaction {
-        return Interaction.where(`#actor navigates forward in the browser history`, actor =>
-            BrowseTheWeb.as(actor).navigateForward(),
-        );
+        return Interaction.where(`#actor navigates forward in the browser history`, async actor => {
+            const page = await BrowseTheWeb.as(actor).currentPage();
+
+            await page.navigateForward();
+        });
     }
 
     /**
@@ -157,9 +161,11 @@ export class Navigate {
      * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
      */
     static reloadPage(): Interaction {
-        return Interaction.where(`#actor reloads the page`, actor =>
-            BrowseTheWeb.as(actor).reloadPage(),
-        );
+        return Interaction.where(`#actor reloads the page`, async actor => {
+            const page = await BrowseTheWeb.as(actor).currentPage();
+
+            await page.reload();
+        });
     }
 }
 
@@ -186,15 +192,13 @@ class NavigateToUrl extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        return actor.answer(this.url)
-            .then(url =>
-                BrowseTheWeb.as(actor)
-                    .navigateTo(url)
-                    .catch(error => {
-                        throw new TestCompromisedError(`Couldn't navigate to ${ url }`, error);
-                    })
-            )
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        const url = await actor.answer(this.url);
+        const page = await BrowseTheWeb.as(actor).currentPage();
+
+        return page.navigateTo(url).catch(error => {
+            throw new TestCompromisedError(`Couldn't navigate to ${ url }`, error);
+        });
     }
 
     /**

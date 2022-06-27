@@ -5,6 +5,7 @@ export * from './ModalDialog';
 export * from './Page';
 export * from './PageElement';
 export * from './PageElements';
+export * from './PagesContext';
 export * from './selectors';
 export * from './Switchable';
 export * from './SwitchableOrigin';

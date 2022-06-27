@@ -10,5 +10,13 @@
  * @public
  */
 export interface Discardable {
-    discard(): Promise<void> | void;
+
+    /**
+     * @desc
+     *  Discards the resources associated with this ability.
+     *
+     * @type {function(): Promise<void>|void}
+     * @public
+     */
+    discard: () => Promise<void> | void;
 }

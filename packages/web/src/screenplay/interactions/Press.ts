@@ -96,8 +96,9 @@ export class Press extends PageElementInteraction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const keys  = await actor.answer(this.keys);
-        return BrowseTheWeb.as(actor).sendKeys(keys);
+        const keys = await actor.answer(this.keys);
+        const page = await BrowseTheWeb.as(actor).currentPage();
+        return page.sendKeys(keys);
     }
 }
 
@@ -119,9 +120,10 @@ class PressKeyInField extends PageElementInteraction {
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
+        const page  = await BrowseTheWeb.as(actor).currentPage();
 
         // fix for protractor
-        await BrowseTheWeb.as(actor).executeScript(
+        await page.executeScript(
             /* istanbul ignore next */
             function focus(element: any) {
                 element.focus();
@@ -129,7 +131,7 @@ class PressKeyInField extends PageElementInteraction {
             await field.nativeElement(),
         );
 
-        return BrowseTheWeb.as(actor).sendKeys(keys);
+        return page.sendKeys(keys);
     }
 }
 

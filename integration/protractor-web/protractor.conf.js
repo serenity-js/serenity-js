@@ -41,6 +41,11 @@ exports.config = {
 
     mochaOpts: {
         timeout: 60_000,
+        // ts-node is already loaded by nyc when protractor is executed via npm test
+        require: [
+            'ts-node/register',
+        ],
+        reporter: 'spec',
     },
 
     chromeDriver: require(`chromedriver`).path,

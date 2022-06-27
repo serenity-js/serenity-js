@@ -6,6 +6,12 @@ import { CookieMissingError } from '../../errors';
 import { BrowseTheWeb } from '../abilities';
 import { CookieData } from './CookieData';
 
+/**
+ * @desc
+ *  A Screenplay Pattern-style model responsible for managing cookies available to the {@link Page}s.
+ *
+ * @implements {@serenity-js/core/lib/screenplay~Optional}
+ */
 export abstract class Cookie implements Optional {
 
     /**
@@ -17,8 +23,9 @@ export abstract class Cookie implements Optional {
      */
     static called(name: Answerable<string>): QuestionAdapter<Cookie> {
         return Question.about(`"${ name }" cookie`, async actor => {
-            const cookieName = await actor.answer(name);
-            return BrowseTheWeb.as(actor).cookie(cookieName);
+            const cookieName    = await actor.answer(name);
+            const page          = await BrowseTheWeb.as(actor).currentPage();
+            return page.cookie(cookieName);
         });
     }
 
@@ -36,6 +43,8 @@ export abstract class Cookie implements Optional {
         return Interaction.where(formatted `#actor sets cookie: ${ cookieData }`, async actor => {
             const cookie = ensure('cookieData', await actor.answer(cookieData), isDefined(), isPlainObject());
 
+            const page = await BrowseTheWeb.as(actor).currentPage();
+
             const sanitisedCookieData: CookieData = {
                 name:         ensure(`Cookie.set(cookieData.name)`,     cookie.name,  isDefined(), isString()),
                 value:        ensure(`Cookie.set(cookieData.value)`,    cookie.value, isDefined(), isString()),
@@ -47,7 +56,7 @@ export abstract class Cookie implements Optional {
                 sameSite:     ensureIfPresent(cookie, 'sameSite',   isOneOf<'Lax' | 'Strict' | 'None'>('Lax', 'Strict', 'None')),
             }
 
-            return BrowseTheWeb.as(actor).setCookie(sanitisedCookieData);
+            return page.setCookie(sanitisedCookieData);
         });
     }
 
@@ -58,8 +67,9 @@ export abstract class Cookie implements Optional {
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     static deleteAll(): Interaction {
-        return Interaction.where(`#actor deletes all cookies`, actor => {
-            return BrowseTheWeb.as(actor).deleteAllCookies();
+        return Interaction.where(`#actor deletes all cookies`, async actor => {
+            const page = await BrowseTheWeb.as(actor).currentPage();
+            await page.deleteAllCookies();
         });
     }
 
@@ -69,6 +79,12 @@ export abstract class Cookie implements Optional {
         ensure('browser', cookieName, isDefined());
     }
 
+    /**
+     * @desc
+     *  Returns the name of this cookie.
+     *
+     * @returns {string}
+     */
     name(): string {
         return this.cookieName;
     }

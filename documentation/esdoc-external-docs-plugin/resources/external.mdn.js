@@ -21,3 +21,11 @@
 /**
  * @external {Proxy} https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
  */
+
+/**
+ * @external {window.history.back} https://developer.mozilla.org/en-US/docs/Web/API/History/back
+ */
+
+/**
+ * @external {window.history.forward} https://developer.mozilla.org/en-US/docs/Web/API/History/forward
+ */

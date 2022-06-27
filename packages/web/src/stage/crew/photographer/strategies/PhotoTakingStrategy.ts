@@ -65,7 +65,8 @@ export abstract class PhotoTakingStrategy {
 
         try {
             const capabilities  = await browseTheWeb.browserCapabilities();
-            const screenshot    = await browseTheWeb.takeScreenshot();
+            const page          = await browseTheWeb.currentPage();
+            const screenshot    = await page.takeScreenshot();
 
             const
                 context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],
