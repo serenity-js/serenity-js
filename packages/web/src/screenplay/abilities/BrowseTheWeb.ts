@@ -1,6 +1,6 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 
-import { ModalDialog, Page, PagesContext } from '../models';
+import { BrowsingSession, ModalDialog, Page } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
@@ -19,11 +19,11 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
     }
 
     /**
-     * @param {PagesContext<Page>} pages
+     * @param {BrowsingSession<Page>} session
      *
      * @protected
      */
-    protected constructor(protected readonly pages: PagesContext<Page<Native_Element_Type>>) {
+    protected constructor(protected readonly session: BrowsingSession<Page<Native_Element_Type>>) {
     }
 
     /**
@@ -41,7 +41,7 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
      * @returns {Promise<Page>}
      */
     async currentPage(): Promise<Page<Native_Element_Type>> {
-        return this.pages.currentPage();
+        return this.session.currentPage();
     }
 
     /**
@@ -52,7 +52,7 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
      * @returns {Promise<Array<Page>>}
      */
     allPages(): Promise<Array<Page<Native_Element_Type>>> {
-        return this.pages.allPages();
+        return this.session.allPages();
     }
 
     abstract modalDialog(): Promise<ModalDialog>;

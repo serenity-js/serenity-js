@@ -1,17 +1,17 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { PagesContext } from '@serenity-js/web';
+import { BrowsingSession } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOPage } from '../models';
 
 /**
  * @desc
- *  WebdriverIO-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~PagesContext}.
+ *  WebdriverIO-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~PagesContext}
+ * @see {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}
  */
-export class WebdriverIOPagesContext extends PagesContext<WebdriverIOPage> {
+export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
 
     constructor(protected readonly browser: wdio.Browser<'async'>) {
         super();
@@ -23,7 +23,7 @@ export class WebdriverIOPagesContext extends PagesContext<WebdriverIOPage> {
 
     async allPages(): Promise<Array<WebdriverIOPage>> {
         // scan all the active window handles and add any newly opened windows if needed
-        const windowHandles: string[]            = await this.browser.getWindowHandles();
+        const windowHandles: string[] = await this.browser.getWindowHandles();
 
         // remove pages that are no longer open
         const closedPageIds = this.registeredPageIds()

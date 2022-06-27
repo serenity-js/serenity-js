@@ -7,8 +7,8 @@ import * as structs from 'playwright-core/types/structs';
 import { URL } from 'url';
 
 import { PlaywrightLocator } from './locators';
+import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
-import { PlaywrightPagesContext } from './PlaywrightPagesContext';
 
 /**
  * @desc
@@ -23,11 +23,11 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
-        context: PlaywrightPagesContext,
+        session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
         pageId: CorrelationId,
     ) {
-        super(context, pageId);
+        super(session, pageId);
     }
 
     locate(selector: Selector): PageElement<playwright.ElementHandle> {
@@ -159,7 +159,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     }
 
     async cookie(name: string): Promise<Cookie> {
-        return (this.context as PlaywrightPagesContext).cookie(name);
+        return (this.session as PlaywrightBrowsingSession).cookie(name);
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
@@ -181,11 +181,11 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
             sameSite:   cookieData.sameSite,
         };
 
-        return (this.context as PlaywrightPagesContext).setCookie(cookie);
+        return (this.session as PlaywrightBrowsingSession).setCookie(cookie);
     }
 
     async deleteAllCookies(): Promise<void> {
-        await (this.context as PlaywrightPagesContext).deleteAllCookies();
+        await (this.session as PlaywrightBrowsingSession).deleteAllCookies();
     }
 
     title(): Promise<string> {
@@ -217,7 +217,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     }
 
     async closeOthers(): Promise<void> {
-        await this.context.closePagesOtherThan(this);
+        await this.session.closePagesOtherThan(this);
     }
 
     async isPresent(): Promise<boolean> {

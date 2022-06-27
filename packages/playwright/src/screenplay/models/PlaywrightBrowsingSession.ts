@@ -1,5 +1,5 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { Cookie, CookieData, PagesContext } from '@serenity-js/web';
+import { BrowsingSession, Cookie, CookieData } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';
@@ -7,11 +7,11 @@ import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
  * @desc
- *  Playwright-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~PagesContext}.
+ *  Playwright-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~PagesContext}
+ * @see {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}
  */
-export class PlaywrightPagesContext extends PagesContext<PlaywrightPage> {
+export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
     private currentPlaywrightBrowserContext: playwright.BrowserContext;
 
