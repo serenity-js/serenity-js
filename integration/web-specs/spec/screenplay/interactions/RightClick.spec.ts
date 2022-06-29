@@ -17,7 +17,7 @@ describe('RightClick', () => {
     it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
         Navigate.to('/screenplay/interactions/right-click/example.html'),
 
-        Ensure.that(Text.of(Form.result), equals('')),
+        Ensure.that(Text.of(Form.result), equals('No result yet')),
         RightClick.on(Form.inputField),
         Ensure.that(Text.of(Form.result), equals('Test for right click.')),
     ));
