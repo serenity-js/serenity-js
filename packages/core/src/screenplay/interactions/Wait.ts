@@ -280,10 +280,15 @@ export class WaitUntil<Actual> extends Interaction {
         let pollerId: NodeJS.Timeout,
             timeoutId: NodeJS.Timeout,
             expectationOutcome: ExpectationOutcome<any, Actual>,
-            thrown: Error;
+            errorThrown: Error,
+            timeoutExpired = false;
 
         const poll = (resolve: () => void, reject: (error: Error) => void) => async () => {
             clearTimeout(pollerId);
+
+            if (timeoutExpired) {
+                return;
+            }
 
             try {
                 expectationOutcome = await actor.answer(
@@ -296,8 +301,9 @@ export class WaitUntil<Actual> extends Interaction {
                 }
 
                 pollerId = setTimeout(poll(resolve, reject), this.pollingInterval.inMilliseconds());
-
-            } catch (error) {
+            }
+            catch (error) {
+                clearTimeout(pollerId);
                 clearTimeout(timeoutId);
 
                 return reject(error);
@@ -314,14 +320,16 @@ export class WaitUntil<Actual> extends Interaction {
                     clearTimeout(pollerId);
                     clearTimeout(timeoutId);
 
+                    timeoutExpired = true;
+
                     reject(new AssertionError(
                         d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
                         expectationOutcome?.expected,
                         expectationOutcome?.actual,
-                        thrown
+                        errorThrown
                     ));
 
-                }, this.timeout.inMilliseconds())
+                }, this.timeout.inMilliseconds());
             });
 
         return Promise.race([
