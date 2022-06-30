@@ -1,6 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogObstructsScreenshotError, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
@@ -197,8 +197,28 @@ export class ProtractorPage extends Page {
     }
 
     takeScreenshot(): Promise<string> {
-        return this.switchToAndPerform(() => {
-            return promised(this.browser.takeScreenshot());
+        return this.switchToAndPerform(async () => {
+            try {
+                return await promised(this.browser.takeScreenshot());
+            }
+            catch (error) {
+
+                if (error.name && error.name === 'NoSuchSessionError') {
+                    throw new BrowserWindowClosedError(
+                        'Browser window is not available to take a screenshot',
+                        error,
+                    );
+                }
+
+                if (error.name && error.name === 'UnexpectedAlertOpenError') {
+                    throw new ModalDialogObstructsScreenshotError(
+                        'A JavaScript dialog is open, which prevents taking a screenshot. Please use ModalDialog to dismiss it, or change your unhandledPromptBehavior configuration to do it automatically.',
+                        error,
+                    );
+                }
+
+                throw error;
+            }
         });
     }
 
