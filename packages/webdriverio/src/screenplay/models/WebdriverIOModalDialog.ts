@@ -13,6 +13,7 @@ export class WebdriverIOModalDialog extends ModalDialog {
     dismiss(): Promise<void> {
         return this.browser.dismissAlert();
     }
+
     text(): Promise<string> {
         return this.browser.getAlertText();
     }

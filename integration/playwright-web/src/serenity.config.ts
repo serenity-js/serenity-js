@@ -1,6 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver, configure } from '@serenity-js/core';
+import { ArtifactArchiver, configure, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Browser, chromium } from 'playwright';
 
@@ -15,7 +15,11 @@ export const mochaHooks = {
         });
 
         configure({
-            actors: new Actors(browser, `http://localhost:${ process.env.PORT || '8080' }`),
+            actors: new Actors(browser, {
+                baseURL: `http://localhost:${ process.env.PORT || '8080' }`,
+                defaultNavigationTimeout:   Duration.ofSeconds(1).inMilliseconds(),
+                defaultTimeout:             Duration.ofSeconds(1).inMilliseconds(),
+            }),
             crew: [
                 new TestRunnerTagger('playwright'),
                 ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
@@ -29,7 +33,7 @@ export const mochaHooks = {
 
     async afterAll(): Promise<void> {
         if (browser) {
-            return browser.close()
+            await browser.close()
         }
     }
 }

@@ -1,6 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogObstructsScreenshotError, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
@@ -139,8 +139,43 @@ export class WebdriverIOPage extends Page {
             : undefined;
     }
 
-    takeScreenshot(): Promise<string> {
-        return this.browser.takeScreenshot();
+    private async isAlertPresent() {
+        try {
+            await this.browser.getAlertText()
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    async takeScreenshot(): Promise<string> {
+        // Puppeteer hangs if there's an alert present - https://github.com/puppeteer/puppeteer/issues/2481
+        if (this.browser.isDevTools && await this.isAlertPresent()) {
+            throw new ModalDialogObstructsScreenshotError('Puppeteer will hang if you attempt to take screenshot when a modal dialog is open (see puppeteer/puppeteer#2481)');
+        }
+
+        try {
+            return await this.browser.takeScreenshot();
+        }
+        catch (error) {
+
+            if (error.name === 'unexpected alert open') {
+                throw new ModalDialogObstructsScreenshotError(
+                    'A JavaScript dialog is open, which prevents taking a screenshot. ' +
+                    'Please use ModalDialog to dismiss it, or change your unhandledPromptBehavior configuration to do it automatically.',
+                    error,
+                );
+            }
+
+            if (error.name === 'ProtocolError' && error.message.includes('Target closed')) {
+                throw new BrowserWindowClosedError(
+                    `Couldn't take screenshot since the browser window is already closed`,
+                    error
+                );
+            }
+
+            throw error;
+        }
     }
 
     async cookie(name: string): Promise<Cookie> {

@@ -1,4 +1,4 @@
-import { Stage } from '@serenity-js/core';
+import { LogicError, Stage } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 
@@ -48,21 +48,6 @@ export abstract class PhotoTakingStrategy {
             id,
         ));
 
-        let dialogIsPresent: boolean;
-
-        try {
-            dialogIsPresent = await browseTheWeb.modalDialog().then(dialog => dialog.isPresent());
-
-            if (dialogIsPresent) {
-                return stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of a modal dialog obstructing the view`),
-                    id,
-                ));
-            }
-        } catch (error) {
-            return stage.announce(new AsyncOperationFailed(error, id));
-        }
-
         try {
             const capabilities  = await browseTheWeb.browserCapabilities();
             const page          = await browseTheWeb.currentPage();
@@ -106,12 +91,7 @@ export abstract class PhotoTakingStrategy {
     }
 
     private shouldIgnore(error: Error) {
-        return error.name && (
-            error.name === 'NoSuchSessionError' ||
-            (error.name === 'ProtocolError' && error.message.includes('Target closed'))
-        );
-        // todo: add SauceLabs
-        //  [0-0] 2021-12-02T01:32:36.402Z ERROR webdriver: Request failed with status 404 due to no such window: no such window: target window already closed
-        //  [0-0] from unknown error: web view not found
+        return error instanceof LogicError
+            || (error.name && error.name === LogicError.name);
     }
 }

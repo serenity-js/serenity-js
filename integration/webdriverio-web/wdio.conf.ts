@@ -62,6 +62,7 @@ const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
         browserName:    'chrome',
         browserVersion: 'latest',
         platformName:   'windows',
+        unhandledPromptBehavior: 'ignore',  // because we need to test ModalDialog interactions
         ...sauceCapabilities,
     }],
 };

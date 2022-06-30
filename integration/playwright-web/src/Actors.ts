@@ -1,11 +1,11 @@
-import { Actor, Cast, Duration, TakeNotes } from '@serenity-js/core';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { Actor, Cast, TakeNotes } from '@serenity-js/core';
+import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright';
 import { Browser } from 'playwright';
 
 export class Actors implements Cast {
     constructor(
         private readonly browser: Browser,
-        private readonly baseURL: string,
+        private readonly options: PlaywrightOptions,
     ) {
     }
 
@@ -15,11 +15,7 @@ export class Actors implements Cast {
         }
 
         return actor.whoCan(
-            BrowseTheWebWithPlaywright.using(this.browser, {
-                baseURL:                    this.baseURL,
-                defaultNavigationTimeout:   Duration.ofSeconds(2).inMilliseconds(),
-                defaultTimeout:             Duration.ofSeconds(2).inMilliseconds(),
-            }),
+            BrowseTheWebWithPlaywright.using(this.browser, this.options),
             TakeNotes.usingAnEmptyNotepad(),
         );
     }

@@ -170,11 +170,11 @@ describe('ModalDialog', () => {
     describe('when interacting with the Photographer,', () => {
 
         /** @test {Photographer} */
-        it('is does not negatively impact the screenshot capture process', () => {
+        it('is does not negatively impact the screenshot capture process', async () => {
 
-            const frozenClock = new Clock(() => new Date('1970-01-01'));
+            const clock = new Clock();
             const actors = (serenity as any).stage.cast
-            const localSerenity = new Serenity(frozenClock);
+            const localSerenity = new Serenity(clock);
             const recorder = new EventRecorder();
 
             localSerenity.configure({
@@ -185,23 +185,23 @@ describe('ModalDialog', () => {
                 ],
             });
 
-            return localSerenity.theActorCalled('Nick').attemptsTo(
+            await localSerenity.theActorCalled('Nick').attemptsTo(
                 Navigate.to(`/screenplay/models/modal-dialog/void-alert.html`),
                 Click.on(Example.trigger),
                 ModalDialog.window().accept()
                     .describedAs('#actor accepts the modal dialog window'),
-            ).then(() => {
-                PickEvent.from(recorder.events)
-                    .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
-                        expect(taskDescription.value).to.include(`Took screenshot of 'Nick navigates`);
-                    })
-                    .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
-                        expect(taskDescription.value).to.include(`Aborted taking screenshot of 'Nick clicks on the alert trigger' because of a modal dialog obstructing the view`);
-                    })
-                    .next(InteractionFinished, ({ details }: InteractionFinished) => {
-                        expect(details.name).to.equal(new Name('Nick accepts the modal dialog window'));
-                    })
-            });
+            )
+
+            PickEvent.from(recorder.events)
+                .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
+                    expect(taskDescription.value).to.include(`Took screenshot of 'Nick navigates`);
+                })
+                .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
+                    expect(taskDescription.value).to.include(`Aborted taking screenshot of 'Nick clicks on the alert trigger'`);
+                })
+                .next(InteractionFinished, ({ details }: InteractionFinished) => {
+                    expect(details.name).to.equal(new Name('Nick accepts the modal dialog window'));
+                })
         });
     });
 });
