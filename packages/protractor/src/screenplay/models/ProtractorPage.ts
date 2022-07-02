@@ -5,7 +5,7 @@ import { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
-import { ProtractorLocator, ProtractorNativeElementRoot } from './locators';
+import { ProtractorLocator, ProtractorRootLocator } from './locators';
 import { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
 import { ProtractorCookie } from './ProtractorCookie';
 import { ProtractorPageElement } from './ProtractorPageElement';
@@ -23,33 +23,29 @@ export class ProtractorPage extends Page {
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
+    /**
+     * @private
+     */
+    private rootLocator: ProtractorRootLocator;
+
     constructor(
         session: ProtractorBrowsingSession,
         private readonly browser: ProtractorBrowser,
         id: CorrelationId
     ) {
         super(session, id);
+        this.rootLocator = new ProtractorRootLocator(this.browser);
     }
 
     locate(selector: Selector): PageElement<ElementFinder> {
-        const parentRoot: ProtractorNativeElementRoot = {
-            element: this.browser.element.bind(this.browser),
-            all: this.browser.element.all.bind(this.browser),
-        }
-
         return new ProtractorPageElement(
-            new ProtractorLocator(() => parentRoot, selector)
+            new ProtractorLocator(this.rootLocator, selector)
         )
     }
 
     locateAll(selector: Selector): PageElements<ElementFinder> {
-        const parentRoot: ProtractorNativeElementRoot = {
-            element: this.browser.element.bind(this.browser),
-            all: this.browser.element.all.bind(this.browser),
-        }
-
         return new PageElements(
-            new ProtractorLocator(() => parentRoot, selector)
+            new ProtractorLocator(this.rootLocator, selector)
         );
     }
 

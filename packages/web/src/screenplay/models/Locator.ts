@@ -1,25 +1,39 @@
 import { PageElement } from './PageElement';
+import { RootLocator } from './RootLocator';
 import { Selector } from './selectors';
 
-// todo: remove Native_Selector_Type once Native_Root_Element_Type is an interface
-export abstract class Locator<Native_Element_Type, Native_Root_Element_Type = any, Native_Selector_Type = any> {
-    constructor(
-        protected readonly parentRoot: () => Promise<Native_Root_Element_Type> | Native_Root_Element_Type,
-        protected readonly selector: Selector,
+export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
+    extends RootLocator<Native_Element_Type>
+{
+    protected constructor(
+        protected readonly parent: RootLocator<Native_Element_Type>,
+        public readonly selector: Selector,
     ) {
+        super();
+    }
+
+    public abstract nativeElement(): Promise<Native_Element_Type>;
+    public abstract allNativeElements(): Promise<Array<Native_Element_Type>>;
+
+    async switchToFrame(element: Native_Element_Type): Promise<void> {
+        await this.parent.switchToFrame(element);
+    }
+
+    async switchToParentFrame(): Promise<void> {
+        await this.parent.switchToParentFrame();
+    }
+
+    async switchToMainFrame(): Promise<void> {
+        await this.parent.switchToMainFrame();
     }
 
     protected abstract nativeSelector(): Native_Selector_Type;
-    public abstract nativeElement(): Promise<Native_Element_Type>;
-    protected abstract allNativeElements(): Promise<Array<Native_Element_Type>>;
 
-    abstract of(parent: Locator<Native_Element_Type, Native_Root_Element_Type>): Locator<Native_Element_Type, Native_Root_Element_Type>;
-    abstract locate(child: Locator<Native_Element_Type, Native_Root_Element_Type>): Locator<Native_Element_Type, Native_Root_Element_Type>;
+    abstract of(parent: RootLocator<Native_Element_Type>): Locator<Native_Element_Type>;
+    abstract locate(child: Locator<Native_Element_Type>): Locator<Native_Element_Type>;
 
-    // todo: remove?
     abstract element(): PageElement<Native_Element_Type>;
 
-    // todo: remove?
     abstract allElements(): Promise<Array<PageElement<Native_Element_Type>>>;
 
     toString(): string {

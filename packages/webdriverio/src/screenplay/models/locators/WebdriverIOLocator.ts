@@ -1,11 +1,18 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOPageElement } from '../WebdriverIOPageElement';
-import { WebdriverIONativeElementRoot } from './WebdriverIONativeElementRoot';
+import { WebdriverIORootLocator } from './WebdriverIORootLocator';
 
-export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, WebdriverIONativeElementRoot, string> {
+export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
+
+    constructor(
+        parent: RootLocator<wdio.Element<'async'>>,
+        selector: Selector,
+    ) {
+        super(parent, selector);
+    }
 
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): string {
@@ -32,26 +39,22 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, Webdriver
         throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
-    // todo: refactor; lift method to Locator
     async nativeElement(): Promise<wdio.Element<'async'>> {
-        const parent = await this.parentRoot();
+        const parent = await this.parent.nativeElement();
         return parent.$(this.nativeSelector());
     }
 
-    // todo: refactor; lift method to Locator
-    protected async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
-        const parent = await this.parentRoot();
+    async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
+        const parent = await this.parent.nativeElement();
         return parent.$$(this.nativeSelector());
     }
 
-    // todo: can I lift this?
-    of(parent: WebdriverIOLocator): Locator<wdio.Element<'async'>, WebdriverIONativeElementRoot> {
-        return new WebdriverIOLocator(() => parent.nativeElement(), this.selector);
+    of(parent: WebdriverIOLocator): Locator<wdio.Element<'async'>, string> {
+        return new WebdriverIOLocator(parent, this.selector);
     }
 
-    // todo: can I lift this?
-    locate(child: WebdriverIOLocator): Locator<wdio.Element<'async'>, WebdriverIONativeElementRoot> {
-        return new WebdriverIOLocator(() => this.nativeElement(), child.selector);
+    locate(child: WebdriverIOLocator): Locator<wdio.Element<'async'>, string> {
+        return new WebdriverIOLocator(this, child.selector);
     }
 
     element(): PageElement<wdio.Element<'async'>> {
@@ -64,7 +67,7 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, Webdriver
         return elements.map(childElement =>
             new WebdriverIOPageElement(
                 new ExistingElementLocator(
-                    () => this.parentRoot(),
+                    this.parent as WebdriverIORootLocator,
                     this.selector,
                     childElement
                 )
@@ -78,7 +81,7 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, Webdriver
  */
 class ExistingElementLocator extends WebdriverIOLocator {
     constructor(
-        parentRoot: () => Promise<WebdriverIONativeElementRoot> | WebdriverIONativeElementRoot,
+        parentRoot: RootLocator<wdio.Element<'async'>>,
         selector: Selector,
         private readonly existingNativeElement: wdio.Element<'async'>,
     ) {
@@ -89,7 +92,7 @@ class ExistingElementLocator extends WebdriverIOLocator {
         return this.existingNativeElement;
     }
 
-    protected async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
+    async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
         return [ this.existingNativeElement ];
     }
 }

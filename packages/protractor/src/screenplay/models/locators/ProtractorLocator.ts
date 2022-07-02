@@ -1,13 +1,19 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as protractor from 'protractor';
-import { ElementFinder } from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
 import { ProtractorPageElement } from '../ProtractorPageElement';
-import { ProtractorNativeElementRoot } from './ProtractorNativeElementRoot';
+import { ProtractorRootLocator } from './ProtractorRootLocator';
 
-export class ProtractorLocator extends Locator<protractor.ElementFinder, ProtractorNativeElementRoot, protractor.Locator> {
+export class ProtractorLocator extends Locator<protractor.ElementFinder, protractor.Locator> {
+
+    constructor(
+        parent: RootLocator<protractor.ElementFinder>,
+        selector: Selector,
+    ) {
+        super(parent, selector);
+    }
 
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): protractor.Locator {
@@ -38,22 +44,21 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, Protrac
 
     // todo: refactor; lift method to Locator
     async nativeElement(): Promise<protractor.ElementFinder> {
-        const parent = await this.parentRoot();
+        const parent = await this.parent.nativeElement();
         return unpromisedWebElement(parent.element(this.nativeSelector()));
     }
 
-    // todo: refactor; lift method to Locator
-    protected async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
-        const parent = await this.parentRoot();
+    async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
+        const parent = await this.parent.nativeElement();
         return parent.all(this.nativeSelector()) as unknown as Array<protractor.ElementFinder>;
     }
 
-    of(parent: ProtractorLocator): Locator<protractor.ElementFinder, ProtractorNativeElementRoot, protractor.Locator> {
-        return new ProtractorLocator(() => parent.nativeElement(), this.selector);
+    of(parent: ProtractorLocator): Locator<protractor.ElementFinder, protractor.Locator> {
+        return new ProtractorLocator(parent, this.selector);
     }
 
-    locate(child: ProtractorLocator): Locator<protractor.ElementFinder, ProtractorNativeElementRoot, any> {
-        return new ProtractorLocator(() => this.nativeElement(), child.selector);
+    locate(child: ProtractorLocator): Locator<protractor.ElementFinder, any> {
+        return new ProtractorLocator(this, child.selector);
     }
 
     element(): PageElement<protractor.ElementFinder> {
@@ -66,7 +71,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, Protrac
         return Promise.all(elements.map(childElement =>
             new ProtractorPageElement(
                 new ExistingElementLocator(
-                    this.parentRoot,
+                    this.parent as ProtractorRootLocator,
                     this.selector,
                     unpromisedWebElement(childElement)
                 )
@@ -80,18 +85,18 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, Protrac
  */
 class ExistingElementLocator extends ProtractorLocator {
     constructor(
-        parentRoot: () => Promise<ProtractorNativeElementRoot> | ProtractorNativeElementRoot,
+        parent: ProtractorRootLocator,
         selector: Selector,
-        private readonly existingNativeElement: ElementFinder,
+        private readonly existingNativeElement: protractor.ElementFinder,
     ) {
-        super(parentRoot, selector);
+        super(parent, selector);
     }
 
-    async nativeElement(): Promise<ElementFinder> {
+    async nativeElement(): Promise<protractor.ElementFinder> {
         return this.existingNativeElement;
     }
 
-    protected async allNativeElements(): Promise<Array<ElementFinder>> {
+    async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
         return [ this.existingNativeElement ];
     }
 }

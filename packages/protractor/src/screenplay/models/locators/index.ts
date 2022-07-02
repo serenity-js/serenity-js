@@ -1,2 +1,2 @@
 export * from './ProtractorLocator';
-export * from './ProtractorNativeElementRoot';
+export * from './ProtractorRootLocator';
