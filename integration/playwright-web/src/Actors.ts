@@ -1,10 +1,10 @@
 import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright';
-import { Browser } from 'playwright';
+import * as playwright from 'playwright-core';
 
 export class Actors implements Cast {
     constructor(
-        private readonly browser: Browser,
+        private readonly browser: playwright.Browser,
         private readonly options: PlaywrightOptions,
     ) {
     }

@@ -43,7 +43,7 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
         const parent = await this.parent.nativeElement();
 
         if (! parent) {
-            return;
+            throw new LogicError(`Couldn't find parent element ${ this.parent } of ${ this }`);
         }
 
         await parent.waitForSelector(this.nativeSelector());
