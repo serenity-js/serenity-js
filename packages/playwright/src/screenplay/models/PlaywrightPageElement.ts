@@ -1,6 +1,9 @@
 import { LogicError } from '@serenity-js/core';
 import { PageElement, SwitchableOrigin } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
+import { ensure, isDefined } from 'tiny-types';
+
+import { PlaywrightLocator } from './locators';
 
 export class PlaywrightPageElement extends PageElement<playwright.ElementHandle> {
     of(parent: PageElement<playwright.ElementHandle>): PageElement<playwright.ElementHandle> {
@@ -64,8 +67,37 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         return element.inputValue();
     }
 
-    switchTo(): Promise<SwitchableOrigin> {
-        throw new Error('Method not implemented. switchTo');
+    async switchTo(): Promise<SwitchableOrigin> {
+        try {
+            const element = await this.nativeElement();
+
+            const frame = await element.contentFrame();
+
+            if (frame) {
+                const locator = (this.locator as PlaywrightLocator);
+
+                await locator.switchToFrame(element);
+
+                return {
+                    switchBack: async (): Promise<void> => {
+                        await locator.switchToParentFrame();
+                    }
+                }
+            }
+
+            const previouslyFocusedElement = await element.evaluateHandle(
+                /* istanbul ignore next */
+                (domNode: HTMLElement) => {
+                    const currentlyFocusedElement = document.activeElement;
+                    domNode.focus();
+                    return currentlyFocusedElement;
+                }
+            );
+
+            return new PreviouslyFocusedElementSwitcher(previouslyFocusedElement);
+        } catch(error) {
+            throw new LogicError(`Couldn't switch to page element located ${ this.locator }`, error);
+        }
     }
 
     async isActive(): Promise<boolean> {
@@ -83,13 +115,20 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async isEnabled(): Promise<boolean> {
         const element = await this.nativeElement();
 
-        return element
-            && await element.isEnabled();
+        return element.isEnabled();
     }
 
     async isPresent(): Promise<boolean> {
-        const element = await this.nativeElement();
-        return element !== null;
+        try {
+            const element = await this.nativeElement();
+            return element !== null;
+        }
+        catch(error) {
+            if (error.name === 'TimeoutError') {
+                return false;
+            }
+            throw error;
+        }
     }
 
     async isSelected(): Promise<boolean> {
@@ -101,5 +140,24 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         const element = await this.nativeElement();
 
         return element.isVisible();
+    }
+}
+
+/**
+ * @private
+ */
+class PreviouslyFocusedElementSwitcher implements SwitchableOrigin {
+    constructor(private readonly node: playwright.JSHandle) {
+        ensure('DOM element', node, isDefined());
+    }
+
+    async switchBack (): Promise<void> {
+        await this.node.evaluate(
+            /* istanbul ignore next */
+            (domNode: HTMLElement) => {
+                domNode.focus();
+            },
+            this.node
+        );
     }
 }

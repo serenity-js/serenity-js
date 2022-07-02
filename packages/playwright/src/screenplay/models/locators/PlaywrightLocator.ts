@@ -1,11 +1,18 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as playwright from 'playwright';
 
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
-import { PlaywrightNativeElementRoot } from './PlaywrightNativeElementRoot';
+import { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
-export class PlaywrightLocator extends Locator<playwright.ElementHandle, PlaywrightNativeElementRoot, string> {
+export class PlaywrightLocator extends Locator<playwright.ElementHandle, string> {
+
+    constructor(
+        parent: RootLocator<playwright.ElementHandle>,
+        selector: Selector,
+    ) {
+        super(parent, selector);
+    }
 
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): string {
@@ -32,24 +39,34 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, Playwri
         throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
-    // todo: refactor; lift method to Locator
     async nativeElement(): Promise<playwright.ElementHandle> {
-        const parent = await this.parentRoot();
+        const parent = await this.parent.nativeElement();
+
+        if (! parent) {
+            return;
+        }
+
+        await parent.waitForSelector(this.nativeSelector());
+
         return parent.$(this.nativeSelector());
     }
 
-    // todo: refactor; lift method to Locator
-    protected async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
-        const parent = await this.parentRoot();
+    async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
+        const parent = await this.parent.nativeElement();
+
+        if (! parent) {
+            return;
+        }
+
         return parent.$$(this.nativeSelector());
     }
 
-    of(parent: PlaywrightLocator): Locator<playwright.ElementHandle, PlaywrightNativeElementRoot, string> {
-        return new PlaywrightLocator(() => parent.nativeElement(), this.selector);
+    of(parent: PlaywrightRootLocator): Locator<playwright.ElementHandle, string> {
+        return new PlaywrightLocator(parent, this.selector);
     }
 
-    locate(child: PlaywrightLocator): Locator<playwright.ElementHandle, PlaywrightNativeElementRoot, string> {
-        return new PlaywrightLocator(() => this.nativeElement(), child.selector);
+    locate(child: PlaywrightLocator): Locator<playwright.ElementHandle, string> {
+        return new PlaywrightLocator(this, child.selector);
     }
 
     element(): PageElement<playwright.ElementHandle> {
@@ -62,7 +79,7 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, Playwri
         return elements.map(childElement =>
             new PlaywrightPageElement(
                 new ExistingElementLocator(
-                    () => this.parentRoot(),
+                    this.parent as PlaywrightRootLocator,
                     this.selector,
                     childElement,
                 )
@@ -76,18 +93,18 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, Playwri
  */
 class ExistingElementLocator extends PlaywrightLocator {
     constructor(
-        parentRoot: () => Promise<PlaywrightNativeElementRoot> | PlaywrightNativeElementRoot,
+        parent: RootLocator<playwright.ElementHandle>,
         selector: Selector,
         private readonly existingNativeElement: playwright.ElementHandle,
     ) {
-        super(parentRoot, selector);
+        super(parent, selector);
     }
 
     async nativeElement(): Promise<playwright.ElementHandle> {
         return this.existingNativeElement;
     }
 
-    protected async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
+    async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
         return [ this.existingNativeElement ];
     }
 }

@@ -6,7 +6,7 @@ import * as playwright from 'playwright-core';
 import * as structs from 'playwright-core/types/structs';
 import { URL } from 'url';
 
-import { PlaywrightLocator } from './locators';
+import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
 
@@ -22,40 +22,56 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
+    /**
+     * @private
+     */
+    private rootLocator: PlaywrightRootLocator;
+
     constructor(
         session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
         pageId: CorrelationId,
     ) {
         super(session, pageId);
+        this.rootLocator = new PlaywrightRootLocator(this.page);
     }
 
     locate(selector: Selector): PageElement<playwright.ElementHandle> {
         return new PlaywrightPageElement(
-            new PlaywrightLocator(() => this.page, selector)
-        )
+            new PlaywrightLocator(
+                this.rootLocator,
+                selector,
+            ),
+        );
     }
 
     locateAll(selector: Selector): PageElements<playwright.ElementHandle> {
         return new PageElements(
-            new PlaywrightLocator(() => this.page, selector)
+            new PlaywrightLocator(
+                this.rootLocator,
+                selector
+            )
         );
     }
 
     async navigateTo(destination: string): Promise<void> {
         await this.page.goto(destination);
+        await this.rootLocator.switchToMainFrame();
     }
 
     async navigateBack(): Promise<void> {
         await this.page.goBack();
+        await this.rootLocator.switchToMainFrame()
     }
 
     async navigateForward(): Promise<void> {
         await this.page.goForward();
+        await this.rootLocator.switchToMainFrame();
     }
 
     async reload(): Promise<void> {
         await this.page.reload();
+        await this.rootLocator.switchToMainFrame();
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {
@@ -213,6 +229,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     async close(): Promise<void> {
         this.lastScriptExecutionSummary = undefined;
+        await this.rootLocator.switchToMainFrame()
         return this.page.close();
     }
 

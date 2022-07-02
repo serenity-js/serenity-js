@@ -1,2 +1,2 @@
 export * from './WebdriverIOLocator';
-export * from './WebdriverIONativeElementRoot';
+export * from './WebdriverIORootLocator';

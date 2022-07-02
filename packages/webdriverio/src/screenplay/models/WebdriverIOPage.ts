@@ -4,7 +4,7 @@ import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogObstructs
 import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOLocator } from './locators';
+import { WebdriverIOLocator, WebdriverIORootLocator } from './locators';
 import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
 import { WebdriverIOCookie } from './WebdriverIOCookie';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
@@ -22,23 +22,29 @@ export class WebdriverIOPage extends Page {
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
+    /**
+     * @private
+     */
+    private rootLocator: WebdriverIORootLocator;
+
     constructor(
         session: WebdriverIOBrowsingSession,
         private readonly browser: wdio.Browser<'async'>,
         id: CorrelationId,
     ) {
         super(session, id);
+        this.rootLocator = new WebdriverIORootLocator(this.browser);
     }
 
     locate(selector: Selector): PageElement<wdio.Element<'async'>> {
         return new WebdriverIOPageElement(
-            new WebdriverIOLocator(() => this.browser, selector)
+            new WebdriverIOLocator(this.rootLocator, selector)
         )
     }
 
     locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
         return new PageElements(
-            new WebdriverIOLocator(() => this.browser, selector)
+            new WebdriverIOLocator(this.rootLocator, selector)
         );
     }
 

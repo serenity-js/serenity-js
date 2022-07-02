@@ -1,2 +1,2 @@
 export * from './PlaywrightLocator';
-export * from './PlaywrightNativeElementRoot';
+export * from './PlaywrightRootLocator';
