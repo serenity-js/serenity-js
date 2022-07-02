@@ -2,15 +2,15 @@ import { TestRunnerTagger } from '@integration/testing-tools';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { ArtifactArchiver, configure, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Browser, chromium } from 'playwright';
+import * as playwright from 'playwright-core';
 
 import { Actors } from './Actors';
 
-let browser: Browser;
+let browser: playwright.Browser;
 
 export const mochaHooks = {
     async beforeAll(): Promise<void> {
-        browser = await chromium.launch({
+        browser = await playwright.chromium.launch({
             headless: true
         });
 

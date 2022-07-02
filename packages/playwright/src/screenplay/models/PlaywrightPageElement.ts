@@ -101,21 +101,35 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     }
 
     async isActive(): Promise<boolean> {
-        const element = await this.nativeElement();
-        return element.evaluate(
-            /* istanbul ignore next */
-            domNode => domNode === document.activeElement
-        );
+        try {
+            const element = await this.nativeElement();
+            return element.evaluate(
+                /* istanbul ignore next */
+                domNode => domNode === document.activeElement
+            );
+        } catch {
+            return false;
+        }
     }
 
     async isClickable(): Promise<boolean> {
-        throw new Error('Method not implemented. isClickable');
+        try {
+            const element = await this.nativeElement();
+            await element.click({ trial: true });
+
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     async isEnabled(): Promise<boolean> {
-        const element = await this.nativeElement();
-
-        return element.isEnabled();
+        try {
+            const element = await this.nativeElement();
+            return element.isEnabled();
+        } catch {
+            return false;
+        }
     }
 
     async isPresent(): Promise<boolean> {
@@ -137,9 +151,12 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     }
 
     async isVisible(): Promise<boolean> {
-        const element = await this.nativeElement();
-
-        return element.isVisible();
+        try {
+            const element = await this.nativeElement();
+            return element.isVisible();
+        } catch {
+            return false;
+        }
     }
 }
 
