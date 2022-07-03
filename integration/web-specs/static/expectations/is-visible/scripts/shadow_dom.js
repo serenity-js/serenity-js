@@ -26,20 +26,16 @@ class PopUpInfo extends HTMLElement {
         info.setAttribute('class', 'info');
 
         // Take attribute content and put it inside the info span
-        const text = this.getAttribute('data-text');
+        const text = this.dataset.text;
         info.textContent = text;
 
         // Insert icon
         let imgUrl;
-        if(this.hasAttribute('img')) {
-            imgUrl = this.getAttribute('img');
-        } else {
-            imgUrl = '../img/default.png';
-        }
+        imgUrl = this.hasAttribute('img') ? this.getAttribute('img') : '../img/default.png';
 
         const img = document.createElement('img');
         img.src = imgUrl;
-        icon.appendChild(img);
+        icon.append(img);
 
         // Create some CSS to apply to the shadow dom
         const style = document.createElement('style');
@@ -74,11 +70,11 @@ class PopUpInfo extends HTMLElement {
     `;
 
         // Attach the created elements to the shadow dom
-        shadow.appendChild(style);
+        shadow.append(style);
 
-        shadow.appendChild(wrapper);
-        wrapper.appendChild(icon);
-        wrapper.appendChild(info);
+        shadow.append(wrapper);
+        wrapper.append(icon);
+        wrapper.append(info);
     }
 }
 
