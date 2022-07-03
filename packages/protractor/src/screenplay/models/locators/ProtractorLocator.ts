@@ -1,5 +1,5 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as protractor from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
@@ -18,9 +18,15 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): protractor.Locator {
         if (this.selector instanceof ByCss) {
-            return this.selector.value.startsWith('>>>') && !! protractor.by.shadowDomCss
-                ? protractor.by.shadowDomCss(this.selector.value.replace('>>>', ''))
-                : protractor.by.css(this.selector.value);
+            return protractor.by.css(this.selector.value);
+        }
+
+        if (this.selector instanceof ByDeepCss) {
+            if (! protractor.by.shadowDomCss) {
+                throw new LogicError(`By.deepCss() requires query-selector-shadow-dom plugin, which Serenity/JS ProtractorFrameworkAdapter registers by default. If you're using Serenity/JS without ProtractorFrameworkAdapter, please register the plugin yourself.`)
+            }
+
+            return protractor.by.shadowDomCss(this.selector.value.replace('>>>', '').trim());
         }
 
         if (this.selector instanceof ByCssContainingText) {
