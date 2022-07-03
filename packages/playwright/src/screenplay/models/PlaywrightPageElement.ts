@@ -1,5 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 import { PageElement, SwitchableOrigin } from '@serenity-js/web';
+import * as scripts from '@serenity-js/web/lib/scripts';
 import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
@@ -153,7 +154,13 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async isVisible(): Promise<boolean> {
         try {
             const element = await this.nativeElement();
-            return element.isVisible();
+
+            const isVisible = await element.isVisible();
+            if (! isVisible) {
+                return false;
+            }
+
+            return await element.evaluate(scripts.isVisible);
         } catch {
             return false;
         }
