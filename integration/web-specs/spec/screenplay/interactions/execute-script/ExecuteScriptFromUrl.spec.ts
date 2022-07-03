@@ -24,7 +24,7 @@ describe('ExecuteScriptFromUrl', function () {
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/execute_script_sandbox.html'),
 
-            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute_script_sample.js`),
+            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js`),
 
             Ensure.that(Text.of(Sandbox.Result), equals('Script loaded successfully')),
         ));
@@ -53,9 +53,9 @@ describe('ExecuteScriptFromUrl', function () {
         expect(actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/execute_script_sandbox.html'),
 
-            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute_script_sample.js`),
-            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute_script_sample.js`),
-        )).to.be.rejectedWith(LogicError, `Script from ${ baseUrl }/screenplay/interactions/execute-script/execute_script_sample.js has already been loaded`));
+            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js`),
+            ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js`),
+        )).to.be.rejectedWith(LogicError, `Script from ${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js has already been loaded`));
 
     /** @test {ExecuteScript.from} */
     /** @test {ExecuteScriptFromUrl#toString} */

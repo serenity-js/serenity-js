@@ -1,3 +1,5 @@
+/* global window, document, HTMLElement */
+
 /*
 Based on "Using_shadow_DOM" by Mozilla Contributors
 contributors: https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM/contributors.txt
@@ -31,7 +33,7 @@ class PopUpInfo extends HTMLElement {
 
         // Insert icon
         let imgUrl;
-        imgUrl = this.hasAttribute('img') ? this.getAttribute('img') : '../img/default.png';
+        imgUrl = this.hasAttribute('img') ? this.getAttribute('img') : 'img/default.png';
 
         const img = document.createElement('img');
         img.src = imgUrl;
@@ -79,4 +81,4 @@ class PopUpInfo extends HTMLElement {
 }
 
 // Define the new element
-customElements.define('popup-info', PopUpInfo);
+window.customElements.define('popup-info', PopUpInfo);
