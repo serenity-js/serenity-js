@@ -1,5 +1,5 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOPageElement } from '../WebdriverIOPageElement';
@@ -18,6 +18,10 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
     protected nativeSelector(): string {
         if (this.selector instanceof ByCss) {
             return this.selector.value;
+        }
+
+        if (this.selector instanceof ByDeepCss) {
+            return `>>> ${ this.selector.value }`;
         }
 
         if (this.selector instanceof ByCssContainingText) {

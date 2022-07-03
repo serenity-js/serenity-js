@@ -99,7 +99,7 @@ describe('isVisible', function () {
         const Elements = {
             cvcLabel:       PageElement.located(By.tagName('label')).describedAs('popup label'),
             infoComponent:  PageElement.located(By.tagName('popup-info')).describedAs('popup info icon'),
-            infoText:       PageElement.located(By.css('>>>popup-info span.info')).describedAs('popup text'),
+            infoText:       PageElement.located(By.deepCss('popup-info span.info')).describedAs('popup text'),
         };
 
         beforeEach(() =>

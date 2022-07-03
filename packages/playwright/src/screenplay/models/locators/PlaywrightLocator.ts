@@ -1,5 +1,5 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as playwright from 'playwright';
 
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
@@ -17,19 +17,23 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): string {
         if (this.selector instanceof ByCss) {
+            return `:light(${ this.selector.value })`;
+        }
+
+        if (this.selector instanceof ByDeepCss) {
             return this.selector.value;
         }
 
         if (this.selector instanceof ByCssContainingText) {
-            return `${ this.selector.value }:has-text("${ this.selector.text }")`;
+            return `:light(${ this.selector.value }):has-text("${ this.selector.text }")`;
         }
 
         if (this.selector instanceof ById) {
-            return `#${ this.selector.value }`;
+            return `id=${ this.selector.value }`;
         }
 
         if (this.selector instanceof ByTagName) {
-            return this.selector.value;
+            return `:light(${ this.selector.value })`;
         }
 
         if (this.selector instanceof ByXPath) {

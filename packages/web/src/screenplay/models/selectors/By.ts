@@ -2,6 +2,7 @@ import { Answerable, f, Question } from '@serenity-js/core';
 
 import { ByCss } from './ByCss';
 import { ByCssContainingText } from './ByCssContainingText';
+import { ByDeepCss } from './ByDeepCss';
 import { ById } from './ById';
 import { ByTagName } from './ByTagName';
 import { ByXPath } from './ByXPath';
@@ -11,6 +12,13 @@ export class By {
         return Question.about(f`by css (${selector})`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ByCss(bySelector);
+        });
+    }
+
+    static deepCss(selector: Answerable<string>): Question<Promise<ByCss>> {
+        return Question.about(f`by deep css (${selector})`, async actor => {
+            const bySelector = await actor.answer(selector);
+            return new ByDeepCss(bySelector);
         });
     }
 
