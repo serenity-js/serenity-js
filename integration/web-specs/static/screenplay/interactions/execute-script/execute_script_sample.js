@@ -1,1 +1,1 @@
-document.getElementById('result').innerText = "Script loaded successfully";
+document.querySelector('#result').innerText = 'Script loaded successfully';
