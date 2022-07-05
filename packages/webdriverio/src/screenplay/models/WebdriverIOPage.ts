@@ -15,25 +15,19 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement';
  *
  * @see {@link @serenity-js/web/lib/screenplay/models~Page}
  */
-export class WebdriverIOPage extends Page {
+export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
 
     /**
      * @private
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /**
-     * @private
-     */
-    private rootLocator: WebdriverIORootLocator;
-
     constructor(
         session: WebdriverIOBrowsingSession,
         private readonly browser: wdio.Browser<'async'>,
         id: CorrelationId,
     ) {
-        super(session, id);
-        this.rootLocator = new WebdriverIORootLocator(this.browser);
+        super(session, new WebdriverIORootLocator(browser), id);
     }
 
     locate(selector: Selector): PageElement<wdio.Element<'async'>> {

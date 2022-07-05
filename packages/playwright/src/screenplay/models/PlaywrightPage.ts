@@ -22,18 +22,12 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /**
-     * @private
-     */
-    private rootLocator: PlaywrightRootLocator;
-
     constructor(
         session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
         pageId: CorrelationId,
     ) {
-        super(session, pageId);
-        this.rootLocator = new PlaywrightRootLocator(this.page);
+        super(session, new PlaywrightRootLocator(page), pageId);
     }
 
     locate(selector: Selector): PageElement<playwright.ElementHandle> {

@@ -16,25 +16,19 @@ import { ProtractorPageElement } from './ProtractorPageElement';
  *
  * @see {@link @serenity-js/web/lib/screenplay/models~Page}
  */
-export class ProtractorPage extends Page {
+export class ProtractorPage extends Page<ElementFinder> {
 
     /**
      * @private
      */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /**
-     * @private
-     */
-    private rootLocator: ProtractorRootLocator;
-
     constructor(
         session: ProtractorBrowsingSession,
         private readonly browser: ProtractorBrowser,
         id: CorrelationId
     ) {
-        super(session, id);
-        this.rootLocator = new ProtractorRootLocator(this.browser);
+        super(session, new ProtractorRootLocator(browser), id);
     }
 
     locate(selector: Selector): PageElement<ElementFinder> {
