@@ -322,15 +322,6 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * @desc
-     *  Retrieves the URL of the current frame. If the page has no frames or the active frame is the top level frame,
-     *  the result is identical with {@link Page#url}.
-     *
-     * @returns {Promise<URL>}
-     */
-    abstract currentFrameUrl(): Promise<URL>;
-
-    /**
-     * @desc
      *  Retrieves the name of the current top-level browsing context.
      *
      * @returns {Promise<string>}

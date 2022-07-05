@@ -9,6 +9,7 @@ import { URL } from 'url';
 import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
+import { PlaywrightOptions } from '../../PlaywrightOptions';
 
 /**
  * @desc
@@ -26,6 +27,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
         pageId: CorrelationId,
+        private readonly options: PlaywrightOptions,
     ) {
         super(session, new PlaywrightRootLocator(page), pageId);
     }
@@ -49,22 +51,22 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     }
 
     async navigateTo(destination: string): Promise<void> {
-        await this.page.goto(destination);
+        await this.page.goto(destination, { waitUntil: this.options?.defaultNavigationWaitUntil });
         await this.rootLocator.switchToMainFrame();
     }
 
     async navigateBack(): Promise<void> {
-        await this.page.goBack();
+        await this.page.goBack({ waitUntil: this.options?.defaultNavigationWaitUntil });
         await this.rootLocator.switchToMainFrame()
     }
 
     async navigateForward(): Promise<void> {
-        await this.page.goForward();
+        await this.page.goForward({ waitUntil: this.options?.defaultNavigationWaitUntil });
         await this.rootLocator.switchToMainFrame();
     }
 
     async reload(): Promise<void> {
-        await this.page.reload();
+        await this.page.reload({ waitUntil: this.options?.defaultNavigationWaitUntil });
         await this.rootLocator.switchToMainFrame();
     }
 
