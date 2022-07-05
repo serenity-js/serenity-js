@@ -12,6 +12,7 @@ import { PageElements } from './PageElements';
 import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
+import { RootLocator } from './RootLocator';
 
 export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
     static current(): QuestionAdapter<Page> {
@@ -72,6 +73,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     constructor(
         protected readonly session: BrowsingSession<Page<Native_Element_Type>>,
+        protected readonly rootLocator: RootLocator<Native_Element_Type>,
         public readonly id: CorrelationId,
     ) {
     }
@@ -317,6 +319,15 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * @returns {Promise<URL>}
      */
     abstract url(): Promise<URL>;
+
+    /**
+     * @desc
+     *  Retrieves the URL of the current frame. If the page has no frames or the active frame is the top level frame,
+     *  the result is identical with {@link Page#url}.
+     *
+     * @returns {Promise<URL>}
+     */
+    abstract currentFrameUrl(): Promise<URL>;
 
     /**
      * @desc
