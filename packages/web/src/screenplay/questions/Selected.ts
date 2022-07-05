@@ -1,9 +1,6 @@
-import { Answerable, List, Question } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
 
-import { By, PageElement, PageElements } from '../models';
-import { Text } from './Text';
-import { Value } from './Value';
+import { PageElement } from '../models';
 
 /**
  * @desc
@@ -55,11 +52,15 @@ export class Selected {
      *
      * @see {@link Select.value}
      */
-    static valueOf(pageElement: Answerable<PageElement>): Question<Promise<string>> {
-        return PageElement.located(By.css('option:checked'))
-            .of(pageElement)
-            .value()
-            .describedAs(formatted `value selected in ${ pageElement }`);
+    static valueOf(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
+        return Question.about(d`value selected in ${ pageElement }`, async actor => {
+            const element = await actor.answer(pageElement);
+            const options = await element.selectedOptions();
+
+            return options
+                .filter(option => option.selected)
+                .map(option => option.value)[0];
+        });
     }
 
     /**
@@ -103,11 +104,16 @@ export class Selected {
      *
      * @see {@link Select.values}
      */
-    static valuesOf(pageElement: Answerable<PageElement>): List<string> {
-        return PageElements.located(By.css('option:checked'))
-            .of(pageElement)
-            .eachMappedTo(Value)
-            .describedAs(formatted `values selected in ${ pageElement }`);
+    static valuesOf(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
+        return Question.about(d`values selected in ${ pageElement }`, async actor => {
+            const element = await actor.answer(pageElement);
+
+            const options = await element.selectedOptions();
+
+            return options
+                .filter(option => option.selected)
+                .map(option => option.value);
+        });
     }
 
     /**
@@ -154,11 +160,16 @@ export class Selected {
      *
      * @see {@link Select.option}
      */
-    static optionIn(pageElement: Answerable<PageElement>): Question<Promise<string>> {
-        return PageElement.located(By.css('option:checked'))
-            .of(pageElement)
-            .text()
-            .describedAs(formatted `option selected in ${ pageElement }`);
+    static optionIn(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
+        return Question.about(d`option selected in ${ pageElement }`, async actor => {
+            const element = await actor.answer(pageElement);
+
+            const options = await element.selectedOptions();
+
+            return options
+                .filter(option => option.selected)
+                .map(option => option.label)[0];
+        });
     }
 
     /**
@@ -205,10 +216,15 @@ export class Selected {
      *
      * @see {@link Select.options}
      */
-    static optionsIn(pageElement: Answerable<PageElement>): List<string> {
-        return PageElements.located(By.css('option:checked'))
-            .of(pageElement)
-            .eachMappedTo(Text)
-            .describedAs(formatted `options selected in ${ pageElement }`);
+    static optionsIn(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
+        return Question.about(d`options selected in ${ pageElement }`, async actor => {
+            const element = await actor.answer(pageElement);
+
+            const options = await element.selectedOptions();
+
+            return options
+                .filter(option => option.selected)
+                .map(option => option.label);
+        });
     }
 }

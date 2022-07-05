@@ -1,5 +1,4 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
-import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { ArtifactArchiver, configure, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import * as playwright from 'playwright-core';
@@ -25,7 +24,7 @@ export const mochaHooks = {
                 ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
                 // Photographer.whoWill(TakePhotosOfFailures),
                 new SerenityBDDReporter(),
-                ConsoleReporter.forDarkTerminals(),
+                // ConsoleReporter.forDarkTerminals(),
                 // new StreamReporter(fs.createWriteStream('./events.ndjson'))
             ]
         })

@@ -1,5 +1,5 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, SwitchableOrigin } from '@serenity-js/web';
+import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
@@ -51,6 +51,41 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async rightClick(): Promise<void> {
         const element = await this.nativeElement();
         return element.click({ button: 'right' });
+    }
+
+    async selectOptions(...options: Array<SelectOption>): Promise<void> {
+        const element = await this.nativeElement();
+
+        const optionsToSelect = options.map(option =>
+            ({
+                value: option.value,
+                label: option.label,
+            })
+        );
+
+        await element.selectOption(optionsToSelect);
+    }
+
+    async selectedOptions(): Promise<Array<SelectOption>> {
+        const element = await this.nativeElement();
+
+        const options = await element.$$eval(
+            'option',
+            /* istanbul ignore next */
+            (optionNodes: Array<HTMLOptionElement>) =>
+                optionNodes.map((optionNode: HTMLOptionElement) => {
+                    return {
+                        selected:   optionNode.selected,
+                        disabled:   optionNode.disabled,
+                        label:      optionNode.label,
+                        value:      optionNode.value,
+                    }
+                })
+        );
+
+        return options.map(option =>
+            new SelectOption(option.label, option.value, option.selected, option.disabled)
+        );
     }
 
     async attribute(name: string): Promise<string> {
@@ -147,8 +182,21 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     }
 
     async isSelected(): Promise<boolean> {
-        const element = await this.nativeElement();
-        return element.isChecked();
+
+        try {
+            const element: playwright.ElementHandle = await this.nativeElement();
+
+            // works for <option />
+            const selected = await element.getAttribute('selected');
+            if (selected !== null) {
+                return true;
+            }
+
+            // works only for checkboxes and radio buttons, throws for other elements
+            return await element.isChecked();
+        } catch {
+            return false;
+        }
     }
 
     async isVisible(): Promise<boolean> {

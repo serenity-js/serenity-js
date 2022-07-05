@@ -1,8 +1,8 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, SwitchableOrigin } from '@serenity-js/web';
+import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
-import { ElementFinder, protractor } from 'protractor';
-import { WebElement } from 'selenium-webdriver';
+import { by, ElementFinder, protractor } from 'protractor';
+import { Locator, WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
 
@@ -93,6 +93,49 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
                 .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
                 .perform(),
+        );
+    }
+
+    async selectOptions(...options: SelectOption[]): Promise<void> {
+        const element: ElementFinder = await this.nativeElement();
+
+        for (const option of options) {
+            if (option.value) {
+                await promised(element.element(by.xpath(`//option[@value='${ option.value }']`) as Locator).click());
+            }
+            else if (option.label) {
+                await promised(element.element(by.cssContainingText('option', option.label) as Locator).click());
+            }
+        }
+    }
+
+    async selectedOptions(): Promise<SelectOption[]> {
+        const element: ElementFinder = await this.locator.nativeElement();
+
+        const webElement = await element.getWebElement();
+
+        const browser = element.browser_;
+
+        const options: Array<{ label: string, value: string, selected: boolean, disabled: boolean }> = await browser.executeScript(
+            /* istanbul ignore next */
+            (select: HTMLSelectElement) => {
+                const options = [];
+                select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
+                    options.push({
+                        selected:   option.selected,
+                        disabled:   option.disabled,
+                        label:      option.label,
+                        value:      option.value,
+                    });
+                });
+
+                return options;
+            },
+            webElement as unknown
+        );
+
+        return options.map(option =>
+            new SelectOption(option.label, option.value, option.selected, option.disabled)
         );
     }
 

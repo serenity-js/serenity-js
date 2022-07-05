@@ -1,9 +1,9 @@
-import { Answerable, q } from '@serenity-js/core';
-import { asyncMap, commaSeparated, formatted } from '@serenity-js/core/lib/io';
+import { Answerable, d } from '@serenity-js/core';
+import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { By, PageElement, PageElements } from '../models';
+import { PageElement, SelectOption } from '../models';
 import { SelectBuilder } from './SelectBuilder';
 
 /**
@@ -67,11 +67,11 @@ export class Select {
     static value(value: Answerable<string>): SelectBuilder {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(formatted `#actor selects value ${ value } from ${ pageElement }`, async actor => {
-                    return PageElement.located(By.css(q`option[value=${ value }]`))
-                        .of(pageElement)
-                        .click()
-                        .performAs(actor);
+                Interaction.where(d`#actor selects value ${ value } from ${ pageElement }`, async actor => {
+                    const element       = await actor.answer(pageElement);
+                    const desiredValue  = await actor.answer(value);
+
+                    await element.selectOptions(SelectOption.withValue(desiredValue));
                 }),
         };
     }
@@ -129,19 +129,12 @@ export class Select {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects values ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
 
-                    const answers = await asyncMap(values, value => actor.answer(value));
+                    const answers       = await asyncMap(values, value => actor.answer(value));
                     const desiredValues = answers.flat();
 
-                    const options: PageElement[] = await PageElements.located(By.css(`option`))
-                        .of(pageElement)
-                        .answeredBy(actor);
+                    const element  = await actor.answer(pageElement);
 
-                    for (const option of options) {
-                        const shouldSelect = await optionsToSelect(hasValueEqualOneOf(desiredValues))(option);
-                        if (shouldSelect) {
-                            await option.click();
-                        }
-                    }
+                    await element.selectOptions(... desiredValues.map(value => SelectOption.withValue(value)));
                 }),
         };
     }
@@ -199,11 +192,11 @@ export class Select {
     static option(value: Answerable<string>): SelectBuilder {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(formatted `#actor selects ${ value } from ${ pageElement }`, async actor => {
-                    return PageElement.located(By.cssContainingText('option', value))
-                        .of(pageElement)
-                        .click()
-                        .performAs(actor);
+                Interaction.where(d`#actor selects ${ value } from ${ pageElement }`, async actor => {
+                    const element       = await actor.answer(pageElement);
+                    const desiredLabel  = await actor.answer(value);
+
+                    await element.selectOptions(SelectOption.withLabel(desiredLabel));
                 }),
         };
     }
@@ -263,59 +256,13 @@ export class Select {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
 
-                    const answers = await asyncMap(values, value => actor.answer(value));
-                    const desiredOptions = answers.flat();
+                    const answers       = await asyncMap(values, value => actor.answer(value));
+                    const desiredLabels = answers.flat();
 
-                    const options: PageElement[]    = await PageElements.located(By.css(`option`)).of(pageElement).answeredBy(actor);
+                    const element  = await actor.answer(pageElement);
 
-                    for (const option of options) {
-                        const shouldSelect = await optionsToSelect(hasTextEqualOneOf(desiredOptions))(option);
-                        if (shouldSelect) {
-                            await option.click()
-                        }
-                    }
+                    await element.selectOptions(... desiredLabels.map(label => SelectOption.withLabel(label)));
                 }),
         };
     }
-}
-
-/** @package */
-function hasValueEqualOneOf(desiredValues: string[]): (option: PageElement) => Promise<boolean> {
-    return async (option: PageElement) => {
-
-        const value = await option.value()
-
-        return desiredValues.includes(value);
-    }
-}
-
-/** @package */
-function hasTextEqualOneOf(desiredValues: string[]): (option: PageElement) => Promise<boolean> {
-    return async (option: PageElement) => {
-
-        const value = await option.text()
-
-        return desiredValues.includes(value);
-    }
-}
-
-/** @package */
-function optionsToSelect(criterion: (option: PageElement) => Promise<boolean>) {
-    return (option: PageElement) =>
-        isAlreadySelected(option)
-            .then(alreadySelected =>
-                criterion(option).then(criterionMet =>
-                    xor(alreadySelected, criterionMet)
-                )
-            );
-}
-
-/** @package */
-function isAlreadySelected(option: PageElement): Promise<boolean> {
-    return option.isSelected();
-}
-
-/** @package */
-function xor(first: boolean, second: boolean): boolean {
-    return first !== second;
 }

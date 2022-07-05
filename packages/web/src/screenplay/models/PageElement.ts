@@ -3,6 +3,7 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
 import { Locator } from './Locator';
+import { SelectOption } from './SelectOption';
 import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
@@ -48,6 +49,8 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract scrollIntoView(): Promise<void>;
     abstract hoverOver(): Promise<void>;
     abstract rightClick(): Promise<void>;    // todo: should this be a click() call with a parameter?
+    abstract selectOptions(...options: Array<SelectOption>): Promise<void>;
+    abstract selectedOptions(): Promise<Array<SelectOption>>;
 
     abstract attribute(name: string): Promise<string>;
     abstract text(): Promise<string>;

@@ -1,14 +1,12 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, SwitchableOrigin } from '@serenity-js/web';
+import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as wdio from 'webdriverio';
 
 /**
  * @extends {@serenity-js/web/lib/screenplay/models~PageElement}
  */
-export class WebdriverIOPageElement
-    extends PageElement<wdio.Element<'async'>>
-{
+export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
     of(parent: WebdriverIOPageElement): WebdriverIOPageElement {
         return new WebdriverIOPageElement(this.locator.of(parent.locator))
     }
@@ -46,6 +44,46 @@ export class WebdriverIOPageElement
     async rightClick(): Promise<void> {
         const element = await this.nativeElement();
         return element.click({ button: 'right' });
+    }
+
+    async selectOptions(...options: SelectOption[]): Promise<void> {
+        const element = await this.nativeElement();
+
+        for (const option of options) {
+            if (option.value) {
+                await element.selectByAttribute('value', option.value);
+            }
+            else if (option.label) {
+                await element.selectByVisibleText(option.label);
+            }
+        }
+    }
+
+    async selectedOptions(): Promise<SelectOption[]> {
+        const element = await this.nativeElement();
+        const browser = await this.browserFor(element);
+
+        const options = await browser.execute(
+            /* istanbul ignore next */
+            (select: HTMLSelectElement) => {
+                const options = [];
+                select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
+                    options.push({
+                        selected:   option.selected,
+                        disabled:   option.disabled,
+                        label:      option.label,
+                        value:      option.value,
+                    });
+                });
+
+                return options;
+            },
+            element as unknown
+        );
+
+        return options.map(option =>
+            new SelectOption(option.label, option.value, option.selected, option.disabled)
+        );
     }
 
     async attribute(name: string): Promise<string> {
