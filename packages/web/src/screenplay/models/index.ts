@@ -7,6 +7,7 @@ export * from './Page';
 export * from './PageElement';
 export * from './PageElements';
 export * from './RootLocator';
+export * from './SelectOption';
 export * from './selectors';
 export * from './Switchable';
 export * from './SwitchableOrigin';

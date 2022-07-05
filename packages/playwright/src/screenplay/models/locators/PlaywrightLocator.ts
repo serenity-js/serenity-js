@@ -40,19 +40,18 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
             return `xpath=${ this.selector.value }`;
         }
 
-        throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
+        throw new LogicError(f`${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
     async nativeElement(): Promise<playwright.ElementHandle> {
+
         const parent = await this.parent.nativeElement();
 
         if (! parent) {
             throw new LogicError(`Couldn't find parent element ${ this.parent } of ${ this }`);
         }
 
-        await parent.waitForSelector(this.nativeSelector());
-
-        return parent.$(this.nativeSelector());
+        return parent.waitForSelector(this.nativeSelector(), { state: 'attached' });
     }
 
     async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
