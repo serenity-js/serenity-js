@@ -27,7 +27,9 @@ export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
         await context.newPage();
 
-        // newPage triggers a callback registered via browserContext()
+        // calling context.newPage() triggers a callback registered via browserContext(),
+        // which wraps playwright.Page in PlaywrightPage and adds it to the list of pages
+        // returned by this.allPages()
 
         const allPages = await this.allPages()
 
