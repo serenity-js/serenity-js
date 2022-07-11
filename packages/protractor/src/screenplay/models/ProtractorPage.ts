@@ -1,6 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogObstructsScreenshotError, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
@@ -8,6 +8,7 @@ import { promised } from '../promised';
 import { ProtractorLocator, ProtractorRootLocator } from './locators';
 import { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
 import { ProtractorCookie } from './ProtractorCookie';
+import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 /**
@@ -26,20 +27,27 @@ export class ProtractorPage extends Page<ElementFinder> {
     constructor(
         session: ProtractorBrowsingSession,
         private readonly browser: ProtractorBrowser,
-        id: CorrelationId
+        modalDialogHandler: ModalDialogHandler,
+        private readonly errorHandler: ProtractorErrorHandler,
+        pageId: CorrelationId
     ) {
-        super(session, new ProtractorRootLocator(browser), id);
+        super(
+            session,
+            new ProtractorRootLocator(browser),
+            modalDialogHandler,
+            pageId,
+        );
     }
 
     locate(selector: Selector): PageElement<ElementFinder> {
         return new ProtractorPageElement(
-            new ProtractorLocator(this.rootLocator, selector)
+            new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
     locateAll(selector: Selector): PageElements<ElementFinder> {
         return new PageElements(
-            new ProtractorLocator(this.rootLocator, selector)
+            new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
         );
     }
 
@@ -200,13 +208,6 @@ export class ProtractorPage extends Page<ElementFinder> {
                     );
                 }
 
-                if (error.name && error.name === 'UnexpectedAlertOpenError') {
-                    throw new ModalDialogObstructsScreenshotError(
-                        'A JavaScript dialog is open, which prevents taking a screenshot. Please use ModalDialog to dismiss it, or change your unhandledPromptBehavior configuration to do it automatically.',
-                        error,
-                    );
-                }
-
                 throw error;
             }
         });
@@ -315,15 +316,23 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
-        const originalPage = await this.session.currentPage();
+        let originalPage;
 
-        await this.session.changeCurrentPageTo(this);
+        try {
+            originalPage = await this.session.currentPage();
 
-        const result = await action();
+            await this.session.changeCurrentPageTo(this);
 
-        await this.session.changeCurrentPageTo(originalPage);
-
-        return result;
+            return await action();
+        }
+        catch (error) {
+            return this.errorHandler.executeIfHandled(error, action);
+        }
+        finally {
+            if (originalPage) {
+                await this.session.changeCurrentPageTo(originalPage);
+            }
+        }
     }
 }
 

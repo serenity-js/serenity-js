@@ -1,7 +1,7 @@
-import { BrowserCapabilities, BrowseTheWeb, ModalDialog } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOBrowsingSession, WebdriverIOModalDialog } from '../models';
+import { WebdriverIOBrowsingSession } from '../models';
 
 /**
  * @desc
@@ -50,9 +50,5 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'asyn
 
     browserCapabilities(): Promise<BrowserCapabilities> {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
-    }
-
-    async modalDialog(): Promise<ModalDialog> {
-        return new WebdriverIOModalDialog(this.browser);
     }
 }

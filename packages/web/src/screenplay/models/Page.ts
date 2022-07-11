@@ -1,5 +1,6 @@
 import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Optional, Question, QuestionAdapter } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
+import { ensure, isDefined } from 'tiny-types';
 import { URL } from 'url';
 
 import { Key } from '../../input';
@@ -7,12 +8,13 @@ import { BrowseTheWeb } from '../abilities';
 import { BrowsingSession } from './BrowsingSession';
 import { Cookie } from './Cookie';
 import { CookieData } from './CookieData';
+import { ModalDialogHandler } from './dialogs';
 import { PageElement } from './PageElement';
 import { PageElements } from './PageElements';
+import { RootLocator } from './RootLocator';
 import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
-import { RootLocator } from './RootLocator';
 
 export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
     static current(): QuestionAdapter<Page> {
@@ -74,8 +76,13 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     constructor(
         protected readonly session: BrowsingSession<Page<Native_Element_Type>>,
         protected readonly rootLocator: RootLocator<Native_Element_Type>,
+        protected modalDialogHandler: ModalDialogHandler,
         public readonly id: CorrelationId,
     ) {
+        ensure('session', session, isDefined());
+        ensure('rootLocator', rootLocator, isDefined());
+        ensure('modalDialogHandler', modalDialogHandler, isDefined());
+        ensure('id', id, isDefined());
     }
 
     /**
@@ -390,6 +397,16 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * @returns {Promise<void>}
      */
     abstract closeOthers(): Promise<void>;
+
+    /**
+     * @desc
+     *  Returns the {@link ModalDialogHandler} for the current {@link Page}.
+     *
+     * @returns {ModalDialogHandler}
+     */
+    modalDialog(): ModalDialogHandler {
+        return this.modalDialogHandler;
+    }
 
     /**
      * @desc

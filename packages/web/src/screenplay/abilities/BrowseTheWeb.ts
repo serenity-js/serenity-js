@@ -1,6 +1,6 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 
-import { BrowsingSession, ModalDialog, Page } from '../models';
+import { BrowsingSession, Page } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
@@ -54,7 +54,4 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
     allPages(): Promise<Array<Page<Native_Element_Type>>> {
         return this.session.allPages();
     }
-
-    abstract modalDialog(): Promise<ModalDialog>;
 }
-

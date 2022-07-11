@@ -6,10 +6,11 @@ import * as playwright from 'playwright-core';
 import * as structs from 'playwright-core/types/structs';
 import { URL } from 'url';
 
+import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
+import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
-import { PlaywrightOptions } from '../../PlaywrightOptions';
 
 /**
  * @desc
@@ -26,10 +27,15 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     constructor(
         session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
-        pageId: CorrelationId,
         private readonly options: PlaywrightOptions,
+        pageId: CorrelationId,
     ) {
-        super(session, new PlaywrightRootLocator(page), pageId);
+        super(
+            session,
+            new PlaywrightRootLocator(page),
+            new PlaywrightModalDialogHandler(page),
+            pageId
+        );
     }
 
     locate(selector: Selector): PageElement<playwright.ElementHandle> {
@@ -52,22 +58,22 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     async navigateTo(destination: string): Promise<void> {
         await this.page.goto(destination, { waitUntil: this.options?.defaultNavigationWaitUntil });
-        await this.rootLocator.switchToMainFrame();
+        await this.resetState();
     }
 
     async navigateBack(): Promise<void> {
         await this.page.goBack({ waitUntil: this.options?.defaultNavigationWaitUntil });
-        await this.rootLocator.switchToMainFrame()
+        await this.resetState();
     }
 
     async navigateForward(): Promise<void> {
         await this.page.goForward({ waitUntil: this.options?.defaultNavigationWaitUntil });
-        await this.rootLocator.switchToMainFrame();
+        await this.resetState();
     }
 
     async reload(): Promise<void> {
         await this.page.reload({ waitUntil: this.options?.defaultNavigationWaitUntil });
-        await this.rootLocator.switchToMainFrame();
+        await this.resetState();
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {
@@ -224,9 +230,9 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     }
 
     async close(): Promise<void> {
-        this.lastScriptExecutionSummary = undefined;
-        await this.rootLocator.switchToMainFrame()
-        return this.page.close();
+        await this.resetState();
+        await (this.modalDialogHandler as PlaywrightModalDialogHandler).discard();
+        await this.page.close();
     }
 
     async closeOthers(): Promise<void> {
@@ -235,6 +241,12 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     async isPresent(): Promise<boolean> {
         return ! this.page.isClosed();
+    }
+
+    private async resetState() {
+        this.lastScriptExecutionSummary = undefined;
+        await this.rootLocator.switchToMainFrame()
+        await this.modalDialogHandler.reset();
     }
 }
 

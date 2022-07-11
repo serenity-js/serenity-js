@@ -70,7 +70,7 @@ export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
                 await page.waitForLoadState();
 
                 this.register(
-                    new PlaywrightPage(this, page, CorrelationId.create(), this.browserContextOptions)
+                    new PlaywrightPage(this, page, this.browserContextOptions, CorrelationId.create())
                 );
             });
 

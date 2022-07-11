@@ -3,6 +3,8 @@ import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as wdio from 'webdriverio';
 
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
+
 /**
  * @extends {@serenity-js/web/lib/screenplay/models~PageElement}
  */
@@ -189,20 +191,34 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
      *
      * @see {@link @serenity-js/web/lib/screenplay/models~PageElement}
      */
-    async isVisible(): Promise<boolean> { // isVisible?
-        const element = await this.nativeElement();
+    async isVisible(): Promise<boolean> {
+        try {
+            const element = await this.nativeElement();
 
-        if (! await element.isDisplayed()) {
-            return false;
+            if (! await element.isDisplayed()) {
+                return false;
+            }
+
+            if (! await element.isDisplayedInViewport()) {
+                return false;
+            }
+
+            const browser = await this.browserFor(element);
+
+            return browser.execute(scripts.isVisible, element as unknown as HTMLElement);
         }
+        catch (error) {
+            // an element that doesn't exist is treated as not visible
+            if (
+                error.name === WebdriverProtocolErrorCode.NoSuchElementError ||
+                error.error === WebdriverProtocolErrorCode.NoSuchElementError ||
+                /element.*not found/i.test(error.message)
+            ) {
+                return false;
+            }
 
-        if (! await element.isDisplayedInViewport()) {
-            return false;
+            throw error;
         }
-
-        const browser = await this.browserFor(element);
-
-        return browser.execute(scripts.isVisible, element as unknown as HTMLElement);
     }
 
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98

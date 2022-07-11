@@ -1,12 +1,13 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogObstructsScreenshotError, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOLocator, WebdriverIORootLocator } from './locators';
 import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
 import { WebdriverIOCookie } from './WebdriverIOCookie';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
 /**
@@ -25,20 +26,27 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     constructor(
         session: WebdriverIOBrowsingSession,
         private readonly browser: wdio.Browser<'async'>,
-        id: CorrelationId,
+        modalDialogHandler: ModalDialogHandler,
+        private readonly errorHandler: WebdriverIOErrorHandler,
+        pageId: CorrelationId,
     ) {
-        super(session, new WebdriverIORootLocator(browser), id);
+        super(
+            session,
+            new WebdriverIORootLocator(browser),
+            modalDialogHandler,
+            pageId,
+        );
     }
 
     locate(selector: Selector): PageElement<wdio.Element<'async'>> {
         return new WebdriverIOPageElement(
-            new WebdriverIOLocator(this.rootLocator, selector)
+            new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
     locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
         return new PageElements(
-            new WebdriverIOLocator(this.rootLocator, selector)
+            new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         );
     }
 
@@ -149,33 +157,22 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     async takeScreenshot(): Promise<string> {
-        // Puppeteer hangs if there's an alert present - https://github.com/puppeteer/puppeteer/issues/2481
-        if (this.browser.isDevTools && await this.isAlertPresent()) {
-            throw new ModalDialogObstructsScreenshotError('Puppeteer will hang if you attempt to take screenshot when a modal dialog is open (see puppeteer/puppeteer#2481)');
-        }
-
-        try {
-            return await this.browser.takeScreenshot();
-        }
-        catch (error) {
-
-            if (error.name === 'unexpected alert open') {
-                throw new ModalDialogObstructsScreenshotError(
-                    'A JavaScript dialog is open, which prevents taking a screenshot. ' +
-                    'Please use ModalDialog to dismiss it, or change your unhandledPromptBehavior configuration to do it automatically.',
-                    error,
-                );
+        return this.switchToAndPerform(async () => {
+            try {
+                return await this.browser.takeScreenshot();
             }
+            catch (error) {
 
-            if (error.name === 'ProtocolError' && error.message.includes('Target closed')) {
-                throw new BrowserWindowClosedError(
-                    `Couldn't take screenshot since the browser window is already closed`,
-                    error
-                );
+                if (error.name === 'ProtocolError' && error.message.includes('Target closed')) {
+                    throw new BrowserWindowClosedError(
+                        `Couldn't take screenshot since the browser window is already closed`,
+                        error
+                    );
+                }
+
+                throw error;
             }
-
-            throw error;
-        }
+        });
     }
 
     async cookie(name: string): Promise<Cookie> {
@@ -282,15 +279,23 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
-        const originalPage = await this.session.currentPage();
+        let originalPage;
 
-        await this.session.changeCurrentPageTo(this);
+        try {
+            originalPage = await this.session.currentPage();
 
-        const result = await action();
+            await this.session.changeCurrentPageTo(this);
 
-        await this.session.changeCurrentPageTo(originalPage);
-
-        return result;
+            return await action();
+        }
+        catch (error) {
+            return this.errorHandler.executeIfHandled(error, action);
+        }
+        finally {
+            if (originalPage) {
+                await this.session.changeCurrentPageTo(originalPage);
+            }
+        }
     }
 }
 

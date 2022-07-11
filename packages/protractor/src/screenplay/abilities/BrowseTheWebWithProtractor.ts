@@ -1,8 +1,8 @@
 import { ConfigurationError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ModalDialog } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
 import * as protractor from 'protractor';
 
-import { ProtractorBrowsingSession, ProtractorModalDialog } from '../models';
+import { ProtractorBrowsingSession } from '../models';
 import { promised } from '../promised';
 
 /**
@@ -64,10 +64,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
             browserName:    capabilities.get('browserName'),
             browserVersion: capabilities.get('version'),
         };
-    }
-
-    async modalDialog(): Promise<ModalDialog> {
-        return new ProtractorModalDialog(this.browser);
     }
 
     /**
