@@ -3,6 +3,7 @@ import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locato
 import * as protractor from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
+import { ProtractorErrorHandler } from '../ProtractorErrorHandler';
 import { ProtractorPageElement } from '../ProtractorPageElement';
 import { ProtractorRootLocator } from './ProtractorRootLocator';
 
@@ -11,6 +12,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
     constructor(
         parent: RootLocator<protractor.ElementFinder>,
         selector: Selector,
+        private readonly errorHandler: ProtractorErrorHandler,
     ) {
         super(parent, selector);
     }
@@ -50,8 +52,20 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
 
     // todo: refactor; lift method to Locator
     async nativeElement(): Promise<protractor.ElementFinder> {
-        const parent = await this.parent.nativeElement();
-        return unpromisedWebElement(parent.element(this.nativeSelector()));
+        let parent: Partial<protractor.ElementFinder>;
+
+        try {
+            parent = await this.parent.nativeElement();
+            const result = await unpromisedWebElement(parent.element(this.nativeSelector()));
+
+            // checks if the element can be interacted with; in particular, throws unexpected alert present if there is one
+            await result.isPresent();
+
+            return result;
+        }
+        catch (error) {
+            return this.errorHandler.executeIfHandled(error, () => unpromisedWebElement(parent.element(this.nativeSelector())));
+        }
     }
 
     async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
@@ -60,11 +74,11 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
     }
 
     of(parent: ProtractorLocator): Locator<protractor.ElementFinder, protractor.Locator> {
-        return new ProtractorLocator(parent, this.selector);
+        return new ProtractorLocator(parent, this.selector, this.errorHandler);
     }
 
     locate(child: ProtractorLocator): Locator<protractor.ElementFinder, any> {
-        return new ProtractorLocator(this, child.selector);
+        return new ProtractorLocator(this, child.selector, this.errorHandler);
     }
 
     element(): PageElement<protractor.ElementFinder> {
@@ -79,6 +93,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
                 new ExistingElementLocator(
                     this.parent as ProtractorRootLocator,
                     this.selector,
+                    this.errorHandler,
                     unpromisedWebElement(childElement)
                 )
             )
@@ -93,9 +108,10 @@ class ExistingElementLocator extends ProtractorLocator {
     constructor(
         parent: ProtractorRootLocator,
         selector: Selector,
+        errorHandler: ProtractorErrorHandler,
         private readonly existingNativeElement: protractor.ElementFinder,
     ) {
-        super(parent, selector);
+        super(parent, selector, errorHandler);
     }
 
     async nativeElement(): Promise<protractor.ElementFinder> {

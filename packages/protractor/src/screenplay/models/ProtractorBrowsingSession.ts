@@ -4,12 +4,15 @@ import * as protractor from 'protractor';
 
 import { ProtractorPage } from '../models';
 import { promised } from '../promised';
+import { ProtractorErrorHandler } from './ProtractorErrorHandler';
+import { ProtractorModalDialogHandler } from './ProtractorModalDialogHandler';
 
 /**
  * @desc
  *  Protractor-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
  *
  * @see {@link @serenity-js/web/lib/screenplay/models~Page}
+ * @extends {@serenity-js/web/lib/screenplay/models~BrowsingSession}
  */
 export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
 
@@ -31,9 +34,17 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
         const registeredWindowHandles   = new Set(this.registeredPageIds().map(id => id.value));
         const newlyOpenedWindowHandles  = windowHandles.filter(windowHandle => ! registeredWindowHandles.has(windowHandle));
 
-        this.register(
-            ...newlyOpenedWindowHandles.map(handle => new ProtractorPage(this, this.browser, new CorrelationId(handle)))
-        )
+        for (const newlyOpenedWindowHandle of newlyOpenedWindowHandles) {
+            const errorHandler = new ProtractorErrorHandler();
+            this.register(
+                new ProtractorPage(
+                    this,
+                    this.browser,
+                    new ProtractorModalDialogHandler(this.browser, errorHandler),
+                    errorHandler,
+                    new CorrelationId(newlyOpenedWindowHandle))
+            );
+        }
 
         return super.allPages();
     }
@@ -52,7 +63,15 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
     protected async registerCurrentPage(): Promise<ProtractorPage> {
         const windowHandle = await this.browser.getWindowHandle();
 
-        const page = new ProtractorPage(this, this.browser, new CorrelationId(windowHandle));
+        const errorHandler = new ProtractorErrorHandler();
+
+        const page = new ProtractorPage(
+            this,
+            this.browser,
+            new ProtractorModalDialogHandler(this.browser, errorHandler),
+            errorHandler,
+            new CorrelationId(windowHandle)
+        );
 
         this.register(page)
 

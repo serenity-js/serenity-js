@@ -1,5 +1,5 @@
 import { Discardable } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, ModalDialog } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';
@@ -37,7 +37,7 @@ import { PlaywrightBrowsingSession } from '../models';
  * @see https://playwright.dev/
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discardable {
+export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementHandle> implements Discardable {
 
     /**
      * @param {playwright~Browser} browser
@@ -85,9 +85,5 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb implements Discarda
             platformName: process.platform,                         // todo: get the actual platform from Playwright
             browserVersion: this.browser.version()
         }
-    }
-
-    modalDialog(): Promise<ModalDialog> {
-        throw new Error('Method not implemented.');
     }
 }

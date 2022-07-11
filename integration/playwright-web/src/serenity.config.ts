@@ -17,7 +17,7 @@ export const mochaHooks = {
             actors: new Actors(browser, {
                 baseURL: `http://localhost:${ process.env.PORT || '8080' }`,
                 defaultNavigationTimeout:   Duration.ofSeconds(1).inMilliseconds(),
-                defaultTimeout:             Duration.ofSeconds(1).inMilliseconds(),
+                defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
             }),
             crew: [
                 new TestRunnerTagger('playwright'),
@@ -27,7 +27,7 @@ export const mochaHooks = {
                 // ConsoleReporter.forDarkTerminals(),
                 // new StreamReporter(fs.createWriteStream('./events.ndjson'))
             ]
-        })
+        });
     },
 
     async afterAll(): Promise<void> {
