@@ -59,7 +59,7 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
             return element;
         }
         catch (error) {
-            return this.errorHandler.executeIfHandled(error, () => parent.$(this.nativeSelector()));
+            return await this.errorHandler.executeIfHandled(error, () => parent.$(this.nativeSelector()));
         }
     }
 
