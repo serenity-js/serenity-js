@@ -8,7 +8,7 @@ and [API docs](https://serenity-js.org/modules/), and follow [@SerenityJS](https
 
 ### Learning Serenity/JS
 
-To learn more about Serenity/JS, check out the video below, read the [tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), review the [examples](https://github.com/serenity-js/serenity-js/tree/master/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
+To learn more about Serenity/JS, check out the video below, read the [tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), review the [examples](https://github.com/serenity-js/serenity-js/tree/main/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
 
 If you have any questions, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
 
@@ -159,4 +159,4 @@ Learn more about supported [Mocha configuration options](https://serenity-js.org
 
 ### Example projects
 
-Study [Serenity/JS example projects](https://github.com/serenity-js/serenity-js/tree/master/examples) to learn more. 
+Study [Serenity/JS example projects](https://github.com/serenity-js/serenity-js/tree/main/examples) to learn more. 

@@ -14,7 +14,7 @@ Subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0Rd
 
 ### Learning Serenity/JS
 
-To learn more about Serenity/JS, [follow the tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), [review the examples](https://github.com/serenity-js/serenity-js/tree/master/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
+To learn more about Serenity/JS, [follow the tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), [review the examples](https://github.com/serenity-js/serenity-js/tree/main/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
 
 If you have any questions, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
 
@@ -28,7 +28,7 @@ for [WebdriverIO](https://webdriver.io/), that helps with testing Web-based and 
 To install this module, run the following command in your [WebdriverIO project directory](https://webdriver.io/docs/gettingstarted/):
 
 ```bash
-npm install --save-dev @serenity-js/{core,webdriverio}
+npm install --save-dev @serenity-js/{assertions,console-reporter,core,serenity-bdd,web,webdriverio}
 ```
 
 Next, install one of the below test runner adapters.
@@ -40,7 +40,7 @@ To use Serenity/JS WebdriverIO with Cucumber.js, install the following adapter:
 npm install --save-dev @serenity-js/cucumber
 ```
 
-**Please note** that Serenity/JS WebdriverIO / Cucumber integration supports both [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html) and [native Cucumber.js reporters](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters).
+**Please note** that Serenity/JS WebdriverIO / Cucumber integration supports both [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html) and [native Cucumber.js reporters](https://github.com/cucumber/cucumber-js/blob/main/docs/cli.md#built-in-formatters).
 
 #### Usage with Jasmine
 
@@ -59,6 +59,27 @@ npm install --save-dev @serenity-js/mocha
 ### Configuring Webdriverio
 
 ```typescript
+// serenity/Actors.ts
+import { Actor, Cast } from '@serenity-js/core';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+import * as wdio from 'webdriverio';
+
+// example Actors class, confgures Serenity/JS actors to use WebdriverIO
+class Actors implements Cast {
+    constructor(private readonly browser: wdio.Browser<'async'>) {
+    }
+
+    prepare(actor: Actor): Actor {
+        return actor.whoCan(
+            BrowseTheWebWithWebdriverIO.using(this.browser),
+            // ... add other abilities as needed, like CallAnApi or TakeNotes
+        );
+    }
+}
+
+```
+
+```typescript
 // wdio.conf.ts
 
 // Import Serenity/JS reporting services, a.k.a. the "Stage Crew Members"
@@ -66,6 +87,7 @@ import { ArtifactArchiver } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures, WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { Actors } from './serenity/Actors.ts'
 
 export const config: WebdriverIOConfig = {
     // Tell WebdriverIO to use Serenity/JS framework
@@ -77,6 +99,9 @@ export const config: WebdriverIOConfig = {
         // runner: 'mocha',
         // runner: 'jasmine',
 
+        // register custom Actors class to configure your Serenity/JS actors
+        actors: new Actors(),
+        
         // Register StageCrewMembers we've imported at the top of this file    
         crew: [
             ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),
@@ -123,38 +148,46 @@ Learn more about:
 - [Mocha configuration options](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html)
 - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
 
-### Interacting with websites and web apps
+### Usage with Mocha
 
 ```typescript
 import { actorCalled } from '@serenity-js/core';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { by, BrowseTheWeb, Navigate, Target, Text } from '@serenity-js/webdriverio';
+import { By, Navigate, PageElement, Text } from '@serenity-js/web';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
+// example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {
-    static header = Target.the('header').located(by.css('h1'));
+    static header = () =>
+        PageElement.located(By.css('h1'))   // selector to identify the interactable element
+            .describedAs('header');         // description to be used in reports
 }
 
-actorCalled('Wendy')
-    .whoCan(
-        BrowseTheWeb.using(browser)
-    )
-    .attemptsTo(
-        Navigate.to('https://serenity-js.org'),
-        Ensure.that(
-            Text.of(SerenityJSWebsite.header), 
-            equals('Next generation acceptance testing')
-        ),
-    )
+describe('Serenity/JS', () => {
+    
+    it('works with WebdriverIO and Mocha', async () => {
+        // actorCalled(name) instantiates or retrieves an existing actor identified by name
+        // Actors class configures the actors to use WebdriverIO 
+        await actorCalled('Wendy')
+            .attemptsTo(
+                Navigate.to('https://serenity-js.org'),
+                Ensure.that(
+                    Text.of(SerenityJSWebsite.header()),
+                    equals('Next generation acceptance testing')
+                ),
+            )
+    })
+});
 ```
 
-To learn more, check out the [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples).
+To learn more, check out the [example projects](https://github.com/serenity-js/serenity-js/tree/main/examples).
 
 ### Template Repositories
 
 The easiest way for you to start writing web-based acceptance tests using Serenity/JS, WebdriverIO and either [Mocha](https://mochajs.org/), [Cucumber](https://github.com/cucumber/cucumber-js) or [Jasmine](https://jasmine.github.io/) is by using one of the below template repositories:
 
 - [Serenity/JS, Mocha, and WebdriverIO template](https://github.com/serenity-js/serenity-js-mocha-webdriverio-template)
-- Serenity/JS, Cucumber, and WebdriverIO template (coming soon!)
+- [Serenity/JS, Cucumber, and WebdriverIO template](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template)
 - Serenity/JS, Jasmine, and WebdriverIO template (coming soon!)
 
 ## More coming soon!
