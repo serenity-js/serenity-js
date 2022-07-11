@@ -289,7 +289,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             return await action();
         }
         catch (error) {
-            return this.errorHandler.executeIfHandled(error, action);
+            return await this.errorHandler.executeIfHandled(error, action);
         }
         finally {
             if (originalPage) {

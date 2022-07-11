@@ -64,7 +64,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
             return result;
         }
         catch (error) {
-            return this.errorHandler.executeIfHandled(error, () => unpromisedWebElement(parent.element(this.nativeSelector())));
+            return await this.errorHandler.executeIfHandled(error, () => unpromisedWebElement(parent.element(this.nativeSelector())));
         }
     }
 
