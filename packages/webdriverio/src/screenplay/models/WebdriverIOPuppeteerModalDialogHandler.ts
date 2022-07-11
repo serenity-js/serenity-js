@@ -14,6 +14,8 @@ import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/common/Page';
  */
 export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 
+    private dialogHandlingInProgress = false;
+
     private readonly defaultHandler: (dialog: Dialog) => Promise<ModalDialog> =
         async (dialog: Dialog) => {
             await dialog.dismiss();
@@ -33,7 +35,9 @@ export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 
         // register Serenity/JS handler instead
         this.page.on('dialog', async (dialog: Dialog) => {
-            this.modalDialog = await this.currentHandler(dialog);
+            // Puppeteer doesn't seem to synchronise async handlers correctly,
+            // hence the handleModalDialog wrapper and the `dialogHandlingInProgress` lock.
+            await this.handleModalDialog(() => this.currentHandler(dialog));
         });
     }
 
@@ -65,5 +69,24 @@ export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 
     async discard(): Promise<void> {
         this.page.off('dialog', this.currentHandler);
+    }
+
+    async last(): Promise<ModalDialog> {
+        return new Promise((resolve, reject) => {
+            const interval = setInterval(() => {
+                if (!this.dialogHandlingInProgress) {
+                    clearInterval(interval);
+                    resolve(this.modalDialog);
+                }
+            }, 25);
+        });
+    }
+
+    private async handleModalDialog(handler: () => Promise<ModalDialog> | ModalDialog): Promise<void> {
+        this.dialogHandlingInProgress = true;
+
+        this.modalDialog = await handler();
+
+        this.dialogHandlingInProgress = false;
     }
 }
