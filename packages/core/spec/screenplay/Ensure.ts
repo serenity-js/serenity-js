@@ -11,7 +11,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (actualValue !== expectedValue) {
-                throw new AssertionError(`Expected ${ actualValue } to be the same as ${ expectedValue }`, actualValue, expectedValue);
+                throw new AssertionError(`Expected ${ actualValue } to be the same as ${ expectedValue }`, expectedValue, actualValue);
             }
         }),
 
@@ -21,7 +21,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! equal(actualValue, expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to equal ${ expectedValue }`, actualValue, expectedValue);
+                throw new AssertionError(`Expected ${ actualValue } to equal ${ expectedValue }`, expectedValue, actualValue);
             }
         }),
 
@@ -31,7 +31,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! (actualValue >= expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to be greater than or equal to ${ expectedValue }`, actualValue, expectedValue);
+                throw new AssertionError(`Expected ${ actualValue } to be greater than or equal to ${ expectedValue }`, expectedValue, actualValue);
             }
         }),
 
@@ -41,7 +41,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! (actualValue < expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to be less than ${ expectedValue }`, actualValue, expectedValue);
+                throw new AssertionError(`Expected ${ actualValue } to be less than ${ expectedValue }`, expectedValue, actualValue);
             }
         }),
 }
