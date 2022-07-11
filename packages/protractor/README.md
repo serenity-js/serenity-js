@@ -8,7 +8,7 @@ and [API docs](https://serenity-js.org/modules/), and follow [@SerenityJS](https
 
 ### Learning Serenity/JS
 
-To learn more about Serenity/JS, check out the video below, read the [tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), review the [examples](https://github.com/serenity-js/serenity-js/tree/master/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
+To learn more about Serenity/JS, check out the video below, read the [tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), review the [examples](https://github.com/serenity-js/serenity-js/tree/main/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
 
 If you have any questions, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
 
@@ -41,7 +41,7 @@ To use Serenity/JS Protractor with Cucumber.js, install the following adapter:
 npm install --save-dev @serenity-js/cucumber
 ```
 
-**Please note** that Serenity/JS Protractor / Cucumber integration supports both [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html) and [native Cucumber.js reporters](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters), so you can use this module as a drop-in replacement of [`protractor-cucumber-framework`](https://www.npmjs.com/package/protractor-cucumber-framework).
+**Please note** that Serenity/JS Protractor / Cucumber integration supports both [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html) and [native Cucumber.js reporters](https://github.com/cucumber/cucumber-js/blob/main/docs/cli.md#built-in-formatters), so you can use this module as a drop-in replacement of [`protractor-cucumber-framework`](https://www.npmjs.com/package/protractor-cucumber-framework).
 
 Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
 
@@ -124,21 +124,34 @@ Learn more about:
 ```typescript
 import { actorCalled } from '@serenity-js/core';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { BrowseTheWeb, Navigate, Target, Text } from '@serenity-js/protractor';
-import { protractor, by } from 'protractor';
+import { By, Navigate, Target, Text } from '@serenity-js/web';
+import { BrowseTheWebWithProtractor } from '@serenity-js/protractor';
+import { protractor } from 'protractor';
 
+// example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {
-    static header = Target.the('header').located(by.css('h1'));
+    static header = () =>
+        PageElement.located(By.css('h1'))   // selector to identify the interactable element
+            .describedAs('header');         // description to be used in reports
 }
 
-actorCalled('Priya')
-    .whoCan(
-        BrowseTheWeb.using(protractor.browser_download_url)
-    )
-    .attemptsTo(
-        Navigate.to('https://serenity-js.org'),
-        Ensure.that(Text.of(SerenityJSWebsite.header), equals('Next generation acceptance testing')),
-)
+// example Jasmine test
+describe('Serenity/JS', () => {
+    
+    it('works with Protractor and Jasmine', async () => {
+        await actorCalled('Priya')
+            .whoCan(
+                BrowseTheWebWithProtractor.using(protractor.browser)
+            )
+            .attemptsTo(
+                Navigate.to('https://serenity-js.org'),
+                Ensure.that(
+                    Text.of(SerenityJSWebsite.header()), 
+                    equals('Next generation acceptance testing')
+                ),
+            )
+    })
+})
 ```
 
 ### Template Repositories
