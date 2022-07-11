@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.21](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.20...v3.0.0-rc.21) (2022-07-11)
+
+
+### Bug Fixes
+
+* **web:** corrected promise handling to avoid the unhandled promise rejection warning ([daac705](https://github.com/serenity-js/serenity-js/commit/daac705174683425109591e25139b5172fbdd7d3))
+
+
+
+
+
 # [3.0.0-rc.20](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.19...v3.0.0-rc.20) (2022-07-11)
 
 
