@@ -44,4 +44,15 @@ export const Ensure = {
                 throw new AssertionError(`Expected ${ actualValue } to be less than ${ expectedValue }`, expectedValue, actualValue);
             }
         }),
+
+    closeTo: <T extends number>(actual: Answerable<T>, expected: Answerable<T>, delta: Answerable<T>): Interaction =>
+        Interaction.where(d`#actor ensures that ${actual} is close to ${ expected } (Δ ${ delta })`, async actor => {
+            const actualValue   = await actor.answer(actual);
+            const expectedValue = await actor.answer(expected);
+            const deltaValue    = await actor.answer(delta);
+
+            if (! (Math.abs(actualValue - expectedValue) <= deltaValue)) {
+                throw new AssertionError(`Expected ${ actualValue } to be close to ${ expectedValue } (Δ ${ delta })`, expectedValue, actualValue);
+            }
+        }),
 }

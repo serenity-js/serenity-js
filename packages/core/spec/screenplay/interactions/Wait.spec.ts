@@ -33,7 +33,7 @@ describe('Wait', () => {
                     Stopwatch.start(),
                     Wait.for(Duration.ofMilliseconds(100)),
                     Stopwatch.stop(),
-                    Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 100)
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 100, 10),
                 ));
 
         /** @test {Wait#toString} */
@@ -52,7 +52,7 @@ describe('Wait', () => {
                     Stopwatch.start(),
                     Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)),
                     Stopwatch.stop(),
-                    Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 500),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 500, 10),
                     Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1000),
                 ));
 
@@ -63,7 +63,7 @@ describe('Wait', () => {
                     Stopwatch.start(),
                     Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)).pollingEvery(Duration.ofMilliseconds(50)),
                     Stopwatch.stop(),
-                    Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 250),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 250, 10),
                     Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 500),
                 ));
 
