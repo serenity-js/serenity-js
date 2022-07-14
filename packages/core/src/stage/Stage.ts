@@ -285,34 +285,40 @@ export class Stage {
             : this.actorsOnFrontStage.get(name)
     }
 
-    private dismiss(activeActors: Map<string, Actor>): Promise<void> {
+    private async dismiss(activeActors: Map<string, Actor>): Promise<void> {
         const actors = Array.from(activeActors.values());
 
         if (actors.includes(this.actorInTheSpotlight)) {
             this.actorInTheSpotlight = undefined;
         }
 
-        return Promise
-            .all(actors.map(actor => {
-                const id = CorrelationId.create();
+        // Wait for the Photographer to finish taking any screenshots
 
-                this.announce(new AsyncOperationAttempted(
-                    new Description(`[${ this.constructor.name }] Dismissing ${ actor.name }...`),
+        await this.manager.waitForAsyncOperationsToComplete();
+
+        // Try to dismiss each actor
+        for (const actor of actors) {
+            const id = CorrelationId.create();
+
+            this.announce(new AsyncOperationAttempted(
+                new Description(`[${ this.constructor.name }] Dismissing ${ actor.name }...`),
+                id,
+            ));
+
+            try {
+                await actor.dismiss();
+
+                this.announce(new AsyncOperationCompleted(
+                    new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
                     id,
                 ));
+            }
+            catch (error) {
+                this.announce(new AsyncOperationFailed(error, id));     // todo: serialise the error!
+            }
+        }
 
-                return actor.dismiss()
-                    .then(() =>
-                        this.announce(new AsyncOperationCompleted(
-                            new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
-                            id,
-                        )))
-                    .catch(error =>
-                        this.announce(new AsyncOperationFailed(error, id)),     // todo: serialise the error!
-                    );
-
-            }))
-            .then(() => activeActors.clear());
+        activeActors.clear();
     }
 
     /**

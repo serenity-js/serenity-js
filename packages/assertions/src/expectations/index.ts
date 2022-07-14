@@ -7,6 +7,7 @@ export * from './equals';
 export * from './includes';
 export * from './isAfter';
 export * from './isBefore';
+export * from './isCloseTo';
 export * from './isFalse';
 export * from './isGreaterThan';
 export * from './isLessThan';
