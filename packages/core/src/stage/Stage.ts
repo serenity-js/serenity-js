@@ -296,25 +296,27 @@ export class Stage {
 
         await this.manager.waitForAsyncOperationsToComplete();
 
-        // Try to dismiss each actor
-        for (const actor of actors) {
-            const id = CorrelationId.create();
+        const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [actor, CorrelationId.create()]));
 
+        for (const [ actor, correlationId ] of actorsToDismiss) {
             this.announce(new AsyncOperationAttempted(
                 new Description(`[${ this.constructor.name }] Dismissing ${ actor.name }...`),
-                id,
+                correlationId,
             ));
+        }
 
+        // Try to dismiss each actor
+        for (const [ actor, correlationId ] of actorsToDismiss) {
             try {
                 await actor.dismiss();
 
                 this.announce(new AsyncOperationCompleted(
                     new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
-                    id,
+                    correlationId,
                 ));
             }
             catch (error) {
-                this.announce(new AsyncOperationFailed(error, id));     // todo: serialise the error!
+                this.announce(new AsyncOperationFailed(error, correlationId));     // todo: serialise the error!
             }
         }
 
