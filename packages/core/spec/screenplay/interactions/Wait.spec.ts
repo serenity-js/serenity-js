@@ -52,7 +52,7 @@ describe('Wait', () => {
                     Stopwatch.start(),
                     Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 500, 10),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 500, 30),
                     Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1000),
                 ));
 
