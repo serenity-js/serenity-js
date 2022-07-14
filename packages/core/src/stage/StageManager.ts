@@ -25,28 +25,13 @@ export class StageManager {
         this.subscribers.forEach(crewMember => crewMember.notifyOf(event));
     }
 
-    waitForNextCue(): Promise<void> {
+    waitForAsyncOperationsToComplete(): Promise<void> {
         return new Promise((resolve, reject) => {
 
             const timeout = setTimeout(() => {
                 clearInterval(interval);
 
-                if (this.wip.hasFailedOperations()) {
-                    const error = new Error(this.wip.descriptionOfFailedOperations());
-
-                    this.wip.resetFailedOperations();
-
-                    return reject(error);
-                }
-
-                if (this.wip.hasActiveOperations()) {
-                    const error = new Error(this.wip.descriptionOfTimedOutOperations());
-
-                    return reject(error);
-                }
-
-                // "else" can't happen because this case is covered by the interval check below
-
+                return resolve();
             }, this.cueTimeout.inMilliseconds());
 
             const interval = setInterval(() => {
@@ -54,19 +39,27 @@ export class StageManager {
                     clearTimeout(timeout);
                     clearInterval(interval);
 
-                    if (this.wip.hasFailedOperations()) {
-
-                        const error = new Error(this.wip.descriptionOfFailedOperations());
-
-                        this.wip.resetFailedOperations();
-
-                        return reject(error);
-                    }
-
                     return resolve();
                 }
             }, 10);
         });
+    }
+
+    async waitForNextCue(): Promise<void> {
+
+        await this.waitForAsyncOperationsToComplete();
+
+        if (this.wip.hasFailedOperations()) {
+            const error = new Error(this.wip.descriptionOfFailedOperations());
+
+            this.wip.resetFailedOperations();
+
+            throw error;
+        }
+
+        if (this.wip.hasActiveOperations()) {
+            throw new Error(this.wip.descriptionOfTimedOutOperations());
+        }
     }
 
     currentTime(): Timestamp {

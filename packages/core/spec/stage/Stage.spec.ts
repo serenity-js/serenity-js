@@ -151,7 +151,7 @@ describe('Stage', () => {
         });
 
         describe('performing a single scene', () => {
-            it('dismisses actors instantiated after SceneStarts when SceneFinished', async () => {
+            it('dismisses actors instantiated after SceneStarts when SceneFinished, allowing for any async operations to finish first', async () => {
                 const stage = new Stage(new Spies(), manager);
 
                 stage.announce(new SceneStarts(sceneId, scenario));
@@ -159,6 +159,8 @@ describe('Stage', () => {
                 const actor = stage.actor('Bob');
 
                 stage.announce(new SceneFinishes(sceneId, scenario, new ExecutionSuccessful()));
+
+                await stage.waitForNextCue();
 
                 expect(actor.dismiss).to.have.been.calledOnce;
 
