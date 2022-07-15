@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.22](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.21...v3.0.0-rc.22) (2022-07-15)
+
+
+### Bug Fixes
+
+* **web:** improved reliability of PageElementLocator for WebdriverIO and Protractor ([b19d19a](https://github.com/serenity-js/serenity-js/commit/b19d19aedc0d60d4068191e7eb83943b9268e39a)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+
+
+
 # [3.0.0-rc.21](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.20...v3.0.0-rc.21) (2022-07-11)
 
 

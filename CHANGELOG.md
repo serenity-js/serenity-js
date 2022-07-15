@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.22](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.21...v3.0.0-rc.22) (2022-07-15)
+
+
+### Bug Fixes
+
+* **core:** ensure all async operations complete before attempting to dismiss the actors ([635cd9a](https://github.com/serenity-js/serenity-js/commit/635cd9a07481a97017506577e24e92e32a02e0e9)), closes [#1236](https://github.com/serenity-js/serenity-js/issues/1236)
+* **core:** further improvements to stage/actor synchronisation ([1e2e6fb](https://github.com/serenity-js/serenity-js/commit/1e2e6fb5c4ac727d209e1c45d466d0485f4cf548))
+* **web:** improved reliability of PageElementLocator for WebdriverIO and Protractor ([b19d19a](https://github.com/serenity-js/serenity-js/commit/b19d19aedc0d60d4068191e7eb83943b9268e39a)), closes [#805](https://github.com/serenity-js/serenity-js/issues/805)
+
+
+### Features
+
+* **assertions:** isCloseTo(expected, tolerance) ([bb0e935](https://github.com/serenity-js/serenity-js/commit/bb0e935e197b195da598ccbec6c6cf7704dd875b))
+
+
+
+
+
 # [3.0.0-rc.21](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.20...v3.0.0-rc.21) (2022-07-11)
 
 
