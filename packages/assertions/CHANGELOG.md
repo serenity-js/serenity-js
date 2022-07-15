@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.22](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.21...v3.0.0-rc.22) (2022-07-15)
+
+
+### Features
+
+* **assertions:** isCloseTo(expected, tolerance) ([bb0e935](https://github.com/serenity-js/serenity-js/commit/bb0e935e197b195da598ccbec6c6cf7704dd875b))
+
+
+
+
+
 # [3.0.0-rc.21](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.20...v3.0.0-rc.21) (2022-07-11)
 
 **Note:** Version bump only for package @serenity-js/assertions
