@@ -50,22 +50,23 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
-    // todo: refactor; lift method to Locator
     async nativeElement(): Promise<protractor.ElementFinder> {
-        let parent: Partial<protractor.ElementFinder>;
-
         try {
-            parent = await this.parent.nativeElement();
-            const result = await unpromisedWebElement(parent.element(this.nativeSelector()));
-
-            // checks if the element can be interacted with; in particular, throws unexpected alert present if there is one
-            await result.isPresent();
-
-            return result;
+            return await this.resolveNativeElement();
         }
         catch (error) {
-            return await this.errorHandler.executeIfHandled(error, () => unpromisedWebElement(parent.element(this.nativeSelector())));
+            return await this.errorHandler.executeIfHandled(error, () => this.resolveNativeElement());
         }
+    }
+
+    private async resolveNativeElement(): Promise<protractor.ElementFinder> {
+        const parent = await this.parent.nativeElement();
+        const result = await unpromisedWebElement(parent.element(this.nativeSelector()));
+
+        // checks if the element can be interacted with; in particular, throws unexpected alert present if there is one
+        await result.isPresent();
+
+        return result;
     }
 
     async allNativeElements(): Promise<Array<protractor.ElementFinder>> {

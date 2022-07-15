@@ -61,7 +61,7 @@ const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
     capabilities: [{
         browserName:    'chrome',
         browserVersion: 'latest',
-        platformName:   'windows',
+        platformName:   'Windows 11',
         unhandledPromptBehavior: 'ignore',  // because we need to test ModalDialog interactions
         ...sauceCapabilities,
     }],
@@ -112,5 +112,5 @@ export const config: WebdriverIOConfig = {
     // logLevel: 'debug',
     logLevel: 'error',
 
-    connectionRetryCount: 3,
+    connectionRetryCount: 5,
 };
