@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
+import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
 import { By, isClickable, Navigate, PageElement } from '@serenity-js/web';
 
 describe('isClickable', function () {
