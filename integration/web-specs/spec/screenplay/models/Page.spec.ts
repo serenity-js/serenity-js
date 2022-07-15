@@ -13,14 +13,14 @@ describe('Page', () => {
 
     const MainPage = {
         title:          'Main page title',
-        newPopUpLink:   PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
-        newTabLink:     PageElement.located(By.id('new-tab-link')).describedAs('new tab link'),
+        newPopUpLink:   () => PageElement.located(By.id('new-popup-link')).describedAs('new pop-up link'),
+        newTabLink:     () => PageElement.located(By.id('new-tab-link')).describedAs('new tab link'),
     };
 
     const NewTab = {
         title:      'New tab title',
         heading:    'New tab',
-        closeLink:  PageElement.located(By.id('close')).describedAs('close window link'),
+        closeLink:  () => PageElement.located(By.id('close')).describedAs('close window link'),
     };
 
     const Popup = {
@@ -94,7 +94,7 @@ describe('Page', () => {
             beforeEach(() =>
                 actorCalled('Bernie').attemptsTo(
                     Navigate.to('/screenplay/models/page/main_page.html'),
-                    Click.on(MainPage.newPopUpLink),
+                    Click.on(MainPage.newPopUpLink()),
                     Wait.until(Page.whichName(equals(Popup.expectedName)), isPresent()),
                     Page.whichTitle(equals(MainPage.title)).switchTo(),
                 ));
@@ -121,7 +121,7 @@ describe('Page', () => {
 
             it('automatically switches back to the origin page after performing activities in the context of another page', () =>
                 actorCalled('Bernie').attemptsTo(
-                    Click.on(MainPage.newTabLink),
+                    Click.on(MainPage.newTabLink()),
 
                     Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
@@ -153,12 +153,12 @@ describe('Page', () => {
 
         it('correctly discards of Pages that have been closed by JavaScript', () =>
             actorCalled('Bernie').attemptsTo(
-                Click.on(MainPage.newTabLink),
+                Click.on(MainPage.newTabLink()),
 
                 Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
-                    Click.on(NewTab.closeLink),
+                    Click.on(NewTab.closeLink()),
                 ),
 
                 Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
@@ -166,7 +166,7 @@ describe('Page', () => {
 
         it('correctly discards of Pages that have been explicitly closed', () =>
             actorCalled('Bernie').attemptsTo(
-                Click.on(MainPage.newTabLink),
+                Click.on(MainPage.newTabLink()),
 
                 Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 

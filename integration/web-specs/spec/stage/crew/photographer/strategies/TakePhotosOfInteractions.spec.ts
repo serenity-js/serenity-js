@@ -1,6 +1,7 @@
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { Duration } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
@@ -18,7 +19,8 @@ describe('Photographer', () => {
             recorder: EventRecorder;
 
         beforeEach(() => {
-            const testSubject = create();
+            const cueTimeout = Duration.ofSeconds(10);
+            const testSubject = create(cueTimeout);
             stage = testSubject.stage;
             recorder = testSubject.recorder;
 

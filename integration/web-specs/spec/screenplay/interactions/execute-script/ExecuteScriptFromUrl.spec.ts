@@ -12,8 +12,6 @@ const baseUrl = `http://localhost:${ port }`;
 /** @test {ExecuteScript} */
 describe('ExecuteScriptFromUrl', function () {
 
-    this.timeout(10 * 1000);
-
     class Sandbox {
         static Result = PageElement.located(By.id('result')).describedAs('sandbox result');
     }

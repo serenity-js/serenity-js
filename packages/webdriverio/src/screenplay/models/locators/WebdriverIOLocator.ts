@@ -46,21 +46,28 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
     }
 
     async nativeElement(): Promise<wdio.Element<'async'>> {
-        let parent: Partial<wdio.Element<'async'>>;
-
         try {
-            parent = await this.parent.nativeElement();
-            const element = await parent.$(this.nativeSelector());
-
-            if (element.error) {
-                throw element.error;
-            }
-
-            return element;
+            return await this.resolveNativeElement();
         }
         catch (error) {
-            return await this.errorHandler.executeIfHandled(error, () => parent.$(this.nativeSelector()));
+            return await this.errorHandler.executeIfHandled(error, () => this.resolveNativeElement());
         }
+    }
+
+    private async resolveNativeElement(): Promise<wdio.Element<'async'>> {
+        const parent = await this.parent.nativeElement();
+
+        if (parent.error) {
+            throw parent.error;
+        }
+
+        const element = await parent.$(this.nativeSelector());
+
+        if (element.error) {
+            throw element.error;
+        }
+
+        return element;
     }
 
     async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
