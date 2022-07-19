@@ -12,13 +12,15 @@ export interface RequestAndResponse extends JSONObject {
     request: {
         url: string;
         method: string;
-        headers: { [header: string]: string };
+        headers: Record<string, string | number | boolean>;
         data?: any;
     };
     response: {
         status: number;
         data?: any;
-        headers?: { [header: string]: string };
+        headers?: Record<string, string> & {
+            'set-cookie'?: string[]
+        };
     };
 }
 
