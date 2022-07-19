@@ -9166,7 +9166,7 @@
     "__docId__": 431,
     "kind": "file",
     "name": "src/model/artifacts/HTTPRequestResponse.ts",
-    "content": "import { JSONObject } from 'tiny-types';\n\nimport { JSONData } from './JSONData';\n\n/**\n * @desc\n *  The value of the {@link HTTPRequestResponse} {@link Artifact} describing a HTTP request/response pair.\n *\n * @public\n */\nexport interface RequestAndResponse extends JSONObject {\n    request: {\n        url: string;\n        method: string;\n        headers: { [header: string]: string };\n        data?: any;\n    };\n    response: {\n        status: number;\n        data?: any;\n        headers?: { [header: string]: string };\n    };\n}\n\n/**\n * @desc\n *  An {@link Artifact} describing a HTTP request/response pair.\n *\n * @public\n */\nexport class HTTPRequestResponse extends JSONData {\n    static fromJSON(value: RequestAndResponse): HTTPRequestResponse {\n        return new HTTPRequestResponse(Buffer.from(JSON.stringify(value, undefined, 0), 'utf8').toString('base64'));\n    }\n}\n",
+    "content": "import { JSONObject } from 'tiny-types';\n\nimport { JSONData } from './JSONData';\n\n/**\n * @desc\n *  The value of the {@link HTTPRequestResponse} {@link Artifact} describing a HTTP request/response pair.\n *\n * @public\n */\nexport interface RequestAndResponse extends JSONObject {\n    request: {\n        url: string;\n        method: string;\n        headers: Record<string, string | number | boolean>;\n        data?: any;\n    };\n    response: {\n        status: number;\n        data?: any;\n        headers?: Record<string, string> & {\n            'set-cookie'?: string[]\n        };\n    };\n}\n\n/**\n * @desc\n *  An {@link Artifact} describing a HTTP request/response pair.\n *\n * @public\n */\nexport class HTTPRequestResponse extends JSONData {\n    static fromJSON(value: RequestAndResponse): HTTPRequestResponse {\n        return new HTTPRequestResponse(Buffer.from(JSON.stringify(value, undefined, 0), 'utf8').toString('base64'));\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/src/model/artifacts/HTTPRequestResponse.ts",
     "access": "public",
@@ -9241,7 +9241,7 @@
     "importPath": "@serenity-js/core/lib/model/artifacts",
     "importStyle": "{HTTPRequestResponse}",
     "description": " An {@link Artifact} describing a HTTP request/response pair.",
-    "lineNumber": 144,
+    "lineNumber": 157,
     "interface": false,
     "extends": [
       "src/model/artifacts/JSONData.js~JSONData"
@@ -9258,7 +9258,7 @@
     "longname": "src/model/artifacts/HTTPRequestResponse.ts~HTTPRequestResponse.fromJSON",
     "access": "public",
     "description": " ",
-    "lineNumber": 32,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
