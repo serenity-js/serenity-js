@@ -1,5 +1,5 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
-import axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 const mergeConfig = require('axios/lib/core/mergeConfig');      // eslint-disable-line @typescript-eslint/no-var-requires
 const buildFullPath = require('axios/lib/core/buildFullPath');  // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -126,7 +126,7 @@ export class CallAnApi implements Ability {
      *
      * @see {@link AxiosRequestConfig}
      */
-    modifyConfig(fn: (original: AxiosRequestConfig) => any): void {
+    modifyConfig(fn: (original: AxiosDefaults<any>) => any): void {
         fn(this.axiosInstance.defaults);
     }
 
