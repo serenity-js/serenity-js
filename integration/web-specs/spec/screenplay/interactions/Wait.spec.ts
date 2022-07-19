@@ -57,11 +57,13 @@ describe('Wait', () => {
                 Ensure.that(Text.of(status()), equals('Not ready')),
                 Click.on(loadButton()),
 
-                Wait.upTo(Duration.ofSeconds(1)).until(Text.of(status()), equals('Ready!')).pollingEvery(Duration.ofMilliseconds(250)),
+                Wait.upTo(Duration.ofSeconds(2))
+                    .until(Text.of(status()), equals('Ready!'))
+                    .pollingEvery(Duration.ofMilliseconds(500)),
 
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 1s, polling every 250ms, for the text of the header to equal 'Ready!'`);
+                expect(error.message).to.be.equal(`Waited 2s, polling every 500ms, for the text of the header to equal 'Ready!'`);
                 expect(error.actual).to.be.equal('Loading...');
                 expect(error.expected).to.be.equal('Ready!');
             }));
