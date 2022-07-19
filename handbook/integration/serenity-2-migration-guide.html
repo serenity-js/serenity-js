@@ -202,7 +202,7 @@ So this documentation attempts to provide straightforward distillation of likely
 <ul>
 <li>Chai is no longer needed as it's been superseded by <code>@serenity-js/assertions</code> </li>
 <li>mocha is not yet supported so if you used that in 1.x, you'll need to switch to jasmine. </li>
-<li>serenity-cli has been replaced by <code>@serenity-js/serenity-bdd</code>. </li>
+<li>serenity-cli has been replaced by <code>@serenity-js/serenity-bdd</code>.</li>
 </ul>
 <p>So remove all of these from your dependencies section:</p>
 <pre class="language-javascript"><code class="language-javascript"> <span class="token string">"@types/chai"</span>
@@ -462,7 +462,7 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 <ol>
 <li>the <code>Target</code> was passed in the constructor.</li>
 <li>the <code>BrowseTheWeb</code> ability was used to resolve a <code>WebElement</code> by passing the <code>Target</code> to the <code>locate</code> method.</li>
-<li><code>isSelected()</code> method is called on the <code>WebElement</code>. </li>
+<li><code>isSelected()</code> method is called on the <code>WebElement</code>.</li>
 </ol>
 <h5 id="serenityjs-2x-implementation-of-checkedvalue-question">Serenity/JS 2.x implementation of CheckedValue Question</h5>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
@@ -485,7 +485,7 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 <p>In the example above:</p>
 <ol>
 <li><code>Question&lt;ElementFinder&gt; | ElementFinder</code> is now passed in the constructor.</li>
-<li> <code>answeredBy</code> method is called on the the <code>ElementFinder</code> which returns a <code>WebElement</code>. </li>
+<li><code>answeredBy</code> method is called on the the <code>ElementFinder</code> which returns a <code>WebElement</code>. </li>
 <li><code>isSelected()</code> method is called on the <code>WebElement</code>. </li>
 <li>Note also that <code>promiseOf</code> is used as a wrapper in order to ensure that a native <code>Promise</code> is returned as described in <a href="/handbook/integration/serenity-2-migration-guide.html#migrate-promiselike-to-promise">Migrate PromiseLike to Promise</a>.</li>
 </ol>

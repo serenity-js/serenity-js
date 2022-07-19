@@ -248,7 +248,7 @@ export class Actors implements Cast {
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/web'</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">ReloadPage</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> 
+<span class="token keyword">const</span> <span class="token function-variable function">ReloadPage</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
     Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor reloads a page</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reloadPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -318,7 +318,7 @@ export class Actors implements Cast {
             <span class="token punctuation">.</span><span class="token function">describedAs</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">item called '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>To see the new <code>PageElement</code> and <code>PageElements</code> APIs in actions, including using advanced element filters and mapping, 
+<p>To see the new <code>PageElement</code> and <code>PageElements</code> APIs in action, including using advanced element filters and mapping,
 have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main/integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts">PageElements patterns spec</a>.</p>
 <p>If you'd like to see a tutorial or screencast on this topic, let us know on Twitter!</p>
 <a href="https://twitter.com/@SerenityJS" class="img-link">
@@ -462,6 +462,36 @@ have a look at the <a href="https://github.com/serenity-js/serenity-js/blob/main
   <span class="token punctuation">)</span>
 </code></pre>
 <p>The untyped flavour gives you access to <code>QuestionAdapter</code>s just like the typed version, however your text editor might not be able to provide you with as much support as it would if your notepad had been typed.</p>
+<h2 id="waiting">Waiting</h2>
+<p>In Serenity/JS 2, interactions to <code>Wait.for</code> and <code>Wait.until</code> relied on browser-specific wait APIs, such as Protractor <a href="https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.wait"><code>wait</code></a> or WebdriverIO <a href="https://webdriver.io/docs/api/browser/waitUntil/"><code>waitUntil</code></a>.
+Since the interactions were specific to browser integration tools, they'd also come as part of <code>@serenity-js/protractor</code> or <code>@serenity-js/webdriverio</code> modules.</p>
+<p>In Serenity/JS 3, interactions to <code>Wait</code> <strong>don't rely on any browser integration tool</strong> and are, in fact, completely browser-independent.
+What this means in practice is that you can use <code>Wait</code> for both browser and API tests.</p>
+<p>Since <code>Wait</code> is no longer tied to the browser, it's also been moved to <code>@serenity-js/core</code>:</p>
+<pre class="language-diff"><code class="language-diff">import { actorCalled, Duration } from '@serenity-js/core';
+<span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line"> import { Wait } from '@serenity-js/protractor';
+</span><span class="token prefix deleted">-</span><span class="token line"> import { Wait } from '@serenity-js/webdriverio';
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> import { Wait } from '@serenity-js/core';
+</span></span>
+actorCalled('Alice').attemptsTo(
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">   Wait.for(Duration.ofSeconds(1)),
+</span><span class="token prefix unchanged"> </span><span class="token line">   
+</span><span class="token prefix unchanged"> </span><span class="token line">   Wait.until(someQuestion, someExpectation)
+</span><span class="token prefix unchanged"> </span><span class="token line">       .pollingEvery(Duration.ofMilliseconds(10)),
+</span><span class="token prefix unchanged"> </span><span class="token line">   
+</span><span class="token prefix unchanged"> </span><span class="token line">   Wait.upTo(Duration.ofSeconds(5)
+</span><span class="token prefix unchanged"> </span><span class="token line">       .until(someQuestion, someExpectation)
+</span><span class="token prefix unchanged"> </span><span class="token line">       .pollingEvery(Duration.ofMilliseconds(10)),
+</span></span>)
+</code></pre>
+<p>Additionally, <code>Wait.until</code> has also received a new API allowing you to configure its polling interval (500ms by default):</p>
+<pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Duration<span class="token punctuation">,</span> Wait <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Wait<span class="token punctuation">.</span><span class="token function">until</span><span class="token punctuation">(</span>someQuestion<span class="token punctuation">,</span> someExpectation<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">pollingEvery</span><span class="token punctuation">(</span>Duration<span class="token punctuation">.</span><span class="token function">ofMilliseconds</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+</code></pre>
 <h2 id="serenity-jsassertions"><code>@serenity-js/assertions</code></h2>
 <h3 id="property-removed"><code>property</code> removed</h3>
 <p><code>property</code> helper function has been removed since it's no longer needed.</p>
@@ -489,8 +519,8 @@ actorCalled('Alice').attemptsTo
 <pre class="language-typescript"><code>Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token function">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'JAN'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <h2 id="serenity-jsrest"><code>@serenity-js/rest</code></h2>
-<h3 id="dynamicrecordaxiosrequestconfig-in-http-requests"><code>DynamicRecord&lt;AxiosRequestConfig&gt;</code> in HTTP requests</h3>
-<p>All HTTP requests now accept dynamic <code>DynamicRecord&lt;AxiosRequestConfig&gt;</code>, which means you can now specify additional
+<h3 id="answerablewithanswerablepropertiesaxiosrequestconfig-in-http-requests"><code>Answerable&lt;WithAnswerableProperties&lt;AxiosRequestConfig&gt;&gt;</code> in HTTP requests</h3>
+<p>All HTTP requests now accept <code>Answerable&lt;WithAnswerableProperties&lt;AxiosRequestConfig&gt;&gt;</code>, which means you can now specify additional
 HTTP request configuration using a configuration object with nested <code>Question</code>s, <code>QuestionAdapter</code>s and <code>Promise</code>s.</p>
 <p>For example:</p>
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
@@ -528,8 +558,9 @@ HTTP request configuration using a configuration object with nested <code>Questi
 </div>
 
 <h2 id="serenity-jscore"><code>@serenity-js/core</code></h2>
-<h3 id="screenplay-style-dictionaryt">Screenplay-style <code>Dictionary&lt;T&gt;</code></h3>
-<p>A new Screenplay-style data structure, <code>Dictionary&lt;T&gt;</code> will help you convert and merge plain JavaScript objects with nested <a href="/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E"><code>Answerable</code>s</a> into a <code>QuestionAdapter&lt;T&gt;</code>.</p>
+<h3 id="screenplay-style-dictionaries-with-questionfromobject">Screenplay-style dictionaries with <code>Question.fromObject</code></h3>
+<p>A new Screenplay-style data structure, <code>Answerable&lt;WithAnswerableProperties&lt;Source_Type&gt;&gt;</code> will help you convert
+and merge plain JavaScript objects with nested <a href="/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E"><code>Answerable</code>s</a> into a <code>QuestionAdapter&lt;T&gt;</code>.</p>
 <p>For example:</p>
 <pre class="language-typescript"><code class="language-typescript">
 <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
@@ -544,7 +575,7 @@ HTTP request configuration using a configuration object with nested <code>Questi
     Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>
         PostRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/products'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>
-                Dictionary<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">fromObject</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
                     name<span class="token operator">:</span>       Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someElement<span class="token punctuation">)</span><span class="token punctuation">,</span>
                     quantity<span class="token operator">:</span>   Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>someOtherElement<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>Number<span class="token punctuation">)</span>
                 <span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -552,8 +583,8 @@ HTTP request configuration using a configuration object with nested <code>Questi
     <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>To merge several objects, pass them to <code>Dictionary.of</code> as per the example below:</p>
-<pre class="language-typescript"><code class="language-typescript">Dictionary<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">of</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>  
+<p>To merge several objects, pass them to <code>Question.fromObject</code> as per the example below:</p>
+<pre class="language-typescript"><code class="language-typescript">Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">fromObject</span><span class="token generic class-name"><span class="token operator">&lt;</span>AddProductRequestData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>  
     <span class="token comment">// initial values</span>
     <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'unknown'</span><span class="token punctuation">,</span> quantity<span class="token operator">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token comment">// overrides</span>
@@ -563,8 +594,9 @@ HTTP request configuration using a configuration object with nested <code>Questi
 <span class="token punctuation">)</span>
 </code></pre>
 <p>Note that in the above code sample, the first object contains values for all the fields
-required by AddProductRequestData interface. If not all the fields are required, make sure
-to mark them as <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties">optional</a>.</p>
+required by <code>AddProductRequestData</code> interface.</p>
+<p>If not all the fields are required, make sure to mark them
+as <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties">optional</a>.</p>
 <p>For example:</p>
 <pre class="language-typescript"><code class="language-typescript"><span class="token keyword">interface</span> <span class="token class-name">AddProductRequestData</span> <span class="token punctuation">{</span>
     name<span class="token operator">:</span>       <span class="token builtin">string</span><span class="token punctuation">;</span>
