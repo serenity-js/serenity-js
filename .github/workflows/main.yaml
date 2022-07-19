@@ -166,6 +166,36 @@ jobs:
       - name: Test
         run: make test
 
+  test-linux-node-next:
+    name: test (Linux, Next)
+    needs:
+      - compile
+    runs-on:  ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Install Node Modules (@serenity-js)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+      - name: Decompress Libs
+        run:  7z x -aoa compiled-libs.zip
+
+      - name: Test
+        run: make test
+
   test-windows-node-lts-active:
     name: test (Windows, LTS)
     needs:
