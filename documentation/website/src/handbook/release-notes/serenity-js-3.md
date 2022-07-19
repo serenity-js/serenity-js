@@ -109,7 +109,7 @@ For example, the below custom interaction to `ReloadPage` is **portable**, which
 import { Actor, Interaction } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web'
 
-const ReloadPage = () => 
+const ReloadPage = () =>
     Interaction.where(`#actor reloads a page`, (actor: Actor) => {
         return BrowseTheWeb.as(actor).reloadPage();
     });
@@ -189,7 +189,7 @@ export class TodoList {
 }
 ```
 
-To see the new `PageElement` and `PageElements` APIs in action, including using advanced element filters and mapping, 
+To see the new `PageElement` and `PageElements` APIs in action, including using advanced element filters and mapping,
 have a look at the [PageElements patterns spec](https://github.com/serenity-js/serenity-js/blob/main/integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts).
 
 If you'd like to see a tutorial or screencast on this topic, let us know on Twitter!
@@ -362,10 +362,10 @@ The untyped flavour gives you access to `QuestionAdapter`s just like the typed v
 
 ## Waiting
 
-In Serenity/JS 2, interactions to `Wait.for` and `Wait.until` relied on browser-specific wait APIs, such as Protractor [`wait`](https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.wait) or WebdriverIO [`waitUntil`](https://webdriver.io/docs/api/browser/waitUntil/). 
+In Serenity/JS 2, interactions to `Wait.for` and `Wait.until` relied on browser-specific wait APIs, such as Protractor [`wait`](https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.wait) or WebdriverIO [`waitUntil`](https://webdriver.io/docs/api/browser/waitUntil/).
 Since the interactions were specific to browser integration tools, they'd also come as part of `@serenity-js/protractor` or `@serenity-js/webdriverio` modules.
 
-In Serenity/JS 3, interactions to `Wait` **don't rely on any browser integration tool** and are, in fact, completely browser-independent. 
+In Serenity/JS 3, interactions to `Wait` **don't rely on any browser integration tool** and are, in fact, completely browser-independent.
 What this means in practice is that you can use `Wait` for both browser and API tests.
 
 Since `Wait` is no longer tied to the browser, it's also been moved to `@serenity-js/core`:
@@ -486,7 +486,7 @@ actorCalled('René').attemptsTo(
 
 ### Screenplay-style dictionaries with `Question.fromObject`
 
-A new Screenplay-style data structure, `Answerable<WithAnswerableProperties<Source_Type>>` will help you convert 
+A new Screenplay-style data structure, `Answerable<WithAnswerableProperties<Source_Type>>` will help you convert
 and merge plain JavaScript objects with nested [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E) into a `QuestionAdapter<T>`.
 
 For example:
@@ -528,9 +528,9 @@ Question.fromObject<AddProductRequestData>(
 ```
 
 Note that in the above code sample, the first object contains values for all the fields
-required by `AddProductRequestData` interface. 
+required by `AddProductRequestData` interface.
 
-If not all the fields are required, make sure to mark them 
+If not all the fields are required, make sure to mark them
 as [optional](https://www.typescriptlang.org/docs/handbook/interfaces.html#optional-properties).
 
 For example:
