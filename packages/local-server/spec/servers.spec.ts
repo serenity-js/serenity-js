@@ -192,7 +192,11 @@ describe('ManageALocalServer', () => {
         });
     });
 
-    afterEach(() => actorInTheSpotlight().attemptsTo(
-        StopLocalServer.ifRunning(),
-    ));
+    afterEach(async function () {
+        if (! this.currentTest.pending) {
+            await actorInTheSpotlight().attemptsTo(
+                StopLocalServer.ifRunning(),
+            )
+        }
+    });
 });

@@ -1,5 +1,5 @@
-import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import { DataTable, Given, Then, When } from '@cucumber/cucumber';
+import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 
 Given(/^.*step.*passes$/, function () {
     return Promise.resolve();

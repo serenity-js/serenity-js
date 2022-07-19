@@ -66,7 +66,11 @@ describe('StartALocalServer', () => {
         )).to.be.fulfilled;
     });
 
-    afterEach(() => actorInTheSpotlight().attemptsTo(
-        StopLocalServer.ifRunning(),
-    ));
+    afterEach(async function () {
+        if (! this.currentTest.pending) {
+            await actorInTheSpotlight().attemptsTo(
+                StopLocalServer.ifRunning(),
+            )
+        }
+    });
 });
