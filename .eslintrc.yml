@@ -22,6 +22,12 @@ extends:
   - plugin:@typescript-eslint/recommended
   - plugin:mocha/recommended
   - plugin:unicorn/recommended
+overrides:
+  - files: ["packages/**/*.ts"]
+    rules:
+      "@typescript-eslint/explicit-module-boundary-types":
+        - error
+        - allowHigherOrderFunctions: true
 rules:
   simple-import-sort/imports: error
   simple-import-sort/exports: error
@@ -31,9 +37,6 @@ rules:
   no-multiple-empty-lines:
     - warn
     - max: 1
-  "@typescript-eslint/explicit-module-boundary-types":
-    - error
-    - allowHigherOrderFunctions: true
   indent: 'off'
   "@typescript-eslint/indent":
     - error

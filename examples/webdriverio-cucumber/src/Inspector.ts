@@ -6,10 +6,10 @@ export default class Inspector extends Reporter {
     constructor (options: Partial<Reporters.Options>) {
         super({ ...options, stdout: true });
 
-        const outDir = options.outputDir || './log';
+        const outputDirectory = options.outputDir || './log';
 
-        fs.mkdirSync(outDir, { recursive: true });
-        const out = fs.createWriteStream(`${ outDir }/wdio.events-${ process.pid }.ndjson`);
+        fs.mkdirSync(outputDirectory, { recursive: true });
+        const out = fs.createWriteStream(`${ outputDirectory }/wdio.events-${ process.pid }.ndjson`);
 
         function log(type: string) {
             return (event: object) =>

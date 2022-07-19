@@ -16,7 +16,7 @@ describe('ManageALocalServer', () => {
     describe('restarting', () => {
 
         given(servers).
-        it('allows the Actor to restart a server on the same port multiple times', function ({ handler, node }) {
+        it('allows the Actor to restart a server on the same port multiple times', async function ({ handler, node }) {
             if (! satisfies(process.versions.node, node)) {
                 return this.skip();
             }
@@ -34,7 +34,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(
+            await expect(actorCalled('Nadia').attemptsTo(
                 StartLocalServer.onPort(30000),
                 Ensure.that(LocalServer.url(), equals('http://127.0.0.1:30000')),
                 StopLocalServer.ifRunning(),
@@ -44,8 +44,13 @@ describe('ManageALocalServer', () => {
             )).to.be.fulfilled;
         });
 
-        afterEach(() => actorInTheSpotlight().attemptsTo(
-            StopLocalServer.ifRunning(),
-        ));
+        afterEach(async function () {
+            if (! this.currentTest.pending) {
+                await actorInTheSpotlight()
+                    .attemptsTo(
+                        StopLocalServer.ifRunning(),
+                    )
+            }
+        });
     });
 });
