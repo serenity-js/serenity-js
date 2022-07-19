@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.33.10](https://github.com/serenity-js/serenity-js/compare/v2.33.9...v2.33.10) (2022-07-19)
+
+
+### Bug Fixes
+
+* **rest:** updated Axios to 0.27.2 ([a5925c0](https://github.com/serenity-js/serenity-js/commit/a5925c0e5658d57fa10430245f4c6d9fd5a55a4e)), closes [axios/axios#4124](https://github.com/axios/axios/issues/4124) [#1223](https://github.com/serenity-js/serenity-js/issues/1223)
+
+
+
+
+
 ## [2.33.9](https://github.com/serenity-js/serenity-js/compare/v2.33.8...v2.33.9) (2022-06-02)
 
 **Note:** Version bump only for package @serenity-js/rest
