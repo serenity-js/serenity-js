@@ -142,6 +142,15 @@ describe('CucumberCLIAdapter', function () {
     async function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
         clearRequireCache('steps.ts');
 
+        /**
+         * we have to remove FORCE_COLOR because:
+         * - IntelliJ sets it to true, and this can't be changed
+         * - When Cucumber picks up that variable, it ignores any other configuration regarding output colors, delegating responsibility to Chalk
+         *   https://github.com/cucumber/cucumber-js/blob/3928c673378ccabf2138b7c55873f6981e9eb134/src/formatter/get_color_fns.ts#L68
+         * - Chalk uses global process.env, so even if we try to tell Cucumber to use FORCE_COLOR=0, this won't be passed to Chalk
+         */
+        delete process.env.FORCE_COLOR;
+
         const adapter = new CucumberCLIAdapter(
             {
                 ...config,
@@ -149,7 +158,7 @@ describe('CucumberCLIAdapter', function () {
             },
             new LocalModuleLoader(rootDirectory.value),
             new FileSystem(rootDirectory),
-            output
+            output,
         );
 
         const inspect = stdout.inspect();

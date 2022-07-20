@@ -108,6 +108,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
         const argv = this.options.asArgumentsForCucumber(version);
 
+        if (version.isAtLeast(new Version('8.0.0'))) {
+            return this.runWithCucumber8(argv, serenityListener, pathsToScenarios);
+        }
+
         if (version.isAtLeast(new Version('7.0.0'))) {
             return this.runWithCucumber7(argv, serenityListener, pathsToScenarios);
         }
@@ -121,6 +125,20 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         }
 
         return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
+    }
+
+    private runWithCucumber8(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const cucumber  = this.loader.require('@cucumber/cucumber');
+        const output    = this.output.get();
+
+        return new cucumber.Cli({
+            argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),
+            cwd:    this.loader.cwd,
+            stdout: process.stdout,
+            env:    process.env,
+        })
+        .run()
+        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));
     }
 
     private runWithCucumber7(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {

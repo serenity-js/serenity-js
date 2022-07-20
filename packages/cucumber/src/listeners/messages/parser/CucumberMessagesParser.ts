@@ -345,7 +345,8 @@ export class CucumberMessagesParser {
         });
 
         const worstStepResult   = parsed.testCase.worstTestStepResult;
-        const willBeRetried     = worstStepResult.willBeRetried;
+        const willBeRetried     = worstStepResult.willBeRetried ||      // Cucumber 7
+                                  testCaseAttempt.willBeRetried         // Cucumber 8
         const outcome           = this.outcomeFrom(worstStepResult, ...parsed.testSteps);
 
         const tags = [];

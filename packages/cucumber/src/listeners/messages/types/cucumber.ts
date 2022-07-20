@@ -31,6 +31,7 @@ export interface ITestCaseAttempt {
     stepResults: { [ key: string ]: TestStepResult };
     testCase: TestCase;
     worstTestStepResult: TestStepResult;
+    willBeRetried?: boolean;                // introduced in Cucumber 8
 }
 
 /**
