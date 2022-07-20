@@ -1,7 +1,6 @@
-import { formatted } from '../../io';
+import { d } from '../../io';
 import { inspected } from '../../io/inspected';
-import { Name } from '../../model';
-import { LogEntry } from '../../model/artifacts';
+import { LogEntry, Name } from '../../model';
 import { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
@@ -59,14 +58,16 @@ export class Log extends Interaction {
      * @see {@link AnswersQuestions}
      * @see {@link CollectsArtifacts}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
-        return Promise
-            .all(this.items.map(item => actor.answer(item)))
-            .then(items =>
-                items.forEach((item, i) =>
-                    actor.collect(LogEntry.fromJSON({ data: inspected(item) }), new Name(inspected(this.items[i]))),
-                ),
+    async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
+        for (const item of this.items) {
+
+            const data = await actor.answer(item);
+
+            actor.collect(
+                LogEntry.fromJSON({ data: inspected(data) }),
+                new Name(d`${ item }`)
             );
+        }
     }
 
     /**
@@ -76,6 +77,6 @@ export class Log extends Interaction {
      * @returns {string}
      */
     toString(): string {
-        return `#actor logs: ${ this.items.map(item => formatted`${ item }`).join(', ') }`;
+        return `#actor logs: ${ this.items.map(item => d`${ item }`).join(', ') }`;
     }
 }
