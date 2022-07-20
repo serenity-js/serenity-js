@@ -271,11 +271,10 @@ export class CucumberMessagesParser {
     }
 
     private parseTestCaseAttempt(testCaseAttempt: ITestCaseAttempt) {
-        // todo: workaround for https://github.com/cucumber/cucumber-js/pull/1531
-        //  can be removed when the above PR is merged
+        // workaround for a bug in Cucumber 7, that's fixed in Cucumber 8 by https://github.com/cucumber/cucumber-js/pull/1531
         testCaseAttempt.testCase.testSteps.forEach(step => {
             if (! testCaseAttempt.stepResults[step.id]) {
-                testCaseAttempt.stepResults[step.id] = { duration: { seconds: 0, nanos: 0 }, status: TestStepResultStatus.UNKNOWN, willBeRetried: false };
+                testCaseAttempt.stepResults[step.id] = { duration: { seconds: 0, nanos: 0 }, status: TestStepResultStatus.UNKNOWN, willBeRetried: false } as TestStepResult;
             }
         });
         // ---
