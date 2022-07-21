@@ -326,7 +326,7 @@ jobs:
         run: make site
 
       - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc # tag=v4.3.3
+        uses: JamesIves/github-pages-deploy-action@13046b614c663b56cba4dda3f30b9736a748b80d # tag=v4.4.0
         if: github.ref == 'refs/heads/master'
         with:
           BRANCH: gh-pages
