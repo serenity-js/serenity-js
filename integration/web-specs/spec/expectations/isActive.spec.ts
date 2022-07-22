@@ -3,14 +3,16 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
-import { By, Click, isActive, Navigate, PageElement } from '@serenity-js/web';
+import { By, Click, isActive, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isActive', function () {
 
-    const Page = {
-        activeInput:        PageElement.located(By.id('active')).describedAs('the active input'),
-        autofocusedInput:   PageElement.located(By.id('autofocused')).describedAs('the autofocused input'),
-        inactiveInput:      PageElement.located(By.id('inactive')).describedAs('the inactive input'),
+    const Elements = {
+        nonExistent:            () => PageElement.located(By.id('does-not-exist')).describedAs('non-existent element'),
+        nonExistentElements:    () => PageElements.located(By.id('does-not-exist')).describedAs('non-existent elements'),
+        activeInput:            () => PageElement.located(By.id('active')).describedAs('the active input'),
+        autofocusedInput:       () => PageElement.located(By.id('autofocused')).describedAs('the autofocused input'),
+        inactiveInput:          () => PageElement.located(By.id('inactive')).describedAs('the inactive input'),
     };
 
     beforeEach(() =>
@@ -18,34 +20,52 @@ describe('isActive', function () {
             Navigate.to('/expectations/is-active/active_inactive_inputs.html'),
         ));
 
-    /** @test {isActive} */
-    it('allows the actor flow to continue when the element is active', () =>
-        expect(actorCalled('Wendy').attemptsTo(
-            Wait.until(Page.autofocusedInput, isActive()),
-            Ensure.that(Page.autofocusedInput, isActive()),
+    describe('resolves to true when the element', () => {
 
-            Ensure.that(Page.inactiveInput, not(isActive())),
-            Click.on(Page.inactiveInput),
+        /** @test {isActive} */
+        it('is active', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Wait.until(Elements.autofocusedInput(), isActive()),
+                Ensure.that(Elements.autofocusedInput(), isActive()),
 
-            Wait.until(Page.inactiveInput, isActive()),
-            Ensure.that(Page.inactiveInput, isActive()),
-        )).to.be.fulfilled);
+                Ensure.that(Elements.inactiveInput(), not(isActive())),
+                Click.on(Elements.inactiveInput()),
 
-    /** @test {isActive} */
-    it('breaks the actor flow when element is inactive', () =>
-        expect(actorCalled('Wendy').attemptsTo(
-            Ensure.that(Page.inactiveInput, isActive()),
-        )).to.be.rejectedWith(AssertionError, `Expected the inactive input to become active`));
+                Wait.until(Elements.inactiveInput(), isActive()),
+                Ensure.that(Elements.inactiveInput(), isActive()),
+            )).to.be.fulfilled);
+    });
+
+    describe('resolves to false when the element', () => {
+
+        /** @test {isActive} */
+        it('is inactive', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Ensure.that(Elements.inactiveInput(), isActive()),
+            )).to.be.rejectedWith(AssertionError, `Expected the inactive input to become active`));
+
+        /** @test {isActive} */
+        it('does not exist', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Ensure.that(Elements.nonExistent(), isActive()),
+            )).to.be.rejectedWith(AssertionError, `Expected non-existent element to become present`));
+
+        /** @test {isActive} */
+        it('does not exist in a list of PageElements', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Ensure.that(Elements.nonExistentElements().first(), isActive()),
+            )).to.be.rejectedWith(AssertionError, `Expected the first of non-existent elements to become present`));
+    });
 
     /** @test {isActive} */
     it('contributes to a human-readable description of an assertion', () => {
-        expect(Ensure.that(Page.activeInput, isActive()).toString())
+        expect(Ensure.that(Elements.activeInput(), isActive()).toString())
             .to.equal(`#actor ensures that the active input does become active`);
     });
 
     /** @test {isActive} */
     it('contributes to a human-readable description of a wait', () => {
-        expect(Wait.until(Page.activeInput, isActive()).toString())
+        expect(Wait.until(Elements.activeInput(), isActive()).toString())
             .to.equal(`#actor waits up to 5s, polling every 500ms, until the active input does become active`);
     });
 });
