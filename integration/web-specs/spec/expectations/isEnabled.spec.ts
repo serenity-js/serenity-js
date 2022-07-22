@@ -12,7 +12,6 @@ describe('isEnabled', function () {
         nonExistentElements:    () => PageElements.located(By.id('does-not-exist')).describedAs('non-existent elements'),
         enabledButton:          () => PageElement.located(By.id('enabled')).describedAs('the enabled button'),
         disabledButton:         () => PageElement.located(By.id('disabled')).describedAs('the disabled button'),
-        hiddenButton:           () => PageElement.located(By.id('hidden')).describedAs('the hidden button'),
     };
 
     beforeEach(() =>
@@ -37,12 +36,6 @@ describe('isEnabled', function () {
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.disabledButton(), isEnabled()),
             )).to.be.rejectedWith(AssertionError, `Expected the disabled button to become enabled`));
-
-        /** @test {isEnabled} */
-        it('is hidden', () =>
-            expect(actorCalled('Wendy').attemptsTo(
-                Ensure.that(Elements.hiddenButton(), isEnabled()),
-            )).to.be.rejectedWith(AssertionError, `Expected the hidden button to become visible`));
 
         /** @test {isActive} */
         it('does not exist', () =>
