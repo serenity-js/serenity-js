@@ -36,7 +36,7 @@ export class Log extends Interaction {
     }
 
     /**
-     * @param {...items: any[]} items
+     * @param {Array<Answerable<any>>} items
      *  The items to be logged
      */
     constructor(
