@@ -2,8 +2,8 @@ import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { Log, Question, Serenity } from '../../../src';
-import { expect } from '../../expect';
 import { Name } from '../../../src/model';
+import { expect } from '../../expect';
 
 /** @test {Log} */
 describe('Log', () => {
