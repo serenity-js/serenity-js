@@ -3,14 +3,16 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
-import { By, isClickable, Navigate, PageElement } from '@serenity-js/web';
+import { By, isClickable, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isClickable', function () {
 
     const Elements = {
-        enabledButton:  () => PageElement.located(By.id('enabled')).describedAs('the enabled button'),
-        disabledButton: () => PageElement.located(By.id('disabled')).describedAs('the disabled button'),
-        hiddenButton:   () => PageElement.located(By.id('hidden')).describedAs('the hidden button'),
+        nonExistent:            () => PageElement.located(By.id('does-not-exist')).describedAs('non-existent element'),
+        nonExistentElements:    () => PageElements.located(By.id('does-not-exist')).describedAs('non-existent elements'),
+        enabledButton:          () => PageElement.located(By.id('enabled')).describedAs('the enabled button'),
+        disabledButton:         () => PageElement.located(By.id('disabled')).describedAs('the disabled button'),
+        hiddenButton:           () => PageElement.located(By.id('hidden')).describedAs('the hidden button'),
     };
 
     beforeEach(() =>
@@ -41,6 +43,18 @@ describe('isClickable', function () {
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.hiddenButton(), isClickable()),
             )).to.be.rejectedWith(AssertionError, `Expected the hidden button to become visible`));
+
+        /** @test {isClickable} */
+        it('does not exist', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Ensure.that(Elements.nonExistent(), isClickable()),
+            )).to.be.rejectedWith(AssertionError, `Expected non-existent element to become present`));
+
+        /** @test {isClickable} */
+        it('does not exist in a list of PageElements', () =>
+            expect(actorCalled('Wendy').attemptsTo(
+                Ensure.that(Elements.nonExistentElements().first(), isClickable()),
+            )).to.be.rejectedWith(AssertionError, `Expected the first of non-existent elements to become present`));
     });
 
     /** @test {isClickable} */

@@ -1,3 +1,4 @@
+import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
@@ -15,8 +16,9 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
  */
-// todo: isFocused?
 export function isActive(): Expectation<PageElement> {
-    return ElementExpectation.forElementTo('become active', actual => actual.isActive());
+    return Expectation.to<boolean, PageElement>('become active').soThatActual(and(
+        isPresent(),
+        ElementExpectation.forElementTo('become active', actual => actual.isActive()),
+    ));
 }
-

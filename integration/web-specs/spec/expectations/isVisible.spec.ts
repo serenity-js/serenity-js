@@ -3,22 +3,23 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, not } from '@serenity-js/assertions';
 import { actorCalled, Wait } from '@serenity-js/core';
-import { Attribute, By, Hover, isVisible, Navigate, PageElement, Text } from '@serenity-js/web';
+import { Attribute, By, Hover, isVisible, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('isVisible', function () {
 
     describe('when working with standard document structure', () => {
 
         const Elements = {
-            displayed:      PageElement.located(By.id('displayed')).describedAs('visible element'),
-            notDisplayed:   PageElement.located(By.id('display-none')).describedAs('not displayed element'),
-            nonExistent:    PageElement.located(By.id('does-not-exist')).describedAs('non-existent element'),
-            hidden:         PageElement.located(By.id('visibility-hidden')).describedAs('hidden element'),
-            notInViewport:  PageElement.located(By.id('not-in-viewport')).describedAs('element outside of the browser viewport'),
-            transparent:    PageElement.located(By.id('opacity-zero')).describedAs('a fully transparent element'),
+            displayed:              () => PageElement.located(By.id('displayed')).describedAs('visible element'),
+            notDisplayed:           () => PageElement.located(By.id('display-none')).describedAs('not displayed element'),
+            nonExistent:            () => PageElement.located(By.id('does-not-exist')).describedAs('non-existent element'),
+            nonExistentElements:    () => PageElements.located(By.id('does-not-exist')).describedAs('non-existent elements'),
+            hidden:                 () => PageElement.located(By.id('visibility-hidden')).describedAs('hidden element'),
+            notInViewport:          () => PageElement.located(By.id('not-in-viewport')).describedAs('element outside of the browser viewport'),
+            transparent:            () => PageElement.located(By.id('opacity-zero')).describedAs('a fully transparent element'),
 
-            foreground:     PageElement.located(By.id('foreground')).describedAs('element in the foreground'),
-            background:     PageElement.located(By.id('background')).describedAs('element in the background'),
+            foreground:             () => PageElement.located(By.id('foreground')).describedAs('element in the foreground'),
+            background:             () => PageElement.located(By.id('background')).describedAs('element in the background'),
         };
 
         beforeEach(() =>
@@ -31,13 +32,13 @@ describe('isVisible', function () {
             /** @test {isVisible} */
             it('is displayed', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.displayed, isVisible()),
+                    Ensure.that(Elements.displayed(), isVisible()),
                 ));
 
             /** @test {isVisible} */
             it('is not covered by other elements', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.foreground, isVisible()),
+                    Ensure.that(Elements.foreground(), isVisible()),
                 ));
         });
 
@@ -47,49 +48,55 @@ describe('isVisible', function () {
             it('is not displayed', () =>
                 // expect(
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.notDisplayed, not(isVisible())),
+                    Ensure.that(Elements.notDisplayed(), not(isVisible())),
                 ));
 
             /** @test {isVisible} */
             it('does not exist', () =>
-                actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.nonExistent, not(isVisible())),
-                ));
+                expect(actorCalled('Wendy').attemptsTo(
+                    Ensure.that(Elements.nonExistent(), not(isVisible())),
+                )));
+
+            /** @test {isVisible} */
+            it('does not exist in a list of PageElements', () =>
+                expect(actorCalled('Wendy').attemptsTo(
+                    Ensure.that(Elements.nonExistentElements().first(), not(isVisible())),
+                )));
 
             /** @test {isVisible} */
             it('is hidden', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.hidden, not(isVisible())),
+                    Ensure.that(Elements.hidden(), not(isVisible())),
                 ));
 
             /** @test {isVisible} */
             it('is not in the viewport', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.notInViewport, not(isVisible())),
+                    Ensure.that(Elements.notInViewport(), not(isVisible())),
                 ));
 
             /** @test {isVisible} */
             it('is transparent', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.transparent, not(isVisible())),
+                    Ensure.that(Elements.transparent(), not(isVisible())),
                 ));
 
             /** @test {isVisible} */
             it('is covered by other elements', () =>
                 actorCalled('Wendy').attemptsTo(
-                    Ensure.that(Elements.background, not(isVisible())),
+                    Ensure.that(Elements.background(), not(isVisible())),
                 ));
         });
 
         /** @test {isVisible} */
         it('contributes to a human-readable description of an assertion', () => {
-            expect(Ensure.that(Elements.displayed, isVisible()).toString())
+            expect(Ensure.that(Elements.displayed(), isVisible()).toString())
                 .to.equal(`#actor ensures that visible element does become visible`);
         });
 
         /** @test {isVisible} */
         it('contributes to a human-readable description of a wait', () => {
-            expect(Wait.until(Elements.displayed, isVisible()).toString())
+            expect(Wait.until(Elements.displayed(), isVisible()).toString())
                 .to.equal(`#actor waits up to 5s, polling every 500ms, until visible element does become visible`);
         });
     });
