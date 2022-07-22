@@ -19,7 +19,6 @@ import { isVisible } from './isVisible';
 export function isEnabled(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become enabled').soThatActual(and(
         isPresent(),
-        isVisible(),
         ElementExpectation.forElementTo('become enabled', actual => actual.isEnabled())
     ));
 }
