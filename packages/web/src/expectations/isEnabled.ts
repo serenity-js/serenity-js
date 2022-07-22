@@ -3,7 +3,6 @@ import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
-import { isVisible } from './isVisible';
 
 /**
  * @desc
