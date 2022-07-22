@@ -27,7 +27,7 @@ describe('Page', () => {
         expectedName:   'popup-window',         // defined in main_page.html
     };
 
-    describe('when managing the browsing context', () => {
+    describe('when managing the page', () => {
 
         beforeEach(() =>
             actorCalled('Bernie').attemptsTo(
@@ -97,9 +97,10 @@ describe('Page', () => {
                     Click.on(MainPage.newPopUpLink()),
                     Wait.until(Page.whichName(equals(Popup.expectedName)), isPresent()),
                     Page.whichTitle(equals(MainPage.title)).switchTo(),
+                    Wait.until(Page.current().title(), equals(MainPage.title)),
                 ));
 
-            it('provides access to another browsing context identified by name', () =>
+            it('provides access to another page identified by name', () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.whichName(startsWith('popup')).name(), equals(Popup.expectedName)),
                 ));
@@ -280,7 +281,7 @@ describe('Page', () => {
         });
     });
 
-    describe('when describing the browsing context', () => {
+    describe('when describing the page context', () => {
 
         describe('current().toString()', () => {
 
