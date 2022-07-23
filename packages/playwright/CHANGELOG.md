@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
+
+
+### Bug Fixes
+
+* **playwright:** upgraded Playwright to 1.24.0 ([9f8d491](https://github.com/serenity-js/serenity-js/commit/9f8d491cefd893ed7730c55f4186e4b3ffcc0e1d))
+
+
+
+
+
 # [3.0.0-rc.23](https://github.com/serenity-js/serenity-js/compare/v2.33.10...v3.0.0-rc.23) (2022-07-19)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
+
+
+### Bug Fixes
+
+* **core:** improved how the interaction to Log reports names of the logged values ([c4cc60d](https://github.com/serenity-js/serenity-js/commit/c4cc60d0e1d4bdc34218566b1726e74d3ac40909))
+
+
+### Features
+
+* **core:** new interaction to Debug.values(..) and Debug.setBreakpoint() ([ef54324](https://github.com/serenity-js/serenity-js/commit/ef54324ca1b415d41eee12e7f4667cbffe2c8a01))
+
+
+
+
+
 # [3.0.0-rc.23](https://github.com/serenity-js/serenity-js/compare/v2.33.10...v3.0.0-rc.23) (2022-07-19)
 
 

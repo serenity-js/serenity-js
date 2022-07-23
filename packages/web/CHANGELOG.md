@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
+
+
+### Bug Fixes
+
+* **web:** simplified the implementation of isClickable and isEnabled ([142eb86](https://github.com/serenity-js/serenity-js/commit/142eb861d95e08df7717e9fffc57153a62c88f66)), closes [#1255](https://github.com/serenity-js/serenity-js/issues/1255)
+
+
+### Features
+
+* **web:** PageElement-releated expectations now also check if the element is present ([de4610c](https://github.com/serenity-js/serenity-js/commit/de4610c3199f7130fd56d2d6799a328cbd7540a2)), closes [#1255](https://github.com/serenity-js/serenity-js/issues/1255)
+
+
+
+
+
 # [3.0.0-rc.23](https://github.com/serenity-js/serenity-js/compare/v2.33.10...v3.0.0-rc.23) (2022-07-19)
 
 
