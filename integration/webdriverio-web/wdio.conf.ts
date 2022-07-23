@@ -9,6 +9,7 @@ import { Actors } from './src/Actors';
 const port = process.env.PORT || 8080;
 
 const specs = [
+    // './node_modules/@integration/web-specs/spec/**/Page.spec.ts',
     './node_modules/@integration/web-specs/spec/**/*.spec.ts',
 ];
 
