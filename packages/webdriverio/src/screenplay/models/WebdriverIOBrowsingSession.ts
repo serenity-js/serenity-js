@@ -95,7 +95,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         const puppeteer = await this.browser.getPuppeteer();
         const pages = await puppeteer.pages();
 
-        const handles = await browser.getWindowHandles();
+        const handles = await this.browser.getWindowHandles();
 
         if (handles.length !== pages.length) {
             throw new LogicError(`The number of registered Puppeteer pages doesn't match WebdriverIO window handles.`)
