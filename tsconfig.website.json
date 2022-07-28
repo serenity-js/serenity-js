@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": [
+      "es2019",
+      "dom"
+    ],
+    "types": [
+      "node"
+    ],
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "dts",
+    "outDir": "dts",
+    "skipLibCheck": true
+  },
+
+  "include":[
+    "packages/*/src/**/*"
+  ],
+
+  "exclude": [
+    "spec",
+    "node_modules"
+  ]
+}
+
