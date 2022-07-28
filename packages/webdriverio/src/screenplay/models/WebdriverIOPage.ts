@@ -216,7 +216,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
 
     async url(): Promise<URL> {
         return this.switchToAndPerform(async () => {
-            return new URL(await browser.getUrl());
+            return new URL(await this.browser.getUrl());
         });
     }
 
