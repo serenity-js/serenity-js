@@ -34,6 +34,7 @@ jobs:
       - name: Lint
         run: make lint
 
+  # todo: remove when the website is migrated to v3
   api-docs:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
@@ -452,7 +453,7 @@ jobs:
           path: |
             CHANGELOG.md
 
-  website:
+  website-v2:
     runs-on: ubuntu-latest
     needs:
       - api-docs
@@ -503,3 +504,50 @@ jobs:
           BRANCH: gh-pages
           FOLDER: documentation/website/target/site
           CLEAN: true
+
+  website-v3:
+    runs-on: ubuntu-latest
+    needs:
+      - publish-artifacts
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-lerna
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Download changelog
+        if: needs.publish-artifacts.result == 'success'
+        uses: actions/download-artifact@v2
+        with:
+          name: changelog
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install Node Modules (@documentation)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP_SCOPE=@documentation install
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Build serenity-js.org website
+        working-directory: ./documentation/serenity-js.org
+        run: npm run build
+
+#      - name: Publish website
+#        uses: JamesIves/github-pages-deploy-action@v4.3.0
+#        if: github.ref == 'refs/heads/main'
+#        with:
+#          BRANCH: gh-pages
+#          FOLDER: documentation/serenity-js.org/build
+#          CLEAN: true
