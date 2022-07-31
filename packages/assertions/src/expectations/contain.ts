@@ -25,5 +25,5 @@ import { equal } from 'tiny-types/lib/objects';
  */
 export function contain<Item>(expected: Answerable<Item>): Expectation<Item[]> {
     return Expectation.thatActualShould<Item, Item[]>('contain', expected)
-        .soThat((actualValue, expectedValue) => !! actualValue.find(item => equal(item, expectedValue)));
+        .soThat((actualValue, expectedValue) => actualValue.some(item => equal(item, expectedValue)));
 }
