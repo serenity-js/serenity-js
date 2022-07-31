@@ -176,6 +176,10 @@ const config = {
                 tsconfigName: 'tsconfig.website.json',
                 removeScopes: ['serenity-js'],
                 typedocOptions: {
+                    logIgnoredInheritedStaticMethods: true,
+                    plugin: [
+                        '../typedoc-plugin-ignore-inherited-static-methods',
+                    ],
                     sort: [
                         'static-first',
                         'source-order',
@@ -183,7 +187,6 @@ const config = {
                     visibilityFilters: {
                         protected: true,
                         private: false,
-                        inherited: false,   // todo: gets ignored; why?
                     }
                 }
             },
