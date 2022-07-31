@@ -1,5 +1,24 @@
 import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
+/**
+ * Produces an {@link Expectation|expectation} that is met when all the items of the actual array of `Item[]`
+ * meet the `expectation`.
+ *
+ * ## Ensuring that all the items in an array meet the expectation
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, containItemsWhereEachItem, endsWith } from '@serenity-js/assertions'
+ *
+ * const items = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ]
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that(items, containItemsWhereEachItem(endsWith('day'))),
+ * )
+ * ```
+ *
+ * @param expectation
+ */
 export function containItemsWhereEachItem<Actual>(expectation: Expectation<Actual>): Expectation<Actual[]> {
     return new ContainItemsWhereEachItemMeetsExpectation(expectation);
 }
