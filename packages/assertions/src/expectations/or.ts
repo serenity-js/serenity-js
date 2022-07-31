@@ -1,7 +1,25 @@
 import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome, LogicError } from '@serenity-js/core';
 
-export function or<Actual>(...assertions: Array<Expectation<Actual>>): Expectation<Actual> {
-    return new Or(assertions);
+/**
+ * Creates an {@link Expectation|expectation} that is met when at least one of the `expectations` is met for the given actual value.
+ *
+ * Use `or` to combine several expectations using logical "or",
+ *
+ * ## Combining several expectations
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, or, startsWith } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that('Hello World!', or(startsWith('Hello'), startsWith('Hi'))),
+ * )
+ * ```
+ *
+ * @param expectations
+ */
+export function or<Actual_Type>(...expectations: Array<Expectation<Actual_Type>>): Expectation<Actual_Type> {
+    return new Or(expectations);
 }
 
 /**

@@ -1,12 +1,63 @@
 import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, Optional } from '@serenity-js/core';
 
 /**
- * @desc
- *  Expectation that the `actual` is not undefined or null.
- *  Also, for `actual` implementing {@link @serenity-js/core/lib/screenplay~Optional}, that `Optional.isPresent()` returns an {@link @serenity-js/core/lib/screenplay~Answerable}
- *  that resolves to `true`
+ * Creates an {@link Expectation|expectation} that is met when the `actual` value is not undefined or null.
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<Answerable<boolean>, Optional>}
+ * Also, when the `actual` implements {@link Optional}, the expectation is met when calling {@link Optional.isPresent()}
+ * returns an {@link Answerable} that resolves to `true`
+ *
+ * ## Ensuring that a value is defined
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, Send, GetRequest, LastResponse } from '@serenity-js/rest'
+ * import { Ensure, isPresent } from '@serenity-js/assertions'
+ *
+ * interface Product {
+ *     name: string;
+ * }
+ *
+ * interface ProductsResponse {
+ *     products: Product[];
+ * }
+ *
+ * await actorCalled('Apisitt')
+ *   .whoCan(CallAnApi.at('https://api.example.org'))
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/products')),
+ *     Ensure.that(LastResponse.body<ProductsResponse>().products[0], isPresent()),
+ *   )
+ * ```
+ *
+ * ## Checking if a PageElement is present
+ *
+ * ```ts
+ * import { actorCalled, Check } from '@serenity-js/core';
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+ * import { By, Click, Navigate, PageElement } from '@serenity-js/web';
+ * import { Browser, chromium } from 'playwright';
+ *
+ * class NewsletterSubscription {
+ *   static modal = () =>
+ *     PageElement.located(By.id('newsletter-subscription'))
+ *       .describedAs('newsletter subscription modal')
+ *
+ *   static closeButton = () =>
+ *     PageElement.located(By.class('.close'))
+ *       .of(NewsletterSubscription.modal())
+ *       .describedAs('close button')
+ * }
+ *
+ * const browser = await chromium.launch({ headless: true });
+ *
+ * await actorCalled('Isabela')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *   .attemptsTo(
+ *     Navigate.to(`https://example.org`),
+ *     Check.whether(NewsletterSubscription.modal(), isPresent())
+ *       .andIfSo(Click.on(NewsletterSubscription.closeButton())),
+ *   )
+ * ```
  *
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}

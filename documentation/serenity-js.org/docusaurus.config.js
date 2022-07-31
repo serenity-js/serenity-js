@@ -9,7 +9,7 @@ const path = require('path');
 const config = {
     title: 'My Site',
     tagline: 'Dinosaurs are cool',
-    url: 'https://your-docusaurus-test-site.com',
+    url: 'https://serenity-js.org',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'throw',
@@ -68,16 +68,17 @@ const config = {
                         type: 'doc',
                         docId: 'intro',
                         position: 'left',
-                        label: 'Tutorial',
+                        label: `Tutorial`,
                     },
-                    { to: '/blog', label: 'Blog', position: 'left' },
+                    // { to: '/handbook', label: 'Handbook', position: 'left' },
                     {
                         to: 'api',
-                        label: 'API',
+                        label: 'API docs',
                         position: 'left',
                     },
+                    { to: '/blog', label: 'Blog', position: 'right' },
                     {
-                        href: 'https://github.com/facebook/docusaurus',
+                        href: 'https://github.com/serenity-js/serenity-js',
                         label: 'GitHub',
                         position: 'right',
                     },
@@ -126,7 +127,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${ new Date().getFullYear() } My Project, Inc. Built with Docusaurus.`,
+                copyright: `Made with love in London, UK © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
             },
             prism: {
                 theme: lightCodeTheme,
@@ -174,6 +175,17 @@ const config = {
                 debug: true,
                 tsconfigName: 'tsconfig.website.json',
                 removeScopes: ['serenity-js'],
+                typedocOptions: {
+                    sort: [
+                        'static-first',
+                        'source-order',
+                    ],
+                    visibilityFilters: {
+                        protected: true,
+                        private: false,
+                        inherited: false,   // todo: gets ignored; why?
+                    }
+                }
             },
         ],
     ]

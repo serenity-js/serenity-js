@@ -1,24 +1,43 @@
 import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
-export function containAtLeastOneItemThat<Actual>(expectation: Expectation<Actual>): Expectation<Actual[]> {
+/**
+ * Produces an {@link Expectation|expectation} that is met when the actual array of `Item[]` contains
+ * at least one `Item` for which the `expectation` is met.
+ *
+ * ## Ensuring that at least one item in an array meets the expectation
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, containAtLeastOneItemThat, isGreaterThan } from '@serenity-js/assertions'
+ *
+ * const items = [ 10, 15, 20 ]
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that(items, containAtLeastOneItemThat(isGreaterThan(18))),
+ * )
+ * ```
+ *
+ * @param expectation
+ */
+export function containAtLeastOneItemThat<Item>(expectation: Expectation<Item>): Expectation<Item[]> {
     return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
 }
 
 /**
  * @package
  */
-class ContainAtLeastOneItemThatMeetsExpectation<Actual> extends Expectation<Actual[]> {
+class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]> {
 
     private static descriptionFor(expectation: Expectation<any>) {
         return d`contain at least one item that does ${ expectation }`;
     }
 
-    constructor(private readonly expectation: Expectation<Actual>) {
+    constructor(private readonly expectation: Expectation<Item>) {
         super(
             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-            async (actor: AnswersQuestions, actual: Answerable<Actual[]>) => {
+            async (actor: AnswersQuestions, actual: Answerable<Item[]>) => {
 
-                const items: Actual[] = await actor.answer(actual);
+                const items: Item[] = await actor.answer(actual);
 
                 if (! items || items.length === 0) {
                     return new ExpectationNotMet(
@@ -28,7 +47,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Actual> extends Expectation<Actu
                     );
                 }
 
-                let outcome: ExpectationOutcome<unknown, Actual>;
+                let outcome: ExpectationOutcome<unknown, Item>;
 
                 for (const item of items) {
 

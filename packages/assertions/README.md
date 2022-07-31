@@ -28,14 +28,16 @@ npm install --save-dev @serenity-js/{core,assertions}
 ### Performing verifications using `Ensure`
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
 import { Ensure, endsWith } from '@serenity-js/assertions';
-import { Website } from '@serenity-js/protractor';
+import { actorCalled } from '@serenity-js/core';
+import { Navigate, Page } from '@serenity-js/web';
 
-const actor = actorCalled('Erica');
-
-actor.attemptsTo(
-    Ensure.that(Website.title(), endsWith('Serenity/JS'))
+await actorCalled('Erica').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Ensure.that(
+        Page.current().title(), 
+        endsWith('Serenity/JS')
+    ),
 );
 ```
 

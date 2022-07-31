@@ -1,7 +1,26 @@
 import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
-export function not<Actual>(assertion: Expectation<Actual>): Expectation<Actual> {
-    return new Not<Actual>(assertion);
+/**
+ * Produces an {@link Expectation|expectation} that negates the provided `expectation`.
+ *
+ * ## Ensuring that the actual value does not equal the expected value
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals, not } from '@serenity-js/assertions'
+ *
+ * const actual   = { name: 'apples' }
+ * const expected = { name: 'bananas' }
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that(actual, not(equals(expected))),
+ * )
+ * ```
+ *
+ * @param expectation
+ */
+export function not<Actual>(expectation: Expectation<Actual>): Expectation<Actual> {
+    return new Not<Actual>(expectation);
 }
 
 /**
