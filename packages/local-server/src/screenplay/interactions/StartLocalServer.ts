@@ -3,78 +3,55 @@ import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbili
 import { ManageALocalServer } from '../abilities';
 
 /**
- * @desc
- *  Starts local server so that a test can interact with it.
+ * Starts local server so that a test can interact with it.
+ *
+ * @group Interactions
  */
 export class StartLocalServer {
 
     /**
-     * @desc
-     *  Starts local test server on a random available ports.
-     *
-     * @see {@link LocalServer.url}
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * Starts local test server on a random available ports.
      */
     static onRandomPort(): Interaction {
         return new StartLocalServerOnRandomPort();
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to start a local test server on one of the preferred ports.
+     *  Instructs the {@link Actor} to start a local test server on one of the preferred ports.
      *
      *  Please note: this method is kept for backwards compatibility. However, its behaviour has changed
      *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
      *  passed as an argument.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<number[]>} preferredPorts
+     * @param preferredPorts
      *  A list of preferred ports. Please note that only the first one will be used!
      *
-     * @see {@link LocalServer.url}
-     * @see {@link StartLocalServer.onPort}
-     * @see {@link StartLocalServer.onRandomPortBetween}
-     *
-     * @deprecated Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @deprecated
+     *   Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
      */
     static onOneOfThePreferredPorts(preferredPorts: Answerable<number[]>): Interaction {
         return new StartLocalServerOnFirstOf(preferredPorts);
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to start a local test server on a `preferredPort`, or a random one if that's not available.
+     * Instructs the {@link Actor} to start a local test server on a `preferredPort`,
+     * or a random one if that's not available.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<number>} preferredPort
-     *  preferred port
-     *
-     * @see {@link LocalServer.url}
-     * @see {@link @serenity-js/core/lib/screenplay~Answerable}
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param preferredPort
      */
     static onPort(preferredPort: Answerable<number>): Interaction {
         return new StartLocalServerOnPort(preferredPort);
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to start a local test server on a random port between `lowestPort` and `highestPort`.
+     * Instructs the {@link Actor} to start a local test server on a random port
+     * between `lowestPort` and `highestPort`, inclusive.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<number>} lowestPort
+     * @param {Answerable<number>} lowestPort
      *  Lower bound of the preferred port range
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<number>} highestPort
+     * @param {Answerable<number>} highestPort
      *  Upper bound of the preferred port range
-     *
-     * @see {@link LocalServer.url}
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     static onRandomPortBetween(lowestPort: Answerable<number>, highestPort: Answerable<number>): Interaction {
         return new StartLocalServerOnRandomPortBetween(lowestPort, highestPort);
