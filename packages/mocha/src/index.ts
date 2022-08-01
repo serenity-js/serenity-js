@@ -8,7 +8,7 @@ import { SerenityReporterForMocha } from './SerenityReporterForMocha';
  * Registers a Mocha reporter that emits {@link DomainEvent|Serenity/JS domain events}
  * and informs Serenity/JS when a test scenario starts, finishes, and with what result.
  */
- function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForMocha {
+function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForMocha {
     return new SerenityReporterForMocha(serenity, runner, options);
 }
 
