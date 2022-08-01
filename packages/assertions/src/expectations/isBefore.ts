@@ -36,6 +36,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  * ```
  *
  * @param expected
+ *
+ * @group Expectations
  */
 export function isBefore(expected: Answerable<Date>): Expectation<Date> {
     return Expectation.thatActualShould<Date, Date>('have value that is before', expected)

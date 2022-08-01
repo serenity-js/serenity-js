@@ -16,6 +16,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  * ```
  *
  * @param expected
+ *
+ * @group Expectations
  */
 export function startsWith(expected: Answerable<string>): Expectation<string> {
     return Expectation.thatActualShould<string, string>('start with', expected)

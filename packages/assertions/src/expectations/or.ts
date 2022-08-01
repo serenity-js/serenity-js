@@ -17,6 +17,8 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationN
  * ```
  *
  * @param expectations
+ *
+ * @group Expectations
  */
 export function or<Actual_Type>(...expectations: Array<Expectation<Actual_Type>>): Expectation<Actual_Type> {
     return new Or(expectations);

@@ -18,6 +18,8 @@ import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, Expectati
  * ```
  *
  * @param expectation
+ *
+ * @group Expectations
  */
 export function containAtLeastOneItemThat<Item>(expectation: Expectation<Item>): Expectation<Item[]> {
     return new ContainAtLeastOneItemThatMeetsExpectation(expectation);

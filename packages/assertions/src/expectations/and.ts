@@ -18,6 +18,8 @@ import { match } from 'tiny-types';
  * ```
  *
  * @param expectations
+ *
+ * @group Expectations
  */
 export function and<Actual_Type>(...expectations: Array<Expectation<Actual_Type>>): Expectation<Actual_Type> {
     return new And(expectations);

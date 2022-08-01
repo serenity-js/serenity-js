@@ -18,6 +18,8 @@ import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, Expectati
  * @param expected
  * @param [absoluteTolerance=1e-9]
  *  Absolute ± tolerance range, defaults to `1e-9`
+ *
+ * @group Expectations
  */
 export function isCloseTo(expected: Answerable<number>, absoluteTolerance: Answerable<number> = 1e-9): Expectation<number> {
     return new IsCloseTo(expected, absoluteTolerance);
