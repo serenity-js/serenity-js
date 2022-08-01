@@ -17,6 +17,8 @@ import { equals } from './equals';
  *   Ensure.that(Cookie.called('example-regular-cookie').isSecure(), isFalse()),
  * )
  * ```
+ *
+ * @group Expectations
  */
 export function isFalse(): Expectation<boolean> {
     return Expectation.to<never, boolean>(`equal false`).soThatActual(equals(false));

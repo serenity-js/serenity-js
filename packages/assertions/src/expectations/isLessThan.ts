@@ -39,6 +39,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  * ```
  *
  * @param expected
+ *
+ * @group Expectations
  */
 export function isLessThan(expected: Answerable<number>): Expectation<number> {
     return Expectation.thatActualShould<number, number>(`have value that's less than`, expected)

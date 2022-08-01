@@ -23,6 +23,8 @@ import { equal } from 'tiny-types/lib/objects';
  * ```
  *
  * @param expectedValue
+ *
+ * @group Expectations
  */
 export function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
     return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)

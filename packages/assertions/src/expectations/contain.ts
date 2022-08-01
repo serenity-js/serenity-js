@@ -22,6 +22,8 @@ import { equal } from 'tiny-types/lib/objects';
  * ```
  *
  * @param expected
+ *
+ * @group Expectations
  */
 export function contain<Item>(expected: Answerable<Item>): Expectation<Item[]> {
     return Expectation.thatActualShould<Item, Item[]>('contain', expected)

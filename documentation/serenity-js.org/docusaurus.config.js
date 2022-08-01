@@ -185,6 +185,7 @@ const config = {
                     // typedoc-plugin-ignore-inherited-static-methods
                     logIgnoredInheritedStaticMethods: true,
 
+                    categorizeByGroup: true,
                     plugin: [
                         '../typedoc-plugin-ignore-inherited-static-methods',
                         'typedoc-plugin-mdn-links',

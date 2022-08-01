@@ -18,6 +18,8 @@ import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, Expectati
  * ```
  *
  * @param expectation
+ *
+ * @group Expectations
  */
 export function containItemsWhereEachItem<Actual>(expectation: Expectation<Actual>): Expectation<Actual[]> {
     return new ContainItemsWhereEachItemMeetsExpectation(expectation);

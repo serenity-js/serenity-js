@@ -62,6 +62,8 @@ import { match } from 'tiny-types';
  *       .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
  *   )
  * ```
+ *
+ * @group Interactions
  */
 export class Ensure<Actual> extends Interaction {
 

@@ -18,6 +18,8 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationN
  * ```
  *
  * @param expectation
+ *
+ * @group Expectations
  */
 export function not<Actual>(expectation: Expectation<Actual>): Expectation<Actual> {
     return new Not<Actual>(expectation);

@@ -16,6 +16,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  * ```
  *
  * @param expected
+ *
+ * @group Expectations
  */
 export function matches(expected: Answerable<RegExp>): Expectation<string> {
     return Expectation.thatActualShould<RegExp, string>('match', expected)
