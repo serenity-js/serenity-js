@@ -10,13 +10,13 @@ const path = require('path');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'My Site',
-    tagline: 'Dinosaurs are cool',
+    title: 'Serenity/JS',
+    tagline: 'Collaborative test automation at scale!',
     url: 'https://serenity-js.org',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'throw',
-    favicon: 'img/favicon.ico',
+    favicon: 'icons/favicon.ico',
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
@@ -61,10 +61,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             navbar: {
-                title: 'My Site',
+                // title: 'Serenity/JS',
                 logo: {
-                    alt: 'My Site Logo',
-                    src: 'img/logo.svg',
+                    alt: 'Serenity/JS Logo',
+                    src: 'img/serenity-js-logo-for-light-backgrounds.svg',
+                    srcDark: 'img/serenity-js-logo-for-dark-backgrounds.svg',
                 },
                 items: [
                     {
@@ -88,7 +89,7 @@ const config = {
                 ],
             },
             footer: {
-                style: 'dark',
+                // style: 'dark',
                 links: [
                     {
                         title: 'Docs',
