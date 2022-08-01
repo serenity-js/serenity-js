@@ -176,9 +176,14 @@ const config = {
                 tsconfigName: 'tsconfig.website.json',
                 removeScopes: ['serenity-js'],
                 typedocOptions: {
+                    excludeExternals: false,
+
+                    // typedoc-plugin-ignore-inherited-static-methods
                     logIgnoredInheritedStaticMethods: true,
+
                     plugin: [
                         '../typedoc-plugin-ignore-inherited-static-methods',
+                        'typedoc-plugin-mdn-links',
                     ],
                     sort: [
                         'static-first',
