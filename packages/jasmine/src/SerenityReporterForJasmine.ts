@@ -36,12 +36,8 @@ import {
 import { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
- * @desc
- *  [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events
- *  to Serenity/JS events.
- *
- * @see {@link bootstrap}
- * @implements {JasmineReporter}
+ * [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events
+ * to Serenity/JS events.
  */
 export class SerenityReporterForJasmine implements JasmineReporter {
 
