@@ -7,6 +7,12 @@ const version = loader.hasAvailable('@cucumber/cucumber')
     ? loader.versionOf('@cucumber/cucumber')
     : loader.versionOf('cucumber');
 
-export = version.isAtLeast(new Version('7.0.0'))
+/**
+ * Registers a Cucumber reporter that emits {@link DomainEvent|Serenity/JS domain events}
+ * and informs Serenity/JS when test scenarios and Cucumber steps start, finish, and with what result.
+ */
+const listener: unknown = version.isAtLeast(new Version('7.0.0'))
     ? require('./listeners/messages').createListener(serenity, loader)  // eslint-disable-line @typescript-eslint/no-var-requires
     : require('./listeners/legacy').createListener(serenity, loader)    // eslint-disable-line @typescript-eslint/no-var-requires
+
+export = listener;
