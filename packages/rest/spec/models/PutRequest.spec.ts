@@ -1,44 +1,60 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { HeadRequest } from '../../src/model';
+import { PutRequest } from '../../src/models';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
-/** @test {HeadRequest} */
-describe('HeadRequest', () => {
+/** @test {PutRequest} */
+describe('PutRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-    /** @test {HeadRequest.to} */
+    /** @test {PutRequest.to} */
     it('represents an Axios request', () =>
-        expect(actor.answer(HeadRequest.to('/products/2')))
+        expect(actor.answer(PutRequest.to('/products/2')))
             .to.eventually.deep.equal({
-                method: 'HEAD',
+                method: 'PUT',
                 url: '/products/2',
             }));
 
     /**
-     * @test {HeadRequest.to}
-     * @test {HeadRequest#using}
+     * @test {PutRequest.to}
+     * @test {PutRequest#with}
+     */
+    it('can have a request body', () =>
+        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })))
+            .to.eventually.deep.equal({
+                method: 'PUT',
+                url: '/products/2',
+                data: { name: 'apple' },
+            })
+    );
+
+    /**
+     * @test {PutRequest.to}
+     * @test {PutRequest#with}
+     * @test {PutRequest#using}
      */
     it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(HeadRequest.to('/products/2').using({
+        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' }).using({
             headers: {
                 Accept: 'application/json',
             },
         }))).
         to.eventually.deep.equal({
-            method: 'HEAD',
+            method: 'PUT',
             url: '/products/2',
             headers: {
                 Accept: 'application/json',
             },
-        }));
+            data: { name: 'apple' },
+        })
+    );
 
     it('accepts dynamic records', () =>
         expect(
-            actor.answer(HeadRequest.to('/products/2')
+            actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })
                 .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
@@ -47,17 +63,18 @@ describe('HeadRequest', () => {
             )
         ).
         to.eventually.deep.equal({
-            method: 'HEAD',
+            method: 'PUT',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
             },
+            data: { name: 'apple' },
         })
     );
 
-    /** @test {HeadRequest#toString} */
+    /** @test {PutRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {
-        expect(HeadRequest.to('/products/2').toString())
-            .to.equal(`a HEAD request to '/products/2'`);
+        expect(PutRequest.to('/products/2').toString())
+            .to.equal(`a PUT request to '/products/2'`);
     });
 });

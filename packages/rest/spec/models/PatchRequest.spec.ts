@@ -1,49 +1,49 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { PutRequest } from '../../src/model';
+import { PatchRequest } from '../../src/models';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
-/** @test {PutRequest} */
-describe('PutRequest', () => {
+/** @test {PatchRequest} */
+describe('PatchRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-    /** @test {PutRequest.to} */
+    /** @test {PatchRequest.to} */
     it('represents an Axios request', () =>
-        expect(actor.answer(PutRequest.to('/products/2')))
+        expect(actor.answer(PatchRequest.to('/products/2')))
             .to.eventually.deep.equal({
-                method: 'PUT',
+                method: 'PATCH',
                 url: '/products/2',
             }));
 
     /**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
+     * @test {PatchRequest.to}
+     * @test {PatchRequest#with}
      */
     it('can have a request body', () =>
-        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })))
+        expect(actor.answer(PatchRequest.to('/products/2').with({ name: 'apple' })))
             .to.eventually.deep.equal({
-                method: 'PUT',
+                method: 'PATCH',
                 url: '/products/2',
                 data: { name: 'apple' },
             })
     );
 
     /**
-     * @test {PutRequest.to}
-     * @test {PutRequest#with}
-     * @test {PutRequest#using}
+     * @test {PatchRequest.to}
+     * @test {PatchRequest#with}
+     * @test {PatchRequest#using}
      */
     it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(PutRequest.to('/products/2').with({ name: 'apple' }).using({
+        expect(actor.answer(PatchRequest.to('/products/2').with({ name: 'apple' }).using({
             headers: {
                 Accept: 'application/json',
             },
         }))).
         to.eventually.deep.equal({
-            method: 'PUT',
+            method: 'PATCH',
             url: '/products/2',
             headers: {
                 Accept: 'application/json',
@@ -54,7 +54,7 @@ describe('PutRequest', () => {
 
     it('accepts dynamic records', () =>
         expect(
-            actor.answer(PutRequest.to('/products/2').with({ name: 'apple' })
+            actor.answer(PatchRequest.to('/products/2').with({ name: 'apple' })
                 .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
@@ -63,7 +63,7 @@ describe('PutRequest', () => {
             )
         ).
         to.eventually.deep.equal({
-            method: 'PUT',
+            method: 'PATCH',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
@@ -72,9 +72,9 @@ describe('PutRequest', () => {
         })
     );
 
-    /** @test {PutRequest#toString} */
+    /** @test {PatchRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {
-        expect(PutRequest.to('/products/2').toString())
-            .to.equal(`a PUT request to '/products/2'`);
+        expect(PatchRequest.to('/products/2').toString())
+            .to.equal(`a PATCH request to '/products/2'`);
     });
 });

@@ -1,35 +1,35 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { OptionsRequest } from '../../src/model';
+import { HeadRequest } from '../../src/models';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
-/** @test {OptionsRequest} */
-describe('OptionsRequest', () => {
+/** @test {HeadRequest} */
+describe('HeadRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-    /** @test {OptionsRequest.to} */
+    /** @test {HeadRequest.to} */
     it('represents an Axios request', () =>
-        expect(actor.answer(OptionsRequest.to('/products/2')))
+        expect(actor.answer(HeadRequest.to('/products/2')))
             .to.eventually.deep.equal({
-                method: 'OPTIONS',
+                method: 'HEAD',
                 url: '/products/2',
             }));
 
     /**
-     * @test {OptionsRequest.to}
-     * @test {OptionsRequest#using}
+     * @test {HeadRequest.to}
+     * @test {HeadRequest#using}
      */
     it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(OptionsRequest.to('/products/2').using({
+        expect(actor.answer(HeadRequest.to('/products/2').using({
             headers: {
                 Accept: 'application/json',
             },
         }))).
         to.eventually.deep.equal({
-            method: 'OPTIONS',
+            method: 'HEAD',
             url: '/products/2',
             headers: {
                 Accept: 'application/json',
@@ -38,7 +38,7 @@ describe('OptionsRequest', () => {
 
     it('accepts dynamic records', () =>
         expect(
-            actor.answer(OptionsRequest.to('/products/2')
+            actor.answer(HeadRequest.to('/products/2')
                 .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
@@ -47,7 +47,7 @@ describe('OptionsRequest', () => {
             )
         ).
         to.eventually.deep.equal({
-            method: 'OPTIONS',
+            method: 'HEAD',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
@@ -55,9 +55,9 @@ describe('OptionsRequest', () => {
         })
     );
 
-    /** @test {Options#toString} */
+    /** @test {HeadRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {
-        expect(OptionsRequest.to('/products/2').toString())
-            .to.equal(`an OPTIONS request to '/products/2'`);
+        expect(HeadRequest.to('/products/2').toString())
+            .to.equal(`a HEAD request to '/products/2'`);
     });
 });
