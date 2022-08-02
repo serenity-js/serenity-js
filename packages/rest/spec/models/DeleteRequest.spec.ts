@@ -1,51 +1,44 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { PostRequest } from '../../src/model';
+import { DeleteRequest } from '../../src/models';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
-/** @test {PostRequest} */
-describe('PostRequest', () => {
+/** @test {DeleteRequest} */
+describe('DeleteRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-    /** @test {PostRequest.to} */
+    /** @test {DeleteRequest.to} */
     it('represents an Axios request', () =>
-        expect(actor.answer(PostRequest.to('/products/2')))
+        expect(actor.answer(DeleteRequest.to('/products/2')))
             .to.eventually.deep.equal({
-                method: 'POST',
+                method: 'DELETE',
                 url: '/products/2',
             }));
 
-    it('can have a request body', () =>
-        expect(actor.answer(PostRequest.to('/products/2').with({ name: 'apple' })))
-            .to.eventually.deep.equal({
-                method: 'POST',
-                url: '/products/2',
-                data: { name: 'apple' },
-            })
-    );
-
+    /**
+     * @test {DeleteRequest.to}
+     * @test {DeleteRequest#using}
+     */
     it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(PostRequest.to('/products/2').with({ name: 'apple' }).using({
+        expect(actor.answer(DeleteRequest.to('/products/2').using({
             headers: {
-                Accept: 'application/json',
+                Authorization: 'token',
             },
         }))).
         to.eventually.deep.equal({
-            method: 'POST',
+            method: 'DELETE',
             url: '/products/2',
             headers: {
-                Accept: 'application/json',
+                Authorization: 'token',
             },
-            data: { name: 'apple' },
-        })
-    );
+        }));
 
     it('accepts dynamic records', () =>
         expect(
-            actor.answer(PostRequest.to('/products/2').with({ name: 'apple' })
+            actor.answer(DeleteRequest.to('/products/2')
                 .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
@@ -54,18 +47,17 @@ describe('PostRequest', () => {
             )
         ).
         to.eventually.deep.equal({
-            method: 'POST',
+            method: 'DELETE',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
             },
-            data: { name: 'apple' },
         })
     );
 
-    /** @test {PostRequest#toString} */
+    /** @test {DeleteRequest#toString} */
     it('provides a sensible description of the interaction being performed', () => {
-        expect(PostRequest.to('/products/2').toString())
-            .to.equal(`a POST request to '/products/2'`);
+        expect(DeleteRequest.to('/products/2').toString())
+            .to.equal(`a DELETE request to '/products/2'`);
     });
 });

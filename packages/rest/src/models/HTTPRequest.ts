@@ -3,29 +3,25 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
 
 /**
- * @desc
- *  HTTP Request sent by the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  using the {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}
+ * HTTP Request sent by the {@link Actor}
+ * using the {@link Interaction|interaction} to {@link Send}
  *
- * @abstract
- * @extends {Question<Promise<AxiosRequestConfig>>}
+ * @group Models
  */
 export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {
 
     private subject: string;
 
     /**
-     * @protected
-     *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} [resourceUri]
+     * @param [resourceUri]
      *  URL to which the request should be sent
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} [data]
+     * @param [data]
      *  Request body to be sent as part of the Put, Post or Patch request
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} [config]
+     * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} [config]
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
+     *  provided when the {@link Ability|ability} to {@link CallAnApi} is instantiated
      */
     protected constructor(
         protected readonly resourceUri?: Answerable<string>,
@@ -37,11 +33,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
     }
 
     /**
-     * @desc
-     *  Resolves the {@link Question} in the context of a given {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *
-     * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Promise<AxiosRequestConfig>}
+     * @inheritDoc
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<AxiosRequestConfig> {
         return Promise.all([
@@ -70,17 +62,16 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
         return this;
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return this.subject;
     }

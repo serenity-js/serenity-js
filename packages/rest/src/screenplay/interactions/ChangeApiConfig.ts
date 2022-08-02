@@ -4,120 +4,120 @@ import { URL } from 'url';
 import { CallAnApi } from '../abilities';
 
 /**
- * @desc
- *  Changes configuration of the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
- *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  executing this {@link @serenity-js/core/lib/screenplay~Interaction} has been configured with.
+ * Changes configuration of the {@link Ability|ability} to {@link CallAnApi}
+ * that the {@link Actor|actor} executing this {@link Interaction|interaction} has been configured with.
  *
- * @example <caption>Changing API URL for all subsequent requests</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Navigate, Target, Text } from '@serenity-js/protractor';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { protractor, by } from 'protractor';
+ * ## Changing API URL for all subsequent requests
  *
- *  import axios from 'axios';
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core';
+ * import { By Navigate, PageElement, Text } from '@serenity-js/web';
+ * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions';
  *
- *  const actor = actorCalled('Apisitt').whoCan(
- *      BrowseTheWeb.using(protractor.browser),
+ * import * as axios from 'axios';
  *
- *      // Note: no default base URL is given when the axios instance is created
- *      CallAnApi.using(axios.create()),
- *  );
+ * // Let's imagine that the website under test displays
+ * // a dynamically generated API URL that we would like to use
+ * const ApiDetailsWidget = {
+ *   url: () => PageElement.located(By.id('api-url')).describedAs('API URL'),
+ * }
  *
- *  // Let's imagine that the website under test displays
- *  // a dynamically generated API URL we'd like to use
- *  const ApiDetailsWidget = {
- *      Url: Target.the('API URL').located(by.id('api-url')),
- *  }
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     BrowseTheWeb.using(protractor.browser),
  *
- *  actor.attemptsTo(
- *      Navigate.to('/profile'),
+ *     // Note: no default base URL is given when the axios instance is created
+ *     CallAnApi.using(axios.create()),
+ *   )
+ *   .attemptsTo(
+ *     Navigate.to('/profile'),
  *
- *      // We change the API URL based on the text displayed in the widget
- *      // (although we could change it to some arbitrary string too).
- *      ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.Url)),
+ *     // We change the API URL based on the text displayed in the widget
+ *     // (although we could change it to some arbitrary string too).
+ *     ChangeApiConfig.setUrlTo(Text.of(ApiDetailsWidget.url())),
  *
- *      // Any subsequent request will be sent to the newly set URL
- *      Send.a(GetRequest.to('/projects')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ *     // Any subsequent request will be sent to the newly set URL
+ *     Send.a(GetRequest.to('/projects')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
  *
- * @example <caption>Changing API port for all subsequent requests</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Changing API port for all subsequent requests
  *
- *  const actor = actorCalled('Apisitt').whoCan(
- *      ManageALocalServer.runningAHttpListener(someServer),
- *      CallAnApi.at('http://localhost'),
- *  );
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { LocalServer, ManageALocalServer, StartLocalServer } from '@serenity-js/local-server'
+ * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  actor.attemptsTo(
- *      StartALocalServer.onRandomPort(),
- *      ChangeApiConfig.setPortTo(LocalServer.port()),
- *      Send.a(GetRequest.to('/api')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     ManageALocalServer.runningAHttpListener(someServer),
+ *     CallAnApi.at('http://localhost'),
+ *   )
+ *   .attemptsTo(
+ *     StartALocalServer.onRandomPort(),
+ *     ChangeApiConfig.setPortTo(LocalServer.port()),
+ *     Send.a(GetRequest.to('/api')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
  *
- * @example <caption>Setting a header for all subsequent requests</caption>
- *  import { actorCalled, Question } from '@serenity-js/core';
- *  import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Setting a header for all subsequent requests
  *
- *  const actor = actorCalled('Apisitt').whoCan(
- *      CallAnApi.at('http://localhost'),
- *  );
+ * ```ts
+ * import { actorCalled, Question } from '@serenity-js/core'
+ * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  // A sample Question reading Node process environment variable
- *  const EnvVar = (var_name: string) =>
- *      Question.about(`${ name } environment variable`, actor => process.env[var_name]);
+ * // A sample Question reading a Node process environment variable
+ * const EnvVar = (var_name: string) =>
+ *     Question.about(`${ name } environment variable`, actor => process.env[var_name]);
  *
- *  actor.attemptsTo(
- *      ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),
- *      Send.a(GetRequest.to('/api')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     CallAnApi.at('http://localhost'),
+ *   )
+ *   .attemptsTo(
+ *     ChangeApiConfig.setHeader('Authorization', EnvVar('TOKEN')),
+ *     Send.a(GetRequest.to('/api')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
+ *
+ * @group Interactions
  */
 export class ChangeApiConfig {
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to change the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     * Instructs the {@link Actor|actor} to change the base URL
+     * of their {@link Ability|ability} to {@link CallAnApi}
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param newApiUrl
      */
     static setUrlTo(newApiUrl: Answerable<string>): Interaction {
         return new ChangeApiConfigSetUrl(newApiUrl);
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to change the port configured in the base URL of their {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     * Instructs the {@link Actor|actor} to change the port configured in the base URL
+     * of their {@link Ability|ability} to {@link CallAnApi}
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiPort
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param newApiPort
      */
     static setPortTo(newApiPort: Answerable<number>): Interaction {
         return new ChangeApiConfigSetPort(newApiPort)
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to modify the configuration of the {@link AxiosInstance}
-     *  used by {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
-     *  and set a HTTP request header for any subsequent {@link HTTPRequest}
-     *  issued via {@link Send}.
+     * Instructs the {@link Actor|actor} to change the configuration of the {@link AxiosInstance}
+     * used by their {@link Ability|ability} to {@link CallAnApi}
+     * and set an HTTP request header for any subsequent {@link HTTPRequest|HTTPRequests}
+     * issued via {@link Send}.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} value
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param name
+     * @param value
      */
     static setHeader(name: Answerable<string>, value: Answerable<string>): Interaction {
         return new ChangeApiConfigSetHeader(name, value);

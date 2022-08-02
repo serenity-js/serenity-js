@@ -4,52 +4,58 @@ const mergeConfig = require('axios/lib/core/mergeConfig');      // eslint-disabl
 const buildFullPath = require('axios/lib/core/buildFullPath');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.
- *  If you need to connect via a proxy, check out [this article](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
+ * An {@link Ability} that enables the {@link Actor} to call an HTTP API.
  *
- * @example <caption>Using a default Axios HTTP client</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * If you need to connect via a proxy, check out ["Using Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
- *  const actor = Actor.named('Apisit').whoCan(
- *      CallAnApi.at('https://myapp.com/api'),
- *  );
+ * ## Using the default Axios HTTP client
  *
- *  actor.attemptsTo(
- *      Send.a(GetRequest.to('/users/2')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * @example <caption>Using Axios client with custom configuration</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     CallAnApi.at('https://api.example.org/')
+ *   )
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/users/2')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
  *
- *  import axios from 'axios';
+ * ## Using Axios client with custom configuration
  *
- *  const axiosInstance = axios.create({
- *      timeout: 5 * 1000,
- *      headers: {
- *          'X-Custom-Api-Key': 'secret-key',
- *      },
- *  });
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  const actor = Actor.named('Apisit').whoCan(
- *      CallAnApi.using(axiosInstance),
- *  );
+ * import * as axios from 'axios'
  *
- *  actor.attemptsTo(
- *      Send.a(GetRequest.to('/users/2')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ * const axiosInstance = axios.create({
+ *   timeout: 5 * 1000,
+ *   headers: {
+ *     'X-Custom-Api-Key': 'secret-key',
+ *   },
+ * });
  *
- * @see https://github.com/axios/axios
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     CallAnApi.using(axiosInstance),
+ *   )
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/users/2')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
  *
- * @public
- * @implements {@link @serenity-js/core/lib/screenplay~Ability}
+ * ## Learn more
+ * - https://github.com/axios/axios
+ * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+ *
+ * @group Abilities
  */
 export class CallAnApi implements Ability {
 
@@ -57,16 +63,14 @@ export class CallAnApi implements Ability {
     private lastResponse: AxiosResponse;
 
     /**
-     * @desc
-     *  Ability to Call and api at a specified baseUrl
+     * Produces an {@link Ability|ability} to call a REST api at a specified baseUrl
      *
-     *  Default timeout is set to 2s.
+     * Default timeout is set to 2s.
      *
-     *  Default request headers:
-     *  - Accept: application/json,application/xml
+     * Default request headers:
+     * - `Accept`: `application/json,application/xml`
      *
-     * @param {string} baseURL
-     * @returns {CallAnApi}
+     * @param baseURL
      */
     static at(baseURL: string): CallAnApi {
         return new CallAnApi(axios.create({
@@ -77,88 +81,81 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * @desc
-     *  Ability to Call a REST API using a given axios instance.
+     * Produces an {@link Ability|ability} to call a REST API using a given axios instance.
      *
-     *  Useful when you need to customise Axios to
-     *  [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),
-     *  for example.
+     * Useful when you need to customise Axios to
+     * [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),
+     * for example.
      *
-     * @param {AxiosInstance} axiosInstance
-     * @returns {CallAnApi}
+     * #### Learn more
+     * - [AxiosInstance](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L235-L238)
      *
-     * @see {@link AxiosInstance}
+     * @param axiosInstance
      */
     static using(axiosInstance: AxiosInstance): CallAnApi {
         return new CallAnApi(axiosInstance);
     }
 
     /**
-     * @desc
-     *  Used to access the Actor's ability to {@link CallAnApi}
-     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
-     *  such as {@link Send}.
+     * Used to access the {@link Actor|actor's} {@link Ability|ability} to {@link CallAnApi}
+     * from within the {@link Interaction|interaction} classes,
+     * such as {@link Send}.
      *
-     * @param {UsesAbilities} actor
-     * @return {CallAnApi}
+     * @param actor
      */
     static as(actor: UsesAbilities): CallAnApi {
         return actor.abilityTo(CallAnApi);
     }
 
     /**
-     * @param {AxiosInstance} axiosInstance
-     *  A pre-configured instance of the Axios HTTP client
+     * #### Learn more
+     * - [AxiosInstance](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L235-L238)
      *
-     * @see {@link AxiosInstance}
+     * @param axiosInstance
+     *  A pre-configured instance of the Axios HTTP client
      */
-    constructor(private readonly axiosInstance: AxiosInstance) {
+    protected constructor(private readonly axiosInstance: AxiosInstance) {
     }
 
     /**
-     * @desc
-     *  Allows for the original Axios config to be changed after
-     *  the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
-     *  has been instantiated and given to the {@link Actor}.
+     * Allows for the original Axios config to be changed after
+     * the {@link Ability|ability} to {@link CallAnApi}
+     * has been instantiated and given to the {@link Actor}.
      *
-     * @param {function (original: AxiosRequestConfig): any} fn
-     * @returns {void}
+     * #### Learn more
+     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
      *
-     * @see {@link AxiosRequestConfig}
+     * @param fn
      */
     modifyConfig(fn: (original: AxiosDefaults<any>) => any): void {
         fn(this.axiosInstance.defaults);
     }
 
     /**
-     * @desc
-     *  Sends a HTTP request to a specified url.
-     *  Response will be cached and available via {@link CallAnApi#mapLastResponse}
+     * Sends an HTTP request to a specified url.
+     * Response will be cached and available via {@link mapLastResponse}
      *
-     * @param {AxiosRequestConfig} config
+     * #### Learn more
+     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
+     * - [AxiosResponse](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L133-L140)
+     *
+     * @param config
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
-     *
-     * @returns {Promise<AxiosResponse>}
-     *  A promise of an AxiosResponse
-     *
-     * @see {@link AxiosRequestConfig}
-     * @see {@link AxiosResponse}
+     *  provided when the {@link Ability|ability} to {@link CallAnApi} was instantiated.
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         return this.captureResponseOf(this.axiosInstance.request(config));
     }
 
     /**
-     * @desc
-     *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
-     *  any any defaults {@link AxiosInstance} has been configured with.
+     * Resolves the final URL, based on the {@link AxiosRequestConfig} provided
+     * and any defaults that the {@link AxiosInstance} has been configured with.
      *
-     * @param {AxiosRequestConfig} config
-     * @returns {string}
+     * #### Learn more
+     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
+     * - [AxiosInstance](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L235-L238)
      *
-     * @see {@link AxiosRequestConfig}
-     * @see {@link AxiosInstance}
+     * @param config
      */
     resolveUrl(config: AxiosRequestConfig): string {
         const merged = mergeConfig(this.axiosInstance.defaults, config);
@@ -167,21 +164,20 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * @desc
-     *  Maps the last cached response to another type.
-     *  Useful when you need to extract a portion of the {@link AxiosResponse} object.
+     * Maps the last cached response to another type.
+     * Useful when you need to extract a portion of the {@link AxiosResponse} object.
      *
-     * @param {function<T>(AxiosResponse): T} fn - mapper function
-     * @returns {T}
+     * #### Learn more
+     * - [AxiosResponse](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L133-L140)
      *
-     * @see {@link AxiosResponse}
+     * @param mappingFunction
      */
-    mapLastResponse<T>(fn: (response: AxiosResponse) => T): T {
+    mapLastResponse<T>(mappingFunction: (response: AxiosResponse) => T): T {
         if (!this.lastResponse) {
             throw new LogicError(`Make sure to perform a HTTP API call before checking on the response`);
         }
 
-        return fn(this.lastResponse);
+        return mappingFunction(this.lastResponse);
     }
 
     private captureResponseOf(promisedResponse: AxiosPromise): AxiosPromise {
