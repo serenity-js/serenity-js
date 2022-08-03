@@ -40,8 +40,7 @@ describe ('ErrorSerialiser', () => {
         /** @test {ErrorSerialiser} */
         it('serialises a TimeoutExpiredError', () => {
             const timeout   = Duration.ofSeconds(5);
-            const duration  = Duration.ofSeconds(6);
-            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, duration));
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout));
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
@@ -50,7 +49,6 @@ describe ('ErrorSerialiser', () => {
             expect(parsed.name).to.equal('TimeoutExpiredError');
             expect(parsed.message).to.equal('Interaction took longer than expected');
             expect(parsed.timeout.milliseconds).to.equal(timeout.inMilliseconds());
-            expect(parsed.duration.milliseconds).to.equal(duration.inMilliseconds());
             expect(parsed.stack).to.equal(error.stack);
         });
 
@@ -118,9 +116,8 @@ describe ('ErrorSerialiser', () => {
 
         it('deserialises a serialised TimeoutExpiredError', () => {
             const timeout   = Duration.ofSeconds(5);
-            const duration  = Duration.ofSeconds(6);
             const cause     = thrown(new Error('root cause'));
-            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, duration, cause));
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, cause));
 
             const serialised  = ErrorSerialiser.serialise(error);
 
@@ -130,7 +127,6 @@ describe ('ErrorSerialiser', () => {
             expect(deserialised.name).to.equal(`TimeoutExpiredError`);
             expect(deserialised.message).to.equal(`Interaction took longer than expected`);
             expect(deserialised.timeout).to.equal(timeout);
-            expect(deserialised.duration).to.equal(duration);
             expect(deserialised.stack).to.equal(error.stack);
             expect(deserialised.cause.name).to.equal(cause.name);
             expect(deserialised.cause.message).to.equal(cause.message);

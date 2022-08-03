@@ -16,7 +16,6 @@ export class TimeoutExpiredError extends RuntimeError {
         const error = new TimeoutExpiredError(
             serialised.message as string,
             Duration.fromJSON(serialised.timeout as { milliseconds: number }),
-            Duration.fromJSON(serialised.duration as { milliseconds: number }),
             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
         );
 
@@ -32,16 +31,12 @@ export class TimeoutExpiredError extends RuntimeError {
      * @param timeout
      *  The maximum amount of time an operation was expected to take
      *
-     * @param duration
-     *  The amount of time the operation took
-     *
      * @param [cause]
      *  The root cause of this {@link RuntimeError}, if any
      */
     constructor(
         message: string,
         public readonly timeout: Duration,
-        public readonly duration: Duration,
         cause?: Error
     ) {
         super(TimeoutExpiredError, message, cause);
