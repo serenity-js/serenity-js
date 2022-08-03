@@ -1,7 +1,8 @@
 import { strictEqual } from 'assert';
 import { describe, it } from 'mocha';
 
-import { AssertionError } from '../../src/errors';
+import { Duration } from '../../src';
+import { AssertionError, TimeoutExpiredError } from '../../src/errors';
 import { ErrorSerialiser, parse } from '../../src/io';
 import { expect } from '../expect';
 
@@ -26,14 +27,31 @@ describe ('ErrorSerialiser', () => {
             const error = thrown(new AssertionError(`Expected false to equal true`, true, false));
 
             const
-                serialised      = ErrorSerialiser.serialise(error),
-                deserialised    = parse(serialised);
+                serialised  = ErrorSerialiser.serialise(error),
+                parsed      = parse(serialised);
 
-            expect(deserialised.name).to.equal('AssertionError');
-            expect(deserialised.message).to.equal('Expected false to equal true');
-            expect(deserialised.expected).to.equal(true);
-            expect(deserialised.actual).to.equal(false);
-            expect(deserialised.stack).to.equal(error.stack);
+            expect(parsed.name).to.equal('AssertionError');
+            expect(parsed.message).to.equal('Expected false to equal true');
+            expect(parsed.expected).to.equal(true);
+            expect(parsed.actual).to.equal(false);
+            expect(parsed.stack).to.equal(error.stack);
+        });
+
+        /** @test {ErrorSerialiser} */
+        it('serialises a TimeoutExpiredError', () => {
+            const timeout   = Duration.ofSeconds(5);
+            const duration  = Duration.ofSeconds(6);
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, duration));
+
+            const
+                serialised  = ErrorSerialiser.serialise(error),
+                parsed      = parse(serialised);
+
+            expect(parsed.name).to.equal('TimeoutExpiredError');
+            expect(parsed.message).to.equal('Interaction took longer than expected');
+            expect(parsed.timeout.milliseconds).to.equal(timeout.inMilliseconds());
+            expect(parsed.duration.milliseconds).to.equal(duration.inMilliseconds());
+            expect(parsed.stack).to.equal(error.stack);
         });
 
         /** @test {ErrorSerialiser} */
@@ -41,14 +59,14 @@ describe ('ErrorSerialiser', () => {
             const error = caught(() => strictEqual(true, false));
 
             const
-                serialised      = ErrorSerialiser.serialise(error),
-                deserialised    = parse(serialised);
+                serialised  = ErrorSerialiser.serialise(error),
+                parsed      = parse(serialised);
 
-            expect(deserialised.name).to.equal('AssertionError');
-            expect(deserialised.message).to.equal('Expected values to be strictly equal:\n\ntrue !== false\n');
-            expect(deserialised.expected).to.equal(false);
-            expect(deserialised.actual).to.equal(true);
-            expect(deserialised.stack).to.equal(error.stack);
+            expect(parsed.name).to.equal('AssertionError');
+            expect(parsed.message).to.equal('Expected values to be strictly equal:\n\ntrue !== false\n');
+            expect(parsed.expected).to.equal(false);
+            expect(parsed.actual).to.equal(true);
+            expect(parsed.stack).to.equal(error.stack);
         });
     });
 
@@ -96,6 +114,27 @@ describe ('ErrorSerialiser', () => {
             expect(error.expected).to.equal(true);
             expect(error.actual).to.equal(false);
             expect(error.stack).to.equal(stack);
+        });
+
+        it('deserialises a serialised TimeoutExpiredError', () => {
+            const timeout   = Duration.ofSeconds(5);
+            const duration  = Duration.ofSeconds(6);
+            const cause     = thrown(new Error('root cause'));
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, duration, cause));
+
+            const serialised  = ErrorSerialiser.serialise(error);
+
+            const deserialised = ErrorSerialiser.deserialise(serialised) as TimeoutExpiredError;
+
+            expect(deserialised).to.be.instanceOf(TimeoutExpiredError);
+            expect(deserialised.name).to.equal(`TimeoutExpiredError`);
+            expect(deserialised.message).to.equal(`Interaction took longer than expected`);
+            expect(deserialised.timeout).to.equal(timeout);
+            expect(deserialised.duration).to.equal(duration);
+            expect(deserialised.stack).to.equal(error.stack);
+            expect(deserialised.cause.name).to.equal(cause.name);
+            expect(deserialised.cause.message).to.equal(cause.message);
+            expect(deserialised.cause.stack).to.equal(cause.stack);
         });
 
         /** @test {ErrorSerialiser} */
