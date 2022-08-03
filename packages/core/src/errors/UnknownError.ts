@@ -1,16 +1,29 @@
+import { JSONObject } from 'tiny-types';
+
+import { ErrorSerialiser } from '../io/ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * @desc
- *  Thrown to indicate that an unknown error has occurred.
+ * Thrown to indicate that an unknown error has occurred.
  *
- * @extends {RuntimeError}
+ * @group Errors
  */
 export class UnknownError extends RuntimeError {
 
+    static fromJSON(serialised: JSONObject): UnknownError {
+        const error = new UnknownError(
+            serialised.message as string,
+            ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+        );
+
+        error.stack = serialised.stack as string;
+
+        return error;
+    }
+
     /**
-     * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param message - Human-readable description of the error
+     * @param [cause] - The root cause of this {@link RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(UnknownError, message, cause);

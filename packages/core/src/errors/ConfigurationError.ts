@@ -1,16 +1,29 @@
+import { JSONObject } from 'tiny-types';
+
+import { ErrorSerialiser } from '../io/ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * @desc
- *  Thrown to indicate that a test framework or test suite configuration error occurs.
+ * Thrown to indicate that a test framework or test suite configuration error occurred.
  *
- * @extends {RuntimeError}
+ * @group Errors
  */
 export class ConfigurationError extends RuntimeError {
 
+    static fromJSON(serialised: JSONObject): ConfigurationError {
+        const error = new ConfigurationError(
+            serialised.message as string,
+            ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+        );
+
+        error.stack = serialised.stack as string;
+
+        return error;
+    }
+
     /**
-     * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param message - Human-readable description of the error
+     * @param [cause] - The root cause of this {@link RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(ConfigurationError, message, cause);

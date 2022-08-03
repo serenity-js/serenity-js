@@ -1,6 +1,5 @@
-import { JSONObject } from 'tiny-types';
+import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
 
-import * as serenitySpecificErrors from '../errors';
 import { parse, stringify } from './json';
 
 /**
@@ -27,8 +26,8 @@ export interface SerialisedError extends JSONObject {
 }
 
 export class ErrorSerialiser {
-    private static recognisedErrors = [
-        ...Object.keys(serenitySpecificErrors).map(key => serenitySpecificErrors[key]),
+    private static readonly recognisedErrors: Array<new (...args: any[]) => Error> = [
+        // Built-in JavaScript Errors
         Error,
         EvalError,
         RangeError,
@@ -39,6 +38,10 @@ export class ErrorSerialiser {
     ];
 
     static serialise(error: Error): string {
+        if (this.isSerialisable(error)) {
+            return stringify(error.toJSON());
+        }
+
         const name = error && error.constructor && error.constructor.name
             ? error.constructor.name
             : error.name;
@@ -51,10 +54,29 @@ export class ErrorSerialiser {
         return stringify(serialisedError);
     }
 
-    static deserialise<E extends Error>(stringifiedError: string): E {
-        const serialisedError = parse(stringifiedError) as SerialisedError;
+    static registerErrorTypes(...types: Array<new (...args: any[]) => Error>): void {
+        types.forEach(type => {
+            ErrorSerialiser.recognisedErrors.push(
+                ensure(`Error type ${ type }`, type as any, isDefined(), isFunction())
+            );
+        });
+    }
+
+    static deserialise(serialised?: string | JSONObject): Error | undefined {
+        if (serialised === null || serialised === undefined) {
+            return undefined;
+        }
+
+        const serialisedError = typeof serialised === 'string'
+            ? parse(serialised) as SerialisedError
+            : serialised;
 
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
+
+        if (this.isDeserialisable(constructor)) {
+            return constructor.fromJSON(serialisedError) as Error;
+        }
+
         const deserialised = Object.create(constructor.prototype);
         for (const property in serialisedError) {
             if (Object.prototype.hasOwnProperty.call(serialisedError, property)) {
@@ -62,6 +84,16 @@ export class ErrorSerialiser {
             }
         }
         return deserialised;
+    }
+
+    private static isSerialisable(value: any): value is { toJSON: () => JSONValue } {
+        return value
+            && typeof (value as any).toJSON === 'function';
+    }
+
+    private static isDeserialisable<T>(type: new (...args: any[]) => T): type is typeof type & { fromJSON: (o: JSONValue) => T } {
+        return type
+            && typeof (type as any).fromJSON === 'function';
     }
 
     static deserialiseFromStackTrace(stack: string): Error {

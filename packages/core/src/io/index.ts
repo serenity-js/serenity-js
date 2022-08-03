@@ -1,3 +1,16 @@
+import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, TestCompromisedError, TimeoutExpiredError, UnknownError } from '../errors';
+import { ErrorSerialiser } from './ErrorSerialiser';
+
+ErrorSerialiser.registerErrorTypes(
+    AssertionError,
+    ConfigurationError,
+    ImplementationPendingError,
+    LogicError,
+    TestCompromisedError,
+    TimeoutExpiredError,
+    UnknownError,
+);
+
 export * from './AssertionReportDiffer';
 export * from './asyncMap';
 export * from './commaSeparated';

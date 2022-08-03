@@ -4,4 +4,5 @@ export * from './ImplementationPendingError';
 export * from './LogicError';
 export * from './RuntimeError';
 export * from './TestCompromisedError';
+export * from './TimeoutExpiredError';
 export * from './UnknownError';

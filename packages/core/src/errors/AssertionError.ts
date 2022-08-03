@@ -1,18 +1,33 @@
+import { JSONObject } from 'tiny-types';
+
+import { ErrorSerialiser } from '../io/ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * @desc
- *  Thrown to indicate that an assertion has failed.
+ * Thrown to indicate that an assertion has failed.
  *
- * @extends {RuntimeError}
+ * @group Errors
  */
 export class AssertionError extends RuntimeError {
 
+    static fromJSON(serialised: JSONObject): AssertionError {
+        const error = new AssertionError(
+            serialised.message as string,
+            serialised.expected as unknown,
+            serialised.actual as unknown,
+            ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+        );
+
+        error.stack = serialised.stack as string;
+
+        return error;
+    }
+
     /**
-     * @param {string} message - Human-readable description of the error
-     * @param {unknown} expected - The value that was expected
-     * @param {unknown} actual - The value that was received instead of the expected one
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param message - Human-readable description of the error
+     * @param expected - The value that was expected
+     * @param actual - The value that was received instead of the expected one
+     * @param [cause] - The root cause of this {@link RuntimeError}, if any
      */
     constructor(message: string, public readonly expected: unknown, public readonly actual: unknown, cause?: Error) {
         super(AssertionError, message, cause);
