@@ -7,57 +7,55 @@ import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 
 /**
- * @desc
- *  A control flow statement that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  either to choose whether or not to perform a series of activities,
- *  or to choose which of the two provided series of activities to perform.
+ * A [flow control statement](https://en.wikipedia.org/wiki/Control_flow)
+ * that enables an {@apiLink Actor} to decide between two alternate series of {@apiLink Activity|activities}.
  *
- * @example <caption>Choose from two alternatives</caption>
- *  import { equals } from '@serenity-js/assertions';
- *  import { Check } from '@serenity-js/core';
+ * Think of it as a Screenplay Pattern equivalent of the traditional `if` statement.
  *
- *  actor.attemptsTo(
- *      Check.whether(process.env.MODE, equals('prod'))
- *          .andIfSo(
- *              LogInAsProdUser(),
- *          )
- *          .otherwise(
- *              LogInAsTestUser(),
- *          )
- *  );
+ * ## Choose between two alternative sequences of activities
  *
- * @example <caption>Choose whether or not to perform an activity</caption>
- *  import { equals } from '@serenity-js/assertions';
- *  import { Check } from '@serenity-js/core';
- *  import { isDisplayed } from '@serenity-js/protractor';
+ * ```ts
+ * import { equals } from '@serenity-js/assertions'
+ * import { actorCalled, Check } from '@serenity-js/core'
  *
- *  actor.attemptsTo(
- *      Check.whether(NewsletterModal(), isDisplayed())
- *          .andIfSo(
- *              DismissModal(),
- *          )
- *  );
+ * await actorCalled('Chuck').attemptsTo(
+ *   Check.whether(process.env.MODE, equals('prod'))
+ *     .andIfSo(
+ *       LogInAsProdUser(),
+ *     )
+ *     .otherwise(
+ *       LogInAsTestUser(),
+ *     )
+ * )
+ * ```
  *
- * @extends {@serenity-js/core/lib/screenplay~Task}
+ * ## Perform a sequence of activities when a condition is met
  *
- * @see https://en.wikipedia.org/wiki/Control_flow
+ * ```ts
+ * import { equals } from '@serenity-js/assertions'
+ * import { actorCalled, Check } from '@serenity-js/core'
+ * import { isVisible } from '@serenity-js/web'
+ *
+ * await actorCalled('Chuck').attemptsTo(
+ *   Check.whether(CookieConsentBanner(), isVisible())
+ *     .andIfSo(
+ *         AcceptNecessaryCookies(),
+ *     )
+ * )
+ * ```
+ *
+ * @group Tasks
  */
 export class Check<Actual> extends Task {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    static whether<A>(actual: Answerable<A>, expectation: Expectation<A>) {
+    static whether<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): { andIfSo: (...activities: Activity[]) => Check<Actual_Type> } {
         return {
-            andIfSo: (...activities: Activity[]) => new Check(actual, expectation, activities),
+            andIfSo: (...activities: Activity[]) =>
+                new Check(actual, expectation, activities),
         };
     }
 
-    /**
-     *
-     * @param actual
-     * @param expectation
-     * @param activities
-     * @param alternativeActivities
-     */
-    constructor(
+    protected constructor(
         private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<Actual>,
         private readonly activities: Activity[],
@@ -67,24 +65,15 @@ export class Check<Actual> extends Task {
     }
 
     /**
-     * @param {...@serenity-js/core/lib/screenplay~Activity[]} alternativeActivities
-     * @return {@serenity-js/core/lib/screenplay~Task}
+     * @param alternativeActivities
+     *  A sequence of {@link Activity|activities} to perform when the {@link Expectation} is not met.
      */
     otherwise(...alternativeActivities: Activity[]): Task {
         return new Check<Actual>(this.actual, this.expectation, this.activities, alternativeActivities);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
-     *
-     * @param {AnswersQuestions & PerformsActivities} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @inheritDoc
      */
     async performAs(actor: AnswersQuestions & PerformsActivities): Promise<void> {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
@@ -95,10 +84,7 @@ export class Check<Actual> extends Task {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return d`#actor checks whether ${ this.actual } does ${ this.expectation }`;
