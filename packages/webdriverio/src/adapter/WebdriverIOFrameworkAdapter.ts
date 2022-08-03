@@ -33,6 +33,12 @@ export class WebdriverIOFrameworkAdapter {
             isMergeableObject: isRecord,
         });
 
+        // SauceLabs service serialises the config object for debugging.
+        // However, since Serenity/JS Stage is a pub/sub mechanism,
+        // it contains cyclic references which are not serialisable.
+        // We get rid of them from the config object to avoid confusing other services.
+        delete webdriverIOConfig.serenity;
+
         this.adapter = new TestRunnerLoader(this.loader, this.cwd, this.cid)
             .runnerAdapterFor(config);
 
@@ -84,10 +90,9 @@ export class WebdriverIOFrameworkAdapter {
         return this.adapter.scenarioCount() > 0;
     }
 
-    run(): Promise<number> {
-        return this.adapter.run().then(() =>
-            this.notifier.failureCount()
-        );
+    async run(): Promise<number> {
+        await this.adapter.run();
+        return this.notifier.failureCount();
     }
 
     private defaultConfig(): Partial<WebdriverIOConfig> {
