@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, not, or } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, PageElement, Text } from '@serenity-js/web';
 
@@ -20,7 +20,6 @@ describe('Wait', () => {
 
                 Ensure.that(Text.of(status()), equals('Not ready')),
                 Click.on(loadButton()),
-                Ensure.that(Text.of(status()), equals('Loading...')),
 
                 Wait.for(Duration.ofMilliseconds(2500)),
 
