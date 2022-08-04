@@ -2,41 +2,56 @@ import { Ability } from './Ability';
 import { UsesAbilities } from './actor';
 
 /**
- * @desc
- *  An interface describing the static access method that every {@link Ability} class
- *  needs to provide in order to be accessible from within an {@link Interaction}.
+ * An interface describing the static access method that every {@link Ability} class
+ * needs to provide in order to be accessible from within the {@link Interaction|interactions}.
+ *
+ * ## Learn more
+ * - {@link Ability}
+ * - {@link Actor}
+ * - {@link Interaction}
+ *
+ * @group Abilities
  */
 export interface AbilityType<A extends Ability> extends Function {
 
     /**
-     * @desc
-     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.
+     * Retrieves the ability of a given type from the {@link Actor},
+     * provided that the {@link Actor} has it.
      *
-     * @example
-     * import { Ability, Actor, Interface } from '@serenity-js/core';
+     * #### Retrieving an ability from an interaction
+     *
+     * ```ts
+     * import { Ability, actorCalled, Interaction } from '@serenity-js/core';
      *
      * class MakePhoneCalls implements Ability {
-     *     static as(actor: UsesAbilities): MakesPhoneCalls {
-     *         return actor.abilityTo(MakePhoneCalls);
-     *     }
+     *   static as(actor: UsesAbilities): MakesPhoneCalls {
+     *     return actor.abilityTo(MakePhoneCalls);
+     *   }
      *
-     *     static using(phone: Phone) {
-     *         return new MakePhoneCalls(phone);
-     *     }
+     *   static using(phone: Phone) {
+     *     return new MakePhoneCalls(phone);
+     *   }
      *
-     *     constructor(private readonly phone: Phone) {}
+     *   protected constructor(private readonly phone: Phone) {
+     *   }
      *
-     *     // some method that allows us to interact with the external interface of the system under test
-     *     dial(phoneNumber: string) {
-     *       // ...
-     *     }
+     *   // some method that allows us to interact with the external interface of the system under test
+     *   dial(phoneNumber: string): Promise<void> {
+     *     // ...
+     *   }
      * }
      *
-     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));
+     * const Call = (phoneNumber: string) =>
+     *   Interaction.where(`#actor calls ${ phoneNumber }`, async actor => {
+     *     await MakePhoneCalls.as(actor).dial(phoneNumber)
+     *   });
      *
-     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>
-     *  MakePhoneCalls.as(actor).dial(phoneNumber);
-     * );
+     * await actorCalled('Connie')
+     *   .whoCan(MakePhoneCalls.using(phone))
+     *   .attemptsTo(
+     *     Call(phoneNumber),
+     *   )
+     * ```
      *
      * @param {UsesAbilities} actor
      */

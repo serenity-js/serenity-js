@@ -1,100 +1,162 @@
 /**
- * @desc
- *  An Ability enables the {@link Actor} to interact with an external interface of the system under test.
- *  Technically speaking, it's a wrapper around a client of said interface.
+ * An Ability enables an {@link Actor} to interact with an external interface of the system under test.
+ * Technically speaking, it's a wrapper around a client of a given interface, such as a {@link BrowseTheWeb|Web browser driver},
+ * or a {@link CallAnApi|HTTP client}.
  *
- * @example
- *  import { Ability, Actor, Interaction } from '@serenity-js/core';
+ * ## Using custom abilities
  *
- *  class MakePhoneCalls implements Ability {
- *      static as(actor: UsesAbilities): MakesPhoneCalls {
- *          return actor.abilityTo(MakePhoneCalls);
- *      }
+ * ### Defining a custom ability to `MakePhoneCalls`
  *
- *      static using(phone: Phone) {
- *          return new MakePhoneCalls(phone);
- *      }
+ * ```ts
+ * import { Ability, actorCalled, Interaction } from '@serenity-js/core'
  *
- *      constructor(private readonly phone: Phone) {}
+ * class MakePhoneCalls implements Ability {
  *
- *      // some method that allows us to interact with the external interface of the system under test
- *      dial(phoneNumber: string) {
- *        // ...
- *      }
- *  }
+ *   // Abilities typically expose a static method `as` used to retrieve the ability from an actor in an interaction,
+ *   // for example:
+ *   //   MakesPhoneCalls.as(actor).call(phoneNumber)
+ *   static as(actor: UsesAbilities): MakesPhoneCalls {
+ *     return actor.abilityTo(MakePhoneCalls)
+ *   }
  *
- *  const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));
+ *   // A static method is typically used to inject a client of a given interface
+ *   // and instantiate the ability, for example:
+ *   //   actorCalled('Phil').whoCan(MakePhoneCalls.using(phone))
+ *   static using(phone: Phone) {
+ *     return new MakePhoneCalls(phone);
+ *   }
  *
- *  const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>
- *      MakePhoneCalls.as(actor).dial(phoneNumber);
- *  );
+ *   // Abilities can hold state, for example: the client of a given interface,
+ *   // additional configuration, or the result of the last interaction with a given interface.
+ *   protected constructor(private readonly phone: Phone) {
+ *   }
  *
- * @example <caption>Ability that's automatically initialised and discarded</caption>
- *  import {
- *      Ability, actorCalled, Discardable, Initialisable,
- *      Question, UsesAbilities
- *  } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ *   // Abilities expose methods that enable Interactions to call the system under test,
+ *   // and Questions to retrieve information about its state.
+ *   dial(phoneNumber: string): Promise<void> {
+ *     // ...
+ *   }
+ * }
+ * ```
  *
- *  // A low-level client we want the Actor to use, i.e. a database client:
- *  const { Client } = require('pg');
+ * ### Defining a custom interaction using the custom ability
  *
- *  // A custom Ability to give an Actor access to the low-level client:
- *  class QueryPostgresDB implements Initialisable, Discardable, Ability {
- *     static as(actor: UsesAbilities) {
- *         return actor.abilityTo(QueryPostgresDB);
- *     }
+ * ```ts
+ * // A custom interaction using the actor's ability:
+ * const Call = (phoneNumber: string) =>
+ *   Interaction.where(`#actor calls ${ phoneNumber }`, async actor => {
+ *     await MakePhoneCalls.as(actor).dial(phoneNumber)
+ *   })
+ * ```
  *
- *     constructor(private readonly client) {
- *     }
+ * ### Using the custom ability and interaction in a test scenario
  *
- *     // invoked by Serenity/JS when actor.attemptsTo is first invoked
- *     initialise(): Promise<void> | void {
- *         return this.client.connect();
- *     }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
  *
- *     // Helps to ensure that the Ability is not initialised more than once
- *     isInitialised(): boolean {
- *         return this.client._connected;
- *     }
+ * await actorCalled('Connie')
+ *   .whoCan(MakePhoneCalls.using(phone))
+ *   .attemptsTo(
+ *     Call(phoneNumber)
+ *   )
+ * ```
  *
- *     // Discards any resources the Ability uses when the Actor is dismissed
- *     discard(): Promise<void> | void {
- *         return this.client.end();
- *     }
+ * ## Using auto-initialisable and auto-discardable abilities
  *
- *     // Any custom integration APIs the custom Ability
- *     // should make available to the Actor.
- *     query(query: string) {
- *         return this.client.query(query);
- *     }
+ * Abilities that rely on resources that need to be initialised before they can be used,
+ * or discarded before the actor is dismissed can implement the {@link Initialisable}
+ * or {@link Discardable} interfaces, respectively.
  *
- *     // ... other custom integration APIs
- *  }
+ * ### Defining a custom ability to `QueryPostgresDB`
  *
- *  // A custom Question to allow the Actor query the system
- *  const CurrentDBUser = () =>
- *      Question.about('current db user', actor =>
- *          QueryPostgresDB.as(actor)
- *              .query('SELECT current_user')
- *              .then(result => result.rows[0].current_user)
- *      );
+ * ```ts
+ * import {
+ *   Ability, actorCalled, Discardable, Initialisable, Question, UsesAbilities,
+ * } from '@serenity-js/core'
  *
- *  // Example test scenario where the Actor uses an Ability to QueryPostgresDB
- *  // to assert on the username the connection has been established with
- *  describe('Serenity/JS', () => {
- *     it('can initialise and discard abilities automatically', () =>
- *         actorCalled('Debbie')
- *             .whoCan(new QueryPostgresDB(new Client()))
- *             .attemptsTo(
- *                 Ensure.that(CurrentDBUser(), equals('jan'))
- *             ));
- *  });
+ * // Some low-level interface-specific client we want the Actor to use,
+ * // for example a PostgreSQL database client:
+ * const { Client } = require('pg');
  *
- * @see {@link Initialisable}
- * @see {@link Discardable}
+ * // A custom Ability to give an Actor access to the low-level client:
+ * class QueryPostgresDB
+ *   implements Initialisable, Discardable, Ability
+ * {
+ *   static as(actor: UsesAbilities) {
+ *     return actor.abilityTo(QueryPostgresDB);
+ *   }
  *
- * @access public
+ *   protected constructor(private readonly client) {
+ *   }
+ *
+ *   // Invoked by Serenity/JS upon the first invocation of `actor.attemptsTo`
+ *   initialise(): Promise<void> | void {
+ *     return this.client.connect();
+ *   }
+ *
+ *   // Used to ensure that the Ability is not initialised more than once
+ *   isInitialised(): boolean {
+ *     return this.client._connected;
+ *   }
+ *
+ *   // Discards any resources the Ability uses when the Actor is dismissed,
+ *   // so when the Stage receives a SceneFinishes event for scenario-scoped actor,
+ *   // or TestRunFinishes for cross-scenario-scoped actors
+ *   discard(): Promise<void> | void {
+ *     return this.client.end();
+ *   }
+ *
+ *   // Any custom integration APIs the Ability, should make available to the Actor.
+ *   // Here, we want the ability to enable the actor to query the database.
+ *   query(query: string) {
+ *     return this.client.query(query);
+ *   }
+ *
+ *   // ... other custom integration APIs
+ * }
+ * ```
+ *
+ * ### Defining a custom question using the custom ability
+ *
+ * ```ts
+ * // A custom Question to allow the Actor query the database
+ * const CurrentDBUser = () =>
+ *   Question.about('current db user', actor =>
+ *     QueryPostgresDB.as(actor)
+ *       .query('SELECT current_user')
+ *       .then(result => result.rows[0].current_user)
+ *   );
+ * ```
+ *
+ * ### Using the custom ability and question in a test scenario
+ *
+ * ```ts
+ * // Example test scenario where the Actor uses the Ability to QueryPostgresDB
+ * // to assert on the username the connection has been established with
+ *
+ * import { describe, it } from 'mocha'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * describe('Serenity/JS', () => {
+ *   it('can initialise and discard abilities automatically', () =>
+ *     actorCalled('Debbie')
+ *       .whoCan(new QueryPostgresDB(new Client()))
+ *       .attemptsTo(
+ *         Ensure.that(CurrentDBUser(), equals('jan'))
+ *       ))
+ * })
+ * ```
+ *
+ * ## Learn more
+ * - {@link AbilityType}
+ * - {@link Initialisable}
+ * - {@link Discardable}
+ * - {@link BrowseTheWeb}
+ * - {@link CallAnApi}
+ * - {@link TakeNotes}
+ *
+ * @group Screenplay Pattern
  */
 export interface Ability {  // eslint-disable-line @typescript-eslint/no-empty-interface
 }
