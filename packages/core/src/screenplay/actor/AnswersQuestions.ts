@@ -1,19 +1,20 @@
 import { Answerable } from '../Answerable';
 
 /**
- * @desc
- *  Enables the {@link Actor} to answer a {@link Question} about the system under test
+ * Describes an {@link Actor} who can answer a {@link Question} about the system under test.
  *
- * @public
+ * ## Learn more
+ *
+ * - {@link Question}
+ * - {@link Actor}
+ *
+ * @group Actors
  */
 export interface AnswersQuestions {
 
     /**
-     * @desc
-     *  Makes the {@link Actor} evaluate an {@link Answerable}
-     *  and return the value it holds.
-     *
-     * @type {function<T>>(answerable: Answerable<T>): Promise<T>}
+     * Makes the {@link Actor} evaluate an {@link Answerable}
+     * and return the value it holds.
      */
-    answer: <T>(answerable: Answerable<T>) => Promise<T>;
+    answer<T>(answerable: Answerable<T>): Promise<T>;
 }

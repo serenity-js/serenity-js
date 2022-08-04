@@ -51,6 +51,8 @@ import { Ability, Actor } from '../screenplay';
  *
  * @see {@link Stage}
  * @interface
+ *
+ * @group Stage
  */
 export abstract class Cast {
     /**

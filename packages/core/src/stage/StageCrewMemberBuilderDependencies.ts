@@ -2,24 +2,14 @@ import { OutputStream } from '../io';
 import { Stage } from './Stage';
 
 /**
- * @desc
- *  Dependencies injected by {@link Serenity} into {@link StageCrewMemberBuilder#build}
+ * Dependencies injected by [[Serenity.configure]] into [[StageCrewMemberBuilder.build]]
  *
- * @interface
+ * ## Learn more
+ * - {@link StageCrewMemberBuilder}
  *
- * @see {@link StageCrewMemberBuilder}
+ * @group Stage
  */
 export interface StageCrewMemberBuilderDependencies {
-
-    /**
-     * @type {Stage}
-     */
     stage: Stage;
-
-    /**
-     * @desc
-     *
-     * @type {OutputStream}
-     */
     outputStream: OutputStream;
 }

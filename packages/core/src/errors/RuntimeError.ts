@@ -38,6 +38,7 @@ import { TinyType } from 'tiny-types';
  *
  * ## Registering a custom error with {@link ErrorSerialiser}
  *
+ * ```ts
  * import { RuntimeError } from '@serenity-js/core'
  * import { ErrorSerialiser } from '@serenity-js/core/lib/io'
  *

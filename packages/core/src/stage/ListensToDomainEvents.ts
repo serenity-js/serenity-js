@@ -1,22 +1,24 @@
 import { DomainEvent } from '../events';
 
 /**
- * @desc
- *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s
+ * A {@link StageCrewMember} that can listen and react to {@link DomainEvent|DomainEvents}
  *
- * @see {@link StageCrewMember}
- * @see {@link StageCrewMemberBuilder}
- * @see {@link Serenity#configure}
- * @see {@link SerenityConfig#crew}
+ * ## Learn more
+ *
+ * - {@link StageCrewMember}
+ * - {@link StageCrewMemberBuilder}
+ * - {@link configure}
+ * - [[SerenityConfig.crew]]
+ *
+ * @group Stage
  */
 export interface ListensToDomainEvents {
 
     /**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     *  that this {@link StageCrewMember} is assigned to.
+     * Handles {@link DomainEvent} objects emitted by the {@link Stage}
+     * that this {@link StageCrewMember} is assigned to.
      *
-     * @type {function(event: DomainEvent): void}
+     * @param event
      */
-    notifyOf: (event: DomainEvent) => void;
+    notifyOf(event: DomainEvent): void;
 }

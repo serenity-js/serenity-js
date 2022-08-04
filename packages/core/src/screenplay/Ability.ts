@@ -1,7 +1,8 @@
 /**
- * An Ability enables an {@link Actor} to interact with an external interface of the system under test.
- * Technically speaking, it's a wrapper around a client of a given interface, such as a {@link BrowseTheWeb|Web browser driver},
- * or a {@link CallAnApi|HTTP client}.
+ * Serenity/JS Screenplay Pattern `Ability` enables an {@link Actor} to interact with an external interface of the system under test.
+ *
+ * Technically speaking, an "ability" is a wrapper around a client of a given external interface,
+ * such as a {@link BrowseTheWeb|Web browser driver}, or a {@link CallAnApi|HTTP client}.
  *
  * ## Using custom abilities
  *

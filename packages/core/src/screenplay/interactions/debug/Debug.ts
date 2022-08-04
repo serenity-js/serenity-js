@@ -10,45 +10,54 @@ import { DebuggingResult } from './DebuggingResult';
 import { viewer } from './viewer';
 
 /**
- * @desc
- *  Instructs the {@link Actor} to set a breakpoint and optionally evaluate and log the provided {@link Answerable} values.
+ * Instructs the {@apiLink Actor} to set a breakpoint and optionally evaluate and log the provided {@apiLink Answerable} values.
  *
- *  Since this interaction sets a breakpoint using the [`debugger`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger) statement,
- *  the best way to use it is while running the test scenario via a Node.js debugger.
+ * Since this interaction sets a breakpoint using the [`debugger`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger) statement,
+ * the best way to use it is while running the test scenario via a Node.js debugger.
+ * See the links below to learn how to do it in popular IDEs.
  *
- * @example <caption>Setting a breakpoint to pause the scenario</caption>
- *  import { actorCalled, Debug } from '@serenity-js/core';
- *  import { Navigate } from '@serenity-js/web';
+ * ## Setting a breakpoint to pause the scenario
  *
- *  await actorCalled('Debbie').attemptsTo(
- *      Navigate.to('http://example.org'),
- *      Debug.setBreakpoint(),
- *      // ... other activities
- *  );
+ * Note that for setting the breakpoint to work you need to run your test scenario via a Node.js debugger.
  *
- * @example <caption>Debugging Answerable values</caption>
- *  import { actorCalled, Debug } from '@serenity-js/core';
- *  import { Navigate, Page } from '@serenity-js/web';
+ * ```ts
+ * import { actorCalled, Debug } from '@serenity-js/core'
+ * import { Navigate } from '@serenity-js/web'
  *
- *  // Running the below through the Node.js debugger makes the actor resolve the provided values
- *  // and return them to the debugger function, where you can investigate their contents,
- *  // or inspect any Errors the evaluation has resulted with.
- *  await actorCalled('Debbie').attemptsTo(
- *      Navigate.to('http://example.org'),
- *      Debug.values(Page.current().title(), Page.current().url()), // accepts multiple values
- *  );
+ * await actorCalled('Debbie').attemptsTo(
+ *   Navigate.to('http://example.org'),
+ *   Debug.setBreakpoint(),
+ *   // ... other activities
+ * );
+ * ```
  *
- * @extends {Interaction}
+ * ## Debugging Answerable values
+ *
+ * ```ts
+ * import { actorCalled, Debug } from '@serenity-js/core'
+ * import { Navigate, Page } from '@serenity-js/web'
+ *
+ * // Running the below through the Node.js debugger makes the actor resolve the provided values
+ * // and return them to the debugger function, where you can investigate their contents,
+ * // or inspect any Errors the evaluation has resulted with.
+ * await actorCalled('Debbie').attemptsTo(
+ *   Navigate.to('http://example.org'),
+ *   Debug.values(Page.current().title(), Page.current().url()), // accepts multiple values
+ * );
+ * ```
+ *
+ * ## Learn more
+ * - [Node.js debugging - Getting started](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+ * - [Node.js debugging in VS Code](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
+ * - [Running and debugging Node.js in WebStorm](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
+ *
+ * @group Interactions
  */
 export class Debug<Values extends Array<Answerable<unknown>>> extends Interaction {
 
     /**
-     * @desc
-     *  Invokes a debugger function that sets a breakpoint.
-     *
-     *   To use this interaction, run your test scenario in the Node.js debugger.
-     *
-     * @returns {Interaction}
+     * Invokes a debugger function that sets a breakpoint.
+     * To use this interaction, run your test scenario in the Node.js debugger.
      */
     static setBreakpoint(): Interaction {
         /* istanbul ignore next can't test using a debugger in an automated test */
@@ -60,16 +69,13 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
     }
 
     /**
-     * @desc
-     *  Instructs the Actor to evaluate the provided `values`,
-     *  log the results, and then pass them to a debugger function.
+     * Instructs the Actor to evaluate the provided `values`,
+     * log the results, and then pass them to a debugger function.
      *
-     *  To use this interaction, run your test scenario in the Node.js debugger.
+     * To use this interaction, run your test scenario in the Node.js debugger.
      *
-     * @param {...items: Array<Answerable<any>>} values
+     * @param values
      *  The values to be debugged
-     *
-     * @returns {Interaction}
      */
     static values(...values: Array<Answerable<any>>): Interaction {
         /* istanbul ignore next can't test using a debugger in an automated test */
@@ -81,11 +87,13 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
     }
 
     /**
-     * @param {string} description
+     * @param description
      *  Description of this interaction
+     *
      * @param debuggerFunction
      *  Callback function to receive the results of debugging
-     * @param {Array<Answerable<any>>} values
+     *
+     * @param values
      *  Values to be evaluated by the actor, and provided to debuggerFunction
      */
     constructor(
@@ -97,17 +105,7 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
-     * @see {@link CollectsArtifacts}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         const results = [] as { [ Index in keyof Values ]: DebuggingResult<Answered<Values[Index]>> };
@@ -144,10 +142,7 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return this.description;

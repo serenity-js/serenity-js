@@ -9,46 +9,40 @@ import { Cast } from './Cast';
 import { StageManager } from './StageManager';
 
 /**
- * @desc
- *  The place where {@link Actor}s perform.
+ * Stage is the place where {@apiLink Actor|actors} perform.
  *
- *  In more technical terms, the Stage is the main event bus propagating {@link DomainEvent}s
- *  to {@link Actor}s it instantiates and {@link StageCrewMember}s that have been registered with it.
+ * In more technical terms, the Stage is the main event bus propagating {@apiLink DomainEvent|DomainEvents}
+ * to {@apiLink Actor|Actors} it instantiates and {@apiLink StageCrewMember|StageCrewMembers} that have been registered with it.
  *
- * @see {@link configure}
- * @see {@link engage}
+ * It is unlikely that you'll ever need to interact with the `Stage` directly in your tests. Instead, you'll use functions like
+ * {@apiLink actorCalled} and {@apiLink actorInTheSpotlight}.
+ *
+ * ## Learn more
+ * - {@link configure}
+ * - {@link engage}
+ *
+ * @group Stage
  */
 export class Stage {
-    /**
-     * @private
-     */
+
     private static readonly unknownSceneId = new CorrelationId('unknown')
 
     /**
-     * @desc
-     *  Actors instantiated after the scene has started,
-     *  who will be dismissed when the scene finishes.
-     *
-     * @private
+     * Actors instantiated after the scene has started,
+     * who will be dismissed when the scene finishes.
      */
     private actorsOnFrontStage: Map<string, Actor> = new Map<string, Actor>();
 
     /**
-     * @desc
-     *  Actors instantiated before the scene has started,
-     *  who will be dismissed when the test run finishes.
-     *
-     * @private
+     * Actors instantiated before the scene has started,
+     * who will be dismissed when the test run finishes.
      */
     private actorsOnBackstage: Map<string, Actor> = new Map<string, Actor>();
 
     private actorsOnStage: Map<string, Actor> = this.actorsOnBackstage;
 
     /**
-     * @desc
-     *  The most recent actor referenced via the {@link actor} method
-     *
-     * @private
+     * The most recent actor referenced via the {@link actor} method
      */
     private actorInTheSpotlight: Actor = undefined;
 
@@ -56,8 +50,8 @@ export class Stage {
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
     /**
-     * @param {Cast} cast
-     * @param {StageManager} manager
+     * @param cast
+     * @param manager
      */
     constructor(
         private cast: Cast,
@@ -68,22 +62,20 @@ export class Stage {
     }
 
     /**
-     * @desc An alias for {@link Stage#actor}
-     * @see {@link Stage#actor}
-     * @alias {Stage#actor}
-     * @param {string} name
-     * @return {Actor}
+     * An alias for [[Stage.actor]]
+     *
+     * @param name
      */
     theActorCalled(name: string): Actor {
         return this.actor(name);
     }
 
     /**
-     * @desc Instantiates a new {@link Actor} or fetches an existing one
-     * by their name if they've already been instantiated.
+     * Instantiates a new {@link Actor} or fetches an existing one
+     * identified by their name if they've already been instantiated.
      *
-     * @param {string} name - case-sensitive name of the Actor
-     * @return {Actor}
+     * @param name
+     *  Case-sensitive name of the Actor, e.g. `Alice`
      */
     actor(name: string): Actor {
         if (! this.instantiatedActorCalled(name)) {
@@ -113,12 +105,11 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns the last {@link Actor} instantiated via {@link Stage#actor}.
-     *  Useful when you don't can't or choose not to reference the actor by their name.
+     * Returns the last {@link Actor} instantiated via [[Stage#actor]].
+     * Useful when you don't can't or choose not to reference the actor by their name.
      *
-     * @throws {LogicError} if no {Actor} has been activated yet
-     * @return {Actor}
+     * @throws {LogicError}
+     *  If no {@link Actor} has been activated yet
      */
     theActorInTheSpotlight(): Actor {
         if (! this.actorInTheSpotlight) {
@@ -129,49 +120,38 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns {true} if there is an {@link Actor} in the spotlight, {false} otherwise.
-     *
-     * @return {boolean}
+     * Returns `true` if there is an {@link Actor} in the spotlight, `false` otherwise.
      */
     theShowHasStarted(): boolean {
         return !! this.actorInTheSpotlight;
     }
 
     /**
-     * @desc
-     *  Configures the Stage to prepare {@link Actor}s
-     *  instantiated via {@link Stage#actor} using the provided {@link Cast}.
+     * Configures the Stage to prepare {@link Actor|Actors}
+     * instantiated via [[Stage#actor]] using the provided {@link Cast}.
      *
-     * @param {Cast} actors
-     * @returns {void}
+     * @param actors
      */
     engage(actors: Cast): void {
         ensure('Cast', actors, isDefined());
 
-        this.cast        = actors;
+        this.cast = actors;
     }
 
     /**
-     * @desc
-     *  Assigns listeners to be notified of {@link DomainEvent}s
-     *  emitted via {@link Stage#announce}
+     * Assigns listeners to be notified of {@link DomainEvent|DomainEvents}
+     * emitted via [[Stage#announce]].s
      *
-     * @param {ListensToDomainEvents[]} listeners
-     * @returns {void}
+     * @param listeners
      */
     assign(...listeners: ListensToDomainEvents[]): void {
         this.manager.register(...listeners);
     }
 
     /**
-     * @desc
-     *  Notifies all the assigned listeners of the event.
+     * Notifies all the assigned listeners of the event.
      *
-     * @listens {DomainEvent}
-     *
-     * @param {DomainEvent} event
-     * @returns {void}
+     * @param event
      */
     announce(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
@@ -192,27 +172,23 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns current time. This method should be used whenever
-     *  {@link DomainEvent} objects are instantiated by hand.
-     *
-     * @returns {Timestamp}
+     * Returns current time. This method should be used whenever
+     * {@link DomainEvent} objects are instantiated by you programmatically.
      */
     currentTime(): Timestamp {
         return this.manager.currentTime();
     }
 
     /**
-     * @desc
-     *  Generates and remembers a {@link CorrelationId}
-     *  for the current scene.
+     * Generates and remembers a {@link CorrelationId}
+     * for the current scene.
      *
-     *  This method should be used in custom test runner adapters
-     *  when instantiating a {@link SceneStarts} event.
+     * This method should be used in custom test runner adapters
+     * when instantiating a {@link SceneStarts} event.
      *
-     * @see {@link Stage#currentSceneId}
-     *
-     * @returns {CorrelationId}
+     * #### Learn more
+     * - [[Stage.currentSceneId]]
+     * - [[CorrelationId]]
      */
     assignNewSceneId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
@@ -222,28 +198,24 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns the {@link CorrelationId} for the current scene.
+     * Returns the {@link CorrelationId} for the current scene.
      *
-     * @see {@link Stage#assignNewSceneId}
-     *
-     * @returns {CorrelationId}
+     * #### Learn more
+     * - {@link Stage#assignNewSceneId}
      */
     currentSceneId(): CorrelationId {
         return this.currentScene;
     }
 
     /**
-     * @desc
-     *  Generates and remembers a {@link CorrelationId}
-     *  for the current {@link Activity}.
+     * Generates and remembers a {@link CorrelationId}
+     * for the current {@link Activity}.
      *
-     *  This method should be used in custom test runner adapters
-     *  when instantiating an {@link ActivityStarts} event.
+     * This method should be used in custom test runner adapters
+     * when instantiating the {@link ActivityStarts} event.
      *
-     * @see {@link Stage#currentActivityId}
-     *
-     * @returns {CorrelationId}
+     * #### Learn more
+     * - {@link Stage#currentActivityId}
      */
     assignNewActivityId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
@@ -253,12 +225,10 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns the {@link CorrelationId} for the current {@link Activity}.
+     * Returns the {@link CorrelationId} for the current {@link Activity}.
      *
-     * @see {@link Stage#assignNewSceneId}
-     *
-     * @returns {CorrelationId}
+     * #### Learn more
+     * - {@link Stage#assignNewSceneId}
      */
     currentActivityId(): CorrelationId {
         if (! this.currentActivity) {
@@ -269,11 +239,12 @@ export class Stage {
     }
 
     /**
-     * @desc
-     *  Returns a Promise that will be resolved when any asynchronous
-     *  post-processing activities performed by Serenity/JS are completed.
+     * Returns a Promise that will be resolved when any asynchronous
+     * post-processing activities performed by Serenity/JS are completed.
      *
-     * @returns {Promise<void>}
+     * Invoked in Serenity/JS test runner adapters to inform the test runner when
+     * the scenario has finished and when it's safe for the test runner to proceed
+     * with the next test, or finish execution.
      */
     waitForNextCue(): Promise<void> {
         return this.manager.waitForNextCue();
@@ -323,10 +294,6 @@ export class Stage {
         activeActors.clear();
     }
 
-    /**
-     * @private
-     * @param {Cast} cast
-     */
     private typeOf(cast: Cast): string {
         return this.cast.constructor !== Object
             ? this.cast.constructor.name
