@@ -2,19 +2,23 @@ import { Ability } from '../Ability';
 import { AbilityType } from '../AbilityType';
 
 /**
- * @desc
- *  Enables the {@link Actor} to use an {@link Ability} to perform some {@link Activity}.
+ * Describes an {@link Actor} who can use their {@link Ability|abilities} to perform an {@link Activity}
+ * or answer a {@link Question}.
  *
- * @public
+ * ## Learn more
+ *
+ * - {@link Ability}
+ * - {@link Actor}
+ *
+ * @group Actors
  */
 export interface UsesAbilities {
 
     /**
-     * @desc
-     *  Provides access to the {@link Actor}'s {@link Ability} to do something
+     * Provides access to the {@link Actor|actor's} {@link Ability} to do something
      *
-     * @type {function<T extends Ability>(doSomething: AbilityType<T>): T}
-     * @public
+     * @param doSomething
+     *  The type of ability to look up, e.g. {@link BrowseTheWeb} or {@link CallAnApi}
      */
-    abilityTo: <T extends Ability>(doSomething: AbilityType<T>) => T;
+    abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
 }

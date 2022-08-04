@@ -2,7 +2,7 @@ import { Activity } from './Activity';
 import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './actor';
 
 /**
- * An `Interaction` is a low-level {@apiLink Activity|activity} that directly
+ * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apiLink Activity|activity} that directly
  * uses the {@apiLink Actor|actor's} {@apiLink Ability|ability} to interact
  * with the system under test.
  *

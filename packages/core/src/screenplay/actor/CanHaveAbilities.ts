@@ -2,17 +2,19 @@ import { Ability } from '../Ability';
 import { UsesAbilities } from './UsesAbilities';
 
 /**
- * @desc
- *  Enables the {@link Actor} to have an {@link Ability} or abilities to perform some {@link Activity}.
+ * Describes an {@link Actor} who can have an {@link Ability} to perform some {@link Activity}.
  *
- * @public
+ * ## Learn more
+ *
+ * - {@link Ability}
+ * - {@link Actor}
+ *
+ * @group Actors
  */
 export interface CanHaveAbilities<Returned_Type = UsesAbilities> {
+
     /**
-     * @desc
-     *  Assigns an {@link Ability} or several abilities to the {@link Actor}
-     *
-     * @type {function(...abilities: Ability[]): Returned_Type}
+     * Assigns an {@link Ability} or several abilities to the {@link Actor}
      */
-    whoCan: (...abilities: Ability[]) => Returned_Type;
+    whoCan(...abilities: Ability[]): Returned_Type;
 }

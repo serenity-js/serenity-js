@@ -1,39 +1,69 @@
 import { Answerable } from '../Answerable';
-import { Question } from '../Question';
+import { Question, QuestionAdapter } from '../Question';
 
 /**
- * @desc
- *  A Screenplay-flavour of a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
- *  `q` is a tag function capable of resolving any `Answerable<string | number>` you parametrise it with (i.e. a {@link Question}).
+ * A Serenity/JS Screenplay Pattern-flavour
+ * of a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
+ * `q` is a tag function capable of resolving any `Answerable<string>` or `Answerable<number>`
+ * you parametrise it with, and returning a `QuestionAdapter<string>`.
  *
- * @example <caption>Interpolating `Questions`</caption>
- *  import { q, actorCalled } from '@serenity-js/core';
- *  import { Send, DeleteRequest } from '@serenity-js/rest';
+ * Use `q` to concatenate `string` and `number` values returned from synchronous an asynchronous sources.
  *
- *  actorCalled('Alice').attemptsTo(
- *      Send.a(DeleteRequest.to(
- *          q `/articles/${ Text.of(Article.id()) }`
- *      ))
- *  )
+ * ## Interpolating questions
  *
- * @example <caption>Using a custom description</caption>
- *  import { q, actorCalled } from '@serenity-js/core';
- *  import { Send, DeleteRequest } from '@serenity-js/rest';
+ * ```ts
+ * import { q, actorCalled } from '@serenity-js/core'
+ * import { Send, DeleteRequest } from '@serenity-js/rest'
+ * import { Text } from '@serenity-js/web'
  *
- *  actorCalled('Alice').attemptsTo(
- *      Send.a(DeleteRequest.to(
- *          q `/articles/${ Text.of(Article.id()) }`.describedAs('/articles/:id')
- *      ))
- *  )
+ * await actorCalled('Alice').attemptsTo(
+ *   Send.a(DeleteRequest.to(
+ *     q `/articles/${ Text.of(Article.id()) }`
+ *   ))
+ * )
+ * ```
  *
- * @param {TemplateStringsArray} templates
- * @param {Array<Answerable<string | number>>} parameters
+ * ## Using a custom description
  *
- * @returns {Question<Promise<string>>}
+ * ```ts
+ * import { q, actorCalled } from '@serenity-js/core'
+ * import { Send, DeleteRequest } from '@serenity-js/rest'
  *
- * @see {@link Question}
+ * await actorCalled('Alice').attemptsTo(
+ *   Send.a(DeleteRequest.to(
+ *     q `/articles/${ Text.of(Article.id()) }`.describedAs('/articles/:id')
+ *   ))
+ * )
+ * ```
+ *
+ * ## Transforming the interpolated string
+ *
+ * The mechanism presented below relies on {@apiLink QuestionAdapter}.
+ *
+ * ```ts
+ * import { q, actorCalled } from '@serenity-js/core'
+ * import { Send, DeleteRequest } from '@serenity-js/rest'
+ *
+ * await actorCalled('Alice').attemptsTo(
+ *   Send.a(DeleteRequest.to(
+ *     q `/articles/${ Text.of(Article.id()) }`.toLocaleLowerCase()
+ *   ))
+ * )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link Answerable}
+ * - {@link Question}
+ * - [[Question.describedAs]]
+ * - {@link QuestionAdapter}
+ *
+ * @group Questions
+ *
+ * @param templates
+ * @param parameters
  */
-export function q(templates: TemplateStringsArray, ...parameters: Array<Answerable<string | number>>): Question<Promise<string>> {
+export function q(templates: TemplateStringsArray, ...parameters: Array<Answerable<string | number>>): QuestionAdapter<string> {
     return Question.about(templates.join('{}'), actor =>
         Promise.all(parameters.map(parameter => actor.answer(parameter)))
             .then(answers =>

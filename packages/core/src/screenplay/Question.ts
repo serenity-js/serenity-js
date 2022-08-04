@@ -10,126 +10,179 @@ import { RecursivelyAnswered } from './RecursivelyAnswered';
 import { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
- * @desc
- *  Enables the {@link Actor} to query the system under test.
+ * Serenity/JS Screenplay Pattern `Question` describes how an {@link Actor}
+ * should query the system under test or the test environment.
  *
- * @example <caption>A basic Question</caption>
+ * ## Implementing a basic custom Question
+ *
+ * ```ts
  *  import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
  *  import { Ensure, equals } from '@serenity-js/assertions'
  *
  *  const LastItemOf = <T>(list: T[]): Question<T> =>
- *      Question.about('last item from the list', (actor: AnswersQuestions & UsesAbilities) => {
- *          return list[list.length - 1];
- *      });
+ *    Question.about('last item from the list', (actor: AnswersQuestions & UsesAbilities) => {
+ *      return list[list.length - 1]
+ *    });
  *
  *  await actorCalled('Quentin').attemptsTo(
- *      Ensure.that(LastItemFrom([1,2,3]), equals(3)),
- *  );
+ *    Ensure.that(LastItemFrom([1,2,3]), equals(3)),
+ *  )
+ * ```
  *
- * @example <caption>A question using the Actor's Ability to do something</caption>
+ * ## Implementing a Question using an Ability
+ *
+ * Just like the {@apiLink Interaction|interactions}, a {@apiLink Question}
+ * also can use {@apiLink Actor|actor's} {@apiLink Ability|abilities}.
+ *
+ * Here, we use the ability to {@apiLink CallAnApi} to retrieve a property of
+ * an HTTP response.
+ *
+ * ```ts
  *  import { AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
  *  import { CallAnApi } from '@serenity-js/rest'
  *
  *  const TextOfLastResponseStatus = () =>
- *      Question.about<number>(`the text of the last response status`, actor => {
- *          return CallAnApi.as(actor).mapLastResponse(response => response.statusText);
- *      });
+ *    Question.about<number>(`the text of the last response status`, actor => {
+ *      return CallAnApi.as(actor).mapLastResponse(response => response.statusText)
+ *    })
+ * ```
  *
- * @example <caption>Mapping answers to other questions</caption>
- *  import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
- *  import { CallAnApi, LastResponse } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * #### Learn more
+ * - {@apiLink CallAnApi}
+ * - {@apiLink LastResponse}
  *
- *  const RequestWasSuccessful = () =>
- *      Question.about<number>(`the text of the last response status`, actor => {
- *          return LastResponse.status().answeredBy(actor) === 200;
- *      });
+ * ## Mapping answers to other questions
  *
- *  await actorCalled('Quentin')
- *    .whoCan(CallAnApi.at('https://myapp.com/api'));
- *    .attemptsTo(
- *      Send.a(GetRequest.to('/books/0-688-00230-7')),
- *      Ensure.that(RequestWasSuccessful(), isTrue()),
- *    );
+ * Apart from retrieving information, {@apiLink Question|questions} can be used to transform information retrieved by other questions.
  *
- * @see {@link Actor}
- * @see {@link Interaction}
- * @see {@link Ability}
+ * Here, we use the factory method [[Question.about]] to produce a question that makes the received {@apiLink Actor|actor}
+ * answer [[LastResponse.status]] and then compare it against some expected value.
  *
- * @abstract
+ * ```ts
+ * import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
+ * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * const RequestWasSuccessful = () =>
+ *   Question.about<number>(`the text of the last response status`, actor => {
+ *     return LastResponse.status().answeredBy(actor) === 200;
+ *   });
+ *
+ * await actorCalled('Quentin')
+ *   .whoCan(CallAnApi.at('https://api.example.org/'));
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/books/0-688-00230-7')),
+ *     Ensure.that(RequestWasSuccessful(), isTrue()),
+ *   );
+ * ```
+ *
+ * Note that the above example is for demonstration purposes only, Serenity/JS provides an easier way to
+ * verify the response status of the [[LastResponse]]:
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Quentin')
+ *   .whoCan(CallAnApi.at('https://api.example.org/'));
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/books/0-688-00230-7')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   );
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link Actor}
+ * - {@link Interaction}
+ * - {@link Ability}
+ * - {@link QuestionAdapter}
+ *
+ * @group Screenplay Pattern
  */
 export abstract class Question<T> {
+
     /**
-     * @desc
-     *  Factory method that simplifies the process of defining custom questions.
+     * Factory method that simplifies the process of defining custom questions.
      *
-     * @example
-     *  const EnvVariable = (name: string) =>
-     *      Question.about(`the ${ name } env variable`, actor => process.env[name])
+     * #### Defining a custom question
      *
-     * @static
+     * ```ts
+     * import { Question } from '@serenity-js/core'
      *
-     * @param {string} description
-     * @param {function(actor: AnswersQuestions & UsesAbilities): R} body
+     * const EnvVariable = (name: string) =>
+     *   Question.about(`the ${ name } env variable`, actor => process.env[name])
+     * ```
      *
-     * @returns {QuestionAdapter<Awaited<R>>}
+     * @param description
+     * @param body
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => Promise<R> | R): QuestionAdapter<Awaited<R>> {
+    static about<Result_Type>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => Promise<Result_Type> | Result_Type): QuestionAdapter<Awaited<Result_Type>> {
         return Question.createAdapter(new QuestionStatement(description, body));
     }
 
     /**
-     * @desc
-     *  Generates a {@link QuestionAdapter} that recursively resolves
-     *  any {@link Answerable} fields of the provided object,
-     *  including {@link Answerable} fields of nested objects.
+     * Generates a {@apiLink QuestionAdapter} that recursively resolves
+     * any {@apiLink Answerable} fields of the provided object,
+     * including {@apiLink Answerable} fields of {@link WithAnswerableProperties|nested objects}.
      *
-     *  Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`, producing a new merged object.
+     * Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`,
+     * producing a new merged object.
      *
-     *  Overrides are applied from left to right, with subsequent objects overwriting property assignments of the previous ones.
+     * Overrides are applied from left to right, with subsequent objects overwriting property assignments of the previous ones.
      *
-     * @example <caption>Resolving an object recursively</caption>
+     * #### Resolving an object recursively using `Question.fromObject`
+     *
+     * ```ts
+     * import { actorCalled, Question } from '@serenity-js/core'
+     * import { Send, PostRequest } from '@serenity-js/rest'
+     * import { By, Text, PageElement } from '@serenity-js/web'
+     *
+     * await actorCalled('Daisy')
+     *   .whoCan(CallAnApi.at('https://api.example.org'))
+     *   .attemptsTo(
+     *     Send.a(
+     *       PostRequest.to('/products/2')
+     *         .with(
+     *           Question.fromObject({
+     *             name: Text.of(PageElement.located(By.css('.name'))),
+     *           })
+     *         )
+     *       )
+     *   );
+     * ```
+     *
+     * #### Merging objects using `Question.fromObject`
+     *
+     * ```ts
      *  import { actorCalled, Question } from '@serenity-js/core'
      *  import { Send, PostRequest } from '@serenity-js/rest'
      *  import { By, Text, PageElement } from '@serenity-js/web'
      *
-     *  actorCalled('Daisy')
+     *  await actorCalled('Daisy')
      *    .whoCan(CallAnApi.at('https://api.example.org'))
      *    .attemptsTo(
      *      Send.a(
      *        PostRequest.to('/products/2')
-     *          .with(Question.fromObject({
-     *              name: Text.of(PageElement.located(By.css('.name'))),
-     *          }))
-     *        )
-     *    );
-     *
-     * @example <caption>Resolving an object recursively</caption>
-     *  import { actorCalled, Question } from '@serenity-js/core'
-     *  import { Send, PostRequest } from '@serenity-js/rest'
-     *  import { By, Text, PageElement } from '@serenity-js/web'
-     *
-     *  actorCalled('Daisy')
-     *    .whoCan(CallAnApi.at('https://api.example.org'))
-     *    .attemptsTo(
-     *      Send.a(
-     *        PostRequest.to('/products/2')
-     *          .with(Question.fromObject({
+     *          .with(
+     *            Question.fromObject({
      *              name: Text.of(PageElement.located(By.css('.name'))),
      *              quantity: undefined,
-     *          }, {
+     *            }, {
      *              quantity: 2,
-     *          }))
+     *            })
+     *          )
      *        )
      *    );
      *
-     * @param {Answerable<O>} source
-     * @param {Array<Answerable<Partial<O>>>} overrides
+     * @param source
+     * @param overrides
      *
-     * @returns {QuestionAdapter<Record<Key, Value>>>}
-     *
-     * @see {@link WithAnswerableProperties}
-     * @see {@link RecursivelyAnswered}
+     * #### Learn more
+     * - {@link WithAnswerableProperties}
+     * - {@link RecursivelyAnswered}
+     * - {@link Answerable}
      */
     static fromObject<Source_Type extends object>(
         source: Answerable<WithAnswerableProperties<Source_Type>>,
@@ -153,18 +206,14 @@ export abstract class Question<T> {
     }
 
     /**
-     * @desc
-     *  Checks if the value is a {@link Question}.
+     * Checks if the value is a {@link Question}.
      *
-     * @static
-     *
-     * @param {any} maybeQuestion
+     * @param maybeQuestion
      *  The value to check
-     *
-     * @returns {boolean}
      */
     static isAQuestion<T>(maybeQuestion: unknown): maybeQuestion is Question<T> {
-        return !! maybeQuestion && !! (maybeQuestion as any).answeredBy;
+        return !! maybeQuestion
+            && typeof (maybeQuestion as any).answeredBy === 'function';
     }
 
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
@@ -266,27 +315,33 @@ export abstract class Question<T> {
     }
 
     /**
-     * @desc
-     *  Describes the subject of this {@link Question}.
-     *
-     * @returns {string}
+     * Returns the description of the subject of this {@link Question}.
      */
     abstract toString(): string;
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
+     * Changes the description of this question's subject.
      *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @param subject
      */
     abstract describedAs(subject: string): this;
 
     /**
-     * @abstract
+     * Instructs the provided {@link Actor} to use their {@link Ability|abilities}
+     * to answer this question.
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
+    /**
+     * Maps this question to one of a different type.
+     *
+     * ```ts
+     * Question.about('number returned as string', actor => '42')   // returns: QuestionAdapter<string>
+     *   .as(Number)                                                // returns: QuestionAdapter<number>
+     * ```
+     *
+     * @param mapping
+     */
     public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): QuestionAdapter<O> {
         return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
             const answer = (await actor.answer(this)) as Awaited<T>;
@@ -302,6 +357,14 @@ declare global {
 }
 
 /* eslint-disable @typescript-eslint/indent */
+
+/**
+ * Describes an object recursively wrapped in [[QuestionAdapter]] proxies, so that:
+ * - both methods and fields of the wrapped object can be used as {@apiLink Question|questions} or {@apiLink Interactions|interactions}
+ * - method parameters of the wrapped object will accept {@apiLink Answerable|Answerable<T>}
+ *
+ * @group Questions
+ */
 export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
     // is it a method?
@@ -317,14 +380,12 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
 /* eslint-enable @typescript-eslint/indent */
 
 /**
- * @desc
- *  A union type representing a proxy object returned by {@link Question.about}.
- *  `QuestionAdapter` proxies the methods and fields of the wrapped object recursively,
- *  allowing them to be used as either {@link Question} or {@link Interaction}
+ * A union type representing a proxy object returned by [[Question.about]].
  *
- * @public
+ * [[QuestionAdapter]] proxies the methods and fields of the wrapped object recursively,
+ * allowing them to be used as either a [[Question]] or an [[Interaction]].
  *
- * @typedef {Question<Promise<T>> & Interaction & Optional & QuestionAdapterFieldDecorator<T>} QuestionAdapter<T>
+ * @group Questions
  */
 export type QuestionAdapter<T> =
     & Question<Promise<T>>
@@ -332,6 +393,7 @@ export type QuestionAdapter<T> =
     & { isPresent(): Question<Promise<boolean>>; }  // more specialised Optional
     & QuestionAdapterFieldDecorator<T>;
 
+/** @package */
 class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
 
     constructor(
@@ -342,11 +404,8 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     /**
-     * @desc
-     *  Returns a Question that resolves to `true` if resolving the {@link QuestionStatement}
-     *  returns a value other than `null` or `undefined` and doesn't throw errors.
-     *
-     * @returns {Question<Promise<boolean>>}
+     * Returns a Question that resolves to `true` if resolving the {@link QuestionStatement}
+     * returns a value other than `null` or `undefined`, and doesn't throw errors.
      */
     isPresent(): Question<Promise<boolean>> {
         return new IsPresent(f`${ this }.isPresent()`, this.body);

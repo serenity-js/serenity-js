@@ -13,15 +13,10 @@ import { PerformsActivities } from './PerformsActivities';
 import { UsesAbilities } from './UsesAbilities';
 
 /**
- * @desc
- *  Core element of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html),
- *  an {@link Actor} represents a user or an external system interacting with the system under test.
+ * Core element of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html),
+ * an {@link Actor} represents a user or an external system interacting with the system under test.
  *
- * @implements {PerformsActivities}
- * @implements {UsesAbilities}
- * @implements {CanHaveAbilities}
- * @implements {AnswersQuestions}
- * @implements {CollectsArtifacts}
+ * @group Screenplay Pattern
  */
 export class Actor implements
     PerformsActivities,
