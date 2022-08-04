@@ -547,6 +547,12 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
+# todo Clean up and define a custom scope
+
+      - name: Build custom docusaurus plugin
+        working-directory: ./documentation/typedoc-plugin-ignore-inherited-static-methods
+        run: npm run compile
+
       - name: Build serenity-js.org website
         working-directory: ./documentation/serenity-js.org
         run: npm run build
