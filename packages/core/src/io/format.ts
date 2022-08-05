@@ -56,7 +56,7 @@ import { inspected } from './inspected';
  * @param config
  *  `markQuestions`: boolean - if set to true, descriptions of questions passed in as arguments will be surrounded with double angled brackets, i.e. `<<description>>`
  *
- * @group Questions
+ * @group Answerables
  */
 export function format(config: { markQuestions: boolean }): (templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>) => string {
     return (templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>): string => {
@@ -69,8 +69,8 @@ export function format(config: { markQuestions: boolean }): (templates: Template
     }
 }
 
-/** @group Questions */
+/** @group Answerables */
 export const f = format({ markQuestions: true });
 
-/** @group Questions */
+/** @group Answerables */
 export const d = format({ markQuestions: false });

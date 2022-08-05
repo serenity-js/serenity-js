@@ -7,7 +7,6 @@ import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
-import { WaitBuilder } from './WaitBuilder';
 
 /**
  * `Wait` is a synchronisation statement that instructs the {@link Actor}
@@ -166,13 +165,13 @@ export class Wait {
 
     /**
      * Instantiates a version of this {@link Interaction}
-     * configured to wait until the answer to the question (`actual`) meets the `expectation`,
-     * or the timeout expires.
+     * configured to wait until the answer to the question `actual` meets the `expectation`,
+     * or the `timeout` expires.
      *
      * @param timeout
      *  Custom timeout to override {@link Wait.defaultTimeout}
      */
-    static upTo(timeout: Duration): WaitBuilder {
+    static upTo(timeout: Duration): { until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => WaitUntil<Actual> } {
         return {
             until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> =>
                 new WaitUntil(

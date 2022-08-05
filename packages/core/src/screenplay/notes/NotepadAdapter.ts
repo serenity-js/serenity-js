@@ -9,49 +9,48 @@ import { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
 /**
- * @desc
- *  Screenplay Pattern-style adapter for the {@link Notepad},
- *  making it easier for the {@link Actor}s to access its APIs.
+ * Serenity/JS Screenplay Pattern-style adapter for the {@link Notepad},
+ * that makes it easier for the {@link Actor|actors} to access its APIs.
  *
- *  See {@link TakeNotes}, {@link Notepad} and {@link notes} for more examples.
+ * See {@link TakeNotes}, {@link Notepad} and {@link notes} for more examples.
  *
- *  @implements {ChainableSetter<Notes>}
+ * @group Notes
  */
 export class NotepadAdapter<Notes extends Record<any, any>> implements ChainableSetter<Notes> {
 
     /**
-     * @desc
-     *  Checks if a note identified by `subject` exists in the notepad.
+     * Checks if a note identified by `subject` exists in the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
+     * #### Learn more
+     * - {@link Notepad#has}
+     *
+     * @param subject
      *   A subject (name) that uniquely identifies a given note
      *
-     * @returns {Question<Promise<boolean>>}
+     * @returns
      *  Question that resolves to `true` if the note exists, `false` otherwise
-     *
-     * @see {@link Notepad#has}
      */
-    has<Subject extends keyof Notes>(subject: Subject): Question<Promise<boolean>> {
+    has<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<boolean> {
         return Question.about(`a note of ${ String(subject) } exists`, actor => {
             return TakeNotes.as(actor).notepad.has(subject);
         });
     }
 
     /**
-     * @desc
-     *  Retrieves a note, identified by `subject`, from the notepad.
+     * Retrieves a note, identified by `subject`, from the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
+     * #### Learn more
+     * - {@link Notepad#get}
+     *
+     * @param subject
      *   A subject (name) that uniquely identifies a given note
      *
-     * @returns {Notes[Subject]}
+     * @returns
      *  The value of the previously recorded note.
      *
      * @throws {LogicError}
      *  Throws a {@link LogicError} if the note with a given `subject`
      *  has never been recorded.
-     *
-     * @see {@link Notepad#get}
      */
     get<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<Notes[Subject]> {
         return Question.about(`a note of ${ String(subject) }`, actor => {
@@ -60,115 +59,120 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * @desc
-     *  Resolves a given `Answerable<value>` and stores it in the notepad,
-     *  uniquely identified by its `subject`.
+     * Resolves a given `Answerable<value>` and stores it in the notepad,
+     * uniquely identified by its `subject`.
      *
-     *  **Pro tip:** calls to `set` can be chained and result in an accumulation
-     *  of values to be recorded in the {@link Notepad}.
-     *  Those values are resolved and recorded when the {@link Interaction}
-     *  returned by this method is performed by an {@link Actor}.
+     * **Pro tip:** calls to `set` can be chained and result in an accumulation
+     * of values to be recorded in the {@link Notepad}.
+     * Those values are resolved and recorded when the {@link Interaction}
+     * returned by this method is performed by an {@link Actor}.
      *
-     *  If a note identified by a given `subject` is set multiple times,
-     *  the last call wins.
+     * If a note identified by a given `subject` is set multiple times,
+     * the last call wins.
      *
-     * @example
-     *  import { actorCalled, notes, TakeNotes } from '@serenity-js/core';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
+     * ```ts
+     *  import { actorCalled, notes, TakeNotes } from '@serenity-js/core'
+     *  import { Ensure, equals } from '@serenity-js/assertions'
      *
      *  interface MyNotes {
      *      stringNote: string;
      *      numberNote: number;
      *  }
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.usingAnEmptyNotepad<MyNotes>());
-     *    .attemptsTo(
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.usingAnEmptyNotepad<MyNotes>());
+     *   .attemptsTo(
      *
-     *      notes<MyNotes>()
-     *        .set('stringNote', 'example')
-     *        .set('numberNote', Promise.resolve(42))
-     *        .set('stringNote', 'another example'),
+     *     notes<MyNotes>()
+     *       .set('stringNote', 'example')
+     *       .set('numberNote', Promise.resolve(42))
+     *       .set('stringNote', 'another example'),
      *
-     *      Ensure.equal(notes().toJSON(), {
-     *        firstNote: 'another example',
-     *        secondNote: 42,
-     *      })
-     *  );
+     *     Ensure.equal(notes().toJSON(), {
+     *       firstNote: 'another example',
+     *       secondNote: 42,
+     *     })
+     * )
+     * ```
      *
-     * @param {Subject extends keyof Notes} subject
+     * #### Learn more
+     * - {@link Notepad#set}
+     *
+     * @param subject
      *   A subject (name) that uniquely identifies a given note
      *
-     * @param {Answerable<Notes[Subject]>} value
-     *  The value to record.
-     *
-     * @returns {ChainableSetter<Notes> & Interaction}
-     *
-     * @see {@link Notepad#set}
+     * @param value
+     *  The value to record
      */
     set<Subject extends keyof Notes>(subject: Subject, value: Answerable<Notes[Subject]>): ChainableSetter<Notes> & Interaction {
         return new ChainableNoteSetter<Notes>({ [subject]: value } as NotesToSet<Notes>);
     }
 
     /**
-     * @desc
-     *  Removes the note identified by `subject` from the notepad.
+     * Removes the note identified by `subject` from the notepad.
      *
-     * @example <caption>Using as an Interaction</caption>
-     *  import { actorCalled, Check, Log, notes } from '@serenity-js/core';
-     *  import { isPresent } from '@serenity-js/assertions';
+     * #### Using as an `Interaction`
      *
-     *  interface MyNotes {
-     *    myNote: string;
-     *  }
+     * ```ts
+     * import { actorCalled, Check, Log, notes } from '@serenity-js/core'
+     * import { isPresent } from '@serenity-js/assertions'
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
-     *    .attemptsTo(
-     *      notes<MyNotes>().set('myNote', 'example value'),
+     * interface MyNotes {
+     *   myNote: string;
+     * }
      *
-     *      notes<MyNotes>().delete('myNote'),
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
+     *   .attemptsTo(
+     *     notes<MyNotes>().set('myNote', 'example value'),
      *
-     *      Check.whether(notes<MyNotes>().get('myNote'), isPresent())
-     *        .andIfSo(
-     *          Log.the('myNote is present'),
-     *        )
-     *        .otherwise(
-     *          Log.the('myNote was deleted'),
-     *        )
-     *    )
-     *    // logs: myNote was deleted
+     *     notes<MyNotes>().delete('myNote'),
      *
-     * @example <caption>Using as a Question</caption>
-     *  import { actorCalled, Check, Log, notes } from '@serenity-js/core';
-     *  import { isTrue } from '@serenity-js/assertions';
+     *     Check.whether(notes<MyNotes>().get('myNote'), isPresent())
+     *       .andIfSo(
+     *         Log.the('myNote is present'),
+     *       )
+     *       .otherwise(
+     *         Log.the('myNote was deleted'),
+     *       )
+     *   )
+     *   // logs: myNote was deleted
+     * ```
      *
-     *  interface MyNotes {
-     *    myNote: string;
-     *  }
+     * #### Using as a `Question`
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
-     *    .attemptsTo(
-     *      notes<MyNotes>().set('myNote', 'example value'),
+     * ```ts
+     * import { actorCalled, Check, Log, notes } from '@serenity-js/core'
+     * import { isTrue } from '@serenity-js/assertions'
      *
-     *      Check.whether(notes<MyNotes>().delete('myNote'), isTrue())
-     *        .andIfSo(
-     *          Log.the('myNote was deleted'),
-     *        )
-     *        .otherwise(
-     *          Log.the('myNote could not be deleted because it was not set'),
-     *        )
-     *    )
-     *    // logs: myNote was deleted
+     * interface MyNotes {
+     *   myNote: string;
+     * }
      *
-     * @param {Subject extends keyof Notes} subject
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
+     *   .attemptsTo(
+     *     notes<MyNotes>().set('myNote', 'example value'),
      *
-     * @returns {QuestionAdapter<boolean>}
+     *     Check.whether(notes<MyNotes>().delete('myNote'), isTrue())
+     *       .andIfSo(
+     *         Log.the('myNote was deleted'),
+     *       )
+     *       .otherwise(
+     *         Log.the('myNote could not be deleted because it was not set'),
+     *       )
+     *   )
+     *   // logs: myNote was deleted
+     * ```
+     *
+     * #### Learn more
+     * - {@link Notepad#delete}
+     *
+     * @param subject
+     *
+     * @returns
      *  When used as a `Question`, resolves to `true` if the item in the Notepad object existed and has been removed,
      *  `false` otherwise.
-     *
-     * @see {@link Notepad#delete}
      */
     delete<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<boolean> {
         return Question.about(`#actor deletes a note of ${ String(subject) }`, actor => {
@@ -177,29 +181,28 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * @desc
-     *  Deletes all the notes stored in this notepad.
+     * Deletes all the notes stored in this notepad.
      *
-     * @example
-     *  import { actorCalled, notes } from '@serenity-js/core';
-     *  import { isTrue } from '@serenity-js/assertions';
+     * ```ts
+     * import { actorCalled, notes } from '@serenity-js/core'
+     * import { isTrue } from '@serenity-js/assertions'
      *
-     *  interface MyNotes {
-     *    myNote: string;
-     *  }
+     * interface MyNotes {
+     *   myNote: string;
+     * }
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
-     *    .attemptsTo(
-     *      notes<MyNotes>().set('myNote', 'example value'),
-     *      Log.the(notes<MyNotes>().size()),   // emits 1
-     *      notes<MyNotes>().clear(),
-     *      Log.the(notes<MyNotes>().size()),   // emits 0
-     *    )
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
+     *   .attemptsTo(
+     *     notes<MyNotes>().set('myNote', 'example value'),
+     *     Log.the(notes<MyNotes>().size()),   // emits 1
+     *     notes<MyNotes>().clear(),
+     *     Log.the(notes<MyNotes>().size()),   // emits 0
+     *   )
+     * ```
      *
-     * @returns {Interaction}
-     *
-     * @see {@link Notepad#clear}
+     * #### Learn more
+     * - {@link Notepad#clear}
      */
     clear(): Interaction {
         return Interaction.where('#actor clears their notepad', actor => {
@@ -208,28 +211,27 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * @desc
-     *  Returns the number of notes stored in the notepad.
+     * Returns the number of notes stored in the notepad.
      *
-     * @example
-     *  import { actorCalled, notes } from '@serenity-js/core';
-     *  import { isTrue } from '@serenity-js/assertions';
+     * ```ts
+     * import { actorCalled, notes } from '@serenity-js/core'
+     * import { isTrue } from '@serenity-js/assertions'
      *
-     *  interface MyNotes {
-     *    myNote: string;
-     *  }
+     * interface MyNotes {
+     *   myNote: string;
+     * }
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
-     *    .attemptsTo(
-     *      Log.the(notes<MyNotes>().size()),   // emits 0
-     *      notes<MyNotes>().set('myNote', 'example value'),
-     *      Log.the(notes<MyNotes>().size()),   // emits 1
-     *    )
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.using(Notepad.empty<MyNotes>()))
+     *   .attemptsTo(
+     *     Log.the(notes<MyNotes>().size()),   // emits 0
+     *     notes<MyNotes>().set('myNote', 'example value'),
+     *     Log.the(notes<MyNotes>().size()),   // emits 1
+     *   )
+     * ```
      *
-     * @returns {QuestionAdapter<number>}
-     *
-     * @see {@link Notepad#size}
+     * #### Learn more
+     * - {@link Notepad#size}
      */
     size(): QuestionAdapter<number> {
         return Question.about('number of notes', async actor => {
@@ -238,37 +240,35 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * @desc
-     *  Produces a {@link QuestionAdapter} that resolves to a {@link tiny-types~JSONObject}
-     *  representing the resolved notes stored in the notepad.
+     * Produces a {@link QuestionAdapter} that resolves to a `JSONObject`
+     * representing the resolved notes stored in the notepad.
      *
-     *  Note that serialisation to JSON will simplify some data types that might not be serialisable by default,
-     *  but are commonly used in data structures representing actor's notes.
-     *  For example a {@link Map} will be serialised as a regular JSON object, a {@link Set} will be serialised as {@link Array}.
+     * Note that serialisation to JSON will simplify some data types that might not be serialisable by default,
+     * but are commonly used in data structures representing actor's notes.
+     * For example a {@link Map} will be serialised as a regular JSON object, a {@link Set} will be serialised as {@link Array}.
      *
-     *  Additionally, notepad assumes that the data structure you use it with does not contain cyclic references.
+     * Additionally, notepad assumes that the data structure you use it with does not contain cyclic references.
      *
-     *  To learn more about the serialisation mechanism used by the notepad, please refer to {@link tiny-types~TinyType}.
+     * To learn more about the serialisation mechanism used by the notepad, please refer to [TinyTypes documentation](https://jan-molak.github.io/tiny-types/).
      *
-     * @example
-     *  import { actorCalled, notes } from '@serenity-js/core';
+     * ```ts
+     * import { actorCalled, notes } from '@serenity-js/core'
      *
-     *  actorCalled('Alice')
-     *    .whoCan(TakeNotes.using(Notepad.with({
-     *        aSet: new Set(['apples', 'bananas', 'cucumbers']),
-     *        aPromisedValue: Promise.resolve(42),
-     *        aString: 'example'
-     *    })))
-     *    .attemptsTo(
-     *      Log.the(notes().toJSON()),
-     *    )
-     *    // emits: {
-     *    //    aSet: ['apples', 'bananas', 'cucumbers']
-     *    //    aPromisedValue: 42,
-     *    //    aString: 'example',
-     *    // }
-     *
-     * @returns {QuestionAdapter<tiny-types~JSONObject>}
+     * await actorCalled('Alice')
+     *   .whoCan(TakeNotes.using(Notepad.with({
+     *     aSet: new Set(['apples', 'bananas', 'cucumbers']),
+     *     aPromisedValue: Promise.resolve(42),
+     *     aString: 'example'
+     *   })))
+     *   .attemptsTo(
+     *     Log.the(notes().toJSON()),
+     *   )
+     *   // emits: {
+     *   //    aSet: ['apples', 'bananas', 'cucumbers']
+     *   //    aPromisedValue: 42,
+     *   //    aString: 'example',
+     *   // }
+     * ```
      */
     toJSON(): QuestionAdapter<JSONObject> {
         return Question.about('notepad serialised to JSON', async actor => {
@@ -277,7 +277,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return 'notes';
@@ -288,6 +288,9 @@ type NotesToSet<Notes extends Record<any, any>> = {
     [Subject in keyof Notes]?: Answerable<Notes[Subject]>
 }
 
+/**
+ * @package
+ */
 class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction implements ChainableSetter<Notes> {
 
     constructor(private readonly notes: NotesToSet<Notes>) {
@@ -301,16 +304,6 @@ class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction im
         } as NotesToSet<Notes>)
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
-     *
-     * @param {Actor} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     */
     async performAs(actor: Actor): Promise<void> {
 
         const notepad = TakeNotes.as<Notes>(actor).notepad;
@@ -321,12 +314,6 @@ class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction im
         }
     }
 
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
-     */
     toString(): string {
         return `#actor takes note of ${ commaSeparated(Object.keys(this.notes)) }`;
     }

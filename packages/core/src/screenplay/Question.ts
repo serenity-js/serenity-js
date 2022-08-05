@@ -363,7 +363,7 @@ declare global {
  * - both methods and fields of the wrapped object can be used as {@apiLink Question|questions} or {@apiLink Interactions|interactions}
  * - method parameters of the wrapped object will accept {@apiLink Answerable|Answerable<T>}
  *
- * @group Questions
+ * @group Answerables
  */
 export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
@@ -385,7 +385,7 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
  * [[QuestionAdapter]] proxies the methods and fields of the wrapped object recursively,
  * allowing them to be used as either a [[Question]] or an [[Interaction]].
  *
- * @group Questions
+ * @group Answerables
  */
 export type QuestionAdapter<T> =
     & Question<Promise<T>>

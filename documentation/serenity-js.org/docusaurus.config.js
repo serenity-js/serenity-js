@@ -60,12 +60,19 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            colorMode: {
+                respectPrefersColorScheme: true,
+            },
             navbar: {
+                // style: 'dark',
                 // title: 'Serenity/JS',
+                hideOnScroll: true,
                 logo: {
-                    alt: 'Serenity/JS Logo',
+                    height: 10,
+                    alt: 'Serenity/JS',
                     src: 'img/serenity-js-logo-for-light-backgrounds.svg',
                     srcDark: 'img/serenity-js-logo-for-dark-backgrounds.svg',
+                    className: 'serenity-js-logo',
                 },
                 items: [
                     {
@@ -89,7 +96,7 @@ const config = {
                 ],
             },
             footer: {
-                // style: 'dark',
+                copyright: `Made with love in London, UK © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
                 links: [
                     {
                         title: 'Docs',
@@ -131,7 +138,6 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Made with love in London, UK © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
             },
             prism: {
                 theme: lightCodeTheme,
@@ -149,9 +155,9 @@ const config = {
                     {
                         path: 'packages/core',
                         entry: {
-                            index: 'src/index.ts',
-                            events: { label: 'lib/events', path: 'src/events/index.ts' },
-                            model: { label: 'lib/model', path: 'src/model/index.ts' },
+                            index: { label: 'index', path: 'src/index.ts' },
+                            events: { label: 'Serenity/JS Domain Events', path: 'src/events/index.ts' },
+                            model: { label: 'Serenity/JS Models', path: 'src/model/index.ts' },
                         },
                     },
                     ...[

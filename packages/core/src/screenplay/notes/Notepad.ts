@@ -5,139 +5,132 @@ import { d } from '../../io';
 import { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * @desc
- *  Stores notes recorded by an {@link Actor}.
+ * Stores notes recorded by an {@link Actor}.
  *
- *  See {@link TakeNotes} and {@link notes} for more usage examples.
+ * See {@link TakeNotes} and [notes](/api/core/function/notes) for more usage examples.
  *
- * @example <caption>Sharing a notepad between actors</caption>
- *  import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core';
+ * ## Sharing a notepad between actors
  *
- *  interface MyNotes {
- *      auth: {
- *        username: string;
- *        password: string;
- *      }
- *  }
+ * ```ts
+ * import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core'
  *
- *  export class Actors implements Cast {
+ * interface MyNotes {
+ *   auth: {
+ *     username: string;
+ *     password: string;
+ *   }
+ * }
  *
- *      // initialise a shared notepad when the Actors class is initialised
- *      private readonly sharedNotepad = Notepad.with<MyNotes>({
- *          auth: {
- *              username: 'test-user',
- *              password: 'SuperSecretP@ssword!',
- *          }
- *      });
+ * export class Actors implements Cast {
  *
- *      prepare(actor: Actor): Actor {
- *          switch (actor.name) {
- *            case 'Alice':
- *            case 'Bob':
- *                // Alice and Bob will share their notepad
- *                return actor.whoCan(TakeNotes.using(this.sharedNotepad));
- *            default:
- *                // other actors will get their own notepads
- *               return actor.whoCan(TakeNotes.using(Notepad.empty<AuthCredentials>()));
- *          }
- *      }
- *  }
+ *   // initialise a shared notepad when the Actors class is initialised
+ *   private readonly sharedNotepad = Notepad.with<MyNotes>({
+ *     auth: {
+ *       username: 'test-user',
+ *       password: 'SuperSecretP@ssword!',
+ *     }
+ *   });
  *
- * @see {@link TakeNotes}
- * @see {@link notes}
+ *   prepare(actor: Actor): Actor {
+ *     switch (actor.name) {
+ *       case 'Alice':
+ *       case 'Bob':
+ *         // Alice and Bob will share their notepad
+ *         return actor.whoCan(TakeNotes.using(this.sharedNotepad));
+ *       default:
+ *         // other actors will get their own notepads
+ *         return actor.whoCan(TakeNotes.using(Notepad.empty<AuthCredentials>()));
+ *     }
+ *   }
+ * }
+ * ```
  *
- * @extends {TinyType}
+ * ## Learn more
+ *
+ * - {@link TakeNotes}
+ * - [notes](/api/core/function/notes)
+ * - {@link Cast}
+ *
+ * @group Notes
  */
 export class Notepad<Notes extends Record<any, any>> extends TinyType {
 
     /**
-     * @desc
-     *  Instantiates a new empty Notepad.
-     *
-     * @returns {Notepad<N>}
+     * Instantiates a new empty Notepad.
      */
     static empty<N extends Record<any, any>>(): Notepad<N> {
         return new Notepad<N>({} as N);
     }
 
     /**
-     * @desc
-     *  Instantiates a new Notepad with an initial state.
+     * Instantiates a new Notepad with an initial state.
      *
-     * @example
-     *  import { actorCalled, Notepad, notes, TakeNotes } from '@serenity-js/core';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
+     * ```ts
+     * import { actorCalled, Notepad, notes, TakeNotes } from '@serenity-js/core'
+     * import { Ensure, equals } from '@serenity-js/assertions'
      *
-     *  interface MyNotes {
-     *      personalDetails: {
-     *          firstName: string;
-     *          lastName: string;
-     *      }
-     *  }
+     * interface MyNotes {
+     *   personalDetails: {
+     *     firstName: string;
+     *     lastName: string;
+     *   }
+     * }
      *
-     *  actorCalled('Leonard')
-     *      .whoCan(
-     *          TakeNotes.using(
-     *              Notepad.with<MyNotes>({
-     *                  personalDetails: {
-     *                      firstName: 'Leonard',
-     *                      lastName: 'McLaud',
-     *                  }
-     *              })
-     *          )
-     *      )
-     *      .attemptsTo(
-     *          Ensure.that(
-     *              notes<MyNotes>().get('personalDetails').firstName,
-     *              equals('Leonard')
-     *          ),
-     *      );
+     * actorCalled('Leonard')
+     *   .whoCan(
+     *     TakeNotes.using(
+     *       Notepad.with<MyNotes>({
+     *         personalDetails: {
+     *           firstName: 'Leonard',
+     *           lastName: 'McLaud',
+     *         }
+     *       })
+     *     )
+     *   )
+     *   .attemptsTo(
+     *     Ensure.that(
+     *       notes<MyNotes>().get('personalDetails').firstName,
+     *       equals('Leonard')
+     *     ),
+     *   )
+     * ```
      *
-     * @param {N extends Record<any, any>} notes
-     * @returns {Notepad<N>}
+     * @param notes
      */
     static with<N extends Record<any, any>>(notes: N): Notepad<N> {
         return new Notepad<N>(notes);
     }
 
     /**
-     * @desc
-     *  Creates a {@link QuestionAdapter} that simplifies access to the notes
-     *  stored in this notepad. Allows the {@link Actor} to record, read, and remove notes.
+     * Creates a {@link QuestionAdapter} that simplifies access to the notes
+     * stored in this notepad. Allows the {@link Actor} to record, read, and remove notes.
      *
-     *  See {@link TakeNotes} and {@link Notepad} for more usage examples.
-     *
-     * @returns {QuestionAdapter<Notepad<N>>}
-     *
-     * @see {@link notes}
-     * @see {@link Notepad}
-     * @see {@link TakeNotes}
+     * #### Learn more
+     * - [notes](/api/core/function/notes)
+     * - {@link TakeNotes}
+     * - {@link Notepad}
      */
     static notes<N extends Record<any, any>>(): NotepadAdapter<N> {
         return new NotepadAdapter<N>();
     }
 
     /**
-     * @desc
-     *  Instantiates a {@link Notepad} with an initial state.
+     * Instantiates a {@link Notepad} with an initial state.
      *
-     * @param {Notes} recordedNotes
+     * @param recordedNotes
      *  Initial state of the notepad
-     *
-     * @protected
      */
     protected constructor(private readonly recordedNotes: Notes) {
         super();
     }
 
     /**
-     * @desc
-     *  Checks if a note identified by `subject` exists in the notepad.
+     * Checks if a note identified by `subject` exists in the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
+     * @param subject
      *   A subject (name) that uniquely identifies a given note
      *
-     * @returns {boolean}
+     * @returns
      *  `true` if the note exists, `false` otherwise
      */
     has<Subject extends keyof Notes>(subject: Subject): boolean {
@@ -145,16 +138,15 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * @desc
-     *  Retrieves a note, identified by `subject`, from the notepad.
+     * Retrieves a note, identified by `subject`, from the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
+     * @param subject
      *   A subject (name) that uniquely identifies a given note
      *
-     * @returns {Notes[Subject]}
+     * @returns
      *  The value of the previously recorded note.
      *
-     * @throws {LogicError}
+     * @throws {@link LogicError}
      *  Throws a {@link LogicError} if the note with a given `subject`
      *  has never been recorded.
      */
@@ -167,16 +159,13 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * @desc
-     *  Stores a given `value` uniquely identified by `subject` in the notepad.
+     * Stores a given `value` uniquely identified by `subject` in the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
-     *   A subject (name) that uniquely identifies a given note
+     * @param subject
+     *  A subject (name) that uniquely identifies a given note
      *
-     * @param {Notes[Subject]} value
+     * @param value
      *  The value to record.
-     *
-     * @returns {Notepad<Notes>}
      */
     set<Subject extends keyof Notes>(subject: Subject, value: Notes[Subject]): Notepad<Notes> {
         this.recordedNotes[subject] = value;
@@ -184,12 +173,11 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * @desc
-     *  Removes the note identified by `subject` from the notepad.
+     * Removes the note identified by `subject` from the notepad.
      *
-     * @param {Subject extends keyof Notes} subject
+     * @param subject
      *
-     * @returns {boolean}
+     * @returns
      *  `true` if the item in the Notepad object existed and has been removed,
      *  `false` otherwise.
      */
@@ -201,10 +189,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * @desc
-     *  Deletes all the notes stored in this notepad.
-     *
-     * @returns {void}
+     * Deletes all the notes stored in this notepad.
      */
     clear(): void {
         const keys = Object.keys(this.recordedNotes);
@@ -215,10 +200,7 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * @desc
-     *  Returns the number of notes stored in the notepad.
-     *
-     * @returns {number}
+     * Returns the number of notes stored in the notepad.
      */
     size(): number {
         return Object.keys(this.recordedNotes).length;
