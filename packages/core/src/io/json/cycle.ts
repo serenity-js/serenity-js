@@ -5,9 +5,8 @@ export function stringify(value: unknown, replacer?: (this: any, key: string, va
 }
 
 /**
- * @desc
- *  Converts a JavaScript Object Notation (JSON) string into an object.
- *  Supports objects with cyclic references.
+ * Converts a JavaScript Object Notation (JSON) string into an object.
+ * Supports objects with cyclic references.
  *
  * @param text A valid JSON string.
  * @param reviver A function that transforms the results. This function is called for each member of the object.
@@ -18,7 +17,6 @@ export function parse(text: string, reviver?: (this: any, key: string, value: an
 }
 
 /**
- * @desc
  *  Makes a deep copy of an object or array, assuring that there is at most
  *  one instance of each object or array in the resulting structure. The
  *  duplicate references (which might be forming cycles) are replaced with
@@ -45,9 +43,7 @@ export function parse(text: string, reviver?: (this: any, key: string, value: an
  *  Based on work by Douglas Crockford
  *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js
  *
- * @param {any} object
- *
- * @package
+ * @param object
  */
 function decycle(object: any) {
     const objects = new WeakMap<any, string>();     // object to path mappings
@@ -104,7 +100,6 @@ function decycle(object: any) {
 }
 
 /**
- * @desc
  *  Restore an object that was reduced by decycle. Members which values are
  *  objects of the form
  *  ```
@@ -131,9 +126,7 @@ function decycle(object: any) {
  *  Based on work by Douglas Crockford
  *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js
  *
- * @param {any} $
- *
- * @package
+ * @param $
  */
 function retrocycle($: any) {
     const px = /^\$(?:\[(?:\d+|"(?:[^\\"\u0000-\u001f]|\\(?:[\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*")\])*$/;

@@ -6,7 +6,6 @@ import { actorCalled, Answerable, LogicError, QuestionAdapter, RecursivelyAnswer
 import { Actor, Question, WithAnswerableProperties } from '../../src/screenplay';
 import { expect } from '../expect';
 
-/** @test {Question} */
 describe('Question', () => {
 
     const Quentin = actorCalled('Quentin');
@@ -23,7 +22,6 @@ describe('Question', () => {
 
             describe('body', () => {
 
-                /** @test {Question.about} */
                 it('returns a static value', async () => {
                     const Name = () =>
                         Question.about('a name', (actor: Actor) => actor.name);
@@ -33,7 +31,6 @@ describe('Question', () => {
                     expect(answer).to.equal('Jacques');
                 });
 
-                /** @test {Question.about} */
                 it('returns a Promise of a value', () => {
                     const Name = () =>
                         Question.about('a name', (actor: Actor) => Promise.resolve(actor.name));
@@ -45,7 +42,7 @@ describe('Question', () => {
             });
 
             describe('subject', () => {
-                /** @test {Question#toString} */
+
                 it('can be defined at the same time as the question body', () => {
                     const ExampleQuestion = () =>
                         Question.about('some subject', (actor: Actor) => 'some return value');
@@ -53,7 +50,6 @@ describe('Question', () => {
                     expect(ExampleQuestion().toString()).to.equal('some subject');
                 });
 
-                /** @test {Question#describedAs} */
                 it('can be defined at a later stage and override the default one', () => {
                     const ExampleQuestion = () =>
                         Question.about('some subject', (actor: Actor) => 'some return value');
@@ -62,7 +58,6 @@ describe('Question', () => {
                         .to.equal('a different subject');
                 });
 
-                /** @test {Question.about} */
                 it('is returned when the question is used in a template literal', () => {
                     const ExampleQuestion = () =>
                         Question.about('some subject', (actor: Actor) => 'some return value');
@@ -72,7 +67,6 @@ describe('Question', () => {
                     expect(result).to.equal('question about "some subject"');
                 });
 
-                /** @test {Question.about} */
                 it('is returned when the question is used in string concatenation', () => {
                     const ExampleQuestion = () =>
                         Question.about('some subject', (actor: Actor) => 'some return value');
@@ -82,7 +76,6 @@ describe('Question', () => {
                     expect(result).to.equal('question about some subject');
                 });
 
-                /** @test {Question#describedAs} */
                 it('can be overridden at any point in the proxied method chain', async () => {
 
                     const Alex = actorCalled('Alex');

@@ -1,50 +1,33 @@
 import { Outcome } from '../model';
 
 /**
- * @desc
- *  Describes an adapter needed to run a given type of tests programmatically
- *
- * @interface
+ * Describes an adapter needed to run a given type of tests programmatically
  */
 export interface TestRunnerAdapter {
 
     /**
-     * @desc
-     *  Loads test scenarios.
-     *
-     * @type {function(pathsToScenarios: string[]): Promise<void>}
+     * Loads test scenarios.
      */
-    load: (pathsToScenarios: string[]) => Promise<void>;
+    load(pathsToScenarios: string[]): Promise<void>;
 
     /**
-     * @desc
-     *  Returns the number of loaded scenarios
+     * Returns the number of loaded scenarios
      *
-     * @throws {LogicError}
+     * @throws {@link LogicError}
      *  If called before `load`
-     *
-     * @type {function(): number}
      */
-    scenarioCount: () => number;
+    scenarioCount(): number;
 
     /**
-     * @desc
-     *  Runs loaded test scenarios.
+     * Runs loaded test scenarios.
      *
-     * @throws {LogicError}
+     * @throws {@link LogicError}
      *  If called before `load`
-     *
-     * @abstract
-     * @type {function(): Promise<void>}
      */
-    run: () => Promise<void>;
+    run(): Promise<void>;
 
     /**
-     * @desc
-     *  Scenario success threshold for this test runner.
-     *
-     * @abstract
-     * @type {Outcome | { Code: number }}
+     * Scenario success threshold for this test runner.
      */
-    successThreshold: () => Outcome | { Code: number };
+    successThreshold(): Outcome | { Code: number };
 }

@@ -16,15 +16,8 @@ import {
 } from '../../src/model';
 import { expect } from '../expect';
 
-/** @test {Outcome} */
 describe('Outcome', () => {
 
-    /**
-     * @test {ExecutionSkipped}
-     * @test {ExecutionIgnored}
-     * @test {ImplementationPending}
-     * @test {ExecutionSuccessful}
-     */
     describe('non-error outcome', () => {
 
         given([
@@ -38,11 +31,6 @@ describe('Outcome', () => {
         });
     });
 
-    /**
-     * @test {ExecutionCompromised}
-     * @test {ExecutionFailedWithError}
-     * @test {ExecutionFailedWithAssertionError}
-     */
     describe('outcome indicating an error', () => {
 
         given([

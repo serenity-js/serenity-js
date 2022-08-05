@@ -11,7 +11,7 @@ const { format } = require('assertion-error-formatter');    // eslint-disable-li
 describe ('ErrorSerialiser', () => {
 
     describe('when serialising errors to JSON', () => {
-        /** @test {ErrorSerialiser} */
+
         it('works with Error objects', () => {
             const error = thrown(new Error(`Something happened`));
 
@@ -22,7 +22,6 @@ describe ('ErrorSerialiser', () => {
             }));
         });
 
-        /** @test {ErrorSerialiser} */
         it('serialises all fields of custom objects that extend Error', () => {
             const error = thrown(new AssertionError(`Expected false to equal true`, true, false));
 
@@ -37,7 +36,6 @@ describe ('ErrorSerialiser', () => {
             expect(parsed.stack).to.equal(error.stack);
         });
 
-        /** @test {ErrorSerialiser} */
         it('serialises a TimeoutExpiredError', () => {
             const timeout   = Duration.ofSeconds(5);
             const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout));
@@ -52,7 +50,6 @@ describe ('ErrorSerialiser', () => {
             expect(parsed.stack).to.equal(error.stack);
         });
 
-        /** @test {ErrorSerialiser} */
         it('serialises all fields of a Node.js AssertionError', () => {
             const error = caught(() => strictEqual(true, false));
 
@@ -70,7 +67,6 @@ describe ('ErrorSerialiser', () => {
 
     describe('when deserialising errors from JSON', () => {
 
-        /** @test {ErrorSerialiser} */
         it('deserialises an Error', () => {
             const stack = [
                 'Error: Something happened',
@@ -90,7 +86,6 @@ describe ('ErrorSerialiser', () => {
             expect(error.stack).to.equal(stack);
         });
 
-        /** @test {ErrorSerialiser} */
         it('deserialises a custom AssertionError to Serenity/JS AssertionError, including all its fields', () => {
             const stack = [
                 'AssertionError: Expected false to equal true',
@@ -133,7 +128,6 @@ describe ('ErrorSerialiser', () => {
             expect(deserialised.cause.stack).to.equal(cause.stack);
         });
 
-        /** @test {ErrorSerialiser} */
         it('deserialises Node.js AssertionError as Serenity/JS AssertionError', () => {
             const error = caught(() => strictEqual(true, false));
 
@@ -149,7 +143,6 @@ describe ('ErrorSerialiser', () => {
 
     describe('when deserialising errors from stack trace', () => {
 
-        /** @test {ErrorSerialiser} */
         it('works with standard Error objects (Cucumber event protocol)', () => {
             const stack = `Error: Something's wrong\n    at World.<anonymous> (features/step_definitions/synchronous.steps.ts:9:15)`;
 
@@ -161,7 +154,6 @@ describe ('ErrorSerialiser', () => {
             expect(error.stack).to.equal(stack);
         });
 
-        /** @test {ErrorSerialiser} */
         it('instantiates an Error object from a string (Cucumber event protocol)', () => {
             const stack = `function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`;
 
@@ -172,7 +164,6 @@ describe ('ErrorSerialiser', () => {
             expect(error.message).to.equal(`function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`);
         });
 
-        /** @test {ErrorSerialiser} */
         it('instantiates a Serenity/JS AssertionError from an AssertionError-like stack trace, as well as it can', () => {
             const error = caught(() => strictEqual(true, false));
 

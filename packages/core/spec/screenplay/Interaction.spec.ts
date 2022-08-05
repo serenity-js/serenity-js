@@ -26,7 +26,6 @@ describe('Interaction', () => {
 
     describe('when defining an interaction', () => {
 
-        /** @test {Interaction} */
         it('provides a convenient factory method for synchronous interactions', () => {
             const spy = sinon.spy();
 
@@ -43,7 +42,6 @@ describe('Interaction', () => {
             });
         });
 
-        /** @test {Interaction} */
         it('provides a convenient factory method for asynchronous interactions', () => {
             const spy = sinon.spy();
 
@@ -84,7 +82,6 @@ describe('Interaction', () => {
         });
     });
 
-    /** @test {Interaction} */
     it('can optionally emit an artifact to be attached to the report or stored', () => {
         const
             expectedArtifact = JSONData.fromJSON({ token: '123' }),

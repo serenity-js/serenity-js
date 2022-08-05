@@ -5,12 +5,10 @@ import { expect } from '../expect';
 
 describe ('`trimmed` tag function', () => {
 
-    /** @test {trimmed} */
     it('trims the leading and trailing whitespace', () => {
         expect(trimmed `  Hello world!  `).to.equal('Hello world!');
     });
 
-    /** @test {trimmed} */
     it('leaves the space between the lines if required', () => {
         expect(trimmed `
             | --------------------------------------------------------------------------------
@@ -30,7 +28,6 @@ describe ('`trimmed` tag function', () => {
         ].join('\n'));
     });
 
-    /** @test {trimmed} */
     it('trims padded multi-line string', () => {
         expect(trimmed `
             | const SomeInteraction = () =>

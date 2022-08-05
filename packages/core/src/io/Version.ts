@@ -2,10 +2,7 @@ import semver = require('semver');
 import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
 
 /**
- * @desc
- *  A tiny type describing a version number, like `1.2.3`
- *
- * @extends {tiny-types~TinyType}
+ * A tiny type describing a version number, like `1.2.3`
  */
 export class Version extends TinyType {
 

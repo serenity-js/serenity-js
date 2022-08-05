@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { Artifact, CorrelationId, Name, SerialisedArtifact, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class ArtifactGenerated extends DomainEvent {
     static fromJSON(o: JSONObject): ArtifactGenerated {
         return new ArtifactGenerated(

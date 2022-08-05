@@ -4,7 +4,6 @@ import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Inter
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
 
-/** @test {Wait} */
 describe('Wait', () => {
 
     let serenity: Serenity;
@@ -26,7 +25,6 @@ describe('Wait', () => {
 
     describe('for', () => {
 
-        /** @test {Wait.for} */
         it('pauses the actor flow for the length of an explicitly-set duration', () =>
             serenity.theActorCalled('Wendy')
                 .attemptsTo(
@@ -36,7 +34,6 @@ describe('Wait', () => {
                     Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 100, 10),
                 ));
 
-        /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.for(Duration.ofMilliseconds(300)).toString())
                 .to.equal(`#actor waits for 300ms`);
@@ -45,7 +42,6 @@ describe('Wait', () => {
 
     describe('until', () => {
 
-        /** @test {Wait.until} */
         it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', () =>
             serenity.theActorCalled('Wendy')
                 .attemptsTo(
@@ -56,7 +52,6 @@ describe('Wait', () => {
                     Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1000),
                 ));
 
-        /** @test {Wait.until} */
         it('pauses the actor flow until the expectation is met, with a configurable polling interval', () =>
             serenity.theActorCalled('Wendy')
                 .attemptsTo(
@@ -67,8 +62,6 @@ describe('Wait', () => {
                     Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 500),
                 ));
 
-        /** @test {Wait.upTo} */
-        /** @test {Wait.until} */
         it('fails the actor flow when the timeout expires', () =>
             expect(
                 serenity.theActorCalled('Wendy')
@@ -111,7 +104,6 @@ describe('Wait', () => {
                 expect(error.message).to.be.equal(`error in expectation`);
             }));
 
-        /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(
                 Wait.upTo(Duration.ofMilliseconds(250))

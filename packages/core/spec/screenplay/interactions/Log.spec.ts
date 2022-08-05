@@ -5,7 +5,6 @@ import { Log, Question, Serenity } from '../../../src';
 import { Name } from '../../../src/model';
 import { expect } from '../../expect';
 
-/** @test {Log} */
 describe('Log', () => {
 
     const sandbox = sinon.createSandbox();

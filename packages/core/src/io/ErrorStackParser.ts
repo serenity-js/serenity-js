@@ -1,10 +1,10 @@
 import * as parser from 'error-stack-parser';
 
 /**
- * @desc
- *  A thin wrapper around error-stack-parser module
+ * A thin wrapper around error-stack-parser module
  *
- * @see https://www.npmjs.com/package/error-stack-parser
+ * ## Learn more
+ * - [Error stack parser](https://www.npmjs.com/package/error-stack-parser)
  *
  * @package
  */

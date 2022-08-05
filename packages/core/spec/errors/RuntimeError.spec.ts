@@ -18,19 +18,16 @@ describe('RuntimeError', () => {
             error = new CustomError('something happened');
         });
 
-        /** @test {RuntimeError} */
         it('is recognised as an instance of its type', () => {
             expect(error).to.be.instanceOf(Error);
             expect(error).to.be.instanceOf(RuntimeError);
             expect(error).to.be.instanceOf(CustomError);
         });
 
-        /** @test {RuntimeError} */
         it('has a message', () => {
             expect(error.message).to.equal('something happened');
         });
 
-        /** @test {RuntimeError} */
         it('retains the stacktrace', () => {
             const frames = error.stack.split('\n');
 
@@ -53,7 +50,6 @@ describe('RuntimeError', () => {
             }
         }
 
-        /** @test {RuntimeError} */
         it('includes the stack trace of the original errors', () => {
 
             const fsError  = new Error('ENOENT: no such file or directory');

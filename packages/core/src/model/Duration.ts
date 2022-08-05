@@ -1,5 +1,10 @@
 import { JSONObject, TinyType } from 'tiny-types';
 
+/**
+ * Represents a duration in milliseconds between two {@link Timestamp|timestamps}.
+ *
+ * @group Stage
+ */
 export class Duration extends TinyType {
 
     private static msPerSecond = 1000;

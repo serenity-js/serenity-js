@@ -4,6 +4,9 @@ import { ErrorSerialiser } from '../io';
 import { CorrelationId, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class AsyncOperationFailed extends DomainEvent {
     static fromJSON(o: JSONObject): AsyncOperationFailed {
         return new AsyncOperationFailed(
