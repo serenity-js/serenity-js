@@ -23,7 +23,6 @@ import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOu
 
 const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
 
-/** @test {CucumberCLIAdapter} */
 describe('CucumberCLIAdapter', function () {
 
     this.timeout(30_000);

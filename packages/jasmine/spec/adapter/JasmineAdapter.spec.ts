@@ -6,7 +6,6 @@ import { JasmineAdapter } from '../../src/adapter';
 import { JasmineReporter } from '../../src/jasmine';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 
-/** @test JasmineAdapter */
 describe('JasmineAdapter', () => {
 
     const emptySuite = { getFullTitle: () => 'Top suite' };
@@ -31,8 +30,7 @@ describe('JasmineAdapter', () => {
         FakeJasmineRunner.instance = undefined;
     });
 
-    /** @test JasmineAdapter#run */
-    it('defaults to running tests sequentially rather than in a random order', async () => {
+        it('defaults to running tests sequentially rather than in a random order', async () => {
 
         const
             config = {},
@@ -55,8 +53,7 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
-    /** @test JasmineAdapter#load */
-    it('loads configured requires and helpers', async () => {
+        it('loads configured requires and helpers', async () => {
 
         const
             helpers     = ['some-helper.js'],
@@ -82,8 +79,7 @@ describe('JasmineAdapter', () => {
         expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;
     });
 
-    /** @test JasmineAdapter#run */
-    it('configures the default timeout interval if required', async () => {
+        it('configures the default timeout interval if required', async () => {
 
         const
             defaultTimeoutInterval = 5000,
@@ -106,8 +102,7 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
-    /** @test JasmineAdapter#run */
-    it('registers a Serenity/JS reporter by default', async () => {
+        it('registers a Serenity/JS reporter by default', async () => {
 
         const
             specs  = [];
@@ -126,8 +121,7 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
-    /** @test JasmineAdapter#run */
-    it('registers configured custom reporters', async () => {
+        it('registers configured custom reporters', async () => {
 
         const
             additionalReporter: JasmineReporter = {},
@@ -154,8 +148,7 @@ describe('JasmineAdapter', () => {
 
     describe('when counting the number of scenarios to be executed', () => {
 
-        /** @test JasmineAdapter#scenarioCount */
-        it('recognises when there are no scenarios', () => {
+                it('recognises when there are no scenarios', () => {
 
             const
                 defaultTimeoutInterval = 5000,
@@ -170,8 +163,7 @@ describe('JasmineAdapter', () => {
             expect(adapter.scenarioCount()).to.equal(0);
         });
 
-        /** @test JasmineAdapter#scenarioCount */
-        it('recognises when there is a single spec', async () => {
+                it('recognises when there is a single spec', async () => {
 
             const
                 defaultTimeoutInterval = 5000,
@@ -189,8 +181,7 @@ describe('JasmineAdapter', () => {
             expect(adapter.scenarioCount()).to.equal(1);
         });
 
-        /** @test JasmineAdapter#scenarioCount */
-        it('recognises when there are multiple nested specs', async () => {
+                it('recognises when there are multiple nested specs', async () => {
 
             const
                 defaultTimeoutInterval = 5000,

@@ -4,18 +4,15 @@ import { describe, it } from 'mocha';
 
 import { containItemsWhereEachItem, Ensure, equals, isGreaterThan } from '../../src';
 
-/** @test {containItemsWhereEachItem} */
 describe('containItemsWhereEachItem', () => {
 
-    /** @test {containItemsWhereEachItem} */
-    it('allows for the actor flow to continue when the "actual" includes only those items that meet the expectation', () => {
+        it('allows for the actor flow to continue when the "actual" includes only those items that meet the expectation', () => {
         return actorCalled('Astrid').attemptsTo(
             Ensure.that([ 1, 2, 3 ], containItemsWhereEachItem(isGreaterThan(0))),
         );
     });
 
-    /** @test {containItemsWhereEachItem} */
-    it('breaks the actor flow when "actual" contains at least one item that does not meet the expectation', () => {
+        it('breaks the actor flow when "actual" contains at least one item that does not meet the expectation', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([ 7, 7, 2 ], containItemsWhereEachItem(equals(7))),
         )).to.be.rejectedWith(AssertionError, `Expected [ 7, 7, 2 ] to contain items where each item does equal 7`)
@@ -25,8 +22,7 @@ describe('containItemsWhereEachItem', () => {
             });
     });
 
-    /** @test {containItemsWhereEachItem} */
-    it('breaks the actor flow when "actual" is an empty list', () => {
+        it('breaks the actor flow when "actual" is an empty list', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([], containItemsWhereEachItem(equals(42))),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain items where each item does equal 42`)
@@ -36,8 +32,7 @@ describe('containItemsWhereEachItem', () => {
             });
     });
 
-    /** @test {atLeastOne} */
-    it('contributes to a human-readable description', () => {
+        it('contributes to a human-readable description', () => {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         const numbers = () =>
             Question.about('list of numbers', actor => [ 0, 1, 2 ]);

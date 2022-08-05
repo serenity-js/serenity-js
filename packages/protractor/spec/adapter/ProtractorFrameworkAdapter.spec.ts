@@ -10,7 +10,6 @@ import * as sinon from 'sinon';
 
 import { ProtractorFrameworkAdapter, TestRunnerDetector } from '../../src/adapter';
 
-/** @test {ProtractorFrameworkAdapter} */
 describe('ProtractorFrameworkAdapter', () => {
 
     /*

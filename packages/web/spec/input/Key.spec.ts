@@ -4,7 +4,6 @@ import { given } from 'mocha-testdata';
 
 import { Key } from '../../src';
 
-/** @test {Key} */
 describe('Key', () => {
 
     given([

@@ -6,7 +6,6 @@ import { given } from 'mocha-testdata';
 
 import { CucumberOptions } from '../../src/cli/CucumberOptions';
 
-/** @test {CucumberOptions} */
 describe('CucumberOptions', () => {
 
     describe('strict mode', () => {

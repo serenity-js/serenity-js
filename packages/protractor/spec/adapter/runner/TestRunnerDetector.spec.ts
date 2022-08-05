@@ -6,7 +6,6 @@ import * as sinon from 'sinon';
 
 import { CucumberAdapterConfig, TestRunnerDetector, TestRunnerLoader } from '../../../src/adapter/runner';
 
-/** @test {TestRunnerDetector} */
 describe('TestRunnerDetector', () => {
 
     let detector: TestRunnerDetector,

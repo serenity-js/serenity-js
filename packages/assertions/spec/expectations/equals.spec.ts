@@ -6,7 +6,6 @@ import { TinyTypeOf } from 'tiny-types';
 
 import { Ensure, equals } from '../../src';
 
-/** @test {equals} */
 describe('equals', () => {
 
     class Name extends TinyTypeOf<string>() {}
@@ -26,8 +25,7 @@ describe('equals', () => {
         )).to.be.fulfilled;
     });
 
-    /** @test {equals} */
-    it('breaks the actor flow when the values of "actual" and "expected" don\'t match', () => {
+        it('breaks the actor flow when the values of "actual" and "expected" don\'t match', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(27, equals(42)),
         )).to.be.rejectedWith(AssertionError, 'Expected 27 to equal 42')
@@ -37,8 +35,7 @@ describe('equals', () => {
             });
     });
 
-    /** @test {equals} */
-    it('contributes to a human-readable description', () => {
+        it('contributes to a human-readable description', () => {
         expect(Ensure.that(27, equals(42)).toString()).to.equal('#actor ensures that 27 does equal 42');
     });
 });

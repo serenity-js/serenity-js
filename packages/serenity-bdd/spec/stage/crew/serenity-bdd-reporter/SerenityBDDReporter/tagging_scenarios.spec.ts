@@ -41,13 +41,6 @@ describe('SerenityBDDReporter', () => {
 
             describe('@manual', () => {
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 */
                 it('is marked as automated (non-manual) by default', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
@@ -59,15 +52,6 @@ describe('SerenityBDDReporter', () => {
                     expect(report.manual).to.equal(false);
                 });
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {ManualTag}
-                 */
                 it('can be optionally tagged as manual', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new ManualTag()),
@@ -88,15 +72,6 @@ describe('SerenityBDDReporter', () => {
 
             describe('@issue', () => {
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {IssueTag}
-                 */
                 it('can be tagged with an issue number', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new IssueTag('ABC-1234')),
@@ -131,15 +106,6 @@ describe('SerenityBDDReporter', () => {
 
             describe('@arbitrary-tag', () => {
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {ArbitraryTag}
-                 */
                 it('can be tagged with an arbitrary tag', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new ArbitraryTag('regression')),
@@ -159,15 +125,6 @@ describe('SerenityBDDReporter', () => {
 
             describe('to indicate that a scenario', () => {
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
-                 */
                 it('belongs to a feature', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new FeatureTag('Checkout')),
@@ -190,16 +147,6 @@ describe('SerenityBDDReporter', () => {
                     });
                 });
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
-                 * @test {CapabilityTag}
-                 */
                 it('belongs to a capability', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new CapabilityTag('E-Commerce')),
@@ -227,17 +174,6 @@ describe('SerenityBDDReporter', () => {
                     });
                 });
 
-                /**
-                 * @test {SerenityBDDReporter}
-                 * @test {SceneStarts}
-                 * @test {SceneFinished}
-                 * @test {SceneTagged}
-                 * @test {TestRunFinishes}
-                 * @test {ExecutionSuccessful}
-                 * @test {FeatureTag}
-                 * @test {CapabilityTag}
-                 * @test {ThemeTag}
-                 */
                 it('belongs to a theme', () => {
                     given(reporter).isNotifiedOfFollowingEvents(
                         new SceneTagged(sceneId, new ThemeTag('Digital')),
@@ -272,15 +208,6 @@ describe('SerenityBDDReporter', () => {
 
                 describe('is executed in the context and', () => {
 
-                    /**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {BrowserTag}
-                     */
                     it('indicates the web browser where the test was executed', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(sceneId, new BrowserTag('chrome', '80.0.3987.87')),
@@ -301,15 +228,6 @@ describe('SerenityBDDReporter', () => {
                         }]);
                     });
 
-                    /**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {ContextTag}
-                     */
                     it('indicates the operating system where the test was executed', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(sceneId, new ContextTag('iphone')),
@@ -328,16 +246,6 @@ describe('SerenityBDDReporter', () => {
                         }]);
                     });
 
-                    /**
-                     * @test {SerenityBDDReporter}
-                     * @test {SceneStarts}
-                     * @test {SceneFinished}
-                     * @test {SceneTagged}
-                     * @test {TestRunFinishes}
-                     * @test {ExecutionSuccessful}
-                     * @test {BrowserTag}
-                     * @test {ContextTag}
-                     */
                     it('ensures that the user-specified context takes precedence over browser context', () => {
                         given(reporter).isNotifiedOfFollowingEvents(
                             new SceneTagged(sceneId, new BrowserTag('safari', '13.0.5')),

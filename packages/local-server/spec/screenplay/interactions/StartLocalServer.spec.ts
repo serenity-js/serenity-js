@@ -10,9 +10,6 @@ import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } fr
 import { RequestListener } from '../../../src/screenplay/abilities';
 import servers = require('../../servers');
 
-/** @test {StartALocalServer} */
-/** @test {LocalServer.url} */
-/** @test {LocalServer.port} */
 describe('StartALocalServer', () => {
 
     class Actors implements Cast {

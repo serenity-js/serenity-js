@@ -8,30 +8,25 @@ import { given } from 'mocha-testdata';
 import { Ensure, equals } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
-/** @test {Ensure} */
 describe('Ensure', () => {
 
-    /** @test {Ensure.that} */
-    it('allows the actor to make an assertion', () => {
+        it('allows the actor to make an assertion', () => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, isIdenticalTo(4)),
         )).to.be.fulfilled;
     });
 
-    /** @test {Ensure.that} */
-    it('fails the actor flow when the assertion is not met', () => {
+        it('fails the actor flow when the assertion is not met', () => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, isIdenticalTo(7)),
         )).to.be.rejectedWith(AssertionError, 'Expected 4 to have value identical to 7');
     });
 
-    /** @test {Ensure.that} */
-    it('provides a description of the assertion being made', () => {
+        it('provides a description of the assertion being made', () => {
         expect(Ensure.that(4, isIdenticalTo(7)).toString()).to.equal(`#actor ensures that 4 does have value identical to 7`);
     });
 
-    /** @test {Ensure.that} */
-    it('provides a description of the assertion being made, while correctly cleaning the output from new line characters', () => {
+        it('provides a description of the assertion being made, while correctly cleaning the output from new line characters', () => {
         expect(Ensure.that({ person: { name: 'Jan' }}, equals({
             person: {
                 name: 'Jan',
@@ -39,8 +34,7 @@ describe('Ensure', () => {
         })).toString()).to.equal(`#actor ensures that {"person":{"name":"Jan"}} does equal {"person":{"name":"Jan"}}`);
     });
 
-    /** @test {Ensure.that} */
-    given<Answerable<number>>(
+        given<Answerable<number>>(
         42,
         p(42),
         q(42),
@@ -52,8 +46,7 @@ describe('Ensure', () => {
         )).to.be.fulfilled;
     });
 
-    /** @test {Ensure.that} */
-    it(`complains when given an Expectation that doesn't conform to the interface`, () => {
+        it(`complains when given an Expectation that doesn't conform to the interface`, () => {
         class BrokenExpectation<Actual> extends Expectation<Actual> {
             constructor() {
                 super(
