@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, not } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { Ensure, isPresent, not } from '@serenity-js/assertions';
+import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
 import { By, Click, isActive, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isActive', function () {
@@ -18,6 +18,8 @@ describe('isActive', function () {
     beforeEach(() =>
         actorCalled('Wendy').attemptsTo(
             Navigate.to('/expectations/is-active/active_inactive_inputs.html'),
+            Wait.upTo(Duration.ofSeconds(10))
+                .until(Elements.autofocusedInput(), isPresent()),
         ));
 
     describe('resolves to true when the element', () => {
