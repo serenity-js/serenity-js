@@ -6,78 +6,68 @@ import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightBrowsingSession } from '../models';
 
 /**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor}
- *  to interact with web front-ends using [Playwright](https://playwright.dev/).
+ * An {@link Ability} that enables the {@link Actor}
+ * to interact with web front-ends using [Playwright](https://playwright.dev/).
  *
- * @example <caption>Using a Playwright browser</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
- *  import { By, Navigate, PageElement } from '@serenity-js/web';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { Browser, chromium } from 'playwright';
+ * ## Using Playwright to `BrowseTheWeb`
  *
- *  const HomePage = {
- *      title: PageElement.located(By.css('h1')).describedAs('title')
- *  }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { Browser, chromium } from 'playwright'
  *
- *  const browser = await chromium.launch({ headless: true });
+ * const HomePage = {
+ *   title: () =>
+ *     PageElement.located(By.css('h1')).describedAs('title')
+ * }
  *
- *  await actorCalled('Wendy')
- *      .whoCan(BrowseTheWebWithPlaywright.using(browser))
- *      .attemptsTo(
- *          Navigate.to(`https://serenity-js.org`),
- *          Ensure.that(Text.of(HomePage.title), equals('Serenity/JS')),
- *      );
+ * const browser = await chromium.launch({ headless: true });
  *
- * @extends {@serenity-js/web/lib/screenplay/abilities~BrowseTheWeb}
+ * await actorCalled('Wendy')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *   .attemptsTo(
+ *     Navigate.to(`https://serenity-js.org`),
+ *     Ensure.that(Text.of(HomePage.title()), equals('Serenity/JS')),
+ *   )
+ * ```
  *
- * @public
+ * ## Learn more
+ * - [Playwright website](https://playwright.dev/)
+ * - {@link BrowseTheWeb}
+ * - {@link Ability}
+ * - {@link Actor}
  *
- * @see https://playwright.dev/
- * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ * @group Abilities
  */
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementHandle> implements Discardable {
 
-    /**
-     * @param {playwright~Browser} browser
-     * @param {PlaywrightOptions} options
-     * @returns {BrowseTheWebWithPlaywright}
-     */
     static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(browser, options);
     }
 
-    /**
-     * @param {playwright~Browser} browser
-     * @param {PlaywrightOptions} browserContextOptions
-     */
     protected constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
         super(new PlaywrightBrowsingSession(browser, browserContextOptions));
     }
 
     /**
-     * @desc
-     *  Automatically closes any open {@link Page}s when the {@link SceneFinishes}
+     * Automatically closes any open {@link Page|Pages} when the {@link SceneFinishes}
      *
-     * @see {@link PlaywrightBrowsingSession#closeAllPages}
-     * @see {@link @serenity-js/core/lib/screenplay/abilities~Discardable}
+     * #### Learn more
+     * - [[PlaywrightBrowsingSession.closeAllPages]]
+     * - {@link Discardable}
      */
     async discard(): Promise<void> {
         await this.session.closeAllPages();
     }
 
     /**
-     * @desc
-     *  Returns basic meta-data about the browser associated with this ability.
+     * Returns {@link BrowserCapabilities|basic meta-data} about the browser associated with this ability.
      *
-     *  **Please note** that since Playwright does not expose information about the operating system
-     *  the tests are running on, **Serenity/JS assumes that the tests are running locally**
-     *  and therefore returns the value of Node.js `process.platform` for `platformName`.
-     *
-     * @returns {Promise<BrowserCapabilities>}
-     *
-     * @see {@link @serenity-js/web/lib/screenplay/abilities~BrowserCapabilities}
+     * **Please note** that since Playwright does not expose information about the operating system
+     * the tests are running on, **Serenity/JS assumes that the tests are running locally**
+     * and therefore returns the value of Node.js `process.platform` for `platformName`.
      */
     async browserCapabilities(): Promise<BrowserCapabilities> {
         return {

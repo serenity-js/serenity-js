@@ -5,6 +5,11 @@ import * as playwright from 'playwright';
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
+/**
+ * Playwright-specific implementation of {@link Locator}.
+ *
+ * @group Models
+ */
 export class PlaywrightLocator extends Locator<playwright.ElementHandle, string> {
 
     constructor(

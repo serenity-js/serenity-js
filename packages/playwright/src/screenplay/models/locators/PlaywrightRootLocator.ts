@@ -2,6 +2,11 @@ import { RootLocator } from '@serenity-js/web';
 import * as playwright from 'playwright';
 import { ensure, isDefined } from 'tiny-types';
 
+/**
+ * Playwright-specific implementation of {@link RootLocator}.
+ *
+ * @group Models
+ */
 export class PlaywrightRootLocator extends RootLocator<playwright.ElementHandle> {
 
     private currentFrame: playwright.Frame;

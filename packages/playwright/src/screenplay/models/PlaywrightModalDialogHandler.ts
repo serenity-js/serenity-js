@@ -1,6 +1,11 @@
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
+/**
+ * Playwright-specific implementation of {@link ModalDialogHandler}.
+ *
+ * @group Models
+ */
 export class PlaywrightModalDialogHandler extends ModalDialogHandler {
 
     private readonly defaultHandler: (dialog: playwright.Dialog) => Promise<ModalDialog> =
