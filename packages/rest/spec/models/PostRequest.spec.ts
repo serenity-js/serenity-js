@@ -5,13 +5,11 @@ import { PostRequest } from '../../src/models';
 import { actorUsingAMockedAxiosInstance } from '../actors';
 import { expect } from '../expect';
 
-/** @test {PostRequest} */
 describe('PostRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-    /** @test {PostRequest.to} */
-    it('represents an Axios request', () =>
+        it('represents an Axios request', () =>
         expect(actor.answer(PostRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'POST',
@@ -63,8 +61,7 @@ describe('PostRequest', () => {
         })
     );
 
-    /** @test {PostRequest#toString} */
-    it('provides a sensible description of the interaction being performed', () => {
+        it('provides a sensible description of the interaction being performed', () => {
         expect(PostRequest.to('/products/2').toString())
             .to.equal(`a POST request to '/products/2'`);
     });
