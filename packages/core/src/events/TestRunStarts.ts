@@ -2,10 +2,9 @@ import { Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Emitted when the very first test is about to start
+ * Emitted when the very first test is about to start
  *
- * @extends {DomainEvent}
+ * @group Events
  */
 export class TestRunStarts extends DomainEvent {
     static fromJSON(v: string): TestRunStarts {

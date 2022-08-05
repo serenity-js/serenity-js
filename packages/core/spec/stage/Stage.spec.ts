@@ -19,10 +19,6 @@ describe('Stage', () => {
 
     const stageManager = sinon.createStubInstance(StageManager);
 
-    /**
-     * @test {Stage#actor}
-     * @test {Stage#theActorCalled}
-     */
     it('provides both the more verbose and more concise way of accessing the actors', () => {
         const
             name   = 'Alice',
@@ -34,7 +30,6 @@ describe('Stage', () => {
 
     describe('when instantiating actors', () => {
 
-        /** @test {Stage#actor} */
         it('instantiates a new actor when their name is called for the first time', () => {
             const
                 name   = 'Alice',
@@ -49,7 +44,6 @@ describe('Stage', () => {
             expect(actor.name).to.equal('Alice');
         });
 
-        /** @test {Stage#actor} */
         it('returns an existing actor if it has already been instantiated before', () => {
             const
                 name   = 'Alice',
@@ -70,7 +64,6 @@ describe('Stage', () => {
 
     describe('when referencing a recently retrieved actor', () => {
 
-        /** @test {Stage#actor} */
         it('retrieves the current actor, if there is any', () => {
             const
                 name   = 'Alice',
@@ -82,10 +75,6 @@ describe('Stage', () => {
             expect(a2).to.equal(a1);
         });
 
-        /**
-         * @test {Stage#theActorInTheSpotlight}
-         * @test {Stage#theActorInTheSpotlight}
-         */
         it('provides both the more verbose and more concise way of accessing the actors in the spotlight', () => {
             const
                 name   = 'Alice',
@@ -99,10 +88,6 @@ describe('Stage', () => {
             expect(a1).to.equal(a3);
         });
 
-        /**
-         * @test {Stage#theActorInTheSpotlight}
-         * @test {Stage#theActorInTheSpotlight}
-         */
         it(`complains if you try to access the actor in the spotlight, but there isn't any yet`, () => {
             const
                 stage  = new Stage(new Extras(), stageManager as unknown as StageManager);
@@ -312,7 +297,6 @@ describe('Stage', () => {
             }).to.throw(Error, 'StageManager should be defined');
         });
 
-        /** @test {Stage#actor} */
         it('complains if the Cast does not provide a way to instantiate a given actor', () => {
             const
                 name   = 'Alice',
@@ -326,7 +310,6 @@ describe('Stage', () => {
             }).to.throw(ConfigurationError, `Instead of a new instance of actor "${ name }", Cast returned undefined`);
         });
 
-        /** @test {Stage#actor} */
         it('complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available', () => {
             class AwesomeActors implements Cast {
                 prepare(actor: Actor): Actor {
@@ -344,7 +327,6 @@ describe('Stage', () => {
             }).to.throw(ConfigurationError, `Instead of a new instance of actor "${ name }", AwesomeActors returned undefined`);
         });
 
-        /** @test {Stage#actor} */
         it('complains if the Cast throws an error during actor instantiation', () => {
             const
                 name   = 'Alice',
@@ -358,7 +340,6 @@ describe('Stage', () => {
             }).to.throw(ConfigurationError, `Cast encountered a problem when preparing actor "${ name }" for stage`);
         });
 
-        /** @test {Stage#actor} */
         it('complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available', () => {
             class MoodyActors implements Cast {
                 prepare(actor: Actor): Actor {

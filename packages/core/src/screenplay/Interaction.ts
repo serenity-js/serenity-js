@@ -60,12 +60,15 @@ export abstract class Interaction implements Activity {
     }
 
     /**
-     * Makes the provided {@apiLink Actor} perform this {@apiLink Interaction}.
+     * Instructs the provided {@link Actor} to perform this {@link Interaction}.
      *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
+     * @param actor
      *
-     * @see {@apiLink Actor}
+     * #### Learn more
+     * - {@link Actor}
+     * - {@link PerformsActivities}
+     * - {@link UsesAbilities}
+     * - {@link AnswersQuestions}
      */
     abstract performAs(actor: UsesAbilities & AnswersQuestions): Promise<void>;
 }
@@ -81,16 +84,6 @@ class DynamicallyGeneratedInteraction extends Interaction {
         super();
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
-     *
-     * @param {Actor} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     */
     performAs(actor: Actor): Promise<void> {
         try {
             return Promise.resolve(this.interaction(actor));
@@ -99,12 +92,6 @@ class DynamicallyGeneratedInteraction extends Interaction {
         }
     }
 
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
-     */
     toString(): string {
         return this.description;
     }

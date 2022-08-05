@@ -6,7 +6,6 @@ import { actorCalled, Expectation, ExpectationMet, ExpectationNotMet, Question }
 import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 
-/** @test {Expectation} */
 describe('Expectation', () => {
 
     const Ellie = actorCalled('Ellie');
@@ -17,7 +16,6 @@ describe('Expectation', () => {
     const q = <T>(value: T) =>
         Question.about(`some value`, actor => value);
 
-    /** @test {Expectation.thatActualShould} */
     describe('thatActualShould()', () => {
 
         const value = 42;
@@ -70,7 +68,6 @@ describe('Expectation', () => {
         });
     });
 
-    /** @test {Expectation.to} */
     describe('to()', () => {
 
         const value = 42;

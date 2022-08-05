@@ -12,7 +12,6 @@ import { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMember
 import { expect } from './expect';
 import sinon = require('sinon');
 
-/** @test {Serenity} */
 describe('Serenity', () => {
 
     describe('when constructing a Stage', () => {

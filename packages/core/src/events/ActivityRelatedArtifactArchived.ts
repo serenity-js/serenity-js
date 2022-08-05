@@ -7,6 +7,10 @@ import { ArtifactArchived } from './ArtifactArchived';
 // todo: there should be two types of events here:
 //  - ActivityArtifactGenerated
 //  - SceneArtifactGenerated
+
+/**
+ * @group Events
+ */
 export class ActivityRelatedArtifactArchived extends ArtifactArchived {
     static fromJSON(o: JSONObject): ActivityRelatedArtifactArchived {
         return new ActivityRelatedArtifactArchived(

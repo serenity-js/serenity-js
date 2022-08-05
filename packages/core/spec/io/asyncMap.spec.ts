@@ -3,7 +3,6 @@ import { describe, it } from 'mocha';
 import { asyncMap } from '../../src/io';
 import { expect } from '../expect';
 
-/** @test {asyncMap} */
 describe('asyncMap', () => {
 
     const items = [ 'a', 'b', 'c' ];

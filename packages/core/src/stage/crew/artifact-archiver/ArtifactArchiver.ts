@@ -18,49 +18,72 @@ import { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
 
 /**
- * @desc
- *  Stores any {@link Artifact}s emitted via {@link ArtifactGenerated} events on the {@link FileSystem}
+ * Stores any {@link Artifact|artifacts} emitted via {@link ArtifactGenerated} events on the {@link FileSystem}
  *
- * @example <caption>Registering ArtifactArchiver programmatically</caption>
- *  import { configure, StreamReporter } from '@serenity-js/core';
+ * ## Registering `ArtifactArchiver` programmatically
  *
- *  configure({
- *      crew: [
- *          ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *      ],
- *  });
+ * ```ts
+ * import { ArtifactArchiver, configure } from '@serenity-js/core'
  *
- * @example <caption>Registering ArtifactArchiver using Protractor configuration</caption>
- *  // protractor.conf.js
- *  const { ArtifactArchiver } = require('@serenity-js/core');
+ * configure({
+ *   crew: [
+ *     ArtifactArchiver.storingArtifactsAt(`/target/site/serenity`),
+ *   ]
+ *   // other Serenity/JS config
+ * })
+ * ```
  *
- *  exports.config = {
- *    framework:     'custom',
- *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ * ## Registering `ArtifactArchiver` using Protractor configuration
  *
- *    serenity: {
- *      crew: [
- *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *      ],
- *      // other Serenity/JS config
- *    },
+ * ```js
+ * // protractor.conf.js
+ * const { ArtifactArchiver } = require('@serenity-js/core')
  *
- *    // other Protractor config
- *  };
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
- * @public
- * @implements {StageCrewMember}
+ *   serenity: {
+ *     crew: [
+ *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *   // other Protractor config
+ * };
+ * ```
+ *
+ * ## Registering `ArtifactArchiver` using WebdriverIO configuration
+ *
+ * ```ts
+ * // wdio.conf.js
+ * import { ArtifactArchiver } from '@serenity-js/core'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
+ *
+ * export const config: WebdriverIOConfig = {
+ *
+ *     framework: '@serenity-js/webdriverio',
+ *
+ *     serenity: {
+ *         crew: [
+ *             ArtifactArchiver.storingArtifactsAt(`/target/site/serenity`),
+ *         ]
+ *         // other Serenity/JS config
+ *     },
+ *   },
+ *   // other WebdriverIO config
+ * }
+ * ```
+ *
+ * @group Stage
  */
 export class ArtifactArchiver implements StageCrewMember {
 
     /**
-     * @desc
-     *  Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.
-     *  The `destination` directory will be created automatically and recursively if it doesn't exist.
+     * Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.
+     * The `destination` directory will be created automatically and recursively if it doesn't exist.
      *
-     * @param {string[]} destination
-     *
-     * @returns {StageCrewMember}
+     * @param destination
      */
     static storingArtifactsAt(...destination: string[]): StageCrewMember {
         ensure('Path to destination directory', destination, property('length', isGreaterThan(0)));
@@ -77,34 +100,24 @@ export class ArtifactArchiver implements StageCrewMember {
      */
     constructor(
         private readonly fileSystem: FileSystem,
-        private readonly stage?: Stage,
+        private stage?: Stage,
     ) {
     }
 
-    /**
-     * @desc
-     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
-     *
-     * @see {@link StageCrewMember}
-     *
-     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
-     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
-     */
     assignedTo(stage: Stage): StageCrewMember {
-        return new ArtifactArchiver(this.fileSystem, stage);
+        this.stage = stage;
+        return this;
     }
 
     /**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
+     * Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
      *
      * @see {@link StageCrewMember}
      *
      * @listens {ArtifactGenerated}
      * @emits {ArtifactArchived}
      *
-     * @param {DomainEvent} event
-     * @returns {void}
+     * @param event
      */
     notifyOf(event: DomainEvent): void {
 

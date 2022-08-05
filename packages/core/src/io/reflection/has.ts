@@ -1,12 +1,11 @@
 /**
- * @desc
  *  Checks if the `candidate` value "quacks like a duck".
  *  In particular, it checks if the `candidate`:
  *  - is not `null`
  *  - is not `undefined`
  *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))
  *
- * @example
+ * ```ts
  *  const looksLikeADuck = has({
  *      name:   'string',
  *      quack:  'function',
@@ -18,12 +17,11 @@
  *  }
  *
  *  looksLikeADuck(daisy) // true
+ * ```
  *
- * @param {object} api
+ * @param api
  *  An object where the keys are names of member fields and methods expected on the `candidate`,
  *  and values are the names of their types, i.e. `function`, `object`, etc.
- *
- * @returns {boolean}
  */
 export function has<T>(api: Record<keyof T, string>): (candidate: unknown) => candidate is T {
     return (candidate: unknown): candidate is T =>

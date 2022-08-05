@@ -3,6 +3,17 @@ import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types
 
 import { Duration } from './Duration';
 
+/**
+ * Represents a point in time.
+ *
+ * `Timestamp` makes it easier for Serenity/JS to work with information related to time, like {@link DomainEvent|domain events}.
+ *
+ * ## Learn more
+ * - {@link Duration}
+ * - [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+ *
+ * @group Stage
+ */
 export class Timestamp extends TinyType {
     static fromJSON(v: string): Timestamp {
         return new Timestamp(new Date(ensure(Timestamp.name, v, isSerialisedISO8601Date())));

@@ -4,7 +4,6 @@ import { given } from 'mocha-testdata';
 import { actorCalled, Answerable, Expectation, Interaction, List, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
-/** @test {List} */
 describe('List', () => {
 
     const Fiona = actorCalled('Fiona');
@@ -67,7 +66,6 @@ describe('List', () => {
                 .to.eventually.deep.equal(collection[1])
         );
 
-        /** @test {List#toString} */
         describe('provides a sensible description when it', () => {
 
             given(examples).

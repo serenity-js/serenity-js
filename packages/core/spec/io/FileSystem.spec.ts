@@ -4,7 +4,6 @@ import { FileSystem, Path } from '../../src/io';
 import { expect } from '../expect';
 import { FakeFS } from '../FakeFS';
 
-/** @test {FileSystem} */
 describe ('FileSystem', () => {
 
     const

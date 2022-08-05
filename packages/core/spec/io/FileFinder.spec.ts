@@ -4,7 +4,6 @@ import { given } from 'mocha-testdata';
 import { FileFinder, Path } from '../../src/io';
 import { expect } from '../expect';
 
-/** @test {FileFinder} */
 describe('FileFinder', () => {
 
     const cwd = Path.from(__dirname, 'finder-examples');
@@ -22,12 +21,10 @@ describe('FileFinder', () => {
         expect(finder.filesMatching(pattern)).to.deep.equal([])
     });
 
-    /** @test {FileFinder} */
     it(`returns an empty list when the pattern provided doesn't match any files`, () => {
         expect(finder.filesMatching('non-existent.txt')).to.deep.equal([])
     });
 
-    /** @test {FileFinder} */
     it('returns a list with an exact match', () => {
         const matches = finder.filesMatching('file1.txt');
 
@@ -35,7 +32,6 @@ describe('FileFinder', () => {
         expect(matches[0]).to.equal(cwd.join(Path.from('file1.txt')));
     });
 
-    /** @test {FileFinder} */
     it('returns a list with exact matches', () => {
         const matches = finder.filesMatching([ 'file1.txt', 'file2.txt' ]);
 
@@ -44,7 +40,6 @@ describe('FileFinder', () => {
         expect(matches[1]).to.equal(cwd.join(Path.from('file2.txt')));
     });
 
-    /** @test {FileFinder} */
     it('supports glob patterns', () => {
         const matches = finder.filesMatching([ 'file*.txt' ]);
 
@@ -53,7 +48,6 @@ describe('FileFinder', () => {
         expect(matches[1]).to.equal(cwd.join(Path.from('file2.txt')));
     });
 
-    /** @test {FileFinder} */
     it('supports globstar patterns', () => {
         const matches = finder.filesMatching([ '**/file*.txt' ]);
 
