@@ -9,7 +9,7 @@ describe('DeleteRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-        it('represents an Axios request', () =>
+    it('represents an Axios request', () =>
         expect(actor.answer(DeleteRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'DELETE',
@@ -49,7 +49,7 @@ describe('DeleteRequest', () => {
         })
     );
 
-        it('provides a sensible description of the interaction being performed', () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(DeleteRequest.to('/products/2').toString())
             .to.equal(`a DELETE request to '/products/2'`);
     });

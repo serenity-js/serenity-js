@@ -25,7 +25,7 @@ describe('UseAngular', function () {
         describe('when enabled', () => {
             beforeEach(() => promised(protractor.browser.waitForAngularEnabled(true)));
 
-                        it('can be disabled', () => actorCalled('Bernie').attemptsTo(
+            it('can be disabled', () => actorCalled('Bernie').attemptsTo(
                 UseAngular.disableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), equals(false)),
             ));
@@ -34,13 +34,13 @@ describe('UseAngular', function () {
         describe('when disabled', () => {
             beforeEach(() => promised(protractor.browser.waitForAngularEnabled(false)));
 
-                        it('can be enabled', () => actorCalled('Bernie').attemptsTo(
+            it('can be enabled', () => actorCalled('Bernie').attemptsTo(
                 UseAngular.enableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), isTrue()),
             ));
         });
 
-                        it('provides a sensible description of the interaction being performed', () => {
+        it('provides a sensible description of the interaction being performed', () => {
             expect(UseAngular.enableSynchronisation().toString())
                 .to.equal(`#actor enables synchronisation with Angular`);
 

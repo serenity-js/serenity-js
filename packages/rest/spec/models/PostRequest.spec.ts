@@ -9,7 +9,7 @@ describe('PostRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-        it('represents an Axios request', () =>
+    it('represents an Axios request', () =>
         expect(actor.answer(PostRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'POST',
@@ -61,7 +61,7 @@ describe('PostRequest', () => {
         })
     );
 
-        it('provides a sensible description of the interaction being performed', () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(PostRequest.to('/products/2').toString())
             .to.equal(`a POST request to '/products/2'`);
     });

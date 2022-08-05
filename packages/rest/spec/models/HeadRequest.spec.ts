@@ -9,7 +9,7 @@ describe('HeadRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-        it('represents an Axios request', () =>
+    it('represents an Axios request', () =>
         expect(actor.answer(HeadRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'HEAD',
@@ -49,7 +49,7 @@ describe('HeadRequest', () => {
         })
     );
 
-        it('provides a sensible description of the interaction being performed', () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(HeadRequest.to('/products/2').toString())
             .to.equal(`a HEAD request to '/products/2'`);
     });

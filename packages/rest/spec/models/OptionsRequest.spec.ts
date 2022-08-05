@@ -9,7 +9,7 @@ describe('OptionsRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-        it('represents an Axios request', () =>
+    it('represents an Axios request', () =>
         expect(actor.answer(OptionsRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'OPTIONS',
@@ -49,7 +49,7 @@ describe('OptionsRequest', () => {
         })
     );
 
-        it('provides a sensible description of the interaction being performed', () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(OptionsRequest.to('/products/2').toString())
             .to.equal(`an OPTIONS request to '/products/2'`);
     });

@@ -15,7 +15,7 @@ import servers = require('./servers');
 
 describe('ManageALocalServer', () => {
 
-        describe('when working with HTTP', () => {
+    describe('when working with HTTP', () => {
 
         given(servers).
         it('allows the Actor to start, stop and access the location of a HTTP', function ({ handler, node }) {
@@ -71,7 +71,7 @@ describe('ManageALocalServer', () => {
 
     // ---
 
-        describe('when working with HTTPS', () => {
+    describe('when working with HTTPS', () => {
 
         const testHttpsServer = [
             StartLocalServer.onOneOfThePreferredPorts([ 8443, 9443 ]),

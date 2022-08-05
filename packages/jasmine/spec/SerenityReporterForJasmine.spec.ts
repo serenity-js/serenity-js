@@ -51,7 +51,7 @@ describe('SerenityReporterForJasmine', () => {
     describe('notifies Serenity when', () => {
 
         describe('the test run', () => {
-                        it('starts', async () => {
+            it('starts', async () => {
                 await reporter.jasmineStarted({
                     totalSpecsDefined: 5,
                     order: {
@@ -65,7 +65,7 @@ describe('SerenityReporterForJasmine', () => {
                     .next(TestRunStarts,    event => expect(event.timestamp).to.equal(new Timestamp(now)));
             });
 
-                        it('ends', async () => {
+            it('ends', async () => {
                 await reporter.jasmineDone({
                     overallStatus: 'passed',
                     incompleteReason: undefined,
@@ -85,7 +85,7 @@ describe('SerenityReporterForJasmine', () => {
 
         describe('the test suite', () => {
 
-                        it('starts', () => {
+            it('starts', () => {
 
                 const jasmineEvent = {
                     id: 'suite1',
@@ -563,7 +563,7 @@ describe('SerenityReporterForJasmine', () => {
                         });
                 });
 
-                                it('has failed with multiple errors', async () => {
+                it('has failed with multiple errors', async () => {
                     // The failure with multiple errors could only happen when someone has
                     // a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting
                     await reporter.specDone({

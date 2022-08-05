@@ -96,7 +96,7 @@ const config = {
                 ],
             },
             footer: {
-                copyright: `Made with love in London, UK © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
+                copyright: `Made with 💛 in London, UK. Copyright © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
                 links: [
                     {
                         title: 'Docs',
