@@ -19,7 +19,15 @@ export class PickEvent {
             throw new Error(`${ type.name } event not found within ${ found }`);
         }
 
-        assertion(this.events[ foundIndex ] as T);
+        try {
+            assertion(this.events[ foundIndex ] as T);
+        } catch (error) {
+            console.error(
+                this.events.map(event => `[event] ${ JSON.stringify(event.toJSON()) }`).join('\n')
+            );
+
+            throw error;
+        }
 
         this.events = this.events.slice(foundIndex + 1);
 
