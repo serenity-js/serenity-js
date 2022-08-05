@@ -58,7 +58,7 @@ import { Question, QuestionAdapter } from '../Question';
  * - [[Question.describedAs]]
  * - {@link QuestionAdapter}
  *
- * @group Questions
+ * @group Answerables
  *
  * @param templates
  * @param parameters

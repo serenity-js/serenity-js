@@ -1,80 +1,110 @@
 import { Ability, Actor } from '../screenplay';
 
 /**
- * @desc
- *  Describes the {@link Actor}s available to take part in the performance.
+ * Describes the {@apiLink Actor|actors} available to take part in the performance, a.k.a. the test scenario.
  *
- * @example <caption>Define a cast of actors interacting with a Web UI</caption>
+ * ## Define a cast of actors interacting with a Web UI
  *
- *  import { engage, Actor, Cast } from '@serenity-js/core';
- *  import { BrowseTheWeb } from '@serenity-js/protractor';
- *  import { protractor } from 'protractor';
+ * ```ts
+ * import { beforeEach } from 'mocha'
+ * import { engage, Actor, Cast } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
+ * import { Browser, chromium } from 'playwright'
  *
- *  class UIActors implements Cast {
- *      prepare(actor: Actor) {
- *          return actor.whoCan(BrowseTheWeb.using(protractor.browser));
- *      }
- *  }
+ * export class UIActors implements Cast {
+ *   constructor(
+ *     private readonly browser: Browser,
+ *     private readonly options?: PlaywrightOptions,
+ *   ) {
+ *   }
  *
- *  beforeEach(() => engage(new UIActors()));
+ *   prepare(actor: Actor): Actor {
+ *     return actor.whoCan(
+ *       BrowseTheWebWithPlaywright.using(this.browser, this.options),
+ *     )
+ *   }
+ * }
  *
- * @example <caption>Using a generic cast</caption>
+ * beforeEach(async () => {
+ *   const browser = await chromium.launch({ headless: true })
+ *   engage(new UIActors(browser));
+ * });
+ * ```
  *
- *  import { engage, Cast } from '@serenity-js/core';
- *  import { BrowseTheWeb } from '@serenity-js/protractor';
- *  import { protractor } from 'protractor';
+ * ## Using a generic cast
  *
- *  beforeEach(() => engage(BrowseTheWeb.using(protractor.browser)));
+ * ```ts
+ * import { beforeEach } from 'mocha'
+ * import { engage, Cast } from '@serenity-js/core';
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { Browser, chromium } from 'playwright'
  *
- * @example <caption>Preparing actors differently based on their name</caption>
+ * beforeEach(async () => {
+ *   const browser = await chromium.launch({ headless: true })
+ *   engage(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
+ * });
+ * ```
  *
- *  import { actorCalled, engage, Cast } from '@serenity-js/core';
- *  import { BrowseTheWeb } from '@serenity-js/protractor';
- *  import { CallAnApi } from '@serenity-js/rest';
- *  import { protractor } from 'protractor';
+ * ## Preparing actors differently based on their name
  *
- *  class Actors implements Cast {
- *      prepare(actor: Actor) {
- *          switch (actor.name) {
- *              case 'James':
- *                  return actor.whoCan(BrowseTheWeb.using(protractor.browser));
- *              default:
- *                  return actor.whoCan(CallAnApi.at(protractor.browser.baseUrl));
- *          }
- *      }
- *  }
+ * ```ts
+ * import { beforeEach } from 'mocha'
+ * import { actorCalled, engage, Cast } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { CallAnApi } from '@serenity-js/rest'
+ * import { Browser, chromium } from 'playwright'
  *
- *  beforeEach(() => engage(new Actors()));
+ * class Actors implements Cast {
+ *   constructor(
+ *     private readonly browser: Browser,
+ *     private readonly options: PlaywrightOptions,
+ *   ) {
+ *   }
  *
- *  actorCalled('James') // returns an actor using a browser
- *  actorCalled('Alice') // returns an actor interacting with an API
+ *   prepare(actor: Actor) {
+ *     switch (actor.name) {
+ *       case 'James':
+ *         return actor.whoCan(BrowseTheWebWithPlaywright.using(this.browser, this.options));
+ *       default:
+ *         return actor.whoCan(CallAnApi.at(this.options.baseURL));
+ *     }
+ *   }
+ * }
  *
- * @see {@link Stage}
- * @interface
+ * beforeEach(async () => {
+ *   const browser = await chromium.launch({ headless: true })
+ *   engage(new Actors(browser, { baseURL: 'https://example.org' }));
+ * });
+ *
+ * actorCalled('James') // returns an actor using a browser
+ * actorCalled('Alice') // returns an actor interacting with an API
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link Stage}
  *
  * @group Stage
  */
 export abstract class Cast {
+
     /**
-     * @desc
-     *  Creates a generic `Cast` implementation, where every actor
-     *  is given all the abilities specified when the method is called.
+     * Creates a generic `Cast` implementation, where every actor
+     * is given all the abilities specified when the method is called.
      *
-     * @param {Ability[]} abilities
-     * @returns {Cast}
+     * @param abilities
      */
     static whereEveryoneCan(...abilities: Ability[]): Cast {
         return new GenericCast(abilities);
     }
 
     /**
-     * @desc
-     *  Configures an {@link Actor} instantiated when {@link Stage#actor} is invoked.
+     * Configures an {@link Actor} instantiated when [[Stage#actor]] is invoked.
      *
-     * @param {Actor} actor
-     * @return {Actor}
+     * @param actor
      *
-     * @see {@link engage}
+     * #### Learn more
+     * - [[engage]]
      */
     abstract prepare(actor: Actor): Actor;
 }

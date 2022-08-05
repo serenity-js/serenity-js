@@ -2,86 +2,118 @@ import { Notepad } from './Notepad';
 import { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * @desc
- *  Alias for {@link Notepad.notes}.
+ * Alias for [[Notepad.notes]].
  *
- *  **Pro tip:** `notes<T>().get(subject)` returns a {@link NotepadAdapter} to make accessing the APIs
- *  of the underlying type easier. Check {@link NotepadAdapter} for more examples.
+ * **Pro tip:** `notes<T>().get(subject)` returns a {@link NotepadAdapter} to make accessing the APIs
+ * of the underlying type easier. Check {@link NotepadAdapter} for more examples.
  *
- * @example <caption>Working with untyped notes</caption>
- *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
+ * ## Working with untyped notes
  *
- *  actorCalled('Leonard')
- *      .whoCan(TakeNotes.usingAnEmptyNotepad())
- *      .attemptsTo(
- *          notes().set('my_note', 'some value'),
- *          Log.the(notes().get('my_note')),                        // emits "some value"
- *          Log.the(notes().get('my_note').toLocaleUpperCase()),    // emits "SOME VALUE"
- *      );
+ * You can use `notes<T>()` without parameterising it with an [interface](https://www.typescriptlang.org/docs/handbook/interfaces.html)
+ * describing the structure of your notes.
  *
- * @example <caption>Working with typed notes</caption>
- *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
+ * **Note:** this approach _is not type-safe_ and the type-safe alternative presented below should be used in most cases.
  *
- *  interface MyNotes {
- *      username: string;
- *      token?: string;     // optional value
- *  }
+ * ```ts
+ * import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
  *
- *  actorCalled('Leonard')
- *      .whoCan(TakeNotes.using(Notepad.with<MyNotes>({
- *          username: 'Leonard.McLaud@example.org',
- *      }))
- *      .attemptsTo(
- *          notes<MyNotes>().set('token', 'my-auth-token')
- *          Log.the(notes<MyNotes>().get('token').length),  // emits 13
+ * await actorCalled('Leonard')
+ *   .whoCan(TakeNotes.usingAnEmptyNotepad())
+ *   .attemptsTo(
+ *     notes().set('my_note', 'some value'),
  *
- *          Log.the(notes<MyNotes>().get('username').toLocaleLowerCase()),  // emits 'leonard.mclaud@example.org'
- *      );
+ *     Log.the(notes().get('my_note')),
+ *     // emits "some value"
  *
- * @example <caption>Checking if a note is present</caption>
- *  import { actorCalled, Check, notes, TakeNotes } from '@serenity-js/core';
- *  import { isPresent } from '@serenity-js/assertions';
+ *     Log.the(notes().get('my_note').toLocaleUpperCase()),
+ *     // emits "SOME VALUE"
+ *   );
+ * ```
  *
- *  actorCalled('Leonard')
- *      .whoCan(TakeNotes.using(Notepad.empty()))
- *      .attemptsTo(
- *          Check.whether(notes().get('token'), isPresent())
- *              .andIfSo(
- *                  Authenticate.using(notes().get('token')),
- *              )
- *              .otherwise(
- *                  SignIn.using('username', 'password'),
- *              )
- *      );
+ * ## Working with typed notes
  *
- * @example <caption>Working with complex data structures</caption>
- *  import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
+ * The **recommended** way to use `notes<T>()` is to parameterise it
+ * with an [interface](https://www.typescriptlang.org/docs/handbook/interfaces.html)
+ * describing the structure of your notes.
  *
- *  interface MyNotes {
- *      recordedItems: string[];
- *  }
+ * **Note:** this approach _is type-safe_.
  *
- *  actorCalled('Leonard')
- *      .whoCan(TakeNotes.using(Notepad.with<MyNotes>({
- *          recordedItems: [],
- *      }))
- *      .attemptsTo(
- *          // push 3 items
- *          notes().get('recordedItems').push('apples'),
- *          notes().get('recordedItems').push('cucumbers'),
- *          notes().get('recordedItems').push('bananas'),
+ * ```ts
+ * import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core';
  *
- *          // use QuestionAdapter to access Array.sort()
- *          notes().get('recordedItems').sort(),
+ * interface MyNotes {
+ *   username: string;
+ *   token?: string;     // optional value
+ * }
  *
- *          Log.the(notes().get('recordedItems')),
- *            // emits 'apples', 'bananas', 'cucumbers'
- *      );
+ * await actorCalled('Leonard')
+ *   .whoCan(TakeNotes.using(Notepad.with<MyNotes>({
+ *     username: 'Leonard.McLaud@example.org',
+ *   }))
+ *   .attemptsTo(
+ *     notes<MyNotes>().set('token', 'my-auth-token')
  *
- * @returns {NotepadAdapter<N>}
+ *     Log.the(notes<MyNotes>().get('token').length),
+ *     // emits 13
  *
- * @see {@link NotepadAdapter}
- * @see {@link Notepad.notes}
+ *     Log.the(notes<MyNotes>().get('username').toLocaleLowerCase()),
+ *     // emits 'leonard.mclaud@example.org'
+ *   )
+ * ```
+ *
+ * ## Checking if a note is present
+ *
+ * ```ts
+ * import { actorCalled, Check, notes, TakeNotes } from '@serenity-js/core'
+ * import { isPresent } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Leonard')
+ *   .whoCan(TakeNotes.using(Notepad.empty()))
+ *   .attemptsTo(
+ *     Check.whether(notes().get('token'), isPresent())
+ *      .andIfSo(
+ *        Authenticate.using(notes().get('token')),
+ *      )
+ *      .otherwise(
+ *        SignIn.using('username', 'password'),
+ *      )
+ *    )
+ * ```
+ *
+ * ## Working with complex data structures
+ *
+ * ```ts
+ * import { actorCalled, Log, notes, TakeNotes } from '@serenity-js/core'
+ *
+ * interface MyNotes {
+ *   recordedItems: string[];
+ * }
+ *
+ * await actorCalled('Leonard')
+ *   .whoCan(TakeNotes.using(Notepad.with<MyNotes>({
+ *     recordedItems: [],
+ *   }))
+ *   .attemptsTo(
+ *      // push 3 items
+ *      notes().get('recordedItems').push('apples'),
+ *      notes().get('recordedItems').push('cucumbers'),
+ *      notes().get('recordedItems').push('bananas'),
+ *
+ *      // use QuestionAdapter to access Array.sort()
+ *      notes().get('recordedItems').sort(),
+ *
+ *      Log.the(notes().get('recordedItems')),
+ *      // emits 'apples', 'bananas', 'cucumbers'
+ *   )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link NotepadAdapter}
+ * - [[Notepad.notes]]
+ * - {@link QuestionAdapter}
+ *
+ * @group Notes
  */
 export function notes<N extends Record<any, any>>(): NotepadAdapter<N> {
     return Notepad.notes<N>();
