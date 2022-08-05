@@ -40,7 +40,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the scenario passes', () => {
 
-                it('prints the passing steps and the scenario summary', () => emitter.emit(`
+        it('prints the passing steps and the scenario summary', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:50:41.568Z","details":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:50:41.569Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-13T23:50:41.569Z","value":{"category":"Reporting","location":{"column":3,"line":9,"path":"features/reporting.feature"},"name":"The one that passes"}}}
@@ -78,7 +78,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the scenario fails with an error', () => {
 
-                it('prints the error message next to the step that has failed, and a full stack trace at the bottom', () => emitter.emit(`
+        it('prints the error message next to the step that has failed, and a full stack trace at the bottom', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:59:38.642Z","details":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-13T23:59:38.642Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-13T23:59:38.642Z","value":{"category":"Reporting","location":{"column":3,"line":14,"path":"features/reporting.feature"},"name":"The one that times out"}}}
@@ -118,7 +118,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
-                it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
+        it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T00:09:59.914Z","details":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T00:09:59.914Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T00:09:59.915Z","value":{"category":"Reporting","location":{"column":3,"line":18,"path":"features/reporting.feature"},"name":"The one with skipped steps"}}}
@@ -159,7 +159,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
-                it('prints the details of the failed assertion', () => emitter.emit(`
+        it('prints the details of the failed assertion', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T01:27:21.134Z","details":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T01:27:21.134Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T01:27:21.134Z","value":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
@@ -216,7 +216,7 @@ describe('ConsoleReporter', () => {
             `);
         }));
 
-                it('pinpoints exactly where the failure happened', () => emitter.emit(`
+        it('pinpoints exactly where the failure happened', () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T23:27:24.800Z","details":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-14T23:27:24.800Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"Reporting","type":"feature"},"timestamp":"2019-11-14T23:27:24.801Z","value":{"category":"Reporting","location":{"column":3,"line":29,"path":"features/reporting.feature"},"name":"The one with error propagation"}}}
@@ -285,7 +285,7 @@ describe('ConsoleReporter', () => {
 
     describe('when the developer logs arbitrary data', () => {
 
-                it(`prints it together with an appropriate name for each entry (if different from the content itself)`, () => emitter.emit(`
+        it(`prints it together with an appropriate name for each entry (if different from the content itself)`, () => emitter.emit(`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-15T01:05:12.366Z","details":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}
             {"type":"TestRunnerDetected","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2019-11-15T01:05:12.366Z","name":"Cucumber"}}
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"api","type":"capability"},"timestamp":"2019-11-15T01:05:12.366Z","value":{"category":"Calculations API","location":{"column":3,"line":17,"path":"features/api/calculations.feature"},"name":"Calculates result of an expression"}}}

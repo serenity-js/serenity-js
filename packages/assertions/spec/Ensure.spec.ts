@@ -10,31 +10,31 @@ import { isIdenticalTo, p, q } from './fixtures';
 
 describe('Ensure', () => {
 
-        it('allows the actor to make an assertion', () => {
+    it('allows the actor to make an assertion', () => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, isIdenticalTo(4)),
         )).to.be.fulfilled;
     });
 
-        it('fails the actor flow when the assertion is not met', () => {
+    it('fails the actor flow when the assertion is not met', () => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, isIdenticalTo(7)),
         )).to.be.rejectedWith(AssertionError, 'Expected 4 to have value identical to 7');
     });
 
-        it('provides a description of the assertion being made', () => {
+    it('provides a description of the assertion being made', () => {
         expect(Ensure.that(4, isIdenticalTo(7)).toString()).to.equal(`#actor ensures that 4 does have value identical to 7`);
     });
 
-        it('provides a description of the assertion being made, while correctly cleaning the output from new line characters', () => {
-        expect(Ensure.that({ person: { name: 'Jan' }}, equals({
+    it('provides a description of the assertion being made, while correctly cleaning the output from new line characters', () => {
+        expect(Ensure.that({ person: { name: 'Jan' } }, equals({
             person: {
                 name: 'Jan',
             },
         })).toString()).to.equal(`#actor ensures that {"person":{"name":"Jan"}} does equal {"person":{"name":"Jan"}}`);
     });
 
-        given<Answerable<number>>(
+    given<Answerable<number>>(
         42,
         p(42),
         q(42),
@@ -46,14 +46,14 @@ describe('Ensure', () => {
         )).to.be.fulfilled;
     });
 
-        it(`complains when given an Expectation that doesn't conform to the interface`, () => {
+    it(`complains when given an Expectation that doesn't conform to the interface`, () => {
         class BrokenExpectation<Actual> extends Expectation<Actual> {
             constructor() {
                 super(
                     `broken`,
                     (_actor: AnswersQuestions, _actual: Answerable<Actual>) => {
                         return undefined as any;    // eslint-disable-line unicorn/no-useless-undefined
-                    }
+                    },
                 );
             }
         }
@@ -74,7 +74,7 @@ describe('Ensure', () => {
             });
         });
 
-        given([{
+        given([ {
             description: 'tiny type',
             expected: new Name('Alice'),
             actual: new Name('Bob'),
@@ -91,8 +91,8 @@ describe('Ensure', () => {
             artifact: { expected: `'name'`, actual: `'not-name'` },
         }, {
             description: 'list',
-            expected: [{ name: 'Bob' }, { name: 'Alice' }],
-            actual: [{ name: 'Alice' }],
+            expected: [ { name: 'Bob' }, { name: 'Alice' } ],
+            actual: [ { name: 'Alice' } ],
             artifact: { expected: '[\n  {\n    "name": "Bob"\n},\n  {\n    "name": "Alice"\n}\n]', actual: `[\n  {\n    "name": "Alice"\n}\n]` },
         }, {
             description: 'promise',
@@ -104,7 +104,7 @@ describe('Ensure', () => {
             expected: Question.about('some value', actor => true),
             actual: Question.about('some value', actor => false),
             artifact: { expected: 'true', actual: 'false' },
-        }]).
+        } ]).
         it('emits an artifact describing the actual and expected values', ({ actual, expected, artifact }) => {
 
             return expect(actorCalled('Enrique').attemptsTo(

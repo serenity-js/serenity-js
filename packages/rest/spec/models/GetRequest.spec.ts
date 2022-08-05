@@ -9,7 +9,7 @@ describe('GetRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
-        it('represents an Axios request', () =>
+    it('represents an Axios request', () =>
         expect(actor.answer(GetRequest.to('/products/2')))
             .to.eventually.deep.equal({
                 method: 'GET',
@@ -51,7 +51,7 @@ describe('GetRequest', () => {
         })
     );
 
-        it('provides a sensible description of the interaction being performed', () => {
+    it('provides a sensible description of the interaction being performed', () => {
         expect(GetRequest.to('/products/2').toString())
             .to.equal(`a GET request to '/products/2'`);
     });
