@@ -6,15 +6,13 @@ import { and, contain, containAtLeastOneItemThat, endsWith, Ensure, equals, incl
 
 describe('not', () => {
 
-    /** @test {not} */
-    it('allows for the actor flow to continue when the "actual" meets the expectation', () => {
+        it('allows for the actor flow to continue when the "actual" meets the expectation', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(startsWith('¡Hola'))),
         )).to.be.fulfilled;
     });
 
-    /** @test {not} */
-    it('breaks the actor flow when "actual" does not meet the expectation', () => {
+        it('breaks the actor flow when "actual" does not meet the expectation', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(startsWith('Hello'))),
         )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to not start with 'Hello'`)
@@ -24,8 +22,7 @@ describe('not', () => {
             });
     });
 
-    /** @test {not} */
-    it('contributes to a human-readable description', () => {
+        it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello', not(startsWith('o'))).toString())
             .to.equal(`#actor ensures that 'Hello' does not start with 'o'`);
     });
@@ -43,8 +40,7 @@ describe('not', () => {
     });
 
     describe('double negative', () => {
-        /** @test {not} */
-        it('contributes to a human-readable description', () => {
+                it('contributes to a human-readable description', () => {
             expect(Ensure.that('Hello', not(not(startsWith('o')))).toString())
                 .to.equal(`#actor ensures that 'Hello' does start with 'o'`);
         });
@@ -54,9 +50,7 @@ describe('not', () => {
 
         describe('and,', () => {
 
-            /** @test {not} */
-            /** @test {and} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))),
                 )).to.be.rejectedWith(AssertionError, `Expected 3 to not have value greater than 2 and have value that's less than 4`)
@@ -66,9 +60,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {and} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))).toString())
                     .to.equal(`#actor ensures that 3 does not have value greater than 2 and have value that's less than 4`);
             });
@@ -76,9 +68,7 @@ describe('not', () => {
 
         describe('contains,', () => {
 
-            /** @test {not} */
-            /** @test {contains} */
-            it('produces a sensible error message', () =>
+                                    it('produces a sensible error message', () =>
                 expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(contain(2))),
                 )).
@@ -89,9 +79,7 @@ describe('not', () => {
                 })
             );
 
-            /** @test {not} */
-            /** @test {contains} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(contain('o'))).toString())
                     .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain 'o'`);
             });
@@ -99,9 +87,7 @@ describe('not', () => {
 
         describe('containAtLeastOneItemThat,', () => {
 
-            /** @test {not} */
-            /** @test {containAtLeastOneItemThat} */
-            it('produces a sensible error message', () =>
+                                    it('produces a sensible error message', () =>
                 expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that([ 1, 2, 3 ], not(containAtLeastOneItemThat(equals(2)))),
                 )).
@@ -112,9 +98,7 @@ describe('not', () => {
                 })
             );
 
-            /** @test {not} */
-            /** @test {containAtLeastOneItemThat} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(containAtLeastOneItemThat(equals('o')))).toString())
                     .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain at least one item that does equal 'o'`);
             });
@@ -122,9 +106,7 @@ describe('not', () => {
 
         describe('endsWith,', () => {
 
-            /** @test {not} */
-            /** @test {endsWith} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(endsWith('o'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not end with 'o'`)
@@ -134,9 +116,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {endsWith} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(endsWith('o'))).toString())
                     .to.equal(`#actor ensures that 'Hello' does not end with 'o'`);
             });
@@ -144,9 +124,7 @@ describe('not', () => {
 
         describe('equals,', () => {
 
-            /** @test {not} */
-            /** @test {equals} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(true, not(equals(true))),
                 )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`)
@@ -156,9 +134,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {equals} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(true, not(equals(true))).toString())
                     .to.equal(`#actor ensures that true does not equal true`);
             });
@@ -166,9 +142,7 @@ describe('not', () => {
 
         describe('isTrue,', () => {
 
-            /** @test {not} */
-            /** @test {isTrue} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(true, not(isTrue())),
                 )).to.be.rejectedWith(AssertionError, `Expected true to not equal true`)
@@ -178,9 +152,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {isTrue} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(true, not(isTrue())).toString())
                     .to.equal(`#actor ensures that true does not equal true`);
             });
@@ -188,9 +160,7 @@ describe('not', () => {
 
         describe('isFalse,', () => {
 
-            /** @test {not} */
-            /** @test {isFalse} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(false, not(isFalse())),
                 )).to.be.rejectedWith(AssertionError, `Expected false to not equal false`)
@@ -200,9 +170,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {isFalse} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(false, not(isFalse())).toString())
                     .to.equal(`#actor ensures that false does not equal false`);
             });
@@ -210,9 +178,7 @@ describe('not', () => {
 
         describe('includes,', () => {
 
-            /** @test {not} */
-            /** @test {includes} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(includes('Hello'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not include 'Hello'`)
@@ -222,9 +188,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {includes} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(includes('Hello'))).toString())
                     .to.equal(`#actor ensures that 'Hello' does not include 'Hello'`);
             });
@@ -232,9 +196,7 @@ describe('not', () => {
 
         describe('isGreaterThan,', () => {
 
-            /** @test {not} */
-            /** @test {isGreaterThan} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(2, not(isGreaterThan(1))),
                 )).to.be.rejectedWith(AssertionError, `Expected 2 to not have value greater than 1`)
@@ -244,9 +206,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {isGreaterThan} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(2, not(isGreaterThan(1))).toString())
                     .to.equal(`#actor ensures that 2 does not have value greater than 1`);
             });
@@ -254,9 +214,7 @@ describe('not', () => {
 
         describe('isLessThan,', () => {
 
-            /** @test {not} */
-            /** @test {isLessThan} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(1, not(isLessThan(2))),
                 )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value that's less than 2`)
@@ -266,9 +224,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {isLessThan} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(1, not(isLessThan(2))).toString())
                     .to.equal(`#actor ensures that 1 does not have value that's less than 2`);
             });
@@ -276,9 +232,7 @@ describe('not', () => {
 
         describe('or,', () => {
 
-            /** @test {not} */
-            /** @test {or} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that(1, not(or(isGreaterThan(0), isLessThan(2)))),
                 )).to.be.rejectedWith(AssertionError, `Expected 1 to not have value greater than 0 or have value that's less than 2`)
@@ -288,9 +242,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {or} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that(1, not(isLessThan(2))).toString())
                     .to.equal(`#actor ensures that 1 does not have value that's less than 2`);
             });
@@ -298,9 +250,7 @@ describe('not', () => {
 
         describe('startsWith,', () => {
 
-            /** @test {not} */
-            /** @test {startsWith} */
-            it('produces a sensible error message', () => {
+                                    it('produces a sensible error message', () => {
                 return expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(startsWith('H'))),
                 )).to.be.rejectedWith(AssertionError, `Expected 'Hello' to not start with 'H'`)
@@ -310,9 +260,7 @@ describe('not', () => {
                     });
             });
 
-            /** @test {not} */
-            /** @test {startsWith} */
-            it('contributes to a human-readable description', () => {
+                                    it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(startsWith('H'))).toString())
                     .to.equal(`#actor ensures that 'Hello' does not start with 'H'`);
             });

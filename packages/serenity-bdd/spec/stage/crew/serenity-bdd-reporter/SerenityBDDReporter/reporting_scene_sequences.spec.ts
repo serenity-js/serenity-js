@@ -48,9 +48,6 @@ describe('SerenityBDDReporter', () => {
         ]
     ;
 
-    /**
-     * @test {SerenityBDDReporter}
-     */
     it('captures information about a sequence of scenes (2 scenes in a sequence)', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneSequenceDetected(sceneIds[0], sequence),
@@ -112,9 +109,6 @@ describe('SerenityBDDReporter', () => {
             .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);
     });
 
-    /**
-     * @test {SerenityBDDReporter}
-     */
     it('determines the result of the sequence based on the worst result of the contributing scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneSequenceDetected(sceneIds[0], sequence),
@@ -164,9 +158,6 @@ describe('SerenityBDDReporter', () => {
             .to.equal(`${name.value} #2 - Developer: wakaleo, Twitter_Handle: @wakaleo`);
     });
 
-    /**
-     * @test {SerenityBDDReporter}
-     */
     it('ensures that context and tags are not duplicated despite having multiple scenarios in a sequence', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneSequenceDetected(sceneIds[0], sequence),

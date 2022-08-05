@@ -5,7 +5,6 @@ import { given } from 'mocha-testdata';
 
 import { Ensure, isPresent } from '../../src';
 
-/** @test {isPresent} */
 describe('isPresent', () => {
 
     given([

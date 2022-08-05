@@ -4,18 +4,15 @@ import { describe, it } from 'mocha';
 
 import { containAtLeastOneItemThat, Ensure, equals, isGreaterThan } from '../../src';
 
-/** @test {containAtLeastOneItemThat} */
 describe('containAtLeastOneItemThat', () => {
 
-    /** @test {containAtLeastOneItemThat} */
-    it('allows for the actor flow to continue when the "actual" includes at least one item that meets the expectation', () => {
+        it('allows for the actor flow to continue when the "actual" includes at least one item that meets the expectation', () => {
         return actorCalled('Astrid').attemptsTo(
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(isGreaterThan(1))),
         );
     });
 
-    /** @test {containAtLeastOneItemThat} */
-    it('breaks the actor flow when "actual" does not include at least one item that meets the expectation', () => {
+        it('breaks the actor flow when "actual" does not include at least one item that meets the expectation', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(equals(7))),
         )).to.be.rejectedWith(AssertionError, `Expected [ 0, 1, 2 ] to contain at least one item that does equal 7`)
@@ -25,8 +22,7 @@ describe('containAtLeastOneItemThat', () => {
             });
     });
 
-    /** @test {containAtLeastOneItemThat} */
-    it('breaks the actor flow when "actual" is an empty list', () => {
+        it('breaks the actor flow when "actual" is an empty list', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([], containAtLeastOneItemThat(equals(42))),
         )).to.be.rejectedWith(AssertionError, `Expected [ ] to contain at least one item that does equal 42`)
@@ -36,8 +32,7 @@ describe('containAtLeastOneItemThat', () => {
             });
     });
 
-    /** @test {atLeastOne} */
-    it('contributes to a human-readable description', () => {
+        it('contributes to a human-readable description', () => {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         const numbers = () =>
             Question.about('list of numbers', actor => [ 0, 1, 2 ]);

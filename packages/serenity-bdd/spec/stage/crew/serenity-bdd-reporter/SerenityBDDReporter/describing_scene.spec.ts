@@ -26,14 +26,6 @@ describe('SerenityBDDReporter', () => {
         reporter        = env.reporter;
     });
 
-    /**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {SceneBackgroundDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
-     */
     it('captures information about scenario background', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(sceneId, defaultCardScenario),
@@ -48,14 +40,6 @@ describe('SerenityBDDReporter', () => {
         expect(report.backgroundDescription).to.equal('Background description');
     });
 
-    /**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {SceneDescriptionDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
-     */
     it('captures the description of the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(sceneId, defaultCardScenario),
@@ -69,14 +53,6 @@ describe('SerenityBDDReporter', () => {
         expect(report.description).to.equal('Scenario description');
     });
 
-    /**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {FeatureNarrativeDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
-     */
     it('captures the narrative behind the scenario', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(sceneId, defaultCardScenario),
