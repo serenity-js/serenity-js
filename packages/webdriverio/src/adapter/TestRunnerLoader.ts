@@ -4,9 +4,6 @@ import { WebdriverIO } from '@wdio/types/build/Options';
 
 import { WebdriverIOConfig } from './WebdriverIOConfig';
 
-/**
- * @package
- */
 export class TestRunnerLoader {
     private readonly fileSystem: FileSystem;
     private readonly finder: FileFinder;
@@ -38,7 +35,7 @@ export class TestRunnerLoader {
     }
 
     private cucumberAdapter(cucumberOptions?: WebdriverIO.CucumberOpts): TestRunnerAdapter {
-        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/lib/cli');
+        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/lib/adapter');
 
         delete cucumberOptions?.timeout;   // todo: support setting a timeout via config?
         delete cucumberOptions?.parallel;  // WebdriverIO handles that already

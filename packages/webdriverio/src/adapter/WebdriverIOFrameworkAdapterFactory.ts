@@ -8,7 +8,7 @@ import { WebdriverIOConfig } from './WebdriverIOConfig';
 import { WebdriverIOFrameworkAdapter } from './WebdriverIOFrameworkAdapter';
 
 /**
- * @package
+ * @group Test Runner Adapter
  */
 export class WebdriverIOFrameworkAdapterFactory {
     constructor(

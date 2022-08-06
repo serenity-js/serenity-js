@@ -11,9 +11,6 @@ import { WebdriverIOConfig } from './WebdriverIOConfig';
 import { WebdriverIONotifier } from './WebdriverIONotifier';
 import deepmerge = require('deepmerge');
 
-/**
- * @package
- */
 export class WebdriverIOFrameworkAdapter {
 
     private adapter: TestRunnerAdapter;

@@ -1,6 +1,11 @@
 import { RootLocator } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
+/**
+ * WebdriverIO-specific implementation of {@link RootLocator}.
+ *
+ * @group Models
+ */
 export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
     constructor(private readonly browser: wdio.Browser<'async'>) {
         super();

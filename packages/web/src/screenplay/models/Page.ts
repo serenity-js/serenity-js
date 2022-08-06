@@ -265,11 +265,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     ): Promise<Result>;
 
     /**
-     * @desc
-     *  Returns the last result of calling {@link BrowseTheWeb#executeAsyncScript}
-     *  or {@link BrowseTheWeb#executeScript}
-     *
-     * @returns {any}
+     * Returns the last result of calling [[BrowseTheWeb#executeAsyncScript]]
+     * or [[BrowseTheWeb.executeScript]]
      */
     abstract lastScriptExecutionResult<R = any>(): R;
 

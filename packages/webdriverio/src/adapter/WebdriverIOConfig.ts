@@ -2,121 +2,126 @@ import { SerenityConfig } from '@serenity-js/core';
 import type { Options } from '@wdio/types';
 
 /**
- * @desc
- *  [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)
- *  with Serenity/JS-specific additions.
+ * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)
+ * with Serenity/JS-specific {@link SerenityConfig|additions}.
  *
- * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}
- * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}
- * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}
+ * ## Configuring WebdriverIO with Serenity/JS and Cucumber
  *
- * @see https://webdriver.io/docs/configurationfile/
- * @see {@link @wdio/types~Options.TestRunner}
+ * ```ts
+ * // wdio.conf.ts
+ * import { ConsoleReporter } from '@serenity-js/console-reporter'
+ * import { ArtifactArchiver } from '@serenity-js/core'
+ * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
- * @public
+ * export const config: WebdriverIOConfig = {
  *
- * @extends {@wdio/types~Options.TestRunner}
+ *   framework: '@serenity-js/webdriverio',
  *
- * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>
+ *   serenity: {
+ *     runner: 'cucumber',
+ *     crew: [
+ *       ConsoleReporter.forDarkTerminals(),
+ *       new SerenityBDDReporter(),
+ *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *     ]
+ *   },
  *
- *  import { ConsoleReporter } from '@serenity-js/console-reporter';
- *  import { ArtifactArchiver } from '@serenity-js/core';
- *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
- *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+ *   cucumberOpts: {
+ *     // ...
+ *   },
  *
- *  export const config: WebdriverIOConfig = {
+ *   specs: [
+ *     './features/*.feature',
+ *   ],
+ * }
+ * ```
  *
- *    framework: '@serenity-js/webdriverio',
+ * ## Configuring WebdriverIO with Serenity/JS and Mocha
  *
- *    serenity: {
- *        runner: 'cucumber',
- *        crew: [
- *            ConsoleReporter.forDarkTerminals(),
- *            new SerenityBDDReporter(),
- *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *        ]
- *    },
+ * ```ts
+ * // wdio.conf.ts
+ * import { ConsoleReporter } from '@serenity-js/console-reporter'
+ * import { ArtifactArchiver } from '@serenity-js/core'
+ * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
- *    cucumberOpts: {
- *        // ...
- *    },
+ * export const config: WebdriverIOConfig = {
  *
- *    specs: [
- *        './features/*.feature',
- *    ],
- * };
+ *   framework: '@serenity-js/webdriverio',
  *
- * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>
+ *   serenity: {
+ *     runner: 'mocha',
+ *     crew: [
+ *       ConsoleReporter.forDarkTerminals(),
+ *       new SerenityBDDReporter(),
+ *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *     ]
+ *   },
  *
- *  import { ConsoleReporter } from '@serenity-js/console-reporter';
- *  import { ArtifactArchiver } from '@serenity-js/core';
- *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
- *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+ *   mochaOpts: {
+ *     // ...
+ *   },
  *
- *  export const config: WebdriverIOConfig = {
+ *   specs: [
+ *     './spec/*.spec.*',
+ *   ],
+ * }
+ * ```
  *
- *    framework: '@serenity-js/webdriverio',
+ * ## Configuring WebdriverIO with Serenity/JS and Jasmine
  *
- *    serenity: {
- *        runner: 'mocha',
- *        crew: [
- *            ConsoleReporter.forDarkTerminals(),
- *            new SerenityBDDReporter(),
- *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *        ]
- *    },
+ * ```ts
+ * // wdio.conf.ts
+ * import { ConsoleReporter } from '@serenity-js/console-reporter'
+ * import { ArtifactArchiver } from '@serenity-js/core'
+ * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
- *    mochaOpts: {
- *        // ...
- *    },
+ * export const config: WebdriverIOConfig = {
  *
- *    specs: [
- *        './spec/*.spec.*',
- *    ],
- * };
+ *   framework: '@serenity-js/webdriverio',
  *
- * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>
+ *   serenity: {
+ *     runner: 'jasmine',
+ *     crew: [
+ *       ConsoleReporter.forDarkTerminals(),
+ *       new SerenityBDDReporter(),
+ *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *     ]
+ *   },
  *
- *  import { ConsoleReporter } from '@serenity-js/console-reporter';
- *  import { ArtifactArchiver } from '@serenity-js/core';
- *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
- *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+ *   jasmineOpts: {
+ *     // ...
+ *   },
  *
- *  export const config: WebdriverIOConfig = {
+ *   specs: [
+ *     './spec/*.spec.*',
+ *   ],
+ * }
+ * ```
  *
- *    framework: '@serenity-js/webdriverio',
+ * ## Learn more
  *
- *    serenity: {
- *        runner: 'jasmine',
- *        crew: [
- *            ConsoleReporter.forDarkTerminals(),
- *            new SerenityBDDReporter(),
- *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *        ]
- *    },
+ * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
+ * - {@link CucumberConfig}
+ * - {@link JasmineConfig}
+ * - {@link MochaConfig}
  *
- *    jasmineOpts: {
- *        // ...
- *    },
- *
- *    specs: [
- *        './spec/*.spec.*',
- *    ],
- * };
+ * @group Configuration
  */
 export interface WebdriverIOConfig extends Options.Testrunner {
 
     /**
-     * @desc
-     *  Serenity/JS configuration with an additional `runner` entry
-     *  allowing to specify the test runner, such as `cucumber`, `mocha`, or `jasmine`.
+     * Serenity/JS configuration with an additional `runner` entry
+     * allowing to specify the test runner, such as `cucumber`, `mocha`, or `jasmine`.
      *
-     * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}
-     * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}
-     * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}
+     * #### Learn more
      *
-     * @type {@serenity-js/core~SerenityConfig}
-     * @public
+     * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
+     * - {@link CucumberConfig}
+     * - {@link JasmineConfig}
+     * - {@link MochaConfig}
      */
     serenity?: SerenityConfig & { runner?: string };
 }
