@@ -5,11 +5,8 @@ import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
 import { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**
- * @desc
- *  Loads a {@link @serenity-js/core/lib/io~TestRunnerAdapter}, needed to invoke
- *  the chosen test runner programmatically.
- *
- * @public
+ * Loads a {@link TestRunnerAdapter} needed to invoke
+ * the chosen test runner programmatically.
  */
 export class TestRunnerLoader {
 

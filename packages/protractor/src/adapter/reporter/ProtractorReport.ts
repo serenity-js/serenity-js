@@ -1,13 +1,11 @@
 import { SpecResult } from 'protractor/built/plugins';
 
 /**
- * @desc
- *  A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}
- *  is done with executing the test scenarios.
+ * A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}
+ * is done with executing the test scenarios.
  *
- * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
- *
- * @private
+ * ## Learn more
+ * - [Protractor Custom Frameworks Readme](https://github.com/angular/protractor/blob/master/lib/frameworks/README.md)
  */
 export interface ProtractorReport {
     /**

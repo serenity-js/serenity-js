@@ -6,8 +6,8 @@ import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightBrowsingSession } from '../models';
 
 /**
- * An {@link Ability} that enables the {@link Actor}
- * to interact with web front-ends using [Playwright](https://playwright.dev/).
+ * This implementation of the {@link Ability|ability} to {@link BrowseTheWeb}
+ * enables the {@link Actor} to interact with web front-ends using [Playwright](https://playwright.dev/).
  *
  * ## Using Playwright to `BrowseTheWeb`
  *

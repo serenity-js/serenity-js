@@ -7,7 +7,9 @@ import { Locator, WebElement } from 'selenium-webdriver';
 import { promised } from '../promised';
 
 /**
- * @extends {@serenity-js/web/lib/screenplay/models~PageElement}
+ * Protractor-specific implementation of {@link PageElement}.
+ *
+ * @group Models
  */
 export class ProtractorPageElement extends PageElement<ElementFinder> {
 
@@ -233,17 +235,6 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         return promised(element.isSelected());
     }
 
-    /**
-     * @desc
-     *  Checks if the PageElement:
-     *  - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
-     *  - is within the browser viewport
-     *  - doesn't have its centre covered by other elements
-     *
-     * @returns {Promise<boolean>}
-     *
-     * @see {@link @serenity-js/web/lib/screenplay/models~PageElement}
-     */
     async isVisible(): Promise<boolean> {
         try {
             const element: ElementFinder = await this.nativeElement();

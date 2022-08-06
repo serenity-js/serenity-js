@@ -1,70 +1,83 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
- * @desc
- *  Returns a Protractor configuration parameter specified in `protractor.conf.js`.
- *  Note that Protractor configuration parameters can be overridden via the command line.
+ * Returns a Protractor configuration parameter specified in `protractor.conf.js`
+ * and identified by name. Protractor configuration parameters can be overridden via the command line.
  *
- * @example <caption>protractor.conf.js</caption>
- *  exports.config = {
- *    params: {
- *        login: {
- *            username: 'jane@example.org'
- *            password: process.env.PASSWORD
- *        }
- *    }
- *    // ...
- *  }
+ * **Warning:** this question is Protractor-specific, so using it in your tests
+ * will reduce their portability across test integration tools.
  *
- * @example <caption>Overriding configuration parameter via the command line</caption>
- *  protractor ./protractor.conf.js --params.login.username="bob@example.org"
+ * ```js
+ * // protractor.conf.js
+ * exports.config = {
+ *   params: {
+ *     login: {
+ *       username: 'jane@example.org'
+ *       password: process.env.PASSWORD
+ *     }
+ *   }
+ *   // ...
+ * }
+ * ```
  *
- * @example <caption>Using as Screenplay Adapter</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor';
- *  import { Enter } from '@serenity-js/web';
- *  import { protractor } from 'protractor';
+ * ## Overriding configuration parameter using the command line
  *
- *  actorCalled('Jane')
- *      .whoCan( BrowseTheWebWithProtractor.using(protractor.browser))
- *      .attemptsTo(
- *          Enter.theValue(ProtractorParam.called('login').username).into(Form.exampleInput),
- *      );
+ * ```shell
+ * npx protractor ./protractor.conf.js --params.login.username="bob@example.org"
+ * ```
  *
- * @example <caption>Specifying path to param as string</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor';
- *  import { Enter } from '@serenity-js/web';
- *  import { protractor } from 'protractor';
+ * ## Using as `QuestionAdapter`
  *
- *  actorCalled('Jane')
- *      .whoCan( BrowseTheWebWithProtractor.using(protractor.browser))
- *      .attemptsTo(
- *          Enter.theValue(ProtractorParam.called('login.username')).into(Form.exampleInput),
- *      );
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor'
+ * import { Enter } from '@serenity-js/web'
+ * import { protractor } from 'protractor'
  *
- * @extends {@serenity-js/core/lib/screenplay~Question<Promise<T>>}
- *g
- * @see {@link BrowseTheWebWithProtractor#param}
+ * await actorCalled('Jane')
+ *   .whoCan( BrowseTheWebWithProtractor.using(protractor.browser))
+ *   .attemptsTo(
+ *     Enter.theValue(ProtractorParam.called('login').username).into(Form.exampleInput),
+ *   )
+ * ```
+ *
+ * ## Specifying path to param as string
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor'
+ * import { Enter } from '@serenity-js/web'
+ * import { protractor } from 'protractor
+ *
+ * await actorCalled('Jane')
+ *   .whoCan(BrowseTheWebWithProtractor.using(protractor.browser))
+ *   .attemptsTo(
+ *     Enter.theValue(ProtractorParam.called('login.username')).into(Form.exampleInput),
+ *   );
+ * ```
+ *
+ * ## Learn more
+ * - [[BrowseTheWebWithProtractor.param]]
+ *
+ * @group Questions
  */
 export class ProtractorParam
 {
     /**
-     * @desc
-     *  Name of the parameter to retrieve. This could also be a dot-delimited path,
-     *  i.e. `login.username`
+     * Name of the parameter to retrieve. This could also be a dot-delimited path,
+     * e.g. `login.username`
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
-     * @returns {Question<Promise<R>> & Adapter<R>}
+     * @param name
      */
-    static called<R>(name: Answerable<string>): QuestionAdapter<R> {
-        return Question.about<R>(formatted `the ${ name } param specified in Protractor config`, actor => {
-            return actor.answer(name)
-                .then(name => (actor.abilityTo(BrowseTheWebWithProtractor) as BrowseTheWebWithProtractor).param(name));
+    static called<Return_Type>(name: Answerable<string>): QuestionAdapter<Return_Type> {
+        return Question.about<Return_Type>(d`the ${ name } param specified in Protractor config`, async actor => {
+            const paramName = await actor.answer(name);
+            const browseTheWeb = BrowseTheWebWithProtractor.as(actor) as BrowseTheWebWithProtractor;
+
+            return browseTheWeb.param<Return_Type>(paramName);
         });
     }
 }
