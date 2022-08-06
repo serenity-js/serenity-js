@@ -19,7 +19,8 @@ import { given } from 'mocha-testdata';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
-import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
+import { CucumberCLIAdapter, CucumberConfig } from '../../src/adapter';
+import { SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/adapter/output';
 
 const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
 

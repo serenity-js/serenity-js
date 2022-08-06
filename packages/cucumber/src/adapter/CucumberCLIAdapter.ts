@@ -8,10 +8,12 @@ import { CucumberOptions } from './CucumberOptions';
 import { OutputDescriptor, SerenityFormatterOutput } from './output';
 
 /**
- * @desc
- *  Allows for programmatic execution of Cucumber test scenarios.
+ * Allows for programmatic execution of Cucumber test scenarios.
  *
- * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
+ * ## Learn more
+ * - {@link TestRunnerAdapter}
+ *
+ * @group Integration
  */
 export class CucumberCLIAdapter implements TestRunnerAdapter {
 
@@ -19,13 +21,6 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private readonly options: CucumberOptions;
 
-    /**
-     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config
-     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
-     * @param {SerenityFormatterOutput} output
-     *
-     * @see {@link CucumberConfig}
-     */
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
@@ -36,10 +31,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}
-     *
-     * @returns {Outcome | { Code: number }}
+     * Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}
      */
     successThreshold(): Outcome | { Code: number } {
         return this.options.isStrict()
@@ -48,13 +40,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Loads feature files.
+     * Loads feature files.
      *
-     * @param {string[]} pathsToScenarios
+     * @param pathsToScenarios
      *  Absolute or relative paths to feature files
-     *
-     * @returns {Promise<void>}
      */
     async load(pathsToScenarios: string[]): Promise<void> {
         this.pathsToScenarios = pathsToScenarios.map(maybeAbsolutePathToScenario => {
@@ -69,13 +58,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Returns the number of loaded scenarios
+     * Returns the number of loaded scenarios
      *
-     * @throws {@serenity-js/core/lib/errors~LogicError}
+     * @throws {@link LogicError}
      *  If called before `load`
-     *
-     * @returns {number}
      */
     scenarioCount(): number {
         // todo: we should count the actual executable scenarios to avoid launching a WebdriverIO worked
@@ -90,10 +76,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`
-     *
-     * @returns {Promise<void>}
+     * Instructs Cucumber to execute feature files located at `pathsToScenarios`
      */
     async run(): Promise<void> {
         const version = this.loader.hasAvailable('@cucumber/cucumber')
