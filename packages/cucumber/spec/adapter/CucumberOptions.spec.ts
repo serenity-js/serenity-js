@@ -4,7 +4,7 @@ import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { CucumberOptions } from '../../src/cli/CucumberOptions';
+import { CucumberOptions } from '../../src/adapter/CucumberOptions';
 
 describe('CucumberOptions', () => {
 
