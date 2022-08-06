@@ -152,10 +152,6 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         return result;
     }
 
-    /**
-     * Returns the last result of calling [[BrowseTheWebWithPlaywright.executeAsyncScript]]
-     * or [[BrowseTheWebWithPlaywright.executeScript]]
-     */
     lastScriptExecutionResult<Result = any>(): Result {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);

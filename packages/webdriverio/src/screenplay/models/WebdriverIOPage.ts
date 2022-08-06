@@ -11,16 +11,12 @@ import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
 /**
- * @desc
- *  WebdriverIO-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~Page}.
+ * WebdriverIO-specific implementation of {@link Page}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~Page}
+ * @group Models
  */
 export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
 
-    /**
-     * @private
-     */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
@@ -128,13 +124,6 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         return result;
     }
 
-    /**
-     * @desc
-     *  Returns the last result of calling {@link BrowseTheWebWithWebdriverIO#executeAsyncScript}
-     *  or {@link BrowseTheWebWithWebdriverIO#executeScript}
-     *
-     * @returns {any}
-     */
     lastScriptExecutionResult<Result = any>(): Result {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);

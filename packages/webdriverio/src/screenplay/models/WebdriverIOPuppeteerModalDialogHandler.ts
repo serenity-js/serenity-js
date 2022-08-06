@@ -3,14 +3,19 @@ import type { Dialog } from 'puppeteer-core/lib/cjs/puppeteer/common/Dialog';
 import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/common/Page';
 
 /**
- * @desc
- *  Automatically handles any simple JavaScript modal dialog windows, such as
- *  those opened by {@link window.alert}, {@link window.confirm}, or {@link window.prompt}.
+ * WebdriverIO-specific implementation of {@link {ModalDialogHandler}, applicable when WebdriverIO
+ * uses [Puppeteer](https://developer.chrome.com/docs/puppeteer/).
  *
- *  This helps to avoid Puppeteer hanging when there's an interaction pending
- *  and a dialog is already open, see https://github.com/puppeteer/puppeteer/issues/2481
+ * Automatically handles any simple JavaScript modal dialog windows, such as
+ * those opened by [`window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),
+ * [`window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm),
+ * or [`window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt).
  *
- * @extends {@link @serenity-js/web/lib/screenplay/models/dialogs~ModalDialogHandler}
+ * This helps to avoid Puppeteer hanging when there's an interaction pending
+ * and a dialog is already open, see https://github.com/puppeteer/puppeteer/issues/2481
+ *
+ * ## Learn more
+ * - {@link WebdriverIOModalDialogHandler}
  */
 export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 
