@@ -1,13 +1,14 @@
 import { WebElement } from 'protractor';
 
 /**
- * @desc
- *  Wraps Webdriver then-ables into a Node-native promise to allow for correct promise chaining.
+ * Under [certain conditions](https://github.com/angular/protractor/blob/4bc80d1a459542d883ea9200e4e1f48d265d0fda/lib/element.ts#L797),
+ * Protractor `WebElement` implements a `then()` method, and under others it doesn't.
  *
- * @private
+ * This design makes it look like a "thenable" in some scenarios, but like a non-thenable in others.
+ *
+ * This function wraps `WebElement` in a `Proxy` object that ensures the wrapped element is always non-thenable.
  *
  * @param promiseLike
- * @returns {Promise<T>}
  */
 export function unpromisedWebElement<T extends WebElement>(promiseLike: T): T {
 

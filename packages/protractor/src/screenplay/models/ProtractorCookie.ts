@@ -5,6 +5,11 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { promised } from '../promised';
 
+/**
+ * Protractor-specific implementation of {@link Cookie}.
+ *
+ * @group Models
+ */
 export class ProtractorCookie extends Cookie {
 
     constructor(private readonly browser: ProtractorBrowser, cookieName: string) {

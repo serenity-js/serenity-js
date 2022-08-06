@@ -57,19 +57,19 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract value(): Promise<string>;
 
     /**
-     * @desc
-     *  When the element represents an {@link iframe}, calling this method
-     *  switches the current browsing context to the given {@link iframe}.
+     * When the element represents an [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
+     * calling this method switches the current browsing context to the given `iframe` context.
      *
-     *  In other cases, calling this method will have the same result
-     *  as calling {@link HTMLElement#focus}
+     * When used with other types of [Web `Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element),
+     * calling this method will have the same result as calling [`Element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event).
      *
-     * @returns {Promise<SwitchableOrigin>}
+     * @returns
      *  Returns an object that allows the caller to switch back
      *  to the previous context if needed.
      *
-     * @see {@link Switch}
-     * @see {@link Switchable}
+     * #### Learn more
+     * - {@link Switch}
+     * - {@link Switchable}
      */
     abstract switchTo(): Promise<SwitchableOrigin>;
 
@@ -78,24 +78,19 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract isEnabled(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Returns an {@link Promise} that resolves to `true` when the element
-     *  is present, `false` otherwise.
-     *
-     * @returns {Promise<boolean>}
+     * Returns a {@link Promise} that resolves to `true` when the element
+     * is present in the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model),
+     * `false` otherwise.
      */
     abstract isPresent(): Promise<boolean>;
 
     abstract isSelected(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Checks if the PageElement:
-     *  - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
-     *  - is within the browser viewport
-     *  - doesn't have its centre covered by other elements
-     *
-     * @returns {Promise<boolean>}
+     * Checks if the PageElement:
+     * - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
+     * - is within the browser viewport
+     * - doesn't have its centre covered by other elements
      */
     abstract isVisible(): Promise<boolean>;
 }

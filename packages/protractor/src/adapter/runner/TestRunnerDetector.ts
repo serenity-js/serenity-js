@@ -4,11 +4,8 @@ import { Config as ProtractorConfig } from 'protractor';
 import { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
- * @desc
- *  Detects the {@link @serenity-js/core/lib/io~TestRunnerAdapter} to use,
- *  based on Protractor configuration.
- *
- * @public
+ * Detects the {@link TestRunnerAdapter} to use,
+ * based on Protractor configuration.
  */
 export class TestRunnerDetector {
 
@@ -24,16 +21,9 @@ export class TestRunnerDetector {
         ];
     }
 
-    /**
-     * @param {TestRunnerLoader} testRunnerLoader
-     */
     constructor(private readonly testRunnerLoader: TestRunnerLoader) {
     }
 
-    /**
-     * @param {protractor~ProtractorConfig} config
-     * @returns {TestRunnerAdapter}
-     */
     runnerFor(config: ProtractorConfig): TestRunnerAdapter {
 
         const
