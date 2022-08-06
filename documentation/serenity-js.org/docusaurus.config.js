@@ -156,8 +156,6 @@ const config = {
                         path: 'packages/core',
                         entry: {
                             index: { label: 'index', path: 'src/index.ts' },
-                            events: { label: 'Serenity/JS Domain Events', path: 'src/events/index.ts' },
-                            model: { label: 'Serenity/JS Models', path: 'src/model/index.ts' },
                         },
                     },
                     ...[
