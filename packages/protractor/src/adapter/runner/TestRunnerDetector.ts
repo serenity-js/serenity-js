@@ -6,6 +6,8 @@ import { TestRunnerLoader } from './TestRunnerLoader';
 /**
  * Detects the {@link TestRunnerAdapter} to use,
  * based on Protractor configuration.
+ *
+ * @group Integration
  */
 export class TestRunnerDetector {
 

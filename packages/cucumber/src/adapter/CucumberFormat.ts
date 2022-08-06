@@ -1,17 +1,20 @@
 import { ensure, isNotBlank, isString } from 'tiny-types';
 
 /**
- * @desc
- *  Represents a Cucumber.js formatter
+ * Represents a Cucumber.js formatter
  *
- * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters
+ * ## Learn more
+ *
+ * - [Cucumber formatters](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters)
+ *
+ * @group Integration
  */
 export class CucumberFormat {
     public readonly formatter: string;
     public readonly output: string;
 
     /**
-     * @param {string} value
+     * @param value
      *  Cucumber format expression, like `pretty` or `json:out.json`
      */
     constructor(public readonly value: string) {
@@ -21,9 +24,9 @@ export class CucumberFormat {
     }
 
     /**
-     * @see https://github.com/cucumber/cucumber-js/blob/master/src/cli/option_splitter.ts
-     * @param {string} format
-     * @private {string[]}
+     * See https://github.com/cucumber/cucumber-js/blob/master/src/cli/option_splitter.ts
+     *
+     * @param format
      */
     private static split(format: string): [string, string] {
         const parts = format.split(/([^A-Z]):(?!\\)/);

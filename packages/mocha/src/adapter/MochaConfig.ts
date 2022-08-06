@@ -1,199 +1,124 @@
 /**
- * @desc
- *  Configuration object for the Mocha test runner.
+ * Configuration object for the Mocha test runner.
  *
- * @see https://github.com/mochajs/mocha/blob/v8.0.1/example/config/.mocharc.yml
+ * ## Learn more
  *
- * @public
+ * - [`.mocharc.yml` example](https://github.com/mochajs/mocha/blob/v8.0.1/example/config/.mocharc.yml)
+ *
+ * @group Configuration
  */
 export interface MochaConfig {
 
     /**
-     * @desc
-     *  Path to config file.
+     * Path to config file.
      *
-     * @see https://github.com/mochajs/mocha/tree/v8.0.1/example/config
-     *
-     * @type {string | undefined}
-     * @public
+     * #### Learn more
+     * - [Mocha configuration examples](https://github.com/mochajs/mocha/tree/v8.0.1/example/config)
      */
     config?: string;
 
     /**
-     * @desc
-     *  Allow uncaught errors to propagate.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Allow uncaught errors to propagate.
      */
     'allow-uncaught'?: boolean;
 
     /**
-     * @desc
-     *  Require all tests to use a callback (async) or return a Promise.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Require all tests to use a callback (async) or return a Promise.
      */
     'async-only'?: boolean;
 
     /**
-     * @desc
-     *  Abort ("bail") after first test failure.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Abort ("bail") after first test failure.
      */
     bail?: boolean;
 
     /**
-     * @desc
-     *  Check for global variable leaks.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Check for global variable leaks.
      */
     'check-leaks'?: boolean;
 
     /**
-     * @desc
-     *  Delay initial execution of root suite.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Delay initial execution of root suite.
      */
     delay?: boolean;
 
     /**
-     * @desc
-     *  Only run tests containing this string.
-     *  Please note: {@link MochaConfig.fgrep} and {@link MochaConfig.grep} are mutually exclusive.
+     * Only run tests containing this string.
      *
-     * @type {string | undefined}
-     * @public
+     * **Note:** [[MochaConfig.fgrep]] and [[MochaConfig.grep]] are mutually exclusive.
      */
     fgrep?: string;
 
     /**
-     * @desc
-     *  File(s) to be loaded prior to root suite execution.
-     *
-     * @type {string[] | undefined}
-     * @public
+     * Files to be loaded prior to root suite execution.
      */
     file?: string[];
 
     /**
-     * @desc
-     *  Fail if exclusive test(s) encountered.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Fail if exclusive test(s) encountered.
      */
     'forbid-only'?: boolean;
 
     /**
-     * @desc
-     *  Fail if pending test(s) encountered.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Fail if pending test(s) encountered.
      */
     'forbid-pending': boolean;
 
     /**
-     * @desc
-     *  List of allowed global variables.
-     *
-     * @type {string[] | undefined}
-     * @public
+     * List of allowed global variables.
      */
     global?: string[];
 
     /**
-     * @desc
-     *  Only run tests matching this string or regexp.
-     *  Please note: {@link MochaConfig.fgrep} and {@link MochaConfig.grep} are mutually exclusive.
+     * Only run tests matching this string or regexp.
      *
-     * @type {string | RegExp | undefined}
-     * @public
+     * **Note:** [[MochaConfig.grep]] and [[MochaConfig.fgrep]] are mutually exclusive.
      */
     grep?: string | RegExp;
 
     /**
-     * @desc
-     *  Enable Growl notifications.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Enable Growl notifications.
      */
     growl?: boolean;
 
     /**
-     * @desc
-     *  Inverts {@link MochaConfig.grep} and {@link MochaConfig.fgrep} matches.
-     *
-     * @type {boolean | undefined}
-     * @public
+     * Inverts [[MochaConfig.grep]] and [[MochaConfig.fgrep]] matches.
      */
     invert?: boolean;
 
     /**
-     * @desc
-     *  Require module.
-     *
-     * @type {string[] | undefined}
-     * @public
+     * Require module.
      */
     require?: string[];
 
     /**
-     * @desc
-     *  Retry failed tests this many times.
-     *
-     * @type {number | undefined}
-     * @public
+     * Retry failed tests this many times.
      */
     retries?: number;
 
     /**
-     * @desc
-     *  Specify "slow" test threshold (in milliseconds).
-     *
-     * @type {number} [slow=75]
-     * @public
+     * Specify "slow" test threshold (in milliseconds).
      */
     slow?: number;
 
     /**
-     * @desc
-     *  Specify test timeout threshold (in milliseconds).
-     *  Please note: setting this property to 0 means "no timeout".
+     * Specify test timeout threshold (in milliseconds).
      *
-     * @type {number} [timeout=2000]
-     * @public
+     * **Note:** setting this property to 0 means "no timeout".
      */
     timeout?: number;
 
     /**
-     * @desc
-     *  Specify user interface.
+     * Specify user interface. Defaults to `bdd`.
      *
-     * @see https://mochajs.org/#interfaces
+     * #### Learn more
      *
-     * @type {string} [ui="bdd"]
-     * @public
+     * - [Mocha interfaces](https://mochajs.org/#interfaces)
      */
     ui?: string;
 
     /**
-     * @desc
-     *  When set to `true`, a skipped test is considered a failure.
-     *
-     * @see https://mochajs.org/#interfaces
-     *
-     * @type {boolean} [strict=false]
-     * @public
+     * When set to `true`, a skipped test is considered a failure.
      */
     strict?: boolean;
 }

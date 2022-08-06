@@ -9,23 +9,19 @@ import { MochaConfig } from './MochaConfig';
 import type Mocha = require('mocha');
 
 /**
- * @desc
- *  Allows for programmatic execution of Mocha test scenarios,
- *  using {@link SerenityReporterForMocha} to report progress.
+ * Allows for programmatic execution of Mocha test scenarios,
+ * using {@link SerenityReporterForMocha} to report progress.
  *
- * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
+ * ## Learn more
+ * - {@link TestRunnerAdapter}
+ *
+ * @group Integration
  */
 export class MochaAdapter implements TestRunnerAdapter {
 
     private mocha: Mocha;
     private totalScenarios: number;
 
-    /**
-     * @desc
-     *  test
-     * @param {MochaConfig} config
-     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
-     */
     constructor(
         private readonly config: MochaConfig,
         private readonly loader: ModuleLoader,
@@ -33,10 +29,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Scenario success threshold for this test runner.
-     *
-     * @returns {Outcome | { Code: number }}
+     * Scenario success threshold for this test runner.
      */
     successThreshold(): Outcome | { Code: number } {
         return this.config.strict
@@ -45,12 +38,9 @@ export class MochaAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Loads test scenarios.
+     * Loads test scenarios.
      *
-     * @param {string[]} pathsToScenarios
-     *
-     * @returns {Promise<void>}
+     * @param pathsToScenarios
      */
     async load(pathsToScenarios: string[]): Promise<void> {
         const _Mocha = this.loader.require('mocha');
@@ -82,13 +72,10 @@ export class MochaAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Returns the number of loaded scenarios
+     * Returns the number of loaded scenarios
      *
-     * @throws {@serenity-js/core/lib/errors~LogicError}
+     * @throws {@link LogicError}
      *  If called before `load`
-     *
-     * @returns {number}
      */
     scenarioCount(): number {
         if (this.totalScenarios === undefined) {
@@ -99,14 +86,10 @@ export class MochaAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Runs loaded test scenarios.
+     * Runs loaded test scenarios.
      *
-     * @throws {LogicError}
+     * @throws {@link LogicError}
      *  If called before `load`
-     *
-     *
-     * @returns {Promise<void>}
      */
     run(): Promise<void> {
         return new Promise((resolve, reject) => {

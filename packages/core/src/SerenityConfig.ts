@@ -12,7 +12,7 @@ import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
  * - {@link StageCrewMemberBuilder}
  * - [[Stage.waitForNextCue]]
  *
- * @group Serenity
+ * @group Configuration
  */
 export abstract class SerenityConfig {
 

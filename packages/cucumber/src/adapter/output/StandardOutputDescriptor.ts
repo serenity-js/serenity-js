@@ -1,7 +1,7 @@
 import { OutputDescriptor } from './OutputDescriptor';
 
 /**
- * @private
+ * @group Integration
  */
 export class StandardOutputDescriptor implements OutputDescriptor {
     value(): string {

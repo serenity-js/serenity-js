@@ -27,7 +27,7 @@ import { promised } from '../promised';
  *    .whoCan(BrowseTheWebWithProtractor.using(protractor.browser))
  *    .attemptsTo(
  *      Navigate.to(`https://serenity-js.org`),
- *      Ensure.that(Text.of(HomePage.title), equals('Serenity/JS')),
+ *      Ensure.that(Text.of(HomePage.title()), equals('Serenity/JS')),
  *    )
  * ```
  *

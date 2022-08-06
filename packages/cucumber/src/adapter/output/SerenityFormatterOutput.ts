@@ -1,7 +1,7 @@
 import { OutputDescriptor } from './OutputDescriptor';
 
 /**
- * @package
+ * @group Integration
  */
 export interface SerenityFormatterOutput {
     get(): OutputDescriptor;
