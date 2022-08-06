@@ -6,11 +6,13 @@ import { JasmineConfig } from './JasmineConfig';
 import reporter = require('../index');
 
 /**
- * @desc
- *  Allows for programmatic execution of Jasmine test scenarios,
- *  using {@link SerenityReporterForJasmine} to report progress.
+ * Allows for programmatic execution of Jasmine test scenarios,
+ * using {@link SerenityReporterForJasmine} to report progress.
  *
- * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
+ * ## Learn more
+ * - {@link TestRunnerAdapter}
+ *
+ * @group Integration
  */
 export class JasmineAdapter implements TestRunnerAdapter {
 
@@ -36,10 +38,6 @@ export class JasmineAdapter implements TestRunnerAdapter {
         random: false,
     };
 
-    /**
-     * @param {JasmineConfig} config
-     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
-     */
     constructor(
         private readonly config: JasmineConfig,
         private readonly loader: ModuleLoader,
@@ -47,22 +45,16 @@ export class JasmineAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Scenario success threshold for this test runner.
-     *
-     * @returns {Outcome | { Code: number }}
+     * Scenario success threshold for this test runner.
      */
     successThreshold(): Outcome | { Code: number } {
         return ExecutionIgnored;
     }
 
     /**
-     * @desc
-     *  Loads test scenarios.
+     * Loads test scenarios.
      *
-     * @param {string[]} pathsToScenarios
-     *
-     * @returns {Promise<void>}
+     * @param pathsToScenarios
      */
     async load(pathsToScenarios: string[]): Promise<void> {
         const JasmineRunner = this.loader.require('jasmine');
@@ -131,10 +123,7 @@ export class JasmineAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Returns the number of loaded scenarios
-     *
-     * @returns {number}
+     * Returns the number of loaded scenarios
      */
     scenarioCount(): number {
         return this.totalScenarios;
@@ -152,10 +141,7 @@ export class JasmineAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * @desc
-     *  Runs loaded test scenarios.
-     *
-     * @returns {Promise<void>}
+     * Runs loaded test scenarios.
      */
     run(): Promise<void> {
         return new Promise((resolve, reject) => {
