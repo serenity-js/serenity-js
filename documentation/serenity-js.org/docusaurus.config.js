@@ -158,19 +158,49 @@ const config = {
                             index: { label: 'index', path: 'src/index.ts' },
                         },
                     },
+                    {
+                        path: 'packages/cucumber',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                        },
+                    },
+                    {
+                        path: 'packages/jasmine',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                        },
+                    },
+                    {
+                        path: 'packages/mocha',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                        },
+                    },
+                    {
+                        path: 'packages/protractor',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                        },
+                    },
+                    {
+                        path: 'packages/webdriverio',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                        },
+                    },
                     ...[
                         'packages/assertions',
                         'packages/console-reporter',
-                        'packages/cucumber',
-                        'packages/jasmine',
                         'packages/local-server',
-                        'packages/mocha',
                         'packages/playwright',
-                        'packages/protractor',
                         'packages/rest',
                         'packages/serenity-bdd',
                         'packages/web',
-                        'packages/webdriverio',
                     ].map(pathToPackage => ({
                         path: pathToPackage,
                         entry: {
