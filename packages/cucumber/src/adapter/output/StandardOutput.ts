@@ -3,7 +3,7 @@ import { SerenityFormatterOutput } from './SerenityFormatterOutput';
 import { StandardOutputDescriptor } from './StandardOutputDescriptor';
 
 /**
- * @package
+ * @group Integration
  */
 export class StandardOutput implements SerenityFormatterOutput {
     get(): OutputDescriptor {

@@ -9,7 +9,12 @@ import { Config as ProtractorConfig } from 'protractor';
  * - [Protractor config](https://github.com/angular/protractor/blob/master/lib/config.ts)
  * - {@link SerenityConfig}
  * - [[configure]]
+ *
+ * @group Configuration
  */
 export interface Config extends ProtractorConfig {
+    /**
+     * See {@link SerenityConfig}
+     */
     serenity: SerenityConfig & { runner?: string };
 }

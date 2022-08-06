@@ -1,12 +1,14 @@
 /* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */
 import { Config, FileFinder, FileSystem, ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
-import { CucumberConfig } from '@serenity-js/cucumber/lib/cli';
+import { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
 
 import { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**
  * Loads a {@link TestRunnerAdapter} needed to invoke
  * the chosen test runner programmatically.
+ *
+ * @group Integration
  */
 export class TestRunnerLoader {
 
@@ -15,14 +17,14 @@ export class TestRunnerLoader {
     private readonly finder: FileFinder;
 
     /**
-     * @param {@serenity-js/core/lib/io~Path} cwd
+     * @param cwd
      *  Current working directory; used to resolve glob paths to files for Cucumber.js to `require`,
      *  and instructing Serenity/JS where to look for this module's optional
-     *  dependencies, like [`@serenity-js/cucumber`](/modules/cucumber),
-     *  [`@serenity-js/mocha`](/modules/mocha),
-     *  [`@serenity-js/jasmine`](/modules/jasmine), etc.
+     *  dependencies, like [`@serenity-js/cucumber`](/api/cucumber),
+     *  [`@serenity-js/mocha`](/api/mocha),
+     *  [`@serenity-js/jasmine`](/api/jasmine), etc.
      *
-     * @param {number | string} runnerId
+     * @param runnerId
      *  Unique identifier used to differentiate output files produced by native Cucumber.js formatters.
      *  For example, `process.pid`
      */
@@ -33,8 +35,9 @@ export class TestRunnerLoader {
     }
 
     /**
-     * @param {@serenity-js/jasmine/lib/adapter~JasmineConfig} jasmineNodeOpts
-     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
+     * See {@link JasmineConfig}
+     *
+     * @param jasmineNodeOpts
      */
     forJasmine(jasmineNodeOpts: object /* JasmineConfig */): TestRunnerAdapter {
         const { JasmineAdapter } = this.moduleLoader.require('@serenity-js/jasmine/lib/adapter')
@@ -42,8 +45,9 @@ export class TestRunnerLoader {
     }
 
     /**
-     * @param {@serenity-js/mocha/lib/adapter~MochaConfig} mochaOpts
-     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
+     * See {@link MochaConfig}
+     *
+     * @param mochaOpts
      */
     forMocha(mochaOpts: object /* MochaConfig */): TestRunnerAdapter {
         const { MochaAdapter } = this.moduleLoader.require('@serenity-js/mocha/lib/adapter')
@@ -51,13 +55,13 @@ export class TestRunnerLoader {
     }
 
     /**
+     * See {@link CucumberConfig}
      *
-     * @param {@serenity-js/cucumber/lib/cli~CucumberConfig} cucumberOpts
-     * @param {CucumberAdapterConfig} adapterConfig
-     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
+     * @param cucumberOpts
+     * @param adapterConfig
      */
     forCucumber(cucumberOpts: object /* CucumberConfig */, adapterConfig: CucumberAdapterConfig): TestRunnerAdapter {
-        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.moduleLoader.require('@serenity-js/cucumber/lib/cli');
+        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.moduleLoader.require('@serenity-js/cucumber/lib/adapter');
 
         const config = new Config<CucumberConfig>(cucumberOpts)
             .where('require', requires =>

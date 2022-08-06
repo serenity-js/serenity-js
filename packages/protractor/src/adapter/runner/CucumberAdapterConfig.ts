@@ -1,3 +1,6 @@
+/**
+ * @group Integration
+ */
 export interface CucumberAdapterConfig {
 
     /**

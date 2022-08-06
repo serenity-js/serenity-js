@@ -7,6 +7,11 @@ import { ProtractorErrorHandler } from '../ProtractorErrorHandler';
 import { ProtractorPageElement } from '../ProtractorPageElement';
 import { ProtractorRootLocator } from './ProtractorRootLocator';
 
+/**
+ * Protractor-specific implementation of {@link Locator}.
+ *
+ * @group Models
+ */
 export class ProtractorLocator extends Locator<protractor.ElementFinder, protractor.Locator> {
 
     constructor(
