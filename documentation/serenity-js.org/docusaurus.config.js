@@ -157,6 +157,7 @@ const config = {
                         entry: {
                             index: { label: 'index', path: 'src/index.ts' },
                             adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
+                            events: { label: 'Domain Events', path: 'src/events/index.ts' },
                         },
                     },
                     {

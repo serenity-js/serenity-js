@@ -5,25 +5,25 @@ import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/m
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
- * @desc
- *  Configures the {@link Photographer} to take photos (a.k.a. screenshots)
- *  of the {@link @serenity-js/core/lib/screenplay~Activity} performed
- *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight
- *  under specific conditions.
+ * Configures the {@link Photographer} to take {@link Photo|photos}, a.k.a. screenshots,
+ * of the {@link Activity} performed by the {@link Actor} in the {@link actorInTheSpotlight|spotlight}
+ * when desired conditions are met.
  *
- * @abstract
+ * @group Stage
  */
 export abstract class PhotoTakingStrategy {
 
     /**
-     * @desc
-     *  Takes a photo of the web browser held by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight.
+     * Takes a photo of the web browser used by the {@link Actor} in the {@link actorInTheSpotlight|spotlight}.
      *
-     * @param {@serenity-js/core/lib/events~ActivityStarts | @serenity-js/core/lib/events~ActivityFinished} event
-     * @param {@serenity-js/core/lib/stage~Stage} stage - the Stage that holds reference to the Actor in the spotlight
-     * @returns {void}
+     * #### Learn more
+     * - {@link ActivityStarts}
+     * - {@link ActivityFinished}
+     * - {@link Stage}
      *
-     * @see {@link @serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}
+     * @param event
+     * @param stage
+     *  The Stage that holds reference to the Actor in the spotlight
      */
     async considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): Promise<void> {
         if (! this.shouldTakeAPhotoOf(event)) {
