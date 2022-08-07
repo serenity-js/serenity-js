@@ -272,7 +272,10 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * @desc
-     *  Take a screenshot of the top-level browsing context's viewport.
+     *  Take a screenshot of the top-level browsing context's viewport
+     *
+     * @throws {@link BrowserWindowClosedError}
+     *  When the page you're trying to take the screenshot of has already been closed
      *
      * @return {Promise<string>}
      *  A promise that will resolve to a base64-encoded screenshot PNG
