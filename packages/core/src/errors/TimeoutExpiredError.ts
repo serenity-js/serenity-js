@@ -1,7 +1,7 @@
 import { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from '../io/ErrorSerialiser';
 import { Duration } from '../model/Duration';
+import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**

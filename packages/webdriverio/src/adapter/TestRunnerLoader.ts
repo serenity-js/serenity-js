@@ -1,5 +1,6 @@
 import { ConfigurationError } from '@serenity-js/core';
-import { Config, FileFinder, FileSystem, ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { WebdriverIO } from '@wdio/types/build/Options';
 
 import { WebdriverIOConfig } from './WebdriverIOConfig';

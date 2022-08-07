@@ -1,4 +1,5 @@
-import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 
 import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';

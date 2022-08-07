@@ -1,4 +1,4 @@
-import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -14,7 +14,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { ErrorSerialiser, FileSystemLocation } from '@serenity-js/core/lib/io';
+import { FileSystemLocation } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     Category,

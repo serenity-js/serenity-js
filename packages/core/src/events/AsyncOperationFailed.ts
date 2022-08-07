@@ -1,6 +1,6 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from '../io';
+import { ErrorSerialiser } from '../errors';
 import { CorrelationId, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 

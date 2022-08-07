@@ -1,5 +1,6 @@
 import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
 
+// todo: can I remove it?
 import { parse, stringify } from './json';
 
 /**

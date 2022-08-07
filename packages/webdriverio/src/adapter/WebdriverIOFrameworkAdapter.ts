@@ -1,5 +1,6 @@
 import { ArtifactArchiver, Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects';

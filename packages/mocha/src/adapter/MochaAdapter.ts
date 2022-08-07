@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import { LogicError } from '@serenity-js/core';
-import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { ModuleLoader } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import * as fs from 'fs';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style

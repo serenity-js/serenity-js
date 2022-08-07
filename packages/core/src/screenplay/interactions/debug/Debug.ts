@@ -1,4 +1,5 @@
-import { d, ErrorSerialiser } from '../../../io';
+import { ErrorSerialiser } from '../../../errors';
+import { d } from '../../../io';
 import { inspected } from '../../../io/inspected';
 import { LogEntry, Name } from '../../../model';
 import { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '../../actor';

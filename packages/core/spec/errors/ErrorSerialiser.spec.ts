@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 
 import { Duration } from '../../src';
 import { AssertionError, TimeoutExpiredError } from '../../src/errors';
-import { ErrorSerialiser, parse } from '../../src/io';
+import { ErrorSerialiser } from '../../src/errors';
 import { expect } from '../expect';
 
 const { format } = require('assertion-error-formatter');    // eslint-disable-line @typescript-eslint/no-var-requires
@@ -27,7 +27,7 @@ describe ('ErrorSerialiser', () => {
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
-                parsed      = parse(serialised);
+                parsed      = JSON.parse(serialised);
 
             expect(parsed.name).to.equal('AssertionError');
             expect(parsed.message).to.equal('Expected false to equal true');
@@ -42,7 +42,7 @@ describe ('ErrorSerialiser', () => {
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
-                parsed      = parse(serialised);
+                parsed      = JSON.parse(serialised);
 
             expect(parsed.name).to.equal('TimeoutExpiredError');
             expect(parsed.message).to.equal('Interaction took longer than expected');
@@ -55,7 +55,7 @@ describe ('ErrorSerialiser', () => {
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
-                parsed      = parse(serialised);
+                parsed      = JSON.parse(serialised);
 
             expect(parsed.name).to.equal('AssertionError');
             expect(parsed.message).to.equal('Expected values to be strictly equal:\n\ntrue !== false\n');

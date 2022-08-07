@@ -1,8 +1,9 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
+import { OutputStream } from './adapter';
 import { ConfigurationError } from './errors';
 import { DomainEvent } from './events';
-import { d, has, OutputStream } from './io';
+import { d, has } from './io';
 import { CorrelationId, Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor/Actor';
 import { SerenityConfig } from './SerenityConfig';

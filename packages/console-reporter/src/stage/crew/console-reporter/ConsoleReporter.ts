@@ -1,5 +1,6 @@
 import { ListensToDomainEvents, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
 import { AssertionError } from '@serenity-js/core/lib';
+import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,
     DomainEvent,
@@ -11,7 +12,6 @@ import {
     TaskStarts,
     TestRunFinished,
 } from '@serenity-js/core/lib/events';
-import { OutputStream } from '@serenity-js/core/lib/io';
 import {
     AssertionReport,
     CorrelationId,

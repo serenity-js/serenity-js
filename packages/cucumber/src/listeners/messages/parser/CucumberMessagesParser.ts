@@ -1,5 +1,5 @@
 import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepResultStatus, TestStepStarted } from '@cucumber/messages';
-import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     BusinessRuleDetected,
     DomainEvent,
@@ -17,7 +17,7 @@ import {
     TaskStarts,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     ArbitraryTag,

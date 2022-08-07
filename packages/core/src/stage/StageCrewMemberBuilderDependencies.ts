@@ -1,4 +1,4 @@
-import { OutputStream } from '../io';
+import { OutputStream } from '../adapter';
 import { Stage } from './Stage';
 
 /**
