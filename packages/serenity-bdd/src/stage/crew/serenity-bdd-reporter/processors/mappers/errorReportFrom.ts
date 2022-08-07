@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { RuntimeError } from '@serenity-js/core';
-import { ErrorStackParser } from '@serenity-js/core/lib/io';
+import { ErrorStackParser, RuntimeError } from '@serenity-js/core';
 import { inspect } from 'util';
 
 import { ErrorDetails } from '../../SerenityBDDJsonSchema';

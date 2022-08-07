@@ -2,8 +2,8 @@
 import { describe, it } from 'mocha';
 
 import { ConfigurationError } from '../src';
+import { OutputStream } from '../src/adapter';
 import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } from '../src/events';
-import { OutputStream } from '../src/io';
 import { CorrelationId, Name } from '../src/model';
 import { Actor, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';

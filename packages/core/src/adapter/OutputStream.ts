@@ -3,8 +3,10 @@
  *
  * ## Learn more
  * - {@link StageCrewMemberBuilder}
- * - [[Serenity#configure]]
- * - [[SerenityConfig#crew]]
+ * - [[Serenity.configure]]
+ * - [[SerenityConfig.crew]]
+ *
+ * @group Integration
  */
 export interface OutputStream {
     write(content: string): void;

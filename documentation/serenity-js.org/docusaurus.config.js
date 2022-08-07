@@ -156,6 +156,7 @@ const config = {
                         path: 'packages/core',
                         entry: {
                             index: { label: 'index', path: 'src/index.ts' },
+                            adapter: { label: 'Test runner adapter', path: 'src/adapter/index.ts' },
                         },
                     },
                     {

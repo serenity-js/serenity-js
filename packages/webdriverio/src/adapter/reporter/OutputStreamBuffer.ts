@@ -1,4 +1,4 @@
-import { OutputStream } from '@serenity-js/core/lib/io';
+import { OutputStream } from '@serenity-js/core/lib/adapter';
 
 /**
  * @package

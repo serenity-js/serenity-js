@@ -1,5 +1,6 @@
 /* istanbul ignore file covered in integration tests */
-import { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { FileSystem, ModuleLoader, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 

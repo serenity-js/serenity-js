@@ -1,4 +1,4 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { Config as ProtractorConfig } from 'protractor';
 
 import { TestRunnerLoader } from './TestRunnerLoader';

@@ -1,4 +1,4 @@
-import { OutputStream } from './io';
+import { OutputStream } from './adapter';
 import { Duration } from './model';
 import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
 
