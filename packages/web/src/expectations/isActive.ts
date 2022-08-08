@@ -5,16 +5,21 @@ import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
- * @desc
- *  Expectation that the element is active (has focus).
- *  If the selector matches multiple elements, it will return true if one of the elements has focus.
+ * {@link Expectation} that an element is "active", which means it resolves to `true` when:
+ *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+ *  - [[PageElement.isActive]] resolves to `true`
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
+ *  If the above conditions are not met, the expectation resolves to `false`.
  *
- * @see https://webdriver.io/docs/api/element/isFocused/
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
+ * ## Learn more
+ * - [[PageElement.isActive]]
+ * - {@link ElementExpectation}
+ * - {@link Expectation}
+ * - {@link Check}
+ * - {@link Ensure}
+ * - {@link Wait}
+ *
+ * @group Expectations
  */
 export function isActive(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become active').soThatActual(and(

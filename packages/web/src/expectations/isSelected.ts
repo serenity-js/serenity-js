@@ -5,15 +5,21 @@ import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
- * @desc
- *  Expectation that an `<option>` or `<input>` element of type checkbox or radio is currently selected.
+ *  {@link Expectation} that an `<option>` or `<input>` element is selected, which means it resolves to `true` when:
+ *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+ *  - [[PageElement.isEnabled]] resolves to `true`
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
+ *  If the above conditions are not met, the expectation resolves to `false`.
  *
- * @see https://webdriver.io/docs/api/element/isSelected/
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
+ * ## Learn more
+ * - [[PageElement.isSelected]]
+ * - {@link ElementExpectation}
+ * - {@link Expectation}
+ * - {@link Check}
+ * - {@link Ensure}
+ * - {@link Wait}
+ *
+ * @group Expectations
  */
 export function isSelected(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become selected').soThatActual(and(

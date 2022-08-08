@@ -5,18 +5,21 @@ import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
- * @desc
- *  Expectation that the element is present in the DOM of the page and:
- *  - is not hidden, so doesn't have `display: none`, `visibility: hidden` or `opacity: 0`
- *  - is within the browser viewport
- *  - doesn't have its centre covered by other elements
+ *  {@link Expectation} that an element is visible, which means it resolves to `true` when:
+ *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+ *  - [[PageElement.isVisible]] resolves to `true`
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
+ *  If the above conditions are not met, the expectation resolves to `false`.
  *
- * @see https://webdriver.io/docs/api/element/isDisplayed/
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
+ * ## Learn more
+ * - [[PageElement.isVisible]]
+ * - {@link ElementExpectation}
+ * - {@link Expectation}
+ * - {@link Check}
+ * - {@link Ensure}
+ * - {@link Wait}
+ *
+ * @group Expectations
  */
 export function isVisible(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become visible').soThatActual(and(
