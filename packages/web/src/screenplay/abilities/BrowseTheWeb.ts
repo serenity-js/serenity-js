@@ -1,7 +1,6 @@
 import { Ability, UsesAbilities } from '@serenity-js/core';
 
-import { BrowsingSession, Page } from '../models';
-import { BrowserCapabilities } from './BrowserCapabilities';
+import { BrowserCapabilities, BrowsingSession, Page } from '../models';
 
 export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
 
