@@ -5,21 +5,21 @@ import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
- * @desc
- *  Expectation that an element is clickable, which means:
- *  - it exists
- *  - it is visible
- *  - it is within viewport (if not, try to scroll to it)
- *  - its center is not overlapped with another element
- *  - it is not disabled
- *  otherwise return false.
+ *  {@link Expectation} that an element is clickable, which means it resolves to `true` when:
+ *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+ *  - [[PageElement.isClickable]] resolves to `true`
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
+ *  If the above conditions are not met, the expectation resolves to `false`.
  *
- * @see https://webdriver.io/docs/api/element/isClickable/
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
+ * ## Learn more
+ * - [[PageElement.isClickable]]
+ * - {@link ElementExpectation}
+ * - {@link Expectation}
+ * - {@link Check}
+ * - {@link Ensure}
+ * - {@link Wait}
+ *
+ * @group Expectations
  */
 export function isClickable(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become clickable').soThatActual(and(

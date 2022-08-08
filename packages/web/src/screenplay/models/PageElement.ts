@@ -73,8 +73,26 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      */
     abstract switchTo(): Promise<SwitchableOrigin>;
 
+    /**
+     * Resolves to `true` when the underlying element [has focus](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus).
+     * Otherwise, resolves to `false`.
+     */
     abstract isActive(): Promise<boolean>;
+
+    /**
+     * Resolves to `true` when the underlying element can be clicked on.
+     * Otherwise, resolves to `false`.
+     *
+     * Please refer to test integration tool-specific documentation for details.
+     */
     abstract isClickable(): Promise<boolean>;
+
+    /**
+     * Resolves to `true` when the underlying
+     * element is not [explicitly disabled](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)
+     *
+     * Please refer to test integration tool-specific documentation for details.
+     */
     abstract isEnabled(): Promise<boolean>;
 
     /**
@@ -84,13 +102,22 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      */
     abstract isPresent(): Promise<boolean>;
 
+    /**
+     * Resolves to `true` when the underlying element:
+     * - has a [`selected` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-selected) for `<option />` elements
+     * - has a [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox) attribute for checkboxes
+     *
+     * Otherwise, resolves to `false`.
+     */
     abstract isSelected(): Promise<boolean>;
 
     /**
-     * Checks if the PageElement:
+     * Resolves to `true` when the underlying element:
      * - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
      * - is within the browser viewport
      * - doesn't have its centre covered by other elements
+     *
+     * Otherwise, resolves to `false`.
      */
     abstract isVisible(): Promise<boolean>;
 }
