@@ -6,6 +6,8 @@
  *
  * - {@link Switch}
  * - {@link Switchable}
+ *
+ * @group Models
  */
 export interface SwitchableOrigin {
 

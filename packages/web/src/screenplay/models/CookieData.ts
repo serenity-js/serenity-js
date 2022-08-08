@@ -1,97 +1,59 @@
 import { Timestamp } from '@serenity-js/core';
 
 /**
- * @desc
- *  A data structure describing a {@link Cookie} to be set or that's been read.
+ * A data structure describing a {@link Cookie} to be set, or one that's been read.
  *
- * @public
+ * ## Learn more
+ *
+ * - {@link Cookie}
+ * - [[Page.cookie]]
+ *
+ * @group Models
  */
 export interface CookieData {
+
     /**
-     * @desc
-     *  The name of the cookie.
-     *
-     * @type {string}
-     * @public
+     * The name of the cookie.
      */
     name: string;
 
     /**
-     * @desc
-     *  The value of the cookie.
-     *
-     * @type {string}
-     * @public
+     * The value of the cookie.
      */
     value: string;
 
     /**
-     * @desc
-     *  The domain the cookie is visible to.
-     *  Defaults to the current browsing context's document's URL when setting a cookie.
+     * The domain this cookie is visible to.
      *
-     * Optional.
-     *
-     * @type {string}
-     * @public
+     * Defaults to the current browsing context's document's URL when setting a cookie.
      */
     domain?: string;
 
     /**
-     * @desc
-     *  The cookie path. Defaults to "/" when adding a cookie.
-     *
-     * Optional.
-     *
-     * @type {string}
-     * @public
+     * The cookie path. Defaults to "/" when adding a cookie.
      */
     path?: string;
 
     /**
-     * @desc
-     *  The {@link @serenity-js/core/lib/model~Timestamp} of when the cookie expires.
-     *
-     * Optional.
-     *
-     * @type {@serenity-js/core/lib/model~Timestamp}
-     * @public
+     * The {@link Timestamp} describing the point in time when this cookie expires.
      */
     expiry?: Timestamp;
 
     /**
-     * @desc
-     *  Whether the cookie is an HTTP-only cookie. Defaults to false when adding a new cookie.
-     *
-     * Optional.
-     *
-     * @type {boolean}
-     * @public
+     * Whether the cookie is an HTTP-only cookie.
+     * Defaults to `false` when adding a new cookie.
      */
     httpOnly?: boolean;
 
     /**
-     * @desc
-     *  Whether the cookie is a secure cookie. Defaults to false when adding a new cookie.
-     *
-     *  Optional.
-     *
-     * @type {boolean}
-     * @public
+     * Whether the cookie is a secure cookie.
+     * Defaults to `false` when adding a new cookie.
      */
     secure?: boolean;
 
     /**
-     * @desc
-     *  Whether the cookie applies to a SameSite policy.
-     *  Defaults to "None" if omitted when adding a cookie.
-     *
-     *  Can be set to either "Lax" or "Strict".
-     *
-     *  Optional.
-     *
-     * @type {string}
-     * @public
+     * Whether the cookie applies to a `SameSite` policy.
+     * Defaults to `None` if omitted when adding a cookie.
      */
     sameSite?: 'Lax' | 'Strict' | 'None';
 }

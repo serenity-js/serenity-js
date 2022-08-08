@@ -1,35 +1,26 @@
 /**
- * @desc
- *  Basic meta-data about the browser used in the test.
+ * Basic meta-data about the browser used in the test
  *
- * @public
+ * ## Learn more
+ *
+ * - [[BrowseTheWeb.browserCapabilities]]
+ *
+ * @group Models
  */
 export interface BrowserCapabilities {
 
     /**
-     * @desc
-     *  Name of the operating system platform the test is executed on, like `darwin`, `linux` or `windows`.
-     *
-     * @type {string | undefined}
-     * @public
+     * Name of the operating system platform the test is executed on, like `darwin`, `linux` or `windows`.
      */
     platformName?: string;
 
     /**
-     * @desc
-     *  Name of the Web browser the test is executed in, like `chrome`, `firefox` or `safari`.
-     *
-     * @type {string | undefined}
-     * @public
+     * Name of the Web browser the test is executed in, like `chrome`, `firefox` or `safari`.
      */
     browserName?: string;
 
     /**
-     * @desc
-     *  Version number of the browser the test is executed in.
-     *
-     * @type {string | undefined}
-     * @public
+     * Version number of the browser the test is executed in.
      */
     browserVersion?: string;
 }

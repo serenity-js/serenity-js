@@ -2,6 +2,18 @@ import { PageElement } from './PageElement';
 import { RootLocator } from './RootLocator';
 import { Selector } from './selectors';
 
+/**
+ * {@link Locator} uses a {@link Selector} to locate a {@link PageElement} or {@link PageElements}
+ * within the {@link Page}.
+ *
+ * ## Learn more
+ * - [[RootLocator]]
+ * - [[Page.locate]]
+ * - [[PageElement]]
+ * - [[PageElements]]
+ *
+ * @group Models
+ */
 export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
     extends RootLocator<Native_Element_Type>
 {

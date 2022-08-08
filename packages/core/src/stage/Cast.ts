@@ -99,7 +99,7 @@ export abstract class Cast {
     }
 
     /**
-     * Configures an {@link Actor} instantiated when [[Stage#actor]] is invoked.
+     * Configures an {@link Actor} instantiated when [[Stage.actor]] is invoked.
      *
      * @param actor
      *
