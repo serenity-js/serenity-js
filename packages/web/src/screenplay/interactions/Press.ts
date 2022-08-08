@@ -1,9 +1,8 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { asyncMap, formatted } from '@serenity-js/core/lib/io';
 
-import { Key } from '../../models';
 import { BrowseTheWeb } from '../abilities';
-import { PageElement } from '../models';
+import { Key, PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 import { PressBuilder } from './PressBuilder';
 

@@ -3,12 +3,12 @@ import { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
 import { URL } from 'url';
 
-import { Key } from '../../models';
 import { BrowseTheWeb } from '../abilities';
 import { BrowsingSession } from './BrowsingSession';
 import { Cookie } from './Cookie';
 import { CookieData } from './CookieData';
 import { ModalDialogHandler } from './dialogs';
+import { Key } from './Key';
 import { PageElement } from './PageElement';
 import { PageElements } from './PageElements';
 import { RootLocator } from './RootLocator';

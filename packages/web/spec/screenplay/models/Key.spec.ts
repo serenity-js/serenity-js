@@ -2,7 +2,7 @@ import { expect } from '@integration/testing-tools';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Key } from '../../src';
+import { Key } from '../../../src';
 
 describe('Key', () => {
 
