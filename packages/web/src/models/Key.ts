@@ -1,15 +1,18 @@
 /**
- * @desc
- *  Represents pressable keys that aren't text to be used with {@link Press}.
+ * Represents keyboard keys that aren't text, and that can be used with the {@link Interaction|interaction} to {@link Press}.
  *
- *  Note that modifier like Shift, Alt and Meta (a.k.a. Command on Mac) will stay pressed
+ * **Note:** Modifier keys like [[Key.Shift]], [[Key.Alt]] and [[Key.Meta]] (a.k.a. "Command" on Mac) will stay pressed,
+ * so there's no need to depress them.
  *
- * @enum {string}
- * @see {@link Press}
- * @see https://w3c.github.io/webdriver/webdriver-spec.html#keyboard-actions
- * @see https://github.com/puppeteer/puppeteer/blob/v7.1.0/src/common/USKeyboardLayout.ts
- * @see https://github.com/SeleniumHQ/selenium/blob/trunk/javascript/node/selenium-webdriver/lib/input.js#L46
- * @see https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-utils/src/constants.ts#L5
+ * ## Learn more
+ *
+ * - {@link Press}
+ * - [[Page.sendKeys]]
+ * - [W3C WebDriver Spec: Keyboard Actions](https://w3c.github.io/webdriver/webdriver-spec.html#keyboard-actions)
+ * - [Selenium WebDriver: Inputs](https://github.com/SeleniumHQ/selenium/blob/trunk/javascript/node/selenium-webdriver/lib/input.js#L46)
+ * - [WebdriverIO: Constants](https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-utils/src/constants.ts#L5)
+ *
+ * @group Models
  */
 export class Key {
     public static Alt = new Key('Alt', '\uE00A', true);
