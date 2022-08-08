@@ -16,13 +16,148 @@ import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
 
+/**
+ * Serenity/JS Screenplay Pattern-style model that enables interactions with a Web page
+ * rendered in a Web browser tab.
+ *
+ * ## Referring to the current page
+ *
+ * ```ts
+ * import { Ensure, endsWith } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Page } from '@serenity-js/web'
+ *
+ * await actorCalled('Serena').attemptsTo(
+ *   Navigate.to('https://serenity-js.org'),
+ *   Ensure.that(Page.current().title(), endsWith('Serenity/JS')),
+ * )
+ * ```
+ *
+ * ## Switching to another open page
+ *
+ * ```ts
+ * import { Ensure, equals, includes, startsWith } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Page, Switch, Text } from '@serenity-js/web'
+ *
+ * const Navigation = {
+ *   linkTo = (name: Answerable<string>) =>
+ *     PageElements.located(By.css('nav a'))
+ *       .where(Text, includes(name))
+ *       .first()
+ * }
+ *
+ * await actorCalled('Serena').attemptsTo(
+ *   Navigate.to('https://serenity-js.org'),
+ *   Click.on(Navigation.linkTo('GitHub')),
+ *
+ *   Switch.to(Page.whichUrl(startsWith('https://github.com')))
+ *
+ *   Ensure.that(
+ *     Page.current().url().href,
+ *     equals('https://github.com/serenity-js/serenity-js')
+ *   ),
+ * )
+ * ```
+ *
+ * ## Retrieving information about another open page
+ *
+ * You can retrieve information about another open page without having to explicitly switch to it:
+ *
+ * ```ts
+ * import { Ensure, equals, includes, startsWith } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Page, Text } from '@serenity-js/web'
+ *
+ * const Navigation = {
+ *   linkTo = (name: Answerable<string>) =>
+ *     PageElements.located(By.css('nav a'))
+ *       .where(Text, includes(name))
+ *       .first()
+ * }
+ *
+ * await actorCalled('Serena').attemptsTo(
+ *   Navigate.to('https://serenity-js.org'),
+ *   Click.on(Navigation.linkTo('GitHub')),
+ *   Ensure.that(
+ *     Page.whichUrl(startsWith('https://github.com')).url().href,
+ *     equals('https://github.com/serenity-js/serenity-js')
+ *   ),
+ * )
+ * ```
+ *
+ * ## Performing activities in the context of another page
+ *
+ * ```ts
+ * import { Ensure, equals, includes, startsWith } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Page, Text } from '@serenity-js/web'
+ *
+ * const Navigation = {
+ *   linkTo = (name: Answerable<string>) =>
+ *     PageElements.located(By.css('nav a'))
+ *       .where(Text, includes(name))
+ *       .first()
+ * }
+ *
+ * await actorCalled('Serena').attemptsTo(
+ *
+ *   // Serenity/JS GitHub repository opens in a new browser tab
+ *   Navigate.to('https://serenity-js.org'),
+ *   Click.on(Navigation.linkTo('GitHub')),
+ *
+ *   // Switch to the newly opened page and perform an assertion
+ *   Switch.to(Page.whichUrl(startsWith('https://github.com')))
+ *     .and(
+ *       Ensure.that(
+ *         Page.current().url().href,
+ *         equals('https://github.com/serenity-js/serenity-js')
+ *       )
+ *     ),
+ *   // Automatically switch back to the original page
+ *
+ *   Ensure.that(Page.current().url().href, equals('https://serenity-js.org'),
+ * )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link BrowseTheWeb}
+ * - {@link PageElement}
+ * - {@link Optional}
+ * - {@link Switchable}
+ *
+ * @group Models
+ */
 export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
+
+    /**
+     * Creates a {@link QuestionAdapter} representing the currently active {@link Page}.
+     */
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();
         });
     }
 
+    /**
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.name]]
+     * meets the {@link Expectation|`expectation`}.
+     *
+     * #### Switching to a page with the desired name
+     *
+     * ```ts
+     * import { includes } from '@serenity-js/assertions'
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Switch } from '@serenity-js/web'
+     *
+     * actorCalled('Bernie').attemptsTo(
+     *   Switch.to(Page.whichName(includes(`photo-gallery`))),
+     * )
+     * ```
+     *
+     * @param expectation
+     */
     static whichName(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which name does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
@@ -35,6 +170,24 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
         });
     }
 
+    /**
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.title]]
+     * meets the {@link Expectation|`expectation`}.
+     *
+     * #### Switching to a page with the desired title
+     *
+     * ```ts
+     * import { includes } from '@serenity-js/assertions'
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Switch } from '@serenity-js/web'
+     *
+     * actorCalled('Bernie').attemptsTo(
+     *   Switch.to(Page.whichTitle(includes(`Summer collection`))),
+     * )
+     * ```
+     *
+     * @param expectation
+     */
     static whichTitle(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which title does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
@@ -47,6 +200,24 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
         });
     }
 
+    /**
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.url]]
+     * meets the {@link Expectation|`expectation`}.
+     *
+     * #### Switching to a page with the desired URL
+     *
+     * ```ts
+     * import { endsWith } from '@serenity-js/assertions'
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Switch } from '@serenity-js/web'
+     *
+     * actorCalled('Bernie').attemptsTo(
+     *   Switch.to(Page.whichUrl(endsWith(`/gallery.html`))),
+     * )
+     * ```
+     *
+     * @param expectation
+     */
     static whichUrl(expectation: Expectation<string>): QuestionAdapter<Page> {
         return Question.about(`page which URL does ${ expectation }`, async actor => {
             const pages     = await BrowseTheWeb.as(actor).allPages();
@@ -86,121 +257,107 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * @desc
-     *  Creates a {@link PageElement}, located by `selector`.
+     * Creates a {@link PageElement}, retrieving an element located by {@link Selector}.
      *
-     * @param {Selector} selector
-     * @returns {PageElement<Native_Element_Type>}
+     * @param selector
      */
     abstract locate(selector: Selector): PageElement<Native_Element_Type>;
 
     /**
-     * @desc
-     *  Creates {@link PageElements}, located by `selector`.
+     * Creates {@link PageElements}, retrieving a collection of elements located by {@link Selector}.
      *
-     * @param {Selector} selector
-     * @returns {PageElements<Native_Element_Type>}
+     * @param selector
      */
     abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
 
     /**
-     * @desc
-     *  Navigate to a given destination, specified as an absolute URL
-     *  or a path relative to any base URL configured in your web integration tool.
+     * Navigate to a given destination, specified as an absolute URL
+     * or a path relative to any base URL configured in your web test integration tool.
      *
-     * @param {string} destination
-     * @returns {Promise<void>}
+     * #### Learn more
      *
-     * @see https://webdriver.io/docs/options/#baseurl
-     * @see https://playwright.dev/docs/api/class-browser#browser-new-context
-     * @see https://playwright.dev/docs/api/class-testoptions#test-options-base-url
-     * @see https://github.com/angular/protractor/blob/master/lib/config.ts
+     * - [WebdriverIO: Configuration Options](https://webdriver.io/docs/options/#baseurl)
+     * - [Playwright: Browser](https://playwright.dev/docs/api/class-browser#browser-new-context)
+     * - [Playwright: Test Options](https://playwright.dev/docs/api/class-testoptions#test-options-base-url)
+     * - [Protractor: Configuration](https://github.com/angular/protractor/blob/master/lib/config.ts)
+     *
+     * @param destination
      */
     abstract navigateTo(destination: string): Promise<void>;
 
     /**
-     * @desc
-     *  Causes the browser to traverse one step backward in the joint session history
-     *  of the current {@link Page} (the current top-level browsing context).
+     * Causes the browser to traverse one step backward in the joint session history
+     * of the current {@link Page} (the current top-level browsing context).
      *
-     *  This is equivalent to pressing the back button in the browser UI,
-     *  or calling {@link window.history.back}
-     *
-     * @returns {Promise<void>}
+     * This is equivalent to pressing the back button in the browser UI,
+     * or calling [`window.history.back`](https://developer.mozilla.org/en-US/docs/Web/API/History/back).
      */
     abstract navigateBack(): Promise<void>;
 
     /**
-     * @desc
-     *  Causes the browser to traverse one step forward in the joint session history
-     *  of the current {@link Page} (the current top-level browsing context).
+     * Causes the browser to traverse one step forward in the joint session history
+     * of the current {@link Page} (the current top-level browsing context).
      *
-     *  This is equivalent to pressing the back button in the browser UI,
-     *  or calling {@link window.history.forward}
-     *
-     * @returns {Promise<void>}
+     * This is equivalent to pressing the back button in the browser UI,
+     * or calling [`window.history.forward`](https://developer.mozilla.org/en-US/docs/Web/API/History/forward).
      */
     abstract navigateForward(): Promise<void>;
 
     /**
-     * @desc
-     *  causes the browser to reload the {@link Page} in current top-level browsing context.
-     *
-     * @returns {Promise<void>}
+     * Causes the browser to reload the {@link Page} in the current top-level browsing context.
      */
     abstract reload(): Promise<void>;
 
     /**
-     * @desc
-     *  Send a sequence of {@link Key} strokes to the active element.
+     * Send a sequence of {@link Key} strokes to the active element.
      *
-     * @param {Array<Key | string>} keys
+     * @param keys
      *  Keys to enter
-     *
-     * @returns {Promise<void>}
      */
     abstract sendKeys(keys: Array<Key | string>): Promise<void>;
 
     /**
-     * @desc
-     *  Schedules a command to execute JavaScript in the context of the currently selected frame or window.
+     * Schedules a command to execute JavaScript in the context of the currently selected frame or window.
      *
-     *  The script fragment will be executed as the body of an anonymous function.
-     *  If the script is provided as a function object, that function will be converted to a string for injection
-     *  into the target window.
+     * The script fragment will be executed as the body of an anonymous function.
+     * If the script is provided as a function object, that function will be converted to a string for injection
+     * into the target window.
      *
-     *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
-     *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`.
-     *  Arrays and objects may also be used as script arguments as long as each item adheres
-     *  to the types previously mentioned.
+     * Any arguments provided in addition to the script will be included as script arguments and may be referenced
+     * using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`.
+     * Arrays and objects may also be used as script arguments as long as each item adheres
+     * to the types previously mentioned.
      *
-     *  The script may refer to any variables accessible from the current window.
-     *  Furthermore, the script will execute in the window's context, thus `document` may be used to refer
-     *  to the current document. Any local variables will not be available once the script has finished executing,
-     *  though global variables will persist.
+     * The script may refer to any variables accessible from the current window.
+     * Furthermore, the script will execute in the window's context, thus `document` may be used to refer
+     * to the current document. Any local variables will not be available once the script has finished executing,
+     * though global variables will persist.
      *
-     *  If the script has a return value (i.e. if the script contains a `return` statement),
-     *  then the following steps will be taken for resolving this functions return value:
+     * If the script has a return value (i.e. if the script contains a `return` statement),
+     * then the following steps will be taken for resolving this functions return value:
      *
-     *  For a HTML element, the value will resolve to a WebElement
-     *  - Null and undefined return values will resolve to null
-     *  - Booleans, numbers, and strings will resolve as is
-     *  - Functions will resolve to their string representation
-     *  - For arrays and objects, each member item will be converted according to the rules above
+     * - For a {@link PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - `null` and `undefined` return values will resolve to `null`
+     * - `boolean`, `number`, and `string` values will resolve as is
+     * - Functions will resolve to their string representation
+     * - For arrays and objects, each member item will be converted according to the rules above
      *
-     * @example <caption>Perform a sleep in the browser under test</caption>
+     * #### Use injected JavaScript to retrieve information about a HTMLElement
+     *
+     * ```ts
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   return arguments[0].tagName;
-     * `, Target.the('header').located(by.css(h1))
+     * `, PageElement.located(By.css('h1')).describedAs('header'))
      *
-     * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
+     * // returns a Promise that resolves to 'h1'
+     * ```
      *
-     * @param {string | Function} script
-     * @param {any[]} args
+     * #### Learn more
+     * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
+     * - [[Page.lastScriptExecutionResult]]
      *
-     * @returns {Promise<any>}
-     *
-     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
+     * @param script
+     * @param args
      */
     abstract executeScript<Result, InnerArguments extends any[]>(
         script: string | ((...parameters: InnerArguments) => Result),
@@ -208,56 +365,59 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     ): Promise<Result>;
 
     /**
-     * @desc
-     *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
+     * Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *
-     *  The script fragment will be executed as the body of an anonymous function.
-     *  If the script is provided as a function object, that function will be converted to a string for injection
-     *  into the target window.
+     * The script fragment will be executed as the body of an anonymous function.
+     * If the script is provided as a function object, that function will be converted to a string for injection
+     * into the target window.
      *
-     *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
-     *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`
-     *  Arrays and objects may also be used as script arguments as long as each item adheres
-     *  to the types previously mentioned.
+     * Any arguments provided in addition to the script will be included as script arguments and may be referenced
+     * using the `arguments` object. Arguments may be a `boolean`, `number`, `string` or `WebElement`
+     * Arrays and objects may also be used as script arguments as long as each item adheres
+     * to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {@link BrowseTheWeb#executeScript},
-     *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
+     * Unlike executing synchronous JavaScript with [[BrowseTheWeb#executeScript]],
+     * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
-     *  This callback will always be injected into the executed function as the last argument,
-     *  and thus may be referenced with `arguments[arguments.length - 1]`.
+     * This callback will always be injected into the executed function as the last argument,
+     * and thus may be referenced with `arguments[arguments.length - 1]`.
      *
-     *  The following steps will be taken for resolving this functions return value against
-     *  the first argument to the script's callback function:
+     * The following steps will be taken for resolving this functions return value against
+     * the first argument to the script's callback function:
      *
-     *  - For a HTML element, the value will resolve to a WebElement
-     *  - Null and undefined return values will resolve to null
-     *  - Booleans, numbers, and strings will resolve as is
-     *  - Functions will resolve to their string representation
-     *  - For arrays and objects, each member item will be converted according to the rules above
+     * - For a {@link PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - `null` and `undefined` return values will resolve to `null`
+     * - `boolean`, `number`, and `string` values will resolve as is
+     * - Functions will resolve to their string representation
+     * - For arrays and objects, each member item will be converted according to the rules above
      *
-     * @example <caption>Perform a sleep in the browser under test</caption>
+     * #### Perform a sleep in the browser under test>
+     *
+     * ```ts
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   var delay    = arguments[0];
      *   var callback = arguments[arguments.length - 1];
      *
      *   window.setTimeout(callback, delay);
      * `, 500)
+     * ```
      *
-     * @example <caption>Return a value asynchronously</caption>
+     * #### Return a value asynchronously
+     *
+     * ```ts
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   var callback = arguments[arguments.length - 1];
      *
      *   callback('some return value')
      * `).then(value => doSomethingWithThe(value))
+     * ```
      *
-     * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-
+     * #### Learn more
+     * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
+     * - [[Page.lastScriptExecutionResult]]
      *
-     * @param {string|Function} script
-     * @param {any[]} args
-     *
-     * @returns {Promise<any>}
-     *
-     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
+     * @param script
+     * @param args
      */
     abstract executeAsyncScript<Result, Parameters extends any[]>(
         script: string | ((...args: [ ...parameters: Parameters, callback: (result: Result) => void ]) => void),
@@ -271,103 +431,80 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract lastScriptExecutionResult<R = any>(): R;
 
     /**
-     * @desc
-     *  Take a screenshot of the top-level browsing context's viewport
+     * Take a screenshot of the top-level browsing context's viewport.
      *
      * @throws {@link BrowserWindowClosedError}
      *  When the page you're trying to take the screenshot of has already been closed
      *
-     * @return {Promise<string>}
+     * @return
      *  A promise that will resolve to a base64-encoded screenshot PNG
      */
     abstract takeScreenshot(): Promise<string>;
 
     /**
-     * @desc
-     *  Retrieves a cookie identified by `name` and visible to this {@link Page}.
+     * Retrieves a cookie identified by `name` and visible to this {@link Page}.
      *
-     * @param {string} name
-     * @returns {Promise<Cookie>}
+     * @param name
      */
     abstract cookie(name: string): Promise<Cookie>;
 
     /**
-     * @desc
-     *  Adds a single cookie with {@link CookieData} to the cookie store associated
-     *  with the active {@link Page}'s address.
+     * Adds a single cookie with {@link CookieData} to the cookie store associated
+     * with the active {@link Page}'s address.
      *
-     * @param {CookieData} cookieData
-     * @returns {Promise<void>}
+     * @param cookieData
      */
     abstract setCookie(cookieData: CookieData): Promise<void>;
 
     /**
-     * @desc
-     *  Removes all the cookies.
-     *
-     * @returns {Promise<void>}
+     * Removes all the cookies.
      */
     abstract deleteAllCookies(): Promise<void>;
 
     /**
-     * @desc
-     *  Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.
+     * Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
-     *
-     * @returns {Promise<string>}
+     * #### Learn more
+     * - [Mozilla Developer Network: Document title](https://developer.mozilla.org/en-US/docs/Web/API/Document/title)
      */
     abstract title(): Promise<string>;
 
     /**
-     * @desc
-     *  Retrieves the URL of the current top-level browsing context.
-     *
-     * @returns {Promise<URL>}
+     * Retrieves the URL of the current top-level browsing context.
      */
     abstract url(): Promise<URL>;
 
     /**
-     * @desc
-     *  Retrieves the name of the current top-level browsing context.
-     *
-     * @returns {Promise<string>}
+     * Retrieves the name of the current top-level browsing context.
      */
     abstract name(): Promise<string>;
 
     /**
-     * @desc
-     *  Checks if a given window / tab / page is open and can be switched to.
-     *
-     * @returns {Promise<string>}
+     * Checks if a given window / tab / page is open and can be switched to, e.g. it's not closed.
      */
     abstract isPresent(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Returns the actual viewport size available for the given page,
-     *  excluding any scrollbars.
-     *
-     * @returns {Promise<{ width: number, height: number }>}
+     * Returns the actual viewport size available for the given page,
+     * excluding any scrollbars.
      */
     abstract viewportSize(): Promise<{ width: number, height: number }>;
 
     /**
+     * Sets ths size of the visible viewport to desired dimensions.
      *
      * @param size
      */
     abstract setViewportSize(size: { width: number, height: number }): Promise<void>;
 
     /**
-     * @desc
-     *  Switches the current browsing context to the given page
-     *  and returns an object that allows the caller to switch back
-     *  to the previous context if needed.
+     * Switches the current browsing context to the given page
+     * and returns an object that allows the caller to switch back
+     * to the previous context when needed.
      *
-     * @returns {Promise<SwitchableOrigin>}
-     *
-     * @see {@link Switch}
-     * @see {@link Switchable}
+     * ## Learn more
+     * - {@link Switch}
+     * - {@link Switchable}
      */
     async switchTo(): Promise<SwitchableOrigin> {
 
@@ -383,36 +520,24 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * @desc
-     *  Closes the given page.
-     *
-     * @returns {Promise<void>}
+     * Closes this page.
      */
     abstract close(): Promise<void>;
 
     /**
-     * @desc
-     *  Closes any open pages, except for this one.
-     *
-     * @returns {Promise<void>}
+     * Closes any open pages, except for this one.
      */
     abstract closeOthers(): Promise<void>;
 
     /**
-     * @desc
-     *  Returns the {@link ModalDialogHandler} for the current {@link Page}.
-     *
-     * @returns {ModalDialogHandler}
+     * Returns the {@link ModalDialogHandler} for the current {@link Page}.
      */
     modalDialog(): ModalDialogHandler {
         return this.modalDialogHandler;
     }
 
     /**
-     * @desc
-     *  Returns a description of this object.
-     *
-     * @returns {string}
+     * Returns a description of this Page and its ID.
      */
     toString(): string {
         return `page (id=${ this.id.value })`;
