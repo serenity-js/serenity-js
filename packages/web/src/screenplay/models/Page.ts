@@ -3,7 +3,7 @@ import { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
 import { URL } from 'url';
 
-import { Key } from '../../input';
+import { Key } from '../../models';
 import { BrowseTheWeb } from '../abilities';
 import { BrowsingSession } from './BrowsingSession';
 import { Cookie } from './Cookie';
