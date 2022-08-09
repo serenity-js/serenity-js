@@ -4,35 +4,28 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  A base class for interactions with {@link PageElement}s.
+ * A base class for interactions with {@link PageElement} objects.
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * **Note:** The recommended way to implement custom interactions
+ * in your code is to use the [[Interaction.where]] factory method.
  */
 export abstract class PageElementInteraction extends Interaction {
 
     /**
-     * @param {string} description
+     * @param description
      *  A human-readable description to be used when reporting
-     *  this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @protected
+     *  this {@link Interaction}.
      */
     protected constructor(private readonly description: string) {
         super();
     }
 
     /**
-     * @desc
-     *  Returns the resolved {@link PageElement}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
-     *  if the element is `undefined`.
+     * Returns the resolved {@link PageElement}, or throws a {@link LogicError}
+     * if the element is `undefined`.
      *
-     * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} element
-     *
-     * @returns {Promise<PageElement>}
-     *
-     * @protected
+     * @param actor
+     * @param element
      */
     protected async resolve(
         actor: AnswersQuestions,
@@ -48,10 +41,7 @@ export abstract class PageElementInteraction extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return this.description;
