@@ -137,6 +137,15 @@ const config = {
                             },
                         ],
                     },
+                    {
+                        title: 'Legal',
+                        items: [
+                            {
+                                label: 'Privacy policy',
+                                to: '/privacy-policy',
+                            },
+                        ],
+                    },
                 ],
             },
             prism: {
@@ -237,7 +246,14 @@ const config = {
                 }
             },
         ],
-    ]
+        [
+            '@documentation/docusarus-plugin-piwik-analytics',
+            {
+                id: '8497b9df-f942-4fb6-9f4f-eade34bab231',
+                enable: true,
+            }
+        ]
+    ],
 };
 
 module.exports = config;
