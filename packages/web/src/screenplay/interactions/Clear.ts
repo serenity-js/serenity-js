@@ -4,83 +4,76 @@ import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  clear the `value` of a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+ * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * to clear the `value` of a [form `input` field](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
  *
- * @example <caption>Example widget</caption>
- *  <form>
- *    <input type="text" name="example" id="example" />
- *  </form>
+ * ## Example widget
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * ```html
+ * <form>
+ *   <input type="text" name="example" id="example" />
+ * </form>
+ * ```
  *
- *  class Form {
- *      static exampleInput = Target.the('example input')
- *          .located(by.id('example'));
- *  }
+ * ## Lean Page Object describing the widget
  *
- * @example <caption>Clearing the value of an input field</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Clear, Enter, Value } from '@serenity-js/webdriverio';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
  *
- *  actorCalled('Inés')
- *      .whoCan(BrowseTheWeb.using(browser))
- *      .attemptsTo(
- *          Enter.theValue('Hello world!').into(Form.exampleInput),
- *          Ensure.that(Value.of(Form.exampleInput), equals('Hello world!')),
+ * const Form = {
+ *   exampleInput: () =>
+ *     PageElement.located(By.id('example'))
+ *      .describedAs('example input')
+ * }
+ * ```
  *
- *          Clear.theValueOf(Form.exampleInput),
- *          Ensure.that(Value.of(Form.exampleInput), equals('')),
- *      );
+ * ## Clearing the value of an input field
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Enter}
- * @see {@link Value}
- * @see {@link Target}
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/assertions/lib/expectations~equals}
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Clear, Enter, Value } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * await actorCalled('Inés')
+ *   .whoCan(BrowseTheWeb.using(browser))
+ *   .attemptsTo(
+ *     Enter.theValue('Hello world!').into(Form.exampleInput()),
+ *     Ensure.that(Value.of(Form.exampleInput()), equals('Hello world!')),
+ *
+ *     Clear.theValueOf(Form.exampleInput()),
+ *     Ensure.that(Value.of(Form.exampleInput()), equals('')),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link BrowseTheWeb}
+ * - {@link Enter}
+ * - {@link Value}
+ * - {@link PageElement}
+ *
+ * @group Interactions
  */
 export class Clear extends PageElementInteraction {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates an {@link Interaction|interaction}
+     * that instructs the {@link Actor|actor}
+     * to clear the value of an input `field`,
      *
-     * @param {Answerable<PageElement>} field
-     *  The field to be cleared
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param field
+     *  The field which value should be cleared
      */
     static theValueOf(field: Answerable<PageElement>): Interaction {
         return new Clear(field);
     }
 
-    /**
-     * @param {Answerable<PageElement>} field
-     *  The element to be clicked on
-     */
     constructor(private readonly field: Answerable<PageElement>) {
         super(d`#actor clears the value of ${ field }`);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element   = await this.resolve(actor, this.field);
