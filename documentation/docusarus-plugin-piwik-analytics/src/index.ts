@@ -1,5 +1,6 @@
-import { Joi } from '@docusaurus/utils-validation';
 import type { LoadContext, OptionValidationContext, Plugin } from '@docusaurus/types';
+import { Joi } from '@docusaurus/utils-validation';
+
 import type { Options, PluginOptions } from './options';
 
 export default function pluginPiwikAnalytics(
@@ -45,4 +46,4 @@ export function validateOptions({ validate, options }: OptionValidationContext<O
     return validate(pluginOptionsSchema, options);
 }
 
-export type { PluginOptions, Options };
+export type { Options, PluginOptions } from './options';
