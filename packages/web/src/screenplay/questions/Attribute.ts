@@ -3,76 +3,94 @@ import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, Qu
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  Returns the value of the specified HTML attribute of a given {@link PageElement}.
+ * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * the value of the specified HTML attribute of a given {@link PageElement}.
  *
- * @example <caption>Example widget</caption>
- *  <ul id="shopping-list" data-items-left="2">
- *    <li data-state="bought">Coffee<li>
- *    <li data-state="buy">Honey<li>
- *    <li data-state="buy">Chocolate<li>
- *  </ul>
+ * ## Example widget
  *
- * @example <caption>Retrieve an HTML attribute of a given PageElement</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { Attribute, By, PageElement } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```html
+ * <ul id="shopping-list" data-items-left="2">
+ *   <li data-state="bought">Coffee<li>
+ *   <li data-state="buy">Honey<li>
+ *   <li data-state="buy">Chocolate<li>
+ * </ul>
+ * ```
  *
- *  const shoppingList = () =>
- *      PageElement.located(By.id('shopping-list')).describedAs('shopping list');
+ * ## Retrieve an HTML attribute of a given `PageElement`
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Attribute.called('data-items-left').of(shoppingList()),
- *              equals('2')
- *          ),
- *      )
- *
- * @example <caption>Using Attribute as QuestionAdapter</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { Attribute, By, PageElement } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```ts
+ *  import { actorCalled } from '@serenity-js/core'
+ *  import { Ensure, equals } from '@serenity-js/assertions'
+ *  import { Attribute, By, PageElement } from '@serenity-js/web'
  *
  *  const shoppingList = () =>
- *      PageElement.located(By.css('#shopping-list')).describedAs('shopping list')
+ *    PageElement.located(By.id('shopping-list'))
+ *      .describedAs('shopping list')
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Attribute.called('id').of(shoppingList()).toLocaleUpperCase(),
- *              equals('SHOPPING-LIST')
- *          ),
- *      )
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       Attribute.called('data-items-left').of(shoppingList()),
+ *       equals('2')
+ *     ),
+ *   )
+ * ```
  *
- * @example <caption>Find PageElements with a given attribute</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, includes } from '@serenity-js/assertions';
- *  import { Attribute, By, PageElements } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ## Using `Attribute` as {@link QuestionAdapter}
  *
- *  class ShoppingList {
- *      static items = () =>
- *          PageElements.located(By.css('#shopping-list li'))
- *              .describedAs('items');
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { Attribute, By, PageElement } from '@serenity-js/web'
  *
- *      static outstandingItems = () =>
- *          ShoppingList.items()
- *              .where(Attribute.called('data-state'), includes('buy'));
- *  }
+ * const shoppingList = () =>
+ *   PageElement.located(By.css('#shopping-list'))
+ *     .describedAs('shopping list')
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Text.ofAll(ShoppingList.outstandingItems()),
- *              equals([ 'Honey', 'Chocolate' ])
- *          ),
- *      )
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       Attribute.called('id').of(shoppingList()).toLocaleUpperCase(),
+ *       equals('SHOPPING-LIST')
+ *     ),
+ * )
+ * ```
+ *
+ * ## Using as filter in Page Element Query Language
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, includes } from '@serenity-js/assertions'
+ * import { Attribute, By, PageElements } from '@serenity-js/web'
+ *
+ * class ShoppingList {
+ *   static items = () =>
+ *     PageElements.located(By.css('#shopping-list li'))
+ *       .describedAs('items')
+ *
+ *   static outstandingItems = () =>
+ *     ShoppingList.items()
+ *       .where(
+ *         Attribute.called('data-state'),
+ *         includes('buy')
+ *       )
+ * }
+ *
+ * await actorCalled('Lisa')
+ * .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ * .attemptsTo(
+ *   Ensure.that(
+ *     Text.ofAll(ShoppingList.outstandingItems()),
+ *     equals([ 'Honey', 'Chocolate' ])
+ *   ),
+ * )
+ * ```
+ *
+ * ## Learn more
+ * - {@link BrowseTheWeb}
+ * - {@link MetaQuestion}
+ * - {@link QuestionAdapter}
+ * - {@link Question}
  *
  * @group Questions
  */
@@ -80,23 +98,20 @@ export class Attribute
     extends Question<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
-    /**
-     * @private
-     */
     private subject: string;
 
     /**
-     * @param {Answerable<string>} name
-     * @returns {Attribute}
+     * Instantiates a {@link Question} that uses
+     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * the value of the specified HTML attribute of a given {@link PageElement}.
+     *
+     * @param name
+     *  The name of the attribute to retrieve
      */
     static called(name: Answerable<string>): Attribute {
         return new Attribute(name);
     }
 
-    /**
-     * @param {Answerable<string>} name
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element>} [element]
-     */
     protected constructor(
         private readonly name: Answerable<string>,
         private readonly element?: Answerable<PageElement>,
@@ -108,22 +123,20 @@ export class Attribute
     }
 
     /**
-     * @desc
-     *  Resolves to the value of an HTML attribute of the `target` element,
-     *  located within the `parent` element.
+     * Resolves to the value of an HTML attribute of the `pageElement`.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} parent
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
+     * #### Learn more
+     * - {@link MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param pageElement
      */
-    of(parent: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+    of(pageElement: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
         return Question.createAdapter(
             new Attribute(
                 this.name,
                 this.element
-                    ? PageElement.of(this.element, parent)
-                    : parent
+                    ? PageElement.of(this.element, pageElement)
+                    : pageElement
             )
         ) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
