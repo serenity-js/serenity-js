@@ -74,8 +74,7 @@ import { PageElement } from '../models';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question}
- * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
+ * @group Questions
  */
 export class Attribute
     extends Question<Promise<string>>
@@ -129,6 +128,9 @@ export class Attribute
         ) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
 
+    /**
+     * @inheritDoc
+     */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const name = await actor.answer(this.name);
 
@@ -142,11 +144,7 @@ export class Attribute
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -154,8 +152,7 @@ export class Attribute
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;

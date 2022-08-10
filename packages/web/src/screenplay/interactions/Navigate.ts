@@ -1,93 +1,95 @@
-import { Answerable, AnswersQuestions, Interaction, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * @desc
- *  Allows the {@link @serenity-js/core/lib/screenplay/actor~Actor} to navigate
- *  to a specific destination, as well as back and forth in the browser history,
- *  or reload the current page.
+ * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * to navigate to a specific destination, as well as back and forth in the browser history,
+ * or reload the current page.
+ *
+ * ## Learn more
+ *
+ * - {@link BrowseTheWeb}
+ *
+ * @group Interactions
  */
 export class Navigate {
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to navigate to a given URL.
+     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * to navigate to a given URL.
      *
-     *  The URL can be:
-     *  - absolute, i.e. `https://example.org/search`
-     *  - relative, i.e. `/search`
+     * The URL can be:
+     * - absolute, e.g. `https://example.org/search`
+     * - relative, e.g. `/search`
      *
-     *  If the URL is relative, WebdriverIO will append it to `baseUrl` specified in
-     *  the [configuration file](https://webdriver.io/docs/configurationfile/).
+     * If the URL is relative, your Web test integration tool will append it to any base URL
+     * specified in its respective configuration file.
      *
-     * @example <caption>wdio.conf.ts</caption>
-     *  export const config = {
-     *      baseUrl: 'https://example.org',
-     *      // ...
-     *  }
      *
-     * @example <caption>Navigate to path relative to baseUrl</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Navigate } from '@serenity-js/webdriverio';
+     * #### Navigate to path relative to baseUrl
      *
-     *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          Navigate.to('/search'),
-     *      );
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Navigate } from '@serenity-js/web'
      *
-     * @example <caption>Navigate to an absolute URL (overrides baseUrl)</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Navigate } from '@serenity-js/webdriverio';
+     * await actorCalled('Hannu')
+     *   .attemptsTo(
+     *     Navigate.to('/search'),
+     *   )
+     * ```
      *
-     *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          Navigate.to('https://mycompany.org/login'),
-     *      );
+     * ## Navigate to an absolute URL (overrides baseUrl)
      *
-     * @param {Answerable<string>} url
-     *  An absolute URL or path an {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Navigate } from '@serenity-js/web'
+     *
+     * await actorCalled('Hannu')
+     *   .whoCan(BrowseTheWeb.using(browser))
+     *   .attemptsTo(
+     *     Navigate.to('https://mycompany.org/login'),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     *
+     * - [[Page.navigateTo]]
+     * - [WebdriverIO: Configuration Options](https://webdriver.io/docs/options/#baseurl)
+     * - [Playwright: Browser](https://playwright.dev/docs/api/class-browser#browser-new-context)
+     * - [Playwright: Test Options](https://playwright.dev/docs/api/class-testoptions#test-options-base-url)
+     * - [Protractor: Configuration](https://github.com/angular/protractor/blob/master/lib/config.ts)
+     *
+     * @param url
+     *  An absolute URL or path an {@link Actor}
      *  should navigate to
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @see {@link BrowseTheWeb}
      */
     static to(url: Answerable<string>): Interaction {
         return new NavigateToUrl(url);
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
-     *  navigate back one page in the joint session history of the current top-level browsing context.
+     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * to navigate back one page in the joint session history of the current top-level browsing context.
      *
-     * @example <caption>Navigate to path relative to baseUrl</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { Ensure, endsWith } from '@serenity-js/assertions';
-     *  import { BrowseTheWeb, Navigate } from '@serenity-js/webdriverio';
+     * #### Navigate back in browsing history
      *
-     *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          Navigate.to('/first'),
-     *          Navigate.to('/second'),
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Ensure, endsWith } from '@serenity-js/assertions'
+     * import { Navigate, Page } from '@serenity-js/web'
      *
-     *          Navigate.back(),
+     * await actorCalled('Hannu')
+     *   .whoCan(BrowseTheWeb.using(browser))
+     *   .attemptsTo(
+     *     Navigate.to('/first'),
+     *     Navigate.to('/second'),
      *
-     *          Ensure.that(Website.url(), endsWith('/first')),
-     *      );
+     *     Navigate.back(),
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @see https://webdriver.io/docs/api/webdriver/#back
-     * @see {@link BrowseTheWeb}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
+     *     Ensure.that(Page.current().url().href, endsWith('/first')),
+     *   )
+     * ```
      */
     static back(): Interaction {
         return Interaction.where(`#actor navigates back in the browser history`, async actor => {
@@ -98,33 +100,28 @@ export class Navigate {
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
-     *  navigate forward one page in the session history.
+     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * to navigate forward one page in the joint session history of the current top-level browsing context.
      *
-     * @example <caption>Navigate to path relative to baseUrl</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { Ensure, endsWith } from '@serenity-js/assertions';
-     *  import { BrowseTheWeb, Navigate } from '@serenity-js/webdriverio';
+     * #### Navigate forward in browsing history
      *
-     *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          Navigate.to('/first'),
-     *          Navigate.to('/second'),
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Ensure, endsWith } from '@serenity-js/assertions'
+     * import { Navigate, Page } from '@serenity-js/web'
      *
-     *          Navigate.back(),
-     *          Navigate.forward(),
+     * await actorCalled('Hannu')
+     *   .whoCan(BrowseTheWeb.using(browser))
+     *   .attemptsTo(
+     *     Navigate.to('/first'),
+     *     Navigate.to('/second'),
      *
-     *          Ensure.that(Website.url(), endsWith('/second')),
-     *      );
+     *     Navigate.back(),
+     *     Navigate.forward(),
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @see {@link BrowseTheWeb}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
-     * @see https://webdriver.io/docs/api/webdriver/#forward
+     *     Ensure.that(Page.current().url().href, endsWith('/second')),
+     *   )
+     * ```
      */
     static forward(): Interaction {
         return Interaction.where(`#actor navigates forward in the browser history`, async actor => {
@@ -135,30 +132,24 @@ export class Navigate {
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
-     *  reload the current page.
+     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * to reload the current page.
      *
-     * @example <caption>Navigate to path relative to baseUrl</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { Ensure, endsWith } from '@serenity-js/assertions';
-     *  import { Navigate, Cookie } from '@serenity-js/web';
-     *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+     * #### Navigate to path relative to baseUrl
      *
-     *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
-     *      .attemptsTo(
-     *          Navigate.to('/login'),
-     *          Cookie.called('session_id').delete(),
-     *          Navigate.reloadPage(),
-     *      );
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Ensure, endsWith } from '@serenity-js/assertions'
+     * import { Navigate, Cookie } from '@serenity-js/web'
      *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @see {@link BrowseTheWeb}
-     * @see {@link Cookie}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
+     * await actorCalled('Hannu')
+     *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+     *   .attemptsTo(
+     *     Navigate.to('/login'),
+     *     Cookie.called('session_id').delete(),
+     *     Navigate.reloadPage(),
+     *   )
+     * ```
      */
     static reloadPage(): Interaction {
         return Interaction.where(`#actor reloads the page`, async actor => {
@@ -178,19 +169,7 @@ class NavigateToUrl extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const url = await actor.answer(this.url);
@@ -202,12 +181,9 @@ class NavigateToUrl extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
-        return formatted `#actor navigates to ${ this.url }`;
+        return d `#actor navigates to ${ this.url }`;
     }
 }

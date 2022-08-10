@@ -75,8 +75,7 @@ import { PageElement, PageElements } from '../models';
  *          ),
  *      )
  *
- * @public
- * @see {@link Target}
+ * @group Questions
  */
 export class Text {
 
@@ -142,6 +141,9 @@ class TextOfSingleElement
         return new TextOfSingleElement(PageElement.of(this.element, parent));
     }
 
+    /**
+     * @inheritDoc
+     */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element = await actor.answer(this.element);
 
@@ -149,11 +151,7 @@ class TextOfSingleElement
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -161,8 +159,7 @@ class TextOfSingleElement
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;
@@ -191,6 +188,9 @@ class TextOfMultipleElements
         return new TextOfMultipleElements(this.elements.of(parent));
     }
 
+    /**
+     * @inheritDoc
+     */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements: PageElement[] = await actor.answer(this.elements);
 
@@ -198,11 +198,7 @@ class TextOfMultipleElements
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -210,8 +206,7 @@ class TextOfMultipleElements
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;

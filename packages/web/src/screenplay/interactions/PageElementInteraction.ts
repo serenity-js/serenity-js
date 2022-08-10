@@ -1,5 +1,4 @@
-import { Answerable, AnswersQuestions, Interaction, LogicError } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, LogicError } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
@@ -8,6 +7,8 @@ import { PageElement } from '../models';
  *
  * **Note:** The recommended way to implement custom interactions
  * in your code is to use the [[Interaction.where]] factory method.
+ *
+ * @group Interactions
  */
 export abstract class PageElementInteraction extends Interaction {
 
@@ -34,7 +35,7 @@ export abstract class PageElementInteraction extends Interaction {
         const resolved = await actor.answer(element);
 
         if (! resolved) {
-            throw new LogicError(formatted `Couldn't find ${ element }`);
+            throw new LogicError(d `Couldn't find ${ element }`);
         }
 
         return resolved;

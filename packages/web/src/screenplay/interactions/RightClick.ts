@@ -1,100 +1,92 @@
-import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  perfom a right click on a given Web element.
+ * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * to perfom a right click on a given {@link PageElement}.
  *
- *  This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
- *  on a given Web element, since it's not possible to interact with the standard context menu offered by your browser
+ * This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
+ * on a given Web element, since it's not possible to interact with the standard context menu offered by your browser.
  *
- * @example <caption>Example widget</caption>
- *  <form>
- *    <input type="text" id="field"
- *      oncontextmenu="showMenu(); return false;" />
+ * ## Example widget
  *
- *    <div id="context-menu" style="display:none">
- *      Custom context menu
- *    </div>
- *  </form>
+ * ```html
+ * <form>
+ *   <input type="text" id="field"
+ *     oncontextmenu="showMenu(); return false;" />
  *
- *  <script>
- *    function showMenu() {
- *      document.getElementById("context-menu").style.display = 'block';
- *    }
- *  </script>
+ *   <div id="context-menu" style="display:none">
+ *     Custom context menu
+ *   </div>
+ * </form>
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * <script>
+ *   function showMenu() {
+ *     document.getElementById("context-menu").style.display = 'block';
+ *   }
+ * </script>
+ * ```
  *
- *  class Form {
- *      static exampleInput = Target.the('example input')
- *          .located(by.id('example'));
- *      static exampleContextMenu = Target.the('example context menu')
- *          .located(by.id('context-menu'));
- *  }
+ * ## Lean Page Object describing the widget
  *
- * @example <caption>Right-click on an element</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, RightClick, isVisible } from '@serenity-js/webdriverio';
- *  import { Ensure } from '@serenity-js/assertions';
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
  *
- *  actorCalled('Chloé')
- *      .whoCan(BrowseTheWeb.using(browser))
- *      .attemptsTo(
- *          RightClick.on(Form.exampleInput),
- *          Ensure.that(Form.exampleContextMenu, isVisible()),
- *      );
+ * class Form {
+ *   static exampleInput = () =>
+ *     PageElement.located(By.id('example'))
+ *       .describedAs('example input')
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Target}
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link isVisible}
+ *   static exampleContextMenu = () =>
+ *     PageElement.located(By.id('context-menu'))
+ *       .describedAs('example context menu')
+ * }
+ * ```
  *
- * @extends {ElementInteraction}
+ * ## Right-click on an element
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { RightClick, isVisible } from '@serenity-js/web'
+ * import { Ensure } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Chloé')
+ *   .whoCan(BrowseTheWeb.using(browser))
+ *   .attemptsTo(
+ *     RightClick.on(Form.exampleInput()),
+ *     Ensure.that(Form.exampleContextMenu(), isVisible()),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link BrowseTheWeb}
+ * - {@link PageElement}
+ *
+ * @group Interactions
  */
 export class RightClick extends PageElementInteraction {
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates this {@link Interaction}.
      *
-     * @param {Answerable<PageElement>} target
+     * @param pageElement
      *  The element to be right-clicked on
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<PageElement>): Interaction {
-        return new RightClick(target);
+    static on(pageElement: Answerable<PageElement>): Interaction {
+        return new RightClick(pageElement);
+    }
+
+    protected constructor(private readonly pageElement: Answerable<PageElement>) {
+        super(d `#actor right-clicks on ${ pageElement }`);
     }
 
     /**
-     * @param {Answerable<PageElement>} target
-     *  The element to be right-clicked on
-     */
-    constructor(private readonly target: Answerable<PageElement>) {
-        super(formatted `#actor right-clicks on ${ target }`);
-    }
-
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const element = await this.resolve(actor, this.target);
+        const element = await this.resolve(actor, this.pageElement);
         return element.rightClick();
     }
 }

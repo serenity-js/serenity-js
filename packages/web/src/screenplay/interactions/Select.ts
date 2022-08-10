@@ -182,9 +182,9 @@ export class Select {
      * await actorCalled('Nick')
      *   .whoCan(BrowseTheWeb.using(protractor.browser))
      *   .attemptsTo(
-     *     Select.option('Poland').from(Countries.dropdown),
+     *     Select.option('Poland').from(Countries.dropdown()),
      *     Ensure.that(
-     *       Selected.optionIn(Countries.dropdown),
+     *       Selected.optionIn(Countries.dropdown()),
      *       equals('Poland')
      *     ),
      *   )
@@ -248,9 +248,9 @@ export class Select {
      * await actorCalled('Nick')
      *   .whoCan(BrowseTheWeb.using(protractor.browser))
      *   .attemptsTo(
-     *     Select.options('Poland', 'United States').from(Countries.dropdown),
+     *     Select.options('Poland', 'United States').from(Countries.dropdown()),
      *     Ensure.that(
-     *       Selected.optionsIn(Countries.dropdown),
+     *       Selected.optionsIn(Countries.dropdown()),
      *       equals([ 'Poland', 'United States' ])
      *     ),
      *   )
