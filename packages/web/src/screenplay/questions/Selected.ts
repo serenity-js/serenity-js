@@ -3,19 +3,24 @@ import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
 import { PageElement } from '../models';
 
 /**
- * Represents options and values selected in a
+ * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * options and values selected in a
  * [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
  *
  * ## Learn more
  * - {@link Select}
+ * - {@link BrowseTheWeb}
+ * - {@link QuestionAdapter}
+ * - {@link Question}
  *
  * @group Questions
  */
 export class Selected {
 
     /**
-     * Represents the value of a single [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     * selected in a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
+     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * a single [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
      *
      * #### Example widget
      *
@@ -72,8 +77,9 @@ export class Selected {
     }
 
     /**
-     * Represents values of [options](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     * selected in a [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * values of [options](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
      *
@@ -131,8 +137,8 @@ export class Selected {
     }
 
     /**
-     * Represents a single option selected in a
-     * [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * a single option selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
      *
@@ -192,8 +198,8 @@ export class Selected {
     }
 
     /**
-     * Represents options selected in a
-     * [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * options selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
      *

@@ -3,44 +3,56 @@ import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapte
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  Retrieves the `value` attribute of a given {@link PageElement}.
+ * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * the `value` attribute of a given {@link PageElement}.
  *
- * @example <caption>Example widget</caption>
- *  <input type="text" id="username" value="Alice" />
+ * ## Example widget
+ * ```html
+ * <input type="text" id="username" value="Alice" />
+ * ```
  *
- * @example <caption>Retrieve the `value` of a given PageElement</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, PageElement, Value } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ## Retrieve the `value` of a given {@link PageElement}
  *
- *  const usernameField = () =>
- *      PageElement.located(By.id('username')).describedAs('username field')
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, PageElement, Value } from '@serenity-js/web'
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(Value.of(usernameField), equals('Alice')),
- *      )
+ * const usernameField = () =>
+ *   PageElement.located(By.id('username'))
+ *     .describedAs('username field')
  *
- * @example <caption>Using Value as QuestionAdapter</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, PageElement, Value } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(Value.of(usernameField), equals('Alice')),
+ *   )
+ * ```
  *
- *  const usernameField = () =>
- *      PageElement.located(By.id('username')).describedAs('username field')
+ * ## Using Value as {@link QuestionAdapter}
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Value.of(usernameField).toLocaleLowerCase()[0],
- *              equals('a')  // [a]lice
- *          ),
- *      )
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, PageElement, Value } from '@serenity-js/web'
+ *
+ * const usernameField = () =>
+ *   PageElement.located(By.id('username'))
+ *     .describedAs('username field')
+ *
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       Value.of(usernameField).toLocaleLowerCase()[0],
+ *       equals('a')  // [a]lice
+ *     ),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ * - {@link BrowseTheWeb}
+ * - {@link MetaQuestion}
+ * - {@link QuestionAdapter}
+ * - {@link Question}
  *
  * @group Questions
  */
@@ -48,41 +60,37 @@ export class Value
     extends Question<Promise<string>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
-    /**
-     * @private
-     */
     private subject: string;
 
     /**
-     * @desc
-     *  Retrieves the `value` attribute of a given {@link PageElement}.
+     * Instantiates a {@link Question} that uses
+     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * the `value` attribute of a given {@link PageElement}.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} element
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
+     * #### Learn more
+     * - {@link MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param pageElement
      */
-    static of(element: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
-        return Question.createAdapter(new Value(element)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
+    static of(pageElement: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+        return Question.createAdapter(new Value(pageElement)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
     }
 
-    /**
-     * @param {Answerable<PageElement>} element
-     */
-    constructor(private readonly element: Answerable<PageElement>) {
+    protected constructor(private readonly element: Answerable<PageElement>) {
         super();
         this.subject = d`the value of ${ element }`;
     }
 
     /**
-     * @desc
-     *  Retrieves the `value` attribute of a given {@link PageElement}.
-     *  located within the `parent` element.
+     * Instantiates a {@link Question} that uses
+     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * the `value` attribute of a given {@link PageElement}
+     * located within the `parent` element.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} parent
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
+     * #### Learn more
+     * - {@link MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param parent
      */
     of(parent: Answerable<PageElement>): Question<Promise<string>> {
         return new Value(PageElement.of(this.element, parent));
