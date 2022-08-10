@@ -1,5 +1,10 @@
 import { f } from '@serenity-js/core';
 
+/**
+ * Describes a selector you use to identify a {@link PageElement} or a group of {@link PageElements}.
+ *
+ * @group Models
+ */
 export abstract class Selector {
 
     toString(): string {
