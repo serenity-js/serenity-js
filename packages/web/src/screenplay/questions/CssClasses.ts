@@ -79,8 +79,7 @@ import { PageElement } from '../models';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question}
- * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
+ * @group Questions
  */
 export class CssClasses
     extends Question<Promise<string[]>>
@@ -124,16 +123,7 @@ export class CssClasses
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-     *
-     * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @inheritDoc
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const element = await actor.answer(this.pageElement);
@@ -149,11 +139,7 @@ export class CssClasses
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -161,8 +147,7 @@ export class CssClasses
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;

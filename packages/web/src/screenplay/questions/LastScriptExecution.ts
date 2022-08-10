@@ -3,16 +3,14 @@ import { Question, QuestionAdapter } from '@serenity-js/core';
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * @desc
- *  Returns the result of last script executed via {@link ExecuteScript}
+ * Returns the result of last script executed via {@link ExecuteScript}
+ *
+ * @group Questions
  */
 export class LastScriptExecution {
 
     /**
-     * @desc
-     *  Enables asserting on the result of a function executed via {@link ExecuteScript}.
-     *
-     * @returns {Question<R>}
+     * Enables asserting on the result of a function executed via {@link ExecuteScript}.
      */
     static result<R>(): QuestionAdapter<R> {
         return Question.about(`last script execution result`, async actor => {

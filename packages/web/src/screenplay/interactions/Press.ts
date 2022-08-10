@@ -1,5 +1,5 @@
-import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
-import { asyncMap, formatted } from '@serenity-js/core/lib/io';
+import { Activity, Answerable, AnswersQuestions, d, Interaction, Question, UsesAbilities } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
 import { Key, PageElement } from '../models';
@@ -92,7 +92,7 @@ export class Press extends PageElementInteraction {
     constructor(
         private readonly keys: Answerable<Array<Key | string>>
     ) {
-        super(formatted `#actor presses ${ keys }`);
+        super(d `#actor presses ${ keys }`);
     }
 
     /**
@@ -117,9 +117,12 @@ class PressKeyInField extends PageElementInteraction {
         private readonly keys: Answerable<Array<Key | string>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(formatted `#actor presses ${ keys } in ${ field }`);
+        super(d `#actor presses ${ keys } in ${ field }`);
     }
 
+    /**
+     * @inheritDoc
+     */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
@@ -162,17 +165,18 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
+     * Changes the description of this question's subject.
      *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @param subject
      */
     describedAs(subject: string): this {
         this.subject = subject;
         return this;
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return this.subject;
     }

@@ -192,9 +192,8 @@ export class Selected {
     }
 
     /**
-     * @desc
-     *  Represents options selected in a
-     *  [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
+     * Represents options selected in a
+     * [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
      *

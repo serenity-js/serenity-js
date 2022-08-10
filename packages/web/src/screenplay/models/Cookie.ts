@@ -1,5 +1,4 @@
-import { Answerable, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, d, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
 import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
 
 import { CookieMissingError } from '../../errors';
@@ -39,7 +38,7 @@ export abstract class Cookie implements Optional {
      */
     static set(cookieData: Answerable<CookieData>): Interaction {
 
-        return Interaction.where(formatted `#actor sets cookie: ${ cookieData }`, async actor => {
+        return Interaction.where(d `#actor sets cookie: ${ cookieData }`, async actor => {
             const cookie = ensure('cookieData', await actor.answer(cookieData), isDefined(), isPlainObject());
 
             const page = await BrowseTheWeb.as(actor).currentPage();
