@@ -549,8 +549,12 @@ jobs:
 
 # todo Clean up and define a custom scope
 
-      - name: Build custom docusaurus plugin
+      - name: Build custom TypeDoc plugin
         working-directory: ./documentation/typedoc-plugin-ignore-inherited-static-methods
+        run: npm run compile
+
+      - name: Build custom Docusaurus plugin
+        working-directory: ./documentation/docusarus-plugin-piwik-analytics
         run: npm run compile
 
       - name: Build serenity-js.org website
