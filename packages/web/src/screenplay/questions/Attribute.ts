@@ -16,7 +16,7 @@ import { PageElement } from '../models';
  * </ul>
  * ```
  *
- * ## Retrieve an HTML attribute of a given `PageElement`
+ * ## Retrieve an HTML attribute of a given {@link PageElement}
  *
  * ```ts
  *  import { actorCalled } from '@serenity-js/core'
@@ -56,7 +56,7 @@ import { PageElement } from '../models';
  * )
  * ```
  *
- * ## Using as filter in Page Element Query Language
+ * ## Using as filter in {@apiLink PageElements|Page Element Query Language}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
