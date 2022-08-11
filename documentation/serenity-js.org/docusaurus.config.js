@@ -38,8 +38,8 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
-                    // Please change this to your repo.
-                    // Remove this to remove the "edit this page" links.
+                    routeBasePath: 'handbook',
+                    remarkPlugins: [ require('mdx-mermaid') ],
                     editUrl:
                         'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
                 },
@@ -61,11 +61,17 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             colorMode: {
+                disableSwitch: false,
                 respectPrefersColorScheme: true,
+            },
+            docs: {
+                sidebar: {
+                    hideable: true,
+                },
             },
             navbar: {
                 // style: 'dark',
-                // title: 'Serenity/JS',
+                title: 'Serenity/JS',
                 hideOnScroll: true,
                 logo: {
                     height: 10,
@@ -75,19 +81,11 @@ const config = {
                     className: 'serenity-js-logo',
                 },
                 items: [
-                    {
-                        type: 'doc',
-                        docId: 'intro',
-                        position: 'left',
-                        label: `Tutorial`,
-                    },
-                    // { to: '/handbook', label: 'Handbook', position: 'left' },
-                    {
-                        to: 'api',
-                        label: 'API docs',
-                        position: 'left',
-                    },
+                    { label: 'Handbook', type: 'doc', docId: 'getting-started/why-serenity-js', position: 'left' },
+                    { label: 'API', to: 'api/core', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'right' },
+                    { to: '/contribute', label: 'Contribute', position: 'left' },
+                    { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'right' },
                     {
                         href: 'https://github.com/serenity-js/serenity-js',
                         label: 'GitHub',
@@ -103,7 +101,7 @@ const config = {
                         items: [
                             {
                                 label: 'Tutorial',
-                                to: '/docs/intro',
+                                to: '/handbook/getting-started/tutorial',
                             },
                         ],
                     },
@@ -219,6 +217,34 @@ const config = {
                         },
                     }))
                 ],
+                sortPackages: (a, b) => {
+                    const packageOrder = [
+                        // Core
+                        '@serenity-js/core',
+                        '@serenity-js/assertions',
+
+                        // Test runner adapters
+                        '@serenity-js/cucumber',
+                        '@serenity-js/jasmine',
+                        '@serenity-js/mocha',
+
+                        // Web testing
+                        '@serenity-js/web',
+                        '@serenity-js/playwright',
+                        '@serenity-js/protractor',
+                        '@serenity-js/webdriverio',
+
+                        // Api testing
+                        '@serenity-js/rest',
+                        '@serenity-js/local-server',
+
+                        // Reporting
+                        '@serenity-js/console-reporter',
+                        '@serenity-js/serenity-bdd',
+                    ]
+
+                    return packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName);
+                },
                 // minimal: false,
                 readmes: true,
                 debug: true,
@@ -242,16 +268,40 @@ const config = {
                     visibilityFilters: {
                         protected: true,
                         private: false,
-                    }
+                    },
+                    // todo: remove when merged https://github.com/milesj/docusaurus-plugin-typedoc-api/pull/67
+                    inlineTags: [ '@link', '@inheritDoc', '@label', '@linkcode', '@linkplain', '@apilink', '@doclink' ],
                 }
             },
         ],
         [
-            '@documentation/docusarus-plugin-piwik-analytics',
+            '@documentation/docusaurus-plugin-piwik-analytics',
             {
                 id: '8497b9df-f942-4fb6-9f4f-eade34bab231',
                 enable: true,
             }
+        ],
+        [
+            require.resolve('./src/plugins/changelog/index.js'),
+            {
+                blogTitle: 'Serenity/JS Changelog \uD83C\uDF81',
+                blogDescription: 'Keep yourself up-to-date about new features in every release',
+                blogSidebarCount: 'ALL',
+                blogSidebarTitle: 'Changelog',
+                routeBasePath: '/changelog',
+                showReadingTime: false,
+                postsPerPage: 20,
+                archiveBasePath: null,
+                // authorsMapPath: 'authors.json',
+                feedOptions: {
+                    type: 'all',
+                    title: 'Serenity/JS changelog',
+                    description:
+                        'Keep yourself up-to-date about new features in every release',
+                    copyright: `Copyright © 2016-${new Date().getFullYear()} Jan Molak, SmartCode Ltd`,
+                    language: 'en',
+                },
+            },
         ]
     ],
 };
