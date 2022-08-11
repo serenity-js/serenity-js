@@ -1,8 +1,8 @@
 /**
- * Serenity/JS Screenplay Pattern `Ability` enables an {@link Actor} to interact with an external interface of the system under test.
+ * Serenity/JS Screenplay Pattern `Ability` enables an {@apilink Actor} to interact with an external interface of the system under test.
  *
  * Technically speaking, an "ability" is a wrapper around a client of a given external interface,
- * such as a {@link BrowseTheWeb|Web browser driver}, or a {@link CallAnApi|HTTP client}.
+ * such as a {@apilink BrowseTheWeb|Web browser driver}, or a {@apilink CallAnApi|HTTP client}.
  *
  * ## Using custom abilities
  *
@@ -65,8 +65,8 @@
  * ## Using auto-initialisable and auto-discardable abilities
  *
  * Abilities that rely on resources that need to be initialised before they can be used,
- * or discarded before the actor is dismissed can implement the {@link Initialisable}
- * or {@link Discardable} interfaces, respectively.
+ * or discarded before the actor is dismissed can implement the {@apilink Initialisable}
+ * or {@apilink Discardable} interfaces, respectively.
  *
  * ### Defining a custom ability to `QueryPostgresDB`
  *
@@ -150,12 +150,12 @@
  * ```
  *
  * ## Learn more
- * - {@link AbilityType}
- * - {@link Initialisable}
- * - {@link Discardable}
- * - {@link BrowseTheWeb}
- * - {@link CallAnApi}
- * - {@link TakeNotes}
+ * - {@apilink AbilityType}
+ * - {@apilink Initialisable}
+ * - {@apilink Discardable}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink CallAnApi}
+ * - {@apilink TakeNotes}
  *
  * @group Screenplay Pattern
  */

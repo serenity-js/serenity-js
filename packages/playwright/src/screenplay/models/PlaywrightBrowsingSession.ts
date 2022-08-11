@@ -6,7 +6,7 @@ import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
- * Playwright-specific implementation of {@link BrowsingSession}.
+ * Playwright-specific implementation of {@apilink BrowsingSession}.
  *
  * @group Models
  */

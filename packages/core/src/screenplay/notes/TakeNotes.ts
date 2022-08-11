@@ -3,21 +3,21 @@ import { UsesAbilities } from '../actor';
 import { Notepad } from './Notepad';
 
 /**
- * An {@link Ability} that enables an {@link Actor} to remember information
+ * An {@apilink Ability} that enables an {@apilink Actor} to remember information
  * to be recalled during a test scenario.
  *
- * Under the hood, {@link TakeNotes} uses a {@link Notepad}, which state
+ * Under the hood, {@apilink TakeNotes} uses a {@apilink Notepad}, which state
  * can be populated both during initialisation or while the test scenario is executed.
  * Populating the notepad when it's initialised can be useful to associate authentication credentials
  * or personal details with a given actor, while dynamic recording of notes during a test scenario
  * can be useful when the data to be recorded is not known upfront - for example when we want
  * the actor to remember a JWT stored in the browser and then use it when sending API requests.
  *
- * **Pro tip:** {@link TakeNotes}, {@link Notepad} and {@link notes} can be typed
+ * **Pro tip:** {@apilink TakeNotes}, {@apilink Notepad} and {@apilink notes} can be typed
  * using [TypeScript generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
  * to help you avoid typos when specifying note names.
  *
- * See [notes](/api/core/function/notes) and {@link Notepad} for more usage examples.
+ * See [notes](/api/core/function/notes) and {@apilink Notepad} for more usage examples.
  *
  * ## Remembering and retrieving a value
  *
@@ -226,22 +226,22 @@ import { Notepad } from './Notepad';
  * ## Learn more
  *
  * - [notes](/api/core/function/notes)
- * - {@link Notepad}
+ * - {@apilink Notepad}
  *
  * @group Notes
  */
 export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
 
     /**
-     * Initialises an {@link Ability} to {@link TakeNotes} with {@apilink Notepad.empty}.
+     * Initialises an {@apilink Ability} to {@apilink TakeNotes} with {@apilink Notepad.empty}.
      */
     static usingAnEmptyNotepad<N extends Record<any, any>>(): TakeNotes<N> {
         return TakeNotes.using<N>(Notepad.empty<N>());
     }
 
     /**
-     * Initialises an {@link Ability} to {@link TakeNotes} using
-     * a {@link Notepad.with} some initial state.
+     * Initialises an {@apilink Ability} to {@apilink TakeNotes} using
+     * a {@apilink Notepad.with} some initial state.
      *
      * @param notepad
      */
@@ -250,8 +250,8 @@ export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
     }
 
     /**
-     * Used to access the Actor's ability to {@link TakeNotes}
-     * from within {@link Interaction} and {@link Question} classes.
+     * Used to access the Actor's ability to {@apilink TakeNotes}
+     * from within {@apilink Interaction} and {@apilink Question} classes.
      *
      * @param actor
      */

@@ -4,7 +4,7 @@ import * as protractor from 'protractor';
 import { promised } from '../../promised';
 
 /**
- * Protractor-specific implementation of {@link RootLocator}.
+ * Protractor-specific implementation of {@apilink RootLocator}.
  *
  * @group Models
  */

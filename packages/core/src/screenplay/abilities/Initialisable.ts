@@ -1,14 +1,14 @@
 /**
- * An interface to be implemented by any {@link Ability} that needs to initialise
+ * An interface to be implemented by any {@apilink Ability} that needs to initialise
  * the resources it uses, e.g. establish a database connection.
  *
  * The {@apilink Initialisable.initialise} method is invoked whenever {@apilink Actor.attemptsTo} method is called,
  * but **only when** {@apilink Initialisable.isInitialised} returns false. This is to avoid initialising abilities more than once.
  *
  * ## Learn more
- * - {@link Ability}
- * - {@link AbilityType}
- * - {@link Discardable}
+ * - {@apilink Ability}
+ * - {@apilink AbilityType}
+ * - {@apilink Discardable}
  *
  * @group Abilities
  */
@@ -25,7 +25,7 @@ export interface Initialisable {
 
     /**
      * Should return `true` when all the resources that the given ability needs
-     * have been initialised. Should return `false` if the {@link Actor} should
+     * have been initialised. Should return `false` if the {@apilink Actor} should
      * initialise them again when {@apilink Actor.attemptsTo} is called.
      *
      * @returns {boolean}

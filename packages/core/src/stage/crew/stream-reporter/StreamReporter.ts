@@ -5,7 +5,7 @@ import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 
 /**
- * Serialises all the {@link DomainEvent} objects it receives and streams
+ * Serialises all the {@apilink DomainEvent} objects it receives and streams
  * them as [ndjson](http://ndjson.org/) to the output stream.
  *
  * Useful when debugging issues related to custom Serenity/JS test runner adapters.
@@ -86,7 +86,7 @@ export class StreamReporter implements StageCrewMember {
      *  A Writable stream that should receive the output
      *
      * @param {Stage} [stage]
-     *  The stage this {@link StageCrewMember} should be assigned to
+     *  The stage this {@apilink StageCrewMember} should be assigned to
      */
     constructor(
         private readonly output: Writable = process.stdout,
@@ -95,20 +95,20 @@ export class StreamReporter implements StageCrewMember {
     }
 
     /**
-     * Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     * Creates a new instance of this {@apilink StageCrewMember} and assigns it to a given {@apilink Stage}.
      *
      * @param stage
-     *  An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
      *
      * @returns {StageCrewMember}
-     *  A new instance of this {@link StageCrewMember}
+     *  A new instance of this {@apilink StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember {
         return new StreamReporter(this.output, stage);
     }
 
     /**
-     * Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink StageManager}.
      *
      * @listens {DomainEvent}
      *

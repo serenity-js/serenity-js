@@ -6,17 +6,17 @@ import { parse, stringify } from './json';
 export interface SerialisedError extends JSONObject {
     /**
      *  Name of the constructor function used to instantiate
-     *  the original {@link Error} object.
+     *  the original {@apilink Error} object.
      */
     name:    string;
 
     /**
-     *  Message of the original {@link Error} object
+     *  Message of the original {@apilink Error} object
      */
     message: string;
 
     /**
-     *  Stack trace of the original {@link Error} object
+     *  Stack trace of the original {@apilink Error} object
      */
     stack:   string;
 }

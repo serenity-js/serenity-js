@@ -4,7 +4,7 @@ import { Config as ProtractorConfig } from 'protractor';
 import { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
- * Detects the {@link TestRunnerAdapter} to use,
+ * Detects the {@apilink TestRunnerAdapter} to use,
  * based on Protractor configuration.
  *
  * @group Integration

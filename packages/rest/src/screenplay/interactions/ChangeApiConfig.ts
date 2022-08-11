@@ -4,8 +4,8 @@ import { URL } from 'url';
 import { CallAnApi } from '../abilities';
 
 /**
- * Changes configuration of the {@link Ability|ability} to {@link CallAnApi}
- * that the {@link Actor|actor} executing this {@link Interaction|interaction} has been configured with.
+ * Changes configuration of the {@apilink Ability|ability} to {@apilink CallAnApi}
+ * that the {@apilink Actor|actor} executing this {@apilink Interaction|interaction} has been configured with.
  *
  * ## Changing API URL for all subsequent requests
  *
@@ -91,8 +91,8 @@ import { CallAnApi } from '../abilities';
 export class ChangeApiConfig {
 
     /**
-     * Instructs the {@link Actor|actor} to change the base URL
-     * of their {@link Ability|ability} to {@link CallAnApi}
+     * Instructs the {@apilink Actor|actor} to change the base URL
+     * of their {@apilink Ability|ability} to {@apilink CallAnApi}
      *
      * @param newApiUrl
      */
@@ -101,8 +101,8 @@ export class ChangeApiConfig {
     }
 
     /**
-     * Instructs the {@link Actor|actor} to change the port configured in the base URL
-     * of their {@link Ability|ability} to {@link CallAnApi}
+     * Instructs the {@apilink Actor|actor} to change the port configured in the base URL
+     * of their {@apilink Ability|ability} to {@apilink CallAnApi}
      *
      * @param newApiPort
      */
@@ -111,10 +111,10 @@ export class ChangeApiConfig {
     }
 
     /**
-     * Instructs the {@link Actor|actor} to change the configuration of the {@link AxiosInstance}
-     * used by their {@link Ability|ability} to {@link CallAnApi}
-     * and set an HTTP request header for any subsequent {@link HTTPRequest|HTTPRequests}
-     * issued via {@link Send}.
+     * Instructs the {@apilink Actor|actor} to change the configuration of the {@apilink AxiosInstance}
+     * used by their {@apilink Ability|ability} to {@apilink CallAnApi}
+     * and set an HTTP request header for any subsequent {@apilink HTTPRequest|HTTPRequests}
+     * issued via {@apilink Send}.
      *
      * @param name
      * @param value

@@ -6,10 +6,10 @@ import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 
 /**
- * Instructs the {@link Actor} to {@link CollectsArtifacts|collect} arbitrary static values and answers to {@link Answerable|Answerables},
- * so that they can be sent to the {@link StageCrewMember|StageCrewMembers}
- * and printed to the terminal by the {@link ConsoleReporter}
- * or attached to the HTML report by the {@link SerenityBDDReporter}.
+ * Instructs the {@apilink Actor} to {@apilink CollectsArtifacts|collect} arbitrary static values and answers to {@apilink Answerable|Answerables},
+ * so that they can be sent to the {@apilink StageCrewMember|StageCrewMembers}
+ * and printed to the terminal by the {@apilink ConsoleReporter}
+ * or attached to the HTML report by the {@apilink SerenityBDDReporter}.
  *
  * ## Logging static and `Answerable` values
  *
@@ -27,7 +27,7 @@ import { Interaction } from '../Interaction';
 export class Log extends Interaction {
 
     /**
-     * Instantiates a new {@link Interaction|interaction} to {@link Log}
+     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Log}
      *
      * Note that this method accepts [variable number of arguments](https://www.typescriptlang.org/docs/handbook/functions.html#rest-parameters),
      * so that you can easily log several values at the same time.

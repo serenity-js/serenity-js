@@ -9,10 +9,10 @@ import { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
 /**
- * Serenity/JS Screenplay Pattern-style adapter for the {@link Notepad},
- * that makes it easier for the {@link Actor|actors} to access its APIs.
+ * Serenity/JS Screenplay Pattern-style adapter for the {@apilink Notepad},
+ * that makes it easier for the {@apilink Actor|actors} to access its APIs.
  *
- * See {@link TakeNotes}, {@link Notepad} and {@link notes} for more examples.
+ * See {@apilink TakeNotes}, {@apilink Notepad} and {@apilink notes} for more examples.
  *
  * @group Notes
  */
@@ -22,7 +22,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Checks if a note identified by `subject` exists in the notepad.
      *
      * #### Learn more
-     * - {@link Notepad#has}
+     * - {@apilink Notepad#has}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -40,7 +40,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Retrieves a note, identified by `subject`, from the notepad.
      *
      * #### Learn more
-     * - {@link Notepad#get}
+     * - {@apilink Notepad#get}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -49,7 +49,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      *  The value of the previously recorded note.
      *
      * @throws {LogicError}
-     *  Throws a {@link LogicError} if the note with a given `subject`
+     *  Throws a {@apilink LogicError} if the note with a given `subject`
      *  has never been recorded.
      */
     get<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<Notes[Subject]> {
@@ -63,9 +63,9 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * uniquely identified by its `subject`.
      *
      * **Pro tip:** calls to `set` can be chained and result in an accumulation
-     * of values to be recorded in the {@link Notepad}.
-     * Those values are resolved and recorded when the {@link Interaction}
-     * returned by this method is performed by an {@link Actor}.
+     * of values to be recorded in the {@apilink Notepad}.
+     * Those values are resolved and recorded when the {@apilink Interaction}
+     * returned by this method is performed by an {@apilink Actor}.
      *
      * If a note identified by a given `subject` is set multiple times,
      * the last call wins.
@@ -96,7 +96,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@link Notepad#set}
+     * - {@apilink Notepad#set}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -166,7 +166,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@link Notepad#delete}
+     * - {@apilink Notepad#delete}
      *
      * @param subject
      *
@@ -202,7 +202,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@link Notepad#clear}
+     * - {@apilink Notepad#clear}
      */
     clear(): Interaction {
         return Interaction.where('#actor clears their notepad', actor => {
@@ -231,7 +231,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@link Notepad#size}
+     * - {@apilink Notepad#size}
      */
     size(): QuestionAdapter<number> {
         return Question.about('number of notes', async actor => {
@@ -240,12 +240,12 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * Produces a {@link QuestionAdapter} that resolves to a `JSONObject`
+     * Produces a {@apilink QuestionAdapter} that resolves to a `JSONObject`
      * representing the resolved notes stored in the notepad.
      *
      * Note that serialisation to JSON will simplify some data types that might not be serialisable by default,
      * but are commonly used in data structures representing actor's notes.
-     * For example a {@link Map} will be serialised as a regular JSON object, a {@link Set} will be serialised as {@link Array}.
+     * For example a {@apilink Map} will be serialised as a regular JSON object, a {@apilink Set} will be serialised as {@apilink Array}.
      *
      * Additionally, notepad assumes that the data structure you use it with does not contain cyclic references.
      *

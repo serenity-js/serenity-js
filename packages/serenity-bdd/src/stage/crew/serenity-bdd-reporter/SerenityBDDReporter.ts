@@ -5,7 +5,7 @@ import { CorrelationId } from '@serenity-js/core/lib/model';
 import { EventQueueProcessors, EventQueues } from './processors';
 
 /**
- * A {@link StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
+ * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
  * to be parsed by [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)
  * to produce HTML reports and living documentation.
  *

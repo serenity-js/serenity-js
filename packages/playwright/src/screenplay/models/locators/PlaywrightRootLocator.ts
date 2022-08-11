@@ -3,7 +3,7 @@ import * as playwright from 'playwright';
 import { ensure, isDefined } from 'tiny-types';
 
 /**
- * Playwright-specific implementation of {@link RootLocator}.
+ * Playwright-specific implementation of {@apilink RootLocator}.
  *
  * @group Models
  */

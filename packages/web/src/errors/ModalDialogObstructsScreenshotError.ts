@@ -4,9 +4,9 @@ import { LogicError } from '@serenity-js/core';
  * Thrown when the presence of a JavaScript dialog obstructs taking a screenshot.
  *
  * ## Learn more
- * - {@link Photographer}
- * - {@link LogicError}
- * - {@link TakeScreenshot}
+ * - {@apilink Photographer}
+ * - {@apilink LogicError}
+ * - {@apilink TakeScreenshot}
  *
  * @group Errors
  */

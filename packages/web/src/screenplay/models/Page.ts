@@ -122,17 +122,17 @@ import { SwitchableOrigin } from './SwitchableOrigin';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
- * - {@link Optional}
- * - {@link Switchable}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
+ * - {@apilink Optional}
+ * - {@apilink Switchable}
  *
  * @group Models
  */
 export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
 
     /**
-     * Creates a {@link QuestionAdapter} representing the currently active {@link Page}.
+     * Creates a {@apilink QuestionAdapter} representing the currently active {@apilink Page}.
      */
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
@@ -141,8 +141,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.name}
-     * meets the {@link Expectation|`expectation`}.
+     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.name}
+     * meets the {@apilink Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired name
      *
@@ -171,8 +171,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.title}
-     * meets the {@link Expectation|`expectation`}.
+     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.title}
+     * meets the {@apilink Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired title
      *
@@ -201,8 +201,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.url}
-     * meets the {@link Expectation|`expectation`}.
+     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.url}
+     * meets the {@apilink Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired URL
      *
@@ -257,14 +257,14 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link PageElement}, retrieving an element located by {@link Selector}.
+     * Creates a {@apilink PageElement}, retrieving an element located by {@apilink Selector}.
      *
      * @param selector
      */
     abstract locate(selector: Selector): PageElement<Native_Element_Type>;
 
     /**
-     * Creates {@link PageElements}, retrieving a collection of elements located by {@link Selector}.
+     * Creates {@apilink PageElements}, retrieving a collection of elements located by {@apilink Selector}.
      *
      * @param selector
      */
@@ -287,7 +287,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * Causes the browser to traverse one step backward in the joint session history
-     * of the current {@link Page} (the current top-level browsing context).
+     * of the current {@apilink Page} (the current top-level browsing context).
      *
      * This is equivalent to pressing the back button in the browser UI,
      * or calling [`window.history.back`](https://developer.mozilla.org/en-US/docs/Web/API/History/back).
@@ -296,7 +296,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * Causes the browser to traverse one step forward in the joint session history
-     * of the current {@link Page} (the current top-level browsing context).
+     * of the current {@apilink Page} (the current top-level browsing context).
      *
      * This is equivalent to pressing the back button in the browser UI,
      * or calling [`window.history.forward`](https://developer.mozilla.org/en-US/docs/Web/API/History/forward).
@@ -304,12 +304,12 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract navigateForward(): Promise<void>;
 
     /**
-     * Causes the browser to reload the {@link Page} in the current top-level browsing context.
+     * Causes the browser to reload the {@apilink Page} in the current top-level browsing context.
      */
     abstract reload(): Promise<void>;
 
     /**
-     * Send a sequence of {@link Key} strokes to the active element.
+     * Send a sequence of {@apilink Key} strokes to the active element.
      *
      * @param keys
      *  Keys to enter
@@ -336,7 +336,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * If the script has a return value (i.e. if the script contains a `return` statement),
      * then the following steps will be taken for resolving this functions return value:
      *
-     * - For a {@link PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - For a {@apilink PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
      * - `null` and `undefined` return values will resolve to `null`
      * - `boolean`, `number`, and `string` values will resolve as is
      * - Functions will resolve to their string representation
@@ -385,7 +385,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * The following steps will be taken for resolving this functions return value against
      * the first argument to the script's callback function:
      *
-     * - For a {@link PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - For a {@apilink PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
      * - `null` and `undefined` return values will resolve to `null`
      * - `boolean`, `number`, and `string` values will resolve as is
      * - Functions will resolve to their string representation
@@ -433,7 +433,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     /**
      * Take a screenshot of the top-level browsing context's viewport.
      *
-     * @throws {@link BrowserWindowClosedError}
+     * @throws {@apilink BrowserWindowClosedError}
      *  When the page you're trying to take the screenshot of has already been closed
      *
      * @return
@@ -442,15 +442,15 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract takeScreenshot(): Promise<string>;
 
     /**
-     * Retrieves a cookie identified by `name` and visible to this {@link Page}.
+     * Retrieves a cookie identified by `name` and visible to this {@apilink Page}.
      *
      * @param name
      */
     abstract cookie(name: string): Promise<Cookie>;
 
     /**
-     * Adds a single cookie with {@link CookieData} to the cookie store associated
-     * with the active {@link Page}'s address.
+     * Adds a single cookie with {@apilink CookieData} to the cookie store associated
+     * with the active {@apilink Page}'s address.
      *
      * @param cookieData
      */
@@ -503,8 +503,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * to the previous context when needed.
      *
      * ## Learn more
-     * - {@link Switch}
-     * - {@link Switchable}
+     * - {@apilink Switch}
+     * - {@apilink Switchable}
      */
     async switchTo(): Promise<SwitchableOrigin> {
 
@@ -530,7 +530,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract closeOthers(): Promise<void>;
 
     /**
-     * Returns the {@link ModalDialogHandler} for the current {@link Page}.
+     * Returns the {@apilink ModalDialogHandler} for the current {@apilink Page}.
      */
     modalDialog(): ModalDialogHandler {
         return this.modalDialogHandler;

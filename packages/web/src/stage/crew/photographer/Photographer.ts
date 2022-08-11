@@ -5,10 +5,10 @@ import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { PhotoTakingStrategy } from './strategies';
 
 /**
- * The Photographer is a {@link StageCrewMember} who takes screenshots
- * using the web browser associated with the {@link Actor} that is currently {@link actorInTheSpotlight|in the spotlight}.
+ * The Photographer is a {@apilink StageCrewMember} who takes screenshots
+ * using the web browser associated with the {@apilink Actor} that is currently {@apilink actorInTheSpotlight|in the spotlight}.
  *
- * ## Programmatically assigning the `Photographer` to the {@link Stage}
+ * ## Programmatically assigning the `Photographer` to the {@apilink Stage}
  *
  * ```ts
  * import { configure, ArtifactArchiver } from '@serenity-js/core'
@@ -107,22 +107,22 @@ import { PhotoTakingStrategy } from './strategies';
  * ```
  *
  * ## Learn more
- * - {@link Stage}
- * - {@link StageCrewMember}
- * - {@link TakePhotosBeforeAndAfterInteractions}
- * - {@link TakePhotosOfFailures}
- * - {@link TakePhotosOfInteractions}
+ * - {@apilink Stage}
+ * - {@apilink StageCrewMember}
+ * - {@apilink TakePhotosBeforeAndAfterInteractions}
+ * - {@apilink TakePhotosOfFailures}
+ * - {@apilink TakePhotosOfInteractions}
  *
  * @group Stage
  */
 export class Photographer implements StageCrewMember {
 
     /**
-     * Instantiates a new {@link Photographer} configured to take photos (screenshots)
-     * as per the specified {@link PhotoTakingStrategy}.
+     * Instantiates a new {@apilink Photographer} configured to take photos (screenshots)
+     * as per the specified {@apilink PhotoTakingStrategy}.
      *
      * @param strategy
-     * A no-arg constructor function that instantiates a {@link PhotoTakingStrategy}
+     * A no-arg constructor function that instantiates a {@apilink PhotoTakingStrategy}
      */
     static whoWill(strategy: new () => PhotoTakingStrategy): StageCrewMember {
         return new Photographer(new strategy());
@@ -135,10 +135,10 @@ export class Photographer implements StageCrewMember {
     }
 
     /**
-     * Assigns this {@link StageCrewMember} to a given {@link Stage}.
+     * Assigns this {@apilink StageCrewMember} to a given {@apilink Stage}.
      *
      * @param stage
-     *  An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
      */
     assignedTo(stage: Stage): StageCrewMember {
         this.stage = stage;
@@ -146,8 +146,8 @@ export class Photographer implements StageCrewMember {
     }
 
     /**
-     * Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     * this {@link StageCrewMember} is assigned to.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}
+     * this {@apilink StageCrewMember} is assigned to.
      *
      * @param event
      */

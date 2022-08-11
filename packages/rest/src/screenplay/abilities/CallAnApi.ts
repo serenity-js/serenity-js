@@ -4,7 +4,7 @@ const mergeConfig = require('axios/lib/core/mergeConfig');      // eslint-disabl
 const buildFullPath = require('axios/lib/core/buildFullPath');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
- * An {@link Ability} that enables the {@link Actor} to call an HTTP API.
+ * An {@apilink Ability} that enables the {@apilink Actor} to call an HTTP API.
  *
  * If you need to connect via a proxy, check out ["Using Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
@@ -63,7 +63,7 @@ export class CallAnApi implements Ability {
     private lastResponse: AxiosResponse;
 
     /**
-     * Produces an {@link Ability|ability} to call a REST api at a specified baseUrl
+     * Produces an {@apilink Ability|ability} to call a REST api at a specified baseUrl
      *
      * Default timeout is set to 2s.
      *
@@ -81,7 +81,7 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * Produces an {@link Ability|ability} to call a REST API using a given axios instance.
+     * Produces an {@apilink Ability|ability} to call a REST API using a given axios instance.
      *
      * Useful when you need to customise Axios to
      * [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),
@@ -97,9 +97,9 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * Used to access the {@link Actor|actor's} {@link Ability|ability} to {@link CallAnApi}
-     * from within the {@link Interaction|interaction} classes,
-     * such as {@link Send}.
+     * Used to access the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink CallAnApi}
+     * from within the {@apilink Interaction|interaction} classes,
+     * such as {@apilink Send}.
      *
      * @param actor
      */
@@ -119,8 +119,8 @@ export class CallAnApi implements Ability {
 
     /**
      * Allows for the original Axios config to be changed after
-     * the {@link Ability|ability} to {@link CallAnApi}
-     * has been instantiated and given to the {@link Actor}.
+     * the {@apilink Ability|ability} to {@apilink CallAnApi}
+     * has been instantiated and given to the {@apilink Actor}.
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
@@ -133,7 +133,7 @@ export class CallAnApi implements Ability {
 
     /**
      * Sends an HTTP request to a specified url.
-     * Response will be cached and available via {@link mapLastResponse}
+     * Response will be cached and available via {@apilink mapLastResponse}
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
@@ -141,15 +141,15 @@ export class CallAnApi implements Ability {
      *
      * @param config
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@link Ability|ability} to {@link CallAnApi} was instantiated.
+     *  provided when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         return this.captureResponseOf(this.axiosInstance.request(config));
     }
 
     /**
-     * Resolves the final URL, based on the {@link AxiosRequestConfig} provided
-     * and any defaults that the {@link AxiosInstance} has been configured with.
+     * Resolves the final URL, based on the {@apilink AxiosRequestConfig} provided
+     * and any defaults that the {@apilink AxiosInstance} has been configured with.
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
@@ -165,7 +165,7 @@ export class CallAnApi implements Ability {
 
     /**
      * Maps the last cached response to another type.
-     * Useful when you need to extract a portion of the {@link AxiosResponse} object.
+     * Useful when you need to extract a portion of the {@apilink AxiosResponse} object.
      *
      * #### Learn more
      * - [AxiosResponse](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L133-L140)

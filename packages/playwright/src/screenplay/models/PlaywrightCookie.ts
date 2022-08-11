@@ -4,7 +4,7 @@ import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
 /**
- * Playwright-specific implementation of {@link Cookie}.
+ * Playwright-specific implementation of {@apilink Cookie}.
  *
  * @group Models
  */

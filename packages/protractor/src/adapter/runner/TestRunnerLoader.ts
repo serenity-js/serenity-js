@@ -6,7 +6,7 @@ import { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
 import { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**
- * Loads a {@link TestRunnerAdapter} needed to invoke
+ * Loads a {@apilink TestRunnerAdapter} needed to invoke
  * the chosen test runner programmatically.
  *
  * @group Integration
@@ -36,7 +36,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@link JasmineConfig}
+     * See {@apilink JasmineConfig}
      *
      * @param jasmineNodeOpts
      */
@@ -46,7 +46,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@link MochaConfig}
+     * See {@apilink MochaConfig}
      *
      * @param mochaOpts
      */
@@ -56,7 +56,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@link CucumberConfig}
+     * See {@apilink CucumberConfig}
      *
      * @param cucumberOpts
      * @param adapterConfig

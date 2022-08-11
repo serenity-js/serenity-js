@@ -2,7 +2,7 @@ import { Answerable, Expectation } from '@serenity-js/core';
 import { equal } from 'tiny-types/lib/objects';
 
 /**
- * Produces an {@link Expectation|expectation} that is met when the actual value
+ * Produces an {@apilink Expectation|expectation} that is met when the actual value
  * is equal to the resolved value of `expectedValue`.
  *
  * Note that the equality check performs comparison **by value**

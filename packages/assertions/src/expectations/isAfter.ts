@@ -1,7 +1,7 @@
 import { Answerable, Expectation } from '@serenity-js/core';
 
 /**
- * Creates an {@link Expectation|expectation} that is met when the actual value of type `Date`
+ * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `Date`
  * is after the expected `Date`.
  *
  * ## Ensuring that a given date is after the expected date

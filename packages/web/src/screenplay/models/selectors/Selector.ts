@@ -1,7 +1,7 @@
 import { f } from '@serenity-js/core';
 
 /**
- * Describes a selector you use to identify a {@link PageElement} or a group of {@link PageElements}.
+ * Describes a selector you use to identify a {@apilink PageElement} or a group of {@apilink PageElements}.
  *
  * @group Models
  */

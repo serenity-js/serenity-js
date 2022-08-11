@@ -4,7 +4,7 @@ import { ActivityDetails, CorrelationId, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * Emitted when an {@link Activity} starts.
+ * Emitted when an {@apilink Activity} starts.
  *
  * @group Events
  */

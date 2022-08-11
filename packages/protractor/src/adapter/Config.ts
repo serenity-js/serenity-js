@@ -7,14 +7,14 @@ import { Config as ProtractorConfig } from 'protractor';
  *
  * ## Learn more
  * - [Protractor config](https://github.com/angular/protractor/blob/master/lib/config.ts)
- * - {@link SerenityConfig}
+ * - {@apilink SerenityConfig}
  * - {@apilink configure}
  *
  * @group Configuration
  */
 export interface Config extends ProtractorConfig {
     /**
-     * See {@link SerenityConfig}
+     * See {@apilink SerenityConfig}
      */
     serenity: SerenityConfig & { runner?: string };
 }

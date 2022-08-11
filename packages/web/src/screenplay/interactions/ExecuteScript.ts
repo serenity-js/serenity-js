@@ -5,12 +5,12 @@ import { Name, TextData } from '@serenity-js/core/lib/model';
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to execute a script within the context of the current browser tab.
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
+ * - {@apilink BrowseTheWeb}
  * - {@apilink LastScriptExecution.result}
  *
  * @group Interactions
@@ -18,7 +18,7 @@ import { BrowseTheWeb } from '../abilities';
 export class ExecuteScript {
 
     /**
-     * Instantiates a version of this {@link Interaction}
+     * Instantiates a version of this {@apilink Interaction}
      * configured to load a script from `sourceUrl`.
      *
      * @param sourceUrl
@@ -29,7 +29,7 @@ export class ExecuteScript {
     }
 
     /**
-     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
      * to execute an asynchronous script within the context of the current browser tab.
      *
      * The script fragment will be executed as the body of an anonymous function.
@@ -38,7 +38,7 @@ export class ExecuteScript {
      *
      * Any arguments provided in addition to the script will be included as script arguments and may be referenced
      * using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
-     * or {@link PageElement}.
+     * or {@apilink PageElement}.
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
@@ -51,7 +51,7 @@ export class ExecuteScript {
      * If the script invokes the `callback` with a return value, this will be made available
      * via the {@apilink LastScriptExecution.result}.
      *
-     * **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
+     * **Please note** that in order to signal an error in the `script` you need to throw an {@apilink Error}
      * instead of passing it to the callback function.
      *
      * #### Executing an async script
@@ -130,7 +130,7 @@ export class ExecuteScript {
     }
 
     /**
-     * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
      * to execute a synchronous script within the context of the current browser tab.
      *
      * If the script returns a value, it will be made available via {@apilink LastScriptExecution.result}.
@@ -192,7 +192,7 @@ export class ExecuteScript {
  * Allows for a script to be executed to be parametrised.
  *
  * ## Learn more
- * -  {@link ExecuteScript}
+ * -  {@apilink ExecuteScript}
  *
  * @group Interactions
  */
@@ -206,7 +206,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
     }
 
     /**
-     * Instantiates this {@link Interaction}
+     * Instantiates this {@apilink Interaction}
      *
      * @param args
      *  Arguments to parametrise the script with

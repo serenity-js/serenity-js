@@ -6,7 +6,7 @@ import { Printer } from '../Printer';
 
 /**
  * @desc
- *  Notifies the user of any {@link Notification} or {@link Complaint} type artifacts being reported.
+ *  Notifies the user of any {@apilink Notification} or {@apilink Complaint} type artifacts being reported.
  *
  * @package
  */

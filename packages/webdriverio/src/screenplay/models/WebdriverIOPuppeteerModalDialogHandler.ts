@@ -3,7 +3,7 @@ import type { Dialog } from 'puppeteer-core/lib/cjs/puppeteer/common/Dialog';
 import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/common/Page';
 
 /**
- * WebdriverIO-specific implementation of {@link {ModalDialogHandler}, applicable when WebdriverIO
+ * WebdriverIO-specific implementation of {@apilink {ModalDialogHandler}, applicable when WebdriverIO
  * uses [Puppeteer](https://developer.chrome.com/docs/puppeteer/).
  *
  * Automatically handles any simple JavaScript modal dialog windows, such as
@@ -15,7 +15,7 @@ import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/common/Page';
  * and a dialog is already open, see https://github.com/puppeteer/puppeteer/issues/2481
  *
  * ## Learn more
- * - {@link WebdriverIOModalDialogHandler}
+ * - {@apilink WebdriverIOModalDialogHandler}
  */
 export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 

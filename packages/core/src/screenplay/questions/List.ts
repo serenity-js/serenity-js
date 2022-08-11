@@ -9,8 +9,8 @@ import { ExpectationMet } from './expectations';
 import { MetaQuestion } from './MetaQuestion';
 
 /**
- * Serenity/JS Screenplay Pattern-style wrapper around {@link Array}
- * and array-like structures - see {@link PageElements}.
+ * Serenity/JS Screenplay Pattern-style wrapper around {@apilink Array}
+ * and array-like structures - see {@apilink PageElements}.
  *
  * @group Questions
  */

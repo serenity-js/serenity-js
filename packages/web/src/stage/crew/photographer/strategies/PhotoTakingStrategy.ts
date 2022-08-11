@@ -5,8 +5,8 @@ import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/m
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
- * Configures the {@link Photographer} to take {@link Photo|photos}, a.k.a. screenshots,
- * of the {@link Activity} performed by the {@link Actor} in the {@link actorInTheSpotlight|spotlight}
+ * Configures the {@apilink Photographer} to take {@apilink Photo|photos}, a.k.a. screenshots,
+ * of the {@apilink Activity} performed by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
  * when desired conditions are met.
  *
  * @group Stage
@@ -14,12 +14,12 @@ import { BrowseTheWeb } from '../../../../screenplay';
 export abstract class PhotoTakingStrategy {
 
     /**
-     * Takes a photo of the web browser used by the {@link Actor} in the {@link actorInTheSpotlight|spotlight}.
+     * Takes a photo of the web browser used by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}.
      *
      * #### Learn more
-     * - {@link ActivityStarts}
-     * - {@link ActivityFinished}
-     * - {@link Stage}
+     * - {@apilink ActivityStarts}
+     * - {@apilink ActivityFinished}
+     * - {@apilink Stage}
      *
      * @param event
      * @param stage

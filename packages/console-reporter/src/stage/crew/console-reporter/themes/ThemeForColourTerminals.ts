@@ -17,7 +17,7 @@ import { TerminalTheme } from './TerminalTheme';
 
 /**
  * @desc
- *  Base class for {@link TerminalTheme} implementations intended
+ *  Base class for {@apilink TerminalTheme} implementations intended
  *  to print to terminals that support colour output.
  *
  * @extends {TerminalTheme}
@@ -42,10 +42,10 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
 
     /**
      * Joins the `parts` into a single string and decorates it
-     * using a colour appropriate for a given {@link Outcome}.
+     * using a colour appropriate for a given {@apilink Outcome}.
      *
      * @param outcome
-     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
+     *  an instance of an {@apilink @serenity-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
      * @param parts

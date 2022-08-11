@@ -29,20 +29,20 @@ export function configure(config: SerenityConfig): void {
 }
 
 /**
- * Re-configures Serenity/JS with a new {@link Cast} of {@link Actor|actors}
- * you want to use in any subsequent calls to {@link actorCalled}.
+ * Re-configures Serenity/JS with a new {@apilink Cast} of {@apilink Actor|actors}
+ * you want to use in any subsequent calls to {@apilink actorCalled}.
  *
  * This function is an alias for {@apilink Serenity.engage},
  * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
  * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
  *
- * If your implementation of the {@link Cast} interface is stateless,
+ * If your implementation of the {@apilink Cast} interface is stateless,
  * you can invoke this function just once before your entire test suite is executed, see
  * - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
  * - [`before`](https://mochajs.org/#hooks) in Mocha,
  * - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
  *
- * However, if your {@link Cast} holds state that you want to reset before each scenario,
+ * However, if your {@apilink Cast} holds state that you want to reset before each scenario,
  * it's better to invoke `engage` before each test using:
  * - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
  * - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
@@ -89,8 +89,8 @@ export function configure(config: SerenityConfig): void {
  * ```
  *
  * ## Learn more
- * - {@link Actor}
- * - {@link Cast}
+ * - {@apilink Actor}
+ * - {@apilink Cast}
  * - {@apilink Serenity.engage}
  *
  * @param actors
@@ -102,7 +102,7 @@ export function engage(actors: Cast): void {
 }
 
 /**
- * Instantiates or retrieves an {@link Actor}
+ * Instantiates or retrieves an {@apilink Actor}
  * called `name` if one has already been instantiated.
  *
  * This method is an alias for {@apilink Serenity.theActorCalled}.
@@ -151,10 +151,10 @@ export function engage(actors: Cast): void {
  *
  * ## Learn more
  *
- * - {@link engage}
- * - {@link Actor}
- * - {@link Cast}
- * - {@link Serenity#theActorCalled}
+ * - {@apilink engage}
+ * - {@apilink Actor}
+ * - {@apilink Cast}
+ * - {@apilink Serenity#theActorCalled}
  *
  * @param name
  *  The name of the actor to instantiate or retrieve
@@ -167,7 +167,7 @@ export function actorCalled(name: string): Actor {
 
 /**
  * Retrieves an actor who was last instantiated or retrieved
- * using {@link actorCalled}.
+ * using {@apilink actorCalled}.
  *
  * This function is particularly useful when automating Cucumber scenarios.
  *
@@ -192,10 +192,10 @@ export function actorCalled(name: string): Actor {
  *
  * ## Learn more
  *
- * - {@link engage}
- * - {@link actorCalled}
- * - {@link Actor}
- * - {@link Cast}
+ * - {@apilink engage}
+ * - {@apilink actorCalled}
+ * - {@apilink Actor}
+ * - {@apilink Cast}
  *
  * @group Actors
  */

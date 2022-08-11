@@ -5,9 +5,9 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CallAnApi } from '../abilities';
 
 /**
- * Sends a {@link HTTPRequest} to a specified url.
+ * Sends a {@apilink HTTPRequest} to a specified url.
  *
- * The response to the request is made available via {@link LastResponse}.
+ * The response to the request is made available via {@apilink LastResponse}.
  *
  * ## Send a GET request
  *
@@ -29,7 +29,7 @@ import { CallAnApi } from '../abilities';
 export class Send extends Interaction {
 
     /**
-     * Instantiates a new {@link Interaction|interaction} to {@link Send}.
+     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Send}.
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)

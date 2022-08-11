@@ -6,7 +6,7 @@ import { Key, PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to send a key press or a sequence of keys to a Web element.
  *
  * **Note:** On macOS, some keyboard shortcuts might not work
@@ -53,18 +53,18 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@link Key}
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
+ * - {@apilink Key}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Press extends PageElementInteraction {
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
-     * to press a sequence of {@link Key|keys},
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to press a sequence of {@apilink Key|keys},
      *
      * When no `field` is specified, the key sequence will be sent to the currently focused element,
      * and if no element is focused - to the `document.body` to handle.

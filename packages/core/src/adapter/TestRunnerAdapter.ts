@@ -15,7 +15,7 @@ export interface TestRunnerAdapter {
     /**
      * Returns the number of loaded scenarios
      *
-     * @throws {@link LogicError}
+     * @throws {@apilink LogicError}
      *  If called before `load`
      */
     scenarioCount(): number;
@@ -23,7 +23,7 @@ export interface TestRunnerAdapter {
     /**
      * Runs loaded test scenarios.
      *
-     * @throws {@link LogicError}
+     * @throws {@apilink LogicError}
      *  If called before `load`
      */
     run(): Promise<void>;

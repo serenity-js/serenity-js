@@ -3,7 +3,7 @@ import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@se
 import { PageElement } from '../models';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to scroll until a given Web element comes into view.
  *
  * ## Example widget
@@ -44,15 +44,15 @@ import { PageElement } from '../models';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Scroll extends Interaction {
 
     /**
-     * Instantiates this {@link Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
      * @param pageElement
      *  The element to scroll to

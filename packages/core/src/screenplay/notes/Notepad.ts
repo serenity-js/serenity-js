@@ -5,9 +5,9 @@ import { d } from '../../io';
 import { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * Stores notes recorded by an {@link Actor}.
+ * Stores notes recorded by an {@apilink Actor}.
  *
- * See {@link TakeNotes} and [notes](/api/core/function/notes) for more usage examples.
+ * See {@apilink TakeNotes} and [notes](/api/core/function/notes) for more usage examples.
  *
  * ## Sharing a notepad between actors
  *
@@ -47,9 +47,9 @@ import { NotepadAdapter } from './NotepadAdapter';
  *
  * ## Learn more
  *
- * - {@link TakeNotes}
+ * - {@apilink TakeNotes}
  * - [notes](/api/core/function/notes)
- * - {@link Cast}
+ * - {@apilink Cast}
  *
  * @group Notes
  */
@@ -102,20 +102,20 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that simplifies access to the notes
-     * stored in this notepad. Allows the {@link Actor} to record, read, and remove notes.
+     * Creates a {@apilink QuestionAdapter} that simplifies access to the notes
+     * stored in this notepad. Allows the {@apilink Actor} to record, read, and remove notes.
      *
      * #### Learn more
      * - [notes](/api/core/function/notes)
-     * - {@link TakeNotes}
-     * - {@link Notepad}
+     * - {@apilink TakeNotes}
+     * - {@apilink Notepad}
      */
     static notes<N extends Record<any, any>>(): NotepadAdapter<N> {
         return new NotepadAdapter<N>();
     }
 
     /**
-     * Instantiates a {@link Notepad} with an initial state.
+     * Instantiates a {@apilink Notepad} with an initial state.
      *
      * @param recordedNotes
      *  Initial state of the notepad
@@ -146,8 +146,8 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @returns
      *  The value of the previously recorded note.
      *
-     * @throws {@link LogicError}
-     *  Throws a {@link LogicError} if the note with a given `subject`
+     * @throws {@apilink LogicError}
+     *  Throws a {@apilink LogicError} if the note with a given `subject`
      *  has never been recorded.
      */
     get<Subject extends keyof Notes>(subject: Subject): Notes[Subject] {

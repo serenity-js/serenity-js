@@ -1,7 +1,7 @@
 import { JSONObject, TinyType } from 'tiny-types';
 
 /**
- * Represents a duration in milliseconds between two {@link Timestamp|timestamps}.
+ * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.
  *
  * @group Stage
  */

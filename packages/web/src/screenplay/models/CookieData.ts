@@ -1,11 +1,11 @@
 import { Timestamp } from '@serenity-js/core';
 
 /**
- * A data structure describing a {@link Cookie} to be set, or one that's been read.
+ * A data structure describing a {@apilink Cookie} to be set, or one that's been read.
  *
  * ## Learn more
  *
- * - {@link Cookie}
+ * - {@apilink Cookie}
  * - {@apilink Page.cookie}
  *
  * @group Models
@@ -35,7 +35,7 @@ export interface CookieData {
     path?: string;
 
     /**
-     * The {@link Timestamp} describing the point in time when this cookie expires.
+     * The {@apilink Timestamp} describing the point in time when this cookie expires.
      */
     expiry?: Timestamp;
 

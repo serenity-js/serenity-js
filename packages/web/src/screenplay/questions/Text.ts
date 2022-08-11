@@ -4,10 +4,10 @@ import { asyncMap } from '@serenity-js/core/lib/io';
 import { PageElement, PageElements } from '../models';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
  * the visible (i.e. not hidden by CSS) [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of:
- * - a given {@link PageElement}
- * - a group of {@link PageElements}
+ * - a given {@apilink PageElement}
+ * - a group of {@apilink PageElements}
  *
  * The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
@@ -22,7 +22,7 @@ import { PageElement, PageElements } from '../models';
  * </ul>
  * ```
  *
- * ## Retrieve text of a single {@link PageElement}
+ * ## Retrieve text of a single {@apilink PageElement}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -40,7 +40,7 @@ import { PageElement, PageElements } from '../models';
  *   )
  * ```
  *
- * ## Retrieve text of multiple {@link PageElements}
+ * ## Retrieve text of multiple {@apilink PageElements}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -83,22 +83,22 @@ import { PageElement, PageElements } from '../models';
  * ```
  *
  * ## Learn more
- * - {@link BrowseTheWeb}
- * - {@link MetaQuestion}
- * - {@link QuestionAdapter}
- * - {@link Question}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
  *
  * @group Questions
  */
 export class Text {
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
-     * the text of a single {@link PageElement}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the text of a single {@apilink PageElement}.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param pageElement
      */
@@ -110,12 +110,12 @@ export class Text {
     }
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
-     * the text of a group of {@link PageElements}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the text of a group of {@apilink PageElements}.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param pageElements
      */

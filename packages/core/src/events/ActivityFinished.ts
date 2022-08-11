@@ -4,7 +4,7 @@ import { ActivityDetails, CorrelationId, Outcome, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * Emitted when an {@link Activity} is finished.
+ * Emitted when an {@apilink Activity} is finished.
  *
  * @group Events
  */

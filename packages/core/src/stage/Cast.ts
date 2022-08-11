@@ -82,7 +82,7 @@ import { Ability, Actor } from '../screenplay';
  *
  * ## Learn more
  *
- * - {@link Stage}
+ * - {@apilink Stage}
  *
  * @group Stage
  */
@@ -99,7 +99,7 @@ export abstract class Cast {
     }
 
     /**
-     * Configures an {@link Actor} instantiated when {@apilink Stage.actor} is invoked.
+     * Configures an {@apilink Actor} instantiated when {@apilink Stage.actor} is invoked.
      *
      * @param actor
      *

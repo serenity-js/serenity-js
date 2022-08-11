@@ -26,12 +26,12 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     }
 
     /**
-     * Opens a new browser page and associates it with a {@link Page} object.
+     * Opens a new browser page and associates it with a {@apilink Page} object.
      */
     protected abstract registerCurrentPage(): Promise<Page_Type>;
 
     /**
-     * Returns a {@link Page} representing the currently active top-level browsing context.
+     * Returns a {@apilink Page} representing the currently active top-level browsing context.
      */
     async currentPage(): Promise<Page_Type> {
         if (! this.currentBrowserPage || ! await this.currentBrowserPage.isPresent()) {
@@ -42,7 +42,7 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     }
 
     /**
-     * Registers specified {@link Page|pages} to be managed by this {@link BrowsingSession}.
+     * Registers specified {@apilink Page|pages} to be managed by this {@apilink BrowsingSession}.
      *
      * @param pages
      */
@@ -53,7 +53,7 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     }
 
     /**
-     * Informs this {@link BrowsingSession} that it should no longer manage {@link Page|pages}
+     * Informs this {@apilink BrowsingSession} that it should no longer manage {@apilink Page|pages}
      * identified by the given `pageIds`.
      *
      * @param pageIds
@@ -65,7 +65,7 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     }
 
     /**
-     * Returns a {@link Page|pages} representing all the available
+     * Returns a {@apilink Page|pages} representing all the available
      * top-level browsing context, e.g. all the open browser tabs.
      */
     async allPages(): Promise<Array<Page_Type>> {
@@ -73,14 +73,14 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     }
 
     /**
-     * Returns the ids of any {@link Page|pages} this {@link BrowsingSession} is aware of.
+     * Returns the ids of any {@apilink Page|pages} this {@apilink BrowsingSession} is aware of.
      */
     registeredPageIds(): Array<CorrelationId> {
         return Array.from(this.pages.keys());
     }
 
     /**
-     * Informs the {@link BrowsingSession} that the "current page" has changed to `page`.
+     * Informs the {@apilink BrowsingSession} that the "current page" has changed to `page`.
      *
      * Please note that different Web integration tools have a different definition of what a "current page" is.
      * For example, Selenium or WebdriverIO use a single "focused" window that a developer

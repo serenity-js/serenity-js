@@ -3,17 +3,17 @@ import { Activity, Actor, Answerable, AnswersQuestions, Interaction, Task, UsesA
 import { Switchable } from '../models';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
- * to switch the context for future activities to a {@link Switchable}, such as a {@link Page} or a {@link PageElement}.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to switch the context for future activities to a {@apilink Switchable}, such as a {@apilink Page} or a {@apilink PageElement}.
  *
- * Please note that when the {@link PageElement} implementing {@link Switchable} represents an {@link iframe},
- * using {@link Switch} will result in switching the top-level browsing context to that {@link iframe}.
+ * Please note that when the {@apilink PageElement} implementing {@apilink Switchable} represents an {@apilink iframe},
+ * using {@apilink Switch} will result in switching the top-level browsing context to that {@apilink iframe}.
  *
- * When the {@link PageElement} represents any other [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement),
- * using {@link Switch} sets [`HTMLElement#focus`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus)
+ * When the {@apilink PageElement} represents any other [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement),
+ * using {@apilink Switch} sets [`HTMLElement#focus`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus)
  * on the specified element. Assuming it can be focused.
  *
- * **Note:** The focused element is the element which will receive keyboard {@link Press} events by default.
+ * **Note:** The focused element is the element which will receive keyboard {@apilink Press} events by default.
  *
  * ## Perform activities in the context of an iframe
  *
@@ -94,18 +94,18 @@ import { Switchable } from '../models';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link Switchable}
- * - {@link SwitchableOrigin}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Switchable}
+ * - {@apilink SwitchableOrigin}
  *
  * @group Interactions
  */
 export class Switch extends Interaction {
 
     /**
-     * Instructs the {@link Actor}
-     * to switch the context for future activities to a {@link Switchable},
-     * such as a {@link Page} or a {@link PageElement}.
+     * Instructs the {@apilink Actor}
+     * to switch the context for future activities to a {@apilink Switchable},
+     * such as a {@apilink Page} or a {@apilink PageElement}.
      *
      * @param switchable
      */
@@ -118,9 +118,9 @@ export class Switch extends Interaction {
     }
 
     /**
-     * Instructs the {@link Actor}
-     * to switch the context for future activities to a {@link Switchable},
-     * such as a {@link Page} or a {@link PageElement},
+     * Instructs the {@apilink Actor}
+     * to switch the context for future activities to a {@apilink Switchable},
+     * such as a {@apilink Page} or a {@apilink PageElement},
      * perform a sequence of `activities`, and then switch the context back.
      *
      * @param activities

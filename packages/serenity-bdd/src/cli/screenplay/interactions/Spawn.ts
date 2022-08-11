@@ -21,16 +21,16 @@ export class Spawn extends Interaction {
 
     /**
      * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@apilink @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor
      * @returns {Promise<void>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
      */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         return actor.answer(this.pathToExecutable)
@@ -53,7 +53,7 @@ export class Spawn extends Interaction {
 
     /**
      * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
      *
      * @returns {string}
      */

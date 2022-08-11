@@ -10,7 +10,7 @@ import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler';
 import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler';
 
 /**
- * WebdriverIO-specific implementation of {@link BrowsingSession}.
+ * WebdriverIO-specific implementation of {@apilink BrowsingSession}.
  *
  * @group Models
  */

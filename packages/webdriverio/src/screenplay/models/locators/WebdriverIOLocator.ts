@@ -7,7 +7,7 @@ import { WebdriverIOPageElement } from '../WebdriverIOPageElement';
 import { WebdriverIORootLocator } from './WebdriverIORootLocator';
 
 /**
- * WebdriverIO-specific implementation of {@link Locator}.
+ * WebdriverIO-specific implementation of {@apilink Locator}.
  *
  * @group Models
  */

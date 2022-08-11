@@ -4,8 +4,8 @@ import type * as wdio from 'webdriverio';
 import { WebdriverIOBrowsingSession } from '../models';
 
 /**
- * This implementation of the {@link Ability|ability} to {@link BrowseTheWeb}
- * enables the {@link Actor} to interact with web front-ends using [WebdriverIO](https://webdriver.io/).
+ * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * enables the {@apilink Actor} to interact with web front-ends using [WebdriverIO](https://webdriver.io/).
  *
  * ## Using WebdriverIO to `BrowseTheWeb`
  *
@@ -30,9 +30,9 @@ import { WebdriverIOBrowsingSession } from '../models';
  *
  * ## Learn more
  * - [WebdriverIO website](https://webdriver.io/)
- * - {@link BrowseTheWeb}
- * - {@link Ability}
- * - {@link Actor}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
  *
  * @group Abilities
  */

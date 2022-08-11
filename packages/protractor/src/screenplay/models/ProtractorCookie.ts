@@ -6,7 +6,7 @@ import { ensure, isDefined } from 'tiny-types';
 import { promised } from '../promised';
 
 /**
- * Protractor-specific implementation of {@link Cookie}.
+ * Protractor-specific implementation of {@apilink Cookie}.
  *
  * @group Models
  */

@@ -4,8 +4,8 @@ import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
- * to scroll the given {@link PageElement} into view and then [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on it.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to scroll the given {@apilink PageElement} into view and then [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on it.
  *
  * ## Example widget
  *
@@ -43,15 +43,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Click extends PageElementInteraction {
 
     /**
-     * Instantiates this {@link Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
      * @param pageElement
      *  The element to be clicked on

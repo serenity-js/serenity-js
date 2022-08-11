@@ -4,9 +4,9 @@ import { Name, Photo } from '@serenity-js/core/lib/model';
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
- * to take a screenshot and emit an {@link Artifact},
- * which can then be persisted by {@link ArtifactArchiver}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to take a screenshot and emit an {@apilink Artifact},
+ * which can then be persisted by {@apilink ArtifactArchiver}
  * and reported by [Serenity BDD reporter](/api/serenity-bdd).
  *
  * #### Taking a screenshot
@@ -24,20 +24,20 @@ import { BrowseTheWeb } from '../abilities';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link CollectsArtifacts}
- * - {@link Artifact}
- * - {@link ArtifactArchiver}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink CollectsArtifacts}
+ * - {@apilink Artifact}
+ * - {@apilink ArtifactArchiver}
  *
  * @group Interactions
  */
 export class TakeScreenshot extends Interaction {
 
     /**
-     * Instantiates this {@link Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
      * @param name
-     *  The name to give the emitted {@link Artifact}
+     *  The name to give the emitted {@apilink Artifact}
      */
     static of(name: Answerable<string>): Interaction {
         return new TakeScreenshot(name);

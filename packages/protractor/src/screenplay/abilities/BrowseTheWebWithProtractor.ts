@@ -6,8 +6,8 @@ import { ProtractorBrowsingSession } from '../models';
 import { promised } from '../promised';
 
 /**
- * This implementation of the {@link Ability|ability} to {@link BrowseTheWeb}
- * enables the {@link Actor} to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
+ * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * enables the {@apilink Actor} to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
  *
  * ## Using Protractor to `BrowseTheWeb`
  *
@@ -33,9 +33,9 @@ import { promised } from '../promised';
  *
  * ## Learn more
  * - [Protractor website](https://www.protractortest.org/)
- * - {@link BrowseTheWeb}
- * - {@link Ability}
- * - {@link Actor}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
  *
  * @group Abilities
  */
@@ -104,7 +104,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
      * @param path
      *  Either a name or a dot-delimited path to the param.
      *
-     * @throws {@link ConfigurationError}
+     * @throws {@apilink ConfigurationError}
      *  Throws a `ConfigurationError` if the parameter is `undefined`
      */
     param<T = any>(path: string): T {

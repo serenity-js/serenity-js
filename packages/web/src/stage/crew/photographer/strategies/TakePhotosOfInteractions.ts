@@ -3,9 +3,9 @@ import { DomainEvent, InteractionFinished } from '@serenity-js/core/lib/events';
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * Configures the {@link Photographer} to take photos (a.k.a. screenshots)
- * when then {@link Actor} in the {@link actorInTheSpotlight|spotlight}
- * performs any {@link Interaction}.
+ * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots)
+ * when then {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
+ * performs any {@apilink Interaction}.
  *
  * This strategy works best when you want the results of your automated tests
  * to become comprehensive living documentation of your system.

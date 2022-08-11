@@ -7,7 +7,7 @@ import { Locator, WebElement } from 'selenium-webdriver';
 import { promised } from '../promised';
 
 /**
- * Protractor-specific implementation of {@link PageElement}.
+ * Protractor-specific implementation of {@apilink PageElement}.
  *
  * @group Models
  */

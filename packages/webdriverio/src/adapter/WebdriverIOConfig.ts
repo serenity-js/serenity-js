@@ -3,7 +3,7 @@ import type { Options } from '@wdio/types';
 
 /**
  * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)
- * with Serenity/JS-specific {@link SerenityConfig|additions}.
+ * with Serenity/JS-specific {@apilink SerenityConfig|additions}.
  *
  * ## Configuring WebdriverIO with Serenity/JS and Cucumber
  *
@@ -104,9 +104,9 @@ import type { Options } from '@wdio/types';
  * ## Learn more
  *
  * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
- * - {@link CucumberConfig}
- * - {@link JasmineConfig}
- * - {@link MochaConfig}
+ * - {@apilink CucumberConfig}
+ * - {@apilink JasmineConfig}
+ * - {@apilink MochaConfig}
  *
  * @group Configuration
  */
@@ -119,9 +119,9 @@ export interface WebdriverIOConfig extends Options.Testrunner {
      * #### Learn more
      *
      * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
-     * - {@link CucumberConfig}
-     * - {@link JasmineConfig}
-     * - {@link MochaConfig}
+     * - {@apilink CucumberConfig}
+     * - {@apilink JasmineConfig}
+     * - {@apilink MochaConfig}
      */
     serenity?: SerenityConfig & { runner?: string };
 }

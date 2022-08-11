@@ -27,7 +27,7 @@ export class AssertionError extends RuntimeError {
      * @param message - Human-readable description of the error
      * @param expected - The value that was expected
      * @param actual - The value that was received instead of the expected one
-     * @param [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, public readonly expected: unknown, public readonly actual: unknown, cause?: Error) {
         super(AssertionError, message, cause);

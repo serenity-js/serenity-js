@@ -4,7 +4,7 @@ import { BrowseTheWebWithProtractor } from '../abilities';
 import { ProtractorPage } from '../models';
 
 /**
- * Instructs the {@link Actor} to enable or disable automated synchronisation between Protractor and Angular 1.x application.
+ * Instructs the {@apilink Actor} to enable or disable automated synchronisation between Protractor and Angular 1.x application.
  *
  * Useful when a test scenario needs to interact with both Angular-based
  * and non-Angular web apps, e.g. use an external sign-in form.
@@ -56,7 +56,7 @@ import { ProtractorPage } from '../models';
 export class UseAngular {
 
     /**
-     * Produces an {@link Interaction} that instructs the {@link Actor} to disable
+     * Produces an {@apilink Interaction} that instructs the {@apilink Actor} to disable
      * synchronisation between Protractor and an Angular 1.x app.
      */
     static disableSynchronisation(): Interaction {
@@ -68,7 +68,7 @@ export class UseAngular {
     }
 
     /**
-     * Produces an {@link Interaction} that instructs the {@link Actor} to enable
+     * Produces an {@apilink Interaction} that instructs the {@apilink Actor} to enable
      * synchronisation between Protractor and an Angular 1.x app.
      */
     static enableSynchronisation(): Interaction {

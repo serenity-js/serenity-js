@@ -10,7 +10,7 @@ import { RecursivelyAnswered } from './RecursivelyAnswered';
 import { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
- * Serenity/JS Screenplay Pattern `Question` describes how an {@link Actor}
+ * Serenity/JS Screenplay Pattern `Question` describes how an {@apilink Actor}
  * should query the system under test or the test environment.
  *
  * ## Implementing a basic custom Question
@@ -94,10 +94,10 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  *
  * ## Learn more
  *
- * - {@link Actor}
- * - {@link Interaction}
- * - {@link Ability}
- * - {@link QuestionAdapter}
+ * - {@apilink Actor}
+ * - {@apilink Interaction}
+ * - {@apilink Ability}
+ * - {@apilink QuestionAdapter}
  *
  * @group Screenplay Pattern
  */
@@ -125,7 +125,7 @@ export abstract class Question<T> {
     /**
      * Generates a {@apilink QuestionAdapter} that recursively resolves
      * any {@apilink Answerable} fields of the provided object,
-     * including {@apilink Answerable} fields of {@link WithAnswerableProperties|nested objects}.
+     * including {@apilink Answerable} fields of {@apilink WithAnswerableProperties|nested objects}.
      *
      * Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`,
      * producing a new merged object.
@@ -180,9 +180,9 @@ export abstract class Question<T> {
      * @param overrides
      *
      * #### Learn more
-     * - {@link WithAnswerableProperties}
-     * - {@link RecursivelyAnswered}
-     * - {@link Answerable}
+     * - {@apilink WithAnswerableProperties}
+     * - {@apilink RecursivelyAnswered}
+     * - {@apilink Answerable}
      */
     static fromObject<Source_Type extends object>(
         source: Answerable<WithAnswerableProperties<Source_Type>>,
@@ -206,7 +206,7 @@ export abstract class Question<T> {
     }
 
     /**
-     * Checks if the value is a {@link Question}.
+     * Checks if the value is a {@apilink Question}.
      *
      * @param maybeQuestion
      *  The value to check
@@ -315,7 +315,7 @@ export abstract class Question<T> {
     }
 
     /**
-     * Returns the description of the subject of this {@link Question}.
+     * Returns the description of the subject of this {@apilink Question}.
      */
     abstract toString(): string;
 
@@ -327,7 +327,7 @@ export abstract class Question<T> {
     abstract describedAs(subject: string): this;
 
     /**
-     * Instructs the provided {@link Actor} to use their {@link Ability|abilities}
+     * Instructs the provided {@apilink Actor} to use their {@apilink Ability|abilities}
      * to answer this question.
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
@@ -404,7 +404,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     /**
-     * Returns a Question that resolves to `true` if resolving the {@link QuestionStatement}
+     * Returns a Question that resolves to `true` if resolving the {@apilink QuestionStatement}
      * returns a value other than `null` or `undefined`, and doesn't throw errors.
      */
     isPresent(): Question<Promise<boolean>> {

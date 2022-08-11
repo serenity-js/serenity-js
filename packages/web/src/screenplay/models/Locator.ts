@@ -3,8 +3,8 @@ import { RootLocator } from './RootLocator';
 import { Selector } from './selectors';
 
 /**
- * {@link Locator} uses a {@link Selector} to locate a {@link PageElement} or {@link PageElements}
- * within the {@link Page}.
+ * {@apilink Locator} uses a {@apilink Selector} to locate a {@apilink PageElement} or {@apilink PageElements}
+ * within the {@apilink Page}.
  *
  * ## Learn more
  * - {@apilink RootLocator}

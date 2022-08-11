@@ -1,7 +1,7 @@
 import { Timestamp } from '../model';
 
 /**
- * A {@link Clock} tells the time. This abstraction allows Serenity/JS to have a single place
+ * A {@apilink Clock} tells the time. This abstraction allows Serenity/JS to have a single place
  * in the framework responsible for telling the time, that can also be easily mocked for internal testing.
  *
  * ```ts
@@ -9,8 +9,8 @@ import { Timestamp } from '../model';
  * ```
  *
  * ## Learn more
- * - {@link Timestamp}
- * - {@link Duration}
+ * - {@apilink Timestamp}
+ * - {@apilink Duration}
  *
  * @group Stage
  */

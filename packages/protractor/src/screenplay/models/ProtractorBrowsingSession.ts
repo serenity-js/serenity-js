@@ -8,7 +8,7 @@ import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorModalDialogHandler } from './ProtractorModalDialogHandler';
 
 /**
- * Protractor-specific implementation of {@link BrowsingSession}.
+ * Protractor-specific implementation of {@apilink BrowsingSession}.
  *
  * @group Models
  */

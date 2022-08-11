@@ -39,7 +39,7 @@ export class ThemeForMonochromaticTerminals extends TerminalTheme {
      * no decoration of the text is performed.
      *
      * @param outcome
-     *  an instance of an {@link Outcome}
+     *  an instance of an {@apilink Outcome}
      *  or a string class name of one of its implementations.
      *
      * @param parts

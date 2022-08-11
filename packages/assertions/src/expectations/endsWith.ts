@@ -1,7 +1,7 @@
 import { Answerable, Expectation } from '@serenity-js/core';
 
 /**
- * Creates an {@link Expectation|expectation} that is met when the actual `string` value
+ * Creates an {@apilink Expectation|expectation} that is met when the actual `string` value
  * ends with the resolved value of `expected`.
  *
  * ## Ensuring that a given string ends with an expected substring

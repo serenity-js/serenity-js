@@ -4,10 +4,10 @@ import { ModalDialog } from './ModalDialog';
 
 /**
  * `AbsentModalDialog` is a [null object](https://en.wikipedia.org/wiki/Null_object_pattern)
- * representing a {@link ModalDialog} that hasn't appeared yet.
+ * representing a {@apilink ModalDialog} that hasn't appeared yet.
  *
  * ## Learn more
- * - {@link ModalDialog}
+ * - {@apilink ModalDialog}
  *
  * @group Models
  */

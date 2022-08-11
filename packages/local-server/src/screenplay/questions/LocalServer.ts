@@ -11,7 +11,7 @@ export class LocalServer {
 
     /**
      * Retrieves the URL of the local server started
-     * using the {@link StartLocalServer} {@link Interaction|interaction}.
+     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
      */
     static url(): QuestionAdapter<string> {
         return Question.about<string>('the URL of the local server', actor => {
@@ -39,7 +39,7 @@ export class LocalServer {
 
     /**
      * Retrieves the port number of the local server started
-     * using the {@link StartLocalServer} {@link Interaction|interaction}.
+     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
      */
     static port(): QuestionAdapter<number> {
         return Question.about(`local server port number`, async actor => {

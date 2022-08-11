@@ -6,7 +6,7 @@ import { promised } from '../promised';
 import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 
 /**
- * Protractor-specific implementation of {@link ModalDialogHandler}.
+ * Protractor-specific implementation of {@apilink ModalDialogHandler}.
  *
  * @group Models
  */

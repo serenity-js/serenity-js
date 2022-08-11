@@ -6,7 +6,7 @@ import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
 /**
- * Playwright-specific implementation of {@link Locator}.
+ * Playwright-specific implementation of {@apilink Locator}.
  *
  * @group Models
  */

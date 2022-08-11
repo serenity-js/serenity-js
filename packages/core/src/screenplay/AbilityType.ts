@@ -2,21 +2,21 @@ import { Ability } from './Ability';
 import { UsesAbilities } from './actor';
 
 /**
- * An interface describing the static access method that every {@link Ability} class
- * needs to provide in order to be accessible from within the {@link Interaction|interactions}.
+ * An interface describing the static access method that every {@apilink Ability} class
+ * needs to provide in order to be accessible from within the {@apilink Interaction|interactions}.
  *
  * ## Learn more
- * - {@link Ability}
- * - {@link Actor}
- * - {@link Interaction}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
+ * - {@apilink Interaction}
  *
  * @group Abilities
  */
 export interface AbilityType<A extends Ability> extends Function {
 
     /**
-     * Retrieves the ability of a given type from the {@link Actor},
-     * provided that the {@link Actor} has it.
+     * Retrieves the ability of a given type from the {@apilink Actor},
+     * provided that the {@apilink Actor} has it.
      *
      * #### Retrieving an ability from an interaction
      *

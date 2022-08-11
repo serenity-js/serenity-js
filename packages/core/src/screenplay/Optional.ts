@@ -19,7 +19,7 @@ import { Answerable } from './Answerable';
  */
 export interface Optional {
     /**
-     * Returns an {@link Answerable} that resolves to `true` when the optional value
+     * Returns an {@apilink Answerable} that resolves to `true` when the optional value
      * is present, `false` otherwise.
      */
     isPresent(): Answerable<boolean>;

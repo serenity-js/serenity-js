@@ -3,15 +3,15 @@ import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapte
 import { PageElement } from '../models';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
- * the `value` attribute of a given {@link PageElement}.
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * the `value` attribute of a given {@apilink PageElement}.
  *
  * ## Example widget
  * ```html
  * <input type="text" id="username" value="Alice" />
  * ```
  *
- * ## Retrieve the `value` of a given {@link PageElement}
+ * ## Retrieve the `value` of a given {@apilink PageElement}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -28,7 +28,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Using Value as {@link QuestionAdapter}
+ * ## Using Value as {@apilink QuestionAdapter}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -49,10 +49,10 @@ import { PageElement } from '../models';
  * ```
  *
  * ## Learn more
- * - {@link BrowseTheWeb}
- * - {@link MetaQuestion}
- * - {@link QuestionAdapter}
- * - {@link Question}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
  *
  * @group Questions
  */
@@ -63,12 +63,12 @@ export class Value
     private subject: string;
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
-     * the `value` attribute of a given {@link PageElement}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the `value` attribute of a given {@apilink PageElement}.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param pageElement
      */
@@ -82,13 +82,13 @@ export class Value
     }
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
-     * the `value` attribute of a given {@link PageElement}
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the `value` attribute of a given {@apilink PageElement}
      * located within the `parent` element.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param parent
      */

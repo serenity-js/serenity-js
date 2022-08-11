@@ -5,7 +5,7 @@ import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that an {@link Interaction}, a {@link Task} or a test scenario
+ * Thrown to indicate that an {@apilink Interaction}, a {@apilink Task} or a test scenario
  * took longer to execute than the expected timeout.
  *
  * @group Errors
@@ -32,7 +32,7 @@ export class TimeoutExpiredError extends RuntimeError {
      *  The maximum amount of time an operation was expected to take
      *
      * @param [cause]
-     *  The root cause of this {@link RuntimeError}, if any
+     *  The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(
         message: string,

@@ -60,13 +60,13 @@ export abstract class Interaction implements Activity {
     }
 
     /**
-     * Instructs the provided {@link Actor} to perform this {@link Interaction}.
+     * Instructs the provided {@apilink Actor} to perform this {@apilink Interaction}.
      *
      * #### Learn more
-     * - {@link Actor}
-     * - {@link PerformsActivities}
-     * - {@link UsesAbilities}
-     * - {@link AnswersQuestions}
+     * - {@apilink Actor}
+     * - {@apilink PerformsActivities}
+     * - {@apilink UsesAbilities}
+     * - {@apilink AnswersQuestions}
      *
      * @param actor
      */

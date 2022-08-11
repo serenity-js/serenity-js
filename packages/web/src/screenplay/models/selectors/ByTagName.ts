@@ -1,7 +1,7 @@
 import { Selector } from './Selector';
 
 /**
- * Locates a {@link PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+ * Locates a {@apilink PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
  *
  * **Pro tip:** Instantiate using {@apilink By.tagName}
  *

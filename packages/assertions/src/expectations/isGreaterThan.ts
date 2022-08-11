@@ -1,7 +1,7 @@
 import { Answerable, Expectation } from '@serenity-js/core';
 
 /**
- * Creates an {@link Expectation|expectation} that is met when the actual value of type `number`
+ * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `number`
  * is greater than the expected `number`.
  *
  * ## Ensuring that a given number is greater than the expected number

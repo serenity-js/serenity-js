@@ -33,7 +33,7 @@ import { PerformsActivities } from './actor';
  *
  * ## Defining a not implemented task
  *
- * Note that calling {@apilink Task.where} method without providing the sequence of {@link Activity|activities}
+ * Note that calling {@apilink Task.where} method without providing the sequence of {@apilink Activity|activities}
  * produces a Task that's marked as "pending" in the test report.
  *
  * This feature is useful when you want to quickly write down a task that will be needed in the scenario,
@@ -49,9 +49,9 @@ import { PerformsActivities } from './actor';
  *
  * ## Learn more
  * - [User-Centred Design: How a 50 year old technique became the key to scalable test automation](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555)
- * - {@link Interaction}
- * - {@link Activity}
- * - {@link Actor}
+ * - {@apilink Interaction}
+ * - {@apilink Activity}
+ * - {@apilink Actor}
  *
  * @group Screenplay Pattern
  */
@@ -73,14 +73,14 @@ export abstract class Task implements Activity {
     }
 
     /**
-     * Instructs the provided {@link Actor} to perform this {@link Task}.
+     * Instructs the provided {@apilink Actor} to perform this {@apilink Task}.
      *
      * @param {PerformsActivities} actor
      *
      * #### Learn more
-     * - {@link Actor}
-     * - {@link PerformsActivities}
-     * - {@link Activity}
+     * - {@apilink Actor}
+     * - {@apilink PerformsActivities}
+     * - {@apilink Activity}
      */
     abstract performAs(actor: PerformsActivities): Promise<void>;
 }

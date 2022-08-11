@@ -11,10 +11,10 @@ import type Mocha = require('mocha');
 
 /**
  * Allows for programmatic execution of Mocha test scenarios,
- * using {@link SerenityReporterForMocha} to report progress.
+ * using {@apilink SerenityReporterForMocha} to report progress.
  *
  * ## Learn more
- * - {@link TestRunnerAdapter}
+ * - {@apilink TestRunnerAdapter}
  *
  * @group Integration
  */
@@ -75,7 +75,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     /**
      * Returns the number of loaded scenarios
      *
-     * @throws {@link LogicError}
+     * @throws {@apilink LogicError}
      *  If called before `load`
      */
     scenarioCount(): number {
@@ -89,7 +89,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     /**
      * Runs loaded test scenarios.
      *
-     * @throws {@link LogicError}
+     * @throws {@apilink LogicError}
      *  If called before `load`
      */
     run(): Promise<void> {

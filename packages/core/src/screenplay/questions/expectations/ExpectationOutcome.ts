@@ -1,8 +1,8 @@
 import { TinyType } from 'tiny-types';
 
 /**
- * An outcome of an {@link Expectations},
- * which could be either {@link ExpectationMet|met} or {@link ExpectationNotMet|not met}
+ * An outcome of an {@apilink Expectations},
+ * which could be either {@apilink ExpectationMet|met} or {@apilink ExpectationNotMet|not met}
  *
  * @group Expectations
  */
