@@ -9,7 +9,7 @@ import { CookieData } from './CookieData';
  * A Screenplay Pattern-style model responsible for managing cookies available to the current {@link Page}.
  *
  * ## Learn more
- * - [[Page.cookie]]
+ * - {@apilink Page.cookie}
  *
  * @group Models
  */
@@ -169,12 +169,12 @@ export abstract class Cookie implements Optional {
      * This method is to be implemented by test integration tool-specific adapters.
      *
      * **Please note**: you don't need to implement any response caching here
-     * since it is covered by [[Cookie.lazyLoadCookie]] method.
+     * since it is covered by {@apilink Cookie.lazyLoadCookie} method.
      */
     protected abstract read(): Promise<CookieData>;
 
     /**
-     * Invokes [[Cookie.read]] and caches the result in memory.
+     * Invokes {@apilink Cookie.read} and caches the result in memory.
      */
     private async lazyLoadCookie(): Promise<CookieData> {
         if (! this.cookie) {

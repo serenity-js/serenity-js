@@ -1,7 +1,7 @@
 import { Ability, Actor } from '../screenplay';
 
 /**
- * Describes the {@apiLink Actor|actors} available to take part in the performance, a.k.a. the test scenario.
+ * Describes the {@apilink Actor|actors} available to take part in the performance, a.k.a. the test scenario.
  *
  * ## Define a cast of actors interacting with a Web UI
  *
@@ -99,12 +99,12 @@ export abstract class Cast {
     }
 
     /**
-     * Configures an {@link Actor} instantiated when [[Stage.actor]] is invoked.
+     * Configures an {@link Actor} instantiated when {@apilink Stage.actor} is invoked.
      *
      * @param actor
      *
      * #### Learn more
-     * - [[engage]]
+     * - {@apilink engage}
      */
     abstract prepare(actor: Actor): Actor;
 }

@@ -44,8 +44,6 @@ import { CallAnApi } from '../abilities';
  * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead
  *
  * @see {@link ChangeApiConfig}
- *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
 export class ChangeApiUrl extends Interaction {
 
@@ -53,16 +51,12 @@ export class ChangeApiUrl extends Interaction {
      * @desc
      *  Instantiates a new {@link ChangeApiUrl} {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param newApiUrl
      */
     static to(newApiUrl: Answerable<string>): Interaction {
         return new ChangeApiUrl(newApiUrl);
     }
 
-    /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} newApiUrl
-     */
     constructor(private readonly newApiUrl: Answerable<string>) {
         super();
     }

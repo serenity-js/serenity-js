@@ -2,7 +2,7 @@ import { Notepad } from './Notepad';
 import { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * Alias for [[Notepad.notes]].
+ * Alias for {@apilink Notepad.notes}.
  *
  * **Pro tip:** `notes<T>().get(subject)` returns a {@link NotepadAdapter} to make accessing the APIs
  * of the underlying type easier. Check {@link NotepadAdapter} for more examples.
@@ -110,7 +110,7 @@ import { NotepadAdapter } from './NotepadAdapter';
  * ## Learn more
  *
  * - {@link NotepadAdapter}
- * - [[Notepad.notes]]
+ * - {@apilink Notepad.notes}
  * - {@link QuestionAdapter}
  *
  * @group Notes

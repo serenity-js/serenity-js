@@ -11,7 +11,7 @@ export interface CucumberConfig {
      * Enable/disable colors in output. Cucumber 1.x only!
      * For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`
      *
-     * **Note** For Cucumber 2.x and above use the [[CucumberConfig.formatOptions]] instead.
+     * **Note** For Cucumber 2.x and above use the {@apilink CucumberConfig.formatOptions} instead.
      *
      * #### Disable colors in output in Cucumber 1.x
      *
@@ -36,7 +36,7 @@ export interface CucumberConfig {
      * Step definitions and support files can be written in languages that transpile to JavaScript.
      * To do set the `compiler` option to `<file_extension>:<module_name>`
      *
-     * **NoteL** For Cucumber 4.x and above use the [[CucumberConfig.require]] option instead.
+     * **NoteL** For Cucumber 4.x and above use the {@apilink CucumberConfig.require} option instead.
      *
      * #### Enable TypeScript support in Cucumber 1.x - 3.x
      * ```ts

@@ -233,7 +233,7 @@ import { Notepad } from './Notepad';
 export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
 
     /**
-     * Initialises an {@link Ability} to {@link TakeNotes} with [[Notepad.empty]].
+     * Initialises an {@link Ability} to {@link TakeNotes} with {@apilink Notepad.empty}.
      */
     static usingAnEmptyNotepad<N extends Record<any, any>>(): TakeNotes<N> {
         return TakeNotes.using<N>(Notepad.empty<N>());

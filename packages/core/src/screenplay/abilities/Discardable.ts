@@ -2,7 +2,7 @@
  * An interface to be implemented by any {@link Ability} that needs to free up
  * the resources it uses, e.g. disconnect from a database.
  *
- * This [[Discardable.discard]] method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:
+ * This {@apilink Discardable.discard} method is invoked directly by the {@link Actor}, and indirectly by {@link Stage}:
  * - when {@link SceneFinishes}, for actors instantiated after {@link SceneStarts} - e.g. within a test scenario or in a "before each" hook
  * - when {@link TestRunFinishes}, for actors instantiated before {@link SceneStarts} - e.g. in a "before all" hook
  *

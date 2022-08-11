@@ -218,7 +218,7 @@ function isSerialisableAsJSON(v: any): v is object {    // eslint-disable-line @
 function isNative(v: any): v is Function {  // eslint-disable-line @typescript-eslint/ban-types
 
     const
-        toString        = Object.prototype.toString,    // Used to resolve the internal `[[Class]]` of values
+        toString        = Object.prototype.toString,    // Used to resolve the internal `{@apilink Class}` of values
         fnToString      = Function.prototype.toString,  // Used to resolve the decompiled source of functions
         hostConstructor = /^\[object .+?Constructor]$/; // Used to detect host constructors (Safari > 4; really typed array specific)
 

@@ -10,7 +10,7 @@ import { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDepe
  * ## Learn more
  * - {@link StageCrewMember}
  * - {@link StageCrewMemberBuilderDependencies}
- * - [[SerenityConfig.crew]]
+ * - {@apilink SerenityConfig.crew}
  *
  * @group Stage
  */

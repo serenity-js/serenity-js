@@ -7,12 +7,12 @@ import { ElementExpectation } from './ElementExpectation';
 /**
  *  {@link Expectation} that an element is clickable, which means it resolves to `true` when:
  *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
- *  - [[PageElement.isClickable]] resolves to `true`
+ *  - {@apilink PageElement.isClickable} resolves to `true`
  *
  *  If the above conditions are not met, the expectation resolves to `false`.
  *
  * ## Learn more
- * - [[PageElement.isClickable]]
+ * - {@apilink PageElement.isClickable}
  * - {@link ElementExpectation}
  * - {@link Expectation}
  * - {@link Check}

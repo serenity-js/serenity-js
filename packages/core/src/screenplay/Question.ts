@@ -31,10 +31,10 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  *
  * ## Implementing a Question using an Ability
  *
- * Just like the {@apiLink Interaction|interactions}, a {@apiLink Question}
- * also can use {@apiLink Actor|actor's} {@apiLink Ability|abilities}.
+ * Just like the {@apilink Interaction|interactions}, a {@apilink Question}
+ * also can use {@apilink Actor|actor's} {@apilink Ability|abilities}.
  *
- * Here, we use the ability to {@apiLink CallAnApi} to retrieve a property of
+ * Here, we use the ability to {@apilink CallAnApi} to retrieve a property of
  * an HTTP response.
  *
  * ```ts
@@ -48,15 +48,15 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  * ```
  *
  * #### Learn more
- * - {@apiLink CallAnApi}
- * - {@apiLink LastResponse}
+ * - {@apilink CallAnApi}
+ * - {@apilink LastResponse}
  *
  * ## Mapping answers to other questions
  *
- * Apart from retrieving information, {@apiLink Question|questions} can be used to transform information retrieved by other questions.
+ * Apart from retrieving information, {@apilink Question|questions} can be used to transform information retrieved by other questions.
  *
- * Here, we use the factory method [[Question.about]] to produce a question that makes the received {@apiLink Actor|actor}
- * answer [[LastResponse.status]] and then compare it against some expected value.
+ * Here, we use the factory method {@apilink Question.about} to produce a question that makes the received {@apilink Actor|actor}
+ * answer {@apilink LastResponse.status} and then compare it against some expected value.
  *
  * ```ts
  * import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
@@ -77,7 +77,7 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  * ```
  *
  * Note that the above example is for demonstration purposes only, Serenity/JS provides an easier way to
- * verify the response status of the [[LastResponse]]:
+ * verify the response status of the {@apilink LastResponse}:
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -123,9 +123,9 @@ export abstract class Question<T> {
     }
 
     /**
-     * Generates a {@apiLink QuestionAdapter} that recursively resolves
-     * any {@apiLink Answerable} fields of the provided object,
-     * including {@apiLink Answerable} fields of {@link WithAnswerableProperties|nested objects}.
+     * Generates a {@apilink QuestionAdapter} that recursively resolves
+     * any {@apilink Answerable} fields of the provided object,
+     * including {@apilink Answerable} fields of {@link WithAnswerableProperties|nested objects}.
      *
      * Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`,
      * producing a new merged object.
@@ -359,9 +359,9 @@ declare global {
 /* eslint-disable @typescript-eslint/indent */
 
 /**
- * Describes an object recursively wrapped in [[QuestionAdapter]] proxies, so that:
- * - both methods and fields of the wrapped object can be used as {@apiLink Question|questions} or {@apiLink Interactions|interactions}
- * - method parameters of the wrapped object will accept {@apiLink Answerable|Answerable<T>}
+ * Describes an object recursively wrapped in {@apilink QuestionAdapter} proxies, so that:
+ * - both methods and fields of the wrapped object can be used as {@apilink Question|questions} or {@apilink Interactions|interactions}
+ * - method parameters of the wrapped object will accept {@apilink Answerable|Answerable<T>}
  *
  * @group Answerables
  */
@@ -380,10 +380,10 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
 /* eslint-enable @typescript-eslint/indent */
 
 /**
- * A union type representing a proxy object returned by [[Question.about]].
+ * A union type representing a proxy object returned by {@apilink Question.about}.
  *
- * [[QuestionAdapter]] proxies the methods and fields of the wrapped object recursively,
- * allowing them to be used as either a [[Question]] or an [[Interaction]].
+ * {@apilink QuestionAdapter} proxies the methods and fields of the wrapped object recursively,
+ * allowing them to be used as either a {@apilink Question} or an {@apilink Interaction}.
  *
  * @group Answerables
  */

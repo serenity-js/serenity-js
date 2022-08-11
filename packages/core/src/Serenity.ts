@@ -86,8 +86,8 @@ export class Serenity {
      * Re-configures Serenity/JS with a new {@link Cast} of {@link Actor|actors}
      * you want to use in any subsequent calls to {@link actorCalled}.
      *
-     * For your convenience, use {@apiLink engage} function instead,
-     * which provides an alternative to calling [[Actor.whoCan]] directly in your tests
+     * For your convenience, use {@apilink engage} function instead,
+     * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
      * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
      *
      * If your implementation of the {@link Cast} interface is stateless,
@@ -156,10 +156,10 @@ export class Serenity {
     }
 
     /**
-     * Instantiates or retrieves an {@apiLink Actor}
+     * Instantiates or retrieves an {@apilink Actor}
      * called `name` if one has already been instantiated.
      *
-     * For your convenience, use {@apiLink actorCalled} function instead.
+     * For your convenience, use {@apilink actorCalled} function instead.
      *
      * ## Usage with Mocha
      *
@@ -219,11 +219,11 @@ export class Serenity {
 
     /**
      * Retrieves an actor who was last instantiated or retrieved
-     * using [[Serenity.theActorCalled]].
+     * using {@apilink Serenity.theActorCalled}.
      *
      * This function is particularly useful when automating Cucumber scenarios.
      *
-     * For your convenience, use {@apiLink actorInTheSpotlight} function instead.
+     * For your convenience, use {@apilink actorInTheSpotlight} function instead.
      *
      * ## Usage with Cucumber
      *

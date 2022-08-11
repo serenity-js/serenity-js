@@ -34,16 +34,15 @@ export class ThemeForMonochromaticTerminals extends TerminalTheme {
     }
 
     /**
-     * @desc
-     *  Joins the `parts` into a single string.
-     *  Since this class represents a theme for monochromatic terminals,
-     *  no decoration of the text is performed.
+     * Joins the `parts` into a single string.
+     * Since this class represents a theme for monochromatic terminals,
+     * no decoration of the text is performed.
      *
-     * @param {@serenity-js/core/lib/model~Outcome | string} outcome
-     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
+     * @param outcome
+     *  an instance of an {@link Outcome}
      *  or a string class name of one of its implementations.
      *
-     * @param {...any[]} parts
+     * @param parts
      *  the parts of the message
      *
      * @returns {string}

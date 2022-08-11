@@ -60,7 +60,7 @@ import { BrowseTheWebWithProtractor } from '../abilities';
  * ```
  *
  * ## Learn more
- * - [[BrowseTheWebWithProtractor.param]]
+ * - {@apilink BrowseTheWebWithProtractor.param}
  *
  * @group Questions
  */

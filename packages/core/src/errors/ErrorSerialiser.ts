@@ -3,11 +3,6 @@ import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types
 // todo: can I remove it?
 import { parse, stringify } from './json';
 
-/**
- *
- * @extends {tiny-types~JSONObject}
- * @public
- */
 export interface SerialisedError extends JSONObject {
     /**
      *  Name of the constructor function used to instantiate
@@ -26,6 +21,9 @@ export interface SerialisedError extends JSONObject {
     stack:   string;
 }
 
+/**
+ * @group Errors
+ */
 export class ErrorSerialiser {
     private static readonly recognisedErrors: Array<new (...args: any[]) => Error> = [
         // Built-in JavaScript Errors

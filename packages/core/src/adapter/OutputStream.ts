@@ -1,10 +1,10 @@
 /**
- * An output stream to be injected into {@link StageCrewMemberBuilder|StageCrewMemberBuilders} configured via [[SerenityConfig.crew]].
+ * An output stream to be injected into {@link StageCrewMemberBuilder|StageCrewMemberBuilders} configured via {@apilink SerenityConfig.crew}.
  *
  * ## Learn more
  * - {@link StageCrewMemberBuilder}
- * - [[Serenity.configure]]
- * - [[SerenityConfig.crew]]
+ * - {@apilink Serenity.configure}
+ * - {@apilink SerenityConfig.crew}
  *
  * @group Integration
  */

@@ -17,7 +17,7 @@ export interface Switchable {
 
     /**
      * Switches the context to the object implementing this interface
-     * and returns [[SwitchableOrigin]] that allows for the context to be switched
+     * and returns {@apilink SwitchableOrigin} that allows for the context to be switched
      * back when needed.
      */
     switchTo(): Promise<SwitchableOrigin>;

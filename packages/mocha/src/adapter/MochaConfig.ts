@@ -45,7 +45,7 @@ export interface MochaConfig {
     /**
      * Only run tests containing this string.
      *
-     * **Note:** [[MochaConfig.fgrep]] and [[MochaConfig.grep]] are mutually exclusive.
+     * **Note:** {@apilink MochaConfig.fgrep} and {@apilink MochaConfig.grep} are mutually exclusive.
      */
     fgrep?: string;
 
@@ -72,7 +72,7 @@ export interface MochaConfig {
     /**
      * Only run tests matching this string or regexp.
      *
-     * **Note:** [[MochaConfig.grep]] and [[MochaConfig.fgrep]] are mutually exclusive.
+     * **Note:** {@apilink MochaConfig.grep} and {@apilink MochaConfig.fgrep} are mutually exclusive.
      */
     grep?: string | RegExp;
 
@@ -82,7 +82,7 @@ export interface MochaConfig {
     growl?: boolean;
 
     /**
-     * Inverts [[MochaConfig.grep]] and [[MochaConfig.fgrep]] matches.
+     * Inverts {@apilink MochaConfig.grep} and {@apilink MochaConfig.fgrep} matches.
      */
     invert?: boolean;
 

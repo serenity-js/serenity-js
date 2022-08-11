@@ -6,9 +6,8 @@ import cucumberMessagesListener = require('./CucumberMessagesListener');
  * @desc
  *  Creates a listener for Cucumber.js v7.x and above
  *
- * @param {@serenity-js/core/lib~Serenity} serenity
- * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader
- * @returns {@cucumber/cucumber~Formatter}
+ * @param serenity
+ * @param moduleLoader
  */
 export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): any {
     return cucumberMessagesListener(

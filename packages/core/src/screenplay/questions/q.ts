@@ -38,7 +38,7 @@ import { Question, QuestionAdapter } from '../Question';
  *
  * ## Transforming the interpolated string
  *
- * The mechanism presented below relies on {@apiLink QuestionAdapter}.
+ * The mechanism presented below relies on {@apilink QuestionAdapter}.
  *
  * ```ts
  * import { q, actorCalled } from '@serenity-js/core'
@@ -55,7 +55,7 @@ import { Question, QuestionAdapter } from '../Question';
  *
  * - {@link Answerable}
  * - {@link Question}
- * - [[Question.describedAs]]
+ * - {@apilink Question.describedAs}
  * - {@link QuestionAdapter}
  *
  * @group Answerables

@@ -9,8 +9,8 @@ export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Act
     Promise<ExpectationOutcome<unknown, Actual>> | ExpectationOutcome<unknown, Actual>;     // eslint-disable-line @typescript-eslint/indent
 
 /**
- * Defines an expectation to be used with [[@link Wait.until]], [[Check.whether]], [[Ensure.that]]
- * and as part of the Page Element Query Language with [[PageElements.where]] and [[List.where]].
+ * Defines an expectation to be used with {@apilink @link Wait.until}, {@apilink Check.whether}, {@apilink Ensure.that}
+ * and as part of the Page Element Query Language with {@apilink PageElements.where} and {@apilink List.where}.
  *
  * @group Expectations
  */

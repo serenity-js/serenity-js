@@ -2,14 +2,14 @@ import { Answerable } from '../screenplay';
 import { inspected } from './inspected';
 
 /**
- * {@apiLink format} is a factory function returning
+ * {@apilink format} is a factory function returning
  * a [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals)
  * that produces a human-readable description of a template containing
- * one or more {@apiLink Answerable|Answerables}.
+ * one or more {@apilink Answerable|Answerables}.
  *
- * Typically, you'll want to use {@apiLink d} and {@apiLink f} shorthands instead:
- * - the {@apiLink d} function works best for generating a **description** of a parameterised {@link Activity}
- * - the {@apiLink f} function is better suited for debugging.
+ * Typically, you'll want to use {@apilink d} and {@apilink f} shorthands instead:
+ * - the {@apilink d} function works best for generating a **description** of a parameterised {@link Activity}
+ * - the {@apilink f} function is better suited for debugging.
  *
  * ## Using `format`
  *

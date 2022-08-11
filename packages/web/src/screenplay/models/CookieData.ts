@@ -6,7 +6,7 @@ import { Timestamp } from '@serenity-js/core';
  * ## Learn more
  *
  * - {@link Cookie}
- * - [[Page.cookie]]
+ * - {@apilink Page.cookie}
  *
  * @group Models
  */

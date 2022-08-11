@@ -3,7 +3,7 @@
  *
  * ## Learn more
  *
- * - [[BrowseTheWeb.browserCapabilities]]
+ * - {@apilink BrowseTheWeb.browserCapabilities}
  *
  * @group Models
  */

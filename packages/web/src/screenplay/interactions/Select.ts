@@ -60,7 +60,7 @@ export class Select {
      * ```
      *
      * #### Learn more
-     * - [[Selected.valueOf]]
+     * - {@apilink Selected.valueOf}
      * - {@link PageElement}
      *
      * @param value
@@ -123,7 +123,7 @@ export class Select {
      *
      * #### Learn more
      *
-     * - [[Selected.valuesOf]]
+     * - {@apilink Selected.valuesOf}
      * - {@link PageElement}
      *
      * @param values
@@ -191,7 +191,7 @@ export class Select {
      * ```
      *
      * #### Learn more
-     * - [[Selected.optionIn]]
+     * - {@apilink Selected.optionIn}
      * - {@link PageElement}
      *
      * @param value
@@ -257,7 +257,7 @@ export class Select {
      * ```
      *
      * #### Learn more
-     * - [[Selected.optionsIn]]
+     * - {@apilink Selected.optionsIn}
      * - {@link PageElement}
      *
      * @param values

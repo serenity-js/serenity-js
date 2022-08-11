@@ -7,10 +7,10 @@ import { Selector } from './selectors';
  * within the {@link Page}.
  *
  * ## Learn more
- * - [[RootLocator]]
- * - [[Page.locate]]
- * - [[PageElement]]
- * - [[PageElements]]
+ * - {@apilink RootLocator}
+ * - {@apilink Page.locate}
+ * - {@apilink PageElement}
+ * - {@apilink PageElements}
  *
  * @group Models
  */

@@ -3,10 +3,10 @@
  * This context is either a parent element, or some representation of the top-level browsing context.
  *
  * ## Learn more
- * - [[Locator]]
- * - [[Page.locate]]
- * - [[PageElement]]
- * - [[PageElements]]
+ * - {@apilink Locator}
+ * - {@apilink Page.locate}
+ * - {@apilink PageElement}
+ * - {@apilink PageElements}
  *
  * @group Models
  */

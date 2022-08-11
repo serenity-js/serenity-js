@@ -8,7 +8,7 @@ import { ExpectationMet } from './expectations';
 
 /**
  * A [flow control statement](https://en.wikipedia.org/wiki/Control_flow)
- * that enables an {@apiLink Actor} to decide between two alternate series of {@apiLink Activity|activities}.
+ * that enables an {@apilink Actor} to decide between two alternate series of {@apilink Activity|activities}.
  *
  * Think of it as a Screenplay Pattern equivalent of the traditional `if` statement.
  *
