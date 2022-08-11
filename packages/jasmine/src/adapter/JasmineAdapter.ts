@@ -8,10 +8,10 @@ import reporter = require('../index');
 
 /**
  * Allows for programmatic execution of Jasmine test scenarios,
- * using {@link SerenityReporterForJasmine} to report progress.
+ * using {@apilink SerenityReporterForJasmine} to report progress.
  *
  * ## Learn more
- * - {@link TestRunnerAdapter}
+ * - {@apilink TestRunnerAdapter}
  *
  * @group Integration
  */

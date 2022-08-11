@@ -9,7 +9,7 @@ export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Act
     Promise<ExpectationOutcome<unknown, Actual>> | ExpectationOutcome<unknown, Actual>;     // eslint-disable-line @typescript-eslint/indent
 
 /**
- * Defines an expectation to be used with {@apilink @link Wait.until}, {@apilink Check.whether}, {@apilink Ensure.that}
+ * Defines an expectation to be used with {@apilink @apilink Wait.until}, {@apilink Check.whether}, {@apilink Ensure.that}
  * and as part of the Page Element Query Language with {@apilink PageElements.where} and {@apilink List.where}.
  *
  * @group Expectations
@@ -17,7 +17,7 @@ export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Act
 export class Expectation<Actual> {
 
     /**
-     * Used to define a simple {@link Expectation}
+     * Used to define a simple {@apilink Expectation}
      *
      * #### Simple parameterised expectation
      *
@@ -67,9 +67,9 @@ export class Expectation<Actual> {
     }
 
     /**
-     * Used to compose {@link Expectation|expectations}.
+     * Used to compose {@apilink Expectation|expectations}.
      *
-     * #### Composing {@link Expectation|expectations}
+     * #### Composing {@apilink Expectation|expectations}
      *
      * ```ts
      * import { actorCalled, Expectation } from '@serenity-js/core'
@@ -120,9 +120,9 @@ export class Expectation<Actual> {
     }
 
     /**
-     * Returns a {@link QuestionAdapter} that resolves to {@link ExpectationOutcome}
-     * indicating that the {@link ExpectationMet|expectation was met}
-     * or that the {@link ExpectationNotMet|expectation was not met}
+     * Returns a {@apilink QuestionAdapter} that resolves to {@apilink ExpectationOutcome}
+     * indicating that the {@apilink ExpectationMet|expectation was met}
+     * or that the {@apilink ExpectationNotMet|expectation was not met}
      *
      * @param actual
      */

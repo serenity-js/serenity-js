@@ -3,9 +3,9 @@ import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapte
 import { PageElement } from '../models';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
  * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
- * of a given {@link PageElement}.
+ * of a given {@apilink PageElement}.
  *
  * ## Example widget
  *
@@ -17,7 +17,7 @@ import { PageElement } from '../models';
  * </ul>
  * ```
  *
- * ## Retrieve CSS classes of a given {@link PageElement}
+ * ## Retrieve CSS classes of a given {@apilink PageElement}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -37,7 +37,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Using CssClasses as {@link QuestionAdapter}
+ * ## Using CssClasses as {@apilink QuestionAdapter}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -88,10 +88,10 @@ import { PageElement } from '../models';
  * ```
  *
  * ## Learn more
- * - {@link BrowseTheWeb}
- * - {@link MetaQuestion}
- * - {@link QuestionAdapter}
- * - {@link Question}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
  *
  * @group Questions
  */
@@ -102,13 +102,13 @@ export class CssClasses
     private subject: string;
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
-     * of a given {@link PageElement}.
+     * of a given {@apilink PageElement}.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param pageElement
      */
@@ -122,14 +122,14 @@ export class CssClasses
     }
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
-     * of a given {@link PageElement},
+     * of a given {@apilink PageElement},
      * located in a given `parent` element.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param parent
      */

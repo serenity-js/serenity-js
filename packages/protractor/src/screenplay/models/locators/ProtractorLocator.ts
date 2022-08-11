@@ -8,7 +8,7 @@ import { ProtractorPageElement } from '../ProtractorPageElement';
 import { ProtractorRootLocator } from './ProtractorRootLocator';
 
 /**
- * Protractor-specific implementation of {@link Locator}.
+ * Protractor-specific implementation of {@apilink Locator}.
  *
  * @group Models
  */

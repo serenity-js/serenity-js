@@ -1,5 +1,5 @@
 /**
- * {@link RootLocator} represents the context in which {@link Locator} looks for {@link PageElement} or {@link PageElements}.
+ * {@apilink RootLocator} represents the context in which {@apilink Locator} looks for {@apilink PageElement} or {@apilink PageElements}.
  * This context is either a parent element, or some representation of the top-level browsing context.
  *
  * ## Learn more

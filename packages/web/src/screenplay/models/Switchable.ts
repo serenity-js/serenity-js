@@ -2,14 +2,14 @@ import { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
  * Describes a Serenity/JS model object that can be switched _to_ and switched back _from_
- * using the {@link Task|task} to {@link Switch}.
+ * using the {@apilink Task|task} to {@apilink Switch}.
  *
- * Examples of switchable models include a {@link Page} and {@link PageElement}.
+ * Examples of switchable models include a {@apilink Page} and {@apilink PageElement}.
  *
  * ## Learn more
- * - {@link Page}
- * - {@link PageElement}
- * - {@link Switch}
+ * - {@apilink Page}
+ * - {@apilink PageElement}
+ * - {@apilink Switch}
  *
  * @group Models
  */

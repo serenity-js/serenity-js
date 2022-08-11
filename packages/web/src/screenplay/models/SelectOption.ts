@@ -6,8 +6,8 @@ import { TinyType } from 'tiny-types';
  *
  * ## Learn more
  *
- * - {@link Select}
- * - {@link Selected}
+ * - {@apilink Select}
+ * - {@apilink Selected}
  * - {@apilink PageElement.selectOptions}
  * - {@apilink PageElement.selectedOptions}
  *

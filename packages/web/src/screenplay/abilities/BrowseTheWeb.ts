@@ -3,12 +3,12 @@ import { Ability, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowsingSession, Page } from '../models';
 
 /**
- * The {@link Ability|ability} to `BrowseTheWeb` enables an {@link Actor|actor}
- * to {@link Interaction|interact with} and {@link Question|retrieve information from} Web-based user interfaces.
+ * The {@apilink Ability|ability} to `BrowseTheWeb` enables an {@apilink Actor|actor}
+ * to {@apilink Interaction|interact with} and {@apilink Question|retrieve information from} Web-based user interfaces.
  *
  * `BrowseTheWeb` wraps test integration tools such as [Playwright](/api/playwright),
  * [Protractor](/api/protractor), or [WebdriverIO](/api/webdriverio),
- * and together with Serenity/JS Web models, such as {@link Page} or {@link PageElement} - offers a standardised way
+ * and together with Serenity/JS Web models, such as {@apilink Page} or {@apilink PageElement} - offers a standardised way
  * to write Web-based tests following the Screenplay Pattern.
  *
  * The consistent and portable design of abstractions provided by the [`@serenity-js/web` module](/api/web)
@@ -17,7 +17,7 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * ## Giving the actors an ability to `BrowseTheWeb`
  *
- * To give an {@link Actor|actor} an ability to `BrowseTheWeb`, provide the **integration tool-specific implementation**
+ * To give an {@apilink Actor|actor} an ability to `BrowseTheWeb`, provide the **integration tool-specific implementation**
  * via {@apilink Actor.whoCan} in {@apilink Cast.prepare}, or via {@apilink Cast.whereEveryoneCan}.
  *
  * ```ts
@@ -39,21 +39,21 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * To learn more about using Serenity/JS with your chosen test integration tool, follow their respective documentation:
  *
- * - {@link BrowseTheWebWithPlaywright}
- * - {@link BrowseTheWebWithProtractor}
- * - {@link BrowseTheWebWithWebdriverIO}
+ * - {@apilink BrowseTheWebWithPlaywright}
+ * - {@apilink BrowseTheWebWithProtractor}
+ * - {@apilink BrowseTheWebWithWebdriverIO}
  *
  * ## Using the ability to `BrowseTheWeb`
  *
- * To use the ability to `BrowseTheWeb` in a custom {@link Interaction} or {@link Question}, use the **generic** method {@apilink BrowseTheWeb.as}
+ * To use the ability to `BrowseTheWeb` in a custom {@apilink Interaction} or {@apilink Question}, use the **generic** method {@apilink BrowseTheWeb.as}
  * to retrieve it.
  *
- * This generic method retrieves the integration tool-specific implementation of {@link BrowseTheWeb} present on the {@link Actor},
- * such as {@link BrowseTheWebWithPlaywright} or {@link BrowseTheWebWethWebdriverIO}, using {@apilink Actor.abilityTo}.
+ * This generic method retrieves the integration tool-specific implementation of {@apilink BrowseTheWeb} present on the {@apilink Actor},
+ * such as {@apilink BrowseTheWebWithPlaywright} or {@apilink BrowseTheWebWethWebdriverIO}, using {@apilink Actor.abilityTo}.
  *
  * This decoupling mechanism helps to make your test code portable across test integration tools,
  * since the only part of your test suite that needs to know about the test integration tool used are the actors.
- * The rest of your test code, so {@link Task|tasks}, {@link Interaction|interactions}, and {@link Question|questions},
+ * The rest of your test code, so {@apilink Task|tasks}, {@apilink Interaction|interactions}, and {@apilink Question|questions},
  * remain fully agnostic of the underlying tool.
  *
  * ```ts
@@ -81,9 +81,9 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
 export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
 
     /**
-     * Used to access the {@link Actor}'s {@link Ability|ability} to {@link BrowseTheWeb}
-     * from within the {@link Interaction|interactions}, such as {@link Click},
-     * and {@link Question|questions}, such as {@link Attribute}.
+     * Used to access the {@apilink Actor}'s {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+     * from within the {@apilink Interaction|interactions}, such as {@apilink Click},
+     * and {@apilink Question|questions}, such as {@apilink Attribute}.
      *
      * @param actor
      */
@@ -95,20 +95,20 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability
     }
 
     /**
-     * Returns {@link BrowserCapabilities|basic meta-data} about the browser associated with this ability.
+     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
      */
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
     /**
-     * Returns a {@link Page} representing the currently active browser tab.
+     * Returns a {@apilink Page} representing the currently active browser tab.
      */
     async currentPage(): Promise<Page<Native_Element_Type>> {
         return this.session.currentPage();
     }
 
     /**
-     * Returns an array of {@link Page|pages} representing all the browser tabs
-     * available in the current {@link BrowsingSession}.
+     * Returns an array of {@apilink Page|pages} representing all the browser tabs
+     * available in the current {@apilink BrowsingSession}.
      */
     allPages(): Promise<Array<Page<Native_Element_Type>>> {
         return this.session.allPages();

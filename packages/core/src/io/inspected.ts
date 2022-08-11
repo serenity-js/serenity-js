@@ -9,7 +9,7 @@ interface InspectedConfig {
 }
 
 /**
- * Provides a human-readable description of the {@link Answerable<T>}.
+ * Provides a human-readable description of the {@apilink Answerable<T>}.
  * Similar to [Node util~inspect](https://nodejs.org/api/util.html#utilinspectobject-options).
  *
  * @param value
@@ -125,7 +125,7 @@ function isInspectable(v: Answerable<any>): v is { inspect: () => string } {
 }
 
 /**
- * Checks if the value is a {@link Date}
+ * Checks if the value is a {@apilink Date}
  *
  * @param v
  */
@@ -134,7 +134,7 @@ function isADate(v: Answerable<any>): v is Date {
 }
 
 /**
- * Checks if the value is a {@link Promise}
+ * Checks if the value is a {@apilink Promise}
  *
  * @param v
  */
@@ -144,7 +144,7 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
 }
 
 /**
- * Checks if the value is a named {@link Function}
+ * Checks if the value is a named {@apilink Function}
  *
  * @param v
  */

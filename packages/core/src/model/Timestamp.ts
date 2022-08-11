@@ -6,10 +6,10 @@ import { Duration } from './Duration';
 /**
  * Represents a point in time.
  *
- * `Timestamp` makes it easier for Serenity/JS to work with information related to time, like {@link DomainEvent|domain events}.
+ * `Timestamp` makes it easier for Serenity/JS to work with information related to time, like {@apilink DomainEvent|domain events}.
  *
  * ## Learn more
- * - {@link Duration}
+ * - {@apilink Duration}
  * - [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
  *
  * @group Stage

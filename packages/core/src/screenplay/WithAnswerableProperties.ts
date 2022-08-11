@@ -2,8 +2,8 @@ import { Answerable } from './Answerable';
 import { Question } from './Question';
 
 /**
- * Describes a plain JavaScript object with {@link Answerable} properties.
- * Typically, used in conjunction with {@link RecursivelyAnswered} and {@link Question.fromObject}.
+ * Describes a plain JavaScript object with {@apilink Answerable} properties.
+ * Typically, used in conjunction with {@apilink RecursivelyAnswered} and {@apilink Question.fromObject}.
  *
  * ```ts
  * import {

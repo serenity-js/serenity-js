@@ -6,20 +6,20 @@ import { Interaction } from '@serenity-js/core/lib/screenplay';
 import { PageElement, SelectOption } from '../models';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
  * either by its display name, or by value.
  *
  * ## Learn more
- * - {@link Selected}
+ * - {@apilink Selected}
  *
  * @group Interactions
  */
 export class Select {
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
      * to select a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * with a given [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value).,
      *
@@ -61,11 +61,11 @@ export class Select {
      *
      * #### Learn more
      * - {@apilink Selected.valueOf}
-     * - {@link PageElement}
+     * - {@apilink PageElement}
      *
      * @param value
      *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link Actor} to select
+     *  for the {@apilink Actor} to select
      */
     static value(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
@@ -80,8 +80,8 @@ export class Select {
     }
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
      * to select multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * identified by their [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value).
      *
@@ -124,11 +124,11 @@ export class Select {
      * #### Learn more
      *
      * - {@apilink Selected.valuesOf}
-     * - {@link PageElement}
+     * - {@apilink PageElement}
      *
      * @param values
      *  Values of the [`option` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link Actor} to select
+     *  for the {@apilink Actor} to select
      */
     static values(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
@@ -146,8 +146,8 @@ export class Select {
     }
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
      * to select a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * with a given description.
      *
@@ -192,11 +192,11 @@ export class Select {
      *
      * #### Learn more
      * - {@apilink Selected.optionIn}
-     * - {@link PageElement}
+     * - {@apilink PageElement}
      *
      * @param value
      *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link Actor} to select
+     *  for the {@apilink Actor} to select
      */
     static option(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
@@ -211,8 +211,8 @@ export class Select {
     }
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
      * to select multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * identified by their descriptions.
      *
@@ -258,11 +258,11 @@ export class Select {
      *
      * #### Learn more
      * - {@apilink Selected.optionsIn}
-     * - {@link PageElement}
+     * - {@apilink PageElement}
      *
      * @param values
      *  Text of the [`option` elements  ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link Actor} to select
+     *  for the {@apilink Actor} to select
      */
     static options(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {

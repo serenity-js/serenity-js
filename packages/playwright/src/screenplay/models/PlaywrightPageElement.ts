@@ -7,7 +7,7 @@ import { ensure, isDefined } from 'tiny-types';
 import { PlaywrightLocator } from './locators';
 
 /**
- * Playwright-specific implementation of {@link PageElement}.
+ * Playwright-specific implementation of {@apilink PageElement}.
  *
  * @group Models
  */

@@ -3,7 +3,7 @@ import { Answerable, AnswersQuestions, d, Interaction, LogicError } from '@seren
 import { PageElement } from '../models';
 
 /**
- * A base class for interactions with {@link PageElement} objects.
+ * A base class for interactions with {@apilink PageElement} objects.
  *
  * **Note:** The recommended way to implement custom interactions
  * in your code is to use the {@apilink Interaction.where} factory method.
@@ -15,14 +15,14 @@ export abstract class PageElementInteraction extends Interaction {
     /**
      * @param description
      *  A human-readable description to be used when reporting
-     *  this {@link Interaction}.
+     *  this {@apilink Interaction}.
      */
     protected constructor(private readonly description: string) {
         super();
     }
 
     /**
-     * Returns the resolved {@link PageElement}, or throws a {@link LogicError}
+     * Returns the resolved {@apilink PageElement}, or throws a {@apilink LogicError}
      * if the element is `undefined`.
      *
      * @param actor

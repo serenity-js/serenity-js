@@ -12,7 +12,7 @@ import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 /**
- * Protractor-specific implementation of {@link Page}.
+ * Protractor-specific implementation of {@apilink Page}.
  *
  * @group Models
  */

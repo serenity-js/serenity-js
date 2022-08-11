@@ -17,7 +17,7 @@ export class StartLocalServer {
     }
 
     /**
-     *  Instructs the {@link Actor} to start a local test server on one of the preferred ports.
+     *  Instructs the {@apilink Actor} to start a local test server on one of the preferred ports.
      *
      *  Please note: this method is kept for backwards compatibility. However, its behaviour has changed
      *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
@@ -34,7 +34,7 @@ export class StartLocalServer {
     }
 
     /**
-     * Instructs the {@link Actor} to start a local test server on a `preferredPort`,
+     * Instructs the {@apilink Actor} to start a local test server on a `preferredPort`,
      * or a random one if that's not available.
      *
      * @param preferredPort
@@ -44,7 +44,7 @@ export class StartLocalServer {
     }
 
     /**
-     * Instructs the {@link Actor} to start a local test server on a random port
+     * Instructs the {@apilink Actor} to start a local test server on a random port
      * between `lowestPort` and `highestPort`, inclusive.
      *
      * @param {Answerable<number>} lowestPort

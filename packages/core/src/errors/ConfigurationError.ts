@@ -23,7 +23,7 @@ export class ConfigurationError extends RuntimeError {
 
     /**
      * @param message - Human-readable description of the error
-     * @param [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(ConfigurationError, message, cause);

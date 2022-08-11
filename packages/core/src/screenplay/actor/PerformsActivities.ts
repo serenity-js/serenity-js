@@ -1,21 +1,21 @@
 import { Activity } from '../Activity';
 
 /**
- * Describes an {@link Actor} who can perform a sequence of {@link Activity|Activities},
- * such as {@link Task|tasks} or {@link Interaction|interactions}.
+ * Describes an {@apilink Actor} who can perform a sequence of {@apilink Activity|Activities},
+ * such as {@apilink Task|tasks} or {@apilink Interaction|interactions}.
  *
  * ## Learn more
- * - {@link Activity}
- * - {@link Interaction}
- * - {@link Task}
- * - {@link Actor}
+ * - {@apilink Activity}
+ * - {@apilink Interaction}
+ * - {@apilink Task}
+ * - {@apilink Actor}
  *
  * @group Actors
  */
 export interface PerformsActivities {
 
     /**
-     * Makes the {@link Actor} attempt to perform a sequence of {@link Activity|Activities}.
+     * Makes the {@apilink Actor} attempt to perform a sequence of {@apilink Activity|Activities}.
      */
     attemptsTo: (...activities: Activity[]) => Promise<void>;
 }

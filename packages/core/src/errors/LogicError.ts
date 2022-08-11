@@ -4,7 +4,7 @@ import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that an {@link Interaction}, a {@link Task} or a test scenario
+ * Thrown to indicate that an {@apilink Interaction}, a {@apilink Task} or a test scenario
  * can't be executed due to a logical error.
  *
  * For example, it's not possible to assert on the last HTTP Response if the request
@@ -27,7 +27,7 @@ export class LogicError extends RuntimeError {
 
     /**
      * @param message - Human-readable description of the error
-     * @param [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(LogicError, message, cause);

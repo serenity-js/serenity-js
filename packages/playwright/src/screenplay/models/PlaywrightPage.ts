@@ -13,7 +13,7 @@ import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
 
 /**
- * Playwright-specific implementation of {@link Page}.
+ * Playwright-specific implementation of {@apilink Page}.
  *
  * @group Models
  */

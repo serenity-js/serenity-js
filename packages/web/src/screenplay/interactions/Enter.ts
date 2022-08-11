@@ -5,7 +5,7 @@ import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.
  *
  * ## Example widget
@@ -41,15 +41,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Enter extends PageElementInteraction {
 
     /**
-     * Instantiates this {@link Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
      * @param values
      *  The text value to be entered

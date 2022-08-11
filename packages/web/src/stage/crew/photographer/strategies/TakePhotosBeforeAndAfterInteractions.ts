@@ -3,9 +3,9 @@ import { DomainEvent, InteractionFinished, InteractionStarts } from '@serenity-j
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * Configures the {@link Photographer} to take photos (a.k.a. screenshots) **both before and after**
- * every single {@link Interaction} performed
- * by the {@link Actor} in the {@link actorInTheSpotlight|spotlight}.
+ * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots) **both before and after**
+ * every single {@apilink Interaction} performed
+ * by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}.
  *
  * **Please note** that this strategy will result in _a lot_ of screenshots being taken,
  * which will seriously affect the performance of your tests.

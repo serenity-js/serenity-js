@@ -4,11 +4,11 @@ import { AbsentModalDialog } from './AbsentModalDialog';
 import { ModalDialog } from './ModalDialog';
 
 /**
- * Represent the strategy to use with any upcoming {@link ModalDialog} windows.
+ * Represent the strategy to use with any upcoming {@apilink ModalDialog} windows.
  *
  * ## Learn more
  *
- * - {@link ModalDialog}
+ * - {@apilink ModalDialog}
  * - {@apilink Page.modalDialog}
  *
  * @group Models
@@ -41,8 +41,8 @@ export abstract class ModalDialogHandler {
     abstract reset(): Promise<void>;
 
     /**
-     * Returns the most recently handled {@link ModalDialog},
-     * or {@link AbsentModalDialog} when no dialogs have been handled yet.
+     * Returns the most recently handled {@apilink ModalDialog},
+     * or {@apilink AbsentModalDialog} when no dialogs have been handled yet.
      */
     async last(): Promise<ModalDialog> {
         return this.modalDialog;

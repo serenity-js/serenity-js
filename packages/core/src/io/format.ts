@@ -8,7 +8,7 @@ import { inspected } from './inspected';
  * one or more {@apilink Answerable|Answerables}.
  *
  * Typically, you'll want to use {@apilink d} and {@apilink f} shorthands instead:
- * - the {@apilink d} function works best for generating a **description** of a parameterised {@link Activity}
+ * - the {@apilink d} function works best for generating a **description** of a parameterised {@apilink Activity}
  * - the {@apilink f} function is better suited for debugging.
  *
  * ## Using `format`

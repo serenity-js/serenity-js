@@ -5,8 +5,8 @@ import { RuntimeError } from '@serenity-js/core';
  * you're trying to retrieve has not been set yet.
  *
  * ## Learn more
- * - {@link Cookie}
- * - {@link RuntimeError}
+ * - {@apilink Cookie}
+ * - {@apilink RuntimeError}
  *
  * @group Errors
  */

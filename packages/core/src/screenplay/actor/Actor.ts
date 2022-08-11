@@ -14,12 +14,12 @@ import { UsesAbilities } from './UsesAbilities';
 
 /**
  * Core element of the Screenplay Pattern,
- * an {@link Actor} represents a user or an external system interacting with the system under test.
+ * an {@apilink Actor} represents a user or an external system interacting with the system under test.
  *
  * ## Learn more
  *
- * - {@link Cast}
- * - {@link Stage}
+ * - {@apilink Cast}
+ * - {@apilink Stage}
  *
  * @group Screenplay Pattern
  */
@@ -42,9 +42,9 @@ export class Actor implements
     }
 
     /**
-     * Retrieves actor's {@link Ability} of `abilityType`, or one that extends `abilityType`.
+     * Retrieves actor's {@apilink Ability} of `abilityType`, or one that extends `abilityType`.
      *
-     * Please note that this method performs an {@link instanceof} check against abilities
+     * Please note that this method performs an {@apilink instanceof} check against abilities
      * given to this actor via {@apilink Actor.whoCan}.
      *
      * Please also note that {@apilink Actor.whoCan} performs the same check when abilities are assigned to the actor
@@ -64,8 +64,8 @@ export class Actor implements
     }
 
     /**
-     * Instructs the actor to attempt to perform a number of {@link Activity|activities},
-     * so either {@link Task|Tasks} or {@link Interaction|Interactions}),
+     * Instructs the actor to attempt to perform a number of {@apilink Activity|activities},
+     * so either {@apilink Task|Tasks} or {@apilink Interaction|Interactions}),
      * one by one.
      *
      * @param {...activities: Activity[]} activities
@@ -85,7 +85,7 @@ export class Actor implements
     }
 
     /**
-     * Gives this Actor a list of {@link Ability|abilities} they can use
+     * Gives this Actor a list of {@apilink Ability|abilities} they can use
      * to interact with the system under test or the test environment.
      *
      * @param abilities
@@ -94,7 +94,7 @@ export class Actor implements
      * @returns
      *  The actor with newly gained abilities
      *
-     * @throws {@link ConfigurationError}
+     * @throws {@apilink ConfigurationError}
      *  Throws a ConfigurationError if the actor already has an ability of this type.
      */
     whoCan(...abilities: Ability[]): Actor {
@@ -119,7 +119,7 @@ export class Actor implements
 
     /**
      * @param answerable -
-     *  An {@link Answerable} to answer (resolve the value of).
+     *  An {@apilink Answerable} to answer (resolve the value of).
      *
      * @returns
      *  The answer to the Answerable
@@ -145,7 +145,7 @@ export class Actor implements
     }
 
     /**
-     * Announce collection of an {@link Artifact} so that it can be picked up by a {@link StageCrewMember}.
+     * Announce collection of an {@apilink Artifact} so that it can be picked up by a {@apilink StageCrewMember}.
      *
      * @param artifact
      * @param name
@@ -162,7 +162,7 @@ export class Actor implements
 
     /**
      * Instructs the actor to invoke {@apilink Discardable.discard} method on any
-     * {@link Discardable} {@link Ability} it's been configured with.
+     * {@apilink Discardable} {@apilink Ability} it's been configured with.
      */
     dismiss(): Promise<void> {
         return this.findAbilitiesOfType<Discardable>('discard')
@@ -220,8 +220,8 @@ export class Actor implements
     }
 
     /**
-     * Instantiates a {@link Name} based on the string value of the parameter,
-     * or returns the argument if it's already an instance of {@link Name}.
+     * Instantiates a {@apilink Name} based on the string value of the parameter,
+     * or returns the argument if it's already an instance of {@apilink Name}.
      *
      * @param maybeName
      */

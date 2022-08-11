@@ -9,9 +9,9 @@ import { Interaction } from '../Interaction';
 import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
 
 /**
- * `Wait` is a synchronisation statement that instructs the {@link Actor}
- * to wait before proceeding with their next {@link Activity|activity},
- * either for a set {@link Duration}, or until a given {@link Expectation} is met.
+ * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
+ * to wait before proceeding with their next {@apilink Activity|activity},
+ * either for a set {@apilink Duration}, or until a given {@apilink Expectation} is met.
  *
  * **Please note** that Serenity/JS implements `Wait` from scratch, so that
  * the behaviour is consistent no matter the integration tool you use (Playwright, WebdriverIO, Selenium, etc.)
@@ -90,7 +90,7 @@ import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
  *   );
  * ```
  *
- * `Wait.until` makes the {@link Actor} keep asking the {@link Question},
+ * `Wait.until` makes the {@apilink Actor} keep asking the {@apilink Question},
  * in this case `Text.of(App.status)`, until the answer meets
  * the expectation, or a timeout expires (default: 5s).
  *
@@ -117,8 +117,8 @@ import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
  * ```
  *
  * ## Learn more
- * - {@link Duration}
- * - {@link Expectation}
+ * - {@apilink Duration}
+ * - {@apilink Expectation}
  *
  * @group Interactions
  */
@@ -153,23 +153,23 @@ export class Wait {
     static readonly minimumPollingInterval = Duration.ofMilliseconds(50);
 
     /**
-     * Instantiates a version of this {@link Interaction}
+     * Instantiates a version of this {@apilink Interaction}
      * configured to wait for a set duration.
      *
      * @param duration
-     *  A set duration the {@link Actor} should wait for before proceeding.
+     *  A set duration the {@apilink Actor} should wait for before proceeding.
      */
     static for(duration: Answerable<Duration>): Interaction {
         return new WaitFor(duration);
     }
 
     /**
-     * Instantiates a version of this {@link Interaction}
+     * Instantiates a version of this {@apilink Interaction}
      * configured to wait until the answer to the question `actual` meets the `expectation`,
      * or the `timeout` expires.
      *
      * @param timeout
-     *  Custom timeout to override {@link Wait.defaultTimeout}
+     *  Custom timeout to override {@apilink Wait.defaultTimeout}
      */
     static upTo(timeout: Duration): { until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => WaitUntil<Actual> } {
         return {
@@ -184,17 +184,17 @@ export class Wait {
     }
 
     /**
-     * Instantiates a version of this {@link Interaction} configured to
+     * Instantiates a version of this {@apilink Interaction} configured to
      * poll every {@apilink Wait.defaultPollingInterval} for the result of the provided
      * question (`actual`) until it meets the `expectation`,
      * or the timeout expires.
      *
      * @param actual
-     *  An {@link Answerable} that the {@link Actor} will keep answering
-     *  until the answer meets the {@link Expectation} provided, or the timeout expires.
+     *  An {@apilink Answerable} that the {@apilink Actor} will keep answering
+     *  until the answer meets the {@apilink Expectation} provided, or the timeout expires.
      *
      * @param expectation
-     *  An {@link Expectation} to be met before proceeding
+     *  An {@apilink Expectation} to be met before proceeding
      */
     static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
         return new WaitUntil(
@@ -226,9 +226,9 @@ class WaitFor extends Interaction {
 }
 
 /**
- * Synchronisation statement that instructs the {@link Actor} to wait before proceeding until a given {@link Expectation} is met.
+ * Synchronisation statement that instructs the {@apilink Actor} to wait before proceeding until a given {@apilink Expectation} is met.
  *
- * **PRO TIP:** To instantiate this {@link Interaction}, use {@apilink Wait.until}.
+ * **PRO TIP:** To instantiate this {@apilink Interaction}, use {@apilink Wait.until}.
  *
  * ## Learn more
  * * {@apilink Wait.until}
@@ -248,7 +248,7 @@ export class WaitUntil<Actual> extends Interaction {
     }
 
     /**
-     * Configure how frequently the {@link Actor} should check if the answer meets the expectation.
+     * Configure how frequently the {@apilink Actor} should check if the answer meets the expectation.
      *
      * @param interval
      */

@@ -4,8 +4,8 @@ import { NotepadAdapter } from './NotepadAdapter';
 /**
  * Alias for {@apilink Notepad.notes}.
  *
- * **Pro tip:** `notes<T>().get(subject)` returns a {@link NotepadAdapter} to make accessing the APIs
- * of the underlying type easier. Check {@link NotepadAdapter} for more examples.
+ * **Pro tip:** `notes<T>().get(subject)` returns a {@apilink NotepadAdapter} to make accessing the APIs
+ * of the underlying type easier. Check {@apilink NotepadAdapter} for more examples.
  *
  * ## Working with untyped notes
  *
@@ -109,9 +109,9 @@ import { NotepadAdapter } from './NotepadAdapter';
  *
  * ## Learn more
  *
- * - {@link NotepadAdapter}
+ * - {@apilink NotepadAdapter}
  * - {@apilink Notepad.notes}
- * - {@link QuestionAdapter}
+ * - {@apilink QuestionAdapter}
  *
  * @group Notes
  */

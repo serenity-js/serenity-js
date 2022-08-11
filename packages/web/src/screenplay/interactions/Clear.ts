@@ -4,7 +4,7 @@ import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * to clear the `value` of a [form `input` field](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
  *
  * ## Example widget
@@ -47,18 +47,18 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link Enter}
- * - {@link Value}
- * - {@link PageElement}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Enter}
+ * - {@apilink Value}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Clear extends PageElementInteraction {
 
     /**
-     * Instantiates an {@link Interaction|interaction}
-     * that instructs the {@link Actor|actor}
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
      * to clear the value of an input `field`,
      *
      * @param field

@@ -1,12 +1,12 @@
 /**
- * Represents keyboard keys that aren't text, and that can be used with the {@link Interaction|interaction} to {@link Press}.
+ * Represents keyboard keys that aren't text, and that can be used with the {@apilink Interaction|interaction} to {@apilink Press}.
  *
  * **Note:** Modifier keys like {@apilink Key.Shift}, {@apilink Key.Alt} and {@apilink Key.Meta} (a.k.a. "Command" on Mac) will stay pressed,
  * so there's no need to depress them.
  *
  * ## Learn more
  *
- * - {@link Press}
+ * - {@apilink Press}
  * - {@apilink Page.sendKeys}
  * - [W3C WebDriver Spec: Keyboard Actions](https://w3c.github.io/webdriver/webdriver-spec.html#keyboard-actions)
  * - [Selenium WebDriver: Inputs](https://github.com/SeleniumHQ/selenium/blob/trunk/javascript/node/selenium-webdriver/lib/input.js#L46)

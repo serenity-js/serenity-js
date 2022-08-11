@@ -3,7 +3,7 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationN
 import { PageElement } from '../screenplay';
 
 /**
- * A factory method to that makes defining custom {@link PageElement}-related {@link Expectation|expectations} easier
+ * A factory method to that makes defining custom {@apilink PageElement}-related {@apilink Expectation|expectations} easier
  *
  * ## Defining a custom expectation
  *
@@ -72,17 +72,17 @@ import { PageElement } from '../screenplay';
  * ```
  *
  * ## Learn more
- * - {@link Expectation}
- * - {@link Ensure}
- * - {@link Check}
- * - {@link Wait}
+ * - {@apilink Expectation}
+ * - {@apilink Ensure}
+ * - {@apilink Check}
+ * - {@apilink Wait}
  *
  * @group Expectations
  */
 export class ElementExpectation extends Expectation<PageElement> {
 
     /**
-     * Instantiates a custom {@link PageElement}-specific {@link Expectation}
+     * Instantiates a custom {@apilink PageElement}-specific {@apilink Expectation}
      *
      * #### Defining a custom expectation
      * ```ts
@@ -117,7 +117,7 @@ export class ElementExpectation extends Expectation<PageElement> {
      *  as they won't read well in your test reports.
      *
      * @param fn
-     *  An asynchronous callback function that receives a {@link PageElement} and returns a {@link Promise}
+     *  An asynchronous callback function that receives a {@apilink PageElement} and returns a {@apilink Promise}
      *  that should resolve to `true` when the expectation is met, or `false` otherwise.
      */
     static forElementTo(description: string, fn: (actual: PageElement) => Promise<boolean>): Expectation<PageElement> {

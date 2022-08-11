@@ -9,13 +9,13 @@ import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to identify
- * a single Web element located by {@link Selector}.
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify
+ * a single Web element located by {@apilink Selector}.
  *
  * ## Learn more
  * - [Page Element Query Language](/handbook)
- * - {@link Optional}
- * - {@link Switchable}
+ * - {@apilink Optional}
+ * - {@apilink Switchable}
  *
  * @group Models
  */
@@ -82,8 +82,8 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      *  to the previous context if needed.
      *
      * #### Learn more
-     * - {@link Switch}
-     * - {@link Switchable}
+     * - {@apilink Switch}
+     * - {@apilink Switchable}
      */
     abstract switchTo(): Promise<SwitchableOrigin>;
 
@@ -110,7 +110,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract isEnabled(): Promise<boolean>;
 
     /**
-     * Returns a {@link Promise} that resolves to `true` when the element
+     * Returns a {@apilink Promise} that resolves to `true` when the element
      * is present in the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model),
      * `false` otherwise.
      */

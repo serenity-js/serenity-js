@@ -3,8 +3,8 @@ import { Question, QuestionAdapter } from '@serenity-js/core';
 import { CallAnApi } from '../abilities';
 
 /**
- * Provides access to the properties of the last {@link AxiosResponse} object,
- * cached on the {@link Ability|ability} to {@link CallAnApi}.
+ * Provides access to the properties of the last {@apilink AxiosResponse} object,
+ * cached on the {@apilink Ability|ability} to {@apilink CallAnApi}.
  *
  * ## Verify response to a GET request
  *
@@ -67,7 +67,7 @@ import { CallAnApi } from '../abilities';
 export class LastResponse {
 
     /**
-     * Retrieves the status code of the {@link LastResponse|last response}
+     * Retrieves the status code of the {@apilink LastResponse|last response}
      *
      * #### Learn more
      * - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
@@ -79,7 +79,7 @@ export class LastResponse {
     }
 
     /**
-     * Retrieves the body of the {@link LastResponse|last response}
+     * Retrieves the body of the {@apilink LastResponse|last response}
      *
      * #### A type-safe approach using generics
      *
@@ -159,7 +159,7 @@ export class LastResponse {
     }
 
     /**
-     * Retrieves a header of the {@link LastResponse|last response}, identified by `name`
+     * Retrieves a header of the {@apilink LastResponse|last response}, identified by `name`
      *
      * ## Asserting on a header
      *
@@ -185,7 +185,7 @@ export class LastResponse {
     }
 
     /**
-     * Retrieves all the headers of the {@link LastResponse|last response}.
+     * Retrieves all the headers of the {@apilink LastResponse|last response}.
      *
      * ## Asserting on a header
      *

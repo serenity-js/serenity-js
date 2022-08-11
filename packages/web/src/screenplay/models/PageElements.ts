@@ -6,14 +6,14 @@ import { PageElement } from './PageElement';
 import { Selector } from './selectors';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to identify
- * a group of Web elements located by {@link Selector}.
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify
+ * a group of Web elements located by {@apilink Selector}.
  *
  * ## Learn more
  *
  * - [Page Element Query Language](/handbook)
- * - {@link List}
- * - {@link MetaQuestion}
+ * - {@apilink List}
+ * - {@apilink MetaQuestion}
  *
  * @group Models
  */

@@ -92,7 +92,7 @@ import { Page } from '../Page';
  * ```
  *
  * ## Learn more
- * - {@link Optional}
+ * - {@apilink Optional}
  *
  * @group Models
  */
@@ -125,7 +125,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.acceptNext}.
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNext}.
      */
     static acceptNext(): Interaction {
         return Page.current().modalDialog().acceptNext()
@@ -133,7 +133,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.acceptNextWithValue}.
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNextWithValue}.
      *
      * @param value
      */
@@ -143,7 +143,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.dismissNext}.
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.dismissNext}.
      */
     static dismissNext(): Interaction {
         return Page.current().modalDialog().dismissNext()
@@ -151,7 +151,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@link QuestionAdapter} that resolves to {@apilink ModalDialog.message} for the current {@link Page}.
+     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.message} for the current {@apilink Page}.
      */
     static lastDialogMessage(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().message()
@@ -159,7 +159,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@link QuestionAdapter} that resolves to {@apilink ModalDialog.state} for the current {@link Page}.
+     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.state} for the current {@apilink Page}.
      */
     static lastDialogState(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().state()
@@ -168,12 +168,12 @@ export abstract class ModalDialog implements Optional {
 
     /**
      * Returns the message of the last modal dialog handled,
-     * or rejects the promise with a {@link LogicError}
+     * or rejects the promise with a {@apilink LogicError}
      * when no modal dialogs have been observed yet.
      *
      * @returns
      *  Message of the last handled dialog, or a `Promise`
-     *  rejected with a {@link LogicError}
+     *  rejected with a {@apilink LogicError}
      *  when no dialog has been handled yet.
      */
     abstract message(): Promise<string>;

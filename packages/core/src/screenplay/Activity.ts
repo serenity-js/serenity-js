@@ -2,11 +2,11 @@ import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 
 /**
  * Serenity/JS Screenplay Pattern `Activity` represents
- * a {@link Task} or an {@link Interaction} to be performed by an {@link Actor}.
+ * a {@apilink Task} or an {@apilink Interaction} to be performed by an {@apilink Actor}.
  *
  * ## Learn more
- * - {@link Actor}
- * - {@link PerformsActivities}
+ * - {@apilink Actor}
+ * - {@apilink PerformsActivities}
  * - [Command design pattern on Wikipedia](https://en.wikipedia.org/wiki/Command_pattern)
  *
  * @group Screenplay Pattern
@@ -14,15 +14,15 @@ import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 export interface Activity {
 
     /**
-     * Instructs the provided {@link Actor} to perform this {@link Activity}.
+     * Instructs the provided {@apilink Actor} to perform this {@apilink Activity}.
      *
      * @param actor
      *
      * #### Learn more
-     * - {@link Actor}
-     * - {@link PerformsActivities}
-     * - {@link UsesAbilities}
-     * - {@link AnswersQuestions}
+     * - {@apilink Actor}
+     * - {@apilink PerformsActivities}
+     * - {@apilink UsesAbilities}
+     * - {@apilink AnswersQuestions}
      */
     performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 

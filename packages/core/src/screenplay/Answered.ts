@@ -1,7 +1,7 @@
 import { Question } from './Question';
 
 /**
- * Describes the type of answer a given {@link Answerable} would
+ * Describes the type of answer a given {@apilink Answerable} would
  * resolve to when given to {@apilink Actor.answer}.
  *
  * ```ts

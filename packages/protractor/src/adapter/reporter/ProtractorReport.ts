@@ -1,7 +1,7 @@
 import { SpecResult } from 'protractor/built/plugins';
 
 /**
- * A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}
+ * A JSON object which needs to be returned to Protractor when {@apilink ProtractorFrameworkAdapter}
  * is done with executing the test scenarios.
  *
  * ## Learn more

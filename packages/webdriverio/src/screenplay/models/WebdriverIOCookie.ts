@@ -4,7 +4,7 @@ import { ensure, isDefined } from 'tiny-types';
 import * as wdio from 'webdriverio';
 
 /**
- * WebdriverIO-specific implementation of {@link Cookie}.
+ * WebdriverIO-specific implementation of {@apilink Cookie}.
  *
  * @group Models
  */

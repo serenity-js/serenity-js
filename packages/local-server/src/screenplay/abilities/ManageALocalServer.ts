@@ -6,7 +6,7 @@ import * as net from 'net';
 import { getPortPromise } from 'portfinder';
 
 /**
- * An {@link Ability} that enables an {@link Actor}
+ * An {@apilink Ability} that enables an {@apilink Actor}
  * to manage a local [Node.js](https://nodejs.org/) server.
  *
  * ## Managing a raw Node.js server
@@ -50,7 +50,7 @@ export class ManageALocalServer implements Ability {
     private readonly server: ServerWithShutdown;
 
     /**
-     * An {@link Ability} to manage a Node.js HTTP server using the provided `requestListener`.
+     * An {@apilink Ability} to manage a Node.js HTTP server using the provided `requestListener`.
      *
      * @param listener
      */
@@ -63,7 +63,7 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * An {@link Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
+     * An {@apilink Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
      * @param listener
      * @param options
@@ -80,8 +80,8 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * Used to access the {@link Actor|actor's} {@link Ability|ability} to {@link ManageALocalServer}
-     * from within the {@link Interaction} classes, such as {@link StartLocalServer}.
+     * Used to access the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink ManageALocalServer}
+     * from within the {@apilink Interaction} classes, such as {@apilink StartLocalServer}.
      *
      * @param actor
      */
@@ -150,7 +150,7 @@ export class ManageALocalServer implements Ability {
 export type RequestListener = (request: http.IncomingMessage, response: http.ServerResponse) => void;
 
 /**
- * A {@link net.Server} with an added shutdown method.
+ * A {@apilink net.Server} with an added shutdown method.
  *
  * @see https://www.npmjs.com/package/http-shutdown
  */
@@ -160,8 +160,8 @@ export type ServerWithShutdown = net.Server & {
 };
 
 /**
- * The protocol supported by the instance of the {@link ServerWithShutdown},
- * wrapped by the {@link Ability|ability} to {@link ManageALocalServer}.
+ * The protocol supported by the instance of the {@apilink ServerWithShutdown},
+ * wrapped by the {@apilink Ability|ability} to {@apilink ManageALocalServer}.
  *
  * @group Models
  */

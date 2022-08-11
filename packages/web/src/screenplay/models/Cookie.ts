@@ -6,7 +6,7 @@ import { BrowseTheWeb } from '../abilities';
 import { CookieData } from './CookieData';
 
 /**
- * A Screenplay Pattern-style model responsible for managing cookies available to the current {@link Page}.
+ * A Screenplay Pattern-style model responsible for managing cookies available to the current {@apilink Page}.
  *
  * ## Learn more
  * - {@apilink Page.cookie}
@@ -16,7 +16,7 @@ import { CookieData } from './CookieData';
 export abstract class Cookie implements Optional {
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to {@link Cookie} identified by `name`.
+     * Creates a {@apilink QuestionAdapter} that resolves to {@apilink Cookie} identified by `name`.
      *
      * @param name
      */
@@ -29,7 +29,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * Sets a cookie for the current {@link Page}.
+     * Sets a cookie for the current {@apilink Page}.
      *
      * **Note:** Make sure that the actor performing this interaction is on the page that should receive the cookie.
      * An actor can't set a cookie for an arbitrary page without being on that page.
@@ -59,7 +59,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * Creates an {@link Interaction|interaction} to delete all cookies available to the current {@link Page}..
+     * Creates an {@apilink Interaction|interaction} to delete all cookies available to the current {@apilink Page}..
      */
     static deleteAll(): Interaction {
         return Interaction.where(`#actor deletes all cookies`, async actor => {
@@ -85,7 +85,7 @@ export abstract class Cookie implements Optional {
      * Checks if a given cookie is set.
      *
      * #### Learn more
-     * - {@link Optional}
+     * - {@apilink Optional}
      */
     async isPresent(): Promise<boolean> {
         try {
@@ -151,7 +151,7 @@ export abstract class Cookie implements Optional {
      * Returns the expiry date of a given cookie
      *
      * #### Learn more
-     * - {@link Timestamp}
+     * - {@apilink Timestamp}
      */
     async expiry(): Promise<Timestamp> {
         const cookie = await this.lazyLoadCookie();

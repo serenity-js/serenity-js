@@ -83,20 +83,20 @@ export class Serenity {
     }
 
     /**
-     * Re-configures Serenity/JS with a new {@link Cast} of {@link Actor|actors}
-     * you want to use in any subsequent calls to {@link actorCalled}.
+     * Re-configures Serenity/JS with a new {@apilink Cast} of {@apilink Actor|actors}
+     * you want to use in any subsequent calls to {@apilink actorCalled}.
      *
      * For your convenience, use {@apilink engage} function instead,
      * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
      * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
      *
-     * If your implementation of the {@link Cast} interface is stateless,
+     * If your implementation of the {@apilink Cast} interface is stateless,
      * you can invoke this function just once before your entire test suite is executed, see
      * - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
      * - [`before`](https://mochajs.org/#hooks) in Mocha,
      * - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
      *
-     * However, if your {@link Cast} holds state that you want to reset before each scenario,
+     * However, if your {@apilink Cast} holds state that you want to reset before each scenario,
      * it's better to invoke `engage` before each test using:
      * - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
      * - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
@@ -143,9 +143,9 @@ export class Serenity {
      * ```
      *
      * ## Learn more
-     * - {@link Actor}
-     * - {@link Cast}
-     * - {@link engage}
+     * - {@apilink Actor}
+     * - {@apilink Cast}
+     * - {@apilink engage}
      *
      * @param actors
      */
@@ -205,10 +205,10 @@ export class Serenity {
      *
      * ## Learn more
      *
-     * - {@link engage}
-     * - {@link Actor}
-     * - {@link Cast}
-     * - {@link actorCalled}
+     * - {@apilink engage}
+     * - {@apilink Actor}
+     * - {@apilink Cast}
+     * - {@apilink actorCalled}
      *
      * @param name
      *  The name of the actor to instantiate or retrieve
@@ -244,11 +244,11 @@ export class Serenity {
      *
      * ## Learn more
      *
-     * - {@link engage}
-     * - {@link actorCalled}
-     * - {@link actorInTheSpotlight}
-     * - {@link Actor}
-     * - {@link Cast}
+     * - {@apilink engage}
+     * - {@apilink actorCalled}
+     * - {@apilink actorInTheSpotlight}
+     * - {@apilink Actor}
+     * - {@apilink Cast}
      */
     theActorInTheSpotlight(): Actor {
         return this.stage.theActorInTheSpotlight();

@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
- * Produces an {@link Expectation|expectation} that negates the provided `expectation`.
+ * Produces an {@apilink Expectation|expectation} that negates the provided `expectation`.
  *
  * ## Ensuring that the actual value does not equal the expected value
  *

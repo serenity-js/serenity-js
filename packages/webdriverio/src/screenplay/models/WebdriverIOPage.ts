@@ -11,7 +11,7 @@ import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement';
 
 /**
- * WebdriverIO-specific implementation of {@link Page}.
+ * WebdriverIO-specific implementation of {@apilink Page}.
  *
  * @group Models
  */

@@ -3,8 +3,8 @@ import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, Qu
 import { PageElement } from '../models';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
- * the value of the specified HTML attribute of a given {@link PageElement}.
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * the value of the specified HTML attribute of a given {@apilink PageElement}.
  *
  * ## Example widget
  *
@@ -16,7 +16,7 @@ import { PageElement } from '../models';
  * </ul>
  * ```
  *
- * ## Retrieve an HTML attribute of a given {@link PageElement}
+ * ## Retrieve an HTML attribute of a given {@apilink PageElement}
  *
  * ```ts
  *  import { actorCalled } from '@serenity-js/core'
@@ -36,7 +36,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Using `Attribute` as {@link QuestionAdapter}
+ * ## Using `Attribute` as {@apilink QuestionAdapter}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -87,10 +87,10 @@ import { PageElement } from '../models';
  * ```
  *
  * ## Learn more
- * - {@link BrowseTheWeb}
- * - {@link MetaQuestion}
- * - {@link QuestionAdapter}
- * - {@link Question}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
  *
  * @group Questions
  */
@@ -101,9 +101,9 @@ export class Attribute
     private subject: string;
 
     /**
-     * Instantiates a {@link Question} that uses
-     * the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
-     * the value of the specified HTML attribute of a given {@link PageElement}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the value of the specified HTML attribute of a given {@apilink PageElement}.
      *
      * @param name
      *  The name of the attribute to retrieve
@@ -126,7 +126,7 @@ export class Attribute
      * Resolves to the value of an HTML attribute of the `pageElement`.
      *
      * #### Learn more
-     * - {@link MetaQuestion}
+     * - {@apilink MetaQuestion}
      *
      * @param pageElement
      */

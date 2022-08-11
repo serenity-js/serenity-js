@@ -45,11 +45,11 @@ export class DeleteRequest extends HTTPRequest {
      *
      * When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      * it gets concatenated with the URL provided to the Axios instance
-     * when the {@link Ability|ability} to {@link CallAnApi} was instantiated.
+     * when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
      *
      * @param resourceUri
-     *  The URI where the {@link Actor}
-     *  should send the {@link HTTPRequest}
+     *  The URI where the {@apilink Actor}
+     *  should send the {@apilink HTTPRequest}
      */
     static to(resourceUri: Answerable<string>): DeleteRequest {
         return new DeleteRequest(resourceUri);
@@ -57,11 +57,11 @@ export class DeleteRequest extends HTTPRequest {
 
     /**
      * Overrides the default Axios request configuration provided
-     * when the {@link Ability|ability} to {@link CallAnApi} was instantiated.
+     * when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
      *
      * #### Learn more
-     * - {@link Answerable}
-     * - {@link WithAnswerableProperties}
+     * - {@apilink Answerable}
+     * - {@apilink WithAnswerableProperties}
      * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
      *
      * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config

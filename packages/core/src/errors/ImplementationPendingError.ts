@@ -4,8 +4,8 @@ import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that the {@link Actor} attempted to perform
- * a {@link Task} or {@link Interaction} that hasn't been implemented yet.
+ * Thrown to indicate that the {@apilink Actor} attempted to perform
+ * a {@apilink Task} or {@apilink Interaction} that hasn't been implemented yet.
  *
  * ## A pending Task
  *
@@ -44,7 +44,7 @@ export class ImplementationPendingError extends RuntimeError {
 
     /**
      * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param {Error} [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(ImplementationPendingError, message, cause);

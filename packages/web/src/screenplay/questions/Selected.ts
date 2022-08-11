@@ -3,22 +3,22 @@ import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
 import { PageElement } from '../models';
 
 /**
- * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
  * options and values selected in a
  * [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
  *
  * ## Learn more
- * - {@link Select}
- * - {@link BrowseTheWeb}
- * - {@link QuestionAdapter}
- * - {@link Question}
+ * - {@apilink Select}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
  *
  * @group Questions
  */
 export class Selected {
 
     /**
-     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * a single [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
      *
@@ -60,10 +60,10 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - {@link Select.value}
+     * - {@apilink Select.value}
      *
      * @param pageElement
-     *  A {@link PageElement} identifying the `<select>` element of interest
+     *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static valueOf(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
         return Question.about(d`value selected in ${ pageElement }`, async actor => {
@@ -77,7 +77,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * values of [options](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
@@ -122,7 +122,7 @@ export class Selected {
      * - {@apilink Select.values}
      *
      * @param pageElement
-     *  A {@link PageElement} identifying the `<select>` element of interest
+     *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static valuesOf(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
         return Question.about(d`values selected in ${ pageElement }`, async actor => {
@@ -137,7 +137,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * a single option selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
@@ -183,7 +183,7 @@ export class Selected {
      * - {@apilink Select.option}
      *
      * @param pageElement
-     *  A {@link PageElement} identifying the `<select>` element of interest
+     *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static optionIn(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
         return Question.about(d`option selected in ${ pageElement }`, async actor => {
@@ -198,7 +198,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to retrieve
+     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
      * options selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
@@ -244,7 +244,7 @@ export class Selected {
      * - {@apilink Select.options}
      *
      * @param pageElement
-     *  A {@link PageElement} identifying the `<select>` element of interest
+     *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static optionsIn(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
         return Question.about(d`options selected in ${ pageElement }`, async actor => {

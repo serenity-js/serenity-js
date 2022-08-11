@@ -6,7 +6,7 @@ import * as wdio from 'webdriverio';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
 
 /**
- * WebdriverIO-specific implementation of {@link PageElement}.
+ * WebdriverIO-specific implementation of {@apilink PageElement}.
  *
  * @group Models
  */

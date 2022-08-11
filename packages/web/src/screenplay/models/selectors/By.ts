@@ -13,7 +13,7 @@ import { ByXPath } from './ByXPath';
 export class By {
 
     /**
-     * Locates a {@link PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
+     * Locates a {@apilink PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
      *
      * @param selector
      */
@@ -25,7 +25,7 @@ export class By {
     }
 
     /**
-     * Locates a {@link PageElement} with a given [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
+     * Locates a {@apilink PageElement} with a given [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
      * using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
      *
      * @param selector
@@ -40,7 +40,7 @@ export class By {
     }
 
     /**
-     * Locates a {@link PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
+     * Locates a {@apilink PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
      * capable of piercing [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)-piercing
      *
      * @param selector
@@ -53,7 +53,7 @@ export class By {
     }
 
     /**
-     * Locates a {@link PageElement} using its [id](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors).
+     * Locates a {@apilink PageElement} using its [id](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors).
      *
      * @param selector
      */
@@ -65,7 +65,7 @@ export class By {
     }
 
     /**
-     * Locates a {@link PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+     * Locates a {@apilink PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
      *
      * @param selector
      */
@@ -77,7 +77,7 @@ export class By {
     }
 
     /**
-     * Locates a {@link PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
+     * Locates a {@apilink PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
      *
      * @param selector
      */

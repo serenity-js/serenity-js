@@ -5,11 +5,11 @@ import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
 
 /**
- * WebdriverIO-specific implementation of {@link ModalDialogHandler},
+ * WebdriverIO-specific implementation of {@apilink ModalDialogHandler},
  * used with the [WebDriver protocol](https://webdriver.io/docs/api/webdriver).
  *
  * ## Learn more
- * - {@link WebdriverIOPuppeteerModalDialogHandler}
+ * - {@apilink WebdriverIOPuppeteerModalDialogHandler}
  *
  * @group Models
  */

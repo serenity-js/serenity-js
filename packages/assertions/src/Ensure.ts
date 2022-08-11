@@ -19,10 +19,10 @@ import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
 /**
- * The {@link Interaction|interaction} to `Ensure`
- * verifies if the resolved value of the provided {@link Answerable}
- * meets the specified {@link Expectation}.
- * If not, it throws an {@link AssertionError}.
+ * The {@apilink Interaction|interaction} to `Ensure`
+ * verifies if the resolved value of the provided {@apilink Answerable}
+ * meets the specified {@apilink Expectation}.
+ * If not, it throws an {@apilink AssertionError}.
  *
  * Use `Ensure` to verify the state of the system under test.
  *
@@ -69,10 +69,10 @@ export class Ensure<Actual> extends Interaction {
 
     /**
      * @param {Answerable<Actual_Type>} actual
-     *  An {@link Answerable} describing the actual state of the system.
+     *  An {@apilink Answerable} describing the actual state of the system.
      *
      * @param {Expectation<Actual_Type>} expectation
-     *  An {@link Expectation} you expect the `actual` value to meet
+     *  An {@apilink Expectation} you expect the `actual` value to meet
      *
      * @returns {Ensure<Actual_Type>}
      */
@@ -117,11 +117,11 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * Overrides the default {@link AssertionError} thrown when
+     * Overrides the default {@apilink AssertionError} thrown when
      * the actual value does not meet the expectation.
      *
      * @param typeOfRuntimeError
-     *  A constructor function producing a subtype of {@link RuntimeError} to throw, e.g. {@link TestCompromisedError}
+     *  A constructor function producing a subtype of {@apilink RuntimeError} to throw, e.g. {@apilink TestCompromisedError}
      *
      * @param message
      *  The message explaining the failure
@@ -131,14 +131,14 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * Maps an {@link ExpectationOutcome} to appropriate {@link RuntimeError}.
+     * Maps an {@apilink ExpectationOutcome} to appropriate {@apilink RuntimeError}.
      */
     protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
         return this.asAssertionError(outcome);
     }
 
     /**
-     * Maps an {@link Outcome} to {@link AssertionError}.
+     * Maps an {@apilink Outcome} to {@apilink AssertionError}.
      *
      * @param outcome
      */

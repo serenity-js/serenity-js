@@ -1,7 +1,7 @@
 import { Selector } from './Selector';
 
 /**
- * Locates a {@link PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
+ * Locates a {@apilink PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
  *
  * **Pro tip:** Instantiate using {@apilink By.xpath}
  *

@@ -6,8 +6,8 @@ import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightBrowsingSession } from '../models';
 
 /**
- * This implementation of the {@link Ability|ability} to {@link BrowseTheWeb}
- * enables the {@link Actor} to interact with web front-ends using [Playwright](https://playwright.dev/).
+ * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * enables the {@apilink Actor} to interact with web front-ends using [Playwright](https://playwright.dev/).
  *
  * ## Using Playwright to `BrowseTheWeb`
  *
@@ -35,9 +35,9 @@ import { PlaywrightBrowsingSession } from '../models';
  *
  * ## Learn more
  * - [Playwright website](https://playwright.dev/)
- * - {@link BrowseTheWeb}
- * - {@link Ability}
- * - {@link Actor}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
  *
  * @group Abilities
  */
@@ -52,18 +52,18 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementH
     }
 
     /**
-     * Automatically closes any open {@link Page|Pages} when the {@link SceneFinishes}
+     * Automatically closes any open {@apilink Page|Pages} when the {@apilink SceneFinishes}
      *
      * #### Learn more
      * - {@apilink PlaywrightBrowsingSession.closeAllPages}
-     * - {@link Discardable}
+     * - {@apilink Discardable}
      */
     async discard(): Promise<void> {
         await this.session.closeAllPages();
     }
 
     /**
-     * Returns {@link BrowserCapabilities|basic meta-data} about the browser associated with this ability.
+     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
      *
      * **Please note** that since Playwright does not expose information about the operating system
      * the tests are running on, **Serenity/JS assumes that the tests are running locally**

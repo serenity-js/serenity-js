@@ -1,13 +1,13 @@
 import { DomainEvent } from '../events';
 
 /**
- * A {@link StageCrewMember} that can listen and react to {@link DomainEvent|DomainEvents}
+ * A {@apilink StageCrewMember} that can listen and react to {@apilink DomainEvent|DomainEvents}
  *
  * ## Learn more
  *
- * - {@link StageCrewMember}
- * - {@link StageCrewMemberBuilder}
- * - {@link configure}
+ * - {@apilink StageCrewMember}
+ * - {@apilink StageCrewMemberBuilder}
+ * - {@apilink configure}
  * - {@apilink SerenityConfig.crew}
  *
  * @group Stage
@@ -15,8 +15,8 @@ import { DomainEvent } from '../events';
 export interface ListensToDomainEvents {
 
     /**
-     * Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     * that this {@link StageCrewMember} is assigned to.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}
+     * that this {@apilink StageCrewMember} is assigned to.
      *
      * @param event
      */

@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationNotMet } from '@s
 import { match } from 'tiny-types';
 
 /**
- * Creates an {@link Expectation|expectation} that is met when all the `expectations` are met for the given actual value.
+ * Creates an {@apilink Expectation|expectation} that is met when all the `expectations` are met for the given actual value.
  *
  * Use `and` to combine several expectations using logical "and",
  *

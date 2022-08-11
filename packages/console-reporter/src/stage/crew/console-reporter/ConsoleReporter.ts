@@ -38,7 +38,7 @@ import { SummaryFormatter } from './SummaryFormatter';
 import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
 
 /**
- * A {@link StageCrewMember} that uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
+ * A {@apilink StageCrewMember} that uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
  * to report on progress of your Serenity/JS acceptance tests.
  *
  * `ConsoleReporter` ships with colour themes for both dark and light terminals,
@@ -180,9 +180,9 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     /**
-     * Handles {@link DomainEvent} objects emitted by the {@link Stage}.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}.
      *
-     * @see {@link StageCrewMember}
+     * @see {@apilink StageCrewMember}
      *
      * @listens {DomainEvent}
      *

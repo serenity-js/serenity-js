@@ -5,7 +5,7 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
 
 /**
  * Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information,
- * and returns a bootstrapped instance of the {@link SerenityReporterForJasmine} to be registered with Jasmine.
+ * and returns a bootstrapped instance of the {@apilink SerenityReporterForJasmine} to be registered with Jasmine.
  *
  * ## Registering the reporter from the command line
  *
@@ -21,8 +21,8 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
  * jasmine.getEnv().addReporter(serenityReporterForJasmine);
  * ```
  *
- * @see {@link monkeyPatched}
- * @see {@link SerenityReporterForJasmine}
+ * @see {@apilink monkeyPatched}
+ * @see {@apilink SerenityReporterForJasmine}
  *
  * @param {jasmine} jasmine - the global.jasmine instance
  * @returns {SerenityReporterForJasmine}

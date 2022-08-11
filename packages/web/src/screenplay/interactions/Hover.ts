@@ -4,8 +4,8 @@ import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
- * to hover the mouse pointer over a given {@link PageElement}.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to hover the mouse pointer over a given {@apilink PageElement}.
  *
  * ## Example widget
  * ```html
@@ -47,15 +47,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@link BrowseTheWeb}
- * - {@link PageElement}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
  *
  * @group Interactions
  */
 export class Hover extends PageElementInteraction {
 
     /**
-     * Instantiates this {@link Interaction}
+     * Instantiates this {@apilink Interaction}
      *
      * @param pageElement
      *  The element to be hovered over

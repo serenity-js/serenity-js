@@ -4,7 +4,7 @@ import { CallAnApi } from '../abilities';
 
 /**
  * @desc
- *  Changes the base URL the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+ *  Changes the base URL the {@apilink CallAnApi} {@apilink @serenity-js/core/lib/screenplay~Ability}
  *  has been configured with. Useful when we don't know the URL before the test is started,
  *  for example when the URL is dynamically generated and needs to be read from the website under test.
  *
@@ -43,13 +43,13 @@ import { CallAnApi } from '../abilities';
  *
  * @deprecated Use ChangeApiConfig.setUrlTo(newUrl) instead
  *
- * @see {@link ChangeApiConfig}
+ * @see {@apilink ChangeApiConfig}
  */
 export class ChangeApiUrl extends Interaction {
 
     /**
      * @desc
-     *  Instantiates a new {@link ChangeApiUrl} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *  Instantiates a new {@apilink ChangeApiUrl} {@apilink @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param newApiUrl
      */
@@ -63,16 +63,16 @@ export class ChangeApiUrl extends Interaction {
 
     /**
      * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@apilink @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
      * @returns {Promise<void>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.newApiUrl)
@@ -81,7 +81,7 @@ export class ChangeApiUrl extends Interaction {
 
     /**
      * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
      *
      * @returns {string}
      */

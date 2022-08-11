@@ -3,11 +3,11 @@ import { ensure, isDefined } from 'tiny-types';
 import { ModalDialog } from './ModalDialog';
 
 /**
- * `DismissedModalDialog` represents a {@link ModalDialog} that has been dismissed
+ * `DismissedModalDialog` represents a {@apilink ModalDialog} that has been dismissed
  * via {@apilink ModalDialog.dismissNext}.
  *
  * ## Learn more
- * - {@link ModalDialog}
+ * - {@apilink ModalDialog}
  *
  * @group Models
  */

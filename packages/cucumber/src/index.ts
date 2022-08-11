@@ -8,7 +8,7 @@ const version = loader.hasAvailable('@cucumber/cucumber')
     : loader.versionOf('cucumber');
 
 /**
- * Registers a Cucumber reporter that emits {@link DomainEvent|Serenity/JS domain events}
+ * Registers a Cucumber reporter that emits {@apilink DomainEvent|Serenity/JS domain events}
  * and informs Serenity/JS when test scenarios and Cucumber steps start, finish, and with what result.
  */
 const listener: unknown = version.isAtLeast(new Version('7.0.0'))

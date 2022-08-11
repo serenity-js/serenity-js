@@ -3,11 +3,11 @@ import { ensure, isDefined } from 'tiny-types';
 import { ModalDialog } from './ModalDialog';
 
 /**
- * `AcceptedModalDialog` represents a {@link ModalDialog} that has been accepted
+ * `AcceptedModalDialog` represents a {@apilink ModalDialog} that has been accepted
  * via {@apilink ModalDialog.acceptNext}.
  *
  * ## Learn more
- * - {@link ModalDialog}
+ * - {@apilink ModalDialog}
  *
  * @group Models
  */

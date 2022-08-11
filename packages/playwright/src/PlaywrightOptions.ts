@@ -1,7 +1,7 @@
 import * as playwright from 'playwright-core';
 
 /**
- * Playwright-specific options used to configure the ability to {@link BrowseTheWebWithPlaywright}
+ * Playwright-specific options used to configure the ability to {@apilink BrowseTheWebWithPlaywright}
  *
  * ## Learn more
  *
@@ -12,7 +12,7 @@ import * as playwright from 'playwright-core';
 export interface PlaywrightOptions extends playwright.BrowserContextOptions {
 
     /**
-     * Changes the default maximum navigation time for the browser context used by {@link BrowseTheWebWithPlaywright}
+     * Changes the default maximum navigation time for the browser context used by {@apilink BrowseTheWebWithPlaywright}
      *
      * #### Learn more
      * - [Playwright `browserContext.setDefaultNavigationTimeout(timeout)`](https://playwright.dev/docs/api/class-browsercontext#browser-context-set-default-navigation-timeout)

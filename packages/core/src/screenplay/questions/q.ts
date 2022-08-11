@@ -53,10 +53,10 @@ import { Question, QuestionAdapter } from '../Question';
  *
  * ## Learn more
  *
- * - {@link Answerable}
- * - {@link Question}
+ * - {@apilink Answerable}
+ * - {@apilink Question}
  * - {@apilink Question.describedAs}
- * - {@link QuestionAdapter}
+ * - {@apilink QuestionAdapter}
  *
  * @group Answerables
  *

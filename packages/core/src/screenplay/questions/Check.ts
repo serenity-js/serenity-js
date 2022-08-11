@@ -66,7 +66,7 @@ export class Check<Actual> extends Task {
 
     /**
      * @param alternativeActivities
-     *  A sequence of {@link Activity|activities} to perform when the {@link Expectation} is not met.
+     *  A sequence of {@apilink Activity|activities} to perform when the {@apilink Expectation} is not met.
      */
     otherwise(...alternativeActivities: Activity[]): Task {
         return new Check<Actual>(this.actual, this.expectation, this.activities, alternativeActivities);

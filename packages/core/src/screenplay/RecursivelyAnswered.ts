@@ -1,7 +1,7 @@
 import { Question } from './Question';
 
 /**
- * Describes a recursively resolved plain JavaScript {@link WithAnswerableProperties}.
+ * Describes a recursively resolved plain JavaScript {@apilink WithAnswerableProperties}.
  *
  * Typically, used in conjunction with {@apilink Question.fromObject}.
  *

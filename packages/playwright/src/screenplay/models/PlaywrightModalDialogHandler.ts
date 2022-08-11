@@ -2,7 +2,7 @@ import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDial
 import * as playwright from 'playwright-core';
 
 /**
- * Playwright-specific implementation of {@link ModalDialogHandler}.
+ * Playwright-specific implementation of {@apilink ModalDialogHandler}.
  *
  * @group Models
  */
