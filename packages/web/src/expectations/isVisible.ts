@@ -7,12 +7,12 @@ import { ElementExpectation } from './ElementExpectation';
 /**
  *  {@link Expectation} that an element is visible, which means it resolves to `true` when:
  *  - the element {@link isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
- *  - [[PageElement.isVisible]] resolves to `true`
+ *  - {@apilink PageElement.isVisible} resolves to `true`
  *
  *  If the above conditions are not met, the expectation resolves to `false`.
  *
  * ## Learn more
- * - [[PageElement.isVisible]]
+ * - {@apilink PageElement.isVisible}
  * - {@link ElementExpectation}
  * - {@link Expectation}
  * - {@link Check}

@@ -141,7 +141,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.name]]
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.name}
      * meets the {@link Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired name
@@ -171,7 +171,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.title]]
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.title}
      * meets the {@link Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired title
@@ -201,7 +201,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which [[Page.url]]
+     * Creates a {@link QuestionAdapter} that resolves to a {@link Page} which {@apilink Page.url}
      * meets the {@link Expectation|`expectation`}.
      *
      * #### Switching to a page with the desired URL
@@ -354,7 +354,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * #### Learn more
      * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
-     * - [[Page.lastScriptExecutionResult]]
+     * - {@apilink Page.lastScriptExecutionResult}
      *
      * @param script
      * @param args
@@ -376,7 +376,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
-     * Unlike executing synchronous JavaScript with [[BrowseTheWeb#executeScript]],
+     * Unlike executing synchronous JavaScript with {@apilink BrowseTheWeb#executeScript},
      * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      * This callback will always be injected into the executed function as the last argument,
@@ -414,7 +414,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * #### Learn more
      * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
-     * - [[Page.lastScriptExecutionResult]]
+     * - {@apilink Page.lastScriptExecutionResult}
      *
      * @param script
      * @param args
@@ -425,8 +425,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     ): Promise<Result>;
 
     /**
-     * Returns the last result of calling [[BrowseTheWeb#executeAsyncScript]]
-     * or [[BrowseTheWeb.executeScript]]
+     * Returns the last result of calling {@apilink BrowseTheWeb#executeAsyncScript}
+     * or {@apilink BrowseTheWeb.executeScript}
      */
     abstract lastScriptExecutionResult<R = any>(): R;
 

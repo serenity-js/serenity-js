@@ -3,9 +3,9 @@ import { Activity } from './Activity';
 import { PerformsActivities } from './actor';
 
 /**
- * Serenity/JS Screenplay Pattern `Task` represents a sequence of {@apiLink Activity|activities},
- * so {@apiLink Interaction|interactions} and lower-level tasks, and models a logical step
- * of the business workflow you want your {@apiLink Actor|actor} to perform.
+ * Serenity/JS Screenplay Pattern `Task` represents a sequence of {@apilink Activity|activities},
+ * so {@apilink Interaction|interactions} and lower-level tasks, and models a logical step
+ * of the business workflow you want your {@apilink Actor|actor} to perform.
  *
  * Typically, tasks correspond to higher-level, business domain-specific activities
  * such as one to `BookAPlaneTicket`, `PlaceATrade`, `TransferFunds`, and so on.
@@ -13,9 +13,9 @@ import { PerformsActivities } from './actor';
  * Note that higher-level tasks can and should be composed of lower-level tasks.
  * For example, a task to `SignUp` could be composed of tasks to `ProvideUsername` and `ProvidePassword`.
  *
- * The lowest-level tasks in your abstraction hierarchy should be composed of {@apiLink Interaction|interactions}.
- * For example, a low-level task to `ProvideUsername` could be composed of an interaction to {@apiLink Enter} the value
- * into a form field and {@apiLink Press} the [[Key.Enter]].
+ * The lowest-level tasks in your abstraction hierarchy should be composed of {@apilink Interaction|interactions}.
+ * For example, a low-level task to `ProvideUsername` could be composed of an interaction to {@apilink Enter} the value
+ * into a form field and {@apilink Press} the {@apilink Key.Enter}.
  *
  * ## Defining a task
  *
@@ -33,7 +33,7 @@ import { PerformsActivities } from './actor';
  *
  * ## Defining a not implemented task
  *
- * Note that calling [[Task.where]] method without providing the sequence of {@link Activity|activities}
+ * Note that calling {@apilink Task.where} method without providing the sequence of {@link Activity|activities}
  * produces a Task that's marked as "pending" in the test report.
  *
  * This feature is useful when you want to quickly write down a task that will be needed in the scenario,

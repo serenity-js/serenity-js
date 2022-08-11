@@ -8,7 +8,7 @@ import { Config as ProtractorConfig } from 'protractor';
  * ## Learn more
  * - [Protractor config](https://github.com/angular/protractor/blob/master/lib/config.ts)
  * - {@link SerenityConfig}
- * - [[configure]]
+ * - {@apilink configure}
  *
  * @group Configuration
  */

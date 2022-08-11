@@ -31,8 +31,6 @@ import { promised } from '../promised';
  *    )
  * ```
  *
- * @extends {@serenity-js/web/lib/screenplay/abilities~BrowseTheWeb}
- *
  * ## Learn more
  * - [Protractor website](https://www.protractortest.org/)
  * - {@link BrowseTheWeb}

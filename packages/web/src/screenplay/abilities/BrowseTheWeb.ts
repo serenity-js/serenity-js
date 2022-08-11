@@ -18,7 +18,7 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  * ## Giving the actors an ability to `BrowseTheWeb`
  *
  * To give an {@link Actor|actor} an ability to `BrowseTheWeb`, provide the **integration tool-specific implementation**
- * via [[Actor.whoCan]] in [[Cast.prepare]], or via [[Cast.whereEveryoneCan]].
+ * via {@apilink Actor.whoCan} in {@apilink Cast.prepare}, or via {@apilink Cast.whereEveryoneCan}.
  *
  * ```ts
  * import { beforeEach } from 'mocha'
@@ -45,11 +45,11 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * ## Using the ability to `BrowseTheWeb`
  *
- * To use the ability to `BrowseTheWeb` in a custom {@link Interaction} or {@link Question}, use the **generic** method [[BrowseTheWeb.as]]
+ * To use the ability to `BrowseTheWeb` in a custom {@link Interaction} or {@link Question}, use the **generic** method {@apilink BrowseTheWeb.as}
  * to retrieve it.
  *
  * This generic method retrieves the integration tool-specific implementation of {@link BrowseTheWeb} present on the {@link Actor},
- * such as {@link BrowseTheWebWithPlaywright} or {@link BrowseTheWebWethWebdriverIO}, using [[Actor.abilityTo]].
+ * such as {@link BrowseTheWebWithPlaywright} or {@link BrowseTheWebWethWebdriverIO}, using {@apilink Actor.abilityTo}.
  *
  * This decoupling mechanism helps to make your test code portable across test integration tools,
  * since the only part of your test suite that needs to know about the test integration tool used are the actors.
@@ -71,10 +71,10 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * ### Learn more
  *
- * - [[Ability]]
- * - [[Actor.whoCan]]
- * - [[Cast.whereEveryoneCan]]
- * - [[Cast.prepare]]
+ * - {@apilink Ability}
+ * - {@apilink Actor.whoCan}
+ * - {@apilink Cast.whereEveryoneCan}
+ * - {@apilink Cast.prepare}
  *
  * @group Abilities
  */

@@ -54,7 +54,7 @@ export class Navigate {
      *
      * #### Learn more
      *
-     * - [[Page.navigateTo]]
+     * - {@apilink Page.navigateTo}
      * - [WebdriverIO: Configuration Options](https://webdriver.io/docs/options/#baseurl)
      * - [Playwright: Browser](https://playwright.dev/docs/api/class-browser#browser-new-context)
      * - [Playwright: Test Options](https://playwright.dev/docs/api/class-testoptions#test-options-base-url)

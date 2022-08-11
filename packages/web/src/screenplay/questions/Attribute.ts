@@ -56,7 +56,7 @@ import { PageElement } from '../models';
  * )
  * ```
  *
- * ## Using as filter in {@apiLink PageElements|Page Element Query Language}
+ * ## Using as filter in {@apilink PageElements|Page Element Query Language}
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'

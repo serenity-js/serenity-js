@@ -6,7 +6,7 @@ import { PageElement } from '../models';
  * A base class for interactions with {@link PageElement} objects.
  *
  * **Note:** The recommended way to implement custom interactions
- * in your code is to use the [[Interaction.where]] factory method.
+ * in your code is to use the {@apilink Interaction.where} factory method.
  *
  * @group Interactions
  */

@@ -2,7 +2,7 @@ import { OutputStream } from '../adapter';
 import { Stage } from './Stage';
 
 /**
- * Dependencies injected by [[Serenity.configure]] into [[StageCrewMemberBuilder.build]]
+ * Dependencies injected by {@apilink Serenity.configure} into {@apilink StageCrewMemberBuilder.build}
  *
  * ## Learn more
  * - {@link StageCrewMemberBuilder}

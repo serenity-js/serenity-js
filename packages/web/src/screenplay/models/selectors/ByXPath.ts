@@ -3,7 +3,7 @@ import { Selector } from './Selector';
 /**
  * Locates a {@link PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
  *
- * **Pro tip:** Instantiate using [[By.xpath]]
+ * **Pro tip:** Instantiate using {@apilink By.xpath}
  *
  * @group Models
  */

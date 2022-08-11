@@ -2,7 +2,7 @@ import { Question } from './Question';
 
 /**
  * Describes the type of answer a given {@link Answerable} would
- * resolve to when given to [[Actor.answer]].
+ * resolve to when given to {@apilink Actor.answer}.
  *
  * ```ts
  * Answered<Answerable<T>> === T

@@ -125,30 +125,30 @@ import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
 export class Wait {
 
     /**
-     * Default timeout of 5 seconds, used with [[Wait.until]].
+     * Default timeout of 5 seconds, used with {@apilink Wait.until}.
      *
-     * Use [[Wait.upTo]] to override it for a given interaction.
+     * Use {@apilink Wait.upTo} to override it for a given interaction.
      */
     static readonly defaultTimeout = Duration.ofSeconds(5);
 
     /**
-     * Minimum timeout that can be used with [[Wait.until]],
+     * Minimum timeout that can be used with {@apilink Wait.until},
      * defaults to 250 milliseconds,
      */
     static readonly minimumTimeout = Duration.ofMilliseconds(250);
 
     /**
-     * The amount of time [[Wait.until]] should wait between condition checks,
+     * The amount of time {@apilink Wait.until} should wait between condition checks,
      * defaults to 500ms.
      *
-     * Use [[WaitUntil.pollingEvery]] to override it for a given interaction.
+     * Use {@apilink WaitUntil.pollingEvery} to override it for a given interaction.
      *
      * @type {Duration}
      */
     static readonly defaultPollingInterval = Duration.ofMilliseconds(500);
 
     /**
-     * Minimum polling interval of 50ms between condition checks, used with [[Wait.until]].
+     * Minimum polling interval of 50ms between condition checks, used with {@apilink Wait.until}.
      */
     static readonly minimumPollingInterval = Duration.ofMilliseconds(50);
 
@@ -185,7 +185,7 @@ export class Wait {
 
     /**
      * Instantiates a version of this {@link Interaction} configured to
-     * poll every [[Wait.defaultPollingInterval]] for the result of the provided
+     * poll every {@apilink Wait.defaultPollingInterval} for the result of the provided
      * question (`actual`) until it meets the `expectation`,
      * or the timeout expires.
      *
@@ -228,10 +228,10 @@ class WaitFor extends Interaction {
 /**
  * Synchronisation statement that instructs the {@link Actor} to wait before proceeding until a given {@link Expectation} is met.
  *
- * **PRO TIP:** To instantiate this {@link Interaction}, use [[Wait.until]].
+ * **PRO TIP:** To instantiate this {@link Interaction}, use {@apilink Wait.until}.
  *
  * ## Learn more
- * * [[Wait.until]]
+ * * {@apilink Wait.until}
  *
  * @group Interactions
  */

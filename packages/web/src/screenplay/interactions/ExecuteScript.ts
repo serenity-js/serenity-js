@@ -11,7 +11,7 @@ import { BrowseTheWeb } from '../abilities';
  * ## Learn more
  *
  * - {@link BrowseTheWeb}
- * - [[LastScriptExecution.result]]
+ * - {@apilink LastScriptExecution.result}
  *
  * @group Interactions
  */
@@ -42,14 +42,14 @@ export class ExecuteScript {
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
-     * Unlike executing synchronous JavaScript with [[ExecuteScript.sync]],
+     * Unlike executing synchronous JavaScript with {@apilink ExecuteScript.sync},
      * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      * This callback will always be injected into the executed function as the last argument,
      * and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      * If the script invokes the `callback` with a return value, this will be made available
-     * via the [[LastScriptExecution.result]].
+     * via the {@apilink LastScriptExecution.result}.
      *
      * **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
      * instead of passing it to the callback function.
@@ -120,7 +120,7 @@ export class ExecuteScript {
      * ```
      *
      * #### Learn more
-     * - [[LastScriptExecution.result]]
+     * - {@apilink LastScriptExecution.result}
      *
      * @param script
      *  The script to be executed
@@ -133,7 +133,7 @@ export class ExecuteScript {
      * Instructs an {@link Actor|actor} who has the {@link Ability|ability} to {@link BrowseTheWeb}
      * to execute a synchronous script within the context of the current browser tab.
      *
-     * If the script returns a value, it will be made available via [[LastScriptExecution.result]].
+     * If the script returns a value, it will be made available via {@apilink LastScriptExecution.result}.
      *
      * #### Executing a sync script as string and reading the result
      *
@@ -178,7 +178,7 @@ export class ExecuteScript {
      * ```
      *
      * #### Learn more
-     * - [[LastScriptExecution.result]]
+     * - {@apilink LastScriptExecution.result}
      *
      * @param script
      *  The script to be executed

@@ -2,7 +2,7 @@ import { Question } from './Question';
 
 /**
  * A union type that provides a convenient way to represent any value
- * that can be resolved by [[Actor.answer]].
+ * that can be resolved by {@apilink Actor.answer}.
  *
  * @group Answerables
  */

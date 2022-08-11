@@ -45,9 +45,9 @@ export class Actor implements
      * Retrieves actor's {@link Ability} of `abilityType`, or one that extends `abilityType`.
      *
      * Please note that this method performs an {@link instanceof} check against abilities
-     * given to this actor via [[Actor.whoCan]].
+     * given to this actor via {@apilink Actor.whoCan}.
      *
-     * Please also note that [[Actor.whoCan]] performs the same check when abilities are assigned to the actor
+     * Please also note that {@apilink Actor.whoCan} performs the same check when abilities are assigned to the actor
      * to ensure the actor has at most one instance of a given ability type.
      *
      * @param abilityType
@@ -161,7 +161,7 @@ export class Actor implements
     }
 
     /**
-     * Instructs the actor to invoke [[Discardable.discard]] method on any
+     * Instructs the actor to invoke {@apilink Discardable.discard} method on any
      * {@link Discardable} {@link Ability} it's been configured with.
      */
     dismiss(): Promise<void> {
@@ -176,7 +176,7 @@ export class Actor implements
     /**
      * Returns a human-readable, string representation of this actor and their abilities.
      *
-     * **PRO TIP:** To get the name of the actor, use [[Actor.name]]
+     * **PRO TIP:** To get the name of the actor, use {@apilink Actor.name}
      */
     toString(): string {
         const abilities = Array.from(this.abilities.keys()).map(type => type.name);

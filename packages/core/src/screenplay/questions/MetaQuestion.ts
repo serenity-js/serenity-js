@@ -5,7 +5,7 @@ import { Question } from '../Question';
  * A "meta question" is a {@link Question} about another {@link Answerable},
  * used to retrieve a transformed version of the value that answerable holds.
  *
- * For example, the question [[Text.of]]
+ * For example, the question {@apilink Text.of}
  * returns text content of a {@link PageElement}.
  *
  * {@link MetaQuestion|Meta questions} are typically used when filtering a {@link List}.

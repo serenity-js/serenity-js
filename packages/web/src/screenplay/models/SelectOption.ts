@@ -1,5 +1,18 @@
 import { TinyType } from 'tiny-types';
 
+/**
+ * Describes the [`<option />`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+ * elements to select.
+ *
+ * ## Learn more
+ *
+ * - {@link Select}
+ * - {@link Selected}
+ * - {@apilink PageElement.selectOptions}
+ * - {@apilink PageElement.selectedOptions}
+ *
+ * @group Models
+ */
 export class SelectOption extends TinyType {
 
     static withLabel(label: string): SelectOption {

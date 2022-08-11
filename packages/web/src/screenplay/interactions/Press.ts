@@ -13,9 +13,9 @@ import { PageElementInteraction } from './PageElementInteraction';
  * with the [`devtools` protocol](https://webdriver.io/docs/automationProtocols/#devtools-protocol).
  *
  *  For example:
- *  - to *copy*, instead of [[Key.Meta]]+`C`, use [[Key.Control]]+[[Key.Insert]]
- *  - to *cut*, instead of [[Key.Meta]]+`X`, use [[Key.Control]]+[[Key.Delete]]
- *  - to *paste*, instead of [[Key.Meta]]+`V`, use [[Key.Shift]]+[[Key.Insert]]
+ *  - to *copy*, instead of {@apilink Key.Meta}+`C`, use {@apilink Key.Control}+{@apilink Key.Insert}
+ *  - to *cut*, instead of {@apilink Key.Meta}+`X`, use {@apilink Key.Control}+{@apilink Key.Delete}
+ *  - to *paste*, instead of {@apilink Key.Meta}+`V`, use {@apilink Key.Shift}+{@apilink Key.Insert}
  *
  * ## Example widget
  *

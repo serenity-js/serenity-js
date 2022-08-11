@@ -119,7 +119,7 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - [[Select.values]]
+     * - {@apilink Select.values}
      *
      * @param pageElement
      *  A {@link PageElement} identifying the `<select>` element of interest
@@ -180,7 +180,7 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - [[Select.option]]
+     * - {@apilink Select.option}
      *
      * @param pageElement
      *  A {@link PageElement} identifying the `<select>` element of interest
@@ -241,7 +241,7 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - [[Select.options]]
+     * - {@apilink Select.options}
      *
      * @param pageElement
      *  A {@link PageElement} identifying the `<select>` element of interest

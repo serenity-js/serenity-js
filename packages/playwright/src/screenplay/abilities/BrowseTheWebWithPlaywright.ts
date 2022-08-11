@@ -55,7 +55,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementH
      * Automatically closes any open {@link Page|Pages} when the {@link SceneFinishes}
      *
      * #### Learn more
-     * - [[PlaywrightBrowsingSession.closeAllPages]]
+     * - {@apilink PlaywrightBrowsingSession.closeAllPages}
      * - {@link Discardable}
      */
     async discard(): Promise<void> {

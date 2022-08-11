@@ -11,7 +11,7 @@ import { DebuggingResult } from './DebuggingResult';
 import { viewer } from './viewer';
 
 /**
- * Instructs the {@apiLink Actor} to set a breakpoint and optionally evaluate and log the provided {@apiLink Answerable} values.
+ * Instructs the {@apilink Actor} to set a breakpoint and optionally evaluate and log the provided {@apilink Answerable} values.
  *
  * Since this interaction sets a breakpoint using the [`debugger`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger) statement,
  * the best way to use it is while running the test scenario via a Node.js debugger.

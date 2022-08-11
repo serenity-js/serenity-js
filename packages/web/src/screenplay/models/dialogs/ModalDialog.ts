@@ -13,7 +13,7 @@ import { Page } from '../Page';
  * consistent across the various Web integration tools (such as Playwright, Puppeteer,
  * WebdriverIO or Selenium), Serenity/JS works as follows:
  * - Serenity/JS dismisses any modal dialogs by default and stores their message so that it can be asserted on.
- * - This behaviour can be changed by invoking [[ModalDialog.acceptNext]], [[ModalDialog.acceptNextWithValue]], or [[ModalDialog.dismissNext]] before the dialog is triggered, as per the below examples.
+ * - This behaviour can be changed by invoking {@apilink ModalDialog.acceptNext}, {@apilink ModalDialog.acceptNextWithValue]], or [[ModalDialog.dismissNext} before the dialog is triggered, as per the below examples.
  * - Serenity/JS also allows you to `Wait.until(ModalDialog, isPresent())` so that you can synchronise your tests
  *   with modal dialogs that appear after a delay.
  *
@@ -125,7 +125,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes [[ModalDialog.acceptNext]].
+     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.acceptNext}.
      */
     static acceptNext(): Interaction {
         return Page.current().modalDialog().acceptNext()
@@ -133,7 +133,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes [[ModalDialog.acceptNextWithValue]].
+     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.acceptNextWithValue}.
      *
      * @param value
      */
@@ -143,7 +143,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@link Interaction|interaction} that invokes [[ModalDialog.dismissNext]].
+     * Produces an {@link Interaction|interaction} that invokes {@apilink ModalDialog.dismissNext}.
      */
     static dismissNext(): Interaction {
         return Page.current().modalDialog().dismissNext()
@@ -151,7 +151,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@link QuestionAdapter} that resolves to [[ModalDialog.message]] for the current {@link Page}.
+     * {@link QuestionAdapter} that resolves to {@apilink ModalDialog.message} for the current {@link Page}.
      */
     static lastDialogMessage(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().message()
@@ -159,7 +159,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@link QuestionAdapter} that resolves to [[ModalDialog.state]] for the current {@link Page}.
+     * {@link QuestionAdapter} that resolves to {@apilink ModalDialog.state} for the current {@link Page}.
      */
     static lastDialogState(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().state()

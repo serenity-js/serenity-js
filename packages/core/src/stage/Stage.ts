@@ -9,13 +9,13 @@ import { Cast } from './Cast';
 import { StageManager } from './StageManager';
 
 /**
- * Stage is the place where {@apiLink Actor|actors} perform.
+ * Stage is the place where {@apilink Actor|actors} perform.
  *
- * In more technical terms, the Stage is the main event bus propagating {@apiLink DomainEvent|DomainEvents}
- * to {@apiLink Actor|Actors} it instantiates and {@apiLink StageCrewMember|StageCrewMembers} that have been registered with it.
+ * In more technical terms, the Stage is the main event bus propagating {@apilink DomainEvent|DomainEvents}
+ * to {@apilink Actor|Actors} it instantiates and {@apilink StageCrewMember|StageCrewMembers} that have been registered with it.
  *
  * It is unlikely that you'll ever need to interact with the `Stage` directly in your tests. Instead, you'll use functions like
- * {@apiLink actorCalled} and {@apiLink actorInTheSpotlight}.
+ * {@apilink actorCalled} and {@apilink actorInTheSpotlight}.
  *
  * ## Learn more
  * - {@link configure}
@@ -62,7 +62,7 @@ export class Stage {
     }
 
     /**
-     * An alias for [[Stage.actor]]
+     * An alias for {@apilink Stage.actor}
      *
      * @param name
      */
@@ -105,7 +105,7 @@ export class Stage {
     }
 
     /**
-     * Returns the last {@link Actor} instantiated via [[Stage#actor]].
+     * Returns the last {@link Actor} instantiated via {@apilink Stage#actor}.
      * Useful when you don't can't or choose not to reference the actor by their name.
      *
      * @throws {LogicError}
@@ -128,7 +128,7 @@ export class Stage {
 
     /**
      * Configures the Stage to prepare {@link Actor|Actors}
-     * instantiated via [[Stage#actor]] using the provided {@link Cast}.
+     * instantiated via {@apilink Stage#actor} using the provided {@link Cast}.
      *
      * @param actors
      */
@@ -140,7 +140,7 @@ export class Stage {
 
     /**
      * Assigns listeners to be notified of {@link DomainEvent|DomainEvents}
-     * emitted via [[Stage#announce]].s
+     * emitted via {@apilink Stage#announce}.s
      *
      * @param listeners
      */
@@ -187,8 +187,8 @@ export class Stage {
      * when instantiating a {@link SceneStarts} event.
      *
      * #### Learn more
-     * - [[Stage.currentSceneId]]
-     * - [[CorrelationId]]
+     * - {@apilink Stage.currentSceneId}
+     * - {@apilink CorrelationId}
      */
     assignNewSceneId(): CorrelationId {
         // todo: inject an id factory to make it easier to test

@@ -8,6 +8,17 @@ import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
 
+/**
+ * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to identify
+ * a single Web element located by {@link Selector}.
+ *
+ * ## Learn more
+ * - [Page Element Query Language](/handbook)
+ * - {@link Optional}
+ * - {@link Switchable}
+ *
+ * @group Models
+ */
 export abstract class PageElement<Native_Element_Type = any> implements Optional, Switchable {
 
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
@@ -34,6 +45,9 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
 
     abstract of(parentElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
+    /**
+     * An "escape hatch" providing access to the integration tool-specific implementation of a Web element.
+     */
     async nativeElement(): Promise<Native_Element_Type> {
         return this.locator.nativeElement();
     }
@@ -48,7 +62,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract doubleClick(): Promise<void>;
     abstract scrollIntoView(): Promise<void>;
     abstract hoverOver(): Promise<void>;
-    abstract rightClick(): Promise<void>;    // todo: should this be a click() call with a parameter?
+    abstract rightClick(): Promise<void>;
     abstract selectOptions(...options: Array<SelectOption>): Promise<void>;
     abstract selectedOptions(): Promise<Array<SelectOption>>;
 

@@ -62,7 +62,7 @@ import { Stage } from './Stage';
  * ```
  *
  * ## Learn more
- * - [[SerenityConfig.crew]]
+ * - {@apilink SerenityConfig.crew}
  * - {@link configure}
  * - {@link StageCrewMemberBuilder}
  * - {@link ListensToDomainEvents}

@@ -41,18 +41,15 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
     }
 
     /**
-     * @desc
-     *  Joins the `parts` into a single string and decorates it
-     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.
+     * Joins the `parts` into a single string and decorates it
+     * using a colour appropriate for a given {@link Outcome}.
      *
-     * @param {@serenity-js/core/lib/model~Outcome | string} outcome
+     * @param outcome
      *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
-     * @param {...any[]} parts
+     * @param parts
      *  the parts of the message to be decorated
-     *
-     * @returns {string}
      */
     outcome(outcome: Outcome | string, ...parts: any[]): string {
         const outcomeName = (outcome instanceof Outcome)

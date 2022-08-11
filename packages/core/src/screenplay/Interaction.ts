@@ -2,8 +2,8 @@ import { Activity } from './Activity';
 import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './actor';
 
 /**
- * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apiLink Activity|activity} that directly
- * uses the {@apiLink Actor|actor's} {@apiLink Ability|ability} to interact
+ * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apilink Activity|activity} that directly
+ * uses the {@apilink Actor|actor's} {@apilink Ability|ability} to interact
  * with the system under test.
  *
  * Use the factory method `Interaction.where(description, interactionFunction)` to define custom interactions.

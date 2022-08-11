@@ -18,7 +18,7 @@ export const serenity = new Serenity(clock);
  * so this function should be called exactly once
  * in your test suite.
  *
- * This function is an alias for [[Serenity#configure]].
+ * This function is an alias for {@apilink Serenity.configure}.
  *
  * @param config
  *
@@ -32,8 +32,8 @@ export function configure(config: SerenityConfig): void {
  * Re-configures Serenity/JS with a new {@link Cast} of {@link Actor|actors}
  * you want to use in any subsequent calls to {@link actorCalled}.
  *
- * This function is an alias for [[Serenity.engage]],
- * which provides an alternative to calling [[Actor.whoCan]] directly in your tests
+ * This function is an alias for {@apilink Serenity.engage},
+ * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
  * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
  *
  * If your implementation of the {@link Cast} interface is stateless,
@@ -91,7 +91,7 @@ export function configure(config: SerenityConfig): void {
  * ## Learn more
  * - {@link Actor}
  * - {@link Cast}
- * - [[Serenity.engage]]
+ * - {@apilink Serenity.engage}
  *
  * @param actors
  *
@@ -105,7 +105,7 @@ export function engage(actors: Cast): void {
  * Instantiates or retrieves an {@link Actor}
  * called `name` if one has already been instantiated.
  *
- * This method is an alias for [[Serenity.theActorCalled]].
+ * This method is an alias for {@apilink Serenity.theActorCalled}.
  *
  * ## Usage with Mocha
  *
@@ -171,7 +171,7 @@ export function actorCalled(name: string): Actor {
  *
  * This function is particularly useful when automating Cucumber scenarios.
  *
- * This function is an alias for [[Serenity.theActorInTheSpotlight]].
+ * This function is an alias for {@apilink Serenity.theActorInTheSpotlight}.
  *
  * ## Usage with Cucumber
  *

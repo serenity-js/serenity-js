@@ -9,7 +9,7 @@ import { ModalDialog } from './ModalDialog';
  * ## Learn more
  *
  * - {@link ModalDialog}
- * - [[Page.modalDialog]]
+ * - {@apilink Page.modalDialog}
  *
  * @group Models
  */

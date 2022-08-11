@@ -6,7 +6,7 @@ import * as parser from 'error-stack-parser';
  * ## Learn more
  * - [Error stack parser](https://www.npmjs.com/package/error-stack-parser)
  *
- * @package
+ * @group Errors
  */
 export class ErrorStackParser {
     parse(error: Error): parser.StackFrame[] {

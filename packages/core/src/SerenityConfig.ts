@@ -10,7 +10,7 @@ import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
  * - {@link Cast}
  * - {@link StageCrewMember}
  * - {@link StageCrewMemberBuilder}
- * - [[Stage.waitForNextCue]]
+ * - {@apilink Stage.waitForNextCue}
  *
  * @group Configuration
  */

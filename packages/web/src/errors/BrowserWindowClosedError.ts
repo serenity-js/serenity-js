@@ -6,7 +6,7 @@ import { LogicError } from '@serenity-js/core';
  *
  * ## Learn more
  * - {@link TakeScreenshot}
- * - [[Page.takeScreenshot]]
+ * - {@apilink Page.takeScreenshot}
  *
  * @group Errors
  */

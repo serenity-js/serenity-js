@@ -4,7 +4,7 @@ import { ModalDialog } from './ModalDialog';
 
 /**
  * `AcceptedModalDialog` represents a {@link ModalDialog} that has been accepted
- * via [[ModalDialog.acceptNext]].
+ * via {@apilink ModalDialog.acceptNext}.
  *
  * ## Learn more
  * - {@link ModalDialog}

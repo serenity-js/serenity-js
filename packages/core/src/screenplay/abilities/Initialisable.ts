@@ -2,8 +2,8 @@
  * An interface to be implemented by any {@link Ability} that needs to initialise
  * the resources it uses, e.g. establish a database connection.
  *
- * The [[Initialisable.initialise]] method is invoked whenever [[Actor.attemptsTo]] method is called,
- * but **only when** [[Initialisable.isInitialised]] returns false. This is to avoid initialising abilities more than once.
+ * The {@apilink Initialisable.initialise} method is invoked whenever {@apilink Actor.attemptsTo} method is called,
+ * but **only when** {@apilink Initialisable.isInitialised} returns false. This is to avoid initialising abilities more than once.
  *
  * ## Learn more
  * - {@link Ability}
@@ -15,10 +15,10 @@
 export interface Initialisable {
 
     /**
-     * Initialises the ability. Invoked whenever [[Actor.attemptsTo]] method is called,
-     * but **only when** [[Initialisable.isInitialised]] returns false.
+     * Initialises the ability. Invoked whenever {@apilink Actor.attemptsTo} method is called,
+     * but **only when** {@apilink Initialisable.isInitialised} returns false.
      *
-     * Make sure to implement [[Initialisable.isInitialised]] so that it returns `true`
+     * Make sure to implement {@apilink Initialisable.isInitialised} so that it returns `true`
      * when the ability has been successfully initialised.
      */
     initialise(): Promise<void> | void;
@@ -26,7 +26,7 @@ export interface Initialisable {
     /**
      * Should return `true` when all the resources that the given ability needs
      * have been initialised. Should return `false` if the {@link Actor} should
-     * initialise them again when [[Actor.attemptsTo]] is called.
+     * initialise them again when {@apilink Actor.attemptsTo} is called.
      *
      * @returns {boolean}
      */

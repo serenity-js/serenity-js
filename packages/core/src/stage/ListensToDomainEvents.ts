@@ -8,7 +8,7 @@ import { DomainEvent } from '../events';
  * - {@link StageCrewMember}
  * - {@link StageCrewMemberBuilder}
  * - {@link configure}
- * - [[SerenityConfig.crew]]
+ * - {@apilink SerenityConfig.crew}
  *
  * @group Stage
  */

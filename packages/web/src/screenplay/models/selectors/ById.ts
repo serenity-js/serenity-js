@@ -3,7 +3,7 @@ import { Selector } from './Selector';
 /**
  * Locates a {@link PageElement} using its [id](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors).
  *
- * **Pro tip:** Instantiate using [[By.id]]
+ * **Pro tip:** Instantiate using {@apilink By.id}
  *
  * @group Models
  */

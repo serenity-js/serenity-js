@@ -5,6 +5,18 @@ import { Locator } from './Locator';
 import { PageElement } from './PageElement';
 import { Selector } from './selectors';
 
+/**
+ * Uses the {@link Actor|actor's} {@link Ability|ability} to {@link BrowseTheWeb} to identify
+ * a group of Web elements located by {@link Selector}.
+ *
+ * ## Learn more
+ *
+ * - [Page Element Query Language](/handbook)
+ * - {@link List}
+ * - {@link MetaQuestion}
+ *
+ * @group Models
+ */
 export class PageElements<Native_Element_Type = any>
     extends List<PageElement<Native_Element_Type>>
     implements MetaQuestion<Answerable<PageElement<Native_Element_Type>>, Promise<Array<PageElement<Native_Element_Type>>>>
