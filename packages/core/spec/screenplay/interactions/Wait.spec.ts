@@ -88,7 +88,7 @@ describe('Wait', () => {
             const
                 timeout         = Duration.ofMilliseconds(500),
                 elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
-                pollingInterval = Duration.ofMilliseconds(250);
+                pollingInterval = Duration.ofMilliseconds(100);
 
             await expect(
                 serenity.theActorCalled('Wendy')
