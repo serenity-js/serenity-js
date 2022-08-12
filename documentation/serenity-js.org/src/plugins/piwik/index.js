@@ -1,12 +1,11 @@
-import type { LoadContext, OptionValidationContext, Plugin } from '@docusaurus/types';
-import { Joi } from '@docusaurus/utils-validation';
+const { Joi } = require('@docusaurus/utils-validation');
 
-import type { Options, PluginOptions } from './options';
+/**
+ * @param {import('@docusaurus/types').LoadContext} context
+ * @returns {import('@docusaurus/types').Plugin}
+ */
+async function PiwikPlugin(context, options) {
 
-export default function pluginPiwikAnalytics(
-    context: LoadContext,
-    options: PluginOptions,
-): Plugin {
     const { id, enable } = options;
 
     return {
@@ -37,13 +36,15 @@ tags.async=!0,tags.src="https://serenity.containers.piwik.pro/"+id+".js"+qPStrin
     };
 }
 
-const pluginOptionsSchema = Joi.object<PluginOptions>({
-    id: Joi.string().required(),
+const pluginOptionsSchema = Joi.object({
+    id:     Joi.string().required(),
     enable: Joi.boolean().default(false),
 });
 
-export function validateOptions({ validate, options }: OptionValidationContext<Options, PluginOptions>): PluginOptions {
+function validateOptions({ validate, options }) {
     return validate(pluginOptionsSchema, options);
 }
 
-export type { Options, PluginOptions } from './options';
+PiwikPlugin.validateOptions = validateOptions;
+
+module.exports = PiwikPlugin;
