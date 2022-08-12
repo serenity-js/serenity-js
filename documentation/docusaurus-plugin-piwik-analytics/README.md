@@ -1,1 +1,1 @@
-# @documentation/docusarus-plugin-piwik-analytics
+# @documentation/docusaurus-plugin-piwik-analytics
