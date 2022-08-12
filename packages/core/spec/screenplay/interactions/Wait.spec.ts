@@ -34,7 +34,7 @@ describe('Wait', () => {
                     Stopwatch.start(),
                     Wait.for(Duration.ofMilliseconds(timeout)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance, tolerance),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + Math.round(tolerance/2), tolerance),
                 );
         });
 
@@ -78,21 +78,28 @@ describe('Wait', () => {
                 );
         });
 
-        it('fails the actor flow when the timeout expires', () =>
-            expect(
+        it('fails the actor flow when the timeout expires', async () => {
+
+            const
+                timeout         = Duration.ofMilliseconds(500),
+                elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
+                pollingInterval = Duration.ofMilliseconds(250);
+
+            await expect(
                 serenity.theActorCalled('Wendy')
                     .attemptsTo(
                         Stopwatch.start(),
-                        Wait.upTo(Duration.ofMilliseconds(250))
-                            .until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250))
-                            .pollingEvery(Duration.ofMilliseconds(50)),
+                        Wait.upTo(timeout)
+                            .until(elapsedTime, isGreaterThan(timeout.inMilliseconds()))
+                            .pollingEvery(pollingInterval),
                     )
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 250ms, polling every 50ms, for elapsed time [ms] to have value greater than 250`);
-                expect(error.expected).to.be.equal(250);
-                expect(error.actual).to.be.greaterThanOrEqual(50);
-            }));
+                expect(error.message).to.be.equal(`Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time [ms] to have value greater than ${ timeout.inMilliseconds() }`);
+                expect(error.expected).to.be.equal(timeout.inMilliseconds());
+                expect(error.actual).to.be.greaterThanOrEqual(pollingInterval.inMilliseconds());
+            })
+        });
 
         it('fails the actor flow when asking the question results in an error', () =>
             expect(
