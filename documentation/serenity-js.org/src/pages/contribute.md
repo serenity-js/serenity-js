@@ -1,6 +1,5 @@
 ---
-title: Contributing
-layout: handbook.hbs
+title: Contribute
 ---
 # Contribute
 
@@ -21,7 +20,7 @@ You can contribute to the evolution of the Serenity/JS Handbook by:
 
 ## The Serenity/JS Framework
 
-If you have a question about the framework or its features, please check out the [support documentation](/support.html).
+If you have a question about the framework or its features, please check out the [support guide](/support).
 
 ### Reporting defects
 
@@ -29,12 +28,12 @@ If you believe you have found a bug in Serenity/JS please raise a ticket on [Ser
 
 When reporting a bug, please kindly remember to:
 - Give the ticket a succinct yet descriptive **title** (i.e. Feature X is broken vs, Feature X is not triggered upon event Y)
-- Mention the **environment** where you [spotted the bug](https://cartoontester.blogspot.com/2012/02/art-of-bug-reporting.html). What was the browser and operating system? What versions of [runtime dependencies](/handbook/integration/runtime-dependencies.html) did you use?
+- Mention the **environment** where you [spotted the bug](https://cartoontester.blogspot.com/2012/02/art-of-bug-reporting.html). What was the browser and operating system? What versions of [runtime dependencies](/handbook/getting-started/installation) did you use?
 - Provide a **detailed description** of what happened and don’t leave any important facts out. That said, try not to include any extraneous details that could derail or distract the people trying to help reproduce the issue you found.
 - Explain how the behaviour you observed is different from what you believe should have happened instead
 - Provide supplementary information:
     - If you can reproduce and isolate the issue, use one of the Serenity/JS template repositories to create a minimalistic example that demonstrates the problem and attach a link to it to your ticket. While this requires a bit more work on your side, it will help us sort out the problem much quicker.
-    - If you can reproduce the issue, but can't isolate it, add the [`StreamReporter`](/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html) to your Serenity/JS stage crew, run the test again to trigger the bug, and attach the [`StreamReporter`'s](/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html)  log to your ticket
+    - If you can reproduce the issue, but can't isolate it, add the [`StreamReporter`](/api/core/class/StreamReporter) to your Serenity/JS stage crew, run the test again to trigger the bug, and attach the [`StreamReporter`'s](/api/core/class/StreamReporter)  log to your ticket
     - If you can't reproduce the issue, please attach any additional information that might help us figure out what happened - screenshots and test execution logs are particularly useful. 
 
 ### Proposing enhancements
@@ -50,7 +49,7 @@ Before putting your time and effort into a pull request, though, please gauge th
 If you have decided to raise a pull request, you'll need to:
 - [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js) to your GitHub account
 - [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) your fork to your machine
-- Make sure you have the [runtime dependencies](/handbook/integration/runtime-dependencies.html) installed
+- Make sure you have the [runtime dependencies](/handbook/getting-started/installation) installed
 - Install the Node.js dependencies by running `make install` in the project root. Serenity/JS uses [Lerna.js](https://github.com/lerna/lerna) to manage the `@serenity-js/*` modules you'll find in the mono-repo, so it will take care of propagating the `npm ci` and other commands to the modules.
 - Make sure you can build the Serenity/JS project on your machine and all the unit- and integration tests are passing before introducing any changes
 - Introduce the changes you wish to propose and update or introduce any unit- and integration tests that might be affected.
@@ -60,7 +59,7 @@ If you have decided to raise a pull request, you'll need to:
 #### Project structure
 
 In the project root directory, you'll find the following sub-directories
-- `packages` - this is where all the [Serenity/JS modules](/modules) and their associated unit tests live
+- `packages` - this is where all the [Serenity/JS modules](/api) and their associated unit tests live
 - `integration` - this is the home of integration tests that exercise the Serenity/JS modules once they're transpiled from TypeScript to JavaScript
 - `examples` - when the changes you want to introduce pass their unit tests and integration tests, you can use the mini-projects located here for exploratory testing and experimentation. Those example projects simulate the framework's target execution environment, so you can use them to look at your changes from the perspective of people who'll be using them soon!  
 

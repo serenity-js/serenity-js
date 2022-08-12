@@ -468,7 +468,7 @@ The code sample above uses [`q`](/api/core/function/q) a [tagged template functi
 ### Screenplay-style dictionaries with `Question.fromObject`
 
 A new Screenplay-style data structure, `Answerable<WithAnswerableProperties<Source_Type>>` will help you convert
-and merge plain JavaScript objects with nested [`Answerable`s](/modules/core/typedef/index.html#static-typedef-Answerable%3CT%3E) into a `QuestionAdapter<T>`.
+and merge plain JavaScript objects with nested [`Answerable`s](/api/core#Answerable) into a `QuestionAdapter<T>`.
 
 For example:
 
