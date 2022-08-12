@@ -25,14 +25,18 @@ describe('Wait', () => {
 
     describe('for', () => {
 
-        it('pauses the actor flow for the length of an explicitly-set duration', () =>
-            serenity.theActorCalled('Wendy')
+        it('pauses the actor flow for the length of an explicitly-set duration', async () => {
+            const timeout       = 500,
+                tolerance       = 100;
+
+            await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.for(Duration.ofMilliseconds(100)),
+                    Wait.for(Duration.ofMilliseconds(timeout)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 100, 10),
-                ));
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance, tolerance),
+                );
+        });
 
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.for(Duration.ofMilliseconds(300)).toString())
@@ -42,25 +46,37 @@ describe('Wait', () => {
 
     describe('until', () => {
 
-        it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', () =>
-            serenity.theActorCalled('Wendy')
-                .attemptsTo(
-                    Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)),
-                    Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 500, 30),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1000),
-                ));
+        it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', async () => {
+            const pollingInterval = Wait.defaultPollingInterval,
+                halfACycle        = Math.round(pollingInterval.inMilliseconds() / 2),
+                twoCycles         = Math.round(pollingInterval.inMilliseconds() * 2),
+                tolerance         = Math.round(pollingInterval.inMilliseconds() / 5);
 
-        it('pauses the actor flow until the expectation is met, with a configurable polling interval', () =>
-            serenity.theActorCalled('Wendy')
+            await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)).pollingEvery(Duration.ofMilliseconds(50)),
+                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(halfACycle)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 275, 30),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 500),
-                ));
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), pollingInterval.inMilliseconds(), tolerance),
+                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), twoCycles),
+                )
+        });
+
+        it('pauses the actor flow until the expectation is met, with a configurable polling interval', async () => {
+            const timeout       = 500,
+                tolerance       = 100,
+                pollingInterval = 100;
+
+            await serenity.theActorCalled('Wendy')
+                .attemptsTo(
+                    Stopwatch.start(),
+                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(timeout))
+                        .pollingEvery(Duration.ofMilliseconds(pollingInterval)),
+                    Stopwatch.stop(),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance, tolerance),
+                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance),
+                );
+        });
 
         it('fails the actor flow when the timeout expires', () =>
             expect(
