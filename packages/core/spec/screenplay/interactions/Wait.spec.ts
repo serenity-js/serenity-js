@@ -26,15 +26,19 @@ describe('Wait', () => {
     describe('for', () => {
 
         it('pauses the actor flow for the length of an explicitly-set duration', async () => {
-            const timeout       = 500,
-                tolerance       = 100;
+            const timeout       = Duration.ofMilliseconds(500),
+                tolerance       = Duration.ofMilliseconds(100);
 
             await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.for(Duration.ofMilliseconds(timeout)),
+                    Wait.for(timeout),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + Math.round(tolerance/2), tolerance),
+                    Ensure.closeTo(
+                        Stopwatch.elapsedTime().inMilliseconds(),
+                        timeout.plus(tolerance).inMilliseconds(),
+                        tolerance.plus(tolerance).inMilliseconds()
+                    ),
                 );
         });
 
@@ -48,33 +52,34 @@ describe('Wait', () => {
 
         it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', async () => {
             const pollingInterval = Wait.defaultPollingInterval,
-                halfACycle        = Math.round(pollingInterval.inMilliseconds() / 2),
-                twoCycles         = Math.round(pollingInterval.inMilliseconds() * 2),
-                tolerance         = Math.round(pollingInterval.inMilliseconds() / 5);
+                halfAnInterval    = Math.round(pollingInterval.inMilliseconds() / 2),
+                twoIntervals      = Math.round(pollingInterval.inMilliseconds() * 2),
+                elapsedTime       = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]');
 
             await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(halfACycle)),
+                    Wait.until(elapsedTime, isGreaterThan(halfAnInterval)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), pollingInterval.inMilliseconds(), tolerance),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), twoCycles),
+                    Ensure.closeTo(elapsedTime, pollingInterval.inMilliseconds(), halfAnInterval),
+                    Ensure.lessThan(elapsedTime, twoIntervals),
                 )
         });
 
         it('pauses the actor flow until the expectation is met, with a configurable polling interval', async () => {
-            const timeout       = 500,
-                tolerance       = 100,
-                pollingInterval = 100;
+            const timeout       = Duration.ofMilliseconds(500),
+                pollingInterval = Duration.ofMilliseconds(250),
+                twoIntervals    = pollingInterval.plus(pollingInterval),
+                elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]');
 
             await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(timeout))
-                        .pollingEvery(Duration.ofMilliseconds(pollingInterval)),
+                    Wait.until(elapsedTime, isGreaterThan(timeout.inMilliseconds()))
+                        .pollingEvery(pollingInterval),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance, tolerance),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), timeout + tolerance),
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout.plus(pollingInterval).inMilliseconds(), pollingInterval.inMilliseconds()),
+                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), timeout.plus(twoIntervals).inMilliseconds()),
                 );
         });
 
