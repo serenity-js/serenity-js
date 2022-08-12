@@ -1,9 +1,9 @@
 ---
 sidebar_position: 6
 ---
-# Versioning strategy
+# Versioning
 
-Serenity/JS complies with [Semantic Versioning 2.0.0](https://semver.org/), with release versions [determined automatically](/contribute.md#the-serenity-js-framework) based on the changes introduced to the `master` branch since the most recent release.
+Serenity/JS complies with [Semantic Versioning 2.0.0](https://semver.org/), with release versions [determined automatically](/contribute.html#the-serenity-js-framework) based on the changes introduced to the `master` branch since the most recent release.
 
 All [Serenity/JS modules](/api) are released together, even if not all of them have changed in a given release.
 This is to make it easier for you to stay up to date without having to worry about any compatibility issues between the framework's modules.

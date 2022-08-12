@@ -83,7 +83,7 @@ const config = {
                 items: [
                     { label: 'Handbook', type: 'doc', docId: 'getting-started/why-serenity-js', position: 'left' },
                     { label: 'API', to: 'api/core', position: 'left' },
-                    { to: '/blog', label: 'Blog', position: 'right' },
+                    { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contribute', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'right' },
                     {
