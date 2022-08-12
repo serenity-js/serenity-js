@@ -31,8 +31,8 @@ exports.config = {
             // Photographer.whoWill(TakePhotosOfInteractions),
             Photographer.whoWill(TakePhotosOfFailures),
             new SerenityBDDReporter(),
-            // ConsoleReporter.withDefaultColourSupport(),
         ]
+        .concat(process.env.CI && ConsoleReporter.withDefaultColourSupport())
     },
 
     specs: [
