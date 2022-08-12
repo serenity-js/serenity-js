@@ -275,7 +275,7 @@ const config = {
             },
         ],
         [
-            '@documentation/docusaurus-plugin-piwik-analytics',
+            require.resolve('./src/plugins/piwik/index.js'),
             {
                 id: '8497b9df-f942-4fb6-9f4f-eade34bab231',
                 enable: true,

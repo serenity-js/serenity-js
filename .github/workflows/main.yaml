@@ -553,10 +553,6 @@ jobs:
         working-directory: ./documentation/typedoc-plugin-ignore-inherited-static-methods
         run: npm run compile
 
-      - name: Build custom Docusaurus plugin
-        working-directory: ./documentation/docusaurus-plugin-piwik-analytics
-        run: npm run compile
-
       - name: Build serenity-js.org website
         working-directory: ./documentation/serenity-js.org
         run: npm run build
