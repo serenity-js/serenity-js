@@ -106,9 +106,7 @@ function get(object, property) {
         : object[property];
 
     return ({
-        as: function<T>(type: new (v: any) => T): T {  // ESDoc doesn't understand generic anonymous functions
-            return new type(value);
-        },
+        as: <T>(type: new (v: any) => T): T => new type(value),
         value: () => value,
     });
 }

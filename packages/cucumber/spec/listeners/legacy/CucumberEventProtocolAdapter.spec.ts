@@ -355,10 +355,8 @@ describe('CucumberEventProtocolAdapter', () => {
 
     function emitAllFrom(events: JSONObject[]): void {
         events.forEach(event => {
-            // I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:
-            const emitted = Object.assign({}, event);
-            delete emitted.type;
-            eventBroadcaster.emit(event.type as string, emitted);
+            const { type, ...body } = event;
+            eventBroadcaster.emit(type as string, body);
         });
     }
 });
