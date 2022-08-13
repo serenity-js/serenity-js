@@ -36,8 +36,7 @@
     "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json",
-    "site": "esdoc -c .esdoc.js"
+    "compile": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -57,7 +56,6 @@
     "portfinder": "1.0.28"
   },
   "devDependencies": {
-    "@documentation/esdoc-template": "3.0.0",
     "@hapi/hapi": "^20.2.2",
     "@integration/testing-tools": "3.0.0",
     "@serenity-js/assertions": "3.0.0-rc.24",

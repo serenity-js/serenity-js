@@ -440,7 +440,7 @@ jobs:
 #          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
 #          npm_token: ${{ secrets.NPM_TOKEN }}
 
-      # Todo: use workspaces and tsconfig paths instead
+      # Todo: use tsconfig paths and references instead to avoid having to depend on compiled libs
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -470,8 +470,7 @@ jobs:
         run: make COMPILE_SCOPE=@documentation compile
 
       - name: Build serenity-js.org website
-        working-directory: ./documentation/serenity-js.org
-        run: npm run build
+        run: npm site
 
       # Debug website
       - name: Compress website

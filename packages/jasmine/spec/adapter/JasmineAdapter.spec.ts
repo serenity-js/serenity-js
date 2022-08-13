@@ -44,8 +44,6 @@ describe('JasmineAdapter', () => {
 
         const result = adapter.run();
 
-        FakeJasmineRunner.instance.complete(true);
-
         expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({
             random: false,
         });
@@ -95,8 +93,6 @@ describe('JasmineAdapter', () => {
         await adapter.load(specs)
         const result = adapter.run();
 
-        FakeJasmineRunner.instance.complete(true);
-
         expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);
 
         return result;
@@ -113,8 +109,6 @@ describe('JasmineAdapter', () => {
 
         await adapter.load(specs)
         const result = adapter.run();
-
-        FakeJasmineRunner.instance.complete(true);
 
         expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledOnce
 
@@ -136,8 +130,6 @@ describe('JasmineAdapter', () => {
 
         await adapter.load(specs)
         const result = adapter.run();
-
-        FakeJasmineRunner.instance.complete(true);
 
         expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledTwice
 

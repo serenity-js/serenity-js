@@ -23,11 +23,6 @@ COMPILE_SCOPE=all
 # saucelabs
 INTEGRATION_SCOPE=all
 
-# all
-# @serenity-js
-# @documentation
-SITE_SCOPE=all
-
 .PHONY: all install clean lint test compile integration-test verify report site
 all: install clean compile
 
@@ -60,4 +55,4 @@ report:
 	npm run report
 
 site:
-	npm run site:$(SITE_SCOPE)
+	npm run site

@@ -35,8 +35,7 @@
     "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "test": "nyc protractor ./spec/protractor.conf.js",
-    "compile": "tsc --project tsconfig.json",
-    "site": "esdoc -c .esdoc.js"
+    "compile": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -76,7 +75,6 @@
     }
   },
   "devDependencies": {
-    "@documentation/esdoc-template": "3.0.0",
     "@integration/testing-tools": "3.0.0",
     "@serenity-js/cucumber": "3.0.0-rc.24",
     "@serenity-js/jasmine": "3.0.0-rc.24",

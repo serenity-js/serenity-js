@@ -33,6 +33,7 @@ exports.config = {
             new SerenityBDDReporter(),
         ]
         .concat(process.env.CI && ConsoleReporter.withDefaultColourSupport())
+        .filter(Boolean)
     },
 
     specs: [
