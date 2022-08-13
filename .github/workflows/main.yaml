@@ -28,7 +28,7 @@ jobs:
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: BOOTSTRAP_SCOPE=all-code make install
+          install-command: make BOOTSTRAP_SCOPE=all-code install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -49,7 +49,7 @@ jobs:
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: BOOTSTRAP_SCOPE=all-code make install
+          install-command: make BOOTSTRAP_SCOPE=all-code install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -461,7 +461,7 @@ jobs:
       - name: Install Node Modules (@documentation)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: BOOTSTRAP_SCOPE=@documentation make install
+          install-command: make BOOTSTRAP_SCOPE=@documentation install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
