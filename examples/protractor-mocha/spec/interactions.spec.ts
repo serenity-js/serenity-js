@@ -1,10 +1,10 @@
-import { afterEach, beforeEach, describe, it } from 'mocha';
-
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, Check, engage, Interaction } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { UseAngular } from '@serenity-js/protractor';
 import { Navigate, Page } from '@serenity-js/web';
+import { afterEach, beforeEach, describe, it } from 'mocha';
+
 import { Actors } from './support/Actors';
 
 /**
@@ -17,6 +17,7 @@ describe('Interaction flow', () => {
 
     let counter = 1;
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     const FailTheTest = () =>
         Interaction.where(`#actor deliberately fails the test`, actor => {
             throw new Error('Test failed');

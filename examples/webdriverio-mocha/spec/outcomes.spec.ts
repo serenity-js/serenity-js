@@ -14,9 +14,9 @@ describe('@serenity-js/webdriverio', () => {
             assert.strictEqual(false, true);
         });
 
-        it('is pending');
+        it('is pending');   // eslint-disable-line mocha/no-pending-tests
 
-        it.skip('is skipped', function () {
+        it.skip('is skipped', function () { // eslint-disable-line mocha/no-skipped-tests
             // no-op
         });
 

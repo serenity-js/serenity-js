@@ -1,5 +1,6 @@
 import { contain, Ensure, equals, property } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, engage } from '@serenity-js/core';
+
 import { Actors, ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start } from './support';
 
 describe('Managing a Todo List', () => {

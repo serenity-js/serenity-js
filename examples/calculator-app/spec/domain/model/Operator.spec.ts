@@ -2,7 +2,6 @@ import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { AdditionOperator, DivisionOperator, LeftParenthesisOperator, Operator, RightParenthesisOperator, SubtractionOperator } from '../../../src';
-
 import { expect } from '../../expect';
 
 describe('Operator', () => {

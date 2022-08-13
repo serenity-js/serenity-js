@@ -25,8 +25,8 @@
   ],
   "scripts": {
     "clean": "rimraf target && lerna run clean --parallel",
-    "lint": "lerna run lint --parallel",
-    "lint:fix": "lerna run lint:fix --parallel",
+    "lint": "eslint --ext ts --config .eslintrc.yml .",
+    "lint:fix": "eslint --ext ts --config .eslintrc.yml --fix .",
     "compile:all": "lerna run compile --stream",
     "compile:libs": "lerna run compile --stream --scope '@serenity-js/*' --scope '@integration/*'",
     "compile:@serenity-js": "lerna run compile --stream --scope '@serenity-js/*'",

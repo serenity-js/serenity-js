@@ -15,7 +15,6 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "wdio wdio.conf.ts",
     "test:report": "serenity-bdd run",

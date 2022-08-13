@@ -1,5 +1,5 @@
-import { Reporters } from '@wdio/types';
 import Reporter from '@wdio/reporter';
+import { Reporters } from '@wdio/types';
 import * as fs from 'fs';
 
 export default class Inspector extends Reporter {

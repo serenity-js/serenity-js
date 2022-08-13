@@ -31,7 +31,7 @@ describe('CucumberEventProtocolAdapter', () => {
         log: typeof console.log,
         eventBroadcaster: EventEmitter,
         moduleLoader: sinon.SinonStubbedInstance<ModuleLoader>,
-        adapter: any;
+        adapter_: any;
 
     beforeEach(() => {
 
@@ -53,7 +53,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         const listener = createListener(serenity, moduleLoader);
 
-        adapter = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
+        adapter_ = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
     });
 
     it('correctly recognises Cucumber Event Protocol events', () => {

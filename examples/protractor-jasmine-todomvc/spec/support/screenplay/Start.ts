@@ -1,6 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
 import { Navigate, Page } from '@serenity-js/web';
+
 import { RecordItem } from './RecordItem';
 
 export class Start {
