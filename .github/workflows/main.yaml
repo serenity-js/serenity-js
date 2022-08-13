@@ -462,7 +462,7 @@ jobs:
       - name: Install Node Modules (@documentation)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP_SCOPE=@documentation install
+          install-command: make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
