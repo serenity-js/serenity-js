@@ -416,12 +416,12 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: changelog
-          path: |
-            CHANGELOG.md
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          retention-days: 3
+#          name: changelog
+#          path: |
+#            CHANGELOG.md
 
   website:
     runs-on: ubuntu-latest
@@ -432,26 +432,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-lerna
-        if: github.ref == 'refs/heads/master'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token: ${{ secrets.NPM_TOKEN }}
+#      - uses: ./.github/actions/setup-lerna
+#        if: github.ref == 'refs/heads/master'
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+#          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
+#          npm_token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Download changelog
-        if: needs.publish-artifacts.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
+#      - name: Download compiled libs
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: compiled-libs
+#      - name: Decompress Libs
+#        run:  7z x -aoa compiled-libs.zip
+#
+#      - name: Download changelog
+#        if: needs.publish-artifacts.result == 'success'
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: changelog
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -465,13 +465,23 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
-      - name: Build custom TypeDoc plugin
-        working-directory: ./documentation/typedoc-plugin-ignore-inherited-static-methods
-        run: npm run compile
+      - name: Compile documentation plugins
+        run: make COMPILE_SCOPE=@documentation compile
 
       - name: Build serenity-js.org website
         working-directory: ./documentation/serenity-js.org
         run: npm run build
+
+      # Debug website
+      - name: Compress website
+        run:  7z a serenity-js-website.zip "documentation/serenity-js.org/build"
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: website
+          path: |
+            serenity-js-website.zip        
+        
 
 #      - name: Publish website
 #        uses: JamesIves/github-pages-deploy-action@v4.3.0
