@@ -30,8 +30,7 @@
     "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
     "lint:fix": "npm run lint -- --fix",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json",
-    "site": "esdoc -c .esdoc.js"
+    "compile": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "cuid": "^2.1.8",
@@ -46,7 +45,6 @@
     "upath": "^2.0.1"
   },
   "devDependencies": {
-    "@documentation/esdoc-template": "3.0.0",
     "@types/chai": "^4.3.1",
     "@types/cuid": "^1.3.1",
     "@types/diff": "^5.0.2",

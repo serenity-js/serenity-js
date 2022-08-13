@@ -144,11 +144,9 @@ export class JasmineAdapter implements TestRunnerAdapter {
     /**
      * Runs loaded test scenarios.
      */
-    run(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.runner.onComplete((passed: boolean) => resolve());
-            this.runner.execute();
-        });
+    async run(): Promise<void> {
+        this.runner.exitOnCompletion = false;
+        await this.runner.execute();
     }
 }
 
