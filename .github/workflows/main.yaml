@@ -470,7 +470,7 @@ jobs:
         run: make COMPILE_SCOPE=@documentation compile
 
       - name: Build serenity-js.org website
-        run: npm site
+        run: make site
 
       # Debug website
       - name: Compress website
