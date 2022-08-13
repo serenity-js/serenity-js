@@ -1,10 +1,18 @@
 # all
-# all-code
+# libs
 # @serenity-js
 # @integration
 # @documentation
 # @examples
 BOOTSTRAP_SCOPE=all
+
+# all
+# libs
+# @serenity-js
+# @integration
+# @documentation
+# @examples
+COMPILE_SCOPE=all
 
 # all
 # cucumber
@@ -41,7 +49,7 @@ test:
 	npm test
 
 compile:
-	npm run compile
+	npm run compile:$(COMPILE_SCOPE)
 
 integration-test:
 	npm run integration-test:$(INTEGRATION_SCOPE)

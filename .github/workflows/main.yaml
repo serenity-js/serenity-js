@@ -28,7 +28,7 @@ jobs:
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP_SCOPE=all-code install
+          install-command: make BOOTSTRAP_SCOPE=libs install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -49,12 +49,12 @@ jobs:
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP_SCOPE=all-code install
+          install-command: make BOOTSTRAP_SCOPE=libs install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Compile
-        run: make compile
+        run: make COMPILE_SCOPE=libs compile
 
       - name: Compress Libs
         run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
