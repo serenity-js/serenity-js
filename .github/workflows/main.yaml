@@ -25,10 +25,10 @@ jobs:
           node-version: 16.x
 
 # exclude documentation
-      - name: Install Node Modules (all)
+      - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP_SCOPE=libs install
+          install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 

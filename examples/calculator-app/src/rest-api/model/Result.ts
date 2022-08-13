@@ -1,4 +1,5 @@
 import { ensure, isDefined, isNumber, JSONObject, TinyType } from 'tiny-types';
+
 import { Expression } from './Expression';
 
 export class Result extends TinyType {

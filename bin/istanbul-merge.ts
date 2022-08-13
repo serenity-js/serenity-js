@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 
 import { sync as glob } from 'fast-glob';
-import { readFileSync, mkdirSync, writeFileSync } from 'fs';
-import * as path from 'path';
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createCoverageMap } from 'istanbul-lib-coverage';
+import * as path from 'path';
 
 const coverageMap = createCoverageMap({ });
 
@@ -16,7 +16,7 @@ console.log('Reading coverage reports from', input);
 const paths = glob(input, { onlyFiles: false, globstar: true, absolute: true });
 
 for (const pathToCoverageFile of paths) {
-    const contents = readFileSync(pathToCoverageFile).toString('utf-8');
+    const contents = readFileSync(pathToCoverageFile).toString('utf8');
 
     console.log(`Parsing ${ pathToCoverageFile } (${ contents.length }B)`);
 
@@ -32,14 +32,14 @@ for (const pathToCoverageFile of paths) {
     coverageMap.merge(coverage);
 }
 
-const output = JSON.stringify(coverageMap.toJSON(), null, 0);
+const output = JSON.stringify(coverageMap.toJSON(), undefined, 0);
 
-const outputDir = path.resolve(__dirname, '../target/coverage');
+const outputDirectory = path.resolve(__dirname, '../target/coverage');
 
-mkdirSync(outputDir, { recursive: true });
+mkdirSync(outputDirectory, { recursive: true });
 
-console.log(`Writing ${ output.length }B coverage data to ${ outputDir }/coverage-final.json`)
+console.log(`Writing ${ output.length }B coverage data to ${ outputDirectory }/coverage-final.json`)
 
-writeFileSync(`${ outputDir }/coverage-final.json`, JSON.stringify(coverageMap.toJSON(), null, 0));
+writeFileSync(`${ outputDirectory }/coverage-final.json`, JSON.stringify(coverageMap.toJSON(), undefined, 0));
 
 console.log(`Done`)

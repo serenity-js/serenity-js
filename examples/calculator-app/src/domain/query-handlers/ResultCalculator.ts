@@ -2,7 +2,6 @@ import { match } from 'tiny-types';
 
 import { CalculatorEvent, OperandEntered, OperatorUsed } from '../events';
 import { AdditionOperator, ArithmeticOperator, DivisionOperator, LeftParenthesisOperator, MultiplicationOperator, Operand, Operator, RightParenthesisOperator, SubtractionOperator } from '../model';
-
 import { QueryHandler } from './QueryHandler';
 
 export class ResultCalculator implements QueryHandler<Operand> {
@@ -38,6 +37,7 @@ export class ResultCalculator implements QueryHandler<Operand> {
             [DivisionOperator.Symbol]: 2,
         };
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         const peek = <T>(list: T[]): T => list[list.length - 1];
 
         const stack: Array<Operator | Operand> = [];

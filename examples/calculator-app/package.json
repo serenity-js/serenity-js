@@ -17,7 +17,6 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "verify": "npm test",

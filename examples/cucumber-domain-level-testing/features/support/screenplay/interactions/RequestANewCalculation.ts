@@ -1,4 +1,5 @@
 import { Actor, Interaction } from '@serenity-js/core';
+
 import { InteractDirectly } from '../abilities';
 
 export const RequestANewCalculation = () =>

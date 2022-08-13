@@ -21,8 +21,6 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
-    "lint:fix": "npm run lint -- --fix",
     "test": "exit 0;",
     "compile": "tsc --project tsconfig.json"
   },

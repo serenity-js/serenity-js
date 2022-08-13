@@ -1,4 +1,5 @@
 import { ensure, hasLengthOf, isDefined, isString, TinyType } from 'tiny-types';
+
 import * as operators from './operators';
 
 export abstract class Operator extends TinyType {

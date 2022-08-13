@@ -1,15 +1,11 @@
 ---
 root: true
-ignorePatterns:
-  - "**/lib/**"
 parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: 6
   sourceType: module
   project:
-    - "./examples/*/tsconfig.eslint.json"
-    - "./integration/*/tsconfig.eslint.json"
-    - "./packages/*/tsconfig.eslint.json"
+    - "./tsconfig.eslint.json"
 plugins:
   - "@typescript-eslint"
   - import
@@ -116,6 +112,7 @@ rules:
         pkg: true
         prop: true
         Prop: true
+        Props: true
         props: true
         temp: true
         wdio: true

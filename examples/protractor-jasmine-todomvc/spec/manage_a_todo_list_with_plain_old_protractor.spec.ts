@@ -54,9 +54,8 @@ describe('Todo List App', function () {
 
             completeItemCalled: async (itemName: string) => {
                 await element(
-                        by.xpath(`//li[*[@class='view' and contains(.,'${ itemName }')]]//input[contains(@class,'toggle')]`),
-                    )
-                    .click();
+                    by.xpath(`//li[*[@class='view' and contains(.,'${ itemName }')]]//input[contains(@class,'toggle')]`),
+                ).click();
             },
 
             filterToShowActiveItemsOnly: async () => {
