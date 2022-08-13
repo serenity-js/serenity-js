@@ -1,4 +1,5 @@
 # all
+# all-code
 # @serenity-js
 # @integration
 # @documentation

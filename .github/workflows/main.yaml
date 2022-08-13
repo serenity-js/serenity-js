@@ -24,46 +24,16 @@ jobs:
         with:
           node-version: 16.x
 
+# exclude documentation
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: BOOTSTRAP_SCOPE=all-code make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Lint
         run: make lint
-
-  # todo: remove when the website is migrated to v3
-  api-docs:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Site (API Docs)
-        run: make SITE_SCOPE=@serenity-js site
-
-      - name: Compress API Docs
-        run: 7z a api-docs.zip package.json "packages/*/target/site"
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: api-docs
-          path: |
-            api-docs.zip
 
   compile:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
@@ -79,7 +49,7 @@ jobs:
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: BOOTSTRAP_SCOPE=all-code make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -453,59 +423,7 @@ jobs:
           path: |
             CHANGELOG.md
 
-  website-v2:
-    runs-on: ubuntu-latest
-    needs:
-      - api-docs
-      - publish-artifacts
-    if: always()
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-lerna
-        if: github.ref == 'refs/heads/master'
-        with:
-          github_token:   ${{ secrets.GITHUB_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
-
-      - name: Download changelog
-        if: needs.publish-artifacts.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
-      - name: Download API docs
-        if: needs.api-docs.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: api-docs
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@documentation)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@documentation install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Build Serenity/JS website
-        run: make SITE_SCOPE=@documentation site
-
-      - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
-        if: github.ref == 'refs/heads/master'
-        with:
-          BRANCH: gh-pages
-          FOLDER: documentation/website/target/site
-          CLEAN: true
-
-  website-v3:
+  website:
     runs-on: ubuntu-latest
     needs:
       - publish-artifacts
@@ -543,11 +461,9 @@ jobs:
       - name: Install Node Modules (@documentation)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: BOOTSTRAP_SCOPE=@documentation make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-# todo Clean up and define a custom scope
 
       - name: Build custom TypeDoc plugin
         working-directory: ./documentation/typedoc-plugin-ignore-inherited-static-methods
