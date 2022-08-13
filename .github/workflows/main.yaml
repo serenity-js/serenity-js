@@ -440,12 +440,13 @@ jobs:
 #          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
 #          npm_token: ${{ secrets.NPM_TOKEN }}
 
-#      - name: Download compiled libs
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: compiled-libs
-#      - name: Decompress Libs
-#        run:  7z x -aoa compiled-libs.zip
+      # Todo: use workspaces and tsconfig paths instead
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+      - name: Decompress Libs
+        run:  7z x -aoa compiled-libs.zip
 #
 #      - name: Download changelog
 #        if: needs.publish-artifacts.result == 'success'
