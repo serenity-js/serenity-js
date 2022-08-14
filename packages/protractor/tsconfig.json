@@ -1,11 +1,9 @@
 {
-  "extends": "../../tsconfig.options.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src",
-    "lib": ["es2019", "dom"]
-  },
-  "include": [
-    "src/**/*.ts"
-  ]
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  }
 }

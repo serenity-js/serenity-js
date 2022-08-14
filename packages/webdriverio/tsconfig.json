@@ -1,15 +1,12 @@
 {
-  "extends": "../../tsconfig.options.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src",
-    "lib": ["es2019", "dom"],
+    "lib": [
+      "es2019",
+      "dom"
+    ],
     "types": [
-      "node",
       "webdriverio/async"
     ]
-  },
-  "include": [
-    "src/**/*.ts"
-  ]
+  }
 }

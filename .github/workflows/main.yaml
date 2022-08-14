@@ -442,12 +442,12 @@ jobs:
 #          npm_token: ${{ secrets.NPM_TOKEN }}
 
       # Todo: use tsconfig paths and references instead to avoid having to depend on compiled libs
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
+#      - name: Download compiled libs
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: compiled-libs
+#      - name: Decompress Libs
+#        run:  7z x -aoa compiled-libs.zip
 #
 #      - name: Download changelog
 #        if: needs.publish-artifacts.result == 'success'

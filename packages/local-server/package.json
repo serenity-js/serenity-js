@@ -34,7 +34,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json"
+    "compile": "tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
