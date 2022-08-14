@@ -165,11 +165,12 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                 case 'pending':
                     return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
-                case 'passed':
-                    return new ExecutionSuccessful();
-
                 case 'skipped':
                     return new ExecutionSkipped();
+
+                // case 'passed':
+                default:
+                    return new ExecutionSuccessful();
             }
 
         }

@@ -63,7 +63,7 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
         const parent = await this.parent.nativeElement();
 
         if (! parent) {
-            return;
+            return [];
         }
 
         return parent.$$(this.nativeSelector());
