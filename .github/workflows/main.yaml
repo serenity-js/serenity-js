@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (all)
+      - name: Install Node Modules (libs)
         uses: bahmutov/npm-install@v1
         with:
           install-command: make BOOTSTRAP_SCOPE=libs install
