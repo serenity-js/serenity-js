@@ -72,6 +72,7 @@ jobs:
   test-linux-node-lts-active:
     name: test (Linux, LTS)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -110,6 +111,7 @@ jobs:
   test-linux-node-lts-previous:
     name: test (Linux, LTS-1)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -140,6 +142,7 @@ jobs:
   test-linux-node-next:
     name: test (Linux, Next)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -170,6 +173,7 @@ jobs:
   test-windows-node-lts-active:
     name: test (Windows, LTS)
     needs:
+      - lint
       - compile
     runs-on: windows-latest
     steps:
@@ -205,6 +209,7 @@ jobs:
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
     needs:
+      - lint
       - compile
     runs-on: ubuntu-latest
     steps:
@@ -260,6 +265,7 @@ jobs:
   test-integration:
     name: integration (${{ matrix.module }})
     needs:
+      - lint
       - compile
     runs-on: ubuntu-latest
     strategy:
