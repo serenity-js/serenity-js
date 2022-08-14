@@ -258,7 +258,7 @@ const config = {
 
                     categorizeByGroup: true,
                     plugin: [
-                        '../typedoc-plugin-ignore-inherited-static-methods',
+                        './typedoc-plugins/ignore-inherited-static-methods.js',
                         'typedoc-plugin-mdn-links',
                     ],
                     sort: [

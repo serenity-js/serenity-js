@@ -433,42 +433,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-#      - uses: ./.github/actions/setup-lerna
-#        if: github.ref == 'refs/heads/master'
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-#          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
-#          npm_token: ${{ secrets.NPM_TOKEN }}
-
-      # Todo: use tsconfig paths and references instead to avoid having to depend on compiled libs
-#      - name: Download compiled libs
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: compiled-libs
-#      - name: Decompress Libs
-#        run:  7z x -aoa compiled-libs.zip
-#
-#      - name: Download changelog
-#        if: needs.publish-artifacts.result == 'success'
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: changelog
 
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (@documentation)
+      - name: Install Node Modules (site)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: make BOOTSTRAP_SCOPE=site install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Compile documentation plugins
-        run: make COMPILE_SCOPE=@documentation compile
 
       - name: Build serenity-js.org website
         run: make site
@@ -482,7 +458,6 @@ jobs:
           name: website
           path: |
             serenity-js-website.zip        
-        
 
 #      - name: Publish website
 #        uses: JamesIves/github-pages-deploy-action@v4.3.0

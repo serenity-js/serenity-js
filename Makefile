@@ -1,5 +1,6 @@
 # all
 # libs
+# site
 # @serenity-js
 # @integration
 # @documentation
