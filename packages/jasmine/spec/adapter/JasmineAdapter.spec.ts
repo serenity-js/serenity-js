@@ -1,5 +1,8 @@
+import 'sinon-chai';
+
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { JasmineAdapter } from '../../src/adapter';
