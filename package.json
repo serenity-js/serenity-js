@@ -58,6 +58,7 @@
     "lerna": "lerna",
     "lerna:bootstrap:all": "lerna bootstrap",
     "lerna:bootstrap:libs": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/*' --ignore='@documentation/*' --ignore '@examples/*' --include-dependencies",
+    "lerna:bootstrap:site": "lerna bootstrap --scope '@serenity-js/*' --scope '@documentation/*' --ignore '@integration/*' --ignore '@examples/*' --include-dependencies",
     "lerna:bootstrap:@serenity-js": "lerna bootstrap --scope '@serenity-js/*' --ignore='@documentation/*' --ignore '@examples/*' --ignore '@integration/*' --include-dependencies",
     "lerna:bootstrap:@integration": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/*' --ignore='@documentation/*' --ignore '@examples/*' --include-dependencies",
     "lerna:bootstrap:@examples": "lerna bootstrap --scope '@serenity-js/*' --scope '@examples/*' --ignore='@documentation/*' --ignore '@integration/*' --include-dependencies",
