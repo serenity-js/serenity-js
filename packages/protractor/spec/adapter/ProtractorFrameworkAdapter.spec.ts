@@ -1,3 +1,5 @@
+import 'sinon-chai';
+
 import { expect } from '@integration/testing-tools';
 import { Serenity } from '@serenity-js/core';
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';

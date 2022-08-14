@@ -1,3 +1,5 @@
+import 'chai-as-promised';
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
