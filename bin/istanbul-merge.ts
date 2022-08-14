@@ -22,7 +22,7 @@ for (const pathToCoverageFile of paths) {
 
     const parsed   = JSON.parse(contents);
     const coverage = Object.keys(parsed).reduce((acc, currentPath) => {
-        acc[currentPath] = parsed[currentPath].data
+        acc[currentPath] = (parsed as object)[currentPath].data
             ? parsed[currentPath].data
             : parsed[currentPath];
 
