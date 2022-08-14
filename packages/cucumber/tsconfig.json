@@ -1,23 +1,11 @@
 {
+  "extends": "../../tsconfig.options.json",
   "compilerOptions": {
-    "target": "es2019",
-    "lib": ["es2019"],
-    "module": "commonjs",
-    "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "./lib",
-    "rootDir": "./src"
+    "outDir": "lib",
+    "rootDir": "src",
+    "skipLibCheck": true
   },
-
   "include": [
     "src/**/*.ts"
-  ],
-  "exclude": [
-    "features",
-    "spec",
-    "node_modules"
   ]
 }

@@ -1,18 +1,8 @@
 /* istanbul ignore file */
 
 import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-} from '@serenity-js/core/lib/model';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
-
 import { TerminalTheme } from './TerminalTheme';
 
 /**
@@ -67,7 +57,8 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
             case ExecutionSkipped.name:
             case ExecutionIgnored.name:
                 return this.chalk.blackBright(this.joined(parts));
-            case ExecutionSuccessful.name:
+            // case ExecutionSuccessful.name:
+            default:
                 return this.chalk.green(this.joined(parts));
         }
     }
