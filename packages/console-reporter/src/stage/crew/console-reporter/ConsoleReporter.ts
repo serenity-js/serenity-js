@@ -1,5 +1,5 @@
 import { ListensToDomainEvents, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
-import { AssertionError } from '@serenity-js/core/lib';
+import { AssertionError } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,

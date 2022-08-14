@@ -32,7 +32,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json"
+    "compile": "tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
