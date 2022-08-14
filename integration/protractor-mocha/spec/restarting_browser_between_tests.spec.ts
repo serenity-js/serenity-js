@@ -1,5 +1,5 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
 import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
