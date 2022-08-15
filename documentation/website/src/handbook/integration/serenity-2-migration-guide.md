@@ -7,8 +7,8 @@ layout: handbook.hbs
 
 ## Introduction
 
-This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes ([Actor](https://serenity-js.org/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html), 
-[Task](https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html), [Interaction](https://serenity-js.org/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) and [Question](https://serenity-js.org/modules/core/class/src/screenplay/Question.ts~Question.html)) 
+This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes ([Actor](/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html), 
+[Task](/modules/core/class/src/screenplay/Task.ts~Task.html), [Interaction](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) and [Question](/modules/core/class/src/screenplay/Question.ts~Question.html)) 
 are backwardly compatible. 
 
 There are some [example mini-projects within the Serenity/JS main repo](https://github.com/jan-molak/serenity-js/tree/master/examples) created in version 2.x format that demonstrate the major features for each supported framework. 
@@ -106,7 +106,7 @@ Any scripts that used to run `serenity update` or `webdriver-manager update`  sh
 
     "postinstall": "serenity-bdd update --ignoreSSL", 
     
-For further information, please see [the modules section of the serenity/JS website](https://serenity-js.org/modules/serenity-bdd)           
+For further information, please see [the modules section of the serenity/JS website](/modules/serenity-bdd)           
 
 ## Protractor configuration (protractor.conf.js)
 
@@ -561,7 +561,7 @@ import { step } from "@serenity-js/core/lib/recording";
 
 ### Simplifying Tasks using Task.where
 
-Serenity/JS 2.x now has factory for creating tasks by means of [Task.where](https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where). 
+Serenity/JS 2.x now has factory for creating tasks by means of [Task.where](/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where). 
 For instance here is a re-written version of the `NavigateToNonAngular` example `Task` described in the previous section:
 
 ```javascript
@@ -606,8 +606,8 @@ export const expect = chai.expect;
 
 ### Migrating See.if to Ensure.that
 
-Serenity/JS 2.x now has a completely rewritten [assertions](https://serenity-js.org/modules/assertions/) library. 
-in Serenity/JS 1.x the entry point to an assertion was `See.if`, however the new assertion syntax now begins with [Ensure.that](https://serenity-js.org/modules/assertions/class/src/Ensure.ts~Ensure.html).  
+Serenity/JS 2.x now has a completely rewritten [assertions](/modules/assertions/) library. 
+in Serenity/JS 1.x the entry point to an assertion was `See.if`, however the new assertion syntax now begins with [Ensure.that](/modules/assertions/class/src/Ensure.ts~Ensure.html).  
 All assertions and expectations can be found in `@serenity-js/assertions`, so you'll typically see all imports grouped together as follows: 
 
 ```javascript
@@ -632,7 +632,7 @@ Is.present()  | isPresent()
 Is.selected()  | isSelected()
 Is.visible()  | isVisible()
 
-A full reference of the API can be found in the [expectations documentation](https://serenity-js.org/modules/protractor/identifiers.html#expectations).
+A full reference of the API can be found in the [expectations documentation](/modules/protractor/identifiers.html#expectations).
 
 ## Migrating Questions
 
