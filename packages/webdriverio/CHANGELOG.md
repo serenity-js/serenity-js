@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.25](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.24...v3.0.0-rc.25) (2022-08-15)
+
+
+### Bug Fixes
+
+* **core:** extracted common TypeScript configuration ([0108370](https://github.com/serenity-js/serenity-js/commit/0108370a6a7ebb4bcd71773482801d29f5660268))
+* **deps:** updated TinyTypes to 1.19.0 ([f6d53e4](https://github.com/serenity-js/serenity-js/commit/f6d53e4dbbfcb81139bd888ac11441b6344e47f5))
+* **webdriverio:** ensure Serenity/JS-specific config is not passed to WebdriverIO-specific services ([384738e](https://github.com/serenity-js/serenity-js/commit/384738e0d7b61b69de24b11ff1fbc32b835a440c))
+* **webdriverio:** use local instead of global browser object in WebdriverioPage ([323be75](https://github.com/serenity-js/serenity-js/commit/323be7517ea8b90f967f510c03c744330c5ba2b0))
+
+
+
+
+
 # [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
