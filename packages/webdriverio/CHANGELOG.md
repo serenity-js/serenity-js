@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.26](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.25...v3.0.0-rc.26) (2022-08-15)
+
+
+### Bug Fixes
+
+* **webdriverio:** updated WebdriverIO dependencies to 7.20.9 ([da3ff9c](https://github.com/serenity-js/serenity-js/commit/da3ff9c4c55f59758450fc8428e0596f3d372ce6))
+
+
+
+
+
 # [3.0.0-rc.25](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.24...v3.0.0-rc.25) (2022-08-15)
 
 
