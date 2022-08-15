@@ -114,7 +114,7 @@
                 <div class="col-lg-9 col-md-12">
                     <article class="content">
                         <nav class="article-tools">
-                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/integration/serenity-2-migration-guide.md">
+                            <a href="https://github.com/serenity-js/serenity-js/edit/2.x/documentation/website/src/handbook/integration/serenity-2-migration-guide.md">
                                 <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
@@ -123,8 +123,8 @@
 <p>This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes (<a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a>, 
 <a href="/modules/core/class/src/screenplay/Task.ts~Task.html">Task</a>, <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a> and <a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a>) 
 are backwardly compatible. </p>
-<p>There are some <a href="https://github.com/jan-molak/serenity-js/tree/master/examples">example mini-projects within the Serenity/JS main repo</a> created in version 2.x format that demonstrate the major features for each supported framework. 
-For instance there are Serenity/JS 2.x implementations of a <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/calculator-app">calculator</a> or the <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc">popular todomvc</a> project.
+<p>There are some <a href="https://github.com/serenity-js/serenity-js/tree/2.x/examples">example mini-projects within the Serenity/JS main repo</a> created in version 2.x format that demonstrate the major features for each supported framework. 
+For instance there are Serenity/JS 2.x implementations of a <a href="https://github.com/serenity-js/serenity-js/tree/2.x/examples/calculator-app">calculator</a> or the <a href="https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-jasmine-todomvc">popular todomvc</a> project.
 There are also some separate repos that provide empty templates for <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template">Protractor</a>, <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Jasmine</a> and <a href="https://github.com/serenity-js/serenity-js-mocha-protractor-template">Mocha</a>.
 However, it can sometimes be difficult to know how to apply patterns from example or empty projects into your existing project. </p>
 <p>As with any major library or framework release, there are a number of breaking changes that will prevent your project from being immediately runnable upon changing to the new version. 
@@ -676,7 +676,7 @@ in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, howe
 </tr>
 </tbody></table>
 <h3 id="is-no-longer-is--">Is no longer "Is" :-)</h3>
-<p>The <code>Is</code> class from 1.x has now been replaced with <a href="https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations">expectations</a> that can be used with both Wait and Ensure. <code>Is</code> was previously in <code>serenity-js/lib/serenity-protractor</code>, but now <a href="https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations">expectations</a> can be found in <code>@serenity-js/protractor</code>. Some examples of replacements that might need to be made are as follows:</p>
+<p>The <code>Is</code> class from 1.x has now been replaced with <a href="https://github.com/serenity-js/serenity-js/tree/2.x/packages/protractor/src/expectations">expectations</a> that can be used with both Wait and Ensure. <code>Is</code> was previously in <code>serenity-js/lib/serenity-protractor</code>, but now <a href="https://github.com/serenity-js/serenity-js/tree/2.x/packages/protractor/src/expectations">expectations</a> can be found in <code>@serenity-js/protractor</code>. Some examples of replacements that might need to be made are as follows:</p>
 <table>
 <thead>
 <tr>
@@ -801,7 +801,7 @@ This might be used in cases where a floating window is overlaying another elemen
                     <li><a href="/handbook/">Serenity/JS Handbook</a></li>
                     <li><a href="/modules/">API docs</a></li>
                     <li><a href="https://github.com/serenity-js">Template projects</a></li>
-                    <li><a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Examples</a></li>
+                    <li><a href="https://github.com/serenity-js/serenity-js/tree/2.x/examples">Examples</a></li>
                 </ul>
             </div>
             <div class="col-md-2 col-sm-4">
@@ -826,7 +826,7 @@ This might be used in cases where a floating window is overlaying another elemen
         <div class="col-lg-6 mx-auto">
             <div class="ftr-column-list">
                 <a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
-                <a class="github-button" href="https://github.com/serenity-js/serenity-js" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star jan-molak/serenity-js on GitHub">Star</a>
+                <a class="github-button" href="https://github.com/serenity-js/serenity-js" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star Serenity/JS on GitHub">Star</a>
             </div>
         </div>
     </div>
