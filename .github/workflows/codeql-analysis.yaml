@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '41 20 * * 2'
 
+# https://github.com/ossf/scorecard/blob/main/docs/checks.md#token-permissions
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+# https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
 permissions:
   contents: read
 
