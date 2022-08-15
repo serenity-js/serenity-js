@@ -46,7 +46,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 > - To get notified when Serenity/JS v3 is available and when new tutorials are released, [follow @SerenityJS on Twitter](https://twitter.com/SerenityJS)!
 > - To find out more about what's left to do for the v3 launch, check out our [project board](https://github.com/serenity-js/serenity-js/milestone/1).
 > 
-> And if you find our work useful and would like to help, consider becoming a [GitHub Sponsor of Serenity/JS](https://github.com/sponsors/serenity-js) :bow:
+> And if you find Serenity/JS useful, learn how becoming a [GitHub Sponsor](https://github.com/sponsors/serenity-js) can help both you and this project!
 >
 > ## Where's Serenity/JS v2 codebase?
 > Check out the [`2.x` branch](https://github.com/serenity-js/serenity-js/tree/2.x)
