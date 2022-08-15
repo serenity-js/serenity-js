@@ -85,7 +85,7 @@ const config = {
                     { label: 'API', to: 'api/core', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contribute', label: 'Contribute', position: 'left' },
-                    { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'right' },
+                    { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
                     {
                         href: 'https://github.com/serenity-js/serenity-js',
                         label: 'GitHub',
@@ -290,8 +290,10 @@ const config = {
                 blogSidebarTitle: 'Changelog',
                 routeBasePath: '/changelog',
                 showReadingTime: false,
-                postsPerPage: 20,
+                postsPerPage: 5,
                 archiveBasePath: null,
+                blogTagsListComponent: '@theme/BlogTagsListPage',
+                blogTagsPostsComponent: '@theme/BlogTagsPostsPage',
                 // authorsMapPath: 'authors.json',
                 feedOptions: {
                     type: 'all',

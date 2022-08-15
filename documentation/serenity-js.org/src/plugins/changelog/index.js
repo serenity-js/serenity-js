@@ -10,6 +10,8 @@ const fs = require('fs-extra');
 const pluginContentBlog = require('@docusaurus/plugin-content-blog');
 const {aliasedSitePath, docuHash, normalizeUrl} = require('@docusaurus/utils');
 
+const serenityPackages = fs.readdirSync(path.resolve(__dirname, '../../../../../packages'));
+
 /**
  * Multiple versions may be published on the same day, causing the order to be
  * the reverse. Therefore, our publish time has a "fake hour" to order them.
@@ -24,6 +26,34 @@ const authorsMap = {};
 const sectionLimitPattern = '(?=\\n#{1,3} \\[.*\\]\\(.*\\) \\(.*?\\))'
 const titlePattern = '#{1,3} \\[(?<version>.*?)\\]\\((?<compare_link>.*?)\\) \\((?<release_date>.*?)\\)'
 
+function unique(items) {
+    return Array.from(new Set(items));
+}
+
+function issueNumber(issue) {
+    return Number.parseInt(issue.id.match(/#(?<idNumber>\d+)/).groups.idNumber, 10);
+}
+
+function projectName(issue) {
+    return Number.parseInt(issue.id.match(/(?<projectName>\w+\/\w+)?#(\d+)/).groups.projectName, 10);
+}
+
+function sortSerenityIssues(a, b) {
+    return issueNumber(a) - issueNumber(b);
+}
+
+function sortExternalIssues(a, b) {
+    const aProjectName = projectName(a);
+    const aIssueNumber = issueNumber(a);
+    const bProjectName = projectName(b);
+    const bIssueNumber = issueNumber(b);
+
+    if (aProjectName === bProjectName) {
+        return aIssueNumber - bIssueNumber
+    }
+
+    return aProjectName <= bProjectName ? -1 : 1;
+}
 
 /**
  * @param {string} section
@@ -42,6 +72,55 @@ function processSection(section) {
     const content = section
         .replace(titleLineMatch[0], '')
         .trim();
+
+    const moduleRelatedUpdatePattern = /\*\s\*\*([\w-]+):/;
+    const tags = content.split('\n')
+        .filter(line => moduleRelatedUpdatePattern.test(line))
+        .map(line => line.match(moduleRelatedUpdatePattern)[1])
+    const uniqueTags = unique(tags).sort();
+
+    const tagsMarkdown = uniqueTags.length > 0
+        ? `tags:\n${ uniqueTags.map(tag => `  - '${ tag }'`).join('\n') }`
+        : '';
+
+    const githubTicketPattern = /\[(?<issueId>(?:\w+\/\w+)?#(\d+))]\((?<issueUrl>.*?)\)/g;
+    const issues = content.split('\n')
+        .filter(line => githubTicketPattern.test(line))
+        .map(line => {
+            const matches = line.matchAll(githubTicketPattern);
+            const issues = { serenity: [], external: [] };
+            for (const match of matches) {
+                const { issueId, issueUrl } = match.groups;
+                const issue = { id: issueId, url: issueUrl };
+
+                issues[issueId.startsWith('#') ? 'serenity' : 'external'].push(issue);
+            }
+            return issues;
+        })
+        .reduce((acc, issues) => {
+            acc.serenity.push(...issues.serenity);
+            acc.external.push(...issues.external);
+            return acc;
+        }, { serenity: [], external: [] });
+    const serenityIssues = unique(issues.serenity.sort(sortSerenityIssues).map(issue => `[${ issue.id }](${ issue.url })`));
+    const externalIssues = unique(issues.external.sort(sortExternalIssues).map(issue => `[${ issue.id }](${ issue.url })`));
+
+    const serenityIssuesMarkdown = serenityIssues.length === 0 ? '' : `addresses ${ serenityIssues.join(', ') } and `;
+    const externalIssuesMarkdown = externalIssues.length === 0 ? '' : `Related external tickets: ${ externalIssues.join(', ') }`;
+
+    const affectedSerenityPackages = uniqueTags.filter(tag => serenityPackages.includes(tag));
+
+    const summary = [
+        `## Summary`,
+        `This release ${ serenityIssuesMarkdown }introduces improvements to`,
+        affectedSerenityPackages.length === 0
+            ? 'the internal structure of Serenity/JS.'
+            : `the following Serenity/JS modules:\n${ affectedSerenityPackages.map(packageName => `  - [\`@serenity-js/${ packageName }\`](/api/${ packageName })`).join('\n') }`,
+        `\n`,
+        externalIssuesMarkdown,
+        `\n`,
+        `View detailed [code diff](${diffLink}) on GitHub`,
+    ].join('\n');
 
     let authors = content.match(/## Committers: \d.*/s);
     if (authors) {
@@ -81,11 +160,12 @@ function processSection(section) {
             `---`,
             `date: ${ date }T${ hour }:00`,
             `title: ${ title }`,
+            `${ tagsMarkdown }`,
             `${ authorsMarkdown }`,
             `---`,
             `# ${ title }`,
-            `<!-- truncate -->`,
-            `[code diff](${diffLink})`,
+            `${ summary }`,
+            // `<!-- truncate -->`,
             `${ content.replace(/####?/g, '##') }`,
         ].filter(Boolean).join('\n')
     };
