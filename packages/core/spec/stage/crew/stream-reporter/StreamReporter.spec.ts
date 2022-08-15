@@ -7,7 +7,6 @@ import { TestRunFinished } from '../../../../src/events';
 import { Timestamp } from '../../../../src/model';
 import { expect } from '../../../expect';
 
-/** @test {StreamReporter} */
 describe('StreamReporter', () => {
 
     let stage:          Stage,
@@ -28,7 +27,6 @@ describe('StreamReporter', () => {
         output = sinon.createStubInstance(Writable);
     });
 
-    /** @test {StreamReporter} */
     it('prints the events it receives to output stream', () => {
         const reporter = new StreamReporter(output as unknown as Writable, stage);
         stage.assign(reporter);

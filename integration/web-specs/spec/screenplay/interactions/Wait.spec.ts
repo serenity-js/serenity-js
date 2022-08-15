@@ -20,7 +20,6 @@ describe('Wait', () => {
 
                 Ensure.that(Text.of(status()), equals('Not ready')),
                 Click.on(loadButton()),
-                Ensure.that(Text.of(status()), equals('Loading...')),
 
                 Wait.for(Duration.ofMilliseconds(2500)),
 

@@ -6,6 +6,11 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { PlaywrightLocator } from './locators';
 
+/**
+ * Playwright-specific implementation of {@apilink PageElement}.
+ *
+ * @group Models
+ */
 export class PlaywrightPageElement extends PageElement<playwright.ElementHandle> {
     of(parent: PageElement<playwright.ElementHandle>): PageElement<playwright.ElementHandle> {
         return new PlaywrightPageElement(this.locator.of(parent.locator));

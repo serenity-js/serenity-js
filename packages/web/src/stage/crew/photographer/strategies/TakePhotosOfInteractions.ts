@@ -3,17 +3,16 @@ import { DomainEvent, InteractionFinished } from '@serenity-js/core/lib/events';
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * @desc
- *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when
- *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight
- *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.
+ * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots)
+ * when then {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
+ * performs any {@apilink Interaction}.
  *
- *  This strategy works best when you want the results of your automated tests
- *  to become comprehensive living documentation of your system.
+ * This strategy works best when you want the results of your automated tests
+ * to become comprehensive living documentation of your system.
  *
- *  *Please note* that taking screenshots affects the performance of your tests.
+ * *Please note* that taking screenshots affects the performance of your tests.
  *
- * @extends {PhotoTakingStrategy}
+ * @group Stage
  */
 export class TakePhotosOfInteractions extends PhotoTakingStrategy {
     protected shouldTakeAPhotoOf(event: DomainEvent): boolean {

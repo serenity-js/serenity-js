@@ -8,6 +8,12 @@ import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 import { MetaQuestion } from './MetaQuestion';
 
+/**
+ * Serenity/JS Screenplay Pattern-style wrapper around {@apilink Array}
+ * and array-like structures - see {@apilink PageElements}.
+ *
+ * @group Questions
+ */
 export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     private subject: string;
 
@@ -245,6 +251,9 @@ class ForEachLoop<Item_Type> extends Task {
     }
 }
 
+/**
+ * @group Questions
+ */
 export interface CurrentItem<Item_Type> {
     item: Item_Type;
     actor: Actor;

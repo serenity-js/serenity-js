@@ -7,7 +7,6 @@ import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';
 
-/** @test {SerenityBDDReporter} */
 describe('SerenityBDDReporter', () => {
 
     let reporter: SerenityBDDReporter,

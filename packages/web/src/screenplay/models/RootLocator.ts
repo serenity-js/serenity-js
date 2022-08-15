@@ -1,3 +1,15 @@
+/**
+ * {@apilink RootLocator} represents the context in which {@apilink Locator} looks for {@apilink PageElement} or {@apilink PageElements}.
+ * This context is either a parent element, or some representation of the top-level browsing context.
+ *
+ * ## Learn more
+ * - {@apilink Locator}
+ * - {@apilink Page.locate}
+ * - {@apilink PageElement}
+ * - {@apilink PageElements}
+ *
+ * @group Models
+ */
 export abstract class RootLocator<Native_Element_Type> {
     public abstract switchToFrame(element: Native_Element_Type): Promise<void>;
     public abstract switchToParentFrame(): Promise<void>;

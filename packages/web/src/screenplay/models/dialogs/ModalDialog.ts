@@ -3,107 +3,129 @@ import { Answerable, d, Interaction, Optional, Question, QuestionAdapter } from 
 import { Page } from '../Page';
 
 /**
- * @desc
- *  Manages interactions with JavaScript modal dialog windows,
- *  triggered by {@link window.alert}, {@link window.confirm},
- *  or `window.prompt()`, and stores their `message`
- *  so that it can be asserted on once the dialog is handled.
+ * Manages interactions with JavaScript modal dialog windows,
+ * triggered by [window.alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),
+ * [window.confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm),
+ * or [`window.prompt`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt),
+ * and stores their `message` so that it can be asserted on once the dialog is handled.
  *
- *  Note that in order to make handling modal windows
- *  consistent across the various Web integration tools (such as Playwright, Puppeteer,
- *  WebdriverIO or Selenium), Serenity/JS works as follows:
- *  - Serenity/JS dismisses any modal dialogs by default and stores their message so that it can be asserted on
- *  - This behaviour can be changed by invoking `ModalDialog.acceptNext()`, `ModalDialog.acceptNextWithValue(value)`, or `ModalDialog.dismissNext()` before the dialog is triggered, as per the below examples.
- *  - Serenity/JS also allows you to `Wait.until(ModalDialog, isPresent())`
+ * Note that in order to make handling modal windows
+ * consistent across the various Web integration tools (such as Playwright, Puppeteer,
+ * WebdriverIO or Selenium), Serenity/JS works as follows:
+ * - Serenity/JS dismisses any modal dialogs by default and stores their message so that it can be asserted on.
+ * - This behaviour can be changed by invoking {@apilink ModalDialog.acceptNext}, {@apilink ModalDialog.acceptNextWithValue]], or [[ModalDialog.dismissNext} before the dialog is triggered, as per the below examples.
+ * - Serenity/JS also allows you to `Wait.until(ModalDialog, isPresent())` so that you can synchronise your tests
+ *   with modal dialogs that appear after a delay.
  *
- * @example <caption>Example HTML widget</caption>
- *  <button id="trigger" onclick="trigger()">Trigger Alert</button>
- *  <p id="result"></p>
+ * ## Example HTML widget
  *
- *  <script>
- *      function trigger() {
- *          document.getElementById("result").innerHTML = (
- *              function () {
- *                  return confirm('Continue?')
- *                      ? 'accepted'
- *                      : 'dismissed';
- *              }
- *          )();
- *      }
- *  </script>
+ * In the below example widget, clicking on the button results in a [confirmation dialog](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm)
+ * appearing.
  *
- * @example <caption>Modal dialog gets dismissed by default</caption>
- *  import { actorCalled } from '@serenity-js/core'
- *  import { By, Click, Text, PageElement, ModalDialog } from '@serenity-js/web'
- *  import { Ensure, equals } from '@serenity-js/assertions'
+ * ```html
+ * <button id="trigger" onclick="trigger()">Trigger Alert</button>
+ * <p id="result"></p>
  *
- *  const Example = {
- *      trigger:    PageElement.located(By.id('trigger')).describedAs('the modal dialog trigger'),
- *      result:     PageElement.located(By.id('result')).describedAs('result'),
- *  }
+ * <script>
+ *   function trigger() {
+ *     document.getElementById("result").innerHTML = (
+ *       function () {
+ *         return confirm('Continue?')
+ *           ? 'accepted'
+ *           : 'dismissed';
+ *       }
+ *     )();
+ *   }
+ * </script>
+ * ```
  *
- *  await actorCalled('Nick').attemptsTo(
- *      Click.on(Example.trigger),
+ * ## Modal dialog gets dismissed by default
  *
- *      Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { By, Click, Text, PageElement, ModalDialog } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *      Ensure.that(Text.of(Example.result), equals('dismissed')),
- *  )
+ * const Example = {
+ *   trigger: () =>
+ *     PageElement.located(By.id('trigger')).describedAs('the modal dialog trigger'),
  *
- * @example <caption>Changing modal dialog handler</caption>
- *  import { actorCalled } from '@serenity-js/core'
- *  import { By, Click, Text, PageElement, ModalDialog } from '@serenity-js/web'
- *  import { Ensure, equals } from '@serenity-js/assertions'
+ *   result: () =>
+ *     PageElement.located(By.id('result')).describedAs('result'),
+ * }
  *
- *  const Example = {
- *      trigger:    PageElement.located(By.id('trigger')).describedAs('the modal dialog trigger'),
- *      result:     PageElement.located(By.id('result')).describedAs('result'),
- *  }
+ * await actorCalled('Nick').attemptsTo(
+ *   Click.on(Example.trigger()),
  *
- *  await actorCalled('Nick').attemptsTo(
- *      ModalDialog.acceptNext(),
- *      // or: ModalDialog.acceptNextWithValue('some value'),
- *      // or: ModalDialog.dismissNext(),
+ *   Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
  *
- *      Click.on(Example.trigger),
+ *   Ensure.that(Text.of(Example.result()), equals('dismissed')),
+ * )
+ * ```
  *
- *      Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
+ * ## Changing modal dialog handler
  *
- *      Ensure.that(Text.of(Example.result), equals('accepted')),
- *  )
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { By, Click, Text, PageElement, ModalDialog } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * @implements {@serenity-js/core/lib/screenplay~Optional}
+ * const Example = {
+ *   trigger: () =>
+ *     PageElement.located(By.id('trigger')).describedAs('the modal dialog trigger'),
+ *
+ *   result: () =>
+ *     PageElement.located(By.id('result')).describedAs('result'),
+ * }
+ *
+ * await actorCalled('Nick').attemptsTo(
+ *   ModalDialog.acceptNext(),
+ *   // or: ModalDialog.acceptNextWithValue('some value'),
+ *   // or: ModalDialog.dismissNext(),
+ *
+ *   Click.on(Example.trigger),
+ *
+ *   Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
+ *
+ *   Ensure.that(Text.of(Example.result), equals('accepted')),
+ * )
+ * ```
+ *
+ * ## Learn more
+ * - {@apilink Optional}
+ *
+ * @group Models
  */
 export abstract class ModalDialog implements Optional {
 
     /**
-     * @desc
-     *  Returns a promise that resolves to `true`
-     *  when a modal dialog has been handled, so accepted or dismissed.
-     *  Returns `false` for dialogs that haven't been handled yet.
+     * Returns a promise that resolves to `true`
+     * when a modal dialog has been handled, so accepted or dismissed.
+     * Returns `false` for dialogs that haven't been handled yet.
      *
-     *  Useful when a JavaScript modal dialog is generated after a delay,
-     *  e.g. triggered by `setTimeout`.
+     * Useful when a JavaScript modal dialog is generated after a delay,
+     * e.g. triggered by `setTimeout`.
      *
-     *  @example
-     *   import { actorCalled, Wait } from '@serenity-js/core'
-     *   import { Ensure, equals, isPresent } from '@serenity-js/assertions'
-     *   import { ModalDialog } from '@serenity-js/web'
+     * #### Example usage
      *
-     *   actorCalled('Nick').attemptsTo(
-     *       ModalDialog.acceptNext(),
-     *       Wait.until(ModalDialog, isPresent()),
-     *       Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
-     *   )
+     * ```ts
+     * import { actorCalled, Wait } from '@serenity-js/core'
+     * import { Ensure, equals, isPresent } from '@serenity-js/assertions'
+     * import { ModalDialog } from '@serenity-js/web'
      *
-     * @returns {Question<Promise<boolean>>}
+     * await actorCalled('Nick').attemptsTo(
+     *   ModalDialog.acceptNext(),
+     *   Wait.until(ModalDialog, isPresent()),
+     *   Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
+     * )
+     * ```
      */
     static isPresent(): Question<Promise<boolean>> {
         return Page.current().modalDialog().last().isPresent();
     }
 
     /**
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNext}.
      */
     static acceptNext(): Interaction {
         return Page.current().modalDialog().acceptNext()
@@ -111,8 +133,9 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * @param {Answerable<string | number>} value
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNextWithValue}.
+     *
+     * @param value
      */
     static acceptNextWithValue(value: Answerable<string | number>): Interaction {
         return Page.current().modalDialog().acceptNextWithValue(value)
@@ -120,7 +143,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.dismissNext}.
      */
     static dismissNext(): Interaction {
         return Page.current().modalDialog().dismissNext()
@@ -128,7 +151,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * @returns {QuestionAdapter<string>}
+     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.message} for the current {@apilink Page}.
      */
     static lastDialogMessage(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().message()
@@ -136,7 +159,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * @returns {QuestionAdapter<string>}
+     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.state} for the current {@apilink Page}.
      */
     static lastDialogState(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().state()
@@ -144,37 +167,30 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the message of the last modal dialog handled,
-     *  or rejects the promise with a {@link @serenity-js/core/lib/errors~LogicError}
-     *  when no modal dialogs have been observed yet.
+     * Returns the message of the last modal dialog handled,
+     * or rejects the promise with a {@apilink LogicError}
+     * when no modal dialogs have been observed yet.
      *
-     * @returns {Promise<string>}
-     *  Message of the last handled dialog, or a {@link Promise}
-     *  rejected with a {@link @serenity-js/core/lib/errors~LogicError}
+     * @returns
+     *  Message of the last handled dialog, or a `Promise`
+     *  rejected with a {@apilink LogicError}
      *  when no dialog has been handled yet.
      */
     abstract message(): Promise<string>;
 
     /**
-     * @desc
-     *  Returns a promise that resolves to `true`
-     *  when a modal dialog has been handled, so accepted or dismissed.
-     *  Returns `false` for dialogs that haven't been handled yet.
+     * Returns a promise that resolves to `true`
+     * when a modal dialog has been handled, so either accepted or dismissed.
+     * Returns `false` for dialogs that haven't been handled yet.
      *
-     *  Useful when a JavaScript modal dialog is generated after a delay,
-     *  e.g. triggered by `setTimeout`.
-     *
-     * @returns {Promise<boolean>}
+     * Useful when a JavaScript modal dialog is generated after a delay,
+     * e.g. triggered by `setTimeout`.
      */
     abstract isPresent(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Returns `accepted` or `dismissed` for dialogs that have been handled,
-     *  or `absent` for those that haven't been handled yet.
-     *
-     * @returns {string}
+     * Returns `accepted` or `dismissed` for dialogs that have been handled,
+     * or `absent` for those that haven't been handled yet.
      */
     state(): string {
         return this.constructor.name

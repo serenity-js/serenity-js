@@ -42,11 +42,12 @@ export class ResultMapper {
             case status === 'pending':
                 return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
-            case status === 'passed':
-                return new ExecutionSuccessful();
-
             case status === 'skipped':
                 return new ExecutionSkipped();
+
+            // case status === 'passed':
+            default:
+                return new ExecutionSuccessful();
         }
     }
 

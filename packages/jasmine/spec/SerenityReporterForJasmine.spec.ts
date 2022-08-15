@@ -32,7 +32,6 @@ import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine';
 
-/** @test {SerenityReporterForJasmine} */
 describe('SerenityReporterForJasmine', () => {
 
     let serenity: Serenity,
@@ -52,7 +51,6 @@ describe('SerenityReporterForJasmine', () => {
     describe('notifies Serenity when', () => {
 
         describe('the test run', () => {
-            /** @test {SerenityReporterForJasmine#jasmineStarted} */
             it('starts', async () => {
                 await reporter.jasmineStarted({
                     totalSpecsDefined: 5,
@@ -67,7 +65,6 @@ describe('SerenityReporterForJasmine', () => {
                     .next(TestRunStarts,    event => expect(event.timestamp).to.equal(new Timestamp(now)));
             });
 
-            /** @test {SerenityReporterForJasmine#jasmineDone} */
             it('ends', async () => {
                 await reporter.jasmineDone({
                     overallStatus: 'passed',
@@ -88,7 +85,6 @@ describe('SerenityReporterForJasmine', () => {
 
         describe('the test suite', () => {
 
-            /** @test {SerenityReporterForJasmine#suiteStarted} */
             it('starts', () => {
 
                 const jasmineEvent = {
@@ -120,10 +116,6 @@ describe('SerenityReporterForJasmine', () => {
                 );
             });
 
-            /**
-             * @test {SerenityReporterForJasmine#suiteStarted}
-             * @test {SerenityReporterForJasmine#suiteDone}
-             */
             it('ends', () => {
 
                 reporter.suiteStarted({
@@ -173,10 +165,6 @@ describe('SerenityReporterForJasmine', () => {
                     ));
             });
 
-            /**
-             * @test {SerenityReporterForJasmine#suiteStarted}
-             * @test {SerenityReporterForJasmine#suiteDone}
-             */
             it('ends with an error, reporting the first error that has occurred', () => {
                 /*
                  * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
@@ -238,10 +226,6 @@ describe('SerenityReporterForJasmine', () => {
                     });
             });
 
-            /**
-             * @test {SerenityReporterForJasmine#suiteStarted}
-             * @test {SerenityReporterForJasmine#suiteDone}
-             */
             it('is pending', () => {
                 reporter.suiteStarted({
                     id: 'suite3',
@@ -386,35 +370,17 @@ describe('SerenityReporterForJasmine', () => {
                     });
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#suiteStarted}
-                 * @test {SerenityReporterForJasmine#suiteDone}
-                 * @test {SerenityReporterForJasmine#specStarted}
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('derives the name of the scenario from the nested `describe` blocks', () => {
                     PickEvent.from(listener.events)
                         .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))
                         .next(SceneFinished,    event => expect(event.details.name.value).to.equal('A scenario passes'));
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#suiteStarted}
-                 * @test {SerenityReporterForJasmine#suiteDone}
-                 * @test {SerenityReporterForJasmine#specStarted}
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('derives the name of the feature from the outer-most `describe` block', () => {
                     PickEvent.from(listener.events)
                         .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Jasmine')));
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#suiteStarted}
-                 * @test {SerenityReporterForJasmine#suiteDone}
-                 * @test {SerenityReporterForJasmine#specStarted}
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('detects the test runner', () => {
                     PickEvent.from(listener.events)
                         .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Jasmine')));
@@ -437,9 +403,6 @@ describe('SerenityReporterForJasmine', () => {
                     });
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('has been excluded', async () => {
                     await reporter.specDone({
                         id: 'spec0',
@@ -458,9 +421,6 @@ describe('SerenityReporterForJasmine', () => {
                         .next(SceneFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()));
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('is marked as pending', async () => {
                     await reporter.specDone({
                         id: 'spec0',
@@ -483,9 +443,6 @@ describe('SerenityReporterForJasmine', () => {
                         });
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('has failed with an error', async () => {
                     await reporter.specDone({
                         id: 'spec0',
@@ -544,9 +501,6 @@ describe('SerenityReporterForJasmine', () => {
                         });
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('has failed with no stack trace', async () => {
                     await reporter.specDone({
                         id: 'spec0',
@@ -576,9 +530,6 @@ describe('SerenityReporterForJasmine', () => {
                         });
                 });
 
-                /**
-                 * @test {SerenityReporterForJasmine#specDone}
-                 */
                 it('has failed with an assertion error', async () => {
                     await reporter.specDone({
                         id: 'spec0',
@@ -612,7 +563,6 @@ describe('SerenityReporterForJasmine', () => {
                         });
                 });
 
-                /** @test {SerenityReporterForJasmine#specDone} */
                 it('has failed with multiple errors', async () => {
                     // The failure with multiple errors could only happen when someone has
                     // a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting
@@ -723,19 +673,11 @@ describe('SerenityReporterForJasmine', () => {
                 });
             });
 
-            /**
-             * @test {SerenityReporterForJasmine#specStarted}
-             * @test {SerenityReporterForJasmine#specDone}
-             */
             it('tags the feature as "unknown"', () => {
                 PickEvent.from(listener.events)
                     .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Unknown feature')));
             });
 
-            /**
-             * @test {SerenityReporterForJasmine#specStarted}
-             * @test {SerenityReporterForJasmine#specDone}
-             */
             it('correctly derives the name of the spec', () => {
                 PickEvent.from(listener.events)
                     .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))

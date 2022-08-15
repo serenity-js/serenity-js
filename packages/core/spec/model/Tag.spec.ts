@@ -4,14 +4,6 @@ import { given } from 'mocha-testdata';
 import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, FeatureTag, IssueTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';
 import { expect } from '../expect';
 
-/**
- * @test {Tag}
- * @test {ArbitraryTag}
- * @test {BrowserTag}
- * @test {CapabilityTag}
- * @test {ContextTag}
- * @test {FeatureTag}
- */
 describe('Tag', () => {
 
     given<string, Tag[]>(

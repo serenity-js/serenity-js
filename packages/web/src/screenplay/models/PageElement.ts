@@ -8,6 +8,17 @@ import { Selector } from './selectors';
 import { Switchable } from './Switchable';
 import { SwitchableOrigin } from './SwitchableOrigin';
 
+/**
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify
+ * a single Web element located by {@apilink Selector}.
+ *
+ * ## Learn more
+ * - [Page Element Query Language](/handbook)
+ * - {@apilink Optional}
+ * - {@apilink Switchable}
+ *
+ * @group Models
+ */
 export abstract class PageElement<Native_Element_Type = any> implements Optional, Switchable {
 
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> {
@@ -34,6 +45,9 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
 
     abstract of(parentElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
+    /**
+     * An "escape hatch" providing access to the integration tool-specific implementation of a Web element.
+     */
     async nativeElement(): Promise<Native_Element_Type> {
         return this.locator.nativeElement();
     }
@@ -48,7 +62,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract doubleClick(): Promise<void>;
     abstract scrollIntoView(): Promise<void>;
     abstract hoverOver(): Promise<void>;
-    abstract rightClick(): Promise<void>;    // todo: should this be a click() call with a parameter?
+    abstract rightClick(): Promise<void>;
     abstract selectOptions(...options: Array<SelectOption>): Promise<void>;
     abstract selectedOptions(): Promise<Array<SelectOption>>;
 
@@ -57,45 +71,67 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract value(): Promise<string>;
 
     /**
-     * @desc
-     *  When the element represents an {@link iframe}, calling this method
-     *  switches the current browsing context to the given {@link iframe}.
+     * When the element represents an [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
+     * calling this method switches the current browsing context to the given `iframe` context.
      *
-     *  In other cases, calling this method will have the same result
-     *  as calling {@link HTMLElement#focus}
+     * When used with other types of [Web `Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element),
+     * calling this method will have the same result as calling [`Element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event).
      *
-     * @returns {Promise<SwitchableOrigin>}
+     * @returns
      *  Returns an object that allows the caller to switch back
      *  to the previous context if needed.
      *
-     * @see {@link Switch}
-     * @see {@link Switchable}
+     * #### Learn more
+     * - {@apilink Switch}
+     * - {@apilink Switchable}
      */
     abstract switchTo(): Promise<SwitchableOrigin>;
 
+    /**
+     * Resolves to `true` when the underlying element [has focus](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus).
+     * Otherwise, resolves to `false`.
+     */
     abstract isActive(): Promise<boolean>;
+
+    /**
+     * Resolves to `true` when the underlying element can be clicked on.
+     * Otherwise, resolves to `false`.
+     *
+     * Please refer to test integration tool-specific documentation for details.
+     */
     abstract isClickable(): Promise<boolean>;
+
+    /**
+     * Resolves to `true` when the underlying
+     * element is not [explicitly disabled](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)
+     *
+     * Please refer to test integration tool-specific documentation for details.
+     */
     abstract isEnabled(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Returns an {@link Promise} that resolves to `true` when the element
-     *  is present, `false` otherwise.
-     *
-     * @returns {Promise<boolean>}
+     * Returns a {@apilink Promise} that resolves to `true` when the element
+     * is present in the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model),
+     * `false` otherwise.
      */
     abstract isPresent(): Promise<boolean>;
 
+    /**
+     * Resolves to `true` when the underlying element:
+     * - has a [`selected` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-selected) for `<option />` elements
+     * - has a [`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox) attribute for checkboxes
+     *
+     * Otherwise, resolves to `false`.
+     */
     abstract isSelected(): Promise<boolean>;
 
     /**
-     * @desc
-     *  Checks if the PageElement:
-     *  - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
-     *  - is within the browser viewport
-     *  - doesn't have its centre covered by other elements
+     * Resolves to `true` when the underlying element:
+     * - is not hidden, so doesn't have CSS style like `display: none`, `visibility: hidden` or `opacity: 0`
+     * - is within the browser viewport
+     * - doesn't have its centre covered by other elements
      *
-     * @returns {Promise<boolean>}
+     * Otherwise, resolves to `false`.
      */
     abstract isVisible(): Promise<boolean>;
 }

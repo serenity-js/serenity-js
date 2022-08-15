@@ -1,4 +1,4 @@
-import { OutputStream } from '@serenity-js/core/lib/io';
+import { OutputStream } from '@serenity-js/core/lib/adapter';
 
 /**
  * @desc
@@ -10,9 +10,6 @@ import { OutputStream } from '@serenity-js/core/lib/io';
 export class Printer {
     private indentation = new Indentation(2);
 
-    /**
-     * @param {@serenity-js/core/lib/io~OutputStream} stdout
-     */
     constructor(private readonly stdout: OutputStream = process.stdout) {
     }
 

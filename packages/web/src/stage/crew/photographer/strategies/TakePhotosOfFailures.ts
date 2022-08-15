@@ -4,15 +4,15 @@ import { ImplementationPending } from '@serenity-js/core/lib/model';
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * @desc
- *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when
- *  the {@link @serenity-js/core/lib/screenplay~Interaction} performed
- *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.
+ * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots)
+ * when then {@apilink Interaction} performed
+ * by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
+ * results in an error.
  *
- *  This strategy works best when you are interested in the screenshots only when
- *  a scenario fails.
+ * This strategy works best when you are interested in the screenshots only when
+ * a scenario fails.
  *
- * @extends {PhotoTakingStrategy}
+ * @group Stage
  */
 export class TakePhotosOfFailures extends PhotoTakingStrategy {
     protected shouldTakeAPhotoOf(event: DomainEvent): boolean {

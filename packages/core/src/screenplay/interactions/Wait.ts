@@ -1,163 +1,177 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError } from '../../errors';
+import { AssertionError, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
-import { WaitBuilder } from './WaitBuilder';
 
 /**
- * @desc
- *  Instructs the {@link Actor} to wait before proceeding, either for a set {@link Duration},
- *  or until a given {@link Expectation} is met.
+ * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
+ * to wait before proceeding with their next {@apilink Activity|activity},
+ * either for a set {@apilink Duration}, or until a given {@apilink Expectation} is met.
  *
- * @example <caption>Example widget</caption>
- *  <!--
- *      After about 1 second, the text will change from 'Loading...' to 'Ready!'
- *  -->
- *  <h1 id="status">Loading...</h1>
- *  <script>
- *      (function () {
- *          setTimeout(function () {
- *              document.getElementById('status').textContent = 'Ready!'
- *          }, 1000);
- *      })();
- *  </script>
+ * **Please note** that Serenity/JS implements `Wait` from scratch, so that
+ * the behaviour is consistent no matter the integration tool you use (Playwright, WebdriverIO, Selenium, etc.)
+ * or the type of testing you do (Web, REST API, component testing, etc.)
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * ## Wait with Web-based tests
  *
- *  class App {
- *      static status = Target.the('status widget')
- *          .located(by.id('status'));
+ * ### Example widget
+ *
+ * ```html
+ * <!--
+ *     After about 1 second, the text will change from 'Loading...' to 'Ready!'
+ * -->
+ * <h1 id="status">Loading...</h1>
+ * <script>
+ *     (function () {
+ *         setTimeout(function () {
+ *             document.getElementById('status').textContent = 'Ready!'
+ *         }, 1000);
+ *     })();
+ * </script>
+ * ```
+ *
+ * ### Lean Page Object describing the widget
+ *
+ * ```ts
+ * import { By, PageElement, Text } from '@serenity-js/web'
+ *
+ * class App {
+ *   static status = () =>
+ *      Text.of(PageElement.located(By.id('status'))
+ *          .describedAs('status widget'))
  *  }
+ * ```
  *
- * @example <caption>Waiting for a set amount of time</caption>
- *  import { actorCalled, Duration, Wait } from '@serenity-js/core';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ### Waiting for a set amount of time
  *
- *  await actorCalled('Wendy')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Wait.for(Duration.ofMilliseconds(1_500)),
- *          Ensure.that(App.status, equals('Ready!')),
- *      );
+ * ```ts
+ * import { actorCalled, Duration, Wait } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { Browser, chromium } from 'playwright'
  *
- *  // Please note that while the above implementation works,
- *  // this approach is inefficient because at best
- *  // the actor might wait too long and at worst the test
- *  // might become "flaky" if any external interference
- *  // (like network glitches, animations taking a bit too long etc.)
- *  // makes the actor wait not long enough.
+ * const browser = await chromium.launch({ headless: true })
  *
- * @example <caption>Waiting until a condition is met</caption>
- *  import { actorCalled, Wait } from '@serenity-js/core';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
- *  import { Text } from '@serenity-js/web';
- *  import { equals } from '@serenity-js/assertions';
+ * await actorCalled('Inês')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *   .attemptsTo(
+ *     Wait.for(Duration.ofMilliseconds(1_500)),
+ *     Ensure.that(App.status(), equals('Ready!')),
+ *   );
+ * ```
  *
- *  await actorCalled('Wendy')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Wait.until(Text.of(App.status), equals('Ready!')),
- *          // app is ready, proceed with the scenario
- *      );
+ * **Please note** that while the above implementation works,
+ * this approach is inefficient because at best
+ * the actor might wait too long and at worst the test
+ * might become "flaky" if any external interference
+ * (like network glitches, animations taking a bit too long etc.)
+ * makes the actor wait not long enough.
  *
- *  // `Wait.until` makes the Actor keep asking a Question,
- *  // in this case Text.of(App.status), until the answer meets
- *  // the expectation, or a timeout expires (default: 5s).
- *  //
- *  // Please note that both Ensure and Wait can be used with
- *  // the same expectations, like `equals` or `includes`.
+ * ### Waiting until a condition is met
  *
- * @example <caption>Changing the default timeout</caption>
+ * ```ts
+ * import { actorCalled, Wait } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { equals } from '@serenity-js/assertions'
+ * import { Browser, chromium } from 'playwright'
+ *
+ * const browser = await chromium.launch({ headless: true })
+ *
+ * await actorCalled('Wendy')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *   .attemptsTo(
+ *     Wait.until(App.status(), equals('Ready!')),
+ *     // app is ready, proceed with the scenario
+ *   );
+ * ```
+ *
+ * `Wait.until` makes the {@apilink Actor} keep asking the {@apilink Question},
+ * in this case `Text.of(App.status)`, until the answer meets
+ * the expectation, or a timeout expires (default: 5s).
+ *
+ * **Please note** that both Ensure and Wait can be used with
+ * the same expectations, like `equals` or `includes`.
+ *
+ * ### Changing the default timeout
+ *
+ * ```ts
  *  import { actorCalled, Duration, Wait } from '@serenity-js/core';
  *  import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
- *  import { Text } from '@serenity-js/web';
  *  import { equals } from '@serenity-js/assertions';
  *  import { Browser, chromium } from 'playwright';
  *
- *  const browser: Browser = await chromium.launch({
- *      headless: true
- *  });
+ *  const browser: Browser = await chromium.launch({ headless: true });
  *
  *  await actorCalled('Polly')
  *      .whoCan(BrowseTheWebWithPlaywright.using(browser))
  *      .attemptsTo(
  *          Wait.upTo(Duration.ofSeconds(3))
- *              .until(Text.of(App.status), equals('Ready!')),
+ *              .until(App.status(), equals('Ready!')),
  *          // app is ready, proceed with the scenario
  *      );
+ * ```
  *
- * @see {@link Duration}
- * @see {@link Interaction}
+ * ## Learn more
+ * - {@apilink Duration}
+ * - {@apilink Expectation}
+ *
+ * @group Interactions
  */
 export class Wait {
 
     /**
-     * @desc
-     *  Default timeout of 5 seconds used with {@link Wait.until}.
+     * Default timeout of 5 seconds, used with {@apilink Wait.until}.
      *
-     * @type {Duration}
+     * Use {@apilink Wait.upTo} to override it for a given interaction.
      */
     static readonly defaultTimeout = Duration.ofSeconds(5);
 
     /**
-     * @desc
-     *  Minimum timeout of 250 milliseconds used with {@link Wait.until}.
-     *
-     * @type {Duration}
+     * Minimum timeout that can be used with {@apilink Wait.until},
+     * defaults to 250 milliseconds,
      */
     static readonly minimumTimeout = Duration.ofMilliseconds(250);
 
     /**
-     * @desc
-     *  Default polling interval of 500ms between condition checks, used with {@link Wait.until}.
+     * The amount of time {@apilink Wait.until} should wait between condition checks,
+     * defaults to 500ms.
+     *
+     * Use {@apilink WaitUntil.pollingEvery} to override it for a given interaction.
      *
      * @type {Duration}
      */
     static readonly defaultPollingInterval = Duration.ofMilliseconds(500);
 
     /**
-     * @desc
-     *  Minimum polling interval of 50ms between condition checks, used with {@link Wait.until}.
-     *
-     * @type {Duration}
+     * Minimum polling interval of 50ms between condition checks, used with {@apilink Wait.until}.
      */
     static readonly minimumPollingInterval = Duration.ofMilliseconds(50);
 
     /**
-     * @desc
-     *  Instantiates a version of this {@link Interaction}
-     *  configured to wait for a set duration.
+     * Instantiates a version of this {@apilink Interaction}
+     * configured to wait for a set duration.
      *
-     * @param {Answerable<Duration>} duration
-     *  A set duration the {@link Actor} should wait for before proceeding.
-     *
-     * @returns {Interaction}
+     * @param duration
+     *  A set duration the {@apilink Actor} should wait for before proceeding.
      */
     static for(duration: Answerable<Duration>): Interaction {
         return new WaitFor(duration);
     }
 
     /**
-     * @desc
-     *  Instantiates a version of this {@link Interaction}
-     *  configured to wait until the answer to the question (`actual`) meets the `expectation`,
-     *  or a custom timeout expires.
+     * Instantiates a version of this {@apilink Interaction}
+     * configured to wait until the answer to the question `actual` meets the `expectation`,
+     * or the `timeout` expires.
      *
-     *  The minimum timeout is
-     *
-     * @param {Duration} timeout
-     *  Custom timeout to override {@link Wait.defaultTimeout}
-     *
-     * @returns {WaitBuilder}
+     * @param timeout
+     *  Custom timeout to override {@apilink Wait.defaultTimeout}
      */
-    static upTo(timeout: Duration): WaitBuilder {
+    static upTo(timeout: Duration): { until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => WaitUntil<Actual> } {
         return {
             until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> =>
                 new WaitUntil(
@@ -170,20 +184,17 @@ export class Wait {
     }
 
     /**
-     * @desc
-     *  Instantiates a version of this {@link Interaction} configured to
-     *  poll every {@link Wait.defaultPollingInterval} for the result of the provided
-     *  question (`actual`) until it meets the `expectation`,
-     *  or the {@link Wait.defaultTimeout} expires.
+     * Instantiates a version of this {@apilink Interaction} configured to
+     * poll every {@apilink Wait.defaultPollingInterval} for the result of the provided
+     * question (`actual`) until it meets the `expectation`,
+     * or the timeout expires.
      *
-     * @param {Answerable<Actual>} actual
-     *  A {@link Question} that the {@link Actor} will keep asking until the answer meets
-     *  the {@link Expectation} provided.
+     * @param actual
+     *  An {@apilink Answerable} that the {@apilink Actor} will keep answering
+     *  until the answer meets the {@apilink Expectation} provided, or the timeout expires.
      *
-     * @param {Expectation<Actual>} expectation
-     *  An {@link Expectation} to be met before proceeding
-     *
-     * @returns {WaitUntil<Actual>}
+     * @param expectation
+     *  An {@apilink Expectation} to be met before proceeding
      */
     static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
         return new WaitUntil(
@@ -203,44 +214,26 @@ class WaitFor extends Interaction {
         super();
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link Actor} perform this {@link Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
-     */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const duration = await actor.answer(this.duration);
 
-        return new Promise((resolve, reject_) => {
-            const timeout = setTimeout(() => {
-                clearTimeout(timeout);
-                resolve();
-            }, duration.inMilliseconds());
-        });
+        return waitFor(duration).start();
     }
 
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */
     toString(): string {
         return d`#actor waits for ${ this.duration }`;
     }
 }
 
 /**
- * @desc
- *  Instructs the {@link Actor} to wait before proceeding until a given {@link Expectation} is met.
+ * Synchronisation statement that instructs the {@apilink Actor} to wait before proceeding until a given {@apilink Expectation} is met.
  *
- * @see {@link Wait.until}
+ * **PRO TIP:** To instantiate this {@apilink Interaction}, use {@apilink Wait.until}.
+ *
+ * ## Learn more
+ * * {@apilink Wait.until}
+ *
+ * @group Interactions
  */
 export class WaitUntil<Actual> extends Interaction {
     constructor(
@@ -255,96 +248,140 @@ export class WaitUntil<Actual> extends Interaction {
     }
 
     /**
-     * @desc
-     *  Configure how often the {@link Actor} should check if the answer meets the expectation.
+     * Configure how frequently the {@apilink Actor} should check if the answer meets the expectation.
      *
-     * @param {Duration} interval
-     * @returns {Interaction}
+     * @param interval
      */
     pollingEvery(interval: Duration): Interaction {
         return new WaitUntil(this.actual, this.expectation, this.timeout, interval);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link Actor} perform this {@link Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * @inheritDoc
      */
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        let pollerId: NodeJS.Timeout,
-            timeoutId: NodeJS.Timeout,
-            expectationOutcome: ExpectationOutcome<any, Actual>,
-            errorThrown: Error,
-            timeoutExpired = false;
+        let outcome: ExpectationOutcome<unknown, Actual>;
 
-        const poll = (resolve: () => void, reject: (error: Error) => void) => async () => {
-            clearTimeout(pollerId);
+        const expectation = async () => {
+            outcome = await actor.answer(
+                this.expectation.isMetFor(this.actual)
+            );
 
-            if (timeoutExpired) {
-                return;
-            }
-
-            try {
-                expectationOutcome = await actor.answer(
-                    this.expectation.isMetFor(this.actual)
-                );
-
-                if (expectationOutcome instanceof ExpectationMet) {
-                    clearTimeout(timeoutId);
-                    return resolve();
-                }
-
-                pollerId = setTimeout(poll(resolve, reject), this.pollingInterval.inMilliseconds());
-            }
-            catch (error) {
-                clearTimeout(pollerId);
-                clearTimeout(timeoutId);
-
-                return reject(error);
-            }
+            return outcome instanceof ExpectationMet;
         }
 
-        const poller = () => new Promise<void>((resolve, reject) => {
-            poll(resolve, reject)();
-        });
-
-        const timeout = () =>
-            new Promise((resolve, reject) => {
-                timeoutId = setTimeout(() => {
-                    clearTimeout(pollerId);
-                    clearTimeout(timeoutId);
-
-                    timeoutExpired = true;
-
-                    reject(new AssertionError(
-                        d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
-                        expectationOutcome?.expected,
-                        expectationOutcome?.actual,
-                        errorThrown
-                    ));
-
-                }, this.timeout.inMilliseconds());
-            });
+        const timeout = timeoutAfter(this.timeout);
+        const poller  = waitUntil(expectation, this.pollingInterval);
 
         return Promise.race([
-            poller(),
-            timeout(),
-        ]) as Promise<void>;
+            timeout.start(),
+            poller.start(),
+        ]).
+        then(() => {
+            timeout.stop();
+            poller.stop();
+        }).
+        catch(error => {
+            timeout.stop();
+            poller.stop();
+
+            if (error instanceof TimeoutExpiredError) {
+                throw new AssertionError(
+                    d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
+                    outcome?.expected,
+                    outcome?.actual,
+                    error,
+                )
+            }
+
+            throw error;
+        });
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return d`#actor waits up to ${ this.timeout }, polling every ${ this.pollingInterval }, until ${ this.actual } does ${ this.expectation }`;
     }
+}
+
+function waitFor(duration: Duration): { start: () => Promise<void>, stop: () => void } {
+    let timeoutId: NodeJS.Timeout;
+
+    return {
+        start() {
+            return new Promise((resolve, reject_) => {
+                timeoutId = setTimeout(() => {
+                    clearTimeout(timeoutId);
+                    resolve();
+                }, duration.inMilliseconds());
+            })
+        },
+
+        stop() {
+            clearTimeout(timeoutId);
+        }
+    };
+}
+
+function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterval: Duration): { start: () => Promise<void>, stop: () => void } {
+    let delay: { start: () => Promise<void>, stop: () => void };
+    let pollingActive = false;
+
+    async function poll(): Promise<void> {
+        try {
+            const expectationIsMet = await expectation();
+
+            if (expectationIsMet) {
+                delay?.stop();
+                return;
+            }
+
+            if (pollingActive) {
+                delay = waitFor(pollingInterval);
+
+                await delay.start();
+
+                await poll();
+            }
+        } catch (error) {
+            delay?.stop()
+            throw error;
+        }
+    }
+
+    return {
+        async start () {
+            pollingActive = true;
+            await poll();
+        },
+
+        stop () {
+            delay?.stop();
+            pollingActive = false;
+        }
+    };
+}
+
+function timeoutAfter(duration: Duration): { start: () => Promise<void>, stop: () => void } {
+
+    let timeoutId: NodeJS.Timeout;
+
+    return {
+        start: () =>
+            new Promise<void>((resolve, reject) => {
+                timeoutId = setTimeout(() => {
+                    clearTimeout(timeoutId);
+                    reject(new TimeoutExpiredError(
+                        d`Timeout of ${ duration } has expired`,
+                        duration,
+                    ));
+                }, duration.inMilliseconds());
+            }),
+
+        stop: () => {
+            clearTimeout(timeoutId);
+        }
+    };
 }

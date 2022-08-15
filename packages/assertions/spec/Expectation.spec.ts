@@ -1,30 +1,21 @@
 import { expect } from '@integration/testing-tools';
-import { actorCalled, Answerable, AssertionError } from '@serenity-js/core';
+import { actorCalled, Answerable, AssertionError, Expectation } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } from '../src';
+import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
-/** @test {Expectation} */
 describe('Expectation', () => {
 
     describe('allows to easily define an assertion, which', () => {
 
-        /**
-         * @test {Expectation.that}
-         * @test {Ensure.that}
-         */
         it('allows the actor flow to continue when the assertion passes', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(4, isIdenticalTo(4)),
             )).to.be.fulfilled;
         });
 
-        /**
-         * @test {Expectation.that}
-         * @test {Ensure.that}
-         */
         it('stops the actor flow when the assertion fails', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(4, isIdenticalTo('4' as any)),
@@ -56,13 +47,11 @@ describe('Expectation', () => {
                 ));
         }
 
-        /** @test {Expectation.to} */
         it('contributes to a human-readable description', () => {
             expect(Ensure.that(5, isWithin(3, 6)).toString())
                 .to.equal(`#actor ensures that 5 does have value within 3 and 6`);
         });
 
-        /** @test {Expectation.to} */
         it('provides a precise failure message when the expectation is not met', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(9, isWithin(7, 8)),
@@ -80,13 +69,11 @@ describe('Expectation', () => {
             ).describedAs(`have value within ${ lowerBound } and ${ upperBound }`);
         }
 
-        /** @test {Expectation.to} */
         it('replaces the old description', () => {
             expect(Ensure.that(5, isWithin(3, 6)).toString())
                 .to.equal(`#actor ensures that 5 does have value within 3 and 6`);
         });
 
-        /** @test {Expectation.to} */
         it('provides a precise failure message when the expectation is not met', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(9, isWithin(7, 8)),

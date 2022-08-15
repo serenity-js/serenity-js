@@ -8,7 +8,6 @@ import { UseAngular } from '../../../src';
 import { promised } from '../../../src/screenplay/promised';
 import { UIActors } from '../../UIActors';
 
-/** @test {UseAngular} */
 describe('UseAngular', function () {
 
     beforeEach(() => engage(new UIActors()));
@@ -26,7 +25,6 @@ describe('UseAngular', function () {
         describe('when enabled', () => {
             beforeEach(() => promised(protractor.browser.waitForAngularEnabled(true)));
 
-            /** @test {UseAngular.disableSynchronisation} */
             it('can be disabled', () => actorCalled('Bernie').attemptsTo(
                 UseAngular.disableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), equals(false)),
@@ -36,15 +34,12 @@ describe('UseAngular', function () {
         describe('when disabled', () => {
             beforeEach(() => promised(protractor.browser.waitForAngularEnabled(false)));
 
-            /** @test {UseAngular.enableSynchronisation} */
             it('can be enabled', () => actorCalled('Bernie').attemptsTo(
                 UseAngular.enableSynchronisation(),
                 Ensure.that(IsSynchronisationEnabled(), isTrue()),
             ));
         });
 
-        /** @test {UseAngular.enableSynchronisation} */
-        /** @test {UseAngular.disableSynchronisation} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(UseAngular.enableSynchronisation().toString())
                 .to.equal(`#actor enables synchronisation with Angular`);

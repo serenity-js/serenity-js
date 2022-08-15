@@ -8,7 +8,6 @@ function p<T>(value?: T): Promise<T> {
     return Promise.resolve(value);
 }
 
-/** @test {Question} */
 describe('Question', () => {
 
     const actor = actorCalled('Stella');

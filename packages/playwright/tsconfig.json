@@ -1,21 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2019",
-    "lib": ["es2019", "dom"],
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "./lib",
-    "rootDir": "./src"
-  },
-
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "spec",
-    "node_modules"
-  ]
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  }
 }

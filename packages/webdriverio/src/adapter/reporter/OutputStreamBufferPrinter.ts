@@ -1,6 +1,6 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
+import { OutputStream } from '@serenity-js/core/lib/adapter';
 import { DomainEvent, SceneFinished } from '@serenity-js/core/lib/events';
-import { OutputStream } from '@serenity-js/core/lib/io';
 
 import { OutputStreamBuffer } from './OutputStreamBuffer';
 

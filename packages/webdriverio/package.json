@@ -31,11 +31,8 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
-    "lint:fix": "npm run lint -- --fix",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json",
-    "site": "esdoc -c .esdoc.js"
+    "compile": "tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
@@ -55,7 +52,7 @@
     "@wdio/reporter": "^7.20.3",
     "@wdio/types": "^7.20.3",
     "deepmerge": "^4.2.2",
-    "tiny-types": "^1.18.4"
+    "tiny-types": "^1.19.0"
   },
   "peerDependencies": {
     "@serenity-js/cucumber": "^3.0.0-rc",
@@ -76,7 +73,6 @@
     }
   },
   "devDependencies": {
-    "@documentation/esdoc-template": "3.0.0",
     "@integration/testing-tools": "3.0.0",
     "@types/mocha": "^9.1.1",
     "@wdio/cli": "^7.19.7",

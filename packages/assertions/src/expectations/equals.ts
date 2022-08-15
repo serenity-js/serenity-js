@@ -1,6 +1,31 @@
 import { Answerable, Expectation } from '@serenity-js/core';
 import { equal } from 'tiny-types/lib/objects';
 
+/**
+ * Produces an {@apilink Expectation|expectation} that is met when the actual value
+ * is equal to the resolved value of `expectedValue`.
+ *
+ * Note that the equality check performs comparison **by value**
+ * using [TinyTypes `equal`](https://github.com/jan-molak/tiny-types/blob/master/src/objects/equal.ts).
+ *
+ * ## Ensuring that the actual value equals expected value
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * const actual   = { name: 'apples' }
+ * const expected = { name: 'apples' }
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that(actual, equals(expected)),
+ * )
+ * ```
+ *
+ * @param expectedValue
+ *
+ * @group Expectations
+ */
 export function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
     return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)
         .soThat((actual, expected) => equal(actual, expected));

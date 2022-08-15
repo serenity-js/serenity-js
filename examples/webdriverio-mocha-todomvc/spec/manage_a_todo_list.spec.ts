@@ -1,6 +1,7 @@
-import { describe, it } from 'mocha';
 import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
+import { describe, it } from 'mocha';
+
 import { ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start, ToggleItem } from '../src';
 
 describe('Managing a Todo List', () => {

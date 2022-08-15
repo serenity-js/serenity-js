@@ -2,18 +2,19 @@ import { SerenityConfig } from '@serenity-js/core';
 import { Config as ProtractorConfig } from 'protractor';
 
 /**
- * @desc
- *  Protractor configuration object with an additional
- *  section to configure the Serenity/JS framework.
+ * Protractor configuration object with an additional
+ * section to configure the Serenity/JS framework.
  *
- * @public
- * @interface
+ * ## Learn more
+ * - [Protractor config](https://github.com/angular/protractor/blob/master/lib/config.ts)
+ * - {@apilink SerenityConfig}
+ * - {@apilink configure}
  *
- * @see {@link @serenity-js/core~SerenityConfig}
- *
- * @see https://github.com/angular/protractor/blob/master/lib/config.ts
- * @see {@link @serenity-js/core~configure}
+ * @group Configuration
  */
 export interface Config extends ProtractorConfig {
+    /**
+     * See {@apilink SerenityConfig}
+     */
     serenity: SerenityConfig & { runner?: string };
 }

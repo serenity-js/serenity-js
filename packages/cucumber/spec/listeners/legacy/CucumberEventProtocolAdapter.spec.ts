@@ -31,7 +31,7 @@ describe('CucumberEventProtocolAdapter', () => {
         log: typeof console.log,
         eventBroadcaster: EventEmitter,
         moduleLoader: sinon.SinonStubbedInstance<ModuleLoader>,
-        adapter: any;
+        adapter_: any;
 
     beforeEach(() => {
 
@@ -53,7 +53,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         const listener = createListener(serenity, moduleLoader);
 
-        adapter = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
+        adapter_ = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
     });
 
     it('correctly recognises Cucumber Event Protocol events', () => {
@@ -355,10 +355,8 @@ describe('CucumberEventProtocolAdapter', () => {
 
     function emitAllFrom(events: JSONObject[]): void {
         events.forEach(event => {
-            // I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:
-            const emitted = Object.assign({}, event);
-            delete emitted.type;
-            eventBroadcaster.emit(event.type as string, emitted);
+            const { type, ...body } = event;
+            eventBroadcaster.emit(type as string, body);
         });
     }
 });

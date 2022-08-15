@@ -6,10 +6,9 @@ import { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
- * @desc
- *  Playwright-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
+ * Playwright-specific implementation of {@apilink BrowsingSession}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}
+ * @group Models
  */
 export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 

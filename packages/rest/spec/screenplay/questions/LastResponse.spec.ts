@@ -6,7 +6,6 @@ import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance } from '../../actors';
 import { expect } from '../../expect';
 
-/** @test {LastResponse} */
 describe('LastResponse', () => {
 
     const { actor, mock } = actorUsingAMockedAxiosInstance();
@@ -38,10 +37,6 @@ describe('LastResponse', () => {
             mock.onGet(productDetails).reply(200, apple, headers);
         });
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.status}
-         */
         it('enables access to the response status', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -49,10 +44,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.body}
-         */
         it('enables access to the response body', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -60,10 +51,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.header}
-         */
         it('enables access to a specific response header', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -71,10 +58,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.headers}
-         */
         it('enables access to all response headers', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -97,10 +80,6 @@ describe('LastResponse', () => {
             mock.onGet(`/products/${ apple.id }` ).reply(200, apple, headers);
         });
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.status}
-         */
         it('provides an adapter around response status', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -108,10 +87,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.body}
-         */
         it('provides an adapter around response body', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -119,10 +94,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.body}
-         */
         it('enables easy access to elements of an array', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productList)),
@@ -133,10 +104,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.header}
-         */
         it('provides an adapter around individual response headers', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -147,10 +114,6 @@ describe('LastResponse', () => {
             )
         );
 
-        /**
-         * @test {LastResponse}
-         * @test {LastResponse.headers}
-         */
         it('provides an adapter around all response headers', () =>
             actor.attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
@@ -176,9 +139,6 @@ describe('LastResponse', () => {
 
         const Babs = actorCalled('Babs');
 
-        /**
-         * @test {LastResponse.status}
-         */
         it('complains if the last response is attempted to be retrieved without making a request first', () =>
             expect(Babs.attemptsTo(
                 Ensure.that(LastResponse.status(), equals(200)),

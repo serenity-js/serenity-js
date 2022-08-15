@@ -1,99 +1,102 @@
-import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
-import { asyncMap, formatted } from '@serenity-js/core/lib/io';
+import { Activity, Answerable, AnswersQuestions, d, Interaction, Question, UsesAbilities } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 
-import { Key } from '../../input';
 import { BrowseTheWeb } from '../abilities';
-import { PageElement } from '../models';
+import { Key, PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
-import { PressBuilder } from './PressBuilder';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  send a key press or a sequence of keys to a Web element.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to send a key press or a sequence of keys to a Web element.
  *
- *  *Please note*: On macOS, some keyboard shortcuts might not work with the [`devtools` protocol](https://webdriver.io/docs/automationProtocols/#devtools-protocol).
+ * **Note:** On macOS, some keyboard shortcuts might not work
+ * with the [`devtools` protocol](https://webdriver.io/docs/automationProtocols/#devtools-protocol).
  *
  *  For example:
- *  - to *copy*, instead of `Meta+C`, use `Control+Insert`
- *  - to *cut*, instead of `Meta+X`, use `Control+Delete`
- *  - to *paste*, instead of `Meta+V`, use `Shift+Insert`
+ *  - to *copy*, instead of {@apilink Key.Meta}+`C`, use {@apilink Key.Control}+{@apilink Key.Insert}
+ *  - to *cut*, instead of {@apilink Key.Meta}+`X`, use {@apilink Key.Control}+{@apilink Key.Delete}
+ *  - to *paste*, instead of {@apilink Key.Meta}+`V`, use {@apilink Key.Shift}+{@apilink Key.Insert}
  *
- * @example <caption>Example widget</caption>
- *  <form>
- *    <input type="text" name="example" id="example" />
- *  </form>
+ * ## Example widget
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * ```html
+ * <form>
+ *   <input type="text" name="example" id="example" />
+ * </form>
+ * ```
  *
- *  class Form {
- *      static exampleInput = Target.the('example input')
- *          .located(by.id('example'));
- *  }
+ * ## Lean Page Object describing the widget
  *
- * @example <caption>Pressing keys</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Key, Press, Value } from '@serenity-js/webdriverio';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
  *
- *  actorCalled('Priyanka')
- *      .whoCan(BrowseTheWeb.using(browser))
- *      .attemptsTo(
- *          Press.the('H', 'i', '!', Key.ENTER).in(Form.exampleInput),
- *          Ensure.that(Value.of(Form.exampleInput), equals('Hi!')),
- *      );
+ * class Form {
+ *   static exampleInput = () =>
+ *     PageElement.located(By.id('example'))
+ *       .describedAs('example input')
+ * }
+ * ```
  *
- * @see {@link Key}
- * @see {@link BrowseTheWeb}
- * @see {@link Target}
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/assertions/lib/expectations~equals}
+ * ## Pressing keys
  *
- * @extends {ElementInteraction}
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Key, Press, Value } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Priyanka')
+ *   .attemptsTo(
+ *     Press.the('H', 'i', '!', Key.ENTER).in(Form.exampleInput()),
+ *     Ensure.that(Value.of(Form.exampleInput), equals('Hi!')),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@apilink Key}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
+ *
+ * @group Interactions
  */
 export class Press extends PageElementInteraction {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to press a sequence of {@apilink Key|keys},
      *
-     * @param {...keys: Array<Answerable<Key | string | Key[] | string[]>>} keys
+     * When no `field` is specified, the key sequence will be sent to the currently focused element,
+     * and if no element is focused - to the `document.body` to handle.
+     *
+     * @param keys
      *  A sequence of one or more keys to press
-     *
-     * @returns {PressBuilder}
      */
-    static the(...keys: Array<Answerable<Key | string | Key[] | string[]>>): Activity & PressBuilder {
+    static the(...keys: Array<Answerable<Key | string | Key[] | string[]>>): Activity & { in: (field: Answerable<PageElement>) => Interaction } {
         return new Press(KeySequence.of(keys));
     }
 
-    in(field: Answerable<PageElement> /* | Question<AlertPromise> | AlertPromise */): Interaction {
+    /**
+     * Send the key sequence to a specific element.
+     *
+     * @param field
+     */
+    in(field: Answerable<PageElement>): Interaction {
         return new PressKeyInField(this.keys, field)
     }
 
     /**
-     * @param {Answerable<Array<Key | string>>} keys
+     * @param keys
      *  A sequence of one or more keys to press
      */
     constructor(
         private readonly keys: Answerable<Array<Key | string>>
     ) {
-        super(formatted `#actor presses ${ keys }`);
+        super(d `#actor presses ${ keys }`);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const keys = await actor.answer(this.keys);
@@ -114,9 +117,12 @@ class PressKeyInField extends PageElementInteraction {
         private readonly keys: Answerable<Array<Key | string>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(formatted `#actor presses ${ keys } in ${ field }`);
+        super(d `#actor presses ${ keys } in ${ field }`);
     }
 
+    /**
+     * @inheritDoc
+     */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
@@ -159,17 +165,18 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
+     * Changes the description of this question's subject.
      *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @param subject
      */
     describedAs(subject: string): this {
         this.subject = subject;
         return this;
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return this.subject;
     }

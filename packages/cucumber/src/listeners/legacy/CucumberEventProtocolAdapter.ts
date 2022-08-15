@@ -1,6 +1,6 @@
 import { RuntimeError } from '@serenity-js/core';
-import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/lib/errors';
-import { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/lib/errors';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -165,11 +165,12 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                 case 'pending':
                     return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
 
-                case 'passed':
-                    return new ExecutionSuccessful();
-
                 case 'skipped':
                     return new ExecutionSkipped();
+
+                // case 'passed':
+                default:
+                    return new ExecutionSuccessful();
             }
 
         }

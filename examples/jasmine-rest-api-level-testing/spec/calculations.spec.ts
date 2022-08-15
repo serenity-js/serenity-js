@@ -4,20 +4,22 @@ import { equals } from '@serenity-js/assertions';
 import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
+
 import { Actors, RequestCalculationOf, VerifyResultAt } from './screenplay';
 
 describe('Calculator', () => {
 
-    beforeAll(() => engage(new Actors()));
-
     // start the server once and keep it running for all the tests
-    beforeAll(() =>
-        actorCalled('Apisitt').attemptsTo(
+    beforeAll(async () => {
+        engage(new Actors())
+
+        await actorCalled('Apisitt').attemptsTo(
             StartLocalServer.onRandomPort(),
 
             // Apisitt uses a shared notepad, so other actors can read his notes
             TakeNote.of(LocalServer.url()),
-        ));
+        )
+    });
 
     // shut the server down when all tests are finished
     afterAll(() =>

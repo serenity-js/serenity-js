@@ -1,12 +1,4 @@
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-} from '@serenity-js/core/lib/model';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending } from '@serenity-js/core/lib/model';
 
 import { AggregatedCategories, AggregatedCategory } from './Summary';
 import { TerminalTheme } from './themes';
@@ -68,7 +60,9 @@ export class SummaryFormatter {
             case ImplementationPending.name:                return 'pending';
             case ExecutionSkipped.name:                     return 'skipped';
             case ExecutionIgnored.name:                     return 'ignored';
-            case ExecutionSuccessful.name:                  return 'successful';
+            // case ExecutionSuccessful.name:
+            default:
+                return 'successful';
         }
     }
 }

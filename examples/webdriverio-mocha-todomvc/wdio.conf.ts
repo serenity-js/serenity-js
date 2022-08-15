@@ -4,6 +4,7 @@ import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
+
 import { Actors } from './src';
 
 export const config: WebdriverIOConfig = {

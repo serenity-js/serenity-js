@@ -1,38 +1,76 @@
+import { TinyType } from 'tiny-types';
+
 /**
- * @desc
- *  Base class for custom errors that may occur during execution of a test scenario.
+ * Base class for custom errors that may occur during execution of a test scenario.
  *
- * @example <caption>Custom Error definition</caption>
- * import { RuntimeError } from '@serenity-js/core';
+ * ## Defining a custom error
+ *
+ * ```ts
+ * import { RuntimeError } from '@serenity-js/core'
  *
  * export class CustomError extends RuntimeError {
  *   constructor(message: string, cause?: Error) {
  *       super(CustomError, message, cause);
  *   }
  * }
+ * ```
  *
- * @example <caption>Sync error handling</caption>
+ * ## Wrapping a sync error
+ *
+ * ```ts
  * try {
  *     operationThatMightThrowAnError();
  * } catch(error) {
  *     // catch and re-throw
  *     throw new CustomError('operationThatMightThrowAnError has failed', error);
  * }
+ * ```
  *
- * @example <caption>Async error handling</caption>
- * operationThatMightRejectAPromise().catch(error => {
+ * ## Wrapping an async error
+ *
+ * ```ts
+ * operationThatMightRejectAPromise()
+ *   .catch(error => {
  *     // catch and re-throw
- *     throw new CustomError('operationThatMightThrowAnError has failed', error);
- * });
+ *     throw new CustomError('operationThatMightThrowAnError has failed', error)
+ *   })
+ * ```
  *
- * @extends {Error}
+ * ## Registering a custom error with {@apilink ErrorSerialiser}
+ *
+ * ```ts
+ * import { RuntimeError } from '@serenity-js/core'
+ * import { ErrorSerialiser } from '@serenity-js/core/lib/io'
+ *
+ * export class CustomError extends RuntimeError {
+ *
+ *    static fromJSON(serialised: JSONObject): CustomError {
+ *         const error = new CustomError(
+ *             serialised.message as string,
+ *             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+ *         );
+ *
+ *         error.stack = serialised.stack as string;
+ *
+ *         return error;
+ *     }
+ *
+ *   constructor(message: string, cause?: Error) {
+ *       super(CustomError, message, cause);
+ *   }
+ * }
+ *
+ * ErrorSerialiser.registerErrorTypes(CustomError)
+ * ```
+ *
+ * @group Errors
  */
 export abstract class RuntimeError extends Error {
 
     /**
-     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError
-     * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param type - Constructor function used to instantiate a subclass of a RuntimeError
+     * @param message - Human-readable description of the error
+     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     protected constructor(
         type: new (...args: any[]) => RuntimeError,
@@ -51,10 +89,13 @@ export abstract class RuntimeError extends Error {
     }
 
     /**
-     * @desc
-     *  Human-readable description
+     * Human-readable description of the error
      */
     toString(): string {
         return `${ this.constructor.name }: ${ this.message }`;
+    }
+
+    toJSON(): object {
+        return TinyType.prototype.toJSON.apply(this)
     }
 }

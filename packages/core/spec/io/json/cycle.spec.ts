@@ -2,7 +2,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { parse, stringify } from '../../../src/io';
+import { parse, stringify } from '../../../src/errors/json';
 import { expect } from '../../expect';
 
 describe('cycle', () => {

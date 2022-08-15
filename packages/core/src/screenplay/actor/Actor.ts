@@ -13,15 +13,15 @@ import { PerformsActivities } from './PerformsActivities';
 import { UsesAbilities } from './UsesAbilities';
 
 /**
- * @desc
- *  Core element of the [Screenplay Pattern](/handbook/design/screenplay-pattern.html),
- *  an {@link Actor} represents a user or an external system interacting with the system under test.
+ * Core element of the Screenplay Pattern,
+ * an {@apilink Actor} represents a user or an external system interacting with the system under test.
  *
- * @implements {PerformsActivities}
- * @implements {UsesAbilities}
- * @implements {CanHaveAbilities}
- * @implements {AnswersQuestions}
- * @implements {CollectsArtifacts}
+ * ## Learn more
+ *
+ * - {@apilink Cast}
+ * - {@apilink Stage}
+ *
+ * @group Screenplay Pattern
  */
 export class Actor implements
     PerformsActivities,
@@ -42,16 +42,15 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Retrieves actor's {@link Ability} of `abilityType`, or one that extends `abilityType`.
+     * Retrieves actor's {@apilink Ability} of `abilityType`, or one that extends `abilityType`.
      *
-     *  Please note that this method performs an {@link instanceof} check against abilities
-     *  given to this actor via {@link Actor#whoCan}.
-     *  Please also note that {@link Actor#whoCan} performs the same check when abilities are assigned to the actor
-     *  to ensure the actor has at most one instance of a given ability type.
+     * Please note that this method performs an {@apilink instanceof} check against abilities
+     * given to this actor via {@apilink Actor.whoCan}.
      *
-     * @param {AbilityType<T>} abilityType
-     * @returns {T}
+     * Please also note that {@apilink Actor.whoCan} performs the same check when abilities are assigned to the actor
+     * to ensure the actor has at most one instance of a given ability type.
+     *
+     * @param abilityType
      */
     abilityTo<T extends Ability>(abilityType: AbilityType<T>): T {
         const found = this.findAbilityTo(abilityType);
@@ -65,13 +64,11 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Instructs the actor to attempt to perform a number of activities
-     *  (see {@link Activity}, so either {@link Task}s or {@link Interaction}s)
-     *  one by one.
+     * Instructs the actor to attempt to perform a number of {@apilink Activity|activities},
+     * so either {@apilink Task|Tasks} or {@apilink Interaction|Interactions}),
+     * one by one.
      *
      * @param {...activities: Activity[]} activities
-     * @return {Promise<void>}
      */
     attemptsTo(...activities: Activity[]): Promise<void> {
         return activities
@@ -88,17 +85,16 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Gives this Actor a list of abilities (see {@link Ability}) they can use
-     *  to interact with the system under test or the test environment.
+     * Gives this Actor a list of {@apilink Ability|abilities} they can use
+     * to interact with the system under test or the test environment.
      *
-     * @param {...Ability[]} abilities
+     * @param abilities
      *  A vararg list of abilities to give the actor
      *
-     * @returns {Actor}
+     * @returns
      *  The actor with newly gained abilities
      *
-     * @throws {ConfigurationError}
+     * @throws {@apilink ConfigurationError}
      *  Throws a ConfigurationError if the actor already has an ability of this type.
      */
     whoCan(...abilities: Ability[]): Actor {
@@ -122,8 +118,11 @@ export class Actor implements
     }
 
     /**
-     * @param {Answerable<T>} answerable - a Question<Promise<T>>, Question<T>, Promise<T> or T
-     * @returns {Promise<T>} The answer to the Answerable
+     * @param answerable -
+     *  An {@apilink Answerable} to answer (resolve the value of).
+     *
+     * @returns
+     *  The answer to the Answerable
      */
     answer<T>(answerable: Answerable<T>): Promise<T> {
         function isAPromise<V>(v: Answerable<V>): v is Promise<V> {
@@ -146,13 +145,10 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Announce collection of an {@link Artifact} so that it can be picked up by a {@link StageCrewMember}.
+     * Announce collection of an {@apilink Artifact} so that it can be picked up by a {@apilink StageCrewMember}.
      *
-     * @param {Artifact} artifact
-     * @param {?(string | Name)} name
-     *
-     * @returns {void}
+     * @param artifact
+     * @param name
      */
     collect(artifact: Artifact, name?: string | Name): void {
         this.stage.announce(new ActivityRelatedArtifactGenerated(
@@ -165,11 +161,8 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Instructs the actor to invoke {@link Discardable#discard} method on any
-     *  {@link Discardable} {@link Ability} it's been configured with.
-     *
-     * @returns {Promise<void>}
+     * Instructs the actor to invoke {@apilink Discardable.discard} method on any
+     * {@apilink Discardable} {@apilink Ability} it's been configured with.
      */
     dismiss(): Promise<void> {
         return this.findAbilitiesOfType<Discardable>('discard')
@@ -181,10 +174,9 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Returns a human-readable, string representation of this Actor
+     * Returns a human-readable, string representation of this actor and their abilities.
      *
-     * @returns {string}
+     * **PRO TIP:** To get the name of the actor, use {@apilink Actor.name}
      */
     toString(): string {
         const abilities = Array.from(this.abilities.keys()).map(type => type.name);
@@ -192,9 +184,6 @@ export class Actor implements
         return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
     }
 
-    /**
-     * @private
-     */
     private initialiseAbilities(): Promise<void> {
         return this.findAbilitiesOfType<Initialisable>('initialise', 'isInitialised')
             .filter(ability => ! ability.isInitialised())
@@ -209,10 +198,6 @@ export class Actor implements
             )
     }
 
-    /**
-     * @param {...string[]} methodNames
-     * @private
-     */
     private findAbilitiesOfType<T>(...methodNames: Array<keyof T>): Array<Ability & T> {
         const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
             Array.from(map.values());
@@ -224,10 +209,6 @@ export class Actor implements
             .filter(abilitiesWithDesiredMethods) as Array<Ability & T>;
     }
 
-    /**
-     * @param {string} doSomething
-     * @private
-     */
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
         for (const [abilityType_, ability] of this.abilities) {
             if (ability instanceof doSomething) {
@@ -239,14 +220,10 @@ export class Actor implements
     }
 
     /**
-     * @desc
-     *  Instantiates a {@link Name} based on the string value of the parameter,
-     *  or returns the argument if it's already an instance of {@link Name}.
+     * Instantiates a {@apilink Name} based on the string value of the parameter,
+     * or returns the argument if it's already an instance of {@apilink Name}.
      *
-     * @param {string | Name} maybeName
-     * @returns {Name}
-     *
-     * @private
+     * @param maybeName
      */
     private nameFrom(maybeName: string | Name): Name {
         return typeof maybeName === 'string'

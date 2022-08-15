@@ -1,49 +1,45 @@
-import { OutputStream } from './io';
+import { OutputStream } from './adapter';
 import { Duration } from './model';
 import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
 
 /**
- * @interface
+ * Describes the configuration object accepted by the {@apilink configure} function.
  *
- * @see {@link configure}
+ * ## Learn more
+ * - {@apilink configure}
+ * - {@apilink Cast}
+ * - {@apilink StageCrewMember}
+ * - {@apilink StageCrewMemberBuilder}
+ * - {@apilink Stage.waitForNextCue}
+ *
+ * @group Configuration
  */
 export abstract class SerenityConfig {
-    /**
-     * @desc
-     *  A {@link Cast} of {@link Actor}s to be used when {@link actorCalled}
-     *  and {@link actorInTheSpotlight} functions are called.
-     *
-     * @type {?Cast}
-     */
-    actors?:        Cast;
 
     /**
-     * @desc
-     *  A list of {@link StageCrewMemberBuilder}s or {@link StageCrewMember}s
-     *  to be notified of {@link DomainEvent}s that occur during the scenario execution.
-     *
-     * @type {?Array<StageCrewMember | StageCrewMemberBuilder>}
+     * A {@apilink Cast} of {@apilink Actor}s to be used when {@apilink actorCalled}
+     * and {@apilink actorInTheSpotlight} functions are called.
      */
-    crew?:          Array<StageCrewMember | StageCrewMemberBuilder>;
+    actors?: Cast;
 
     /**
-     * @desc
-     *  The maximum amount of time Serenity/JS should wait for any post-scenario
-     *  async operations to complete. Those include generating the screenshots,
-     *  saving reports to disk and so on. **Please note** that this is not
-     *  a scenario timeout, which should be configured in your test runner.
-     *
-     * @type {?Duration}
+     * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
+     * to be notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
      */
-    cueTimeout?:    Duration;
+    crew?: Array<StageCrewMember | StageCrewMemberBuilder>;
 
     /**
-     * @desc
-     *  An output stream to be injected into {@link StageCrewMemberBuilder}s
+     * The maximum amount of time Serenity/JS should wait for any post-scenario
+     * async operations to complete. Those include generating the screenshots,
+     * saving reports to disk and so on. **Please note** that this is not
+     * a scenario timeout, which should be configured in your test runner.
+     */
+    cueTimeout?: Duration;
+
+    /**
+     * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}
      *
-     *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
-     *
-     * @type {?OutputStream}
+     * Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
      */
     outputStream?: OutputStream;
 }

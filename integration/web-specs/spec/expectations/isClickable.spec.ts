@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure } from '@serenity-js/assertions';
-import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { Ensure, isPresent } from '@serenity-js/assertions';
+import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
 import { By, isClickable, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isClickable', function () {
@@ -16,6 +16,8 @@ describe('isClickable', function () {
     beforeEach(() =>
         actorCalled('Wendy').attemptsTo(
             Navigate.to('/expectations/is-clickable/buttons.html'),
+            Wait.upTo(Duration.ofSeconds(10))
+                .until(Elements.enabledButton(), isPresent()),
         ));
 
     describe('resolves to true when the element', () => {

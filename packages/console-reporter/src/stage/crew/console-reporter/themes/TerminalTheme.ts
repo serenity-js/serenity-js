@@ -10,9 +10,6 @@ import { Outcome } from '@serenity-js/core/lib/model';
  * @abstract
  */
 export abstract class TerminalTheme {
-    /**
-     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
-     */
     constructor(protected readonly differ: AssertionReportDiffer) {
     }
 

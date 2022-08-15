@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, Description, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class FeatureNarrativeDetected extends DomainEvent {
     public static fromJSON(o: JSONObject): FeatureNarrativeDetected {
         return new FeatureNarrativeDetected(

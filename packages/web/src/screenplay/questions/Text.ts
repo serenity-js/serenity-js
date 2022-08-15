@@ -4,118 +4,132 @@ import { asyncMap } from '@serenity-js/core/lib/io';
 import { PageElement, PageElements } from '../models';
 
 /**
- * @desc
- *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
- *  - a given {@link PageElement}
- *  - a group of {@link PageElements}
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * the visible (i.e. not hidden by CSS) [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of:
+ * - a given {@apilink PageElement}
+ * - a group of {@apilink PageElements}
  *
- *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
+ * The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
- * @example <caption>Example widget</caption>
- *  <h1>Shopping list</h1>
- *  <ul id="shopping-list">
- *    <li>Coffee<li>
- *    <li class="bought">Honey<li>
- *    <li>Chocolate<li>
- *  </ul>
+ * ## Example widget
  *
- * @example <caption>Retrieve text of a single element</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, PageElement, Text } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```html
+ * <h1>Shopping list</h1>
+ * <ul id="shopping-list">
+ *   <li>Coffee<li>
+ *   <li class="bought">Honey<li>
+ *   <li>Chocolate<li>
+ * </ul>
+ * ```
  *
- *  const header = () =>
- *      PageElement.located(By.css('h1'))
- *          .describedAs('header')
+ * ## Retrieve text of a single {@apilink PageElement}
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(Text.of(header()), equals('Shopping list')),
- *      )
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, PageElement, Text } from '@serenity-js/web'
  *
- * @example <caption>Retrieve text of a multiple elements</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, PageElement, Text } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * const header = () =>
+ *   PageElement.located(By.css('h1'))
+ *     .describedAs('header')
  *
- *  const shoppingListItems = () =>
- *      PageElements.located(By.css('#shopping-list li'))
- *         .describedAs('shopping list items')
+ * await actorCalled('Lisa')
+ *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ *   .attemptsTo(
+ *     Ensure.that(Text.of(header()), equals('Shopping list')),
+ *   )
+ * ```
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Text.ofAll(shoppingListItems()),
- *              equals([ 'Coffee', 'Honey', 'Chocolate' ])
- *          ),
- *      )
+ * ## Retrieve text of multiple {@apilink PageElements}
  *
- * @example <caption>Find element with matching text</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { contain, Ensure } from '@serenity-js/assertions';
- *  import { By, CssClasses, PageElement, Text } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, PageElement, Text } from '@serenity-js/web'
  *
- *  const shoppingListItemCalled = (name: string) =>
- *      PageElements.located(By.css('#shopping-list li'))
- *          .describedAs('shopping list items')
- *          .where(Text, equals(name))
- *          .first()
+ * const shoppingListItems = () =>
+ *   PageElements.located(By.css('#shopping-list li'))
+ *     .describedAs('shopping list items')
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              CssClasses.of(shoppingListItemCalled('Honey)),
- *              contain('bought')
- *          ),
- *      )
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       Text.ofAll(shoppingListItems()),
+ *       equals([ 'Coffee', 'Honey', 'Chocolate' ])
+ *     ),
+ *   )
+ * ```
  *
- * @public
- * @see {@link Target}
+ * ## Using as filter in {@apilink PageElements|Page Element Query Language}
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { contain, Ensure } from '@serenity-js/assertions'
+ * import { By, CssClasses, PageElement, Text } from '@serenity-js/web'
+ *
+ * const shoppingListItemCalled = (name: string) =>
+ *   PageElements.located(By.css('#shopping-list li'))
+ *     .describedAs('shopping list items')
+ *     .where(Text, equals(name))
+ *     .first()
+ *
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       CssClasses.of(shoppingListItemCalled('Honey)),
+ *       contain('bought')
+ *     ),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
+ *
+ * @group Questions
  */
 export class Text {
 
     /**
-     * @desc
-     *  Retrieves text of a single {@link PageElement}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the text of a single {@apilink PageElement}.
      *
-     * @param {Answerable<PageElement>} element
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string>}
+     * #### Learn more
+     * - {@apilink MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param pageElement
      */
-    static of(element: Answerable<PageElement>):
+    static of(pageElement: Answerable<PageElement>):
         QuestionAdapter<string> &                                 // eslint-disable-line @typescript-eslint/indent
         MetaQuestion<Answerable<PageElement>, Promise<string>>    // eslint-disable-line @typescript-eslint/indent
     {
-        return TextOfSingleElement.of(element);
+        return TextOfSingleElement.of(pageElement);
     }
 
     /**
-     * @desc
-     *  Retrieves text of a group of {@link PageElements}.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * the text of a group of {@apilink PageElements}.
      *
-     * @param {Answerable<PageElements | PageElement[]>} elements
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
+     * #### Learn more
+     * - {@apilink MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param pageElements
      */
-    static ofAll(elements: PageElements): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>
-    static ofAll(elements: Answerable<PageElement[]>): QuestionAdapter<string[]>
-    static ofAll(elements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
-        if (elements instanceof PageElements) {
-            return TextOfMultipleElements.of(elements);
+    static ofAll(pageElements: PageElements): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>
+    static ofAll(pageElements: Answerable<PageElement[]>): QuestionAdapter<string[]>
+    static ofAll(pageElements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
+        if (pageElements instanceof PageElements) {
+            return TextOfMultipleElements.of(pageElements);
         }
 
-        return Question.about(d`the text of ${ elements }`, async actor => {
-            const pageElements: PageElement[] = await actor.answer(elements);
+        return Question.about(d`the text of ${ pageElements }`, async actor => {
+            const elements: PageElement[] = await actor.answer(pageElements);
 
-            return asyncMap(pageElements, element => element.text());
+            return asyncMap(elements, element => element.text());
         });
     }
 }
@@ -142,6 +156,9 @@ class TextOfSingleElement
         return new TextOfSingleElement(PageElement.of(this.element, parent));
     }
 
+    /**
+     * @inheritDoc
+     */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element = await actor.answer(this.element);
 
@@ -149,11 +166,7 @@ class TextOfSingleElement
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -161,8 +174,7 @@ class TextOfSingleElement
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;
@@ -191,6 +203,9 @@ class TextOfMultipleElements
         return new TextOfMultipleElements(this.elements.of(parent));
     }
 
+    /**
+     * @inheritDoc
+     */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements: PageElement[] = await actor.answer(this.elements);
 
@@ -198,11 +213,7 @@ class TextOfMultipleElements
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -210,8 +221,7 @@ class TextOfMultipleElements
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;

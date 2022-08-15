@@ -1,22 +1,18 @@
 /**
- * @desc
- *  Allows the {@link Task} to {@link Switch} to perform a sequence of activities
- *  and switch back to the original context afterwards.
+ * Enables the {@apilink Task} to {@apilink Switch} to perform a sequence of activities
+ * and switch back to the original context afterwards.
  *
- * @public
- * @interface
+ * ## Learn more
  *
- * @see {@link Switch}
- * @see {@link Switchable}
+ * - {@apilink Switch}
+ * - {@apilink Switchable}
+ *
+ * @group Models
  */
 export interface SwitchableOrigin {
 
     /**
-     * @desc
-     *  Switches the context back to the original {@link Switchable}
-     *
-     * @type {function(): Promise<void>}
-     * @public
+     * Switches the context back to the original {@apilink Switchable}
      */
-    switchBack: () => Promise<void>;
+    switchBack(): Promise<void>;
 }

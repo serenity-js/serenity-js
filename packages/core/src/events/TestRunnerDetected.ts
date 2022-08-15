@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, Name, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class TestRunnerDetected extends DomainEvent {
     public static fromJSON(o: JSONObject): TestRunnerDetected {
         return new TestRunnerDetected(

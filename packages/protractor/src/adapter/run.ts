@@ -9,11 +9,13 @@ import { ProtractorReport } from './reporter';
 import { TestRunnerDetector, TestRunnerLoader } from './runner';
 
 /**
- * @param {protractor~Runner} runner
- * @param {string[]} specs
- * @returns {Promise<ProtractorReport>}
+ * ## Learn more
+ * - [Protractor framework adapters](https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor)
  *
- * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
+ * @param runner
+ * @param specs
+ *
+ * @group Integration
  */
 export function run(runner: Runner, specs: string[]): Promise<ProtractorReport> {
     const cwd = Path.from(runner.getConfig().configDir);

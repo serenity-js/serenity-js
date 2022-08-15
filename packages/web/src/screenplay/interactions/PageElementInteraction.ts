@@ -1,38 +1,32 @@
-import { Answerable, AnswersQuestions, Interaction, LogicError } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, LogicError } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  A base class for interactions with {@link PageElement}s.
+ * A base class for interactions with {@apilink PageElement} objects.
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * **Note:** The recommended way to implement custom interactions
+ * in your code is to use the {@apilink Interaction.where} factory method.
+ *
+ * @group Interactions
  */
 export abstract class PageElementInteraction extends Interaction {
 
     /**
-     * @param {string} description
+     * @param description
      *  A human-readable description to be used when reporting
-     *  this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @protected
+     *  this {@apilink Interaction}.
      */
     protected constructor(private readonly description: string) {
         super();
     }
 
     /**
-     * @desc
-     *  Returns the resolved {@link PageElement}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
-     *  if the element is `undefined`.
+     * Returns the resolved {@apilink PageElement}, or throws a {@apilink LogicError}
+     * if the element is `undefined`.
      *
-     * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} element
-     *
-     * @returns {Promise<PageElement>}
-     *
-     * @protected
+     * @param actor
+     * @param element
      */
     protected async resolve(
         actor: AnswersQuestions,
@@ -41,17 +35,14 @@ export abstract class PageElementInteraction extends Interaction {
         const resolved = await actor.answer(element);
 
         if (! resolved) {
-            throw new LogicError(formatted `Couldn't find ${ element }`);
+            throw new LogicError(d `Couldn't find ${ element }`);
         }
 
         return resolved;
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return this.description;

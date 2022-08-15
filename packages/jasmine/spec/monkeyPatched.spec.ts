@@ -36,10 +36,6 @@ describe('@serenity-js/jasmine', () => {
 
         describe('so that the Spec', () => {
 
-            /**
-             * @test {bootstrap}
-             * @test {monkeyPatched}
-             */
             it('defaults to an unknown location if the real one could not be determined', () => {
                 // detecting the real location is done in Jasmine integration tests
                 serenityReporterForJasmine(jasmine);
@@ -51,10 +47,6 @@ describe('@serenity-js/jasmine', () => {
                 expect(spec.result.location.column).to.equal(0);
             });
 
-            /**
-             * @test {bootstrap}
-             * @test {monkeyPatched}
-             */
             it('has all the static members of the original constructor function', () => {
 
                 jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';
@@ -81,10 +73,6 @@ describe('@serenity-js/jasmine', () => {
 
         describe('so that the Suite', () => {
 
-            /**
-             * @test {bootstrap}
-             * @test {monkeyPatched}
-             */
             it('defaults to an unknown location if the real one could not be determined', () => {
                 // detecting the real location is done in Jasmine integration tests
                 serenityReporterForJasmine(jasmine);

@@ -1,23 +1,14 @@
 /* istanbul ignore file */
 
 import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-} from '@serenity-js/core/lib/model';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
 
 import { TerminalTheme } from './TerminalTheme';
 
 /**
  * @desc
- *  Base class for {@link TerminalTheme} implementations intended
+ *  Base class for {@apilink TerminalTheme} implementations intended
  *  to print to terminals that support colour output.
  *
  * @extends {TerminalTheme}
@@ -41,18 +32,15 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
     }
 
     /**
-     * @desc
-     *  Joins the `parts` into a single string and decorates it
-     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.
+     * Joins the `parts` into a single string and decorates it
+     * using a colour appropriate for a given {@apilink Outcome}.
      *
-     * @param {@serenity-js/core/lib/model~Outcome | string} outcome
-     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}
+     * @param outcome
+     *  an instance of an {@apilink @serenity-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
-     * @param {...any[]} parts
+     * @param parts
      *  the parts of the message to be decorated
-     *
-     * @returns {string}
      */
     outcome(outcome: Outcome | string, ...parts: any[]): string {
         const outcomeName = (outcome instanceof Outcome)
@@ -70,7 +58,8 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
             case ExecutionSkipped.name:
             case ExecutionIgnored.name:
                 return this.chalk.blackBright(this.joined(parts));
-            case ExecutionSuccessful.name:
+            // case ExecutionSuccessful.name:
+            default:
                 return this.chalk.green(this.joined(parts));
         }
     }

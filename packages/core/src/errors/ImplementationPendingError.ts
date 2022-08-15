@@ -1,31 +1,50 @@
+import { JSONObject } from 'tiny-types';
+
+import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * @desc
- *  Thrown to indicate that the {@link Actor} attempted to perform
- *  a {@link Task} or {@link Interaction} that hasn't been implemented yet.
+ * Thrown to indicate that the {@apilink Actor} attempted to perform
+ * a {@apilink Task} or {@apilink Interaction} that hasn't been implemented yet.
  *
- * @example <caption>A pending Task</caption>
- *  import { Task } from '@serenity-js/core';
+ * ## A pending Task
  *
- *  // A pending Task is one that encapsulates no other activities
- *  const Authenticate = () =>
- *      Task.where(`#actor authenticates with the service up a test database` );
+ * ```ts
+ * import { Task } from '@serenity-js/core'
  *
- * @example <caption>A pending Interaction</caption>
- *  import { Interaction } from '@serenity-js/core';
+ * // A pending Task is one that encapsulates no other activities
+ * const Authenticate = () =>
+ *   Task.where(`#actor authenticates with the service up a test database` )
+ * ```
  *
- *  // A pending Interaction is one that doesn't perform any action
- *  const DoubleClick = () =>
- *      Interaction.where(`#actor double-clicks`);
+ * ## A pending Interaction
  *
- * @extends {RuntimeError}
+ * ```ts
+ * import { Interaction } from '@serenity-js/core'
+ *
+ * // A pending Interaction is one that doesn't perform any action
+ * const DoubleClick = () =>
+ *   Interaction.where(`#actor double-clicks`)
+ * ```
+ *
+ * @group Errors
  */
 export class ImplementationPendingError extends RuntimeError {
 
+    static fromJSON(serialised: JSONObject): ImplementationPendingError {
+        const error = new ImplementationPendingError(
+            serialised.message as string,
+            ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+        );
+
+        error.stack = serialised.stack as string;
+
+        return error;
+    }
+
     /**
      * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param {Error} [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(ImplementationPendingError, message, cause);

@@ -48,14 +48,6 @@ describe('SerenityBDDReporter', () => {
         ]
     ;
 
-    /**
-     * @test {SerenityBDDReporter}
-     * @test {SceneStarts}
-     * @test {SceneBackgroundDetected}
-     * @test {SceneFinished}
-     * @test {ExecutionSuccessful}
-     * @test {TestRunFinishes}
-     */
     it('captures information about the business rule for single-scene scenarios', () => {
         given(reporter).isNotifiedOfFollowingEvents(
             new SceneStarts(sceneIds[0], scenarios[0]),

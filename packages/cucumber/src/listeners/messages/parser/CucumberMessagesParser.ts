@@ -1,5 +1,5 @@
 import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepResultStatus, TestStepStarted } from '@cucumber/messages';
-import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     BusinessRuleDetected,
     DomainEvent,
@@ -17,7 +17,7 @@ import {
     TaskStarts,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -90,7 +90,7 @@ export class CucumberMessagesParser {
         );
 
         return [
-            ...this.extract(this.outlineFrom(testCaseAttempt), outline => [
+            ...this.extract(this.outlineFrom(testCaseAttempt), (outline: ExtractedScenarioOutline) => [
                 new SceneSequenceDetected(currentSceneId, outline.details, this.serenity.currentTime()),
                 new SceneTemplateDetected(currentSceneId, outline.template, this.serenity.currentTime()),
                 new SceneParametersDetected(
@@ -113,7 +113,7 @@ export class CucumberMessagesParser {
     }
 
     parseTestStepStarted(message: TestStepStarted): DomainEvent[] {
-        return this.extract(this.stepFrom(message), step => {
+        return this.extract(this.stepFrom(message), (step): DomainEvent | void => {
             this.currentStepActivityId = this.serenity.assignNewActivityId();
 
             if (this.shouldReportStep(step)) {
@@ -128,7 +128,7 @@ export class CucumberMessagesParser {
     }
 
     parseTestStepFinished(message: TestStepStarted): DomainEvent[] {
-        return this.extract(this.stepFrom(message), step => {
+        return this.extract(this.stepFrom(message), (step): DomainEvent | void => {
             if (this.shouldReportStep(step)) {
                 return new TaskFinished(
                     this.serenity.currentSceneId(),
@@ -187,7 +187,7 @@ export class CucumberMessagesParser {
         );
     }
 
-    private outlineFrom(testCaseAttempt: ITestCaseAttempt): ExtractedScenarioOutline {
+    private outlineFrom(testCaseAttempt: ITestCaseAttempt): ExtractedScenarioOutline | void {
         const
             { gherkinDocument, pickle } = testCaseAttempt,
             gherkinScenarioMap = this.formatterHelpers.GherkinDocumentParser.getGherkinScenarioMap(gherkinDocument);

@@ -4,46 +4,44 @@ import type * as wdio from 'webdriverio';
 import { WebdriverIOBrowsingSession } from '../models';
 
 /**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  to interact with Web apps using [WebdriverIO](https://webdriver.io/).
+ * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * enables the {@apilink Actor} to interact with web front-ends using [WebdriverIO](https://webdriver.io/).
  *
- * @example <caption>Using the WebdriverIO browser</caption>
- * import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
- *  import { By, Navigate, PageElement } from '@serenity-js/web'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Using WebdriverIO to `BrowseTheWeb`
  *
- *  const HomePage = {
- *      title: PageElement.located(By.css('h1')).describedAs('title')
- *  }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
+ * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  await actorCalled('Wendy')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))  // `browser` is global in WebdriverIO tests
- *      .attemptsTo(
- *          Navigate.to(`https://serenity-js.org`),
- *          Ensure.that(Text.of(HomePage.title), equals('Serenity/JS')),
- *      );
+ * const HomePage = {
+ *   title: () =>
+ *     PageElement.located(By.css('h1')).describedAs('title')
+ * }
  *
- * @extends {@serenity-js/web/lib/screenplay/abilities~BrowseTheWeb}
+ * await actorCalled('Wendy')
+ *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))  // `browser` is global in WebdriverIO tests
+ *   .attemptsTo(
+ *     Navigate.to(`https://serenity-js.org`),
+ *     Ensure.that(Text.of(HomePage.title()), equals('Serenity/JS')),
+ *   );
+ * ```
  *
- * @public
+ * ## Learn more
+ * - [WebdriverIO website](https://webdriver.io/)
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
  *
- * @see https://webdriver.io/
- * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ * @group Abilities
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
-    /**
-     * @param {@wdio/types~Browser} browserInstance
-     * @returns {BrowseTheWebWithWebdriverIO}
-     */
+
     static using(browserInstance: wdio.Browser<'async'>): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(browserInstance);
     }
 
-    /**
-     * @param {@wdio/types~Browser} browser
-     */
     constructor(protected readonly browser: wdio.Browser<'async'>) {
         super(new WebdriverIOBrowsingSession(browser));
     }

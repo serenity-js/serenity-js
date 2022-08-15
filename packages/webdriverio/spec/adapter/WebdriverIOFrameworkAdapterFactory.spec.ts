@@ -1,7 +1,8 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 import Reporter from '@wdio/reporter';
 import type { Capabilities, Reporters } from '@wdio/types';

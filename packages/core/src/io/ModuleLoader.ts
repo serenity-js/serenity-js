@@ -5,8 +5,7 @@ import * as path from 'path'; // eslint-disable-line unicorn/import-style
 import { Version } from './Version';
 
 /**
- * @desc
- *  Dynamically loads Node modules located relative to `cwd`.
+ * Dynamically loads Node modules located relative to `cwd`.
  */
 export class ModuleLoader {
 
@@ -18,10 +17,9 @@ export class ModuleLoader {
     }
 
     /**
-     * @desc
-     *  Returns true if a given module is available to be required, false otherwise.
+     * Returns `true` if a given module is available to be required, false otherwise.
      *
-     * @param {string} moduleId
+     * @param moduleId
      *  NPM module id, for example 'cucumber' or '@serenity-js/core'
      */
     hasAvailable(moduleId: string): boolean {
@@ -33,13 +31,12 @@ export class ModuleLoader {
     }
 
     /**
-     * @desc
-     *  Works like `require.resolve`, but relative to specified current working directory
+     * Works like `require.resolve`, but relative to specified current working directory
      *
-     * @param {string} moduleId
+     * @param moduleId
      *  NPM module id, for example `cucumber` or `@serenity-js/core`
      *
-     * @returns {string}
+     * @returns
      *  Path a given Node module
      */
     resolve(moduleId: string): string {
@@ -53,12 +50,9 @@ export class ModuleLoader {
     }
 
     /**
-     * @desc
-     *  Works like `require`, but relative to specified current working directory
+     * Works like `require`, but relative to specified current working directory
      *
-     * @param {string} moduleId
-     *
-     * @returns {any}
+     * @param moduleId
      */
     require(moduleId: string): any {
         try {
@@ -70,11 +64,9 @@ export class ModuleLoader {
     }
 
     /**
-     * @desc
-     *  Returns {@link Version} of module specified by `moduleId`, based on its `package.json`.
+     * Returns {@apilink Version} of module specified by `moduleId`, based on its `package.json`.
      *
-     * @param {string} moduleId
-     * @returns {Version}
+     * @param moduleId
      */
     versionOf(moduleId: string): Version {
         return new Version(this.require(`${ moduleId }/package.json`).version);

@@ -1,165 +1,187 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
-import { asyncMap, formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, CollectsArtifacts, d, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 import { Name, TextData } from '@serenity-js/core/lib/model';
 
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  execute a script within the context of the current browser window.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to execute a script within the context of the current browser tab.
  *
- *  Please see the tests below for usage examples.
+ * ## Learn more
  *
- * @see {@link LastScriptExecution.result}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink LastScriptExecution.result}
+ *
+ * @group Interactions
  */
 export class ExecuteScript {
 
     /**
-     * @desc
-     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  configured to load a script from `sourceUrl`.
+     * Instantiates a version of this {@apilink Interaction}
+     * configured to load a script from `sourceUrl`.
      *
-     * @param {string} sourceUrl
+     * @param sourceUrl
      *  The URL to load the script from
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     static from(sourceUrl: string): Interaction {
         return new ExecuteScriptFromUrl(sourceUrl);
     }
 
     /**
-     * @desc
-     *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
-     *  The script fragment will be executed as the body of an anonymous function.
-     *  If the script is provided as a function object, that function will be converted to a string for injection
-     *  into the target window.
+     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+     * to execute an asynchronous script within the context of the current browser tab.
      *
-     *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
-     *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
-     *  or {@link Target} (`Answerable<Element>`).
-     *  Arrays and objects may also be used as script arguments as long as each item adheres
-     *  to the types previously mentioned.
+     * The script fragment will be executed as the body of an anonymous function.
+     * If the script is provided as a function object, that function will be converted to a string for injection
+     * into the target window.
      *
-     *  Unlike executing synchronous JavaScript with {@link ExecuteScript#sync},
-     *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
+     * Any arguments provided in addition to the script will be included as script arguments and may be referenced
+     * using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
+     * or {@apilink PageElement}.
+     * Arrays and objects may also be used as script arguments as long as each item adheres
+     * to the types previously mentioned.
      *
-     *  This callback will always be injected into the executed function as the last argument,
-     *  and thus may be referenced with `arguments[arguments.length - 1]`.
+     * Unlike executing synchronous JavaScript with {@apilink ExecuteScript.sync},
+     * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
-     *  If the script invokes the `callback` with a return value, this will be made available
-     *  via the {@link LastScriptExecution.result}.
+     * This callback will always be injected into the executed function as the last argument,
+     * and thus may be referenced with `arguments[arguments.length - 1]`.
      *
-     *  **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
-     *  instead of passing it to the callback function.
+     * If the script invokes the `callback` with a return value, this will be made available
+     * via the {@apilink LastScriptExecution.result}.
      *
-     * @example <caption>Executing an async script</caption>
-     *  import { ExecuteScript } from '@serenity-js/webdriverio';
+     * **Please note** that in order to signal an error in the `script` you need to throw an {@apilink Error}
+     * instead of passing it to the callback function.
      *
-     *  actor.attemptsTo(
-     *      ExecuteScript.async(`
-     *          var callback = arguments[arguments.length - 1];
+     * #### Executing an async script
      *
-     *          // do stuff
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript } from '@serenity-js/web'
      *
-     *          callback(result)
-     *      `)
-     *  );
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(`
+     *     var callback = arguments[arguments.length - 1]
      *
-     * @example <caption>Passing arguments to an async script</caption>
-     *  import { ExecuteScript } from '@serenity-js/webdriverio';
+     *     // do stuff
      *
-     *  actor.attemptsTo(
-     *      ExecuteScript.async(`
-     *          var name = arguments[0];
-     *          var age = arguments[1];
-     *          var callback = arguments[arguments.length - 1];
+     *     callback(result)
+     *   `)
+     * )
+     * ```
      *
-     *          // do stuff
+     * #### Passing arguments to an async script
      *
-     *          callback(result)
-     *      `).withArguments('Bob', 24)
-     *  );
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript } from '@serenity-js/web'
      *
-     * @example <caption>Passing Target arguments to an async script</caption>
-     *  import { ExecuteScript } from '@serenity-js/webdriverio';
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(`
+     *     var name = arguments[0];
+     *     var age = arguments[1];
+     *     var callback = arguments[arguments.length - 1]
      *
-     *  actor.attemptsTo(
-     *      ExecuteScript.async(`
-     *          var header = arguments[0];    // Target gets converted to a WebElement
-     *          var callback = arguments[arguments.length - 1];
+     *     // do stuff
      *
-     *          callback(header.innerText)
-     *      `).withArguments(Target.the('header').located(by.css('h1')))
-     *  );
+     *     callback(result)
+     *   `).withArguments('Bob', 24)
+     * )
+     * ```
      *
-     * @example <caption>Executing async script as function</caption>
-     *  import { ExecuteScript } from '@serenity-js/webdriverio';
+     * #### Passing Target arguments to an async script
      *
-     *  actor.attemptsTo(
-     *      ExecuteScript.async(function getText(header, callback) {
-     *          callback(header.innerText)
-     *      }).withArguments(Target.the('header').located(by.css('h1')))
-     *  );
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript } from '@serenity-js/web'
      *
-     * @param {string | Function} script
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(`
+     *     var header = arguments[0]        // PageElement object gets converted to a WebElement
+     *     var callback = arguments[arguments.length - 1]
+     *
+     *     callback(header.innerText)
+     *   `).withArguments(PageElement.located(By.css('h1')).describedAs('header'))
+     * )
+     * ```
+     *
+     * #### Executing async script as function
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript } from '@serenity-js/web'
+     *
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(function getText(header, callback) {
+     *     callback(header.innerText)
+     *   }).withArguments(PageElement.located(By.css('h1')).describedAs('header'))
+     * )
+     * ```
+     *
+     * #### Learn more
+     * - {@apilink LastScriptExecution.result}
+     *
+     * @param script
      *  The script to be executed
-     *
-     * @returns {ExecuteScriptWithArguments}
-     *
-     * @see {@link LastScriptExecution.result}
      */
     static async(script: string | Function): ExecuteScriptWithArguments {   // eslint-disable-line @typescript-eslint/ban-types
         return new ExecuteAsynchronousScript(script);
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
-     *  execute a synchronous script in the context of the currently selected frame or window.
+     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+     * to execute a synchronous script within the context of the current browser tab.
      *
-     *  If the script returns a value, it will be made available via {@link LastScriptExecution.result}.
+     * If the script returns a value, it will be made available via {@apilink LastScriptExecution.result}.
      *
-     * @example <caption>Executing a sync script as string and reading the result</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from '@serenity-js/webdriverio';
-     *  import { Ensure, includes } from '@serenity-js/assertions';
+     * #### Executing a sync script as string and reading the result
      *
-     *  actorCalled('Joseph')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          ExecuteScript.sync('return navigator.userAgent'),
-     *          Ensure.that(LastScriptExecution.result<string>(), includes('Chrome')),
-     *      );
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript, LastScriptExecution } from '@serenity-js/web'
+     * import { Ensure, includes } from '@serenity-js/assertions'
      *
-     * @example <caption>Executing a sync script as function and reading the result</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { by, BrowseTheWeb, Enter, ExecuteScript, LastScriptExecution, Target } from '@serenity-js/webdriverio';
+     * await actorCalled('Joseph')
+     *   .attemptsTo(
+     *     ExecuteScript.sync('return navigator.userAgent'),
+     *     Ensure.that(LastScriptExecution.result<string>(), includes('Chrome')),
+     *   )
+     * ```
      *
-     *  const someOfferField      = Target.the('offer code').located(by.id('offer-code'));
-     *  const applyOfferCodeField = Target.the('apply offer field').located(by.id('apply-offer-code'));
+     * #### Executing a sync script as function and reading the result
      *
-     *  actorCalled('Joseph')
-     *      .whoCan(BrowseTheWeb.using(browser))
-     *      .attemptsTo(
-     *          // inject JavaScript to read some property of an element
-     *          ExecuteScript.sync(function getValue(element) {
-     *              return element.value;
-     *          }).withArguments(someOfferField),
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { By, Enter, ExecuteScript, LastScriptExecution, PageElement } from '@serenity-js/web'
      *
-     *          // use LastScriptExecution.result() to read the value
-     *          // returned from the injected script
-     *          // and pass it to another interaction
-     *          Enter.theValue(LastScriptExecution.result<string>()).into(applyOfferCodeField),
-     *      );
+     * const someOfferField = () =>
+     *   PageElement.located(By.id('offer-code'))
+     *     .describedAs('offer code')
      *
-     * @param {string | Function} script
+     * const applyOfferCodeField = () =>
+     *   PageElement.located(By.id('apply-offer-code'))
+     *     .describedAs('apply offer field')
+     *
+     * await actorCalled('Joseph')
+     *   .attemptsTo(
+     *     // inject JavaScript to read some property of an element
+     *     ExecuteScript.sync(function getValue(element) {
+     *         return element.value;
+     *     }).withArguments(someOfferField),
+     *
+     *     // use LastScriptExecution.result() to read the value
+     *     // returned from the injected script
+     *     // and pass it to another interaction
+     *     Enter.theValue(LastScriptExecution.result<string>()).into(applyOfferCodeField),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     * - {@apilink LastScriptExecution.result}
+     *
+     * @param script
      *  The script to be executed
-     *
-     * @returns {ExecuteScriptWithArguments}
-     *
-     * @see {@link LastScriptExecution.result}
      */
     static sync(script: string | Function): ExecuteScriptWithArguments {    // eslint-disable-line @typescript-eslint/ban-types
         return new ExecuteSynchronousScript(script);
@@ -167,27 +189,15 @@ export class ExecuteScript {
 }
 
 /**
- * @desc
- *  Allows for a script to be executed to be parametrised.
+ * Allows for a script to be executed to be parametrised.
  *
- *  **Please note** that the arguments can be both synchronous and asynchronous {@link @serenity-js/core/lib/screenplay~Question}s
- *  as well as regular static values.
+ * ## Learn more
+ * -  {@apilink ExecuteScript}
  *
- * @abstract
- *
- * @see {@link ExecuteScript}
- *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * @group Interactions
  */
 export abstract class ExecuteScriptWithArguments extends Interaction {
 
-    /**
-     * @param {string | Function} script
-     *  The script to be executed
-     *
-     * @param {Array<Answerable<any>>} args
-     *  Arguments to parametrise the script with
-     */
     constructor(
         protected readonly script: string | Function,           // eslint-disable-line @typescript-eslint/ban-types
         protected readonly args: Array<Answerable<any>> = [],
@@ -196,30 +206,15 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
     }
 
     /**
-     * @desc
-     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  to {@link Enter}.
+     * Instantiates this {@apilink Interaction}
      *
-     * @param {...Array<Answerable<any>>} args
+     * @param args
      *  Arguments to parametrise the script with
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     public abstract withArguments(...args: Array<Answerable<any>>): Interaction;
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         const args = await asyncMap(this.args, arg => actor.answer(arg));
@@ -251,9 +246,12 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
         return page.executeAsyncScript(this.script as unknown as any, ...args);   // todo: fix types
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return this.args.length > 0
-            ? formatted `#actor executes an asynchronous script with arguments: ${ this.args }`
+            ? d `#actor executes an asynchronous script with arguments: ${ this.args }`
             : `#actor executes an asynchronous script`;
     }
 }
@@ -270,16 +268,7 @@ class ExecuteScriptFromUrl extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<any> {
         const page = await BrowseTheWeb.as(actor).currentPage();
@@ -317,10 +306,7 @@ class ExecuteScriptFromUrl extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return `#actor executes a script from ${ this.sourceUrl }`;
@@ -341,9 +327,12 @@ class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
         return page.executeScript(this.script as unknown as any, ...args);    // todo fix type
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return this.args.length > 0
-            ? formatted `#actor executes a synchronous script with arguments: ${ this.args }`
+            ? d `#actor executes a synchronous script with arguments: ${ this.args }`
             : `#actor executes a synchronous script`;
     }
 }

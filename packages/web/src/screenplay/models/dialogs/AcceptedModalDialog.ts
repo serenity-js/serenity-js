@@ -2,6 +2,15 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { ModalDialog } from './ModalDialog';
 
+/**
+ * `AcceptedModalDialog` represents a {@apilink ModalDialog} that has been accepted
+ * via {@apilink ModalDialog.acceptNext}.
+ *
+ * ## Learn more
+ * - {@apilink ModalDialog}
+ *
+ * @group Models
+ */
 export class AcceptedModalDialog extends ModalDialog {
     constructor(private readonly dialogMessage: string) {
         super();

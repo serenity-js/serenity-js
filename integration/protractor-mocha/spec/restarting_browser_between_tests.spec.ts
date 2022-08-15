@@ -1,5 +1,5 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
 import { Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -28,33 +28,21 @@ describe('@serenity-js/Mocha', function () {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the second time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the second time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(TestRunFinished,          event => expect(event.timestamp).to.not.be.undefined)
@@ -73,33 +61,21 @@ describe('@serenity-js/Mocha', function () {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the first time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the second time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the second time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
                 .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A scenario passes the third time')))
                 .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                 .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
 
                 .next(TestRunFinished,          event => expect(event.timestamp).to.not.be.undefined)

@@ -3,59 +3,103 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationN
 import { PageElement } from '../screenplay';
 
 /**
- * @desc
- *  A convenience method to create a custom {@link PageElement}-related {@link @serenity-js/core/lib/screenplay/questions~Expectation}
+ * A factory method to that makes defining custom {@apilink PageElement}-related {@apilink Expectation|expectations} easier
  *
- * @example <caption>Defining an expectation</caption>
- *  import { Expectation } from '@serenity-js/core';
- *  import { ElementExpectation, PageElement } from '@serenity-js/web';
+ * ## Defining a custom expectation
  *
- *  export function isPresent(): Expectation<boolean, PageElement> {
- *      return ElementExpectation.forElementTo('become present', actual => actual.isPresent());
- *  }
+ * ```ts
+ * import { Expectation } from '@serenity-js/core'
+ * import { ElementExpectation, PageElement } from '@serenity-js/web'
  *
- * @example <caption>Using an expectation in an assertion</caption>
- *  import { Ensure } from '@serenity-js/assertions';
- *  import { actorCalled } from '@serenity-js/core';
- *  import { By, PageElement } from '@serenity-js/web';
+ * export function isEmpty(): Expectation<boolean, PageElement> {
+ *   return ElementExpectation.forElementTo('have an empty value', await actual => {
+ *     const value = await actual.value();
+ *     return value.length === 0;
+ *   })
+ * }
+ * ```
  *
- *  const submitButton = () =>
- *      PageElement.located(By.css('.submit')).describedAs('submit button');
+ * ## Using an expectation in an assertion
  *
- *  actorCalled('Izzy').attemptsTo(
- *      Ensure.that(submitButton(), isPresent())
- *  );
+ * ```ts
+ * import { Ensure } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { By, Clear, PageElement } from '@serenity-js/web'
  *
- * @example <caption>Using an expectation in a synchronisation statement</caption>
- *  import { actorCalled, Duration, Wait } from '@serenity-js/core';
- *  import { By, PageElement } from '@serenity-js/web';
+ * const nameField = () =>
+ *   PageElement.located(By.css('[data-test-id="name"]')).describedAs('name field');
  *
- *  const submitButton = () =>
- *      PageElement.located(By.css('.submit')).describedAs('submit button');
+ * await actorCalled('Izzy').attemptsTo(
+ *   Clear.the(nameField()),
+ *   Ensure.that(nameField(), isEmpty())
+ * )
+ * ```
  *
- *  actorCalled('Izzy').attemptsTo(
- *      Wait.upTo(Duration.ofSeconds(2)).until(submitButton(), isPresent())
- *  );
+ * ## Using an expectation in a control flow statement
  *
- * @public
- * @extends {@serenity-js/core/lib/screenplay/questions~Expectation}
+ * ```ts
+ * import { not } from '@serenity-js/assertions'
+ * import { actorCalled, Check, Duration, Wait } from '@serenity-js/core'
+ * import { By, PageElement } from '@serenity-js/web'
+ *
+ * const nameField = () =>
+ *   PageElement.located(By.css('[data-test-id="name"]')).describedAs('name field');
+ *
+ * await actorCalled('Izzy').attemptsTo(
+ *   Check.whether(nameField(), isEmpty())
+ *     .andIfSo(
+ *       Enter.theValue(actorInTheSpotlight().name).into(nameField()),
+ *     ),
+ * )
+ * ```
+ *
+ * ## Using an expectation in a synchronisation statement
+ *
+ * ```ts
+ * import { not } from '@serenity-js/assertions'
+ * import { actorCalled, Duration, Wait } from '@serenity-js/core'
+ * import { By, PageElement } from '@serenity-js/web'
+ *
+ * const nameField = () =>
+ *   PageElement.located(By.css('[data-test-id="name"]')).describedAs('name field');
+ *
+ * await actorCalled('Izzy').attemptsTo(
+ *   Enter.theValue(actorInTheSpotlight().name).into(nameField()),
+ *
+ *   Wait.upTo(Duration.ofSeconds(2))
+ *     .until(nameField(), not(isEmpty())),
+ * )
+ * ```
+ *
+ * ## Learn more
+ * - {@apilink Expectation}
+ * - {@apilink Ensure}
+ * - {@apilink Check}
+ * - {@apilink Wait}
+ *
+ * @group Expectations
  */
 export class ElementExpectation extends Expectation<PageElement> {
 
     /**
-     * @desc
-     *  Creates an {@link @serenity-js/core/lib/screenplay/questions~Expectation}
+     * Instantiates a custom {@apilink PageElement}-specific {@apilink Expectation}
      *
-     * @example <caption>Defining an expectation</caption>
-     *  import { Expectation } from '@serenity-js/core';
-     *  import { ElementExpectation, PageElement } from '@serenity-js/web';
+     * #### Defining a custom expectation
+     * ```ts
+     * import { Expectation } from '@serenity-js/core'
+     * import { ElementExpectation, PageElement } from '@serenity-js/web'
      *
-     *  export function isPresent(): Expectation<boolean, PageElement> {
-     *      return ElementExpectation.forElementTo('become present', actual => actual.isPresent());
-     *  }
+     * export function isEmpty(): Expectation<boolean, PageElement> {
+     *   return ElementExpectation.forElementTo('have an empty value', await actual => {
+     *     const value = await actual.value();
+     *     return value.length === 0;
+     *   })
+     * }
+     * ```
      *
-     * @param {string} description
+     * @param description
      *  A description of the expectation.
+     *
      *  Please note that Serenity/JS will use it to describe your expectation in sentences like these:
      *  - `actor ensures that <something> does <description>`
      *  - `actor ensures that <something> does not <description>`
@@ -66,24 +110,20 @@ export class ElementExpectation extends Expectation<PageElement> {
      *  - `become present`,
      *  - `become active`,
      *  - `equal X`,
-     *  - `has value greater than Y`.
+     *  - `have value greater than Y`,
+     *  - `have an empty value`
      *
-     *  Descriptions like "is present", "is active", "equals X", "is greater than Y" WILL NOT work well.
+     *  **DO NOT** use descriptions like "is present", "is active", "equals X", "is greater than Y"
+     *  as they won't read well in your test reports.
      *
-     * @param {function(actual: PageElement): Promise<boolean>} fn
-     *  An asynchronous callback function that receives a {@link PageElement} and returns a {@link Promise}
-     *  that should resolve to `true` when the expectation is met, and `false` otherwise.
-     *
-     * @returns {ElementExpectation<any, PageElement>}
+     * @param fn
+     *  An asynchronous callback function that receives a {@apilink PageElement} and returns a {@apilink Promise}
+     *  that should resolve to `true` when the expectation is met, or `false` otherwise.
      */
     static forElementTo(description: string, fn: (actual: PageElement) => Promise<boolean>): Expectation<PageElement> {
         return new ElementExpectation(description, fn);
     }
 
-    /**
-     * @param {string} description
-     * @param {function(actual: PageElement): Promise<boolean>} fn
-     */
     constructor(
         description: string,
         private readonly fn: (actual: PageElement) => Promise<boolean>,

@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { Artifact, CorrelationId, Name, SerialisedArtifact, Timestamp } from '../model';
 import { ArtifactGenerated } from './ArtifactGenerated';
 
+/**
+ * @group Events
+ */
 export class ActivityRelatedArtifactGenerated extends ArtifactGenerated {
     static fromJSON(o: JSONObject): ActivityRelatedArtifactGenerated {
         return new ActivityRelatedArtifactGenerated(

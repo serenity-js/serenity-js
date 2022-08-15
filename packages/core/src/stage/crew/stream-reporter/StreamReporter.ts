@@ -5,48 +5,79 @@ import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 
 /**
- * @desc
- *  Serialises all the {@link DomainEvent} objects it receives and streams
- *  them as [ndjson](http://ndjson.org/) to the output stream.
+ * Serialises all the {@apilink DomainEvent} objects it receives and streams
+ * them as [ndjson](http://ndjson.org/) to the output stream.
  *
- * @example <caption>Writing DomainEvents to standard output</caption>
- *  import { configure, StreamReporter } from '@serenity-js/core';
+ * Useful when debugging issues related to custom Serenity/JS test runner adapters.
  *
- *  configure({
- *      crew: [
- *          new StreamReporter(process.stdout)
- *      ],
- *  });
+ * ## Registering `StreamReporter` programmatically
  *
- * @example <caption>Writing DomainEvents to a file</caption>
- *  import { configure, StreamReporter } from '@serenity-js/core';
- *  import fs = require('fs');
+ * ```ts
+ * import { configure, StreamReporter } from '@serenity-js/core'
  *
- *  configure({
- *      crew: [
- *          new StreamReporter(fs.createWriteStream('./events.ndjson'))
- *      ],
- *  });
+ * configure({
+ *   crew: [
+ *     new StreamReporter(process.stdout)
+ *   ],
+ * })
+ * ```
  *
- * @example <caption>Registering StreamReporter using Protractor configuration</caption>
- *  // protractor.conf.js
- *  const { StreamReporter } = require('@serenity-js/core');
+ * ## Writing `DomainEvents` to a file
  *
- *  exports.config = {
- *    framework:     'custom',
- *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ * ```ts
+ * import { configure, StreamReporter } from '@serenity-js/core'
+ * import fs = require('fs')
  *
- *    serenity: {
- *      crew: [
- *        new StreamReporter(process.stdout),
- *      ],
- *      // other Serenity/JS config
- *    },
+ * configure({
+ *   crew: [
+ *     new StreamReporter(fs.createWriteStream('./events.ndjson'))
+ *   ],
+ * })
+ * ```
  *
- *    // other Protractor config
- *  };
+ * ## Registering `StreamReporter` using Protractor configuration
  *
- * @implements {StageCrewMember}
+ * ```js
+ * // protractor.conf.js
+ * const { StreamReporter } = require('@serenity-js/core');
+ *
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *     crew: [
+ *       new StreamReporter(process.stdout),
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *   // other Protractor config
+ * };
+ * ```
+ *
+ * ## Registering `StreamReporter` using WebdriverIO configuration
+ *
+ * ```ts
+ * // wdio.conf.js
+ * import { StreamReporter } from '@serenity-js/core'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
+ *
+ * export const config: WebdriverIOConfig = {
+ *
+ *     framework: '@serenity-js/webdriverio',
+ *
+ *     serenity: {
+ *         crew: [
+ *           new StreamReporter(process.stdout),
+ *         ]
+ *         // other Serenity/JS config
+ *     },
+ *   },
+ *   // other WebdriverIO config
+ * }
+ * ```
+ *
+ * @group Stage
  */
 export class StreamReporter implements StageCrewMember {
 
@@ -55,7 +86,7 @@ export class StreamReporter implements StageCrewMember {
      *  A Writable stream that should receive the output
      *
      * @param {Stage} [stage]
-     *  The stage this {@link StageCrewMember} should be assigned to
+     *  The stage this {@apilink StageCrewMember} should be assigned to
      */
     constructor(
         private readonly output: Writable = process.stdout,
@@ -64,28 +95,24 @@ export class StreamReporter implements StageCrewMember {
     }
 
     /**
-     * @desc
-     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     * Creates a new instance of this {@apilink StageCrewMember} and assigns it to a given {@apilink Stage}.
      *
-     * @see {@link StageCrewMember}
+     * @param stage
+     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
      *
-     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
-     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
+     * @returns {StageCrewMember}
+     *  A new instance of this {@apilink StageCrewMember}
      */
     assignedTo(stage: Stage): StageCrewMember {
         return new StreamReporter(this.output, stage);
     }
 
     /**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
-     *
-     * @see {@link StageCrewMember}
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink StageManager}.
      *
      * @listens {DomainEvent}
      *
-     * @param {DomainEvent} event
-     * @returns {void}
+     * @param event
      */
     notifyOf(event: DomainEvent): void {
         this.output.write(

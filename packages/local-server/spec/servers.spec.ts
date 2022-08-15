@@ -15,7 +15,6 @@ import servers = require('./servers');
 
 describe('ManageALocalServer', () => {
 
-    /** @test {ManageALocalServer} */
     describe('when working with HTTP', () => {
 
         given(servers).
@@ -72,7 +71,6 @@ describe('ManageALocalServer', () => {
 
     // ---
 
-    /** @test {ManageALocalServer} */
     describe('when working with HTTPS', () => {
 
         const testHttpsServer = [

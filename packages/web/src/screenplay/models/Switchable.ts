@@ -1,29 +1,24 @@
 import { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
- * @desc
- *  Describes a Serenity/JS model object that can be switched to and switched back from
- *  using the {@link @serenity-js/core/lib/screenplay~Task} to {@link Switch}.
+ * Describes a Serenity/JS model object that can be switched _to_ and switched back _from_
+ * using the {@apilink Task|task} to {@apilink Switch}.
  *
- *  Examples of switchable models include a {@link Page} and {@link PageElement}.
+ * Examples of switchable models include a {@apilink Page} and {@apilink PageElement}.
  *
- * @public
- * @interface
+ * ## Learn more
+ * - {@apilink Page}
+ * - {@apilink PageElement}
+ * - {@apilink Switch}
  *
- * @see {@link Page}
- * @see {@link PageElement}
- * @see {@link Switch}
+ * @group Models
  */
 export interface Switchable {
 
     /**
-     * @desc
-     *  Switches the context to the object implementing this interface
-     *  and returns {@link SwitchableOrigin} that allows for the context to be switched
-     *  back when needed.
-     *
-     * @type {function(): Promise<SwitchableOrigin>}
-     * @public
+     * Switches the context to the object implementing this interface
+     * and returns {@apilink SwitchableOrigin} that allows for the context to be switched
+     * back when needed.
      */
-    switchTo: () => Promise<SwitchableOrigin>;
+    switchTo(): Promise<SwitchableOrigin>;
 }

@@ -2,9 +2,10 @@ import { Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Emitted when the last test in the test suite has finished running
- *  and it's time for any last-minute reporting to take place.
+ * Emitted when the last test in the test suite has finished running
+ * and it's time for any last-minute reporting activities to take place.
+ *
+ * @group Events
  */
 export class TestRunFinishes extends DomainEvent {
     static fromJSON(v: string): TestRunFinishes {

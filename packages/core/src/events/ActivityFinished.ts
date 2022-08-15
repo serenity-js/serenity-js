@@ -4,11 +4,9 @@ import { ActivityDetails, CorrelationId, Outcome, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Emitted when an {@link Activity} is finished.
+ * Emitted when an {@apilink Activity} is finished.
  *
- * @abstract
- * @extends {DomainEvent}
+ * @group Events
  */
 export abstract class ActivityFinished extends DomainEvent {
     constructor(

@@ -1,11 +1,10 @@
 /**
- * @desc
- *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.
+ * Wraps Webdriver promise-like objects into
+ * a Node-native promise to allow for correct promise chaining.
  *
  * @private
  *
  * @param promiseLike
- * @returns {Promise<T>}
  */
 export function promised<T>(promiseLike: PromiseLike<T>): Promise<T> {
     return new Promise((resolve, reject) => {

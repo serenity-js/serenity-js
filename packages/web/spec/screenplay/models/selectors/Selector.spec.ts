@@ -3,7 +3,6 @@ import { describe, it } from 'mocha';
 
 import { Selector } from '../../../../src';
 
-/** @test {Selector} */
 describe('Selector', () => {
 
     it('produces a human-friendly description of a custom selector that extends it', () => {

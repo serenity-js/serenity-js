@@ -8,11 +8,9 @@ import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorModalDialogHandler } from './ProtractorModalDialogHandler';
 
 /**
- * @desc
- *  Protractor-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
+ * Protractor-specific implementation of {@apilink BrowsingSession}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~Page}
- * @extends {@serenity-js/web/lib/screenplay/models~BrowsingSession}
+ * @group Models
  */
 export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
 
@@ -51,8 +49,7 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
 
     /**
      * @override
-     * @param {ProtractorPage} page
-     * @returns {Promise<void>}
+     * @param page
      */
     async changeCurrentPageTo(page: ProtractorPage): Promise<void> {
         await this.browser.switchTo().window(page.id.value);

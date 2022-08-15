@@ -6,52 +6,53 @@ import * as net from 'net';
 import { getPortPromise } from 'portfinder';
 
 /**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  to manage a local [Node.js](https://nodejs.org/) server.
+ * An {@apilink Ability} that enables an {@apilink Actor}
+ * to manage a local [Node.js](https://nodejs.org/) server.
  *
- * @example <caption>Using a raw Node.js server</caption>
- * import { Actor } from '@serenity-js/core';
- * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
+ * ## Managing a raw Node.js server
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest'
  * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'
- * import { Ensure, equals } from '@serenity-js/assertions';
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * import axios from 'axios';
- * import * as http from 'http';
+ * import * as axios from 'axios'
+ * import * as http from 'http'
  *
  * const server = http.createServer(function (request, response) {
- *     response.setHeader('Connection', 'close');
- *     response.end('Hello!');
+ *   response.setHeader('Connection', 'close');
+ *   response.end('Hello!');
  * })
  *
- * const actor = Actor.named('Apisit').whoCan(
+ * await actorCalled('Apisit')
+ *   .whoCan(
  *     ManageALocalServer.using(server),
  *     CallAnApi.using(axios.create()),
- * );
- *
- * actor.attemptsTo(
+ *   )
+ *   .attemptsTo(
  *     StartLocalTestServer.onRandomPort(),
  *     Send.a(GetRequest.to(LocalServer.url())),
  *     Ensure.that(LastResponse.status(), equals(200)),
  *     Ensure.that(LastResponse.body<string>(), equals('Hello!')),
  *     StopLocalTestServer.ifRunning(),
- * );
+ *   )
+ * ```
  *
- * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
- * @see https://nodejs.org/api/http.html#http_class_http_server
+ * ## Learn more
+ * - [Anatomy of an HTTP transaction](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)
+ * - [Node.js HTTP server](https://nodejs.org/api/http.html#http_class_http_server)
  *
- * @implements {@link @serenity-js/core/lib/screenplay~Ability}
+ * @group Abilities
  */
 export class ManageALocalServer implements Ability {
 
     private readonly server: ServerWithShutdown;
 
     /**
-     * @desc
-     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.
+     * An {@apilink Ability} to manage a Node.js HTTP server using the provided `requestListener`.
      *
-     * @param {RequestListener | net~Server} listener
-     * @returns {ManageALocalServer}
+     * @param listener
      */
     static runningAHttpListener(listener: RequestListener | net.Server): ManageALocalServer {
         const server = typeof listener === 'function'
@@ -62,12 +63,11 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * @desc
-     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
+     * An {@apilink Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
-     * @param {RequestListener | https~Server} listener
-     * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
-     * @returns {ManageALocalServer}
+     * @param listener
+     * @param options
+     *  Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
      *
      * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */
@@ -80,22 +80,21 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * @desc
-     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}'s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}
-     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
-     *  such as {@link StartLocalServer}.
+     * Used to access the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink ManageALocalServer}
+     * from within the {@apilink Interaction} classes, such as {@apilink StartLocalServer}.
      *
-     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor
-     * @return {ManageALocalServer}
+     * @param actor
      */
     static as(actor: UsesAbilities): ManageALocalServer {
         return actor.abilityTo(ManageALocalServer);
     }
 
     /**
-     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`
+     * @param protocol
+     *  Protocol to be used when communicating with the running server; `http` or `https`
      *
-     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
+     * @param server
+     *  A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
      *
      * @see https://www.npmjs.com/package/http-shutdown
      */
@@ -104,16 +103,13 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * @desc
-     *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.
+     * Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.
      *
-     * @param {number} [preferredPort=8000]
+     * @param [preferredPort=8000]
      *  Lower bound of the preferred port range
      *
-     * @param {number} [highestPort=65535] highestPort
+     * @param [highestPort=65535] highestPort
      *  Upper bound of the preferred port range
-     *
-     * @returns {Promise<void>}
      */
     listen(preferredPort = 8000, highestPort = 65535): Promise<void> {
         return getPortPromise({ port: preferredPort, stopPort: highestPort })
@@ -137,11 +133,9 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * @desc
-     *  Provides access to the server requestListener
+     * Provides access to the server `requestListener`
      *
      * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn
-     * @returns {T}
      */
     mapInstance<T>(fn: (server: ServerWithShutdown, protocol?: SupportedProtocols) => T): T {
         return fn(this.server, this.protocol);
@@ -149,27 +143,16 @@ export class ManageALocalServer implements Ability {
 }
 
 /**
- * @desc
- *  A `requestListener` function that Node's
- *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
- *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
- *  would accept.
- *
- * @public
- *
- * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener
+ * A `requestListener` function accepted by Node's
+ * [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
+ * or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener).
  */
 export type RequestListener = (request: http.IncomingMessage, response: http.ServerResponse) => void;
 
 /**
- * @desc
- *  A {@link net~Server} with an added shutdown method.
+ * A {@apilink net.Server} with an added shutdown method.
  *
  * @see https://www.npmjs.com/package/http-shutdown
- *
- * @public
- *
- * @typedef {net~Server & { shutdown: (callback: (error?: Error) => void) => void }} ServerWithShutdown
  */
 export type ServerWithShutdown = net.Server & {
     shutdown: (callback: (error?: Error) => void) => void,
@@ -177,17 +160,10 @@ export type ServerWithShutdown = net.Server & {
 };
 
 /**
- * @desc
- *  The protocol supported by the instance of the {@link ServerWithShutdown},
- *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.
+ * The protocol supported by the instance of the {@apilink ServerWithShutdown},
+ * wrapped by the {@apilink Ability|ability} to {@apilink ManageALocalServer}.
  *
- * @see {@link ManageALocalServer#mapInstance}
- *
- * @public
- *
- * @typedef {Object} SupportedProtocols
- * @property {string} HTTP
- * @property {string} HTTPS
+ * @group Models
  */
 export enum SupportedProtocols {
     HTTP = 'http',

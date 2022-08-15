@@ -28,7 +28,6 @@ import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-repor
 import { given } from '../given';
 import { create } from './create';
 
-/** @test {SerenityBDDReporter} */
 describe('SerenityBDDReporter', () => {
 
     const
@@ -89,13 +88,6 @@ describe('SerenityBDDReporter', () => {
             artifact = stageManager.notifyOf.firstCall.lastArg.artifact;
         });
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {SceneFinished}
-         * @test {ExecutionSuccessful}
-         * @test {TestRunFinishes}
-         */
         it('is a valid artifact', () => {
             expect(artifact).to.be.instanceOf(TestReport);
         });
@@ -103,14 +95,6 @@ describe('SerenityBDDReporter', () => {
 
     describe('emits an ArtifactGenerated event that', () => {
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         * @test {ExecutionSuccessful}
-         * @test {ExecutionSkipped}
-         */
         it('is separate for each scenario', () => {
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(aSceneId, defaultCardScenario),
@@ -148,47 +132,19 @@ describe('SerenityBDDReporter', () => {
                 report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('contains the id of the scenario', () => {
                 expect(report.id).to.equal('online-checkout;paying-with-a-default-card');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('contains the name of the scenario', () => {
                 expect(report.name).to.equal(defaultCardScenario.name.value);
                 expect(report.title).to.equal(defaultCardScenario.name.value);
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('contains the start time of the scenario', () => {
                 expect(report.startTime).to.equal(startTime.toMilliseconds());
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('contains the duration of the scenario', () => {
                 expect(report.duration).to.equal(scenarioDuration.inMilliseconds());
             });
@@ -202,13 +158,6 @@ describe('SerenityBDDReporter', () => {
                 );
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('has finished with success', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
@@ -221,14 +170,7 @@ describe('SerenityBDDReporter', () => {
                 expect(report.result).to.equal('SUCCESS');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ImplementationPending}
-             */
-            it('hasn\'t been implemented yet', () => {
+            it(`hasn't been implemented yet`, () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(aSceneId, defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
@@ -240,13 +182,6 @@ describe('SerenityBDDReporter', () => {
                 expect(report.result).to.equal('PENDING');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionIgnored}
-             */
             it('has been ignored', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
@@ -259,13 +194,6 @@ describe('SerenityBDDReporter', () => {
                 expect(report.result).to.equal('IGNORED');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSkipped}
-             */
             it('has been skipped', () => {
 
                 given(reporter).isNotifiedOfFollowingEvents(
@@ -278,13 +206,6 @@ describe('SerenityBDDReporter', () => {
                 expect(report.result).to.equal('SKIPPED');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionFailedWithAssertionError}
-             */
             it('has failed with an assertion error', () => {
 
                 const assertionError = new AssertionError('expected true to equal false', false, true);
@@ -302,13 +223,6 @@ describe('SerenityBDDReporter', () => {
                 expect(report.testFailureCause.stackTrace).to.be.an('array');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionFailedWithError}
-             */
             it('has failed with a non-assertion error', () => {
                 const error = new Error("We're sorry, something happened");
 
@@ -344,13 +258,6 @@ describe('SerenityBDDReporter', () => {
                 });
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionCompromised}
-             */
             it('has been compromised', () => {
                 const databaseError = new Error(`Could not connect to the database`);
                 databaseError.stack = [
@@ -403,14 +310,6 @@ describe('SerenityBDDReporter', () => {
 
         describe('indicates its execution context', () => {
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {TestRunnerDetected}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('specifies the test runner', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneStarts(aSceneId, defaultCardScenario),
@@ -424,13 +323,6 @@ describe('SerenityBDDReporter', () => {
                 expect(report.testSource).to.equal('Cucumber');
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('specifies the user story covered', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneStarts(aSceneId, defaultCardScenario),
@@ -448,13 +340,6 @@ describe('SerenityBDDReporter', () => {
                 });
             });
 
-            /**
-             * @test {SerenityBDDReporter}
-             * @test {SceneStarts}
-             * @test {SceneFinished}
-             * @test {TestRunFinishes}
-             * @test {ExecutionSuccessful}
-             */
             it('does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)', () => {
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneStarts(aSceneId, jasmineScenario),
@@ -474,13 +359,10 @@ describe('SerenityBDDReporter', () => {
 
             describe('reports information from the cucumber feature file', () => {
 
-                /** @test {SerenityBDDReporter} */
                 it('reports the scenario-level narrative'); // eslint-disable-line mocha/no-pending-tests
 
-                /** @test {SerenityBDDReporter} */
                 it('reports the scenario-level background title');  // eslint-disable-line mocha/no-pending-tests
 
-                /** @test {SerenityBDDReporter} */
                 it('reports the scenario-level background description');    // eslint-disable-line mocha/no-pending-tests
             });
         });

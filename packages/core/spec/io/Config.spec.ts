@@ -3,7 +3,6 @@ import { describe, it } from 'mocha';
 import { Config } from '../../src/io';
 import { expect } from '../expect';
 
-/** @test {Config} */
 describe('Config', () => {
 
     describe('when wrapping a plain-old configuration object', () => {

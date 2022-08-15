@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, ScenarioDetails, ScenarioParameters, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class SceneParametersDetected extends DomainEvent {
     public static fromJSON(o: JSONObject): SceneParametersDetected {
         return new SceneParametersDetected(

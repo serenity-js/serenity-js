@@ -32,16 +32,16 @@ export class InvokeSerenityBDD extends Task {
 
     /**
      * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.
+     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@apilink @serenity-js/core/lib/screenplay~Task}.
      *
      * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor
      * @returns {Promise<void>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~PerformsActivities}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): Promise<void> | Promise<any> {
 
@@ -65,7 +65,7 @@ export class InvokeSerenityBDD extends Task {
 
     /**
      * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
      *
      * @returns {string}
      */

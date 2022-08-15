@@ -1,5 +1,4 @@
-import { Answerable, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, d, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
 import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
 
 import { CookieMissingError } from '../../errors';
@@ -7,19 +6,19 @@ import { BrowseTheWeb } from '../abilities';
 import { CookieData } from './CookieData';
 
 /**
- * @desc
- *  A Screenplay Pattern-style model responsible for managing cookies available to the {@link Page}s.
+ * A Screenplay Pattern-style model responsible for managing cookies available to the current {@apilink Page}.
  *
- * @implements {@serenity-js/core/lib/screenplay~Optional}
+ * ## Learn more
+ * - {@apilink Page.cookie}
+ *
+ * @group Models
  */
 export abstract class Cookie implements Optional {
 
     /**
-     * @desc
-     *  Creates a {@link @serenity-js/core/lib/screenplay~Question} about a Cookie
+     * Creates a {@apilink QuestionAdapter} that resolves to {@apilink Cookie} identified by `name`.
      *
-     * @param {Answerable<string>} name
-     * @returns {Question<Promise<Cookie>> & Adapter<Cookie>}
+     * @param name
      */
     static called(name: Answerable<string>): QuestionAdapter<Cookie> {
         return Question.about(`"${ name }" cookie`, async actor => {
@@ -30,17 +29,16 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Sets a cookie for the current page.
-     *  Make sure that the actor performing this interaction is on the page that should receive the cookie.
-     *  An actor can't set a cookie for an arbitrary page without being on that page.
+     * Sets a cookie for the current {@apilink Page}.
      *
-     * @param {Answerable<CookieData>} cookieData
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * **Note:** Make sure that the actor performing this interaction is on the page that should receive the cookie.
+     * An actor can't set a cookie for an arbitrary page without being on that page.
+     *
+     * @param cookieData
      */
     static set(cookieData: Answerable<CookieData>): Interaction {
 
-        return Interaction.where(formatted `#actor sets cookie: ${ cookieData }`, async actor => {
+        return Interaction.where(d `#actor sets cookie: ${ cookieData }`, async actor => {
             const cookie = ensure('cookieData', await actor.answer(cookieData), isDefined(), isPlainObject());
 
             const page = await BrowseTheWeb.as(actor).currentPage();
@@ -61,10 +59,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Creates an {@link @serenity-js/core/lib/screenplay~Interaction} to delete all cookies currently set in the browser.
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * Creates an {@apilink Interaction|interaction} to delete all cookies available to the current {@apilink Page}..
      */
     static deleteAll(): Interaction {
         return Interaction.where(`#actor deletes all cookies`, async actor => {
@@ -80,20 +75,17 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the name of this cookie.
-     *
-     * @returns {string}
+     * Returns the name of this cookie.
      */
     name(): string {
         return this.cookieName;
     }
 
     /**
-     * @desc
-     *  Checks if a given cookie is set.
+     * Checks if a given cookie is set.
      *
-     * @returns {Promise<boolean>}
+     * #### Learn more
+     * - {@apilink Optional}
      */
     async isPresent(): Promise<boolean> {
         try {
@@ -110,10 +102,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the value of a given cookie.
-     *
-     * @returns {Promise<string>}
+     * Returns the value of a given cookie.
      */
     async value(): Promise<string> {
         const cookie = await this.lazyLoadCookie();
@@ -121,10 +110,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the path of a given cookie, if any was set.
-     *
-     * @returns {Promise<string>}
+     * Returns the path of a given cookie, if any was set.
      */
     async path(): Promise<string> {
         const cookie = await this.lazyLoadCookie();
@@ -132,10 +118,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the domain of a given cookie, if any was set.
-     *
-     * @returns {Promise<string>}
+     * Returns the domain of a given cookie, if any was set.
      */
     async domain(): Promise<string> {
         const cookie = await this.lazyLoadCookie();
@@ -143,12 +126,10 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Checks if a given cookie is HTTP-only.
+     * Checks if a given cookie is HTTP-only.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies
-     *
-     * @returns {Promise<string>}
+     * #### Learn more
+     * - [Mozilla Developer Network: Restricting access to cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
      */
     async isHttpOnly(): Promise<boolean> {
         const cookie = await this.lazyLoadCookie();
@@ -156,12 +137,10 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Checks if a given cookie is secure.
+     * Checks if a given cookie is secure.
      *
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies
-     *
-     * @returns {Promise<string>}
+     * #### Learn more
+     * - [Mozilla Developer Network: Restricting access to cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
      */
     async isSecure(): Promise<boolean> {
         const cookie = await this.lazyLoadCookie();
@@ -169,10 +148,10 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Returns the expiry date of a given cookie
+     * Returns the expiry date of a given cookie
      *
-     * @returns {Promise<Timestamp>}
+     * #### Learn more
+     * - {@apilink Timestamp}
      */
     async expiry(): Promise<Timestamp> {
         const cookie = await this.lazyLoadCookie();
@@ -180,36 +159,22 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * @desc
-     *  Deletes a given cookie.
-     *
-     * @abstract
-     *
-     * @returns {Promise<void>}
+     * Deletes a given cookie.
      */
     abstract delete(): Promise<void>;
 
     /**
-     * @desc
-     *  Reads a given cookie from the browser.
+     * Reads a given cookie from the browser.
      *
-     *  This method is to be implemented by integration tool-specific adapters.
-     *  **Please note**: you don't need to implement any response caching here
-     *  since it is covered by {@link Cookie#lazyLoadCookie} method.
+     * This method is to be implemented by test integration tool-specific adapters.
      *
-     * @protected
-     * @abstract
-     *
-     * @returns {Promise<void>}
+     * **Please note**: you don't need to implement any response caching here
+     * since it is covered by {@apilink Cookie.lazyLoadCookie} method.
      */
     protected abstract read(): Promise<CookieData>;
 
     /**
-     * @desc
-     *  Invokes {@link Cookie#read} and caches the result in memory.
-     *
-     * @private
-     * @returns {Promise<CookieData>}
+     * Invokes {@apilink Cookie.read} and caches the result in memory.
      */
     private async lazyLoadCookie(): Promise<CookieData> {
         if (! this.cookie) {

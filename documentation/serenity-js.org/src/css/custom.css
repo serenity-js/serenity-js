@@ -1,0 +1,97 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  /*--ifm-code-font-size: 95%;*/
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /*--ifm-footer-background-color: #3e495b;*/
+  /*--ifm-footer-color:#000;*/
+  /*--ifm-footer-link-color:#000;*/
+}
+
+[data-theme='light'] {
+  --ifm-color-primary: #284f93;
+  --ifm-color-primary-dark: #244784;
+  --ifm-color-primary-darker: #22437d;
+  --ifm-color-primary-darkest: #1c3767;
+  --ifm-color-primary-light: #2c57a2;
+  --ifm-color-primary-lighter: #2e5ba9;
+  --ifm-color-primary-lightest: #3467bf;
+
+  /*--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.9);*/
+}
+
+.navbar__title {
+  /* Replaced by Serenity/JS logo SVG */
+  display: none;
+}
+
+footer {
+  border-top: var(--ifm-color-emphasis-300) 1px solid;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #fcd30a;
+  --ifm-color-primary-dark: #e9c203;
+  --ifm-color-primary-darker: #dcb703;
+  --ifm-color-primary-darkest: #b59702;
+  --ifm-color-primary-light: #fcd824;
+  --ifm-color-primary-lighter: #fcda31;
+  --ifm-color-primary-lightest: #fde158;
+  --ifm-background-color: #22272e;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/*
+ * Home page
+ */
+
+/* background patterns from https://heropatterns.com/ */
+.hero {
+  color: #040a16;
+  background-color: #fcd30a;
+  /*background: rgb(236,54,68);*/
+  /*background: linear-gradient(60deg, rgba(236,54,68,1) 0%, rgba(251,211,11,1) 100%);*/
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23fde158' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/*
+ * API docs
+ */
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li::before{
+  display: block;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.75rem;
+  /*padding: 0px 6px 0px 6px;*/
+}
+
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li:first-child::before {
+  content: 'Core modules';
+}
+
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(3)::before {
+  content: 'Test runner adapters';
+}
+
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(6)::before {
+  content: 'Web Testing';
+}
+
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(10)::before {
+  content: 'REST API Testing';
+}
+
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(12)::before {
+  content: 'Reporting';
+}
+

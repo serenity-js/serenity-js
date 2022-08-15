@@ -13,15 +13,12 @@ import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
 
 /**
- * @desc
- *  Playwright-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~Page}.
+ * Playwright-specific implementation of {@apilink Page}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~Page}
+ * @group Models
  */
 export class PlaywrightPage extends Page<playwright.ElementHandle> {
-    /**
-     * @private
-     */
+
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
@@ -155,13 +152,6 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         return result;
     }
 
-    /**
-     * @desc
-     *  Returns the last result of calling {@link BrowseTheWebWithPlaywright#executeAsyncScript}
-     *  or {@link BrowseTheWebWithPlaywright#executeScript}
-     *
-     * @returns {any}
-     */
     lastScriptExecutionResult<Result = any>(): Result {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);

@@ -3,64 +3,74 @@ import { Question, QuestionAdapter } from '@serenity-js/core';
 import { CallAnApi } from '../abilities';
 
 /**
- * @desc
- *  Provides access to the properties of the last {@link AxiosResponse} object,
- *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.
+ * Provides access to the properties of the last {@apilink AxiosResponse} object,
+ * cached on the {@apilink Ability|ability} to {@apilink CallAnApi}.
  *
- * @example <caption>Verify response to a GET request</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Verify response to a GET request
  *
- *  interface Book {
- *      title: string;
- *      author: string
- *  }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+ * interface Book {
+ *     title: string;
+ *     author: string;
+ * }
  *
- *  actor.attemptsTo(
- *      Send.a(GetRequest.to('/books/0-688-00230-7')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),
- *      Ensure.that(LastResponse.body<Book>(), equals({
- *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
- *          author: 'Robert M. Pirsig',
- *      })),
- *  );
+ * await actorCalled('Apisit')
+ *   .whoCan(CallAnApi.at('https://api.example.org/'))
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/books/0-688-00230-7')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *     Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),
+ *     Ensure.that(LastResponse.body<Book>(), equals({
+ *         title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+ *         author: 'Robert M. Pirsig',
+ *     })),
+ *   )
+ * ```
  *
- * @example <caption>Use Serenity/JS adapters to navigate complex response objects</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Use Serenity/JS adapters to navigate complex response objects
  *
- *  interface Developer {
- *      name: string;
- *      id: string;
- *      projects: Project[];
- *  }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  interface Project {
- *      name: string;
- *      repoUrl: string;
- *  }
+ * interface Developer {
+ *     name: string;
+ *     id: string;
+ *     projects: Project[];
+ * }
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+ * interface Project {
+ *     name: string;
+ *     repoUrl: string;
+ * }
  *
- *  actor.attemptsTo(
- *      Send.a(GetRequest.to('/developers/jan-molak')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *      Ensure.that(LastResponse.body<Developer>().name, equals('Jan Molak')),
- *      Ensure.that(LastResponse.body<Developer>().projects[0].name, equals('Serenity/JS')),
- *  );
+ * await actorCalled('Apisitt')
+ *   .whoCan(CallAnApi.at('https://api.example.org/'))
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/developers/jan-molak')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *     Ensure.that(LastResponse.body<Developer>().name, equals('Jan Molak')),
+ *     Ensure.that(LastResponse.body<Developer>().projects[0].name, equals('Serenity/JS')),
+ * )
+ * ```
+ *
+ * ## Learn more
+ * - [AxiosResponse](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L133-L140)
+ *
+ * @group Questions
  */
 export class LastResponse {
 
     /**
-     * @desc
-     *  Enables asserting on the {@link LastResponse} status
+     * Retrieves the status code of the {@apilink LastResponse|last response}
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question<number>}
+     * #### Learn more
+     * - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
      */
     static status(): QuestionAdapter<number> {
         return Question.about<number>(`the status of the last response`, async actor => {
@@ -69,60 +79,78 @@ export class LastResponse {
     }
 
     /**
-     * @desc
-     *  Enables asserting on the {@link LastResponse} body
+     * Retrieves the body of the {@apilink LastResponse|last response}
      *
-     * @example <caption>A type-safe approach using generics</caption>
-     *  interface Book {
-     *      title: string;
-     *      author: string
-     *  }
+     * #### A type-safe approach using generics
      *
-     *  actor.attemptsTo(
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * interface Book {
+     *   title: string;
+     *   author: string;
+     * }
+     *
+     * await actorCalled('Apisitt')
+     *   .whoCan(CallAnApi.at('https://api.example.org/'))
+     *   .attemptsTo(
      *      // ...
+     *
+     *      // note body<T>() parameterised with type "Book"
      *      Ensure.that(LastResponse.body<Book>(), equals({
-     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
-     *          author: 'Robert M. Pirsig',
+     *        title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+     *        author: 'Robert M. Pirsig',
      *      })),
-     *  );
+     *   )
+     * ```
      *
-     * @example <caption>A non-type-safe approach using `any`</caption>
-     *  actor.attemptsTo(
+     * ## A not type-safe approach using `any`
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Apisitt')
+     *   .whoCan(CallAnApi.at('https://api.example.org/'))
+     *   .attemptsTo(
      *      // ...
+     *
+     *      // note body<T>() parameterised with "any" or with no parameter is not type-safe!
      *      Ensure.that(LastResponse.body<any>(), equals({
-     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
-     *          author: 'Robert M. Pirsig',
+     *        title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+     *        author: 'Robert M. Pirsig',
      *      })),
-     *  );
+     *   )
+     * ```
      *
-     * @example <caption>Retrieving an item at path using Property.of</caption>
-     *  import { Property } from '@serenity-js/core';
+     * ## Iterating over the items in the response body
      *
-     *  actor.attemptsTo(
-     *      Ensure.that(
-     *          Property.of(LastResponse.body<Book>()).title,
-     *          equals('Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'),
-     *      )
-     *  )
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+     * import { Ensure, equals } from '@serenity-js/assertions'
      *
-     * @example <caption>Filtering response body using List</caption>
-     *  import { Property } from '@serenity-js/core';
-     *  import { property, startsWith } from '@serenity-js/assertions';
+     * interface Product {
+     *   id: number;
+     *   name: string;
+     * }
      *
-     *  actor.attemptsTo(
-     *      Ensure.that(
-     *          // imagine the API returns an array of books
-     *          List.of(LastResponse.body<Book[]>())
-     *              .where(Property.at<Book>().author, equals('Robert M. Pirsig'))
-     *              .first(),
-     *          property('title', startsWith('Zen and the Art of Motorcycle Maintenance')),
-     *      )
-     *  )
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Question<any>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~Property}
-     * @see {@link @serenity-js/core/lib/screenplay/questions~List}
+     * await actorCalled('Apisitt')
+     *   .whoCan(CallAnApi.at('https://api.example.org/'))
+     *   .attemptsTo(
+     *     Send.a(GetRequest.to(`/products`)),
+     *     List.of<Product>(LastResponse.body<{ products: Product[] }>().products)
+     *       .forEach(({ item, actor }) =>
+     *         actor.attemptsTo(
+     *           Send.a(GetRequest.to(`/products/${ item.id }`)),
+     *           Ensure.that(LastResponse.body<Product>().id, equals(item.id)),
+     *         )
+     *       ),
+     *   )
+     * ```
      */
     static body<T = any>(): QuestionAdapter<T> {
         return Question.about<T>(`the body of the last response`, async actor => {
@@ -131,11 +159,24 @@ export class LastResponse {
     }
 
     /**
-     * @desc
-     *  Enables asserting on one of the {@link LastResponse}'s headers
+     * Retrieves a header of the {@apilink LastResponse|last response}, identified by `name`
      *
-     * @param {string} name
-     * @returns {@serenity-js/core/lib/screenplay~Question<string>}
+     * ## Asserting on a header
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Apisitt')
+     *   .whoCan(CallAnApi.at('https://api.example.org/'))
+     *   .attemptsTo(
+     *     Send.a(GetRequest.to(`/products`)),
+     *     Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),
+     *   )
+     * ```
+     *
+     * @param name
      */
     static header(name: string): QuestionAdapter<string> {
         return Question.about<string>(`the '${ name }' header of the last response`, async actor => {
@@ -144,11 +185,22 @@ export class LastResponse {
     }
 
     /**
-     * @desc
-     *  Enables asserting on all of the {@link LastResponse}'s headers,
-     *  returned as an object where the keys represent header names.
+     * Retrieves all the headers of the {@apilink LastResponse|last response}.
      *
-     * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}
+     * ## Asserting on a header
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { CallAnApi, LastResponse } from '@serenity-js/rest'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Apisitt')
+     *   .whoCan(CallAnApi.at('https://api.example.org/'))
+     *   .attemptsTo(
+     *     Send.a(GetRequest.to(`/products`)),
+     *     Ensure.that(LastResponse.headers()['Content-Type'], equals('application/json')),
+     *   )
+     * ```
      */
     static headers(): QuestionAdapter<Record<string, string>> {
         return Question.about<Record<string, string>>(`the headers or the last response`, async actor => {

@@ -22,8 +22,6 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
-    "lint:fix": "npm run lint -- --fix",
     "compile": "tsc --project tsconfig.json"
   },
   "repository": {
@@ -35,7 +33,7 @@
   },
   "engines": {
     "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7"
+    "npm": "^6 || ^7 || ^8"
   },
   "dependencies": {
     "express": "^4.17.3"

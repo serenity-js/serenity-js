@@ -12,10 +12,9 @@ import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 /**
- * @desc
- *  Protractor-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~Page}.
+ * Protractor-specific implementation of {@apilink Page}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~Page}
+ * @group Models
  */
 export class ProtractorPage extends Page<ElementFinder> {
 
@@ -52,29 +51,28 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     /**
-     * @desc
-     * If set to false, Protractor will not wait for Angular $http and $timeout
+     * If set to `false`, Protractor will not wait for Angular 1.x `$http` and `$timeout`
      * tasks to complete before interacting with the browser.
      *
      * This can be useful when:
-     * - you need to switch to a non-Angular app during your tests (i.e. SSO login gateway)
-     * - your app continuously polls an API with $timeout
+     * - you need to switch to a non-Angular app during your tests, e.g. to sign in using an SSO gateway
+     * - your app continuously polls an API with `$timeout`
      *
      * If you're not testing an Angular app, it's better to disable Angular synchronisation completely
      * in protractor configuration:
      *
-     * @example <caption>protractor.conf.js</caption>
+     * ```js
+     * // protractor.conf.js
      * exports.config = {
      *     onPrepare: function () {
-     *         return browser.waitForAngularEnabled(false);
+     *         return browser.waitForAngularEnabled(false)
      *     },
      *
      *     // ... other config
-     * };
+     * }
+     * ```
      *
-     * @param {boolean} enable
-     *
-     * @returns {Promise<boolean>}
+     * @param enable
      */
     enableAngularSynchronisation(enable: boolean): Promise<boolean> {
         return this.switchToAndPerform(() => {

@@ -17,7 +17,6 @@ import {
     SubtractionOperator,
     UseOperatorCommand,
 } from '../src/domain';
-
 import { expect } from './expect';
 
 describe('Calculator', () => {
@@ -37,26 +36,6 @@ describe('Calculator', () => {
             calculator.execute(new EnterOperandCommand(new Operand(2), calculationId));
 
             expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(2);
-        });
-
-        it.skip(`should recognise negative numbers: -3 = -3`, () => {
-            const calculator = new Calculator();
-            const calculationId  = CalculationId.create();
-
-            calculator.execute(new UseOperatorCommand(new SubtractionOperator(), calculationId));
-            calculator.execute(new EnterOperandCommand(new Operand(3), calculationId));
-
-            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(-3);
-        });
-
-        it.skip(`should ignore the unary plus operator: +42 = 42`, () => {
-            const calculator = new Calculator();
-            const calculationId  = CalculationId.create();
-
-            calculator.execute(new UseOperatorCommand(new AdditionOperator(), calculationId));
-            calculator.execute(new EnterOperandCommand(new Operand(42), calculationId));
-
-            expect(calculator.submit(new GetCalculationResult(calculationId))).to.equal(42);
         });
 
         it('should add two numbers: 2 + 2 = 4', () => {
@@ -183,9 +162,13 @@ describe('Calculator', () => {
             }
         }
 
-        given(
-            null, undefined,
-            {}, 'string', 1, false,
+        given<any>(
+            null,   // eslint-disable-line unicorn/no-null
+            undefined,
+            {},
+            'string',
+            1,
+            false,
             new UnsuportedCommand(),
         ).
         it('complains when it receives a command it cannot execute', (command: any) => {
@@ -200,9 +183,13 @@ describe('Calculator', () => {
             }
         }
 
-        given(
-            null, undefined,
-            {}, 'string', 1, false,
+        given<any>(
+            null,   // eslint-disable-line unicorn/no-null
+            undefined,
+            {},
+            'string',
+            1,
+            false,
             new UnsuportedQuery(),
         ).
         it('complains when it receives a query it cannot process', (query: any) => {
