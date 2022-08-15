@@ -11,20 +11,16 @@ on:
     branches: [ main ]
     types: [ opened, synchronize ]
     paths:
-      - 'documentation/serenity-js.org/**'
-      - '!documentation/website/**'
-      - '!examples/**'
-      - '!integration/**'
-      - '!packages/**'
+      - '!**'
+      - 'documentation/**'
+      - 'package-lock.json'
 
   push:
     branches: [ main ]
     paths:
-      - 'documentation/serenity-js.org/**'
-      - '!documentation/website/**'
-      - '!examples/**'
-      - '!integration/**'
-      - '!packages/**'
+      - '!**'
+      - 'documentation/**'
+      - 'package-lock.json'
 
 jobs:
 
