@@ -5,11 +5,13 @@ on:
     branches: [ main ]
     paths-ignore:
       - 'documentation/**'
+      - 'package-lock.json'
   pull_request:
     branches: [ main ]
     types: [ opened, synchronize ]
     paths-ignore:
       - 'documentation/**'
+      - 'package-lock.json'
 
 jobs:
 
