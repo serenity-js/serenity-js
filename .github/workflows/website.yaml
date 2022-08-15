@@ -1,11 +1,7 @@
 name: Website
 
 on:
-  workflow_run:
-    workflows: ["Release Pipeline"]
-    types: [ completed ]
-    branches:
-      - main
+  workflow_call:
 
   pull_request:
     branches: [ main ]
