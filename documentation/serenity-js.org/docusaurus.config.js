@@ -60,6 +60,7 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            image: 'images/serenity-js-banner.png', // open graph
             colorMode: {
                 disableSwitch: false,
                 respectPrefersColorScheme: true,
@@ -76,8 +77,8 @@ const config = {
                 logo: {
                     height: 10,
                     alt: 'Serenity/JS',
-                    src: 'img/serenity-js-logo-for-light-backgrounds.svg',
-                    srcDark: 'img/serenity-js-logo-for-dark-backgrounds.svg',
+                    src: 'images/serenity-js-logo-for-light-backgrounds.svg',
+                    srcDark: 'images/serenity-js-logo-for-dark-backgrounds.svg',
                     className: 'serenity-js-logo',
                 },
                 items: [
