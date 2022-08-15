@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.25](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.24...v3.0.0-rc.25) (2022-08-15)
+
+
+### Bug Fixes
+
+* **core:** extracted common TypeScript configuration ([0108370](https://github.com/serenity-js/serenity-js/commit/0108370a6a7ebb4bcd71773482801d29f5660268))
+* **deps:** updated TinyTypes to 1.19.0 ([f6d53e4](https://github.com/serenity-js/serenity-js/commit/f6d53e4dbbfcb81139bd888ac11441b6344e47f5))
+* **playwright:** corrected internal imports from playwright to playwright-core ([c42e7f3](https://github.com/serenity-js/serenity-js/commit/c42e7f306096747e771ba6b83ce10159c2f043ac))
+* **playwright:** updated Playwright ([3fa7c7e](https://github.com/serenity-js/serenity-js/commit/3fa7c7e03674c3aa71e3d1edd40ec855c1a0cde1))
+* **playwright:** updated Playwright to 1.24.2 ([9283910](https://github.com/serenity-js/serenity-js/commit/9283910ff6fc8edc2926b2544e0e068202505e06))
+
+
+
+
+
 # [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
 
 

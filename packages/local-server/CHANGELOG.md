@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.25](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.24...v3.0.0-rc.25) (2022-08-15)
+
+
+### Bug Fixes
+
+* **core:** extracted common TypeScript configuration ([0108370](https://github.com/serenity-js/serenity-js/commit/0108370a6a7ebb4bcd71773482801d29f5660268))
+* **local-server:** pinned portfinder to 1.0.28 ([16369a9](https://github.com/serenity-js/serenity-js/commit/16369a9e94c2672a14840cbe74acb3bb27686204)), closes [http-party/node-portfinder#138](https://github.com/http-party/node-portfinder/issues/138)
+
+
+
+
+
 # [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
 
 **Note:** Version bump only for package @serenity-js/local-server
@@ -130,4 +142,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * **core:** Introduced @serenity-js/web - a shared library for Serenity/JS Web integration
 modules such as @serenity-js/protractor and @serenity-js/webdriverio. Dropped support for Node 12.
-

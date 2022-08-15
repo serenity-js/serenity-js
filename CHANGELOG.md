@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.25](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.24...v3.0.0-rc.25) (2022-08-15)
+
+
+### Bug Fixes
+
+* **core:** extracted common TypeScript configuration ([0108370](https://github.com/serenity-js/serenity-js/commit/0108370a6a7ebb4bcd71773482801d29f5660268))
+* **core:** refactored the interaction to Wait.until to improve its reliability ([970ea39](https://github.com/serenity-js/serenity-js/commit/970ea396d4b34169480b34258624cd5b886aac37)), closes [#1255](https://github.com/serenity-js/serenity-js/issues/1255)
+* **deps:** updated TinyTypes to 1.19.0 ([f6d53e4](https://github.com/serenity-js/serenity-js/commit/f6d53e4dbbfcb81139bd888ac11441b6344e47f5))
+* **local-server:** pinned portfinder to 1.0.28 ([16369a9](https://github.com/serenity-js/serenity-js/commit/16369a9e94c2672a14840cbe74acb3bb27686204)), closes [http-party/node-portfinder#138](https://github.com/http-party/node-portfinder/issues/138)
+* **playwright:** corrected internal imports from playwright to playwright-core ([c42e7f3](https://github.com/serenity-js/serenity-js/commit/c42e7f306096747e771ba6b83ce10159c2f043ac))
+* **playwright:** updated Playwright ([3fa7c7e](https://github.com/serenity-js/serenity-js/commit/3fa7c7e03674c3aa71e3d1edd40ec855c1a0cde1))
+* **playwright:** updated Playwright to 1.24.2 ([9283910](https://github.com/serenity-js/serenity-js/commit/9283910ff6fc8edc2926b2544e0e068202505e06))
+* **webdriverio:** ensure Serenity/JS-specific config is not passed to WebdriverIO-specific services ([384738e](https://github.com/serenity-js/serenity-js/commit/384738e0d7b61b69de24b11ff1fbc32b835a440c))
+* **webdriverio:** use local instead of global browser object in WebdriverioPage ([323be75](https://github.com/serenity-js/serenity-js/commit/323be7517ea8b90f967f510c03c744330c5ba2b0))
+* **web:** simplified isClickable so that it doesn't include visibility check ([33ad47e](https://github.com/serenity-js/serenity-js/commit/33ad47e448e73a26f337371fcc6f5566845b4c93))
+
+
+### Features
+
+* **core:** support for registering custom RuntimeErrors with ErrorSerialiser ([feed78c](https://github.com/serenity-js/serenity-js/commit/feed78c6a5ed3c0ae3c614df69b29dbd4337d524))
+
+
+
+
+
 # [3.0.0-rc.24](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.23...v3.0.0-rc.24) (2022-07-23)
 
 
