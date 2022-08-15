@@ -18,6 +18,8 @@ extends:
   - plugin:@typescript-eslint/recommended
   - plugin:mocha/recommended
   - plugin:unicorn/recommended
+env:
+  node: true
 overrides:
   - files: ["packages/**/*.ts"]
     rules:
