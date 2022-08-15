@@ -6,14 +6,12 @@ import { Ensure, matches } from '../../src';
 
 describe('matches', () => {
 
-    /** @test {matches} */
     it('allows for the actor flow to continue when the "actual" matches the "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', matches(/^[Hh]ello [Ww]orld!?$/)),
         )).to.be.fulfilled;
     });
 
-    /** @test {matches} */
     it('breaks the actor flow when "actual" does not match the "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', matches(/mundo$/gi)),
@@ -24,7 +22,6 @@ describe('matches', () => {
             });
     });
 
-    /** @test {matches} */
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello World!', matches(/^[Hh]ello [Ww]orld!?$/g)).toString())
             .to.equal(`#actor ensures that 'Hello World!' does match /^[Hh]ello [Ww]orld!?$/g`);

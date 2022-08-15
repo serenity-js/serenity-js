@@ -1,5 +1,10 @@
-import { TinyType } from 'tiny-types';
+import { JSONObject, TinyType } from 'tiny-types';
 
+/**
+ * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.
+ *
+ * @group Stage
+ */
 export class Duration extends TinyType {
 
     private static msPerSecond = 1000;
@@ -14,6 +19,10 @@ export class Duration extends TinyType {
     static ofHours          = (hours: number): Duration        => Duration.ofMilliseconds(hours    * Duration.msPerHour);
     static ofDays           = (days: number): Duration         => Duration.ofMilliseconds(days     * Duration.msPerDay);
     static ofYears          = (years: number): Duration        => Duration.ofMilliseconds(years    * Duration.msPerYear);
+
+    static fromJSON({ milliseconds }: { milliseconds: number }): Duration {
+        return Duration.ofMilliseconds(milliseconds);
+    }
 
     constructor(private readonly milliseconds: number) {
         super();
@@ -59,5 +68,11 @@ export class Duration extends TinyType {
             ? `${ acc } ${ l[0] }${ l[1] }`
             : acc,
         '').trim() || '0ms';
+    }
+
+    toJSON(): JSONObject {
+        return {
+            milliseconds: this.milliseconds,
+        }
     }
 }

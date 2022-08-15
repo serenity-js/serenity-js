@@ -1,7 +1,27 @@
 import { Answerable, AnswersQuestions, Expectation, ExpectationNotMet } from '@serenity-js/core';
 import { match } from 'tiny-types';
 
-export function and<Actual>(...expectations: Array<Expectation<Actual>>): Expectation<Actual> {
+/**
+ * Creates an {@apilink Expectation|expectation} that is met when all the `expectations` are met for the given actual value.
+ *
+ * Use `and` to combine several expectations using logical "and",
+ *
+ * ## Combining several expectations
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, and, startsWith, endsWith } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Ester').attemptsTo(
+ *   Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('!'))),
+ * )
+ * ```
+ *
+ * @param expectations
+ *
+ * @group Expectations
+ */
+export function and<Actual_Type>(...expectations: Array<Expectation<Actual_Type>>): Expectation<Actual_Type> {
     return new And(expectations);
 }
 

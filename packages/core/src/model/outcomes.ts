@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types,unicorn/prefer-math-trunc */
 import { JSONObject, match, TinyType } from 'tiny-types';
 
-import { AssertionError } from '../errors';
-import { ErrorSerialiser } from '../io';
+import { AssertionError, ErrorSerialiser } from '../errors';
 
 export interface SerialisedOutcome extends JSONObject {
     code:    number;
@@ -72,7 +71,8 @@ export class ExecutionCompromised extends ProblemIndication {
 export class ExecutionFailedWithError extends ProblemIndication {
     static Code = 1 << 1;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithError(ErrorSerialiser.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) =>
+        new ExecutionFailedWithError(ErrorSerialiser.deserialise(o.error));
 
     constructor(error: Error) {
         super(error, ExecutionFailedWithError.Code);
@@ -85,7 +85,8 @@ export class ExecutionFailedWithError extends ProblemIndication {
 export class ExecutionFailedWithAssertionError extends ProblemIndication {
     static Code = 1 << 2;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionFailedWithAssertionError(ErrorSerialiser.deserialise(o.error));
+    static fromJSON = (o: SerialisedOutcome) =>
+        new ExecutionFailedWithAssertionError(ErrorSerialiser.deserialise(o.error) as AssertionError);
 
     constructor(error: AssertionError) {
         super(error, ExecutionFailedWithAssertionError.Code);

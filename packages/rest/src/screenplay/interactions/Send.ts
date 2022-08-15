@@ -5,61 +5,50 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CallAnApi } from '../abilities';
 
 /**
- * @desc
- *  Sends a {@link HTTPRequest} to a specified url.
- *  The response to the request is made available via the {@link LastResponse}
- *  {@link @serenity-js/core/lib/screenplay~Question}s.
+ * Sends a {@apilink HTTPRequest} to a specified url.
  *
- * @example <caption>Send a GET request</caption>
- *  import { Actor } from '@serenity-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * The response to the request is made available via {@apilink LastResponse}.
  *
- *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+ * ## Send a GET request
  *
- *  actor.attemptsTo(
- *      Send.a(GetRequest.to('/books/0-688-00230-7')),
- *      Ensure.that(LastResponse.status(), equals(200)),
- *  );
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * @extends {Interaction}
+ * await actorCalled('Apisit')
+ *   .whoCan(CallAnApi.at('https://api.example.org/'))
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/books/0-688-00230-7')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
+ *
+ * @group Interactions
  */
 export class Send extends Interaction {
 
     /**
-     * @desc
-     *  Instantiates a new {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Send}.
      *
-     * @param {@serenity-js/lib/core/screenplay~Answerable<AxiosRequestConfig>} request
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * #### Learn more
+     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
      *
-     * @see {@link AxiosRequestConfig}
+     * @param request
      */
     static a(request: Answerable<AxiosRequestConfig>): Interaction {
         return new Send(request);
     }
 
     /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} request
-     *
-     * @see {@link AxiosRequestConfig}
+     * @param request
      */
-    constructor(private readonly request: Answerable<AxiosRequestConfig>) {
+    protected constructor(private readonly request: Answerable<AxiosRequestConfig>) {
         super();
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         const callAnApi = CallAnApi.as(actor);
@@ -78,10 +67,7 @@ export class Send extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return `#actor sends ${ this.request.toString() }`;

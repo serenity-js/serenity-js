@@ -1,21 +1,25 @@
 import { Artifact, Name } from '../../model';
 
 /**
- * @desc
- *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed
+ * Describes an {@apilink Actor} who can collect {@apilink Artifact|Artifacts}, such as {@apilink Photo|Photos} or {@apilink JSONData},
+ * while the scenario is being executed
  *
- * @public
+ * ## Learn more
+ * - {@apilink Artifact}
+ * - {@apilink Actor}
+ *
+ * @group Actors
  */
 export interface CollectsArtifacts {
 
     /**
-     * @desc
-     *  Makes the {@link Actor} collect an {@link Artifact} so that it can be included in the test report.
+     * Makes the {@apilink Actor} collect an {@apilink Artifact} so that it can be included in the test report.
      *
-     * @type {function(artifact: Artifact, name?: Name): void}
+     * @param artifact
+     *  The artifact to be collected, such as {@apilink JSONData}
      *
-     * @see {@link Artifact} - The artifact to be collected, such as {@link JSONData}
-     * @see {@link Name} - The name of the artifact to make it easy to recognise in the test report
+     * @param name
+     *  The name of the artifact to make it easy to recognise in the test report
      */
-    collect: (artifact: Artifact, name?: Name) => void;
+    collect(artifact: Artifact, name?: Name): void;
 }

@@ -3,146 +3,135 @@ import { Activity, Actor, Answerable, AnswersQuestions, Interaction, Task, UsesA
 import { Switchable } from '../models';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
- *  to switch the context for future activities to a {@link Switchable}, such as {@link Page} or {@link PageElement}.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to switch the context for future activities to a {@apilink Switchable}, such as a {@apilink Page} or a {@apilink PageElement}.
  *
- *  Please note that when the {@link PageElement} implementing {@link Switchable} represents an {@link iframe},
- *  using {@link Switch} will result in switching the top-level browsing context to that {@link iframe}.
+ * Please note that when the {@apilink PageElement} implementing {@apilink Switchable} represents an {@apilink iframe},
+ * using {@apilink Switch} will result in switching the top-level browsing context to that {@apilink iframe}.
  *
- *  When the {@link PageElement} represents any other {@link HTMLElement}, using {@link Switch}
- *  sets {@link HTMLElement#focus} on the specified element, if it can be focused.
- *  The focused element is the element which will receive keyboard {@link Press} events by default.
+ * When the {@apilink PageElement} represents any other [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement),
+ * using {@apilink Switch} sets [`HTMLElement#focus`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus)
+ * on the specified element. Assuming it can be focused.
  *
- * @example <caption>Perform activities in the context of an iframe</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { By, Click, Enter, PageElement, Switch } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * **Note:** The focused element is the element which will receive keyboard {@apilink Press} events by default.
  *
- *  // Lean Page Object describing a login form, embedded in an iframe
- *  class LoginForm {
- *      static iframe = () =>
- *          PageElement.located(By.css('iframe'))
- *              .describedAs('login form');
+ * ## Perform activities in the context of an iframe
  *
- *      static usernameField = () =>
- *          PageElement.located(By.css('[data-testid="username"]'))
- *              .describedAs('username field');
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { By, Click, Enter, PageElement, Switch } from '@serenity-js/web'
  *
- *      static passwordField = () =>
- *          PageElement.located(By.css('[data-testid="password"]'))
- *              .describedAs('password field');
+ * // Lean Page Object describing a login form, embedded in an iframe
+ * class LoginForm {
+ *   static iframe = () =>
+ *     PageElement.located(By.css('iframe'))
+ *       .describedAs('login form')
  *
- *      static submitButton = () =>
- *          PageElement.located(By.css('button[type="submit"]'))
- *              .describedAs('submit button');
+ *   static usernameField = () =>
+ *     PageElement.located(By.css('[data-testid="username"]'))
+ *       .describedAs('username field')
+ *
+ *   static passwordField = () =>
+ *     PageElement.located(By.css('[data-testid="password"]'))
+ *       .describedAs('password field')
+ *
+ *   static submitButton = () =>
+ *     PageElement.located(By.css('button[type="submit"]'))
+ *       .describedAs('submit button')
  *  }
  *
- *  actorCalled('Francesca')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Switch.to(LoginForm.iframe).and(
- *              Enter.theValue('francesca@example.org').into(LoginForm.usernameField),
- *              Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField),
- *              Click.on(LoginForm.submitButton),
- *          )
+ *  await actorCalled('Francesca')
+ *    .attemptsTo(
+ *      Switch.to(LoginForm.iframe).and(
+ *        Enter.theValue('francesca@example.org').into(LoginForm.usernameField()),
+ *        Enter.theValue('correct-horse-battery-staple').into(LoginForm.passwordField()),
+ *        Click.on(LoginForm.submitButton()),
  *      )
+ *    )
+ * ```
  *
- * @example <caption>Perform activities in the context of another page</caption>
+ * ## Perform activities in the context of another page
  *
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Click, Enter, Switch } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Click, Enter, Switch } from '@serenity-js/web'
  *
- *  actorCalled('Francesca')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Switch.to(Page.whichName(startsWith('popup'))).and(
- *              // perform some activities in the context of the new window
+ * await actorCalled('Francesca')
+ *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ *   .attemptsTo(
+ *     Switch.to(Page.whichName(startsWith('popup'))).and(
+ *       // perform some activities in the context of the new window
  *
- *              // optionally, close the window
- *              Page.current().close(),
- *          ),
+ *       // optionally, close the browser tab
+ *       Page.current().close(),
+ *     ),
  *
- *          // Note that switching back to the original page happens automatically
- *          // after the last activity from the list finishes
- *      )
+ *     // Note that switching back to the original page happens automatically
+ *     // after the last activity from the list finishes
+ *   )
+ * ```
  *
- * @example <caption>Perform activities in the context of a focused page element</caption>
+ * ## Perform activities in the context of a focused page element
  *
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Key, PageElement, Press, Switch, Value } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Key, PageElement, Press, Switch, Value } from '@serenity-js/web'
  *
- *  const inputField = () =>
- *    PageElement.located(By.css('input'));
+ * const inputField = () =>
+ *   PageElement.located(By.css('input'));
  *
- *  actorCalled('Francesca')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Switch.to(inputField()).and(
- *              Press.the('h', 'e', 'l', 'l', 'o'),
- *              Press.the(Key.Tab),
- *          ),
- *          Ensure.that(Value.of(inputField()), equals('hello'))
- *      )
+ * await actorCalled('Francesca')
+ *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
+ *   .attemptsTo(
+ *     Switch.to(inputField()).and(
+ *       Press.the('h', 'e', 'l', 'l', 'o'),
+ *       Press.the(Key.Tab),
+ *     ),
+ *     Ensure.that(Value.of(inputField()), equals('hello'))
+ *   )
+ * ```
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * ## Learn more
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Switchable}
- * @see {@link SwitchableOrigin}
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Switchable}
+ * - {@apilink SwitchableOrigin}
+ *
+ * @group Interactions
  */
 export class Switch extends Interaction {
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to switch the context for future activities to a {@link Switchable}, such as {@link Page} or {@link PageElement}.
+     * Instructs the {@apilink Actor}
+     * to switch the context for future activities to a {@apilink Switchable},
+     * such as a {@apilink Page} or a {@apilink PageElement}.
      *
-     * @param {Answerable<Switchable>} switchable
-     *
-     * @returns {Switch}
+     * @param switchable
      */
     static to(switchable: Answerable<Switchable>): Switch {
         return new Switch(switchable);
     }
 
-    /**
-     * @param {Answerable<Switchable>} switchable
-     */
-    constructor(private readonly switchable: Answerable<Switchable>) {
+    protected constructor(private readonly switchable: Answerable<Switchable>) {
         super();
     }
 
     /**
-     * @desc
-     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  to switch the context for future activities to a {@link Switchable}, such as {@link Page} or {@link PageElement},
-     *  performs a sequence of `activities`, and then switch the context back.
+     * Instructs the {@apilink Actor}
+     * to switch the context for future activities to a {@apilink Switchable},
+     * such as a {@apilink Page} or a {@apilink PageElement},
+     * perform a sequence of `activities`, and then switch the context back.
      *
-     * @param {Array<@serenity-js/core/lib/screenplay~Activity>} activities
+     * @param activities
      *  A sequence of activities to perform
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Task}
      */
     and(...activities: Activity[]): Task {
         return new SwitchAndPerformActivities(this.switchable, activities);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay~Activity}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const switchable = await actor.answer(this.switchable);
@@ -151,10 +140,7 @@ export class Switch extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return `#actor switches to ${ this.switchable }`;
@@ -172,6 +158,9 @@ class SwitchAndPerformActivities extends Task {
         super();
     }
 
+    /**
+     * @inheritDoc
+     */
     async performAs(actor: Actor): Promise<void> {
 
         const switchable = await actor.answer(this.switchable);
@@ -185,6 +174,9 @@ class SwitchAndPerformActivities extends Task {
         await origin.switchBack();
     }
 
+    /**
+     * @inheritDoc
+     */
     toString(): string {
         return `#actor switches to ${ this.switchable }`;
     }

@@ -1,5 +1,6 @@
-import { GetCalculationResult } from '@serenity-js-examples/calculator-app';
 import { Actor, Question } from '@serenity-js/core';
+import { GetCalculationResult } from '@serenity-js-examples/calculator-app';
+
 import { InteractDirectly } from '../abilities';
 
 export const ResultOfCalculation = () => Question.about<Promise<number>>(`the result of the calculation`, (actor: Actor) => {

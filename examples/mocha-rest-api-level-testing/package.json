@@ -17,7 +17,6 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "mocha 'spec/**.spec.ts'",
     "test:report": "serenity-bdd run",

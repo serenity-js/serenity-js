@@ -1,5 +1,5 @@
-import { Actor, actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 import { DataTable, defineParameterType, Given, Then } from '@cucumber/cucumber';
+import { Actor, actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 
 defineParameterType({
     regexp: /[A-Z][a-z]+/,

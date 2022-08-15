@@ -1,87 +1,75 @@
-import { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { asyncMap, formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { PageElement } from '../models';
-import { EnterBuilder } from './EnterBuilder';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.
  *
- * @example <caption>Example widget</caption>
- *  <form>
- *    <input type="text" name="example" id="example" />
- *  </form>
+ * ## Example widget
+ * ```html
+ * <form>
+ *  <input type="text" name="example" id="example" />
+ * </form>
+ * ```
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * ## Lean Page Object describing the widget
  *
- *  class Form {
- *      static exampleInput = Target.the('example input')
- *          .located(by.id('example'));
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
+ *
+ * class Form {
+ *   static exampleInput = () =>
+ *     PageElement.located(By.id('example'))
+ *       .describedAs('example input')
  *  }
+ * ```
  *
- * @example <caption>Entering the value into a form field</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Enter } from '@serenity-js/webdriverio';
+ * ## Entering the value into a form field
  *
- *  actorCalled('Esme')
- *      .whoCan(BrowseTheWeb.using(browser))
- *      .attemptsTo(
- *          Enter.theValue('Hello world!').into(Form.exampleInput),
- *      );
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core';
+ * import { Enter } from '@serenity-js/web';
  *
- * @see {@link Target}
+ * await actorCalled('Esme')
+ *   .attemptsTo(
+ *     Enter.theValue('Hello world!').into(Form.exampleInput()),
+ *   )
+ * ```
  *
- * @extends {ElementInteraction}
+ * ## Learn more
+ *
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
+ *
+ * @group Interactions
  */
 export class Enter extends PageElementInteraction {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
-     * @param {Array<Answerable<string | number | string[] | number[]>>} values
-     *  The value to be entered
-     *
-     * @returns {EnterBuilder}
+     * @param values
+     *  The text value to be entered
      */
-    static theValue(...values: Array<Answerable<string | number | string[] | number[]>>): EnterBuilder {
+    static theValue(...values: Array<Answerable<string | number | string[] | number[]>>): { into: (field: Answerable<PageElement>) => Interaction } {
         return {
             into: (field: Answerable<PageElement>  /* todo Question<AlertPromise> | AlertPromise */) =>
                 new Enter(values, field),
         };
     }
 
-    /**
-     * @param {Array<Answerable<string | number | string[] | number[]>>} values
-     *  The value to be entered
-     *
-     * @param {Answerable<PageElement>} field
-     *  The field to enter the value into
-     */
-    constructor(
+    protected constructor(
         private readonly values: Array<Answerable<string | number | string[] | number[]>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(formatted `#actor enters ${ values.join(', ') } into ${ field }`);
+        super(d `#actor enters ${ values.join(', ') } into ${ field }`);
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const field  = await this.resolve(actor, this.field);

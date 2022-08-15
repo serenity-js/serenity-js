@@ -1,34 +1,38 @@
 import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 
 /**
- * @desc
- *  A command object representing an activity that an {@link Actor} can perform.
+ * Serenity/JS Screenplay Pattern `Activity` represents
+ * a {@apilink Task} or an {@apilink Interaction} to be performed by an {@apilink Actor}.
  *
- * @see {@link Actor}
- * @see https://en.wikipedia.org/wiki/Command_pattern
+ * ## Learn more
+ * - {@apilink Actor}
+ * - {@apilink PerformsActivities}
+ * - [Command design pattern on Wikipedia](https://en.wikipedia.org/wiki/Command_pattern)
+ *
+ * @group Screenplay Pattern
  */
 export interface Activity {
 
     /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this Activity.
+     * Instructs the provided {@apilink Actor} to perform this {@apilink Activity}.
      *
-     * @param {PerformsActivities | UsesAbilities | AnswersQuestions} actor
-     * @returns {Promise<void>}
+     * @param actor
      *
-     * @see {@link Actor}
-     * @see {@link PerformsActivities}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * #### Learn more
+     * - {@apilink Actor}
+     * - {@apilink PerformsActivities}
+     * - {@apilink UsesAbilities}
+     * - {@apilink AnswersQuestions}
      */
     performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this Activity.
+     * Generates a human-friendly description to be used when reporting this Activity.
      *
-     * @returns {string}
+     * **Note**: When this activity is reported, token `#actor` in the description
+     * will be replaced with the name of the actor performing this Activity.
+     *
+     * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
      */
     toString(): string;
 }

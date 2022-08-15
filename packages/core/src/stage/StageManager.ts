@@ -3,6 +3,9 @@ import { CorrelationId, Description, Duration, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../stage';
 import { Clock } from './Clock';
 
+/**
+ * @group Stage
+ */
 export class StageManager {
     private readonly subscribers: ListensToDomainEvents[] = [];
     private readonly wip: WIP;

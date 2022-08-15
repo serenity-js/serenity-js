@@ -1,9 +1,9 @@
 import express = require('express');
 
 export const app = express()
-    .get('/', (req: express.Request, res: express.Response) => {
+    .get('/', (request: express.Request, response: express.Response) => {
 
-        res.send(`<!DOCTYPE html>
+        response.send(`<!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">

@@ -96,12 +96,7 @@ export class FeatureFileMapper {
                             const scenarioParameters = variableCells
                                 .map((cell, i) => ({ [cell.value]: valueCells[i].value }))
                                 .reduce((acc, current) => {
-                                    // ESDoc doesn't understand object spreads
-                                    return Object.assign(
-                                        {},
-                                        acc,
-                                        current,
-                                    );
+                                    return {...acc, ...current};
                                 }, {});
 
                             parameters[values.location.line] = new ScenarioParameters(

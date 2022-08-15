@@ -1,5 +1,6 @@
 import { ArtifactArchiver, Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path, TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects';
@@ -11,9 +12,6 @@ import { WebdriverIOConfig } from './WebdriverIOConfig';
 import { WebdriverIONotifier } from './WebdriverIONotifier';
 import deepmerge = require('deepmerge');
 
-/**
- * @package
- */
 export class WebdriverIOFrameworkAdapter {
 
     private adapter: TestRunnerAdapter;
@@ -32,6 +30,12 @@ export class WebdriverIOFrameworkAdapter {
         const config = deepmerge<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
             isMergeableObject: isRecord,
         });
+
+        // SauceLabs service serialises the config object for debugging.
+        // However, since Serenity/JS Stage is a pub/sub mechanism,
+        // it contains cyclic references which are not serialisable.
+        // We get rid of them from the config object to avoid confusing other services.
+        delete webdriverIOConfig.serenity;
 
         this.adapter = new TestRunnerLoader(this.loader, this.cwd, this.cid)
             .runnerAdapterFor(config);
@@ -84,10 +88,9 @@ export class WebdriverIOFrameworkAdapter {
         return this.adapter.scenarioCount() > 0;
     }
 
-    run(): Promise<number> {
-        return this.adapter.run().then(() =>
-            this.notifier.failureCount()
-        );
+    async run(): Promise<number> {
+        await this.adapter.run();
+        return this.notifier.failureCount();
     }
 
     private defaultConfig(): Partial<WebdriverIOConfig> {

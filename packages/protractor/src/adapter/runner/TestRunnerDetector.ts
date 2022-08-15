@@ -1,14 +1,13 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { Config as ProtractorConfig } from 'protractor';
 
 import { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
- * @desc
- *  Detects the {@link @serenity-js/core/lib/io~TestRunnerAdapter} to use,
- *  based on Protractor configuration.
+ * Detects the {@apilink TestRunnerAdapter} to use,
+ * based on Protractor configuration.
  *
- * @public
+ * @group Integration
  */
 export class TestRunnerDetector {
 
@@ -24,16 +23,9 @@ export class TestRunnerDetector {
         ];
     }
 
-    /**
-     * @param {TestRunnerLoader} testRunnerLoader
-     */
     constructor(private readonly testRunnerLoader: TestRunnerLoader) {
     }
 
-    /**
-     * @param {protractor~ProtractorConfig} config
-     * @returns {TestRunnerAdapter}
-     */
     runnerFor(config: ProtractorConfig): TestRunnerAdapter {
 
         const

@@ -6,50 +6,56 @@ import { ProtractorBrowsingSession } from '../models';
 import { promised } from '../promised';
 
 /**
- * @desc
- *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor}
- *  to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
+ * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * enables the {@apilink Actor} to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
  *
- * @example <caption>Using the protractor.browser</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWebWithProtractor } from '@serenity-js/protractor'
- *  import { By, Navigate, PageElement } from '@serenity-js/web'
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { protractor } from 'protractor';
+ * ## Using Protractor to `BrowseTheWeb`
  *
- *  const HomePage = {
- *      title: PageElement.located(By.css('h1')).describedAs('title')
- *  }
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithProtractor } from '@serenity-js/protractor
+ * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { protractor } from 'protractor'
+ *
+ * const HomePage = {
+ *   title: () =>
+ *     PageElement.located(By.css('h1')).describedAs('title')
+ * }
  *
  *  await actorCalled('Wendy')
- *      .whoCan(BrowseTheWebWithProtractor.using(protractor.browser))
- *      .attemptsTo(
- *          Navigate.to(`https://serenity-js.org`),
- *          Ensure.that(Text.of(HomePage.title), equals('Serenity/JS')),
- *      );
+ *    .whoCan(BrowseTheWebWithProtractor.using(protractor.browser))
+ *    .attemptsTo(
+ *      Navigate.to(`https://serenity-js.org`),
+ *      Ensure.that(Text.of(HomePage.title()), equals('Serenity/JS')),
+ *    )
+ * ```
  *
- * @extends {@serenity-js/web/lib/screenplay/abilities~BrowseTheWeb}
+ * ## Learn more
+ * - [Protractor website](https://www.protractortest.org/)
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink Ability}
+ * - {@apilink Actor}
  *
- * @public
- *
- * @see https://www.protractortest.org/
- * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+ * @group Abilities
  */
 export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementFinder> {
 
     /**
-     * @desc
-     *  Ability to interact with web front-ends using a given protractor browser instance.
+     * Ability to interact with web front-ends using
+     * provided protractor browser instance.
      *
      * @param {protractor~ProtractorBrowser} browser
-     * @returns {BrowseTheWebWithProtractor}
+     *
+     * #### Learn more
+     * - [Protractor Browser API docs](http://www.protractortest.org/#/api?view=ProtractorBrowser)
      */
     static using(browser: protractor.ProtractorBrowser): BrowseTheWebWithProtractor {
         return new BrowseTheWebWithProtractor(browser);
     }
 
     /**
-     * @param {ProtractorBrowser} browser
+     * @param browser
      *  An instance of a protractor browser
      */
     constructor(protected browser: protractor.ProtractorBrowser) {
@@ -67,32 +73,38 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
     }
 
     /**
-     * @desc
-     *  Returns Protractor configuration parameter at `path`.
+     * Returns Protractor configuration parameter at `path`.
      *
-     * @example <caption>protractor.conf.js</caption>
-     *  exports.config = {
-     *    params: {
-     *        login: {
-     *            username: 'jane@example.org'
-     *            password: process.env.PASSWORD
-     *        }
-     *    }
-     *    // ...
+     * #### Configuring a custom parameter
+     *
+     * ```js
+     * // protractor.conf.js
+     * exports.config = {
+     *   params: {
+     *     login: {
+     *       username: 'jane@example.org'
+     *       password: process.env.PASSWORD
+     *     }
+     *   }
+     *   // ...
      * }
+     * ```
      *
-     * @example <caption>Retrieving config param by name</caption>
-     *  BrowseTheWeb.as(actor).param('login') // returns object with username and password
+     * #### Retrieving config param by name
+     * ```js
+     * BrowseTheWebWithProtractor.as(actor).param('login')
+     *  // returns object with username and password
+     * ```
      *
-     * @example <caption>Retrieving config param by path</caption>
-     *  BrowseTheWeb.as(actor).param('login.username') // returns string 'jane@example.org'
+     * #### Retrieving config param by path
+     * ```js
+     * BrowseTheWeb.as(actor).param('login.username')
+     *  // returns string 'jane@example.org'
      *
-     * @param {string} path
+     * @param path
      *  Either a name or a dot-delimited path to the param.
      *
-     * @returns {T}
-     *
-     * @throws {@serenity-js/core/lib/errors~ConfigurationError}
+     * @throws {@apilink ConfigurationError}
      *  Throws a `ConfigurationError` if the parameter is `undefined`
      */
     param<T = any>(path: string): T {

@@ -19,8 +19,6 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "lint": "eslint --ext ts --config ../../.eslintrc.yml .",
-    "lint:fix": "npm run lint -- --fix",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8080 start-server-and-test start http://localhost:8080 test:acceptance:run",
@@ -37,7 +35,7 @@
   },
   "engines": {
     "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7"
+    "npm": "^6 || ^7 || ^8"
   },
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
@@ -53,7 +51,7 @@
     "@wdio/local-runner": "^7.20.5",
     "@wdio/spec-reporter": "^7.20.3",
     "@wdio/sauce-service": "^7.20.5",
-    "chromedriver": "^103.0.0",
+    "chromedriver": "^104.0.0",
     "ci-info": "^3.3.0",
     "cross-env": "^7.0.3",
     "mocha": "^10.0.0",

@@ -3,6 +3,9 @@ import { JSONObject } from 'tiny-types';
 import { ActivityDetails, CorrelationId, Timestamp } from '../model';
 import { ActivityStarts } from './ActivityStarts';
 
+/**
+ * @group Events
+ */
 export class InteractionStarts extends ActivityStarts {
     static fromJSON(o: JSONObject): InteractionStarts {
         return new InteractionStarts(

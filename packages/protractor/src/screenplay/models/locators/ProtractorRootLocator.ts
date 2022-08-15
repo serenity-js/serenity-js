@@ -3,6 +3,11 @@ import * as protractor from 'protractor';
 
 import { promised } from '../../promised';
 
+/**
+ * Protractor-specific implementation of {@apilink RootLocator}.
+ *
+ * @group Models
+ */
 export class ProtractorRootLocator extends RootLocator<protractor.ElementFinder> {
     constructor(private readonly browser: protractor.ProtractorBrowser) {
         super();

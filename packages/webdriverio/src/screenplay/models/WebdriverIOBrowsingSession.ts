@@ -10,11 +10,9 @@ import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler';
 import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler';
 
 /**
- * @desc
- *  WebdriverIO-specific implementation of the {@link @serenity-js/web/lib/screenplay/models~BrowsingSession}.
+ * WebdriverIO-specific implementation of {@apilink BrowsingSession}.
  *
- * @see {@link @serenity-js/web/lib/screenplay/models~Page}
- * @extends {@serenity-js/web/lib/screenplay/models~BrowsingSession}
+ * @group Models
  */
 export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
 
@@ -58,8 +56,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
 
     /**
      * @override
-     * @param {WebdriverIOPage} page
-     * @returns {Promise<void>}
+     * @param page
      */
     async changeCurrentPageTo(page: WebdriverIOPage): Promise<void> {
         await this.browser.switchToWindow(page.id.value);

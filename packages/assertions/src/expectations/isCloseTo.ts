@@ -1,19 +1,25 @@
 import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
- * @desc
- *  Expectation that the actual value is within a given ± absolute tolerance range of the expected value.
+ * Produces an {@apilink Expectation|expectation} that is met when the actual value
+ * is within a given ± `absoluteTolerance` range of the `expected` value.
  *
- * @example
+ * ## Ensuring that a given floating point number is close to the expected number
+ *
+ * ```ts
  *  import { actorCalled } from '@serenity-js/core'
  *  import { Ensure, isCloseTo } from '@serenity-js/assertions'
  *
  *  await actorCalled('Iris').attemptsTo(
  *      Ensure.that(10.123, isCloseTo(10, 0.2))
  *  )
+ * ```
  *
- * @param {Answerable<number>} expected
- * @param {Answerable<number>} [absoluteTolerance=1e-9]
+ * @param expected
+ * @param [absoluteTolerance=1e-9]
+ *  Absolute ± tolerance range, defaults to `1e-9`
+ *
+ * @group Expectations
  */
 export function isCloseTo(expected: Answerable<number>, absoluteTolerance: Answerable<number> = 1e-9): Expectation<number> {
     return new IsCloseTo(expected, absoluteTolerance);

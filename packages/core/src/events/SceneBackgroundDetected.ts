@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { CorrelationId, Description, Name } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class SceneBackgroundDetected extends DomainEvent {
     public static fromJSON(o: JSONObject): SceneBackgroundDetected {
         return new SceneBackgroundDetected(

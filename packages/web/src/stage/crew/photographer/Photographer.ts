@@ -5,68 +5,129 @@ import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { PhotoTakingStrategy } from './strategies';
 
 /**
- * @desc
- *  The Photographer is a {@link @serenity-js/core/lib/stage~StageCrewMember} who takes screenshots
- *  of the web browser that the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight is using.
+ * The Photographer is a {@apilink StageCrewMember} who takes screenshots
+ * using the web browser associated with the {@apilink Actor} that is currently {@apilink actorInTheSpotlight|in the spotlight}.
  *
- * @example <caption>Assigning the Photographer to the Stage</caption>
+ * ## Programmatically assigning the `Photographer` to the {@apilink Stage}
+ *
+ * ```ts
+ * import { configure, ArtifactArchiver } from '@serenity-js/core'
+ * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
+ *
+ * configure({
+ *   crew: [
+ *     ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),
+ *     Photographer.whoWill(TakePhotosOfFailures),
+ *   ]
+ * })
+ * ```
+ *
+ * ## Using `Photographer` with WebdriverIO
+ *
+ * ```ts
  * // wdio.conf.ts
- * import { ArtifactArchiver } from '@serenity-js/core';
- * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';
+ * import { ArtifactArchiver } from '@serenity-js/core'
+ * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
- * export const config = {
+ * export const config: WebdriverIOConfig= {
  *
- *     serenity: {
+ *   // Tell WebdriverIO to use Serenity/JS framework
+ *   framework: '@serenity-js/webdriverio',
+ *
+ *   serenity: {
+ *     // Configure Serenity/JS to use an appropriate test runner adapter
+ *     runner: 'cucumber',
+ *     // runner: 'mocha',
+ *     // runner: 'jasmine',
+ *
+ *     // register custom Actors class to configure your Serenity/JS actors
+ *     actors: new Actors(),
+ *
+ *     // Register StageCrewMembers we've imported at the top of this file
+ *     crew: [
+ *       ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),
+ *       Photographer.whoWill(TakePhotosOfFailures),
+ *     ]
+ *   },
+ *
+ *   // ... rest of the config omitted for brevity
+ * }
+ * ```
+ *
+ * ## Using `Photographer` with Protractor
+ *
+ * ```ts
+ * // protractor.conf.js
+ * const { ArtifactArchiver } = require('@serenity-js/core')
+ * const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web')
+ *
+ * exports.config = {
+ *
+ *   // Tell Protractor to use the Serenity/JS framework Protractor Adapter
+ *   framework:      'custom',
+ *   frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *         runner: 'jasmine',
+ *         // runner: 'cucumber',
+ *         // runner: 'mocha',
  *         crew: [
- *             ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),
+ *             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
  *             Photographer.whoWill(TakePhotosOfFailures),
  *         ]
  *     },
  *
  *     // ... rest of the config omitted for brevity
- * };
+ * }
+ * ```
  *
- * @example <caption>Taking photos upon failures only</caption>
+ * ## Taking photos only upon failures only
  *
- * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
  *
  * Photographer.whoWill(TakePhotosOfFailures)
+ * ```
  *
- * @example <caption>Taking photos of all the interactions</caption>
+ * ## Taking photos of all the interactions
  *
- * import { Photographer, TakePhotosOfInteractions } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web'
  *
  * Photographer.whoWill(TakePhotosOfInteractions)
+ * ```
  *
- * @example <caption>Taking photos before and after all the interactions</caption>
+ * ## Taking photos before and after all the interactions
  *
- * import { Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/web'
  *
  * Photographer.whoWill(TakePhotosBeforeAndAfterInteractions)
+ * ```
  *
- * @see {@link @serenity-js/core/lib/stage~Stage}
- * @see {@link TakePhotosBeforeAndAfterInteractions}
- * @see {@link TakePhotosOfFailures}
- * @see {@link TakePhotosOfInteractions}
+ * ## Learn more
+ * - {@apilink Stage}
+ * - {@apilink StageCrewMember}
+ * - {@apilink TakePhotosBeforeAndAfterInteractions}
+ * - {@apilink TakePhotosOfFailures}
+ * - {@apilink TakePhotosOfInteractions}
+ *
+ * @group Stage
  */
 export class Photographer implements StageCrewMember {
 
     /**
-     * @desc
-     *  Instantiates a new {@link Photographer} configured to take photos (screenshots)
-     *  as per the specified {@link PhotoTakingStrategy}.
+     * Instantiates a new {@apilink Photographer} configured to take photos (screenshots)
+     * as per the specified {@apilink PhotoTakingStrategy}.
      *
-     * @param {Function} strategy - A no-arg constructor function that instantiates a {@link PhotoTakingStrategy}.
-     * @returns {StageCrewMember}
+     * @param strategy
+     * A no-arg constructor function that instantiates a {@apilink PhotoTakingStrategy}
      */
     static whoWill(strategy: new () => PhotoTakingStrategy): StageCrewMember {
         return new Photographer(new strategy());
     }
 
-    /**
-     * @param {PhotoTakingStrategy} photoTakingStrategy
-     * @param {Stage} stage
-     */
     constructor(
         private readonly photoTakingStrategy: PhotoTakingStrategy,
         private stage?: Stage,
@@ -74,23 +135,21 @@ export class Photographer implements StageCrewMember {
     }
 
     /**
-     * @desc
-     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
+     * Assigns this {@apilink StageCrewMember} to a given {@apilink Stage}.
      *
-     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
-     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
+     * @param stage
+     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
      */
     assignedTo(stage: Stage): StageCrewMember {
-        return new Photographer(this.photoTakingStrategy, stage);
+        this.stage = stage;
+        return this;
     }
 
     /**
-     * @desc
-     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}
-     *  this {@link StageCrewMember} is assigned to.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}
+     * this {@apilink StageCrewMember} is assigned to.
      *
-     * @param {DomainEvent} event
-     * @returns {void}
+     * @param event
      */
     notifyOf(event: DomainEvent): void {
         if (! this.stage) {

@@ -4,6 +4,15 @@ import * as wdio from 'webdriverio';
 import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
 
+/**
+ * WebdriverIO-specific implementation of {@apilink ModalDialogHandler},
+ * used with the [WebDriver protocol](https://webdriver.io/docs/api/webdriver).
+ *
+ * ## Learn more
+ * - {@apilink WebdriverIOPuppeteerModalDialogHandler}
+ *
+ * @group Models
+ */
 export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
 
     private readonly defaultHandler: () => Promise<void> =

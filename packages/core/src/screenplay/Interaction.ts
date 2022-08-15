@@ -2,15 +2,56 @@ import { Activity } from './Activity';
 import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './actor';
 
 /**
- * @desc
- *  Directly exercises the {@link Actor}'s {@link Ability} to interact
- *  with the System Under Test.
+ * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apilink Activity|activity} that directly
+ * uses the {@apilink Actor|actor's} {@apilink Ability|ability} to interact
+ * with the system under test.
  *
- * @implements {Activity}
- * @see {@link Ability}
- * @see {@link Actor}
+ * Use the factory method `Interaction.where(description, interactionFunction)` to define custom interactions.
+ *
+ * ## Defining a custom interaction
+ *
+ * ```ts
+ * import { Actor, Interaction } from '@serenity-js/core'
+ * import { BrowseTheWeb, Page } from '@serenity-js/web'
+ *
+ * export const ClearLocalStorage = () =>
+ *   Interaction.where(`#actor clears local storage`, async (actor: Actor) => {
+ *     // Interaction to ClearLocalStorage directly uses Actor's ability to BrowseTheWeb
+ *     const page: Page = await BrowseTheWeb.as(actor).currentPage()
+ *     await page.executeScript(() => window.localStorage.clear())
+ *   })
+ * ```
+ *
+ * ## Using a custom interaction
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core';
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { Browser, chromium } from 'playwright'
+ *
+ * const browser = await chromium.launch({ headless: true })
+ *
+ * await actorCalled('Inês')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *   .attemptsTo(
+ *     Navigate.to(`https://serenity-js.org`),
+ *     ClearLocalStorage(), // reported as "Inês clears local storage"
+ *   )
+ * ```
+ *
+ * @group Screenplay Pattern
  */
 export abstract class Interaction implements Activity {
+
+    /**
+     * @param description
+     *  Description to be used when reporting this interaction, for example `#actor clears local storage`.
+     *  Note that `#actor` will be replaced with the name of the actor performing this interaction.
+     *
+     * @param interaction
+     */
     static where(
         description: string,
         interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
@@ -19,16 +60,15 @@ export abstract class Interaction implements Activity {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
+     * Instructs the provided {@apilink Actor} to perform this {@apilink Interaction}.
      *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
+     * #### Learn more
+     * - {@apilink Actor}
+     * - {@apilink PerformsActivities}
+     * - {@apilink UsesAbilities}
+     * - {@apilink AnswersQuestions}
      *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
+     * @param actor
      */
     abstract performAs(actor: UsesAbilities & AnswersQuestions): Promise<void>;
 }
@@ -44,16 +84,6 @@ class DynamicallyGeneratedInteraction extends Interaction {
         super();
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
-     *
-     * @param {Actor} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     */
     performAs(actor: Actor): Promise<void> {
         try {
             return Promise.resolve(this.interaction(actor));
@@ -62,12 +92,6 @@ class DynamicallyGeneratedInteraction extends Interaction {
         }
     }
 
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
-     */
     toString(): string {
         return this.description;
     }

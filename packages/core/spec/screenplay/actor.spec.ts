@@ -34,13 +34,11 @@ describe('Actor', () => {
         return new Actor(name, stage as unknown as Stage);
     }
 
-    /** @test {Actor} */
     it('can be identified by their name', () => {
 
         expect(actor('Chris').name).to.equal('Chris');
     });
 
-    /** @test {Actor} */
     it('provides a developer-friendly toString', () => {
         class DoCoolThings implements Ability {
         }
@@ -50,7 +48,6 @@ describe('Actor', () => {
         expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[DoCoolThings])');
     });
 
-    /** @test {Actor} */
     it('has Abilities allowing them to perform Activities and interact with a given interface of the system under test', () =>
 
         actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -60,7 +57,6 @@ describe('Actor', () => {
             expect(guitar.play).to.have.been.calledWith(Chords.AMajor);
         }));
 
-    /** @test {Actor} */
     it('performs composite Tasks recursively to accomplish their Business Goals', () =>
 
         actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
@@ -73,7 +69,7 @@ describe('Actor', () => {
         }));
 
     describe('asks Questions about the state of the system', () => {
-        /** @test {Actor} */
+
         it('fulfills the promise should the question be answered as expected', () => {
             guitar.availableStrings.returns(Promise.resolve(['E2', 'A2', 'D3', 'G3', 'B3', 'E4' ]));
 
@@ -83,7 +79,6 @@ describe('Actor', () => {
             )).to.be.fulfilled;
         });
 
-        /** @test {Actor} */
         it('rejects the promise should the answer differ from what was expected', () => {
             const oneStringMissing = ['E2', 'A2', 'D3', 'G3', 'B3' ];
             guitar.availableStrings.returns(Promise.resolve(oneStringMissing));
@@ -97,14 +92,12 @@ describe('Actor', () => {
 
     describe('when using abilities', () => {
 
-        /** @test {Actor} */
         it('admits if it does not have the Ability necessary to accomplish a given Interaction', () =>
 
             expect(actor('Ben').attemptsTo(
                 PlayAChord.of(Chords.AMajor),
             )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
 
-        /** @test {Actor} */
         it('complains if given the same ability twice', () => {
 
             expect(() =>
@@ -139,7 +132,6 @@ describe('Actor', () => {
                 }
             }
 
-            /** @test {Actor} */
             it('initialises them upon the first call to attemptsTo', async () => {
 
                 const useDatabase = new UseDatabase();
@@ -149,7 +141,6 @@ describe('Actor', () => {
                 expect(useDatabase.isInitialised()).to.equal(true);
             });
 
-            /** @test {Actor} */
             it(`initialises them only if they haven't been initialised before`, async () => {
 
                 const useDatabase = new UseDatabase();
@@ -161,7 +152,6 @@ describe('Actor', () => {
                 expect(useDatabase.callsToInitialise).to.equal(1);
             });
 
-            /** @test {Actor} */
             it(`complains if the ability could not be initialised`, () => {
 
                 return expect(actor('Dibillo').whoCan(new UseBrokenDatabase()).attemptsTo(/* */))
@@ -192,7 +182,6 @@ describe('Actor', () => {
 
         describe('announces events about the activities it performs', () => {
 
-            /** @test {Actor} */
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
                 PlayAChord.of(Chords.AMajor),
             ).then(() => {

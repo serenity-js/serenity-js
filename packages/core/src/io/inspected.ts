@@ -9,16 +9,13 @@ interface InspectedConfig {
 }
 
 /**
- * @desc
- *  Provides a human-readable description of the {@link Answerable<T>}.
- *  Similar to {@link util~inspect}.
+ * Provides a human-readable description of the {@apilink Answerable<T>}.
+ * Similar to [Node util~inspect](https://nodejs.org/api/util.html#utilinspectobject-options).
  *
- * @public
- * @param {Answerable<any>} value
+ * @param value
  * @param config
  *  - inline - Return a single-line string instead of the default potentially multi-line description
  *  - markQuestions - Surround the description of async values, such as Promises and Questions with <<value>>
- * @return {string}
  */
 export function inspected(value: Answerable<any>, config?: InspectedConfig): string {
 
@@ -98,22 +95,18 @@ function markAs(value: string, markValue: boolean): string {
 }
 
 /**
- * @desc
  * Checks if the value is defined
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isDefined(v: Answerable<any>) {
     return !! v;
 }
 
 /**
- * @desc
  * Checks if the value defines its own `toString` method
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function hasItsOwnToString(v: Answerable<any>): v is { toString: () => string } {
     return typeof v === 'object'
@@ -123,33 +116,27 @@ function hasItsOwnToString(v: Answerable<any>): v is { toString: () => string } 
 }
 
 /**
- * @desc
  * Checks if the value defines its own `inspect` method
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isInspectable(v: Answerable<any>): v is { inspect: () => string } {
     return !! (v as any).inspect && typeof (v as any).inspect === 'function';
 }
 
 /**
- * @desc
- * Checks if the value is a {@link Date}
+ * Checks if the value is a {@apilink Date}
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isADate(v: Answerable<any>): v is Date {
     return v instanceof Date;
 }
 
 /**
- * @desc
- * Checks if the value is a {@link Promise}
+ * Checks if the value is a {@apilink Promise}
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
     return typeof v === 'object'
@@ -157,45 +144,36 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
 }
 
 /**
- * @desc
- * Checks if the value is a named {@link Function}
+ * Checks if the value is a named {@apilink Function}
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isAFunction(v: any): v is Function {       // eslint-disable-line @typescript-eslint/ban-types
     return Object.prototype.toString.call(v) === '[object Function]';
 }
 
 /**
- * @desc
- *  Checks if the value is has a property called 'name' with a non-empty value.
+ * Checks if the value is has a property called 'name' with a non-empty value.
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function hasName(v: any): v is { name: string } {
     return typeof (v as any).name === 'string' && (v as any).name !== '';
 }
 
 /**
- * @desc
- * Checks if the value defines its own `inspect` method
- * See: https://nodejs.org/api/util.html#util_util_inspect_custom
+ * Checks if the value defines its own [`inspect` method](https://nodejs.org/api/util.html#util_util_inspect_custom)
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function hasCustomInspectionFunction(v: Answerable<any>): v is object { // eslint-disable-line @typescript-eslint/ban-types
     return v && v[Symbol.for('nodejs.util.inspect.custom')];
 }
 
 /**
- * @desc
  * Checks if the value has a good chance of being a plain JavaScript object
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isPlainObject(v: Answerable<any>): v is object {   // eslint-disable-line @typescript-eslint/ban-types
 
@@ -218,11 +196,9 @@ function isPlainObject(v: Answerable<any>): v is object {   // eslint-disable-li
 }
 
 /**
- * @desc
  * Checks if the value is a JSON object that can be stringified
  *
- * @private
- * @param {Answerable<any>} v
+ * @param v
  */
 function isSerialisableAsJSON(v: any): v is object {    // eslint-disable-line @typescript-eslint/ban-types
     try {
@@ -235,13 +211,14 @@ function isSerialisableAsJSON(v: any): v is object {    // eslint-disable-line @
 }
 
 /**
- * https://davidwalsh.name/detect-native-function
- * @param {any} v
+ * Inspired by https://davidwalsh.name/detect-native-function
+ *
+ * @param v
  */
 function isNative(v: any): v is Function {  // eslint-disable-line @typescript-eslint/ban-types
 
     const
-        toString        = Object.prototype.toString,    // Used to resolve the internal `[[Class]]` of values
+        toString        = Object.prototype.toString,    // Used to resolve the internal `{@apilink Class}` of values
         fnToString      = Function.prototype.toString,  // Used to resolve the decompiled source of functions
         hostConstructor = /^\[object .+?Constructor]$/; // Used to detect host constructors (Safari > 4; really typed array specific)
 

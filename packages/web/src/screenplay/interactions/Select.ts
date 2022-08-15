@@ -4,67 +4,70 @@ import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
 import { PageElement, SelectOption } from '../models';
-import { SelectBuilder } from './SelectBuilder';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
- *  either by its display name, or by value.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to select an option from a [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select),
+ * either by its display name, or by value.
  *
- * @see {@link Selected}
+ * ## Learn more
+ * - {@apilink Selected}
+ *
+ * @group Interactions
  */
 export class Select {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  with a [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)
-     *  of a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to select a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * with a given [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value).,
      *
-     * @example <caption>Example widget</caption>
-     *  <select data-test='countries'>
-     *      <option value='UK'>United Kingdom</option>
-     *      <option value='PL'>Poland</option>
-     *      <option value='US'>United States</option>
-     *  </select>
+     * #### Example widget
      *
-     * @example <caption>Lean Page Object describing the widget</caption>
-     *  import { Target } from '@serenity-js/protractor';
-     *  import { browser, by } from 'protractor';
+     * ```html
+     * <select data-test='countries'>
+     *   <option value='UK'>United Kingdom</option>
+     *   <option value='PL'>Poland</option>
+     *   <option value='US'>United States</option>
+     * </select>
+     * ```
      *
-     *  class Countries {
-     *      static dropdown = Target.the('countries dropdown')
-     *          .located(by.css('[data-test="countries"]'));
-     *  }
+     * #### Lean Page Object describing the widget
      *
-     * @example <caption>Retrieving the selected value</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
-     *  import { protractor } from 'protractor';
+     * ```ts
+     * import { By, PageElement } from '@serenity-js/web'
      *
-     *  actorCalled('Nick')
-     *      .whoCan(BrowseTheWeb.using(protractor.browser))
-     *      .attemptsTo(
-     *          Select.value('UK').from(Countries.dropdown),
-     *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
-     *      );
+     * class Countries {
+     *   static dropdown = () =>
+     *     PageElement.located(By.css('[data-test="countries"]'))
+     *       .describedAs('countries dropdown')
+     * }
+     * ```
      *
-     * @param {Answerable<string>} value
+     * #### Retrieving the selected value
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Select, Selected } from '@serenity-js/web';
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Nick')
+     *   .attemptsTo(
+     *     Select.value('UK').from(Countries.dropdown()),
+     *     Ensure.that(Selected.valueOf(Countries.dropdown()), equals('UK')),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     * - {@apilink Selected.valueOf}
+     * - {@apilink PageElement}
+     *
+     * @param value
      *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
-     *
-     * @returns {SelectBuilder}
-     *
-     * @see {@link Selected.valueOf}
-     * @see {@link BrowseTheWeb}
-     * @see {@link Target}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~equals}
+     *  for the {@apilink Actor} to select
      */
-    static value(value: Answerable<string>): SelectBuilder {
+    static value(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(d`#actor selects value ${ value } from ${ pageElement }`, async actor => {
@@ -77,54 +80,57 @@ export class Select {
     }
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  with [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value)
-     *  of multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to select multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * identified by their [`value`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#attr-value).
      *
-     * @example <caption>Example widget</caption>
-     *  <select multiple data-test='countries'>
-     *      <option value='UK'>United Kingdom</option>
-     *      <option value='PL'>Poland</option>
-     *      <option value='US'>United States</option>
-     *  </select>
+     * #### Example widget
      *
-     * @example <caption>Lean Page Object describing the widget</caption>
-     *  import { Target } from '@serenity-js/protractor';
-     *  import { browser, by } from 'protractor';
+     * ```ts
+     * <select multiple data-test='countries'>
+     *   <option value='UK'>United Kingdom</option>
+     *   <option value='PL'>Poland</option>
+     *   <option value='US'>United States</option>
+     * </select>
+     * ```
      *
-     *  class Countries {
-     *      static dropdown = Target.the('countries dropdown')
-     *          .located(by.css('[data-test="countries"]'));
-     *  }
+     * #### Lean Page Object describing the widget
      *
-     * @example <caption>Retrieving the selected value</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
-     *  import { protractor } from 'protractor';
+     * ```ts
+     * import { By, PageElement } from '@serenity-js/web'
      *
-     *  actorCalled('Nick')
-     *      .whoCan(BrowseTheWeb.using(protractor.browser))
-     *      .attemptsTo(
-     *          Select.values('UK').from(Countries.dropdown),
-     *          Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ 'UK' ])),
-     *      );
+     * class Countries {
+     *   static dropdown = () =>
+     *     PageElement.located(By.css('[data-test="countries"]'))
+     *       .describedAs('countries dropdown')
+     * }
+     * ```
      *
-     * @param {Array<Answerable<string[] | string>>} values
+     * #### Retrieving the selected value
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Select, Selected } from '@serenity-js/web'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Nick')
+     *   .attemptsTo(
+     *     Select.values('UK').from(Countries.dropdown()),
+     *     Ensure.that(Selected.valuesOf(Countries.dropdown()), equals([ 'UK' ])),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     *
+     * - {@apilink Selected.valuesOf}
+     * - {@apilink PageElement}
+     *
+     * @param values
      *  Values of the [`option` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
-     *
-     * @returns {SelectBuilder}
-     *
-     * @see {@link Selected.valuesOf}
-     * @see {@link BrowseTheWeb}
-     * @see {@link Target}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~equals}
+     *  for the {@apilink Actor} to select
      */
-    static values(...values: Array<Answerable<string[] | string>>): SelectBuilder {
+    static values(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects values ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
@@ -140,56 +146,59 @@ export class Select {
     }
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  with a single [`option`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to select a single [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * with a given description.
      *
-     * @example <caption>Example widget</caption>
-     *  <select data-test='countries'>
-     *      <option value='UK'>United Kingdom</option>
-     *      <option value='PL'>Poland</option>
-     *      <option value='US'>United States</option>
-     *  </select>
+     * #### Example widget
      *
-     * @example <caption>Lean Page Object describing the widget</caption>
-     *  import { Target } from '@serenity-js/protractor';
-     *  import { browser, by } from 'protractor';
+     * ```html
+     * <select data-test='countries'>
+     *   <option value='UK'>United Kingdom</option>
+     *   <option value='PL'>Poland</option>
+     *   <option value='US'>United States</option>
+     * </select>
+     * ```
      *
-     *  class Countries {
-     *      static dropdown = Target.the('countries dropdown')
-     *          .located(by.css('[data-test="countries"]'));
-     *  }
+     * #### Lean Page Object describing the widget
+     * ```ts
+     * import { By, PageElement } from '@serenity-js/by'
      *
-     * @example <caption>Retrieving the selected value</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
-     *  import { protractor } from 'protractor';
+     * class Countries {
+     *   static dropdown = () =>
+     *     PageElement.located(By.css('[data-test="countries"]'))
+     *       .describedAs('countries dropdown')
+     * }
+     * ```
      *
-     *  actorCalled('Nick')
-     *      .whoCan(BrowseTheWeb.using(protractor.browser))
-     *      .attemptsTo(
-     *          Select.option('Poland').from(Countries.dropdown),
-     *          Ensure.that(
-     *              Selected.optionIn(Countries.dropdown),
-     *              equals('Poland')
-     *          ),
-     *      );
+     * #### Retrieving the selected value
      *
-     * @param {Answerable<string>} value
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Select, Selected } from '@serenity-js/web'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Nick')
+     *   .whoCan(BrowseTheWeb.using(protractor.browser))
+     *   .attemptsTo(
+     *     Select.option('Poland').from(Countries.dropdown()),
+     *     Ensure.that(
+     *       Selected.optionIn(Countries.dropdown()),
+     *       equals('Poland')
+     *     ),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     * - {@apilink Selected.optionIn}
+     * - {@apilink PageElement}
+     *
+     * @param value
      *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
-     *
-     * @returns {SelectBuilder}
-     *
-     * @see {@link Selected.optionIn}
-     * @see {@link BrowseTheWeb}
-     * @see {@link Target}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~equals}
+     *  for the {@apilink Actor} to select
      */
-    static option(value: Answerable<string>): SelectBuilder {
+    static option(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(d`#actor selects ${ value } from ${ pageElement }`, async actor => {
@@ -202,56 +211,60 @@ export class Select {
     }
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *  with [`option`s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select.
+     * Instantiates an {@apilink Interaction|interaction}
+     * that instructs the {@apilink Actor|actor}
+     * to select multiple [`<option>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+     * identified by their descriptions.
      *
-     * @example <caption>Example widget</caption>
-     *  <select multiple data-test='countries'>
-     *      <option value='UK'>United Kingdom</option>
-     *      <option value='PL'>Poland</option>
-     *      <option value='US'>United States</option>
-     *  </select>
+     * #### Example widget
      *
-     * @example <caption>Lean Page Object describing the widget</caption>
-     *  import { Target } from '@serenity-js/protractor';
-     *  import { browser, by } from 'protractor';
+     * ```html
+     * <select multiple data-test='countries'>
+     *   <option value='UK'>United Kingdom</option>
+     *   <option value='PL'>Poland</option>
+     *   <option value='US'>United States</option>
+     * </select>
+     * ```
      *
-     *  class Countries {
-     *      static dropdown = Target.the('countries dropdown')
-     *          .located(by.css('[data-test="countries"]'));
-     *  }
+     * #### Lean Page Object describing the widget
      *
-     * @example <caption>Retrieving the selected value</caption>
-     *  import { actorCalled } from '@serenity-js/core';
-     *  import { BrowseTheWeb, Select, Selected } from '@serenity-js/protractor';
-     *  import { Ensure, equals } from '@serenity-js/assertions';
-     *  import { protractor } from 'protractor';
+     * ```ts
+     * import { By, PageElement } from '@serenity-js/web'
      *
-     *  actorCalled('Nick')
-     *      .whoCan(BrowseTheWeb.using(protractor.browser))
-     *      .attemptsTo(
-     *          Select.options('Poland', 'United States').from(Countries.dropdown),
-     *          Ensure.that(
-     *              Selected.optionsIn(Countries.dropdown),
-     *              equals([ 'Poland', 'United States' ])
-     *          ),
-     *      );
+     * class Countries {
+     *   static dropdown = () =>
+     *     PageElement.located(By.css('[data-test="countries"]'))
+     *       .describedAs('countries dropdown')
+     * }
+     * ```
      *
-     * @param {Array<Answerable<string[] | string>>} values
+     * ##### Retrieving the selected value
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Select, Selected } from '@serenity-js/web'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Nick')
+     *   .whoCan(BrowseTheWeb.using(protractor.browser))
+     *   .attemptsTo(
+     *     Select.options('Poland', 'United States').from(Countries.dropdown()),
+     *     Ensure.that(
+     *       Selected.optionsIn(Countries.dropdown()),
+     *       equals([ 'Poland', 'United States' ])
+     *     ),
+     *   )
+     * ```
+     *
+     * #### Learn more
+     * - {@apilink Selected.optionsIn}
+     * - {@apilink PageElement}
+     *
+     * @param values
      *  Text of the [`option` elements  ](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
-     *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
-     *
-     * @returns {SelectBuilder}
-     *
-     * @see {@link Selected.optionsIn}
-     * @see {@link BrowseTheWeb}
-     * @see {@link Target}
-     * @see {@link @serenity-js/assertions~Ensure}
-     * @see {@link @serenity-js/assertions/lib/expectations~equals}
+     *  for the {@apilink Actor} to select
      */
-    static options(...values: Array<Answerable<string[] | string>>): SelectBuilder {
+    static options(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
                 Interaction.where(`#actor selects ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {

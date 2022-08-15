@@ -3,137 +3,142 @@ import { Answerable, AnswersQuestions, d, MetaQuestion, Question, QuestionAdapte
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  Resolves to an array of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
- *  of a given {@link PageElement}.
+ * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
+ * of a given {@apilink PageElement}.
  *
- * @example <caption>Example widget</caption>
- *  <ul id="shopping-list" class="active favourite">
- *    <li class="bought">Coffee<li>
- *    <li class="buy">Honey<li>
- *    <li class="buy">Chocolate<li>
- *  </ul>
+ * ## Example widget
  *
- * @example <caption>Retrieve CSS classes of a given PageElement</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, CssClasses, PageElement } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```html
+ * <ul id="shopping-list" class="active favourite">
+ *   <li class="bought">Coffee<li>
+ *   <li class="buy">Honey<li>
+ *   <li class="buy">Chocolate<li>
+ * </ul>
+ * ```
  *
- *  const shoppingList = () =>
- *      PageElement.located(By.css('#shopping-list')).describedAs('shopping list')
+ * ## Retrieve CSS classes of a given {@apilink PageElement}
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              CssClasses.of(shoppingList()),
- *              equals([ 'active', 'favourite' ])
- *          ),
- *      )
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, CssClasses, PageElement } from '@serenity-js/web'
  *
- * @example <caption>Using CssClasses as QuestionAdapter</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
- *  import { By, CssClasses, PageElement } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * const shoppingList = () =>
+ *   PageElement.located(By.css('#shopping-list'))
+ *     .describedAs('shopping list')
  *
- *  const shoppingList = () =>
- *      PageElement.located(By.css('#shopping-list')).describedAs('shopping list')
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       CssClasses.of(shoppingList()),
+ *       equals([ 'active', 'favourite' ])
+ *     ),
+ *   )
+ * ```
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              CssClasses.of(shoppingList()).length,
- *              equals(2)
- *          ),
- *          Ensure.that(
- *              CssClasses.of(shoppingList())[0],
- *              equals('active')
- *          ),
- *      )
+ * ## Using CssClasses as {@apilink QuestionAdapter}
  *
- * @example <caption>Find PageElements with a given class</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, contain } from '@serenity-js/assertions';
- *  import { By, CssClasses, PageElement } from '@serenity-js/web';
- *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { By, CssClasses, PageElement } from '@serenity-js/web'
  *
- *  class ShoppingList {
- *      static items = () =>
- *          PageElements.located(By.css('#shopping-list li'))
- *              .describedAs('items')
+ * const shoppingList = () =>
+ *   PageElement.located(By.css('#shopping-list'))
+ *     .describedAs('shopping list')
  *
- *      static outstandingItems = () =>
- *          ShoppingList.items()
- *              .where(CssClasses, contain('buy'))
- *  }
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       CssClasses.of(shoppingList()).length,
+ *       equals(2)
+ *     ),
+ *     Ensure.that(
+ *       CssClasses.of(shoppingList())[0],
+ *       equals('active')
+ *     ),
+ *   )
+ * ```
  *
- *  actorCalled('Lisa')
- *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
- *      .attemptsTo(
- *          Ensure.that(
- *              Text.ofAll(ShoppingList.outstandingItems()),
- *              equals([ 'Honey', 'Chocolate' ])
- *          ),
- *      )
+ * ## Using as filter in {@apilink PageElements|Page Element Query Language}
  *
- * @extends {@serenity-js/core/lib/screenplay~Question}
- * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, contain } from '@serenity-js/assertions'
+ * import { By, CssClasses, PageElement } from '@serenity-js/web'
+ *
+ * class ShoppingList {
+ *   static items = () =>
+ *     PageElements.located(By.css('#shopping-list li'))
+ *       .describedAs('items')
+ *
+ *   static outstandingItems = () =>
+ *     ShoppingList.items()
+ *       .where(CssClasses, contain('buy'))
+ * }
+ *
+ * await actorCalled('Lisa')
+ *   .attemptsTo(
+ *     Ensure.that(
+ *       Text.ofAll(ShoppingList.outstandingItems()),
+ *       equals([ 'Honey', 'Chocolate' ])
+ *     ),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink MetaQuestion}
+ * - {@apilink QuestionAdapter}
+ * - {@apilink Question}
+ *
+ * @group Questions
  */
 export class CssClasses
     extends Question<Promise<string[]>>
     implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
-    /**
-     * @private
-     */
     private subject: string;
 
     /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} pageElement
-     * @returns {@serenity-js/core/lib/screenplay~QuestionAdapter<string[]>}
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
+     * of a given {@apilink PageElement}.
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * #### Learn more
+     * - {@apilink MetaQuestion}
+     *
+     * @param pageElement
      */
     static of(pageElement: Answerable<PageElement>): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> {
         return Question.createAdapter(new CssClasses(pageElement)) as QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>;
     }
 
-    /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} pageElement
-     */
     protected constructor(private readonly pageElement: Answerable<PageElement>) {
         super();
         this.subject = d`CSS classes of ${ pageElement}`;
     }
 
     /**
-     * @desc
-     *  Resolves to an array of CSS classes of the `pageElement`,
-     *  located within the `parent` element.
+     * Instantiates a {@apilink Question} that uses
+     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
+     * of a given {@apilink PageElement},
+     * located in a given `parent` element.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<PageElement>} parent
-     * @returns {Question<Promise<string[]>>}
+     * #### Learn more
+     * - {@apilink MetaQuestion}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+     * @param parent
      */
     of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
         return new CssClasses(PageElement.of(this.pageElement, parent));
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-     *
-     * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @inheritDoc
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const element = await actor.answer(this.pageElement);
@@ -149,11 +154,7 @@ export class CssClasses
     }
 
     /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
+     * @inheritDoc
      */
     describedAs(subject: string): this {
         this.subject = subject;
@@ -161,8 +162,7 @@ export class CssClasses
     }
 
     /**
-     * @returns {string}
-     *  Returns a human-readable representation of this {@link @serenity-js/core/lib/screenplay~Question}.
+     * @inheritDoc
      */
     toString(): string {
         return this.subject;

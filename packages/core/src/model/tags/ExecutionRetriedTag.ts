@@ -3,11 +3,8 @@ import { JSONObject } from 'tiny-types';
 import { Tag } from './Tag';
 
 /**
- * @desc
- *  Indicates that execution of a given scene
- *  has been retried for the `currentRetry`-th time.
- *
- * @access public
+ * Indicates that execution of a given scene
+ * has been retried for the `currentRetry`-th time.
  */
 export class ExecutionRetriedTag extends Tag {
     static readonly Type = 'retry';

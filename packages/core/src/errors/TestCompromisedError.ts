@@ -1,28 +1,44 @@
+import { JSONObject } from 'tiny-types';
+
+import { ErrorSerialiser } from './ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * @desc
- *  Thrown to indicate that the test can't be performed due to an issue with a downstream dependency.
- *  For example, it makes no sense to run a full-stack integration test if we already know that
- *  the database server is down.
+ * Thrown to indicate that the test can't be performed due to an issue with a downstream dependency.
+ * For example, it makes no sense to run a full-stack integration test if we already know that
+ * the database server is down.
  *
- * @example <caption>Throwing a TestCompromisedError from a custom Interaction</caption>
- *  import { Interaction } from '@serenity-js/core';
+ * ## Throwing a TestCompromisedError from a custom Interaction
  *
- *  const SetUpTestDatabase = () =>
- *      Interaction.where(`#actor sets up a test database`, actor => {
- *          return SomeCustomDatabaseSpecificAbility.as(actor).setUpTestDatabase().catch(error => {
- *              throw new TestCompromisedError('Could not set up the test database', error);
- *          });
- *      });
+ * ```ts
+ * import { Interaction } from '@serenity-js/core';
  *
- * @extends {RuntimeError}
+ * const SetUpTestDatabase = () =>
+ *   Interaction.where(`#actor sets up a test database`, actor => {
+ *     return SomeCustomDatabaseSpecificAbility.as(actor).setUpTestDatabase().catch(error => {
+ *       throw new TestCompromisedError('Could not set up the test database', error)
+ *     })
+ * })
+ * ```
+ *
+ * @group Errors
  */
 export class TestCompromisedError extends RuntimeError {
 
+    static fromJSON(serialised: JSONObject): TestCompromisedError {
+        const error = new TestCompromisedError(
+            serialised.message as string,
+            ErrorSerialiser.deserialise(serialised.cause as string | undefined),
+        );
+
+        error.stack = serialised.stack as string;
+
+        return error;
+    }
+
     /**
-     * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
+     * @param message - Human-readable description of the error
+     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
         super(TestCompromisedError, message, cause);

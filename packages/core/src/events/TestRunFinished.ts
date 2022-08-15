@@ -2,8 +2,9 @@ import { Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Emitted when all the tests have finished running.
+ * Emitted when all the test scenarios have finished running.
+ *
+ * @group Events
  */
 export class TestRunFinished extends DomainEvent {
     static fromJSON(v: string): TestRunFinished {

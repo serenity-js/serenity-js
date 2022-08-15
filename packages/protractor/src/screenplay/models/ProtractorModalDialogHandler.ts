@@ -5,6 +5,11 @@ import { error as errors } from 'protractor';
 import { promised } from '../promised';
 import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 
+/**
+ * Protractor-specific implementation of {@apilink ModalDialogHandler}.
+ *
+ * @group Models
+ */
 export class ProtractorModalDialogHandler extends ModalDialogHandler {
 
     private readonly defaultHandler: () => Promise<void> =

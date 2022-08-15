@@ -1,5 +1,6 @@
 import { ListensToDomainEvents, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
-import { AssertionError } from '@serenity-js/core/lib';
+import { AssertionError } from '@serenity-js/core';
+import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,
     DomainEvent,
@@ -11,7 +12,6 @@ import {
     TaskStarts,
     TestRunFinished,
 } from '@serenity-js/core/lib/events';
-import { OutputStream } from '@serenity-js/core/lib/io';
 import {
     AssertionReport,
     CorrelationId,
@@ -38,23 +38,29 @@ import { SummaryFormatter } from './SummaryFormatter';
 import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
 
 /**
- * @desc
- *  Uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
- *  to report on progress of your Serenity/JS acceptance tests.
+ * A {@apilink StageCrewMember} that uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
+ * to report on progress of your Serenity/JS acceptance tests.
  *
- *  `ConsoleReporter` ships with colour themes for both dark and light terminals,
- *  as well as a monochromatic theme for those moments when you're in a noir mood
- *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
+ * `ConsoleReporter` ships with colour themes for both dark and light terminals,
+ * as well as a monochromatic theme for those moments when you're in a noir mood
+ * (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
- * @example <caption>Registering the reporter programmatically</caption>
+ * ## Registering the reporter programmatically
+ *
+ * ```ts
  *  import { configure } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *
  *  configure({
- *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
+ *    crew: [
+ *      ConsoleReporter.withDefaultColourSupport()
+ *    ],
  *  });
+ * ```
  *
- * @example <caption>Redirecting output to a file</caption>
+ * ## Redirecting output to a file
+ *
+ * ```ts
  *  import { configure } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *  import { createWriteStream } from 'fs';
@@ -63,27 +69,53 @@ import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForM
  *      outputStream: createWriteStream('./output.log'),
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
+ *  ```
+ * ## Registering the reporter with WebdriverIO
  *
- * @example <caption>Registering the reporter using Protractor configuration</caption>
- *  // protractor.conf.js
- *  const { ConsoleReporter } = require('@serenity-js/console-reporter');
+ * ```ts
+ * // wdio.conf.ts
+ * import { ConsoleReporter } from '@serenity-js/console-reporter';
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio';
  *
- *  exports.config = {
- *    framework:     'custom',
- *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ * export const config: WebdriverIOConfig = {
  *
- *    serenity: {
- *      crew: [
- *        ConsoleReporter.withDefaultColourSupport(),
- *      ],
- *      // other Serenity/JS config
- *    },
+ *   framework: '@serenity-js/webdriverio',
  *
- *    // other Protractor config
- *  };
+ *   serenity: {
+ *     crew: [
+ *       ConsoleReporter.forDarkTerminals(),
+ *     ]
+ *     // other Serenity/JS config
+ *   },
+ *
+ *  // other WebdriverIO config
+ * }
+ * ```
+ *
+ * ## Registering the reporter with Protractor
+ *
+ * ```js
+ * // protractor.conf.js
+ * const { ConsoleReporter } = require('@serenity-js/console-reporter');
+ *
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *     crew: [
+ *       ConsoleReporter.withDefaultColourSupport(),
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *
+ *   // other Protractor config
+ * }
+ * ```
  *
  * @public
- * @implements {@serenity-js/core/lib/stage~ListensToDomainEvents}
+ *
+ * @group Stage
  */
 export class ConsoleReporter implements ListensToDomainEvents {
 
@@ -94,53 +126,38 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private readonly summaryFormatter: SummaryFormatter;
 
     /**
-     * @desc
-     *  Instantiates a `ConsoleReporter` that auto-detects
-     *  your terminal's support for colours and use a colour theme
-     *  for dark terminals if successful.
+     * Instantiates a `ConsoleReporter` that auto-detects
+     * your terminal's support for colours and uses a colour theme
+     * for dark terminals if successful.
      *
-     *  Please note that spawning your test process from another process
-     *  (by using [npm-failsafe](https://www.npmjs.com/package/npm-failsafe), for example)
-     *  causes the `ConsoleReporter` to use the monochromatic colour scheme,
-     *  as colour support can't be detected in child processes.
-     *
-     *  If the above describes your setup, use {@link ConsoleReporter#forDarkTerminals}
-     *  or {@link ConsoleReporter#forLightTerminals} to make the sub-process produce colour output.
-     *
-     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
+     * Please note that spawning your test process from another process
+     * (by using [npm-failsafe](https://www.npmjs.com/package/npm-failsafe), for example)
+     * causes the `ConsoleReporter` to use the monochromatic colour scheme,
+     * as colour support can't be detected in child processes.
      */
     static withDefaultColourSupport(): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(new ThemeForDarkTerminals(new ChalkInstance(/* auto-detect */)));
     }
 
     /**
-     * @desc
-     *  Instantiates a `ConsoleReporter` with a monochromatic colour theme.
-     *  Good for terminals with no colour support (like the `cmd.exe` on Windows),
-     *  or for when you need to pipe the output to a text file and want
-     *  to avoid printing control characters.
-     *
-     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
+     * Instantiates a `ConsoleReporter` with a monochromatic colour theme.
+     * Good for terminals with no colour support (like the `cmd.exe` on Windows),
+     * or for times when you need to pipe the output to a text file and want
+     * to avoid printing control characters.
      */
     static forMonochromaticTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(new ThemeForMonochromaticTerminals());
     }
 
     /**
-     * @desc
-     *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with dark backgrounds.
-     *
-     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
+     * Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with dark backgrounds.
      */
     static forDarkTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(new ThemeForDarkTerminals(new ChalkInstance({ level: 2 })));
     }
 
     /**
-     * @desc
-     *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with light backgrounds.
-     *
-     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
+     * Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with light backgrounds.
      */
     static forLightTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(new ThemeForLightTerminals(new ChalkInstance({ level: 2 })));
@@ -149,7 +166,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     /**
      * @param {Printer} printer
      * @param {TerminalTheme} theme
-     * @param {@serenity-js/core/lib/stage~Stage} [stage=null]
+     * @param {Stage} [stage=undefined]
      */
     constructor(
         private readonly printer: Printer,
@@ -163,15 +180,13 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     /**
-     * @desc
-     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
+     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}.
      *
-     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
+     * @see {@apilink StageCrewMember}
      *
-     * @listens {@serenity-js/core/lib/events~DomainEvent}
+     * @listens {DomainEvent}
      *
-     * @param {@serenity-js/core/lib/events~DomainEvent} event
-     * @returns {void}
+     * @param {DomainEvent} event
      */
     notifyOf(event: DomainEvent): void {
         match(event)

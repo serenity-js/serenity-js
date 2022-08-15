@@ -25,10 +25,9 @@ describe('SerenityBDDReporter', () => {
         stage.assign(reporter);
     });
 
-    /** @test {SerenityBDDReporter} */
     it(`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`, async () => {
         await emitter.emit(
-            contentsOf(__dirname, 'examples', 'scenario_with_interactions_in_before_and_after_hooks.events')
+            contentsOf(__dirname, 'examples', 'scenario_with_interactions_in_before_and_after_hooks.events'),
         );
 
         const reports: TestReport[] = testReportsFrom(recorder.events);
@@ -40,10 +39,9 @@ describe('SerenityBDDReporter', () => {
         expect(generated).to.deep.equal(expected);
     });
 
-    /** @test {SerenityBDDReporter} */
     it(`includes events that happened in beforeAll hook`, async () => {
         await emitter.emit(
-            contentsOf(__dirname, 'examples', 'issue-1162-scenario_with_interactions_in_before_all_hook.events')
+            contentsOf(__dirname, 'examples', 'issue-1162-scenario_with_interactions_in_before_all_hook.events'),
         );
 
         const reports: TestReport[] = testReportsFrom(recorder.events);

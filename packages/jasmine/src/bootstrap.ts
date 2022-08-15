@@ -4,20 +4,25 @@ import { monkeyPatched } from './monkeyPatched';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
 
 /**
- * @desc
- *  Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information and
- *  returns a bootstrapped instance of the {@link SerenityReporterForJasmine} to be registered with Jasmine.
+ * Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information,
+ * and returns a bootstrapped instance of the {@apilink SerenityReporterForJasmine} to be registered with Jasmine.
  *
- * @example <caption>Registering the reporter from the command line</caption>
+ * ## Registering the reporter from the command line
+ *
+ * ```terminal
  * jasmine --reporter=@serenity-js/jasmine
+ * ```
  *
- * @example <caption>Registering the reporter programmatically</caption>
+ * ## Registering the reporter programmatically
+ *
+ * ```ts
  * import serenityReporterForJasmine = require('@serenity-js/jasmine');
  *
  * jasmine.getEnv().addReporter(serenityReporterForJasmine);
+ * ```
  *
- * @see {@link monkeyPatched}
- * @see {@link SerenityReporterForJasmine}
+ * @see {@apilink monkeyPatched}
+ * @see {@apilink SerenityReporterForJasmine}
  *
  * @param {jasmine} jasmine - the global.jasmine instance
  * @returns {SerenityReporterForJasmine}

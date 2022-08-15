@@ -3,82 +3,70 @@ import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@se
 import { PageElement } from '../models';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  scroll until a given Web element comes into view.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to scroll until a given Web element comes into view.
  *
- * @example <caption>Example widget</caption>
- *  <!--
- *      an element somewhere at the bottom of the page,
- *      outside of the visible area
- *  -->
- *  <input type="submit" id="submit" />
+ * ## Example widget
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { Target } from '@serenity-js/protractor';
- *  import { by } from 'protractor';
+ * ```html
+ * <!--
+ *   an element somewhere at the bottom of the page,
+ *   outside of the visible area
+ * -->
+ * <input type="submit" id="submit" />
+ * ```
  *
- *  class Form {
- *      static submitButton = Target.the('submit button')
- *          .located(by.id('submit'));
- *  }
+ * ## Lean Page Object describing the widget
  *
- * @example <caption>Scrolling to element</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure } from '@serenity-js/assertions';
- *  import { BrowseTheWeb, Scroll, isVisible } from '@serenity-js/protractor';
- *  import { protractor } from 'protractor';
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
  *
- *  actorCalled('Sara')
- *      .whoCan(BrowseTheWeb.using(protractor.browser))
- *      .attemptsTo(
- *          Scroll.to(Form.submitButton),
- *          Ensure.that(Form.submitButton, isVisible()),
- *      );
+ * class Form {
+ *   static submitButton = () => {
+ *     PageElement.located(By.id('submit'))
+ *       .describedAs('submit button')
+ * }
+ * ```
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Target}
- * @see {@link isVisible}
- * @see {@link @serenity-js/assertions~Ensure}
+ * ## Scrolling to element
  *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure } from '@serenity-js/assertions'
+ * import { Scroll, isVisible } from '@serenity-js/web'
+ *
+ * await actorCalled('Sara')
+ *   .attemptsTo(
+ *     Scroll.to(Form.submitButton()),
+ *     Ensure.that(Form.submitButton(), isVisible()),
+ *   )
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
+ *
+ * @group Interactions
  */
 export class Scroll extends Interaction {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates this {@apilink Interaction}.
      *
-     * @param {Answerable<PageElement>} target
-     *  The element to be scroll to
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     * @param pageElement
+     *  The element to scroll to
      */
-    static to(target: Answerable<PageElement>): Scroll {
-        return new Scroll(target);
+    static to(pageElement: Answerable<PageElement>): Scroll {
+        return new Scroll(pageElement);
     }
 
-    /**
-     * @param {Answerable<PageElement>} element
-     *  The element to be scroll to
-     */
-    constructor(private readonly element: Answerable<PageElement>) {
+    protected constructor(private readonly element: Answerable<PageElement>) {
         super();
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const target = await actor.answer(this.element);
@@ -87,10 +75,7 @@ export class Scroll extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return d`#actor scrolls to ${ this.element }`;

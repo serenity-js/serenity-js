@@ -4,19 +4,14 @@ import { URL } from 'url';
 
 import { ManageALocalServer } from '../abilities';
 
+/**
+ * @group Questions
+ */
 export class LocalServer {
 
     /**
-     * @desc
-     *  Retrieves the URL of the local server started
-     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Question<string>} Url of the locally running Node.js server
-     *
-     * @see {@link StartLocalServer}
-     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Question<string>}
+     * Retrieves the URL of the local server started
+     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
      */
     static url(): QuestionAdapter<string> {
         return Question.about<string>('the URL of the local server', actor => {
@@ -43,16 +38,8 @@ export class LocalServer {
     }
 
     /**
-     * @desc
-     *  Retrieves the port number of the local server started
-     *  using the {@link StartLocalServer} {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Question<string>} port number of the locally running Node.js server
-     *
-     * @see {@link StartLocalServer}
-     * @see {@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Question<number>}
+     * Retrieves the port number of the local server started
+     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
      */
     static port(): QuestionAdapter<number> {
         return Question.about(`local server port number`, async actor => {

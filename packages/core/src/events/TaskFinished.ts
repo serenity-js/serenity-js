@@ -3,6 +3,9 @@ import { JSONObject } from 'tiny-types';
 import { ActivityDetails, CorrelationId, Outcome, SerialisedOutcome, Timestamp } from '../model';
 import { ActivityFinished } from './ActivityFinished';
 
+/**
+ * @group Events
+ */
 export class TaskFinished extends ActivityFinished {
     static fromJSON(o: JSONObject): TaskFinished {
         return new TaskFinished(

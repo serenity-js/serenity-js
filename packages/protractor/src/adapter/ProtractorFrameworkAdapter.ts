@@ -22,10 +22,8 @@ export class ProtractorFrameworkAdapter {
     }
 
     /**
-     * @param {string[]} specs
+     * @param specs
      *  Paths to spec files
-     *
-     * @return {Promise<ProtractorReport>}
      */
     run(specs: string[]): Promise<ProtractorReport> {
 

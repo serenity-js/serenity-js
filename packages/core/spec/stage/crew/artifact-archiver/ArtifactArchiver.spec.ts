@@ -9,7 +9,6 @@ import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../
 import { expect } from '../../../expect';
 import { photo } from '../samples';
 
-/** @test {ArtifactArchiver} */
 describe('ArtifactArchiver', () => {
 
     const
@@ -48,10 +47,6 @@ describe('ArtifactArchiver', () => {
             pngArtifactName  = new Name('PNG Artifact name'),
             expectedPngFileName = 'png-artifact-name';
 
-        /**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
-         */
         it('notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled', () => {
             stage.announce(new ArtifactGenerated(
                 sceneId,
@@ -62,10 +57,6 @@ describe('ArtifactArchiver', () => {
             return expect(stage.waitForNextCue()).to.be.fulfilled;
         });
 
-        /**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
-         */
         it('notifies the StageManager when an artifact cannot be saved so that the promise of a stage cue can be rejected', () => {
             fs.store.returns(Promise.reject(new Error('Something happened')));
 
@@ -78,10 +69,6 @@ describe('ArtifactArchiver', () => {
             return expect(stage.waitForNextCue()).to.be.rejected;
         });
 
-        /**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
-         */
         it('correctly saves the test report to a unique file', () => {
             stage.announce(new ArtifactGenerated(
                 sceneId,
@@ -97,10 +84,6 @@ describe('ArtifactArchiver', () => {
             });
         });
 
-        /**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
-         */
         it('correctly saves PNG content to a file', () => {
             stage.announce(new ArtifactGenerated(
                 sceneId,
@@ -118,9 +101,6 @@ describe('ArtifactArchiver', () => {
         });
 
         /**
-         * @test {ArtifactArchiver}
-         * @test {ArtifactGenerated}
-         *
          * @see https://github.com/serenity-js/serenity-js/issues/634
          */
         it(`ensures that the generate file name doesn't contain special characters`, () => {
@@ -153,9 +133,6 @@ describe('ArtifactArchiver', () => {
 
         const someEvent = new SomeEvent();
 
-        /**
-         * @test {ArtifactArchiver}
-         */
         it('ignores them', () => {
             const stageManager = sinon.createStubInstance(StageManager);
 
@@ -174,11 +151,6 @@ describe('ArtifactArchiver', () => {
         });
     });
 
-    /**
-     * @test {ArtifactArchiver}
-     * @test {ArtifactGenerated}
-     * @test {ArtifactArchived}
-     */
     it('notifies the StageManager when the artifact is correctly archived', () => {
 
         const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());

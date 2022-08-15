@@ -24,45 +24,16 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (all)
+# exclude documentation
+      - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Lint
         run: make lint
-
-  api-docs:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Site (API Docs)
-        run: make SITE_SCOPE=@serenity-js site
-
-      - name: Compress API Docs
-        run: 7z a api-docs.zip package.json "packages/*/target/site"
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: api-docs
-          path: |
-            api-docs.zip
 
   compile:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
@@ -75,15 +46,15 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (all)
+      - name: Install Node Modules (libs)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make install
+          install-command: make BOOTSTRAP_SCOPE=libs install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Compile
-        run: make compile
+        run: make COMPILE_SCOPE=libs compile
 
       - name: Compress Libs
         run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
@@ -101,6 +72,7 @@ jobs:
   test-linux-node-lts-active:
     name: test (Linux, LTS)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -139,6 +111,7 @@ jobs:
   test-linux-node-lts-previous:
     name: test (Linux, LTS-1)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -169,6 +142,7 @@ jobs:
   test-linux-node-next:
     name: test (Linux, Next)
     needs:
+      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -199,6 +173,7 @@ jobs:
   test-windows-node-lts-active:
     name: test (Windows, LTS)
     needs:
+      - lint
       - compile
     runs-on: windows-latest
     steps:
@@ -234,6 +209,7 @@ jobs:
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
     needs:
+      - lint
       - compile
     runs-on: ubuntu-latest
     steps:
@@ -289,6 +265,7 @@ jobs:
   test-integration:
     name: integration (${{ matrix.module }})
     needs:
+      - lint
       - compile
     runs-on: ubuntu-latest
     strategy:
@@ -445,61 +422,53 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: changelog
-          path: |
-            CHANGELOG.md
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          retention-days: 3
+#          name: changelog
+#          path: |
+#            CHANGELOG.md
 
+  # todo: extract to a separate workflow
   website:
     runs-on: ubuntu-latest
     needs:
-      - api-docs
       - publish-artifacts
     if: always()
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-lerna
-        if: github.ref == 'refs/heads/master'
-        with:
-          github_token:   ${{ secrets.GITHUB_TOKEN }}
-          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
-
-      - name: Download changelog
-        if: needs.publish-artifacts.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
-      - name: Download API docs
-        if: needs.api-docs.result == 'success'
-        uses: actions/download-artifact@v2
-        with:
-          name: api-docs
 
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (@documentation)
+      - name: Install Node Modules (site)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP_SCOPE=@documentation install
+          install-command: make BOOTSTRAP_SCOPE=site install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
-      - name: Build Serenity/JS website
-        run: make SITE_SCOPE=@documentation site
+      - name: Build serenity-js.org website
+        run: make site
 
-      - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
-        if: github.ref == 'refs/heads/master'
+      # Debug website
+      - name: Compress website
+        run:  7z a serenity-js-website.zip "documentation/serenity-js.org/build"
+      - uses: actions/upload-artifact@v2
         with:
-          BRANCH: gh-pages
-          FOLDER: documentation/website/target/site
-          CLEAN: true
+          retention-days: 3
+          name: website
+          path: |
+            serenity-js-website.zip        
+
+#      - name: Publish website
+#        uses: JamesIves/github-pages-deploy-action@v4.3.0
+#        if: github.ref == 'refs/heads/main'
+#        with:
+#          BRANCH: gh-pages
+#          FOLDER: documentation/serenity-js.org/build
+#          CLEAN: true

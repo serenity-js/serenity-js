@@ -1,17 +1,21 @@
 {
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "target": "es2019",
-    "lib": ["es2019"],
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "declaration": true
-  },
-
-  "exclude": [
-    "examples",
-    "node_modules",
-    "packages/**/node_modules"
-  ]
+    "baseUrl": ".",
+    "paths": {
+      "@serenity-js/core/lib/*": [
+        "packages/core/src/*"
+      ],
+      "@serenity-js/cucumber/lib/*": [
+        "packages/cucumber/src/*"
+      ],
+      "@serenity-js/web/lib/*": [
+        "packages/web/src/*"
+      ],
+      "@serenity-js/*": [
+        "packages/*/src"
+      ]
+    },
+    "noEmit": true
+  }
 }

@@ -1,10 +1,15 @@
 import { f, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
-import * as playwright from 'playwright';
+import * as playwright from 'playwright-core';
 
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
+/**
+ * Playwright-specific implementation of {@apilink Locator}.
+ *
+ * @group Models
+ */
 export class PlaywrightLocator extends Locator<playwright.ElementHandle, string> {
 
     constructor(
@@ -58,7 +63,7 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
         const parent = await this.parent.nativeElement();
 
         if (! parent) {
-            return;
+            return [];
         }
 
         return parent.$$(this.nativeSelector());

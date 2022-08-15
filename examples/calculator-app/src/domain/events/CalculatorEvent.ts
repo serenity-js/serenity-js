@@ -1,4 +1,5 @@
 import { ensure, isDefined, TinyType } from 'tiny-types';
+
 import { CalculationId } from '../model';
 
 export abstract class CalculatorEvent<T> extends TinyType {

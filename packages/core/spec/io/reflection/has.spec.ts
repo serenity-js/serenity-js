@@ -5,7 +5,6 @@ import { given } from 'mocha-testdata';
 import { has } from '../../../src/io';
 import { expect } from '../../expect';
 
-/** @test {has} */
 describe('has', () => {
 
     const looksLikeADuck = has({

@@ -19,63 +19,70 @@ import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
 /**
- * @desc
- *  Used to perform verification of the system under test.
+ * The {@apilink Interaction|interaction} to `Ensure`
+ * verifies if the resolved value of the provided {@apilink Answerable}
+ * meets the specified {@apilink Expectation}.
+ * If not, it throws an {@apilink AssertionError}.
  *
- *  Resolves any `Answerable` describing the actual
- *  state and ensures that its value meets the {@link @serenity-js/core/lib/screenplay/questions~Expectation}s provided.
+ * Use `Ensure` to verify the state of the system under test.
  *
- * @example <caption>Usage with static values</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Basic usage with static values
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *  const actor = actorCalled('Erica');
+ * await actorCalled('Erica').attemptsTo(
+ *   Ensure.that('Hello world!', equals('Hello world!'))
+ * )
+ * ```
  *
- *  actor.attemptsTo(
- *    Ensure.that('Hello world!', equals('Hello world!'))
- *  );
+ * ## Composing expectations with `and`
  *
- * @example <caption>Composing expectations with `and`</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions'
  *
- *  const actor = actorCalled('Erica');
+ * await actorCalled('Erica').attemptsTo(
+ *   Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
+ * )
+ * ```
  *
- *  actor.attemptsTo(
- *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
- *  );
+ * ## Overriding the type of Error thrown upon assertion failure
  *
- * @example <caption>Overriding the type of Error thrown upon assertion failure</caption>
- *  import { actorCalled, TestCompromisedError } from '@serenity-js/core';
- *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
+ * ```ts
+ * import { actorCalled, TestCompromisedError } from '@serenity-js/core'
+ * import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *
- *  const actor = actorCalled('Erica')
- *      .whoCan(CallAnApi.at('https://example.com'));
+ * await actorCalled('Erica')
+ *   .whoCan(CallAnApi.at('https://example.com'))
+ *   .attemptsTo(
+ *     Send.a(GetRequest.to('/api/health')),
+ *     Ensure.that(LastResponse.status(), equals(200))
+ *       .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
+ *   )
+ * ```
  *
- *  actor.attemptsTo(
- *    Send.a(GetRequest.to('/api/health')),
- *    Ensure.that(LastResponse.status(), equals(200))
- *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
- *  );
- *
- * @extends {@serenity-js/core/lib/screenplay~Interaction}
+ * @group Interactions
  */
 export class Ensure<Actual> extends Interaction {
+
     /**
+     * @param {Answerable<Actual_Type>} actual
+     *  An {@apilink Answerable} describing the actual state of the system.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
-     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, A>} expectation
+     * @param {Expectation<Actual_Type>} expectation
+     *  An {@apilink Expectation} you expect the `actual` value to meet
      *
-     * @returns {Ensure<A>}
+     * @returns {Ensure<Actual_Type>}
      */
-    static that<A>(actual: Answerable<A>, expectation: Expectation<A>): Ensure<A> {
+    static that<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): Ensure<Actual_Type> {
         return new Ensure(actual, expectation);
     }
 
     /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<T>} actual
-     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<T>} expectation
+     * @param actual
+     * @param expectation
      */
     constructor(
         protected readonly actual: Answerable<Actual>,
@@ -85,17 +92,7 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
@@ -113,53 +110,37 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return d`#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }
 
     /**
-     * @desc
-     *  Overrides the default {@link @serenity-js/core/lib/errors~AssertionError} thrown when
-     *  the actual value does not meet the expectations set.
+     * Overrides the default {@apilink AssertionError} thrown when
+     * the actual value does not meet the expectation.
      *
-     * @param {Function} typeOfRuntimeError
-     *  The type of RuntimeError to throw, i.e. TestCompromisedError
+     * @param typeOfRuntimeError
+     *  A constructor function producing a subtype of {@apilink RuntimeError} to throw, e.g. {@apilink TestCompromisedError}
      *
-     * @param {string} message
+     * @param message
      *  The message explaining the failure
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
     otherwiseFailWith(typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError, message?: string): Interaction {
         return new EnsureOrFailWithCustomError(this.actual, this.expectation, typeOfRuntimeError, message);
     }
 
     /**
-     * @desc
-     *  Maps an {@link @serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.
-     *
-     * @param {@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} outcome
-     * @returns {@serenity-js/core/lib/errors~RuntimeError}
-     *
-     * @protected
+     * Maps an {@apilink ExpectationOutcome} to appropriate {@apilink RuntimeError}.
      */
     protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
         return this.asAssertionError(outcome);
     }
 
     /**
-     * @desc
-     *  Maps an {@link Outcome} to {@link @serenity-js/core/lib/errors~AssertionError}.
+     * Maps an {@apilink Outcome} to {@apilink AssertionError}.
      *
-     * @param {Outcome} outcome
-     * @returns {@serenity-js/core/lib/errors~AssertionError}
-     *
-     * @protected
+     * @param outcome
      */
     protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
         return new AssertionError(

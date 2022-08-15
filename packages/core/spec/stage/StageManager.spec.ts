@@ -16,7 +16,6 @@ describe('StageManager', () => {
 
     const testEvent = new TestEvent();
 
-    /** @test {StageManager} */
     it('broadcasts the domain event it receives to all the registered subscribers', () => {
 
         const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
@@ -33,11 +32,6 @@ describe('StageManager', () => {
         expect(crewMember2.events[0]).to.be.instanceOf(TestEvent);
     });
 
-    /**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
-     * @test {AsyncOperationCompleted}
-     */
     it('keeps track of the work in progress', () => {
 
         const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
@@ -56,10 +50,6 @@ describe('StageManager', () => {
         return expect(stageManager.waitForNextCue()).to.be.fulfilled;
     });
 
-    /**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
-     */
     it('provides details should the work in progress fail to complete', () => {
 
         const timeout       = Duration.ofMilliseconds(50);
@@ -85,11 +75,6 @@ describe('StageManager', () => {
         });
     });
 
-    /**
-     * @test {StageManager}
-     * @test {AsyncOperationAttempted}
-     * @test {AsyncOperationFailed}
-     */
     it('provides details should the work in progress fail with an error', () => {
 
         const timeout       = Duration.ofMilliseconds(100);

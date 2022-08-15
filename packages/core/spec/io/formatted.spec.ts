@@ -7,7 +7,6 @@ import { formatted } from '../../src/io';
 import { Question } from '../../src/screenplay';
 import { expect } from '../expect';
 
-/** @test {formatted} */
 describe ('`formatted` tag function', () => {
 
     const
@@ -39,7 +38,6 @@ describe ('`formatted` tag function', () => {
         expect(actual).to.equal(expected);
     });
 
-    /** @test {formatted} */
     it('produces a human-readable description when given a template with multiple parameters', () => {
         expect(formatted `Hello, ${ 'World' }! I've got ${ p('result') } for you!`)
             .to.equal("Hello, 'World'! I've got <<Promise>> for you!");

@@ -12,20 +12,12 @@ import { GetRequest, LastResponse, Send } from '../../../src';
 import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';
 import { expect } from '../../expect';
 
-/** @test {Send} */
 describe('Send', () => {
 
     interface ExampleResponse {
         id: number;
     }
 
-    /**
-     * @test {Send.a}
-     * @test {HTTPRequest}
-     * @test {GetRequest.to}
-     * @test {LastResponse.status}
-     * @test {LastResponse.body}
-     */
     it('enables the actor to send a HTTPRequest', () => {
         const { actor, mock } = actorUsingAMockedAxiosInstance();
 
@@ -40,13 +32,6 @@ describe('Send', () => {
         );
     });
 
-    /**
-     * @test {Send.a}
-     * @test {HTTPRequest}
-     * @test {GetRequest.to}
-     * @test {LastResponse.status}
-     * @test {LastResponse.body}
-     */
     it('enables the actor to send an Axios Request', () => {
         const { actor, mock } = actorUsingAMockedAxiosInstance();
 
@@ -64,11 +49,6 @@ describe('Send', () => {
         );
     });
 
-    /**
-     * @test {Send.a}
-     * @test {HTTPRequest}
-     * @test {GetRequest.to}
-     */
     it('emits the events so that the details of the HTTP interaction can be reported', () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
         const axiosInstance = axios.create({

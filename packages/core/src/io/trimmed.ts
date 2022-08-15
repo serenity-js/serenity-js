@@ -1,12 +1,10 @@
 /**
- * @desc
- *  A tag function trimming the leading and trailing whitespace from multi-line strings.
+ * A tag function trimming the leading and trailing whitespace from multi-line strings.
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
+ * @apilink https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
  *
- * @param {TemplateStringsArray} templates
- * @param {Array<string>} placeholders
- * @returns {string}
+ * @param templates
+ * @param placeholders
  */
 export function trimmed(templates: TemplateStringsArray, ...placeholders: string[]): string {
 

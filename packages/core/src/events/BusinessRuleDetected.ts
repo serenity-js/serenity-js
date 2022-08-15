@@ -4,11 +4,10 @@ import { BusinessRule, CorrelationId, ScenarioDetails, Timestamp } from '../mode
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Emitted by [@serenity-js/cucumber](https://serenity-js.org/modules/cucumber)
- *  when a [business rule](https://cucumber.io/docs/gherkin/reference/#rule) is detected.
+ * Emitted by [@serenity-js/cucumber](/api/cucumber)
+ * when a [business rule](https://cucumber.io/docs/gherkin/reference/#rule) is detected.
  *
- * @extends {DomainEvent}
+ * @group Events
  */
 export class BusinessRuleDetected extends DomainEvent {
     public static fromJSON(o: JSONObject): BusinessRuleDetected {

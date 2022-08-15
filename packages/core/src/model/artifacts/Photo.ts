@@ -6,18 +6,10 @@ import { Artifact } from '../Artifact';
  */
 export class Photo extends Artifact {
 
-    /**
-     * @desc
-     * @param {string} value
-     */
     static fromBase64(value: string): Photo {
         return new Photo(value);
     }
 
-    /**
-     * @desc
-     * @param {Buffer | ArrayBuffer} value
-     */
     static fromBuffer(value: Buffer | ArrayBuffer): Photo {
         const buffer = value instanceof ArrayBuffer
             ? Buffer.from(value)

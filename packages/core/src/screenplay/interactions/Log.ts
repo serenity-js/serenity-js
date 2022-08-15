@@ -6,37 +6,41 @@ import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 
 /**
- * @desc
- *  Enables the {@link Actor} to log arbitrary static values and answers to {@link Question}s,
- *  so that they can be printed to the terminal by the [`ConsoleReporter`](/modules/console-reporter/)
- *  and attached to the HTML report by the [`SerenityBDDReporter`](/modules/serenity-bdd/).
+ * Instructs the {@apilink Actor} to {@apilink CollectsArtifacts|collect} arbitrary static values and answers to {@apilink Answerable|Answerables},
+ * so that they can be sent to the {@apilink StageCrewMember|StageCrewMembers}
+ * and printed to the terminal by the {@apilink ConsoleReporter}
+ * or attached to the HTML report by the {@apilink SerenityBDDReporter}.
  *
- * @example
- *  import { Log } from '@serenity-js/core';
- *  import { Website } from '@serenity-js/protractor';
+ * ## Logging static and `Answerable` values
  *
- *  actor.attemptsTo(
- *      Log.the('Current page', Website.title(), Website.url()),
- *  );
+ * ```ts
+ * import { actorCalled, Log } from '@serenity-js/core'
+ * import { Page } from '@serenity-js/web'
  *
- * @extends {Interaction}
+ * await actorCalled('Laura').attemptsTo(
+ *   Log.the('Current page', Page.current().title(), Page.current().url()),
+ * )
+ * ```
+ *
+ * @group Interactions
  */
 export class Log extends Interaction {
 
     /**
-     * @desc
-     *  Instantiates a new {@link Log} {@link Interaction}.
+     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Log}
      *
-     * @param {...items: any[]} items
+     * Note that this method accepts [variable number of arguments](https://www.typescriptlang.org/docs/handbook/functions.html#rest-parameters),
+     * so that you can easily log several values at the same time.
+     *
+     * @param items
      *  The items to be logged
-     * @returns {Interaction}
      */
     static the(...items: Array<Answerable<any>>): Interaction {
         return new Log(items);
     }
 
     /**
-     * @param {Array<Answerable<any>>} items
+     * @param items
      *  The items to be logged
      */
     constructor(
@@ -46,17 +50,7 @@ export class Log extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@link Actor}
-     *  perform this {@link Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link Actor}
-     * @see {@link UsesAbilities}
-     * @see {@link AnswersQuestions}
-     * @see {@link CollectsArtifacts}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         for (const item of this.items) {
@@ -71,10 +65,7 @@ export class Log extends Interaction {
     }
 
     /**
-     * @desc
-     *  Generates a description to be used when reporting this {@link Activity}.
-     *
-     * @returns {string}
+     * @inheritDoc
      */
     toString(): string {
         return `#actor logs: ${ this.items.map(item => d`${ item }`).join(', ') }`;

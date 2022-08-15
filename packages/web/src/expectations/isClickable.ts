@@ -1,30 +1,29 @@
-import { and } from '@serenity-js/assertions';
+import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
-import { isVisible } from './isVisible';
 
 /**
- * @desc
- *  Expectation that an element is clickable, which means:
- *  - it exists
- *  - it is visible
- *  - it is within viewport (if not, try to scroll to it)
- *  - its center is not overlapped with another element
- *  - it is not disabled
- *  otherwise return false.
+ *  {@apilink Expectation} that an element is clickable, which means it resolves to `true` when:
+ *  - the element {@apilink isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+ *  - {@apilink PageElement.isClickable} resolves to `true`
  *
- * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}
+ *  If the above conditions are not met, the expectation resolves to `false`.
  *
- * @see https://webdriver.io/docs/api/element/isClickable/
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
- * @see {@link @serenity-js/core/lib/screenplay/interactions~Wait}
+ * ## Learn more
+ * - {@apilink PageElement.isClickable}
+ * - {@apilink ElementExpectation}
+ * - {@apilink Expectation}
+ * - {@apilink Check}
+ * - {@apilink Ensure}
+ * - {@apilink Wait}
+ *
+ * @group Expectations
  */
 export function isClickable(): Expectation<PageElement> {
     return Expectation.to<boolean, PageElement>('become clickable').soThatActual(and(
-        isVisible(),
+        isPresent(),
         ElementExpectation.forElementTo('become clickable', actual => actual.isClickable())
     ));
 }

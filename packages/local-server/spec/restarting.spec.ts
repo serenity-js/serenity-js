@@ -12,7 +12,6 @@ import servers = require('./servers');
 
 describe('ManageALocalServer', () => {
 
-    /** @test {ManageALocalServer} */
     describe('restarting', () => {
 
         given(servers).

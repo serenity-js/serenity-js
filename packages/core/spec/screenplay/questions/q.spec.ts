@@ -6,7 +6,6 @@ import { Actor } from '../../../src/screenplay';
 import { Cast } from '../../../src/stage';
 import { expect } from '../../expect';
 
-/** @test {q} */
 describe('q', () => {
 
     let serenity: Serenity,
@@ -29,7 +28,6 @@ describe('q', () => {
         Quentin = serenity.theActorCalled('Quentin');
     });
 
-    /** @test {q} */
     it('returns the original string value if no parameters are provided', () => {
         const question = q`some value`;
 
@@ -70,14 +68,12 @@ describe('q', () => {
         return expect(Quentin.answer(question)).to.eventually.equal('http://127.0.0.1:8000/api/items/5');
     });
 
-    /** @test {q} */
     it('provides a sensible description of the question being asked', () => {
         const question = q `/products/${ 1 }/attributes/${ Promise.resolve(2) }`;
 
         return expect(question.toString()).to.equal('/products/{}/attributes/{}')
     });
 
-    /** @test {q} */
     it('can have the default description overridden', () => {
         const question = q `/products/${ 1 }/attributes/${ Promise.resolve(2) }`.describedAs('/products/:productId/attributes/:attributeId');
 

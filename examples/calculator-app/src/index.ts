@@ -1,3 +1,3 @@
 export * from './Calculator';
-export * from './rest-api';
 export * from './domain';
+export * from './rest-api';

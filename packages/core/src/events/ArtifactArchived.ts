@@ -4,6 +4,9 @@ import { Path } from '../io';
 import { Artifact, ArtifactType, CorrelationId, Name, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class ArtifactArchived extends DomainEvent {
     static fromJSON(o: JSONObject): ArtifactArchived {
         return new ArtifactArchived(

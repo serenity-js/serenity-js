@@ -1,87 +1,75 @@
-import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * @desc
- *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  hover the mouse pointer over a given Web element.
+ * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * to hover the mouse pointer over a given {@apilink PageElement}.
  *
- * @example <caption>Example widget</caption>
+ * ## Example widget
+ * ```html
  *  <a data-test="example-link"
  *      class="off"
  *      onmouseover="this.className='on';"
  *      onmouseout="this.className='off';"
  *      href="/">hover over me</a>
+ * ```
  *
- * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/webdriverio';
+ * ## Lean Page Object describing the widget
  *
- *  class Example {
- *      static link = Target.the('example link')
- *          .located(by.css('[data-test="example-link"]'));
+ * ```ts
+ * import { By, PageElement } from '@serenity-js/web'
+ *
+ * class Example {
+ *   static link = () =>
+ *     PageElement.located(By.css('[data-test="example-link"]'))
+ *       .describedAs('example link')
  *  }
+ * ```
  *
- * @example <caption>Hovering over an element</caption>
- *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Hover, CssClasses } from '@serenity-js/webdriverio';
- *  import { Ensure, equals } from '@serenity-js/assertions';
+ * ## Hovering over an element
  *
- *  actorCalled('Hank')
- *      .whoCan(BrowseTheWeb.using(browser))
- *      .attemptsTo(
- *          Ensure.that(CssClasses.of(Example.link), equals([ 'off' ])),
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Hover, CssClasses } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
- *          Hover.over(Example.link),
- *          Ensure.that(CssClasses.of(Example.link), equals([ 'on' ])),
- *      );
+ * await actorCalled('Hank')
+ *   .whoCan(BrowseTheWeb.using(browser))
+ *   .attemptsTo(
+ *      Ensure.that(CssClasses.of(Example.link()), equals([ 'off' ])),
  *
- * @see {@link BrowseTheWeb}
- * @see {@link Target}
- * @see {@link CssClasses}
- * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/assertions/lib/expectations~equals}
+ *     Hover.over(Example.link),
+ *     Ensure.that(CssClasses.of(Example.link()), equals([ 'on' ])),
+ *   )
+ * ```
  *
- * @extends {ElementInteraction}
+ * ## Learn more
+ *
+ * - {@apilink BrowseTheWeb}
+ * - {@apilink PageElement}
+ *
+ * @group Interactions
  */
 export class Hover extends PageElementInteraction {
 
     /**
-     * @desc
-     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     * Instantiates this {@apilink Interaction}
      *
-     * @param {Answerable<PageElement>} target
+     * @param pageElement
      *  The element to be hovered over
-     *
-     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static over(target: Answerable<PageElement>): Interaction {
-        return new Hover(target);
+    static over(pageElement: Answerable<PageElement>): Interaction {
+        return new Hover(pageElement);
+    }
+
+    protected constructor(private readonly element: Answerable<PageElement>) {
+        super(d `#actor hovers the mouse over ${ element }`);
     }
 
     /**
-     * @param {Answerable<PageElement>} element
-     *  The element to be hovered over
-     */
-    constructor(private readonly element: Answerable<PageElement>) {
-        super(formatted `#actor hovers the mouse over ${ element }`);
-    }
-
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions} actor
-     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
-     *
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.element);

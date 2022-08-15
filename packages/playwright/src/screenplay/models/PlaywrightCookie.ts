@@ -3,6 +3,11 @@ import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
+/**
+ * Playwright-specific implementation of {@apilink Cookie}.
+ *
+ * @group Models
+ */
 export class PlaywrightCookie extends Cookie {
 
     constructor(

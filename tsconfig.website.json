@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "es2019",
+      "dom"
+    ],
+    "declarationDir": "dts",
+    "outDir": "dts",
+    "skipLibCheck": true
+  },
+  "include": [
+    "packages/*/src/**/*"
+  ],
+  "exclude": [
+    "lib",
+    "spec",
+    "node_modules"
+  ]
+}

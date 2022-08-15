@@ -4,7 +4,6 @@ import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Inter
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
 
-/** @test {Wait} */
 describe('Wait', () => {
 
     let serenity: Serenity;
@@ -26,17 +25,23 @@ describe('Wait', () => {
 
     describe('for', () => {
 
-        /** @test {Wait.for} */
-        it('pauses the actor flow for the length of an explicitly-set duration', () =>
-            serenity.theActorCalled('Wendy')
+        it('pauses the actor flow for the length of an explicitly-set duration', async () => {
+            const timeout       = Duration.ofMilliseconds(500),
+                tolerance       = Duration.ofMilliseconds(100);
+
+            await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.for(Duration.ofMilliseconds(100)),
+                    Wait.for(timeout),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 100, 10),
-                ));
+                    Ensure.closeTo(
+                        Stopwatch.elapsedTime().inMilliseconds(),
+                        timeout.plus(tolerance).inMilliseconds(),
+                        tolerance.plus(tolerance).inMilliseconds()
+                    ),
+                );
+        });
 
-        /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.for(Duration.ofMilliseconds(300)).toString())
                 .to.equal(`#actor waits for 300ms`);
@@ -45,45 +50,61 @@ describe('Wait', () => {
 
     describe('until', () => {
 
-        /** @test {Wait.until} */
-        it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', () =>
-            serenity.theActorCalled('Wendy')
+        it('pauses the actor flow until the expectation is met, polling for result every 500ms by default', async () => {
+            const pollingInterval = Wait.defaultPollingInterval,
+                halfAnInterval    = Math.round(pollingInterval.inMilliseconds() / 2),
+                twoIntervals      = Math.round(pollingInterval.inMilliseconds() * 2),
+                elapsedTime       = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]');
+
+            await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)),
+                    Wait.until(elapsedTime, isGreaterThan(halfAnInterval)),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 500, 30),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1000),
-                ));
+                    Ensure.closeTo(elapsedTime, pollingInterval.inMilliseconds(), halfAnInterval),
+                    Ensure.lessThan(elapsedTime, twoIntervals),
+                )
+        });
 
-        /** @test {Wait.until} */
-        it('pauses the actor flow until the expectation is met, with a configurable polling interval', () =>
-            serenity.theActorCalled('Wendy')
+        it('pauses the actor flow until the expectation is met, with a configurable polling interval', async () => {
+            const timeout       = Duration.ofMilliseconds(500),
+                pollingInterval = Duration.ofMilliseconds(250),
+                twoIntervals    = pollingInterval.plus(pollingInterval),
+                elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]');
+
+            await serenity.theActorCalled('Wendy')
                 .attemptsTo(
                     Stopwatch.start(),
-                    Wait.until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250)).pollingEvery(Duration.ofMilliseconds(50)),
+                    Wait.until(elapsedTime, isGreaterThan(timeout.inMilliseconds()))
+                        .pollingEvery(pollingInterval),
                     Stopwatch.stop(),
-                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), 275, 30),
-                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 500),
-                ));
+                    Ensure.closeTo(Stopwatch.elapsedTime().inMilliseconds(), timeout.plus(pollingInterval).inMilliseconds(), pollingInterval.inMilliseconds()),
+                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), timeout.plus(twoIntervals).inMilliseconds()),
+                );
+        });
 
-        /** @test {Wait.upTo} */
-        /** @test {Wait.until} */
-        it('fails the actor flow when the timeout expires', () =>
-            expect(
+        it('fails the actor flow when the timeout expires', async () => {
+
+            const
+                timeout         = Duration.ofMilliseconds(500),
+                elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
+                pollingInterval = Duration.ofMilliseconds(100);
+
+            await expect(
                 serenity.theActorCalled('Wendy')
                     .attemptsTo(
                         Stopwatch.start(),
-                        Wait.upTo(Duration.ofMilliseconds(250))
-                            .until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250))
-                            .pollingEvery(Duration.ofMilliseconds(50)),
+                        Wait.upTo(timeout)
+                            .until(elapsedTime, isGreaterThan(timeout.inMilliseconds()))
+                            .pollingEvery(pollingInterval),
                     )
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 250ms, polling every 50ms, for elapsed time [ms] to have value greater than 250`);
-                expect(error.expected).to.be.equal(250);
-                expect(error.actual).to.be.greaterThanOrEqual(50);
-            }));
+                expect(error.message).to.be.equal(`Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time [ms] to have value greater than ${ timeout.inMilliseconds() }`);
+                expect(error.expected).to.be.equal(timeout.inMilliseconds());
+                expect(error.actual).to.be.greaterThanOrEqual(pollingInterval.inMilliseconds());
+            })
+        });
 
         it('fails the actor flow when asking the question results in an error', () =>
             expect(
@@ -111,7 +132,6 @@ describe('Wait', () => {
                 expect(error.message).to.be.equal(`error in expectation`);
             }));
 
-        /** @test {Wait#toString} */
         it('provides a sensible description of the interaction being performed', () => {
             expect(
                 Wait.upTo(Duration.ofMilliseconds(250))

@@ -7,7 +7,6 @@ import { given } from 'mocha-testdata';
 import { CallAnApi } from '../../../src';
 import { expect } from '../../expect';
 
-/** @test {CallAnApi} */
 describe('CallAnApi', () => {
 
     given([
@@ -30,10 +29,6 @@ describe('CallAnApi', () => {
         return expect(callAnApi.request({ method, url })).to.be.fulfilled;
     });
 
-    /**
-     * @test {CallAnApi}
-     * @test {CallAnApi.at}
-     */
     it('provides a convenient factory method to be used when no custom configuration is required', () => {
         const
             baseURL = 'https://mycompany.com/api',
@@ -43,10 +38,6 @@ describe('CallAnApi', () => {
         expect((callAnApi as any).axiosInstance.defaults.baseURL).to.equal(baseURL);
     });
 
-    /**
-     * @test {CallAnApi}
-     * @test {CallAnApi.using}
-     */
     it('provides a factory method to be used when custom configuration is required', () => {
         const
             baseURL = 'https://mycompany.com/api',
@@ -56,10 +47,6 @@ describe('CallAnApi', () => {
         expect((callAnApi as any).axiosInstance.defaults.baseURL).to.equal(baseURL);
     });
 
-    /**
-     * @test {CallAnApi}
-     * @test {CallAnApi.mapLastResponse}
-     */
     it('caches the last response so that it can be easily asserted on', () => {
         const
             { callAnApi, mock } = mockedAxiosInstance(),
@@ -72,11 +59,6 @@ describe('CallAnApi', () => {
         });
     });
 
-    /**
-     * @test {CallAnApi}
-     * @test {CallAnApi.request}
-     * @test {CallAnApi.mapLastResponse}
-     */
     it('caches the last response even when the server responds with an error. As long is it responds.', () => {
         const
             { callAnApi, mock } = mockedAxiosInstance(),
@@ -89,10 +71,6 @@ describe('CallAnApi', () => {
         });
     });
 
-    /**
-     * @test {CallAnApi}
-     * @test {CallAnApi.resolveUrl}
-     */
     it('provides a way to determine the actual target URL the request will be sent to', () => {
         const callaAnApi = CallAnApi.at('https://example.org/api/v4');
 
@@ -102,10 +80,7 @@ describe('CallAnApi', () => {
     });
 
     describe('when dealing with errors', () => {
-        /**
-         * @test {CallAnApi}
-         * @test {CallAnApi.mapLastResponse}
-         */
+
         it('complains if you try to retrieve the last response before making an API call', () => {
             const { callAnApi } = mockedAxiosInstance();
 
@@ -113,10 +88,6 @@ describe('CallAnApi', () => {
                 .to.throw(LogicError, 'Make sure to perform a HTTP API call before checking on the response');
         });
 
-        /**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
-         */
         it('complains when provided with invalid Axios configuration', () => {
             const
                 axiosInstance = axios.create({
@@ -131,10 +102,6 @@ describe('CallAnApi', () => {
                 });
         });
 
-        /**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
-         */
         it('complains when the API call times out', () => {
             const { callAnApi, mock } = mockedAxiosInstance();
 
@@ -147,10 +114,6 @@ describe('CallAnApi', () => {
                 });
         });
 
-        /**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
-         */
         it('complains when the a network error occurs', () => {
             const { callAnApi, mock } = mockedAxiosInstance();
 
@@ -163,10 +126,6 @@ describe('CallAnApi', () => {
                 });
         });
 
-        /**
-         * @test {CallAnApi}
-         * @test {CallAnApi.request}
-         */
         it('complains when the Axios client rejects its promise', () => {
             const { callAnApi, mock } = mockedAxiosInstance();
 

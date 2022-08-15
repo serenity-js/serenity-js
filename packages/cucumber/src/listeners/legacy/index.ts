@@ -1,17 +1,16 @@
 import { ConfigurationError, Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/lib/io';
 
 import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from './gherkin';
 import { Notifier, ResultMapper } from './notifier';
 import Gherkin = require('gherkin');
 
 /**
- * @desc
- *  Creates a listener for Cucumber.js 0.x-6.x
+ * Creates a listener for Cucumber.js 0.x-6.x
  *
- * @param {@serenity-js/core/lib~Serenity} serenity
- * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader
- * @returns {cucumber~Formatter}
+ * @param serenity
+ * @param moduleLoader
  */
 export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): any {
 

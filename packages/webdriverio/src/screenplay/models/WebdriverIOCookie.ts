@@ -3,6 +3,11 @@ import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
 import { ensure, isDefined } from 'tiny-types';
 import * as wdio from 'webdriverio';
 
+/**
+ * WebdriverIO-specific implementation of {@apilink Cookie}.
+ *
+ * @group Models
+ */
 export class WebdriverIOCookie extends Cookie {
 
     constructor(

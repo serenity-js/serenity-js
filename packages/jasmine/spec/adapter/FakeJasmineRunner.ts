@@ -19,7 +19,7 @@ export class FakeJasmineRunner {
 
     configureDefaultReporter = sinon.spy();
 
-    private callback: (passed: boolean) => void;
+    exitOnCompletion = false;
 
     public readonly jasmine = {
         DEFAULT_TIMEOUT_INTERVAL: undefined,
@@ -40,13 +40,5 @@ export class FakeJasmineRunner {
 
     constructor() {
         FakeJasmineRunner.instance = this;
-    }
-
-    onComplete(callback: (passed: boolean) => void): void {
-        this.callback = callback;
-    }
-
-    complete(passed: boolean): void {
-        this.callback(passed);
     }
 }

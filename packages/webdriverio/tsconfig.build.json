@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "lib": [
+      "es2019",
+      "dom"
+    ],
+    "types": [
+      "webdriverio/async"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

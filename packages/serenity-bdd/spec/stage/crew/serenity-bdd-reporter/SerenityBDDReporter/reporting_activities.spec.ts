@@ -31,15 +31,6 @@ describe('SerenityBDDReporter', () => {
 
     describe('when reporting activities that took place during scenario execution', () => {
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('reports the outcome of a single activity', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
@@ -58,15 +49,6 @@ describe('SerenityBDDReporter', () => {
             expect(report.testSteps[0].result).to.equal('SUCCESS');
         });
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('reports the outcome of a sequence of several activities', () => {
             const pickACard   = new ActivityDetails(new Name('Pick the default credit card'));
             const makePayment = new ActivityDetails(new Name('Make the payment'));
@@ -90,15 +72,6 @@ describe('SerenityBDDReporter', () => {
             expect(report.testSteps[1].result).to.equal('SUCCESS');
         });
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('reports the outcome of nested activities', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
             const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'));
@@ -124,16 +97,6 @@ describe('SerenityBDDReporter', () => {
 
     describe('order of events', () => {
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {ArtifactGenerated}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('records the events in a correct order', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 
@@ -161,15 +124,6 @@ describe('SerenityBDDReporter', () => {
             ]);
         });
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
             const
                 pickACard   = new ActivityDetails(new Name('Pick a credit card')),
@@ -209,16 +163,6 @@ describe('SerenityBDDReporter', () => {
 
     describe('artifacts', () => {
 
-        /**
-         * @test {SerenityBDDReporter}
-         * @test {SceneStarts}
-         * @test {TaskStarts}
-         * @test {ArtifactGenerated}
-         * @test {TaskFinished}
-         * @test {ExecutionSuccessful}
-         * @test {SceneFinished}
-         * @test {TestRunFinishes}
-         */
         it('records the arbitrary JSON data emitted during the interaction', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
 

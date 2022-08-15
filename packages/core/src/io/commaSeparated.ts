@@ -1,23 +1,22 @@
 /**
- * @desc
- *  Produces a comma-separated list based on the list provided.
+ * Produces a comma-separated list based on the list provided.
  *
- * @param {Array<string>} list
- * @param {function(item: string): string} map
- * @param {string} [acc=''] acc
+ * @param list
+ * @param mappingFunction
+ * @param [acc='']
  *
  * @returns {string}
  */
 export function commaSeparated(
     list: Array<string | { toString: () => string }>,
-    map = item => `${ item }`.trim(),
+    mappingFunction = item => `${ item }`.trim(),
     acc = '',
 ): string {
     switch (list.length) {
         case 0:     return acc;
-        case 1:     return commaSeparated(tail(list), map, `${ acc }${ map(head(list)) }`);
-        case 2:     return commaSeparated(tail(list), map, `${ acc }${ map(head(list)) } and `);
-        default:    return commaSeparated(tail(list), map, `${ acc }${ map(head(list)) }, `);
+        case 1:     return commaSeparated(tail(list), mappingFunction, `${ acc }${ mappingFunction(head(list)) }`);
+        case 2:     return commaSeparated(tail(list), mappingFunction, `${ acc }${ mappingFunction(head(list)) } and `);
+        default:    return commaSeparated(tail(list), mappingFunction, `${ acc }${ mappingFunction(head(list)) }, `);
     }
 }
 

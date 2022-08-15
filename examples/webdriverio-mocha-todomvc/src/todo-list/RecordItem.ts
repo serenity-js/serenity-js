@@ -1,5 +1,6 @@
 import { Answerable, Task } from '@serenity-js/core';
 import { Enter, Key, Press } from '@serenity-js/web';
+
 import { TodoList } from './ui';
 
 export class RecordItem {

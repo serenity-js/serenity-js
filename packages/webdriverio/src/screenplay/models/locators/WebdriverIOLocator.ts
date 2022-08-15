@@ -6,6 +6,11 @@ import { WebdriverIOErrorHandler } from '../WebdriverIOErrorHandler';
 import { WebdriverIOPageElement } from '../WebdriverIOPageElement';
 import { WebdriverIORootLocator } from './WebdriverIORootLocator';
 
+/**
+ * WebdriverIO-specific implementation of {@apilink Locator}.
+ *
+ * @group Models
+ */
 export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
 
     constructor(

@@ -3,6 +3,9 @@ import { ensure, isDefined, JSONObject } from 'tiny-types';
 import { Outcome, SerialisedOutcome, TestSuiteDetails, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @group Events
+ */
 export class TestSuiteFinished extends DomainEvent {
     static fromJSON(o: JSONObject): TestSuiteFinished {
         return new TestSuiteFinished(

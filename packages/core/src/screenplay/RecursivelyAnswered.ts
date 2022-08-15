@@ -1,38 +1,39 @@
 import { Question } from './Question';
 
 /**
- * @desc
- *  Describes a recursively resolved plain JavaScript {@link WithAnswerableProperties}.
- *  Typically, used in conjunction with {@link Question.fromObject}.
+ * Describes a recursively resolved plain JavaScript {@apilink WithAnswerableProperties}.
  *
- * @example
- *  import {
- *    actorCalled, notes, q, Question, QuestionAdapter, WithAnswerableProperties
- *  } from '@serenity-js/core';
+ * Typically, used in conjunction with {@apilink Question.fromObject}.
  *
- *  interface RequestConfiguration {
- *      headers: Record<string, string>;
- *  }
+ * ## Using `RecursivelyAnswered`
  *
- *  const requestConfiguration: WithAnswerableProperties<RequestConfiguration> = {
- *      headers: {
- *          Authorization: q`Bearer ${ notes().get('authDetails').token }`
- *      }
- *  }
+ * ```ts
+ * import {
+ *   actorCalled, notes, q, Question, QuestionAdapter, WithAnswerableProperties
+ * } from '@serenity-js/core';
  *
- *  const question: QuestionAdapter<RequestConfiguration> =
- *      Question.fromObject<RequestConfiguration>(requestConfiguration)
+ * interface RequestConfiguration {
+ *   headers: Record<string, string>;
+ * }
  *
- *  const answer = await actorCalled('Annie').answer(question);
+ * const requestConfiguration: WithAnswerableProperties<RequestConfiguration> = {
+ *   headers: {
+ *     Authorization: q`Bearer ${ notes().get('authDetails').token }`
+ *   }
+ * }
  *
- *  const a1: RequestConfiguration = answer;
- *  const a2: RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>> = answer;
+ * const question: QuestionAdapter<RequestConfiguration> =
+ *   Question.fromObject<RequestConfiguration>(requestConfiguration)
  *
- *  // RequestConfiguration === RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>>
+ * const answer = await actorCalled('Annie').answer(question);
  *
- * @public
+ * const a1: RequestConfiguration = answer;
+ * const a2: RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>> = answer;
  *
- * @typedef {object} RecursivelyAnswered<T>
+ * // RequestConfiguration === RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>>
+ * ```
+ *
+ * @group Answerables
  */
 export type RecursivelyAnswered<T> =
     T extends null | undefined ? T :          // special case for `null | undefined` when not in `--strictNullChecks` mode

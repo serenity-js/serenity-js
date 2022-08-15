@@ -4,19 +4,16 @@ import { CorrelationId, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * @desc
- *  Indicates that the test runner will retry running the test scenario upon failure.
+ * Indicates that the test runner will retry running the test scenario upon failure.
  *
- * @extends {DomainEvent}
+ * @group Events
  */
 export class RetryableSceneDetected extends DomainEvent {
 
     /**
-     * @desc
-     *  Deserialises the event from a JSONObject
+     * Deserialises the event from a JSONObject
      *
-     * @param {tiny-types~JSONObject} o
-     * @returns {RetryableSceneDetected}
+     * @param o
      */
     static fromJSON(o: JSONObject): RetryableSceneDetected {
         return new RetryableSceneDetected(
@@ -26,8 +23,8 @@ export class RetryableSceneDetected extends DomainEvent {
     }
 
     /**
-     * @param {CorrelationId} sceneId
-     * @param {Timestamp} [timestamp]
+     * @param sceneId
+     * @param [timestamp]
      */
     constructor(
         public readonly sceneId: CorrelationId,
