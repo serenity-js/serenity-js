@@ -443,9 +443,6 @@ jobs:
 
   update-website:
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
     needs:
       - publish-artifacts
-    steps:
-      - name: Update website
-        uses: serenity-js/serenity-js/.github/workflows/website.yaml@main
+    uses: serenity-js/serenity-js/.github/workflows/website.yaml@main
