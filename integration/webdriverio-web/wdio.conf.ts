@@ -33,6 +33,12 @@ const localBrowser: Partial<WebdriverIOConfig> = {
             ],
         }
     }],
+
+    // Reduce the number of parallel browsers on GitHub Actions because of the limited resources available
+    //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+    maxInstances: process.env.CI
+        ? 2
+        : 10,
 };
 
 const build = process.env.GITHUB_RUN_NUMBER
@@ -65,6 +71,8 @@ const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
         unhandledPromptBehavior: 'ignore',  // because we need to test ModalDialog interactions
         ...sauceCapabilities,
     }],
+
+    maxInstances: 10,
 };
 
 const browserConfig = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
@@ -102,7 +110,6 @@ export const config: WebdriverIOConfig = {
 
     runner: 'local',
 
-    maxInstances: 10,
     waitforTimeout: 10_000,
     connectionRetryTimeout: 90_000,
 
