@@ -25,12 +25,12 @@ are backwards compatible. However, the latest version of Serenity/JS introduces 
 
 If you'd like to see Serenity/JS 2.0 in action, watch my talk on ["Full-stack acceptance testing with Serenity/JS 2.0"](/handbook/demo.html).
 
-If you prefer to dive straight into the code, there are several [example mini-projects](https://github.com/serenity-js/serenity-js/tree/master/examples) within the [Serenity/JS main repo](https://github.com/serenity-js/serenity-js) that demonstrate some of the major features, as well as integrations and test runners the framework supports. 
+If you prefer to dive straight into the code, there are several [example mini-projects](https://github.com/serenity-js/serenity-js/tree/2.x/examples) within the [Serenity/JS main repo](https://github.com/serenity-js/serenity-js) that demonstrate some of the major features, as well as integrations and test runners the framework supports. 
 
 In particular, you might be interested to check out:
-- [`protractor-jasmine-todomvc`](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc) - an example of a test suite interacting with the popular TodoMVC web app, and using Serenity/JS 2.0, Jasmine and Protractor,
-- [`cucumber-rest-api-level-testing`](https://github.com/serenity-js/serenity-js/tree/master/examples/cucumber-rest-api-level-testing) - an example of a REST API-only test suite using Serenity/JS 2.0 and the latest version of Cucumber.js
-- there are also [other projects](https://github.com/serenity-js/serenity-js/tree/master/examples), so feel free to explore! 
+- [`protractor-jasmine-todomvc`](https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-jasmine-todomvc) - an example of a test suite interacting with the popular TodoMVC web app, and using Serenity/JS 2.0, Jasmine and Protractor,
+- [`cucumber-rest-api-level-testing`](https://github.com/serenity-js/serenity-js/tree/2.x/examples/cucumber-rest-api-level-testing) - an example of a REST API-only test suite using Serenity/JS 2.0 and the latest version of Cucumber.js
+- there are also [other projects](https://github.com/serenity-js/serenity-js/tree/2.x/examples), so feel free to explore! 
 
 If you're starting a new project, the easiest way to do it is to use one of the [Serenity/JS project templates](https://github.com/serenity-js/) as the foundation.
 

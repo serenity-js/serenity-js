@@ -38,7 +38,7 @@ The new module contains all the Web-related interactions and questions, while th
 
 To see what the changes look like in practice, have a look at the TodoMVC tests implemented using:
 - [Serenity/JS 3.x](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha-todomvc)
-- [Serenity/JS 2.x](https://github.com/serenity-js/serenity-js/tree/master/examples/webdriverio-mocha-todomvc)
+- [Serenity/JS 2.x](https://github.com/serenity-js/serenity-js/tree/2.x/examples/webdriverio-mocha-todomvc)
 
 Let's discuss the changes below.
 
@@ -129,7 +129,7 @@ The next significant change is the **removal of `Target` classes** in favour of 
 
 It will all become more clear with an example.
 
-In [Serenity/JS 2](https://github.com/serenity-js/serenity-js/blob/master/examples/webdriverio-mocha-todomvc/src/todo-list/ui/TodoList.ts) you'd define the elements you want your tests to interact with using syntax similar to the below:
+In [Serenity/JS 2](https://github.com/serenity-js/serenity-js/blob/2.x/examples/webdriverio-mocha-todomvc/src/todo-list/ui/TodoList.ts) you'd define the elements you want your tests to interact with using syntax similar to the below:
 
 ```typescript
 import { equals } from '@serenity-js/assertions';

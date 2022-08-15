@@ -16,7 +16,7 @@ This chapter covers:
 - [Integrating Protractor with Serenity/JS and Mocha](/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-mocha)
 - [Reporting](/handbook/integration/serenityjs-and-protractor.html#reporting)
 
-If you'd like to jump straight into the code, [Serenity/JS GitHub repository](https://github.com/serenity-js) provides a number of [example implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) and [project templates](https://github.com/serenity-js).
+If you'd like to jump straight into the code, [Serenity/JS GitHub repository](https://github.com/serenity-js) provides a number of [example implementations](https://github.com/serenity-js/serenity-js/tree/2.x/examples) and [project templates](https://github.com/serenity-js).
 
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>

@@ -149,4 +149,4 @@ The above command invokes:
 
 To learn more about the available configuration options of the `SerenityBDDReporter` and the `serenity-bdd` command, consult the documentation of the [`@serenity-js/serenity-bdd` module](/modules/serenity-bdd).
 
-You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples).
+You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/2.x/examples).

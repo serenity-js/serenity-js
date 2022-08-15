@@ -67,4 +67,4 @@ configure({
 
 To learn more about the available configuration options, consult the [`ConsoleReporter` API docs](/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html) and its [test suite](/modules/console-reporter/test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html).
 
-You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples).
+You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/2.x/examples).

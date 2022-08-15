@@ -9,7 +9,7 @@ cta: cta-share
 
 When you integrate Jasmine with Serenity/JS, the test framework augments your test reports with additional information about your test scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet!
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Jasmine and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/jasmine-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/2.x/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Jasmine and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/2.x/examples/jasmine-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-jasmine) acceptance tests.
 
 ## Integration architecture
 

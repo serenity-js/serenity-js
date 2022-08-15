@@ -9,8 +9,8 @@ cta: cta-share
 
 When you integrate Cucumber.js with Serenity/JS, the framework gathers and reports additional data about your Cucumber scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet! Information reported includes scenario details, details of executed Cucumber steps, their arguments, provide code snippets for steps with missing implementation, and much more.
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
-Those implementations demonstrate using Cucumber and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/cucumber-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-cucumber) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/2.x/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js).
+Those implementations demonstrate using Cucumber and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/2.x/examples/cucumber-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-cucumber) acceptance tests.
 
 ## Integration architecture
 

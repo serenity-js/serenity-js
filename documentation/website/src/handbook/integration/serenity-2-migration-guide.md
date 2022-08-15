@@ -11,8 +11,8 @@ This guide is designed for people that have built Serenity/JS 1.x projects and w
 [Task](/modules/core/class/src/screenplay/Task.ts~Task.html), [Interaction](/modules/core/class/src/screenplay/Interaction.ts~Interaction.html) and [Question](/modules/core/class/src/screenplay/Question.ts~Question.html)) 
 are backwardly compatible. 
 
-There are some [example mini-projects within the Serenity/JS main repo](https://github.com/jan-molak/serenity-js/tree/master/examples) created in version 2.x format that demonstrate the major features for each supported framework. 
-For instance there are Serenity/JS 2.x implementations of a [calculator](https://github.com/serenity-js/serenity-js/tree/master/examples/calculator-app) or the [popular todomvc](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc) project.
+There are some [example mini-projects within the Serenity/JS main repo](https://github.com/serenity-js/serenity-js/tree/2.x/examples) created in version 2.x format that demonstrate the major features for each supported framework. 
+For instance there are Serenity/JS 2.x implementations of a [calculator](https://github.com/serenity-js/serenity-js/tree/2.x/examples/calculator-app) or the [popular todomvc](https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-jasmine-todomvc) project.
 There are also some separate repos that provide empty templates for [Protractor](https://github.com/serenity-js/serenity-js-cucumber-protractor-template), [Jasmine](https://github.com/serenity-js/serenity-js-jasmine-protractor-template) and [Mocha](https://github.com/serenity-js/serenity-js-mocha-protractor-template).
 However, it can sometimes be difficult to know how to apply patterns from example or empty projects into your existing project. 
 
@@ -622,7 +622,7 @@ Wait.upTo(Duration.ofSeconds(10)).until(WalksTargets.chatWindow, Is.invisible())
 
 ### Is no longer "Is" :-)
 
-The `Is` class from 1.x has now been replaced with [expectations](https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations) that can be used with both Wait and Ensure. `Is` was previously in `serenity-js/lib/serenity-protractor`, but now [expectations](https://github.com/jan-molak/serenity-js/tree/master/packages/protractor/src/expectations) can be found in `@serenity-js/protractor`. Some examples of replacements that might need to be made are as follows:
+The `Is` class from 1.x has now been replaced with [expectations](https://github.com/serenity-js/serenity-js/tree/2.x/packages/protractor/src/expectations) that can be used with both Wait and Ensure. `Is` was previously in `serenity-js/lib/serenity-protractor`, but now [expectations](https://github.com/serenity-js/serenity-js/tree/2.x/packages/protractor/src/expectations) can be found in `@serenity-js/protractor`. Some examples of replacements that might need to be made are as follows:
 
 from | to  
 ---- | --- 

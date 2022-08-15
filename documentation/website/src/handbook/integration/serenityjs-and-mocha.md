@@ -9,7 +9,7 @@ cta: cta-share
 
 When you integrate Mocha with Serenity/JS, the framework augments your test reports with additional information about your test scenarios, even if they don't follow the [Screenplay Pattern](/handbook/thinking-in-serenity-js/screenplay-pattern.html) yet!
 
-If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/master/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Mocha and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/master/examples/mocha-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-mocha) acceptance tests.
+If you prefer to dive straight into the code, several [reference implementations](https://github.com/serenity-js/serenity-js/tree/2.x/examples) are available in the [Serenity/JS GitHub repository](https://github.com/serenity-js/serenity-js). Those implementations demonstrate using Mocha and Serenity/JS to run both [REST API-](https://github.com/serenity-js/serenity-js/tree/2.x/examples/mocha-rest-api-level-testing) and [Web-based](https://github.com/serenity-js/serenity-js/tree/2.x/examples/protractor-mocha) acceptance tests.
 
 ## Integration architecture
 

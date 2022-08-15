@@ -2,9 +2,9 @@ name: Release Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 2.x ]
   pull_request:
-    branches: [ master ]
+    branches: [ 2.x ]
     types: [ opened, synchronize ]
 
 jobs:
@@ -227,13 +227,13 @@ jobs:
 
       - name: Publish coverage
         continue-on-error: true
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/2.x'
         run: npm run coverage:publish
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
   release:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/2.x'
     runs-on: ubuntu-latest
     needs:
       - lint
@@ -295,7 +295,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - uses: ./.github/actions/setup-lerna
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/2.x'
         with:
           github_token:   ${{ secrets.GITHUB_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
@@ -327,7 +327,7 @@ jobs:
 
       - name: Publish website
         uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc # tag=v4.3.3
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/2.x'
         with:
           BRANCH: gh-pages
           FOLDER: documentation/website/target/site

@@ -54,4 +54,4 @@ configure({
 
 To learn more about the available configuration options, consult the [`ArtifactArchiver` API docs](/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html) and its [test suite](/modules/core/test-file/spec/stage/crew/artifact-archiver/ArtifactArchiver.spec.ts.html).
 
-You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/master/examples).
+You might also want to explore the [example projects](https://github.com/serenity-js/serenity-js/tree/2.x/examples).

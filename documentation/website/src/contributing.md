@@ -66,7 +66,7 @@ In the project root directory, you'll find the following sub-directories
 
 #### Building Serenity/JS
 
-Serenity/JS [Makefile](https://github.com/serenity-js/serenity-js/blob/master/Makefile) drives the entire build process. 
+Serenity/JS [Makefile](https://github.com/serenity-js/serenity-js/blob/2.x/Makefile) drives the entire build process. 
 
 Here's a list of commands you'll need to build and test Serenity/JS locally:
 - `make` - same as running `make install clean compile`

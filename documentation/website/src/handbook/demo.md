@@ -13,7 +13,7 @@ Learn how Serenity/JS and the Screenplay Pattern can help you break the chains o
 </figure>
 
 
-Check out the [demo project](https://github.com/serenity-js/full-stack-acceptance-testing-demo) and the [examples](https://github.com/serenity-js/serenity-js/tree/master/examples) on [Serenity/JS GitHub](https://github.com/serenity-js/) to learn more.
+Check out the [demo project](https://github.com/serenity-js/full-stack-acceptance-testing-demo) and the [examples](https://github.com/serenity-js/serenity-js/tree/2.x/examples) on [Serenity/JS GitHub](https://github.com/serenity-js/) to learn more.
 
 <div class="pro-tip">
     <div class="icon"><i class="fab fa-youtube"></i></div>
