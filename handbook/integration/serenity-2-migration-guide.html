@@ -120,8 +120,8 @@
                         <section class="github-markdown">
                             <html><head></head><body><h1 id="serenityjs-2x-migration-guide">Serenity/JS 2.x Migration Guide</h1>
 <h2 id="introduction">Introduction</h2>
-<p>This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes (<a href="https://serenity-js.org/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a>, 
-<a href="https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html">Task</a>, <a href="https://serenity-js.org/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a> and <a href="https://serenity-js.org/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a>) 
+<p>This guide is designed for people that have built Serenity/JS 1.x projects and wish to upgrade to Serenity/JS 2.x. The upgrade path is relatively straightforward as the main classes (<a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a>, 
+<a href="/modules/core/class/src/screenplay/Task.ts~Task.html">Task</a>, <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a> and <a href="/modules/core/class/src/screenplay/Question.ts~Question.html">Question</a>) 
 are backwardly compatible. </p>
 <p>There are some <a href="https://github.com/jan-molak/serenity-js/tree/master/examples">example mini-projects within the Serenity/JS main repo</a> created in version 2.x format that demonstrate the major features for each supported framework. 
 For instance there are Serenity/JS 2.x implementations of a <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/calculator-app">calculator</a> or the <a href="https://github.com/serenity-js/serenity-js/tree/master/examples/protractor-jasmine-todomvc">popular todomvc</a> project.
@@ -234,7 +234,7 @@ Adding the above Serenity/JS dependencies should bring all runtime dependencies 
 <p>Any scripts that used to run <code>serenity update</code> or <code>webdriver-manager update</code>  should now be updated to <code>serenity-bdd update</code>. So for instance:</p>
 <pre class="language-typescript"><code><span class="token string-property property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update --ignoreSSL"</span><span class="token punctuation">,</span> 
 </code></pre>
-<p>For further information, please see <a href="https://serenity-js.org/modules/serenity-bdd">the modules section of the serenity/JS website</a>           </p>
+<p>For further information, please see <a href="/modules/serenity-bdd">the modules section of the serenity/JS website</a>           </p>
 <h2 id="protractor-configuration-protractorconfjs">Protractor configuration (protractor.conf.js)</h2>
 <h3 id="the-crew">The Crew</h3>
 <p>Previously you will have had a single import for crew as follows:</p>
@@ -611,7 +611,7 @@ Be sure to replace the actor placeholder <code>{0}</code> with <code>#actor</cod
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> step <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/recording"</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="simplifying-tasks-using-taskwhere">Simplifying Tasks using Task.where</h3>
-<p>Serenity/JS 2.x now has factory for creating tasks by means of <a href="https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where">Task.where</a>. 
+<p>Serenity/JS 2.x now has factory for creating tasks by means of <a href="/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where">Task.where</a>. 
 For instance here is a re-written version of the <code>NavigateToNonAngular</code> example <code>Task</code> described in the previous section:</p>
 <pre class="language-javascript"><code class="language-javascript">Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor navigates to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>url<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
     UseAngular<span class="token punctuation">.</span><span class="token function">disableSynchronisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -654,8 +654,8 @@ chai<span class="token punctuation">.</span><span class="token function">use</sp
 <span class="token keyword">export</span> <span class="token keyword">const</span> expect <span class="token operator">=</span> chai<span class="token punctuation">.</span>expect<span class="token punctuation">;</span>
 </code></pre>
 <h3 id="migrating-seeif-to-ensurethat">Migrating See.if to Ensure.that</h3>
-<p>Serenity/JS 2.x now has a completely rewritten <a href="https://serenity-js.org/modules/assertions/">assertions</a> library. 
-in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, however the new assertion syntax now begins with <a href="https://serenity-js.org/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure.that</a>.<br>All assertions and expectations can be found in <code>@serenity-js/assertions</code>, so you'll typically see all imports grouped together as follows: </p>
+<p>Serenity/JS 2.x now has a completely rewritten <a href="/modules/assertions/">assertions</a> library. 
+in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, however the new assertion syntax now begins with <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure.that</a>.<br>All assertions and expectations can be found in <code>@serenity-js/assertions</code>, so you'll typically see all imports grouped together as follows: </p>
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> Ensure<span class="token punctuation">,</span> and<span class="token punctuation">,</span> or<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan<span class="token punctuation">,</span> equals<span class="token punctuation">,</span> not <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/assertions"</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Some examples of how the 1.x syntax can be migrated to the the 2.x syntax are as follows:</p>
@@ -705,7 +705,7 @@ in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, howe
 <td>isVisible()</td>
 </tr>
 </tbody></table>
-<p>A full reference of the API can be found in the <a href="https://serenity-js.org/modules/protractor/identifiers.html#expectations">expectations documentation</a>.</p>
+<p>A full reference of the API can be found in the <a href="/modules/protractor/identifiers.html#expectations">expectations documentation</a>.</p>
 <h2 id="migrating-questions">Migrating Questions</h2>
 <p>The method signature for the <code>answeredBy()</code> method has changed in that the <code>PerformsTasks</code> ability has now been renamed to  <code>AnswersQuestions</code>,
 so you will need to globally replace <code>PerformsTasks</code> with <code>AnswersQuestions</code> in your entire codebase. This is pretty straightforward as the import is still from <code>@serenity-js/core/lib/screenplay</code>.</p>
