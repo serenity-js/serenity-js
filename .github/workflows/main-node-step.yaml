@@ -3,6 +3,12 @@ name: Node step
 on:
   workflow_call:
     inputs:
+      runs-on:
+        description: "GitHub runner to use for this job"
+        type: string
+        required: false
+        default: 'ubuntu-latest'
+
       fetch-depth:
         description: "Number of commits to fetch. 0 indicates all history for all branches and tags"
         type: number
@@ -47,7 +53,7 @@ permissions:
 
 jobs:
   execute:
-    runs-on:  ubuntu-latest
+    runs-on:  ${{ inputs.runs-on }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -70,8 +76,8 @@ jobs:
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
         uses: actions/download-artifact@v2
         with:
-          name: inputs.download-artifact-name
-          path: inputs.download-artifact-path
+          name: ${{ inputs.download-artifact-name }}
+          path: ${{ inputs.download-artifact-path }}
 
       - name: Decompress artifact
         if: ${{ inputs.download-artifact-name }}
