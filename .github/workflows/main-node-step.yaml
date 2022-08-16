@@ -12,14 +12,21 @@ on:
         type: string
         required: false
         default: 'npm ci'
+
       download-artifact-name:
         description: 'The name of the artifact to download before invoking the command'
         type: string
         required: false
+      download-artifact-path:
+        description: 'Destination path for the downloaded artifact'
+        type: string
+        required: false
+
       command:
         type: string
         description: 'The command to run'
         required: true
+
       upload-artifact-name:
         description: 'The name of the artifact to upload after invoking the command'
         type: string
@@ -44,12 +51,6 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
 
-      - name: Download compiled libs
-        if:
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-
       - name: Install Node Modules (${{ inputs.npm-install-command }})
         uses: bahmutov/npm-install@v1
         with:
@@ -57,5 +58,12 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: '/usr/bin/chromedriver'
 
-      - name: Execute
+      - name: Download artifact
+        if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
+        uses: actions/download-artifact@v2
+        with:
+          name: inputs.download-artifact-name
+          path: inputs.download-artifact-path
+
+      - name: Execute command
         run: ${{ inputs.command }}
