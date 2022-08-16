@@ -23,10 +23,10 @@ on:
     outputs:
       all_modified_files:
         description: List of all copied, modified, added and deleted files.
-        value: ${{ steps.changed-files.outputs.all_modified_files }}
+        value: ${{ jobs.detect-changes.outputs.all_modified_files }}
       only_modified:
         description: Return true when all files provided using the files input have been modified.
-        value: ${{ steps.changed-files.outputs.only_modified }}
+        value: ${{ jobs.detect-changes.outputs.only_modified }}
 
 permissions:
   contents: read
