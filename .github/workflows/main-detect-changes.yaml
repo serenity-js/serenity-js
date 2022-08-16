@@ -2,15 +2,9 @@ name: Detect changes
 
 on:
   workflow_call:
-
     inputs:
-      name:
-        description: "Job display name"
-        type: string
-        required: false
-        default: "detect-changes"
       fetch-depth:
-        description: Number of commits to fetch. 0 indicates all history for all branches and tags.
+        description: "Number of commits to fetch. 0 indicates all history for all branches and tags"
         type: number
         required: false
         default: 2
@@ -38,7 +32,6 @@ permissions:
 
 jobs:
   detect-changes:
-    name: ${{ inputs.name }}
     runs-on:  ubuntu-latest
     outputs:
       only_modified: ${{ steps.changed-files.outputs.only_modified }}
@@ -58,7 +51,7 @@ jobs:
 
       - name: Summary (header)
         run: |
-          echo "### Detected changes: ${{ inputs.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Detected changes" >> $GITHUB_STEP_SUMMARY
 
       - name: Summary (no changes)
         if: steps.changed-files.outputs.only_modified == 'false'

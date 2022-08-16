@@ -13,16 +13,16 @@ permissions:
 jobs:
 
   detect-website-changes:
+    name: 'Detect website changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
     with:
-      name: 'website'
       files: |
         documentation/**
 
   detect-source-code-changes:
+    name: 'Detect source code and configuration changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
     with:
-      name: 'source code and configuration'
       files: |
         .github/**
         bin/**
@@ -37,21 +37,7 @@ jobs:
       - detect-website-changes
       - detect-source-code-changes
     if: needs.detect-website-changes.outputs.only_modified == 'true' || needs.detect-source-code-changes.outputs.only_modified == 'true'
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (root)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Lint
-        run: make lint
+    uses: 'serenity-js/serenity-js/.github/workflows/main-lint.yaml@fix/ci'
+    with:
+      node-version: 16.x
+      command: make lint
