@@ -1,0 +1,73 @@
+name: Detect changes
+
+on:
+  workflow_call:
+
+    inputs:
+      name:
+        description: "Job display name"
+        type: string
+        required: false
+        default: "detect-changes"
+      files:
+        description: "Check for changes using only this list of files (Defaults to the entire repo)"
+        type: string
+        required: false
+        default: ""
+      files_ignore:
+        description: "Ignore changes to this list of files"
+        type: string
+        required: false
+        default: ""
+
+    outputs:
+      all_modified_files:
+        description: List of all copied, modified, added and deleted files.
+        value: ${{ steps.changed-files.outputs.all_modified_files }}
+      only_modified:
+        description: Return true when all files provided using the files input have been modified.
+        value: ${{ steps.changed-files.outputs.only_modified }}
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    name: detect-changes-${{ inputs.name }}
+    runs-on:  ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Detect changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v26.1
+        with:
+          files: ${{ inputs.files }}
+          files-ignore: ${{ inputs.files-ignore }}
+
+      - name: Summary (header)
+        run: |
+          echo "### Detected changes (${{ inputs.name }})" >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary (no changes)
+        if: steps.changed-files.outputs.only_modified == 'false'
+        run: |
+          echo "No changes detected" >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary (changes detected)
+        if: steps.changed-files.outputs.only_modified == 'true'
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "- $file" >> $GITHUB_STEP_SUMMARY
+          done
+
+      - name: Set output (only_modified)
+        run: |
+          echo "::set-output name=only_modified::{steps.changed-files.outputs.only_modified}"    
+
+      - name: Set output (all_modified_files)
+        run: |
+          echo "::set-output name=all_modified_files::{steps.changed-files.outputs.all_modified_files}"
