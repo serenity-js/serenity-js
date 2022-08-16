@@ -40,6 +40,9 @@ jobs:
   detect-changes:
     name: ${{ inputs.name }}
     runs-on:  ubuntu-latest
+    outputs:
+      only_modified: ${{ steps.changed-files.outputs.only_modified }}
+      all_modified_files: ${{ steps.changed-files.outputs.all_modified_files }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -68,11 +71,3 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "- $file" >> $GITHUB_STEP_SUMMARY
           done
-
-      - name: Set output (only_modified)
-        run: |
-          echo "::set-output name=only_modified::{steps.changed-files.outputs.only_modified}"    
-
-      - name: Set output (all_modified_files)
-        run: |
-          echo "::set-output name=all_modified_files::{steps.changed-files.outputs.all_modified_files}"
