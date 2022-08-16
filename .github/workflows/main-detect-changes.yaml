@@ -46,7 +46,7 @@ jobs:
         uses: tj-actions/changed-files@v26.1
         with:
           files: ${{ inputs.files }}
-          files-ignore: ${{ inputs.files-ignore }}
+          files_ignore: ${{ inputs.files-ignore }}
 
       - name: Summary (header)
         run: |

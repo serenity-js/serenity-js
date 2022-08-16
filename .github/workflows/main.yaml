@@ -15,12 +15,14 @@ jobs:
   detect-website-changes:
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
     with:
+      name: 'website'
       files: |
         documentation/**
 
   detect-source-changes:
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
     with:
+      name: 'source code and configuration'
       files: |
         .github/**
         bin/**
