@@ -43,3 +43,16 @@ jobs:
       node-version: 16.x
       npm-install-command: npm ci
       command: make lint
+
+  compile:
+    name: 'Compile'
+    needs:
+      - detect-source-code-changes
+    if: needs.detect-source-code-changes.outputs.only_modified == 'true'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      node-version: 16.x
+      npm-install-command: npm ci
+      command: make COMPILE_SCOPE=libs compile
+      upload-artifact-name: 'compiled-libs'
+      upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'

@@ -3,6 +3,12 @@ name: Node step
 on:
   workflow_call:
     inputs:
+      fetch-depth:
+        description: "Number of commits to fetch. 0 indicates all history for all branches and tags"
+        type: number
+        required: false
+        default: 2
+
       node-version:
         description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
         type: string
@@ -44,10 +50,12 @@ jobs:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
 
@@ -67,3 +75,16 @@ jobs:
 
       - name: Execute command
         run: ${{ inputs.command }}
+
+      - name: Compress artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        run: 7z a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+
+      - name: Upload artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: ${{ inputs.upload-artifact-name }}
+          path: |
+            ${{ inputs.upload-artifact-name }}.zip
