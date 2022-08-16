@@ -9,6 +9,11 @@ on:
         type: string
         required: false
         default: "detect-changes"
+      fetch-depth:
+        description: Number of commits to fetch. 0 indicates all history for all branches and tags.
+        type: number
+        required: false
+        default: 2
       files:
         description: "Check for changes using only this list of files (Defaults to the entire repo)"
         type: string
@@ -39,7 +44,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          fetch-depth: ${{ inputs.fetch-depth }}
 
       - name: Detect changed files
         id: changed-files
