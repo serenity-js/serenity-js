@@ -33,6 +33,7 @@ jobs:
         *.md
 
   lint:
+    name: 'Lint'
     needs:
       - detect-website-changes
       - detect-source-code-changes
