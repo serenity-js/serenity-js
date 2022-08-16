@@ -3,17 +3,17 @@ name: Release Pipeline
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - 'documentation'
-      - 'package-lock.json'
-      - '*.md'
+#    paths-ignore:
+#      - 'documentation'
+#      - 'package-lock.json'
+#      - '*.md'
   pull_request:
     branches: [ main ]
     types: [ opened, synchronize ]
-    paths-ignore:
-      - 'documentation'
-      - 'package-lock.json'
-      - '*.md'
+#    paths-ignore:
+#      - 'documentation'
+#      - 'package-lock.json'
+#      - '*.md'
 
 # https://github.com/ossf/scorecard/blob/main/docs/checks.md#token-permissions
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
