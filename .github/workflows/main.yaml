@@ -38,7 +38,7 @@ jobs:
       - detect-website-changes
       - detect-source-code-changes
     if: needs.detect-website-changes.outputs.only_modified == 'true' || needs.detect-source-code-changes.outputs.only_modified == 'true'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-lint.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
     with:
       node-version: 16.x
       npm-install-command: npm ci

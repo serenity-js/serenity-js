@@ -1,0 +1,61 @@
+name: Node step
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
+        type: string
+        required: true
+      npm-install-command:
+        description: 'Custom npm install command to use'
+        type: string
+        required: false
+        default: 'npm ci'
+      download-artifact-name:
+        description: 'The name of the artifact to download before invoking the command'
+        type: string
+        required: false
+      command:
+        type: string
+        description: 'The command to run'
+        required: true
+      upload-artifact-name:
+        description: 'The name of the artifact to upload after invoking the command'
+        type: string
+        required: false
+      upload-artifact-path:
+        description: 'The paths to include in the uploaded artifact'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    runs-on:  ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Download compiled libs
+        if:
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+
+      - name: Install Node Modules (${{ inputs.npm-install-command }})
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: ${{ inputs.npm-install-command }}
+        env:
+          CHROMEDRIVER_FILEPATH: '/usr/bin/chromedriver'
+
+      - name: Execute
+        run: ${{ inputs.command }}
