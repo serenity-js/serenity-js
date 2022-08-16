@@ -2,21 +2,26 @@ name: Lint
 
 on:
   workflow_call:
-    input:
+    inputs:
       node-version:
         description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
         type: string
         required: true
+      npm-install-command:
+        description: 'Custom npm install command to use'
+        type: string
+        required: false
+        default: 'npm ci'
       command:
         type: string
         description: 'The command to run'
+        required: true
 
 permissions:
   contents: read
 
 jobs:
-  test:
-    name: ${{ inputs.name }}
+  execute:
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,27 +32,12 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
 
-      - name: Install Node Modules (@serenity-js)
+      - name: Install Node Modules (${{ inputs.npm-install-command }})
         uses: bahmutov/npm-install@v1
         with:
-          install-command: ${{ inputs.install-command }}
+          install-command: ${{ inputs.npm-install-command }}
         env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+          CHROMEDRIVER_FILEPATH: '/usr/bin/chromedriver'
 
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Test
-        run: ${{ inputs.test-command }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: ${{ inputs.artifact-name }}
-          path: |
-            target/**/*
-            package.json
+      - name: Execute
+        run: ${{ inputs.command }}

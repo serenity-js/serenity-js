@@ -40,4 +40,5 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-lint.yaml@fix/ci'
     with:
       node-version: 16.x
+      npm-install-command: npm ci
       command: make lint
