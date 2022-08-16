@@ -58,7 +58,7 @@ jobs:
 
       - name: Summary (header)
         run: |
-          echo "### Detected changes: (${{ inputs.name }})" >> $GITHUB_STEP_SUMMARY
+          echo "### Detected changes: ${{ inputs.name }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Summary (no changes)
         if: steps.changed-files.outputs.only_modified == 'false'
