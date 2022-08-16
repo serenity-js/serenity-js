@@ -56,3 +56,17 @@ jobs:
       command: make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
       upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
+
+  test-linux-node-lts-active:
+    name: 'Test (Linux, Node LTS)'
+    needs:
+      - lint
+      - compile
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
+      upload-artifact-name: 'test-reports'
+      upload-artifact-path: 'package.json "target/**/*"'

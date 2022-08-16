@@ -73,6 +73,10 @@ jobs:
           name: inputs.download-artifact-name
           path: inputs.download-artifact-path
 
+      - name: Decompress artifact
+        if: ${{ inputs.download-artifact-name }}
+        run:  7z x -aoa ${{ inputs.download-artifact-name }}.zip
+
       - name: Execute command
         run: ${{ inputs.command }}
 
