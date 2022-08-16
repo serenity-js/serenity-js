@@ -3,38 +3,38 @@ name: Website
 on:
   workflow_call:
 
-  pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize ]
-    paths:
-      - '!.github/**'
-      - '!bin/**'
-      - '!examples/**'
-      - '!integration/**'
-      - '!packages/**'
-      - '!.*'
-      - '!*.yml'
-      - '!*.json'
-      - '!*.conf.js'
-      - 'documentation/**'
-      - 'package-lock.json'
-      - '*.md'
-
-  push:
-    branches: [ main ]
-    paths:
-      - '!.github/**'
-      - '!bin/**'
-      - '!examples/**'
-      - '!integration/**'
-      - '!packages/**'
-      - '!.*'
-      - '!*.yml'
-      - '!*.json'
-      - '!*.conf.js'
-      - 'documentation/**'
-      - 'package-lock.json'
-      - '*.md'
+#  pull_request:
+#    branches: [ main ]
+#    types: [ opened, synchronize ]
+#    paths:
+#      - '!.github/**'
+#      - '!bin/**'
+#      - '!examples/**'
+#      - '!integration/**'
+#      - '!packages/**'
+#      - '!.*'
+#      - '!*.yml'
+#      - '!*.json'
+#      - '!*.conf.js'
+#      - 'documentation/**'
+#      - 'package-lock.json'
+#      - '*.md'
+#
+#  push:
+#    branches: [ main ]
+#    paths:
+#      - '!.github/**'
+#      - '!bin/**'
+#      - '!examples/**'
+#      - '!integration/**'
+#      - '!packages/**'
+#      - '!.*'
+#      - '!*.yml'
+#      - '!*.json'
+#      - '!*.conf.js'
+#      - 'documentation/**'
+#      - 'package-lock.json'
+#      - '*.md'
 
 # https://github.com/ossf/scorecard/blob/main/docs/checks.md#token-permissions
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
