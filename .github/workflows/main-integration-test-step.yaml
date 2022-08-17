@@ -121,6 +121,9 @@ jobs:
 
       - name: Execute command
         run: ${{ inputs.command }}
+        env:
+          SAUCE_USERNAME: ${{ secrets.sauce-username }}
+          SAUCE_ACCESS_KEY: ${{ secrets.sauce-access-key }}
 
       - name: Compress artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
