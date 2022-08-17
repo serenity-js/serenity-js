@@ -61,7 +61,7 @@ jobs:
   # Test
   #
 
-  test-linux-node-lts:
+  test-linux-node-lts-active:
     name: 'Test: Linux, LTS'
     needs:
       - lint
@@ -99,7 +99,7 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: make test
 
-  test-windows-node-lts-next:
+  test-windows-node-lts-active:
     name: 'Test: Windows, LTS'
     needs:
       - lint
@@ -192,7 +192,7 @@ jobs:
   coverage-aggregate:
     name: 'Coverage: aggregate'
     needs:
-      - test-linux-node-lts
+      - test-linux-node-lts-active
       - test-integration-saucelabs
       - test-integration
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@fix/ci'
@@ -250,9 +250,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs:
-      - test-linux-node-lts
+      - test-linux-node-lts-active
       - test-linux-node-lts-previous
-      - test-windows-node-lts
+      - test-windows-node-lts-active
       - test-integration-saucelabs
       - test-integration
     steps:
