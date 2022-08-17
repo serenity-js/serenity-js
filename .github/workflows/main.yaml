@@ -226,20 +226,28 @@ jobs:
         with:
           name: 'aggregated-code-coverage-report'
 
-      - name: List all (debug)
-        run: tree
-
       - name: Decompress code coverage reports
         run: '7z x -aoa aggregated-code-coverage-report.zip'
 
-      - name: List all (debug)
-        run: tree
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@1.1.3
+      - name: Install Node Modules (root)
+        uses: bahmutov/npm-install@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: 'target/coverage/lcov.info'
+          install-command: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Publish to Coveralls.io
+        continue-on-error: true
+#        if: github.ref == 'refs/heads/main'
+        run: npm run coverage:publish
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+
+#      - name: Coveralls
+#        uses: coverallsapp/github-action@1.1.3
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          path-to-lcov: 'target/coverage/lcov.info'
 
   #
   # NPM artifact publishing
@@ -291,7 +299,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Decompress Libs
+      - name: Print versions
         run: npm run version:print >> $GITHUB_STEP_SUMMARY
 
   #
