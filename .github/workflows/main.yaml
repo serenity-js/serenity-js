@@ -135,7 +135,7 @@ jobs:
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
     concurrency:
-      group: saucelabs-${{ github.head_ref || github.run_id }}
+      group: saucelabs-${{ github.ref }}
       cancel-in-progress: true
     needs:
       - lint
