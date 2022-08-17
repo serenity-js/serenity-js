@@ -136,7 +136,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/ci'
     with:
       runs-on: 'ubuntu-latest'
       node-version: 16.x
