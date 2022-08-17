@@ -21,7 +21,7 @@ COMPILE_SCOPE=all
 # mocha
 # protractor
 # webdriverio
-# saucelabs
+# webdriverio-web
 INTEGRATION_SCOPE=all
 
 .PHONY: all install clean lint test compile integration-test verify report site

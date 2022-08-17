@@ -3,6 +3,10 @@ name: Integration test step
 on:
   workflow_call:
     inputs:
+      modules:
+        description: "Integration testing modules to invoke, represented as serialised JSON array"
+        type: string
+        required: true
       runs-on:
         description: "GitHub runner to use for this job"
         type: string
@@ -61,6 +65,11 @@ permissions:
 
 jobs:
   execute:
+    strategy:
+      matrix:
+        modules: ${{ fromJSON(inputs.modules) }}
+      fail-fast: false
+
     runs-on:  ${{ inputs.runs-on }}
     env:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
