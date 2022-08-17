@@ -93,9 +93,14 @@ jobs:
         run: tree
 
       - name: Decompress artifacts
-        if: ${{ inputs.download-artifact-path && inputs.download-artifact-name == '' }}
+        if: ${{ inputs.download-artifact-path && inputs.download-artifact-name == '' && runner.os != 'Windows' }}
         working-directory: ${{ inputs.download-artifact-path }}
-        run:  ${{ env.SEVEN_ZIP }} x -aoa **/*.zip
+        run: ls **/*.zip | xargs -n1 ${{ env.SEVEN_ZIP }} x -aoa
+
+      - name: List decompressed artifacts
+        if: ${{ inputs.download-artifact-path || inputs.download-artifact-name }}
+        working-directory: ${{ inputs.download-artifact-path }}
+        run: tree
 
       - name: Execute command
         run: ${{ inputs.command }}
