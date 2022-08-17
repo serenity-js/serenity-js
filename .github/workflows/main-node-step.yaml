@@ -68,7 +68,7 @@ jobs:
           node-version: ${{ inputs.node-version }}
 
       - name: Set CHROMEDRIVER_FILEPATH (Windows)
-      - run: |
+        run: |
           chcp 65001 #set code page to utf-8
           echo ("CHROMEDRIVER_FILEPATH=" + $env:CHROMEWEBDRIVER + "chromedriver.exe") >> $env:GITHUB_ENV
       - name: Set CHROMEDRIVER_FILEPATH (Linux & macOS)
