@@ -1,6 +1,15 @@
+version: "2"
 plugins:
   eslint:
     enabled: true
     channel: "eslint-8"
     config:
       config: .eslintrc.yml
+
+exclude_patterns:
+  - "documentation/**"
+  - "integration/**"
+  - "**/examples/"
+  - "**/node_modules/"
+  - "**/spec/"
+  - "**/*.d.ts"
