@@ -211,7 +211,7 @@ jobs:
       download-artifact-name: 'aggregated-code-coverage'
       command: make report
       upload-artifact-name: 'aggregated-code-coverage-report'
-      upload-artifact-path: 'package.json "./target/coverage"'
+      upload-artifact-path: 'package.json "./target/coverage/**/*"'
 
   coverage-publish:
     name: 'Coverage: publish'
@@ -339,4 +339,4 @@ jobs:
 
 # todo: check website path is correct
 # todo: print published artifact versions to github summary
-
+# todo: remove debug steps

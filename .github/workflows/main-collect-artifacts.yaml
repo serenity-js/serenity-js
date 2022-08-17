@@ -29,7 +29,7 @@ jobs:
       - name: Decompress all artifacts to current directory
         run:  ls **/*.zip | xargs -n1 7z x -aoa
 
-      - name: List decompressed artifacts
+      - name: List decompressed artifacts (debug)
         run: tree
 
       - name: Compress artifact

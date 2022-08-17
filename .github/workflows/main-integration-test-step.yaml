@@ -133,4 +133,4 @@ jobs:
           retention-days: 3
           name: ${{ inputs.upload-artifact-name }}-${{ matrix.module }}
           path: |
-            ${{ inputs.upload-artifact-name }}.zip
+            ${{ inputs.upload-artifact-name }}-${{ matrix.module }}.zip
