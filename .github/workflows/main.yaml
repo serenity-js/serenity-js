@@ -27,8 +27,12 @@ jobs:
       - name: debug env (Linux/macOS)
         if: matrix.os != 'windows-latest'
         run: 'env'
-      - name: list contents
-        run: 'ls ${{ env.CHROMEWEBDRIVER }}'
+      - name: list contents (Windows)
+        if: matrix.os == 'windows-latest'
+        run: 'dir $env:CHROMEWEBDRIVER'
+      - name: list contents (Linux/macOS)
+        if: matrix.os != 'windows-latest'
+        run: 'ls -la $CHROMEWEBDRIVER'
 
   detect-website-changes:
     name: 'Detect website changes'
