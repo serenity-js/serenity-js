@@ -70,6 +70,7 @@ jobs:
         module: ${{ fromJSON(inputs.modules) }}
       fail-fast: false
 
+    name: ${{ matrix.module }}
     runs-on:  ${{ inputs.runs-on }}
     env:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}

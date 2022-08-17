@@ -146,7 +146,7 @@ jobs:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=INTEGRATION_MODULE integration-test'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports'
       upload-artifact-path: 'package.json "target/**/*"'
     secrets:
