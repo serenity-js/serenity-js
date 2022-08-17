@@ -112,18 +112,19 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: make test
 
-  test-macos-node-lts-next:
-    name: 'Test: macOS, LTS'
-    needs:
-      - lint
-      - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
-    with:
-      runs-on: 'macos-latest'
-      node-version: 16.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-      download-artifact-name: 'compiled-libs'
-      command: make test
+# todo: add macOS too?
+#  test-macos-node-lts-next:
+#    name: 'Test: macOS, LTS'
+#    needs:
+#      - lint
+#      - compile
+#    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+#    with:
+#      runs-on: 'macos-latest'
+#      node-version: 16.x
+#      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+#      download-artifact-name: 'compiled-libs'
+#      command: make test
 
   #
   # Integration
@@ -183,3 +184,22 @@ jobs:
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports'
       upload-artifact-path: 'package.json "target/**/*"'
+
+  #
+  # Reporting
+  #
+
+  coverage-aggregate:
+    name: 'Coverage: aggregate'
+    needs:
+      - test-linux-node-lts
+      - test-integration-saucelabs
+      - test-integration
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      node-version: 16.x
+      npm-install-command: npm ci
+      download-artifact-path: 'target/coverage'
+      command: make report
+      upload-artifact-name: 'aggregated-code-coverage'
+      upload-artifact-path: 'package.json "./target/coverage"'
