@@ -55,7 +55,7 @@ jobs:
   execute:
     runs-on:  ${{ inputs.runs-on }}
     env:
-      CHROMEDRIVER_FILEPATH: ${{ inputs.runs-on == 'windows-latest' && 'C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe' || '/usr/bin/chromedriver' }}
+      CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
     steps:
       - name: Checkout repository
