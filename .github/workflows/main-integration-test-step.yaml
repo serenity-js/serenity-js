@@ -25,15 +25,6 @@ on:
         required: false
         default: 'npm ci'
 
-      sauce-username:
-        description: 'Sauce Labs username'
-        type: string
-        required: false
-      sauce-access-token:
-        description: 'Sauce Labs API Key'
-        type: string
-        required: false
-
       download-artifact-name:
         description: 'The name of the artifact to download before invoking the command'
         type: string
@@ -57,6 +48,14 @@ on:
         type: string
         required: false
 
+    secrets:
+      sauce-username:
+        description: 'Sauce Labs username'
+        required: false
+      sauce-access-key:
+        description: 'Sauce Labs API Key'
+        required: false
+
 permissions:
   contents: read
 
@@ -67,11 +66,11 @@ jobs:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
     steps:
       - name: Open Sauce Connect Tunnel
-        if: ${{ inputs.sauce-username && inputs.sauce-access-token }}
+        if: ${{ secrets.sauce-username && secrets.sauce-access-key }}
         uses: saucelabs/sauce-connect-action@v2
         with:
-          username: ${{ inputs.sauce-username }}
-          accessKey: ${{ inputs.sauce-access-token }}
+          username: ${{ secrets.sauce-username }}
+          accessKey: ${{ secrets.sauce-access-key }}
           tunnelIdentifier: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
 
       - name: Checkout repository
