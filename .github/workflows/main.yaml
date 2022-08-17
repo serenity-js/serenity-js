@@ -240,3 +240,70 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: 'target/coverage/lcov.info'
+
+  #
+  # NPM artifact publishing
+  #
+
+  publish-artifacts:
+    name: 'NPM: publish artifacts'
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+      - test-linux-node-lts
+      - test-linux-node-lts-previous
+      - test-windows-node-lts
+      - test-integration-saucelabs
+      - test-integration
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-lerna
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
+          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+      - name: Decompress Libs
+        run: 7z x -aoa compiled-libs.zip
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install Node Modules (root)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Publish artifacts
+        run: npm run lerna:publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  #
+  # Website
+  #
+  website-build:
+    name: 'Website: build'
+    needs:
+      - detect-source-code-changes
+      - publish-artifacts
+    if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.only_modified == 'true' && needs.publish-artifacts.result == 'success') }}
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=site install
+      command: make site
+      upload-artifact-name: 'serenity-js-website'
+      upload-artifact-path: 'documentation/serenity-js.org/build'
