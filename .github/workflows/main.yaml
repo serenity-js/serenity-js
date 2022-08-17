@@ -133,6 +133,9 @@ jobs:
     name: 'Integration: SauceLabs'
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
+    concurrency:
+      group: saucelabs
+      cancel-in-progress: true
     needs:
       - lint
       - compile
