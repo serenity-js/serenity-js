@@ -124,3 +124,26 @@ jobs:
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
+
+  #
+  # Integration
+  #
+
+  test-integration-saucelabs:
+    name: 'Integration: SauceLabs'
+    # don't run on forks which won't have access to secrets
+    if: ${{ !github.event.pull_request.head.repo.fork }}
+    needs:
+      - lint
+      - compile
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      sauce-username: ${{ secrets.SAUCE_USERNAME }}
+      sauce-access-token: ${{ secrets.SAUCE_ACCESS_KEY }}
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: make INTEGRATION_SCOPE=saucelabs integration-test
+      upload-artifact-name: 'test-integration-saucelabs-coverage-reports'
+      upload-artifact-path: 'package.json "target/**/*"'
