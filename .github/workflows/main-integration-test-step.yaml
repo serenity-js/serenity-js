@@ -119,17 +119,12 @@ jobs:
         working-directory: ${{ inputs.download-artifact-path }}
         run: ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
 
-      - name: Decompress artifacts
-        if: ${{ inputs.download-artifact-path && inputs.download-artifact-name == '' }}
-        working-directory: ${{ inputs.download-artifact-path }}
-        run: ${{ env.SEVEN_ZIP }} x -aoa '*.zip'
-
       - name: Execute command
         run: ${{ inputs.command }}
 
       - name: Compress artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
-        run: ${{ env.SEVEN_ZIP }} a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+        run: ${{ env.SEVEN_ZIP }} a ${{ inputs.upload-artifact-name }}-${{ matrix.module }}.zip ${{ inputs.upload-artifact-path }}
 
       - name: Upload artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}

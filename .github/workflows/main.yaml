@@ -189,19 +189,28 @@ jobs:
   # Reporting
   #
 
-  coverage-aggregate:
+  coverate-aggregate:
     name: 'Coverage: aggregate'
     needs:
       - test-linux-node-lts
       - test-integration-saucelabs
       - test-integration
+    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts@fix/ci'
+    with:
+      upload-artifact-name: 'aggregated-code-coverage'
+      upload-artifact-path: 'package.json "./target/coverage"'
+
+  coverage-report:
+    name: 'Coverage: report'
+    needs:
+      - coverate-aggregate
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
     with:
       node-version: 16.x
       npm-install-command: npm ci
-      download-artifact-path: 'target/coverage'
+      download-artifact-name: 'aggregated-code-coverage'
       command: make report
-      upload-artifact-name: 'aggregated-code-coverage'
+      upload-artifact-name: 'aggregated-code-coverage-report'
       upload-artifact-path: 'package.json "./target/coverage"'
 
   coverage-publish:
@@ -215,7 +224,13 @@ jobs:
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
         with:
-          path: target/coverage
+          name: 'aggregated-code-coverage-report'
+
+      - name: Decompress code coverage reports
+        run: '7z x -aoa aggregated-code-coverage-report.zip'
+
+      - name: List all
+        run: tree
 
       - name: Coveralls
         uses: coverallsapp/github-action@1.1.3
