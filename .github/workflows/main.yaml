@@ -12,28 +12,6 @@ permissions:
 
 jobs:
 
-  debug-env:
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: debug env (Windows)
-        if: matrix.os == 'windows-latest'
-        run: 'dir env:'
-      - name: debug env (Linux/macOS)
-        if: matrix.os != 'windows-latest'
-        run: 'env'
-      - name: list contents (Windows)
-        if: matrix.os == 'windows-latest'
-        run: 'dir $env:CHROMEWEBDRIVER'
-      - name: list contents (Linux/macOS)
-        if: matrix.os != 'windows-latest'
-        run: 'ls -la $CHROMEWEBDRIVER'
-
   detect-website-changes:
     name: 'Detect website changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
