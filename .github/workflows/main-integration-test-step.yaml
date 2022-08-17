@@ -1,0 +1,140 @@
+name: Integration test step
+
+on:
+  workflow_call:
+    inputs:
+      modules:
+        description: "Integration testing modules to invoke, represented as serialised JSON array"
+        type: string
+        required: true
+      runs-on:
+        description: "GitHub runner to use for this job"
+        type: string
+        required: false
+        default: 'ubuntu-latest'
+
+      fetch-depth:
+        description: "Number of commits to fetch. 0 indicates all history for all branches and tags"
+        type: number
+        required: false
+        default: 2
+
+      node-version:
+        description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
+        type: string
+        required: true
+      npm-install-command:
+        description: 'Custom npm install command to use'
+        type: string
+        required: false
+        default: 'npm ci'
+
+      download-artifact-name:
+        description: 'The name of the artifact to download before invoking the command'
+        type: string
+        required: false
+      download-artifact-path:
+        description: 'Destination path for the downloaded artifact'
+        type: string
+        required: false
+
+      command:
+        type: string
+        description: 'The command to run'
+        required: true
+
+      upload-artifact-name:
+        description: 'The name of the artifact to upload after invoking the command'
+        type: string
+        required: false
+      upload-artifact-path:
+        description: 'The paths to include in the uploaded artifact'
+        type: string
+        required: false
+
+    secrets:
+      sauce-username:
+        description: 'Sauce Labs username'
+        required: false
+      sauce-access-key:
+        description: 'Sauce Labs API Key'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    strategy:
+      matrix:
+        module: ${{ fromJSON(inputs.modules) }}
+      fail-fast: false
+
+    name: ${{ matrix.module }}
+    runs-on:  ${{ inputs.runs-on }}
+    env:
+      SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
+      INTEGRATION_MODULE: ${{ matrix.module }}
+      SAUCE_TUNNEL_ID: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Setup ChromeDriver filepath
+        uses: ./.github/actions/setup-chromedriver-filepath
+
+      - name: Install Node Modules (${{ inputs.npm-install-command }})
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: ${{ inputs.npm-install-command }}
+        env:
+          CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
+
+      - name: Download artifact(s)
+        if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.download-artifact-name }}
+          path: ${{ inputs.download-artifact-path }}
+
+      - name: Decompress artifact
+        if: ${{ inputs.download-artifact-name }}
+        working-directory: ${{ inputs.download-artifact-path }}
+        run: ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
+
+      - name: Open Sauce Connect Tunnel
+        # Use an env var because secrets can't be used in condition statements - https://github.com/actions/runner/issues/520
+        env:
+          NEEDS_SAUCE_LABS: ${{ secrets.sauce-username && secrets.sauce-access-key }}
+        if: ${{ env.NEEDS_SAUCE_LABS != '' }}
+        uses: saucelabs/sauce-connect-action@v2
+        with:
+          username: ${{ secrets.sauce-username }}
+          accessKey: ${{ secrets.sauce-access-key }}
+          tunnelIdentifier: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
+
+      - name: Execute command
+        run: ${{ inputs.command }}
+        env:
+          SAUCE_USERNAME: ${{ secrets.sauce-username }}
+          SAUCE_ACCESS_KEY: ${{ secrets.sauce-access-key }}
+
+      - name: Compress artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        run: ${{ env.SEVEN_ZIP }} a ${{ inputs.upload-artifact-name }}-${{ matrix.module }}.zip ${{ inputs.upload-artifact-path }}
+
+      - name: Upload artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        uses: actions/upload-artifact@v3
+        with:
+          retention-days: 3
+          name: ${{ inputs.upload-artifact-name }}-${{ matrix.module }}
+          path: |
+            ${{ inputs.upload-artifact-name }}-${{ matrix.module }}.zip
