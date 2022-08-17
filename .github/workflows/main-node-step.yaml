@@ -55,7 +55,6 @@ jobs:
   execute:
     runs-on:  ${{ inputs.runs-on }}
     env:
-      CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
     steps:
       - name: Checkout repository
@@ -73,7 +72,7 @@ jobs:
         with:
           install-command: ${{ inputs.npm-install-command }}
         env:
-          CHROMEDRIVER_FILEPATH: ${{ env.CHROMEDRIVER_FILEPATH }}
+          CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
 
       - name: Download artifact
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
