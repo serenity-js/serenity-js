@@ -211,7 +211,7 @@ jobs:
       download-artifact-name: 'aggregated-code-coverage'
       command: make report
       upload-artifact-name: 'aggregated-code-coverage-report'
-      upload-artifact-path: 'package.json "./target/coverage/**/*"'
+      upload-artifact-path: 'target'
 
   coverage-publish:
     name: 'Coverage: publish'
