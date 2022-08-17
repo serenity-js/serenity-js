@@ -195,7 +195,7 @@ jobs:
       - test-linux-node-lts
       - test-integration-saucelabs
       - test-integration
-    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@fix/ci'
     with:
       upload-artifact-name: 'aggregated-code-coverage'
       upload-artifact-path: 'package.json "./target/coverage"'
