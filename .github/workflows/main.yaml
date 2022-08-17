@@ -57,6 +57,10 @@ jobs:
       upload-artifact-name: 'compiled-libs'
       upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
 
+  #
+  # Test
+  #
+
   test-linux-node-lts:
     name: 'Test: Linux, LTS'
     needs:
@@ -103,6 +107,19 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
     with:
       runs-on: 'windows-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
+
+  test-macos-node-lts-next:
+    name: 'Test: macOS, LTS'
+    needs:
+      - lint
+      - compile
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    with:
+      runs-on: 'macos-latest'
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
