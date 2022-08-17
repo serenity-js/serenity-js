@@ -245,7 +245,7 @@ jobs:
   # NPM artifact publishing
   #
 
-  publish-artifacts:
+  artifacts-publish:
     name: 'NPM: publish artifacts'
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -297,13 +297,38 @@ jobs:
   website-build:
     name: 'Website: build'
     needs:
+      - detect-website-changes
       - detect-source-code-changes
-      - publish-artifacts
-    if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.only_modified == 'true' && needs.publish-artifacts.result == 'success') }}
+      - artifacts-publish
+    if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.only_modified == 'true' && needs.artifacts-publish.result == 'success') }}
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=site install
       command: make site
-      upload-artifact-name: 'serenity-js-website'
+      upload-artifact-name: 'website'
       upload-artifact-path: 'documentation/serenity-js.org/build'
+
+  website-publish:
+    name: 'Website: publish'
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+      - website-build
+    steps:
+      - name: Download website artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website
+      - name: Decompress website
+        run: 7z x -aoa website.zip
+
+#      - name: Publish website
+#        uses: JamesIves/github-pages-deploy-action@v4.3.0
+#        if: github.ref == 'refs/heads/main'
+#        with:
+#          BRANCH: gh-pages
+#          FOLDER: documentation/serenity-js.org/build
+#          CLEAN: true
+
+# todo: check website path
