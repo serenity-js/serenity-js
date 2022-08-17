@@ -203,3 +203,24 @@ jobs:
       command: make report
       upload-artifact-name: 'aggregated-code-coverage'
       upload-artifact-path: 'package.json "./target/coverage"'
+
+  coverage-publish:
+    name: 'Coverage: publish'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+#    if: github.ref == 'refs/heads/main'
+    needs:
+      - test-linux-node-lts-active
+      - test-integration-saucelabs
+      - test-integration
+    steps:
+      - name: Download code coverage reports
+        uses: actions/download-artifact@v2
+        with:
+          path: target/coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: 'target/coverage/lcov.info'
