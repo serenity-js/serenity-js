@@ -66,7 +66,10 @@ jobs:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
     steps:
       - name: Open Sauce Connect Tunnel
-        if: ${{ secrets.sauce-username && secrets.sauce-access-key }}
+        # Use an env var because secrets can't be used in condition statements - https://github.com/actions/runner/issues/520
+        env:
+          NEEDS_SAUCE_LABS: ${{ secrets.sauce-username && secrets.sauce-access-key }}
+        if: ${{ env.NEEDS_SAUCE_LABS != '' }}
         uses: saucelabs/sauce-connect-action@v2
         with:
           username: ${{ secrets.sauce-username }}
