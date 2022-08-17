@@ -198,7 +198,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@fix/ci'
     with:
       upload-artifact-name: 'aggregated-code-coverage'
-      upload-artifact-path: 'package.json "./target/coverage"'
+      upload-artifact-path: 'package.json "target/coverage/*/coverage-final.json"'
 
   coverage-report:
     name: 'Coverage: report'
@@ -291,6 +291,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Decompress Libs
+        run: npm run version:print >> $GITHUB_STEP_SUMMARY
+
   #
   # Website
   #
@@ -334,4 +337,6 @@ jobs:
 #          FOLDER: documentation/serenity-js.org/build
 #          CLEAN: true
 
-# todo: check website path
+# todo: check website path is correct
+# todo: print published artifact versions to github summary
+

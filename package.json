@@ -65,7 +65,8 @@
     "lerna:bootstrap:@documentation": "lerna bootstrap --scope '@serenity-js/*' --scope '@documentation/*' --ignore '@examples/*' --ignore='@integration/*' --include-dependencies",
     "lerna:publish": "lerna publish --yes",
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
-    "lerna:test:publish": "lerna publish --no-git-tag-version --no-push"
+    "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
+    "version:print": "bin/print-versions.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
@@ -89,7 +90,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unicorn": "^43.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "glob": "^8.0.3",
+    "fast-glob": "^3.2.11",
     "istanbul-lib-coverage": "^3.2.0",
     "lerna": "^5.4.2",
     "mocha-testdata": "^1.2.0",
