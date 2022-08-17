@@ -57,6 +57,9 @@ jobs:
     env:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
     steps:
+      - name: debug env.CHROMEWEBDRIVER
+        run: ls ${{ env.CHROMEWEBDRIVER }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
