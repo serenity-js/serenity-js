@@ -210,9 +210,7 @@ jobs:
     continue-on-error: true
 #    if: github.ref == 'refs/heads/main'
     needs:
-      - test-linux-node-lts-active
-      - test-integration-saucelabs
-      - test-integration
+      - coverage-aggregate
     steps:
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
