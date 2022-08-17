@@ -135,7 +135,7 @@ jobs:
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
     concurrency:
-      group: saucelabs
+      group: saucelabs-${{ github.head_ref || github.run_id }}
       cancel-in-progress: true
     needs:
       - lint
@@ -353,3 +353,5 @@ jobs:
 # todo: check website path is correct
 # todo: print published artifact versions to github summary
 # todo: remove debug steps
+
+# todo: create a pull request for a website change to test the workflow
