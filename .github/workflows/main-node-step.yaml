@@ -72,7 +72,7 @@ jobs:
         with:
           install-command: ${{ inputs.npm-install-command }}
         env:
-          CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
+          CHROMEDRIVER_FILEPATH: $CHROMEWEBDRIVER/chromedriver
 
       - name: Download artifact
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
