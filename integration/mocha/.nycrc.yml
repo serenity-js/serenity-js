@@ -1,16 +1,12 @@
 extends: '../../.nycrc.yml'
 cwd: '../../packages'
-reportDir: '../target/coverage/integration-webdriverio-web'
+reportDir: '../target/coverage/integration-mocha'
 tempDir: '../.nyc_output'
 include:
   - 'core/src/**/*.ts'
   - 'core/lib/**/*.js'
   - 'mocha/src/**/*.ts'
   - 'mocha/lib/**/*.js'
-  - 'web/src/**/*.ts'
-  - 'web/lib/**/*.js'
-  - 'webdriverio/src/**/*.ts'
-  - 'webdriverio/lib/**/*.js'
 exclude:
   - '**/target/**'
   - '**/spec/**'

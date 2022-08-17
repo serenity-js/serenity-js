@@ -1,0 +1,62 @@
+name: Detect changes
+
+on:
+  workflow_call:
+    inputs:
+      fetch-depth:
+        description: "Number of commits to fetch. 0 indicates all history for all branches and tags"
+        type: number
+        required: false
+        default: 2
+      files:
+        description: "Check for changes using only this list of files (Defaults to the entire repo)"
+        type: string
+        required: false
+        default: ""
+      files-ignore:
+        description: "Ignore changes to this list of files"
+        type: string
+        required: false
+        default: ""
+
+    outputs:
+      all_modified_files:
+        description: List of all copied, modified, added and deleted files.
+        value: ${{ jobs.detect-changes.outputs.all_modified_files }}
+      only_modified:
+        description: Return true when all files provided using the files input have been modified.
+        value: ${{ jobs.detect-changes.outputs.only_modified }}
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on:  ubuntu-latest
+    outputs:
+      only_modified: ${{ steps.changed-files.outputs.only_modified }}
+      all_modified_files: ${{ steps.changed-files.outputs.all_modified_files }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+
+      - name: Detect changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v26.1
+        with:
+          files: ${{ inputs.files }}
+          files_ignore: ${{ inputs.files-ignore }}
+
+      - name: Summary (no changes)
+        if: steps.changed-files.outputs.only_modified == 'false'
+        run: |
+          echo "No changes detected" >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary (changes detected)
+        if: steps.changed-files.outputs.only_modified == 'true'
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "- $file" >> $GITHUB_STEP_SUMMARY
+          done

@@ -3,11 +3,17 @@
     "target": "es2019",
     "lib": ["es2019"],
     "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "outDir": "./lib",
+    "types": [
+      "node"
+    ]
   },
 
-  "exclude": [
-    "node_modules"
+  "include": [
+    "src/**/*.ts",
   ]
 }
