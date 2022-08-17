@@ -87,10 +87,15 @@ jobs:
         working-directory: ${{ inputs.download-artifact-path }}
         run:  ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
 
+      - name: List artifacts
+        if: ${{ inputs.download-artifact-path || inputs.download-artifact-name }}
+        working-directory: ${{ inputs.download-artifact-path }}
+        run: tree
+
       - name: Decompress artifacts
         if: ${{ inputs.download-artifact-path && inputs.download-artifact-name == '' }}
         working-directory: ${{ inputs.download-artifact-path }}
-        run:  ${{ env.SEVEN_ZIP }} x -aoa '*.zip'
+        run:  ${{ env.SEVEN_ZIP }} x -aoa **/*.zip
 
       - name: Execute command
         run: ${{ inputs.command }}
