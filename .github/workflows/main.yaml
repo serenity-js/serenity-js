@@ -58,7 +58,7 @@ jobs:
       upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
 
   test-linux-node-lts:
-    name: 'Test (Linux, Node LTS)'
+    name: 'Test: Linux, LTS'
     needs:
       - lint
       - compile
@@ -72,7 +72,7 @@ jobs:
       upload-artifact-path: 'package.json "target/**/*"'
 
   test-linux-node-lts-previous:
-    name: 'Test (Linux, Node LTS-1)'
+    name: 'Test: Linux, LTS-1'
     needs:
       - lint
       - compile
@@ -84,7 +84,7 @@ jobs:
       command: make test
 
   test-linux-node-lts-next:
-    name: 'Test (Linux, Node LTS+1)'
+    name: 'Test: Linux, LTS+1'
     needs:
       - lint
       - compile
