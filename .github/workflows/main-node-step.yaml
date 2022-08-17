@@ -75,7 +75,7 @@ jobs:
         with:
           install-command: ${{ inputs.npm-install-command }}
 
-      - name: Download artifact
+      - name: Download artifact(s)
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
         uses: actions/download-artifact@v3
         with:
@@ -84,7 +84,13 @@ jobs:
 
       - name: Decompress artifact
         if: ${{ inputs.download-artifact-name }}
+        working-directory: ${{ inputs.download-artifact-path }}
         run:  ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
+
+      - name: Decompress artifacts
+        if: ${{ inputs.download-artifact-path && inputs.download-artifact-name == '' }}
+        working-directory: ${{ inputs.download-artifact-path }}
+        run:  ${{ env.SEVEN_ZIP }} x -aoa '*.zip'
 
       - name: Execute command
         run: ${{ inputs.command }}
