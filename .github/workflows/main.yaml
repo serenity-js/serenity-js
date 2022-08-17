@@ -323,6 +323,9 @@ jobs:
       - name: Decompress website
         run: 7z x -aoa website.zip
 
+      - name: List all (debug)
+        run: tree
+
 #      - name: Publish website
 #        uses: JamesIves/github-pages-deploy-action@v4.3.0
 #        if: github.ref == 'refs/heads/main'
