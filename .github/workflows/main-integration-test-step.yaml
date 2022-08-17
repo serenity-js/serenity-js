@@ -67,12 +67,13 @@ jobs:
   execute:
     strategy:
       matrix:
-        modules: ${{ fromJSON(inputs.modules) }}
+        module: ${{ fromJSON(inputs.modules) }}
       fail-fast: false
 
     runs-on:  ${{ inputs.runs-on }}
     env:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
+      INTEGRATION_MODULE: ${{ matrix.module }}
     steps:
       - name: Open Sauce Connect Tunnel
         # Use an env var because secrets can't be used in condition statements - https://github.com/actions/runner/issues/520
