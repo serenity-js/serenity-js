@@ -189,7 +189,7 @@ jobs:
   # Reporting
   #
 
-  coverate-aggregate:
+  coverage-aggregate:
     name: 'Coverage: aggregate'
     needs:
       - test-linux-node-lts
@@ -203,7 +203,7 @@ jobs:
   coverage-report:
     name: 'Coverage: report'
     needs:
-      - coverate-aggregate
+      - coverage-aggregate
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
     with:
       node-version: 16.x
@@ -219,17 +219,20 @@ jobs:
     continue-on-error: true
 #    if: github.ref == 'refs/heads/main'
     needs:
-      - coverage-aggregate
+      - coverage-report
     steps:
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
         with:
           name: 'aggregated-code-coverage-report'
 
+      - name: List all (debug)
+        run: tree
+
       - name: Decompress code coverage reports
         run: '7z x -aoa aggregated-code-coverage-report.zip'
 
-      - name: List all
+      - name: List all (debug)
         run: tree
 
       - name: Coveralls
