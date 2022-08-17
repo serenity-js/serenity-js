@@ -130,6 +130,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           retention-days: 3
-          name: ${{ inputs.upload-artifact-name }}
+          name: ${{ inputs.upload-artifact-name }}-${{ matrix.module }}
           path: |
             ${{ inputs.upload-artifact-name }}.zip
