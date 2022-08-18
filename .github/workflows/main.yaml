@@ -14,14 +14,14 @@ jobs:
 
   detect-website-changes:
     name: 'Detect website changes'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
       files: |
         documentation/**
 
   detect-source-code-changes:
     name: 'Detect source code and configuration changes'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
       files: |
         .github/**
@@ -38,7 +38,7 @@ jobs:
       - detect-website-changes
       - detect-source-code-changes
     if: needs.detect-website-changes.outputs.only_modified == 'true' || needs.detect-source-code-changes.outputs.only_modified == 'true'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
       npm-install-command: npm ci
@@ -49,7 +49,7 @@ jobs:
     needs:
       - detect-source-code-changes
     if: needs.detect-source-code-changes.outputs.only_modified == 'true'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
@@ -66,7 +66,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -80,7 +80,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 14.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -92,7 +92,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -104,7 +104,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
       node-version: 16.x
@@ -118,7 +118,7 @@ jobs:
 #    needs:
 #      - lint
 #      - compile
-#    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+#    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
 #    with:
 #      runs-on: 'macos-latest'
 #      node-version: 16.x
@@ -135,12 +135,12 @@ jobs:
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
     concurrency:
-      group: saucelabs
+      group: saucelabs-${{ github.ref }}
       cancel-in-progress: true
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: '["webdriverio-web"]'
       runs-on: 'ubuntu-latest'
@@ -159,7 +159,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
         [
@@ -195,7 +195,7 @@ jobs:
       - test-linux-node-lts-active
       - test-integration-saucelabs
       - test-integration
-    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
     with:
       upload-artifact-name: 'aggregated-code-coverage'
       upload-artifact-path: 'package.json "target/coverage/*/coverage-final.json"'
@@ -204,7 +204,7 @@ jobs:
     name: 'Coverage: report'
     needs:
       - coverage-aggregate
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
       npm-install-command: npm ci
@@ -246,13 +246,7 @@ jobs:
         with:
           coverageLocations: |
             ${{github.workspace}}/target/coverage/lcov.info:lcov
-          debug: true
-
-      - name: CodeClimate
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ github.token }}
-          path-to-lcov: 'target/coverage/lcov.info'
+          debug: false
 
   #
   # NPM artifact publishing
@@ -317,7 +311,7 @@ jobs:
       - detect-source-code-changes
       - artifacts-publish
     if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.only_modified == 'true' && needs.artifacts-publish.result == 'success') }}
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/ci'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=site install
@@ -353,3 +347,5 @@ jobs:
 # todo: check website path is correct
 # todo: print published artifact versions to github summary
 # todo: remove debug steps
+
+# todo: create a pull request for a website change to test the workflow
