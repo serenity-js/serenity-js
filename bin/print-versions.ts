@@ -11,7 +11,7 @@ const input = [
 const paths = glob(input, { onlyFiles: false, globstar: true, absolute: true });
 
 console.log('| module | version |')
-console.log('--------------------')
+console.log('|--------|---------|')
 
 for (const pathToPackageJSON of paths) {
     const serenityPackage = JSON.parse(readFileSync(pathToPackageJSON).toString('utf8'));
