@@ -292,7 +292,7 @@ const config = {
                 routeBasePath: '/changelog',
                 showReadingTime: false,
                 postsPerPage: 5,
-                archiveBasePath: null,
+                archiveBasePath: undefined,
                 blogTagsListComponent: '@theme/BlogTagsListPage',
                 blogTagsPostsComponent: '@theme/BlogTagsPostsPage',
                 // authorsMapPath: 'authors.json',

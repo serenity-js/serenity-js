@@ -1,0 +1,14 @@
+extends: '../../.nycrc.yml'
+cwd: '../../packages'
+reportDir: '../target/coverage/integration-cucumber-4'
+tempDir: '../.nyc_output'
+include:
+  - 'core/src/**/*.ts'
+  - 'core/lib/**/*.js'
+  - 'cucumber/src/**/*.ts'
+  - 'cucumber/lib/**/*.js'
+exclude:
+  - '**/target/**'
+  - '**/spec/**'
+  - '**/*.d.ts'
+  - '**/*.spec.ts'

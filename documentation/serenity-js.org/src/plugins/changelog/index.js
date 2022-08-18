@@ -63,7 +63,7 @@ function processSection(section) {
         .match(new RegExp(`\n${ titlePattern }`));
 
     if (!titleLineMatch?.[0]) {
-        return null;
+        return undefined;
     }
 
     const title = titleLineMatch.groups.version;
@@ -209,7 +209,7 @@ async function ChangelogPlugin(context, options) {
                 ),
             );
             const authorsPath = path.join(generateDir, 'authors.json');
-            await fs.outputFile(authorsPath, JSON.stringify(authorsMap, null, 2));
+            await fs.outputFile(authorsPath, JSON.stringify(authorsMap, undefined, 2));
             const content = await blogPlugin.loadContent();
             content.blogPosts.forEach((post, index) => {
                 const pageIndex = Math.floor(index / options.postsPerPage);
