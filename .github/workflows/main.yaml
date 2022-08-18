@@ -246,13 +246,7 @@ jobs:
         with:
           coverageLocations: |
             ${{github.workspace}}/target/coverage/lcov.info:lcov
-          debug: true
-
-      - name: CodeClimate
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ github.token }}
-          path-to-lcov: 'target/coverage/lcov.info'
+          debug: false
 
   #
   # NPM artifact publishing
