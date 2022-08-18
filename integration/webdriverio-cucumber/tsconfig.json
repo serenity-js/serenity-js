@@ -1,12 +1,23 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "lib": ["es2019"],
+    "lib": ["es2019", "dom"],
     "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "outDir": "./lib",
+    "types": [
+      "node",
+      "webdriverio/async",
+      "chai-as-promised"
+    ]
   },
 
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

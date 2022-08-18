@@ -1,0 +1,26 @@
+name: 'Set CHROMEDRIVER_FILEPATH'
+description: "Configure CHROMEDRIVER_FILEPATH so that it can be installed from a local source"
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Set CHROMEDRIVER_FILEPATH (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        chcp 65001 #set code page to utf-8
+        echo ("CHROMEDRIVER_FILEPATH=" + $env:CHROMEWEBDRIVER + "\\chromedriver.exe") >> $env:GITHUB_ENV
+    - name: Get $CHROMEDRIVER_FILEPATH (Windows)
+      if: runner.os == 'Windows'
+      shell: 'pwsh'
+      run: echo ${{ env.CHROMEDRIVER_FILEPATH }}
+
+    - name: Set CHROMEDRIVER_FILEPATH (Linux & macOS)
+      if: runner.os != 'Windows'
+      shell: bash
+      run: echo "CHROMEDRIVER_FILEPATH=$CHROMEWEBDRIVER/chromedriver" >> $GITHUB_ENV
+    - name: Get $CHROMEDRIVER_FILEPATH (Linux & macOS)
+      if: runner.os != 'Windows'
+      shell: 'bash'
+      run: echo ${{ env.CHROMEDRIVER_FILEPATH }}

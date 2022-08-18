@@ -1,0 +1,43 @@
+name: Collect artifacts
+
+on:
+  workflow_call:
+    inputs:
+      upload-artifact-name:
+        description: 'The name of the artifact to upload after invoking the command'
+        type: string
+        required: true
+      upload-artifact-path:
+        description: 'The paths to include in the uploaded artifact'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    runs-on:  'ubuntu-latest'
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+
+      - name: List artifacts
+        working-directory: ${{ inputs.download-artifact-path }}
+        run: tree
+
+      - name: Decompress all artifacts to current directory
+        run:  ls **/*.zip | xargs -n1 7z x -aoa
+
+      - name: Compress artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        run: 7z a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+
+      - name: Upload artifact
+        if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+        uses: actions/upload-artifact@v3
+        with:
+          retention-days: 3
+          name: ${{ inputs.upload-artifact-name }}
+          path: |
+            ${{ inputs.upload-artifact-name }}.zip

@@ -1,0 +1,14 @@
+extends: '../../.nycrc.yml'
+cwd: '../../packages'
+reportDir: '../target/coverage/integration-mocha'
+tempDir: '../.nyc_output'
+include:
+  - 'core/src/**/*.ts'
+  - 'core/lib/**/*.js'
+  - 'mocha/src/**/*.ts'
+  - 'mocha/lib/**/*.js'
+exclude:
+  - '**/target/**'
+  - '**/spec/**'
+  - '**/*.d.ts'
+  - '**/*.spec.ts'

@@ -3,411 +3,283 @@ name: Release Pipeline
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - 'documentation/**'
   pull_request:
     branches: [ main ]
     types: [ opened, synchronize ]
-    paths-ignore:
-      - 'documentation/**'
+
+permissions:
+  contents: read
 
 jobs:
 
-  #
-  # Build
-  #
+  detect-website-changes:
+    name: 'Detect website changes'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
+    with:
+      files: |
+        documentation/**
+
+  detect-source-code-changes:
+    name: 'Detect source code and configuration changes'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
+    with:
+      files: |
+        .github/**
+        bin/**
+        packages/**
+        integration/**
+        *
+      files-ignore: |
+        *.md
 
   lint:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-# exclude documentation
-      - name: Install Node Modules (root)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Lint
-        run: make lint
+    name: 'Lint'
+    needs:
+      - detect-website-changes
+      - detect-source-code-changes
+    if: needs.detect-website-changes.outputs.only_modified == 'true' || needs.detect-source-code-changes.outputs.only_modified == 'true'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 16.x
+      npm-install-command: npm ci
+      command: make lint
 
   compile:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (libs)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=libs install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Compile
-        run: make COMPILE_SCOPE=libs compile
-
-      - name: Compress Libs
-        run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: compiled-libs
-          path: |
-            compiled-libs.zip
+    name: 'Compile'
+    needs:
+      - detect-source-code-changes
+    if: needs.detect-source-code-changes.outputs.only_modified == 'true'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=libs install
+      command: make COMPILE_SCOPE=libs compile
+      upload-artifact-name: 'compiled-libs'
+      upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
 
   #
   # Test
   #
 
   test-linux-node-lts-active:
-    name: test (Linux, LTS)
+    name: 'Test: Linux, LTS'
     needs:
       - lint
       - compile
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Test
-        run: make test
-
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: test-reports
-          path: |
-            target/**/*
-            package.json
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
+      upload-artifact-name: 'test-reports'
+      upload-artifact-path: 'package.json "target/**/*"'
 
   test-linux-node-lts-previous:
-    name: test (Linux, LTS-1)
+    name: 'Test: Linux, LTS-1'
     needs:
       - lint
       - compile
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 14.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
 
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Test
-        run: make test
-
-  test-linux-node-next:
-    name: test (Linux, Next)
+  test-linux-node-lts-next:
+    name: 'Test: Linux, LTS+1'
     needs:
       - lint
       - compile
-    runs-on:  ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.x
-
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Test
-        run: make test
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 18.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
 
   test-windows-node-lts-active:
-    name: test (Windows, LTS)
+    name: 'Test: Windows, LTS'
     needs:
       - lint
       - compile
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      runs-on: 'windows-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      download-artifact-name: 'compiled-libs'
+      command: make test
 
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z.exe x -aoa compiled-libs.zip
-      - name: Test
-        run: make test
+# todo: add macOS too?
+#  test-macos-node-lts-next:
+#    name: 'Test: macOS, LTS'
+#    needs:
+#      - lint
+#      - compile
+#    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+#    with:
+#      runs-on: 'macos-latest'
+#      node-version: 16.x
+#      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+#      download-artifact-name: 'compiled-libs'
+#      command: make test
 
   #
-  # Integration test
+  # Integration
   #
 
   test-integration-saucelabs:
-    name: integration (SauceLabs)
+    name: 'Integration: SauceLabs'
     # don't run on forks which won't have access to secrets
     if: ${{ !github.event.pull_request.head.repo.fork }}
+    concurrency:
+      group: saucelabs-${{ github.ref }}
+      cancel-in-progress: true
     needs:
       - lint
       - compile
-    runs-on: ubuntu-latest
-    steps:
-      - name: Open Sauce Connect Tunnel
-        uses: saucelabs/sauce-connect-action@v2
-        with:
-          username: ${{ secrets.SAUCE_USERNAME }}
-          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@integration)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@integration install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run: 7z x -aoa compiled-libs.zip
-
-      - name: Integration Test
-        run: make INTEGRATION_SCOPE=saucelabs integration-test
-        env:
-          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          SAUCE_TUNNEL_ID: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
-
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: test-integration-saucelabs
-          path: integration/webdriverio-web/target/
-
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: test-integration-saucelabs-coverage-reports
-          path: |
-            target/**/*
-            package.json
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: '["webdriverio-web"]'
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports-saucelabs'
+      upload-artifact-path: 'package.json "target/**/*"'
+    secrets:
+      sauce-username: ${{ secrets.SAUCE_USERNAME }}
+      sauce-access-key: ${{ secrets.SAUCE_ACCESS_KEY }}
 
   test-integration:
-    name: integration (${{ matrix.module }})
+    name: 'Integration'
     needs:
       - lint
       - compile
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module:
-          - cucumber-1
-          - cucumber-2
-          - cucumber-3
-          - cucumber-4
-          - cucumber-5
-          - cucumber-6
-          - cucumber-7
-          - cucumber-8
-          - jasmine
-          - mocha
-          - playwright
-          - protractor
-          - webdriverio
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (@integration)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=@integration install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run: 7z x -aoa compiled-libs.zip
-
-      - name: Integration Test
-        run: make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
-
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          retention-days: 3
-          name: test-integration-reports-${{ matrix.module }}
-          path: |
-            integration/**/target/**/*
-            package.json
-
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 1
-          name: test-integration-coverage-reports-${{ matrix.module }}
-          path: |
-            target/**/*
-            package.json
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: |
+        [
+          "cucumber-1",
+          "cucumber-2",
+          "cucumber-3",
+          "cucumber-4",
+          "cucumber-5",
+          "cucumber-6",
+          "cucumber-7",
+          "cucumber-8",
+          "jasmine",
+          "mocha",
+          "playwright",
+          "protractor",
+          "webdriverio"
+        ]
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports'
+      upload-artifact-path: 'package.json "target/**/*"'
 
   #
-  # Publish
+  # Reporting
   #
 
-  report-coverage:
-    runs-on:  ubuntu-latest
+  coverage-aggregate:
+    name: 'Coverage: aggregate'
     needs:
       - test-linux-node-lts-active
       - test-integration-saucelabs
       - test-integration
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
+    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
+    with:
+      upload-artifact-name: 'aggregated-code-coverage'
+      upload-artifact-path: 'package.json "target/coverage/*/coverage-final.json"'
 
-      - name: Install Node Modules (root)
-        uses: bahmutov/npm-install@v1
+  coverage-report:
+    name: 'Coverage: report'
+    needs:
+      - coverage-aggregate
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 16.x
+      npm-install-command: npm ci
+      download-artifact-name: 'aggregated-code-coverage'
+      command: make report
+      upload-artifact-name: 'aggregated-code-coverage-report'
+      upload-artifact-path: 'package.json target'
+
+  coverage-publish:
+    name: 'Coverage: publish'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+#    if: github.ref == 'refs/heads/main'
+    needs:
+      - coverage-report
+    steps:
+      - uses: actions/checkout@v3
         with:
-          install-command: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+          fetch-depth: 2
 
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
         with:
-          path: target/coverage
+          name: 'aggregated-code-coverage-report'
 
-      # DEBUG
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: target/coverage
+      - name: Decompress code coverage reports
+        run: '7z x -aoa aggregated-code-coverage-report.zip'
 
-      - name: Merge code coverage reports
-        run: make report
-
-      - uses: actions/upload-artifact@v2
+      - name: Coveralls
+        uses: coverallsapp/github-action@1.1.3
         with:
-          retention-days: 3
-          name: code-coverage
-          path: ./target/coverage
+          github-token: ${{ github.token }}
+          path-to-lcov: 'target/coverage/lcov.info'
 
-      - name: Publish coverage
-        continue-on-error: true
-        if: github.ref == 'refs/heads/main'
-        run: npm run coverage:publish
+      - name: CodeClimate
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/target/coverage/lcov.info:lcov
+          debug: false
 
-  publish-artifacts:
+  #
+  # NPM artifact publishing
+  #
+
+  artifacts-publish:
+    name: 'NPM: publish artifacts'
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs:
-      - lint
       - test-linux-node-lts-active
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
       - test-integration-saucelabs
       - test-integration
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
         with:
-          github_token:   ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token:      ${{ secrets.NPM_TOKEN }}
+          git_username: ${{ secrets.RELEASE_GH_USERNAME }}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
+        run: 7z x -aoa compiled-libs.zip
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -426,9 +298,54 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - uses: actions/upload-artifact@v2
+      - name: Print versions
+        run: npm run version:print >> $GITHUB_STEP_SUMMARY
+
+  #
+  # Website
+  #
+  website-build:
+    name: 'Website: build'
+    needs:
+      - detect-website-changes
+      - detect-source-code-changes
+      - artifacts-publish
+    if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.only_modified == 'true' && needs.artifacts-publish.result == 'success') }}
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=site install
+      command: make site
+      upload-artifact-name: 'website'
+      upload-artifact-path: 'documentation/serenity-js.org/build'
+
+  website-publish:
+    name: 'Website: publish'
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+      - website-build
+    steps:
+      - name: Download website artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website
+      - name: Decompress website
+        run: 7z x -aoa website.zip
+
+      - name: List all (debug)
+        run: tree
+
+#      - name: Publish website
+#        uses: JamesIves/github-pages-deploy-action@v4.3.0
+#        if: github.ref == 'refs/heads/main'
 #        with:
-#          retention-days: 3
-#          name: changelog
-#          path: |
-#            CHANGELOG.md
+#          BRANCH: gh-pages
+#          FOLDER: documentation/serenity-js.org/build
+#          CLEAN: true
+
+# todo: check website path is correct
+# todo: print published artifact versions to github summary
+# todo: remove debug steps
+
+# todo: create a pull request for a website change to test the workflow
