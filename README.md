@@ -5,7 +5,7 @@
 [![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@serenity-js/core)](https://libraries.io/npm/@serenity-js%2Fcore)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fserenity-js%2Fserenity-js?ref=badge_shield)
 
-[![Build Status](https://github.com/serenity-js/serenity-js/workflows/Release%20Pipeline/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
+[![Build Status](https://github.com/serenity-js/serenity-js/workflows/Main/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/jan-molak)](https://app.saucelabs.com/u/jan-molak)
 [![CodeFactor](https://www.codefactor.io/repository/github/serenity-js/serenity-js/badge)](https://www.codefactor.io/repository/github/serenity-js/serenity-js)
 [![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=main)](https://coveralls.io/github/serenity-js/serenity-js?branch=main)
