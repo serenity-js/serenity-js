@@ -19,6 +19,7 @@ on:
         required: false
         default: ""
 
+    # https://github.com/tj-actions/changed-files/blob/main/action.yml
     outputs:
       all_modified_files:
         description: List of all copied, modified, added and deleted files.
@@ -26,6 +27,9 @@ on:
       only_modified:
         description: Return true when all files provided using the files input have been modified.
         value: ${{ jobs.detect-changes.outputs.only_modified }}
+      any_changed:
+        description: Return true only when any files provided using the files input have changed.
+        value: ${{ jobs.detect-changes.outputs.any_changed }}
 
 permissions:
   contents: read
@@ -50,12 +54,12 @@ jobs:
           files_ignore: ${{ inputs.files-ignore }}
 
       - name: Summary (no changes)
-        if: steps.changed-files.outputs.only_modified == 'false'
+        if: steps.changed-files.outputs.any_changed == 'false'
         run: |
           echo "No changes detected" >> $GITHUB_STEP_SUMMARY
 
       - name: Summary (changes detected)
-        if: steps.changed-files.outputs.only_modified == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "- $file" >> $GITHUB_STEP_SUMMARY
