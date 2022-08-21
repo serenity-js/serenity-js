@@ -39,7 +39,9 @@ jobs:
     needs:
       - detect-website-changes
       - detect-source-code-changes
-    if: needs.detect-website-changes.outputs.has_changes == 'true' || needs.detect-source-code-changes.outputs.has_changes == 'true'
+    if: |
+      needs.detect-website-changes.outputs.has_changes == 'true' ||
+      needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
@@ -319,12 +321,12 @@ jobs:
       always() &&
       (
         (
-          needs.detect-website-changes.result == 'success' && 
+          needs.detect-website-changes.result == 'success' &&
           needs.detect-website-changes.outputs.has_changes == 'true'
         ) ||
         (
-          needs.detect-source-code-changes.result == 'success' && 
-          needs.detect-source-code-changes.outputs.has_changes == 'true' && 
+          needs.detect-source-code-changes.result == 'success' &&
+          needs.detect-source-code-changes.outputs.has_changes == 'true' &&
           needs.artifacts-publish.result == 'success'
         )
       )
@@ -360,9 +362,3 @@ jobs:
 #          BRANCH: gh-pages
 #          FOLDER: documentation/serenity-js.org/build
 #          CLEAN: true
-
-# todo: check website path is correct
-# todo: print published artifact versions to github summary
-# todo: remove debug steps
-
-# todo: create a pull request for a website change to test the workflow
