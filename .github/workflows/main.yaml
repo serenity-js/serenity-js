@@ -306,13 +306,28 @@ jobs:
   #
   # Website
   #
+
+  # Website build uses always() as otherwise it won't be executed if artifacts-publish was skipped because there were no code changes
+  #   https://github.com/actions/runner/issues/491#issuecomment-660122693
   website-build:
     name: 'Website: build'
     needs:
       - detect-website-changes
       - detect-source-code-changes
       - artifacts-publish
-    if: ${{ needs.detect-website-changes.outputs.has_changes == 'true' || (needs.detect-source-code-changes.outputs.has_changes == 'true' && needs.artifacts-publish.result == 'success') }}
+    if: |
+      always() &&
+      (
+        (
+          needs.detect-website-changes.result == 'success' && 
+          needs.detect-website-changes.outputs.has_changes == 'true'
+        ) ||
+        (
+          needs.detect-source-code-changes.result == 'success' && 
+          needs.detect-source-code-changes.outputs.has_changes == 'true' && 
+          needs.artifacts-publish.result == 'success'
+        )
+      )
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
