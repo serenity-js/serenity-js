@@ -1,0 +1,36 @@
+image:
+  file: .gitpod/.gitpod.Dockerfile
+
+ports:
+  - port: 3000
+    onOpen: notify
+    visibility: public
+
+tasks:
+  - name: 'Install Node modules and compile Serenity/JS'
+    init: |
+        make install compile
+
+  - name: 'Install VSCode Extensions'
+    command: |
+        echo "Wait for VSCode to boot up..."
+        sleep 10
+        echo "Installing Cucumber extension..."
+        code --install-extension /vscode-extensions/cucumber-official.vsix
+
+  - name: 'Start Serenity/JS website'
+    command: >
+      cd documentation/serenity-js.org &&
+      npm start
+
+  - name: 'Welcome'
+    command: |
+      echo "To browse the website, go to:"
+      gp url 3000
+
+vscode:
+  extensions:
+    - EditorConfig.EditorConfig
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    # - CucumberOpen.cucumber-official  # pending: https://github.com/cucumber/vscode/issues/98
