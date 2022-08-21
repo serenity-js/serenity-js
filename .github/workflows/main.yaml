@@ -39,7 +39,7 @@ jobs:
     needs:
       - detect-website-changes
       - detect-source-code-changes
-    if: needs.detect-website-changes.outputs.only_modified == 'true' || needs.detect-source-code-changes.outputs.any_changed == 'true'
+    if: needs.detect-website-changes.outputs.any_changed == 'true' || needs.detect-source-code-changes.outputs.any_changed == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
@@ -312,7 +312,7 @@ jobs:
       - detect-website-changes
       - detect-source-code-changes
       - artifacts-publish
-    if: ${{ needs.detect-website-changes.outputs.only_modified == 'true' || (needs.detect-source-code-changes.outputs.any_changed == 'true' && needs.artifacts-publish.result == 'success') }}
+    if: ${{ needs.detect-website-changes.outputs.any_changed == 'true' || (needs.detect-source-code-changes.outputs.any_changed == 'true' && needs.artifacts-publish.result == 'success') }}
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
