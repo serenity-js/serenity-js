@@ -17,7 +17,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
  && sudo rm microsoft.gpg \
  && sudo apt-get update \
  && sudo apt-get install -y \
-        chromium \
+        chromium-browser \
         chromium-driver \
         firefox \
         microsoft-edge-dev
