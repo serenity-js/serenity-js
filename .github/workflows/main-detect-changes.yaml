@@ -19,8 +19,13 @@ on:
         required: false
         default: ""
 
-    # https://github.com/tj-actions/changed-files/blob/main/action.yml
     outputs:
+      has_changes:
+        description: Returns if any changes to the specified list of files have been detected
+        value: ${{ jobs.detect-changes.outputs.has_changes }}
+
+      # From https://github.com/tj-actions/changed-files/blob/main/action.yml
+      # Naming and descriptions as per the original implementation
       all_modified_files:
         description: List of all copied, modified, added and deleted files.
         value: ${{ jobs.detect-changes.outputs.all_modified_files }}
@@ -38,8 +43,10 @@ jobs:
   detect-changes:
     runs-on:  ubuntu-latest
     outputs:
+      has_changes: ${{ steps.changed-files.outputs.any_changed }}
       only_modified: ${{ steps.changed-files.outputs.only_modified }}
       all_modified_files: ${{ steps.changed-files.outputs.all_modified_files }}
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
