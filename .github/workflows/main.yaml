@@ -25,12 +25,13 @@ jobs:
     with:
       files: |
         .github/actions/**
-        .github/actions/workflows/main*.yaml
+        .github/workflows/main*.yaml
         bin/**
         packages/**
         integration/**
         *
       files-ignore: |
+        .github/workflows/chore*.yaml
         documentation/**
         *.md
         package-lock.json
