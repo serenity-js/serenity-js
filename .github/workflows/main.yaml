@@ -24,7 +24,8 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
       files: |
-        .github/**
+        .github/actions/**
+        .github/actions/workflows/main*.yaml
         bin/**
         packages/**
         integration/**
