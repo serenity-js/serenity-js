@@ -8,6 +8,8 @@ ports:
 
 tasks:
   - name: 'Install Node modules and compile Serenity/JS'
+    env:
+      CHROMEDRIVER_FILEPATH: /usr/lib/chromium-browser/chromedriver
     init: |
         make install compile
 
@@ -18,14 +20,14 @@ tasks:
         echo "Installing Cucumber extension..."
         code --install-extension /vscode-extensions/cucumber-official.vsix
 
-  - name: 'Start Serenity/JS website'
+  - name: 'Serenity/JS website'
     command: >
       cd documentation/serenity-js.org &&
       npm start
 
   - name: 'Welcome'
     command: |
-      echo "To browse the website, go to:"
+      echo "To view the website, go to:"
       gp url 3000
 
 vscode:
