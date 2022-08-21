@@ -18,6 +18,7 @@ jobs:
     with:
       files: |
         documentation/**
+        package-lock.json
 
   detect-source-code-changes:
     name: 'Detect source code and configuration changes'
@@ -30,6 +31,7 @@ jobs:
         integration/**
         *
       files-ignore: |
+        documentation/**
         *.md
         package-lock.json
 
