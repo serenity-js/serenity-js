@@ -1,8 +1,8 @@
 name: "Chore: Delete old workflows"
 on:
   schedule:
-    - cron: '0 16 * * *'
-# Run daily, at 16:00 on the 1st day of month.
+    # Run daily, at 19:14
+    - cron: '14 19 * * *'
 
 jobs:
   delete_old_workflows:
@@ -14,5 +14,5 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: 30
-          keep_minimum_runs: 10
-          dry_run: 'true'
+          keep_minimum_runs: 5
+#          dry_run: 'true'
