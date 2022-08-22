@@ -8,7 +8,7 @@ ENV SHELL=/bin/bash
 USER gitpod
 
 # ######################################################################################################################
-# Install Firefox and
+# Install Firefox and Microsoft Edge
 #   https://github.com/webdriverio/webdriverio/blob/36d8c142c6efd3323199819b86e185acc5a5a800/.gitpod/dev.dockerfile
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
@@ -39,7 +39,7 @@ RUN bash -c "export GOOGLE_CHROME_VERSION=$(/usr/bin/google-chrome --version | s
 # ######################################################################################################################
 # Install Playwright
 #
-# Playwright has a peculiar installation procedure, where it fails silently if you try to install it on GitPod
+# Playwright has a peculiar installation procedure, where it fails silently if you try to install it on Gitpod
 # as it assumes it's being installed in "dev mode".
 #   https://github.com/microsoft/playwright/blob/35a9daa4255f2ba556d4d7af6243cc84d1ac4f2a/packages/playwright/install.js#L19-L24
 #

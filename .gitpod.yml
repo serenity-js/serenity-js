@@ -36,3 +36,13 @@ vscode:
     - dbaeumer.vscode-eslint
     - eamodio.gitlens
     # - CucumberOpen.cucumber-official  # pending: https://github.com/cucumber/vscode/issues/98
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: prevent-merge-on-error
+    addComment: true
+    addBadge: false
