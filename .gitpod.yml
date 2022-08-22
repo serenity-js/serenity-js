@@ -8,9 +8,9 @@ ports:
 
 tasks:
   - name: 'Install Node modules and compile Serenity/JS'
-    env:
-      CHROMEDRIVER_FILEPATH: /usr/lib/chromium-browser/chromedriver
     init: |
+        nvm install
+        nvm use
         make install compile
 
   - name: 'Install VSCode Extensions'
