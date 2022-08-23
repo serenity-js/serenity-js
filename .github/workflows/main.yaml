@@ -31,11 +31,15 @@ jobs:
         integration/**
         *
       files-ignore: |
-        .github/workflows/chore*.yaml
+        .github/workflows/chore-*.yaml
+        .github/workflows/pr-*.yaml
         .gitpod/**
-        .gitpod
+        .gitpod.yml
+        .husky/**
         documentation/**
         *.md
+        .commitlintrc.js
+        .cz-*.js
         package-lock.json
 
   lint:
