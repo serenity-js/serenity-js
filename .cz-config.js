@@ -18,7 +18,7 @@ module.exports = {
     scopeOverrides: {
         'feat':     [ ...scopes.serenityPackages() ],
         'fix':      [ ...scopes.serenityPackages() ],
-        'docs':     [ ...scopes.serenityPackages(), scopes.documentation() ],
+        'docs':     [ ...scopes.serenityPackages(), ...scopes.documentation() ],
         'style':    [ ...scopes.all() ],
         'refactor': [ ...scopes.serenityPackages() ],
         'perf':     [ ...scopes.serenityPackages() ],
