@@ -85,7 +85,7 @@ const config = {
                     { label: 'Handbook', type: 'doc', docId: 'getting-started/why-serenity-js', position: 'left' },
                     { label: 'API', to: 'api/core', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
-                    { to: '/contribute', label: 'Contribute', position: 'left' },
+                    { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
                     {
                         href: 'https://github.com/serenity-js/serenity-js',
