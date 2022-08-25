@@ -376,7 +376,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
-     * Unlike executing synchronous JavaScript with {@apilink BrowseTheWeb#executeScript},
+     * Unlike executing synchronous JavaScript with {@apilink Page.executeScript},
      * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      * This callback will always be injected into the executed function as the last argument,
@@ -425,8 +425,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     ): Promise<Result>;
 
     /**
-     * Returns the last result of calling {@apilink BrowseTheWeb#executeAsyncScript}
-     * or {@apilink BrowseTheWeb.executeScript}
+     * Returns the last result of calling {@apilink Page.executeAsyncScript}
+     * or {@apilink Page.executeScript}
      */
     abstract lastScriptExecutionResult<R = any>(): R;
 
