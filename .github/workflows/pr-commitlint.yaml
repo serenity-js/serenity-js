@@ -1,0 +1,20 @@
+name: Commit message linter
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize ]
+
+permissions:
+  contents: read
+
+jobs:
+  check-commit-messages:
+    name: Check commit message format
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    with:
+      fetch-depth: 0
+      node-version: 16.x
+      npm-install-command: npm ci
+      command: |
+        npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose >> $GITHUB_STEP_SUMMARY

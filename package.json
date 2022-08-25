@@ -54,7 +54,7 @@
     "coverage:merge": "bin/istanbul-merge.ts",
     "coverage:report": "nyc report --reporter=html --reporter=lcovonly --temp-directory=./target/coverage --report-dir=./target/coverage",
     "coverage:publish": "cat ./target/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "commit": "git-cz",
+    "commit": "bin/commit.ts",
     "lerna": "lerna",
     "lerna:bootstrap:all": "lerna bootstrap",
     "lerna:bootstrap:libs": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/testing-tools' --scope '@integration/cucumber-specs' --ignore='@documentation/*' --ignore '@examples/*' --include-dependencies",
@@ -66,9 +66,12 @@
     "lerna:publish": "lerna publish --yes",
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
     "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
-    "version:print": "bin/print-versions.ts"
+    "version:print": "bin/print-versions.ts",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
     "@types/istanbul-lib-coverage": "^2.0.4",
@@ -80,10 +83,10 @@
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "chromedriver": "^104.0.0",
-    "commitizen": "^4.2.5",
     "coveralls": "^3.1.1",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog": "3.3.0",
+    "cz-customizable": "6.9.1",
     "eslint": "^8.22.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-mocha": "^10.1.0",
@@ -91,8 +94,9 @@
     "eslint-plugin-unicorn": "^43.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "fast-glob": "^3.2.11",
+    "husky": "^8.0.1",
     "istanbul-lib-coverage": "^3.2.0",
-    "lerna": "^5.4.2",
+    "lerna": "^5.4.3",
     "mocha-testdata": "^1.2.0",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
@@ -113,10 +117,5 @@
   "engines": {
     "node": "^14 || ^16 || ^18",
     "npm": "^6 || ^7 || ^8"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }
