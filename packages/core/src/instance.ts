@@ -154,7 +154,7 @@ export function engage(actors: Cast): void {
  * - {@apilink engage}
  * - {@apilink Actor}
  * - {@apilink Cast}
- * - {@apilink Serenity#theActorCalled}
+ * - {@apilink Serenity.theActorCalled}
  *
  * @param name
  *  The name of the actor to instantiate or retrieve
