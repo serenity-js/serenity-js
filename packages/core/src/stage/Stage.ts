@@ -105,7 +105,7 @@ export class Stage {
     }
 
     /**
-     * Returns the last {@apilink Actor} instantiated via {@apilink Stage#actor}.
+     * Returns the last {@apilink Actor} instantiated via {@apilink Stage.actor}.
      * Useful when you don't can't or choose not to reference the actor by their name.
      *
      * @throws {LogicError}
@@ -128,7 +128,7 @@ export class Stage {
 
     /**
      * Configures the Stage to prepare {@apilink Actor|Actors}
-     * instantiated via {@apilink Stage#actor} using the provided {@apilink Cast}.
+     * instantiated via {@apilink Stage.actor} using the provided {@apilink Cast}.
      *
      * @param actors
      */
@@ -140,7 +140,7 @@ export class Stage {
 
     /**
      * Assigns listeners to be notified of {@apilink DomainEvent|DomainEvents}
-     * emitted via {@apilink Stage#announce}.s
+     * emitted via {@apilink Stage.announce}.s
      *
      * @param listeners
      */
@@ -201,7 +201,7 @@ export class Stage {
      * Returns the {@apilink CorrelationId} for the current scene.
      *
      * #### Learn more
-     * - {@apilink Stage#assignNewSceneId}
+     * - {@apilink Stage.assignNewSceneId}
      */
     currentSceneId(): CorrelationId {
         return this.currentScene;
@@ -215,7 +215,7 @@ export class Stage {
      * when instantiating the {@apilink ActivityStarts} event.
      *
      * #### Learn more
-     * - {@apilink Stage#currentActivityId}
+     * - {@apilink Stage.currentActivityId}
      */
     assignNewActivityId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
@@ -228,7 +228,7 @@ export class Stage {
      * Returns the {@apilink CorrelationId} for the current {@apilink Activity}.
      *
      * #### Learn more
-     * - {@apilink Stage#assignNewSceneId}
+     * - {@apilink Stage.assignNewSceneId}
      */
     currentActivityId(): CorrelationId {
         if (! this.currentActivity) {
