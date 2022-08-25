@@ -22,7 +22,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Checks if a note identified by `subject` exists in the notepad.
      *
      * #### Learn more
-     * - {@apilink Notepad#has}
+     * - {@apilink Notepad.has}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -40,7 +40,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Retrieves a note, identified by `subject`, from the notepad.
      *
      * #### Learn more
-     * - {@apilink Notepad#get}
+     * - {@apilink Notepad.get}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -96,7 +96,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad#set}
+     * - {@apilink Notepad.set}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -166,7 +166,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad#delete}
+     * - {@apilink Notepad.delete}
      *
      * @param subject
      *
@@ -202,7 +202,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad#clear}
+     * - {@apilink Notepad.clear}
      */
     clear(): Interaction {
         return Interaction.where('#actor clears their notepad', actor => {
@@ -231,7 +231,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad#size}
+     * - {@apilink Notepad.size}
      */
     size(): QuestionAdapter<number> {
         return Question.about('number of notes', async actor => {
