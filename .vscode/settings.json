@@ -1,0 +1,16 @@
+{
+  "files.autoSave": "onFocusChange",
+  "workbench.startupEditor": "readme",
+  "gitlens.showWelcomeOnInstall": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "cucumber.features": [
+    "examples/*-cucumber/features/**/*.feature"
+  ],
+  "cucumber.glue": [
+    "examples/*-cucumber/features/**/*.steps.ts"
+  ],
+  "cucumber.parameterTypes": [
+    { "name": "actor", "regexp": "[A-Z][a-z]+" },
+    { "name": "pronoun", "regexp": "he|she|they|his|her|their" }
+  ]
+}
