@@ -119,6 +119,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
             argv:   argv.concat('--format', `${ pathToSerenityListener }:${ output.value() }`, ...pathsToScenarios),
             cwd:    this.loader.cwd,
             stdout: process.stdout,
+            stderr: process.stderr,
             env:    process.env,
         })
         .run()
