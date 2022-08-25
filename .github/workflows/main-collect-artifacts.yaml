@@ -1,14 +1,14 @@
-name: Collect artifacts
+name: "Main: Collect artifacts"
 
 on:
   workflow_call:
     inputs:
       upload-artifact-name:
-        description: 'The name of the artifact to upload after invoking the command'
+        description: "The name of the artifact to upload after invoking the command"
         type: string
         required: true
       upload-artifact-path:
-        description: 'The paths to include in the uploaded artifact'
+        description: "The paths to include in the uploaded artifact"
         type: string
         required: true
 

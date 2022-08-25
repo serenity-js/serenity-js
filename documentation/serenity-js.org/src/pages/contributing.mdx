@@ -1,0 +1,237 @@
+---
+title: Contribute
+---
+import Figure from '@site/src/components/Figure'
+
+# Contributing to Serenity/JS
+
+Hello and thank you for deciding to contribute to help Serenity/JS move forward!
+
+You're awesome and we greatly appreciate your time and talent &#x1F60A;
+
+Serenity/JS is a safe space where everyone is welcome to contribute, so feel free to ask questions and discuss the ideas you have on the [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby) and we'll do our best to help you get started.
+
+If anything in the Serenity/JS documentation is not as clear as it could be or you have ideas on how to improve the codebase to make the life of our community easier - please let us know! Your feedback will help us make Serenity/JS better for everyone.
+
+[![Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+
+If you experience any issues trying to make your contribution, please raise a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues). Your developer experience is really important to us, so we treat any issues here with the same seriousness we treat defects in code 🐛 
+
+## Find your way to contribute
+
+Serenity/JS offers a variety of ways to contribute. If you'd like help finding a way that works for you, join the [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby) and reach out to the [maintainers](https://github.com/orgs/serenity-js/people) there.
+
+The most popular ways to contribute include:
+
+- helping us spread a good word about Serenity/JS, for example by [tweeting about your experience](https://twitter.com/intent/tweet?text=Check+out+%23fullstack+acceptance+%23testing+with+%40SerenityJS%20at%20https%3A%2F%2Fserenity-js.org&amp;url=https%3A%2F%2Fserenity-js.org%2F), or simply giving it a ⭐ on [GitHub](https://github.com/serenity-js/serenity-js)
+- giving the [Serenity/JS tickets](https://github.com/serenity-js/serenity-js/issues) you care about a 👍
+- improving documentation
+- helping maintainers on the [Serenity/JS Community Chat](https://badges.gitter.im/serenity-js/Lobby.svg)
+- creating educational content - blog posts, tutorials, videos are all welcome!
+- reporting any bugs you encounter while using Serenity/JS
+- raising feature requests describing what Serenity/JS should also help you do
+- contributing code
+- sponsoring our work via the [GitHub Sponsors programme](https://github.com/sponsors/serenity-js)
+
+If you're new to open source and would like to get up to speed with the basic concepts, check out this excellent guide on ["How to make your first open source contribution"](https://egghead.io/talks/git-how-to-make-your-first-open-source-contribution) by Ceora Ford.
+
+## Join the GitHub Sponsors programme!
+
+Delivering new features, writing documentation, answering your questions on GitHub, StackOverflow and Gitter, and making sure that Serenity/JS is up-to-date with all the security patches and bug fixes take **a lot of time**.
+
+We're talking about an average of **40-100 hours** per maintainer per month **on top** of our day jobs, for which none of us are getting paid.
+
+We're using the GitHub Sponsors program to help raise funds and secure development time to make Serenity/JS better for everyone! 🚀
+
+If you feel that Serenity/JS has helped you save at least a couple of dollars worth of your time, please support our work by joining the Serenity/JS [GitHub Sponsors programme](https://github.com/sponsors/serenity-js)!
+
+:::tip Did you know?
+As a thank you for your support, you'll also get access to exclusive tutorials and best practice articles to help take your Serenity/JS skills to the next level!
+
+[![Serenity/JS GitHub Sponsors programme](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/serenity-js)
+:::
+
+## Help to improve the docs
+
+[Serenity-js.org website](https://serenity-js.org) is made of two main components:
+- [Serenity/JS Handbook](/handbook/getting-started/why-serenity-js) with articles and tutorials helping you to get started with the framework
+- [Serenity/JS API Documentation](/api/) describing the public APIs available to developers using Serenity/JS to build their tests and test automation systems.
+
+### Serenity/JS Handbook
+
+The [Serenity/JS Handbook](/handbook) is an evolving project and there are parts of the book that you might find incomplete, or simply not written yet.
+
+You can contribute to the evolution of the Serenity/JS Handbook by:
+- correcting any errors you find - via `Edit this page` link at the bottom of each page and raising a [Pull Request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
+- sharing your ideas for topics you'd like to see covered - via [GitHub issues](https://github.com/serenity-js/serenity-js/issues/new)
+- sponsoring the Serenity/JS project via the [GitHub Sponsors Programme](https://github.com/sponsors/serenity-js), so that the maintainers can secure more time to write and improve the documentation for you
+
+### Serenity/JS API Docs
+
+The [Serenity/JS API Documentation](/api) is generated automatically based on the [TSDoc comments](https://typedoc.org/guides/doccomments/) in the codebase. If you spot an issue in the API docs or want to add a new example, click on the <b><i class="codicon codicon-file-code"></i></b> code icon next to the name of the class or method of interest, just like [this one here](api/core/class/Actor#Methods).
+
+The <b><i class="codicon codicon-file-code"></i></b> code icon will take you straight to the TSDoc used to generate a given description or example, which you can fix via Pull Request the same way you'd fix the code.
+
+### Proposing changes to the website
+
+The Serenity/JS website is located under [`documentation`](https://github.com/serenity-js/serenity-js/tree/main/documentation) in the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js).
+
+The website is built with [Docusaurus](https://docusaurus.io/) and uses the [Docusaurus Plugin TypeDoc API](https://github.com/milesj/docusaurus-plugin-typedoc-api/) to produce the API docs.
+
+To start the local development server, run:
+
+```shellsession
+make install
+cd documentation/serenity-js.org
+npm start
+```
+
+:::note
+While Docusaurus supports hot reloading, the TypeDoc API plugin [does not just](https://github.com/milesj/docusaurus-plugin-typedoc-api/issues/25). If you're working on updating the API docs, you'll need to restart the development server to see your changes.
+:::
+
+To test the build process, run:
+```shellsession
+make install
+make site
+```
+
+:::tip Did you know? 
+
+Serenity/JS works with [Gitpod.io](https://gitpod.io), which means you can preview Serenity/JS website and the API docs with your proposed changes right here in your browser, without having to set up or install anything on your computer. 
+
+To learn more about Gitpod, check out [Gitpod Screencasts](https://www.gitpod.io/screencasts), or jump straight into Serenity/JS codebase using the button below.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/serenity-js/serenity-js)
+
+:::
+
+
+## Report an issue
+
+If you believe you have found a bug in Serenity/JS please raise a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js).
+
+When reporting a bug, please kindly remember that the easier you make it for the maintainers to "see what you see", the sooner your ticket will be looked at:
+- Give the ticket a succinct yet descriptive **title** - compare "Feature X is broken" vs, "Feature X is not triggered upon event Y"
+- Mention the **environment** where you spotted the bug. What was the browser and operating system? What versions of runtime dependencies did you use?
+- Provide a **detailed description** of what happened and don’t leave any important facts out. That said, try not to include any extraneous details that could derail or distract the people trying to help reproduce the issue you found.
+- Explain how the behaviour you observed is different from what you believe should have happened instead
+- Provide supplementary information:
+    - If you can reproduce and isolate the issue, use one of the [Serenity/JS Quickstart Templates](/handbook/getting-started/quickstart-templates) to create a minimalistic example that demonstrates the problem and attach a link to it to your ticket. While this requires a bit more work on your side, it will help us sort out the problem much quicker.
+    - If you can reproduce the issue, but can't isolate it, add the [`StreamReporter`](/api/core/class/StreamReporter) to your Serenity/JS [stage crew](/api/core/class/SerenityConfig#crew), run the test again to trigger the bug, and attach the `StreamReporter`'s log to your ticket
+    - If you can't reproduce the issue, please attach any additional information that might help us figure out what happened - screenshots and test execution logs are particularly useful. 
+
+
+<Figure
+    caption='"The art of bug reporting" by Andy Glover' 
+    imgSrc="/images/the-art-of-bug-reporting.png" 
+    externalLink="https://cartoontester.blogspot.com/2012/02/art-of-bug-reporting.html" 
+/>
+
+
+## Propose an enhancement
+
+Serenity/JS is an open-source project and is open to your contributions and [Pull Requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+
+Before putting your time and effort into a pull request, though, please gauge the potential interest in incorporating your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or chatting with the development team on the [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby) on Gitter.
+
+[![Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+
+### Working with the Serenity/JS code base
+
+If you have decided to work on a pull request, you'll need to:
+- [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js) to your GitHub account
+- [Create a new branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository) in your forked repository
+- Click on the [![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/serenity-js/serenity-js) badge in the readme of your forked repository to provision your free Gitpod workspace.
+- When you're done, run the full local build `make clean verify report`
+- Commit your changes following the conventional commits standard, push them to your forked repository, and raise a pull request - more on commit message standard and automated releases below.
+
+:::tip Did you know?
+Clicking on the Gitpod badge in the readme on your branch in your forked repository will provision a new Gitpod workspace.
+The workspace is created with all the dependencies necessary to successfully build and test Serenity/JS, including the operating system-level dependencies, web browsers, Node.js, and node modules.
+
+This virtual workspace is free of charge thanks to the [generous free tier](https://www.gitpod.io/pricing) offered by Gitpod to open-source projects, and typically gets provisioned in seconds thanks to the effort Serenity/JS maintainers have put into optimising it for you 😊
+:::
+
+Alternatively, if you prefer to work on the pull request on your own machine instead of using Gitpod, you'll need to:
+
+- [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) your fork to your machine
+- Make sure you have the [runtime dependencies](/handbook/getting-started/installation) installed
+- Install the Node.js dependencies by running `make install` in the project root. Serenity/JS uses [Lerna.js](https://github.com/lerna/lerna) to manage the `@serenity-js/*` modules you'll find in the mono-repo, so it will take care of propagating the `npm ci` and other commands to the modules (this step happens automatically in the Gitpod workspace)
+- Make sure you can build the Serenity/JS project on your machine and all the unit- and integration tests are passing before introducing any changes by running `make clean test` to run the package-scope tests or `make clean verify` to run package-scope and integration tests.
+- Introduce the changes you wish to propose and update or introduce any package-scope and integration tests that are relevant.
+- Run **full local build** before committing - `make clean verify report`
+- Commit your changes following the conventional commits standard, push them to your forked repository, and raise a pull request - more on commit message standard and automated releases below.
+
+### Conventional commits and automated releases
+
+Serenity/JS uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard to identify if the changes you propose require a release.
+
+To make it easy for you, we've added a little wizard that will help you generate a commit message compliant with the standard, and configured a pre-commit git hooks and a CI/CD pipeline-level check to ensure everything's correct.
+
+To use the wizard, add the files you changed to [git index](https://git-scm.com/docs/git-add) using `git add <filename>` or your favourite IDE like [VSCode](https://code.visualstudio.com/docs/editor/versioncontrol) or [JetBrains](https://www.jetbrains.com/help/idea/commit-and-push-changes.html#set-passwords-for-git-remotes)
+
+Next, invoke the following command in the root directory of your cloned Serenity/JS project:
+
+```shellsession
+npm run commit
+```
+
+Which should yield output similar to the below:
+
+```shellsession
+npm run commit
+
+> serenity-js-monorepo@3.0.0-monorepo commit
+> ./node_modules/cz-customizable/standalone.js
+
+cz-customizable standalone version
+All lines except first will be wrapped after 100 characters.
+? Select the TYPE of change you're proposing: (Use arrow keys)
+❯ feat:     A new feature that will be available to the developers using Serenity/JS, e.g. a new public API 
+  fix:      A bug fix, prepared typically to address a specific GitHub ticket 
+  docs:     Documentation only changes affecting the website, examples, or the API docs 
+  style:    Changes that do not affect the meaning of the code, e.g. formatting, fixing missing semicolons, etc. 
+  refactor: Improvements to code that do not affect the observable behaviour of Serenity/JS 
+  perf:     A code change aimed at improving performance 
+  test:     Improvements to existing internal tests, or adding missing tests 
+(Move up and down to reveal more choices)
+
+```
+
+Once you're happy with the commit message, push your commit to your forked repository, and [raise a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
+
+:::tip Did you know?
+[Serenity/JS Continuous Delivery Pipeline](https://github.com/serenity-js/serenity-js/blob/main/.github/workflows/main.yaml) implemented using GitHub Actions recognises changes you've marked as `feat` or `fix` and will release them automatically to npmjs.com when your pull request passes the automated tests and gets merged to the main branch by a Serenity/JS maintainer.
+
+The pipeline runs thousands of package- and integration-level tests across a number of supported Node.js runtimes, browsers, and operating systems and takes only about 15 minutes to complete 🚀
+:::
+
+
+### Serenity/JS mono-repo structure
+
+Serenity/JS mono-repo contains the following main directories:
+- [`packages`](https://github.com/serenity-js/serenity-js/tree/main/packages) - this is where all the [Serenity/JS modules](/api) and their associated unit and package-scope tests live
+- [`integration`](https://github.com/serenity-js/serenity-js/tree/main/integration) - this is the home of the integration tests that exercise the Serenity/JS modules once they're transpiled from TypeScript to JavaScript
+- [`examples`](https://github.com/serenity-js/serenity-js/tree/main/examples) - when the changes you want to introduce pass their unit tests and integration tests, you can use the mini-projects located here for exploratory testing and experimentation. Those example projects simulate the framework's target execution environment, so you can use them to look at your changes from the perspective of the people who'll be using them soon!  
+- [`documentation`](https://github.com/serenity-js/serenity-js/tree/main/documentation) - Serenity/JS website
+
+### Building and testing Serenity/JS
+
+Serenity/JS [Makefile](https://github.com/serenity-js/serenity-js/blob/master/Makefile) drives the entire build process. 
+
+Here's a list of commands you'll need to build and test Serenity/JS locally:
+- `make` - same as running `make install clean compile`,
+- `make install` - installs dependencies across the Serenity/JS monorepo,
+- `make clean` - removes any build and test artifacts,
+- `make compile test` - executes the unit tests located under `packages/*/spec`
+- `make integration-test` - executes the integration tests located under `integration/*/spec`,
+- `make verify` - runs ESLint, transpiles TypeScript to JavaScript, runs the unit tests and other package-scope tests, runs the integration tests located under `integration/*/`
+- `make clean verify report site` - same as verify, but additionally generates aggregated test and coverage reports and produces the serenity-js.org website. This is the **full local build** you should run at least once before committing your changes and submitting the pull request.
+
+If you encounter any issues, let us know on the [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby) on Gitter.
+And don't be shy, we're here to help 😊
+
+Enjoy Serenity!
+
+_Jan Molak and the Serenity/JS team_
