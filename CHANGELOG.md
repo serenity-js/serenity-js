@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.27](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.26...v3.0.0-rc.27) (2022-08-26)
+
+
+### Bug Fixes
+
+* **cucumber:** support for Cucumber 8.5.2 ([1e0763e](https://github.com/serenity-js/serenity-js/commit/1e0763edc803734dd3370dba45a5dc4ffef444f9))
+* **deps:** update dependency diff to ^5.1.0 ([f21af46](https://github.com/serenity-js/serenity-js/commit/f21af465ac79ae8ebb9a6c0b701817027e81512f))
+* **deps:** update dependency express to ^4.18.1 ([f10f264](https://github.com/serenity-js/serenity-js/commit/f10f264b7953f0453fcef89393d02adfbc3bfc8a))
+* **deps:** update dependency moment to ^2.29.4 ([7b0fd6e](https://github.com/serenity-js/serenity-js/commit/7b0fd6eeda8bf8c24f61d0d103127740568abc1c))
+* **deps:** update website dependencies ([#1278](https://github.com/serenity-js/serenity-js/issues/1278)) ([5e1de6d](https://github.com/serenity-js/serenity-js/commit/5e1de6df62632603fadbe942bbf8e1b7703a1780))
+* **playwright:** support for Playwright 1.25.1 ([e0ab058](https://github.com/serenity-js/serenity-js/commit/e0ab0583493c05bd1ec31595f12356ab265b7c1a))
+
+
+
+
+
 # [3.0.0-rc.26](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.25...v3.0.0-rc.26) (2022-08-15)
 
 

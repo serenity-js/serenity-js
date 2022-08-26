@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.27](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.26...v3.0.0-rc.27) (2022-08-26)
+
+
+### Bug Fixes
+
+* **cucumber:** support for Cucumber 8.5.2 ([1e0763e](https://github.com/serenity-js/serenity-js/commit/1e0763edc803734dd3370dba45a5dc4ffef444f9))
+
+
+
+
+
 # [3.0.0-rc.26](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.25...v3.0.0-rc.26) (2022-08-15)
 
 **Note:** Version bump only for package @serenity-js/cucumber
