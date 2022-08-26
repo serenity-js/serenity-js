@@ -238,7 +238,7 @@ jobs:
           fetch-depth: 2
 
       - name: Download code coverage reports
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: 'aggregated-code-coverage-report'
 
@@ -288,7 +288,7 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -356,7 +356,7 @@ jobs:
       - website-build
     steps:
       - name: Download website artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: website
       - name: Decompress website
