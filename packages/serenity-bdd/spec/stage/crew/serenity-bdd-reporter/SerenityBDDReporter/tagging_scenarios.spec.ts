@@ -5,7 +5,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualLastTestedTag, ManualResultTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../../src/stage';
@@ -83,6 +83,87 @@ describe('SerenityBDDReporter', () => {
                         name: 'Manual',
                         displayName: 'Manual',
                         type: 'External Tests',
+                    }]);
+                });
+
+                /**
+                 * @test {SerenityBDDReporter}
+                 * @test {SceneStarts}
+                 * @test {SceneFinished}
+                 * @test {SceneTagged}
+                 * @test {TestRunFinishes}
+                 * @test {ExecutionSuccessful}
+                 * @test {ManualResultTag}
+                 */
+                it('can be optionally tagged as manual and passed', () => {
+                    given(reporter).isNotifiedOfFollowingEvents(
+                        new SceneTagged(sceneId, new ManualResultTag('passed')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinishes(),
+                    );
+
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+                    expect(report.manual).to.equal(true);
+                    expect(report.tags).to.deep.include.members([{
+                        name: 'passed',
+                        displayName: 'passed',
+                        type: 'External Test Results',
+                        result: 'passed',
+                    }]);
+                });
+
+                /**
+                 * @test {SerenityBDDReporter}
+                 * @test {SceneStarts}
+                 * @test {SceneFinished}
+                 * @test {SceneTagged}
+                 * @test {TestRunFinishes}
+                 * @test {ExecutionSuccessful}
+                 * @test {ManualResultTag}
+                 */
+                it('can be optionally tagged as manual and failed', () => {
+                    given(reporter).isNotifiedOfFollowingEvents(
+                        new SceneTagged(sceneId, new ManualResultTag('failed')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinishes(),
+                    );
+
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+                    expect(report.manual).to.equal(true);
+                    expect(report.tags).to.deep.include.members([{
+                        name: 'failed',
+                        displayName: 'failed',
+                        type: 'External Test Results',
+                        result: 'failed',
+                    }]);
+                });
+
+                /**
+                 * @test {SerenityBDDReporter}
+                 * @test {SceneStarts}
+                 * @test {SceneFinished}
+                 * @test {SceneTagged}
+                 * @test {TestRunFinishes}
+                 * @test {ExecutionSuccessful}
+                 * @test {ManualLastTestedTag}
+                 */
+                it('can be optionally tagged as manual and failed', () => {
+                    given(reporter).isNotifiedOfFollowingEvents(
+                        new SceneTagged(sceneId, new ManualLastTestedTag('2021.9.0')),
+                        new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+                        new TestRunFinishes(),
+                    );
+
+                    report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+
+                    expect(report.manual).to.equal(true);
+                    expect(report.tags).to.deep.include.members([{
+                        name: '2021.9.0',
+                        displayName: '2021.9.0',
+                        type: 'External Test Time',
+                        lastTested: '2021.9.0',
                     }]);
                 });
             });

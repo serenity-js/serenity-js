@@ -1,4 +1,6 @@
-import { BrowserTag, CapabilityTag, ContextTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+
+
+import { BrowserTag, CapabilityTag, ContextTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualLastTestedTag, ManualResultTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects';
 
@@ -12,6 +14,27 @@ import { reportIdIncluding } from './reportIdIncluding';
 export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (context: Context) => Context {
     return (context: Context): Context =>
         match<Tag, Context>(tag)
+            .when(ManualLastTestedTag, _ => {
+
+                const currentTargetVersion = context.report.targetVersion;
+                const lastTested: string = (tag as ManualLastTestedTag).getLastTested();
+                if (currentTargetVersion !== lastTested) {
+                    context.report.result = context.report.result || 'pending';
+                }
+
+                context.report.manual = true;
+                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(tag));
+
+                return context;
+            })
+            .when(ManualResultTag, _ => {
+
+                context.report.result = (tag as ManualResultTag).getResult();
+                context.report.manual = true;
+                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(tag));
+
+                return context;
+            })
             .when(ManualTag, _ => {
 
                 context.report.manual = true;

@@ -5,6 +5,8 @@ export * from './ContextTag';
 export * from './ExecutionRetriedTag';
 export * from './FeatureTag';
 export * from './IssueTag';
+export * from './ManualLastTestedTag';
+export * from './ManualResultTag';
 export * from './ManualTag';
 export * from './PlatformTag';
 export * from './Tag';
