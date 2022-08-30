@@ -35,7 +35,7 @@ Through **legal challenges**: How do you protect your intellectual property and 
 
 All the way to **challenges with funding**: How do you fund your project? How do you find sponsors? How do you make your project sustainable? Is selling your work to one of the "big players" the only way to go?
 
-Over those couple of days in Berlin, I had a great pleasure learning from and exchanging ideas with the leaders of some of the most successful free open-source projects in this space.
+Over those couple of days in Berlin, I had the great pleasure of learning from and exchanging ideas with the leaders of some of the most successful free open-source projects in this space.
 
 In this series of blog posts, I'll summarise the ideas I think you might find interesting and valuable. I will also share what I'm doing to apply what I've learnt to improve Serenity/JS.
 
