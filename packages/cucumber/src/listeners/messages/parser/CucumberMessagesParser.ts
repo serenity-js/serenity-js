@@ -144,8 +144,6 @@ export class CucumberMessagesParser {
     parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: TestStepResult }): DomainEvent {
         return new SceneFinishes(
             this.serenity.currentSceneId(),
-            this.currentScenario,
-            this.outcomeFrom(hookMessage.result),
             this.serenity.currentTime()
         );
     }

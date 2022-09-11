@@ -141,8 +141,6 @@ export class Notifier {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
-                details,
-                outcome,
                 this.serenity.currentTime(),
             ),
         );

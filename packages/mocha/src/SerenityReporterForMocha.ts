@@ -207,8 +207,6 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
-                scenario,
-                outcome,
                 this.serenity.currentTime(),
             ),
         );
@@ -249,8 +247,6 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
-                scenario,
-                outcome,
                 this.serenity.currentTime(),
             ),
             new SceneFinished(

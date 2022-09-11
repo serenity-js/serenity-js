@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
@@ -19,8 +19,13 @@ describe('@serenity-js/jasmine', function () {
 
                 expect(result.exitCode).to.equal(0);
 
+                let currentSceneId: CorrelationId;
+
                 PickEvent.from(result.events)
-                    .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('A screenplay scenario passes')))
+                    .next(SceneStarts,              event => {
+                        expect(event.details.name).to.equal(new Name('A screenplay scenario passes'));
+                        currentSceneId = event.sceneId;
+                    })
                     .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine disables synchronisation with Angular`)))
@@ -28,12 +33,17 @@ describe('@serenity-js/jasmine', function () {
                     .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://accessibility/'`)))
                     .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://chrome-urls/'`)))
 
-                    .next(SceneFinishes,            event => expect(event.details.name).to.equal(new Name('A screenplay scenario passes')))
+                    .next(SceneFinishes,            event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                    })
                     .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
                     .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                     .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Jasmine...')))
                     .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Jasmine successfully')))
-                    .next(SceneFinished,            event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                    .next(SceneFinished,            event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                        expect(event.outcome).to.equal(new ExecutionSuccessful());
+                    })
                 ;
             }));
 });
