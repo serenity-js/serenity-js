@@ -14,7 +14,7 @@ import { promised } from '../promised';
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
  * import { BrowseTheWebWithProtractor } from '@serenity-js/protractor
- * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
  * import { Ensure, equals } from '@serenity-js/assertions'
  * import { protractor } from 'protractor'
  *

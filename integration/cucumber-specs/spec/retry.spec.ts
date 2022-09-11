@@ -26,45 +26,60 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 .then(result => {
                     expect(result.exitCode).to.equal(0);
 
-                    let sceneId: CorrelationId;
+                    let currentSceneId: CorrelationId;
 
                     PickEvent.from(result.events)
                         .next(TestRunStarts, event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('An eventually passing scenario'));
-                            sceneId = event.sceneId;
+                            currentSceneId = event.sceneId;
                         })
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                         .next(ActivityFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(SceneFinishes, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(currentSceneId))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
-                        .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        })
 
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('An eventually passing scenario'));
-                            sceneId = event.sceneId;
+                            currentSceneId = event.sceneId;
                         })
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                         .next(ActivityFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(SceneFinishes, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(currentSceneId))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
-                        .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        })
 
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('An eventually passing scenario'));
-                            sceneId = event.sceneId;
+                            currentSceneId = event.sceneId;
                         })
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                         .next(ActivityFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
-                        .next(SceneFinishes, event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
                         // the scene is no longer retryable, so no RetryableSceneDetected
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))
-                        .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
+                        })
 
                         .next(TestRunFinishes, event => expect(event.timestamp).to.be.instanceof(Timestamp))
                         .next(TestRunFinished, event => expect(event.timestamp).to.be.instanceof(Timestamp))
@@ -83,32 +98,42 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
 
-                    let sceneId: CorrelationId;
+                    let currentSceneId: CorrelationId;
 
                     PickEvent.from(result.events)
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('An eventually passing scenario'));
-                            sceneId = event.sceneId;
+                            currentSceneId = event.sceneId;
                         })
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                         .next(ActivityFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(SceneFinishes, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(currentSceneId))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
-                        .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        })
 
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('An eventually passing scenario'));
-                            sceneId = event.sceneId;
+                            currentSceneId = event.sceneId;
                         })
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))
                         .next(ActivityFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
-                        .next(SceneFinishes, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
 
                         // the scene is no longer retryable, so no RetryableSceneDetected
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))
-                        .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        })
 
                         .next(TestRunFinishes, event => expect(event).to.be.instanceOf(TestRunFinishes))
                         .next(TestRunFinished, event => expect(event).to.be.instanceOf(TestRunFinished))

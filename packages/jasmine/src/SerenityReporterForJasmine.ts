@@ -106,8 +106,6 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         this.emit(new SceneFinishes(
             this.currentSceneId,
-            scenarioDetails,
-            outcome,
             this.serenity.currentTime(),
         ));
 
