@@ -1,0 +1,14 @@
+extends: '../../.nycrc.yml'
+cwd: '../../packages'
+reportDir: '../target/coverage/integration-playwright-test'
+tempDir: '../.nyc_output'
+include:
+  - 'core/src/**/*.ts'
+  - 'core/lib/**/*.js'
+  - 'playwright-test/src/**/*.ts'
+  - 'playwright-test/lib/**/*.js'
+exclude:
+  - '**/target/**'
+  - '**/spec/**'
+  - '**/*.d.ts'
+  - '**/*.spec.ts'
