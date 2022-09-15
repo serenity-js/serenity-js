@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "test": "nyc mocha --config ../../.mocharc.yml --timeout=60000 'spec/**/*.spec.*'"
+    "test": "mocha --parallel --config ../../.mocharc.yml --timeout=60000 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
@@ -32,8 +32,10 @@
     "@integration/testing-tools": "3.0.0",
     "@serenity-js/assertions": "^3.0.0-rc",
     "@serenity-js/core": "^3.0.0-rc",
+    "@serenity-js/local-server": "^3.0.0-rc",
     "@serenity-js/playwright": "^3.0.0-rc",
     "@serenity-js/playwright-test": "^3.0.0-rc",
+    "@serenity-js/web": "^3.0.0-rc",
     "@playwright/test": "1.25.2"
   },
   "devDependencies": {

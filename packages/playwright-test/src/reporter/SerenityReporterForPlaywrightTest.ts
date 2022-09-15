@@ -5,7 +5,7 @@ import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';
 import { DomainEvent, InteractionFinished, RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionRetriedTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name, Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, Category, CorrelationId, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionRetriedTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name, Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
 
 import { SERENITY_JS_DOMAIN_EVENT_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
 
@@ -88,7 +88,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.announceRetryIfNeeded(test, result);
 
-        let worstOutcome: Outcome;
+        let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
         for (const attachment of result.attachments) {
             if (! (attachment.contentType === SERENITY_JS_DOMAIN_EVENT_ATTACHMENT_CONTENT_TYPE && attachment.body)) {
@@ -105,19 +105,31 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
             this.serenity.announce(event);
 
-            if (event instanceof InteractionFinished && (! worstOutcome || event.outcome.isWorseThan(worstOutcome))) {
-                worstOutcome = event.outcome;
+            if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
+                worstInteractionOutcome = event.outcome;
             }
         }
 
+        const scenarioOutcome = this.outcomeFrom(test, result);
+        
         this.serenity.announce(
             new SceneFinished(
                 this.currentSceneId,
                 this.scenarioDetailsFrom(test),
-                worstOutcome || this.outcomeFrom(test, result), // Playwright serialisation loses error details. Use Serenity/JS outcomes if possible.
+                this.determineScenarioOutcome(worstInteractionOutcome, scenarioOutcome),
                 this.now(),
             )
         );
+    }
+
+    private determineScenarioOutcome(worstInteractionOutcome: Outcome, scenarioOutcome: Outcome): Outcome {
+        if (worstInteractionOutcome instanceof ExecutionFailedWithAssertionError) {
+            return worstInteractionOutcome;
+        }
+
+        return worstInteractionOutcome.isWorseThan(scenarioOutcome)
+            ? worstInteractionOutcome
+            : scenarioOutcome;
     }
 
     private outcomeFrom(test: TestCase, result: TestResult): Outcome {

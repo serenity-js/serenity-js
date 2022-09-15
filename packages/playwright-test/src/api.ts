@@ -1,113 +1,93 @@
-import { Fixtures,PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestType } from '@playwright/test';
-import { Actor, Cast, Serenity, serenity as serenityPlaywrightWorkerInstance, StageCrewMember } from '@serenity-js/core';
-import { SceneFinishes } from '@serenity-js/core/lib/events';
+import { PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestType } from '@playwright/test';
+import { Actor, Cast, Duration, Serenity, serenity as serenityInstance, SerenityConfig, StageCrewMember } from '@serenity-js/core';
+import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import * as os from 'os';
 
 import { PlaywrightWorkerReporter } from './reporter';
 
-export interface SerenityScenarioFixture {
+export interface SerenityFixtures extends SerenityConfig {
+    actors:     Cast;
+    crew:       StageCrewMember[];
+    cueTimeout: Duration;
+    serenity:   Serenity;
+    platform:   { name: string, version: string };
     actorCalled: (name: string) => Actor;
 }
 
-export interface SerenityWorkerFixture {
-    crew: StageCrewMember[],
-    serenity: Serenity;
-}
+export type SerenityTestType = TestType<PlaywrightTestArgs & PlaywrightTestOptions & SerenityFixtures, PlaywrightWorkerArgs & PlaywrightWorkerOptions>;
 
-// TODO reduce PlaywrightTestArgs & PlaywrightTestOptions to { [key: string]: any}
-// TODO reduce PlaywrightWorkerArgs & PlaywrightWorkerOptions to { browser: Browser}
+export const it: SerenityTestType = base.extend<SerenityFixtures>({
+    cueTimeout: Duration.ofSeconds(5),
 
-export interface API<TestConfig extends PlaywrightTestArgs & PlaywrightTestOptions, WorkerConfig extends PlaywrightWorkerArgs & PlaywrightWorkerOptions> {
-    it:         TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>;
-    test:       TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>;
-    describe:   TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['describe'];
-    beforeAll:  TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['beforeAll'];
-    beforeEach: TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['beforeEach'];
-    afterEach:  TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['afterEach'];
-    afterAll:   TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['afterAll'];
-    expect:     TestType<TestConfig & SerenityScenarioFixture, WorkerConfig & SerenityWorkerFixture>['expect'];
-}
+    crew: [],
 
-export function createApi<
-    TestConfig extends PlaywrightTestArgs & PlaywrightTestOptions, 
-    WorkerConfig extends PlaywrightWorkerArgs & PlaywrightWorkerOptions
->(test: TestType<TestConfig, WorkerConfig>): API<TestConfig, WorkerConfig> {
-    const it = test.extend<SerenityScenarioFixture, SerenityWorkerFixture>({
+    // eslint-disable-next-line no-empty-pattern
+    platform: ({}, use) => {
+        const platform = os.platform()
 
-        serenity: [ async ({ browser }, use, workerInfo) => {
-    
-            serenityPlaywrightWorkerInstance.configure({
-                // TODO inject via use({ cueTimeout: ... })
-                // cueTimeout: undefined,
-                crew: [
-                    // TODO merge with other crew members injected via use({ crew: [] })
-                    new PlaywrightWorkerReporter(
-                        base.info.bind(base)
-                    ),
-                ],
-            })
-            
-            serenityPlaywrightWorkerInstance.engage(
-                // todo: allow for customisations via it.use(actors: ...)
-                Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)),
-            );
+        // https://nodejs.org/api/process.html#process_process_platform
+        const name = platform === 'win32' 
+            ? 'Windows' 
+            : (platform === 'darwin' ? 'macOS' : 'Linux');
 
-            // TODO: emit BrowserDetected
-            //  https://github.com/microsoft/playwright/pull/3177/files
+        use({ name, version: os.release() });
+    },
 
-            // this.stage.announce(new SceneTagged(
-            //     event.sceneId,
-            //     new BrowserTag(browserName, browserVersion),
-            //     this.stage.currentTime(),
-            // ));
+    serenity: async ({ crew, cueTimeout, platform }, use) => {
 
-            // this.stage.announce(new SceneTagged(
-            //     event.sceneId,
-            //     new PlatformTag(platformName, platformVersion),
-            //     this.stage.currentTime(),
-            // ));
+        serenityInstance.configure({
+            cueTimeout: cueTimeout,
+            crew: [
+                ...crew,
+                new PlaywrightWorkerReporter(
+                    base.info.bind(base)
+                ),
+            ],
+        });
 
-            // this.stage.announce(new AsyncOperationCompleted(
-            //     new Description(`[${ this.constructor.name }] Detected web browser details`),
-            //     id,
-            //     this.stage.currentTime(),
-            // ));
-    
-            await use(serenityPlaywrightWorkerInstance);
-        }, { scope: 'worker' } ],
-    
-        actorCalled: async ({ serenity }, use) => {
-            const actorCalled = serenity.theActorCalled.bind(serenity);
-    
-            await use(actorCalled);
-    
-            serenity.announce(
-                new SceneFinishes(serenity.currentSceneId(), serenity.currentTime()),
-            );
-    
-            await serenityPlaywrightWorkerInstance.waitForNextCue();
-        },
-    } as unknown as Fixtures<SerenityScenarioFixture, SerenityWorkerFixture, TestConfig, WorkerConfig>);
+        serenityInstance.announce(new SceneTagged(
+            serenityInstance.currentSceneId(),
+            new PlatformTag(platform.name, platform.version),
+            serenityInstance.currentTime(),
+        ));
 
-    return {
-        it,
-        test:       it,
-        describe:   it.describe,
-        beforeAll:  it.beforeAll,
-        beforeEach: it.beforeEach,
-        afterEach:  it.afterEach,
-        afterAll:   it.afterAll,
-        expect:     it.expect,
-    }
-}
+        await use(serenityInstance);
+    },
 
-const api = createApi<PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions>(base);
+    actors: async ({ browser }, use) => {
+        await use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
+    },
 
-export const it         = api.it;
-export const test       = api.test;
-export const describe: typeof api['describe'] = api.describe;
-export const beforeAll  = api.beforeAll;
-export const beforeEach = api.beforeEach;
-export const afterEach  = api.afterEach;
-export const afterAll   = api.afterAll;
-export const expect     = api.expect;
+    actorCalled: async ({ serenity, actors, browser, browserName }, use) => {
+
+        serenity.engage(actors);
+
+        const sceneId = serenity.currentSceneId();
+
+        const actorCalled = serenity.theActorCalled.bind(serenity);
+
+        serenity.announce(new SceneTagged(
+            sceneId,
+            new BrowserTag(browserName, browser.version()),
+            serenity.currentTime(),
+        ));
+
+        await use(actorCalled);
+
+        serenity.announce(
+            new SceneFinishes(sceneId, serenity.currentTime()),
+        );
+
+        await serenityInstance.waitForNextCue();
+    },
+});
+
+export const test: SerenityTestType                     = it;
+export const describe: SerenityTestType['describe']     = it.describe;
+export const beforeAll: SerenityTestType['beforeAll']   = it.beforeAll;
+export const beforeEach: SerenityTestType['beforeEach'] = it.beforeEach;
+export const afterEach: SerenityTestType['afterEach']   = it.afterEach;
+export const afterAll: SerenityTestType['afterAll']     = it.afterAll;
+export const expect: SerenityTestType['expect']         = it.expect;

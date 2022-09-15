@@ -63,14 +63,14 @@ describe('@serenity-js/playwright-test', function () {
             }));
 
     it(`doesn't announce retries if the scenario is not being retried`, () =>
-        playwrightTest('--grep', 'passing.spec.ts')
+        playwrightTest('--grep', 'passing.spec.ts', '--retries=0')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
-                const sceneTaggedEvents = result.events.filter(e => e instanceof SceneTagged) as SceneTagged[];
+                const sceneTaggedWithArbitraryTagEvents = result.events.filter(e =>
+                    e instanceof SceneTagged && e.tag instanceof ArbitraryTag
+                ) as SceneTagged[];
 
-                expect(sceneTaggedEvents).to.have.lengthOf(1);
-
-                expect(sceneTaggedEvents[0].tag).to.equal(new FeatureTag('Playwright Test reporting'))
+                expect(sceneTaggedWithArbitraryTagEvents).to.have.lengthOf(0);
             }));
 });
