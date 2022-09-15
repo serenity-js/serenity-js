@@ -1,7 +1,7 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
-import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 import { Duration, StreamReporter } from '@serenity-js/core';
+import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
 
 /**
@@ -16,7 +16,7 @@ import * as path from 'path';
 const config: PlaywrightTestConfig = {
     testDir: './examples',
     /* Maximum time one test can run for. */
-    timeout: 30 * 1000,
+    timeout: 30_000,
     expect: {
         /**
          * Maximum time expect() should wait for the condition to be met.
@@ -37,7 +37,7 @@ const config: PlaywrightTestConfig = {
 
     reporter: [
         [ 'line' ],
-        [ 'html', { open: 'never' }],
+        // [ 'html', { open: 'never' }],
         [
             path.resolve(__dirname, '../../packages/playwright-test'),    // '@serenity-js/playwright-test'
             {
@@ -52,6 +52,8 @@ const config: PlaywrightTestConfig = {
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
+        cueTimeout: Duration.ofSeconds(5),
+        
         /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
         actionTimeout: 0,
         /* Base URL to use in actions like `await page.goto('/')`. */
