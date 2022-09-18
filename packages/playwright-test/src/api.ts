@@ -4,8 +4,10 @@ import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import * as os from 'os';
+import { JSONValue } from 'tiny-types';
 
-import { PlaywrightWorkerReporter } from './reporter';
+import { DomainEventBuffer } from './reporter';
+import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './reporter/PlaywrightAttachments';
 
 export interface SerenityFixtures extends SerenityConfig {
     actors:     Cast;
@@ -37,13 +39,14 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
 
     serenity: async ({ crew, cueTimeout, platform }, use) => {
 
+        const playwrightSteps: Map<string, any> = new Map();
+        const domainEventBuffer = new DomainEventBuffer();
+
         serenityInstance.configure({
             cueTimeout: cueTimeout,
             crew: [
                 ...crew,
-                new PlaywrightWorkerReporter(
-                    base.info.bind(base)
-                ),
+                domainEventBuffer,
             ],
         });
 
@@ -54,6 +57,26 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         ));
 
         await use(serenityInstance);
+
+        const serialisedEvents: Array<{ type: string, value: JSONValue }> = []
+
+        for (const event of domainEventBuffer.flush()) {
+            serialisedEvents.push({
+                type: event.constructor.name,
+                value: event.toJSON(),
+            });
+            
+            if (event instanceof SceneTagged) {
+                test.info().annotations.push({ type: event.tag.type, description: event.tag.name });
+            }
+
+            // TODO: generate playwright steps
+        }
+
+        base.info().attach('serenity-js-events.json', {
+            contentType: SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE,
+            body: Buffer.from(JSON.stringify(serialisedEvents), 'utf8'),
+        });
     },
 
     actors: async ({ browser }, use) => {

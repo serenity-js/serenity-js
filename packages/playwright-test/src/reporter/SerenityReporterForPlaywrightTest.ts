@@ -3,11 +3,36 @@ import { Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter
 import { LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';
-import { DomainEvent, InteractionFinished, RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
+import {
+    DomainEvent,
+    InteractionFinished,
+    RetryableSceneDetected,
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected,
+    TestRunStarts,
+} from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Category, CorrelationId, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionRetriedTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name, Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
+import {
+    ArbitraryTag,
+    Category,
+    CorrelationId,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionIgnored,
+    ExecutionRetriedTag,
+    ExecutionSkipped,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    Outcome,
+    ScenarioDetails,
+} from '@serenity-js/core/lib/model';
 
-import { SERENITY_JS_DOMAIN_EVENT_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
+import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
 
 // TODO Split SerenityConfig into ActorsConfig and SerenityReportingConfig
 export class SerenityReporterForPlaywrightTestConfig {
@@ -41,10 +66,10 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     //  so that people can override it
 
     /**
-     * 
-     * @param config 
-     * @param serenity 
-     *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter. 
+     *
+     * @param config
+     * @param serenity
+     *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
      *  Note that Playwright runs test workers and reporters in separate processes.
      */
     constructor(
@@ -79,11 +104,11 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     // onStepBegin(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepBegin');
     // }
-    
+
     // onStepEnd(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepEnd');
     // }
-            
+
     onTestEnd(test: TestCase, result: TestResult): void {
 
         this.announceRetryIfNeeded(test, result);
@@ -91,27 +116,29 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
         for (const attachment of result.attachments) {
-            if (! (attachment.contentType === SERENITY_JS_DOMAIN_EVENT_ATTACHMENT_CONTENT_TYPE && attachment.body)) {
+            if (! (attachment.contentType === SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE && attachment.body)) {
                 continue;
             }
 
-            const message = JSON.parse(attachment.body.toString());
+            const messages = JSON.parse(attachment.body.toString());
 
-            if (message.value.sceneId === 'unknown') {
-                message.value.sceneId = this.currentSceneId.value;
-            }
+            for (const message of messages) {
+                if (message.value.sceneId === 'unknown') {
+                    message.value.sceneId = this.currentSceneId.value;
+                }
 
-            const event = events[message.type].fromJSON(message.value);
+                const event = events[message.type].fromJSON(message.value);
 
-            this.serenity.announce(event);
+                this.serenity.announce(event);
 
-            if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
-                worstInteractionOutcome = event.outcome;
+                if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
+                    worstInteractionOutcome = event.outcome;
+                }
             }
         }
 
         const scenarioOutcome = this.outcomeFrom(test, result);
-        
+
         this.serenity.announce(
             new SceneFinished(
                 this.currentSceneId,
@@ -133,24 +160,24 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     private outcomeFrom(test: TestCase, result: TestResult): Outcome {
-        
+
         const outcome = test.outcome();
 
         if (outcome === 'skipped') {
             return new ExecutionSkipped();
         }
-        
+
         if (outcome === 'unexpected' && result.status === 'passed') {
             return new ExecutionFailedWithError(new LogicError(`Scenario expected to fail, but ${ result.status }`));
         }
 
         if (['failed', 'interrupted', 'timedOut'].includes(result.status)) {
-            
+
             if (test.retries > result.retry) {
-                return new ExecutionIgnored(this.errorParser.errorFrom(result.error));    
+                return new ExecutionIgnored(this.errorParser.errorFrom(result.error));
             }
 
-            return new ExecutionFailedWithError(this.errorParser.errorFrom(result.error));    
+            return new ExecutionFailedWithError(this.errorParser.errorFrom(result.error));
         }
 
         return new ExecutionSuccessful();
@@ -172,9 +199,9 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     async onEnd(): Promise<void> {
         this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()));
-        
+
         await this.serenity.waitForNextCue();
-        
+
         this.serenity.announce(new TestRunFinished(this.serenity.currentTime()));
     }
 
@@ -230,15 +257,15 @@ class PlaywrightErrorParser {
         '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))', // eslint-disable-line no-control-regex
         'g',
     );
-    
+
     public errorFrom(testError: TestError): Error {
 
         const message = testError.message && PlaywrightErrorParser.stripAsciiFrom(testError.message);
         let stack = testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
-        
+
         // TODO: Do I need to process it?
         // const value     = testError.value;
-        
+
         const prologue = `Error: ${message}`;
         if (stack && message && stack.startsWith(prologue)) {
             stack = stack.slice(prologue.length);
