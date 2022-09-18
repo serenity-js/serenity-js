@@ -1,2 +1,2 @@
-export * from './PlaywrightWorkerReporter'
+export * from './DomainEventBuffer'
 export * from './SerenityReporterForPlaywrightTest'
