@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
 
 import { Duration } from './Duration';
