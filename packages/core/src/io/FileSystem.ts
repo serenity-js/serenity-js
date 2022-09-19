@@ -1,4 +1,4 @@
-import * as cuid from 'cuid';
+import cuid from 'cuid';
 import * as nodeFS from 'fs';
 import { WriteFileOptions } from 'fs';
 import * as gracefulFS from 'graceful-fs';
