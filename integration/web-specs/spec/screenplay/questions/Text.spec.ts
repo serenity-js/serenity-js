@@ -10,8 +10,6 @@ describe('Text', () => {
     describe('of', () => {
 
         const header = PageElement.located(By.css('h1')).describedAs('the header');
-        const leadingAndTrailingSpace = PageElement.located(By.id('leading-and-trailing-space')).describedAs('example element with leading and trailing space');
-        const newlineCharacters = PageElement.located(By.id('new-line-characters')).describedAs('example element with leading and trailing space');
 
         /** @test {Text.of} */
         it('allows the actor to read the text of the DOM element matching the locator', () =>
@@ -21,21 +19,6 @@ describe('Text', () => {
                 Ensure.that(Text.of(header), equals('Hello World!')),
             ));
 
-        /** @test {Text.of} */
-        it('trims the leading and trailing spaces', () =>
-            actorCalled('Wendy').attemptsTo(
-                Navigate.to('/screenplay/questions/text/trimming.html'),
-
-                Ensure.that(Text.of(leadingAndTrailingSpace), equals('Hello World!')),
-            ));
-
-        /** @test {Text.of} */
-        it('trims newline characters', () =>
-            actorCalled('Wendy').attemptsTo(
-                Navigate.to('/screenplay/questions/text/trimming.html'),
-
-                Ensure.that(Text.of(newlineCharacters), equals('Hello World!')),
-            ));
 
         /** @test {Text#toString} */
         describe('toString', () => {
@@ -125,17 +108,6 @@ describe('Text', () => {
         it('allows for a question relative to another target to be asked', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/questions/text/shopping_list.html'),
-
-                Ensure.that(
-                    Text.ofAll(shoppingListItems.of(body)),
-                    equals(['milk', 'oats'])
-                ),
-            ));
-
-        /** @test {Text.of} */
-        it('trims the leading and trailing spaces and newline characters', () =>
-            actorCalled('Wendy').attemptsTo(
-                Navigate.to('/screenplay/questions/text/shopping_list_trimming.html'),
 
                 Ensure.that(
                     Text.ofAll(shoppingListItems.of(body)),

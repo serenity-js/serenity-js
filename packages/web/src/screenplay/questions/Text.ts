@@ -162,9 +162,7 @@ class TextOfSingleElement
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element = await actor.answer(this.element);
 
-        const text = await element.text();
-
-        return text.trim();
+        return element.text();
     }
 
     /**
@@ -211,11 +209,7 @@ class TextOfMultipleElements
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements: PageElement[] = await actor.answer(this.elements);
 
-        return asyncMap(elements, async element => {
-            const text = await element.text();
-
-            return text.trim();
-        });
+        return asyncMap(elements, element => element.text());
     }
 
     /**
