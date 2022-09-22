@@ -19,7 +19,6 @@ describe('Text', () => {
                 Ensure.that(Text.of(header), equals('Hello World!')),
             ));
 
-
         /** @test {Text#toString} */
         describe('toString', () => {
 
