@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
-    "~test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "nyc playwright test",
     "compile": "tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -45,6 +45,7 @@
   "dependencies": {
     "@serenity-js/core": "3.0.0-rc.27",
     "@serenity-js/playwright": "3.0.0-rc.27",
+    "deepmerge": "^4.2.2",
     "tiny-types": "^1.19.0"
   },
   "devDependencies": {

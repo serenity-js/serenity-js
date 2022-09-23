@@ -44,7 +44,7 @@ export class TakeScreenshot extends Interaction {
     }
 
     protected constructor(private readonly name: Answerable<string>) {
-        super();
+        super(d`#actor takes a screenshot of ${ name }`);
     }
 
     /**
@@ -59,12 +59,5 @@ export class TakeScreenshot extends Interaction {
             Photo.fromBase64(screenshot),
             new Name(name),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d `#actor takes a screenshot of ${this.name}`;
     }
 }

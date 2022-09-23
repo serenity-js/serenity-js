@@ -1,2 +1,4 @@
-export * from './DomainEventBuffer'
-export * from './SerenityReporterForPlaywrightTest'
+export * from './DomainEventBuffer';
+export * from './PlaywrightAttachments';
+export * from './PlaywrightStepReporter';
+export * from './SerenityReporterForPlaywrightTest';

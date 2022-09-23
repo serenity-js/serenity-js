@@ -43,10 +43,10 @@ export class Log extends Interaction {
      * @param items
      *  The items to be logged
      */
-    constructor(
+    protected constructor(
         private readonly items: Array<Answerable<any>>,
     ) {
-        super();
+        super(`#actor logs: ${ items.map(item => d`${ item }`).join(', ') }`);
     }
 
     /**
@@ -62,12 +62,5 @@ export class Log extends Interaction {
                 new Name(d`${ item }`)
             );
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor logs: ${ this.items.map(item => d`${ item }`).join(', ') }`;
     }
 }

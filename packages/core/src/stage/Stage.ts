@@ -265,7 +265,7 @@ export class Stage {
 
         // Wait for the Photographer to finish taking any screenshots
 
-        await this.manager.waitForAsyncOperationsToComplete();
+        // await this.manager.waitForAsyncOperationsToComplete();
 
         const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [actor, CorrelationId.create()]));
 

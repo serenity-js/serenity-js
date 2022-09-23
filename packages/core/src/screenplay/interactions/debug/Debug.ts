@@ -98,11 +98,11 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
      *  Values to be evaluated by the actor, and provided to debuggerFunction
      */
     constructor(
-        private readonly description: string,
+        description: string,
         private readonly debuggerFunction: (args: { [ Index in keyof Values ]: DebuggingResult<Answered<Values[Index]>> }) => void,
         private readonly values: Values,
     ) {
-        super();
+        super(description);
     }
 
     /**
@@ -140,12 +140,5 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
         }
 
         this.debuggerFunction(results);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.description;
     }
 }

@@ -14,7 +14,7 @@ export class StopLocalServer extends Interaction {
      * Stops the server if it's running. If the server hasn't been started, this interaction does nothing.
      */
     static ifRunning(): Interaction {
-        return new StopLocalServer();
+        return new StopLocalServer(`#actor stops the local server`);
     }
 
     /**
@@ -32,12 +32,5 @@ export class StopLocalServer extends Interaction {
                     : resolve()
             );
         }));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor stops the local server`;
     }
 }

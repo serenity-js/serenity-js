@@ -55,4 +55,23 @@ describe('Task', () => {
         return expect(Lara.attemptsTo(ClimbAMountain()))
             .to.be.rejectedWith(ImplementationPendingError, `A task where "#actor climbs a mountain" has not been implemented yet`);
     });
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location when configured with no activities', () => {
+            const activity = () => Task.where(`#actor climbs a mountain`);
+            const location = activity().instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Task.spec.ts');
+            expect(location.line).to.equal(62);
+            expect(location.column).to.equal(30);
+        });
+
+        it('correctly detects its invocation location when configured with custom activities', () => {
+            const location = ShootAnArrow().instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Task.spec.ts');
+            expect(location.line).to.equal(70);
+            expect(location.column).to.equal(30);
+        });
+    });
 });

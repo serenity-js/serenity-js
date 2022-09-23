@@ -61,7 +61,7 @@ export class Check<Actual> extends Task {
         private readonly activities: Activity[],
         private readonly alternativeActivities: Activity[] = [],
     ) {
-        super();
+        super(d`#actor checks whether ${ actual } does ${ expectation }`);
     }
 
     /**
@@ -81,12 +81,5 @@ export class Check<Actual> extends Task {
         return outcome instanceof ExpectationMet
             ? actor.attemptsTo(...this.activities)
             : actor.attemptsTo(...this.alternativeActivities);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d`#actor checks whether ${ this.actual } does ${ this.expectation }`;
     }
 }

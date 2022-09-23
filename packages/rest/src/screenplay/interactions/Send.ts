@@ -44,7 +44,7 @@ export class Send extends Interaction {
      * @param request
      */
     protected constructor(private readonly request: Answerable<AxiosRequestConfig>) {
-        super();
+        super(`#actor sends ${ request.toString() }`);
     }
 
     /**
@@ -64,13 +64,6 @@ export class Send extends Interaction {
                     );
                 })
             );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor sends ${ this.request.toString() }`;
     }
 
     private responseToArtifact(targetUrl: string, response: AxiosResponse): Artifact {

@@ -36,14 +36,22 @@ describe('@serenity-js/mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
                 })
             ;
+
+            const asyncEvents = result.events.filter(event => event instanceof AsyncOperationAttempted || event instanceof AsyncOperationCompleted) as Array<AsyncOperationAttempted | AsyncOperationCompleted>;
+                
+            const stageEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[Stage]'));
+
+            expect(stageEvents[0].taskDescription).to.equal(new Description('[Stage] Dismissing Mocha...'));
+            expect(stageEvents[1].taskDescription).to.equal(new Description('[Stage] Dismissed Mocha successfully'));
+
+            const reporterEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[ProtractorReporter]'));
+
+            expect(reporterEvents[0].taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...'));
+            expect(reporterEvents[1].taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded'));
         }));
 });

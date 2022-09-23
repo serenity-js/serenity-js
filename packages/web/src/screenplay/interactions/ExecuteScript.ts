@@ -126,7 +126,10 @@ export class ExecuteScript {
      *  The script to be executed
      */
     static async(script: string | Function): ExecuteScriptWithArguments {   // eslint-disable-line @typescript-eslint/ban-types
-        return new ExecuteAsynchronousScript(script);
+        return new ExecuteAsynchronousScript(
+            `#actor executes an asynchronous script`,
+            script,
+        );
     }
 
     /**
@@ -184,7 +187,10 @@ export class ExecuteScript {
      *  The script to be executed
      */
     static sync(script: string | Function): ExecuteScriptWithArguments {    // eslint-disable-line @typescript-eslint/ban-types
-        return new ExecuteSynchronousScript(script);
+        return new ExecuteSynchronousScript(
+            `#actor executes a synchronous script`,
+            script,
+        );
     }
 }
 
@@ -199,10 +205,11 @@ export class ExecuteScript {
 export abstract class ExecuteScriptWithArguments extends Interaction {
 
     constructor(
+        description: string,
         protected readonly script: string | Function,           // eslint-disable-line @typescript-eslint/ban-types
         protected readonly args: Array<Answerable<any>> = [],
     ) {
-        super();
+        super(description, Interaction.callerLocation(5));
     }
 
     /**
@@ -238,21 +245,18 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
  */
 class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
     withArguments(...args: Array<Answerable<any>>): Interaction {
-        return new ExecuteAsynchronousScript(this.script, args);
+        return new ExecuteAsynchronousScript(
+            args.length > 0
+                ? d `#actor executes an asynchronous script with arguments: ${ args }`
+                : this.description,
+            this.script,
+            args,
+        );
     }
 
     protected async executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
         const page = await BrowseTheWeb.as(actor).currentPage();
         return page.executeAsyncScript(this.script as unknown as any, ...args);   // todo: fix types
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.args.length > 0
-            ? d `#actor executes an asynchronous script with arguments: ${ this.args }`
-            : `#actor executes an asynchronous script`;
     }
 }
 
@@ -264,7 +268,7 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
  */
 class ExecuteScriptFromUrl extends Interaction {
     constructor(private readonly sourceUrl: string) {
-        super();
+        super(`#actor executes a script from ${ sourceUrl }`);
     }
 
     /**
@@ -289,7 +293,7 @@ class ExecuteScriptFromUrl extends Interaction {
                     callback();
                 });
                 script.addEventListener('error', function () {
-                    return callback('Couldn\'t load script from ' + sourceUrl);
+                    return callback(`Couldn't load script from ${ sourceUrl }`);
                 });
 
                 script.src = sourceUrl;
@@ -304,13 +308,6 @@ class ExecuteScriptFromUrl extends Interaction {
             }
         });
     }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor executes a script from ${ this.sourceUrl }`;
-    }
 }
 
 /**
@@ -319,20 +316,17 @@ class ExecuteScriptFromUrl extends Interaction {
 class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
 
     withArguments(...args: Array<Answerable<any>>): Interaction {
-        return new ExecuteSynchronousScript(this.script, args);
+        return new ExecuteSynchronousScript(
+            args.length > 0
+                ? d `#actor executes a synchronous script with arguments: ${ args }`
+                : this.description,
+            this.script,
+            args,
+        );
     }
 
     protected async executeAs(actor: UsesAbilities & AnswersQuestions, args: any[]): Promise<any> {
         const page = await BrowseTheWeb.as(actor).currentPage();
         return page.executeScript(this.script as unknown as any, ...args);    // todo fix type
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.args.length > 0
-            ? d `#actor executes a synchronous script with arguments: ${ this.args }`
-            : `#actor executes a synchronous script`;
     }
 }

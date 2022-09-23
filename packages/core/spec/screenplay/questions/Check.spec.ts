@@ -40,6 +40,15 @@ describe('Check', () => {
                 expect(spy).to.not.have.been.called;
             }),
         );
+
+        it('correctly detects its invocation location', () => {
+            const activity = Check.whether('Hello World', isIdenticalTo('¡Hola')).andIfSo();
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Check.spec.ts');
+            expect(location.line).to.equal(45);
+            expect(location.column).to.equal(83);
+        });
     });
 
     describe('(if/else branches)', () => {
@@ -73,6 +82,15 @@ describe('Check', () => {
                 expect(spy).to.have.been.calledWith(false).callCount(1);
             }),
         );
+
+        it('correctly detects its invocation location', () => {
+            const activity = Check.whether('Hello World', isIdenticalTo('¡Hola')).andIfSo().otherwise();
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Check.spec.ts');
+            expect(location.line).to.equal(87);
+            expect(location.column).to.equal(93);
+        });
     });
 
     describe('reporting', () => {

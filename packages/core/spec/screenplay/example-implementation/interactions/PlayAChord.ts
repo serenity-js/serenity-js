@@ -8,14 +8,10 @@ export class PlayAChord extends Interaction {
     }
 
     constructor(private chord: Chord) {
-        super();
+        super(`#actor plays the chord of ${ chord.name }`);
     }
 
     performAs(actor: UsesAbilities): Promise<void> {
         return PlayAGuitar.as(actor).play(this.chord);
-    }
-
-    toString(): string {
-        return `#actor plays the chord of ${ this.chord.name }`;
     }
 }

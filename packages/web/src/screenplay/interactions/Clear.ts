@@ -68,7 +68,7 @@ export class Clear extends PageElementInteraction {
         return new Clear(field);
     }
 
-    constructor(private readonly field: Answerable<PageElement>) {
+    protected constructor(private readonly field: Answerable<PageElement>) {
         super(d`#actor clears the value of ${ field }`);
     }
 
