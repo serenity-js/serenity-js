@@ -215,14 +215,10 @@ class See<S> extends Interaction {
         private question: Question<S>,
         private assert: Assertion<S>,
     ) {
-        super();
+        super(`#actor checks ${ question }`);
     }
 
     performAs(actor: AnswersQuestions): Promise<void> {
         return actor.answer(this.question).then(this.assert);
-    }
-
-    toString(): string {
-        return `#actor checks ${this.question}`;
     }
 }

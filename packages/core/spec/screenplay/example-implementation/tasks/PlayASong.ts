@@ -8,7 +8,7 @@ export class PlayASong extends Task {
     }
 
     constructor(private readonly musicSheet: MusicSheet) {
-        super();
+        super(`#actor plays a song`);
     }
 
     performAs(actor: PerformsActivities): Promise<void> {

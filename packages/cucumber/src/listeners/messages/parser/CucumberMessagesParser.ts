@@ -286,7 +286,15 @@ export class CucumberMessagesParser {
     }
 
     private activityDetailsFor(parsedTestStep: IParsedTestStep): ActivityDetails {
-        return new ActivityDetails(new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)));
+        const location = parsedTestStep.sourceLocation || parsedTestStep.actionLocation;
+
+        return new ActivityDetails(
+            new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)),
+            new FileSystemLocation(
+                Path.from(location.uri),
+                location.line,
+            ),
+        );
     }
 
     private outcomeFrom(worstResult: TestStepResult, ...steps: IParsedTestStep[]): Outcome {

@@ -143,4 +143,24 @@ describe('Ensure', () => {
             )).to.be.rejectedWith(TestCompromisedError, 'The server is down. Please cheer it up.');
         });
     });
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = Ensure.that(true, equals(true));
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(149);
+            expect(location.column).to.equal(37);
+        });
+
+        it('correctly detects its invocation location when custom errors are used', () => {
+            const activity = Ensure.that(true, equals(true)).otherwiseFailWith(TestCompromisedError);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(158);
+            expect(location.column).to.equal(62);
+        });
+    });
 });

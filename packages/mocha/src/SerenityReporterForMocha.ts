@@ -268,6 +268,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new RetryableSceneDetected(
                 this.currentSceneId,
+                this.serenity.currentTime(),
             ),
             new SceneTagged(
                 this.currentSceneId,

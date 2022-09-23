@@ -5,7 +5,6 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { Attribute, By, Hover, Navigate, PageElement } from '@serenity-js/web';
 
-/** @test {Hover} */
 describe('Hover', function () {
 
     const Page = {
@@ -13,7 +12,6 @@ describe('Hover', function () {
         link:   PageElement.located(By.css('a')).describedAs('the link'),
     };
 
-    /** @test {Hover.over} */
     it('allows the actor to position the mouse cursor over a given target', () =>
         actorCalled('Mickey').attemptsTo(
             Navigate.to('/screenplay/interactions/hover/example.html'),
@@ -31,9 +29,17 @@ describe('Hover', function () {
             Ensure.that(Attribute.called('class').of(Page.link), equals('off')),
         ));
 
-    /** @test {Hover#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(Hover.over(Page.link).toString())
             .to.equal(`#actor hovers the mouse over the link`);
+    });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Hover.over(Page.link);
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Hover.spec.ts');
+        expect(location.line).to.equal(38);
+        expect(location.column).to.equal(32);
     });
 });

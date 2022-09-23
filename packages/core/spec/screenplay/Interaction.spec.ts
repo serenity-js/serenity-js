@@ -102,4 +102,16 @@ describe('Interaction', () => {
             expect(event.artifact).to.equal(expectedArtifact);
         });
     });
+
+    it('correctly detects its invocation location', () => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const activity = () =>
+            Interaction.where(`#actor interacts with the system`, (actor_: Actor) => { /* do nothing */ });
+
+        const location = activity().instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Interaction.spec.ts');
+        expect(location.line).to.equal(111);
+        expect(location.column).to.equal(26);
+    });
 });

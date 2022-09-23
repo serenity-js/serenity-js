@@ -32,6 +32,15 @@ describe('ChangeApiConfig', () => {
             Send.a(GetRequest.to('/')),
             Ensure.that(LastResponse.status(), equals(200)),
         ));
+
+        it('correctly detects its invocation location', () => {
+            const activity = ChangeApiConfig.setUrlTo(newUrl);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
+            expect(location.line).to.equal(37);
+            expect(location.column).to.equal(46);
+        });
     });
 
     describe('when changing the API port', () => {
@@ -66,6 +75,15 @@ describe('ChangeApiConfig', () => {
                 ChangeApiConfig.setUrlTo('invalid'),
                 ChangeApiConfig.setPortTo(8080),
             )).to.be.rejectedWith(LogicError, `Could not change the API port`));
+
+        it('correctly detects its invocation location', () => {
+            const activity = ChangeApiConfig.setPortTo(8080);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
+            expect(location.line).to.equal(80);
+            expect(location.column).to.equal(46);
+        });
     });
 
     describe('when setting a request header', () => {
@@ -102,5 +120,14 @@ describe('ChangeApiConfig', () => {
             expect(actor.attemptsTo(
                 ChangeApiConfig.setHeader(undefined, 'value'),
             )).to.be.rejectedWith(LogicError, `Looks like the name of the header is missing, "undefined" given`));
+
+        it('correctly detects its invocation location', () => {
+            const activity = ChangeApiConfig.setHeader(undefined, 'value');
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
+            expect(location.line).to.equal(125);
+            expect(location.column).to.equal(46);
+        });
     });
 });

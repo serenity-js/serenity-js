@@ -86,7 +86,10 @@ export class Notifier {
             new TaskStarts(
                 this.currentSceneId,
                 this.currentStepActivityId,
-                new ActivityDetails(step.name),
+                new ActivityDetails(
+                    step.name,
+                    step.location,
+                ),
                 this.serenity.currentTime()
             ),
         );
@@ -97,7 +100,10 @@ export class Notifier {
             new TaskFinished(
                 this.currentSceneId,
                 this.currentStepActivityId,
-                new ActivityDetails(step.name),
+                new ActivityDetails(
+                    step.name,
+                    step.location,
+                ),
                 outcome,
                 this.serenity.currentTime(),
             ),

@@ -1,4 +1,4 @@
-import { PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestType } from '@playwright/test';
+import { PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestInfo, TestType } from '@playwright/test';
 import { Actor, Cast, Duration, Serenity, serenity as serenityInstance, SerenityConfig, StageCrewMember } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
@@ -7,7 +7,8 @@ import * as os from 'os';
 import { JSONValue } from 'tiny-types';
 
 import { DomainEventBuffer } from './reporter';
-import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './reporter/PlaywrightAttachments';
+import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './reporter';
+import { PlaywrightStepReporter } from './reporter';
 
 export interface SerenityFixtures extends SerenityConfig {
     actors:     Cast;
@@ -16,6 +17,8 @@ export interface SerenityFixtures extends SerenityConfig {
     serenity:   Serenity;
     platform:   { name: string, version: string };
     actorCalled: (name: string) => Actor;
+    defaultActorName: string;
+    actor: Actor
 }
 
 export type SerenityTestType = TestType<PlaywrightTestArgs & PlaywrightTestOptions & SerenityFixtures, PlaywrightWorkerArgs & PlaywrightWorkerOptions>;
@@ -37,9 +40,8 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         use({ name, version: os.release() });
     },
 
-    serenity: async ({ crew, cueTimeout, platform }, use) => {
+    serenity: async ({ crew, cueTimeout, platform }, use, info: TestInfo) => {
 
-        const playwrightSteps: Map<string, any> = new Map();
         const domainEventBuffer = new DomainEventBuffer();
 
         serenityInstance.configure({
@@ -47,6 +49,7 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
             crew: [
                 ...crew,
                 domainEventBuffer,
+                new PlaywrightStepReporter(info),
             ],
         });
 
@@ -68,9 +71,7 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
             
             if (event instanceof SceneTagged) {
                 test.info().annotations.push({ type: event.tag.type, description: event.tag.name });
-            }
-
-            // TODO: generate playwright steps
+            }            
         }
 
         base.info().attach('serenity-js-events.json', {
@@ -81,6 +82,12 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
 
     actors: async ({ browser }, use) => {
         await use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
+    },
+
+    defaultActorName: 'Serena',
+    
+    actor: async ({ actorCalled, defaultActorName }, use) => {
+        await use(actorCalled(defaultActorName))
     },
 
     actorCalled: async ({ serenity, actors, browser, browserName }, use) => {
@@ -103,6 +110,7 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
             new SceneFinishes(sceneId, serenity.currentTime()),
         );
 
+        await serenityInstance.waitForNextCue();
         await serenityInstance.waitForNextCue();
     },
 });

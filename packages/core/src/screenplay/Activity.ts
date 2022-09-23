@@ -1,3 +1,5 @@
+import { ErrorStackParser } from '../errors';
+import { FileSystemLocation, Path } from '../io';
 import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 
 /**
@@ -11,7 +13,22 @@ import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
  *
  * @group Screenplay Pattern
  */
-export interface Activity {
+export abstract class Activity {
+
+    private static errorStackParser = new ErrorStackParser();
+
+    constructor(
+        protected readonly description: string,
+        private readonly location: FileSystemLocation = Activity.callerLocation(5)
+    ) {
+    }
+
+    /**
+     * Returns the location where this {@apilink Activity} was instantiated.
+     */
+    instantiationLocation(): FileSystemLocation {
+        return this.location;
+    }
 
     /**
      * Instructs the provided {@apilink Actor} to perform this {@apilink Activity}.
@@ -24,7 +41,7 @@ export interface Activity {
      * - {@apilink UsesAbilities}
      * - {@apilink AnswersQuestions}
      */
-    performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
+    abstract performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 
     /**
      * Generates a human-friendly description to be used when reporting this Activity.
@@ -34,5 +51,28 @@ export interface Activity {
      *
      * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
      */
-    toString(): string;
+    toString(): string {
+        return this.description;
+    }
+
+    protected static callerLocation(frameOffset: number): FileSystemLocation {
+        try {
+            throw new Error('Location');
+        } catch (error) {
+            const frames = this.errorStackParser.parse(error)
+                .filter(frame => ! (
+                    frame?.fileName.startsWith('node:') ||
+                    frame?.fileName.includes('node_modules')
+                ));
+
+            const index = Math.min(Math.max(1, frameOffset), frames.length - 1)
+            const invocationFrame = frames[index];
+
+            return new FileSystemLocation(
+                Path.from(invocationFrame.fileName),
+                invocationFrame.lineNumber,
+                invocationFrame.columnNumber,
+            );
+        }
+    }
 }

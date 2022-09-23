@@ -8,7 +8,7 @@ import { ActivityDescriber } from './ActivityDescriber';
 import { OutcomeMatcher } from './OutcomeMatcher';
 
 /** @package */
-export class TrackedActivity implements Activity {
+export class TrackedActivity extends Activity {
 
     protected static readonly describer = new ActivityDescriber();
     protected static readonly outcomes = new OutcomeMatcher();
@@ -17,13 +17,17 @@ export class TrackedActivity implements Activity {
         protected readonly activity: Activity,
         protected readonly stage: Stage,
     ) {
+        super(activity.toString(), activity.instantiationLocation());
     }
 
     performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): Promise<void> {
         const
             sceneId = this.stage.currentSceneId(),
             activityId = this.stage.assignNewActivityId(),
-            details = new ActivityDetails(TrackedActivity.describer.describe(this.activity, actor));
+            details = new ActivityDetails(
+                TrackedActivity.describer.describe(this.activity, actor),
+                this.activity.instantiationLocation(),
+            );
 
         const [ activityStarts, activityFinished] = this.activity instanceof Interaction
             ? [ InteractionStarts, InteractionFinished ]
@@ -42,9 +46,5 @@ export class TrackedActivity implements Activity {
 
                 throw error;
             });
-    }
-
-    toString(): string {
-        return this.activity.toString();
     }
 }
