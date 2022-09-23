@@ -463,6 +463,18 @@ actorCalled('René').attemptsTo(
 The code sample above uses [`q`](/api/core/function/q) a [tagged template function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) converting a `string` template parameterised with [`Answerable<string | number>`](/api/core#Answerable) into a [`QuestionAdapter<string>`](/api/core#QuestionAdapter). Useful when you need to quickly concatenate `string`s and [`Question<string>`](/api/core/class/Question).
 :::
 
+### Removed deprecated `ChangeApiUrl`
+
+Deprecated interaction to `ChangeApiUrl` is now replaced by [`ChangeApiConfig.setUrlTo(newBaseUrl)`](/api/rest/class/ChangeApiConfig#setUrlTo)
+
+```diff
+actor.attemptsTo(
+-    ChangeApiUrl.to(newBaseUrl),
++    ChangeApiConfig.setUrlTo(newBaseUrl),
+);
+
+```
+
 ## `@serenity-js/core`
 
 ### Screenplay-style dictionaries with `Question.fromObject`
