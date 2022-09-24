@@ -48,6 +48,27 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
         throw new LogicError(f`${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
+    async isPresent(): Promise<boolean> {
+        try {
+            const parentPresent = await this.parent.isPresent();
+
+            if (! parentPresent) {
+                return false;
+            }
+
+            const parent = await this.parent.nativeElement();
+            const element = await parent.$(this.nativeSelector());
+
+            return Boolean(element);
+        }
+        catch (error) {
+            if (error.name === 'TimeoutError') {
+                return false;
+            }
+            throw error;
+        }
+    }
+
     async nativeElement(): Promise<playwright.ElementHandle> {
 
         const parent = await this.parent.nativeElement();
