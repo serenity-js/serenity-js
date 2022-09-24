@@ -61,7 +61,8 @@ export abstract class Activity {
         } catch (error) {
             const frames = this.errorStackParser.parse(error)
                 .filter(frame => ! (
-                    frame?.fileName.startsWith('node:') ||
+                    frame?.fileName.startsWith('node:') ||      // node 16 and 18
+                    frame?.fileName.startsWith('internal') ||   // node 14
                     frame?.fileName.includes('node_modules')
                 ));
 
