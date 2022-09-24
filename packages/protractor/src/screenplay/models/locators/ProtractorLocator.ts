@@ -55,6 +55,16 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
+    async isPresent(): Promise<boolean> {
+        try {
+            const element = await this.resolveNativeElement();
+            return Boolean(element);
+        }
+        catch {
+            return false;
+        }
+    }
+
     async nativeElement(): Promise<protractor.ElementFinder> {
         try {
             return await this.resolveNativeElement();
