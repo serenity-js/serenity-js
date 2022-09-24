@@ -1,4 +1,4 @@
-import { Ensure, equals  } from '@serenity-js/assertions';
+import { Ensure, equals } from '@serenity-js/assertions';
 import { notes } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { afterEach, describe, it, test } from '@serenity-js/playwright-test';
@@ -12,15 +12,15 @@ interface Notes {
 
 describe('Playwright Test reporting', () => {
 
-    test.use({ 
+    test.use({
         actors: async ({ browser }, use) => {
-            await use(new MultipleWebActorsWithSharedNotes(browser))
+            await use(new MultipleWebActorsWithSharedNotes(browser));
         },
     });
 
     const welcomeMessage = Text.of(PageElement.located(By.id('welcome-message')))
         .describedAs('welcome message');
-    
+
     describe('A screenplay scenario', () => {
 
         it('supports multiple actors', async ({ actorCalled }) => {
@@ -38,12 +38,12 @@ describe('Playwright Test reporting', () => {
             );
 
             await actorCalled('Alice').attemptsTo(
-                Ensure.that(welcomeMessage, equals('Welcome, Alice!'))
+                Ensure.that(welcomeMessage, equals('Welcome, Alice!')),
             );
 
             await actorCalled('Bob').attemptsTo(
-                Ensure.that(welcomeMessage, equals('Welcome, Bob!'))
-            );            
+                Ensure.that(welcomeMessage, equals('Welcome, Bob!')),
+            );
         });
 
         afterEach(async ({ actorCalled }) => {

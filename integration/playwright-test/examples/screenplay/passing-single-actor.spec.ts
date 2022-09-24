@@ -8,12 +8,12 @@ export interface Notes {
 
 describe('Playwright Test reporting', () => {
 
-    test.use({ 
+    test.use({
         actors: ({ browser }, use) => {
-            use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)))
+            use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
         },
     });
-    
+
     describe('A screenplay scenario', () => {
 
         it('propagates events to Serenity reporter', async ({ actorCalled }) => {

@@ -7,8 +7,8 @@ describe('Playwright Test reporting', () => {
         beforeAll(async ({ browserName }, workerInfo) => {
             if (workerInfo.workerIndex < 2) {
                 throw new Error(`Trigger failure for worker ${ workerInfo.workerIndex }`);
-            }            
-        })
+            }
+        });
 
         it('passes the third time', () => {
             // third time lucky, isn't it?

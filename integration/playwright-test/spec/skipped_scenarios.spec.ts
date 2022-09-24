@@ -21,7 +21,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
                 ;
-            })); 
+            }));
 
         it('is marked as skipped conditionally', () => playwrightTest('--grep', 'skipped/marked-as-skipped-conditionally.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
@@ -35,7 +35,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
                 ;
-            })); 
+            }));
 
         it('is marked as skipped at the group level', () => playwrightTest('--grep', 'skipped/marked-as-skipped-at-group-level.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
@@ -49,7 +49,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
                 ;
-            })); 
+            }));
 
         it('is marked as conditionally skipped at the group level', () => playwrightTest('--grep', 'skipped/marked-as-skipped-at-group-level-conditionally.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
@@ -63,7 +63,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
                 ;
-            })); 
+            }));
 
         it('is marked as fixme', () => playwrightTest('--grep', 'skipped/marked-as-fixme.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
@@ -77,6 +77,6 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
                 ;
-            }));            
+            }));
     });
 });
