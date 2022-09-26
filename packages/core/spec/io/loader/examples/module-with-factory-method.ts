@@ -1,0 +1,1 @@
+export { ExampleWithFactoryMethod } from './ExampleWithFactoryMethod';

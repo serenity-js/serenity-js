@@ -1,5 +1,5 @@
 import { WriteFileOptions } from 'fs';
-import { ensure, isGreaterThan, property } from 'tiny-types';
+import { ensure, isDefined, isGreaterThan, isString, property } from 'tiny-types';
 
 import {
     ActivityRelatedArtifactArchived,
@@ -91,6 +91,18 @@ export class ArtifactArchiver implements StageCrewMember {
         const pathToDestination = destination.map(segment => new Path(segment)).reduce((acc, current) => acc.join(current));
 
         return new ArtifactArchiver(new FileSystem(pathToDestination));
+    }
+
+    /**
+     * Instantiates an `ArtifactArchiver` storing artifacts in a given `outputDirectory`.
+     * The `outputDirectory` will be created automatically and recursively if it doesn't exist.
+     *
+     * @param config
+     */
+    static fromJSON(config: { outputDirectory: string }): StageCrewMember {
+        const outputDirectory = ensure('outputDirectory', config.outputDirectory, isDefined(), isString());
+
+        return new ArtifactArchiver(new FileSystem(Path.from(outputDirectory)));
     }
 
     /**

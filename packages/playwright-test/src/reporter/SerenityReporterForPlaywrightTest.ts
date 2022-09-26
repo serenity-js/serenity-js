@@ -76,11 +76,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         config: SerenityReporterForPlaywrightTestConfig,
         private readonly serenity: Serenity = reporterSerenityInstance,
     ) {
-        // TODO register Console Reporter and SerenityBDD reporter, or StreamReporter, and ArtifactArchiver
         this.serenity.configure(config);
-
-        // TODO use context to set up actors
-        //  it.use({ actors: new Actors() })    // how do I inject a browser here?
     }
 
     onBegin(config: FullConfig, suite: Suite): void {

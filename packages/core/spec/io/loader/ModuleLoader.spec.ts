@@ -1,17 +1,17 @@
 import { describe, it } from 'mocha';
-
-import { ModuleLoader, Version } from '../../src/io';
-import { expect } from '../expect';
 import path = require('path');
+
+import { ModuleLoader, Version } from '../../../src/io';
+import { expect } from '../../expect';
 
 describe('ModuleLoader', () => {
 
     it('returns the version number of a given package', () => {
         const loader = new ModuleLoader(__dirname);
 
-        const expectedVersion = require('../../package.json').version;  // eslint-disable-line @typescript-eslint/no-var-requires
+        const expectedVersion = require('../../../package.json').version;  // eslint-disable-line @typescript-eslint/no-var-requires
 
-        expect(loader.versionOf('../../')).to.equal(new Version(expectedVersion));
+        expect(loader.versionOf('../../../')).to.equal(new Version(expectedVersion));
     });
 
     it('returns the version of the npm-resolved package if the local package could not be found', () => {

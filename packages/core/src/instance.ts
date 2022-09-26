@@ -1,6 +1,6 @@
+import { SerenityConfig } from './config';
 import { Actor } from './screenplay/actor';
 import { Serenity } from './Serenity';
-import { SerenityConfig } from './SerenityConfig';
 import { Cast, Clock } from './stage';
 
 const clock = new Clock();
