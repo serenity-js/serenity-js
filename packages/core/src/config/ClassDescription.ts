@@ -43,6 +43,10 @@
  * })
  * ```
  *
+ * Note that the class description could also describe a local Node module. This can be useful when you're writing a custom StageCrewMember implementation.
+ * For example, `./my-reporter:MyReporter` would be interpreted as a request to load the `MyReporter` type from `./my-reporter` file, located
+ * relative to the [working directory](https://nodejs.org/api/process.html#processcwd) of the current Node.js process.
+ *
  * @group Configuration
  */
 export type ClassDescription =
