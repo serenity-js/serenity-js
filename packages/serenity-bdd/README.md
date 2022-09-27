@@ -37,7 +37,7 @@ and configure the `ArtifactArchiver` to store the reports at the location where 
 This can be done:
 - via `playwright.config.ts`, if you're using Serenity/JS with [Playwright Test](https://serenity-js.org/api/playwright-test)
 - via `wdio.conf.ts`, if you're using Serenity/JS with [WebdriverIO](https://serenity-js.org/api/playwright-test)
-- via `protractor.conf.js`, if you're using Serenity/JS with [Protractor](/api/protractor)
+- via `protractor.conf.js`, if you're using Serenity/JS with [Protractor](https://serenity-js.org/api/protractor)
 - or programmatically.
 
 #### Usage with Playwright Test
@@ -118,10 +118,10 @@ exports.config = {
 Learn more about [configuring Serenity/JS programmatically](https://serenity-js.org/api/core/class/SerenityConfig).
 
 ```typescript
-import { ArtifactArchiver, serenity } from '@serenity-js/core';
+import { ArtifactArchiver, configure } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 
-serenity.configure({
+configure({
     crew: [
         ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
         new SerenityBDDReporter()

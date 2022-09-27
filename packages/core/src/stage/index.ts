@@ -2,6 +2,7 @@ export * from './Cast';
 export * from './Clock';
 export * from './crew';
 export * from './ListensToDomainEvents';
+export * from './queues';
 export * from './Stage';
 export * from './StageCrewMember';
 export * from './StageCrewMemberBuilder';
