@@ -1,4 +1,5 @@
 import { StageCrewMemberBuilder } from '@serenity-js/core';
+
 import { ConsoleReporter } from './stage';
 
 export * from './stage';
