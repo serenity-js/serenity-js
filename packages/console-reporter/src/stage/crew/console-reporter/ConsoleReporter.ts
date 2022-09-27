@@ -122,7 +122,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private startTimes = new StartTimes();
     private artifacts = new ActivityRelatedArtifacts();
     private summary = new Summary();
-    private firstError: FirstError = new FirstError();
+    private readonly firstErrors: Map<string, FirstError> = new Map();
     private readonly summaryFormatter: SummaryFormatter;
     private readonly eventQueues = new DomainEventQueues();
 
@@ -213,7 +213,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
         }
 
         if (event instanceof SceneStarts) {
-            this.firstError = new FirstError(); // todo: fix to support parallel execution
+            this.firstErrors.set(event.sceneId.value, new FirstError());
 
             this.startTimes.recordStartOf(event);
         }
@@ -238,8 +238,6 @@ export class ConsoleReporter implements ListensToDomainEvents {
             match(event)
                 .when(SceneStarts, (e: SceneStarts) => {
 
-                    // this.firstError = new FirstError();
-                    // this.startTimes.recordStartOf(e);
                     // Print scenario header
                     this.printer.println(this.theme.separator('-'));
                     this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
@@ -252,7 +250,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
                     this.printer.indent();
 
-                    if (! this.firstError.alreadyRecorded()) {
+                    if (! this.firstErrors.get(e.sceneId.value)?.alreadyRecorded()) {
                         this.printer.println(e.details.name.value);
                     }
 
@@ -270,7 +268,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
                     this.printer.indent();
 
                     if (e.outcome instanceof ProblemIndication) {
-                        this.firstError.recordIfNeeded(e.outcome.error);
+                        this.firstErrors.get(e.sceneId.value)?.recordIfNeeded(e.outcome.error);
 
                         if (! (e.outcome.error instanceof AssertionError)) {
                             this.printer.println(this.theme.outcome(e.outcome, `${ e.outcome.error }`));
@@ -330,14 +328,14 @@ export class ConsoleReporter implements ListensToDomainEvents {
                         this.printer.indent();
                         this.printer.indent();
 
-                        if (! this.firstError.alreadyRecorded()) {
+                        if (! this.firstErrors.get(e.sceneId.value).alreadyRecorded()) {
                             this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), `${ e.outcome.error }`));
                         }
 
                         this.printer.outdent();
                         this.printer.outdent();
 
-                        this.firstError.recordIfNeeded(e.outcome.error);
+                        this.firstErrors.get(e.sceneId.value).recordIfNeeded(e.outcome.error);
                     }
 
                     else if (! (e.outcome instanceof ExecutionSuccessful)) {
