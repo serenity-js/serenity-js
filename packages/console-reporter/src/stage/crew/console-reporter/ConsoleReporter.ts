@@ -31,6 +31,7 @@ import {
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
 
+import { ConsoleReporterConfig } from './ConsoleReporterConfig';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
@@ -125,7 +126,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private readonly summaryFormatter: SummaryFormatter;
     private readonly eventQueues = new DomainEventQueues();
 
-    static fromJSON(config: { theme?: 'light' | 'dark' | 'mono' | 'auto' }): StageCrewMemberBuilder<ConsoleReporter> {
+    static fromJSON(config: ConsoleReporterConfig): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(ConsoleReporter.theme(config.theme));
     }
 
@@ -213,6 +214,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
         if (event instanceof SceneStarts) {
             this.firstError = new FirstError(); // todo: fix to support parallel execution
+
             this.startTimes.recordStartOf(event);
         }
 
