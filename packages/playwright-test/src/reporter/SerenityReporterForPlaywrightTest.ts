@@ -55,15 +55,9 @@ export class SerenityReporterForPlaywrightTestConfig {
  * {@apilink DomainEvent|domain events}, so that they can be used with Serenity/JS reporters.
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
-    // config!: FullConfig;
-    // suite!: Suite;
 
     private errorParser = new PlaywrightErrorParser();
-
-    private currentSceneId: CorrelationId;
-
-    // TODO use({ actors: ({ context, page, ... }) => Cast)
-    //  so that people can override it
+    private sceneIds: Map<string, CorrelationId> = new Map();
 
     /**
      *
@@ -85,14 +79,16 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     onTestBegin(test: TestCase): void {
 
-        this.currentSceneId = this.serenity.assignNewSceneId()
+        const currentSceneId = this.serenity.assignNewSceneId();
+
+        this.sceneIds.set(test.id, currentSceneId);
 
         const scenario = this.scenarioDetailsFrom(test);
 
         this.emit(
-            new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
-            new SceneTagged(this.currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
-            new TestRunnerDetected(this.currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
+            new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
+            new SceneTagged(currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
+            new TestRunnerDetected(currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
         );
     }
 
@@ -109,6 +105,8 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.announceRetryIfNeeded(test, result);
 
+        const currentSceneId = this.sceneIds.get(test.id);
+
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
         for (const attachment of result.attachments) {
@@ -120,7 +118,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
             for (const message of messages) {
                 if (message.value.sceneId === 'unknown') {
-                    message.value.sceneId = this.currentSceneId.value;
+                    message.value.sceneId = currentSceneId.value;
                 }
 
                 const event = events[message.type].fromJSON(message.value);
@@ -137,7 +135,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.serenity.announce(
             new SceneFinished(
-                this.currentSceneId,
+                currentSceneId,
                 this.scenarioDetailsFrom(test),
                 this.determineScenarioOutcome(worstInteractionOutcome, scenarioOutcome),
                 this.now(),
@@ -216,13 +214,15 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             return;
         }
 
+        const currentSceneId = this.sceneIds.get(test.id);
+
         this.emit(
             new RetryableSceneDetected(
-                this.currentSceneId,
+                currentSceneId,
                 this.now(),
             ),
             new SceneTagged(
-                this.currentSceneId,
+                currentSceneId,
                 new ArbitraryTag('retried'),        // todo: replace with a dedicated tag
                 this.now(),
             ),
@@ -231,7 +231,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         if (result.retry > 0) {
             this.emit(
                 new SceneTagged(
-                    this.currentSceneId,
+                    currentSceneId,
                     new ExecutionRetriedTag(result.retry),
                     this.serenity.currentTime(),
                 ),
