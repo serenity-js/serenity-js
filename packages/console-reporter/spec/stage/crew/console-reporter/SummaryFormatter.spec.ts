@@ -1,5 +1,5 @@
 import { expect } from '@integration/testing-tools';
-import { Duration } from '@serenity-js/core';
+import { Duration, Timestamp } from '@serenity-js/core';
 import { FileSystemLocation, Path, trimmed } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
@@ -29,7 +29,9 @@ describe('SummaryFormatter', () => {
             new Name('Recording customer details'),
             new Category('Know-Your-Customer and Anti Money Laundering requirements'),
             new FileSystemLocation(Path.fromJSON('features/registration.feature')),
-        );
+        ),
+        startTime = Timestamp.fromTimestampInMilliseconds(0),
+        finishTime = Timestamp.fromTimestampInMilliseconds(5);
 
     let summary: Summary,
         formatter: SummaryFormatter;
@@ -41,16 +43,23 @@ describe('SummaryFormatter', () => {
 
     it('provides an empty description if no tests are recorded', () => {
 
+        summary.recordTestRunStartedAt(startTime);
+        summary.recordTestRunFinishedAt(finishTime);
+
         expect(formatter.format(summary.aggregated())).to.equal(trimmed `
             | Execution Summary
             |
             |
             | Total time: 0ms
+            | Real time: 5ms
             | Scenarios:  0
         `);
     });
 
     it('provides summary of a single successful category', () => {
+
+        summary.recordTestRunStartedAt(startTime);
+        summary.recordTestRunFinishedAt(finishTime);
 
         summary.record(defaultCardPayment, new ExecutionSuccessful(), Duration.ofMilliseconds(5));
 
@@ -60,11 +69,16 @@ describe('SummaryFormatter', () => {
             | Checkout:   1 successful, 1 total (5ms)
             |
             | Total time: 5ms
+            | Real time: 5ms
             | Scenarios:  1
         `);
     });
 
     it('aggregates results per category', () => {
+
+        summary.recordTestRunStartedAt(startTime);
+        summary.recordTestRunFinishedAt(finishTime);
+
         summary.record(defaultCardPayment, new ExecutionSuccessful(), Duration.ofMilliseconds(5));
         summary.record(addingProductToBasket, new ExecutionSuccessful(), Duration.ofMilliseconds(10));
         summary.record(removingProductToBasket, new ExecutionFailedWithError(new Error('boom')), Duration.ofMilliseconds(100));
@@ -76,11 +90,16 @@ describe('SummaryFormatter', () => {
             | Checkout:   1 successful, 1 total (5ms)
             |
             | Total time: 115ms
+            | Real time: 5ms
             | Scenarios:  3
         `);
     });
 
     it('caps the category name at 30 characters', () => {
+
+        summary.recordTestRunStartedAt(startTime);
+        summary.recordTestRunFinishedAt(finishTime);
+
         summary.record(longCategoryName, new ExecutionSuccessful(), Duration.ofMilliseconds(5));
 
         expect(formatter.format(summary.aggregated())).to.equal(trimmed `
@@ -89,11 +108,16 @@ describe('SummaryFormatter', () => {
             | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
             |
             | Total time: 5ms
+            | Real time: 5ms
             | Scenarios:  1
         `);
     });
 
     it('keeps the padding consistent between longer and shorter category names', () => {
+
+        summary.recordTestRunStartedAt(startTime);
+        summary.recordTestRunFinishedAt(finishTime);
+
         summary.record(addingProductToBasket, new ExecutionSuccessful(), Duration.ofMilliseconds(10));
         summary.record(longCategoryName, new ExecutionSuccessful(), Duration.ofMilliseconds(5));
 
@@ -104,6 +128,7 @@ describe('SummaryFormatter', () => {
             | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
             |
             | Total time: 15ms
+            | Real time: 5ms
             | Scenarios:  2
         `);
     });
