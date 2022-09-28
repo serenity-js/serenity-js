@@ -9,7 +9,7 @@ import {
     SceneStarts,
     TaskFinished,
     TaskStarts,
-    TestRunFinished,
+    TestRunFinished, TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import {
     AssertionReport,
@@ -208,6 +208,10 @@ export class ConsoleReporter implements ListensToDomainEvents {
      */
     notifyOf(event: DomainEvent): void {
 
+        if (event instanceof TestRunStarts) {
+            console.log('>> Start time', event.timestamp.toString());
+        }
+
         if (this.isSceneSpecific(event)) {
             this.eventQueues.enqueue(event);
         }
@@ -223,6 +227,9 @@ export class ConsoleReporter implements ListensToDomainEvents {
         }
 
         if (event instanceof TestRunFinished) {
+
+            console.log('>> Finish time', event.timestamp.toString());
+
             this.printer.println(this.theme.separator('='));
 
             this.printer.print(this.summaryFormatter.format(this.summary.aggregated()));
