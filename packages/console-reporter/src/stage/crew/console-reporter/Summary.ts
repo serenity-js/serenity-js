@@ -17,8 +17,8 @@ import {
 export class Summary {
     private readonly records: SummaryRecord[] = [];
 
-    private testRunStartedAt: Timestamp;
-    private testRunFinishedAt: Timestamp;
+    private testRunStartedAt: Timestamp = new Timestamp();
+    private testRunFinishedAt: Timestamp = new Timestamp();
 
     record(details: ScenarioDetails, outcome: Outcome, duration: Duration): void {
         this.records.push({ details, outcome, duration });
