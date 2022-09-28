@@ -28,6 +28,7 @@ export class SummaryFormatter {
             }),
             ``,
             `Total time: ${ this.theme.heading(aggregatedCategories.totalTime) }`,
+            `Real time: ${ this.theme.heading(aggregatedCategories.realTime) }`,
             `Scenarios:  ${ this.theme.heading(aggregatedCategories.numberOfScenarios) }`,
             '',
         ].join('\n');

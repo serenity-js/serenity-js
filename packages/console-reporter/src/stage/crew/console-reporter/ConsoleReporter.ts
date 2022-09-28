@@ -209,7 +209,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     notifyOf(event: DomainEvent): void {
 
         if (event instanceof TestRunStarts) {
-            console.log('>> Start time', event.timestamp.toString());
+            this.summary.recordTestRunStartedAt(event.timestamp);
         }
 
         if (this.isSceneSpecific(event)) {
@@ -223,22 +223,17 @@ export class ConsoleReporter implements ListensToDomainEvents {
         }
 
         if (event instanceof SceneFinished) {
-            this.print(event.sceneId);
+            this.printScene(event.sceneId);
         }
 
         if (event instanceof TestRunFinished) {
+            this.summary.recordTestRunFinishedAt(event.timestamp);
 
-            console.log('>> Finish time', event.timestamp.toString());
-
-            this.printer.println(this.theme.separator('='));
-
-            this.printer.print(this.summaryFormatter.format(this.summary.aggregated()));
-
-            this.printer.println(this.theme.separator('='));
+            this.printSummary(this.summary);
         }
     }
 
-    private print(sceneId: CorrelationId): void {
+    private printScene(sceneId: CorrelationId): void {
         const events = this.eventQueues.drainQueueFor(sceneId);
 
         for (const event of events) {
@@ -381,6 +376,14 @@ export class ConsoleReporter implements ListensToDomainEvents {
                     return void 0;
                 });
         }
+    }
+
+    private printSummary(summary: Summary) {
+        this.printer.println(this.theme.separator('='));
+
+        this.printer.print(this.summaryFormatter.format(summary.aggregated()));
+
+        this.printer.println(this.theme.separator('='));
     }
 
     private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
