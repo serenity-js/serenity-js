@@ -1,4 +1,4 @@
-import { Duration } from '@serenity-js/core';
+import { Duration, Timestamp } from '@serenity-js/core';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -16,6 +16,9 @@ import {
  */
 export class Summary {
     private readonly records: SummaryRecord[] = [];
+
+    private testRunStartedAt: Timestamp;
+    private testRunFinishedAt: Timestamp;
 
     record(details: ScenarioDetails, outcome: Outcome, duration: Duration): void {
         this.records.push({ details, outcome, duration });
@@ -48,7 +51,20 @@ export class Summary {
             acc.categories[categoryName].totalTime = acc.categories[categoryName].totalTime.plus(record.duration);
 
             return acc;
-        }, { categories: {}, totalTime: Duration.ofMilliseconds(0), numberOfScenarios: this.records.length });
+        }, {
+            categories: {},
+            totalTime: Duration.ofMilliseconds(0),
+            realTime: this.testRunFinishedAt.diff(this.testRunStartedAt),
+            numberOfScenarios: this.records.length
+        });
+    }
+
+    recordTestRunStartedAt(timestamp: Timestamp): void {
+        this.testRunStartedAt = timestamp;
+    }
+
+    recordTestRunFinishedAt(timestamp: Timestamp): void {
+        this.testRunFinishedAt = timestamp;
     }
 }
 
@@ -58,6 +74,7 @@ export class Summary {
 export interface AggregatedCategories {
     categories: {[categoryName: string]: AggregatedCategory};
     totalTime: Duration;
+    realTime: Duration;
     numberOfScenarios: number;
 }
 
