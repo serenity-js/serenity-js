@@ -109,7 +109,6 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         );
 
         await serenityInstance.waitForNextCue();
-        await serenityInstance.waitForNextCue();
     },
 });
 
