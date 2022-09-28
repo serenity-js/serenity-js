@@ -58,19 +58,21 @@ export class DomainEventQueues {
             return exactMatch.queueId;
         }
 
-        const sameScenarioMatch = this.queueIndex.find(entry =>
-            entry.details &&
-            entry.details.equals(event.details),
-        );
+        if (! (event instanceof SceneStarts)) {
+            const sameScenarioMatch = this.queueIndex.find(entry =>
+                entry.details &&
+                entry.details.equals(event.details),
+            );
 
-        if (sameScenarioMatch) {
-            this.queueIndex.push({
-                sceneId: event.sceneId,
-                details: event.details || sameScenarioMatch.details,
-                queueId: sameScenarioMatch.queueId,
-            });
+            if (sameScenarioMatch) {
+                this.queueIndex.push({
+                    sceneId: event.sceneId,
+                    details: event.details || sameScenarioMatch.details,
+                    queueId: sameScenarioMatch.queueId,
+                });
 
-            return sameScenarioMatch.queueId;
+                return sameScenarioMatch.queueId;
+            }
         }
 
         const newQueueId = Symbol();
