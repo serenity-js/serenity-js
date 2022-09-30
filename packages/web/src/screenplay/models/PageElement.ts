@@ -114,7 +114,9 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * is present in the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model),
      * `false` otherwise.
      */
-    abstract isPresent(): Promise<boolean>;
+    async isPresent(): Promise<boolean> {
+        return this.locator.isPresent();
+    }
 
     /**
      * Resolves to `true` when the underlying element:

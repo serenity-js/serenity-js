@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';
 import { InteractionFinished, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TaskFinished, TaskStarts } from '@serenity-js/core/lib/events';
-import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
@@ -10,11 +10,12 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
 
     when(7 <= cucumberVersion().major())
         .it('recognises Screenplay activities in any part of a Cucumber scenario', () =>
-
             cucumber('features/hooks.feature', 'hooks.steps.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
                 expect(result.exitCode).to.equal(0);
+
+                let currentSceneId: CorrelationId;
 
                 PickEvent.from(result.events)
                     // before all
@@ -22,7 +23,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                     .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeAll')))
 
                     // first scenario
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('First screenplay scenario')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('First screenplay scenario'));
+                        currentSceneId = event.sceneId;
+                    })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Cucumber hooks')))
 
                     // Before
@@ -54,11 +58,19 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                     .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in After')))
                     .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('After')))
 
-                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
-                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                    .next(SceneFinishes,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                    })
+                    .next(SceneFinished,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                        expect(event.outcome).to.equal(new ExecutionSuccessful());
+                    })
 
                     // second scenario
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Second screenplay scenario')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('Second screenplay scenario'));
+                        currentSceneId = event.sceneId;
+                    })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Cucumber hooks')))
 
                     // Before
@@ -90,8 +102,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                     .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in After')))
                     .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('After')))
 
-                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
-                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                    .next(SceneFinishes,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                    })
+                    .next(SceneFinished,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                        expect(event.outcome).to.equal(new ExecutionSuccessful());
+                    })
 
                     // after all
                     .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in AfterAll')))

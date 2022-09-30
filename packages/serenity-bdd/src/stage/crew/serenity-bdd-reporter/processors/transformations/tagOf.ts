@@ -68,7 +68,7 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
                 reportIdIncluding(browserTag.name)(context);
 
                 // todo: simplify browser name
-                //  https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java
+                //  https://github.com/serenity-bdd/serenity-core/blob/8bf783fa732d49012f546ad0f8352ace4640ccc6/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java#L11
 
                 context.report.context = appendIfNotPresent(context.report.context, simplifyBrowserName(browserTag.browserName));
                 context.report.driver = browserTag.browserName;
@@ -143,9 +143,9 @@ function simplifyPlatformName(platformName: string) {
 // https://www.browserstack.com/automate/capabilities
 function simplifyBrowserName(browserName: string) {
     return simplified({
-        chrome:     ['chrome'],
+        chrome:     ['chrome', 'chromium'],
         firefox:    ['firefox'],
-        safari:     ['safari'],
+        safari:     ['safari', 'webkit'],
         opera:      ['opera'],
         ie:         ['internet explorer', 'explorer', 'ie'],
         edge:       ['microsoftedge', 'edge'],

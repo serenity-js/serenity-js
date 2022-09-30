@@ -11,7 +11,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';
@@ -26,23 +26,41 @@ describe('@serenity-js/mocha', function () {
 
             expect(result.exitCode).to.equal(1);
 
+            let currentSceneId: CorrelationId;
+
             PickEvent.from(result.events)
                 .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
 
                 .next(TestSuiteStarts,     event => expect(event.details.name).to.equal(new Name('Mocha reporting')))
                 .next(TestSuiteStarts,     event => expect(event.details.name).to.equal(new Name('level 1 suite')))
-                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('level 1 suite fails with an assertion error')))
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('level 1 suite fails with an assertion error'));
+                    currentSceneId = event.sceneId;
+                })
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
-                .next(SceneFinishes,       event => expect(event.details.name).to.equal(new Name('level 1 suite fails with an assertion error')))
-                .next(SceneFinished,       event => expect(event.outcome).to.be.instanceof(ExecutionFailedWithAssertionError))
+                .next(SceneFinishes,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(SceneFinished,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                    expect(event.outcome).to.be.instanceof(ExecutionFailedWithAssertionError);
+                })
 
                 .next(TestSuiteStarts,     event => expect(event.details.name).to.equal(new Name('level 2 suite')))
-                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('level 1 suite level 2 suite passes')))
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('level 1 suite level 2 suite passes'));
+                    currentSceneId = event.sceneId;
+                })
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Mocha reporting')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
-                .next(SceneFinishes,       event => expect(event.details.name).to.equal(new Name('level 1 suite level 2 suite passes')))
-                .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                .next(SceneFinishes,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(SceneFinished,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                    expect(event.outcome).to.equal(new ExecutionSuccessful());
+                })
 
                 .next(TestSuiteFinished,   event => {
                     expect(event.details.name).to.equal(new Name('level 2 suite'))

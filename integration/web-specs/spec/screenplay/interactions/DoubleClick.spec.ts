@@ -25,4 +25,13 @@ describe('DoubleClick', () => {
         expect(DoubleClick.on(interactiveElement).toString())
             .to.equal('#actor double-clicks on the interactive element');
     });
+
+    it('correctly detects its invocation location', () => {
+        const activity = DoubleClick.on(interactiveElement);
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('DoubleClick.spec.ts');
+        expect(location.line).to.equal(30);
+        expect(location.column).to.equal(38);
+    });
 });

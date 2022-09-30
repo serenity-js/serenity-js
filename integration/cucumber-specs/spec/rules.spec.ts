@@ -3,7 +3,7 @@ import 'mocha';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';
 import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { BusinessRule, CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
@@ -32,10 +32,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                         new Description(``),    // no description represented as empty description
                     );
 
+                    let currentSceneId: CorrelationId;
+
                     PickEvent.from(result.events)
                         // Rule 1, Example 1
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name('Transfer points between existing members'));
+                            currentSceneId = event.sceneId;
                         })
                         .next(FeatureNarrativeDetected, event => {
                             expect(event.description).to.equal(expectedFeatureNarrative);
@@ -50,15 +53,17 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.tag).to.equal(new FeatureTag('Transferring points between members'));
                         })
                         .next(SceneFinishes, event => {
-                            expect(event.outcome).to.equal(new ExecutionSuccessful());
+                            expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
                             expect(event.outcome).to.equal(new ExecutionSuccessful());
                         })
 
                         // Rule 1, Example 2
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name(`Transfer points between non-family members`));
+                            currentSceneId = event.sceneId;
                         })
                         .next(FeatureNarrativeDetected, event => {
                             expect(event.description).to.equal(expectedFeatureNarrative);
@@ -73,15 +78,17 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.tag).to.equal(new FeatureTag('Transferring points between members'));
                         })
                         .next(SceneFinishes, event => {
-                            expect(event.outcome).to.equal(new ExecutionSuccessful());
+                            expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
                             expect(event.outcome).to.equal(new ExecutionSuccessful());
                         })
 
                         // Rule 2, Example 1
                         .next(SceneStarts, event => {
                             expect(event.details.name).to.equal(new Name(`Steve tries to transfer more points than he has`));
+                            currentSceneId = event.sceneId;
                         })
                         .next(FeatureNarrativeDetected, event => {
                             expect(event.description).to.equal(expectedFeatureNarrative);
@@ -93,9 +100,10 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.tag).to.equal(new FeatureTag('Transferring points between members'));
                         })
                         .next(SceneFinishes, event => {
-                            expect(event.outcome).to.equal(new ExecutionSuccessful());
+                            expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
                             expect(event.outcome).to.equal(new ExecutionSuccessful());
                         })
                     ;

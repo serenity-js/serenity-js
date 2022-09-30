@@ -165,7 +165,7 @@ export class Navigate {
  */
 class NavigateToUrl extends Interaction {
     constructor(private readonly url: Answerable<string>) {
-        super();
+        super(d`#actor navigates to ${ url }`);
     }
 
     /**
@@ -178,12 +178,5 @@ class NavigateToUrl extends Interaction {
         return page.navigateTo(url).catch(error => {
             throw new TestCompromisedError(`Couldn't navigate to ${ url }`, error);
         });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d `#actor navigates to ${ this.url }`;
     }
 }

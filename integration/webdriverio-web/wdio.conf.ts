@@ -38,7 +38,7 @@ const localBrowser: Partial<WebdriverIOConfig> = {
     //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
     maxInstances: process.env.CI
         ? 6
-        : 10,
+        : 6,
 };
 
 const build = process.env.GITHUB_RUN_NUMBER
@@ -120,4 +120,12 @@ export const config: WebdriverIOConfig = {
     logLevel: 'error',
 
     connectionRetryCount: 5,
+
+    autoCompileOpts: {
+        autoCompile: false,
+        tsNodeOpts: {
+            transpileOnly: true,
+            project: 'tsconfig.json'
+        }
+    }
 };

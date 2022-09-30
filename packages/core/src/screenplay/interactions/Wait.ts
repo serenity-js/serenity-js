@@ -211,17 +211,13 @@ export class Wait {
  */
 class WaitFor extends Interaction {
     constructor(private readonly duration: Answerable<Duration>) {
-        super();
+        super(d`#actor waits for ${ duration }`);
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const duration = await actor.answer(this.duration);
 
         return waitFor(duration).start();
-    }
-
-    toString(): string {
-        return d`#actor waits for ${ this.duration }`;
     }
 }
 
@@ -242,7 +238,8 @@ export class WaitUntil<Actual> extends Interaction {
         private readonly timeout: Duration,
         private readonly pollingInterval: Duration,
     ) {
-        super();
+        super(d`#actor waits up to ${ timeout }, polling every ${ pollingInterval }, until ${ actual } does ${ expectation }`);
+        
         ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()))
         ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()))
     }
@@ -296,13 +293,6 @@ export class WaitUntil<Actual> extends Interaction {
 
             throw error;
         });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d`#actor waits up to ${ this.timeout }, polling every ${ this.pollingInterval }, until ${ this.actual } does ${ this.expectation }`;
     }
 }
 

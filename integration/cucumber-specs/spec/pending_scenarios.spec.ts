@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSkipped, FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
@@ -14,14 +14,24 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
             .then(result => {
                 // expect(res.exitCode).to.equal(0);
 
+                let currentSceneId: CorrelationId;
+
                 PickEvent.from(result.events)
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps marked as pending')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('A scenario with steps marked as pending'));
+                        currentSceneId = event.sceneId;
+                    })
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that's marked as pending`)))
                     .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
-                    .next(SceneFinishes,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
-                    .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                    .next(SceneFinishes,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                    })
+                    .next(SceneFinished,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                        expect(event.outcome.constructor).to.equal(ImplementationPending);
+                    })
                 ;
             })
     );
@@ -32,14 +42,24 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
             .then(result => {
                 // expect(result.exitCode).to.equal(0);        // cucumber 3 ignores the --no-strict mode
 
+                let currentSceneId: CorrelationId;
+
                 PickEvent.from(result.events)
-                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))
+                    .next(SceneStarts,         event => {
+                        expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet'));
+                        currentSceneId = event.sceneId;
+                    })
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                     .next(ActivityFinished,    event => expect(event.outcome.constructor).to.equal(ImplementationPending))
-                    .next(SceneFinishes,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
-                    .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                    .next(SceneFinishes,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                    })
+                    .next(SceneFinished,       event => {
+                        expect(event.sceneId).to.equal(currentSceneId);
+                        expect(event.outcome.constructor).to.equal(ImplementationPending);
+                    })
                 ;
             })
     );
@@ -54,8 +74,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 .then(result => {
                     // expect(res.exitCode).to.equal(0);
 
+                    let currentSceneId: CorrelationId;
+
                     PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
+                        .next(SceneStarts,         event => {
+                            expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending'));
+                            currentSceneId = event.sceneId;
+                        })
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))
@@ -64,7 +89,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`And step number three that fails with a generic error`)))
                         .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
-                        .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(SceneFinished,       event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome.constructor).to.equal(ImplementationPending);
+                        })
                     ;
                 })
         );
@@ -78,8 +109,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
 
+                    let currentSceneId: CorrelationId;
+
                     PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
+                        .next(SceneStarts,         event => {
+                            expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending'));
+                            currentSceneId = event.sceneId;
+                        })
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))
@@ -88,7 +124,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`And step number three that fails with a generic error`)))
                         .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))
-                        .next(SceneFinished,       event => expect(event.outcome.constructor).to.equal(ImplementationPending))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(SceneFinished,       event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome.constructor).to.equal(ImplementationPending);
+                        })
                     ;
                 })
         );
@@ -103,14 +145,24 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 .then(result => {
                     expect(result.exitCode).to.equal(0);
 
+                    let currentSceneId: CorrelationId;
+
                     PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))
+                        .next(SceneStarts,         event => {
+                            expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending'));
+                            currentSceneId = event.sceneId;
+                        })
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Before`)))
                         .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
-                        .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
-                        .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(SceneFinished,       event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.be.instanceOf(ImplementationPending);
+                        })
                     ;
                 })
         );

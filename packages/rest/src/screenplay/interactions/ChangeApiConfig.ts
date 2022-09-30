@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, CollectsArtifacts, d, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 import { URL } from 'url';
 
 import { CallAnApi } from '../abilities';
@@ -129,16 +129,12 @@ export class ChangeApiConfig {
  */
 class ChangeApiConfigSetUrl extends Interaction {
     constructor(private readonly newApiUrl: Answerable<string>) {
-        super();
+        super(d`#actor changes API url configuration to ${ newApiUrl }`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.newApiUrl)
             .then(newApiUrl => CallAnApi.as(actor).modifyConfig(config => config.baseURL = newApiUrl));
-    }
-
-    toString(): string {
-        return `#actor changes API URL configuration to ${ this.newApiUrl }`;
     }
 }
 
@@ -147,7 +143,7 @@ class ChangeApiConfigSetUrl extends Interaction {
  */
 class ChangeApiConfigSetPort  extends Interaction {
     constructor(private readonly newPort: Answerable<number | string>) {
-        super();
+        super(`#actor changes API port configuration to ${ newPort }`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
@@ -167,10 +163,6 @@ class ChangeApiConfigSetPort  extends Interaction {
                 }
             }));
     }
-
-    toString(): string {
-        return `#actor changes API port configuration to ${ this.newPort }`;
-    }
 }
 
 /**
@@ -184,7 +176,7 @@ class ChangeApiConfigSetHeader extends Interaction {
         private readonly name: Answerable<string>,
         private readonly value: Answerable<string>
     ) {
-        super();
+        super(`#actor changes API URL and sets header "${ name }" to "${ value }"`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
@@ -204,9 +196,5 @@ class ChangeApiConfigSetHeader extends Interaction {
                 config.headers.common[name] = value;
             });
         });
-    }
-
-    toString(): string {
-        return `#actor changes API URL and sets header "${ this.name }" to "${ this.value }"`;
     }
 }

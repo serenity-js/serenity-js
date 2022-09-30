@@ -25,7 +25,7 @@ export class DownloadArtifact extends Task {
         private readonly repository: URL,
         private readonly destinationDirectory: Path,
     ) {
-        super();
+        super(`#actor downloads ${ gav.toPath().value } from ${ repository.toString() }`);
     }
 
     /**
@@ -58,16 +58,6 @@ export class DownloadArtifact extends Task {
             RenameFile.from(pathToTempFile).to(pathToFinishedFile),
             Notify.that(`Downloaded ${ pathToFinishedFile.value }`),
         );
-    }
-
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */
-    toString(): string {
-        return `#actor downloads ${ this.gav.toPath().value } from ${ this.repository.toString() }`;
     }
 
     private artifactUrl() {

@@ -43,7 +43,7 @@ import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './act
  *
  * @group Screenplay Pattern
  */
-export abstract class Interaction implements Activity {
+export abstract class Interaction extends Activity {
 
     /**
      * @param description
@@ -78,10 +78,10 @@ export abstract class Interaction implements Activity {
  */
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
-        private readonly description: string,
+        description: string,
         private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ) {
-        super();
+        super(description, Interaction.callerLocation(4));
     }
 
     performAs(actor: Actor): Promise<void> {
@@ -90,9 +90,5 @@ class DynamicallyGeneratedInteraction extends Interaction {
         } catch (error) {
             return Promise.reject(error);
         }
-    }
-
-    toString(): string {
-        return this.description;
     }
 }
