@@ -2,7 +2,7 @@
 import { expect } from '@integration/testing-tools';
 import { StageManager } from '@serenity-js/core';
 import { ActivityRelatedArtifactArchived, ActivityRelatedArtifactGenerated, SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { Path } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
@@ -20,7 +20,8 @@ describe('SerenityBDDReporter', () => {
 
     const
         sceneId = new CorrelationId('a-scene-id'),
-        activityIds = [ new CorrelationId('activity-0'), new CorrelationId('activity-1') ];
+        activityIds = [ new CorrelationId('activity-0'), new CorrelationId('activity-1') ],
+        fakeLocation = new FileSystemLocation(Path.from('fake.ts'), 0, 0);
 
     beforeEach(() => {
         const env = create();
@@ -32,7 +33,7 @@ describe('SerenityBDDReporter', () => {
     describe('when reporting activities that took place during scenario execution', () => {
 
         it('reports the outcome of a single activity', () => {
-            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
@@ -50,8 +51,8 @@ describe('SerenityBDDReporter', () => {
         });
 
         it('reports the outcome of a sequence of several activities', () => {
-            const pickACard   = new ActivityDetails(new Name('Pick the default credit card'));
-            const makePayment = new ActivityDetails(new Name('Make the payment'));
+            const pickACard   = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
+            const makePayment = new ActivityDetails(new Name('Make the payment'), fakeLocation);
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
@@ -73,8 +74,8 @@ describe('SerenityBDDReporter', () => {
         });
 
         it('reports the outcome of nested activities', () => {
-            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
-            const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'));
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
+            const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'), fakeLocation);
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
@@ -98,7 +99,7 @@ describe('SerenityBDDReporter', () => {
     describe('order of events', () => {
 
         it('records the events in a correct order', () => {
-            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
 
             const t1 = new Timestamp(new Date(0));
             const t2 = new Timestamp(new Date(10));
@@ -126,8 +127,8 @@ describe('SerenityBDDReporter', () => {
 
         it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
             const
-                pickACard   = new ActivityDetails(new Name('Pick a credit card')),
-                makePayment = new ActivityDetails(new Name('Make a payment'));
+                pickACard   = new ActivityDetails(new Name('Pick a credit card'), fakeLocation),
+                makePayment = new ActivityDetails(new Name('Make a payment'), fakeLocation);
 
             given(reporter).isNotifiedOfFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
@@ -164,7 +165,7 @@ describe('SerenityBDDReporter', () => {
     describe('artifacts', () => {
 
         it('records the arbitrary JSON data emitted during the interaction', () => {
-            const pickACard = new ActivityDetails(new Name('Pick the default credit card'));
+            const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
 
             const t1 = new Timestamp(new Date(0));
             const t2 = new Timestamp(new Date(10));

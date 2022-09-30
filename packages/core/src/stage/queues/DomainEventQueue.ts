@@ -1,11 +1,12 @@
-import { DomainEvent } from '@serenity-js/core/lib/events';
-import { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, Predicate } from 'tiny-types';
+
+import { DomainEvent } from '../../events';
+import { CorrelationId } from '../../model';
 
 /**
  * @package
  */
-export class EventQueue {
+export class DomainEventQueue {
     private readonly queue: Array<DomainEvent & { sceneId: CorrelationId }>;
 
     constructor(...items: Array<DomainEvent & { sceneId: CorrelationId }>) {

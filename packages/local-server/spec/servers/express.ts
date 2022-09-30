@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/consistent-function-scoping */
 // https://github.com/expressjs/express
-import * as express from 'express';
+import express from 'express';
 
 export = {
     node: '>= 6.9',

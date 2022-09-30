@@ -34,7 +34,10 @@ describe('Photographer', () => {
                 new Path(`payments/checkout.feature`),
             ),
         ),
-        pickACard = new ActivityDetails(new Name('Pick the default credit card')),
+        pickACard = new ActivityDetails(
+            new Name('Pick the default credit card'),
+            new FileSystemLocation(Path.from('payments/checkout.steps.ts'), 0, 0),
+        ),
         sceneId = new CorrelationId('a-scene-id'),
         activityId = new CorrelationId('activity-id');
 

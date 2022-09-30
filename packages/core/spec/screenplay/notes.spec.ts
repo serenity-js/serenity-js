@@ -31,6 +31,16 @@ describe('Notepad', () => {
             ).to.equal('#actor takes note of firstNote, secondNote and thirdNote');
         });
 
+        it('correctly detects its invocation location', () => {
+            const activity = notes()
+                .set('firstNote', 'value');
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('notes.spec.ts');
+            expect(location.line).to.equal(36);
+            expect(location.column).to.equal(18);
+        });
+
         it('provides a human-friendly description of NotepadAdapter.has', async () => {
             expect(notes().has('myNote').toString()).to.equal('a note of myNote exists');
         });

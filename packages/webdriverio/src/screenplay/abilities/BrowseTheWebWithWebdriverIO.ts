@@ -12,7 +12,7 @@ import { WebdriverIOBrowsingSession } from '../models';
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
  * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
- * import { By, Navigate, PageElement } from '@serenity-js/web'
+ * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * const HomePage = {

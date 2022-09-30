@@ -1,4 +1,4 @@
-import * as cuid from 'cuid';
+import cuid from 'cuid';
 import { TinyTypeOf } from 'tiny-types';
 
 export class CorrelationId extends TinyTypeOf<string>() {

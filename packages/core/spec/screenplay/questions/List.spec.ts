@@ -291,7 +291,7 @@ describe('List', () => {
 
             await Fiona.attemptsTo(
                 List.of(entries)
-                    .forEach(async ({ item, actor }, index, items) => {
+                    .forEach(({ item, actor }, index, items) => {
                         expect(index).to.equal(item.expectedIndex);
                         expect(items).to.deep.equal(entries);
                     })
@@ -306,6 +306,16 @@ describe('List', () => {
                 .toString();
 
             expect(description).to.equal('#actor iterates over [ 1, 2, 3 ]');
+        });
+
+        it('correctly detects its invocation location', () => {
+            const activity = List.of([ 1, 2, 3 ])
+                .forEach(({ item, actor }) => { /* do nothing */ });
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('List.spec.ts');
+            expect(location.line).to.equal(313);
+            expect(location.column).to.equal(18);
         });
     });
 

@@ -5,7 +5,6 @@ import { Clock, Serenity, serenity } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Navigate, TakeScreenshot } from '@serenity-js/web';
 
-/** @test {TakeScreenshot} */
 describe('TakeScreenshot', () => {
 
     let recorder: EventRecorder;
@@ -23,7 +22,6 @@ describe('TakeScreenshot', () => {
         });
     });
 
-    /** @test {TakeScreenshot.of} */
     it('allows the actor to take a screenshot with an arbitrary name', () =>
         localSerenity.theActorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/take-screenshot/example.html'),
@@ -36,9 +34,16 @@ describe('TakeScreenshot', () => {
                 });
         }));
 
-    /** @test {TakeScreenshot.of} */
-    /** @test {TakeScreenshot#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(TakeScreenshot.of('the page').toString()).to.equal(`#actor takes a screenshot of 'the page'`);
+    });
+
+    it('correctly detects its invocation location', () => {
+        const activity = TakeScreenshot.of('the page');
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('TakeScreenshot.spec.ts');
+        expect(location.line).to.equal(42);
+        expect(location.column).to.equal(41);
     });
 });

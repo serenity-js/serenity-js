@@ -2,21 +2,18 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Question, Serenity,serenity } from '@serenity-js/core';
+import { actorCalled, Question, Serenity, serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
 import { By, ExecuteScript, Navigate, PageElement, Value } from '@serenity-js/web';
 
-/** @test {ExecuteScript} */
 describe('ExecuteAsynchronousScript', function () {
 
     class Sandbox {
         static Input = PageElement.located(By.id('name')).describedAs('input field');
     }
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('allows the actor to execute an asynchronous script', () =>
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
@@ -33,8 +30,6 @@ describe('ExecuteAsynchronousScript', function () {
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
         ));
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('allows the actor to execute an asynchronous script with a static argument', () =>
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
@@ -52,8 +47,6 @@ describe('ExecuteAsynchronousScript', function () {
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
         ));
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('allows the actor to execute an asynchronous script with a promised argument', () =>
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
@@ -71,8 +64,6 @@ describe('ExecuteAsynchronousScript', function () {
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
         ));
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('allows the actor to execute an asynchronous script with a Target argument', () =>
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
@@ -91,17 +82,12 @@ describe('ExecuteAsynchronousScript', function () {
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
         ));
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
-    /** @test {ExecuteAsynchronousScript#toString} */
     it('provides a sensible description of the interaction being performed when invoked without arguments', () => {
         expect(ExecuteScript.async(`
             arguments[arguments.length - 1]();
         `).toString()).to.equal(`#actor executes an asynchronous script`);
     });
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript#toString} */
     it('provides a sensible description of the interaction being performed when invoked with arguments', () => {
         const arg3 = Question.about('arg number 3', actor => void 0);
 
@@ -110,8 +96,6 @@ describe('ExecuteAsynchronousScript', function () {
         ).to.equal(`#actor executes an asynchronous script with arguments: [ <<Promise>>, 'arg2', <<arg number 3>> ]`);
     });
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('complains if the script has failed', () =>
         expect(actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
@@ -123,11 +107,9 @@ describe('ExecuteAsynchronousScript', function () {
             `),
         )).to.be.rejectedWith(Error, `something's not quite right here`));
 
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
     it('emits the events so that the details of the script being executed can be reported', () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
-        const actors = (serenity as any).stage.cast
+        const actors = (serenity as any).stage.cast;
         const localSerenity = new Serenity(frozenClock);
         const recorder = new EventRecorder();
 
@@ -142,11 +124,11 @@ describe('ExecuteAsynchronousScript', function () {
             const events = recorder.events;
 
             expect(events).to.have.lengthOf(3);
-            expect(events[ 0 ]).to.be.instanceOf(ActivityStarts);
-            expect(events[ 1 ]).to.be.instanceOf(ArtifactGenerated);
-            expect(events[ 2 ]).to.be.instanceOf(ActivityFinished);
+            expect(events[0]).to.be.instanceOf(ActivityStarts);
+            expect(events[1]).to.be.instanceOf(ArtifactGenerated);
+            expect(events[2]).to.be.instanceOf(ActivityFinished);
 
-            const artifactGenerated = events[ 1 ] as ActivityRelatedArtifactGenerated;
+            const artifactGenerated = events[1] as ActivityRelatedArtifactGenerated;
 
             expect(artifactGenerated.name.value).to.equal(`Script source`);
 
@@ -156,6 +138,34 @@ describe('ExecuteAsynchronousScript', function () {
             }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
 
             expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
+        });
+    });
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = ExecuteScript.async(`arguments[arguments.length - 1]();`);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
+            expect(location.line).to.equal(146);
+            expect(location.column).to.equal(44);
+        });
+
+        it('correctly detects its invocation location when arguments are used', () => {
+            const activity = ExecuteScript.async(`
+                var name = arguments[0];
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    document.getElementById('name').value = name;
+                    callback();
+                }, 100);
+            `).withArguments(actorCalled('Joe').name);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
+            expect(location.line).to.equal(163);
+            expect(location.column).to.equal(16);
         });
     });
 });

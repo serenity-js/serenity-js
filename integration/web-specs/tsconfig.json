@@ -1,17 +1,18 @@
 {
+  "extends": "../../tsconfig.options.json",
+
   "compilerOptions": {
-    "target": "es2019",
     "lib": ["es2019", "dom"],
-    "module": "commonjs",
-    "sourceMap": true,
-    "declaration": true,
     "outDir": "./lib",
+    "types": [
+      "node",
+      "chai-as-promised"
+    ]
   },
 
   "include": [
     "spec/**/*.ts",
   ],
-
   "exclude": [
     "node_modules"
   ]

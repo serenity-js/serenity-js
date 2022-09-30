@@ -1,5 +1,4 @@
-import { ListensToDomainEvents, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
-import { AssertionError } from '@serenity-js/core';
+import { AssertionError, d, DomainEventQueues, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,
@@ -10,7 +9,7 @@ import {
     SceneStarts,
     TaskFinished,
     TaskStarts,
-    TestRunFinished,
+    TestRunFinished, TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import {
     AssertionReport,
@@ -32,6 +31,7 @@ import {
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
 
+import { ConsoleReporterConfig } from './ConsoleReporterConfig';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
@@ -122,8 +122,13 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private startTimes = new StartTimes();
     private artifacts = new ActivityRelatedArtifacts();
     private summary = new Summary();
-    private firstError: FirstError = new FirstError();
+    private readonly firstErrors: Map<string, FirstError> = new Map();
     private readonly summaryFormatter: SummaryFormatter;
+    private readonly eventQueues = new DomainEventQueues();
+
+    static fromJSON(config: ConsoleReporterConfig): StageCrewMemberBuilder<ConsoleReporter> {
+        return new ConsoleReporterBuilder(ConsoleReporter.theme(config.theme));
+    }
 
     /**
      * Instantiates a `ConsoleReporter` that auto-detects
@@ -136,7 +141,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
      * as colour support can't be detected in child processes.
      */
     static withDefaultColourSupport(): StageCrewMemberBuilder<ConsoleReporter> {
-        return new ConsoleReporterBuilder(new ThemeForDarkTerminals(new ChalkInstance(/* auto-detect */)));
+        return new ConsoleReporterBuilder(ConsoleReporter.theme('auto'));
     }
 
     /**
@@ -146,21 +151,34 @@ export class ConsoleReporter implements ListensToDomainEvents {
      * to avoid printing control characters.
      */
     static forMonochromaticTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
-        return new ConsoleReporterBuilder(new ThemeForMonochromaticTerminals());
+        return new ConsoleReporterBuilder(ConsoleReporter.theme('mono'));
     }
 
     /**
      * Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with dark backgrounds.
      */
     static forDarkTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
-        return new ConsoleReporterBuilder(new ThemeForDarkTerminals(new ChalkInstance({ level: 2 })));
+        return new ConsoleReporterBuilder(ConsoleReporter.theme('dark'));
     }
 
     /**
      * Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with light backgrounds.
      */
     static forLightTerminals(): StageCrewMemberBuilder<ConsoleReporter> {
-        return new ConsoleReporterBuilder(new ThemeForLightTerminals(new ChalkInstance({ level: 2 })));
+        return new ConsoleReporterBuilder(ConsoleReporter.theme('light'));
+    }
+
+    private static theme(theme: 'light' | 'dark' | 'mono' | 'auto') {
+        switch (theme) {
+            case 'dark':
+                return new ThemeForDarkTerminals(new ChalkInstance({ level: 2 }));
+            case 'light':
+                return new ThemeForLightTerminals(new ChalkInstance({ level: 2 }));
+            case 'mono':
+                return new ThemeForMonochromaticTerminals();
+            default:
+                return new ThemeForDarkTerminals(new ChalkInstance(/* auto-detect */));
+        }
     }
 
     /**
@@ -189,156 +207,187 @@ export class ConsoleReporter implements ListensToDomainEvents {
      * @param {DomainEvent} event
      */
     notifyOf(event: DomainEvent): void {
-        match(event)
-            .when(SceneStarts, (e: SceneStarts) => {
 
-                this.firstError = new FirstError();
-                this.startTimes.recordStartOf(e);
+        if (event instanceof TestRunStarts) {
+            this.summary.recordTestRunStartedAt(event.timestamp);
+        }
 
-                // Print scenario header
-                this.printer.println(this.theme.separator('-'));
-                this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
-                this.printer.println();
-                this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
-                this.printer.println();
-            })
+        if (this.isSceneSpecific(event)) {
+            this.eventQueues.enqueue(event);
+        }
 
-        // todo: add SceneTagged ...
+        if (event instanceof SceneStarts) {
+            this.firstErrors.set(event.sceneId.value, new FirstError());
 
-            .when(TaskStarts, (e: TaskStarts) => {
+            this.startTimes.recordStartOf(event);
+        }
 
-                this.printer.indent();
+        if (event instanceof SceneFinished) {
+            this.printScene(event.sceneId);
+        }
 
-                if (! this.firstError.alreadyRecorded()) {
-                    this.printer.println(e.details.name.value);
-                }
+        if (event instanceof TestRunFinished) {
+            this.summary.recordTestRunFinishedAt(event.timestamp);
 
-            })
-            .when(InteractionStarts, (e: InteractionStarts) => {
+            this.printSummary(this.summary);
+        }
+    }
 
-                this.startTimes.recordStartOf(e);
+    private printScene(sceneId: CorrelationId): void {
+        const events = this.eventQueues.drainQueueFor(sceneId);
 
-            })
-            .when(InteractionFinished, (e: InteractionFinished) => {
+        for (const event of events) {
+            match(event)
+                .when(SceneStarts, (e: SceneStarts) => {
 
-                this.printer.indent();
-                this.printer.println(this.formattedOutcome(e));
-
-                this.printer.indent();
-
-                if (e.outcome instanceof ProblemIndication) {
-                    this.firstError.recordIfNeeded(e.outcome.error);
-
-                    if (! (e.outcome.error instanceof AssertionError)) {
-                        this.printer.println(this.theme.outcome(e.outcome, `${ e.outcome.error }`));
-                    }
-                }
-
-                const artifactGeneratedEvents = this.artifacts.recordedFor(e.activityId);
-
-                if (artifactGeneratedEvents.some(a => a instanceof AssertionReport || a instanceof LogEntry)) {
+                    // Print scenario header
+                    this.printer.println(this.theme.separator('-'));
+                    this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
                     this.printer.println();
-                }
+                    this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
+                    this.printer.println();
+                })
 
-                artifactGeneratedEvents.forEach(artifactGenerated => {
-                    if (artifactGenerated.artifact instanceof AssertionReport) {
-                        const details = artifactGenerated.artifact.map(
-                            (artifactContents: { expected: string, actual: string }) =>
-                                this.theme.diff(
-                                    artifactContents.expected,
-                                    artifactContents.actual,
-                                ),
-                        );
+                .when(TaskStarts, (e: TaskStarts) => {
 
-                        this.printer.println();
+                    this.printer.indent();
 
-                        this.printer.println(details);
+                    if (! this.firstErrors.get(e.sceneId.value)?.alreadyRecorded()) {
+                        this.printer.println(e.details.name.value);
+                    }
 
+                })
+                .when(InteractionStarts, (e: InteractionStarts) => {
+
+                    this.startTimes.recordStartOf(e);
+
+                })
+                .when(InteractionFinished, (e: InteractionFinished) => {
+
+                    this.printer.indent();
+                    this.printer.println(this.formattedOutcome(e));
+
+                    this.printer.indent();
+
+                    if (e.outcome instanceof ProblemIndication) {
+                        this.firstErrors.get(e.sceneId.value)?.recordIfNeeded(e.outcome.error);
+
+                        if (! (e.outcome.error instanceof AssertionError)) {
+                            this.printer.println(this.theme.outcome(e.outcome, `${ e.outcome.error }`));
+                        }
+                    }
+
+                    const artifactGeneratedEvents = this.artifacts.recordedFor(e.activityId);
+
+                    if (artifactGeneratedEvents.some(a => a instanceof AssertionReport || a instanceof LogEntry)) {
                         this.printer.println();
                     }
 
-                    if (artifactGenerated.artifact instanceof LogEntry) {
-                        const details = artifactGenerated.artifact.map((artifactContents: { data: string }) => artifactContents.data);
+                    artifactGeneratedEvents.forEach(artifactGenerated => {
+                        if (artifactGenerated.artifact instanceof AssertionReport) {
+                            const details = artifactGenerated.artifact.map(
+                                (artifactContents: { expected: string, actual: string }) =>
+                                    this.theme.diff(
+                                        artifactContents.expected,
+                                        artifactContents.actual,
+                                    ),
+                            );
 
-                        if (artifactGenerated.name.value !== details) {
-                            this.printer.println(this.theme.log(artifactGenerated.name.value, ':'));
+                            this.printer.println();
+
+                            this.printer.println(details);
+
+                            this.printer.println();
                         }
 
-                        this.printer.println(details);
-                        this.printer.println();
+                        if (artifactGenerated.artifact instanceof LogEntry) {
+                            const details = artifactGenerated.artifact.map((artifactContents: { data: string }) => artifactContents.data);
+
+                            if (artifactGenerated.name.value !== details) {
+                                this.printer.println(this.theme.log(artifactGenerated.name.value, ':'));
+                            }
+
+                            this.printer.println(details);
+                            this.printer.println();
+                        }
+                    });
+
+                    this.printer.outdent();
+
+                    this.printer.outdent();
+
+                })
+                .when(ActivityRelatedArtifactGenerated, (e: ActivityRelatedArtifactGenerated) => {
+
+                    this.artifacts.record(e);
+
+                })
+                .when(TaskFinished, (e: TaskFinished) => {
+
+                    this.printer.outdent();
+
+                    if (e.outcome instanceof ProblemIndication) {
+                        this.printer.indent();
+                        this.printer.indent();
+
+                        if (! this.firstErrors.get(e.sceneId.value).alreadyRecorded()) {
+                            this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), `${ e.outcome.error }`));
+                        }
+
+                        this.printer.outdent();
+                        this.printer.outdent();
+
+                        this.firstErrors.get(e.sceneId.value).recordIfNeeded(e.outcome.error);
                     }
-                });
 
-                this.printer.outdent();
+                    else if (! (e.outcome instanceof ExecutionSuccessful)) {
+                        this.printer.indent();
+                        this.printer.println(this.iconFrom(e.outcome), e.details.name.value);
 
-                this.printer.outdent();
-
-            })
-            .when(ActivityRelatedArtifactGenerated, (e: ActivityRelatedArtifactGenerated) => {
-
-                this.artifacts.record(e);
-
-            })
-            .when(TaskFinished, (e: TaskFinished) => {
-
-                this.printer.outdent();
-
-                if (e.outcome instanceof ProblemIndication) {
-                    this.printer.indent();
-                    this.printer.indent();
-
-                    if (! this.firstError.alreadyRecorded()) {
-                        this.printer.println(this.theme.outcome(e.outcome, this.iconFrom(e.outcome), `${ e.outcome.error }`));
+                        this.printer.outdent();
                     }
 
-                    this.printer.outdent();
-                    this.printer.outdent();
+                })
+                .when(SceneFinished, (e: SceneFinished) => {
 
-                    this.firstError.recordIfNeeded(e.outcome.error);
-                }
-
-                else if (! (e.outcome instanceof ExecutionSuccessful)) {
-                    this.printer.indent();
-                    this.printer.println(this.iconFrom(e.outcome), e.details.name.value);
-
-                    this.printer.outdent();
-                }
-
-            })
-            .when(SceneFinished, (e: SceneFinished) => {
-
-                this.summary.record(e.details, e.outcome, this.startTimes.eventDurationOf(e));
-
-                this.printer.println();
-                this.printer.println(this.theme.outcome(e.outcome, this.formattedOutcome(e, this.deCamelCased(e.outcome.constructor.name))));
-
-                if (e.outcome instanceof ProblemIndication) {
+                    this.summary.record(e.details, e.outcome, this.startTimes.eventDurationOf(e));
 
                     this.printer.println();
+                    this.printer.println(this.theme.outcome(e.outcome, this.formattedOutcome(e, this.deCamelCased(e.outcome.constructor.name))));
 
-                    this.printer.indent();
+                    if (e.outcome instanceof ProblemIndication) {
 
-                    if (e.outcome instanceof ImplementationPending) {
-                        this.printer.println(`${ e.outcome.error.name }: ${ e.outcome.error.message }`);
-                    } else if (e.outcome.error?.stack) {
-                        this.printer.println(e.outcome.error.stack);
+                        this.printer.println();
+
+                        this.printer.indent();
+
+                        if (e.outcome instanceof ImplementationPending) {
+                            this.printer.println(`${ e.outcome.error.name }: ${ e.outcome.error.message }`);
+                        } else if (e.outcome.error?.stack) {
+                            this.printer.println(e.outcome.error.stack);
+                        }
+
+                        this.printer.outdent();
                     }
 
-                    this.printer.outdent();
-                }
+                    this.artifacts.clear();
+                })
+                .else((_: DomainEvent) => {
+                    return void 0;
+                });
+        }
+    }
 
-                this.artifacts.clear();
-            })
-            .when(TestRunFinished, (_: TestRunFinished) => {
-                this.printer.println(this.theme.separator('='));
+    private printSummary(summary: Summary) {
+        this.printer.println(this.theme.separator('='));
 
-                this.printer.print(this.summaryFormatter.format(this.summary.aggregated()));
+        this.printer.print(this.summaryFormatter.format(summary.aggregated()));
 
-                this.printer.println(this.theme.separator('='));
-            })
-            .else((_: DomainEvent) => {
-                return void 0;
-            });
+        this.printer.println(this.theme.separator('='));
+    }
+
+    private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
+        return Object.prototype.hasOwnProperty.call(event, 'sceneId');
     }
 
     private formattedOutcome(event: IdentifiableEvent & { outcome: Outcome }, description: string = event.details.name.value) {
@@ -392,14 +441,22 @@ interface IdentifiableEvent {
 }
 
 class StartTimes {
-    private times: { [correlationId: string]: Timestamp } = {};
+    private times: { [key: string]: Timestamp } = {};
 
     recordStartOf(event: IdentifiableEvent) {
-        this.times[event.details.toString()] = event.timestamp;
+        this.times[this.keyFor(event)] = event.timestamp;
     }
 
     eventDurationOf(event: IdentifiableEvent & { outcome: Outcome }): Duration {
-        return event.timestamp.diff(this.times[event.details.toString()]);
+        if (! this.times[this.keyFor(event)]) {
+            throw new LogicError(d`StartTime missing for event ${ event }`)
+        }
+
+        return event.timestamp.diff(this.times[this.keyFor(event)]);
+    }
+
+    private keyFor(event: IdentifiableEvent): string {
+        return event.details.toString();
     }
 }
 
