@@ -1,6 +1,7 @@
-import { OutputStream } from './adapter';
-import { Duration } from './model';
-import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
+import { OutputStream } from '../adapter';
+import { Duration } from '../model';
+import { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
+import { ClassDescription } from './ClassDescription';
 
 /**
  * Describes the configuration object accepted by the {@apilink configure} function.
@@ -10,6 +11,7 @@ import { Cast, StageCrewMember, StageCrewMemberBuilder } from './stage';
  * - {@apilink Cast}
  * - {@apilink StageCrewMember}
  * - {@apilink StageCrewMemberBuilder}
+ * - {@apilink ClassDescription}
  * - {@apilink Stage.waitForNextCue}
  *
  * @group Configuration
@@ -25,8 +27,12 @@ export abstract class SerenityConfig {
     /**
      * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
      * to be notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
+     *
+     * Note that the `crew` can also be configured using {@apilink ClassDescription|ClassDescriptions}.
+     * This is useful when you need to load the configuration from a static `json` file, or when the test runner doesn't support
+     * providing class instances in configuration (e.g. Playwright Test).
      */
-    crew?: Array<StageCrewMember | StageCrewMemberBuilder>;
+    crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;
 
     /**
      * The maximum amount of time Serenity/JS should wait for any post-scenario

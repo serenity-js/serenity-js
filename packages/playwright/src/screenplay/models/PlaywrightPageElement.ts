@@ -173,19 +173,6 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         }
     }
 
-    async isPresent(): Promise<boolean> {
-        try {
-            const element = await this.nativeElement();
-            return element !== null;
-        }
-        catch(error) {
-            if (error.name === 'TimeoutError') {
-                return false;
-            }
-            throw error;
-        }
-    }
-
     async isSelected(): Promise<boolean> {
 
         try {

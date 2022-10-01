@@ -16,6 +16,10 @@ export class PlaywrightRootLocator extends RootLocator<playwright.ElementHandle>
         this.currentFrame = this.page.mainFrame();
     }
 
+    async isPresent(): Promise<boolean> {
+        return true;
+    }
+
     async nativeElement(): Promise<Pick<playwright.ElementHandle, '$' | '$$' | 'waitForSelector'>> {
         return this.currentFrame;
     }

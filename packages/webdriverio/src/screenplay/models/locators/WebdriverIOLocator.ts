@@ -50,6 +50,16 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
         throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
     }
 
+    async isPresent(): Promise<boolean> {
+        try {
+            const element = await this.resolveNativeElement();
+            return Boolean(element);
+        }
+        catch {
+            return false;
+        }
+    }
+
     async nativeElement(): Promise<wdio.Element<'async'>> {
         try {
             return await this.resolveNativeElement();

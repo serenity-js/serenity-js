@@ -144,8 +144,6 @@ export class CucumberMessagesParser {
     parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: TestStepResult }): DomainEvent {
         return new SceneFinishes(
             this.serenity.currentSceneId(),
-            this.currentScenario,
-            this.outcomeFrom(hookMessage.result),
             this.serenity.currentTime()
         );
     }
@@ -288,7 +286,15 @@ export class CucumberMessagesParser {
     }
 
     private activityDetailsFor(parsedTestStep: IParsedTestStep): ActivityDetails {
-        return new ActivityDetails(new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)));
+        const location = parsedTestStep.sourceLocation || parsedTestStep.actionLocation;
+
+        return new ActivityDetails(
+            new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)),
+            new FileSystemLocation(
+                Path.from(location.uri),
+                location.line,
+            ),
+        );
     }
 
     private outcomeFrom(worstResult: TestStepResult, ...steps: IParsedTestStep[]): Outcome {

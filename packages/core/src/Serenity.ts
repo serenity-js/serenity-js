@@ -1,12 +1,12 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
 import { OutputStream } from './adapter';
+import { SerenityConfig } from './config';
 import { ConfigurationError } from './errors';
 import { DomainEvent } from './events';
-import { d, has } from './io';
+import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
 import { CorrelationId, Duration, Timestamp } from './model';
 import { Actor } from './screenplay/actor/Actor';
-import { SerenityConfig } from './SerenityConfig';
 import { StageCrewMember, StageCrewMemberBuilder } from './stage';
 import { Cast } from './stage/Cast';
 import { Clock } from './stage/Clock';
@@ -24,13 +24,23 @@ export class Serenity {
     private stage: Stage;
     private outputStream: OutputStream  = process.stdout;
 
+    private readonly classLoader: ClassLoader;
+
     /**
      * @param clock
      */
-    constructor(private readonly clock: Clock = new Clock()) {
+    constructor(
+        private readonly clock: Clock = new Clock(),
+        cwd: string = process.cwd(),
+    ) {
         this.stage = new Stage(
             Serenity.defaultActors,
             new StageManager(Serenity.defaultCueTimeout, clock),
+        );
+
+        this.classLoader = new ClassLoader(
+            new ModuleLoader(cwd),
+            new ClassDescriptionParser(),
         );
     }
 
@@ -65,7 +75,12 @@ export class Serenity {
 
         if (Array.isArray(config.crew)) {
             this.stage.assign(
-                ...config.crew.map((stageCrewMember, i) => {
+                ...config.crew.map((stageCrewMemberDescription, i) => {
+
+                    const stageCrewMember = this.classLoader.looksLoadable(stageCrewMemberDescription)
+                        ? this.classLoader.instantiate<StageCrewMember | StageCrewMemberBuilder>(stageCrewMemberDescription)
+                        : stageCrewMemberDescription;
+
                     if (looksLikeBuilder(stageCrewMember)) {
                         return stageCrewMember.build({ stage: this.stage, outputStream: this.outputStream });
                     }
@@ -75,7 +90,7 @@ export class Serenity {
                     }
 
                     throw new ConfigurationError(
-                        d`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`${ stageCrewMember }\` found at index ${ i }`
+                        d`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`${ stageCrewMemberDescription }\` found at index ${ i }`
                     );
                 }),
             );

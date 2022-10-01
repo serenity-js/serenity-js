@@ -1,9 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
-import * as Buffer from 'buffer';
 import * as playwright from 'playwright-core';
-import * as structs from 'playwright-core/types/structs';
 import { URL } from 'url';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';
@@ -105,8 +103,8 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
             new Function(`
                 const parameters = arguments[0];
                 return (${ serialisedScript }).apply(null, parameters);
-            `) as structs.PageFunction<typeof nativeArguments, Result>,
-            nativeArguments
+            `) as Parameters<typeof this.page.evaluate>[1],
+            nativeArguments,
         );
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
@@ -116,7 +114,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         return result;
     }
 
-    async executeAsyncScript<Result, Parameters extends any[]>(script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void), ...args: Parameters): Promise<Result> {
+    async executeAsyncScript<Result, InnerArguments extends any[]>(script: string | ((...args: [...parameters: InnerArguments, callback: (result: Result) => void]) => void), ...args: InnerArguments): Promise<Result> {
 
         const nativeArguments = await Promise.all(
             args.map(arg =>
@@ -124,7 +122,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
                     ? arg.nativeElement()
                     : arg
             )
-        ) as Parameters;
+        ) as InnerArguments;
 
         const serialisedScript = typeof script === 'function'
             ? String(script)
@@ -141,7 +139,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
                         return reject(error);
                     }
                 })
-            `) as structs.PageFunction<typeof nativeArguments, Result>,
+            `) as Parameters<typeof this.page.evaluate>[1],
             nativeArguments
         );
 

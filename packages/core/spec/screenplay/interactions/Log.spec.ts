@@ -43,4 +43,13 @@ describe('Log', () => {
         });
         expect(collect.firstCall.args[1]).to.equal(new Name(`question adapter`));
     });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Log.the('example value');
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Log.spec.ts');
+        expect(location.line).to.equal(48);
+        expect(location.column).to.equal(30);
+    });
 });

@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
-import { formatted, Path } from '@serenity-js/core/lib/io';
+import { d, Path } from '@serenity-js/core/lib/io';
 import { spawn } from 'child_process';
 
 import { Complaint, ExecutionError, Notification } from '../../model';
@@ -16,7 +16,7 @@ export class Spawn extends Interaction {
         private readonly pathToExecutable: Answerable<Path>,
         private readonly args: string[],
     ) {
-        super();
+        super(d`#actor executes ${ pathToExecutable } with ${ args }`);
     }
 
     /**
@@ -49,15 +49,5 @@ export class Spawn extends Interaction {
                         : resolve(void 0),
                 );
             }));
-    }
-
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */
-    toString(): string {
-        return formatted `#actor executes ${ this.pathToExecutable } with ${ this.args }`;
     }
 }
