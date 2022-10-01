@@ -101,4 +101,13 @@ describe('Send', () => {
                 .to.equal(true, artifactGenerated.timestamp.toString());
         });
     });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Send.a(GetRequest.to('products/2'));
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Send.spec.ts');
+        expect(location.line).to.equal(106);
+        expect(location.column).to.equal(31);
+    });
 });

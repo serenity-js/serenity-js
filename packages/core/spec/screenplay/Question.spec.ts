@@ -141,6 +141,15 @@ describe('Question', () => {
                     expect(subject).to.equal('<<list of strings>>.as(numbers)');
                 });
             });
+
+            it('correctly detects its invocation location', () => {
+                const question = () => Question.about('subject', actor_ => 42);
+                const location = question().instantiationLocation();
+
+                expect(location.path.basename()).to.equal('Question.spec.ts');
+                expect(location.line).to.equal(147);
+                expect(location.column).to.equal(34);
+            });
         });
     });
 

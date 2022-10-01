@@ -120,6 +120,24 @@ describe('Debug', () => {
         });
         expect(collect.secondCall.args[1]).to.equal(new Name(`question adapter`));
     });
+
+    it('correctly detects its invocation location when setting a breakpoint', () => {
+        const activity = Debug.setBreakpoint();
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Debug.spec.ts');
+        expect(location.line).to.equal(125);
+        expect(location.column).to.equal(32);
+    });
+
+    it('correctly detects its invocation location when debugging values', () => {
+        const activity = Debug.values();
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Debug.spec.ts');
+        expect(location.line).to.equal(134);
+        expect(location.column).to.equal(32);
+    });
 });
 
 function promiseRejectedWith(error: Error) {

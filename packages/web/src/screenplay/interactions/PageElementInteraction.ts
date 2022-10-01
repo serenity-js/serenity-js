@@ -1,4 +1,5 @@
 import { Answerable, AnswersQuestions, d, Interaction, LogicError } from '@serenity-js/core';
+import { FileSystemLocation } from '@serenity-js/core/lib/io';
 
 import { PageElement } from '../models';
 
@@ -12,13 +13,8 @@ import { PageElement } from '../models';
  */
 export abstract class PageElementInteraction extends Interaction {
 
-    /**
-     * @param description
-     *  A human-readable description to be used when reporting
-     *  this {@apilink Interaction}.
-     */
-    protected constructor(private readonly description: string) {
-        super();
+    protected constructor(description: string, location: FileSystemLocation = Interaction.callerLocation(4)) {
+        super(description, location);
     }
 
     /**
@@ -39,12 +35,5 @@ export abstract class PageElementInteraction extends Interaction {
         }
 
         return resolved;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.description;
     }
 }

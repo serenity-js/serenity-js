@@ -32,10 +32,12 @@ tasks:
 
 vscode:
   extensions:
-    - EditorConfig.EditorConfig
+    - CucumberOpen.cucumber-official
     - dbaeumer.vscode-eslint
     - eamodio.gitlens
-    # - CucumberOpen.cucumber-official  # pending: https://github.com/cucumber/vscode/issues/98
+    - EditorConfig.EditorConfig
+    - Gruntfuggly.todo-tree
+    - streetsidesoftware.code-spell-checker
 
 github:
   prebuilds:
@@ -44,5 +46,5 @@ github:
     pullRequests: true
     pullRequestsFromForks: true
     addCheck: prevent-merge-on-error
-    addComment: true
-    addBadge: false
+    addComment: false
+    addBadge: true

@@ -1,4 +1,4 @@
-import semver = require('semver');
+import semver from 'semver';
 import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
 
 /**

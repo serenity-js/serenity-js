@@ -400,7 +400,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         private subject: string,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
     ) {
-        super();
+        super(subject, QuestionStatement.callerLocation(4));
     }
 
     /**
@@ -424,7 +424,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return this;
     }
 
-    toString(): string {
+    override toString(): string {
         return this.subject;
     }
 

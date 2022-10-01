@@ -13,6 +13,10 @@ export class ProtractorRootLocator extends RootLocator<protractor.ElementFinder>
         super();
     }
 
+    async isPresent(): Promise<boolean> {
+        return true;
+    }
+
     async nativeElement(): Promise<Pick<protractor.ElementFinder, 'element' | 'all'>> {
         return {
             element: this.browser.element.bind(this.browser),
