@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.28](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.27...v3.0.0-rc.28) (2022-09-30)
+
+
+### Bug Fixes
+
+* **console-reporter:** corrected default export so that it's detected as no-arg ([e39fc12](https://github.com/serenity-js/serenity-js/commit/e39fc123587badd9b906448d6d98beac99842f7d)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+* **console-reporter:** corrected error reporting when scenarios are executed in parallel ([170a31e](https://github.com/serenity-js/serenity-js/commit/170a31e799b7c1069ad6995387ea644612934c60)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+* **core:** activity is now able to detect invocation location on Node 14 ([41f4776](https://github.com/serenity-js/serenity-js/commit/41f4776736620bc32d474d9b66f69c742f8eca96)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+* **core:** improved implementation of EventQueue to better support parallel scenarios ([025e4fd](https://github.com/serenity-js/serenity-js/commit/025e4fdf962d6a7e31dde428a39a352983b1f2ab)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+
+
+### Features
+
+* **console-reporter:** improved support for tests executed in parallel ([01264ce](https://github.com/serenity-js/serenity-js/commit/01264ce6110a3199265468f633eee5623fabe008)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+* **console-reporter:** report both total and real time it took to execute all the scenarios ([654be57](https://github.com/serenity-js/serenity-js/commit/654be57662d45560d79c341e21469ab7d703733b)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+* **playwright-test:** improved Playwright Test reports ([6c6b537](https://github.com/serenity-js/serenity-js/commit/6c6b5379dfc324a4fb75d758daa7782109f1c5ab)), closes [#1240](https://github.com/serenity-js/serenity-js/issues/1240)
+
+
+
+
+
 # [3.0.0-rc.27](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.26...v3.0.0-rc.27) (2022-08-26)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
