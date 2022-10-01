@@ -59,15 +59,16 @@ export abstract class Activity {
         try {
             throw new Error('Location');
         } catch (error) {
-            const frames = this.errorStackParser.parse(error)
-                .filter(frame => ! (
-                    frame?.fileName.startsWith('node:') ||      // node 16 and 18
-                    frame?.fileName.startsWith('internal') ||   // node 14
-                    frame?.fileName.includes('node_modules')
-                ));
+            const frames = this.errorStackParser.parse(error);
+            const userLandFrames = frames.filter(frame => ! (
+                frame?.fileName.startsWith('node:') ||      // node 16 and 18
+                frame?.fileName.startsWith('internal') ||   // node 14
+                frame?.fileName.includes('node_modules')
+            ));
 
-            const index = Math.min(Math.max(1, frameOffset), frames.length - 1)
-            const invocationFrame = frames[index];
+            const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
+            // use the desired user-land frame, or the last one from the stack trace for internal invocations
+            const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
 
             return new FileSystemLocation(
                 Path.from(invocationFrame.fileName),
