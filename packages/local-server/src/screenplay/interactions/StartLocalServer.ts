@@ -63,12 +63,12 @@ export class StartLocalServer {
  */
 class StartLocalServerOnRandomPort extends Interaction {
 
-    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
-        return ManageALocalServer.as(actor).listen();
+    constructor() {
+        super(`#actor starts local server on a random port`);
     }
 
-    toString(): string {
-        return `#actor starts local server on a random port`;
+    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        return ManageALocalServer.as(actor).listen();
     }
 }
 
@@ -78,16 +78,12 @@ class StartLocalServerOnRandomPort extends Interaction {
 class StartLocalServerOnPort extends Interaction {
 
     constructor(private readonly preferredPort: Answerable<number>) {
-        super();
+        super(`#actor starts local server on port ${ preferredPort }`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.preferredPort)
             .then(port => ManageALocalServer.as(actor).listen(port));
-    }
-
-    toString(): string {
-        return `#actor starts local server on port ${ this.preferredPort }`;
     }
 }
 
@@ -100,7 +96,7 @@ class StartLocalServerOnRandomPortBetween extends Interaction {
         private readonly lowestPort: Answerable<number>,
         private readonly highestPort: Answerable<number>,
     ) {
-        super();
+        super(`#actor starts local server on port between ${ lowestPort } and ${ highestPort }`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
@@ -110,10 +106,6 @@ class StartLocalServerOnRandomPortBetween extends Interaction {
         ]).
         then(([lowestPort, highestPort]) => ManageALocalServer.as(actor).listen(lowestPort, highestPort));
     }
-
-    toString(): string {
-        return `#actor starts local server on port between ${ this.lowestPort } and ${ this.highestPort }`;
-    }
 }
 
 /**
@@ -122,15 +114,11 @@ class StartLocalServerOnRandomPortBetween extends Interaction {
 class StartLocalServerOnFirstOf extends Interaction {
 
     constructor(private readonly preferredPorts: Answerable<number[]>) {
-        super();
+        super(`#actor starts local server on first port of ${ preferredPorts }`);
     }
 
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.preferredPorts)
             .then(preferredPorts => ManageALocalServer.as(actor).listen(preferredPorts[0]));
-    }
-
-    toString(): string {
-        return `#actor starts local server on first port of ${ this.preferredPorts }`;
     }
 }

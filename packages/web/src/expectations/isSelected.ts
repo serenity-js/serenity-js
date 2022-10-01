@@ -7,7 +7,7 @@ import { ElementExpectation } from './ElementExpectation';
 /**
  *  {@apilink Expectation} that an `<option>` or `<input>` element is selected, which means it resolves to `true` when:
  *  - the element {@apilink isPresent|is present} in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
- *  - {@apilink PageElement.isEnabled} resolves to `true`
+ *  - {@apilink PageElement.isSelected} resolves to `true`
  *
  *  If the above conditions are not met, the expectation resolves to `false`.
  *

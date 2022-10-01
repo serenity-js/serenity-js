@@ -55,7 +55,7 @@ import { PerformsActivities } from './actor';
  *
  * @group Screenplay Pattern
  */
-export abstract class Task implements Activity {
+export abstract class Task extends Activity {
 
     /**
      * A factory method that makes defining custom tasks more convenient.
@@ -89,16 +89,12 @@ export abstract class Task implements Activity {
  * @package
  */
 class DynamicallyGeneratedTask extends Task {
-    constructor(private description: string, private activities: Activity[]) {
-        super();
+    constructor(description: string, private activities: Activity[]) {
+        super(description, Task.callerLocation(4));
     }
 
     performAs(actor: PerformsActivities): Promise<void> {
         return actor.attemptsTo(...this.activities);
-    }
-
-    toString(): string {
-        return this.description;
     }
 }
 
@@ -106,17 +102,13 @@ class DynamicallyGeneratedTask extends Task {
  * @package
  */
 class NotImplementedTask extends Task {
-    constructor(private description: string) {
-        super();
+    constructor(description: string) {
+        super(description, Task.callerLocation(4));
     }
 
     performAs(actor: PerformsActivities): Promise<void> {
         return Promise.reject(
             new ImplementationPendingError(`A task where "${ this.toString() }" has not been implemented yet`),
         );
-    }
-
-    toString(): string {
-        return this.description;
     }
 }

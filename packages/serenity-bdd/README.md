@@ -34,30 +34,68 @@ npm install --save-dev @serenity-js/{core,serenity-bdd}
 To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the `SerenityBDDReporter` to the `Stage`
 and configure the `ArtifactArchiver` to store the reports at the location where Serenity BDD expects to find them.
 
-This can be done in your `protractor.conf.js` file if you're using Protractor, or programmatically.
+This can be done:
+- via `playwright.config.ts`, if you're using Serenity/JS with [Playwright Test](https://serenity-js.org/api/playwright-test)
+- via `wdio.conf.ts`, if you're using Serenity/JS with [WebdriverIO](https://serenity-js.org/api/playwright-test)
+- via `protractor.conf.js`, if you're using Serenity/JS with [Protractor](https://serenity-js.org/api/protractor)
+- or programmatically.
 
-#### Programmatic configuration
+#### Usage with Playwright Test
+
+Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.org/api/playwright-test).
 
 ```typescript
-import { ArtifactArchiver, serenity } from '@serenity-js/core';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+// playwright.config.ts
+import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 
-serenity.configure({
-    crew: [
-        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-        new SerenityBDDReporter()
+const config: PlaywrightTestConfig = {
+    reporter: [
+        [ '@serenity-js/playwright-test', {
+            crew: [
+                '@serenity-js/serenity-bdd',
+                [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+            ]
+        }]
     ],
-});
+
+    // Other configuration omitted for brevity
+    // For details, see https://playwright.dev/docs/test-configuration    
+};
+
+export default config;
 ```
 
-#### Protractor
+#### Usage with WebdriverIO
+
+Learn more about using [Serenity/JS with WebdriverIO](https://serenity-js.org/api/webdriverio).
+
+```typescript
+// wdio.conf.ts
+
+import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+
+export const config: WebdriverIOConfig = {
+
+    framework: '@serenity-js/webdriverio',
+
+    serenity: {
+        crew: [
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+        ]
+    },
+
+    // Other configuration omitted for brevity
+    // For details, see https://webdriver.io/docs/options
+};
+```
+
+#### Usage with Protractor
+
+Learn more about using [Serenity/JS with Protractor](https://serenity-js.org/api/protractor).
 
 ```javascript
 // protractor.conf.js
-
-const
-    { ArtifactArchiver }    = require('@serenity-js/core'),
-    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd'),
 
 exports.config = {
 
@@ -66,13 +104,29 @@ exports.config = {
 
     serenity: {
         crew: [
-            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            new SerenityBDDReporter(),
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
         ]
     },
 
     // ...
 }
+```
+
+#### Programmatic configuration
+
+Learn more about [configuring Serenity/JS programmatically](https://serenity-js.org/api/core/class/SerenityConfig).
+
+```typescript
+import { ArtifactArchiver, configure } from '@serenity-js/core';
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+
+configure({
+    crew: [
+        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+        new SerenityBDDReporter()
+    ],
+});
 ```
 
 ### Serenity BDD Living Documentation

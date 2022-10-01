@@ -1,0 +1,43 @@
+{
+  "name": "@examples/playwright-test-todomvc",
+  "version": "3.0.0",
+  "description": "Example implementation of a test suite using Playwright Test to exercise a Web interface",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf target",
+    "test:update-serenity": "serenity-bdd update --ignoreSSL",
+    "test:acceptance": "playwright test --config playwright.config.ts",
+    "test:report": "serenity-bdd run --shortFilenames=false --log=debug",
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "test:chromium": "playwright test --config playwright.config.ts --project chromium",
+    "test:firefox": "playwright test --config playwright.config.ts --project firefox",
+    "test:webkit": "playwright test --config playwright.config.ts --project webkit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.26.0",
+    "@serenity-js/assertions": "^3.0.0-rc",
+    "@serenity-js/core": "^3.0.0-rc",
+    "@serenity-js/console-reporter": "^3.0.0-rc",
+    "@serenity-js/playwright": "^3.0.0-rc",
+    "@serenity-js/playwright-test": "^3.0.0-rc",
+    "@serenity-js/serenity-bdd": "^3.0.0-rc",
+    "rimraf": "^3.0.2"
+  }
+}

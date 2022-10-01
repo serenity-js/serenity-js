@@ -78,6 +78,15 @@ describe('PageElement', () => {
                 )
             );
 
+            it('correctly detects its invocation location', () => {
+                const activity = PageElement.located(By.css('iframe')).switchTo();
+                const location = activity.instantiationLocation();
+
+                expect(location.path.basename()).to.equal('PageElement.spec.ts');
+                expect(location.line).to.equal(82);
+                expect(location.column).to.equal(72);
+            });
+
             describe('and performing activities in the context of an iframe', () => {
 
                 it('should automatically switch back to a parent frame from an iframe', () =>
@@ -109,6 +118,15 @@ describe('PageElement', () => {
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
                     )
                 );
+
+                it('correctly detects its invocation location', () => {
+                    const activity = Switch.to(PageElement.located(By.css('iframe'))).and(/* do nothing */);
+                    const location = activity.instantiationLocation();
+
+                    expect(location.path.basename()).to.equal('PageElement.spec.ts');
+                    expect(location.line).to.equal(123);
+                    expect(location.column).to.equal(87);
+                });
             });
         });
 
@@ -148,6 +166,15 @@ describe('PageElement', () => {
                     Ensure.that(Value.of(result), equals('hello')),
                 )
             );
+
+            it('correctly detects its invocation location', () => {
+                const activity = Switch.to(inputField);
+                const location = activity.instantiationLocation();
+
+                expect(location.path.basename()).to.equal('PageElement.spec.ts');
+                expect(location.line).to.equal(171);
+                expect(location.column).to.equal(41);
+            });
 
             describe('and performing activities in the context of an Web element', () => {
 

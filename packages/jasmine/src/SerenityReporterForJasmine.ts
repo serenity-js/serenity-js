@@ -14,7 +14,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     ActivityDetails,
     Category,
@@ -91,7 +91,14 @@ export class SerenityReporterForJasmine implements JasmineReporter {
                 const
                     sceneId = this.serenity.currentSceneId(),
                     activityId = this.serenity.assignNewActivityId();
-                const details = new ActivityDetails(new Name('Expectation'));
+                const details = new ActivityDetails(
+                    new Name('Expectation'),
+                    new FileSystemLocation(
+                        Path.from(result.location.path),
+                        result.location.line,
+                        result.location.column,
+                    ),
+                );
 
                 this.emit(
                     new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),
@@ -106,8 +113,6 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         this.emit(new SceneFinishes(
             this.currentSceneId,
-            scenarioDetails,
-            outcome,
             this.serenity.currentTime(),
         ));
 

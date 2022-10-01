@@ -40,4 +40,13 @@ describe('Enter', () => {
         expect(Enter.theValue(actorCalled('Bernie').name).into(Form.field).toString())
             .to.equal(`#actor enters 'Bernie' into the name field`);
     });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Enter.theValue(actorCalled('Bernie').name).into(Form.field);
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Enter.spec.ts');
+        expect(location.line).to.equal(45);
+        expect(location.column).to.equal(69);
+    });
 });

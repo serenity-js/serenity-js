@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
-import { Category, Description, Name } from '@serenity-js/core/lib/model';
+import { Category, CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
@@ -24,11 +24,14 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                     expectedExamplesName = new Name('Example results'),
                     expectedExamplesDescription = new Description('Description of the examples');
 
+                let sceneSequenceId: CorrelationId;
+
                 PickEvent.from(result.events)
                     .next(SceneSequenceDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(outlineLine);
+                        sceneSequenceId = event.sceneId;
                     })
                     .next(SceneParametersDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
@@ -41,13 +44,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(firstScenarioLine);
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                     })
                     .next(SceneFinishes, event => {
-                        expect(event.details.name).to.equal(expectedScenarioName);
-                        expect(event.details.category).to.equal(expectedScenarioCategory);
-                        expect(event.details.location.line).to.equal(firstScenarioLine);
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                     })
                     .next(SceneFinished, event => {
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(firstScenarioLine);
@@ -56,6 +59,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(outlineLine);
+                        sceneSequenceId = event.sceneId;
                     })
                     .next(SceneParametersDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
@@ -65,16 +69,16 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.parameters.values).to.deep.equal({ result: 'fails with a generic error' });
                     })
                     .next(SceneStarts, event => {
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(secondScenarioLine);
                     })
                     .next(SceneFinishes, event => {
-                        expect(event.details.name).to.equal(expectedScenarioName);
-                        expect(event.details.category).to.equal(expectedScenarioCategory);
-                        expect(event.details.location.line).to.equal(secondScenarioLine);
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                     })
                     .next(SceneFinished, event => {
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(secondScenarioLine);
@@ -83,6 +87,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(outlineLine);
+                        sceneSequenceId = event.sceneId;
                     })
                     .next(SceneParametersDetected, event => {
                         expect(event.details.name).to.equal(expectedScenarioName);
@@ -95,13 +100,13 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(thirdScenarioLine);
+                        sceneSequenceId = event.sceneId;
                     })
                     .next(SceneFinishes, event => {
-                        expect(event.details.name).to.equal(expectedScenarioName);
-                        expect(event.details.category).to.equal(expectedScenarioCategory);
-                        expect(event.details.location.line).to.equal(thirdScenarioLine);
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                     })
                     .next(SceneFinished, event => {
+                        expect(event.sceneId).to.equal(sceneSequenceId);
                         expect(event.details.name).to.equal(expectedScenarioName);
                         expect(event.details.category).to.equal(expectedScenarioCategory);
                         expect(event.details.location.line).to.equal(thirdScenarioLine);

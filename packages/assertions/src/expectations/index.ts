@@ -16,4 +16,5 @@ export * from './isTrue';
 export * from './matches';
 export * from './not';
 export * from './or';
+export * from './property';
 export * from './startsWith';

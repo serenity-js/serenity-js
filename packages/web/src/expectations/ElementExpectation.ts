@@ -12,7 +12,7 @@ import { PageElement } from '../screenplay';
  * import { ElementExpectation, PageElement } from '@serenity-js/web'
  *
  * export function isEmpty(): Expectation<boolean, PageElement> {
- *   return ElementExpectation.forElementTo('have an empty value', await actual => {
+ *   return ElementExpectation.forElementTo('have an empty value', async actual => {
  *     const value = await actual.value();
  *     return value.length === 0;
  *   })
@@ -90,7 +90,7 @@ export class ElementExpectation extends Expectation<PageElement> {
      * import { ElementExpectation, PageElement } from '@serenity-js/web'
      *
      * export function isEmpty(): Expectation<boolean, PageElement> {
-     *   return ElementExpectation.forElementTo('have an empty value', await actual => {
+     *   return ElementExpectation.forElementTo('have an empty value', async actual => {
      *     const value = await actual.value();
      *     return value.length === 0;
      *   })

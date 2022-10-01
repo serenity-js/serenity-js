@@ -294,7 +294,7 @@ type NotesToSet<Notes extends Record<any, any>> = {
 class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction implements ChainableSetter<Notes> {
 
     constructor(private readonly notes: NotesToSet<Notes>) {
-        super();
+        super(`#actor takes note of ${ commaSeparated(Object.keys(notes)) }`);
     }
 
     set<K extends keyof Notes>(subject: K, value: Answerable<Notes[K]>): ChainableSetter<Notes> & Interaction {
@@ -313,9 +313,4 @@ class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction im
             notepad.set(subject, answer);
         }
     }
-
-    toString(): string {
-        return `#actor takes note of ${ commaSeparated(Object.keys(this.notes)) }`;
-    }
 }
-

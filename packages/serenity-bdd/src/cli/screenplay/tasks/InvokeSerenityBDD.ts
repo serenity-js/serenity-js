@@ -27,7 +27,7 @@ export class InvokeSerenityBDD extends Task {
         private readonly args: Answerable<string[]>  = Question.about(`no arguments`, actor => []),
         private readonly props: Answerable<string[]> = Question.about(`no properties`, actor => []),
     ) {
-        super();
+        super(`#actor invokes Serenity BDD`);
     }
 
     /**
@@ -61,15 +61,5 @@ export class InvokeSerenityBDD extends Task {
                 Spawn.the(new JavaExecutable(), ...props, '-jar', this.pathToArtifact.value, ...args),
             ),
         );
-    }
-
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */
-    toString(): string {
-        return `#actor invokes Serenity BDD`;
     }
 }

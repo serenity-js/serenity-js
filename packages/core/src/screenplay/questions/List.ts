@@ -235,7 +235,7 @@ class ForEachLoop<Item_Type> extends Task {
         private readonly subject: string,
         private readonly fn: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void,
     ) {
-        super();
+        super(`#actor iterates over ${ subject }`);
     }
 
     async performAs(actor: Actor): Promise<void> {
@@ -244,10 +244,6 @@ class ForEachLoop<Item_Type> extends Task {
         for (const [index, item] of collection.entries()) {
             await this.fn({ actor, item }, index, collection);
         }
-    }
-
-    toString(): string {
-        return `#actor iterates over ${ this.subject }`;
     }
 }
 

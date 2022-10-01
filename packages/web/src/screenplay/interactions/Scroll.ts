@@ -62,7 +62,7 @@ export class Scroll extends Interaction {
     }
 
     protected constructor(private readonly element: Answerable<PageElement>) {
-        super();
+        super(d`#actor scrolls to ${ element }`);
     }
 
     /**
@@ -72,12 +72,5 @@ export class Scroll extends Interaction {
         const target = await actor.answer(this.element);
 
         return target.scrollIntoView();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d`#actor scrolls to ${ this.element }`;
     }
 }

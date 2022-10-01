@@ -1,4 +1,5 @@
 import {
+    Activity,
     Answerable,
     AnswersQuestions,
     AssertionError,
@@ -14,6 +15,7 @@ import {
     RuntimeError,
     UsesAbilities,
 } from '@serenity-js/core';
+import { FileSystemLocation } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
@@ -77,18 +79,20 @@ export class Ensure<Actual> extends Interaction {
      * @returns {Ensure<Actual_Type>}
      */
     static that<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): Ensure<Actual_Type> {
-        return new Ensure(actual, expectation);
+        return new Ensure(actual, expectation, Activity.callerLocation(5));
     }
 
     /**
      * @param actual
      * @param expectation
+     * @param location
      */
-    constructor(
+    protected constructor(
         protected readonly actual: Answerable<Actual>,
         protected readonly expectation: Expectation<Actual>,
+        location: FileSystemLocation,
     ) {
-        super();
+        super(d`#actor ensures that ${ actual } does ${ expectation }`, location);
     }
 
     /**
@@ -107,13 +111,6 @@ export class Ensure<Actual> extends Interaction {
             .else(o => {
                 throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ o }`);
             });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return d`#actor ensures that ${ this.actual } does ${ this.expectation }`;
     }
 
     /**
@@ -168,7 +165,7 @@ class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
         private readonly typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError,
         private readonly message?: string,
     ) {
-        super(actual, expectation);
+        super(actual, expectation, Activity.callerLocation(6));
     }
 
     protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {

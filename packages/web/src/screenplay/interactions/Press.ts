@@ -89,7 +89,7 @@ export class Press extends PageElementInteraction {
      * @param keys
      *  A sequence of one or more keys to press
      */
-    constructor(
+    protected constructor(
         private readonly keys: Answerable<Array<Key | string>>
     ) {
         super(d `#actor presses ${ keys }`);
@@ -117,7 +117,7 @@ class PressKeyInField extends PageElementInteraction {
         private readonly keys: Answerable<Array<Key | string>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(d `#actor presses ${ keys } in ${ field }`);
+        super(d `#actor presses ${ keys } in ${ field }`, Interaction.callerLocation(3));
     }
 
     /**

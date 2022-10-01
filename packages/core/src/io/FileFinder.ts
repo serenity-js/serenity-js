@@ -1,4 +1,5 @@
-import fg = require('fast-glob');
+import fg from 'fast-glob';
+
 import { Path } from './Path';
 
 export class FileFinder {
