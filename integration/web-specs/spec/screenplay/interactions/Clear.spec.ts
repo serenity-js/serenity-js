@@ -6,15 +6,12 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { By, Clear, Navigate, PageElement, Value } from '@serenity-js/web';
 
-/** @test {Clear} */
 describe('Clear', () => {
 
     const Form = {
         field: PageElement.located(By.id('field')).describedAs('the input field'),
     };
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of an empty input', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/empty_input_field.html'),
@@ -24,8 +21,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('does not affect elements with no "value" attribute', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/input_field_with_no_value.html'),
@@ -37,8 +32,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of an input field', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/input_field_with_value.html'),
@@ -48,8 +41,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of an number field', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/number_input_field_with_value.html'),
@@ -59,8 +50,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of a date field', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/date_input_field_with_value.html'),
@@ -70,8 +59,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('allows the actor to clear the value of an RTL input field', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/input_field_with_value_rtl.html'),
@@ -81,8 +68,6 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    /** @test {Clear} */
-    /** @test {Clear.theValueOf} */
     it('complains if the element cannot be cleared', () =>
         expect(
             actorCalled('Bernie').attemptsTo(
@@ -92,9 +77,17 @@ describe('Clear', () => {
             )
         ).to.be.rejectedWith(LogicError, `The input field doesn't seem to have a 'value' attribute that could be cleared.`));
 
-    /** @test {Clear#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(Clear.theValueOf(Form.field).toString())
             .to.equal('#actor clears the value of the input field');
+    });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Clear.theValueOf(Form.field);
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Clear.spec.ts');
+        expect(location.line).to.equal(86);
+        expect(location.column).to.equal(32);
     });
 });

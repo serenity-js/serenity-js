@@ -1,6 +1,6 @@
+import filenamify from 'filenamify';
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
-import filenamify = require('filenamify');
-import path = require('upath');
+import path from 'upath';
 
 export class Path extends TinyType {
     private static readonly Separator = '/';

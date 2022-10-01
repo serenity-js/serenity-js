@@ -83,10 +83,3 @@ RUN curl -fsSL "https://get.sdkman.io" | bash \
         && echo 'export SDKMAN_DIR=\"/home/gitpod/.sdkman\"' >> /home/gitpod/.bashrc.d/99-java \
         && echo '[[ -s \"/home/gitpod/.sdkman/bin/sdkman-init.sh\" ]] && source \"/home/gitpod/.sdkman/bin/sdkman-init.sh\"' >> /home/gitpod/.bashrc.d/99-java"
 # above, we are adding the sdkman init to .bashrc (executing sdkman-init.sh does that), because one is executed on interactive shells, the other for non-interactive shells (e.g. plugin-host)
-
-# ###################################################################################################################### \
-# Download Cucumber extension for VSCode - https://github.com/cucumber/vscode
-
-RUN sudo bash -c "mkdir -p /vscode-extensions \
-    && curl -Ls $(curl -Ls https://api.github.com/repos/cucumber/vscode/releases/latest | jq -c '.assets[] | select(.name | test("^cucumber-official.*.vsix$")) | .browser_download_url') -o /vscode-extensions/cucumber-official.vsix \
-    && chmod -R 777 /vscode-extensions"

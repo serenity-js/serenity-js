@@ -1,8 +1,8 @@
-import { Stage, StageCrewMember } from '@serenity-js/core';
+import { DomainEventQueues, Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 
-import { EventQueueProcessors, EventQueues } from './processors';
+import { EventQueueProcessors } from './processors';
 
 /**
  * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
@@ -73,7 +73,7 @@ import { EventQueueProcessors, EventQueues } from './processors';
  * @group Stage
  */
 export class SerenityBDDReporter implements StageCrewMember {
-    private readonly eventQueues = new EventQueues();
+    private readonly eventQueues = new DomainEventQueues();
     private readonly processors = new EventQueueProcessors();
 
     /**

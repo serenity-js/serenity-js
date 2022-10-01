@@ -28,4 +28,13 @@ describe('Click', () => {
         expect(Click.on(Form.checkbox).toString())
             .to.equal('#actor clicks on the checkbox');
     });
+
+    it('correctly detects its invocation location', () => {
+        const activity = Click.on(Form.checkbox);
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Click.spec.ts');
+        expect(location.line).to.equal(33);
+        expect(location.column).to.equal(32);
+    });
 });

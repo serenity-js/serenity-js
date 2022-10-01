@@ -190,6 +190,12 @@ const config = {
                         },
                     },
                     {
+                        path: 'packages/playwright-test',
+                        entry: {
+                            index: { label: 'index', path: 'src/index.ts' },
+                        },
+                    },
+                    {
                         path: 'packages/protractor',
                         entry: {
                             index: { label: 'index', path: 'src/index.ts' },
@@ -228,6 +234,7 @@ const config = {
                         '@serenity-js/cucumber',
                         '@serenity-js/jasmine',
                         '@serenity-js/mocha',
+                        '@serenity-js/playwright-test',
 
                         // Web testing
                         '@serenity-js/web',

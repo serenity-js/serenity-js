@@ -114,7 +114,7 @@ export class Switch extends Interaction {
     }
 
     protected constructor(private readonly switchable: Answerable<Switchable>) {
-        super();
+        super(`#actor switches to ${ switchable }`);
     }
 
     /**
@@ -138,13 +138,6 @@ export class Switch extends Interaction {
 
         await switchable.switchTo();
     }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor switches to ${ this.switchable }`;
-    }
 }
 
 /**
@@ -155,7 +148,7 @@ class SwitchAndPerformActivities extends Task {
         private readonly switchable: Answerable<Switchable>,
         private readonly activities: Activity[]
     ) {
-        super();
+        super(`#actor switches to ${ switchable }`);
     }
 
     /**
@@ -172,12 +165,5 @@ class SwitchAndPerformActivities extends Task {
         )
 
         await origin.switchBack();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return `#actor switches to ${ this.switchable }`;
     }
 }

@@ -1,3 +1,4 @@
+import { DomainEventQueue } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
@@ -16,7 +17,6 @@ import {
 import { match } from 'tiny-types';
 
 import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
-import { EventQueue } from '../EventQueue';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { activityFinished, activityStarted, executionFinishedAt, executionFinishedWith, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
@@ -27,12 +27,12 @@ import { SingleSceneReportContext } from './SingleSceneReportContext';
  */
 export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
 
-    supports(queue: EventQueue): boolean {
+    supports(queue: DomainEventQueue): boolean {
         return queue
             && queue.first() instanceof SceneStarts;
     }
 
-    process(queue: EventQueue): SerenityBDDReport {
+    process(queue: DomainEventQueue): SerenityBDDReport {
         return queue.reduce((context, event) =>
             match<DomainEvent, SingleSceneReportContext>(event)
                 .when(SceneStarts,                      this.onSceneStarts(context))

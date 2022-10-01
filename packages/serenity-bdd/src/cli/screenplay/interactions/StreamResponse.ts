@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, ConfigurationError, Interaction, UsesAbilities } from '@serenity-js/core';
-import { formatted, Path } from '@serenity-js/core/lib/io';
+import { d, Path } from '@serenity-js/core/lib/io';
 import { CallAnApi } from '@serenity-js/rest';
 import { AxiosRequestConfig } from 'axios';
 
@@ -21,7 +21,7 @@ export class StreamResponse extends Interaction {
         private readonly request: Answerable<AxiosRequestConfig>,
         private readonly destination: Path,
     ) {
-        super();
+        super(d`#actor saves response to ${ request } in ${ destination.value }`);
     }
 
     /**
@@ -80,15 +80,5 @@ export class StreamResponse extends Interaction {
 
                 response.data.on('error', error => reject(error));
             })));
-    }
-
-    /**
-     * @desc
-     *  Generates a description to be used when reporting this {@apilink @serenity-js/core/lib/screenplay~Activity}.
-     *
-     * @returns {string}
-     */
-    toString(): string {
-        return formatted `#actor saves response to ${ this.request } in ${ this.destination.value }`;
     }
 }

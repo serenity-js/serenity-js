@@ -11,6 +11,10 @@ export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
         super();
     }
 
+    async isPresent(): Promise<boolean> {
+        return true;
+    }
+
     async nativeElement(): Promise<Pick<wdio.Browser<'async'>, '$' | '$$'>> {
         return this.browser;
     }
