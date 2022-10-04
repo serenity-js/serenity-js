@@ -21,6 +21,15 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
+    it('allows the actor to clear the value of an empty "contenteditable" element', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/clear/empty_contenteditable.html'),
+
+            Clear.theValueOf(Form.field),
+
+            Ensure.that(Value.of(Form.field), equals('')),
+        ));
+
     it('does not affect elements with no "value" attribute', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/input_field_with_no_value.html'),
@@ -68,6 +77,15 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
+    it('allows the actor to clear the value of an "contenteditable" element', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/clear/contenteditable.html'),
+
+            Clear.theValueOf(Form.field),
+
+            Ensure.that(Value.of(Form.field), equals('')),
+        ));
+
     it('complains if the element cannot be cleared', () =>
         expect(
             actorCalled('Bernie').attemptsTo(
@@ -75,7 +93,7 @@ describe('Clear', () => {
 
                 Clear.theValueOf(Form.field),
             )
-        ).to.be.rejectedWith(LogicError, `The input field doesn't seem to have a 'value' attribute that could be cleared.`));
+        ).to.be.rejectedWith(LogicError, `The input field doesn't seem like an element that could be cleared.`));
 
     it('provides a sensible description of the interaction being performed', () => {
         expect(Clear.theValueOf(Form.field).toString())
@@ -87,7 +105,7 @@ describe('Clear', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Clear.spec.ts');
-        expect(location.line).to.equal(86);
+        expect(location.line).to.equal(104);
         expect(location.column).to.equal(32);
     });
 });
