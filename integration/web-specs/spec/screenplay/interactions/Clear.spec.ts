@@ -4,7 +4,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { By, Clear, Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, Clear, Navigate, PageElement, Text, Value } from '@serenity-js/web';
 
 describe('Clear', () => {
 
@@ -27,7 +27,7 @@ describe('Clear', () => {
 
             Clear.theValueOf(Form.field),
 
-            Ensure.that(Value.of(Form.field), equals('')),
+            Ensure.that(Text.of(Form.field), equals('')),
         ));
 
     it('does not affect elements with no "value" attribute', () =>
@@ -83,7 +83,7 @@ describe('Clear', () => {
 
             Clear.theValueOf(Form.field),
 
-            Ensure.that(Value.of(Form.field), equals('')),
+            Ensure.that(Text.of(Form.field).trim(), equals('')),
         ));
 
     it('complains if the element cannot be cleared', () =>
