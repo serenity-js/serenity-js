@@ -387,44 +387,6 @@ actorCalled('Alice').attemptsTo(
 )
 ```
 
-## `@serenity-js/assertions`
-
-### `property` removed
-
-`property` helper function has been removed since it's no longer needed.
-
-`QuestionAdapter`, returned by `Question.about` creates a `Proxy` object around the returned value, which allows for methods and properties of the underlying object to be invoked on the `QuestionAdapter` itself, and the results of the invocation automatically converted into `Question` or `Interaction` so that they're compatible with other Serenity/JS interfaces.
-
-```typescript
-const User = () =>
-  Question.about('user', actor => {
-    // Question.about can return a static value or a Promise<value>,
-    // QuestionAdapter is compatible with both.
-    return Promise.resolve({
-      handle: '@jan-molak',
-    });
-  }
-```
-
-```diff
-import { actorCalled } from '@serenity-js/core';
-- import { Ensure, equals, property } from '@serenity-js/assertions';
-+ import { Ensure, equals } from '@serenity-js/assertions';
-
-actorCalled('Alice').attemptsTo
--  Ensure.that(User(), property('handle', equals('@jan-molak')))
-+  Ensure.that(User().handle, equals('@jan-molak'))
-)
-```
-
-`QuestionAdapter` also creates a `Proxy` object around the returned value, allowing for the properties and methods of the returned value to be invoked on the `QuestionAdapter` itself, and their return values to be wrapped in `Interaction` or `Question` automatically so that they're compatible with other Serenity/JS interfaces.
-
-For example:
-
-```
-Ensure.that(User().toUpperCase().slice(1, 4), equals('JAN'))
-```
-
 ## `@serenity-js/rest`
 
 ### `Answerable<WithAnswerableProperties<AxiosRequestConfig>>` in HTTP requests
@@ -535,8 +497,87 @@ interface AddProductRequestData {
 }
 ```
 
+### Formatting descriptions with `d` and `f`
+
+Deprecated [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) `formatted` has been removed and replaced by `d` (short for "description") and `f` (short for "format"):
+
+```diff
+- import { formatted } from '@serenity-js/core/lib/io';
++ import { f, d } from '@serenity-js/core/lib/io';
+
+const AuthenticateAs = (username: Answerable<string>) =>
+-    Task.where(formatted `#actor authenticates as ${ username }`, /* ... */)
++    Task.where(d `#actor authenticates as ${ username }`, /* ... */)
+```
+
+While both the [`d`](/api/core/function/d) and [`f`](/api/core/function/f) tag functions can be used
+to format the descriptions of custom tasks, interactions and questions, 
+the difference between them is how they format [`Question`s](/api/core/class/Question) provided as template parameter:
+- `f` marks the question parameter so that it's easy to distinguish in the description
+- `d` makes the question parameter blend in with the rest of the description
+
+For example, given a custom question as follows:
+
+```typescript
+const testUsername = () => 
+    Question.about('test username', actor => `${ actor.name }@example.org`)
+```
+Calling `d`:
+```typescript
+    d`#actor authenticates as ${ testUsername() }`  
+    // produces: #actor authenticates as test username
+```
+Calling `f`:
+```typescript
+    f`#actor authenticates as ${ testUsername() }`  
+    // produces: #actor authenticates as <<test username>>
+```
+
+## `@serenity-js/web`
+
+Other changes in the Serenity/JS Web module include:
+
+### Page-specific functions
+
+Web page specific functions such as `Website.url()` and `Website.title()` are now aggregated under the [`Page`](/api/web/class/Page) API:
+
+```diff
+- import { Website } from '@serenity-js/webdriverio`
++ import { Page } from '@serenity-js/web`
+
+await actorCalled('Alice').attemptsTo(
+-    Ensure.that(Website.title(), equals('Serenity/JS')),
++    Ensure.that(Page.current().title(), equals('Serenity/JS')),
+)
+```
+
+The [`Page`](/api/web/class/Page) API also allows you to easily query properties of another browser window without interrupting
+the actor flow:
+
+```typescript
+import { Page } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+  Ensure.that(
+    Page.whichUrl(endWith(`/gallery.html`)).title(), 
+    equals('Summer collection')
+  ),
+)
+```
+
+You can also use it to switch to another tab and make the actor perform a sequence of interactions in that context:
+
+```typescript
+import { endsWith } from '@serenity-js/assertions'
+import { actorCalled } from '@serenity-js/core'
+import { Switch } from '@serenity-js/web'
+
+await actorCalled('Bernie').attemptsTo(
+  Switch.to(Page.whichUrl(endsWith(`/gallery.html`))).and(
+      // perform verification of the gallery page
+  ),
+  // automatically switch back to the original window
+)
+```
 
 
-
-TODO:
-- add note on Website.url() -> Page.current().url()
