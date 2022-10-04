@@ -85,18 +85,22 @@ export class Clear extends PageElementInteraction {
 
     private async ensureElementCanBeCleared(element: PageElement): Promise<void> {
         let threwError: Error,
-            hasValueAttribute = false;
+            hasValueAttribute = false,
+            hasContentEditableAttribute = false;
 
         try {
+            const contentEditable = await element.attribute('contenteditable')
+            hasContentEditableAttribute = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';  // true or empty string mean content is editable
+
             const value = await element.value();
             hasValueAttribute = value !== null && value !== undefined;
         } catch (error) {
             threwError = error;
         }
 
-        if (! hasValueAttribute || threwError) {
+        if ((!hasValueAttribute && !hasContentEditableAttribute) || threwError) {
             throw new LogicError(
-                this.capitaliseFirstLetter(d`${ this.field } doesn't seem to have a 'value' attribute that could be cleared.`),
+                this.capitaliseFirstLetter(d`${ this.field } doesn't seem like an element that could be cleared.`),
                 threwError
             );
         }
