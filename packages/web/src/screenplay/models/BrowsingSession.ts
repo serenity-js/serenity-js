@@ -15,10 +15,10 @@ export abstract class BrowsingSession<Page_Type extends Page> {
     protected readonly pages: Map<CorrelationId, Page_Type> = new Map<CorrelationId, Page_Type>();
 
     async closePagesOtherThan(pageOfInterest: Page_Type): Promise<void> {
-        for (const [pageId, page] of this.pages) {
-            if (page !== pageOfInterest) {
+        for (const page of await this.allPages()) {
+            if (! page.id.equals(pageOfInterest.id)) {
                 await page.close();
-                this.pages.delete(pageId);
+                this.pages.delete(page.id);
             }
         }
 
