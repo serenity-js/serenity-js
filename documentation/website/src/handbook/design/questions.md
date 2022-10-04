@@ -56,8 +56,6 @@ const WebsiteTitle = () =>
 
 In the above example we retrieve actor's ability to `BrowseTheWeb` and then use that to perform the lower-level call.
 
-**Please note**: Instead of implementing your own custom question to retrieve the title of the website it's better to  use [`Website.title()`](/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title) Serenity/JS already ships with.
-
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
     <div class="text"><p><strong>PRO TIP:</strong>
