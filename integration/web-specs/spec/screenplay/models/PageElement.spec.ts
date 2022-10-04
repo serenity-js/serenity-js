@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { By, isActive, Key, Navigate, PageElement, Press, Switch, Text, Value } from '@serenity-js/web';
+import { By, isActive, Key, Navigate, Page, PageElement, Press, Switch, TakeScreenshot, Text, Value } from '@serenity-js/web';
 
 /** @test {PageElement} */
 describe('PageElement', () => {
@@ -15,7 +15,7 @@ describe('PageElement', () => {
         beforeEach(() =>
             actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/page_with_no_iframes.html'),
-            )
+            ),
         );
 
         describe('should complain when trying to switch to an element that', () => {
@@ -23,7 +23,7 @@ describe('PageElement', () => {
             it(`doesn't exist`, () =>
                 expect(actorCalled('Francesca').attemptsTo(
                     PageElement.located(By.css('#invalid')).switchTo(),
-                )).to.be.rejectedWith(LogicError, `Couldn't switch to page element located by css ('#invalid')`)
+                )).to.be.rejectedWith(LogicError, `Couldn't switch to page element located by css ('#invalid')`),
             );
         });
     });
@@ -62,7 +62,7 @@ describe('PageElement', () => {
 
                     PageElement.located(By.css('iframe')).switchTo(),
                     Ensure.that(Text.of(heading), equals('An iframe')),
-                )
+                ),
             );
 
             it('should switch to a nested iframe', () =>
@@ -75,7 +75,7 @@ describe('PageElement', () => {
 
                     PageElement.located(By.css('iframe')).switchTo(),
                     Ensure.that(Text.of(heading), equals('An iframe')),
-                )
+                ),
             );
 
             it('correctly detects its invocation location', () => {
@@ -99,7 +99,7 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Text.of(heading), equals('Page with an iframe')),
-                    )
+                    ),
                 );
 
                 it('should automatically switch back to a parent frame from a nested iframe', () =>
@@ -116,7 +116,7 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
-                    )
+                    ),
                 );
 
                 it('correctly detects its invocation location', () => {
@@ -127,6 +127,46 @@ describe('PageElement', () => {
                     expect(location.line).to.equal(123);
                     expect(location.column).to.equal(87);
                 });
+
+                it('allows for a screenshot to be taken without affecting the browsing context', () =>
+                    actorCalled('Francesca').attemptsTo(
+                        Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
+                        Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
+
+                        TakeScreenshot.of('top-level context'),
+
+                        Switch.to(PageElement.located(By.css('iframe'))).and(
+                            TakeScreenshot.of('iframe context'),
+
+                            Ensure.that(Text.of(heading), equals('Page with an iframe')),
+
+                            Switch.to(PageElement.located(By.css('iframe'))).and(
+                                TakeScreenshot.of('nested iframe context'),
+
+                                Ensure.that(Text.of(heading), equals('An iframe')),
+                            ),
+                        ),
+
+                        Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
+                    ),
+                );
+
+                it('allows for properties of the current frame to be retrieved without affecting the browsing context', () =>
+                    actorCalled('Francesca').attemptsTo(
+                        Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
+                        Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
+
+                        Switch.to(PageElement.located(By.css('iframe'))).and(
+                            Ensure.that(Page.current().name(), equals('example-nested-iframe')),
+
+                            Switch.to(PageElement.located(By.css('iframe'))).and(
+                                Ensure.that(Page.current().name(), equals('example-iframe')),
+                            ),
+                        ),
+
+                        Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
+                    ),
+                );
             });
         });
 
@@ -146,7 +186,7 @@ describe('PageElement', () => {
                     Press.the('h', 'e', 'l', 'l', 'o', Key.Tab, Key.Enter),
 
                     Ensure.that(Value.of(result), equals('hello')),
-                )
+                ),
             );
 
             it('should switch focus from one element to another', () =>
@@ -164,7 +204,7 @@ describe('PageElement', () => {
                     Press.the(Key.Enter),
 
                     Ensure.that(Value.of(result), equals('hello')),
-                )
+                ),
             );
 
             it('correctly detects its invocation location', () => {
@@ -172,7 +212,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(171);
+                expect(location.line).to.equal(211);
                 expect(location.column).to.equal(41);
             });
 
@@ -195,7 +235,7 @@ describe('PageElement', () => {
                         Press.the(Key.Enter),
 
                         Ensure.that(Value.of(result), equals('hello')),
-                    )
+                    ),
                 );
 
                 it('should automatically switch back to previously-focused element in nested sequences', () =>
@@ -220,7 +260,7 @@ describe('PageElement', () => {
                             Ensure.that(result, isActive()),
                             Ensure.that(Value.of(result), equals('hello')),
                         ),
-                    )
+                    ),
                 );
             });
         });

@@ -52,9 +52,65 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
      * @param page
      */
     async changeCurrentPageTo(page: ProtractorPage): Promise<void> {
-        await this.browser.switchTo().window(page.id.value);
+        const currentPage = await this.currentPage();
 
-        super.changeCurrentPageTo(page);
+        // are we already on this page?
+        if (currentPage.id.equals(page.id)) {
+            return void 0;
+        }
+
+        // does the new page exist, or has it been closed in the meantime by user action, script, or similar?
+        if (! await page.isPresent()) {
+            return void 0;
+        }
+
+        // the page seems to be legit, switch to it
+        await promised(this.browser.switchTo().window(page.id.value));
+
+        // and update the cached reference
+        await super.changeCurrentPageTo(page);
+    }
+
+    private async activeWindowHandle(): Promise<string> {
+        try {
+            return await promised(this.browser.getWindowHandle());
+        }
+        catch (error) {
+            // If the window is closed by user action Protractor will still hold the reference to the closed window.
+            if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
+                const allHandles = await promised(this.browser.getAllWindowHandles());
+                if (allHandles.length > 0) {
+                    const handle = allHandles[allHandles.length - 1];
+                    await promised(this.browser.switchTo().window(handle));
+
+                    return handle;
+                }
+            }
+            throw error;
+        }
+    }
+
+    override async currentPage(): Promise<ProtractorPage> {
+        const actualCurrentPageHandle   = await this.activeWindowHandle();
+        const actualCurrentPageId       = CorrelationId.fromJSON(actualCurrentPageHandle);
+
+        if (this.currentBrowserPage && this.currentBrowserPage.id.equals(actualCurrentPageId)) {
+            return this.currentBrowserPage;
+        }
+
+        // Looks like the actual current page is not what we thought the current page was.
+        // Is it one of the pages we are aware of?
+        const allPages = await this.allPages();
+        const found = allPages.find(page => page.id.equals(actualCurrentPageId));
+        if (found) {
+            this.currentBrowserPage = found;
+            return this.currentBrowserPage;
+        }
+
+        // OK, so that's a handle that we haven't seen before, let's register it and set as current page.
+        this.currentBrowserPage = await this.registerCurrentPage();
+
+        return this.currentBrowserPage;
     }
 
     protected async registerCurrentPage(): Promise<ProtractorPage> {
