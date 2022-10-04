@@ -71,13 +71,13 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
         await super.changeCurrentPageTo(page);
     }
 
-    private async getActiveWindowHandle(): Promise<string> {
+    private async activeWindowHandle(): Promise<string> {
         try {
             return await promised(this.browser.getWindowHandle());
         }
         catch (error) {
             // If the window is closed by user action Protractor will still hold the reference to the closed window.
-            if (error.name === 'NoSuchWindowError') {
+            if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
                 const allHandles = await promised(this.browser.getAllWindowHandles());
                 if (allHandles.length > 0) {
                     const handle = allHandles[allHandles.length - 1];
@@ -91,7 +91,7 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
     }
 
     override async currentPage(): Promise<ProtractorPage> {
-        const actualCurrentPageHandle   = await this.getActiveWindowHandle();
+        const actualCurrentPageHandle   = await this.activeWindowHandle();
         const actualCurrentPageId       = CorrelationId.fromJSON(actualCurrentPageHandle);
 
         if (this.currentBrowserPage && this.currentBrowserPage.id.equals(actualCurrentPageId)) {
