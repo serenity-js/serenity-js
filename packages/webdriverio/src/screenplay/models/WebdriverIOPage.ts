@@ -47,21 +47,21 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     navigateTo(destination: string): Promise<void> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             await this.browser.url(destination);
         });
     }
 
     navigateBack(): Promise<void> {
-        return this.switchToAndPerform(() => this.browser.back());
+        return this.inContextOfThisPage(() => this.browser.back());
     }
 
     navigateForward(): Promise<void> {
-        return this.switchToAndPerform(() => this.browser.forward());
+        return this.inContextOfThisPage(() => this.browser.forward());
     }
 
     reload(): Promise<void> {
-        return this.switchToAndPerform(() => this.browser.refresh());
+        return this.inContextOfThisPage(() => this.browser.refresh());
     }
 
     sendKeys(keys: Array<Key | string>): Promise<void> {
@@ -77,7 +77,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             return key.utf16codePoint;
         });
 
-        return this.switchToAndPerform(() => this.browser.keys(keySequence));
+        return this.inContextOfThisPage(() => this.browser.keys(keySequence));
     }
 
     async executeScript<Result, InnerArguments extends any[]>(
@@ -93,7 +93,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             innerArguments.push(innerArgument);
         }
 
-        const result = await this.switchToAndPerform<Result>(() => {
+        const result = await this.inContextOfThisPage<Result>(() => {
             return this.browser.execute(script, ...innerArguments);
         });
 
@@ -115,7 +115,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             parameters.push(parameter);
         }
 
-        const result = await this.switchToAndPerform<Result>(() => {
+        const result = await this.inContextOfThisPage<Result>(() => {
             return this.browser.executeAsync<Result, Parameters>(script, ...parameters);
         });
 
@@ -136,17 +136,8 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             : undefined;
     }
 
-    private async isAlertPresent() {
-        try {
-            await this.browser.getAlertText()
-            return true;
-        } catch {
-            return false;
-        }
-    }
-
     async takeScreenshot(): Promise<string> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             try {
                 return await this.browser.takeScreenshot();
             }
@@ -169,7 +160,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return this.browser.setCookies({
                 name:       cookieData.name,
                 value:      cookieData.value,
@@ -186,31 +177,31 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     deleteAllCookies(): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return this.browser.deleteCookies() as Promise<void>;
         });
     }
 
     title(): Promise<string> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return this.browser.getTitle();
         });
     }
 
     name(): Promise<string> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return this.browser.execute(`return window.name`);
         });
     }
 
     async url(): Promise<URL> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             return new URL(await this.browser.getUrl());
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             if (! this.browser.isDevTools) {
                 const calculatedViewportSize = await this.browser.execute(`
                     return {
@@ -230,7 +221,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             let desiredWindowSize = size;
 
             if (! this.browser.isDevTools) {
@@ -250,7 +241,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     async close(): Promise<void> {
-        await this.switchToAndPerform(async () => this.browser.closeWindow());
+        await this.inContextOfThisPage(() => this.browser.closeWindow());
     }
 
     async closeOthers(): Promise<void> {
@@ -267,11 +258,11 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         return false;
     }
 
-    private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
-        let originalPage;
+    private async inContextOfThisPage<T>(action: () => Promise<T> | T): Promise<T> {
+        let originalCurrentPage;
 
         try {
-            originalPage = await this.session.currentPage();
+            originalCurrentPage = await this.session.currentPage();
 
             await this.session.changeCurrentPageTo(this);
 
@@ -281,9 +272,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             return await this.errorHandler.executeIfHandled(error, action);
         }
         finally {
-            if (originalPage) {
-                await this.session.changeCurrentPageTo(originalPage);
-            }
+            await this.session.changeCurrentPageTo(originalCurrentPage);
         }
     }
 }
