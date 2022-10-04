@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities, WithAnswerableProperties } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { d } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
 
 /**
@@ -29,7 +29,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
         protected readonly config?: Answerable<WithAnswerableProperties<AxiosRequestConfig>>,
     ) {
         super();
-        this.subject = `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
+        this.subject = `${ this.requestDescription() } to ${ d`${ this.resourceUri }` }`;
     }
 
     /**
