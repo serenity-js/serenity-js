@@ -75,31 +75,31 @@ export class ProtractorPage extends Page<ElementFinder> {
      * @param enable
      */
     enableAngularSynchronisation(enable: boolean): Promise<boolean> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.waitForAngularEnabled(enable));
         });
     }
 
     navigateTo(destination: string): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.get(destination));
         });
     }
 
     navigateBack(): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().back());
         });
     }
 
     navigateForward(): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().forward());
         });
     }
 
     reload(): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().refresh());
         });
     }
@@ -117,7 +117,7 @@ export class ProtractorPage extends Page<ElementFinder> {
             return maybeKey.utf16codePoint;
         }
 
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             // keyDown for any modifier keys and sendKeys otherwise
             const keyDownActions = keys.reduce((actions, key) => {
                 return isModifier(key)
@@ -149,7 +149,7 @@ export class ProtractorPage extends Page<ElementFinder> {
             innerArguments.push(innerArgument);
         }
 
-        const result = await this.switchToAndPerform<Result>(() => {
+        const result = await this.inContextOfThisPage<Result>(() => {
             return promised(this.browser.executeScript(script, ...innerArguments));
         });
 
@@ -171,7 +171,7 @@ export class ProtractorPage extends Page<ElementFinder> {
             parameters.push(parameter);
         }
 
-        const result = await this.switchToAndPerform<Result>(() => {
+        const result = await this.inContextOfThisPage<Result>(() => {
             return promised(this.browser.executeAsyncScript(script, ...parameters));
         });
 
@@ -193,7 +193,7 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     takeScreenshot(): Promise<string> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             try {
                 return await promised(this.browser.takeScreenshot());
             }
@@ -216,7 +216,7 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.manage().addCookie({
                 name:       cookieData.name,
                 value:      cookieData.value,
@@ -232,31 +232,31 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     deleteAllCookies(): Promise<void> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.manage().deleteAllCookies());
         });
     }
 
     title(): Promise<string> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.getTitle());
         });
     }
 
     name(): Promise<string> {
-        return this.switchToAndPerform(() => {
+        return this.inContextOfThisPage(() => {
             return promised(this.browser.executeScript('return window.name'));
         });
     }
 
     url(): Promise<URL> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             return new URL(await promised(this.browser.getCurrentUrl()));
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             const calculatedViewportSize = await promised(this.browser.executeScript(
                 `return {
                     width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0),
@@ -274,7 +274,7 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.switchToAndPerform(async () => {
+        return this.inContextOfThisPage(async () => {
             const desiredWindowSize: { width: number, height: number } = await promised(this.browser.executeScript(`
                 var currentViewportWidth  = Math.max(document.documentElement.clientWidth,  window.innerWidth || 0)
                 var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
@@ -291,7 +291,9 @@ export class ProtractorPage extends Page<ElementFinder> {
 
     async close(): Promise<void> {
         try {
-            await this.switchToAndPerform(async () => promised(this.browser.close()));
+            await this.inContextOfThisPage(async () => {
+                await promised(this.browser.close())
+            });
         } catch (error) {
             if (error.name !== 'NoSuchWindowError') {
                 throw error
@@ -300,7 +302,13 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     async closeOthers(): Promise<void> {
-        await this.session.closePagesOtherThan(this);
+        try {
+            await this.session.closePagesOtherThan(this);
+        }
+        catch (error) {
+            console.error('> [ProtractorPage] closeOthers', error);
+            throw error;
+        }
     }
 
     async isPresent(): Promise<boolean> {
@@ -313,7 +321,7 @@ export class ProtractorPage extends Page<ElementFinder> {
         return false;
     }
 
-    private async switchToAndPerform<T>(action: () => Promise<T> | T): Promise<T> {
+    private async inContextOfThisPage<T>(action: () => Promise<T> | T): Promise<T> {
         let originalPage;
 
         try {
