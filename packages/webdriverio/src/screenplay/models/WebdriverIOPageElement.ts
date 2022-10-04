@@ -3,6 +3,7 @@ import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as wdio from 'webdriverio';
 
+import { WebdriverIOLocator } from './locators';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
 
 /**
@@ -118,12 +119,13 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
             const browser = await this.browserFor(element);
 
             if ([ 'iframe', 'frame' ].includes(tagName)) {
-                // switchToFrame
-                await browser.switchToFrame(element);
+                const locator = (this.locator as WebdriverIOLocator);
+
+                await locator.switchToFrame(element);
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await browser.switchToParentFrame();
+                        await locator.switchToParentFrame();
                     }
                 }
             }
