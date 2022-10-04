@@ -78,8 +78,27 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         await super.changeCurrentPageTo(page);
     }
 
+    private async activeWindowHandle(): Promise<string> {
+        try {
+            return await this.browser.getWindowHandle();
+        }
+        catch (error) {
+            // If the window is closed by user action Webdriver will still hold the reference to the closed window.
+            if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
+                const allHandles = await this.browser.getWindowHandles();
+                if (allHandles.length > 0) {
+                    const handle = allHandles[allHandles.length - 1];
+                    await this.browser.switchToWindow(handle);
+
+                    return handle;
+                }
+            }
+            throw error;
+        }
+    }
+
     override async currentPage(): Promise<WebdriverIOPage> {
-        const actualCurrentPageHandle   = await this.browser.getWindowHandle();
+        const actualCurrentPageHandle   = await this.activeWindowHandle();
         const actualCurrentPageId       = CorrelationId.fromJSON(actualCurrentPageHandle);
 
         if (this.currentBrowserPage && this.currentBrowserPage.id.equals(actualCurrentPageId)) {

@@ -302,13 +302,7 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     async closeOthers(): Promise<void> {
-        try {
-            await this.session.closePagesOtherThan(this);
-        }
-        catch (error) {
-            console.error('> [ProtractorPage] closeOthers', error);
-            throw error;
-        }
+        await this.session.closePagesOtherThan(this);
     }
 
     async isPresent(): Promise<boolean> {
