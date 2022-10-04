@@ -14,6 +14,7 @@
         function popup() {
             var w = window.open('about:blank', 'popup-window', 'width=512,height=256');
             w.document.write('<h1>Example pop-up window</h1>');
+            w.document.title = 'Pop-up window';
             w.document.close();
         }
     </script>
