@@ -77,7 +77,7 @@ describe('Clear', () => {
             Ensure.that(Value.of(Form.field), equals('')),
         ));
 
-    it.only('allows the actor to clear the value of an "contenteditable" element', () =>
+    it('allows the actor to clear the value of an "contenteditable" element', () =>
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/clear/contenteditable.html'),
 

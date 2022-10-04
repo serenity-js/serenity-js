@@ -97,10 +97,15 @@ export class Clear extends PageElementInteraction {
             return true;
         }
 
-        const value = await element.value();
-        const hasValueAttribute = value !== null && value !== undefined;
+        try {
+            const value = await element.value();
+            const hasValueAttribute = value !== null && value !== undefined;
 
-        return hasValueAttribute;
+            return hasValueAttribute;
+        }
+        catch {
+            return false;
+        }
     }
 
     private capitaliseFirstLetter(text: string) {
