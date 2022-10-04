@@ -33,11 +33,21 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
             return Array.from({ length }).map(() => key);
         }
 
-        const currentValue = await this.value();
+        const value = await this.value();
+        const hasValue = value !== null && value !== undefined;
 
-        if (currentValue !== null && currentValue !== undefined) {
-            const element = await this.nativeElement();
-            return removeCharactersFrom(element, currentValue.length);
+        const element = await this.nativeElement();
+
+        if (hasValue) {
+            return removeCharactersFrom(element, value.length);
+        }
+
+        const contentEditable = await promised(element.getAttribute('contenteditable'));
+        const hasContentEditable = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';
+
+        if (hasContentEditable) {
+            const text = await this.text();
+            return removeCharactersFrom(element, text.length);
         }
     }
 
