@@ -194,19 +194,22 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         await (this.session as PlaywrightBrowsingSession).deleteAllCookies();
     }
 
-    title(): Promise<string> {
-        return this.page.title();
+    async title(): Promise<string> {
+        const currentFrame = await this.currentFrame();
+        return currentFrame.title();
     }
 
-    name(): Promise<string> {
-        return this.page.evaluate(
+    async name(): Promise<string> {
+        const currentFrame = await this.currentFrame();
+        return currentFrame.evaluate(
             /* istanbul ignore next */
             () => window.name
         );
     }
 
     async url(): Promise<URL> {
-        return new URL(this.page.url());
+        const currentFrame = await this.currentFrame();
+        return new URL(currentFrame.url());
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
@@ -235,6 +238,10 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         this.lastScriptExecutionSummary = undefined;
         await this.rootLocator.switchToMainFrame()
         await this.modalDialogHandler.reset();
+    }
+
+    private async currentFrame(): Promise<playwright.Frame> {
+        return await this.rootLocator.nativeElement() as unknown as playwright.Frame;
     }
 }
 

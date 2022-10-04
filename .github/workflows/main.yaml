@@ -23,6 +23,7 @@ jobs:
     name: 'Detect source code and configuration changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
+      fetch-depth: 0
       files: |
         .github/actions/**
         .github/workflows/main*.yaml

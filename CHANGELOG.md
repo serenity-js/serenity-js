@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.29](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.28...v3.0.0-rc.29) (2022-10-01)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** correct detection of invocation location for internal code ([c76ec76](https://github.com/serenity-js/serenity-js/commit/c76ec764ff7456c5059488a7d12c88990b4e43d8))
+
+
+
+
+
 # [3.0.0-rc.28](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.27...v3.0.0-rc.28) (2022-09-30)
 
 

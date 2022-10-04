@@ -76,29 +76,35 @@ export class Clear extends PageElementInteraction {
      * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const element   = await this.resolve(actor, this.field);
+        const element = await this.resolve(actor, this.field);
 
-        await this.ensureElementCanBeCleared(element);
+        const isClearable = await this.isClearable(element);
 
-        return element.clearValue();
+        if (!isClearable) {
+            throw new LogicError(
+                this.capitaliseFirstLetter(d`${ this.field } doesn't seem like an element that could be cleared.`),
+            );
+        }
+
+        await element.clearValue();
     }
 
-    private async ensureElementCanBeCleared(element: PageElement): Promise<void> {
-        let threwError: Error,
-            hasValueAttribute = false;
+    private async isClearable(element: PageElement): Promise<boolean> {
+        const contentEditable = await element.attribute('contenteditable');
+        const hasContentEditableAttribute = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';  // true or empty string mean content is editable
+
+        if (hasContentEditableAttribute) {
+            return true;
+        }
 
         try {
             const value = await element.value();
-            hasValueAttribute = value !== null && value !== undefined;
-        } catch (error) {
-            threwError = error;
-        }
+            const hasValueAttribute = value !== null && value !== undefined;
 
-        if (! hasValueAttribute || threwError) {
-            throw new LogicError(
-                this.capitaliseFirstLetter(d`${ this.field } doesn't seem to have a 'value' attribute that could be cleared.`),
-                threwError
-            );
+            return hasValueAttribute;
+        }
+        catch {
+            return false;
         }
     }
 

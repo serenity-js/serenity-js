@@ -5,6 +5,7 @@ import { by, ElementFinder, protractor } from 'protractor';
 import { Locator, WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
+import { ProtractorLocator } from './locators';
 
 /**
  * Protractor-specific implementation of {@apilink PageElement}.
@@ -32,11 +33,21 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
             return Array.from({ length }).map(() => key);
         }
 
-        const currentValue = await this.value();
+        const value = await this.value();
+        const hasValue = value !== null && value !== undefined;
 
-        if (currentValue !== null && currentValue !== undefined) {
-            const element = await this.nativeElement();
-            return removeCharactersFrom(element, currentValue.length);
+        const element = await this.nativeElement();
+
+        if (hasValue) {
+            return removeCharactersFrom(element, value.length);
+        }
+
+        const contentEditable = await promised(element.getAttribute('contenteditable'));
+        const hasContentEditable = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';
+
+        if (hasContentEditable) {
+            const text = await this.text();
+            return removeCharactersFrom(element, text.length);
         }
     }
 
@@ -170,24 +181,22 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.locator.nativeElement();
 
         try {
-            // https://github.com/angular/protractor/issues/1846#issuecomment-82634739;
-            const webElement = await element.getWebElement();
-
             const tagName = await element.getTagName();
 
-            const browser = element.browser_;
-
             if ([ 'iframe', 'frame' ].includes(tagName)) {
-                // switchToFrame
-                await browser.switchTo().frame(webElement);
+                const locator = (this.locator as ProtractorLocator);
+                await locator.switchToFrame(element);
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await promised(browser.driver.switchToParentFrame());
+                        await locator.switchToParentFrame();
                     },
                 };
             }
             else {
+                // https://github.com/angular/protractor/issues/1846#issuecomment-82634739;
+                const webElement = await element.getWebElement();
+
                 // focus on element
                 const previouslyFocusedElement = await webElement.getDriver().switchTo().activeElement();
 

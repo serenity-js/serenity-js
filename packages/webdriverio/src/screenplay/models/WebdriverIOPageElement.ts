@@ -3,6 +3,7 @@ import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as wdio from 'webdriverio';
 
+import { WebdriverIOLocator } from './locators';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
 
 /**
@@ -17,7 +18,28 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     async clearValue(): Promise<void> {
         const element = await this.nativeElement();
-        return element.clearValue();
+        const tagName = await element.getTagName();
+
+        const isClearable = ['input', 'textarea'].includes(tagName);
+
+        if (isClearable) {
+            return element.clearValue();
+        }
+
+        const contentEditable = await element.getAttribute('contenteditable');
+        const hasContentEditable = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';
+
+        if (hasContentEditable) {
+            const browser = await this.browserFor(element);
+
+            await browser.execute(
+                /* istanbul ignore next */
+                (htmlElement: HTMLElement) => {
+                    htmlElement.textContent = '';
+                },
+                element as unknown
+            );
+        }
     }
 
     async click(): Promise<void> {
@@ -118,12 +140,13 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
             const browser = await this.browserFor(element);
 
             if ([ 'iframe', 'frame' ].includes(tagName)) {
-                // switchToFrame
-                await browser.switchToFrame(element);
+                const locator = (this.locator as WebdriverIOLocator);
+
+                await locator.switchToFrame(element);
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await browser.switchToParentFrame();
+                        await locator.switchToParentFrame();
                     }
                 }
             }
