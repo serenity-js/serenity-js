@@ -63,7 +63,7 @@ export abstract class Activity {
             const userLandFrames = frames.filter(frame => ! (
                 frame?.fileName.startsWith('node:') ||      // node 16 and 18
                 frame?.fileName.startsWith('internal') ||   // node 14
-                frame?.fileName.includes('node_modules')
+                (/node_modules\/(?!@serenity\/)/.test(frame?.fileName))   // ignore node_modules, except for @serenity-js/*
             ));
 
             const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
