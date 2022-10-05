@@ -44,32 +44,32 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     async click(): Promise<void> {
         const element = await this.nativeElement();
-        return element.click();
+        await element.click();
     }
 
     async doubleClick(): Promise<void> {
         const element = await this.nativeElement();
-        return element.doubleClick();
+        await element.doubleClick();
     }
 
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
         const element = await this.nativeElement();
-        return element.addValue(value);
+        await element.addValue(value);
     }
 
     async scrollIntoView(): Promise<void> {
         const element = await this.nativeElement();
-        return element.scrollIntoView();
+        await element.scrollIntoView();
     }
 
     async hoverOver(): Promise<void> {
         const element = await this.nativeElement();
-        return element.moveTo();
+        await element.moveTo();
     }
 
     async rightClick(): Promise<void> {
         const element = await this.nativeElement();
-        return element.click({ button: 'right' });
+        await element.click({ button: 'right' });
     }
 
     async selectOptions(...options: SelectOption[]): Promise<void> {
@@ -114,17 +114,17 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     async attribute(name: string): Promise<string> {
         const element = await this.nativeElement();
-        return element.getAttribute(name);
+        return await element.getAttribute(name);
     }
 
     async text(): Promise<string> {
         const element = await this.nativeElement();
-        return element.getText();
+        return await element.getText();
     }
 
     async value(): Promise<string> {
         const element = await this.nativeElement();
-        return element.getValue();
+        return await element.getValue();
     }
 
     async switchTo(): Promise<SwitchableOrigin> {
@@ -182,27 +182,27 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     async isActive(): Promise<boolean> {
         const element = await this.nativeElement();
-        return element.isFocused();
+        return await element.isFocused();
     }
 
     async isClickable(): Promise<boolean> {
         const element = await this.nativeElement();
-        return element.isClickable();
+        return await element.isClickable();
     }
 
     async isEnabled(): Promise<boolean> {
         const element = await this.nativeElement();
-        return element.isEnabled();
+        return await element.isEnabled();
     }
 
     async isPresent(): Promise<boolean> {
         const element = await this.nativeElement();
-        return element.isExisting();
+        return await element.isExisting();
     }
 
     async isSelected(): Promise<boolean> {
         const element = await this.nativeElement();
-        return element.isSelected();
+        return await element.isSelected();
     }
 
     async isVisible(): Promise<boolean> {
@@ -219,7 +219,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
             const browser = await this.browserFor(element);
 
-            return browser.execute(scripts.isVisible, element as unknown as HTMLElement);
+            return await browser.execute(scripts.isVisible, element as unknown as HTMLElement);
         }
         catch (error) {
             // an element that doesn't exist is treated as not visible
