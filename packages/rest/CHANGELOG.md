@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.30](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.29...v3.0.0-rc.30) (2022-10-05)
+
+
+### Bug Fixes
+
+* **core:** removed deprecated function `formatted` ([64d7f21](https://github.com/serenity-js/serenity-js/commit/64d7f21a1efc9bb1d13a7c5d086ffcdd208fe5d5)), closes [#1260](https://github.com/serenity-js/serenity-js/issues/1260)
+
+
+
+
+
 # [3.0.0-rc.29](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.28...v3.0.0-rc.29) (2022-10-01)
 
 **Note:** Version bump only for package @serenity-js/rest
