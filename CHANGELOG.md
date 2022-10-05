@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.30](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.29...v3.0.0-rc.30) (2022-10-05)
+
+
+### Bug Fixes
+
+* **core:** removed deprecated function `formatted` ([64d7f21](https://github.com/serenity-js/serenity-js/commit/64d7f21a1efc9bb1d13a7c5d086ffcdd208fe5d5)), closes [#1260](https://github.com/serenity-js/serenity-js/issues/1260)
+* **deps:** update website dependencies ([f8e217b](https://github.com/serenity-js/serenity-js/commit/f8e217b3a1fd263280d9807d9eb9f45a45acc1b7))
+* **web:** all web modules now correctly support handling iframe context for the current page ([bcb8672](https://github.com/serenity-js/serenity-js/commit/bcb86722dfcaa023613e63fb8bd2e14d6d546efd)), closes [#1310](https://github.com/serenity-js/serenity-js/issues/1310)
+* **web:** corrected interaction to Clear to avoid issues with elements that have no value attribute ([37ae809](https://github.com/serenity-js/serenity-js/commit/37ae8092a36091db528024b99695905982ef8284)), closes [#1306](https://github.com/serenity-js/serenity-js/issues/1306)
+* **web:** improve handling of closed windows on remote grids ([79d387d](https://github.com/serenity-js/serenity-js/commit/79d387d2d4a55367c3505f4c98f29f71a6a753f5)), closes [#1310](https://github.com/serenity-js/serenity-js/issues/1310)
+* **web:** interaction to Clear now supports "contenteditable" elements ([d090458](https://github.com/serenity-js/serenity-js/commit/d090458845c23af59561d74421c16160ccc4ff64)), closes [#1306](https://github.com/serenity-js/serenity-js/issues/1306)
+
+
+### Features
+
+* **web:** interaction to Clear works with "contenteditable" elements across all the web tools ([c53b00d](https://github.com/serenity-js/serenity-js/commit/c53b00dac512977c00e5eadc101e281997f8e0de)), closes [#1306](https://github.com/serenity-js/serenity-js/issues/1306)
+
+
+
+
+
 # [3.0.0-rc.29](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.28...v3.0.0-rc.29) (2022-10-01)
 
 
