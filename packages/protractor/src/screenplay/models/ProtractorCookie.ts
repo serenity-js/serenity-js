@@ -17,8 +17,8 @@ export class ProtractorCookie extends Cookie {
         ensure('browser', browser, isDefined());
     }
 
-    delete(): Promise<void> {
-        return promised(this.browser.manage().deleteCookie(this.cookieName));
+    async delete(): Promise<void> {
+        return await promised(this.browser.manage().deleteCookie(this.cookieName));
     }
 
     /**
