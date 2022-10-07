@@ -7,6 +7,10 @@ const { Actors } = require('./src/Actors');
 
 const port = process.env.PORT || 8080;
 
+const specs = [
+    './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+];
+
 exports.config = {
 
     baseUrl: `http://localhost:${port}`,
@@ -36,9 +40,7 @@ exports.config = {
         .filter(Boolean)
     },
 
-    specs: [
-        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-    ],
+    specs,
 
     mochaOpts: {
         timeout: 60_000,
