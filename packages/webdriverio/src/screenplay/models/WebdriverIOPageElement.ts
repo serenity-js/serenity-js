@@ -1,5 +1,5 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
+import { Key, PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import * as wdio from 'webdriverio';
 
@@ -17,28 +17,44 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
     }
 
     async clearValue(): Promise<void> {
-        const element = await this.nativeElement();
-        const tagName = await element.getTagName();
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        function times(length: number, key: string) {
+            return Array.from({ length }).map(() => key);
+        }
 
-        const isClearable = ['input', 'textarea'].includes(tagName);
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        async function removeCharactersFrom(browser: wdio.Browser<'async'>, inputElement: wdio.Element<'async'>, numberOfCharacters: number): Promise<void> {
+            const homeKey   = browser.isDevTools ? Key.Home.devtoolsName : Key.Home.utf16codePoint;
+            const deleteKey = browser.isDevTools ? Key.Delete.devtoolsName : Key.Delete.utf16codePoint;
 
-        if (isClearable) {
-            return element.clearValue();
+            await browser.execute(
+                /* istanbul ignore next */
+                function focusOn(element: any) {
+                    element.focus();
+                },
+                element
+            );
+            await inputElement.keys([
+                homeKey,
+                ...times(numberOfCharacters, deleteKey),
+            ]);
+        }
+
+        const element   = await this.nativeElement();
+        const value     = await this.value();
+        const hasValue  = value !== null && value !== undefined && value.length > 0;
+        const browser   = await this.browserFor(element);
+
+        if (hasValue) {
+            return await removeCharactersFrom(browser, element, value.length);
         }
 
         const contentEditable = await element.getAttribute('contenteditable');
         const hasContentEditable = contentEditable !== null && contentEditable !== undefined && contentEditable !== 'false';
 
         if (hasContentEditable) {
-            const browser = await this.browserFor(element);
-
-            await browser.execute(
-                /* istanbul ignore next */
-                (htmlElement: HTMLElement) => {
-                    htmlElement.textContent = '';
-                },
-                element as unknown
-            );
+            const text = await element.getText();
+            return await removeCharactersFrom(browser, element, text.length);
         }
     }
 
@@ -236,6 +252,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
     }
 
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
+
     private async browserFor(nativeElement: wdio.Element<'async'> | wdio.Browser<'async'>): Promise<wdio.Browser<'async'>> {
         const element = nativeElement as wdio.Element<'async'>;
         return element.parent

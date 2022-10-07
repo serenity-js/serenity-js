@@ -19,18 +19,26 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     }
 
     async clearValue(): Promise<void> {
-        async function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): Promise<void> {
-            if (numberOfCharacters > 0) {
-                await elf.sendKeys(
-                    protractor.Key.END,
-                    ...times(numberOfCharacters, protractor.Key.BACK_SPACE),
-                );
-            }
-        }
-
         // eslint-disable-next-line unicorn/consistent-function-scoping
         function times(length: number, key: string) {
             return Array.from({ length }).map(() => key);
+        }
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        async function focusOn(element: ElementFinder) {
+            const webElement = await element.getWebElement();
+            await promised(webElement.getDriver().executeScript(`arguments[0].focus()`, webElement));
+        }
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        async function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): Promise<void> {
+            if (numberOfCharacters > 0) {
+                await focusOn(elf);
+                await elf.sendKeys(
+                    protractor.Key.HOME,
+                    ...times(numberOfCharacters, protractor.Key.DELETE),
+                );
+            }
         }
 
         const value = await this.value();
@@ -198,9 +206,9 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
                 const webElement = await element.getWebElement();
 
                 // focus on element
-                const previouslyFocusedElement = await webElement.getDriver().switchTo().activeElement();
+                const previouslyFocusedElement = await promised(webElement.getDriver().switchTo().activeElement());
 
-                await webElement.getDriver().executeScript(`arguments[0].focus()`, webElement);
+                await promised(webElement.getDriver().executeScript(`arguments[0].focus()`, webElement));
 
                 return {
                     switchBack: async (): Promise<void> => {
