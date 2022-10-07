@@ -46,25 +46,23 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         );
     }
 
-    navigateTo(destination: string): Promise<void> {
-        return this.inContextOfThisPage(async () => {
-            await this.browser.url(destination);
-        });
+    async navigateTo(destination: string): Promise<void> {
+        await this.inContextOfThisPage(() => this.browser.url(destination));
     }
 
-    navigateBack(): Promise<void> {
-        return this.inContextOfThisPage(() => this.browser.back());
+    async navigateBack(): Promise<void> {
+        await this.inContextOfThisPage(() => this.browser.back());
     }
 
-    navigateForward(): Promise<void> {
-        return this.inContextOfThisPage(() => this.browser.forward());
+    async navigateForward(): Promise<void> {
+        await this.inContextOfThisPage(() => this.browser.forward());
     }
 
-    reload(): Promise<void> {
-        return this.inContextOfThisPage(() => this.browser.refresh());
+    async reload(): Promise<void> {
+        await this.inContextOfThisPage(() => this.browser.refresh());
     }
 
-    sendKeys(keys: Array<Key | string>): Promise<void> {
+    async sendKeys(keys: Array<Key | string>): Promise<void> {
         const keySequence = keys.map(key => {
             if (! Key.isKey(key)) {
                 return key;
@@ -77,7 +75,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
             return key.utf16codePoint;
         });
 
-        return this.inContextOfThisPage(() => this.browser.keys(keySequence));
+        await this.inContextOfThisPage(() => this.browser.keys(keySequence));
     }
 
     async executeScript<Result, InnerArguments extends any[]>(
@@ -137,7 +135,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     async takeScreenshot(): Promise<string> {
-        return this.inContextOfThisPage(async () => {
+        return await this.inContextOfThisPage(async () => {
             try {
                 return await this.browser.takeScreenshot();
             }
@@ -160,7 +158,7 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
-        return this.inContextOfThisPage(() => {
+        return await this.inContextOfThisPage(() => {
             return this.browser.setCookies({
                 name:       cookieData.name,
                 value:      cookieData.value,
@@ -176,32 +174,28 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         });
     }
 
-    deleteAllCookies(): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async deleteAllCookies(): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return this.browser.deleteCookies() as Promise<void>;
         });
     }
 
-    title(): Promise<string> {
-        return this.inContextOfThisPage(() => {
-            return this.browser.getTitle();
-        });
+    async title(): Promise<string> {
+        return await this.inContextOfThisPage(() => this.browser.getTitle());
     }
 
-    name(): Promise<string> {
-        return this.inContextOfThisPage(() => {
-            return this.browser.execute(`return window.name`);
-        });
+    async name(): Promise<string> {
+        return await this.inContextOfThisPage(() => this.browser.execute(`return window.name`));
     }
 
     async url(): Promise<URL> {
-        return this.inContextOfThisPage(async () => {
+        return await this.inContextOfThisPage(async () => {
             return new URL(await this.browser.getUrl());
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
-        return this.inContextOfThisPage(async () => {
+        return await this.inContextOfThisPage(async () => {
             if (! this.browser.isDevTools) {
                 const calculatedViewportSize = await this.browser.execute(`
                     return {
@@ -220,8 +214,8 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         });
     }
 
-    setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.inContextOfThisPage(async () => {
+    async setViewportSize(size: { width: number, height: number }): Promise<void> {
+        return await this.inContextOfThisPage(async () => {
             let desiredWindowSize = size;
 
             if (! this.browser.isDevTools) {

@@ -74,32 +74,32 @@ export class ProtractorPage extends Page<ElementFinder> {
      *
      * @param enable
      */
-    enableAngularSynchronisation(enable: boolean): Promise<boolean> {
-        return this.inContextOfThisPage(() => {
+    async enableAngularSynchronisation(enable: boolean): Promise<boolean> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.waitForAngularEnabled(enable));
         });
     }
 
-    navigateTo(destination: string): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async navigateTo(destination: string): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.get(destination));
         });
     }
 
-    navigateBack(): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async navigateBack(): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().back());
         });
     }
 
-    navigateForward(): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async navigateForward(): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().forward());
         });
     }
 
-    reload(): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async reload(): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.navigate().refresh());
         });
     }
@@ -117,7 +117,7 @@ export class ProtractorPage extends Page<ElementFinder> {
             return maybeKey.utf16codePoint;
         }
 
-        return this.inContextOfThisPage(() => {
+        return await this.inContextOfThisPage(() => {
             // keyDown for any modifier keys and sendKeys otherwise
             const keyDownActions = keys.reduce((actions, key) => {
                 return isModifier(key)
@@ -192,10 +192,10 @@ export class ProtractorPage extends Page<ElementFinder> {
             : undefined;
     }
 
-    takeScreenshot(): Promise<string> {
-        return this.inContextOfThisPage(async () => {
+    async takeScreenshot(): Promise<string> {
+        return await this.inContextOfThisPage(() => {
             try {
-                return await promised(this.browser.takeScreenshot());
+                return promised(this.browser.takeScreenshot());
             }
             catch (error) {
 
@@ -216,7 +216,7 @@ export class ProtractorPage extends Page<ElementFinder> {
     }
 
     async setCookie(cookieData: CookieData): Promise<void> {
-        return this.inContextOfThisPage(() => {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.manage().addCookie({
                 name:       cookieData.name,
                 value:      cookieData.value,
@@ -231,32 +231,32 @@ export class ProtractorPage extends Page<ElementFinder> {
         });
     }
 
-    deleteAllCookies(): Promise<void> {
-        return this.inContextOfThisPage(() => {
+    async deleteAllCookies(): Promise<void> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.manage().deleteAllCookies());
         });
     }
 
-    title(): Promise<string> {
-        return this.inContextOfThisPage(() => {
+    async title(): Promise<string> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.getTitle());
         });
     }
 
-    name(): Promise<string> {
-        return this.inContextOfThisPage(() => {
+    async name(): Promise<string> {
+        return await this.inContextOfThisPage(() => {
             return promised(this.browser.executeScript('return window.name'));
         });
     }
 
-    url(): Promise<URL> {
-        return this.inContextOfThisPage(async () => {
+    async url(): Promise<URL> {
+        return await this.inContextOfThisPage(async () => {
             return new URL(await promised(this.browser.getCurrentUrl()));
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
-        return this.inContextOfThisPage(async () => {
+        return await this.inContextOfThisPage(async () => {
             const calculatedViewportSize = await promised(this.browser.executeScript(
                 `return {
                     width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0),
@@ -269,12 +269,12 @@ export class ProtractorPage extends Page<ElementFinder> {
             }
 
             // Chrome headless hard-codes window.innerWidth and window.innerHeight to 0
-            return promised(this.browser.manage().window().getSize());
+            return await promised(this.browser.manage().window().getSize());
         });
     }
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.inContextOfThisPage(async () => {
+        return await this.inContextOfThisPage(async () => {
             const desiredWindowSize: { width: number, height: number } = await promised(this.browser.executeScript(`
                 var currentViewportWidth  = Math.max(document.documentElement.clientWidth,  window.innerWidth || 0)
                 var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
