@@ -61,19 +61,18 @@ export abstract class Activity {
         try {
             throw new Error('Location');
         } catch (error) {
-            const nonSerenityNodeModules = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity`+ `\\` + path.sep +`)`);
+            const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity`+ `\\` + path.sep +`)`);
+
             const frames = this.errorStackParser.parse(error);
             const userLandFrames = frames.filter(frame => ! (
                 frame?.fileName.startsWith('node:') ||          // node 16 and 18
                 frame?.fileName.startsWith('internal') ||       // node 14
-                nonSerenityNodeModules.test(frame?.fileName)    // ignore node_modules, except for @serenity-js/*
+                nonSerenityNodeModulePattern.test(frame?.fileName)    // ignore node_modules, except for @serenity-js/*
             ));
 
             const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
             // use the desired user-land frame, or the last one from the stack trace for internal invocations
             const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
-
-            console.log({ frames, userLandFrames, index, invocationFrame })
 
             return new FileSystemLocation(
                 Path.from(invocationFrame.fileName),
