@@ -19,18 +19,26 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     }
 
     async clearValue(): Promise<void> {
-        async function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): Promise<void> {
-            if (numberOfCharacters > 0) {
-                await elf.sendKeys(
-                    protractor.Key.END,
-                    ...times(numberOfCharacters, protractor.Key.BACK_SPACE),
-                );
-            }
-        }
-
         // eslint-disable-next-line unicorn/consistent-function-scoping
         function times(length: number, key: string) {
             return Array.from({ length }).map(() => key);
+        }
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        async function focusOn(element: ElementFinder) {
+            const webElement = await element.getWebElement();
+            await promised(webElement.getDriver().executeScript(`arguments[0].focus()`, webElement));
+        }
+
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        async function removeCharactersFrom(elf: ElementFinder, numberOfCharacters: number): Promise<void> {
+            if (numberOfCharacters > 0) {
+                await focusOn(elf);
+                await elf.sendKeys(
+                    protractor.Key.HOME,
+                    ...times(numberOfCharacters, protractor.Key.DELETE),
+                );
+            }
         }
 
         const value = await this.value();
@@ -54,14 +62,14 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async click(): Promise<void> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.click());
+        await promised(element.click());
     }
 
     async doubleClick(): Promise<void> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(
+        await promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .doubleClick()
@@ -72,7 +80,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.sendKeys(
+        await promised(element.sendKeys(
             [].concat(value).join(''),
         ));
     }
@@ -81,7 +89,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(
+        await promised(
             webElement.getDriver().executeScript('arguments[0].scrollIntoView(true);', webElement),
         );
     }
@@ -90,7 +98,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(
+        await promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .perform(),
@@ -101,7 +109,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(
+        await promised(
             webElement.getDriver().actions()
                 .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
@@ -155,20 +163,20 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     async attribute(name: string): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.getAttribute(name));
+        return await promised(element.getAttribute(name));
     }
 
     async text(): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.getText());
+        return await promised(element.getText());
     }
 
     async value(): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(webElement.getDriver().executeScript(
+        return await promised(webElement.getDriver().executeScript(
             /* istanbul ignore next */
             function getValue(webElement) {
                 return webElement.value;
@@ -198,9 +206,9 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
                 const webElement = await element.getWebElement();
 
                 // focus on element
-                const previouslyFocusedElement = await webElement.getDriver().switchTo().activeElement();
+                const previouslyFocusedElement = await promised(webElement.getDriver().switchTo().activeElement());
 
-                await webElement.getDriver().executeScript(`arguments[0].focus()`, webElement);
+                await promised(webElement.getDriver().executeScript(`arguments[0].focus()`, webElement));
 
                 return {
                     switchBack: async (): Promise<void> => {
@@ -217,31 +225,31 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const element: ElementFinder = await this.nativeElement();
         const webElement: WebElement = await element.getWebElement();
 
-        return promised(webElement.getDriver().switchTo().activeElement().then((active: WebElement) =>
+        return await promised(webElement.getDriver().switchTo().activeElement().then((active: WebElement) =>
             element.equals(active),
         ));
     }
 
     async isClickable(): Promise<boolean> {
-        return this.isEnabled();
+        return await this.isEnabled();
     }
 
     async isEnabled(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.isEnabled());
+        return await promised(element.isEnabled());
     }
 
     async isPresent(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.isPresent());
+        return await promised(element.isPresent());
     }
 
     async isSelected(): Promise<boolean> {
         const element: ElementFinder = await this.nativeElement();
 
-        return promised(element.isSelected());
+        return await promised(element.isSelected());
     }
 
     async isVisible(): Promise<boolean> {
@@ -255,7 +263,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
             const webElement: WebElement = await element.getWebElement();
 
             // get element at cx/cy and see if the element we found is our element, and therefore it's visible.
-            return promised(webElement.getDriver().executeScript(
+            return await promised(webElement.getDriver().executeScript(
                 scripts.isVisible,
                 webElement,
             ));
