@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.31](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.30...v3.0.0-rc.31) (2022-10-07)
+
+
+### Bug Fixes
+
+* **protractor:** standardised Web model APIs to always use async/await ([e8298dd](https://github.com/serenity-js/serenity-js/commit/e8298dd5e3c5da72695f356c225f7141039e0401))
+* **web:** interaction to Clear.theValueOf(field) triggers compatible events for all web tools ([ee6c112](https://github.com/serenity-js/serenity-js/commit/ee6c112f0dbfd4fe78ee1a8793ef6be49be803f5)), closes [#1329](https://github.com/serenity-js/serenity-js/issues/1329)
+
+
+
+
+
 # [3.0.0-rc.30](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.29...v3.0.0-rc.30) (2022-10-05)
 
 
