@@ -19,7 +19,7 @@ export class WebdriverIOCookie extends Cookie {
     }
 
     async delete(): Promise<void> {
-        return this.browser.deleteCookies(this.cookieName) as Promise<void>;
+        await this.browser.deleteCookies(this.cookieName);
     }
 
     protected async read(): Promise<CookieData> {
