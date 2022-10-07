@@ -48,6 +48,14 @@ export const config: WebdriverIOConfig = {
     // headless: true,
     automationProtocol: 'devtools',
 
+    /*
+     * To use the 'webdriver' protocol,
+     * start chromedriver first:
+     *
+     *   npx chromedriver --port=4444
+    */
+    // automationProtocol: 'webdriver',
+
     runner: 'local',
 
     maxInstances: 1,
