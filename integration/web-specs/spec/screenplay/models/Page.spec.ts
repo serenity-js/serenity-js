@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, LogicError, notes, Wait } from '@serenity-js/core';
+import { actorCalled, Duration, LogicError, notes, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
 import { URL } from 'url';
 
@@ -124,7 +124,7 @@ describe('Page', () => {
                 actorCalled('Bernie').attemptsTo(
                     Click.on(MainPage.newTabLink()),
 
-                    Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+                    Wait.upTo(Duration.ofSeconds(10)).until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
                     // click automatically switches context,
                     // so make sure we're on the main page
@@ -156,7 +156,7 @@ describe('Page', () => {
             actorCalled('Bernie').attemptsTo(
                 Click.on(MainPage.newTabLink()),
 
-                Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+                Wait.upTo(Duration.ofSeconds(10)).until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
                     Click.on(NewTab.closeLink()),
