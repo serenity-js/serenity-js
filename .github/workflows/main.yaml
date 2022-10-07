@@ -16,6 +16,7 @@ jobs:
     name: 'Detect website changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
+      fetch-depth: 0
       files: |
         documentation/**
 
