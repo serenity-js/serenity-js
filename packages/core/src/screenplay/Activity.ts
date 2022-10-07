@@ -70,6 +70,8 @@ export abstract class Activity {
             // use the desired user-land frame, or the last one from the stack trace for internal invocations
             const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
 
+            console.log({ frames, userLandFrames, index, invocationFrame })
+
             return new FileSystemLocation(
                 Path.from(invocationFrame.fileName),
                 invocationFrame.lineNumber,

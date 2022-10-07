@@ -144,7 +144,7 @@ describe('Ensure', () => {
         });
     });
 
-    describe('detecting invocation location', () => {
+    describe.only('detecting invocation location', () => {  // eslint-disable-line mocha/no-exclusive-tests
         it('correctly detects its invocation location', () => {
             const activity = Ensure.that(true, equals(true));
             const location = activity.instantiationLocation();
