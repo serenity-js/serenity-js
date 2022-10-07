@@ -61,7 +61,7 @@ export abstract class Activity {
         try {
             throw new Error('Location');
         } catch (error) {
-            const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity`+ `\\` + path.sep +`)`);
+            const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity-js`+ `\\` + path.sep +`)`);
 
             const frames = this.errorStackParser.parse(error);
             const userLandFrames = frames.filter(frame => ! (
