@@ -24,7 +24,7 @@ export class ExecuteScript {
      * @param sourceUrl
      *  The URL to load the script from
      */
-    static from(sourceUrl: string): Interaction {
+    static from(sourceUrl: Answerable<string>): Interaction {
         return new ExecuteScriptFromUrl(sourceUrl);
     }
 
@@ -267,15 +267,16 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
  * https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement
  */
 class ExecuteScriptFromUrl extends Interaction {
-    constructor(private readonly sourceUrl: string) {
-        super(`#actor executes a script from ${ sourceUrl }`);
+    constructor(private readonly sourceUrl: Answerable<string>) {
+        super(d`#actor executes a script from ${ sourceUrl }`);
     }
 
     /**
      * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<any> {
-        const page = await BrowseTheWeb.as(actor).currentPage();
+        const page      = await BrowseTheWeb.as(actor).currentPage();
+        const sourceUrl = await actor.answer(this.sourceUrl);
 
         return page.executeAsyncScript(
             /* istanbul ignore next */
@@ -300,7 +301,7 @@ class ExecuteScriptFromUrl extends Interaction {
                 script.async = true;
                 document.head.append(script);
             },
-            this.sourceUrl
+            sourceUrl
         )
         .then(errorMessage => {
             if (errorMessage) {
