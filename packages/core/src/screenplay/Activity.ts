@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
 import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
@@ -59,11 +61,12 @@ export abstract class Activity {
         try {
             throw new Error('Location');
         } catch (error) {
+            const nonSerenityNodeModules = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity`+ `\\` + path.sep +`)`);
             const frames = this.errorStackParser.parse(error);
             const userLandFrames = frames.filter(frame => ! (
-                frame?.fileName.startsWith('node:') ||      // node 16 and 18
-                frame?.fileName.startsWith('internal') ||   // node 14
-                (/node_modules\/(?!@serenity\/)/.test(frame?.fileName))   // ignore node_modules, except for @serenity-js/*
+                frame?.fileName.startsWith('node:') ||          // node 16 and 18
+                frame?.fileName.startsWith('internal') ||       // node 14
+                nonSerenityNodeModules.test(frame?.fileName)    // ignore node_modules, except for @serenity-js/*
             ));
 
             const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
