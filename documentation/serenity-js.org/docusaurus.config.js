@@ -83,7 +83,7 @@ const config = {
                 },
                 items: [
                     { label: 'Handbook', type: 'doc', docId: 'getting-started/why-serenity-js', position: 'left' },
-                    { label: 'API', to: 'api/core', position: 'left' },
+                    { label: 'API', to: 'api/', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
@@ -139,6 +139,10 @@ const config = {
                     {
                         title: 'Legal',
                         items: [
+                            {
+                                label: 'License',
+                                to: '/license',
+                            },
                             {
                                 label: 'Privacy policy',
                                 to: '/privacy-policy',
