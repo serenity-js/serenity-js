@@ -1,41 +1,81 @@
 import React from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import Translate, { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
 import styles from './index.module.css';
 
-function HomepageHeader() {
-    const { siteConfig } = useDocusaurusContext();
+function HeroBanner() {
     return (
-        <header className={ clsx('hero hero--primary', styles.heroBanner) }>
-            <div className="container">
-                <h1 className="hero__title">{ siteConfig.title }</h1>
-                <p className="hero__subtitle">{ siteConfig.tagline }</p>
-                <div className={ styles.buttons }>
-                    <Link
-                        className="button button--secondary button--lg"
-                        to="/handbook">
-                        Get Started in 5 min 🚀️
+        <div className={ styles.hero } data-theme="dark">
+            <div className={ styles.heroInner }>
+                <h1 className={ styles.heroProjectTagline }>
+                    <img
+                        alt={ translate({ message: 'Serenity/JS logo' }) }
+                        className={ styles.heroLogo }
+                        src={ useBaseUrl('/images/serenity-js-avatar.png') }
+                        width="300"
+                        height="300"
+                    />
+                    <span
+                        className={ styles.heroTitleTextHtml }
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={ {
+                            __html: translate({
+                                id: 'homepage.hero.title',
+                                message:
+                                // `Enable <b>collaborative</b><br />test automation<br />at <b>any scale</b>.`,
+                                    `Enable <b>collaborative<br />test automation</b><br />at <b>any scale</b>!`,
+                                description:
+                                    'Home page hero title, can contain simple html tags',
+                            }),
+                        } }
+                    />
+                </h1>
+                {/*<div className="row">*/}
+                {/*    <div className="col">*/}
+                        <p>
+                            Serenity/JS is a free and open-source test automation framework that brings your business and software delivery teams together.
+
+                            Serenity/JS helps you capture the language of your domain and write high-quality, reusable test automation code
+                            that interacts with any interface of your system and models single- and multi-actor business workflows.
+                        </p>
+                {/*    </div>*/}
+                {/*</div>*/}
+                <div className={ styles.indexCtas }>
+                    <Link className="button button--primary" to="/handbook">
+                        <Translate>Get Started</Translate>
                     </Link>
+                    <span className={ styles.indexCtasGitHubButtonWrapper }>
+                      <iframe
+                          className={ styles.indexCtasGitHubButton }
+                          src="https://ghbtns.com/github-btn.html?user=serenity-js&amp;repo=serenity-js&amp;type=star&amp;count=true&amp;size=large"
+                          width={ 160 }
+                          height={ 30 }
+                          title="GitHub Stars"
+                      />
+                    </span>
                 </div>
             </div>
-        </header>
+        </div>
     );
 }
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
+    const { description } = siteConfig.customFields as { description: string };
     return (
-        <Layout
-            title={ siteConfig.title }
-            description="Serenity/JS is an open-source collaborative test automation framework ideal for writing acceptance tests in complex business domains">
-            <HomepageHeader/>
+        <Layout title={ siteConfig.title } description={ description }>
+            <HeroBanner/>
             <main>
                 <HomepageFeatures/>
             </main>
         </Layout>
     );
 }
+
+// From 1-man bands and start-ups to large delivery teams at top-tier investment banks, Serenity/JS has you covered.
+// Test any system, any interface, any browser
