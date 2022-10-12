@@ -7,7 +7,6 @@ import {
     RetryableSceneDetected,
     SceneDescriptionDetected,
     SceneFinished,
-    SceneFinishes,
     SceneParametersDetected,
     SceneSequenceDetected,
     SceneStarts,
@@ -139,13 +138,6 @@ export class CucumberMessagesParser {
                 );
             }
         })
-    }
-
-    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: TestStepResult }): DomainEvent {
-        return new SceneFinishes(
-            this.serenity.currentSceneId(),
-            this.serenity.currentTime()
-        );
     }
 
     parseTestCaseFinished(message: TestCaseFinished): DomainEvent[] {

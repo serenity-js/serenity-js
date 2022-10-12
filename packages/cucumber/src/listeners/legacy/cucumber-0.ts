@@ -74,7 +74,7 @@ export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependen
 
             const map = cache.get(path);
 
-            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+            notifier.scenarioFinishes();
 
             serenity.waitForNextCue()
                 .then(
