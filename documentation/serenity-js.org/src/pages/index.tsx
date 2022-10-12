@@ -5,10 +5,12 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
 import styles from './index.module.css';
 
 function HeroBanner() {
+    const { siteConfig} = useDocusaurusContext();
+    const description = siteConfig.customFields.description as string;
+
     return (
         <div className={ styles.hero } data-theme="dark">
             <div className={ styles.heroInner }>
@@ -35,19 +37,10 @@ function HeroBanner() {
                         } }
                     />
                 </h1>
-                {/*<div className="row">*/}
-                {/*    <div className="col">*/}
-                        <p>
-                            Serenity/JS is a free and open-source test automation framework that brings your business and software delivery teams together.
-
-                            Serenity/JS helps you capture the language of your domain and write high-quality, reusable test automation code
-                            that interacts with any interface of your system and models single- and multi-actor business workflows.
-                        </p>
-                {/*    </div>*/}
-                {/*</div>*/}
+                <p>{description}</p>
                 <div className={ styles.indexCtas }>
                     <Link className="button button--primary" to="/handbook">
-                        <Translate>Get Started</Translate>
+                        <Translate>Get started in 5 minutes</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>
                       <iframe
