@@ -1,7 +1,6 @@
-// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';
-import { Envelope, IdGenerator, TestStepResult } from '@cucumber/messages';
+import { Envelope, IdGenerator } from '@cucumber/messages';
 import { Serenity } from '@serenity-js/core';
-import { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import { DomainEvent, SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
 
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
@@ -32,8 +31,11 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslin
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
 
-            this.addAfterHook((message: { testCaseStartedId: string, result: TestStepResult }) => {
-                this.emit(this.parser.parseTestCaseFinishes(message));
+            this.addAfterHook(() => {
+                this.emit(new SceneFinishes(
+                    serenity.currentSceneId(),
+                    serenity.currentTime()
+                ));
 
                 return serenity.waitForNextCue();
             });

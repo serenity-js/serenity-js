@@ -110,12 +110,8 @@ export class Notifier {
         );
     }
 
-    scenarioFinishes(scenario: Scenario, feature: Feature, outcome: Outcome): void {
-        this.emitSceneFinishes(this.detailsOf(scenario, feature), outcome);
-    }
-
-    currentScenarioFinishes(outcome: Outcome): void {
-        this.emitSceneFinishes(this.currentScenario, outcome);
+    scenarioFinishes(): void {
+        this.emitSceneFinishes();
     }
 
     scenarioFinished(scenario: Scenario, feature: Feature, outcome: Outcome): void {
@@ -143,7 +139,7 @@ export class Notifier {
         );
     }
 
-    private emitSceneFinishes(details: ScenarioDetails, outcome: Outcome): void {
+    private emitSceneFinishes(): void {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,

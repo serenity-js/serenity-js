@@ -9,13 +9,8 @@ export = function (dependencies: Dependencies) {
         dependencies.notifier.testRunStarts();
     });
 
-    After(function (event) {
-        dependencies.notifier.currentScenarioFinishes(
-            dependencies.resultMapper.outcomeFor(
-                event.result.status,
-                event.result.exception,
-            )
-        );
+    After(function () {
+        dependencies.notifier.scenarioFinishes();
 
         return dependencies.serenity.waitForNextCue();
     });
