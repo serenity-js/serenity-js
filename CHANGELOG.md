@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.32](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.31...v3.0.0-rc.32) (2022-10-12)
+
+
+### Bug Fixes
+
+* **core:** invocation location detection works for built-in interactions ([2ef0688](https://github.com/serenity-js/serenity-js/commit/2ef0688ada99cd372a2b2f9508b5d6b8e18b37f1))
+* **cucumber:** refactored Cucumber event emitters to simplify the implementation ([b7a5d25](https://github.com/serenity-js/serenity-js/commit/b7a5d25a4cd37e00204064bb9c263b169be98a78))
+
+
+
+
+
 # [3.0.0-rc.31](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.30...v3.0.0-rc.31) (2022-10-07)
 
 
