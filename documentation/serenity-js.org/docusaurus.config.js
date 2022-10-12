@@ -14,9 +14,8 @@ const config = {
     tagline: 'Collaborative test automation at scale!',
     customFields: {
         description:
-            `Serenity/JS is a free and open-source test automation framework that brings your business and software delivery teams together.
-            Serenity/JS helps you capture the language of your domain and write high-quality, reusable test automation code
-            that models single- and multi-actor business workflows and interacts with any interface of your system.`
+            `Serenity/JS is an open-source, full-stack test automation framework that brings your business and software delivery teams together.
+            It helps you use your domain language to express your test scenarios and write high-quality code that's easy to reuse and share across your organisation.`,
     },
     url: 'https://serenity-js.org',
     baseUrl: '/',
