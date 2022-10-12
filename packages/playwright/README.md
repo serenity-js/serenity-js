@@ -125,10 +125,7 @@ Next steps:
 
 ## Usage with `@playwright/test`
 
-Support for `@playwright/test` is coming soon! 
-
-Give [serenity-js/serenity-js#1240](https://github.com/serenity-js/serenity-js/issues/1240) a 👍 on GitHub 
-to show your interest and get notified when the feature arrives.
+See [@serenity-js/playwright-test](https://serenity-js.org/api/playwright-test).
 
 ## Usage with Cucumber
 

@@ -12,6 +12,12 @@ const path = require('path');
 const config = {
     title: 'Serenity/JS',
     tagline: 'Collaborative test automation at scale!',
+    customFields: {
+        description:
+            `Serenity/JS is a free and open-source test automation framework that brings your business and software delivery teams together.
+            Serenity/JS helps you capture the language of your domain and write high-quality, reusable test automation code
+            that models single- and multi-actor business workflows and interacts with any interface of your system.`
+    },
     url: 'https://serenity-js.org',
     baseUrl: '/',
     onBrokenLinks: 'throw',
