@@ -50,9 +50,13 @@ export const config: WebdriverIOConfig = {
 
     /*
      * To use the 'webdriver' protocol,
-     * start chromedriver first:
+     * use the wdio-chromedriver-service:
      *
-     *   npx chromedriver --port=4444
+     *  https://www.npmjs.com/package/wdio-chromedriver-service
+     *
+     * or start chromedriver manually first:
+     *
+     *  npx chromedriver --port=4444
     */
     // automationProtocol: 'webdriver',
 
