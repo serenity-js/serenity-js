@@ -1,6 +1,6 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, TimeoutExpiredError } from '../../errors';
+import { AssertionError, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
 import { AnswersQuestions, UsesAbilities } from '../actor';
@@ -252,7 +252,7 @@ export class WaitUntil<Actual> extends Interaction {
     pollingEvery(interval: Duration): Interaction {
         return new WaitUntil(this.actual, this.expectation, this.timeout, interval);
     }
-
+   
     /**
      * @inheritDoc
      */
@@ -268,8 +268,8 @@ export class WaitUntil<Actual> extends Interaction {
         }
 
         const timeout = timeoutAfter(this.timeout);
-        const poller  = waitUntil(expectation, this.pollingInterval);
-
+        const poller = waitUntil(expectation, this.pollingInterval);
+    
         return Promise.race([
             timeout.start(),
             poller.start(),
@@ -320,25 +320,33 @@ function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterva
     let pollingActive = false;
 
     async function poll(): Promise<void> {
+        
+        async function nextPollingInterval(): Promise<void> {
+            if (pollingActive) {
+                delay = waitFor(pollingInterval);
+                await delay.start();    
+                await poll();
+            }
+        }
+
         try {
             const expectationIsMet = await expectation();
-
             if (expectationIsMet) {
                 delay?.stop();
                 return;
             }
-
-            if (pollingActive) {
-                delay = waitFor(pollingInterval);
-
-                await delay.start();
-
-                await poll();
-            }
+            await nextPollingInterval();
         } catch (error) {
-            delay?.stop()
+            delay?.stop();
+
+            if (error instanceof ListItemNotFoundError) {                
+                await nextPollingInterval();
+                return;
+            }
+
             throw error;
         }
+
     }
 
     return {
