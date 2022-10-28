@@ -1,4 +1,4 @@
-import { LogicError } from '../../errors';
+import { ListItemNotFoundError, LogicError } from '../../errors';
 import { d } from '../../io';
 import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
@@ -61,7 +61,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
-                throw new LogicError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
+                throw new ListItemNotFoundError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
             }
 
             return items[0];
@@ -73,7 +73,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (items.length === 0) {
-                throw new LogicError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
+                throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
             }
 
             return items[items.length - 1];
@@ -85,7 +85,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
             const items = await this.answeredBy(actor);
 
             if (index < 0 || items.length <= index) {
-                throw new LogicError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
+                throw new ListItemNotFoundError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
             }
 
             return items[index];

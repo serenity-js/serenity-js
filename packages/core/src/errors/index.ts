@@ -22,6 +22,7 @@ export { ConfigurationError } from './ConfigurationError';
 export { ErrorSerialiser } from './ErrorSerialiser';
 export { ErrorStackParser } from './ErrorStackParser';
 export { ImplementationPendingError } from './ImplementationPendingError';
+export { ListItemNotFoundError } from './ListItemNotFoundError';
 export { LogicError } from './LogicError';
 export { RuntimeError } from './RuntimeError';
 export { TestCompromisedError } from './TestCompromisedError';
