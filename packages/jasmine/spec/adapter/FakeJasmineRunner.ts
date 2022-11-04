@@ -14,7 +14,7 @@ export class FakeJasmineRunner {
     loadRequires    = sinon.spy();
 
     addReporter     = sinon.spy();
-    addSpecFiles    = sinon.spy();
+    addMatchingSpecFiles    = sinon.spy();
     execute         = sinon.spy();
 
     configureDefaultReporter = sinon.spy();
