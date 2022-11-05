@@ -14,8 +14,10 @@ const config = {
     tagline: 'Collaborative test automation at scale!',
     customFields: {
         description:
-            `Serenity/JS is an open-source, full-stack test automation framework that brings your business and software delivery teams together.
-            It helps you use your domain language to express your test scenarios and write high-quality code that's easy to reuse and share across your organisation.`,
+            `Serenity/JS is an open-source acceptance testing framework that brings your business and software delivery teams together.
+            It helps you capture your domain language and write high-quality single- and multi-actor test scenarios that interact with any interface of your system.
+            Your Serenity/JS-based test code is also portable and reusable, so you can share it with other teams to benefit your entire organisation.
+            `
     },
     url: 'https://serenity-js.org',
     baseUrl: '/',
@@ -87,8 +89,8 @@ const config = {
                     className: 'serenity-js-logo',
                 },
                 items: [
-                    { label: 'Handbook', type: 'doc', docId: 'getting-started/why-serenity-js', position: 'left' },
-                    { label: 'API', to: 'api/', position: 'left' },
+                    { label: 'Handbook', type: 'doc', docId: 'index', position: 'left' },
+                    { label: 'API', to: '/api/core/', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
@@ -97,48 +99,62 @@ const config = {
                         label: 'GitHub',
                         position: 'right',
                     },
+                    {
+                        href: 'https://www.youtube.com/@serenity-js',
+                        label: 'YouTube',
+                        position: 'right',
+                    },
                 ],
             },
             footer: {
                 copyright: `Made with 💛 in London, UK. Copyright © 2016-${ new Date().getFullYear() } <a href="https://janmolak.com">Jan Molak</a>, smartcode ltd.`,
                 links: [
                     {
-                        title: 'Docs',
+                        title: 'Handbook',
                         items: [
-                            {
-                                label: 'Tutorial',
-                                to: '/handbook/getting-started/tutorial',
-                            },
+                            { label: 'Web testing', to: '/handbook/web-testing' },
+                            { label: 'API testing', to: '/handbook/api-testing' },
+                            { label: 'Mobile testing', to: '/handbook/mobile-testing' },
+                            { label: 'Core Design Patterns', to: '/handbook/design' },
+                            { label: 'Reporting', to: '/handbook/reporting' },
+                            { label: 'Test runners', to: '/handbook/test-runners' },
+                            { label: 'Integration', to: '/handbook/integration' },
                         ],
                     },
                     {
                         title: 'Community',
                         items: [
+                            { label: 'Blog and announcements', to: '/blog' },
+                            {
+                                label: 'Serenity/JS Community Chat',
+                                href: 'https://gitter.im/serenity-js/Lobby',
+                            },
                             {
                                 label: 'Stack Overflow',
-                                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                                href: 'https://stackoverflow.com/questions/tagged/serenity-js',
                             },
                             {
-                                label: 'Discord',
-                                href: 'https://discordapp.com/invite/docusaurus',
+                                label: 'Twitter: @Serenity/JS',
+                                href: 'https://twitter.com/SerenityJS',
                             },
                             {
-                                label: 'Twitter',
-                                href: 'https://twitter.com/docusaurus',
+                                label: 'LinkedIn: Serenity/JS',
+                                href: 'https://www.linkedin.com/company/serenity-js/',
+                            },
+                            {
+                                label: 'Serenity/JS GitHub Sponsors',
+                                href: 'https://github.com/sponsors/serenity-js',
                             },
                         ],
                     },
                     {
-                        title: 'More',
+                        title: 'Developers',
                         items: [
-                            {
-                                label: 'Blog',
-                                to: '/blog',
-                            },
-                            {
-                                label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus',
-                            },
+
+                            { label: 'API Docs', to: '/api/core' },
+                            { label: 'Project Templates', to: 'https://github.com/serenity-js/?q=template&type=all&language=&sort=' },
+                            { label: 'Serenity/JS GitHub', href: 'https://github.com/serenity-js', },
+                            { label: 'Report an issue', href: 'https://github.com/serenity-js/serenity-js/issues', },
                         ],
                     },
                     {
@@ -239,12 +255,6 @@ const config = {
                         '@serenity-js/core',
                         '@serenity-js/assertions',
 
-                        // Test runner adapters
-                        '@serenity-js/cucumber',
-                        '@serenity-js/jasmine',
-                        '@serenity-js/mocha',
-                        '@serenity-js/playwright-test',
-
                         // Web testing
                         '@serenity-js/web',
                         '@serenity-js/playwright',
@@ -258,6 +268,12 @@ const config = {
                         // Reporting
                         '@serenity-js/console-reporter',
                         '@serenity-js/serenity-bdd',
+
+                        // Test runner adapters
+                        '@serenity-js/cucumber',
+                        '@serenity-js/jasmine',
+                        '@serenity-js/mocha',
+                        '@serenity-js/playwright-test',
                     ]
 
                     return packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName);
