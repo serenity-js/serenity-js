@@ -180,7 +180,7 @@ jobs:
       runs-on: 'ubuntu-latest'
       node-version: 16.x
       npm-install-command: |
-        make BOOTSTRAP_SCOPE=@integration install
+        make BOOTSTRAP_SCOPE=@integration install && \
         npx --yes playwright install --with-deps
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
