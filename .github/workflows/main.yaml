@@ -157,7 +157,10 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
-      modules: '["webdriverio-web"]'
+      modules: |
+        [
+          "webdriverio-web"
+        ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
@@ -176,7 +179,11 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
-      modules: '["playwright"]'
+      modules: |
+        [
+          "playwright-test",
+          "playwright-web"
+        ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
@@ -206,8 +213,14 @@ jobs:
           "cucumber-8",
           "jasmine",
           "mocha",
-          "protractor",
-          "webdriverio"
+          "protractor-cucumber",
+          "protractor-jasmine",
+          "protractor-mocha",
+          "protractor-web",
+          "webdriverio-cucumber",
+          "webdriverio-jasmine",
+          "webdriverio-mocha",
+          "webdriverio-web"
         ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x

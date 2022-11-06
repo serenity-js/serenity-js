@@ -16,11 +16,29 @@ BOOTSTRAP_SCOPE=all
 COMPILE_SCOPE=all
 
 # all
-# cucumber
+# all:cucumber
+# all:playwright
+# all:protractor
+# all:webdriverio
+# cucumber-1
+# cucumber-2
+# cucumber-3
+# cucumber-4
+# cucumber-5
+# cucumber-6
+# cucumber-7
+# cucumber-8
 # jasmine
 # mocha
-# protractor
-# webdriverio
+# playwright-test
+# playwright-web
+# protractor-cucumber
+# protractor-jasmine
+# protractor-mocha
+# protractor-web
+# webdriverio-cucumber
+# webdriverio-jasmine
+# webdriverio-mocha
 # webdriverio-web
 INTEGRATION_SCOPE=all
 
