@@ -179,9 +179,7 @@ jobs:
       modules: '["playwright"]'
       runs-on: 'ubuntu-latest'
       node-version: 16.x
-      npm-install-command: |
-        make BOOTSTRAP_SCOPE=@integration install && \
-        npx --yes playwright install --with-deps
+      npm-install-command: "make BOOTSTRAP_SCOPE=@integration install && npx --yes playwright install --with-deps"
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
