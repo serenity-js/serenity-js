@@ -169,6 +169,24 @@ jobs:
       sauce-username: ${{ secrets.SAUCE_USERNAME }}
       sauce-access-key: ${{ secrets.SAUCE_ACCESS_KEY }}
 
+  test-integration-playwright:
+    name: 'Integration: Playwright'
+    needs:
+      - lint
+      - compile
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: '["playwright"]'
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: |
+        make BOOTSTRAP_SCOPE=@integration install
+        npx --yes playwright install --with-deps
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports-playwright'
+      upload-artifact-path: 'package.json "target/**/*"'
+
   test-integration:
     name: 'Integration'
     needs:
@@ -188,7 +206,6 @@ jobs:
           "cucumber-8",
           "jasmine",
           "mocha",
-          "playwright",
           "protractor",
           "webdriverio"
         ]
@@ -209,6 +226,7 @@ jobs:
     needs:
       - test-linux-node-lts-active
       - test-integration-saucelabs
+      - test-integration-playwright
       - test-integration
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
     with:
