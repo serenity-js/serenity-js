@@ -214,14 +214,8 @@ jobs:
           "cucumber-8",
           "jasmine",
           "mocha",
-          "protractor-cucumber",
-          "protractor-jasmine",
-          "protractor-mocha",
-          "protractor-web",
-          "webdriverio-cucumber",
-          "webdriverio-jasmine",
-          "webdriverio-mocha",
-          "webdriverio-web"
+          "all:protractor",
+          "all:webdriverio"
         ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
