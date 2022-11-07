@@ -18,18 +18,22 @@ import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
 export abstract class Activity {
 
     private static errorStackParser = new ErrorStackParser();
+    readonly #description: string;
+    readonly #location: FileSystemLocation;
 
     constructor(
-        protected readonly description: string,
-        private readonly location: FileSystemLocation = Activity.callerLocation(5)
+        description: string,
+        location: FileSystemLocation = Activity.callerLocation(5)
     ) {
+        this.#description = description;
+        this.#location = location;
     }
 
     /**
      * Returns the location where this {@apilink Activity} was instantiated.
      */
     instantiationLocation(): FileSystemLocation {
-        return this.location;
+        return this.#location;
     }
 
     /**
@@ -54,7 +58,7 @@ export abstract class Activity {
      * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
      */
     toString(): string {
-        return this.description;
+        return this.#description;
     }
 
     protected static callerLocation(frameOffset: number): FileSystemLocation {
