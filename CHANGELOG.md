@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.33](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.32...v3.0.0-rc.33) (2022-11-07)
+
+
+### Bug Fixes
+
+* **core:** allow proxying `location` and `description` fields by `QuestionAdapter` ([6761685](https://github.com/serenity-js/serenity-js/commit/6761685d0cd0f775088d514c3eefbaff4431faa1)), closes [#1344](https://github.com/serenity-js/serenity-js/issues/1344)
+* **deps:** update dependency fast-glob to ^3.2.12 ([94854a1](https://github.com/serenity-js/serenity-js/commit/94854a13881b46e11c908f7ff77a5940ac877f26))
+* **jasmine:** remove warn jasmine#addSpecFiles ([9fef049](https://github.com/serenity-js/serenity-js/commit/9fef049f07c35992051b0cb27f023aa3b7ae2b9f))
+* **playwright:** updated Playwright to 1.27.1 ([a1fcecc](https://github.com/serenity-js/serenity-js/commit/a1fcecc9d1cef1547f17cec5ed605d248060738f))
+* **playwright:** upgraded Playwright to 1.27.1 ([1345644](https://github.com/serenity-js/serenity-js/commit/1345644dc6c0b4f09ca1f9cfe97a793e226e747c))
+
+
+
+
+
 # [3.0.0-rc.32](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.31...v3.0.0-rc.32) (2022-10-12)
 
 
