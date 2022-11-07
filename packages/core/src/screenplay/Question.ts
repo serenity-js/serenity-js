@@ -238,6 +238,7 @@ export abstract class Question<T> {
                         && key === 'describedAs';   // `describedAs` returns `this`, which must be bound to proxy itself to allow proxy chaining
 
                     if (mustAllowProxyChaining) {
+                        // see https://javascript.info/proxy#proxy-limitations
                         return field.bind(receiver)
                     }
 
