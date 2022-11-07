@@ -1,0 +1,41 @@
+---
+sidebar_position: 7
+---
+
+import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+
+# Debugging
+
+<ArticleComingSoon />
+
+Actor receives a chain of activities to perform.
+so don't set the breakpoint when the activity is defined,
+use the activity to debug.
+
+## Debugging values
+
+how it works
+
+```typescript
+Debug.values(...)
+```
+
+## Conditional debugging
+
+```typescript
+Check.whether(...)
+    .andIfSo(Debug.values(...))
+```
+
+## Setting breakpoints
+
+```typescript
+await actor.attemptsTo()
+
+await actor.attemptsTo()
+```
+
+
+## Using a debugger
+
+See Visual Studio and JetBrains integration guides.
