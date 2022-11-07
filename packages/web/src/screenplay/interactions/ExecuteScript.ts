@@ -248,7 +248,7 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
         return new ExecuteAsynchronousScript(
             args.length > 0
                 ? d `#actor executes an asynchronous script with arguments: ${ args }`
-                : this.description,
+                : this.toString(),
             this.script,
             args,
         );
@@ -320,7 +320,7 @@ class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
         return new ExecuteSynchronousScript(
             args.length > 0
                 ? d `#actor executes a synchronous script with arguments: ${ args }`
-                : this.description,
+                : this.toString(),
             this.script,
             args,
         );

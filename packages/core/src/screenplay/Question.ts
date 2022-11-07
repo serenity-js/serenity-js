@@ -229,7 +229,22 @@ export abstract class Question<T> {
                 }
 
                 if (key in target) {
-                    return Reflect.get(target, key);
+
+                    const field = Reflect.get(target, key);
+
+                    const isFunction = typeof field == 'function'
+                    const mustAllowProxyChaining = isFunction
+                        && target instanceof QuestionStatement
+                        && key === 'describedAs';   // `describedAs` returns `this`, which must be bound to proxy itself to allow proxy chaining
+
+                    if (mustAllowProxyChaining) {
+                        // see https://javascript.info/proxy#proxy-limitations
+                        return field.bind(receiver)
+                    }
+
+                    return isFunction
+                        ? field.bind(target)
+                        : field;
                 }
 
                 if (key === 'then') {
