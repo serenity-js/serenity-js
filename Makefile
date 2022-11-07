@@ -16,10 +16,10 @@ BOOTSTRAP_SCOPE=all
 COMPILE_SCOPE=all
 
 # all
-# all-cucumber
-# all-playwright
-# all-protractor
-# all-webdriverio
+# cucumber-all
+# playwright-all
+# protractor-all
+# webdriverio-all
 # cucumber-1
 # cucumber-2
 # cucumber-3
