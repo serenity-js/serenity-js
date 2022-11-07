@@ -1,4 +1,4 @@
-FROM gitpod/workspace-node-lts
+FROM gitpod/workspace-full-vnc
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=UTC
@@ -56,30 +56,20 @@ ARG DOCKER_IMAGE_NAME_TEMPLATE="mcr.microsoft.com/playwright:v%version%-focal"
 RUN sudo bash -c "mkdir -p ${PLAYWRIGHT_BROWSERS_PATH} \
         && mkdir -p ${PLAYWRIGHT_BROWSERS_PATH}/agent \
         && chmod -R 777 ${PLAYWRIGHT_BROWSERS_PATH} \
-        && rm -rf /var/lib/apt/lists/*" \
- && bash -c "cd ${PLAYWRIGHT_BROWSERS_PATH}/agent \
-        && npm init -y && npm i playwright@latest \
-        && npx playwright@latest mark-docker-image "${DOCKER_IMAGE_NAME_TEMPLATE}" \
-        && npx --yes playwright@latest install --with-deps" \
+        && rm -rf /var/lib/apt/lists/*"
+
+# Use our own package.json files so that we install a compatible version of Playwright browsers
+COPY package*.json "${PLAYWRIGHT_BROWSERS_PATH}/agent"
+
+RUN bash -c "cd ${PLAYWRIGHT_BROWSERS_PATH}/agent \
+        && npm ci \
+        && npx playwright mark-docker-image "${DOCKER_IMAGE_NAME_TEMPLATE}" \
+        && npx --yes playwright install --with-deps" \
  && sudo bash -c "chmod -R 777 ${PLAYWRIGHT_BROWSERS_PATH} \
-        && rm -rf ${PLAYWRIGHT_BROWSERS_PATH}/agent"
+        && rm -rf ${PLAYWRIGHT_BROWSERS_PATH}/agent" \
+ && bash -c "npm cache verify"
 
 # ######################################################################################################################
 # Install HTTP Server
 
 RUN bash -c "npm i --location=global http-server"
-
-# ######################################################################################################################
-# Install Java
-#   https://github.com/gitpod-io/workspace-images/blob/e91b47d148d6687703e258a7589b8cba74367a88/chunks/lang-java/Dockerfile
-
-RUN curl -fsSL "https://get.sdkman.io" | bash \
- && bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh \
-        && sed -i 's/sdkman_selfupdate_enable=true/sdkman_selfupdate_enable=false/g' /home/gitpod/.sdkman/etc/config \
-        && sed -i 's/sdkman_selfupdate_feature=true/sdkman_selfupdate_feature=false/g' /home/gitpod/.sdkman/etc/config \
-        && sdk install java \
-        && sdk flush archives \
-        && sdk flush temp \
-        && echo 'export SDKMAN_DIR=\"/home/gitpod/.sdkman\"' >> /home/gitpod/.bashrc.d/99-java \
-        && echo '[[ -s \"/home/gitpod/.sdkman/bin/sdkman-init.sh\" ]] && source \"/home/gitpod/.sdkman/bin/sdkman-init.sh\"' >> /home/gitpod/.bashrc.d/99-java"
-# above, we are adding the sdkman init to .bashrc (executing sdkman-init.sh does that), because one is executed on interactive shells, the other for non-interactive shells (e.g. plugin-host)
