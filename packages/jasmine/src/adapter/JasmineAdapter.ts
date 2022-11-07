@@ -104,7 +104,7 @@ export class JasmineAdapter implements TestRunnerAdapter {
     private async loadSpecs(pathsToScenarios: string[]): Promise<void> {
         this.runner.specDir     = '';
         this.runner.specFiles   = [];
-        this.runner.addSpecFiles(pathsToScenarios);
+        this.runner.addMatchingSpecFiles(pathsToScenarios);
 
         await this.runner.loadSpecs();
     }
