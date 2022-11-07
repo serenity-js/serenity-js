@@ -12,11 +12,10 @@ const TopFeatures: FeatureItem[][] = [
     [
         {
             title: 'Make your tests speak your language',
-            // Svg: require('@site/static/images/undraw_docusaurus_mountain.svg').default,
             Svg: require('@site/static/images/serenity-js-engineering-team.svg').default,
             description: (
                 <>
-                    Serenity/JS Screenplay Pattern helps you create automated tests and test <abbr title={ 'Domain-Specific Languages' }>DSLs</abbr> that capture the concepts and
+                    <a href={"/handbook/design/screenplay-pattern"}>Serenity/JS Screenplay Pattern</a> helps you create automated tests and test <abbr title={ 'Domain-Specific Languages' }>DSLs</abbr> that capture the concepts and
                     vocabulary of your domain, focus on your business workflows, and bring your team together.
                 </>
             ),
@@ -26,7 +25,7 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-browsers-mobile-apis.svg').default,
             description: (
                 <>
-                    Serenity/JS is a modular and extensible abstraction layer
+                    Serenity/JS is a <a href={"/handbook/design/modular-architecture"}>modular and extensible</a> abstraction layer
                     that works seamlessly with integration tools like
                     Playwright, Selenium, WebdriverIO, Appium, or Axios,
                     and gives you a consistent, intuitive, and vendor-agnostic API to work with.
@@ -38,7 +37,7 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-run-anywhere.svg').default,
             description: (
                 <>
-                    Serenity/JS integrates with popular test runners like Cucumber, Jasmine, Mocha, and Playwright Test,
+                    Serenity/JS integrates with <a href={"/handbook/test-runners/"}>popular test runners</a> like Cucumber, Jasmine, Mocha, and Playwright Test,
                     and works just as well on your machine as it does
                     on your <abbr title={ 'Continuous Integration and Delivery' }>CI/CD</abbr> servers,
                     or deployed as part of your continuous monitoring infrastructure.
@@ -52,8 +51,8 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-share-code.svg').default,
             description: (
                 <>
-                    Serenity/JS is the first test automation framework designed to make sharing and reusing test code
-                    easy not just across test suites, but also across projects and teams. Help your whole organisation benefit from your test automation work!
+                    Serenity/JS is the first framework designed to make it easy to <a href={"/handbook/design/reusable-test-code"}>share and reuse test code</a> not just
+                    across test suites, but also across projects and teams. Help your whole organisation benefit from your test automation work!
                 </>
             ),
         },
@@ -62,10 +61,10 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-ide.svg').default,
             description: (
                 <>
-                    Serenity/JS supports writing, running and debugging your tests in
-                    popular <abbr title={ 'Integrated Development Environments' }>IDEs</abbr> like JetBrains and VS Code.
+                    With Serenity/JS you can write, run, and debug your tests in
+                    popular <abbr title={ 'Integrated Development Environments' }>IDEs</abbr> like <a href={"/handbook/integration/jetbrains-idea"}>JetBrains</a> and <a href={"/handbook/integration/visual-studio-code"}>VS Code</a>.
                     Serenity/JS tests are high-quality, standards-based Node.js code,
-                    so you can commit them to Git to support trunk-based, multi-branch, and pull request-based development workflows.
+                    so you can <a href={"/handbook/integration/"}>commit them to Git</a> to support trunk-based, multi-branch, and pull request-based development workflows.
                 </>
             ),
         },
@@ -74,7 +73,7 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-reporting.svg').default,
             description: (
                 <>
-                    Serenity/JS integrates with Serenity BDD to provide powerful living documentation and test reporting that gives meaningful feedback to testers,
+                    Serenity/JS integrates with Serenity BDD to provide powerful <a href={"/handbook/reporting/"}>living documentation and test reporting</a> that gives meaningful feedback to testers,
                     business folks, and the team as a whole. Serenity/JS tells you not only what tests have been executed, but more importantly, what requirements have been tested.
                 </>
             ),

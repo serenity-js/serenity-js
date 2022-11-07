@@ -31,3 +31,13 @@ const sidebars = {
 };
 
 module.exports = sidebars;
+
+/*
+
+Integration
+    - [ ] GitHub Actions
+    - [ ] GitLab CI
+    - [ ] Jira
+    - [ ] Jenkins CI
+
+ */

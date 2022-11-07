@@ -1,0 +1,25 @@
+---
+sidebar_position: 8
+---
+
+import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+
+# Logging
+
+<ArticleComingSoon />
+
+Don't use `console.log` (explain why it won't work)
+
+Use the interaction to `Log`
+
+```typescript
+import { actorCalled, Log } from '@serenity-js/core'
+
+await actorCalled('Logan').attemptTo(
+    Log.the('static value')
+)
+```
+
+Explain what events Log emits
+
+Explain how reporters report the emitted events

@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 function HeroBanner() {
     const { siteConfig} = useDocusaurusContext();
-    const description = siteConfig.customFields.description as string;
+    const description = siteConfig.customFields.description as string[];
 
     return (
         <div className={ styles.hero } data-theme="dark">
@@ -29,7 +29,6 @@ function HeroBanner() {
                             __html: translate({
                                 id: 'homepage.hero.title',
                                 message:
-                                // `Enable <b>collaborative</b><br />test automation<br />at <b>any scale</b>.`,
                                     `Enable <b>collaborative<br />test automation</b><br />at <b>any scale</b>!`,
                                 description:
                                     'Home page hero title, can contain simple html tags',
@@ -40,7 +39,7 @@ function HeroBanner() {
                 <p>{description}</p>
                 <div className={ styles.indexCtas }>
                     <Link className="button button--primary" to="/handbook">
-                        <Translate>Get started in 5 minutes</Translate>
+                        <Translate>Get started in 10 minutes</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>
                       <iframe
