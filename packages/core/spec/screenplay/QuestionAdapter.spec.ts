@@ -425,6 +425,8 @@ describe('Question', () => {
                         name: string;
                         caller: string;
                         arguments: boolean;
+                        description: string;
+                        location: string;
                     }
 
                     const Response = () =>
@@ -433,8 +435,8 @@ describe('Question', () => {
                                 // "caller" and "argument" are here to show how a proxy resolves conflicts
                                 // between a built-in fields like function.caller and function.arguments
                                 // and properties of the wrapped object of the same name
-                                { name: 'Alice',    caller: 'Bob',      arguments: false },
-                                { name: 'Bob',      caller: 'Alice',    arguments: true  },
+                                { name: 'Alice',    caller: 'Bob',      arguments: false,   location: 'London',     description: 'first actor' },
+                                { name: 'Bob',      caller: 'Alice',    arguments: true,    location: 'New York',   description: 'second actor'  },
                             ]
                         }));
 
@@ -468,6 +470,22 @@ describe('Question', () => {
                         const result: string = await actor.answer(name);
 
                         expect(result).to.equal('Alice');
+                    });
+
+                    it('proxies "description"', async () => {
+                        const description: Question<Promise<string>> = Response().users[0].description;
+
+                        const result: string = await actor.answer(description);
+
+                        expect(result).to.equal('first actor');
+                    });
+
+                    it('proxies "location"', async () => {
+                        const location: Question<Promise<string>> = Response().users[0].location;
+
+                        const result: string = await actor.answer(location);
+
+                        expect(result).to.equal('London');
                     });
                 });
             });
