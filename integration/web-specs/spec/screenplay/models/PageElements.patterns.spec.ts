@@ -3,7 +3,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { actorCalled, ListItemNotFoundError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 import { ExportedPageElements } from './fixtures/ExportedPageElements';
@@ -126,7 +126,7 @@ describe('PageElements', () => {
                                 .first()
                                 .nativeElement()
                         )
-                    ).to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`)
+                    ).to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`)
                 );
 
                 it(`allows to check if the element of interest is not present`, () =>
