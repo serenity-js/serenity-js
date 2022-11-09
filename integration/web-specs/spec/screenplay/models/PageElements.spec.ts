@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Answerable } from '@serenity-js/core';
+import { actorCalled, Answerable, AssertionError, Duration, Wait } from '@serenity-js/core';
 import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
@@ -426,5 +426,36 @@ describe('PageElements', () => {
                     Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals([ 'oats x', 'coffee x' ])),
                 ));
         });
+    });
+
+    describe('when accessing lazy loaded lists', () => {
+
+        const loadButton = PageElement.located(By.id('load')).describedAs('button to load the list');
+
+        beforeEach(() =>
+            actorCalled('Elle').attemptsTo(
+                Navigate.to('/screenplay/models/page-elements/lazy_loaded_shopping_list.html'),
+            ));
+
+        it('waits until the lazy loaded shopping list contains items', () => actorCalled('Elle').attemptsTo(
+            Click.on(loadButton),
+            Wait.until(Text.of(ShoppingList.items().first()), equals('coffee')),
+            Ensure.that(Text.of(ShoppingList.items().get(1)), equals('oats'))
+        ))
+
+        it('fails the actors flow when the lazy loaded shopping list does not load within time', async () => {
+            const startTime = Date.now();
+            await expect(actorCalled('Elle').attemptsTo(
+                Click.on(loadButton),
+                Wait.upTo(Duration.ofSeconds(2)).until(Text.of(ShoppingList.items().first()), equals('coffee')),
+            )).to.be.rejected.then((error: AssertionError) => {
+                const elapsedTime = Date.now() - startTime;
+                expect(elapsedTime).to.be.greaterThanOrEqual(2000);
+                expect(elapsedTime).to.be.lessThan(3000);
+                expect(error.expected).to.be.undefined;
+                expect(error.actual).to.be.undefined;
+                expect(error).to.be.instanceOf(AssertionError);
+                expect(error.message).to.be.equal(`Waited 2s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'`);
+            })})
     });
 });
