@@ -324,7 +324,7 @@ function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterva
         async function nextPollingInterval(): Promise<void> {
             if (pollingActive) {
                 delay = waitFor(pollingInterval);
-                await delay.start();    
+                await delay.start();
                 await poll();
             }
         }
@@ -339,7 +339,7 @@ function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterva
         } catch (error) {
             delay?.stop();
 
-            if (error instanceof ListItemNotFoundError) {                
+            if (error instanceof ListItemNotFoundError) {
                 await nextPollingInterval();
                 return;
             }
