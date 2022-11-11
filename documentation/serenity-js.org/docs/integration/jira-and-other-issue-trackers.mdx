@@ -1,5 +1,160 @@
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
-
 # JIRA and other issue trackers
 
-<ArticleComingSoon />
+```mdx-code-block
+import Image from '@theme/IdealImage';
+import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+import BrowserWindow from '@site/src/components/BrowserWindow'
+import ExampleReport from '@site/static/images/integration/jira-and-other-issue-trackers/example-report.png'
+import ResultsPerTicketReport from '@site/static/images/integration/jira-and-other-issue-trackers/results-per-ticket-report.png'
+```
+
+Key points:
+- [Serenity BDD HTML reports](#linking-from-test-scenarios-to-tickets) can include links from scenarios to tickets in your issue tracker
+- [Tagging a Cucumber scenario](#tagging-cucumber-scenarios-and-features) with `@issue:<id>` or `@issues:<id1,id2>` indicates a link
+- [Serenity BDD Jira linking](#working-with-jira) supports linking to tickets [Jira](https://www.atlassian.com/software/jira)
+- [Serenity BDD generic linking](#working-with-github-and-gitlab) supports linking to [GitHub](https://github.com/), [GitLab](https://gitlab.com/), [Trello](https://trello.com/), and other popular issue trackers
+
+## Linking from test scenarios to tickets
+
+[Serenity BDD](/api/serenity-bdd) supports linking from test scenario results in the report to tickets in issue trackers such as [Jira](https://www.atlassian.com/software/jira), [Trello](https://trello.com/), [GitHub Issues](https://github.com/features/issues), [GitLab Issues](https://docs.gitlab.com/ee/user/project/issues/), and many others.
+
+To make it work, you should [tag your Cucumber scenarios](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) with `@issue` and `@issues` as per the below listing:
+
+```gherkin
+@issue:WF-1
+Feature: Weather forecast
+
+  @issue:WF-2
+  @issues:WF-3,WF4
+  Scenario: Umbrella needed now
+
+    Given it's currently raining
+     When Alice asks "Do I need my umbrella now?"
+     Then she should be told "Yes"
+```
+
+The `@issue` an `@issues` tags instruct Serenity to augment the reports with links to relevant tickets:
+
+<BrowserWindow backgroundColor={"rgb(247,248,243)"}>
+    <Image img={require('@site/static/images/integration/jira-and-other-issue-trackers/example-report.png')} alt="Example Serenity/JS report showing an annotated test scenario" />
+</BrowserWindow>
+
+Apart from improved navigation experience, another benefit of tagging your test scenarios with ticket IDs is that it helps Serenity understand what scenarios and features concern what tickets.
+This gives you another way to slice your reports, which can be particularly useful when you need to see all the scenarios that cover a given ticket:
+
+<BrowserWindow backgroundColor={"rgb(247,248,243)"}>
+    <Image img={require('@site/static/images/integration/jira-and-other-issue-trackers/results-per-ticket-report.png')} alt="Example Serenity/JS report showing test results broken down by ticket" />
+</BrowserWindow>
+
+To make linking scenarios to tickets work, your test runner (such as [Cucumber.js](/handbook/test-runners/cucumber)) must use Serenity/JS [test runner adapter](/handbook/test-runners/)
+to emit [`SceneTagged`](/api/core-events/class/SceneTagged) event with an `IssueTag` pointing to the desired ticket when a test scenario is executed.
+The information about ticket identifiers associated with a given test scenario gets included in Serenity BDD `json` reports produced by [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter).
+From there, it's picked up by Serenity BDD CLI and included in the [Serenity BDD HTML report](/handbook/reporting/serenity-bdd-reporter).
+
+
+:::info PRO TIP
+[Serenity/JS Cucumber Test Runner Adapter](/handbook/test-runners/cucumber) automatically links any scenarios tagged with `@issue:<issueId>` and `@issues:<issueId1,issueId2,...>`.
+
+If you need this functionality for any other test runners, please [raise a ticket on GitHub](/serenity-js/serenity-js/issues) or [submit a pull request](/contributing).
+:::
+
+## Tagging Cucumber scenarios and features
+
+To indicate to Serenity/JS that you want your Serenity BDD report to link from a test scenario to a ticket in your issue tracker,
+you should [tag your Cucumber.js scenario](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) with a tag following one of the below formats:
+- `@issue:<id>` - to link to a single ticket,
+- `@issues:<id1,id2,...>` - to link to multiple tickets.
+
+:::info PRO TIP
+Linking from a scenario to a ticket can be useful to indicate that the scenario was added to cover a specific defect reported in the issue tracker,
+or to provide additional context around the given feature or scenario.
+:::
+
+In the example below, the first scenario will be linked to tickets: `WF-1` (inherited from the [`Feature`](https://cucumber.io/docs/gherkin/reference/?sbsearch=reference#feature)), as well as `WF-2`, `WF-3`, `WF-4` the scenario is tagged with explicitly.
+The second scenario will be linked to ticket `WF-1`.
+
+```gherkin
+@issue:WF-1
+Feature: Weather forecast
+
+  @issue:WF-2
+  @issues:WF-3,WF4
+  Scenario: Umbrella needed now
+
+    Given it's currently raining
+     When Alice asks "Do I need my umbrella now?"
+     Then she should be told "Yes"
+
+  Scenario: Umbrella needed later
+
+    Given it's currently not raining
+      But there's a high likelihood of rain throughout the day
+     When Alice asks "Do I need my umbrella now?"
+     Then she should be told "Not yet, but you'll need it later"
+```
+
+It's important to note that different issue trackers use different naming conventions to identify tickets and to deep-link to them.
+
+Read on to find out more about the approach that will work best in your case.
+
+## Working with Jira
+
+[Atlassian Jira](https://www.atlassian.com/software/jira) is project-centric and uses ticket identifiers that indicate both project ID and ticket sequence number, e.g. `WF-123`.
+
+To link a test scenario to a ticket in Jira, you should use a [Cucumber tag](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) such as `@issue:WF-1` or `@issues:WF-3,WF4`:
+
+```gherkin title="Linking to tickets in Jira"
+@issue:WF-1
+Feature: Weather forecast
+
+  @issue:WF-2
+  @issues:WF-3,WF4
+  Scenario: Umbrella needed now
+```
+
+To instruct Serenity BDD where your Jira instance is, provide the `--jiraUrl` argument when
+[generating the report](/api/serenity-bdd) from the command line:
+
+```bash
+npx serenity-bdd run --jiraUrl=https://jira.atlassian.com
+```
+
+Alternatively, you can specify the [`jira.url`](https://serenity-bdd.github.io/docs/reference/serenity-properties#jiraurl) property in your [`serenity.properties`](https://serenity-bdd.github.io/docs/reference/serenity-properties#jiraurl) file,
+which Serenity BDD will pick up automatically when executed:
+
+```properties title="serenity.properties"
+jira.url=https://jira.atlassian.com
+```
+
+## Working with GitHub and Gitlab
+
+[GitHub](https://github.com/features/issues) and [GitLab](https://docs.gitlab.com/ee/user/project/issues/) are code-centric systems that associate tickets with their relevant code repositories.
+They identify tickets using the `#<id>` naming convention, e.g. `#123`.
+
+To link a test scenario to a ticket in GitHub or GitLab you should use a [Cucumber tag](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) such as `@issue:#1` or `@issues:#3,#4`:
+
+```gherkin title="Linking to tickets in GitHub or GitLab"
+@issue:#1
+Feature: Weather forecast
+
+  @issue:#2
+  @issues:#3,#4
+  Scenario: Umbrella needed now
+```
+
+To instruct Serenity BDD where your GitHub or GitLab instance is, provide the `--issueTrackerUrl` argument when
+[generating the report](/api/serenity-bdd) from the command line.
+
+Note that `--issueTrackerUrl` is a template string where the `{0}` token
+gets replaced with the issue ID you've tagged your test scenario with (Serenity removes the `#` character from the ticket ID when generating the URL):
+
+```bash
+npx serenity-bdd run --issueTrackerUrl='https://github.com/my-namespace/my-project/{0}'
+```
+
+Alternatively, you can specify the [`serenity.issue.tracker.url`](https://serenity-bdd.github.io/docs/reference/serenity-properties#jiraurl) property in your [`serenity.properties`](https://serenity-bdd.github.io/docs/reference/serenity-properties#jiraurl) file,
+which Serenity BDD will pick up automatically when executed:
+
+```properties title="serenity.properties"
+serenity.issue.tracker.url=https://github.com/my-namespace/my-project/{0}
+```

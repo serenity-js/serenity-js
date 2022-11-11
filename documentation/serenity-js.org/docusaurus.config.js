@@ -15,7 +15,8 @@ const config = {
     customFields: {
         description:
             `Serenity/JS is an open-source acceptance testing framework that brings your business and software delivery teams together.
-            It helps you capture your domain language and write high-quality single- and multi-actor test scenarios that interact with any interface of your system.
+            It helps you capture your domain language and write high-quality single- and multi-actor test scenarios
+            that interact with any interface of your system.
             Your Serenity/JS-based test code is also portable and reusable, so you can share it with other teams to benefit your entire organisation.
             `
     },
@@ -46,7 +47,7 @@ const config = {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: 'handbook',
-                    remarkPlugins: [ require('mdx-mermaid') ],
+                    remarkPlugins: [ ],
                     editUrl:
                         'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
                 },
@@ -90,7 +91,7 @@ const config = {
                 },
                 items: [
                     { label: 'Handbook', type: 'doc', docId: 'index', position: 'left' },
-                    { label: 'API', to: '/api/core/', position: 'left' },
+                    { label: 'API', to: '/api', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
@@ -151,7 +152,7 @@ const config = {
                         title: 'Developers',
                         items: [
 
-                            { label: 'API Docs', to: '/api/core' },
+                            { label: 'API Docs', to: '/api' },
                             { label: 'Project Templates', to: 'https://github.com/serenity-js/?q=template&type=all&language=&sort=' },
                             { label: 'Serenity/JS GitHub', href: 'https://github.com/serenity-js', },
                             { label: 'Report an issue', href: 'https://github.com/serenity-js/serenity-js/issues', },
@@ -175,6 +176,15 @@ const config = {
             prism: {
                 theme: lightCodeTheme,
                 darkTheme: darkCodeTheme,
+                additionalLanguages: [
+                    'gherkin'
+                ],
+            },
+            mermaid: {
+                theme: {
+                    light: 'neutral',
+                    dark: 'neutral'
+                },
             },
         }),
 
@@ -337,7 +347,22 @@ const config = {
                     language: 'en',
                 },
             },
+        ],
+        [
+            '@docusaurus/plugin-ideal-image',
+            {
+                quality: 85,
+                steps: 4,
+                disableInDev: true,
+            },
         ]
+    ],
+
+    markdown: {
+        mermaid: true,
+    },
+    themes: [
+        '@docusaurus/theme-mermaid'
     ],
 };
 
