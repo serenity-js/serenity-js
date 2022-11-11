@@ -14,7 +14,7 @@ Key points:
 ## Serenity/JS Gitpods
 
 **Serenity/JS Gitpods** are free virtual workspaces you can launch on demand on [Gitpod.io](https://www.gitpod.io/).
-They are the easiest way to get started with the framework, as every Serenity/JS Gitpod comes with all the **browsers**, **test tools**, **drivers**, **libraries** and even **VisualStudio Code plugins** already installed and ready to go. 
+They are the easiest way to get started with the framework, as every Serenity/JS Gitpod comes with all the **browsers**, **test tools**, **drivers**, **libraries** and even **VisualStudio Code plugins** already installed and ready to go.
 
 In fact, all Serenity/JS tutorials you'll find in this handbook have a corresponding Serenity/JS Gitpod that lets you follow the tutorial without having to install anything on your machine. If you prefer to set up Serenity/JS locally, this handbook will also teach you how to do that.
 
@@ -27,7 +27,7 @@ You can then use your GitHub account to sign up for a [free account on Gitpod.io
 
 ## Serenity/JS Project Templates
 
-Serenity/JS Project Templates are boilerplate repositories that combine the most popular configurations of Serenity/JS modules and contain a handful of test scenarios to help you get started.
+Serenity/JS Project Templates are boilerplate repositories that combine the most popular configurations of Serenity/JS modules and include a handful of test scenarios to help you get started.
 
 You can find all the official [Serenity/JS Project Templates on GitHub](https://github.com/serenity-js?q=template&type=all&language=&sort=).
 
@@ -37,11 +37,13 @@ To use this feature, you'll need a [free account on GitHub.com](#your-githubcom-
 
 ## Serenity/JS Modules
 
-Serenity/JS is a modular framework based on Node.js, with official modules distributed under the `@serenity-js/*` namespace via [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js). You can use as many or as few of Serenity/JS Modules as you need to enable integrations with required test automation tools and test runners, interact with the various interfaces of your system under test, and to enable the desired reporting formats.
+Serenity/JS is a modular framework based on Node.js, with official modules distributed under the `@serenity-js/*` namespace via [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js).
+You can use as many or as few of Serenity/JS Modules as you need to enable integrations with required test automation tools and test runners,
+interact with the various interfaces of your system under test, and to enable the desired reporting formats.
 
 Each [Serenity/JS module](/api/) typically provides at least one of the following:
 - an interface integration library that follows the [Screenplay Pattern](/handbook/design/screenplay-pattern),
-- test runner adapters that translate test runner events into [Serenity/JS domain events](/handbook/design/domain-events) (used for [reporting](/handbook/reporting/)),
+- test runner adapters that translate test runner events into [Serenity/JS domain events](/handbook/reporting/domain-events) (used for [reporting](/handbook/reporting/)),
 - [reporting services](/handbook/reporting/) that translate domain events into test reports.
 
 To find out more about how to install a given Serenity/JS module, please consult its [installation instructions](/api/).
@@ -49,14 +51,16 @@ To find out more about how to install a given Serenity/JS module, please consult
 In general, to use Serenity/JS modules you'll need:
 - **Node.js LTS** - a [long-term support version](https://github.com/nodejs/release#release-schedule) of Node.js; Serenity/JS is developed on macOS running Node.js 16 and [continuously tested](https://github.com/serenity-js/serenity-js/blob/main/.github/workflows/main.yaml) with Node 14, 16, 18 on Linux and Windows,
 - **Java Runtime Environment (JRE)**, if you'd like to use the [Serenity BDD reporter](/handbook/reporting/serenity-bdd-reporter),
-- a local **web browser** or a remote **Selenium Grid** if you're planning to [interact with web interfaces](/handbook/web-testing/).
+- a local **web browser** or a remote **Selenium Grid** if you're planning to [interact with web interfaces](/handbook/web-testing/),
+- a Node.js project, which you can initialise by running [`npm init ./my-project-name`](https://docs.npmjs.com/cli/v8/commands/npm-init)
 
 ## Your GitHub.com account
 
 Serenity/JS is hosted on GitHub.com, and having a **free GitHub.com** account gives you access to:
 - [Serenity/JS code repositories](https://github.com/serenity-js)
-- [Serenity/JS issue tracker](https://github.com/serenity-js/serenity-js/issues) 
+- [Serenity/JS issue tracker](https://github.com/serenity-js/serenity-js/issues)
 - [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby)
+- comments and reactions on the Serenity/JS website
 
 If you don't have a GitHub.com account yet, you can [sign up now](https://github.com/signup).
 
@@ -66,7 +70,7 @@ Do you find Serenity/JS useful? Give it a ⭐ star on GitHub and rate it on Open
 
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js) [![Rate on Openbase](https://badges.openbase.io/js/rating/@serenity-js/core.svg)](https://openbase.io/js/@serenity-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-Found a bug? Need a feature? Raise [an issue](https://github.com/serenity-js/serenity-js/issues?state=open) or submit a pull request.
+Found a bug? Need a feature? Raise [an issue](https://github.com/serenity-js/serenity-js/issues?state=open) or [submit a pull request](/contributing).
 
 Have feedback? Let us know on [Twitter](https://twitter.com/SerenityJS) or [LinkedIn](https://www.linkedin.com/company/serenity-js/).
 
