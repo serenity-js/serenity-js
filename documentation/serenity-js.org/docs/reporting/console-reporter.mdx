@@ -20,13 +20,15 @@ The reporter supports colour schemes for both light and dark terminals, as well 
 
 ## Installation and usage
 
-To learn about installing and configuring the module, please consult the [`@serenity-js/console-reporter` documentation](/api/console-reporter).
+To learn more about the `ConsoleReporter`, please consult:
+- installation instructions in [`@serenity-js/console-reporter` documentation](/api/console-reporter),
+- configuration examples in [`ConsoleReporter`](/api/console-reporter/class/ConsoleReporter).
 
-You might also want to explore [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples).
+You might also want to explore [Serenity/JS example projects on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples).
 
 ## Integration
 
-[`ConsoleReporter`](/api/console-reporter/class/ConsoleReporter) listens to [`DomainEvents`](/handbook/reporting/domain-events) emitted by [`Actors`](/api/core/class/Actor) and [Serenity/JS test runner adapters](/handbook/test-runners/).
+[`ConsoleReporter`](/api/console-reporter/class/ConsoleReporter) listens to [domain events](/handbook/reporting/domain-events) emitted by [`Actors`](/api/core/class/Actor) and [Serenity/JS test runner adapters](/handbook/test-runners/).
 
 ```mermaid
 graph TB
@@ -50,7 +52,9 @@ graph TB
 
     class A socket
     class TRA socket
-    click A "/handbook/design/actors.html"
-    click S "/modules/core/class/src/Serenity.ts~Serenity.html"
-    click CR "/modules/console-reporter"
+
+    click A "/api/core/class/Actor"
+    click TRA "/handbook/test-runners/"
+    click S "/api/core/class/Serenity"
+    click CR "/api/console-reporter"
 ```
