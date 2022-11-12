@@ -1,12 +1,14 @@
 import React from 'react'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+
+import Image, { SrcImage } from '@theme/IdealImage';
+
 export interface FigureProps {
-    imgSrc: string;
+    img: { default: string } | { src: SrcImage; preSrc: string} | string;
     caption: string;
     externalLink: string;
 }
 
-export default function Figure({ imgSrc, caption, externalLink }: FigureProps) {
+export default function Figure({ img, caption, externalLink }: FigureProps) {
 
     const figcaption = externalLink
         ? <figcaption>{caption} (<a href={ externalLink } target="_blank" rel="noopener noreferrer">source</a>)</figcaption>
@@ -14,7 +16,7 @@ export default function Figure({ imgSrc, caption, externalLink }: FigureProps) {
 
     return (
         <figure>
-            <img src={useBaseUrl(imgSrc)} alt={caption} />
+            <Image img={img} alt={caption} />
             {figcaption}
         </figure>
     )
