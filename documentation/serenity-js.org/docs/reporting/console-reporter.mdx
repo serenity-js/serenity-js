@@ -30,21 +30,24 @@ You might also want to explore [Serenity/JS examples on GitHub](https://github.c
 
 ```mermaid
 graph TB
-    A(["fas:fa-users Actors"])
-    TRA(["fas:fa-plug Serenity/JS test runner adapter"])
+    A(["Actors"])
+    TRA(["Serenity/JS test runner adapter"])
     S["Serenity"]
     CR["ConsoleReporter"]
-    T["fas:fa-terminal text report"]
+    T["text report"]
+
     TRA -- notifies --> S
     A -- notify --> S
     S -- notifies --> CR
     CR -- prints --> T
+
     subgraph "core"
-    S
+        S
     end
     subgraph "console-reporter"
-    CR
+        CR
     end
+
     class A socket
     class TRA socket
     click A "/handbook/design/actors.html"
