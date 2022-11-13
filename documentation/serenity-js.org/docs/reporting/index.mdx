@@ -7,7 +7,7 @@ sidebar_position: 8
 Just like the [core design patterns](/handbook/design/) in your Serenity/JS scenarios revolve around the [system metaphor](http://www.extremeprogramming.org/rules/metaphor.html)
 of a [stage performance](/handbook/design/screenplay-pattern), Serenity/JS reporting services follow the metaphor of a [_stage crew_](https://en.wikipedia.org/wiki/Running_crew).
 
-The [`StageCrewMembers`](/api/core/interface/StageCrewMember) observe the [`Actors`](/api/core/class/Actor) on [`Stage`](/api/core/class/Stage),
+The [`StageCrewMembers`](/api/core/interface/StageCrewMember) observe the [actors](/api/core/class/Actor) on [`Stage`](/api/core/class/Stage),
 watch the [`Activities`](/api/core/class/Activity) they perform, and listen to the [domain events](/handbook/reporting/domain-events) emitted by their environment.
 They use the information they gather to [generate artifacts](/api/core-events/class/ArtifactGenerated), such as test reports,
 produce more events to prompt other crew members to action, or perform side effects like printing to the terminal, writing files to disk, or performing network or database calls.
@@ -15,7 +15,8 @@ produce more events to prompt other crew members to action, or perform side effe
 Several of the Serenity/JS modules provide [`StageCrewMembers`](/api/core/interface/StageCrewMember) you can use for test reporting purposes:
 - [Console Reporter](/handbook/reporting/console-reporter) - writes text-based test reports to your computer terminal,
 - [Serenity BDD Reporter](/handbook/reporting/serenity-bdd-reporter) - emits [Serenity BDD](https://serenity-bdd.github.io/)-compatible JSON reports, to be archived via [`ArtifactArchiver`](/handbook/reporting/artifact-archiver) and consumed by the [Serenity BDD CLI](/api/serenity-bdd/#serenity-bdd-living-documentation) to produce HTML reports and living documentation,
-- [Artifact Archiver](/handbook/reporting/artifact-archiver) - stores report artifacts on disk
-- [Stream Reporter](/handbook/reporting/stream-reporter) - logs any events it receives to help you with debugging
+- [Photographer](/handbook/reporting/photographer) - automatically captures screenshots of the active web browser window, to be archived via [`ArtifactArchiver`](/handbook/reporting/artifact-archiver) and attached to [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter)
+- [Artifact Archiver](/handbook/reporting/artifact-archiver) - stores report artifacts on disk,
+- [Stream Reporter](/handbook/reporting/stream-reporter) - logs any events it receives to help you with debugging.
 
 You might want to study the above examples to create your own [`StageCrewMembers`](/api/core/interface/StageCrewMember) to produce custom reports or send the results to external reporting or storage systems.
