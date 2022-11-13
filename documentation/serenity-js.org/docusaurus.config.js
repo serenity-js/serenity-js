@@ -288,6 +288,9 @@ const config = {
 
                     return packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName);
                 },
+                sortSidebar: (a, d) => {
+                    return a.localeCompare(d);
+                },
                 // minimal: false,
                 readmes: true,
                 debug: true,
