@@ -10,13 +10,11 @@ import Figure from '@site/src/components/Figure'
 
 [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter) is available as part of the [`@serenity-js/serenity-bdd`](/api/serenity-bdd) module.
 
-This reporter emits [`ArtifactGenerated`](/api/core-events/class/ArtifactGenerated) containing Serenity BDD-standard JSON reports,
-which can be stored to disk by [`ArtifactArchiver`](/handbook/reporting/artifact-archiver),
-and then turned into Serenity BDD HTML reports by [Serenity BDD Reporting CLI](https://github.com/serenity-bdd/serenity-cli).
+`SerenityBDDReporter` listens to [domain events](/handbook/reporting/domain-events) emitted by [actors](/api/core/class/Actor), [test runner adapters](/handbook/test-runners/), and other [stage crew members](/api/core/interface/StageCrewMember),
+to produce Serenity BDD-compatible JSON reports, which can be then stored as files to disk  by [`ArtifactArchiver`](/handbook/reporting/artifact-archiver).
 
-The resulting report contains screenshots, details of HTTP traffic for any [REST API](/api/rest) interactions,
-details of any activities performed by Serenity/JS [`Actors`](/api/core/class/Actor) and more.
-
+Resulting JSON files can be processed by [Serenity BDD CLI](https://serenity-bdd.github.io/) to produce a HTML report and rich living documentation containing screenshots, details of HTTP traffic for any [REST API](/api/rest) interactions,
+details of any activities performed by Serenity/JS [actors](/api/core/class/Actor) and more.
 
 <Figure
     caption='Example reports produced by Serenity BDD'
@@ -32,6 +30,10 @@ To learn more about the `SerenityBDDReporter`, please consult:
 You might also want to explore [Serenity/JS example projects on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples).
 
 ## Integration
+
+`SerenityBDDReporter` emits [`ArtifactGenerated`](/api/core-events/class/ArtifactGenerated) containing Serenity BDD-standard JSON reports,
+which can be stored to disk by [`ArtifactArchiver`](/handbook/reporting/artifact-archiver),
+and then turned into Serenity BDD HTML reports by [Serenity BDD Reporting CLI](https://github.com/serenity-bdd/serenity-cli).
 
 ```mermaid
 graph TB
