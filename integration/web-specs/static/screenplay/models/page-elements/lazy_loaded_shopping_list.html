@@ -1,0 +1,24 @@
+<html lang="en">
+    <body>
+    <div id="shopping-list-app">
+        <h1>Shopping <span>list</span></h1>
+        <input id="load" type="button" value="load" onclick="load(4_000)" />
+        <h2 class="progress"><span>2</span> out of 3</h2>
+        <ul id="lazy-loaded-list">
+        </ul>
+    </div>
+    <script>
+        function load(delay) {    
+            const parent = document.getElementById('lazy-loaded-list');
+            const oatsEntry = document.createElement('li');
+            oatsEntry.innerHTML = 'oats';
+            const coffeeEntry = document.createElement('li');
+            coffeeEntry.innerHTML = 'coffee'    
+            setTimeout(function () {
+                parent.appendChild(coffeeEntry);
+                parent.appendChild(oatsEntry);
+            }, delay);
+        }
+    </script>
+    </body>
+</html>

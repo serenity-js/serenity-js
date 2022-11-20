@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, Expectation, Interaction, List, LogicError, Question } from '../../../src';
+import { actorCalled, Answerable, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
 describe('List', () => {
@@ -395,7 +395,7 @@ describe('List', () => {
             const list = List.of(items);
 
             return expect(list.first().answeredBy(Fiona))
-                .to.be.rejectedWith(LogicError, `Can't retrieve the first item from a list with 0 items: [ ]`);
+                .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`);
         });
 
         it('complains when asked to retrieve the last item from an empty collection', () => {
@@ -403,7 +403,7 @@ describe('List', () => {
             const list = List.of(items);
 
             return expect(list.last().answeredBy(Fiona))
-                .to.be.rejectedWith(LogicError, `Can't retrieve the last item from a list with 0 items: [ ]`);
+                .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the last item from a list with 0 items: [ ]`);
         });
 
         it('complains when asked to retrieve nth item from an empty collection', () => {
@@ -411,7 +411,7 @@ describe('List', () => {
             const list = List.of(items);
 
             return expect(list.get(10).answeredBy(Fiona))
-                .to.be.rejectedWith(LogicError, `Can't retrieve the 10th item from a list with 2 items: [ 'a', 'b' ]`);
+                .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the 10th item from a list with 2 items: [ 'a', 'b' ]`);
         });
 
         it('complains when asked to retrieve item with a negative index', () => {
@@ -419,7 +419,7 @@ describe('List', () => {
             const list = List.of(items);
 
             return expect(list.get(-1).answeredBy(Fiona))
-                .to.be.rejectedWith(LogicError, `Can't retrieve the -1st item from a list with 2 items: [ 'a', 'b' ]`);
+                .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the -1st item from a list with 2 items: [ 'a', 'b' ]`);
         });
 
         it('propagates any errors thrown when answering the question', async () => {
