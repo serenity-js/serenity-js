@@ -6,6 +6,330 @@ sidebar_position: 2
 
 ```mdx-code-block
 import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+```
+
+Key points:
+- **<abbr title="Page Element Query Language">PEQL</abbr>** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
+- **[`PageElement`](/api/web/class/PageElement)** represents
+  a [single element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element)
+  and **[`PageElements`](/api/web/class/PageElements)** represent a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
+- **[`By` selectors](/api/web/class/By)** help to identify page elements of interest
+- [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages [expectations](/api/web/class/ElementExpectation) and [meta-questions](/api/core/interface/MetaQuestion) (just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions))
+
+**Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
+around selectors and web element interaction methods provided by web integration tools like
+[WebdriverIO](/api/webdriverio), [Playwright](/api/playwrigth), or [Protractor](/api/protractor).
+
+**<abbr title="Page Element Query Language">PEQL</abbr>** leverages Serenity/JS [expectations library](/api/web/class/ElementExpectation)
+and [meta-questions](/api/core/interface/MetaQuestion) to give you
+a standardised, consistent, and extensible way to identify elements in a web interface.
+
+## Working with a single page element
+
+[`PageElement`](/api/web/class/PageElement) class is a [Screenplay Pattern](/handbook/design/screenplay-pattern)-compatible
+abstraction that represents a single [element](https://developer.mozilla.org/en-US/docs/Glossary/Element) in a web interface.
+
+To help you understand how to use this abstraction, consider the below article widget, which we'll use in the next few examples:
+
+```html
+<article>
+    <h1 class="title">Serenity/JS</h1>
+</article>
+```
+
+### Representing a page element
+
+Use [`PageElement.located`](/api/web/class/PageElement#located) API to represent a single page element
+and one of the built-in [`By` selectors](/api/web/class/By) to instruct the browser how to locate it.
+
+For example, you could use the following construct to represent the article title element:
+
+```typescript
+import { By, PageElement } from '@serenity-js/web'
+
+const articleTitle = PageElement.located(By.css('article > .title'))
+```
+
+However, while you certainly could define page elements in-line in your tests or assign them to variables like in the example above,
+a more idiomatic way is to declare **reusable functions and methods** named after the element they represent:
+
+```typescript
+import { By, PageElement } from '@serenity-js/web'
+
+const articleTitle = () =>
+    PageElement.located(By.css('article > .title'))
+```
+
+Standardising on using functions or methods makes it easier for you to refactor them to accept parameters later on if needed.
+
+:::info Pro tip
+You can learn more about organising your page elements in the chapter on the "[Page Objects Pattern](/handbook/web-testing/page-elements-pattern)"
+:::
+
+### Customising page element description
+
+[`PageElement`](/api/web/class/PageElement) is an implementation of a [`Question`](/api/core/class/Question), which means you can
+customise its description to improve how Serenity/JS reports interactions with the given element:
+
+```typescript
+import { By, PageElement } from '@serenity-js/web'
+
+const articleTitle = () =>
+    PageElement.located(By.css('article > .title'))
+        .describedAs('article title')
+```
+
+When a custom description is provided, Serenity/JS will use it instead of the default one:
+```diff
++ article title
+- PageElement located by css (article > .title)
+```
+
+The practical advantage of using custom descriptions is that once Serenity/JS understands
+what given element represents, it can offer much more human-friendly descriptions
+in your test reports:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(Text.of(articleTitle()), equals('Serenity/JS'))
+)
+```
+```
+Alice ensures that the text of article title does equal "Serenity/JS"
+```
+Of course, if the element is not found or can't be interacted with, Serenity/JS reports the selector used
+to make debugging test failures easier.
+
+
+### Composing questions
+
+Serenity/JS favours [functional composition](https://en.wikipedia.org/wiki/Function_composition_(computer_science))
+to help your code achieve polymorphic behaviour and promote code reuse.
+
+In practice, this means that to retrieve text content of a given page element you'd pass it to an [appropriate web-specific question](/api/web),
+like the one about [`Text.of(pageElement)`](/api/web/class/Text):
+
+```typescript
+import { Text } from '@serenity-js/web'
+
+const articleTitleText = () =>
+    Text.of(articleTitle())
+```
+
+Note that the **result of composing questions is also a question**, which means that it can be composed further, or resolved by an [_actor_](/handbook/design/screenplay-pattern).
+
+### Asserting on a page element
+
+Serenity/JS web module provides [web-specific expectations](/api/web/class/ElementExpectation) you use
+to verify if the actual state of the given element meets your expectations.
+
+For example, you might want to ensure that a given element [is visible](/api/web/function/isVisible), i.e. not obstructed by other elements:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure } from '@serenity-js/assertions'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(articleTitle(), isVisible()),
+)
+```
+
+You can also assert on a specific property of the element, like its [text](/api/web/class/Text):
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(Text.of(articleTitle()), equals('Serenity/JS')),
+)
+```
+
+Note that you're not limited to web-first expectations and you can use
+any other expectations from the [Serenity/JS assertions module](/api/assertions) or [write them yourself](/api/core/class/Expectation).
+
+:::info Learn more
+Learn more about asserting on page elements in chapter "[Web-first assertions](/handbook/web-testing/web-first-assertions)".
+:::
+
+### Waiting for a page element
+
+Serenity/JS web module provides [web-specific expectations](/api/web/class/ElementExpectation) you use
+to synchronise your test code with the system under test and wait until its state meets your expectations.
+
+For example, you might want for your test scenario to wait until a given element [is visible](/api/web/function/isVisible):
+
+```typescript
+import { actorCalled, Duration, Wait } from '@serenity-js/core'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Wait.upTo(Duration.ofSeconds(2))
+        .until(articleTitle(), isVisible()),
+)
+```
+
+You can also wait for a specific property of the element, like its [text](/api/web/class/Text):
+
+```typescript
+import { actorCalled, Wait } from '@serenity-js/core'
+import { includes } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Wait.until(Text.of(articleTitle()), includes('Serenity/JS')),
+)
+```
+
+Note that you're not limited to web-first expectations and you can use
+any other expectations from the [Serenity/JS assertions module](/api/assertions) or [write them yourself](/api/core/class/Expectation).
+
+:::info Learn more
+Learn more about synchronising your web tests with the system under test in chapter "[Waiting and synchronisation](/handbook/web-testing/waiting-and-synchronisation)".
+:::
+
+### Using selectors aliases
+
+In scenarios where different elements can be identified using a similar selector pattern you might want to implement
+custom selector aliases to avoid code duplication.
+
+For example, below function `byRole` helps to locate elements with
+a desired [accessibility role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles):
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { By, Click, PageElement } from '@serenity-js/web'
+
+const byRole = (roleName: string) =>
+    By.css(`[role="${ roleName }"]`)
+
+await actorCalled('Alice').attemptsTo(
+    Click.on(PageElement.located(byRole('button'))),
+)
+```
+
+### Using dynamic selectors
+
+In some scenarios, the exact value of the selector you need to use becomes known only at runtime.
+This is typically the case when element attributes are calculated dynamically based on user actions.
+
+To cater for that, all f [`By` selectors](/api/web/class/By) let you define
+selector value as [`Answerable<string>`](/api/core#Answerable), which you'll typically use with [`q`](/api/core/function/q):
+
+```typescript
+import { Answerable, q } from '@serenity-js/core'
+import { By, PageElement } from '@serenity-js/web'
+
+const byTestId = (dataTestId: Answerable<string>) =>
+    PageElement.located(By.css(q`[data-test-id="${ dataTestId }"]`))
+```
+
+### Using meta questions
+
+`PageElement` is a [`MetaQuestion`](/api/core/interface/MetaQuestion) and can be resolved _in relation_ to another `Question`.
+
+What this means in this context is that you can define a `PageElement` as having a child-parent relationship with another `PageElement`,
+and do it either dynamically or statically using the [`PageElement#of`](/api/web/class/PageElement#of) API.
+
+To better understand how to apply this in practice, consider the below widget, which describes an article and its summary:
+```html
+<article>
+    <section class="summary">
+        <h2 class="title">Key points:</h2>
+    </section>
+
+    <h1 class="title">Serenity/JS</h1>
+</article>
+```
+
+Next, consider page elements describing those two parts of the widget:
+
+```typescript
+import { PageElement, By } from '@serenity-js/web'
+
+const blogArticle = () =>
+    PageElement.located(By.css('article'))
+        .describedAs('blog article')
+
+const summary = () =>
+    PageElement.located(By.css('.summary'))
+        .describedAs('summary')
+```
+
+Now, since both the article and its summary have a title identified by a CSS class called `.title`, we can define
+a page element to represent it:
+
+```typescript
+const title = () =>
+    PageElement.located(By.css('.title'))
+        .describedAs('title')
+```
+
+With the three page elements defined above, we can easily reuse function `title()` by composing it with either the `blogArticle()` or its `summary()`:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals, startsWith } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(Text.of(title().of(blogArticle())), equals('Serenity/JS')),
+    Ensure.that(Text.of(title().of(summary())), startsWith('Key points')),
+)
+```
+
+:::info Pro tip
+Using meta questions to enable page element reuse is particularly useful when the system under test
+uses a consistent convention to name element identifiers.
+:::
+
+## Working with a collection of page elements
+
+[`PageElements`](/api/web/class/PageElements) class is a [Screenplay Pattern](/handbook/design/screenplay-pattern)-compatible
+abstraction that represents a collection of [element](https://developer.mozilla.org/en-US/docs/Glossary/Element) in a web interface.
+
+To help you understand how to use this abstraction, consider the below shopping list widget, which we'll use in the next few examples:
+
+```html
+<ul>
+    <li class="buy">oats</li>
+    <li class="buy">coconut milk</li>
+    <li class="bought">coffee</li>
+</ul>
+```
+
+
+```typescript
+class ShoppingList {
+    static component = () =>
+        PageElement.located(By.css('ul'))
+            .describedAs('shopping list');
+
+    static items = () =>
+        PageElements.located(By.css('li'))
+            .describedAs('items')
+            .of(ShoppingList.component());
+
+    static boughtItems = () =>
+        PageElements.located(By.css('.bought'))
+            .describedAs('bought items')
+            .of(ShoppingList.component());
+}
 ```
 
 <ArticleComingSoon />
+
+
+
+### Querying elements
+
+### Mapping elements
+
+### Iterating over elements
