@@ -4,7 +4,7 @@ import { DomainEvent } from '../../events';
 import { CorrelationId } from '../../model';
 
 /**
- * @package
+ * @group Stage
  */
 export class DomainEventQueue {
     private readonly queue: Array<DomainEvent & { sceneId: CorrelationId }>;

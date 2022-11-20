@@ -15,7 +15,7 @@ import { Answerable } from './Answerable';
  *   and if all the links of the property chain leading to the entry of interest exist too
  *   (so `books` is present, and so is `books[0]`, `books[0].author`, `books[0].author.name`).
  *
- * @group Answerables
+ * @group Questions
  */
 export interface Optional {
     /**

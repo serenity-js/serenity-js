@@ -99,7 +99,7 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  * - {@apilink Ability}
  * - {@apilink QuestionAdapter}
  *
- * @group Screenplay Pattern
+ * @group Questions
  */
 export abstract class Question<T> {
 
@@ -378,7 +378,7 @@ declare global {
  * - both methods and fields of the wrapped object can be used as {@apilink Question|questions} or {@apilink Interactions|interactions}
  * - method parameters of the wrapped object will accept {@apilink Answerable|Answerable<T>}
  *
- * @group Answerables
+ * @group Questions
  */
 export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
@@ -400,7 +400,7 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
  * {@apilink QuestionAdapter} proxies the methods and fields of the wrapped object recursively,
  * allowing them to be used as either a {@apilink Question} or an {@apilink Interaction}.
  *
- * @group Answerables
+ * @group Questions
  */
 export type QuestionAdapter<T> =
     & Question<Promise<T>>

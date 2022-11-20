@@ -41,7 +41,7 @@ import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './act
  *   )
  * ```
  *
- * @group Screenplay Pattern
+ * @group Activities
  */
 export abstract class Interaction extends Activity {
 

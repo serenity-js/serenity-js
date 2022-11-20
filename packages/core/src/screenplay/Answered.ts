@@ -8,7 +8,7 @@ import { Question } from './Question';
  * Answered<Answerable<T>> === T
  * ```
  *
- * @group Answerables
+ * @group Questions
  */
 export type Answered<T> =
     T extends null | undefined ? T :          // special case for `null | undefined` when not in `--strictNullChecks` mode

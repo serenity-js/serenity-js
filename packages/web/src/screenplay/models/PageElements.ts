@@ -11,7 +11,7 @@ import { Selector } from './selectors';
  *
  * ## Learn more
  *
- * - [Page Element Query Language](/handbook)
+ * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
  * - {@apilink List}
  * - {@apilink MetaQuestion}
  *

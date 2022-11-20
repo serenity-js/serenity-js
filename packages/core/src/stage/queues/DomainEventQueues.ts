@@ -5,7 +5,7 @@ import { CorrelationId, ScenarioDetails } from '../../model';
 import { DomainEventQueue } from './DomainEventQueue';
 
 /**
- * @package
+ * @group Stage
  */
 export class DomainEventQueues {
 

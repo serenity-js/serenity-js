@@ -157,7 +157,7 @@
  * - {@apilink CallAnApi}
  * - {@apilink TakeNotes}
  *
- * @group Screenplay Pattern
+ * @group Abilities
  */
 export interface Ability {  // eslint-disable-line @typescript-eslint/no-empty-interface
 }

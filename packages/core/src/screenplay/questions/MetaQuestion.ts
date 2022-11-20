@@ -13,7 +13,7 @@ import { Question } from '../Question';
  * ## Learn more
  * - {@apilink List}
  *
- * @group Answerables
+ * @group Questions
  */
 export interface MetaQuestion<Supported_Answerable_Type extends Answerable<any>, Answer> {
 

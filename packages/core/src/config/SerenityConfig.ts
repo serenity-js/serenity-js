@@ -14,7 +14,7 @@ import { ClassDescription } from './ClassDescription';
  * - {@apilink ClassDescription}
  * - {@apilink Stage.waitForNextCue}
  *
- * @group Configuration
+ * @group Serenity
  */
 export abstract class SerenityConfig {
 

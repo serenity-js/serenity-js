@@ -47,7 +47,7 @@
  * For example, `./my-reporter:MyReporter` would be interpreted as a request to load the `MyReporter` type from `./my-reporter` file, located
  * relative to the [working directory](https://nodejs.org/api/process.html#processcwd) of the current Node.js process.
  *
- * @group Configuration
+ * @group Serenity
  */
 export type ClassDescription =
     string |            // e.g. '@serenity-js/core:StreamReporter'

@@ -13,7 +13,7 @@ import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
  * - {@apilink PerformsActivities}
  * - [Command design pattern on Wikipedia](https://en.wikipedia.org/wiki/Command_pattern)
  *
- * @group Screenplay Pattern
+ * @group Activities
  */
 export abstract class Activity {
 

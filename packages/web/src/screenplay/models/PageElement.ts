@@ -13,7 +13,7 @@ import { SwitchableOrigin } from './SwitchableOrigin';
  * a single Web element located by {@apilink Selector}.
  *
  * ## Learn more
- * - [Page Element Query Language](/handbook)
+ * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
  * - {@apilink Optional}
  * - {@apilink Switchable}
  *
