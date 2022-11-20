@@ -21,7 +21,7 @@ import { UsesAbilities } from './UsesAbilities';
  * - {@apilink Cast}
  * - {@apilink Stage}
  *
- * @group Screenplay Pattern
+ * @group Actors
  */
 export class Actor implements
     PerformsActivities,

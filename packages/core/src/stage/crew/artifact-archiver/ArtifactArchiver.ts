@@ -70,10 +70,11 @@ import { Hash } from './Hash';
  *         ]
  *         // other Serenity/JS config
  *     },
- *   },
- *   // other WebdriverIO config
+ *     // other WebdriverIO config
  * }
  * ```
+ *
+ * [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
  *
  * @group Stage
  */

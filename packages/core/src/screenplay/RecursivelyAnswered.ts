@@ -33,7 +33,7 @@ import { Question } from './Question';
  * // RequestConfiguration === RecursivelyAnswered<WithAnswerableProperties<RequestConfiguration>>
  * ```
  *
- * @group Answerables
+ * @group Questions
  */
 export type RecursivelyAnswered<T> =
     T extends null | undefined ? T :          // special case for `null | undefined` when not in `--strictNullChecks` mode

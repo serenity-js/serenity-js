@@ -26,7 +26,7 @@ import { Question } from './Question';
  * const answer: RequestConfiguration = await actorCalled('Annie').answer(question);
  * ```
  *
- * @group Answerables
+ * @group Questions
  */
 export type WithAnswerableProperties<T> =
     T extends null | undefined ? T :

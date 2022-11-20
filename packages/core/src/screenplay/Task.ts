@@ -53,7 +53,7 @@ import { PerformsActivities } from './actor';
  * - {@apilink Activity}
  * - {@apilink Actor}
  *
- * @group Screenplay Pattern
+ * @group Activities
  */
 export abstract class Task extends Activity {
 
