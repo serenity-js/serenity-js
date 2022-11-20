@@ -157,7 +157,7 @@ serenity.project.name=My awesome project
 ```
 
 Please note that the reporting CLI considers only those properties that are related to producing test reports.
-Learn more about configuring [`serenity.properties`](https://serenity-bdd.github.io/theserenitybook/latest/serenity-system-properties.html).
+Learn more about configuring [`serenity.properties`](https://serenity-bdd.github.io/docs/reference/serenity-properties).
 
 #### Downloading the Serenity BDD reporting CLI
 
