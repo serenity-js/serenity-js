@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import { describe, it } from 'mocha';
+import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, Question, Serenity, Timestamp, UsesAbilities, Wait } from '../../../src';
+import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, Question, Serenity, Timestamp, UsesAbilities, Wait } from '../../../src';
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
 
@@ -106,6 +108,85 @@ describe('Wait', () => {
             })
         });
 
+        it('fails the actor flow when accessing the first item of an empty list after the timeout has expired', async () => {
+
+            const emptyList = List.of([]);
+            const startTime = Date.now();
+
+            await expect(
+                serenity.theActorCalled('Wendy')
+                    .attemptsTo(
+                        Wait.until(emptyList.first(), isGreaterThan(1)),
+                    )
+            ).to.be.rejected.then((error: AssertionError) => {
+                const elapsedTime = Date.now() - startTime;
+                expect(elapsedTime).to.be.greaterThanOrEqual(5000);
+                expect(error.expected).to.be.undefined;
+                expect(error.actual).to.be.undefined;
+                expect(error).to.be.instanceOf(AssertionError);
+                expect(error.message).to.be.equal(`Waited 5s, polling every 500ms, for the first of [ ] to have value greater than 1`);
+            })
+        });
+
+        it('pauses the actor flow until a delayed item is loaded and continues before the timeout expires', async () => {
+
+            const numbersLoadedAfterADelay = () =>
+                Question.about('lazy-loaded numbers', actor => {
+                    const elapsedTime = UseAStopwatch.as(actor).stopwatch.elapsed().inMilliseconds();
+
+                    if (elapsedTime < 1_000) {
+                        return [];
+                    }
+
+                    return [ 1, 2, 3 ];
+                });
+
+            const lazyLoadedList = () =>
+                List.of(numbersLoadedAfterADelay());
+
+            await serenity.theActorCalled('Wendy')
+                    .attemptsTo(
+                        Stopwatch.start(),
+                        Wait.upTo(Duration.ofSeconds(7))
+                            .until(lazyLoadedList().first(), equals(1)),
+                        Stopwatch.stop(),
+                        Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 1000),
+                        Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 2000),
+                    );
+        });
+
+        it('fails the actor flow until when a delayed item list is not loaded until timeout expires', async () => {
+
+            const numbersLoadedAfterADelay = () =>
+                Question.about('lazy-loaded numbers', actor => {
+                    const elapsedTime = UseAStopwatch.as(actor).stopwatch.elapsed().inMilliseconds();
+
+                    if (elapsedTime < 5_000) {
+                        return [];
+                    }
+
+                    return [ 1, 2, 3 ];
+                });
+
+            const lazyLoadedList = () =>
+                List.of(numbersLoadedAfterADelay());
+
+            await expect (serenity.theActorCalled('Wendy')
+                    .attemptsTo(
+                        Stopwatch.start(),
+                        Wait.upTo(Duration.ofSeconds(1))
+                            .until(lazyLoadedList().first(), equals(1)),
+                        Stopwatch.stop(),
+                        Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 1_000),
+                        Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1_200),
+                    )).to.be.rejected.then((error: AssertionError) => {
+                expect(error.expected).to.be.undefined;
+                expect(error.actual).to.be.undefined;
+                expect(error).to.be.instanceOf(AssertionError);
+                expect(error.message).to.be.equal(`Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1`);
+            });
+        });
+
         it('fails the actor flow when asking the question results in an error', () =>
             expect(
                 serenity.theActorCalled('Wendy')
@@ -181,6 +262,11 @@ function isGreaterThan(expected: Answerable<number>): Expectation<number> {
         .soThat((actualValue, expectedValue) => actualValue > expectedValue);
 }
 
+function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
+    return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)
+        .soThat((actual, expected) => equal(actual, expected));
+}
+
 class UseAStopwatch implements Ability {
 
     static as(actor: UsesAbilities): UseAStopwatch {
@@ -221,4 +307,9 @@ class Stopwatch {
     stop() {
         clearInterval(this.interval);
     }
+
+    elapsed() {
+        return this.elapsedTime;
+    }
 }
+
