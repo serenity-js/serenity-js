@@ -1,9 +1,21 @@
 {
   "extends": [
-    "config:base",
+    ":dependencyDashboard",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":autodetectPinVersions",
+    ":prHourlyLimit2",
+    ":prConcurrentLimit20",
+    "group:monorepos",
+    "group:recommended",
+    "workarounds:typesNodeVersioning",
+    "workarounds:reduceRepologyServerLoad",
+    "helpers:disableTypesNodeMajor",
     "helpers:pinGitHubActionDigests"
   ],
   "rangeStrategy": "bump",
+  "ignorePaths": [
+    "**/node_modules/**"
+  ],
   "packageRules": [
     {
       "packagePatterns": ["^eslint$", "^eslint-plugin", "^@typescript-eslint"],
