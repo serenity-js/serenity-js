@@ -9,25 +9,30 @@ ports:
 tasks:
   - name: 'Install Node modules and compile Serenity/JS'
     init: |
-        nvm install
-        nvm use
-        make install compile
+      nvm install
+      nvm use
+      make install compile
+      gp sync-done installation
 
   - name: 'Install VSCode Extensions'
     command: |
-        echo "Wait for VSCode to boot up..."
-        sleep 10
-        echo "Installing Cucumber extension..."
-        code --install-extension /vscode-extensions/cucumber-official.vsix
+      echo "Wait for VSCode to boot up..."
+      sleep 10
+      echo "Installing Cucumber extension..."
+      code --install-extension /vscode-extensions/cucumber-official.vsix
 
   - name: 'Serenity/JS website'
+    init: gp sync-await installation
     command: >
       cd documentation/serenity-js.org &&
       npm start
 
   - name: 'Welcome'
+    init: |
+      echo "Hello! We're getting your workspace ready, just one moment..."
+      gp sync-await installation
     command: |
-      echo "To view the website, go to:"
+      echo "And we're done! To view the website, go to:"
       gp url 3000
 
 vscode:
