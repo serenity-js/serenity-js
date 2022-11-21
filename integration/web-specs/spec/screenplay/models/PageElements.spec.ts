@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Answerable, AssertionError, Duration, Wait } from '@serenity-js/core';
+import { Actor, actorCalled, Answerable, AssertionError, Duration, Interaction, notes, QuestionAdapter, Timestamp, Wait } from '@serenity-js/core';
 import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
@@ -437,25 +437,55 @@ describe('PageElements', () => {
                 Navigate.to('/screenplay/models/page-elements/lazy_loaded_shopping_list.html'),
             ));
 
-        it('waits until the lazy loaded shopping list contains items', () => actorCalled('Elle').attemptsTo(
-            Click.on(loadButton),
-            Wait.until(Text.of(ShoppingList.items().first()), equals('coffee')),
-            Ensure.that(Text.of(ShoppingList.items().get(1)), equals('oats'))
-        ))
+        it('waits until the lazy loaded shopping list contains items', () =>
+            actorCalled('Elle').attemptsTo(
+                Click.on(loadButton),
+                Wait.until(Text.of(ShoppingList.items().first()), equals('coffee')),
+                Ensure.that(Text.of(ShoppingList.items().get(1)), equals('oats'))
+            ));
 
         it('fails the actors flow when the lazy loaded shopping list does not load within time', async () => {
-            const startTime = Date.now();
-            await expect(actorCalled('Elle').attemptsTo(
-                Click.on(loadButton),
-                Wait.upTo(Duration.ofSeconds(2)).until(Text.of(ShoppingList.items().first()), equals('coffee')),
-            )).to.be.rejected.then((error: AssertionError) => {
-                const elapsedTime = Date.now() - startTime;
-                expect(elapsedTime).to.be.greaterThanOrEqual(2000);
-                expect(elapsedTime).to.be.lessThan(3000);
+            const timeout = Duration.ofSeconds(2);
+            const actor = actorCalled('Elle');
+
+            try {
+                await actor.attemptsTo(
+                    Click.on(loadButton),
+                    recordCurrentTimeAs('startTime'),
+                    Wait.upTo(timeout)
+                        .until(Text.of(ShoppingList.items().first()), equals('coffee')),
+                );
+                expect.fail('Expected actor flow to be stopped');
+            }
+            catch (error) {
+                expect(error).to.be.instanceof(AssertionError);
+
+                await actor.attemptsTo(
+                    recordCurrentTimeAs('endTime'),
+                );
+
+                const startTime = await actor.answer(timeRecordedAs('startTime'));
+                const endTime   = await actor.answer(timeRecordedAs('endTime'));
+
+                const elapsedWallClockTime = endTime.diff(startTime);
+
+                expect(elapsedWallClockTime.inMilliseconds()).to.be.greaterThanOrEqual(timeout.inMilliseconds());
                 expect(error.expected).to.be.undefined;
                 expect(error.actual).to.be.undefined;
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.equal(`Waited 2s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'`);
-            })})
+            }
+        });
     });
 });
+
+const recordCurrentTimeAs = (label: string) =>
+    Interaction.where(`#actor records current time`, async (actor: Actor) => {
+        await actor.attemptsTo(
+            notes().set(label, new Timestamp())
+        )
+    });
+
+const timeRecordedAs = (label: string) =>
+    notes().get(label) as unknown as QuestionAdapter<Timestamp>;
+
