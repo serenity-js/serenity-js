@@ -440,12 +440,13 @@ describe('PageElements', () => {
         it('waits until the lazy loaded shopping list contains items', () =>
             actorCalled('Elle').attemptsTo(
                 Click.on(loadButton),
-                Wait.until(Text.of(ShoppingList.items().first()), equals('coffee')),
+                Wait.upTo(Duration.ofSeconds(10))
+                    .until(Text.of(ShoppingList.items().first()), equals('coffee')),
                 Ensure.that(Text.of(ShoppingList.items().get(1)), equals('oats'))
             ));
 
         it('fails the actors flow when the lazy loaded shopping list does not load within time', async () => {
-            const timeout = Duration.ofSeconds(2);
+            const timeout = Duration.ofSeconds(1);
             const actor = actorCalled('Elle');
 
             try {
