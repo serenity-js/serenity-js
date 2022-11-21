@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.34](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.33...v3.0.0-rc.34) (2022-11-21)
+
+
+### Bug Fixes
+
+* **core:** interaction to Wait should fail after the timeout ([5403394](https://github.com/serenity-js/serenity-js/commit/54033946873e20a18ad1076c77f841b3856f2478)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+
+
+
+
+
 # [3.0.0-rc.33](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.32...v3.0.0-rc.33) (2022-11-07)
 
 
