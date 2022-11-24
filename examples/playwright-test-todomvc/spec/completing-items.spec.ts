@@ -28,10 +28,10 @@ describe('Recording items', () => {
                 ),
 
                 markAsCompleted(itemCalled(TODO_ITEMS[0])),
-                Ensure.that(items().get(0), isDisplayedAsCompleted()),
+                Ensure.that(items().nth(0), isDisplayedAsCompleted()),
 
                 markAsCompleted(itemCalled(TODO_ITEMS[1])),
-                Ensure.that(items().get(1), isDisplayedAsCompleted()),
+                Ensure.that(items().nth(1), isDisplayedAsCompleted()),
             );
         });
 
