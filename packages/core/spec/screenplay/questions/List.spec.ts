@@ -62,7 +62,7 @@ describe('List', () => {
 
         given(examples).
         it('returns the nth item from the collection', ({ answerable }: { answerable: Answerable<string[]> }) =>
-            expect(List.of(answerable).get(1).answeredBy(Fiona))
+            expect(List.of(answerable).nth(1).answeredBy(Fiona))
                 .to.eventually.deep.equal(collection[1])
         );
 
@@ -94,7 +94,7 @@ describe('List', () => {
 
             given(examples).
             it('returns the nth item from the collection of', ({ answerable, collectionDescription }: { answerable: Answerable<string[]>, collectionDescription: string }) =>
-                expect(List.of(answerable).get(1).toString())
+                expect(List.of(answerable).nth(1).toString())
                     .to.equal(`the 2nd of ${ collectionDescription }`)
             );
 
@@ -112,7 +112,7 @@ describe('List', () => {
                 { description: '1522nd', index: 1521 },
             ]).
             it('returns the nth item', ({ description, index }) => {
-                expect(List.of(examples[1].answerable).get(index).toString())
+                expect(List.of(examples[1].answerable).nth(index).toString())
                     .to.equal(`the ${ description } of some items`);
             });
         });
@@ -410,7 +410,7 @@ describe('List', () => {
             const items  = [ 'a', 'b' ];
             const list = List.of(items);
 
-            return expect(list.get(10).answeredBy(Fiona))
+            return expect(list.nth(10).answeredBy(Fiona))
                 .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the 10th item from a list with 2 items: [ 'a', 'b' ]`);
         });
 
@@ -418,7 +418,7 @@ describe('List', () => {
             const items  = [ 'a', 'b' ];
             const list = List.of(items);
 
-            return expect(list.get(-1).answeredBy(Fiona))
+            return expect(list.nth(-1).answeredBy(Fiona))
                 .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the -1st item from a list with 2 items: [ 'a', 'b' ]`);
         });
 

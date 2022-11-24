@@ -80,7 +80,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         });
     }
 
-    get(index: number): QuestionAdapter<Item_Type> {
+    nth(index: number): QuestionAdapter<Item_Type> {
         return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
 

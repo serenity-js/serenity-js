@@ -29,18 +29,18 @@ describe('Persistence', () => {
                     TODO_ITEMS[1],
                 ])),
 
-                Ensure.that(items().get(0), isDisplayedAsCompleted()),
+                Ensure.that(items().nth(0), isDisplayedAsCompleted()),
                 Ensure.that(persistedItems()[0], property('completed', equals(true))),
 
-                Ensure.that(items().get(1), isDisplayedAsOutstanding()),
+                Ensure.that(items().nth(1), isDisplayedAsOutstanding()),
                 Ensure.that(persistedItems()[1], property('completed', equals(false))),
 
                 Page.current().reload(),
 
-                Ensure.that(items().get(0), isDisplayedAsCompleted()),
+                Ensure.that(items().nth(0), isDisplayedAsCompleted()),
                 Ensure.that(persistedItems()[0], property('completed', equals(true))),
 
-                Ensure.that(items().get(1), isDisplayedAsOutstanding()),
+                Ensure.that(items().nth(1), isDisplayedAsOutstanding()),
                 Ensure.that(persistedItems()[1], property('completed', equals(false))),
             );
         });

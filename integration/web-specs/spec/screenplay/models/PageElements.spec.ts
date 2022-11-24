@@ -202,7 +202,7 @@ describe('PageElements', () => {
 
                 it('picks the nth item', () =>
                     actorCalled('Elle').attemptsTo(
-                        Ensure.that(Text.of(DynamicShoppingList.titles().get(1)), equals('coconut milk')),
+                        Ensure.that(Text.of(DynamicShoppingList.titles().nth(1)), equals('coconut milk')),
                     ));
             });
         });
@@ -239,7 +239,7 @@ describe('PageElements', () => {
                 { description: '1522nd', index: 1521 },
             ]).
             it('picks the nth item', ({ description, index }) => {
-                expect(DynamicShoppingList.items().get(index).toString())
+                expect(DynamicShoppingList.items().nth(index).toString())
                     .to.equal(`the ${ description } of shopping list items`);
             });
         });
@@ -283,7 +283,7 @@ describe('PageElements', () => {
                     actorCalled('Wendy').attemptsTo(
                         Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
-                        Ensure.that(Text.of(list.get(1)), startsWith('coconut milk')),
+                        Ensure.that(Text.of(list.nth(1)), startsWith('coconut milk')),
                     ));
             });
 
@@ -318,7 +318,7 @@ describe('PageElements', () => {
                     { description: '115th', index: 114 },
                     { description: '1522nd', index: 1521 },
                 ]).it('picks the nth item', ({ description, index }) => {
-                    expect(list.get(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy'`);
+                    expect(list.nth(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy'`);
                 });
             });
         });
@@ -363,7 +363,7 @@ describe('PageElements', () => {
                     actorCalled('Wendy').attemptsTo(
                         Navigate.to('/screenplay/models/page-elements/dynamic_shopping_list.html'),
 
-                        Ensure.that(Text.of(list.get(0)), startsWith('coconut milk')),
+                        Ensure.that(Text.of(list.nth(0)), startsWith('coconut milk')),
                     ));
             });
 
@@ -399,7 +399,7 @@ describe('PageElements', () => {
                     { description: '1522nd', index: 1521 },
                 ]).
                 it('picks the nth item', ({ description, index }) => {
-                    expect(list.get(index).toString())
+                    expect(list.nth(index).toString())
                         .to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`);
                 });
             });
@@ -442,7 +442,7 @@ describe('PageElements', () => {
                 Click.on(loadButton),
                 Wait.upTo(Duration.ofSeconds(10))
                     .until(Text.of(ShoppingList.items().first()), equals('coffee')),
-                Ensure.that(Text.of(ShoppingList.items().get(1)), equals('oats'))
+                Ensure.that(Text.of(ShoppingList.items().nth(1)), equals('oats'))
             ));
 
         it('fails the actors flow when the lazy loaded shopping list does not load within time', async () => {
