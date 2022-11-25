@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.35](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.34...v3.0.0-rc.35) (2022-11-25)
+
+
+### Bug Fixes
+
+* **core:** renamed List.get(index) to List.nth(index) to make the API declarative ([094e21c](https://github.com/serenity-js/serenity-js/commit/094e21ceb08e95ba5c9c5998cb5ecdfb13bdcf1b))
+* **deps:** update dependency query-selector-shadow-dom to ^1.0.1 ([9e3bac6](https://github.com/serenity-js/serenity-js/commit/9e3bac6b13cfdbcd0ce001fbb363ff87ff3eedd3))
+* **deps:** update website dependencies ([0ac28ff](https://github.com/serenity-js/serenity-js/commit/0ac28ff99c3ff16447b033f4e149b77d91fbef00))
+* **playwright:** upgraded to Playwright 1.28.1 ([e9c4c1c](https://github.com/serenity-js/serenity-js/commit/e9c4c1c5c4467423c8254baeab0d0603d90c0d96))
+* **webdriverio:** migrated to use Puppeteer 19.3 APIs ([1aa2ab7](https://github.com/serenity-js/serenity-js/commit/1aa2ab7495a7ddc7edf37f6d351ce26ccc7090c8))
+* **web:** marked PageElement methods returning a MetaQuestion ([6f78186](https://github.com/serenity-js/serenity-js/commit/6f78186c8c11c603ec447f89007009ea75e80b89))
+
+
+### BREAKING CHANGES
+
+* **core:** List.get(index) replaced by List.nth(index); this affects classes inheriting from List, such as
+PageElements
+
+
+
+
+
 # [3.0.0-rc.34](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.33...v3.0.0-rc.34) (2022-11-21)
 
 
