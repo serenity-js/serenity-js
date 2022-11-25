@@ -1,0 +1,45 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "compile",
+          "test"
+        ]
+      }
+    }
+  },
+  "targetDefaults": {
+    "compile": {
+      "dependsOn": [
+        "^compile"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/assertions/lib",
+        "{projectRoot}/packages/console-reporter/lib",
+        "{projectRoot}/packages/core/lib",
+        "{projectRoot}/packages/cucumber/lib",
+        "{projectRoot}/packages/jasmine/lib",
+        "{projectRoot}/packages/local-server/lib",
+        "{projectRoot}/packages/mocha/lib",
+        "{projectRoot}/packages/playwright/lib",
+        "{projectRoot}/packages/playwright-test/lib",
+        "{projectRoot}/packages/protractor/lib",
+        "{projectRoot}/packages/rest/lib",
+        "{projectRoot}/packages/serenity-bdd/lib",
+        "{projectRoot}/packages/web/lib",
+        "{projectRoot}/packages/webdriverio/lib",
+        "{projectRoot}/integration/cucumber-specs/lib",
+        "{projectRoot}/integration/testing-tools/lib",
+        "{projectRoot}/integration/web-specs/lib",
+        "{projectRoot}/examples/calculator-app/lib"
+      ]
+    },
+    "test": {
+      "outputs": [
+        "{projectRoot}/target"
+      ]
+    }
+  }
+}
