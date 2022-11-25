@@ -391,9 +391,9 @@ export class WebdriverIONotifier implements StageCrewMember {
         args: InnerArguments
     ): Promise<Array<Result | Error>> {
 
-        const hooks = ! Array.isArray(hookFunctions)
-            ? [ hookFunctions ]
-            : hookFunctions;
+        const hooks = Array.isArray(hookFunctions)
+            ? hookFunctions
+            : [ hookFunctions ];
 
         const asyncOperationId = CorrelationId.create();
 

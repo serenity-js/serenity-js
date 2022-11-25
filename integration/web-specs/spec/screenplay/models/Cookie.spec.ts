@@ -80,7 +80,7 @@ describe('Cookie', () => {
             { description: 'invalid domain',        data: { name: 'OK', value: 'OK', domain: {} },      expectedError: 'Cookie.set(cookieData.domain) should be a string'                                                       },
             { description: 'invalid secure',        data: { name: 'OK', value: 'OK', secure: {} },      expectedError: 'Cookie.set(cookieData.secure) should be a boolean value'                                                },
             { description: 'invalid httpOnly',      data: { name: 'OK', value: 'OK', httpOnly: {} },    expectedError: 'Cookie.set(cookieData.httpOnly) should be a boolean value'                                              },
-            { description: 'non-Timestamp expiry',  data: { name: 'OK', value: 'OK', expiry: 0 },       expectedError: 'Cookie.set(cookieData.expiry) should be instance of Timestamp'                                          },
+            { description: 'non-Timestamp expiry',  data: { name: 'OK', value: 'OK', expiry: -1 },      expectedError: 'Cookie.set(cookieData.expiry) should be instance of Timestamp'                                          },
             { description: 'invalid sameSite',      data: { name: 'OK', value: 'OK', sameSite: {} },    expectedError: 'Cookie.set(cookieData.sameSite) should either be equal to Lax, be equal to Strict or be equal to None'  },
         ).
         it('complains if the cookie name is not set', ({ data, expectedError }) =>

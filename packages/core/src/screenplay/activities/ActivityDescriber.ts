@@ -5,9 +5,9 @@ import { Activity } from '../Activity';
 export class ActivityDescriber {
 
     describe(activity: Activity, actor: { name: string }): Name {
-        const template = activity.toString() !== ({}).toString()
-            ? activity.toString()
-            : `#actor performs ${ activity.constructor.name }`;
+        const template = activity.toString() === ({}).toString()
+            ? `#actor performs ${ activity.constructor.name }`
+            : activity.toString();
 
         return new Name(
             this.includeActorName(template, actor),

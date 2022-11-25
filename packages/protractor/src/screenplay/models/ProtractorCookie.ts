@@ -36,7 +36,7 @@ export class ProtractorCookie extends Cookie {
             value:      cookie.value,
             domain:     cookie.domain,
             path:       cookie.path,
-            expiry:     cookie.expiry !== undefined
+            expiry:     typeof cookie.expiry === 'number' && cookie.expiry >= 0
                 ? Timestamp.fromTimestampInSeconds(Math.round(cookie.expiry))
                 : undefined,
             httpOnly:   cookie.httpOnly,
