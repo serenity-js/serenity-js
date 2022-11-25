@@ -561,6 +561,30 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
+### Using partially-applied meta-questions
+
+A meta-question is a type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface. However, a meta-question could be either a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), or an instance of a class.
+A class would have a static method [`of`](/api/core/interface/MetaQuestion#of) returning a `Question<Result_Type>`, and an instance would have an equivalent instance method.
+
+A good example of a meta-question is [`Text`](/api/web/class/Text). `Text` is a class with a static method [`of`](/api/web/class/Text#of) that accepts a [`PageElement`](/api/web/class/PageElement) and returns a `Question` that resolves to text content of the provided page element.
+
+You can use `Text` to return text content of a page element of interest:
+```typescript
+Text.of(label())
+```
+
+Interestingly, though, the type returned by [`Text.of(element)`](/api/web/class/Text#of) is _also_ a meta-question, making it a [partially-applied](https://en.wikipedia.org/wiki/Partial_application) meta-question.
+This means that you can use this [double-dispatch mechanism](https://en.wikipedia.org/wiki/Double_dispatch) to describe a child-parent relationship between the label, which text we're returning, and its container:
+
+```typescript
+const shoppingListItem = () =>
+    PageElement.located(By.css('li.todo'))
+
+Text.of(label()).of(shoppingListItem())
+```
+
+This pattern is particularly important in mapping elements of a collection to properties of their child elements, or in filtering a collection of page elements based on properties of their child-elements.
+
 ### Mapping elements in a collection using partially-applied meta-questions
 
 There's another way to retrieve the text of all the labels, apart from mapping each element in a collection to its label element, and then retrieving text content of all the results like we did in the [previous example](#mapping-elements-in-a-collection-using-meta-questions).
@@ -584,30 +608,6 @@ await actorCalled('Alice').attemptsTo(
     ]))
 )
 ```
-
-:::info Partially-applied meta-questions
-A meta-question is a type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface. However, a meta-question could be either a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), or an instance of a class.
-A class would have a static method [`of`](/api/core/interface/MetaQuestion#of) returning a `Question<Result_Type>`, and an instance would have an equivalent instance method.
-
-A good example of a meta-question is [`Text`](/api/web/class/Text). `Text` is a class with a static method [`of`](/api/web/class/Text#of) that accepts a [`PageElement`](/api/web/class/PageElement) and returns a `Question` that resolves to text content of the provided page element.
-
-You can use `Text` to return text content of a page element of interest:
-```typescript
-Text.of(label())
-```
-
-Interestingly, though, the type returned by [`Text.of(element)`](/api/web/class/Text#of) is _also_ a meta-question, making it a [partially-applied](https://en.wikipedia.org/wiki/Partial_application) meta-question.
-This means that you can use this [double-dispatch mechanism](https://en.wikipedia.org/wiki/Double_dispatch) to describe a child-parent relationship between the label, which text we're returning, and its container:
-
-```typescript
-const shoppingListItem = () =>
-    PageElement.located(By.css('li.todo'))
-
-Text.of(label()).of(shoppingListItem())
-```
-
-This is particularly important in filtering a collection of page elements based on properties of their child-elements, as you'll see in the next section.
-:::
 
 ### Filtering a collection using partially-applied meta-questions
 
