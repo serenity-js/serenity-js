@@ -41,7 +41,7 @@ export class PlaywrightCookie extends Cookie {
             value:      found.value,
             domain:     found.domain,
             path:       found.path,
-            expiry:     found.expires !== undefined
+            expiry:     typeof found.expires === 'number' && found.expires >= 0
                 ? Timestamp.fromTimestampInSeconds(Math.round(found.expires))
                 : undefined,
             httpOnly:   found.httpOnly,

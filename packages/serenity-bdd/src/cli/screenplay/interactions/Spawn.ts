@@ -44,9 +44,9 @@ export class Spawn extends Interaction {
                 );
 
                 spawned.once('exit', (exitCode: number) =>
-                    exitCode !== 0
-                        ? reject(new ExecutionError(`The following process exited with ${ exitCode }: ${ pathToExecutable.value } ${ this.args.join(' ') }`))
-                        : resolve(void 0),
+                    exitCode === 0
+                        ? resolve(void 0)
+                        : reject(new ExecutionError(`The following process exited with ${ exitCode }: ${ pathToExecutable.value } ${ this.args.join(' ') }`)),
                 );
             }));
     }

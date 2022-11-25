@@ -11,7 +11,7 @@ Given(/^(.*) has requested a new calculation/, (actorName: string) =>
     ));
 
 When(/^(.*) enters (\d+)$/, (actorName: string, operandValue: string) => {
-    const actor = ! isPronoun(actorName) ? actorCalled(actorName) : actorInTheSpotlight();
+    const actor = isPronoun(actorName) ? actorInTheSpotlight() : actorCalled(actorName);
 
     return actor.attemptsTo(
         EnterOperand(new Operand(Number.parseFloat(operandValue))),

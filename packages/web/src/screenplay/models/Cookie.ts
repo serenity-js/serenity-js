@@ -194,7 +194,7 @@ export abstract class Cookie implements Optional {
  * @param predicates
  */
 function ensureIfPresent<K extends keyof CookieData>(data: CookieData, property: K, ...predicates: Array<Predicate<CookieData[K]>>): CookieData[K] | undefined {
-    return data[property] !== undefined
+    return data[property]
         ? ensure(`Cookie.set(cookieData.${property})`, data[property], ...predicates)
         : undefined;
 }
