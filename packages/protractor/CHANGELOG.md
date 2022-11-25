@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.35](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.34...v3.0.0-rc.35) (2022-11-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency query-selector-shadow-dom to ^1.0.1 ([9e3bac6](https://github.com/serenity-js/serenity-js/commit/9e3bac6b13cfdbcd0ce001fbb363ff87ff3eedd3))
+
+
+
+
+
 # [3.0.0-rc.34](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.33...v3.0.0-rc.34) (2022-11-21)
 
 **Note:** Version bump only for package @serenity-js/protractor
