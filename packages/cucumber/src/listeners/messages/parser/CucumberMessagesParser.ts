@@ -160,9 +160,9 @@ export class CucumberMessagesParser {
     // ---
 
     private extract<T>(maybeValue: T | undefined, fn: (value: T) => DomainEvent[] | DomainEvent | void): DomainEvent[] {
-        return (maybeValue !== undefined)
-            ? [].concat(fn(maybeValue)).filter(item => !! item)
-            : [];
+        return (maybeValue === undefined)
+            ? []
+            : [].concat(fn(maybeValue)).filter(item => !! item);
     }
 
     private scenarioDetailsFor(gherkinDocument: GherkinDocument, pickle: Pickle, location: Location): ScenarioDetails {

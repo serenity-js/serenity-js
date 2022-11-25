@@ -129,9 +129,9 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
 
         // Selenium returns `null` when the script it executed returns `undefined`
         // so we're mapping the result back.
-        return this.lastScriptExecutionSummary.result !== null
-            ? this.lastScriptExecutionSummary.result
-            : undefined;
+        return this.lastScriptExecutionSummary.result === null
+            ? undefined
+            : this.lastScriptExecutionSummary.result;
     }
 
     async takeScreenshot(): Promise<string> {

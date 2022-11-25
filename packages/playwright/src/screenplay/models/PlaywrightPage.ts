@@ -176,7 +176,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
             value:      cookieData.value,
             domain:     cookieData.domain,
             path:       cookieData.path,
-            url:        !(cookieData.domain && cookieData.path)
+            url:        !(cookieData.domain && cookieData.path)     // eslint-disable-line unicorn/no-negated-condition
                 ? url
                 : undefined,
             secure:     cookieData.secure,
