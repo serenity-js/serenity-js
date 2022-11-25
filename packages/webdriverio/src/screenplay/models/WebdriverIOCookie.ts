@@ -39,7 +39,7 @@ export class WebdriverIOCookie extends Cookie {
             value:      cookie.value,
             domain:     cookie.domain,
             path:       cookie.path,
-            expiry:     expiry !== undefined
+            expiry:     typeof expiry === 'number' && expiry >= 0
                 ? Timestamp.fromTimestampInSeconds(Math.round(expiry))
                 : undefined,
             httpOnly:   cookie.httpOnly,

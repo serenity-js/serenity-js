@@ -294,8 +294,8 @@ export class Stage {
     }
 
     private typeOf(cast: Cast): string {
-        return this.cast.constructor !== Object
-            ? this.cast.constructor.name
-            : 'Cast';
+        return cast.constructor === Object
+            ? 'Cast'
+            : cast.constructor.name;
     }
 }
