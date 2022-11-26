@@ -8,6 +8,28 @@
 export interface CucumberConfig {
 
     /**
+     * Prepare a test run but don't run it
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     * - [Cucumber docs: dry run mode](https://github.com/cucumber/cucumber-js/blob/main/docs/dry_run.md)
+     *
+     * @version 8.x
+     */
+    dryRun?: boolean;
+
+    /**
+     * Stop running tests when a test fails
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     * - [Cucumber docs: fail fast](https://github.com/cucumber/cucumber-js/blob/main/docs/fail_fast.md)
+     *
+     * @version 8.x
+     */
+    failFast?: boolean;
+
+    /**
      * Enable/disable colors in output. Cucumber 1.x only!
      * For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`
      *
@@ -158,6 +180,36 @@ export interface CucumberConfig {
      * - [Cucumber docs: requiring support files](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files)
      */
     require?: string[];
+
+    /**
+     * Paths to where your support code is.
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     *
+     * @version 8.x
+     */
+    import?: string[];
+
+    /**
+     * Names of transpilation modules to load, loaded via require()
+     *
+     * #### Learn more
+     * - [Cucumber docs: transpiling](https://github.com/cucumber/cucumber-js/blob/main/docs/transpiling.md)
+     *
+     * @version 8.x
+     */
+    requireModule?: string[],
+
+    /**
+     * Default language for your feature files
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     *
+     * @version 8.x
+     */
+    language?: string;
 
     /**
      * Only run scenarios that match the given tags.

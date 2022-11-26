@@ -90,6 +90,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        if (version.isAtLeast(new Version('8.7.0'))) {
+            return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
+        }
+
         const argv = this.options.asArgumentsForCucumber(version);
 
         if (version.isAtLeast(new Version('8.0.0'))) {
@@ -109,6 +113,43 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         }
 
         return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
+    }
+
+    // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md
+    private async runWithCucumber8JavaScriptApi(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const configuration = this.options.asCucumberApiConfiguration();
+        const { loadConfiguration, loadSupport, runCucumber }  = this.loader.require('@cucumber/cucumber/api');
+        const output = this.output.get();
+
+        // https://github.com/cucumber/cucumber-js/blob/main/src/api/environment.ts
+        const environment = {
+            cwd:    this.loader.cwd,
+            stdout: process.stdout,
+            stderr: process.stderr,
+            env:    process.env,
+            debug:  false,
+        };
+
+        configuration.format.push(`${ pathToSerenityListener }:${ output.value() }`)
+        configuration.paths = pathsToScenarios;
+
+        // https://github.com/cucumber/cucumber-js/blob/main/src/configuration/types.ts
+        const { runConfiguration } = await loadConfiguration({ provided: configuration }, environment);
+
+        // load the support code upfront
+        const support = await loadSupport(runConfiguration, environment)
+
+        try {
+            // run cucumber, using the support code we loaded already
+            const { success } = await runCucumber({ ...runConfiguration, support }, environment)
+            await output.cleanUp();
+
+            return success
+        }
+        catch (error) {
+            await output.cleanUp()
+            throw error;
+        }
     }
 
     private runWithCucumber8(argv: string[], pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {

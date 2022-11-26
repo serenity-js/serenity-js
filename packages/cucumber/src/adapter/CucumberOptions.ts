@@ -1,3 +1,4 @@
+import type { IConfiguration } from '@cucumber/cucumber/api';
 import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
 
 import { CucumberConfig } from './CucumberConfig';
@@ -30,6 +31,45 @@ export class CucumberOptions {
                 [ 'node', 'cucumber-js' ],
             )
             .concat(this.config.rerun && this.fileSystem.exists(Path.from(this.config.rerun)) ? this.config.rerun : []);
+    }
+
+    private asArray<T>(value?: ArrayLike<T> | T): T[] {
+        if (value === undefined) {
+            return [];
+        }
+
+        if (Array.isArray(value)) {
+            return Array.from(value);
+        }
+
+        return [ value as T ];
+    }
+
+    asCucumberApiConfiguration(): Partial<IConfiguration> {
+
+        // https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md
+        return {
+            dryRun: this.config.dryRun,
+            forceExit: false,
+            failFast: this.config.failFast,
+            format: this.asArray(this.config.format),
+            formatOptions: this.config.formatOptions as any,
+            import: this.asArray(this.config.import),
+            language: this.config.language,
+            name: this.asArray(this.config.name),
+            // order: PickleOrder
+            // paths: string[],
+            // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
+            publish: false,
+            publishQuiet: true,
+            require: this.asArray(this.config.require),
+            requireModule: this.asArray(this.config.requireModule),
+            retry: this.config.retry,
+            retryTagFilter: this.config.retryTagFilter,
+            strict: this.config.strict,
+            tags: this.asArray(this.config.tags).join(' and '),
+            worldParameters: this.config.worldParameters,
+        };
     }
 
     private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {
