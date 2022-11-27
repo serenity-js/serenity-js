@@ -23,11 +23,15 @@ export class StartLocalServer {
      *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
      *  passed as an argument.
      *
+     * :::warning
+     * This method is deprecated and will be removed in Serenity/JS 3.0.0.
+     * Please use {@apilink StartLocalServer.onPort} and {@apilink StartLocalServer.onRandomPortBetween} instead.
+     * :::
+     *
+     * @deprecated use {@link StartLocalServer.onPort} and {@link StartLocalServer.onRandomPortBetween} instead
+     *
      * @param preferredPorts
      *  A list of preferred ports. Please note that only the first one will be used!
-     *
-     * @deprecated
-     *   Use `StartLocalServer.onPort` or `StartLocalServer.onRandomPortBetween`
      */
     static onOneOfThePreferredPorts(preferredPorts: Answerable<number[]>): Interaction {
         return new StartLocalServerOnFirstOf(preferredPorts);
