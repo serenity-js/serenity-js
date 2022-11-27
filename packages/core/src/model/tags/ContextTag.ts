@@ -9,7 +9,11 @@ import { Tag } from './Tag';
  * a similar icon will be used. If you use any other term for your context,
  * it will appear in text form in the test results lists, so it is better to keep context names relatively short.
  *
- * @deprecated
+ * :::warning
+ * This tag is deprecated and will be removed in Serenity/JS 3.0.0. Use {@apilink BrowserTag} and {@apilink PlatformTag} instead.
+ * :::
+ *
+ * @deprecated use {@link BrowserTag} and {@link PlatformTag} instead
  */
 export class ContextTag extends Tag {
     static readonly Type = 'context';
