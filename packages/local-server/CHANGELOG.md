@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.36](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.35...v3.0.0-rc.36) (2022-11-28)
+
+
+### Bug Fixes
+
+* **core:** reverted the change to List.get and marked method as deprecated, to be removed in 3.0 ([5ac8c69](https://github.com/serenity-js/serenity-js/commit/5ac8c69a5ddb2cbb62a76f5e25cfdeae11135b45)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+
+
+
+
+
 # [3.0.0-rc.35](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.34...v3.0.0-rc.35) (2022-11-25)
 
 **Note:** Version bump only for package @serenity-js/local-server
