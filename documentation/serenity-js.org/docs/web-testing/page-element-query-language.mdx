@@ -346,7 +346,7 @@ const secondItem = () =>
 
 const lastItem = () =>
     PageElements.located(By.css('li'))
-        .first()
+        .last()
 ```
 
 Above APIs are particularly useful when you need to retrieve elements from a sorted collection, e.g. the most recent comment, last order, nth position from a league table, and so on.
