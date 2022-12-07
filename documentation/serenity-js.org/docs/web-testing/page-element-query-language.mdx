@@ -623,7 +623,7 @@ await actorCalled('Alice').attemptsTo(
 
 ### Using partially-applied meta-questions
 
-A meta-question is a any type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface.
+A meta-question is any type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface.
 This means that either a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), or an instance of a class,
 could be a meta-question, as long as they provided a method called [`of`](/api/core/interface/MetaQuestion#of) that accepted
 a single argument and returned a result of `Question<Result_Type>`.
