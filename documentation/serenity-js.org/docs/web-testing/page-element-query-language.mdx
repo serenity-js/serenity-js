@@ -11,12 +11,14 @@ import TabItem from '@theme/TabItem'
 ```
 
 Key points:
-- **<abbr title="Page Element Query Language">PEQL</abbr>** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
-- **[`PageElement`](/api/web/class/PageElement)** represents
-  a [single element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element)
-  and **[`PageElements`](/api/web/class/PageElements)** represent a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
-- **[`By` selectors](/api/web/class/By)** help you identify page elements of interest
-- [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages [expectations](/api/web/class/ElementExpectation) and [meta-questions](/api/core/interface/MetaQuestion) (just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions))
+- **Page Element Query Language (PEQL)** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
+- **[`PageElement`](/api/web/class/PageElement)** is a [question](/api/core/class/Question) that resolves to a [single web element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element), **[`PageElements`](/api/web/class/PageElements)** resolves to a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
+- `PageElement` and `PageElements` are also [meta-questions](/api/core/interface/MetaQuestion), so can be resolved relatively to another `PageElement` to dynamically form a child-parent relationship
+- **[`By` selectors](/api/web/class/By)** help to identify page elements of interest
+- **[Partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions)** can be chained together to enable code reuse
+- [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
+[expectations](/api/web/class/ElementExpectation) and [meta-questions](/api/core/interface/MetaQuestion),
+just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions) do.
 
 **Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
 around selectors and web element interaction methods provided by web integration tools like
@@ -108,13 +110,22 @@ Of course, if the element is not found or can't be interacted with, Serenity/JS 
 the selector used to locate the element to make debugging test failures easier.
 
 
-### Composing questions
+### Composing `PageElement` with other web questions
 
 Serenity/JS favours [functional composition](https://en.wikipedia.org/wiki/Function_composition_(computer_science))
 to help your code achieve polymorphic behaviour and promote code reuse.
+In practice, this means that in order to learn about a specific attribute of a page element, you'd compose the element
+with an [appropriate web-specific question](/api/web).
 
-In practice, this means that to retrieve text content of a given page element you'd pass it to an [appropriate web-specific question](/api/web),
-like the one about [`Text.of(pageElement)`](/api/web/class/Text):
+For example, `articleTitle()` in the code sample below produces a question that will be resolved to a web element:
+```typescript
+import { By, PageElement, Text } from '@serenity-js/web'
+
+const articleTitle = () =>
+    PageElement.located(By.css('article > .title'))
+```
+
+To retrieve the text content of the `articleTitle()` element, compose it with the question about its [`Text`](/api/web/class/Text):
 
 ```typescript
 import { Text } from '@serenity-js/web'
@@ -122,6 +133,44 @@ import { Text } from '@serenity-js/web'
 const articleTitleText = () =>
     Text.of(articleTitle())
 ```
+
+To retrieve the CSS classes of the `articleTitle()` element, compose it with the question about its [`CssClasses`](/api/web/class/CssClasses):
+
+```typescript
+import { CssClasses } from '@serenity-js/web'
+
+const articleTitleCssClasses = () =>
+    CssClasses.of(articleTitle())
+```
+
+A chain of composed questions, such as `Text.of(articleTitle())` is resolved only when the actor needs to retrieve the underlying value.
+
+For example, the text of the article title would be retrieved when performing an assertion:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(Text.of(articleTitle()), equals('Serenity/JS'))
+)
+```
+
+When composed questions are used with [synchronisation statements](/handbook/web-testing/waiting-and-synchronisation),
+the underlying value will be retrieved every polling interval:
+
+```typescript
+import { actorCalled, Duration, Wait } from '@serenity-js/core'
+import { equals } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
+await actorCalled('Alice').attemptsTo(
+    Wait.until(Text.of(articleTitle()), equals('Serenity/JS'))
+        .pollingEvery(Duration.ofMilliseconds(250))
+)
+```
+
 
 :::info Pro Tip
 Note that the result of **composing questions** is also a **question**.
@@ -364,7 +413,7 @@ const shoppingListItems = () =>
         .describedAs('shopping list items');
 ```
 
-### Composing questions
+### Composing `PageElements` with other questions
 
 Similarly to [`PageElement`](/api/web/class/PageElement), [`PageElements`](/api/web/class/PageElements) can be composed with other questions,
 like [`Text.ofAll`](/api/web/class/Text), to retrieve aggregate information about all the elements in the collection:
@@ -397,7 +446,7 @@ await actorCalled('Alice').attemptsTo(
 Just like with using [functional composition](https://en.wikipedia.org/wiki/Function_composition_(computer_science))
 and [meta-questions](/api/core/interface/MetaQuestion)
 to map an individual element to [another type](#composing-questions) or [another element](#using-meta-questions),
-you can map each element in a collection of page elements. To do that, use the [`PageElements#mapEachElementTo`](/api/web/class/PageElements#eachMappedTo) API.
+you can map each element in a collection of page elements. To do that, use the [`PageElements#eachMappedTo`](/api/web/class/PageElements#eachMappedTo) API.
 
 For example, you could map each [shopping list item element](#working-with-a-collection-of-page-elements) to its text content using the [`Text`](/api/web/class/Text) meta-question:
 
@@ -526,22 +575,33 @@ const shoppingListItems = () =>
         .describedAs('shopping list items')
 
 const checkbox = () =>
-    PageElements.located(By.css('input.checkbox')).describedAs('checkbox')
+    PageElement.located(By.css('input.checkbox')).describedAs('checkbox')
 
 const label = () =>
-    PageElements.located(By.css('label')).describedAs('label')
+    PageElement.located(By.css('label')).describedAs('label')
 
 const quantity = () =>
-    PageElements.located(By.css('span.quantity')).describedAs('quantity')
+    PageElement.located(By.css('span.quantity')).describedAs('quantity')
 
 const destroyButton = () =>
-    PageElements.located(By.css('button.destroy')).describedAs('destroy button')
+    PageElement.located(By.css('button.destroy')).describedAs('destroy button')
 ```
 
 ### Mapping elements in a collection using meta-questions
 
 To retrieve the text of all the labels of the displayed shopping list items, you could map a collection of shopping list items
-to their labels, and then retrieve text of all the items:
+to their labels:
+```typescript
+const labels = () =>
+    shoppingListItems()
+        .eachMappedTo(label())
+```
+Next, you could retrieve the text of all the labels:
+```typescript
+Text.ofAll(labels())
+```
+
+Full example would look like this:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
@@ -563,33 +623,85 @@ await actorCalled('Alice').attemptsTo(
 
 ### Using partially-applied meta-questions
 
-A meta-question is a type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface. However, a meta-question could be either a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), or an instance of a class.
-A class would have a static method [`of`](/api/core/interface/MetaQuestion#of) returning a `Question<Result_Type>`, and an instance would have an equivalent instance method.
+A meta-question is a any type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface.
+This means that either a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), or an instance of a class,
+could be a meta-question, as long as they provided a method called [`of`](/api/core/interface/MetaQuestion#of) that accepted
+a single argument and returned a result of `Question<Result_Type>`.
 
-A good example of a meta-question is [`Text`](/api/web/class/Text). `Text` is a class with a static method [`of`](/api/web/class/Text#of) that accepts a [`PageElement`](/api/web/class/PageElement) and returns a `Question` that resolves to text content of the provided page element.
+For example, [`Text`](/api/web/class/Text) is a class-level meta-question. This means that the class has a static method [`Text.of`](/api/web/class/Text#of)
+that accepts a single argument of `PageElement` and returns a `Question<Promise<string>>` that resolves to its text content:
 
-You can use `Text` to return text content of a page element of interest:
 ```typescript
-Text.of(label())
+import { PageElement, By, Text } from '@serenity-js/web'
+
+const label = () =>
+    PageElement.located(By.css('label')).describedAs('label')
+
+const textOfLabel = () =>
+    Text.of(label())
 ```
 
-Interestingly, though, the type returned by [`Text.of(element)`](/api/web/class/Text#of) is _also_ a meta-question, making it a [partially-applied](https://en.wikipedia.org/wiki/Partial_application) meta-question.
-This means that you can use this [double-dispatch mechanism](https://en.wikipedia.org/wiki/Double_dispatch) to describe a child-parent relationship between the label, which text we're returning, and its container:
+However, the instance produced by calling `Text.of(label())` is _also_ a meta-question.
+This means that this instance-level meta-question _also_ has a method called `of`  that accepts a single argument of `PageElement` and returns a `Question<Promise<string>>` that resolves to its text content:
 
 ```typescript
+import { PageElement, By, Text } from '@serenity-js/web'
+
+const label = () =>
+    PageElement.located(By.css('label')).describedAs('label')
+
 const shoppingListItem = () =>
     PageElement.located(By.css('li.todo'))
 
-Text.of(label()).of(shoppingListItem())
+const textOfLabel = () =>
+    Text.of(label())
+
+const textOfShoppingListItemLabel = () =>
+    textOfLabel().of(shoppingListItem())
 ```
 
-This pattern is particularly important in mapping elements of a collection to properties of their child elements, or in filtering a collection of page elements based on properties of their child-elements.
+This [double-dispatch mechanism](https://en.wikipedia.org/wiki/Double_dispatch) allows you to
+define partially-applied meta-questions, like `Text.of(label())`, that can be chained again
+to describe the relationship between the `label()` and its container.
+
+This design is particularly handy when your
+system under tests reuses a relatively small number of widgets to compose more complex elements of the interface.
+For example, when a `label()` is always defined using the same HTML structure, but gets embedded in different containers
+you could have `label().of(formField())`, `label().of(image())`, `label().of(searchResult())` and so on,
+making it easier to reuse your test code.
+
+This pattern is particularly important in mapping elements of a collection to properties of their child elements,
+or in filtering a collection of page elements based on properties of their child-elements.
+
+:::info Types of Meta-Questions
+A **meta-question** is any type that implements the [`MetaQuestion`](/api/core/interface/MetaQuestion) interface,
+such as `Text`.
+
+An **applied meta-question** is a meta-question that's already bound to its argument question.
+For example, the result of calling `Text.of(pageElement)` is an applied meta-question that, when resolved, returns
+the text of that particular element.
+
+A **partially-applied meta-question** is an applied meta-question that can be bound _again_ to describe a relationship
+between the already bound argument and another one, e.g. its container.
+
+For example, the result of calling `Text.of(pageElement)` is an applied meta-question, as it can be resolved by an `actor`
+to return the text of that one specific element. However, it's also a partially-applied meta-question, as it can be
+bound again to describe the relationship between `pageElement` and its container, i.e. `Text.of(pageElement).of(containerElement)`.
+:::
 
 ### Mapping elements in a collection using partially-applied meta-questions
 
 There's another way to retrieve the text of all the labels, apart from mapping each element in a collection to its label element, and then retrieving text content of all the results like we did in the [previous example](#mapping-elements-in-a-collection-using-meta-questions).
 
-What you could do, is use partially-applied meta-question `Text.of(label())` to map each page element directly to text of its label:
+What you could do, is use [partially-applied meta-question](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions) `Text.of(label())` to map each page element directly to text of its label:
+
+```typescript
+const labels = () =>
+    shoppingListItems()
+        .eachMappedTo(Text.of(label()))
+```
+
+Next, compare the result with expected values:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
@@ -611,7 +723,7 @@ await actorCalled('Alice').attemptsTo(
 
 ### Filtering a collection using partially-applied meta-questions
 
-You can use partially-applied [meta-questions](/api/core/interface/MetaQuestion) like `Text.of(label())` to filter the list of shopping list items
+You can use [partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions) like `Text.of(label())` to filter the list of shopping list items
 to only those elements that meet your [expectations](/api/web/class/ElementExpectation):
 
 ```typescript
@@ -646,7 +758,7 @@ const boughtItems = () =>
         .where(CssClasses, contain('bought'))
 
 await actorCalled('Alice').attemptsTo(
-    boughtItems().forEach(({ item, actor }) =>  // note `actor`
+    boughtItems().forEach(({ item, actor }) =>  // note both `item` and `actor`
         actor.attemptsTo(
             Click.on(destroyButton().of(item)),
         )
