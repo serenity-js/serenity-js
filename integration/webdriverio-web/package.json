@@ -18,7 +18,7 @@
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf target",
+    "clean": "rimraf target ../../target/coverage/integration-webdriverio-jasmine",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8080 start-server-and-test start http://localhost:8080 test:acceptance:run",

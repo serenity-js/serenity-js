@@ -27,9 +27,9 @@
     "web"
   ],
   "scripts": {
-    "clean": "rimraf .nyc_output lib target",
+    "clean": "rimraf '../../target/coverage/web'",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.build.json"
+    "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",

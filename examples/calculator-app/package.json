@@ -16,9 +16,9 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib target",
+    "clean": "rimraf target",
     "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "tsc --project tsconfig.json",
+    "compile": "rimraf lib && tsc --project tsconfig.json",
     "verify": "npm test",
     "start": "node index.js",
     "dev": "nodemon --exec 'cross-env PORT=3000 NODE_ENV=TEST npm start'"

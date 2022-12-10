@@ -14,7 +14,7 @@
     "access": "private"
   },
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf ../../target/coverage/integration-protractor-jasmine",
     "test": "nyc mocha --config ../../.mocharc.yml --timeout 60000 'spec/**/*.spec.*'"
   },
   "repository": {

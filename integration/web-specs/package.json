@@ -21,8 +21,7 @@
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf .nyc_output lib target",
-    "compile": "tsc --project tsconfig.json"
+    "compile": "rimraf lib && tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
