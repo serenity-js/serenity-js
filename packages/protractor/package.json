@@ -30,10 +30,10 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf .nyc_output lib target",
+    "clean": "rimraf '../../target/coverage/protractor'",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "test": "nyc protractor ./spec/protractor.conf.js",
-    "compile": "tsc --project tsconfig.build.json"
+    "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",

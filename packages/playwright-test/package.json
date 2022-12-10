@@ -27,9 +27,9 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf .nyc_output lib target",
+    "clean": "rimraf '../../target/coverage/playwright-test'",
     "~test": "nyc playwright test",
-    "compile": "tsc --project tsconfig.build.json"
+    "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
