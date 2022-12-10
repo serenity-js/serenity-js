@@ -18,35 +18,33 @@
   ],
   "packageRules": [
     {
-      "packagePatterns": ["^eslint$", "^eslint-plugin", "^@typescript-eslint"],
-      "groupName": "ESLint dependencies"
-    },
-    {
-      "packagePatterns": ["^@wdio", "^webdriverio"],
-      "groupName": "WebdriverIO dependencies"
-    },
-    {
-      "packagePatterns": [
-        "@types/chai",
-        "@types/chai-as-promised",
-        "@types/sinon",
-        "@types/sinon-chai",
-        "chai",
-        "chai-as-promised",
-        "istanbul",
-        "istanbul-merge",
-        "mocha-testdata",
-        "nyc",
-        "sinon",
-        "sinon-chai"
-      ],
-      "groupName": "test dependencies"
-    },
-    {
       "packagePatterns": [
         "^@cucumber"
       ],
-      "groupName": "Cucumber"
+      "groupName": "Cucumber",
+      "labels": ["@serenity-js/cucumber"]
+    },
+    {
+      "packagePatterns": [
+        "http-shutdown",
+        "portfinder",
+        "@hapi/hapi",
+        "@types/hapi",
+        "@types/restify",
+        "koa",
+        "restify"
+      ],
+      "groupName": "Local Server dependencies",
+      "labels": ["@serenity-js/local-server"]
+    },
+    {
+      "packagePatterns": [
+        "^@wdio",
+        "^webdriverio",
+        "puppeteer-core"
+      ],
+      "groupName": "WebdriverIO dependencies",
+      "labels": ["@serenity-js/webdriverio"]
     },
     {
       "packagePatterns": [
@@ -66,6 +64,37 @@
         "typedoc"
       ],
       "groupName": "Website dependencies"
+    },
+    {
+      "packagePatterns": [
+        "^eslint$",
+        "^eslint-plugin",
+        "^@typescript-eslint"
+      ],
+      "groupName": "ESLint dependencies"
+    },
+    {
+      "packagePatterns": [
+        "@commitlint/cli",
+        "@commitlint/config-conventional",
+        "@types/chai-as-promised",
+        "@types/istanbul-lib-coverage",
+        "@types/sinon",
+        "@types/sinon-chai",
+        "chai-as-promised",
+        "chromedriver",
+        "coveralls",
+        "cz-conventional-changelog",
+        "cz-customizable",
+        "husky",
+        "istanbul-lib-coverage",
+        "lerna",
+        "mocha-testdata",
+        "rimraf",
+        "sinon",
+        "sinon-chai"
+      ],
+      "groupName": "Development tools"
     }
   ],
   "schedule": [
