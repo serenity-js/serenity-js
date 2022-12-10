@@ -18,13 +18,37 @@
   ],
   "packageRules": [
     {
+      "groupName": "Core dependencies",
+      "labels": [ "@serenity-js/core" ],
       "packagePatterns": [
-        "^@cucumber"
-      ],
-      "groupName": "Cucumber",
-      "labels": ["@serenity-js/cucumber"]
+        "@types/cuid",
+        "@types/diff",
+        "@types/filenamify",
+        "@types/validate-npm-package-name",
+        "assertion-error-formatter",
+        "cuid",
+        "diff",
+        "error-stack-parser",
+        "fast-glob",
+        "filenamify",
+        "graceful-fs",
+        "moment",
+        "upath",
+        "validate-npm-package-name"
+      ]
     },
     {
+      "groupName": "Cucumber",
+      "labels": [ "@serenity-js/cucumber" ],
+      "packagePatterns": [
+        "^@cucumber",
+        "cli-table3",
+        "gherkin"
+      ]
+    },
+    {
+      "groupName": "Local Server dependencies",
+      "labels": [ "@serenity-js/local-server" ],
       "packagePatterns": [
         "http-shutdown",
         "portfinder",
@@ -33,27 +57,61 @@
         "@types/restify",
         "koa",
         "restify"
-      ],
-      "groupName": "Local Server dependencies",
-      "labels": ["@serenity-js/local-server"]
+      ]
     },
     {
+      "groupName": "Playwright dependencies",
+      "labels": [ "@serenity-js/playwright", "@serenity-js/web" ],
+      "packagePatterns": [
+        "playwright",
+        "playwright-core",
+        "^@playwright"
+      ]
+    },
+    {
+      "groupName": "Protractor dependencies",
+      "labels": [ "@serenity-js/protractor", "@serenity-js/web" ],
+      "packagePatterns": [
+        "@types/html-minifier",
+        "@types/selenium-webdriver",
+        "body-parser",
+        "html-minifier",
+        "protractor",
+        "query-selector-shadow-dom",
+        "selenium-webdriver"
+      ]
+    },
+    {
+      "groupName": "WebdriverIO dependencies",
+      "labels": [ "@serenity-js/webdriverio", "@serenity-js/web" ],
       "packagePatterns": [
         "^@wdio",
         "^webdriverio",
         "puppeteer-core"
-      ],
-      "groupName": "WebdriverIO dependencies",
-      "labels": ["@serenity-js/webdriverio"]
+      ]
     },
     {
+      "groupName": "Serenity BDD dependencies",
+      "labels": [ "@serenity-js/serenity-bdd" ],
+      "packagePatterns": [
+        "@types/progress",
+        "find-java-home",
+        "https-proxy-agent",
+        "if-env",
+        "progress",
+        "which",
+        "yargs"
+      ]
+    },
+    {
+      "groupName": "TypeScript dependencies",
       "packagePatterns": [
         "^ts-node$",
         "^typescript$"
-      ],
-      "groupName": "TypeScript dependencies"
+      ]
     },
     {
+      "groupName": "Website dependencies",
       "packagePatterns": [
         "docusaurus",
         "clsx",
@@ -62,18 +120,18 @@
         "prism-react-renderer",
         "react",
         "typedoc"
-      ],
-      "groupName": "Website dependencies"
+      ]
     },
     {
+      "groupName": "ESLint dependencies",
       "packagePatterns": [
         "^eslint$",
         "^eslint-plugin",
         "^@typescript-eslint"
-      ],
-      "groupName": "ESLint dependencies"
+      ]
     },
     {
+      "groupName": "Common development tools",
       "packagePatterns": [
         "@commitlint/cli",
         "@commitlint/config-conventional",
@@ -93,8 +151,7 @@
         "rimraf",
         "sinon",
         "sinon-chai"
-      ],
-      "groupName": "Development tools"
+      ]
     }
   ],
   "schedule": [
