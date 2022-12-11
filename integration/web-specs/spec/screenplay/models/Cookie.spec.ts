@@ -102,6 +102,20 @@ describe('Cookie', () => {
                 Ensure.that(Cookie.called('favourite'), isPresent()),
             )
         );
+
+        it('accepts objects with answerable properties', () =>
+            actorCalled('Sid').attemptsTo(
+                Navigate.to('/screenplay/models/cookie/show_cookies.html'),
+
+                Cookie.set({
+                    name: Promise.resolve('favourite'),
+                    value: Question.about('cookie value', _actor => 'triple chocolate'),
+
+                }),
+
+                Ensure.that(Cookie.called('favourite'), isPresent()),
+            )
+        );
     });
 
     describe('over HTTP', () => {
