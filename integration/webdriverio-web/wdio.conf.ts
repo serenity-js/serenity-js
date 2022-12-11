@@ -37,7 +37,7 @@ const localBrowser: Partial<WebdriverIOConfig> = {
     // Reduce the number of parallel browsers on GitHub Actions because of the limited resources available
     //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
     maxInstances: process.env.CI
-        ? 2
+        ? 4
         : 6,
 };
 
