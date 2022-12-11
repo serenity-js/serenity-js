@@ -37,6 +37,9 @@
       ]
     },
     "test": {
+      "dependsOn": [
+        "compile"
+      ],
       "outputs": [
         "{projectRoot}/integration/playwright-web/target",
         "{projectRoot}/integration/protractor-web/target",
