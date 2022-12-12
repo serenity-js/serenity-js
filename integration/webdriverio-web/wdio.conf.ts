@@ -20,9 +20,7 @@ const options = {
         ? 'puppeteer'
         : 'selenium-standalone',
 
-    workers: process.env.WORKERS
-        ? Number.parseInt(process.env.WORKERS, 10)
-        : (cpus().length - 1),  //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+    workers: workers(process.env),
 
     capabilities: [{
         browserName: 'chrome',
@@ -59,6 +57,20 @@ const seleniumStandaloneBrowser: Partial<WebdriverIOConfig> = {
         }]
     ],
 };
+
+function workers(env: Record<string, string>) {
+    if (env.WORKERS) {
+        return Number.parseInt(env.WORKERS, 10);
+    }
+
+    if (env.CI) {
+        // This number seems to be optimal, based on trial and error
+        // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+        return 6;
+    }
+
+    return cpus().length - 1;
+}
 
 export const config: WebdriverIOConfig = {
 
