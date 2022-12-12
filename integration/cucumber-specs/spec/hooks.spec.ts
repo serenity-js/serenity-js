@@ -140,7 +140,6 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                         .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in named Before hook')))
                         .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('Before: Perform some setup in named Before hook')))
 
-
                         // Given
                         .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('Given Amanda fulfills a task')))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Amanda performs in Given')))
