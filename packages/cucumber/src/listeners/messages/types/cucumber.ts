@@ -19,7 +19,7 @@ import {
 } from '@cucumber/messages';
 
 /**
- * https://github.com/cucumber/cucumber-js/blob/3d8d2327c794c01fd9c9fca58f4f924b9f9bde7a/src/formatter/helpers/event_data_collector.ts#L15
+ * https://github.com/cucumber/cucumber-js/blob/c2227edfab6016dc6eac265778d13fb1ccd9a2fc/src/formatter/helpers/event_data_collector.ts#L14
  *
  * @package
  */
@@ -35,7 +35,7 @@ export interface ITestCaseAttempt {
 }
 
 /**
- * https://github.com/cucumber/cucumber-js/blob/3d8d2327c794c01fd9c9fca58f4f924b9f9bde7a/src/formatter/helpers/event_data_collector.ts#L25
+ * https://github.com/cucumber/cucumber-js/blob/c2227edfab6016dc6eac265778d13fb1ccd9a2fc/src/formatter/helpers/event_data_collector.ts#L25
  *
  * @package
  */
@@ -53,7 +53,7 @@ export interface EventDataCollector {
 }
 
 /**
- * https://github.com/cucumber/cucumber-js/blob/eaaca2d7063c34aa17e33d66fc386c46ec99dd25/src/types/index.ts#L1
+ * https://github.com/cucumber/cucumber-js/blob/c2227edfab6016dc6eac265778d13fb1ccd9a2fc/src/types/index.ts#L1
  *
  * @package
  */
@@ -63,7 +63,7 @@ export interface ILineAndUri {
 }
 
 /**
- * https://github.com/cucumber/cucumber-js/blob/eaaca2d7063c34aa17e33d66fc386c46ec99dd25/src/formatter/helpers/test_case_attempt_parser.ts#L18
+ * https://github.com/cucumber/cucumber-js/blob/c2227edfab6016dc6eac265778d13fb1ccd9a2fc/src/formatter/helpers/test_case_attempt_parser.ts#L16
  *
  * @package
  */
@@ -72,6 +72,7 @@ export interface IParsedTestStep {
     argument?: PickleStepArgument;
     attachments: Attachment[];
     keyword: string;
+    name?: string
     result: TestStepResult;
     snippet?: string;
     sourceLocation?: ILineAndUri;

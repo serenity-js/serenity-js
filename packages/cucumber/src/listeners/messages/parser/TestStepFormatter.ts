@@ -11,7 +11,11 @@ export class TestStepFormatter {
         dataTable?: PickleTable,
     }): string {
         return [
-            keyword,
+            // 'Given ', 'When ' and 'Then ' steps end with a space in all the supported languages - https://github.com/cucumber/gherkin/blob/fb263beaa86dd371f073277b0cc42604a82c510b/gherkin-languages.json
+            // 'Before' does not have a trailing space
+            keyword.endsWith(' ') || text === ''
+                ? keyword
+                : `${ keyword }: `,
             text,
             argument && this.formatStepArgument(argument),
         ].join('').trim();

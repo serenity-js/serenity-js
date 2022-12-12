@@ -281,7 +281,7 @@ export class CucumberMessagesParser {
         const location = parsedTestStep.sourceLocation || parsedTestStep.actionLocation;
 
         return new ActivityDetails(
-            new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)),
+            new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text || parsedTestStep.name , parsedTestStep.argument)),
             new FileSystemLocation(
                 Path.from(location.uri),
                 location.line,
