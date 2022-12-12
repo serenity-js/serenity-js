@@ -110,8 +110,8 @@ export const config: WebdriverIOConfig = {
     maxInstances: options.workers,
     ...(options.integration === 'selenium-standalone' ? seleniumStandaloneBrowser : puppeteerBrowser),
 
-    // logLevel: 'debug',
-    logLevel: 'error',
+    logLevel: 'debug',
+    // logLevel: 'error',
 
     connectionRetryCount: 5,
 
