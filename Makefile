@@ -24,16 +24,18 @@ COMPILE_SCOPE=all
 # mocha
 # playwright-test
 # playwright-web
+# protractor-test-runners
 # protractor-cucumber
 # protractor-jasmine
 # protractor-mocha
 # protractor-web
+# webdriverio-test-runners
 # webdriverio-cucumber
 # webdriverio-jasmine
 # webdriverio-mocha
 # webdriverio-web
-# webdriverio-web:puppeteer
-# webdriverio-web:selenium-standalone
+# webdriverio-web-puppeteer
+# webdriverio-web-selenium-standalone
 INTEGRATION_SCOPE=all
 
 .PHONY: all install clean lint test compile integration-test verify report site
