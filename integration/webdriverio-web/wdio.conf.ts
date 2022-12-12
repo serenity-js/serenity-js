@@ -13,7 +13,7 @@ const options = {
     ],
 
     port: process.env.PORT
-        ? parseInt(process.env.PORT, 10)
+        ? Number.parseInt(process.env.PORT, 10)
         : 8080,
 
     integration: process.env.INTEGRATION === 'puppeteer'
@@ -21,7 +21,7 @@ const options = {
         : 'selenium-standalone',
 
     workers: process.env.WORKERS
-        ? parseInt(process.env.WORKERS, 10)
+        ? Number.parseInt(process.env.WORKERS, 10)
         : (cpus().length - 1),  //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
 
     capabilities: [{
