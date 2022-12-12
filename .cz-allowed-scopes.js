@@ -1,5 +1,4 @@
 const { sync: glob } = require('fast-glob');
-const { readFileSync } = require('fs');
 const path = require('path');
 
 const input = [ path.join(path.resolve(__dirname, `packages`),  `*/package.json`) ];
@@ -32,7 +31,6 @@ module.exports.scopes = {
             'gitpod',
             'lerna',
             'renovate',
-            'saucelabs',
             'codeclimate',
             'codefactor',
             'eslint',

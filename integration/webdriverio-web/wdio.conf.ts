@@ -3,21 +3,28 @@ import { ArtifactArchiver, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { cpus } from 'os';
 
 import { Actors } from './src/Actors';
 
-const port = process.env.PORT || 8080;
+const options = {
+    specs: [
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+    ],
 
-const specs = [
-    './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-];
+    port: process.env.PORT
+        ? parseInt(process.env.PORT, 10)
+        : 8080,
 
-const localBrowser: Partial<WebdriverIOConfig> = {
-    headless: true,
-    automationProtocol: 'devtools',
+    integration: process.env.INTEGRATION === 'puppeteer'
+        ? 'puppeteer'
+        : 'selenium-standalone',
+
+    workers: process.env.WORKERS
+        ? parseInt(process.env.WORKERS, 10)
+        : (cpus().length - 1),  //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
 
     capabilities: [{
-
         browserName: 'chrome',
         'goog:chromeOptions': {
             args: [
@@ -28,62 +35,36 @@ const localBrowser: Partial<WebdriverIOConfig> = {
                 '--ignore-certificate-errors',
                 '--headless',
                 '--disable-gpu',
-                '--disable-gpu',
                 '--window-size=1024x768',
             ],
         }
-    }],
+    }]
+}
 
-    // Reduce the number of parallel browsers on GitHub Actions because of the limited resources available
-    //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-    maxInstances: process.env.CI
-        ? 6
-        : 6,
+const puppeteerBrowser: Partial<WebdriverIOConfig> = {
+    headless: true,
+    automationProtocol: 'devtools',
 };
 
-const build = process.env.GITHUB_RUN_NUMBER
-    ? `@serenity-js/web (GitHub #${ process.env.GITHUB_RUN_NUMBER })`
-    : `@serenity-js/web (local ${ new Date().toISOString() })`;
-
-const sauceCapabilities = {
-    user:   process.env.SAUCE_USERNAME,
-    key:    process.env.SAUCE_ACCESS_KEY,
-    'sauce:options': {
-        tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
-        build,
-        screenResolution:   '1024x768',
-    }
-};
-
-const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
-    user:   process.env.SAUCE_USERNAME,
-    key:    process.env.SAUCE_ACCESS_KEY,
+const seleniumStandaloneBrowser: Partial<WebdriverIOConfig> = {
+    automationProtocol: 'webdriver',
     services: [
-        ['sauce', {
-            sauceConnect: false,
+        ['selenium-standalone', {
+            logPath: './logs',
+            drivers:
+                options.capabilities.reduce((drivers, capability) => {
+                    drivers[capability.browserName] = true;
+                    return drivers;
+                }, {})
         }]
     ],
-
-    capabilities: [{
-        browserName:    'chrome',
-        browserVersion: 'latest',
-        platformName:   'Windows 11',
-        unhandledPromptBehavior: 'ignore',  // because we need to test ModalDialog interactions
-        ...sauceCapabilities,
-    }],
-
-    maxInstances: 10,
 };
-
-const browserConfig = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
-    ? sauceLabsBrowsers
-    : localBrowser;
 
 export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
 
-    baseUrl: `http://localhost:${port}`,
+    baseUrl: `http://localhost:${ options.port }`,
 
     serenity: {
         actors: new Actors(),
@@ -102,7 +83,7 @@ export const config: WebdriverIOConfig = {
         timeout: 60_000,
     },
 
-    specs,
+    specs: options.specs,
 
     reporters: [
         'spec',
@@ -113,8 +94,9 @@ export const config: WebdriverIOConfig = {
     waitforTimeout: 10_000,
     connectionRetryTimeout: 90_000,
 
-    capabilities: [],
-    ...browserConfig,
+    capabilities: options.capabilities,
+    maxInstances: options.workers,
+    ...(options.integration === 'selenium-standalone' ? seleniumStandaloneBrowser : puppeteerBrowser),
 
     // logLevel: 'debug',
     logLevel: 'error',
@@ -127,5 +109,15 @@ export const config: WebdriverIOConfig = {
             transpileOnly: true,
             project: 'tsconfig.json'
         }
-    }
+    },
+
+    onPrepare: function (config) {
+        console.log(
+            '[configuration]',
+            'integration:', options.integration,
+            'protocol:', config.automationProtocol,
+            'port:', options.port,
+            'browser workers:', options.workers
+        );
+    },
 };

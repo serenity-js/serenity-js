@@ -17,5 +17,3 @@ If you have any questions, join us on [Serenity/JS Community Chat](https://gitte
 ## Serenity/JS Web
 
 [`@serenity-js/web`](https://serenity-js.org/modules/web/) contains Serenity/JS Screenplay Pattern APIs for testing Web apps.
-
-[![Build Status](https://app.saucelabs.com/browser-matrix/jan-molak.svg)](https://app.saucelabs.com/builds/b709ea824727341f8cf23a82ce1cfe59)

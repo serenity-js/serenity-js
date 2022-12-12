@@ -19,11 +19,13 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
-    "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "cross-env PORT=8080 start-server-and-test start http://localhost:8080 test:acceptance:run",
+    "test:puppeteer": "cross-env INTEGRATION=puppeteer npm test",
+    "test:selenium-standalone": "cross-env INTEGRATION=selenium-standalone npm test",
+    "pretest": "serenity-bdd update --ignoreSSL",
+    "test": "cross-env PORT=8080 failsafe clean test:acceptance test:report",
+    "test:acceptance": "start-server-and-test start 'http://localhost:8080' test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "nyc wdio wdio.conf.ts",
+    "test:acceptance:run": "cross-env-shell nyc --report-dir='../target/coverage/integration-webdriverio-web-$INTEGRATION' wdio wdio.conf.ts",
     "test:report": "serenity-bdd run"
   },
   "repository": {
@@ -49,8 +51,8 @@
     "@types/mocha": "^10.0.0",
     "@wdio/cli": "^7.27.0",
     "@wdio/local-runner": "^7.27.0",
+    "@wdio/selenium-standalone-service": "^7.26.0",
     "@wdio/spec-reporter": "^7.26.0",
-    "@wdio/sauce-service": "^7.27.0",
     "chromedriver": "^108.0.0",
     "ci-info": "^3.7.0",
     "cross-env": "^7.0.3",

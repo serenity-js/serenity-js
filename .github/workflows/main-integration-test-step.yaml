@@ -52,14 +52,6 @@ on:
         type: string
         required: false
 
-    secrets:
-      sauce-username:
-        description: 'Sauce Labs username'
-        required: false
-      sauce-access-key:
-        description: 'Sauce Labs API Key'
-        required: false
-
 permissions:
   contents: read
 
@@ -75,7 +67,6 @@ jobs:
     env:
       SEVEN_ZIP: ${{ inputs.runs-on == 'windows-latest' && '7z.exe' || '7z'  }}
       INTEGRATION_MODULE: ${{ matrix.module }}
-      SAUCE_TUNNEL_ID: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -109,22 +100,8 @@ jobs:
         working-directory: ${{ inputs.download-artifact-path }}
         run: ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
 
-      - name: Open Sauce Connect Tunnel
-        # Use an env var because secrets can't be used in condition statements - https://github.com/actions/runner/issues/520
-        env:
-          NEEDS_SAUCE_LABS: ${{ secrets.sauce-username && secrets.sauce-access-key }}
-        if: ${{ env.NEEDS_SAUCE_LABS != '' }}
-        uses: saucelabs/sauce-connect-action@v2
-        with:
-          username: ${{ secrets.sauce-username }}
-          accessKey: ${{ secrets.sauce-access-key }}
-          tunnelIdentifier: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
-
       - name: Execute command
         run: ${{ inputs.command }}
-        env:
-          SAUCE_USERNAME: ${{ secrets.sauce-username }}
-          SAUCE_ACCESS_KEY: ${{ secrets.sauce-access-key }}
 
       - name: Compress artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
