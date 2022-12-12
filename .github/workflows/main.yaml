@@ -145,33 +145,6 @@ jobs:
   # Integration
   #
 
-  test-integration-saucelabs:
-    name: 'Integration: SauceLabs'
-    # don't run on forks which won't have access to secrets
-    if: ${{ !github.event.pull_request.head.repo.fork }}
-    concurrency:
-      group: saucelabs-${{ github.ref }}
-      cancel-in-progress: true
-    needs:
-      - lint
-      - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "webdriverio-web"
-        ]
-      runs-on: 'ubuntu-latest'
-      node-version: 16.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
-      upload-artifact-name: 'test-integration-coverage-reports-saucelabs'
-      upload-artifact-path: 'package.json "target/**/*"'
-    secrets:
-      sauce-username: ${{ secrets.SAUCE_USERNAME }}
-      sauce-access-key: ${{ secrets.SAUCE_ACCESS_KEY }}
-
   test-integration-playwright:
     name: 'Integration: Playwright'
     needs:
@@ -204,18 +177,18 @@ jobs:
     with:
       modules: |
         [
-          "cucumber-1",
-          "cucumber-2",
-          "cucumber-3",
-          "cucumber-4",
-          "cucumber-5",
-          "cucumber-6",
-          "cucumber-7",
-          "cucumber-8",
+          "cucumber-all",
           "jasmine",
           "mocha",
-          "protractor-all",
-          "webdriverio-all"
+          "protractor-cucumber",
+          "protractor-jasmine",
+          "protractor-mocha",
+          "protractor-web",
+          "webdriverio-cucumber",
+          "webdriverio-jasmine",
+          "webdriverio-mocha",
+          "webdriverio-web:puppeteer",
+          "webdriverio-web:selenium-standalone",
         ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
@@ -233,7 +206,6 @@ jobs:
     name: 'Coverage: aggregate'
     needs:
       - test-linux-node-lts-active
-      - test-integration-saucelabs
       - test-integration-playwright
       - test-integration
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
@@ -303,7 +275,6 @@ jobs:
       - test-linux-node-lts-active
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
-      - test-integration-saucelabs
       - test-integration
     steps:
       - uses: actions/checkout@v3
