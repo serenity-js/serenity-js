@@ -67,7 +67,7 @@ function workers(env: Record<string, string>) {
         // This number seems to be optimal, based on trial and error
         // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
         return env.INTEGRATION === 'selenium-standalone'
-            ? 2
+            ? 3
             : 6;
     }
 
@@ -94,7 +94,7 @@ export const config: WebdriverIOConfig = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60_000,
+        timeout: 300_000,
     },
 
     specs: options.specs,
