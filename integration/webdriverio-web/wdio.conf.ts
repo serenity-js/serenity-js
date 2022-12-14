@@ -66,9 +66,7 @@ function workers(env: Record<string, string>) {
     if (env.CI) {
         // This number seems to be optimal, based on trial and error
         // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-        return env.INTEGRATION === 'selenium-standalone'
-            ? 3
-            : 6;
+        return 6;
     }
 
     return cpus().length - 1;
