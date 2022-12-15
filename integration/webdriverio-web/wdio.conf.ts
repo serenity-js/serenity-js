@@ -104,7 +104,7 @@ export const config: WebdriverIOConfig = {
     runner: 'local',
 
     waitforTimeout: 10_000,
-    connectionRetryTimeout: 90_000,
+    connectionRetryTimeout: 30_000,
 
     capabilities: options.capabilities,
     maxInstances: options.workers,
