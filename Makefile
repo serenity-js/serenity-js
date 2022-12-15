@@ -34,8 +34,8 @@ COMPILE_SCOPE=all
 # webdriverio-jasmine
 # webdriverio-mocha
 # webdriverio-web
-# webdriverio-web-puppeteer
-# webdriverio-web-selenium-standalone
+# webdriverio-web-devtools
+# webdriverio-web-webdriver
 INTEGRATION_SCOPE=all
 
 .PHONY: all install clean lint test compile integration-test verify report site

@@ -16,9 +16,9 @@ const options = {
         ? Number.parseInt(process.env.PORT, 10)
         : 8080,
 
-    integration: process.env.INTEGRATION === 'puppeteer'
-        ? 'puppeteer'
-        : 'selenium-standalone',
+    protocol: process.env.PROTOCOL === 'devtools'
+        ? 'devtools'
+        : 'webdriver',
 
     workers: workers(process.env),
 
@@ -39,22 +39,17 @@ const options = {
     }]
 }
 
-const puppeteerBrowser: Partial<WebdriverIOConfig> = {
+const devtoolsProtocol: Partial<WebdriverIOConfig> = {
     headless: true,
     automationProtocol: 'devtools',
 };
 
-const seleniumStandaloneBrowser: Partial<WebdriverIOConfig> = {
+const webdriverProtocol: Partial<WebdriverIOConfig> = {
+    headless: true,
     automationProtocol: 'webdriver',
+    outputDir: 'target/logs',
     services: [
-        ['selenium-standalone', {
-            logPath: './logs',
-            drivers:
-                options.capabilities.reduce((drivers, capability) => {
-                    drivers[capability.browserName] = true;
-                    return drivers;
-                }, {})
-        }]
+        [ 'chromedriver', { } ]
     ],
 };
 
@@ -108,7 +103,7 @@ export const config: WebdriverIOConfig = {
 
     capabilities: options.capabilities,
     maxInstances: options.workers,
-    ...(options.integration === 'selenium-standalone' ? seleniumStandaloneBrowser : puppeteerBrowser),
+    ...(options.protocol === 'webdriver' ? webdriverProtocol : devtoolsProtocol),
 
     // logLevel: 'debug',
     logLevel: 'error',
@@ -126,7 +121,7 @@ export const config: WebdriverIOConfig = {
     onPrepare: function (config) {
         console.log(
             '[configuration]',
-            'integration:', options.integration,
+            'integration:', options.protocol,
             'protocol:', config.automationProtocol,
             'port:', options.port,
             'browser workers:', options.workers
