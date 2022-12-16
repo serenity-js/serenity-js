@@ -21,9 +21,16 @@ export class PickEvent {
 
         try {
             assertion(this.events[ foundIndex ] as T);
-        } catch (error) {
+        }
+        catch (error) {
+
+            const longestEventName: number = this.events.reduce((longestSoFar, event) => {
+                const nameLength = event.constructor.name.length;
+                return nameLength > longestSoFar ? nameLength : longestSoFar;
+            }, 0);
+
             console.error(
-                this.events.map(event => `[event] ${ JSON.stringify(event.toJSON()) }`).join('\n')
+                this.events.map(event => `[${event.constructor.name.padEnd(longestEventName, ' ')}] ${ JSON.stringify(event.toJSON()) }`).join('\n')
             );
 
             throw error;
