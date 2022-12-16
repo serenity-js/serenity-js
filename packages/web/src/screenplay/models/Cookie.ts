@@ -1,4 +1,4 @@
-import { Answerable, d, Interaction, Optional, Question, QuestionAdapter, Timestamp } from '@serenity-js/core';
+import { Answerable, d, Interaction, Optional, Question, QuestionAdapter, Timestamp, WithAnswerableProperties } from '@serenity-js/core';
 import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
 
 import { CookieMissingError } from '../../errors';
@@ -8,7 +8,66 @@ import { CookieData } from './CookieData';
 /**
  * A Screenplay Pattern-style model responsible for managing cookies available to the current {@apilink Page}.
  *
+ * ## Checking if a cookie exists
+ *
+ * ```typescript
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Cookie } from '@serenity-js/web'
+ * import { Ensure, isPresent } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Sid')
+ *   .attemptsTo(
+ *     Navigate.to('https://example.org'),
+ *
+ *     Ensure.that(
+ *       Cookie.called('example-cookie-name'),
+ *       isPresent()
+ *     ),
+ * )
+ * ```
+ *
+ * ## Setting a cookie
+ *
+ * ```typescript
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Cookie } from '@serenity-js/web'
+ * import { Ensure, isPresent, not } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Sid')
+ *   .attemptsTo(
+ *     Navigate.to('https://example.org'),
+ *
+ *     Ensure.that(Cookie.called('example-cookie-name'), not(isPresent())),
+ *
+ *     Cookie.set({
+ *       name:  'favourite',
+ *       value: 'triple chocolate',
+ *     }),
+ *
+ *     Ensure.that(Cookie.called('example-cookie-name'), isPresent()),
+ *   )
+ * ```
+ *
+ * ## Reading a cookie
+ *
+ * ```typescript
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Navigate, Cookie } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Sid')
+ *   .attemptsTo(
+ *     Navigate.to('https://example.org'),
+ *
+ *     Ensure.that(
+ *       Cookie.called('some-cookie-name').value(),
+ *       equals('triple chocolate')
+ *     ),
+ * )
+ * ```
+ *
  * ## Learn more
+ * - {@apilink CookieData}
  * - {@apilink Page.cookie}
  *
  * @group Models
@@ -29,17 +88,19 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * Sets a cookie for the current {@apilink Page}.
+     * Sets a cookie for the current {@apilink Page}. Note that {@apilink CookieData} can be either a plain-old JavaScript object, or an {@apilink Answerable} {@apilink WithAnswerableProperties}.
      *
-     * **Note:** Make sure that the actor performing this interaction is on the page that should receive the cookie.
-     * An actor can't set a cookie for an arbitrary page without being on that page.
+     * :::info
+     * Make sure that the actor performing this interaction is on the page that should receive the cookie.
+     * Because of browser security restrictions, an actor can't set a cookie for an arbitrary page without being on that page.
+     * :::
      *
      * @param cookieData
      */
-    static set(cookieData: Answerable<CookieData>): Interaction {
+    static set(cookieData: Answerable<WithAnswerableProperties<CookieData>>): Interaction {
 
         return Interaction.where(d `#actor sets cookie: ${ cookieData }`, async actor => {
-            const cookie = ensure('cookieData', await actor.answer(cookieData), isDefined(), isPlainObject());
+            const cookie = ensure('cookieData', await actor.answer(Question.fromObject(cookieData)) as CookieData, isDefined(), isPlainObject());
 
             const page = await BrowseTheWeb.as(actor).currentPage();
 
