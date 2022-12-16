@@ -3,21 +3,26 @@ import { ArtifactArchiver, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { cpus } from 'os';
 
 import { Actors } from './src/Actors';
 
-const port = process.env.PORT || 8080;
+const options = {
+    specs: [
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+    ],
 
-const specs = [
-    './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-];
+    port: process.env.PORT
+        ? Number.parseInt(process.env.PORT, 10)
+        : 8080,
 
-const localBrowser: Partial<WebdriverIOConfig> = {
-    headless: true,
-    automationProtocol: 'devtools',
+    protocol: process.env.PROTOCOL === 'devtools'
+        ? 'devtools'
+        : 'webdriver',
+
+    workers: workers(process.env),
 
     capabilities: [{
-
         browserName: 'chrome',
         'goog:chromeOptions': {
             args: [
@@ -28,62 +33,45 @@ const localBrowser: Partial<WebdriverIOConfig> = {
                 '--ignore-certificate-errors',
                 '--headless',
                 '--disable-gpu',
-                '--disable-gpu',
                 '--window-size=1024x768',
             ],
         }
-    }],
+    }]
+}
 
-    // Reduce the number of parallel browsers on GitHub Actions because of the limited resources available
-    //  https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-    maxInstances: process.env.CI
-        ? 4
-        : 6,
+const devtoolsProtocol: Partial<WebdriverIOConfig> = {
+    headless: true,
+    automationProtocol: 'devtools',
 };
 
-const build = process.env.GITHUB_RUN_NUMBER
-    ? `@serenity-js/web (GitHub #${ process.env.GITHUB_RUN_NUMBER })`
-    : `@serenity-js/web (local ${ new Date().toISOString() })`;
-
-const sauceCapabilities = {
-    user:   process.env.SAUCE_USERNAME,
-    key:    process.env.SAUCE_ACCESS_KEY,
-    'sauce:options': {
-        tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
-        build,
-        screenResolution:   '1024x768',
-    }
-};
-
-const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
-    user:   process.env.SAUCE_USERNAME,
-    key:    process.env.SAUCE_ACCESS_KEY,
+const webdriverProtocol: Partial<WebdriverIOConfig> = {
+    headless: true,
+    automationProtocol: 'webdriver',
+    outputDir: 'target/logs',
     services: [
-        ['sauce', {
-            sauceConnect: false,
-        }]
+        [ 'chromedriver', { } ]
     ],
-
-    capabilities: [{
-        browserName:    'chrome',
-        browserVersion: 'latest',
-        platformName:   'Windows 11',
-        unhandledPromptBehavior: 'ignore',  // because we need to test ModalDialog interactions
-        ...sauceCapabilities,
-    }],
-
-    maxInstances: 10,
 };
 
-const browserConfig = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
-    ? sauceLabsBrowsers
-    : localBrowser;
+function workers(env: Record<string, string>) {
+    if (env.WORKERS) {
+        return Number.parseInt(env.WORKERS, 10);
+    }
+
+    if (env.CI) {
+        // This number seems to be optimal, based on trial and error
+        // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+        return 6;
+    }
+
+    return cpus().length - 1;
+}
 
 export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
 
-    baseUrl: `http://localhost:${port}`,
+    baseUrl: `http://localhost:${ options.port }`,
 
     serenity: {
         actors: new Actors(),
@@ -99,10 +87,10 @@ export const config: WebdriverIOConfig = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60_000,
+        timeout: 300_000,
     },
 
-    specs,
+    specs: options.specs,
 
     reporters: [
         'spec',
@@ -111,10 +99,11 @@ export const config: WebdriverIOConfig = {
     runner: 'local',
 
     waitforTimeout: 10_000,
-    connectionRetryTimeout: 90_000,
+    connectionRetryTimeout: 30_000,
 
-    capabilities: [],
-    ...browserConfig,
+    capabilities: options.capabilities,
+    maxInstances: options.workers,
+    ...(options.protocol === 'webdriver' ? webdriverProtocol : devtoolsProtocol),
 
     // logLevel: 'debug',
     logLevel: 'error',
@@ -127,5 +116,15 @@ export const config: WebdriverIOConfig = {
             transpileOnly: true,
             project: 'tsconfig.json'
         }
-    }
+    },
+
+    onPrepare: function (config) {
+        console.log(
+            '[configuration]',
+            'integration:', options.protocol,
+            'protocol:', config.automationProtocol,
+            'port:', options.port,
+            'browser workers:', options.workers
+        );
+    },
 };
