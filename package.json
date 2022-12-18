@@ -25,6 +25,7 @@
   ],
   "scripts": {
     "clean": "rimraf target && lerna run clean",
+    "cc": "nx reset",
     "lint": "eslint --ext ts --config .eslintrc.yml .",
     "lint:fix": "eslint --ext ts --config .eslintrc.yml --fix .",
     "compile:all": "lerna run compile",

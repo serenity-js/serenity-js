@@ -1,7 +1,5 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import axios, { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
-const mergeConfig = require('axios/lib/core/mergeConfig');      // eslint-disable-line @typescript-eslint/no-var-requires
-const buildFullPath = require('axios/lib/core/buildFullPath');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * An {@apilink Ability} that enables the {@apilink Actor} to call an HTTP API.
@@ -158,9 +156,7 @@ export class CallAnApi implements Ability {
      * @param config
      */
     resolveUrl(config: AxiosRequestConfig): string {
-        const merged = mergeConfig(this.axiosInstance.defaults, config);
-
-        return buildFullPath(merged.baseURL, merged.url);
+        return this.axiosInstance.getUri(config);
     }
 
     /**

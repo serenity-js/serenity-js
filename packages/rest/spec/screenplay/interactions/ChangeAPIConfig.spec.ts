@@ -1,5 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LogicError } from '@serenity-js/core';
+import { AxiosRequestHeaders } from 'axios';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
@@ -38,7 +39,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(37);
+            expect(location.line).to.equal(38);
             expect(location.column).to.equal(46);
         });
     });
@@ -81,7 +82,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(80);
+            expect(location.line).to.equal(81);
             expect(location.column).to.equal(46);
         });
     });
@@ -94,8 +95,10 @@ describe('ChangeApiConfig', () => {
             const dataMatcher = undefined;
             mock.onGet(originalUrl, dataMatcher).replyOnce(401);
             mock.onGet(originalUrl, dataMatcher, {
-                'Accept': 'application/json, text/plain, */*',
-                'Authorization': 'my-token'
+                asymmetricMatch: function (actual: AxiosRequestHeaders) {
+                    return actual.get('Accept') === 'application/json, text/plain, */*'
+                        && actual.get('Authorization') === 'my-token'
+                }
             }).replyOnce(200);
         });
 
@@ -126,7 +129,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(125);
+            expect(location.line).to.equal(128);
             expect(location.column).to.equal(46);
         });
     });

@@ -49,7 +49,7 @@ export = {
         configure({
             actors: new UpdateCommandActors(
                 new Path(process.cwd()),
-                () => axiosClient(repository, !! argv.ignoreSSL, process.env, Credentials.fromString(argv.auth))
+                () => axiosClient(repository, Boolean(argv.ignoreSSL), process.env, Credentials.fromString(argv.auth))
             ),
             crew: [
                 new NotificationReporter(printer),
