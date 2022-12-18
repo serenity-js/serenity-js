@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.37](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.36...v3.0.0-rc.37) (2022-12-18)
+
+
+### Bug Fixes
+
+* **deps:** update core dependencies to v5 ([7c44d5a](https://github.com/serenity-js/serenity-js/commit/7c44d5a6b498c034a5f55a4ae0b787f8ec2b5569))
+* **deps:** update serenity bdd dependencies ([51af1fc](https://github.com/serenity-js/serenity-js/commit/51af1fc1b104cd3821e2e807b1cf8c90fdb3b418))
+* **deps:** update website dependencies ([9be2176](https://github.com/serenity-js/serenity-js/commit/9be2176e66369d53647e81c82c0227d0cddfe2b6))
+* **web:** support for setting cookies using async or partially async data ([ec8a65d](https://github.com/serenity-js/serenity-js/commit/ec8a65d9e3c1e2eb311d14eb32f1de9e26b5879b)), closes [#1421](https://github.com/serenity-js/serenity-js/issues/1421)
+
+
+### Features
+
+* **cucumber:** support reporting named hooks ([426f68d](https://github.com/serenity-js/serenity-js/commit/426f68ded6b9b10c08ee3ed5668754e1c6dac298)), closes [#1416](https://github.com/serenity-js/serenity-js/issues/1416)
+* **playwright:** support for Playwright 1.29.0 ([3dd0635](https://github.com/serenity-js/serenity-js/commit/3dd0635d66df2571fb6d8d3e43d3feed71462da9))
+* **rest:** support for Axios 1.2.1 ([b1ab268](https://github.com/serenity-js/serenity-js/commit/b1ab268319b6e165f051be8382cb5945ca6d1944))
+
+
+
+
+
 # [3.0.0-rc.36](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.35...v3.0.0-rc.36) (2022-11-28)
 
 
