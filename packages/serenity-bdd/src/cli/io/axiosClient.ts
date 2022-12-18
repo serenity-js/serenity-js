@@ -1,6 +1,5 @@
 import { ConfigurationError } from '@serenity-js/core';
 import axios, { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } from 'axios';
-import { httpAdapter } from 'axios/lib/adapters/http';
 import * as fs from 'fs';
 import * as https from 'https';
 import { URL } from 'url';
@@ -31,7 +30,7 @@ export function axiosClient(
 
     const options: AxiosRequestConfig = {
         baseURL:    repository.toString(),
-        adapter:    httpAdapter,
+        adapter:    [ 'http' ],
         auth:       repositoryAuth,
     };
 

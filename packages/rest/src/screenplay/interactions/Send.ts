@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
 import { Artifact, HTTPRequestResponse, Name, RequestAndResponse } from '@serenity-js/core/lib/model';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosHeaders, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosRequestHeaders, RawAxiosResponseHeaders } from 'axios';
 
 import { CallAnApi } from '../abilities';
 
@@ -67,21 +67,27 @@ export class Send extends Interaction {
     }
 
     private responseToArtifact(targetUrl: string, response: AxiosResponse): Artifact {
-        const
-            request: AxiosRequestConfig = response.config,
-            requestAndResponse: RequestAndResponse = {
-                request: {
-                    method:     request.method,
-                    url:        targetUrl,
-                    headers:    request.headers,
-                    data:       request.data,
-                },
-                response: {
-                    status:     response.status,
-                    headers:    response.headers,
-                    data:       response.data,
-                },
-            };
+        const request: AxiosRequestConfig = response.config;
+
+        const axiosRequestHeaders: RawAxiosRequestHeaders = request.headers;
+        const requestHeaders: Record<string, string | number | boolean> = AxiosHeaders.from(axiosRequestHeaders).toJSON(true) as Record<string, string | number | boolean>;
+
+        const axiosResponseHeaders: RawAxiosResponseHeaders | AxiosResponseHeaders = response.headers;
+        const responseHeaders: Record<string, string> & { 'set-cookie'?: string[] } = AxiosHeaders.from(axiosResponseHeaders).toJSON(false) as RawAxiosResponseHeaders;
+
+        const requestAndResponse: RequestAndResponse = {
+            request: {
+                method:     request.method,
+                url:        targetUrl,
+                headers:    requestHeaders,
+                data:       request.data,
+            },
+            response: {
+                status:     response.status,
+                headers:    responseHeaders,
+                data:       response.data,
+            },
+        };
 
         return HTTPRequestResponse.fromJSON(requestAndResponse);
     }
