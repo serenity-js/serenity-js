@@ -163,7 +163,7 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: |
         mkdir target && \
-        npx --yes playwright install --with-deps && \
+        npx --no playwright install --with-deps && \
         make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
       upload-artifact-path: 'package.json "target/**/*"'

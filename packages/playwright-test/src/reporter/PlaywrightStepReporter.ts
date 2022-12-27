@@ -9,12 +9,12 @@ interface Location {
      * Path to the source file.
      */
     file: string;
-  
+
     /**
      * Line number in the source file.
      */
     line: number;
-  
+
     /**
      * Column number in the source file.
      */
@@ -24,6 +24,7 @@ interface Location {
 // https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/src/types.ts#L30
 interface TestStepInternal {
     complete(result: { error?: Error | TestError }): void;
+
     title: string;
     category: string;
     canHaveChildren: boolean;
@@ -60,10 +61,9 @@ export class PlaywrightStepReporter implements StageCrewMember {
 
         if (event instanceof InteractionFinished || event instanceof TaskFinished) {
             if (event.outcome instanceof ProblemIndication) {
-                this.steps.get(event.activityId.value).complete({ error: event.outcome.error })
-            }
-            else {
-                this.steps.get(event.activityId.value).complete({})
+                this.steps.get(event.activityId.value).complete({ error: event.outcome.error });
+            } else {
+                this.steps.get(event.activityId.value).complete({});
             }
         }
     }
@@ -77,7 +77,7 @@ export class PlaywrightStepReporter implements StageCrewMember {
             category: `serenity-js:${ type }`,
             title: activityDetails.name.value,
             canHaveChildren: true,
-            forceNoParent: false
+            forceNoParent: false,
         }) as TestStepInternal;
     }
 }

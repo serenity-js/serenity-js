@@ -1,5 +1,5 @@
-import { FullConfig, TestError } from '@playwright/test';
-import { Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter';
+import type { FullConfig, TestError } from '@playwright/test';
+import type { Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter';
 import { LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';

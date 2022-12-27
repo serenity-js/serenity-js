@@ -1,5 +1,5 @@
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
-import * as playwright from 'playwright-core';
+import type * as playwright from 'playwright-core';
 
 /**
  * Playwright-specific implementation of {@apilink ModalDialogHandler}.
