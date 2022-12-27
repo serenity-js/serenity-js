@@ -68,7 +68,9 @@ jobs:
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
-      command: make COMPILE_SCOPE=libs compile
+      command: |
+        ls -lah packages/playwright/node_modules && \
+        make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
       upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
 
