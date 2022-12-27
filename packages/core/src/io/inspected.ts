@@ -30,7 +30,7 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
     }
 
     if (isAPromise(value)) {
-        return markAs('Promise', true);
+        return markAs('Promise', markQuestions);
     }
 
     if (Question.isAQuestion(value)) {
