@@ -1,4 +1,4 @@
-import type { TestError, TestInfo } from '@playwright/test';
+import { TestError, TestInfo } from '@playwright/test';
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { DomainEvent, InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '@serenity-js/core/lib/events';
 import { ActivityDetails, ProblemIndication } from '@serenity-js/core/lib/model';
