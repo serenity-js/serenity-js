@@ -1,7 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { PlaywrightLocator } from './locators';

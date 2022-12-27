@@ -1,6 +1,6 @@
 import { f, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import { PlaywrightRootLocator } from './PlaywrightRootLocator';

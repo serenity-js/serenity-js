@@ -1,5 +1,5 @@
 import { RootLocator } from '@serenity-js/web';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
 /**

@@ -1,7 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 import { URL } from 'url';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';

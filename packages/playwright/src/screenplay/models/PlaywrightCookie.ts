@@ -1,6 +1,6 @@
 import { Timestamp } from '@serenity-js/core';
 import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
 /**

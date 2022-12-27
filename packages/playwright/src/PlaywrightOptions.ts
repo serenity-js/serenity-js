@@ -1,4 +1,4 @@
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 
 /**
  * Playwright-specific options used to configure the ability to {@apilink BrowseTheWebWithPlaywright}
