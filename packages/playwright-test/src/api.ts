@@ -1,4 +1,4 @@
-import { PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestInfo, TestType } from '@playwright/test';
+import { Browser, PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestInfo, TestType } from '@playwright/test';
 import { Actor, Cast, Duration, Serenity, serenity as serenityInstance, SerenityConfig, StageCrewMember } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
@@ -78,7 +78,7 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         });
     },
 
-    actors: async ({ browser }, use) => {
+    actors: async ({ browser }: { browser: Browser }, use) => {
         await use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
     },
 
