@@ -24,6 +24,17 @@ describe('Ensure', () => {
         )).to.be.rejectedWith(AssertionError, 'Expected 4 to have value identical to 7');
     });
 
+    given([
+        { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7 but got 4', description: 'Promise' },
+        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Questipn' },
+        { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Question<Promise>'  },
+    ]).
+    it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
+        return expect(actorCalled('Enrique').attemptsTo(
+            Ensure.that(actual, isIdenticalTo(7)),
+        )).to.be.rejectedWith(AssertionError, expectedMessage);
+    });
+
     it('provides a description of the assertion being made', () => {
         expect(Ensure.that(4, isIdenticalTo(7)).toString()).to.equal(`#actor ensures that 4 does have value identical to 7`);
     });
@@ -150,7 +161,7 @@ describe('Ensure', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(149);
+            expect(location.line).to.equal(160);
             expect(location.column).to.equal(37);
         });
 
@@ -159,7 +170,7 @@ describe('Ensure', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(158);
+            expect(location.line).to.equal(169);
             expect(location.column).to.equal(62);
         });
     });

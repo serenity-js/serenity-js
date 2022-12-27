@@ -140,8 +140,14 @@ export class Ensure<Actual> extends Interaction {
      * @param outcome
      */
     protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
+        const actualDescription = d`${ this.actual }`;
+        const inspectedActual = inspected(outcome.actual, { inline: true, markQuestions: false });
+        const message = actualDescription === inspectedActual
+            ? `Expected ${ actualDescription } to ${ outcome.message }`
+            : `Expected ${ actualDescription } to ${ outcome.message } but got ${ inspectedActual }`;
+
         return new AssertionError(
-            `Expected ${ d`${ this.actual }` } to ${ outcome.message }`,
+            message,
             outcome.expected,
             outcome.actual,
         );

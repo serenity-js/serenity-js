@@ -61,7 +61,7 @@ describe('Debug', () => {
         );
 
         expect(debuggerSpy).to.have.been.calledWith([
-            { description: '<<Promise>>',       value: 1,       error: undefined },
+            { description: 'Promise',           value: 1,       error: undefined },
             { description: `question adapter`,  value: 'two',   error: undefined },
         ]);
     });
@@ -82,7 +82,7 @@ describe('Debug', () => {
         const firstValue    = debuggerSpy.firstCall.args[0][0];
         const secondValue   = debuggerSpy.firstCall.args[0][1];
 
-        expect(firstValue.description).to.equal('<<Promise>>');
+        expect(firstValue.description).to.equal('Promise');
         expect(firstValue.value).to.be.undefined;
         expect(firstValue.error.message).to.equal('first error');
 
