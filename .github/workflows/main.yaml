@@ -159,7 +159,9 @@ jobs:
         ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      npm-install-command: |
+        make BOOTSTRAP_SCOPE=@integration install && \
+        npm run lerna:postbootstrap:playwright
       download-artifact-name: 'compiled-libs'
       command: |
         mkdir target && \
