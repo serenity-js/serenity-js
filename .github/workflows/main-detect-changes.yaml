@@ -55,7 +55,7 @@ jobs:
 
       - name: Detect changed files
         id: changed-files
-        uses: tj-actions/changed-files@ce4b8e3cba2220de8132ac9721ff754efd6bb7d7 # v34.6.2
+        uses: tj-actions/changed-files@1d8a2f91371fd14ec6146c37cbae79526144fbe9 # v35.1.1
         with:
           files: ${{ inputs.files }}
           files_ignore: ${{ inputs.files-ignore }}
