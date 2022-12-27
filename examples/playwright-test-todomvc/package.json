@@ -21,7 +21,6 @@
     "access": "private"
   },
   "scripts": {
-    "postbootstrap": "playwright install --with-deps",
     "clean": "rimraf target",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "playwright test --config playwright.config.ts",

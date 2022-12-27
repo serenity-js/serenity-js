@@ -26,7 +26,6 @@
     "testing"
   ],
   "scripts": {
-    "postbootstrap": "playwright install --with-deps",
     "clean": "rimraf '../../target/coverage/playwright'",
     "~test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"

@@ -163,7 +163,9 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: |
         mkdir target && \
-        npm run lerna:postbootstrap:playwright && \
+        cd packages/playwright && \
+        npx -y playwright install --with-deps && \
+        cd ../../ && \
         make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
       upload-artifact-path: 'package.json "target/**/*"'

@@ -27,7 +27,6 @@
     "testing"
   ],
   "scripts": {
-    "postbootstrap": "playwright install --with-deps",
     "clean": "rimraf '../../target/coverage/playwright-test'",
     "~test": "nyc playwright test",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"

@@ -18,7 +18,6 @@
     "internal"
   ],
   "scripts": {
-    "postbootstrap": "playwright install --with-deps",
     "clean": "rimraf target ../../target/coverage/integration-playwright-web",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
