@@ -5,7 +5,7 @@ import { RuntimeError } from '@serenity-js/core';
  */
 export function formatError(error: RuntimeError | Error): string {
 
-    const learnMore = `Learn more at https://serenity-js.org/modules/serenity-bdd`;
+    const learnMore = `Learn more at https://serenity-js.org/handbook/reporting/serenity-bdd-reporter`;
 
     switch (true) {
         case /ETIMEDOUT/.test(error.message):
@@ -19,6 +19,13 @@ export function formatError(error: RuntimeError | Error): string {
         case /self signed certificate in certificate chain/.test(error.message):
             return lines(
                 `If you're using a self-signed certificate please check if it's configured correctly or use the --ignoreSSL option.`,
+                '',
+                learnMore,
+            );
+
+        case /"path" argument must be of type string/.test(error.message):
+            return lines(
+                `Serenity BDD requires a Java Runtime Environment, please make sure you have Java installed.`,
                 '',
                 learnMore,
             );
