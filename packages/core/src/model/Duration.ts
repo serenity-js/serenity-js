@@ -1,4 +1,4 @@
-import { JSONObject, TinyType } from 'tiny-types';
+import { ensure, isGreaterThanOrEqualTo, isInteger, JSONObject, TinyType } from 'tiny-types';
 
 /**
  * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.
@@ -26,6 +26,7 @@ export class Duration extends TinyType {
 
     constructor(private readonly milliseconds: number) {
         super();
+        ensure('duration', milliseconds, isInteger(), isGreaterThanOrEqualTo(0));
     }
 
     isLessThan(another: Duration): boolean {
