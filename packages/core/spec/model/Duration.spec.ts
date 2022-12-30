@@ -38,7 +38,6 @@ describe('Duration', () => {
             tenSeconds  = Duration.ofSeconds(10);
 
         it('allows for durations to be added', () => {
-
             expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(70));
         });
     });
@@ -61,5 +60,16 @@ describe('Duration', () => {
         it('allows for durations to be compared', ({ result, expected }) => {
             expect(result).to.equal(expected);
         });
+    });
+
+    given([
+        { description: 'negative value',        value: -1,          expected: 'duration should either be equal to 0 or be greater than 0'   },
+        { description: 'floating point number', value: 1.23,        expected: 'duration should be an integer'                               },
+        // eslint-disable-next-line unicorn/no-null
+        { description: 'null',                  value: null,        expected: 'duration should be an integer'                               },
+        { description: 'undefined',             value: undefined,   expected: 'duration should be an integer'                               },
+    ]).
+    it(`complains when the value is invalid`, ({ value, expected }) => {
+        expect(() => new Duration(value)).to.throw(Error, expected)
     });
 });
