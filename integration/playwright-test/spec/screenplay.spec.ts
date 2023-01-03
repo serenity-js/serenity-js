@@ -12,7 +12,7 @@ describe('@serenity-js/playwright-test', function () {
     describe('reports events that occur when a Screenplay Pattern scenario', () => {
 
         it('passes with a single actor', () =>
-            playwrightTest('screenplay/passing-single-actor.spec.ts')
+            playwrightTest('--project=default', 'screenplay/passing-single-actor.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
@@ -45,8 +45,8 @@ describe('@serenity-js/playwright-test', function () {
                     ;
                 }));
 
-        it('passes with multiple actor', () =>
-            playwrightTest('screenplay/passing-multiple-actors.spec.ts')
+        it('passes with multiple actors', () =>
+            playwrightTest('--project=default', 'screenplay/passing-multiple-actors.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
@@ -58,9 +58,9 @@ describe('@serenity-js/playwright-test', function () {
                         })
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        
+
                     // we already know reporting interactions work, so let's focus on dismissing the actors
-                        
+
                         .next(AsyncOperationAttempted,   event => {
                             expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Charlie...`));
                         })
@@ -84,7 +84,7 @@ describe('@serenity-js/playwright-test', function () {
                 }));
 
         it('fails because of a failing Screenplay expectation', () =>
-            playwrightTest('screenplay/assertion-error.spec.ts')
+            playwrightTest('--project=default', 'screenplay/assertion-error.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
 
@@ -104,8 +104,8 @@ describe('@serenity-js/playwright-test', function () {
                     ;
                 }));
 
-        it('fails when discarding an ability results in Error', () =>
-            playwrightTest('screenplay/ability-discard-error.spec.ts')
+        it('fails when discarding of an ability results in Error', () =>
+            playwrightTest('--project=default', 'screenplay/ability-discard-error.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -128,8 +128,8 @@ describe('@serenity-js/playwright-test', function () {
                     ;
                 }));
 
-        it(`fails when discarding an ability doesn't complete within a timeout`, () =>
-            playwrightTest('screenplay/ability-discard-timeout.spec.ts')
+        it(`fails when discarding of an ability doesn't complete within a timeout`, () =>
+            playwrightTest('--project=default', 'screenplay/ability-discard-timeout.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -153,7 +153,7 @@ describe('@serenity-js/playwright-test', function () {
                 }));
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
-            playwrightTest('screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
+            playwrightTest('--project=default', 'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);

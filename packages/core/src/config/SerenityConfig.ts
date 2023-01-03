@@ -35,9 +35,12 @@ export abstract class SerenityConfig {
     crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;
 
     /**
-     * The maximum amount of time Serenity/JS should wait for any post-scenario
+     * The maximum amount of time between {@apilink SceneFinishes} and {@apilink SceneFinished} events
+     * that Serenity/JS should wait for any post-scenario
      * async operations to complete. Those include generating the screenshots,
-     * saving reports to disk and so on. **Please note** that this is not
+     * saving reports to disk, {@apilink Discardable|dismissing the actors}, and so on.
+     *
+     * **Please note** that this is not
      * a scenario timeout, which should be configured in your test runner.
      */
     cueTimeout?: Duration;

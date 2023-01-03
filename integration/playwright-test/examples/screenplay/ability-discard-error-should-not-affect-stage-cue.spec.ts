@@ -1,41 +1,6 @@
 import { Interaction } from '@serenity-js/core';
 import { describe, it, test } from '@serenity-js/playwright-test';
 
-describe('Playwright Test reporting', () => {
-
-    test.use({
-        // eslint-disable-next-line no-empty-pattern
-        actors: async ({}, use) => {
-            await use(new Actors())
-        }
-    });
-
-    describe('A screenplay scenario', () => {
-
-        // even if an ability is not discarded successfully, the subsequent tests should still be executed
-        it(`fails when discarding an ability fails`, async ({ actorCalled }) => {
-            await actorCalled('Donald')
-                .attemptsTo(
-                    NotDoTooMuch(),
-                );
-        });
-
-        it(`succeeds when ability is discarded successfully`, async ({ actorCalled }) => {
-            await actorCalled('Alice')
-                .attemptsTo(
-                    NotDoTooMuch(),
-                );
-        });
-
-        it(`fails if the ability fails to discard again`, async ({ actorCalled }) => {
-            await actorCalled('Donald')
-                .attemptsTo(
-                    NotDoTooMuch(),
-                );
-        });
-    });
-});
-
 class Actors {
     prepare(actor) {
         switch (actor.name) {
@@ -68,3 +33,35 @@ class SucceedWhenAbilityDiscarded {
         return Promise.resolve();
     }
 }
+
+describe('Playwright Test reporting', () => {
+
+    test.use({
+        actors: new Actors()
+    });
+
+    describe('A screenplay scenario', () => {
+
+        // even if an ability is not discarded successfully, the subsequent tests should still be executed
+        it(`fails when discarding an ability fails`, async ({ actorCalled }) => {
+            await actorCalled('Donald')
+                .attemptsTo(
+                    NotDoTooMuch(),
+                );
+        });
+
+        it(`succeeds when ability is discarded successfully`, async ({ actorCalled }) => {
+            await actorCalled('Alice')
+                .attemptsTo(
+                    NotDoTooMuch(),
+                );
+        });
+
+        it(`fails if the ability fails to discard again`, async ({ actorCalled }) => {
+            await actorCalled('Donald')
+                .attemptsTo(
+                    NotDoTooMuch(),
+                );
+        });
+    });
+});
