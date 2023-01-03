@@ -2,12 +2,8 @@ import { Browser } from '@playwright/test';
 import { Actor, Cast, Notepad, TakeNotes  } from '@serenity-js/core';
 import { ManageALocalServer } from '@serenity-js/local-server';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
-import { createServer } from 'http';
 
-const server = createServer(function (request, response) {
-    response.setHeader('Connection', 'close');
-    response.end(`<html><body><h1 id="welcome-message">Welcome, ${ request.headers['user-agent'] }!</h1></body></html>`);
-})
+import { server } from './server';
 
 export class MultipleWebActorsWithSharedNotes implements Cast {
     private sharedNotepad = Notepad.empty();

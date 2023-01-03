@@ -2,10 +2,6 @@ import { Cast, Log } from '@serenity-js/core';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import { describe, it, test } from '@serenity-js/playwright-test';
 
-export interface Notes {
-    testServerUrl: string;
-}
-
 describe('Playwright Test reporting', () => {
 
     test.use({

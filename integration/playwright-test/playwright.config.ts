@@ -5,6 +5,7 @@ import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
 
 import { CustomCast } from './examples/screenplay/actors/CustomCast';
+import { PhotographerActors } from './examples/screenplay/actors/PhotographerActors';
 
 /**
  * Read environment variables from file.
@@ -78,6 +79,29 @@ const config: PlaywrightTestConfig = {
                         },
                     }));
                 },
+            },
+        },
+        {
+            name: 'screenplay-photographer-default',
+            use: {
+                ...devices['Desktop Chrome'],
+                actors: ({ browser, contextOptions }, use) => {
+                    use(new PhotographerActors(browser, contextOptions));
+                },
+                defaultActorName: 'Phoebe',
+            },
+        },
+        {
+            name: 'screenplay-photographer-strategy',
+            use: {
+                ...devices['Desktop Chrome'],
+                crew: [
+                    [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ]
+                ],
+                actors: ({ browser, contextOptions }, use) => {
+                    use(new PhotographerActors(browser, contextOptions));
+                },
+                defaultActorName: 'Phoebe'
             },
         },
     ],

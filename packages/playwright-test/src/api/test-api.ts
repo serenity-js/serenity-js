@@ -3,6 +3,7 @@ import { Cast, Duration, serenity as serenityInstance, TakeNotes } from '@sereni
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
 import { ensure, isFunction, JSONValue, property } from 'tiny-types';
 
@@ -91,7 +92,7 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
 
     crew: [
         [
-            // todo: add Photographer and attach screenshots to Playwright report
+            Photographer.whoWill(TakePhotosOfFailures)
         ],
         { option: true },
     ],
@@ -108,12 +109,11 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         use({ name, version: os.release() });
     },
 
-    serenity: async ({ actors, crew, cueTimeout, platform }, use, info: TestInfo) => {
+    serenity: async ({ crew, cueTimeout, platform }, use, info: TestInfo) => {
 
         const domainEventBuffer = new DomainEventBuffer();
 
         serenityInstance.configure({
-            actors: asCast(actors),
             cueTimeout: asDuration(cueTimeout),
             crew: [
                 ...crew,
@@ -153,9 +153,11 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         await use(actorCalled(defaultActorName));
     },
 
-    actorCalled: async ({ serenity, browser, browserName, contextOptions }, use) => {
+    actorCalled: async ({ serenity, actors, browser, browserName, contextOptions }, use) => {
 
         const sceneId = serenity.currentSceneId();
+
+        serenity.engage(asCast(actors));
 
         const actorCalled = serenity.theActorCalled.bind(serenity);
 
