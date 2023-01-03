@@ -10,7 +10,7 @@ describe('@serenity-js/playwright-test', function () {
 
     describe('recognises a failing scenario that', () => {
 
-        it('throws an error', () => playwrightTest('--project=default', '--grep', 'failing/error-thrown.spec.ts')
+        it('throws an error', () => playwrightTest('--project=default', 'failing/error-thrown.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
@@ -29,7 +29,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('fails because of a failing Playwright assertion', () => playwrightTest('--project=default', '--grep', 'failing/failing-playwright-assertion.spec.ts')
+        it('fails because of a failing Playwright assertion', () => playwrightTest('--project=default', 'failing/failing-playwright-assertion.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
@@ -58,7 +58,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('fails with a Serenity/JS AssertionError', () => playwrightTest('--project=default', '--grep', 'failing/failing-serenity-js-assertion.spec.ts')
+        it('fails with a Serenity/JS AssertionError', () => playwrightTest('--project=default', 'failing/failing-serenity-js-assertion.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
@@ -81,7 +81,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('fails with a Serenity/JS Screenplay AssertionError', () => playwrightTest('--project=default', '--grep', 'failing/failing-serenity-js-screenplay-assertion.spec.ts')
+        it('fails with a Serenity/JS Screenplay AssertionError', () => playwrightTest('--project=default', 'failing/failing-serenity-js-screenplay-assertion.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
@@ -105,7 +105,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is compromised', () => playwrightTest('--project=default', '--grep', 'failing/test-compromised.spec.ts')
+        it('is compromised', () => playwrightTest('--project=default', 'failing/test-compromised.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
@@ -127,7 +127,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is marked as failing but passes', () => playwrightTest('--project=default', '--grep', 'failing/marked-as-failing-but-passes.spec.ts')
+        it('is marked as failing but passes', () => playwrightTest('--project=default', 'failing/marked-as-failing-but-passes.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 

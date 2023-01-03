@@ -53,7 +53,7 @@ describe('Photographer', () => {
             new ExecutionSkipped(),
             new ExecutionSuccessful(),
         ).
-        it('doesn\'t take a picture if everything goes well', (outcome: Outcome) => {
+        it(`doesn't take a picture if everything goes well`, (outcome: Outcome) => {
             const { stage, recorder } = create();
 
             const photographer = new Photographer(new TakePhotosOfFailures(), stage);

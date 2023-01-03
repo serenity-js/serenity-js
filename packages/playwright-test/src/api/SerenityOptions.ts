@@ -155,6 +155,14 @@ export interface SerenityOptions {
      * Configures the {@apilink SerenityConfig.crew|stage crew members}
      * to be instantiated in Playwright Test worker processes.
      *
+     * :::info Did you know?
+     * By default, Serenity/JS registers a {@apilink Photographer}.whoWill({@apilink TakePhotosOfFailures}),
+     * so that any test failures are automatically accompanied by a screenshot.
+     *
+     * If you prefer a different behaviour, you can configure the `crew` with an empty array to disable taking screenshots altogether (`crew: []`),
+     * or with a {@apilink Photographer} who uses a different {@apilink PhotoTakingStrategy}, like to {@apilink TakePhotosOfInteractions}.
+     * :::
+     *
      * #### Example
      *
      * ```typescript
@@ -168,7 +176,7 @@ export interface SerenityOptions {
      *         ],
      *     },
      * };
-     * export default config;
+     * export default config
      * ```
      *
      * #### Learn more

@@ -1,7 +1,16 @@
 import { TestError, TestInfo } from '@playwright/test';
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import { DomainEvent, InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '@serenity-js/core/lib/events';
-import { ActivityDetails, ProblemIndication } from '@serenity-js/core/lib/model';
+import {
+    ActivityRelatedArtifactGenerated,
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    DomainEvent,
+    InteractionFinished,
+    InteractionStarts,
+    TaskFinished,
+    TaskStarts,
+} from '@serenity-js/core/lib/events';
+import { ActivityDetails, CorrelationId, Description, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
 
 // https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/types/testReporter.d.ts#L524
 interface Location {
@@ -65,6 +74,24 @@ export class PlaywrightStepReporter implements StageCrewMember {
             } else {
                 this.steps.get(event.activityId.value).complete({});
             }
+        }
+
+        if (event instanceof ActivityRelatedArtifactGenerated && event.artifact instanceof Photo) {
+
+            const id = CorrelationId.create();
+
+            this.stage.announce(new AsyncOperationAttempted(
+                new Description(`[${ this.constructor.name }] Attaching screenshot of '${ event.name.value }'...`),
+                id,
+            ));
+
+            this.testInfo.attach(`Screenshot: ${ event.name.value }`, { body: Buffer.from(event.artifact.base64EncodedValue, 'base64'), contentType: 'image/png' })
+                .then(() => {
+                    this.stage.announce(new AsyncOperationCompleted(
+                        new Description(`[${ this.constructor.name }] Attached screenshot of '${ event.name.value }'`),
+                        id,
+                    ));
+                });
         }
     }
 

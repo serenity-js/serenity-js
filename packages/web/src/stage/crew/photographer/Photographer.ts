@@ -1,8 +1,8 @@
-import { LogicError } from '@serenity-js/core';
+import { ConfigurationError, LogicError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
 import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 
-import { PhotoTakingStrategy } from './strategies';
+import * as strategies from './strategies';
 
 /**
  * The Photographer is a {@apilink StageCrewMember} who takes screenshots
@@ -54,6 +54,25 @@ import { PhotoTakingStrategy } from './strategies';
  *   // ... rest of the config omitted for brevity
  * }
  * ```
+ *
+ * ## Using `Photographer` with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ *
+ * const config: PlaywrightTestConfig = {
+ *     use: {
+ *         crew: [
+ *             [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ] // or 'TakePhotosOfInteractions'
+ *         ],
+ *     },
+ * };
+ * export default config;
+ * ```
+ *
+ * #### Learn more
+ * - {@apilink SerenityOptions}
  *
  * ## Using `Photographer` with Protractor
  *
@@ -122,14 +141,37 @@ export class Photographer implements StageCrewMember {
      * as per the specified {@apilink PhotoTakingStrategy}.
      *
      * @param strategy
-     * A no-arg constructor function that instantiates a {@apilink PhotoTakingStrategy}
+     *  A no-arg constructor function that instantiates a {@apilink PhotoTakingStrategy}
      */
-    static whoWill(strategy: new () => PhotoTakingStrategy): StageCrewMember {
+    static whoWill(strategy: new () => strategies.PhotoTakingStrategy): StageCrewMember {
         return new Photographer(new strategy());
     }
 
+    /**
+     * Instantiates a new {@apilink Photographer} configured to take photos (screenshots)
+     * as per the specified {@apilink PhotoTakingStrategy}.
+     *
+     * @param config
+     */
+    static fromJSON(config?: { strategy?: Omit<keyof typeof strategies, 'PhotoTakingStrategy'> }): StageCrewMember {
+        if (config && config.strategy) {
+            const availableStrategies = Object.keys(strategies).filter(strategy => strategy !== strategies.PhotoTakingStrategy.name)    // not the abstract class
+
+            if (availableStrategies.includes(config.strategy as string)) {
+                return new Photographer(new strategies[config.strategy as string]());
+            }
+
+            throw new ConfigurationError(
+                `'${ config.strategy }' is not an available PhotoTakingStrategy. ` +
+                `Available strategies: ${ availableStrategies.join(', ') }.`
+            );
+        }
+
+        return new Photographer(new strategies.TakePhotosOfFailures());
+    }
+
     constructor(
-        private readonly photoTakingStrategy: PhotoTakingStrategy,
+        private readonly photoTakingStrategy: strategies.PhotoTakingStrategy,
         private stage?: Stage,
     ) {
     }

@@ -1,10 +1,6 @@
 import { Log, notes } from '@serenity-js/core';
 import { describe, it } from '@serenity-js/playwright-test';
 
-export interface Notes {
-    testServerUrl: string;
-}
-
 describe('Playwright Test configuration', () => {
 
     describe('A screenplay scenario', () => {
