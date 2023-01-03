@@ -10,7 +10,7 @@ describe('@serenity-js/playwright-test', function () {
     this.timeout(30_000);
 
     it('reports each retry of a retryable scenario', () =>
-        playwrightTest('--grep', 'retries.spec.ts', '--retries=3')
+        playwrightTest('--project=default', '--grep', 'retries.spec.ts', '--retries=3')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -63,7 +63,7 @@ describe('@serenity-js/playwright-test', function () {
             }));
 
     it(`doesn't announce retries if the scenario is not being retried`, () =>
-        playwrightTest('--grep', 'passing.spec.ts', '--retries=0')
+        playwrightTest('--project=default', '--grep', 'passing.spec.ts', '--retries=0')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 

@@ -1,8 +1,10 @@
 import { ChildProcessReporter } from '@integration/testing-tools';
 import { devices } from '@playwright/test';
-import { Duration, StreamReporter } from '@serenity-js/core';
-import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+import { StreamReporter } from '@serenity-js/core';
+import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
+
+import { CustomCast } from './examples/screenplay/actors/CustomCast';
 
 /**
  * Read environment variables from file.
@@ -17,13 +19,6 @@ const config: PlaywrightTestConfig = {
     testDir: './examples',
     /* Maximum time one test can run for. */
     timeout: 30_000,
-    expect: {
-        /**
-         * Maximum time expect() should wait for the condition to be met.
-         * For example in `await expect(locator).toHaveText();`
-         */
-        timeout: 5000,
-    },
     /* Run tests in files in parallel */
     // fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -41,7 +36,6 @@ const config: PlaywrightTestConfig = {
         [
             path.resolve(__dirname, '../../packages/playwright-test'),    // '@serenity-js/playwright-test'
             {
-                cueTimeout: Duration.ofMilliseconds(500),
                 crew: [
                     new ChildProcessReporter(),
                     new StreamReporter(),
@@ -52,9 +46,7 @@ const config: PlaywrightTestConfig = {
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
-        cueTimeout: Duration.ofSeconds(5),
-        
-        /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
+        cueTimeout: 5_000,
         actionTimeout: 0,
         /* Base URL to use in actions like `await page.goto('/')`. */
         // baseURL: 'http://localhost:3000',
@@ -66,9 +58,26 @@ const config: PlaywrightTestConfig = {
     /* Configure projects for major browsers */
     projects: [
         {
-            name: 'chromium',
+            name: 'default',
             use: {
                 ...devices['Desktop Chrome'],
+            },
+        },
+        {
+            name: 'screenplay-custom-cast',
+            use: {
+                ...devices['Desktop Chrome'],
+                contextOptions: {
+                    defaultNavigationTimeout: 30_000,
+                    defaultNavigationWaitUntil: 'networkidle'
+                },
+                actors: ({ browser, contextOptions }, use) => {
+                    use(CustomCast({
+                        contextOptions, options: {
+                            apiUrl: 'https://api.example.org',
+                        },
+                    }));
+                },
             },
         },
     ],

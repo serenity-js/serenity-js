@@ -9,7 +9,7 @@ describe('@serenity-js/playwright-test', function () {
 
     describe('recognises a skipped scenario that', () => {
 
-        it('is marked as skipped', () => playwrightTest('--grep', 'skipped/marked-as-skipped.spec.ts')
+        it('is marked as skipped', () => playwrightTest('--project=default', '--grep', 'skipped/marked-as-skipped.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -23,7 +23,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is marked as skipped conditionally', () => playwrightTest('--grep', 'skipped/marked-as-skipped-conditionally.spec.ts')
+        it('is marked as skipped conditionally', () => playwrightTest('--project=default', '--grep', 'skipped/marked-as-skipped-conditionally.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -37,7 +37,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is marked as skipped at the group level', () => playwrightTest('--grep', 'skipped/marked-as-skipped-at-group-level.spec.ts')
+        it('is marked as skipped at the group level', () => playwrightTest('--project=default', '--grep', 'skipped/marked-as-skipped-at-group-level.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -51,7 +51,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is marked as conditionally skipped at the group level', () => playwrightTest('--grep', 'skipped/marked-as-skipped-at-group-level-conditionally.spec.ts')
+        it('is marked as conditionally skipped at the group level', () => playwrightTest('--project=default', '--grep', 'skipped/marked-as-skipped-at-group-level-conditionally.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -65,7 +65,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('is marked as fixme', () => playwrightTest('--grep', 'skipped/marked-as-fixme.spec.ts')
+        it('is marked as fixme', () => playwrightTest('--project=default', '--grep', 'skipped/marked-as-fixme.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 

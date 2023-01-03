@@ -7,7 +7,7 @@ import { playwrightTest } from '../src/playwright-test';
 
 describe('@serenity-js/playwright-test', function () {
 
-    it('recognises a passing scenario', () => playwrightTest('--grep', 'passing.spec.ts')
+    it('recognises a passing scenario', () => playwrightTest('--project=default', '--grep', 'passing.spec.ts')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(result => {
 
