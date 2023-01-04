@@ -2,20 +2,6 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "@serenity-js/core/lib/*": [
-        "packages/core/src/*"
-      ],
-      "@serenity-js/cucumber/lib/*": [
-        "packages/cucumber/src/*"
-      ],
-      "@serenity-js/web/lib/*": [
-        "packages/web/src/*"
-      ],
-      "@serenity-js/*": [
-        "packages/*/src"
-      ]
-    },
     "noEmit": true
   }
 }
