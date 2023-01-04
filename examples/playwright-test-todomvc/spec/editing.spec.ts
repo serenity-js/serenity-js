@@ -1,6 +1,6 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { beforeEach, describe, it, test } from '@serenity-js/playwright-test';
-import { Enter, Key, Photographer, Press, TakePhotosOfFailures } from '@serenity-js/web';
+import { beforeEach, describe, it } from '@serenity-js/playwright-test';
+import { Enter, Key, Press } from '@serenity-js/web';
 
 import { TODO_ITEMS } from './test-data';
 import { persistedItemNames, persistedItems, startWithAListContaining } from './todo-list-app/TodoApp';
@@ -8,13 +8,6 @@ import { edit, editor, label, remove, rename, toggleButton } from './todo-list-a
 import { itemCalled, itemNames } from './todo-list-app/TodoList';
 
 describe('Editing', () => {
-
-    test.use({
-        defaultActorName: 'Serena',
-        crew: [
-            Photographer.whoWill(TakePhotosOfFailures),
-        ],
-    });
 
     describe('Todo List App', () => {
 
