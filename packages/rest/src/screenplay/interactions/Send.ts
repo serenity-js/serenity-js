@@ -69,7 +69,7 @@ export class Send extends Interaction {
     private responseToArtifact(targetUrl: string, response: AxiosResponse): Artifact {
         const request: AxiosRequestConfig = response.config;
 
-        const axiosRequestHeaders: RawAxiosRequestHeaders = request.headers;
+        const axiosRequestHeaders = request.headers;
         const requestHeaders: Record<string, string | number | boolean> = AxiosHeaders.from(axiosRequestHeaders).toJSON(true) as Record<string, string | number | boolean>;
 
         const axiosResponseHeaders: RawAxiosResponseHeaders | AxiosResponseHeaders = response.headers;
