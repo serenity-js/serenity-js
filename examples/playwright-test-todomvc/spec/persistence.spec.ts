@@ -1,6 +1,6 @@
 import { Ensure, equals, property } from '@serenity-js/assertions';
-import { describe, it, test } from '@serenity-js/playwright-test';
-import { Page, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
+import { describe, it } from '@serenity-js/playwright-test';
+import { Page } from '@serenity-js/web';
 
 import { TODO_ITEMS } from './test-data';
 import { persistedItems, startWithAListContaining } from './todo-list-app/TodoApp';
@@ -8,13 +8,6 @@ import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted } fro
 import { itemCalled, itemNames, items } from './todo-list-app/TodoList';
 
 describe('Persistence', () => {
-
-    test.use({
-        defaultActorName: 'Serena',
-        crew: [
-            Photographer.whoWill(TakePhotosOfFailures),
-        ],
-    });
 
     describe('Todo List App', () => {
 
