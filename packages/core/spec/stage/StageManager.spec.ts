@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
-import { CorrelationId, Description, Duration } from '../../src/model';
+import { CorrelationId, Description, Duration, Name } from '../../src/model';
 import { Clock, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 import { Recorder } from '../Recorder';
@@ -39,10 +39,12 @@ describe('StageManager', () => {
         const id = CorrelationId.create();
 
         stageManager.notifyOf(new AsyncOperationAttempted(
+            new Name('Example stage crew member'),
             new Description('Saving a file...'),
             id,
         ));
         stageManager.notifyOf(new AsyncOperationCompleted(
+            new Name('Example stage crew member'),
             new Description('File saved'),
             id,
         ));
@@ -56,12 +58,14 @@ describe('StageManager', () => {
         const stageManager = new StageManager(timeout, new Clock());
 
         stageManager.notifyOf(new AsyncOperationAttempted(
-            new Description('[Service 1] Starting...'),
+            new Name('Service 1'),
+            new Description('Starting...'),
             CorrelationId.create(),
         ));
 
         stageManager.notifyOf(new AsyncOperationAttempted(
-            new Description('[Service 2] Starting...'),
+            new Name('Service 2'),
+            new Description('Starting...'),
             CorrelationId.create(),
         ));
 
@@ -82,7 +86,8 @@ describe('StageManager', () => {
         const correlationId = CorrelationId.create();
 
         stageManager.notifyOf(new AsyncOperationAttempted(
-            new Description('[Service 1] Starting...'),
+            new Name('Service 1'),
+            new Description('Starting...'),
             correlationId,
         ));
 

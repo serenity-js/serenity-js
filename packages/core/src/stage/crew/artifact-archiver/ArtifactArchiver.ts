@@ -178,7 +178,8 @@ export class ArtifactArchiver implements StageCrewMember {
         const id = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
-            new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),
+            new Name(this.constructor.name),
+            new Description(`Saving '${ relativePath.value }'...`),
             id,
         ));
 
@@ -187,7 +188,8 @@ export class ArtifactArchiver implements StageCrewMember {
                 announce(relativePath);
 
                 this.stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),
+                    new Name(this.constructor.name),
+                    new Description(`Saved '${ absolutePath.value }'`),
                     id,
                 ));
             })

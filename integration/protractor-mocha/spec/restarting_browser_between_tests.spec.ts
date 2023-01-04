@@ -36,8 +36,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -50,8 +50,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -64,8 +64,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -95,8 +95,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -109,8 +109,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
@@ -123,8 +123,8 @@ describe('@serenity-js/Mocha', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());

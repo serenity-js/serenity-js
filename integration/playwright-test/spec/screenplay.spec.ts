@@ -36,10 +36,10 @@ describe('@serenity-js/playwright-test', function () {
                             expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Alice...`));
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
@@ -62,22 +62,22 @@ describe('@serenity-js/playwright-test', function () {
                     // we already know reporting interactions work, so let's focus on dismissing the actors
 
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Charlie...`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Charlie...`));
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Alice...`));
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Bob...`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Bob...`));
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Charlie successfully`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Charlie successfully`));
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Bob successfully`));
+                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Bob successfully`));
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
