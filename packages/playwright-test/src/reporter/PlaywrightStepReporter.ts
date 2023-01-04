@@ -2,15 +2,22 @@ import { TestError, TestInfo } from '@playwright/test';
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactGenerated,
+    AsyncOperationAborted,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
+    AsyncOperationFailed,
     DomainEvent,
     InteractionFinished,
     InteractionStarts,
     TaskFinished,
     TaskStarts,
 } from '@serenity-js/core/lib/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, Description, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
+import { Photographer } from '@serenity-js/web';
+import { SceneTagged } from '@serenity-js/core/src/events';
+
+const genericPathToPhotographer = Path.from(require.resolve('@serenity-js/web'))
 
 // https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/types/testReporter.d.ts#L524
 interface Location {
@@ -68,6 +75,24 @@ export class PlaywrightStepReporter implements StageCrewMember {
             this.steps.set(event.activityId.value, this.createStep(event.details, 'interaction'));
         }
 
+        if (event instanceof AsyncOperationAttempted && event.name.value.startsWith(Photographer.name)) {
+            this.steps.set(event.correlationId.value, this.createStep(new ActivityDetails(
+                new Name(`${ Photographer.name }: ${ event.description.value }`),
+                new FileSystemLocation(genericPathToPhotographer)
+            ), 'crew'));
+        }
+
+        if (
+            (event instanceof AsyncOperationCompleted || event instanceof AsyncOperationAborted)
+            && this.steps.has(event.correlationId.value)
+        ) {
+            this.steps.get(event.correlationId.value).complete({ });
+        }
+
+        if (event instanceof AsyncOperationFailed && this.steps.has(event.correlationId.value)) {
+            this.steps.get(event.correlationId.value).complete({ error: event.error });
+        }
+
         if (event instanceof InteractionFinished || event instanceof TaskFinished) {
             if (event.outcome instanceof ProblemIndication) {
                 this.steps.get(event.activityId.value).complete({ error: event.outcome.error });
@@ -95,9 +120,13 @@ export class PlaywrightStepReporter implements StageCrewMember {
                     ));
                 });
         }
+
+        if (event instanceof SceneTagged) {
+            this.testInfo.annotations.push({ type: event.tag.type, description: event.tag.name });
+        }
     }
 
-    private createStep(activityDetails: ActivityDetails, type: 'task' | 'interaction'): TestStepInternal {
+    private createStep(activityDetails: ActivityDetails, type: 'task' | 'interaction' | 'crew'): TestStepInternal {
         // https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/src/expect.ts#L200-L206
         return (this.testInfo as any)._addStep({
             location: activityDetails.location
