@@ -60,8 +60,6 @@ export class BrowserDetector implements StageCrewMember {
                 ));
 
                 this.stage.announce(new AsyncOperationCompleted(
-                    new Name(this.constructor.name),
-                    new Description(`Detected web browser details`),
                     id,
                     this.stage.currentTime(),
                 ));

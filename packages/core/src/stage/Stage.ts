@@ -273,6 +273,7 @@ export class Stage {
                 new Name(this.constructor.name),
                 new Description(`Dismissing ${ actor.name }...`),
                 correlationId,
+                this.currentTime(),
             ));
         }
 
@@ -282,13 +283,12 @@ export class Stage {
                 await actor.dismiss();
 
                 this.announce(new AsyncOperationCompleted(
-                    new Name(this.constructor.name),
-                    new Description(`Dismissed ${ actor.name } successfully`),
                     correlationId,
+                    this.currentTime(),
                 ));
             }
             catch (error) {
-                this.announce(new AsyncOperationFailed(error, correlationId));     // todo: serialise the error!
+                this.announce(new AsyncOperationFailed(error, correlationId, this.currentTime()));     // todo: serialise the error!
             }
         }
 

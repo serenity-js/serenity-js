@@ -44,8 +44,6 @@ describe('StageManager', () => {
             id,
         ));
         stageManager.notifyOf(new AsyncOperationCompleted(
-            new Name('Example stage crew member'),
-            new Description('File saved'),
             id,
         ));
 
