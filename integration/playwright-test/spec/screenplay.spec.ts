@@ -18,7 +18,8 @@ describe('@serenity-js/playwright-test', function () {
 
                     expect(result.exitCode).to.equal(0);
 
-                    let currentSceneId: CorrelationId;
+                    let currentSceneId: CorrelationId,
+                        asyncOperationIdAlice: CorrelationId;
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => {
@@ -36,10 +37,14 @@ describe('@serenity-js/playwright-test', function () {
                             expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+
+                            asyncOperationIdAlice = event.correlationId;
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
@@ -52,6 +57,10 @@ describe('@serenity-js/playwright-test', function () {
 
                     expect(result.exitCode).to.equal(0);
 
+                    let asyncOperationIdAlice: CorrelationId,
+                        asyncOperationIdBob: CorrelationId,
+                        asyncOperationIdCharlie: CorrelationId;
+
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => {
                             expect(event.details.name).to.equal(new Name('A screenplay scenario supports multiple actors'))
@@ -62,22 +71,34 @@ describe('@serenity-js/playwright-test', function () {
                     // we already know reporting interactions work, so let's focus on dismissing the actors
 
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Charlie...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Charlie...`));
+
+                            asyncOperationIdCharlie = event.correlationId;
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+
+                            asyncOperationIdAlice = event.correlationId;
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissing Bob...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Bob...`));
+
+                            asyncOperationIdBob = event.correlationId;
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Charlie successfully`));
+                            expect(asyncOperationIdCharlie).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdCharlie);
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.description).to.equal(new Description(`[Stage] Dismissed Bob successfully`));
+                            expect(asyncOperationIdBob).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdBob);
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
