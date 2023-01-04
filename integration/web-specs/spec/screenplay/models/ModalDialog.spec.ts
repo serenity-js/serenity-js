@@ -287,8 +287,8 @@ describe('ModalDialog', () => {
             );
 
             PickEvent.from(recorder.events)
-                .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
-                    expect(taskDescription.value).to.include(`Took screenshot of 'Nick navigates`);
+                .next(AsyncOperationCompleted, ({ description }: AsyncOperationCompleted) => {
+                    expect(description.value).to.include(`Took screenshot of 'Nick navigates`);
                 })
                 .next(InteractionFinished, ({ details }: InteractionFinished) => {
                     expect(details.name).to.equal(new Name('Nick clicks on the modal dialog trigger'));

@@ -8,7 +8,7 @@ import {
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ImplementationPending,
+    ImplementationPending, Name,
     Outcome,
     ProblemIndication,
     TestSuiteDetails,
@@ -398,7 +398,8 @@ export class WebdriverIONotifier implements StageCrewMember {
         const asyncOperationId = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
-            new Description(`[WebdriverIONotifier#invokeHooks] Invoking ${ hookName } hook`),
+            new Name(`WebdriverIONotifier#invokeHooks`),
+            new Description(`Invoking ${ hookName } hook`),
             asyncOperationId,
         ));
 
@@ -426,7 +427,8 @@ export class WebdriverIONotifier implements StageCrewMember {
         then(results => {
 
             this.stage.announce(new AsyncOperationCompleted(
-                new Description(`[WebdriverIONotifier#invokeHooks] Invoking ${ hookName } hook completed`),
+                new Name(`WebdriverIONotifier#invokeHooks`),
+                new Description(`Invoking ${ hookName } hook completed`),
                 asyncOperationId,
             ));
 

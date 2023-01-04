@@ -44,7 +44,8 @@ export abstract class PhotoTakingStrategy {
             nameSuffix      = this.photoNameFor(event);
 
         stage.announce(new AsyncOperationAttempted(
-            new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
+            new Name(`Photographer:${ this.constructor.name }`),
+            new Description(`Taking screenshot of '${ nameSuffix }'...`),
             id,
         ));
 
@@ -65,14 +66,16 @@ export abstract class PhotoTakingStrategy {
             ));
 
             return stage.announce(new AsyncOperationCompleted(
-                new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
+                new Name(`Photographer:${ this.constructor.name }`),
+                new Description(`Took screenshot of '${ nameSuffix }' on ${ context }`),
                 id,
             ));
         }
         catch (error) {
             if (this.shouldIgnore(error)) {
                 stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
+                    new Name(`Photographer:${ this.constructor.name }`),
+                    new Description(`Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
                     id,
                 ));
             }

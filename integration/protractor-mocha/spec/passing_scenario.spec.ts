@@ -40,12 +40,12 @@ describe('@serenity-js/mocha', function () {
                 })
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Mocha')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[BrowserDetector] Detected web browser details')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[BrowserDetector] Detected web browser details')))
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
+                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());

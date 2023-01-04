@@ -43,15 +43,15 @@ describe('@serenity-js/jasmine', function () {
                 ;
 
                 const asyncEvents = result.events.filter(event => event instanceof AsyncOperationAttempted || event instanceof AsyncOperationCompleted) as Array<AsyncOperationAttempted | AsyncOperationCompleted>;
-                
-                const stageEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[Stage]'));
 
-                expect(stageEvents[0].taskDescription).to.equal(new Description('[Stage] Dismissing Jasmine...'));
-                expect(stageEvents[1].taskDescription).to.equal(new Description('[Stage] Dismissed Jasmine successfully'));
+                const stageEvents = asyncEvents.filter(event => event.description.value.startsWith('[Stage]'));
 
-                const reporterEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[ProtractorReporter]'));
+                expect(stageEvents[0].description).to.equal(new Description('[Stage] Dismissing Jasmine...'));
+                expect(stageEvents[1].description).to.equal(new Description('[Stage] Dismissed Jasmine successfully'));
 
-                expect(reporterEvents[0].taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...'));
-                expect(reporterEvents[1].taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded'));
+                const reporterEvents = asyncEvents.filter(event => event.description.value.startsWith('[ProtractorReporter]'));
+
+                expect(reporterEvents[0].description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...'));
+                expect(reporterEvents[1].description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded'));
             }));
 });
