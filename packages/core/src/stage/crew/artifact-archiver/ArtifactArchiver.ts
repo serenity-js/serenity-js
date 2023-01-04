@@ -181,20 +181,20 @@ export class ArtifactArchiver implements StageCrewMember {
             new Name(this.constructor.name),
             new Description(`Saving '${ relativePath.value }'...`),
             id,
+            this.stage.currentTime(),
         ));
 
         this.fileSystem.store(relativePath, contents, encoding)
-            .then(absolutePath => {
+            .then(absolutePath_ => {
                 announce(relativePath);
 
                 this.stage.announce(new AsyncOperationCompleted(
-                    new Name(this.constructor.name),
-                    new Description(`Saved '${ absolutePath.value }'`),
                     id,
+                    this.stage.currentTime(),
                 ));
             })
             .catch(error => {
-                this.stage.announce(new AsyncOperationFailed(error, id));
+                this.stage.announce(new AsyncOperationFailed(error, id, this.stage.currentTime()));
             });
     }
 

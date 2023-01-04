@@ -30,22 +30,34 @@ describe('@serenity-js/mocha', function () {
 
             expect(result.exitCode).to.equal(0);
 
-            let currentSceneId: CorrelationId;
+            let currentSceneId: CorrelationId,
+                asyncBrowserDetectionId: CorrelationId,
+                asyncHooksId: CorrelationId;
 
             PickEvent.from(result.events)
                 .next(TestRunStarts,            event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    asyncBrowserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Mocha')))
-                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[BrowserDetector] Detected web browser details')))
+
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncBrowserDetectionId))
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.description).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    asyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());

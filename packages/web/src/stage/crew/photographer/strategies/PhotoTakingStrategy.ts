@@ -1,5 +1,5 @@
 import { LogicError, Stage } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 
 import { BrowseTheWeb } from '../../../../screenplay';
@@ -47,6 +47,7 @@ export abstract class PhotoTakingStrategy {
             new Name(`Photographer:${ this.constructor.name }`),
             new Description(`Taking screenshot of '${ nameSuffix }'...`),
             id,
+            stage.currentTime(),
         ));
 
         try {
@@ -63,24 +64,24 @@ export abstract class PhotoTakingStrategy {
                 event.activityId,
                 photoName,
                 Photo.fromBase64(screenshot),
+                stage.currentTime(),
             ));
 
             return stage.announce(new AsyncOperationCompleted(
-                new Name(`Photographer:${ this.constructor.name }`),
-                new Description(`Took screenshot of '${ nameSuffix }' on ${ context }`),
                 id,
+                stage.currentTime(),
             ));
         }
         catch (error) {
             if (this.shouldIgnore(error)) {
-                stage.announce(new AsyncOperationCompleted(
-                    new Name(`Photographer:${ this.constructor.name }`),
+                stage.announce(new AsyncOperationAborted(
                     new Description(`Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
                     id,
+                    stage.currentTime(),
                 ));
             }
             else {
-                stage.announce(new AsyncOperationFailed(error, id));
+                stage.announce(new AsyncOperationFailed(error, id, stage.currentTime()));
             }
         }
     }

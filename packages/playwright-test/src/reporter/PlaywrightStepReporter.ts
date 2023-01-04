@@ -84,14 +84,14 @@ export class PlaywrightStepReporter implements StageCrewMember {
                 new Name(this.constructor.name),
                 new Description(`Attaching screenshot of '${ event.name.value }'...`),
                 id,
+                this.stage.currentTime(),
             ));
 
             this.testInfo.attach(event.name.value, { body: Buffer.from(event.artifact.base64EncodedValue, 'base64'), contentType: 'image/png' })
                 .then(() => {
                     this.stage.announce(new AsyncOperationCompleted(
-                        new Name(this.constructor.name),
-                        new Description(`Attached screenshot of '${ event.name.value }'`),
                         id,
+                        this.stage.currentTime()
                     ));
                 });
         }

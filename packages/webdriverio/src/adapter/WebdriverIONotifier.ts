@@ -401,6 +401,7 @@ export class WebdriverIONotifier implements StageCrewMember {
             new Name(`WebdriverIONotifier#invokeHooks`),
             new Description(`Invoking ${ hookName } hook`),
             asyncOperationId,
+            this.stage.currentTime(),
         ));
 
         return Promise.all(hooks.map((hook) => new Promise<Result | Error>((resolve) => {
@@ -427,9 +428,8 @@ export class WebdriverIONotifier implements StageCrewMember {
         then(results => {
 
             this.stage.announce(new AsyncOperationCompleted(
-                new Name(`WebdriverIONotifier#invokeHooks`),
-                new Description(`Invoking ${ hookName } hook completed`),
                 asyncOperationId,
+                this.stage.currentTime(),
             ));
 
             return results;

@@ -103,8 +103,6 @@ export class ProtractorReporter implements StageCrewMember {
             await this.runner.afterEach();
 
             this.stage.announce(new AsyncOperationCompleted(
-                new Name(this.constructor.name),
-                new Description(`ProtractorRunner.afterEach succeeded`),
                 id,
                 this.stage.currentTime(),
             ));
