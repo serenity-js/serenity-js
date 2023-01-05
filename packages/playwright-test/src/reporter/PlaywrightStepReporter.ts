@@ -14,9 +14,9 @@ import {
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, Description, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/src/model';
 import { Photographer } from '@serenity-js/web';
 import { match } from 'tiny-types';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/src/model';
 
 const genericPathToPhotographer = Path.from(require.resolve('@serenity-js/web'))
 
