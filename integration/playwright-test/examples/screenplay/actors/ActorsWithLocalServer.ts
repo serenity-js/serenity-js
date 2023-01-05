@@ -5,7 +5,7 @@ import { Browser } from 'playwright-core';
 
 import { server } from './server';
 
-export class PhotographerActors implements Cast {
+export class ActorsWithLocalServer implements Cast {
     constructor(private readonly browser: Browser, private readonly contextOptions: PlaywrightOptions) {
     }
 

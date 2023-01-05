@@ -4,8 +4,8 @@ import { StreamReporter } from '@serenity-js/core';
 import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
 
+import { ActorsWithLocalServer } from './examples/screenplay/actors/ActorsWithLocalServer';
 import { CustomCast } from './examples/screenplay/actors/CustomCast';
-import { PhotographerActors } from './examples/screenplay/actors/PhotographerActors';
 
 /**
  * Read environment variables from file.
@@ -65,6 +65,16 @@ const config: PlaywrightTestConfig = {
             },
         },
         {
+            name: 'screenplay-local-server',
+            use: {
+                ...devices['Desktop Chrome'],
+                actors: ({ browser, contextOptions }, use) => {
+                    use(new ActorsWithLocalServer(browser, contextOptions));
+                },
+                defaultActorName: 'Phoebe',
+            },
+        },
+        {
             name: 'screenplay-custom-cast',
             use: {
                 ...devices['Desktop Chrome'],
@@ -86,7 +96,7 @@ const config: PlaywrightTestConfig = {
             use: {
                 ...devices['Desktop Chrome'],
                 actors: ({ browser, contextOptions }, use) => {
-                    use(new PhotographerActors(browser, contextOptions));
+                    use(new ActorsWithLocalServer(browser, contextOptions));
                 },
                 defaultActorName: 'Phoebe',
             },
@@ -99,7 +109,7 @@ const config: PlaywrightTestConfig = {
                     [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ]
                 ],
                 actors: ({ browser, contextOptions }, use) => {
-                    use(new PhotographerActors(browser, contextOptions));
+                    use(new ActorsWithLocalServer(browser, contextOptions));
                 },
                 defaultActorName: 'Phoebe'
             },

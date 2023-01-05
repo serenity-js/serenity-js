@@ -2,7 +2,7 @@ import { test as base, TestInfo } from '@playwright/test';
 import { Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { BrowseTheWebWithPlaywright, PlaywrightPage } from '@serenity-js/playwright';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
 import { ensure, isFunction, JSONValue, property } from 'tiny-types';
@@ -149,10 +149,6 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         });
     },
 
-    actor: async ({ actorCalled, defaultActorName }, use) => {
-        await use(actorCalled(defaultActorName));
-    },
-
     actorCalled: async ({ serenity, actors, browser, browserName, contextOptions }, use) => {
 
         const sceneId = serenity.currentSceneId();
@@ -174,6 +170,17 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         );
 
         await serenityInstance.waitForNextCue();
+    },
+
+    actor: async ({ actorCalled, defaultActorName }, use) => {
+        await use(actorCalled(defaultActorName));
+    },
+
+    page: async ({ actor }, use) => {
+        const page = (await BrowseTheWebWithPlaywright.as(actor).currentPage()) as PlaywrightPage;
+        const nativePage = await page.nativePage();
+
+        await use(nativePage);
     },
 });
 
