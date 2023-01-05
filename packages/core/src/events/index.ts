@@ -4,6 +4,7 @@ export * from './ActivityRelatedArtifactGenerated';
 export * from './ActivityStarts';
 export * from './ArtifactArchived';
 export * from './ArtifactGenerated';
+export * from './AsyncOperationAborted';
 export * from './AsyncOperationAttempted';
 export * from './AsyncOperationCompleted';
 export * from './AsyncOperationFailed';

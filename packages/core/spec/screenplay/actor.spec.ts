@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question } from '../../src/screenplay';
+import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question, UsesAbilities } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
@@ -97,6 +97,12 @@ describe('Actor', () => {
             expect(actor('Ben').attemptsTo(
                 PlayAChord.of(Chords.AMajor),
             )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
+
+        it('admits if it does not have the Ability necessary to accomplish a given Interaction, but mentions any other abilities they might have', () => {
+
+            expect(() => actor('Ben').whoCan(new DoSomethingElse()).abilityTo(PlayAGuitar))
+                .to.throw(ConfigurationError, `Ben can DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
+        })
 
         it('complains if given the same ability twice', () => {
 
@@ -220,5 +226,11 @@ class See<S> extends Interaction {
 
     performAs(actor: AnswersQuestions): Promise<void> {
         return actor.answer(this.question).then(this.assert);
+    }
+}
+
+class DoSomethingElse implements Ability {
+    static as(actor: UsesAbilities): Ability {
+        return undefined;
     }
 }

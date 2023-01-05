@@ -1,6 +1,6 @@
 import type { FullConfig, TestError } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter';
-import { LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import { ClassDescription, LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';
 import {
@@ -34,25 +34,39 @@ import {
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
 
-// TODO Split SerenityConfig into ActorsConfig and SerenityReportingConfig
-export class SerenityReporterForPlaywrightTestConfig {
+/**
+ * Configuration object accepted by `@serenity-js/playwright-test` reporter.
+ *
+ * See {@apilink SerenityOptions} for usage examples.
+ */
+export interface SerenityReporterForPlaywrightTestConfig {
+
     /**
      * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
-     * to be notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
+     * to be instantiated in Playwright Test reporter process and notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
+     * Note that the `crew` can also be configured using {@apilink ClassDescription|ClassDescriptions}.
+     *
+     * #### Learn more
+     * - {@apilink SerenityOptions}
+     * - {@apilink SerenityConfig.crew}
      */
-    crew?: Array<StageCrewMember | StageCrewMemberBuilder>;
+    crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;
 
     /**
      * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}
      *
      * Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
+     *
+     * #### Learn more
+     * - {@apilink SerenityConfig.outputStream}
      */
     outputStream?: OutputStream;
 }
 
 /**
- * Receives notifications from Playwright Test and translates them to Serenity/JS
- * {@apilink DomainEvent|domain events}, so that they can be used with Serenity/JS reporters.
+ * Serenity/JS reporter that receives notifications from Playwright Test and emits them as
+ * Serenity/JS {@apilink DomainEvent|domain events} which can be used by
+ * Serenity/JS {@apilink StageCrewMember|stage crew members}.
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
 
@@ -60,7 +74,6 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     private sceneIds: Map<string, CorrelationId> = new Map();
 
     /**
-     *
      * @param config
      * @param serenity
      *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.

@@ -1,5 +1,5 @@
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
-import { CorrelationId, Description, Duration, Timestamp } from '../model';
+import { CorrelationId, Description, Duration, Name, Timestamp } from '../model';
 import { ListensToDomainEvents } from '../stage';
 import { Clock } from './Clock';
 
@@ -86,8 +86,9 @@ class WIP {
     recordIfAsync(event: DomainEvent): void {
         if (event instanceof AsyncOperationAttempted) {
             this.set(event.correlationId, {
-                taskDescription:    event.taskDescription,
-                startedAt:          event.timestamp,
+                name:           event.name,
+                description:    event.description,
+                startedAt:      event.timestamp,
             });
         }
 
@@ -99,10 +100,11 @@ class WIP {
             const original = this.get(event.correlationId);
 
             this.failedOperations.push({
-                taskDescription:    original.taskDescription,
-                startedAt:          original.startedAt,
-                duration:           event.timestamp.diff(original.startedAt),
-                error:              event.error,
+                name:           original.name,
+                description:    original.description,
+                startedAt:      original.startedAt,
+                duration:       event.timestamp.diff(original.startedAt),
+                error:          event.error,
             });
 
             this.delete(event.correlationId)
@@ -125,7 +127,7 @@ class WIP {
         const now = this.clock.now();
 
         return this.activeOperations().reduce(
-            (acc, op) => acc.concat(`${ now.diff(op.startedAt) } - ${ op.taskDescription.value }`),
+            (acc, op) => acc.concat(`${ now.diff(op.startedAt) } - [${ op.name.value }] ${ op.description.value }`),
             [`${ this.header(this.wip.size) } within a ${ this.cueTimeout } cue timeout:`],
         ).join('\n');
     }
@@ -134,7 +136,7 @@ class WIP {
         let message = `${ this.header(this.failedOperations.length) }:\n`;
 
         this.failedOperations.forEach((op: FailedAsyncOperationDetails) => {
-            message += `${ op.taskDescription.value } - ${ op.error.stack }\n---\n`;
+            message += `[${ op.name.value }] ${ op.description.value } - ${ op.error.stack }\n---\n`;
         });
 
         return message;
@@ -181,18 +183,20 @@ class WIP {
  * @package
  */
 interface AsyncOperationDetails {
-    taskDescription:    Description;
-    startedAt:          Timestamp;
-    duration?:          Duration;
-    error?:             Error;
+    name:           Name;
+    description:    Description;
+    startedAt:      Timestamp;
+    duration?:      Duration;
+    error?:         Error;
 }
 
 /**
  * @package
  */
 interface FailedAsyncOperationDetails {
-    taskDescription:    Description;
-    startedAt:          Timestamp;
-    duration:           Duration;
-    error:              Error;
+    name:           Name;
+    description:    Description;
+    startedAt:      Timestamp;
+    duration:       Duration;
+    error:          Error;
 }

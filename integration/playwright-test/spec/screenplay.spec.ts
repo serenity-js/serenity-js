@@ -12,13 +12,14 @@ describe('@serenity-js/playwright-test', function () {
     describe('reports events that occur when a Screenplay Pattern scenario', () => {
 
         it('passes with a single actor', () =>
-            playwrightTest('screenplay/passing-single-actor.spec.ts')
+            playwrightTest('--project=default', 'screenplay/passing-single-actor.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
                     expect(result.exitCode).to.equal(0);
 
-                    let currentSceneId: CorrelationId;
+                    let currentSceneId: CorrelationId,
+                        asyncOperationIdAlice: CorrelationId;
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => {
@@ -36,21 +37,29 @@ describe('@serenity-js/playwright-test', function () {
                             expect(event.sceneId).to.equal(currentSceneId);
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+
+                            asyncOperationIdAlice = event.correlationId;
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
                 }));
 
-        it('passes with multiple actor', () =>
-            playwrightTest('screenplay/passing-multiple-actors.spec.ts')
+        it('passes with multiple actors', () =>
+            playwrightTest('--project=default', 'screenplay/passing-multiple-actors.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
                     expect(result.exitCode).to.equal(0);
+
+                    let asyncOperationIdAlice: CorrelationId,
+                        asyncOperationIdBob: CorrelationId,
+                        asyncOperationIdCharlie: CorrelationId;
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => {
@@ -58,33 +67,45 @@ describe('@serenity-js/playwright-test', function () {
                         })
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        
+
                     // we already know reporting interactions work, so let's focus on dismissing the actors
-                        
+
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Charlie...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Charlie...`));
+
+                            asyncOperationIdCharlie = event.correlationId;
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Alice...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+
+                            asyncOperationIdAlice = event.correlationId;
                         })
                         .next(AsyncOperationAttempted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissing Bob...`));
+                            expect(event.name).to.equal(new Name(`Stage`));
+                            expect(event.description).to.equal(new Description(`Dismissing Bob...`));
+
+                            asyncOperationIdBob = event.correlationId;
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Charlie successfully`));
+                            expect(asyncOperationIdCharlie).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdCharlie);
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Alice successfully`));
+                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
                         .next(AsyncOperationCompleted,   event => {
-                            expect(event.taskDescription).to.equal(new Description(`[Stage] Dismissed Bob successfully`));
+                            expect(asyncOperationIdBob).to.be.instanceOf(CorrelationId);
+                            expect(event.correlationId).to.equal(asyncOperationIdBob);
                         })
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
                 }));
 
         it('fails because of a failing Screenplay expectation', () =>
-            playwrightTest('screenplay/assertion-error.spec.ts')
+            playwrightTest('--project=default', 'screenplay/assertion-error.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
 
@@ -104,8 +125,8 @@ describe('@serenity-js/playwright-test', function () {
                     ;
                 }));
 
-        it('fails when discarding an ability results in Error', () =>
-            playwrightTest('screenplay/ability-discard-error.spec.ts')
+        it('fails when discarding of an ability results in Error', () =>
+            playwrightTest('--project=default', 'screenplay/ability-discard-error.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -128,8 +149,8 @@ describe('@serenity-js/playwright-test', function () {
                     ;
                 }));
 
-        it(`fails when discarding an ability doesn't complete within a timeout`, () =>
-            playwrightTest('screenplay/ability-discard-timeout.spec.ts')
+        it(`fails when discarding of an ability doesn't complete within a timeout`, () =>
+            playwrightTest('--project=default', 'screenplay/ability-discard-timeout.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -153,7 +174,7 @@ describe('@serenity-js/playwright-test', function () {
                 }));
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
-            playwrightTest('screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
+            playwrightTest('--project=default', 'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);

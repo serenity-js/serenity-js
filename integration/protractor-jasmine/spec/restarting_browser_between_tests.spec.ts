@@ -26,7 +26,10 @@ describe('@serenity-js/jasmine', function () {
 
             expect(result.exitCode).to.equal(0);
 
-            let currentSceneId: CorrelationId;
+            let currentSceneId: CorrelationId,
+                firstAsyncHooksId: CorrelationId,
+                secondAsyncHooksId: CorrelationId,
+                thirdAsyncHooksId: CorrelationId;
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => {
@@ -36,8 +39,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes, event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    firstAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(firstAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
@@ -50,8 +57,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    secondAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(secondAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -64,8 +75,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    thirdAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(thirdAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
@@ -85,7 +100,10 @@ describe('@serenity-js/jasmine', function () {
 
             expect(result.exitCode).to.equal(0);
 
-            let currentSceneId: CorrelationId;
+            let currentSceneId: CorrelationId,
+                firstAsyncHooksId: CorrelationId,
+                secondAsyncHooksId: CorrelationId,
+                thirdAsyncHooksId: CorrelationId;
 
             PickEvent.from(result.events)
                 .next(SceneStarts,              event => {
@@ -95,8 +113,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    firstAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(firstAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
@@ -109,8 +131,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    secondAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(secondAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
@@ -123,8 +149,12 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
-                .next(AsyncOperationAttempted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...')))
-                .next(AsyncOperationCompleted,  event => expect(event.taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded')))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('ProtractorReporter'))
+                    expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                    thirdAsyncHooksId = event.correlationId;
+                })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(thirdAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());

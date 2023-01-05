@@ -1,115 +1,16 @@
-import { PlaywrightTestArgs, PlaywrightTestOptions, PlaywrightWorkerArgs, PlaywrightWorkerOptions, test as base, TestInfo, TestType } from '@playwright/test';
-import { Actor, Cast, Duration, Serenity, serenity as serenityInstance, StageCrewMember } from '@serenity-js/core';
+import { test as base, TestInfo } from '@playwright/test';
+import { Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { BrowseTheWebWithPlaywright, PlaywrightPage } from '@serenity-js/playwright';
+import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
-import { JSONValue } from 'tiny-types';
+import { ensure, isFunction, JSONValue, property } from 'tiny-types';
 
-import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './reporter';
-
-/**
- * Serenity/JS-specific [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures).
- *
- * ## Example test scenario
- *
- * ```typescript
- * import { Ensure, equals } from '@serenity-js/assertions'
- * import { describe, it, test } from '@serenity-js/playwright-test'
- * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
- *
- * describe(`Recording items`, () => {
- *
- *     test.use({
- *         defaultActorName: 'Serena',
- *         crew: [
- *             Photographer.whoWill(TakePhotosOfFailures),
- *         ],
- *     })
- *
- *     describe(`Todo List App`, () => {
- *
- *         it(`should allow me to add a todo item`, async ({ actor }) => {
- *             await actor.attemptsTo(
- *                 startWithAnEmptyList(),
- *
- *                 recordItem('Buy some milk'),
- *
- *                 Ensure.that(itemNames(), equals([
- *                     'Buy some milk',
- *                 ])),
- *             )
- *         })
- *     })
- * })
- * ```
- *
- * ## Learn more
- * - Declaring a test scenario using {@apilink it}
- * - Grouping test scenarios using {@apilink describe}
- * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
- */
-export interface SerenityFixtures {
-
-    /**
-     * Configures the {@apilink Cast} of {@apilink SerenityConfig.actors|actors} to be used when injecting an {@apilink SerenityFixtures.actor|actor}
-     * or invoking {@apilink SerenityFixtures.actorCalled|actorCalled} in a {@apilink it|test scenario}.
-     *
-     * #### Learn more
-     * - Declaring a test scenario using {@apilink it}
-     */
-    actors: Cast;
-
-    /**
-     * Configures the {@apilink SerenityConfig.crew|stage crew}
-     */
-    crew: StageCrewMember[];
-
-    /**
-     * Configures the {@apilink SerenityConfig.cueTimeout|cueTimeout}
-     */
-    cueTimeout: Duration;
-
-    /**
-     * Retrieves the root object of the Serenity/JS framework.
-     */
-    serenity: Serenity;
-
-    /**
-     * Name and version of the operating system the Playwright Test runs on.
-     */
-    platform: { name: string, version: string };
-
-    /**
-     * Uses the provided {@apilink Cast} of {@apilink SerenityFixtures.actors|actors} to instantiate an {@apilink Actor} called `name`
-     * and inject it into a {@apilink it|test scenario}.
-     * Retrieves an existing actor if one has already been instantiated.
-     *
-     * #### Learn more
-     * - Declaring a test scenario using {@apilink it}
-     *
-     * @param name
-     */
-    actorCalled: (name: string) => Actor;
-
-    /**
-     * Configures the name given to the default {@apilink SerenityFixtures.actor|actor} injected into the {@apilink it|test scenario}.
-     *
-     * #### Learn more
-     * - Declaring a test scenario using {@apilink it}
-     */
-    defaultActorName: string;
-    /**
-     * Default {@apilink SerenityFixtures.actor|actor} injected into a {@apilink it|test scenario}.
-     *
-     * #### Learn more
-     * - {@apilink SerenityFixtures.actorCalled|actorCalled}
-     * - Declaring a test scenario using {@apilink it}
-     */
-    actor: Actor;
-}
-
-export type SerenityTestType = TestType<PlaywrightTestArgs & PlaywrightTestOptions & SerenityFixtures, PlaywrightWorkerArgs & PlaywrightWorkerOptions>;
+import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from '../reporter';
+import { SerenityFixtures } from './SerenityFixtures';
+import { SerenityOptions } from './SerenityOptions';
+import { SerenityTestType } from './SerenityTestType';
 
 /**
  * Declares a single test scenario.
@@ -163,15 +64,38 @@ export type SerenityTestType = TestType<PlaywrightTestArgs & PlaywrightTestOptio
  * ```
  *
  * ## Learn more
- * - Grouping test scenarios using {@apilink describe}
+ * - {@apilink describe|Grouping test scenarios}
  * - {@apilink SerenityFixtures}
  * - [Playwright Test `test` function](https://playwright.dev/docs/api/class-test#test-call)
  * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
  */
-export const it: SerenityTestType = base.extend<SerenityFixtures>({
-    cueTimeout: Duration.ofSeconds(5),
+export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> & SerenityFixtures>({
 
-    crew: [],
+    actors: [
+        ({ browser, contextOptions }, use) =>
+            use(Cast.whereEveryoneCan(
+                BrowseTheWebWithPlaywright.using(browser, contextOptions),
+                TakeNotes.usingAnEmptyNotepad(),
+            )),
+        { option: true },
+    ],
+
+    defaultActorName: [
+        'Serena',
+        { option: true },
+    ],
+
+    cueTimeout: [
+        Duration.ofSeconds(5),
+        { option: true },
+    ],
+
+    crew: [
+        [
+            Photographer.whoWill(TakePhotosOfFailures)
+        ],
+        { option: true },
+    ],
 
     // eslint-disable-next-line no-empty-pattern
     platform: ({}, use) => {
@@ -190,7 +114,7 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         const domainEventBuffer = new DomainEventBuffer();
 
         serenityInstance.configure({
-            cueTimeout: cueTimeout,
+            cueTimeout: asDuration(cueTimeout),
             crew: [
                 ...crew,
                 domainEventBuffer,
@@ -225,21 +149,11 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
         });
     },
 
-    actors: async ({ browser }, use) => {
-        await use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
-    },
-
-    defaultActorName: 'Serena',
-
-    actor: async ({ actorCalled, defaultActorName }, use) => {
-        await use(actorCalled(defaultActorName));
-    },
-
-    actorCalled: async ({ serenity, actors, browser, browserName }, use) => {
-
-        serenity.engage(actors);
+    actorCalled: async ({ serenity, actors, browser, browserName, contextOptions }, use) => {
 
         const sceneId = serenity.currentSceneId();
+
+        serenity.engage(asCast(actors));
 
         const actorCalled = serenity.theActorCalled.bind(serenity);
 
@@ -257,7 +171,28 @@ export const it: SerenityTestType = base.extend<SerenityFixtures>({
 
         await serenityInstance.waitForNextCue();
     },
+
+    actor: async ({ actorCalled, defaultActorName }, use) => {
+        await use(actorCalled(defaultActorName));
+    },
+
+    page: async ({ actor }, use) => {
+        const page = (await BrowseTheWebWithPlaywright.as(actor).currentPage()) as PlaywrightPage;
+        const nativePage = await page.nativePage();
+
+        await use(nativePage);
+    },
 });
+
+function asDuration(maybeDuration: number | Duration): Duration {
+    return maybeDuration instanceof Duration
+        ? maybeDuration
+        : Duration.ofMilliseconds(maybeDuration);
+}
+
+function asCast(maybeCast: unknown): Cast {
+    return ensure('actors', maybeCast as Cast, property('prepare', isFunction()));
+}
 
 export const test: SerenityTestType = it;
 
@@ -305,7 +240,7 @@ export const test: SerenityTestType = it;
  * ```
  *
  * ## Learn more
- * - Declaring a test scenario using {@apilink it}
+ * - Declaring a Serenity/JS {@apilink it|test scenario}
  * - [Playwright Test `describe` function](https://playwright.dev/docs/api/class-test#test-describe-1)
  * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
  */

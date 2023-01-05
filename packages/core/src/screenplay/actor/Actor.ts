@@ -56,8 +56,18 @@ export class Actor implements
         const found = this.findAbilityTo(abilityType);
 
         if (! found) {
-            throw new ConfigurationError(`${ this.name } can't ${ abilityType.name } yet. ` +
-                `Did you give them the ability to do so?`);
+            if (this.abilities.size > 0) {
+                throw new ConfigurationError(
+                    `${ this.name } can ${ Array.from(this.abilities.keys()).map(type => type.name).join(', ') }. ` +
+                    `They can't, however, ${ abilityType.name } yet. ` +
+                    `Did you give them the ability to do so?`
+                );
+            }
+
+            throw new ConfigurationError(
+                `${ this.name } can't ${ abilityType.name } yet. ` +
+                `Did you give them the ability to do so?`
+            );
         }
 
         return found;

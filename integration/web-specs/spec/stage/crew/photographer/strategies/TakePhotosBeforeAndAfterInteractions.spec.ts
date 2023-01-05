@@ -38,10 +38,10 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/);
                     })
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty succeeds \(#1\)'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'After Betty succeeds \(#1\)'...$/);
                     });
             })));
 
@@ -54,10 +54,10 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'Before Betty fails due to Error'...$/);
                     })
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'After Betty fails due to Error'...$/);
                     });
             })));
 
@@ -74,10 +74,10 @@ describe('Photographer', function () {
 
                 PickEvent.from(recorder.events)
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'Before Betty fails due to TypeError'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'Before Betty fails due to TypeError'...$/);
                     })
                     .next(AsyncOperationAttempted, event => {
-                        expect(event.taskDescription.value, events).to.match(/Taking screenshot of 'After Betty fails due to TypeError'...$/);
+                        expect(event.description.value, events).to.match(/Taking screenshot of 'After Betty fails due to TypeError'...$/);
                     });
             })));
 

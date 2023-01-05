@@ -2,7 +2,7 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { ConfigurationError, LogicError } from '../errors';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
-import { CorrelationId, Description, Timestamp } from '../model';
+import { CorrelationId, Description, Name, Timestamp } from '../model';
 import { Actor } from '../screenplay/actor';
 import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
@@ -270,8 +270,10 @@ export class Stage {
 
         for (const [ actor, correlationId ] of actorsToDismiss) {
             this.announce(new AsyncOperationAttempted(
-                new Description(`[${ this.constructor.name }] Dismissing ${ actor.name }...`),
+                new Name(this.constructor.name),
+                new Description(`Dismissing ${ actor.name }...`),
                 correlationId,
+                this.currentTime(),
             ));
         }
 
@@ -281,12 +283,12 @@ export class Stage {
                 await actor.dismiss();
 
                 this.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Dismissed ${ actor.name } successfully`),
                     correlationId,
+                    this.currentTime(),
                 ));
             }
             catch (error) {
-                this.announce(new AsyncOperationFailed(error, correlationId));     // todo: serialise the error!
+                this.announce(new AsyncOperationFailed(error, correlationId, this.currentTime()));     // todo: serialise the error!
             }
         }
 

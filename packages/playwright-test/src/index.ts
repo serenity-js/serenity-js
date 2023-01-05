@@ -1,3 +1,2 @@
 export *  from './api';
-export *  from './PlaywrightTestConfig';
-export { SerenityReporterForPlaywrightTest as default } from './reporter';
+export { SerenityReporterForPlaywrightTest as default, SerenityReporterForPlaywrightTestConfig } from './reporter';

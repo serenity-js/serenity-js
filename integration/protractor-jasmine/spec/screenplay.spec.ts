@@ -19,7 +19,9 @@ describe('@serenity-js/jasmine', function () {
 
                 expect(result.exitCode).to.equal(0);
 
-                let currentSceneId: CorrelationId;
+                let currentSceneId: CorrelationId,
+                    asyncDismissActorId: CorrelationId,
+                    asyncHooksId: CorrelationId;
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,              event => {
@@ -36,22 +38,22 @@ describe('@serenity-js/jasmine', function () {
                     .next(SceneFinishes,            event => {
                         expect(event.sceneId).to.equal(currentSceneId);
                     })
+                    .next(AsyncOperationAttempted,  event => {
+                        expect(event.name).to.equal(new Name('ProtractorReporter'))
+                        expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
+                        asyncHooksId = event.correlationId;
+                    })
+                    .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
+                    .next(AsyncOperationAttempted,  event => {
+                        expect(event.name).to.equal(new Name('Stage'))
+                        expect(event.description).to.equal(new Description('Dismissing Jasmine...'))
+                        asyncDismissActorId = event.correlationId;
+                    })
+                    .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
                     .next(SceneFinished,            event => {
                         expect(event.sceneId).to.equal(currentSceneId);
                         expect(event.outcome).to.equal(new ExecutionSuccessful());
                     })
                 ;
-
-                const asyncEvents = result.events.filter(event => event instanceof AsyncOperationAttempted || event instanceof AsyncOperationCompleted) as Array<AsyncOperationAttempted | AsyncOperationCompleted>;
-                
-                const stageEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[Stage]'));
-
-                expect(stageEvents[0].taskDescription).to.equal(new Description('[Stage] Dismissing Jasmine...'));
-                expect(stageEvents[1].taskDescription).to.equal(new Description('[Stage] Dismissed Jasmine successfully'));
-
-                const reporterEvents = asyncEvents.filter(event => event.taskDescription.value.startsWith('[ProtractorReporter]'));
-
-                expect(reporterEvents[0].taskDescription).to.equal(new Description('[ProtractorReporter] Invoking ProtractorRunner.afterEach...'));
-                expect(reporterEvents[1].taskDescription).to.equal(new Description('[ProtractorReporter] ProtractorRunner.afterEach succeeded'));
             }));
 });

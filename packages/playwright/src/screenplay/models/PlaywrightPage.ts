@@ -234,6 +234,10 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         return ! this.page.isClosed();
     }
 
+    async nativePage(): Promise<playwright.Page> {
+        return this.page;
+    }
+
     private async resetState() {
         this.lastScriptExecutionSummary = undefined;
         await this.rootLocator.switchToMainFrame()

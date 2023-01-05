@@ -1,6 +1,6 @@
 import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSkipped, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSkipped, Name, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
 
@@ -93,7 +93,8 @@ export class ProtractorReporter implements StageCrewMember {
         const id = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
-            new Description(`[${ this.constructor.name }] Invoking ProtractorRunner.afterEach...`),
+            new Name(this.constructor.name),
+            new Description(`Invoking ProtractorRunner.afterEach...`),
             id,
             this.stage.currentTime(),
         ));
@@ -102,7 +103,6 @@ export class ProtractorReporter implements StageCrewMember {
             await this.runner.afterEach();
 
             this.stage.announce(new AsyncOperationCompleted(
-                new Description(`[${ this.constructor.name }] ProtractorRunner.afterEach succeeded`),
                 id,
                 this.stage.currentTime(),
             ));

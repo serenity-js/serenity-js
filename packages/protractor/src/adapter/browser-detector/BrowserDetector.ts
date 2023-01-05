@@ -1,6 +1,6 @@
 import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, CorrelationId, Description, PlatformTag } from '@serenity-js/core/lib/model';
+import { BrowserTag, CorrelationId, Description, Name, PlatformTag } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 
 import { StandardisedCapabilities } from './StandardisedCapabilities';
@@ -33,7 +33,8 @@ export class BrowserDetector implements StageCrewMember {
             const id = CorrelationId.create();
 
             this.stage.announce(new AsyncOperationAttempted(
-                new Description(`[${ this.constructor.name }] Detecting web browser details...`),
+                new Name(this.constructor.name),
+                new Description(`Detecting web browser details...`),
                 id,
                 this.stage.currentTime(),
             ));
@@ -59,7 +60,6 @@ export class BrowserDetector implements StageCrewMember {
                 ));
 
                 this.stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Detected web browser details`),
                     id,
                     this.stage.currentTime(),
                 ));
