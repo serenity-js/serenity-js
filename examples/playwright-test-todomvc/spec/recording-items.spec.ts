@@ -1,6 +1,6 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { describe, it, test } from '@serenity-js/playwright-test';
-import { isVisible, Photographer, TakePhotosOfFailures, Value } from '@serenity-js/web';
+import { describe, it } from '@serenity-js/playwright-test';
+import { isVisible, Value } from '@serenity-js/web';
 
 import { TODO_ITEMS } from './test-data';
 import {
@@ -18,13 +18,6 @@ import { recordItem } from './todo-list-app/TodoItem';
 import { itemNames } from './todo-list-app/TodoList';
 
 describe('Recording items', () => {
-
-    test.use({
-        defaultActorName: 'Serena',
-        crew: [
-            Photographer.whoWill(TakePhotosOfFailures),
-        ],
-    });
 
     describe('Todo List App', () => {
 

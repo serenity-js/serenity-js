@@ -178,21 +178,23 @@ export class ArtifactArchiver implements StageCrewMember {
         const id = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
-            new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),
+            new Name(this.constructor.name),
+            new Description(`Saving '${ relativePath.value }'...`),
             id,
+            this.stage.currentTime(),
         ));
 
         this.fileSystem.store(relativePath, contents, encoding)
-            .then(absolutePath => {
+            .then(absolutePath_ => {
                 announce(relativePath);
 
                 this.stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),
                     id,
+                    this.stage.currentTime(),
                 ));
             })
             .catch(error => {
-                this.stage.announce(new AsyncOperationFailed(error, id));
+                this.stage.announce(new AsyncOperationFailed(error, id, this.stage.currentTime()));
             });
     }
 

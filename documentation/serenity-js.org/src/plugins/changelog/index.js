@@ -150,9 +150,9 @@ function processSection(section) {
     }
     publishTimes.add(`${date}T${hour}:00`);
 
-    const authorsMarkdown = ! authors
-        ? ''
-        : `authors:\n${ authors.map((author) => `  - '${ author.alias }'`).join('\n') }`
+    const authorsMarkdown = authors
+        ? `authors:\n${ authors.map((author) => `  - '${ author.alias }'`).join('\n') }`
+        : ''
 
     return {
         title,

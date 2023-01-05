@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { beforeEach, describe, it, test } from '@serenity-js/playwright-test';
-import { Navigate, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
+import { beforeEach, describe, it } from '@serenity-js/playwright-test';
+import { Navigate } from '@serenity-js/web';
 
 import { TODO_ITEMS } from './test-data';
 import { filterCalled, persistedItemNames, startWithAListContaining } from './todo-list-app/TodoApp';
@@ -8,13 +8,6 @@ import { hasCssClass, markAsCompleted } from './todo-list-app/TodoItem';
 import { enableFilter, itemCalled, itemNames, items } from './todo-list-app/TodoList';
 
 describe('Routing', () => {
-
-    test.use({
-        defaultActorName: 'Serena',
-        crew: [
-            Photographer.whoWill(TakePhotosOfFailures),
-        ],
-    });
 
     describe('Todo List App', () => {
 

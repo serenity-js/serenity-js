@@ -82,11 +82,11 @@ const config = {
                 // style: 'dark',
                 title: 'Serenity/JS',
                 hideOnScroll: true,
+                style: 'dark',
                 logo: {
                     height: 10,
                     alt: 'Serenity/JS',
-                    src: 'images/serenity-js-logo-for-light-backgrounds.svg',
-                    srcDark: 'images/serenity-js-logo-for-dark-backgrounds.svg',
+                    src: 'images/serenity-js-logo-for-dark-backgrounds.svg',
                     className: 'serenity-js-logo',
                 },
                 items: [

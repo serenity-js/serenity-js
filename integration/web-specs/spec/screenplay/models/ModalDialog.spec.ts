@@ -3,8 +3,8 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Clock, LogicError, Serenity, serenity, Wait } from '@serenity-js/core';
-import { AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
-import { Name } from '@serenity-js/core/lib/model';
+import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
+import { CorrelationId, Name } from '@serenity-js/core/lib/model';
 import { By, Click, ModalDialog, Navigate, Page, PageElement, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
 
 /** @test {ModalDialog} */
@@ -286,9 +286,15 @@ describe('ModalDialog', () => {
                 Click.on(Example.trigger),
             );
 
+            let asyncOperationId: CorrelationId;
+
             PickEvent.from(recorder.events)
-                .next(AsyncOperationCompleted, ({ taskDescription }: AsyncOperationCompleted) => {
-                    expect(taskDescription.value).to.include(`Took screenshot of 'Nick navigates`);
+                .next(AsyncOperationAttempted, ({ correlationId }: AsyncOperationCompleted) => {
+                    asyncOperationId = correlationId;
+                })
+                .next(AsyncOperationCompleted, ({ correlationId }: AsyncOperationCompleted) => {
+                    expect(asyncOperationId).to.be.instanceOf(CorrelationId);
+                    expect(asyncOperationId).to.equal(correlationId);
                 })
                 .next(InteractionFinished, ({ details }: InteractionFinished) => {
                     expect(details.name).to.equal(new Name('Nick clicks on the modal dialog trigger'));

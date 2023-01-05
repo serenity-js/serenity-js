@@ -1,5 +1,5 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 
 /**
  * Read environment variables from file.
@@ -55,6 +55,12 @@ const config: PlaywrightTestConfig = {
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         // trace: 'on',
         trace: 'on-first-retry',
+
+        crew: [
+            // [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ]
+            [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ]
+        ],
+        defaultActorName: 'Tess',
     },
 
     /* Configure projects for major browsers */
