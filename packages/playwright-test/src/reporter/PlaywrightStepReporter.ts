@@ -1,21 +1,22 @@
 import { TestError, TestInfo } from '@playwright/test';
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import {
+    ActivityFinished,
     ActivityRelatedArtifactGenerated,
     AsyncOperationAborted,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     AsyncOperationFailed,
     DomainEvent,
-    InteractionFinished,
     InteractionStarts,
-    TaskFinished,
+    SceneTagged,
     TaskStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, Description, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
-import { SceneTagged } from '@serenity-js/core/src/events';
 import { Photographer } from '@serenity-js/web';
+import { match } from 'tiny-types';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/src/model';
 
 const genericPathToPhotographer = Path.from(require.resolve('@serenity-js/web'))
 
@@ -67,63 +68,77 @@ export class PlaywrightStepReporter implements StageCrewMember {
 
     notifyOf(event: DomainEvent): void {
 
-        if (event instanceof TaskStarts) {
-            this.steps.set(event.activityId.value, this.createStep(event.details, 'task'));
-        }
+        match<DomainEvent, void>(event)
+            .when(TaskStarts, (e: TaskStarts) => {
+                this.steps.set(e.activityId.value, this.createStep(e.details, 'task'))
+            })
+            .when(InteractionStarts, (e: InteractionStarts) => {
+                this.steps.set(e.activityId.value, this.createStep(e.details, 'interaction'));
+            })
+            .when(AsyncOperationAttempted, (e: AsyncOperationAttempted) => {
+                if (this.isAPhotoAttempt(e)) {
+                    this.steps.set(e.correlationId.value, this.createStep(new ActivityDetails(
+                        new Name(`${ Photographer.name }: ${ e.description.value }`),
+                        new FileSystemLocation(genericPathToPhotographer)
+                    ), 'crew'));
+                }
+            })
+            .when(ActivityFinished, (e: ActivityFinished) => {
+                const error = e.outcome instanceof ProblemIndication
+                    ? e.outcome.error
+                    : undefined;
 
-        if (event instanceof InteractionStarts) {
-            this.steps.set(event.activityId.value, this.createStep(event.details, 'interaction'));
-        }
+                this.steps.get(e.activityId.value).complete({ error });
+            })
+            .when(ActivityRelatedArtifactGenerated, (e: ActivityRelatedArtifactGenerated) => {
+                if (e.artifact instanceof Photo) {
+                    this.attachPhotoFrom(e);
+                }
+            })
+            .when(SceneTagged, (e: SceneTagged) => {
+                // don't include platform and browser tags as Playwright already includes them
+                if (! (e.tag instanceof PlatformTag || e.tag instanceof BrowserTag)) {
+                    this.testInfo.annotations.push({ type: e.tag.type, description: e.tag.name });
+                }
+            })
+            .else(e => {
+                if (this.indicatesCompletionOfAnAsyncOperation(e) && this.steps.has(e.correlationId.value)) {
+                    const error = event instanceof AsyncOperationFailed
+                        ? event.error
+                        : undefined;
 
-        if (event instanceof AsyncOperationAttempted && event.name.value.startsWith(Photographer.name)) {
-            this.steps.set(event.correlationId.value, this.createStep(new ActivityDetails(
-                new Name(`${ Photographer.name }: ${ event.description.value }`),
-                new FileSystemLocation(genericPathToPhotographer)
-            ), 'crew'));
-        }
+                    this.steps.get(e.correlationId.value).complete({ error })
+                }
+            })
+    }
 
-        if (
-            (event instanceof AsyncOperationCompleted || event instanceof AsyncOperationAborted)
-            && this.steps.has(event.correlationId.value)
-        ) {
-            this.steps.get(event.correlationId.value).complete({ });
-        }
+    private isAPhotoAttempt(event: AsyncOperationAttempted): event is AsyncOperationAttempted {
+        return event.name.value.startsWith(Photographer.name);
+    }
 
-        if (event instanceof AsyncOperationFailed && this.steps.has(event.correlationId.value)) {
-            this.steps.get(event.correlationId.value).complete({ error: event.error });
-        }
+    private indicatesCompletionOfAnAsyncOperation(event: DomainEvent): event is AsyncOperationCompleted | AsyncOperationAborted | AsyncOperationFailed {
+        return event instanceof AsyncOperationCompleted
+            || event instanceof AsyncOperationAborted
+            || event instanceof AsyncOperationFailed
+    }
 
-        if (event instanceof InteractionFinished || event instanceof TaskFinished) {
-            if (event.outcome instanceof ProblemIndication) {
-                this.steps.get(event.activityId.value).complete({ error: event.outcome.error });
-            } else {
-                this.steps.get(event.activityId.value).complete({});
-            }
-        }
+    private attachPhotoFrom(event: ActivityRelatedArtifactGenerated) {
+        const id = CorrelationId.create();
 
-        if (event instanceof ActivityRelatedArtifactGenerated && event.artifact instanceof Photo) {
+        this.stage.announce(new AsyncOperationAttempted(
+            new Name(this.constructor.name),
+            new Description(`Attaching screenshot of '${ event.name.value }'...`),
+            id,
+            this.stage.currentTime(),
+        ));
 
-            const id = CorrelationId.create();
-
-            this.stage.announce(new AsyncOperationAttempted(
-                new Name(this.constructor.name),
-                new Description(`Attaching screenshot of '${ event.name.value }'...`),
-                id,
-                this.stage.currentTime(),
-            ));
-
-            this.testInfo.attach(event.name.value, { body: Buffer.from(event.artifact.base64EncodedValue, 'base64'), contentType: 'image/png' })
-                .then(() => {
-                    this.stage.announce(new AsyncOperationCompleted(
-                        id,
-                        this.stage.currentTime()
-                    ));
-                });
-        }
-
-        if (event instanceof SceneTagged) {
-            this.testInfo.annotations.push({ type: event.tag.type, description: event.tag.name });
-        }
+        this.testInfo.attach(event.name.value, { body: Buffer.from(event.artifact.base64EncodedValue, 'base64'), contentType: 'image/png' })
+            .then(() => {
+                this.stage.announce(new AsyncOperationCompleted(
+                    id,
+                    this.stage.currentTime()
+                ));
+            });
     }
 
     private createStep(activityDetails: ActivityDetails, type: 'task' | 'interaction' | 'crew'): TestStepInternal {
