@@ -77,7 +77,7 @@ you will notice that we're using two functions provided by the [`@serenity-js/pl
 Those [`describe`](/api/playwright-test/function/describe) and [`it`](/api/playwright-test/function/it) functions are wrappers around
 Playwright Test [`test.describe`](https://playwright.dev/docs/api/class-test#test-describe-1) and [`test`](https://playwright.dev/docs/api/class-test#test-call) functions, respectively.
 
-In addition to the functionality offered by the [`test`](https://playwright.dev/docs/api/class-test#test-call) function, Serenity/JS [`it`](/api/playwright-test/function/it) wrapper offers [Serenity/JS-specific
+In addition to the functionality offered by Playwright [`test`](https://playwright.dev/docs/api/class-test#test-call) function, Serenity/JS [`it`](/api/playwright-test/function/it) wrapper offers [Serenity/JS-specific
 test fixtures](/api/playwright-test/interface/SerenityFixtures), such as [`actor`](/api/playwright-test/interface/SerenityFixtures#actor), [`actorCalled`](/api/playwright-test/interface/SerenityFixtures#actorCalled),
 or [`crew`](/api/playwright-test/interface/SerenityFixtures#crew). I'll tell you about them in a moment, but first, let's run the scenarios.
 
@@ -234,11 +234,14 @@ You can read more about it in my article ["User-Centred Design: How a 50-year-ol
 :::
 
 You can define as many or as few tasks as it makes sense to reflect the workflows in your domain.
+You can make your tasks as high-level or as low-level as you wish.
 You're not limited to interacting with just the web interfaces either!
-In fact, you can make your Serenity/JS actors interact with any interface of your system under test, be it **web UIs**, **REST APIs**, **mobile apps**, or whatever a Node.js program can talk to.
+In fact, you can make your Serenity/JS actors interact with **any interface of your system under test**,
+be it **web UIs**, **REST APIs**, **mobile apps**, or whatever a Node.js program can talk to.
 
-To make it easier, Serenity/JS modules provide [dozens of lower-level _interactions_](/api/core) you can compose your _tasks_ from.
-This will help you focus on modelling your business workflows and designing your test scenarios instead of having to figure out how to integrate with the given interface.
+To make your work easier, Serenity/JS modules provide [**dozens of lower-level interactions**](/api/core) you can compose your custom tasks from.
+This will help you focus on **modelling your business workflows** and **designing your test scenarios** instead of wasting time
+having to figure out how to integrate with the given interface, or trying to integrate several incompatible libraries together.
 
 Serenity/JS activity-based code reuse model also means that as you evolve the vocabulary of your domain-specific tasks
 over time, writing test scenarios becomes easier as you're simply re-arranging existing tasks into new scenarios.
