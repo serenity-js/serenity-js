@@ -13,8 +13,7 @@ import {
     TaskStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ActivityDetails, CorrelationId, Description, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/src/model';
+import { ActivityDetails, BrowserTag, CorrelationId, Description, Name, Photo, PlatformTag, ProblemIndication } from '@serenity-js/core/lib/model';
 import { Photographer } from '@serenity-js/web';
 import { match } from 'tiny-types';
 
