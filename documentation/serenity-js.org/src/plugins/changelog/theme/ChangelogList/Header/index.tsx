@@ -10,24 +10,25 @@ import Translate from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
-function TwitterLink() {
+function LinkedInLink() {
   return (
-    <Link href="https://twitter.com/SerenityJS" className={styles.twitter}>
-      <svg
-        style={{
-          fill: '#1da1f2',
-          position: 'relative',
-          left: 4,
-          top: 3,
-          marginRight: 8,
-        }}
-        width="16"
-        height="16"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512">
-        <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
-      </svg>
-      <b>Serenity/JS</b>
+    <Link href="https://www.linkedin.com/company/serenity-js" className={styles.twitter}>
+        <svg style={{
+            position: 'relative',
+            left: 4,
+            top: 3,
+            marginRight: 8,
+        }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 72 72">
+            <g fill="none" fill-rule="evenodd">
+                <path
+                    d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z"
+                    fill="#007EBB"/>
+                <path
+                    d="M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z"
+                    fill="#FFF"/>
+            </g>
+        </svg>
+        <b>Serenity/JS</b>
     </Link>
   );
 }
@@ -68,11 +69,11 @@ export default function ChangelogListHeader({
         <Translate
           id="changelog.description"
           values={{
-            twitterLink: <TwitterLink />,
+            linkedInLink: <LinkedInLink />,
             rssLink: <RssLink />,
           }}>
           {
-            'Subscribe to {rssLink} or follow {twitterLink} on Twitter to stay up to date with new releases!'
+            'Subscribe to {rssLink} or follow {linkedInLink} on LinkedIn to stay up to date with new releases!'
           }
         </Translate>
       </p>

@@ -135,12 +135,8 @@ const config = {
                                 href: 'https://stackoverflow.com/questions/tagged/serenity-js',
                             },
                             {
-                                label: 'Twitter',
+                                label: 'Serenity/JS on LinkedIn',
                                 href: 'https://twitter.com/SerenityJS',
-                            },
-                            {
-                                label: 'LinkedIn',
-                                href: 'https://www.linkedin.com/company/serenity-js/',
                             },
                             {
                                 label: 'Serenity/JS GitHub Sponsors',
