@@ -9,9 +9,11 @@ import Figure from '@site/src/components/Figure'
 ```
 
 Key points:
-- Serenity/JS works well with popular development environments, including the free [Visual Studio Code](https://code.visualstudio.com/).
-- Serenity/JS tests are just high-quality code, so all your regular programming tools will work as expected.
-- Serenity/JS `describe` function declares a group of test scenarios, `it` function declares a single test scenario
+- Serenity/JS works well with popular development environments, including the free [Visual Studio Code](https://code.visualstudio.com/)
+- Serenity/JS tests are just high-quality code so all your regular programming tools will work as expected
+- Serenity/JS test scenarios are **actor-centric** and follow the [**Screenplay Pattern**](/handbook/design/screenplay-pattern)
+- Serenity/JS uses an activity-based code reuse model
+- Serenity/JS assertions and synchronisation statements are portable across interfaces and integration tools
 - Serenity/JS has first-class support for the asynchronous nature of JavaScript and takes advantage of modern language features.
 
 In this section, you'll learn the basics of web testing with Serenity/JS; I'll show you how to **run and debug existing tests**,
@@ -36,8 +38,12 @@ In this tutorial, we'll be using [Serenity/JS + Playwright Test template](https:
 which integrates Serenity/JS with [Playwright](https://playwright.dev/) web testing library and its dedicated [Playwright Test](https://playwright.dev/docs/test-runners#playwright-test) test runner.
 The test suite we'll be working on interacts with a simple to-do list app that you can experiment with at [todo-app.serenity-js.org](https://todo-app.serenity-js.org/).
 
-To launch your workspace, make sure you have a [GitHub account](/handbook/getting-started#your-githubcom-account), which will make it easier for you to use other [Serenity/JS resources](/handbook/getting-started) too.
-Next, launch your Gitpod.io web IDE using the "Open in Gitpod" button below and sign in to your Gitpod.io workspace using your GitHub account.
+To launch your workspace, make sure you have a [GitHub account](/handbook/getting-started#your-githubcom-account),
+which will make it easier for you to use all the other [Serenity/JS resources](/handbook/getting-started) too.
+
+Next, launch your Gitpod.io web IDE using the "Open in Gitpod" button below
+and sign in to your [Gitpod.io workspace](https://gitpod.io/#https://github.com/serenity-js/serenity-js-playwright-test-template)
+using your GitHub account.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/serenity-js/serenity-js-playwright-test-template)
 
@@ -65,8 +71,8 @@ There are two ways to run Playwright tests in Visual Studio Code, and you can do
 - using the play icon in the Visual Studio Code Test Explorer panel, which shows all the test scenarios Visual Studio Code has detected in your project, as per the screenshot below:
 
 <Figure
-    caption='Visual Studio Code Test Explorer panel showing test scenarios detected in the project'
-    img={require('@site/static/images/web-testing/your-first-web-scenario/vscode-testing-panel.png')}
+    caption='Running test scenarios in Visual Studio Code'
+    img={require('@site/static/images/web-testing/your-first-web-scenario/vs-code-running-test-scenarios.gif')}
 />
 
 Once you've inspected the [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts),
@@ -88,8 +94,8 @@ If Visual Studio Code didn't detect any test scenarios in your project, or if it
 use the "Refresh Tests" icon in the Test Explorer to reload test configuration.
 
 <Figure
-    caption='Visual Studio Code UI showing the "Refresh tests" button'
-    img={require('@site/static/images/web-testing/your-first-web-scenario/vscode-refresh-tests.png')}
+    caption='Visual Studio Code Test Explorer panel showing the "Refresh tests" button'
+    img={require('@site/static/images/web-testing/your-first-web-scenario/vs-code-refresh-tests.gif')}
 />
 
 :::
@@ -108,36 +114,89 @@ Now that you know how to run Serenity/JS test scenarios in VS Code, let's talk a
 
 First, add the bellow code snippet to your existing test suite in [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts)
 by placing it inside the `describe('Todo List App')` block.
-Make sure that you can run this new scenario and that it's passing, and we'll analyse its structure line by line in just a moment.
 
-```typescript
-it('should allow me to add a todo item', async ({ actor }) => {
-    await actor.attemptsTo(
-        startWithAnEmptyList(),
+```typescript title="spec/recording-items.spec.ts"
+describe('Todo List App', () => {
 
-        recordItem('Buy some milk'),
+    it('should allow me to add a todo item', async ({ actor }) => {
+        await actor.attemptsTo(
+            startWithAnEmptyList(),
 
-        Ensure.that(itemNames(), equals([
-            'Buy some milk',
-        ])),
-    );
-});
+            recordItem('Buy some milk'),
+
+            Ensure.that(itemNames(), equals([
+                'Buy some milk',
+            ])),
+        )
+    })
+
+    // other test scenarios
+})
 ```
 
 Well done, you've just created your first Serenity/JS test scenario!
 
-As you can see above, well-written Serenity/JS test scenarios are **concise**, **easy to read**, and **easy to understand**
+Make sure that you can run this new scenario and that it's passing, and we'll analyse its structure line by line in just a moment.
+
+<Figure
+    caption='Adding a new Serenity/JS test scenario using Visual Studio Code on Gitpod.io'
+    img={require('@site/static/images/web-testing/your-first-web-scenario/vs-code-adding-a-new-serenity-js-scenario.gif')}
+/>
+
+As you can see in the listing above, well-written Serenity/JS test scenarios are **concise**, **easy to read**, and **easy to understand**
 even to audiences who might not necessarily have background in technology.
 That's because Serenity/JS is designed to help you express your scenarios in the **domain language of your company** and **your business**
 and avoid incidental detail and low-level implementation noise that could cloud the picture.
+
+### Showing the browser window
+
+So far you've been running your Serenity/JS test scenarios, but didn't get a chance to see the actual
+browser interacting with the web app under test. That's because any web browsers used by Serenity/JS project templates
+are configured to run in "headless" mode by default so that they don't get in the way and don't interrupt your work.
+
+This setting is configurable, so you can change it when you need to see what's going on under the hood
+or to access the developer tools offered by your browser to [debug your test scenarios](/handbook/web-testing/your-first-web-scenario#debugging-tests)
+or the system under test.
+
+In addition to being able to interact with the browser when running the tests locally,
+[Serenity/JS + Playwright Test GitPod.io workspace](https://github.com/serenity-js/serenity-js-playwright-test-template)
+I have prepared for you comes equipped with [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing),
+so you can see the browser on Gitpod.io as well.
+
+To see the browser:
+- Enable ["Show browser"](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright#show-browsers) checkbox in the Playwright panel
+- In the "Ports" panel, open VNC running on port `6080` in "Preview" mode (this step applies only to Gitpod.io)
+- Run the test!
+
+<Figure
+    caption='Viewing the browser window while running Serenity/JS test scenarios in Visual Studio Code on Gitpod.io'
+    img={require('@site/static/images/web-testing/your-first-web-scenario/vs-code-showing-the-browser.gif')}
+/>
+
+If your development environment is not based on Visual Studio Code, you can configure your tests to start the browser
+in non-headless mode by setting the `headless` flag to `false` in [Playwright Test configuration file](https://playwright.dev/docs/test-configuration):
+
+```typescript title="playwright.config.ts"
+import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+const config: PlaywrightTestConfig = {
+  use: {
+    headless: false,
+    // ...
+  },
+}
+
+export default config
+```
+
+Now that you know how to run the tests, let's get back to code.
 
 ### Designing actor-centred test scenarios
 
 You might have noticed that the scenario you've just added starts with an `actor`.
 In fact, all Serenity/JS test scenarios are **actor-centred** and start like that.
 This design based on the  [**Screenplay Pattern**](/handbook/design/screenplay-pattern) helps your test scenarios
-shift away from automation and integration tools taking centre stage
-and instead focus on [**actors**](/api/core/class/Actor), so **people** and **processes** interacting with
+move away from automation and integration tools taking centre stage
+and instead helps you focus on [**actors**](/api/core/class/Actor), so **people** and **processes** interacting with
 the **system under test**.
 
 So what are _actors_? Actors can represent **end-users**, like a shopper interacting with an online store,
@@ -147,22 +206,33 @@ Examples here could include an external financial data provider submitting asset
 or a website crawler bot scanning a web UI and receiving a different version than a regular user. You can also use actors to represents
 **components** of a software system initiating some interaction with the component we're interested in, like a microservice sending requests to another microservice under test.
 
+:::info Remember
+**Actors** represent **people** and **external systems** interacting with the system under test.
+:::
+
 From the implementation perspective, [Serenity/JS Playwright Test](/api/playwright-test)
 module takes care of initialising and injecting actors into your test scenarios
 and dismissing them and freeing their resources when the test scenario is finished.
 
-All you need to do is to import the [`it`](/api/playwright-test/function/it) function and tell it to give you an `actor`, like this:
+All you need to do is to use the Serenity/JS [`it` function](/api/playwright-test/function/it) instead of the default Playwright `test` function,
+and ask it for an `actor`:
 
-```typescript
-import { it } from '@serenity-js/playwright-test'; // Serenity/JS `it` wrapper
+```typescript title="spec/recording-items.spec.ts"
+// Use Serenity/JS `describe` and `it` wrappers from `@serenity-js/playwright-test` module:
+import { describe, it } from '@serenity-js/playwright-test'
 
-// ...
+// `describe` groups test scenarios together
+describe('Todo List App', () => {
 
-it('should allow me to add a todo item', async ({ actor }) => { // injected `actor`
-    await actor.attemptsTo(
-        // ...
-    )
-});
+    // `it` injects the `actor` object when a test scenario requests it
+    it('should allow me to add a todo item', async ({ actor }) => {
+        await actor.attemptsTo(
+            // ...
+        )
+    })
+
+    // ...
+})
 ```
 
 Serenity/JS test scenarios can involve **one or multiple actors**. This is useful, for example, when designing scenarios for contexts
@@ -170,26 +240,35 @@ where several actors interact with one another, or where several actors are requ
 Examples of such contexts include multi-user workflow systems, messaging systems, video games, and so on.
 You can see an example of a basic multi-actor test scenario in [`spec/multi-actor.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/multi-actor.spec.ts).
 
-### Modelling a workflow using reusable activities
+### Modelling workflows using reusable activities
 
 The role of Serenity/JS actors is to interact with the system under test by performing [**activities**](/api/core/class/Activity).
 
 You use activities to model the logical elements of a workflow that an end-user or an external system interacting with the system under test
 would perform to accomplish some **goal**.
 
+:::info Remember
+**Actors** perform **activities** to interact with the system under test.
+:::
+
 From the implementation perspective, **Serenity/JS activities** are the **most basic form of code reuse** and manifest themselves
 as either [_tasks_](/api/core/class/Task) or [_interactions_](/api/core/class/Interaction).
 We'll discuss both of those in detail when we talk about the [Screenplay Pattern](/handbook/design/screenplay-pattern),
 but for now let's use the following definitions:
-- **interactions** are low-level activities that **interact directly** with an interface of the system under test to [click](/api/web/class/Click) on a button in a web UI or to [send](/api/rest/class/Send) a `POST` request to a REST API - Serenity/JS provides [dozens of them](/api/web) out of the box,
-- **tasks** are **composites of other activities**, created to give **business domain meaning** to sequences of activities, such as task to "record a to-do item", or a task to "create a customer account".
+- **Interactions** are the low-level activities that **interact directly** with an interface of the system under test.
+  Examples here include an interaction to [click](/api/web/class/Click) on a button in a web UI,
+  or one to [send](/api/rest/class/Send) a `POST` request to a REST API.
+  Serenity/JS provides [dozens of such interactions](/api/) out of the box, and you can create your own when needed.
+- **Tasks** are **composites of other activities**, created to capture **business domain vocabulary**
+  and help to make steps in your test scenario reflect **steps in you business workflow**. Examples here might include
+  a task to "record a to-do item", "create a customer account", or to "purchase a plane ticket".
 
 In our example, a **task** that accomplishes a **goal** to "record a to-do item" can be achieved by performing three lower-level activities:
 - enter the name of the to-do item into a "What needs to be done?" input box,
 - press the enter key,
 - make sure the item is recorded as expected.
 
-You can try to perform them manually yourself at [todo-app.serenity-js.org](https://todo-app.serenity-js.org/):
+You can try to perform this task yourself at [todo-app.serenity-js.org](https://todo-app.serenity-js.org/):
 
 <Figure
     caption='Demonstration of recording a to-do item'
@@ -197,31 +276,36 @@ You can try to perform them manually yourself at [todo-app.serenity-js.org](http
 />
 
 To see how a task like that would be implemented with Serenity/JS,
-open [`spec/todo-list-app/TodoApp/tasks.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/todo-list-app/TodoApp/tasks.ts#7)
+open [`spec/todo-list-app/TodoItem/tasks.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/todo-list-app/TodoItem/tasks.ts#10)
 and review the implementation of a task to `recordItem`:
 
-```typescript
-import { contain } from '@serenity-js/assertions';
-import { Task, Wait } from '@serenity-js/core';
-import { Enter, Key, Press } from '@serenity-js/web';
+```typescript title="spec/todo-list-app/TodoItem/tasks.ts"
+import { contain } from '@serenity-js/assertions'
+import { Task, Wait } from '@serenity-js/core'
+import { Enter, Key, Press } from '@serenity-js/web'
+
+import { newTodoInput } from '../TodoApp'
+import { itemNames } from '../TodoList'
 
 export const recordItem = (name: string): Task =>           // 1 - reusable function
     Task.where(`#actor records an item called ${ name }`,   // 2 - task description
-        Enter.theValue(name).into(newTodoInput()),          // 3 - lower-level activities
+        Enter.theValue(name).into(newTodoInput()),          // 3 - sequence of lower-level activities
         Press.the(Key.Enter).in(newTodoInput()),
         Wait.until(itemNames(), contain(name)),
     )
 ```
 
-In the listing above, you can see that a definition of a Serenity/JS task is **compact**, **easy to understand**,
-and reads almost exactly like the **human-readable** description I showed you a moment ago.
+In the listing above, you can see that a definition of a Serenity/JS task is **compact**, **easy to read**,
+and **easy to understand**.
+In fact, it reads _almost exactly_ like how I explained the task to you earlier.
+This design is intentional and makes your code much more accessible and easier to reason about.
 
-To implement custom tasks like this and capture the language of _your_ business domain all you need is just a few lines of code where you define:
-1. **reusable function**, named after the goal an actor will accomplish having performed a given task, e.g. `recordItem`,
-2. **task description**, used for [test reporting](/handbook/reporting/) purposes,
-3. **sequence of lower-level activities** that constitute a task.
+To implement custom tasks like this and capture the language of _your business domain_ all you need is just a few lines of code where you define:
+1. a **reusable function**, named after the **goal** an actor will accomplish having performed a given task, e.g. `recordItem`,
+2. a **task description**, used for [test reporting](/handbook/reporting/) purposes,
+3. a **sequence of lower-level activities** that constitute a task.
 
-What's important to reiterate here is that Serenity/JS activities are **reusable**.
+What's important to reiterate here is that Serenity/JS activities are designed to be **reusable**.
 This means you could write a task like the one to `recordItem` just once
 and reuse it in any scenario that needs to record to-do items.
 If the steps involved in _how_ an actor would go about recording a to-do item in your system were to change,
@@ -230,7 +314,7 @@ and not in every single scenario that uses it.
 
 :::info Did you know?
 Task decomposition model implemented by Serenity/JS is based on Hierarchical Task Analysis, a technique typically used in User-Centred Design.
-You can read more about it in my article ["User-Centred Design: How a 50-year-old technique became the key to scalable test automation"](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555)
+You can read more about it in my article ["User-Centred Design: How a 50-year-old technique became the key to scalable test automation"](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555).
 :::
 
 You can define as many or as few tasks as it makes sense to reflect the workflows in your domain.
@@ -239,12 +323,60 @@ You're not limited to interacting with just the web interfaces either!
 In fact, you can make your Serenity/JS actors interact with **any interface of your system under test**,
 be it **web UIs**, **REST APIs**, **mobile apps**, or whatever a Node.js program can talk to.
 
-To make your work easier, Serenity/JS modules provide [**dozens of lower-level interactions**](/api/core) you can compose your custom tasks from.
+To make your work easier, Serenity/JS modules provide [**dozens of lower-level interactions**](/api/) you can compose your custom tasks from.
 This will help you focus on **modelling your business workflows** and **designing your test scenarios** instead of wasting time
 having to figure out how to integrate with the given interface, or trying to integrate several incompatible libraries together.
 
 Serenity/JS activity-based code reuse model also means that as you evolve the vocabulary of your domain-specific tasks
 over time, writing test scenarios becomes easier as you're simply re-arranging existing tasks into new scenarios.
+
+### Using portable assertions
+
+Serenity/JS activity-based programming model applies to performing assertions just as well as it applies
+to performing [tasks and interactions](/handbook/web-testing/your-first-web-scenario#modelling-a-workflow-using-reusable-activities).
+In fact, Serenity/JS assertion to [`Ensure`](/api/assertions/class/Ensure) is just another interaction
+you give to an actor to perform.
+
+Consider the test scenario [you've written earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
+
+```typescript title="spec/recording-items.spec.ts"
+describe('Todo List App', () => {
+
+    it('should allow me to add a todo item', async ({ actor }) => {
+        await actor.attemptsTo(
+            startWithAnEmptyList(),
+
+            recordItem('Buy some milk'),
+
+            Ensure.that(itemNames(), equals([
+                'Buy some milk',
+            ])),
+        )
+    })
+})
+```
+
+The last activity in the sequence above is an assertion for the actor to [`Ensure.that`](/api/assertions/class/Ensure)
+the names of the items in our to-do list meet our [_expectation_](/api/core/class/Expectation):
+
+```typescript
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actor.attemptsTo(
+    // ...
+    Ensure.that(itemNames(), equals([ 'Buy some milk', ])),
+    //          ^ actual     ^ expectation
+)
+```
+
+All [Serenity/JS assertions](/api/assertions) follow the **same consistent pattern**
+and all the [Serenity/JS expectations](/api/assertions#Index) (such as [`equals`](/api/assertions/function/equals))
+are **interface-agnostic**. This design helps to make your test code **portable** across interfaces
+and lower-level integration tools and enables you to use a single pattern no matter the type of interface you interact with.
+
+In addition to [interface-agnostic expectations](/api/assertions#Index),
+Serenity/JS also ships with [web-specific expectations](/api/web#Index) like [`isVisible()`](/api/web/function/isVisible)
+that are portable across web integration tools, such as Playwright, WebdriverIO, or Selenium.
 
 ### Exercises
 
@@ -259,21 +391,27 @@ over time, writing test scenarios becomes easier as you're simply re-arranging e
 1.  Compare the activity-based code reuse model used by Serenity/JS with other code reuse models you've seen used in the context of test automation in the past.
     How do they compare?
 
-## Identifying page elements
-
-## Analysing test failures
-
-You should never trust a test you've never seen fail, so the next thing we're going to look at is how to analyse test failures.
-
-## Debugging tests
+## Debugging tests and interactive execution
 
 Add a debug statement
 open VNC
 run in debug mode
 
+- Automatically taking screenshots on failure
+- Tracing
+- Videos
+- Playwright reports
+
+## Identifying page elements
+
+Page elements are questions, questions are the way for actors to retrieve information about their environment and the state of the system under test
+
 ## Running tests on CI
 
 ## Viewing reports
+
+I've configured all the [Serenity/JS project templates](/handbook/getting-started#serenityjs-project-templates)
+to produce
 
 ## Configuring test runner
 
