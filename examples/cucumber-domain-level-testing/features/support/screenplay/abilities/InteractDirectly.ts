@@ -1,7 +1,7 @@
-import { Ability, Actor } from '@serenity-js/core';
+import { Ability } from '@serenity-js/core';
 import { CalculationId, Calculator, CalculatorCommand, CalculatorQuery, GetCalculationResult } from '@serenity-js-examples/calculator-app';
 
-export class InteractDirectly implements Ability {
+export class InteractDirectly extends Ability {
     /**
      * Abilities such as this one can hold state.
      * The most common things to store on an ability include session tokens, a reference to a connections or a spawned
@@ -15,11 +15,8 @@ export class InteractDirectly implements Ability {
         return new InteractDirectly(calculator);
     }
 
-    static as(actor: Actor) {
-        return actor.abilityTo(InteractDirectly);
-    }
-
     constructor(private readonly calculator: Calculator) {
+        super();
     }
 
     requestANewCalculationId(): void {

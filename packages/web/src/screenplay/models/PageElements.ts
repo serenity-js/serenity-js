@@ -43,8 +43,9 @@ export class PageElements<Native_Element_Type = any>
  */
 function relativeToDocumentRoot<Native_Element_Type>(selector: Answerable<Selector>): Question<Promise<Locator<Native_Element_Type>>> {
     return Question.about(String(selector), async actor => {
-        const bySelector = await actor.answer(selector);
-        const currentPage = await BrowseTheWeb.as(actor).currentPage();
+        const bySelector  = await actor.answer(selector);
+        const currentPage = await BrowseTheWeb.as<BrowseTheWeb<Native_Element_Type>>(actor).currentPage();
+
         return currentPage.locate(bySelector).locator;
     });
 }

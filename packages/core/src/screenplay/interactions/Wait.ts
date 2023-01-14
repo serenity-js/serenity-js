@@ -3,9 +3,10 @@ import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 import { AssertionError, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
-import { AnswersQuestions, UsesAbilities } from '../actor';
+import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
+import { AnswersQuestions } from '../questions';
 import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
 
 /**
@@ -239,7 +240,7 @@ export class WaitUntil<Actual> extends Interaction {
         private readonly pollingInterval: Duration,
     ) {
         super(d`#actor waits up to ${ timeout }, polling every ${ pollingInterval }, until ${ actual } does ${ expectation }`);
-        
+
         ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()))
         ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()))
     }
@@ -252,7 +253,7 @@ export class WaitUntil<Actual> extends Interaction {
     pollingEvery(interval: Duration): Interaction {
         return new WaitUntil(this.actual, this.expectation, this.timeout, interval);
     }
-   
+
     /**
      * @inheritDoc
      */
@@ -269,7 +270,7 @@ export class WaitUntil<Actual> extends Interaction {
 
         const timeout = timeoutAfter(this.timeout);
         const poller = waitUntil(expectation, this.pollingInterval);
-    
+
         return Promise.race([
             timeout.start(),
             poller.start(),
@@ -320,7 +321,7 @@ function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterva
     let pollingActive = false;
 
     async function poll(): Promise<void> {
-        
+
         async function nextPollingInterval(): Promise<void> {
             if (pollingActive) {
                 delay = waitFor(pollingInterval);

@@ -2,7 +2,7 @@
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, Question, Serenity, Timestamp, UsesAbilities, Wait } from '../../../src';
+import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, Question, Serenity, Timestamp, Wait } from '../../../src';
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
 
@@ -267,13 +267,10 @@ function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expe
         .soThat((actual, expected) => equal(actual, expected));
 }
 
-class UseAStopwatch implements Ability {
-
-    static as(actor: UsesAbilities): UseAStopwatch {
-        return actor.abilityTo(UseAStopwatch);
-    }
+class UseAStopwatch extends Ability {
 
     constructor(public readonly stopwatch = new Stopwatch()) {
+        super();
     }
 }
 

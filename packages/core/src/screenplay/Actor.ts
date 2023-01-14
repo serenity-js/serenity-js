@@ -1,16 +1,27 @@
-import { ConfigurationError, TestCompromisedError } from '../../errors';
-import { ActivityRelatedArtifactGenerated } from '../../events';
-import { Artifact, Name } from '../../model';
-import { Ability, AbilityType, Answerable, Discardable, Initialisable } from '../../screenplay';
-import { Stage } from '../../stage';
-import { TrackedActivity } from '../activities';
-import { Activity } from '../Activity';
-import { Question } from '../Question';
-import { AnswersQuestions } from './AnswersQuestions';
-import { CanHaveAbilities } from './CanHaveAbilities';
-import { CollectsArtifacts } from './CollectsArtifacts';
-import { PerformsActivities } from './PerformsActivities';
-import { UsesAbilities } from './UsesAbilities';
+import { match } from 'tiny-types';
+
+import { AssertionError, ConfigurationError, ImplementationPendingError, TestCompromisedError } from '../errors';
+import { ActivityRelatedArtifactGenerated, InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../events';
+import { typeOf } from '../io';
+import {
+    ActivityDetails,
+    Artifact,
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionSuccessful,
+    ImplementationPending,
+    Name,
+    ProblemIndication,
+} from '../model';
+import { Ability, AbilityType, Answerable, Discardable, Initialisable, Interaction } from '../screenplay';
+import { Stage } from '../stage';
+import { CanHaveAbilities, UsesAbilities } from './abilities';
+import { PerformsActivities } from './activities';
+import { Activity } from './Activity';
+import { CollectsArtifacts } from './artifacts';
+import { Question } from './Question';
+import { AnswersQuestions } from './questions';
 
 /**
  * Core element of the Screenplay Pattern,
@@ -30,10 +41,6 @@ export class Actor implements
     AnswersQuestions,
     CollectsArtifacts
 {
-    // todo: Actor should have execution strategies
-    // todo: the default one executes every activity
-    // todo: there could be a dry-run mode that default to skip strategy
-
     constructor(
         public readonly name: string,
         private readonly stage: Stage,
@@ -108,21 +115,7 @@ export class Actor implements
      *  Throws a ConfigurationError if the actor already has an ability of this type.
      */
     whoCan(...abilities: Ability[]): Actor {
-        abilities.forEach(ability => {
-            const abilityType = ability.constructor as AbilityType<Ability>;
-
-            const found = this.findAbilityTo(abilityType);
-
-            if (found) {
-                const description = found.constructor.name === abilityType.name
-                    ? found.constructor.name
-                    : `${ found.constructor.name } (which extends ${ abilityType.name })`
-
-                throw new ConfigurationError(`${ this.name } already has an ability to ${ description }, so you don't need to give it to them again.`);
-            }
-
-            this.abilities.set(ability.constructor as AbilityType<Ability>, ability);
-        });
+        abilities.forEach(ability => this.acquireAbility(ability));
 
         return this;
     }
@@ -189,7 +182,7 @@ export class Actor implements
      * **PRO TIP:** To get the name of the actor, use {@apilink Actor.name}
      */
     toString(): string {
-        const abilities = Array.from(this.abilities.keys()).map(type => type.name);
+        const abilities = Array.from(this.abilities.values()).map(ability => ability.constructor.name);
 
         return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
     }
@@ -220,13 +213,28 @@ export class Actor implements
     }
 
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
-        for (const [abilityType_, ability] of this.abilities) {
-            if (ability instanceof doSomething) {
-                return ability as T;
-            }
+        const abilityType = this.mostGenericTypeOf(doSomething);
+
+        return this.abilities.get(abilityType) as T;
+    }
+
+    private acquireAbility(ability: Ability): void {
+        if (! (ability instanceof Ability)) {
+            throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ typeOf(ability) }`);
         }
 
-        return undefined;
+        const abilityType = this.mostGenericTypeOf(ability.constructor as AbilityType<Ability>);
+
+        this.abilities.set(abilityType, ability);
+    }
+
+    private mostGenericTypeOf<Generic_Ability extends Ability, Specific_Ability extends Generic_Ability>(
+        abilityType: AbilityType<Specific_Ability>
+    ): AbilityType<Generic_Ability> {
+        const parentType = Object.getPrototypeOf(abilityType);
+        return ! parentType || parentType === Ability
+            ? abilityType
+            : this.mostGenericTypeOf(parentType)
     }
 
     /**
@@ -239,5 +247,77 @@ export class Actor implements
         return typeof maybeName === 'string'
             ? new Name(maybeName)
             : maybeName;
+    }
+}
+
+class ActivityDescriber {
+
+    describe(activity: Activity, actor: { name: string }): Name {
+        const template = activity.toString() === ({}).toString()
+            ? `#actor performs ${ activity.constructor.name }`
+            : activity.toString();
+
+        return new Name(
+            this.includeActorName(template, actor),
+        );
+    }
+
+    private includeActorName(template: string, actor: { name: string }) {
+        return template.replace('#actor', actor.name);
+    }
+}
+
+class OutcomeMatcher {
+    outcomeFor(error: Error | any): ProblemIndication {
+        return match<Error, ProblemIndication>(error)
+            .when(ImplementationPendingError, _ => new ImplementationPending(error))
+            .when(TestCompromisedError, _ => new ExecutionCompromised(error))
+            .when(AssertionError, _ => new ExecutionFailedWithAssertionError(error))
+            .when(Error, _ =>
+                /AssertionError/.test(error.constructor.name) // mocha
+                    ? new ExecutionFailedWithAssertionError(error)
+                    : new ExecutionFailedWithError(error))
+            .else(_ => new ExecutionFailedWithError(error));
+    }
+}
+
+class TrackedActivity extends Activity {
+
+    protected static readonly describer = new ActivityDescriber();
+    protected static readonly outcomes = new OutcomeMatcher();
+
+    constructor(
+        protected readonly activity: Activity,
+        protected readonly stage: Stage,
+    ) {
+        super(activity.toString(), activity.instantiationLocation());
+    }
+
+    performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): Promise<void> {
+        const
+            sceneId = this.stage.currentSceneId(),
+            activityId = this.stage.assignNewActivityId(),
+            details = new ActivityDetails(
+                TrackedActivity.describer.describe(this.activity, actor),
+                this.activity.instantiationLocation(),
+            );
+
+        const [ activityStarts, activityFinished] = this.activity instanceof Interaction
+            ? [ InteractionStarts, InteractionFinished ]
+            : [ TaskStarts, TaskFinished ];
+
+        return Promise.resolve()
+            .then(() => this.stage.announce(new activityStarts(sceneId, activityId, details, this.stage.currentTime())))
+            .then(() => this.activity.performAs(actor))
+            .then(() => {
+                const outcome = new ExecutionSuccessful();
+                this.stage.announce(new activityFinished(sceneId, activityId, details, outcome, this.stage.currentTime()));
+            })
+            .catch(error => {
+                const outcome = TrackedActivity.outcomes.outcomeFor(error);
+                this.stage.announce(new activityFinished(sceneId, activityId, details, outcome, this.stage.currentTime()));
+
+                throw error;
+            });
     }
 }

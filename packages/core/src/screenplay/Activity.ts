@@ -2,7 +2,9 @@ import path from 'path';
 
 import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
-import { AnswersQuestions, PerformsActivities, UsesAbilities } from './actor';
+import { UsesAbilities } from './abilities';
+import { PerformsActivities } from './activities';
+import { AnswersQuestions } from './questions';
 
 /**
  * Serenity/JS Screenplay Pattern `Activity` represents

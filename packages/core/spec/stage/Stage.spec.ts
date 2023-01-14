@@ -100,7 +100,10 @@ describe('Stage', () => {
 
     describe('when instantiating and dismissing the actors', () => {
 
-        class SomeAbilityThatNeedsDiscarding implements Discardable, Ability {
+        class SomeAbilityThatNeedsDiscarding
+            extends Ability
+            implements Discardable
+        {
             discard(): Promise<void> | void {
                 return Promise.resolve();
             }

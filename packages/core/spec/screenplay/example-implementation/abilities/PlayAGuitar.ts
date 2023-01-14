@@ -1,8 +1,8 @@
-import { Ability, UsesAbilities } from '../../../../src/screenplay';
+import { Ability } from '../../../../src/screenplay';
 import { Chord } from '../Chord';
 import { Guitar } from '../Guitar';
 
-export class PlayAGuitar implements Ability {
+export class PlayAGuitar extends Ability {
 
     /**
      * Instantiates the Ability to PlayAnInstrument, allowing the Actor to PerformASong
@@ -15,22 +15,14 @@ export class PlayAGuitar implements Ability {
     }
 
     /**
-     * Used to access the Actor's ability to Drive from within the Action classes
-     *
-     * @param actor
-     * @return {PlayAGuitar}
-     */
-    static as(actor: UsesAbilities): PlayAGuitar {
-        return actor.abilityTo(PlayAGuitar);
-    }
-
-    /**
      * The Ability to PlayAnInstrument allows the Actor to interact with an Instrument,
      * in the same way as the Ability to BrowseTheWeb allows to interact with a WebDriver Browser
      *
      * @param guitar
      */
-    constructor(private readonly guitar: Guitar) { }
+    constructor(private readonly guitar: Guitar) {
+        super();
+    }
 
     /**
      * Instrument-specific interface, allowing the actor to interact with it.

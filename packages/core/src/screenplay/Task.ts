@@ -1,6 +1,6 @@
 import { ImplementationPendingError } from '../errors';
+import { PerformsActivities } from './activities';
 import { Activity } from './Activity';
-import { PerformsActivities } from './actor';
 
 /**
  * Serenity/JS Screenplay Pattern `Task` represents a sequence of {@apilink Activity|activities},
