@@ -6,7 +6,7 @@ import { ConfigurationError } from './errors';
 import { DomainEvent } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
 import { CorrelationId, Duration, Timestamp } from './model';
-import { Actor } from './screenplay/actor/Actor';
+import { Actor } from './screenplay';
 import { StageCrewMember, StageCrewMemberBuilder } from './stage';
 import { Cast } from './stage/Cast';
 import { Clock } from './stage/Clock';

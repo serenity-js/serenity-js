@@ -1,3 +1,4 @@
+export * from './AnswersQuestions';
 export * from './Check';
 export * from './Expectation';
 export * from './expectations';

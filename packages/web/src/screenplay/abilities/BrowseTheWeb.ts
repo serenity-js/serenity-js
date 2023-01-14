@@ -1,4 +1,4 @@
-import { Ability, UsesAbilities } from '@serenity-js/core';
+import { Ability } from '@serenity-js/core';
 
 import { BrowserCapabilities, BrowsingSession, Page } from '../models';
 
@@ -78,20 +78,10 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * @group Abilities
  */
-export abstract class BrowseTheWeb<Native_Element_Type = any> implements Ability {
+export abstract class BrowseTheWeb<Native_Element_Type = any> extends Ability {
 
-    /**
-     * Used to access the {@apilink Actor}'s {@apilink Ability|ability} to {@apilink BrowseTheWeb}
-     * from within the {@apilink Interaction|interactions}, such as {@apilink Click},
-     * and {@apilink Question|questions}, such as {@apilink Attribute}.
-     *
-     * @param actor
-     */
-    static as<NET = any>(actor: UsesAbilities): BrowseTheWeb<NET> {
-        return actor.abilityTo(BrowseTheWeb) as BrowseTheWeb<NET>;
-    }
-
-    protected constructor(protected readonly session: BrowsingSession<Page<Native_Element_Type>>) {
+    constructor(protected readonly session: BrowsingSession<Page<Native_Element_Type>>) {
+        super();
     }
 
     /**

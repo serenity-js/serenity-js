@@ -1,10 +1,10 @@
 export * from './abilities';
-export * from './Ability';
-export * from './AbilityType';
+export * from './activities';
 export * from './Activity';
-export * from './actor';
+export * from './Actor';
 export * from './Answerable';
 export * from './Answered';
+export * from './artifacts';    // todo: move artifacts from model package
 export * from './Interaction';
 export * from './interactions';
 export * from './notes';

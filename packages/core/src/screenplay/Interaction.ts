@@ -1,5 +1,7 @@
+import { UsesAbilities } from './abilities';
 import { Activity } from './Activity';
-import { Actor, AnswersQuestions, CollectsArtifacts, UsesAbilities } from './actor';
+import { CollectsArtifacts } from './artifacts';
+import { AnswersQuestions } from './questions';
 
 /**
  * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apilink Activity|activity} that directly
@@ -84,7 +86,7 @@ class DynamicallyGeneratedInteraction extends Interaction {
         super(description, Interaction.callerLocation(4));
     }
 
-    performAs(actor: Actor): Promise<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         try {
             return Promise.resolve(this.interaction(actor));
         } catch (error) {

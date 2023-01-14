@@ -1,4 +1,4 @@
-const { actorCalled, engage, Interaction } = require('@serenity-js/core');
+const { Ability, actorCalled, engage, Interaction } = require('@serenity-js/core');
 
 describe('Mocha reporting', () => {
 
@@ -40,21 +40,13 @@ class Actors {
 
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
-class CauseErrorWhenAbilityDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseErrorWhenAbilityDiscarded);
-    }
-
+class CauseErrorWhenAbilityDiscarded extends Ability {
     discard() {
         return Promise.reject(new TypeError(`Some internal error in ability`));
     }
 }
 
-class SucceedWhenAbilityDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseErrorWhenAbilityDiscarded);
-    }
-
+class SucceedWhenAbilityDiscarded extends Ability {
     discard() {
         return Promise.resolve();
     }

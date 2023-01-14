@@ -177,7 +177,7 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
     },
 
     page: async ({ actor }, use) => {
-        const page = (await BrowseTheWebWithPlaywright.as(actor).currentPage()) as PlaywrightPage;
+        const page = (await BrowseTheWebWithPlaywright.as(actor).currentPage()) as unknown as PlaywrightPage;
         const nativePage = await page.nativePage();
 
         await use(nativePage);

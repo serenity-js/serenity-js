@@ -1,8 +1,10 @@
 import { ListItemNotFoundError, LogicError } from '../../errors';
 import { d } from '../../io';
-import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
+import { UsesAbilities } from '../abilities';
+import { Actor } from '../Actor';
 import { Answerable } from '../Answerable';
 import { Question, QuestionAdapter } from '../Question';
+import { AnswersQuestions } from '../questions';
 import { Task } from '../Task';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';

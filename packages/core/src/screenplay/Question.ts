@@ -2,10 +2,11 @@ import { isRecord } from 'tiny-types/lib/objects';
 
 import { LogicError } from '../errors';
 import { f } from '../io';
-import { AnswersQuestions, UsesAbilities } from './actor';
+import { UsesAbilities } from './abilities';
 import { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
 import { Optional } from './Optional';
+import { AnswersQuestions } from './questions';
 import { RecursivelyAnswered } from './RecursivelyAnswered';
 import { WithAnswerableProperties } from './WithAnswerableProperties';
 

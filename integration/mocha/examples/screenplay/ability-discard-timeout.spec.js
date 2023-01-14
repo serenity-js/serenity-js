@@ -1,6 +1,6 @@
 const
     { ChildProcessReporter } = require('@integration/testing-tools'),
-    { actorCalled, configure, Duration, Interaction, StreamReporter } = require('@serenity-js/core');
+    { Ability, actorCalled, configure, Duration, Interaction, StreamReporter } = require('@serenity-js/core');
 
 describe('Mocha reporting', () => {
 
@@ -32,12 +32,9 @@ describe('Mocha reporting', () => {
 
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
-class CauseTimeoutProblemsWhenDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseTimeoutProblemsWhenDiscarded);
-    }
-
+class CauseTimeoutProblemsWhenDiscarded extends Ability {
     constructor(timeout) {
+        super();
         this.timeout = timeout;
     }
 

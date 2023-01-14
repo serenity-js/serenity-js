@@ -1,4 +1,4 @@
-import { Interaction } from '@serenity-js/core';
+import { Ability, Interaction } from '@serenity-js/core';
 import { describe, it } from '@serenity-js/playwright-test';
 
 describe('Playwright Test reporting', () => {
@@ -17,11 +17,7 @@ describe('Playwright Test reporting', () => {
 
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
-class CauseErrorWhenDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseErrorWhenDiscarded);
-    }
-
+class CauseErrorWhenDiscarded extends Ability {
     discard() {
         return Promise.reject(new TypeError(`Some internal error in ability`));
     }

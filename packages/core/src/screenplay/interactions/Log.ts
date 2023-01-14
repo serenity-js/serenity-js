@@ -1,9 +1,11 @@
 import { d } from '../../io';
 import { inspected } from '../../io/inspected';
 import { LogEntry, Name } from '../../model';
-import { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '../actor';
+import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
+import { CollectsArtifacts } from '../artifacts';
 import { Interaction } from '../Interaction';
+import { AnswersQuestions } from '../questions';
 
 /**
  * Instructs the {@apilink Actor} to {@apilink CollectsArtifacts|collect} arbitrary static values and answers to {@apilink Answerable|Answerables},

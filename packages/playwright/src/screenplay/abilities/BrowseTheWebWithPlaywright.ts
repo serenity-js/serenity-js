@@ -47,7 +47,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementH
         return new BrowseTheWebWithPlaywright(browser, options);
     }
 
-    protected constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
+    constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
         super(new PlaywrightBrowsingSession(browser, browserContextOptions));
     }
 

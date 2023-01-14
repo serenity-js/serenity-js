@@ -1,4 +1,4 @@
-import { Interaction } from '@serenity-js/core';
+import { Ability, Interaction } from '@serenity-js/core';
 import { describe, it, test } from '@serenity-js/playwright-test';
 
 class Actors {
@@ -14,21 +14,13 @@ class Actors {
 
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
-class CauseErrorWhenAbilityDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseErrorWhenAbilityDiscarded);
-    }
-
+class CauseErrorWhenAbilityDiscarded extends Ability {
     discard() {
         return Promise.reject(new TypeError(`Some internal error in ability`));
     }
 }
 
-class SucceedWhenAbilityDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseErrorWhenAbilityDiscarded);
-    }
-
+class SucceedWhenAbilityDiscarded extends Ability {
     discard() {
         return Promise.resolve();
     }
