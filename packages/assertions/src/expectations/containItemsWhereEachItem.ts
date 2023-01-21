@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when all the items of the actual array of `Item[]`
@@ -44,7 +44,7 @@ class ContainItemsWhereEachItemMeetsExpectation<Actual> extends Expectation<Actu
                 if (! items || items.length === 0) {
                     return new ExpectationNotMet(
                         ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
-                        undefined,
+                        new Unanswered(),
                         items,
                     );
                 }

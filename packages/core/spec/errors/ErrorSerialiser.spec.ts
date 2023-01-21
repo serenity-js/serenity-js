@@ -1,7 +1,6 @@
 import { strictEqual } from 'assert';
 import { describe, it } from 'mocha';
 
-import { Duration } from '../../src';
 import { AssertionError, TimeoutExpiredError } from '../../src/errors';
 import { ErrorSerialiser } from '../../src/errors';
 import { expect } from '../expect';
@@ -23,7 +22,7 @@ describe ('ErrorSerialiser', () => {
         });
 
         it('serialises all fields of custom objects that extend Error', () => {
-            const error = thrown(new AssertionError(`Expected false to equal true`, true, false));
+            const error = thrown(new AssertionError(`Expected false to equal true`));
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
@@ -31,14 +30,11 @@ describe ('ErrorSerialiser', () => {
 
             expect(parsed.name).to.equal('AssertionError');
             expect(parsed.message).to.equal('Expected false to equal true');
-            expect(parsed.expected).to.equal(true);
-            expect(parsed.actual).to.equal(false);
             expect(parsed.stack).to.equal(error.stack);
         });
 
         it('serialises a TimeoutExpiredError', () => {
-            const timeout   = Duration.ofSeconds(5);
-            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout));
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`));
 
             const
                 serialised  = ErrorSerialiser.serialise(error),
@@ -46,7 +42,6 @@ describe ('ErrorSerialiser', () => {
 
             expect(parsed.name).to.equal('TimeoutExpiredError');
             expect(parsed.message).to.equal('Interaction took longer than expected');
-            expect(parsed.timeout.milliseconds).to.equal(timeout.inMilliseconds());
             expect(parsed.stack).to.equal(error.stack);
         });
 
@@ -59,8 +54,6 @@ describe ('ErrorSerialiser', () => {
 
             expect(parsed.name).to.equal('AssertionError');
             expect(parsed.message).to.equal('Expected values to be strictly equal:\n\ntrue !== false\n');
-            expect(parsed.expected).to.equal(false);
-            expect(parsed.actual).to.equal(true);
             expect(parsed.stack).to.equal(error.stack);
         });
     });
@@ -96,23 +89,18 @@ describe ('ErrorSerialiser', () => {
             const error = ErrorSerialiser.deserialise(JSON.stringify({
                 name:    'AssertionError',
                 message: 'Expected false to equal true',
-                expected: true,
-                actual:   false,
                 stack,
             })) as AssertionError;
 
             expect(error).to.be.instanceOf(AssertionError);
             expect(error.name).to.equal(`AssertionError`);
             expect(error.message).to.equal(`Expected false to equal true`);
-            expect(error.expected).to.equal(true);
-            expect(error.actual).to.equal(false);
             expect(error.stack).to.equal(stack);
         });
 
         it('deserialises a serialised TimeoutExpiredError', () => {
-            const timeout   = Duration.ofSeconds(5);
             const cause     = thrown(new Error('root cause'));
-            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, timeout, cause));
+            const error     = thrown(new TimeoutExpiredError(`Interaction took longer than expected`, cause));
 
             const serialised  = ErrorSerialiser.serialise(error);
 
@@ -121,7 +109,6 @@ describe ('ErrorSerialiser', () => {
             expect(deserialised).to.be.instanceOf(TimeoutExpiredError);
             expect(deserialised.name).to.equal(`TimeoutExpiredError`);
             expect(deserialised.message).to.equal(`Interaction took longer than expected`);
-            expect(deserialised.timeout).to.equal(timeout);
             expect(deserialised.stack).to.equal(error.stack);
             expect(deserialised.cause.name).to.equal(cause.name);
             expect(deserialised.cause.message).to.equal(cause.message);
@@ -136,8 +123,6 @@ describe ('ErrorSerialiser', () => {
             expect(deserialised).to.be.instanceOf(AssertionError);
             expect(deserialised.name).to.equal(`AssertionError`);
             expect(deserialised.message).to.match(/Expected.*strictly equal/);
-            expect(deserialised.expected).to.equal(false);
-            expect(deserialised.actual).to.equal(true);
         });
     });
 
@@ -172,10 +157,6 @@ describe ('ErrorSerialiser', () => {
             expect(deserialised).to.be.instanceOf(AssertionError);
             expect(deserialised.name).to.equal(`AssertionError`);
             expect(deserialised.message).to.match(/Expected.*strictly equal/);
-
-            // todo: we have no way of knowing either of those two fields from the stack trace alone
-            expect(deserialised.actual).to.equal(undefined);
-            expect(deserialised.expected).to.equal(undefined);
         });
     });
 
@@ -205,10 +186,6 @@ describe ('ErrorSerialiser', () => {
 
             expect(deserialised).to.be.instanceof(AssertionError);
             expect(deserialised.message).to.equal(`+ expected - actual\n\n    -true\n    +false`);
-
-            // todo: we have no way of knowing either of those two fields from the stack trace alone
-            expect(deserialised.expected).to.equal(undefined);
-            expect(deserialised.actual).to.equal(undefined);
         });
 
         it('instantiates a Serenity/JS AssertionError based on Node.js AssertionError, to the best of its ability', () => {
@@ -221,26 +198,18 @@ describe ('ErrorSerialiser', () => {
 
             expect(deserialised).to.be.instanceof(AssertionError);
             expect(deserialised.message).to.equal(`[ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    + expected - actual\n\n    -false\n    +true`);
-
-            // todo: we have no way of knowing either of those two fields from the stack trace alone
-            expect(deserialised.expected).to.equal(undefined);
-            expect(deserialised.actual).to.equal(undefined);
         });
 
         it('instantiates a Serenity/JS AssertionError, to the best of its ability', () => {
 
-            const error = caught(() => { throw new AssertionError('Expected true to equal false', true, false)}) as AssertionError;
+            const error = caught(() => { throw new AssertionError('Expected true to equal false')}) as AssertionError;
 
             const message = format(error);
 
             const deserialised = ErrorSerialiser.deserialiseFromStackTrace(message) as AssertionError;
 
             expect(deserialised).to.be.instanceof(AssertionError);
-            expect(deserialised.message).to.equal(`Expected true to equal false\n    + expected - actual\n\n    -false\n    +true`);
-
-            // todo: we have no way of knowing either of those two fields from the stack trace alone
-            expect(deserialised.expected).to.equal(undefined);
-            expect(deserialised.actual).to.equal(undefined);
+            expect(deserialised.message).to.equal(`Expected true to equal false`);
         });
     });
 });

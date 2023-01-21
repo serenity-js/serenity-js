@@ -31,9 +31,7 @@ describe('@serenity-js/mocha', function () {
 
                     const error = outcome.error as AssertionError;
 
-                    expect(error.message).to.equal('Expected false to be true.');
-                    expect(error.expected).to.equal('true');
-                    expect(error.actual).to.equal('false');
+                    expect(error.message).to.equal(`Expected false to be true.`);
                 })
             ;
         }));

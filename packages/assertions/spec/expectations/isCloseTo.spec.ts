@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { Ensure, isCloseTo } from '../../src';
@@ -42,30 +43,30 @@ describe('isCloseTo', () => {
     it('breaks the actor flow when "actual" is not close to the "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(10.25, isCloseTo(10, 0.1)),
-        )).to.be.rejectedWith(AssertionError, `Expected 10.25 to have value close to 10 ±0.1`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.deep.equal(10);
-                expect(error.actual).to.deep.equal(10.25);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 10.25 to have value close to 10 ±0.1
+            | 
+            | Expected number: 10
+            | Actual number:   10.25`);
     });
 
     it('breaks the actor flow when "actual" is infinite', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(Number.POSITIVE_INFINITY, isCloseTo(42)),
-        )).to.be.rejectedWith(AssertionError, `Expected Infinity to have value close to 42 ±1e-9`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.deep.equal(42);
-                expect(error.actual).to.deep.equal(Number.POSITIVE_INFINITY);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected Infinity to have value close to 42 ±1e-9
+            | 
+            | Expected number: 42
+            | Actual number:   Infinity`);
     });
 
     it('breaks the actor flow when "expected" is infinite', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(42, isCloseTo(Number.NEGATIVE_INFINITY)),
-        )).to.be.rejectedWith(AssertionError, `Expected 42 to have value close to -Infinity ±1e-9`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.deep.equal(Number.NEGATIVE_INFINITY);
-                expect(error.actual).to.deep.equal(42);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 42 to have value close to -Infinity ±1e-9
+            | 
+            | Expected number: -Infinity
+            | Actual number:   42`);
     });
 });

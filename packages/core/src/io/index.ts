@@ -10,4 +10,3 @@ export * from './loader';
 export * from './Path';
 export * from './reflection';
 export * from './trimmed';
-export * from './typeOf';

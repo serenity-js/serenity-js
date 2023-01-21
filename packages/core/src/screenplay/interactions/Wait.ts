@@ -1,6 +1,6 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
+import { AssertionError, ErrorFactory, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
 import { UsesAbilities } from '../abilities';
@@ -284,12 +284,15 @@ export class WaitUntil<Actual> extends Interaction {
             poller.stop();
 
             if (error instanceof TimeoutExpiredError) {
-                throw new AssertionError(
-                    d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
-                    outcome?.expected,
-                    outcome?.actual,
-                    error,
-                )
+
+                // todo: inject ErrorFactory
+                const errors = new ErrorFactory();
+
+                throw errors.create(AssertionError, {
+                    message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
+                    diff: outcome,
+                    cause: error,
+                });
             }
 
             throw error;
@@ -372,10 +375,7 @@ function timeoutAfter(duration: Duration): { start: () => Promise<void>, stop: (
             new Promise<void>((resolve, reject) => {
                 timeoutId = setTimeout(() => {
                     clearTimeout(timeoutId);
-                    reject(new TimeoutExpiredError(
-                        d`Timeout of ${ duration } has expired`,
-                        duration,
-                    ));
+                    reject(new TimeoutExpiredError(d`Timeout of ${ duration } has expired`));
                 }, duration.inMilliseconds());
             }),
 

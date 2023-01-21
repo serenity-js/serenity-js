@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { endsWith, Ensure, or, startsWith } from '../../src';
@@ -24,11 +25,11 @@ describe('or', () => {
     it('breaks the actor flow when "actual" does meets none of the expectations', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.equal('Mundo!');
-                expect(error.actual).to.equal('Hello World!');
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'
+            | 
+            | Expected string: Mundo!
+            | Actual string:   Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {

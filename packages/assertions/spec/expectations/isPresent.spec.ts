@@ -41,14 +41,7 @@ describe('isPresent', () => {
     it('breaks the actor flow when "actual" is not present', ({ description, value }) => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(value, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Expected ${ description } to become present`)
-            .then((error: AssertionError) => {
-                // return undefined in both cases
-                // since there's nothing meaningful
-                // we can show when the thing is "not present"
-                expect(error.expected).to.equal(undefined);
-                expect(error.actual).to.equal(undefined);
-            });
+        )).to.be.rejectedWith(AssertionError, `Expected ${ description } to become present`);
     });
 
     it('contributes to a human-readable description', () => {

@@ -66,7 +66,7 @@ describe('MochaTestMapper', () => {
 
     it('recognises tests that failed with a Serenity/JS AssertionError', () => {
 
-        const error = new AssertionError('Expected false to be true', true, false);
+        const error = new AssertionError('Expected false to be true');
 
         const test = new Test('example', someScenario);
         test.state = 'failed';

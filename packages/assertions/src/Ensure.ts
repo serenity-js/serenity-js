@@ -5,6 +5,7 @@ import {
     AssertionError,
     CollectsArtifacts,
     d,
+    ErrorFactory,
     Expectation,
     ExpectationMet,
     ExpectationNotMet,
@@ -103,8 +104,10 @@ export class Ensure<Actual> extends Interaction {
 
         return match<ExpectationOutcome<unknown, Actual>, void>(outcome)
             .when(ExpectationNotMet, o => {
+                // todo: remove
                 actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
 
+                // todo: name from this.expectation, not just the outcome
                 throw this.errorForOutcome(o);
             })
             .when(ExpectationMet, _ => void 0)
@@ -141,18 +144,18 @@ export class Ensure<Actual> extends Interaction {
      */
     protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
         const actualDescription = d`${ this.actual }`;
-        const inspectedActual = inspected(outcome.actual, { inline: true, markQuestions: false });
-        const message = actualDescription === inspectedActual
-            ? `Expected ${ actualDescription } to ${ outcome.message }`
-            : `Expected ${ actualDescription } to ${ outcome.message } but got ${ inspectedActual }`;
+        const message = `Expected ${ actualDescription } to ${ outcome.message }`;
 
-        return new AssertionError(
+        // todo: inject ErrorFactory
+        const errors = new ErrorFactory();
+
+        return errors.create(AssertionError, {
             message,
-            outcome.expected,
-            outcome.actual,
-        );
+            diff: outcome,
+        })
     }
 
+    // todo: remove assertion report artifact altogether
     private artifactFrom(expected: any, actual: Actual): Artifact {
         return AssertionReport.fromJSON({
             expected: inspected(expected),
@@ -164,7 +167,8 @@ export class Ensure<Actual> extends Interaction {
 /**
  * @package
  */
-class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
+// todo: simplify / remove?
+class EnsureOrFailWithCustomError<Expected, Actual> extends Ensure<Actual> {
     constructor(
         actual: Answerable<Actual>,
         expectation: Expectation<Actual>,
@@ -174,7 +178,7 @@ class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
         super(actual, expectation, Activity.callerLocation(6));
     }
 
-    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
+    protected errorForOutcome(outcome: ExpectationOutcome<Expected, Actual>): RuntimeError {
         const assertionError = this.asAssertionError(outcome);
 
         return new this.typeOfRuntimeError(this.message || assertionError.message, assertionError);

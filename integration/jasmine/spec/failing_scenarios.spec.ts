@@ -1,6 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -65,9 +66,12 @@ describe('@serenity-js/jasmine', function () {
                         const error = outcome.error as AssertionError;
 
                         expect(error).to.be.instanceof(AssertionError);
-                        expect(error.message).to.equal('Expected false to equal true.');
-                        expect(error.expected).to.equal(true);
-                        expect(error.actual).to.equal(false);
+                        expect(error.message).to.equal(trimmed`
+                            | Expected false to equal true.
+                            | 
+                            | Expected boolean: true
+                            | Actual boolean:   false
+                            |`);
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })
                 ;
@@ -103,9 +107,12 @@ describe('@serenity-js/jasmine', function () {
                         const error = outcome.error as AssertionError;
 
                         expect(error).to.be.instanceof(AssertionError);
-                        expect(error.message).to.equal('Expected false to equal true.');
-                        expect(error.expected).to.equal(true);
-                        expect(error.actual).to.equal(false);
+                        expect(error.message).to.equal(trimmed`
+                            | Expected false to equal true.
+                            | 
+                            | Expected boolean: true
+                            | Actual boolean:   false
+                            |`);
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })
                     .next(SceneFinished,       event => {

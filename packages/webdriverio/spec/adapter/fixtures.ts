@@ -111,7 +111,7 @@ export const
     executionSkipped                = new ExecutionSkipped(),
     executionIgnored                = new ExecutionIgnored(thrown(new Error('Execution failed but will be retried'))),
     implementationPending           = new ImplementationPending(thrown(new ImplementationPendingError('Step missing'))),
-    executionFailedWithAssertionError    = new ExecutionFailedWithAssertionError(thrown(new AssertionError('Expected false to be true', true, false))),
+    executionFailedWithAssertionError    = new ExecutionFailedWithAssertionError(thrown(new AssertionError('Expected false to be true'))),
     executionFailedWithError        = new ExecutionFailedWithError(thrown(new Error(`We're sorry, something happened`))),
     executionCompromised            = new ExecutionCompromised(thrown(new TestCompromisedError('DB is down')))
 ;

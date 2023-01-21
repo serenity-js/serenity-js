@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { Ensure, isTrue } from '../../src';
@@ -15,11 +16,12 @@ describe('isTrue', () => {
     it('breaks the actor flow when "actual" is not true', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(false, isTrue()),
-        )).to.be.rejectedWith(AssertionError, `Expected false to equal true`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.equal(true);
-                expect(error.actual).to.equal(false);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected false to equal true
+            | 
+            | Expected boolean: true
+            | Actual boolean:   false
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

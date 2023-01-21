@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when the actual array of `Item[]` contains
@@ -44,7 +44,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
                 if (! items || items.length === 0) {
                     return new ExpectationNotMet(
                         ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                        undefined,
+                        new Unanswered(),
                         items,
                     );
                 }

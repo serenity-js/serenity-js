@@ -75,7 +75,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 34ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 
@@ -120,7 +120,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 135ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
@@ -163,7 +163,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 31ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('prints the details of the failed assertion', () => emitter.emit(`
@@ -222,7 +222,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 35ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('pinpoints exactly where the failure happened', () => emitter.emit(`
@@ -290,7 +290,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 51ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 
@@ -363,7 +363,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 56ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 });

@@ -44,7 +44,7 @@ describe('ProtractorReporter', () => {
         executionSkipped        = new ExecutionSkipped(),
         executionIgnored        = new ExecutionIgnored(thrown(new Error('Execution ignored'))),
         implementationPending   = new ImplementationPending(thrown(new ImplementationPendingError('Step missing'))),
-        failedWithAssertion     = new ExecutionFailedWithAssertionError(thrown(new AssertionError('Expected false to be true', true, false))),
+        failedWithAssertion     = new ExecutionFailedWithAssertionError(thrown(new AssertionError('Expected false to be true'))),
         failedWithError         = new ExecutionFailedWithError(thrown(new Error(`We're sorry, something happened`))),
         compromised             = new ExecutionCompromised(thrown(new TestCompromisedError('DB is down')));
 

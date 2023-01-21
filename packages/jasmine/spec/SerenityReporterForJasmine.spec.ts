@@ -14,7 +14,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, trimmed } from '@serenity-js/core/lib/io';
 import {
     CorrelationId,
     ExecutionCompromised,
@@ -557,9 +557,12 @@ describe('SerenityReporterForJasmine', () => {
 
                             const error = outcome.error as AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal('Expected false to equal true.');
-                            expect(error.actual).to.equal(false);
-                            expect(error.expected).to.equal(true);
+                            expect(error.message).to.equal(trimmed`
+                                | Expected false to equal true.
+                                |
+                                | Expected boolean: true
+                                | Actual boolean:   false
+                                |`);
                         });
                 });
 
@@ -601,9 +604,12 @@ describe('SerenityReporterForJasmine', () => {
 
                             const error = outcome.error as AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal('Expected false to equal true.');
-                            expect(error.actual).to.equal(false);
-                            expect(error.expected).to.equal(true);
+                            expect(error.message).to.equal(trimmed`
+                                | Expected false to equal true.
+                                |
+                                | Expected boolean: true
+                                | Actual boolean:   false
+                                |`);
                         })
                         .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
                         .next(TaskFinished, event => {
@@ -612,9 +618,12 @@ describe('SerenityReporterForJasmine', () => {
 
                             const error = outcome.error as AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal('Expected "hello" to equal "hey".');
-                            expect(error.actual).to.equal('hello');
-                            expect(error.expected).to.equal('hey');
+                            expect(error.message).to.equal(trimmed`
+                                | Expected "hello" to equal "hey".
+                                |
+                                | Expected string: hey
+                                | Actual string:   hello
+                                |`);
                         })
                         .next(SceneFinished, event => {
                             const outcome = event.outcome as ExecutionFailedWithAssertionError;
@@ -622,9 +631,12 @@ describe('SerenityReporterForJasmine', () => {
 
                             const error = outcome.error as AssertionError;
                             expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal('Expected false to equal true.');
-                            expect(error.actual).to.equal(false);
-                            expect(error.expected).to.equal(true);
+                            expect(error.message).to.equal(trimmed`
+                                | Expected false to equal true.
+                                |
+                                | Expected boolean: true
+                                | Actual boolean:   false
+                                |`);
                         });
                 });
             });
