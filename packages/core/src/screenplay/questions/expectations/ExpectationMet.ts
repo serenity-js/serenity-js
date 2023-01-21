@@ -1,7 +1,7 @@
 import { ExpectationOutcome } from './ExpectationOutcome';
 
 /**
- * Indicates that an {@apilink Expectations} was met.
+ * Indicates that an {@apilink Expectation} was met.
  *
  * @group Expectations
  */

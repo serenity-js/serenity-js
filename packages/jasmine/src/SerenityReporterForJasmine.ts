@@ -240,7 +240,14 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         if (failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
             return new ExecutionFailedWithAssertionError(
-                new AssertionError(failure.message, failure.expected, failure.actual, error),
+                this.serenity.createError(AssertionError, {
+                    message: failure.message,
+                    diff: {
+                        expected: failure.expected,
+                        actual: failure.actual,
+                    },
+                    cause: error,
+                }),
             );
         }
 

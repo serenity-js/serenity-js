@@ -2,7 +2,7 @@ import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
 import { OutputStream } from './adapter';
 import { SerenityConfig } from './config';
-import { ConfigurationError } from './errors';
+import { ConfigurationError, ErrorFactory, ErrorOptions, RuntimeError } from './errors';
 import { DomainEvent } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
 import { CorrelationId, Duration, Timestamp } from './model';
@@ -25,6 +25,7 @@ export class Serenity {
     private outputStream: OutputStream  = process.stdout;
 
     private readonly classLoader: ClassLoader;
+    private readonly errors = new ErrorFactory();
 
     /**
      * @param clock
@@ -294,5 +295,11 @@ export class Serenity {
      */
     waitForNextCue(): Promise<void> {
         return this.stage.waitForNextCue();
+    }
+
+    // todo: could I use this method to deserialise generic errors like TypeError? might need to call `summary` a message
+    // todo: createError<RE extends RuntimeError>(errorType: new (message: string, cause?: Error) => RE, options: ErrorMessageOptions): RE {
+    createError<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
+        return this.errors.create(errorType, options);
     }
 }

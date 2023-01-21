@@ -12,6 +12,22 @@ Feature: Reports failing scenarios
     Given a step that passes
       And a step that fails with a Serenity/JS AssertionError
 
+  Scenario: A scenario failing with a Serenity/JS AssertionError in an async step
+
+    Here's an example of a scenario failing due to an assertion error
+    in an async step.
+
+    Given a step that passes
+      And an async step that fails with a Serenity/JS AssertionError
+
+  Scenario: A scenario failing with a Serenity/JS Screenplay AssertionError
+
+    Here's an example of a scenario failing due to an assertion error
+    thrown by the interaction to `Ensure`
+
+    Given a step that passes
+      And a step that fails with a Serenity/JS Screenplay AssertionError
+
   Scenario: A scenario failing with a Node.js AssertionError
 
     Did you know thatSerenity/JS picks up generic AssertionErrors too?

@@ -588,8 +588,6 @@ describe('WebdriverIONotifier', () => {
                 expect(result.passed).to.equal(false);
                 expect(result.status).to.equal('failed');
                 expect(result.retries).to.deep.equal({ attempts: 0, limit: 0 });
-                expect(result.error.actual).to.equal(false);
-                expect(result.error.expected).to.equal(true);
                 expect(result.error.message).to.equal('Expected false to be true');
                 expect(result.error.name).to.equal('AssertionError');
                 expect(result.error.type).to.equal('AssertionError');

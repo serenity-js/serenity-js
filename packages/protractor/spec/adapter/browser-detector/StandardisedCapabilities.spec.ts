@@ -1,5 +1,3 @@
-import 'chai-as-promised';
-
 import { expect } from '@integration/testing-tools';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';

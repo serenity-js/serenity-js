@@ -118,10 +118,10 @@ describe('Actor', () => {
             }
 
             given([
-                { description: 'undefined',     ability: undefined,             received: 'undefined'                   },
-                { description: 'null',          ability: null,                  received: 'null'                        },  // eslint-disable-line unicorn/no-null
-                { description: 'object',        ability: { },                   received: 'object'                      },
-                { description: 'instance',      ability: new NotAnAbility(),    received: 'instance of NotAnAbility'    },
+                { description: 'undefined',     ability: undefined,             received: 'undefined'       },
+                { description: 'null',          ability: null,                  received: 'null'            },  // eslint-disable-line unicorn/no-null
+                { description: 'object',        ability: { },                   received: 'object'          },
+                { description: 'instance',      ability: new NotAnAbility(),    received: 'NotAnAbility'    },
             ]).
             it(`complains if requested to use an ability object that doesn't extend Ability`, ({ ability, received }) => {
                 expect(() =>

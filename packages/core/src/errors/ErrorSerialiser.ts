@@ -1,6 +1,6 @@
 import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
 
-// todo: can I remove it?
+// todo: can I remove it? please
 import { parse, stringify } from './json';
 
 export interface SerialisedError extends JSONObject {

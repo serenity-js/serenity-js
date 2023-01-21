@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { contain, Ensure } from '../../src';
@@ -14,11 +15,16 @@ describe('contain', () => {
     it('breaks the actor flow when "actual" does not contain the "expected" text', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that([ 'Hello', 'World' ], contain('Mundo')),
-        )).to.be.rejectedWith(AssertionError, `Expected [ 'Hello', 'World' ] to contain 'Mundo'`)
-            .then((error: AssertionError) => {
-                expect(error.expected.toString()).to.equal('Mundo');
-                expect(error.actual).to.deep.equal([ 'Hello', 'World' ]);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected [ 'Hello', 'World' ] to contain 'Mundo'
+            | 
+            | Expected string: Mundo
+            | Actual Array
+            |
+            | [
+            |   'Hello',
+            |   'World'
+            | ]`);
     });
 
     it('contributes to a human-readable description', () => {

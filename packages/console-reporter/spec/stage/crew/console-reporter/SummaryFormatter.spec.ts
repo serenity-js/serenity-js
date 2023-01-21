@@ -53,7 +53,7 @@ describe('SummaryFormatter', () => {
             | Total time: 0ms
             | Real time: 5ms
             | Scenarios:  0
-        `);
+            |`);
     });
 
     it('provides summary of a single successful category', () => {
@@ -71,7 +71,7 @@ describe('SummaryFormatter', () => {
             | Total time: 5ms
             | Real time: 5ms
             | Scenarios:  1
-        `);
+            |`);
     });
 
     it('aggregates results per category', () => {
@@ -92,7 +92,7 @@ describe('SummaryFormatter', () => {
             | Total time: 115ms
             | Real time: 5ms
             | Scenarios:  3
-        `);
+            |`);
     });
 
     it('caps the category name at 30 characters', () => {
@@ -110,7 +110,7 @@ describe('SummaryFormatter', () => {
             | Total time: 5ms
             | Real time: 5ms
             | Scenarios:  1
-        `);
+            |`);
     });
 
     it('keeps the padding consistent between longer and shorter category names', () => {
@@ -130,6 +130,6 @@ describe('SummaryFormatter', () => {
             | Total time: 15ms
             | Real time: 5ms
             | Scenarios:  2
-        `);
+            |`);
     });
 });

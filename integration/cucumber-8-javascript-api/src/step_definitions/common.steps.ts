@@ -11,7 +11,7 @@ Given(/^.*step .* fails with a generic error$/, function () {
 });
 
 Given(/^.*step .* fails with an assertion error$/, function () {
-    throw new AssertionError(`Expected false to equal true`, false, true);
+    throw new AssertionError(`Expected false to equal true`);
 });
 
 Given(/^.*step .* fails with a non-Serenity assertion error$/, function () {

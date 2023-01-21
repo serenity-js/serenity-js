@@ -1,5 +1,6 @@
 import { Change, diffLines } from 'diff';
 
+// todo: incorporate into Serenity
 export class AssertionReportDiffer {
     constructor(private readonly mappers: AssertionReportDiffMappers) {
     }

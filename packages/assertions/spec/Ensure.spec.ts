@@ -1,8 +1,7 @@
-import 'chai-as-promised';
-
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { Name } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
@@ -11,6 +10,26 @@ import { Ensure, equals } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 describe('Ensure', () => {
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = Ensure.that(true, equals(true));
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(16);
+            expect(location.column).to.equal(37);
+        });
+
+        it('correctly detects its invocation location when custom errors are used', () => {
+            const activity = Ensure.that(true, equals(true)).otherwiseFailWith(TestCompromisedError);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(25);
+            expect(location.column).to.equal(62);
+        });
+    });
 
     it('allows the actor to make an assertion', () => {
         return expect(actorCalled('Enrique').attemptsTo(
@@ -25,14 +44,19 @@ describe('Ensure', () => {
     });
 
     given([
-        { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7 but got 4', description: 'Promise' },
-        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Questipn' },
-        { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Question<Promise>'  },
+        { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7', description: 'Promise' },
+        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7', description: 'Questipn' },
+        { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7', description: 'Question<Promise>'  },
     ]).
     it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(actual, isIdenticalTo(7)),
-        )).to.be.rejectedWith(AssertionError, expectedMessage);
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | ${ expectedMessage }
+            | 
+            | Expected number: 7
+            | Actual number:   4`
+        );
     });
 
     it('provides a description of the assertion being made', () => {
@@ -144,7 +168,13 @@ describe('Ensure', () => {
                 .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
                 .then((error: RuntimeError) => {
                     expect(error.cause).to.be.instanceOf(AssertionError);
-                    expect(error.cause.message).to.be.equal('Expected 503 to equal 200');
+                    expect(error.cause.message).to.equal(trimmed `
+                        | Expected 503 to equal 200
+                        | 
+                        | Expected number: 200
+                        | Actual number:   503
+                        |`
+                    );
                 }),
         );
 
@@ -152,26 +182,6 @@ describe('Ensure', () => {
             return expect(actorCalled('Enrique').attemptsTo(
                 Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError, 'The server is down. Please cheer it up.'),
             )).to.be.rejectedWith(TestCompromisedError, 'The server is down. Please cheer it up.');
-        });
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location', () => {
-            const activity = Ensure.that(true, equals(true));
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(160);
-            expect(location.column).to.equal(37);
-        });
-
-        it('correctly detects its invocation location when custom errors are used', () => {
-            const activity = Ensure.that(true, equals(true)).otherwiseFailWith(TestCompromisedError);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(169);
-            expect(location.column).to.equal(62);
         });
     });
 });

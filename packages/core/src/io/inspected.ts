@@ -175,7 +175,7 @@ function hasCustomInspectionFunction(v: Answerable<any>): v is object { // eslin
  *
  * @param v
  */
-function isPlainObject(v: Answerable<any>): v is object {   // eslint-disable-line @typescript-eslint/ban-types
+export function isPlainObject(v: unknown): v is object {   // eslint-disable-line @typescript-eslint/ban-types
 
     // Basic check for Type object that's not null
     if (typeof v === 'object' && v !== null) {

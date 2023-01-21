@@ -12,7 +12,7 @@ defineSupportCode(({ Given }) => {
     });
 
     Given(/^.*step .* fails with an assertion error$/, function () {
-        return Promise.reject(new AssertionError(`Expected false to equal true`, false, true));
+        return Promise.reject(new AssertionError(`Expected false to equal true`));
     });
 
     Given(/^.*step .* fails with a non-Serenity assertion error$/, function () {

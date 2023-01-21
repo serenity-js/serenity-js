@@ -13,8 +13,6 @@ export class AssertionError extends RuntimeError {
     static fromJSON(serialised: JSONObject): AssertionError {
         const error = new AssertionError(
             serialised.message as string,
-            serialised.expected as unknown,
-            serialised.actual as unknown,
             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
         );
 
@@ -24,12 +22,10 @@ export class AssertionError extends RuntimeError {
     }
 
     /**
-     * @param message - Human-readable description of the error
-     * @param expected - The value that was expected
-     * @param actual - The value that was received instead of the expected one
+     * @param message - Human-readable description of the error and the difference between the expected and actual values
      * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
-    constructor(message: string, public readonly expected: unknown, public readonly actual: unknown, cause?: Error) {
+    constructor(message: string, cause?: Error) {
         super(AssertionError, message, cause);
     }
 }
