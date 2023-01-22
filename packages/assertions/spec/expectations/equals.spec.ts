@@ -42,7 +42,7 @@ describe('equals', () => {
             Ensure.that(undefined, equals(1)),              // eslint-disable-line unicorn/no-useless-undefined
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected undefined to equal 1
-            | 
+            |
             | Expected number:    1
             | Received undefined
             |`);
@@ -53,7 +53,7 @@ describe('equals', () => {
             Ensure.that(1, equals(undefined)),              // eslint-disable-line unicorn/no-useless-undefined
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 1 to equal undefined
-            | 
+            |
             | Expected undefined
             | Received number:    1
             |`);

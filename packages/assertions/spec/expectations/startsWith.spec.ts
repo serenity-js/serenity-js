@@ -18,7 +18,7 @@ describe('startsWith', () => {
             Ensure.that('Hello World!', startsWith('¡Hola')),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to start with '¡Hola'
-            | 
+            |
             | Expected string: ¡Hola
             | Received string: Hello World!`);
     });

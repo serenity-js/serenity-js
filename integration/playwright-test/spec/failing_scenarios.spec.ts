@@ -100,7 +100,7 @@ describe('@serenity-js/playwright-test', function () {
                         expect(error.name).to.equal('AssertionError');
                         expect(error.message).to.equal(trimmed`
                             | Expected 'Hello' to equal 'Hola'
-                            | 
+                            |
                             | Expected string: Hola
                             | Received string: Hello
                             |`);

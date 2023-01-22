@@ -36,7 +36,7 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
 
                     expect(error.message).to.equal(trimmed`
                         | Expected false to be true.
-                        | 
+                        |
                         | Expected boolean: true
                         | Received boolean: false
                         |`);

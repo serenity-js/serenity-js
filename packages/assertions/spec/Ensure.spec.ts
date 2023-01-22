@@ -53,7 +53,7 @@ describe('Ensure', () => {
             Ensure.that(actual, isIdenticalTo(7)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | ${ expectedMessage }
-            | 
+            |
             | Expected number: 7
             | Received number: 4`
         );
@@ -170,7 +170,7 @@ describe('Ensure', () => {
                     expect(error.cause).to.be.instanceOf(AssertionError);
                     expect(error.cause.message).to.equal(trimmed `
                         | Expected 503 to equal 200
-                        | 
+                        |
                         | Expected number: 200
                         | Received number: 503
                         |`

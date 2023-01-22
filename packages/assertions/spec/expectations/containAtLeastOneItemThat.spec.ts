@@ -34,7 +34,7 @@ describe('containAtLeastOneItemThat', () => {
             Ensure.that([], containAtLeastOneItemThat(equals(42))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ ] to contain at least one item that does equal 42
-            | 
+            |
             | Expected Unanswered
             | Received Array
             |

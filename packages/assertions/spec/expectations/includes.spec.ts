@@ -18,7 +18,7 @@ describe('includes', () => {
             Ensure.that('Hello World!', includes('Mundo')),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to include 'Mundo'
-            | 
+            |
             | Expected string: Mundo
             | Received string: Hello World!`);
     });
