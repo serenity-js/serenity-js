@@ -36,7 +36,7 @@ describe('property', () => {
             | Expected string: Bob
             | Received object
             |
-            | { 
+            | {
             |     "name": "Alice",
             |     "age": 27
             | }`);
