@@ -70,7 +70,7 @@ describe('@serenity-js/jasmine', function () {
                             | Expected false to equal true.
                             | 
                             | Expected boolean: true
-                            | Actual boolean:   false
+                            | Received boolean: false
                             |`);
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })
@@ -111,7 +111,7 @@ describe('@serenity-js/jasmine', function () {
                             | Expected false to equal true.
                             | 
                             | Expected boolean: true
-                            | Actual boolean:   false
+                            | Received boolean: false
                             |`);
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })

@@ -107,7 +107,7 @@ describe('Wait', () => {
                     | Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
                     |
                     | Expected number: 500
-                    | Actual number:   \\d+
+                    | Received number: \\d+
                     |`, 'gm'));
             })
         });

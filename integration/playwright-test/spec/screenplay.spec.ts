@@ -125,7 +125,7 @@ describe('@serenity-js/playwright-test', function () {
                                 | Expected false to equal true
                                 |
                                 | Expected boolean: true
-                                | Actual boolean:   false
+                                | Received boolean: false
                                 |`);
                         })
                     ;

@@ -102,7 +102,7 @@ describe('Wait', () => {
                     | Waited 2s, polling every 500ms, for the text of the header to equal 'Ready!'
                     |
                     | Expected string: Ready!
-                    | Actual string:   Loading...
+                    | Received string: Loading...
                     |`);
             }));
 

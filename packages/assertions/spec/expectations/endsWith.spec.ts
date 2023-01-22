@@ -20,7 +20,7 @@ describe('endsWith', () => {
             | Expected 'Hello World!' to end with 'Mundo!'
             | 
             | Expected string: Mundo!
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {

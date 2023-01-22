@@ -561,7 +561,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected false to equal true.
                                 |
                                 | Expected boolean: true
-                                | Actual boolean:   false
+                                | Received boolean: false
                                 |`);
                         });
                 });
@@ -608,7 +608,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected false to equal true.
                                 |
                                 | Expected boolean: true
-                                | Actual boolean:   false
+                                | Received boolean: false
                                 |`);
                         })
                         .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
@@ -622,7 +622,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected "hello" to equal "hey".
                                 |
                                 | Expected string: hey
-                                | Actual string:   hello
+                                | Received string: hello
                                 |`);
                         })
                         .next(SceneFinished, event => {
@@ -635,7 +635,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected false to equal true.
                                 |
                                 | Expected boolean: true
-                                | Actual boolean:   false
+                                | Received boolean: false
                                 |`);
                         });
                 });

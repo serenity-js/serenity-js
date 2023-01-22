@@ -20,7 +20,7 @@ describe('matches', () => {
             | Expected 'Hello World!' to match /mundo$/gi
             | 
             | Expected RegExp: /mundo$/gi
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {

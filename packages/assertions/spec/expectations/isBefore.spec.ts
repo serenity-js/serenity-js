@@ -20,7 +20,7 @@ describe('isBefore', () => {
             | Expected 1995-01-01T00:00:00.000Z to have value that is before 1985-01-01T00:00:00.000Z
             | 
             | Expected Date: 1985-01-01T00:00:00.000Z
-            | Actual Date:   1995-01-01T00:00:00.000Z`);
+            | Received Date: 1995-01-01T00:00:00.000Z`);
     });
 
     it('contributes to a human-readable description', () => {

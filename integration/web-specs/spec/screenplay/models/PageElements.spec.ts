@@ -471,8 +471,6 @@ describe('PageElements', () => {
                 const elapsedWallClockTime = endTime.diff(startTime);
 
                 expect(elapsedWallClockTime.inMilliseconds()).to.be.greaterThanOrEqual(timeout.inMilliseconds());
-                expect(error.expected).to.be.undefined;
-                expect(error.actual).to.be.undefined;
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.equal(`Waited 1s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'`);
             }

@@ -55,7 +55,7 @@ describe('Ensure', () => {
             | ${ expectedMessage }
             | 
             | Expected number: 7
-            | Actual number:   4`
+            | Received number: 4`
         );
     });
 
@@ -172,7 +172,7 @@ describe('Ensure', () => {
                         | Expected 503 to equal 200
                         | 
                         | Expected number: 200
-                        | Actual number:   503
+                        | Received number: 503
                         |`
                     );
                 }),

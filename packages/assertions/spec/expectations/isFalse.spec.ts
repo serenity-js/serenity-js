@@ -20,7 +20,7 @@ describe('isFalse', () => {
             | Expected true to equal false
             | 
             | Expected boolean: false
-            | Actual boolean:   true`);
+            | Received boolean: true`);
     });
 
     it('contributes to a human-readable description', () => {

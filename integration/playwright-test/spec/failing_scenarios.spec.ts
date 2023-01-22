@@ -102,7 +102,7 @@ describe('@serenity-js/playwright-test', function () {
                             | Expected 'Hello' to equal 'Hola'
                             | 
                             | Expected string: Hola
-                            | Actual string:   Hello
+                            | Received string: Hello
                             |`);
                     })
                 ;

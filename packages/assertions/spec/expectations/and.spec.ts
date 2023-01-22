@@ -22,7 +22,7 @@ describe('and', () => {
                 | Expected 'Hello World!' to start with '¡Hola'
                 | 
                 | Expected string: ¡Hola
-                | Actual string:   Hello World!`);
+                | Received string: Hello World!`);
         });
 
         it('does not meet the second expectation', () => {
@@ -32,7 +32,7 @@ describe('and', () => {
                 | Expected 'Hello World!' to end with 'Mundo!'
                 | 
                 | Expected string: Mundo!
-                | Actual string:   Hello World!`);
+                | Received string: Hello World!`);
         });
     });
 
