@@ -20,7 +20,7 @@ describe('not', () => {
             | Expected 'Hello World!' to not start with 'Hello'
             | 
             | Expected string: Hello
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {
@@ -58,7 +58,7 @@ describe('not', () => {
                     | Expected 3 to not have value greater than 2 and have value that's less than 4
                     | 
                     | Expected number: 4
-                    | Actual number:   3`
+                    | Received number: 3`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -76,7 +76,7 @@ describe('not', () => {
                     | Expected [ 1, 2, 3 ] to not contain 2
                     | 
                     | Expected number: 2
-                    | Actual Array
+                    | Received Array
                     |
                     | [
                     |   1,
@@ -100,7 +100,7 @@ describe('not', () => {
                     | Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2
                     |
                     | Expected number: 2
-                    | Actual Array
+                    | Received Array
                     |
                     | [
                     |   1,
@@ -124,7 +124,7 @@ describe('not', () => {
                     | Expected 'Hello' to not end with 'o'
                     |
                     | Expected string: o
-                    | Actual string:   Hello`
+                    | Received string: Hello`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -142,7 +142,7 @@ describe('not', () => {
                     | Expected true to not equal true
                     |
                     | Expected boolean: true
-                    | Actual boolean:   true`
+                    | Received boolean: true`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -160,7 +160,7 @@ describe('not', () => {
                     | Expected true to not equal true
                     |
                     | Expected boolean: true
-                    | Actual boolean:   true`
+                    | Received boolean: true`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -178,7 +178,7 @@ describe('not', () => {
                     | Expected false to not equal false
                     |
                     | Expected boolean: false
-                    | Actual boolean:   false`
+                    | Received boolean: false`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -196,7 +196,7 @@ describe('not', () => {
                     | Expected 'Hello' to not include 'Hello'
                     |
                     | Expected string: Hello
-                    | Actual string:   Hello`
+                    | Received string: Hello`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -214,7 +214,7 @@ describe('not', () => {
                     | Expected 2 to not have value greater than 1
                     |
                     | Expected number: 1
-                    | Actual number:   2`
+                    | Received number: 2`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -232,7 +232,7 @@ describe('not', () => {
                     | Expected 1 to not have value that's less than 2
                     |
                     | Expected number: 2
-                    | Actual number:   1`
+                    | Received number: 1`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -250,7 +250,7 @@ describe('not', () => {
                     | Expected 1 to not have value greater than 0 or have value that's less than 2
                     |
                     | Expected number: 0
-                    | Actual number:   1`
+                    | Received number: 1`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -268,7 +268,7 @@ describe('not', () => {
                     | Expected 'Hello' to not start with 'H'
                     |
                     | Expected string: H
-                    | Actual string:   Hello`
+                    | Received string: Hello`
                 ));
 
             it('contributes to a human-readable description', () => {

@@ -8,151 +8,252 @@ import { ErrorOptions } from './ErrorOptions';
 import { RuntimeError } from './RuntimeError';
 
 export class ErrorFactory {
-    // todo: add interaction callstack to options object
 
+    // todo: add configurable rendering function to mark differences
+    // todo: add interaction callstack to options object
     create<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
 
         const message = [
             this.title(options.message),
-            options.diff && this.diff(options.diff),
-        ].filter(Boolean).join('\n');
+            options.diff && this.diffFrom(options.diff),
+            // todo: add interaction details
+        ].
+        filter(Boolean).
+        join('\n');
 
         return new errorType(message, options?.cause) as unknown as RE;
     }
 
     private title(value: string): string {
-        return `${ value }`.trim();
+        return String(value).trim();
     }
 
-    private diff(diff: { expected: unknown, actual: unknown }): string {
-        let expected = `Expected ${ typeOf(diff.expected) }`;
-        let actual   = `Actual ${ typeOf(diff.actual) }`;
+    private diffFrom(diff: { expected: unknown, actual: unknown }): string {
+        return new Diff(diff.expected, diff.actual).toString();
+    }
+}
 
-        let diffDescription = '';
+class DiffValue {
+    private nameAndType: string;
+    private readonly summary?: string;
+    private changes?: string;
 
-        const labelLength = Math.max(expected.length, actual.length) + 2;
+    public desiredNameFieldLength: number;
 
-        if (isSummarisable(diff.expected)) {
-            expected += `: `.padEnd(labelLength - expected.length) + summarised(diff.expected);
+    constructor(
+        name: string,
+        public readonly value: unknown,
+    ) {
+        this.nameAndType            = `${ name } ${ typeOf(value) }`;
+        this.desiredNameFieldLength = this.nameAndType.length;
+        this.summary                = this.summaryOf(value);
+    }
+
+    withChanges(changes: string): this {
+        this.changes = changes;
+
+        return this;
+    }
+
+    withDesiredFieldLength(columns: number): this {
+        this.desiredNameFieldLength = columns;
+        return this;
+    }
+
+    hasSummary() {
+        return this.summary !== undefined;
+    }
+
+    type(): string {
+        return typeOf(this.value);
+    }
+
+    isComplex(): boolean {
+        return typeof this.value === 'object'
+            && ! (this.value instanceof RegExp)
+            && ! (this.value instanceof Unanswered);
+    }
+
+    isArray(): boolean {
+        return Array.isArray(this.value);
+    }
+
+    isComparableAsJson() {
+        if (! this.value || this.value instanceof Unanswered) {
+            return false;
         }
 
-        if (isSummarisable(diff.actual)) {
-            actual += `: `.padEnd(labelLength - actual.length) + summarised(diff.actual);
+        return isPlainObject(this.value)
+            || this.value['toJSON'];
+    }
+
+    toString(): string {
+        const labelWidth = this.desiredNameFieldLength - this.nameAndType.length;
+
+        return [
+            this.nameAndType,
+            this.summary && ': '.padEnd(labelWidth + 2),
+            this.summary,
+            this.changes && this.changes.padStart(labelWidth + 5),
+        ].
+        filter(Boolean).
+        join('');
+    }
+
+    private summaryOf(value: unknown): string | undefined {
+        if (value instanceof Date) {
+            return value.toISOString();
         }
 
-        if (isComplex(diff.actual) && ! sameType(diff.expected, diff.actual) && ! isSummarisable(diff.actual)) {
-            diffDescription += `\n`;
-            diffDescription += inspected(diff.actual, { inline: false, markQuestions: false });
-            diffDescription += `\n`;
+        const isDefined = value !== undefined && value !== null;
+
+        if (isDefined && (isPrimitive(value) || value instanceof RegExp)) {
+            return String(value);
         }
 
-        if (isComparableAsJson(diff.expected) && isComparableAsJson(diff.actual) && ! isSummarisable(diff.expected) && ! isSummarisable(diff.actual)) {
-            const changes = diffJson(diff.expected, diff.actual);
+        return undefined;
+    }
+}
 
-            const { removed, added } = changes.reduce(({ removed, added }, change) => {
-                return {
-                    removed: removed +  (change.removed ? change.count : 0),
-                    added:   added +    (change.added ? change.count : 0),
-                }
-            }, { removed: 0, added: 0 });
+class Diff {
+    private readonly diff: string;
 
-            expected += `  - ${removed}`
-            actual   += `    + ${added}`
+    constructor(
+        expectedValue: unknown,
+        actualValue: unknown,
+    ) {
+        this.diff = this.render(this.diffFrom(expectedValue, actualValue));
+    }
 
-            diffDescription += `\n`;
-            diffDescription += changes
-                .reduce((acc, change) => {
-                    const lines = change.value.split('\n');
-                    return acc + lines.map(line => decorated(line, change)).join('\n').trimEnd() + '\n'
-                }, '');
+    toString(): string {
+        return this.diff;
+    }
+
+    private render({ expected, actual, diff }: { expected: DiffValue, actual: DiffValue, diff: string }): string {
+        return `\n${ expected }\n${ actual }\n${ diff }`;
+    }
+
+    private diffFrom(expectedValue: unknown, actualValue: unknown): { expected: DiffValue, actual: DiffValue, diff: string } {
+        const { expected, actual } = this.aligned(
+            new DiffValue('Expected', expectedValue),
+            new DiffValue('Received', actualValue)
+        );
+
+        if (this.shouldRenderActualValueOnly(expected, actual)) {
+            return this.renderActualValue(expected, actual);
         }
 
-        if (isArray(diff.expected) && isArray(diff.actual)) {
-            const changes = diffArrays(diff.expected, diff.actual, { comparator: equal } );
-
-            const { removed, added } = changes.reduce(({ removed, added }, change) => {
-                return {
-                    removed: removed +  (change.removed ? change.count : 0),
-                    added:   added +    (change.added ? change.count : 0),
-                }
-            }, { removed: 0, added: 0 });
-
-            expected += `  - ${removed}`
-            actual   += `    + ${added}`
-
-            diffDescription += `\n`;
-            diffDescription += `  [`;
-
-            diffDescription += changes.reduce((acc, change) => {
-                const items = change.value;
-                return acc + items.map(item => '\n' + decorated('  ' + inspected(item, { inline:true, markQuestions: false }), change)).join('');
-            }, '');
-            diffDescription += `\n  ]\n`;
+        if (this.shouldRenderJsonDiff(expected, actual)) {
+            return this.renderJsonDiff(expected, actual);
         }
 
-        return `\n${ expected }\n${ actual }\n${ diffDescription }`;
-    }
-}
+        if (this.shouldRenderArrayDiff(expected, actual)) {
+            return this.renderArrayDiff(expected, actual);
+        }
 
-function isSummarisable(value: unknown): boolean {
-    return isDefined(value)
-        && (
-            isPrimitive(value)
-            || value instanceof RegExp
-            || value instanceof Date
-        )
-}
-
-function summarised(value: unknown): string {
-    if (value instanceof Date) {
-        return value.toISOString();
+        return { expected, actual, diff: '' };
     }
 
-    return String(value);
-}
-
-function isComplex(value: unknown): boolean {
-    return typeof value === 'object'
-        && ! (value instanceof RegExp)
-        && ! (value instanceof Unanswered);
-}
-
-function isArray(value: unknown): value is Array<unknown> {
-    return Array.isArray(value);
-}
-
-function isDefined(value: unknown): boolean {
-    return value !== undefined
-        && value !== null;
-}
-
-function sameType(a: unknown, b: unknown): boolean {
-    return typeOf(a) === typeOf(b);
-}
-
-function decorated(line: string, change: Change | ArrayChange<unknown>): string {
-    const trimmedLine = line.trim();
-
-    if (! trimmedLine) {
-        return line;
+    private shouldRenderActualValueOnly(expected: DiffValue, actual: DiffValue): boolean {
+        return actual.isComplex()
+            && ! actual.hasSummary()
+            && expected.type() !== actual.type();
     }
 
-    if (change.added) {
-        return `+ ${ line }`;
+    private shouldRenderJsonDiff(expected: DiffValue, actual: DiffValue): boolean {
+        return expected.isComparableAsJson()
+            && actual.isComparableAsJson()
+            && ! expected.hasSummary()
+            && ! actual.hasSummary()
     }
 
-    if (change.removed) {
-        return `- ${ line }`;
+    private shouldRenderArrayDiff(expected: DiffValue, actual: DiffValue): boolean {
+        return expected.isArray()
+            && actual.isArray();
     }
 
-    return `  ${ line }`;
-}
+    private aligned(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue } {
+        const maxFieldLength = Math.max(
+            expected.desiredNameFieldLength,
+            actual.desiredNameFieldLength
+        );
 
-function isComparableAsJson(value: unknown): value is object {
-    if (! value || value instanceof Unanswered) {
-        return false;
+        return {
+            expected: expected.withDesiredFieldLength(maxFieldLength),
+            actual:   actual.withDesiredFieldLength(maxFieldLength)
+        };
     }
 
-    return isPlainObject(value)
-        || value['toJSON'];
+    private renderActualValue(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string } {
+        return {
+            expected,
+            actual,
+            diff: `\n${ inspected(actual.value, { inline: false, markQuestions: false }) }\n`,
+        };
+    }
+
+    private renderJsonDiff(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string } {
+        const changes = diffJson(expected.value as object, actual.value as object);
+
+        const diff = changes.reduce((acc, change) => {
+            const lines = change.value.split('\n');
+            return acc + lines.map(line =>
+                this.decorated(line, change)
+            ).join('\n').trimEnd() + '\n'
+        }, '\n');
+
+        const { added, removed } = this.countOf(changes);
+
+        return {
+            expected:   expected.withChanges(this.decorated(`${ removed }`, { removed })),
+            actual:     actual.withChanges(this.decorated(`${ added }`, { added })),
+            diff
+        };
+    }
+
+    private renderArrayDiff(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string }  {
+        const changes = diffArrays(expected.value as Array<unknown>, actual.value as Array<unknown>, { comparator: equal } );
+
+        const diff = changes.reduce((acc, change) => {
+            const items = change.value;
+            return acc + items.map(item =>
+                `\n${ this.decorated('  ' + inspected(item, { inline:true, markQuestions: false }), change) }`
+            ).join('');
+        }, '\n  [') + `\n  ]\n`;
+
+        const { added, removed } = this.countOf(changes);
+
+        return {
+            expected:   expected.withChanges(this.decorated(`${ removed }`, { removed })),
+            actual:     actual.withChanges(this.decorated(`${ added }`, { added })),
+            diff
+        };
+    }
+
+    private countOf(changes: Array<Change | ArrayChange<unknown>>): { added: number, removed: number } {
+        return changes.reduce(({ removed, added }, change) => {
+            return {
+                removed: removed + (change.removed ? change.count : 0),
+                added:   added +   (change.added ? change.count : 0),
+            }
+        }, { removed: 0, added: 0 });
+    }
+
+    private decorated(line: string, change: { added?: boolean | number, removed?: boolean | number }): string {
+        const trimmedLine = line.trim();
+
+        if (! trimmedLine) {
+            return line;
+        }
+
+        if (change.added) {
+            return `+ ${ line }`;
+        }
+
+        if (change.removed) {
+            return `- ${ line }`;
+        }
+
+        return `  ${ line }`;
+    }
 }

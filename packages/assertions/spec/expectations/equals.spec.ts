@@ -34,7 +34,7 @@ describe('equals', () => {
             | Expected 27 to equal 42
             | 
             | Expected number: 42
-            | Actual number:   27`);
+            | Received number: 27`);
     });
 
     it(`provides details when the actual value is undefined`, () => {
@@ -43,8 +43,9 @@ describe('equals', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected undefined to equal 1
             | 
-            | Expected number:  1
-            | Actual undefined`);
+            | Expected number:    1
+            | Received undefined
+            |`);
     });
 
     it(`provides details when the expected value is undefined`, () => {
@@ -54,7 +55,8 @@ describe('equals', () => {
             | Expected 1 to equal undefined
             | 
             | Expected undefined
-            | Actual number:      1`);
+            | Received number:    1
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

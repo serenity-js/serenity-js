@@ -20,7 +20,7 @@ describe('containItemsWhereEachItem', () => {
             | Expected [ 7, 7, 2 ] to contain items where each item does equal 7
             | 
             | Expected number: 7
-            | Actual Array
+            | Received Array
             |
             | [
             |   7,
@@ -36,7 +36,7 @@ describe('containItemsWhereEachItem', () => {
             | Expected [ ] to contain items where each item does equal 42
             |
             | Expected Unanswered
-            | Actual Array
+            | Received Array
             |
             | [
             | ]`);

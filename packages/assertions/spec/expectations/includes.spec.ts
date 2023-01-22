@@ -20,7 +20,7 @@ describe('includes', () => {
             | Expected 'Hello World!' to include 'Mundo'
             | 
             | Expected string: Mundo
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {

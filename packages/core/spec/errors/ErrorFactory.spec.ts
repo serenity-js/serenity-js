@@ -77,7 +77,7 @@ describe('ErrorFactory', () => {
                 actual: false,
                 expectedDiff: trimmed`
                     | Expected boolean: true
-                    | Actual boolean:   false
+                    | Received boolean: false
                     |`
             }, {
                 description: 'number',
@@ -85,15 +85,15 @@ describe('ErrorFactory', () => {
                 actual: 12,
                 expectedDiff: trimmed`
                     | Expected number: 42
-                    | Actual number:   12
+                    | Received number: 12
                     |`
             }, {
                 description: 'type mismatch',
                 expected: 'true',
                 actual: true,
                 expectedDiff: trimmed`
-                    | Expected string: true
-                    | Actual boolean:  true
+                    | Expected string:  true
+                    | Received boolean: true          
                     |`
             }, {
                 description: 'pattern match',
@@ -101,7 +101,7 @@ describe('ErrorFactory', () => {
                 actual: 'Hi',
                 expectedDiff: trimmed`
                     | Expected RegExp: /Hello/
-                    | Actual string:   Hi
+                    | Received string: Hi
                     |`
             } ]).
             it('shows expected and actual values and their types', ({ expected, actual, expectedDiff }) => {
@@ -114,8 +114,6 @@ describe('ErrorFactory', () => {
 
                 expect(error.message).to.equal(message + '\n\n' + expectedDiff);
             });
-
-            // todo: formatting, colours
         });
 
         describe('for complex types', () => {
@@ -133,7 +131,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected string: Alice
-                    | Actual object
+                    | Received object
                     | 
                     | {
                     |     "name": "Alice",
@@ -159,7 +157,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected object  - 3
-                    | Actual object    + 2
+                    | Received object  + 2
                     | 
                     |   {
                     | -   "name": "Alice",
@@ -187,7 +185,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Array  - 1
-                    | Actual Array    + 1
+                    | Received Array  + 1
                     | 
                     |   [
                     |     {"name":"Alice"}
@@ -213,7 +211,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Person  - 2
-                    | Actual Person    + 2
+                    | Received Person  + 2
                     | 
                     |   {
                     | -   "age": 27,
@@ -238,7 +236,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Name  - 1
-                    | Actual Name    + 1
+                    | Received Name  + 1
                     | 
                     | - "Alice"
                     | + "Bob"
@@ -260,7 +258,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Unanswered
-                    | Actual Name
+                    | Received Name    
                     | 
                     | Name(value=Bob)
                     |`);
@@ -279,7 +277,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Name
-                    | Actual Unanswered
+                    | Received Unanswered
                     |`);
                 });
 
@@ -296,7 +294,7 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Unanswered
-                    | Actual Unanswered
+                    | Received Unanswered
                     |`);
                 });
             });

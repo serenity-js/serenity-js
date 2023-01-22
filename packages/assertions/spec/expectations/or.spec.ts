@@ -29,7 +29,7 @@ describe('or', () => {
             | Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'
             | 
             | Expected string: Mundo!
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {

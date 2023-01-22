@@ -47,7 +47,7 @@ describe('isCloseTo', () => {
             | Expected 10.25 to have value close to 10 ±0.1
             | 
             | Expected number: 10
-            | Actual number:   10.25`);
+            | Received number: 10.25`);
     });
 
     it('breaks the actor flow when "actual" is infinite', () => {
@@ -57,7 +57,7 @@ describe('isCloseTo', () => {
             | Expected Infinity to have value close to 42 ±1e-9
             | 
             | Expected number: 42
-            | Actual number:   Infinity`);
+            | Received number: Infinity`);
     });
 
     it('breaks the actor flow when "expected" is infinite', () => {
@@ -67,6 +67,6 @@ describe('isCloseTo', () => {
             | Expected 42 to have value close to -Infinity ±1e-9
             | 
             | Expected number: -Infinity
-            | Actual number:   42`);
+            | Received number: 42`);
     });
 });

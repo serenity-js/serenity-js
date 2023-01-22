@@ -19,7 +19,7 @@ describe('contain', () => {
             | Expected [ 'Hello', 'World' ] to contain 'Mundo'
             | 
             | Expected string: Mundo
-            | Actual Array
+            | Received Array
             |
             | [
             |   'Hello',

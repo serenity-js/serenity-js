@@ -20,7 +20,7 @@ describe('containAtLeastOneItemThat', () => {
             | Expected [ 0, 1, 2 ] to contain at least one item that does equal 7
             | 
             | Expected number: 7
-            | Actual Array
+            | Received Array
             |
             | [
             |   0,
@@ -36,7 +36,7 @@ describe('containAtLeastOneItemThat', () => {
             | Expected [ ] to contain at least one item that does equal 42
             | 
             | Expected Unanswered
-            | Actual Array
+            | Received Array
             |
             | [
             | ]`);

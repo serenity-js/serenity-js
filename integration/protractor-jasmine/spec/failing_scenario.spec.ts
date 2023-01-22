@@ -36,7 +36,7 @@ describe('@serenity-js/jasmine', function () {
                         | Expected false to be true.
                         | 
                         | Expected boolean: true
-                        | Actual boolean:   false
+                        | Received boolean: false
                         |`);
                     expect(error.cause.message).to.equal(`Expected false to be true.`);
                 })

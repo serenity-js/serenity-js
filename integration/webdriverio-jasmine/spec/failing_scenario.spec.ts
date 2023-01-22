@@ -38,7 +38,7 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
                         | Expected false to be true.
                         | 
                         | Expected boolean: true
-                        | Actual boolean:   false
+                        | Received boolean: false
                         |`);
                 })
             ;

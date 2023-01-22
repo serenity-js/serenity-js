@@ -20,7 +20,7 @@ describe('isLessThan', () => {
             | Expected 3 to have value that's less than 2
             | 
             | Expected number: 2
-            | Actual number:   3`);
+            | Received number: 3`);
     });
 
     it('contributes to a human-readable description', () => {

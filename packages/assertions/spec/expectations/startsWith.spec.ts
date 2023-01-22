@@ -20,7 +20,7 @@ describe('startsWith', () => {
             | Expected 'Hello World!' to start with '¡Hola'
             | 
             | Expected string: ¡Hola
-            | Actual string:   Hello World!`);
+            | Received string: Hello World!`);
     });
 
     it('contributes to a human-readable description', () => {
