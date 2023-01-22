@@ -17,7 +17,7 @@ describe('contain', () => {
             Ensure.that([ 'Hello', 'World' ], contain('Mundo')),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ 'Hello', 'World' ] to contain 'Mundo'
-            | 
+            |
             | Expected string: Mundo
             | Received Array
             |

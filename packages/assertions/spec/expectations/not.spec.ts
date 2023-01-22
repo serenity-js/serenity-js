@@ -18,7 +18,7 @@ describe('not', () => {
             Ensure.that('Hello World!', not(startsWith('Hello'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to not start with 'Hello'
-            | 
+            |
             | Expected string: Hello
             | Received string: Hello World!`);
     });
@@ -74,7 +74,7 @@ describe('not', () => {
                     Ensure.that([ 1, 2, 3 ], not(contain(2))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected [ 1, 2, 3 ] to not contain 2
-                    | 
+                    |
                     | Expected number: 2
                     | Received Array
                     |

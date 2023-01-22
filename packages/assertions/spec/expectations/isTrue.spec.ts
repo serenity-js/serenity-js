@@ -18,7 +18,7 @@ describe('isTrue', () => {
             Ensure.that(false, isTrue()),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected false to equal true
-            | 
+            |
             | Expected boolean: true
             | Received boolean: false
             |`);

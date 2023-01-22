@@ -18,7 +18,7 @@ describe('matches', () => {
             Ensure.that('Hello World!', matches(/mundo$/gi)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to match /mundo$/gi
-            | 
+            |
             | Expected RegExp: /mundo$/gi
             | Received string: Hello World!`);
     });

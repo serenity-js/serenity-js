@@ -20,7 +20,7 @@ describe('and', () => {
                 Ensure.that('Hello World!', and(startsWith('¡Hola'), endsWith('World!'))),
             )).to.be.rejectedWith(AssertionError, trimmed`
                 | Expected 'Hello World!' to start with '¡Hola'
-                | 
+                |
                 | Expected string: ¡Hola
                 | Received string: Hello World!`);
         });
@@ -30,7 +30,7 @@ describe('and', () => {
                 Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('Mundo!'))),
             )).to.be.rejectedWith(AssertionError, trimmed`
                 | Expected 'Hello World!' to end with 'Mundo!'
-                | 
+                |
                 | Expected string: Mundo!
                 | Received string: Hello World!`);
         });

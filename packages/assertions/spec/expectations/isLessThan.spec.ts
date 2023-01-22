@@ -18,7 +18,7 @@ describe('isLessThan', () => {
             Ensure.that(3, isLessThan(2)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 3 to have value that's less than 2
-            | 
+            |
             | Expected number: 2
             | Received number: 3`);
     });

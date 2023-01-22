@@ -158,7 +158,7 @@ describe('ErrorFactory', () => {
                     |
                     | Expected object  - 3
                     | Received object  + 2
-                    | 
+                    |
                     |   {
                     | -   "name": "Alice",
                     | +   "name": "Marry",
@@ -186,7 +186,7 @@ describe('ErrorFactory', () => {
                     |
                     | Expected Array  - 1
                     | Received Array  + 1
-                    | 
+                    |
                     |   [
                     |     {"name":"Alice"}
                     |     {"name":"Bob"}
@@ -212,7 +212,7 @@ describe('ErrorFactory', () => {
                     |
                     | Expected Person  - 2
                     | Received Person  + 2
-                    | 
+                    |
                     |   {
                     | -   "age": 27,
                     | -   "name": "Alice"

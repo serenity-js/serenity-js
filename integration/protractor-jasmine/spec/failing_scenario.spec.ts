@@ -34,7 +34,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(error).to.be.instanceof(AssertionError);
                     expect(error.message).to.equal(trimmed`
                         | Expected false to be true.
-                        | 
+                        |
                         | Expected boolean: true
                         | Received boolean: false
                         |`);
