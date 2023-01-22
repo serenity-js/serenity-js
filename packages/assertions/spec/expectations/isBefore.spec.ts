@@ -18,7 +18,7 @@ describe('isBefore', () => {
             Ensure.that(new Date('1995-01-01'), isBefore(new Date('1985-01-01'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 1995-01-01T00:00:00.000Z to have value that is before 1985-01-01T00:00:00.000Z
-            | 
+            |
             | Expected Date: 1985-01-01T00:00:00.000Z
             | Received Date: 1995-01-01T00:00:00.000Z`);
     });

@@ -93,7 +93,7 @@ describe('ErrorFactory', () => {
                 actual: true,
                 expectedDiff: trimmed`
                     | Expected string:  true
-                    | Received boolean: true          
+                    | Received boolean: true
                     |`
             }, {
                 description: 'pattern match',
@@ -132,7 +132,7 @@ describe('ErrorFactory', () => {
                     |
                     | Expected string: Alice
                     | Received object
-                    | 
+                    |
                     | {
                     |     "name": "Alice",
                     |     "pets": [
@@ -237,7 +237,7 @@ describe('ErrorFactory', () => {
                     |
                     | Expected Name  - 1
                     | Received Name  + 1
-                    | 
+                    |
                     | - "Alice"
                     | + "Bob"
                     |`
@@ -258,8 +258,8 @@ describe('ErrorFactory', () => {
                     | ${message}
                     |
                     | Expected Unanswered
-                    | Received Name    
-                    | 
+                    | Received Name
+                    |
                     | Name(value=Bob)
                     |`);
                 });

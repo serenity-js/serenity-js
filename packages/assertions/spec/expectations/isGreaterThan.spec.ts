@@ -18,7 +18,7 @@ describe('isGreaterThan', () => {
             Ensure.that(0, isGreaterThan(2)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 0 to have value greater than 2
-            | 
+            |
             | Expected number: 2
             | Received number: 0`);
     });

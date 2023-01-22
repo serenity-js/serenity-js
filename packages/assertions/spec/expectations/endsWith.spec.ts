@@ -18,7 +18,7 @@ describe('endsWith', () => {
             Ensure.that('Hello World!', endsWith('Mundo!')),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to end with 'Mundo!'
-            | 
+            |
             | Expected string: Mundo!
             | Received string: Hello World!`);
     });

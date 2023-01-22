@@ -30,7 +30,7 @@ describe('@serenity-js/mocha', function () {
                             expect(outcome.error.name).to.equal('AssertionError');
                             expect(outcome.error.message).to.equal(trimmed`
                                 | Expected false to equal true
-                                | 
+                                |
                                 | Expected boolean: true
                                 | Received boolean: false
                                 |`);

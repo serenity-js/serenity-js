@@ -56,7 +56,7 @@ describe('not', () => {
                     Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 3 to not have value greater than 2 and have value that's less than 4
-                    | 
+                    |
                     | Expected number: 4
                     | Received number: 3`
                 ));
