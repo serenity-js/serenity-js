@@ -18,7 +18,7 @@ describe('containItemsWhereEachItem', () => {
             Ensure.that([ 7, 7, 2 ], containItemsWhereEachItem(equals(7))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ 7, 7, 2 ] to contain items where each item does equal 7
-            | 
+            |
             | Expected number: 7
             | Received Array
             |

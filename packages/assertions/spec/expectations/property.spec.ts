@@ -32,7 +32,7 @@ describe('property', () => {
             )
         ).to.be.rejectedWith(AssertionError, trimmed`
             | Expected {"name":"Alice","age":27} to have property name that does equal 'Bob'
-            | 
+            |
             | Expected string: Bob
             | Received object
             |

@@ -27,7 +27,7 @@ describe('or', () => {
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'
-            | 
+            |
             | Expected string: Mundo!
             | Received string: Hello World!`);
     });

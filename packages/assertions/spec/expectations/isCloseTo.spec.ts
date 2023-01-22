@@ -65,7 +65,7 @@ describe('isCloseTo', () => {
             Ensure.that(42, isCloseTo(Number.NEGATIVE_INFINITY)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 42 to have value close to -Infinity ±1e-9
-            | 
+            |
             | Expected number: -Infinity
             | Received number: 42`);
     });

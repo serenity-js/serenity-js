@@ -32,7 +32,7 @@ describe('equals', () => {
             Ensure.that(27, equals(42)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 27 to equal 42
-            | 
+            |
             | Expected number: 42
             | Received number: 27`);
     });

@@ -18,7 +18,7 @@ describe('containAtLeastOneItemThat', () => {
             Ensure.that([ 0, 1, 2 ], containAtLeastOneItemThat(equals(7))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ 0, 1, 2 ] to contain at least one item that does equal 7
-            | 
+            |
             | Expected number: 7
             | Received Array
             |
