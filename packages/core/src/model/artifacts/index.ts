@@ -1,4 +1,3 @@
-export * from './AssertionReport';
 export * from './HTTPRequestResponse';
 export * from './JSONData';
 export * from './LogEntry';

@@ -1,5 +1,4 @@
-import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
-import { Artifact, AssertionReport, CorrelationId, HTTPRequestResponse, JSONData, LogEntry, Name, RequestAndResponse, TextData, Timestamp } from '@serenity-js/core/lib/model';
+import { Artifact, CorrelationId, HTTPRequestResponse, JSONData, LogEntry, Name, RequestAndResponse, TextData, Timestamp } from '@serenity-js/core/lib/model';
 import { createHash } from 'crypto';
 import { match } from 'tiny-types';
 import { inspect } from 'util';
@@ -10,12 +9,6 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
  * @package
  */
 export function activityRelatedArtifact<Context extends SerenityBDDReportContext>(activityId: CorrelationId, name: Name, artifact: Artifact, timestamp: Timestamp): (context: Context) => Context {
-    const differ = new AssertionReportDiffer({
-        expected: line => `+ ${ line }`,
-        actual:   line => `- ${ line }`,
-        matching: line => `  ${ line }`,
-    });
-
     return (report: Context): Context =>
         match<Artifact, Context>(artifact)
             .when(HTTPRequestResponse, _ =>
@@ -38,14 +31,6 @@ export function activityRelatedArtifact<Context extends SerenityBDDReportContext
                     activityId,
                     name,
                     artifact.map(artifactContents => artifactContents.data),
-                    timestamp
-                ))
-            )
-            .when(AssertionReport, _ =>
-                report.with(arbitraryData(
-                    activityId,
-                    name,
-                    artifact.map(value => differ.diff(value.expected, value.actual)),
                     timestamp
                 ))
             )
