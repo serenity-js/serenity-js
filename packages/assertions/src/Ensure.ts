@@ -17,8 +17,6 @@ import {
     UsesAbilities,
 } from '@serenity-js/core';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import { inspected } from '@serenity-js/core/lib/io/inspected';
-import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
 /**
@@ -88,7 +86,7 @@ export class Ensure<Actual> extends Interaction {
      * @param expectation
      * @param location
      */
-    protected constructor(
+    private constructor(
         protected readonly actual: Answerable<Actual>,
         protected readonly expectation: Expectation<Actual>,
         location: FileSystemLocation,
@@ -104,11 +102,14 @@ export class Ensure<Actual> extends Interaction {
 
         return match<ExpectationOutcome<unknown, Actual>, void>(outcome)
             .when(ExpectationNotMet, o => {
-                // todo: remove
-                actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
 
-                // todo: name from this.expectation, not just the outcome
-                throw this.errorForOutcome(o);
+                // todo: inject ErrorFactory via Ability
+                const errors = new ErrorFactory();
+
+                const actualDescription = d`${ this.actual }`;
+                const message = `Expected ${ actualDescription } to ${ outcome.message }`;
+
+                throw errors.create(AssertionError, { message, diff: outcome })
             })
             .when(ExpectationMet, _ => void 0)
             .else(o => {
@@ -127,60 +128,16 @@ export class Ensure<Actual> extends Interaction {
      *  The message explaining the failure
      */
     otherwiseFailWith(typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError, message?: string): Interaction {
-        return new EnsureOrFailWithCustomError(this.actual, this.expectation, typeOfRuntimeError, message);
-    }
+        return Interaction.where(this.toString(), async actor => {
+            try {
+                await this.performAs(actor);
+            }
+            catch (error) {
+                // todo: inject ErrorFactory via Ability
+                const errors = new ErrorFactory();
 
-    /**
-     * Maps an {@apilink ExpectationOutcome} to appropriate {@apilink RuntimeError}.
-     */
-    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
-        return this.asAssertionError(outcome);
-    }
-
-    /**
-     * Maps an {@apilink Outcome} to {@apilink AssertionError}.
-     *
-     * @param outcome
-     */
-    protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
-        const actualDescription = d`${ this.actual }`;
-        const message = `Expected ${ actualDescription } to ${ outcome.message }`;
-
-        // todo: inject ErrorFactory
-        const errors = new ErrorFactory();
-
-        return errors.create(AssertionError, {
-            message,
-            diff: outcome,
-        })
-    }
-
-    // todo: remove assertion report artifact altogether
-    private artifactFrom(expected: any, actual: Actual): Artifact {
-        return AssertionReport.fromJSON({
-            expected: inspected(expected),
-            actual: inspected(actual),
+                throw errors.create(typeOfRuntimeError, { message: message ?? error.message, cause: error });
+            }
         });
-    }
-}
-
-/**
- * @package
- */
-// todo: simplify / remove?
-class EnsureOrFailWithCustomError<Expected, Actual> extends Ensure<Actual> {
-    constructor(
-        actual: Answerable<Actual>,
-        expectation: Expectation<Actual>,
-        private readonly typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError,
-        private readonly message?: string,
-    ) {
-        super(actual, expectation, Activity.callerLocation(6));
-    }
-
-    protected errorForOutcome(outcome: ExpectationOutcome<Expected, Actual>): RuntimeError {
-        const assertionError = this.asAssertionError(outcome);
-
-        return new this.typeOfRuntimeError(this.message || assertionError.message, assertionError);
     }
 }
