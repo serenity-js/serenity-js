@@ -118,15 +118,15 @@ describe('Actor', () => {
             }
 
             given([
-                { description: 'undefined',     ability: undefined,             received: 'undefined'       },
-                { description: 'null',          ability: null,                  received: 'null'            },  // eslint-disable-line unicorn/no-null
-                { description: 'object',        ability: { },                   received: 'object'          },
-                { description: 'instance',      ability: new NotAnAbility(),    received: 'NotAnAbility'    },
+                { description: 'undefined',     ability: undefined,             actual: 'undefined'       },
+                { description: 'null',          ability: null,                  actual: 'null'            },  // eslint-disable-line unicorn/no-null
+                { description: 'object',        ability: { },                   actual: 'object'          },
+                { description: 'instance',      ability: new NotAnAbility(),    actual: 'NotAnAbility'    },
             ]).
-            it(`complains if requested to use an ability object that doesn't extend Ability`, ({ ability, received }) => {
+            it(`complains if requested to use an ability object that doesn't extend Ability`, ({ ability, actual }) => {
                 expect(() =>
                     actor('Ben').whoCan(ability)
-                ).to.throw(ConfigurationError, `Custom abilities must extend Ability from '@serenity-js/core'. Received ${ received }`);
+                ).to.throw(ConfigurationError, `Custom abilities must extend Ability from '@serenity-js/core'. Received ${ actual }`);
             });
 
             it('retrieves the more specific ability when the more generic ability type is requested', () => {
