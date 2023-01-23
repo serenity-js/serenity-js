@@ -9,13 +9,17 @@ import { RuntimeError } from './RuntimeError';
 
 export class ErrorFactory {
 
-    // todo: add configurable rendering function to mark differences
+    constructor(
+        private readonly lineDecorator: DiffLineDecorator = new NoOpLineDecorator(),
+    ) {
+    }
+
     // todo: add interaction callstack to options object
     create<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
 
         const message = [
             this.title(options.message),
-            options.diff && this.diffFrom(options.diff),
+            options.diff && ('\n' + this.diffFrom(options.diff)),
             // todo: add interaction details
         ].
         filter(Boolean).
@@ -29,7 +33,94 @@ export class ErrorFactory {
     }
 
     private diffFrom(diff: { expected: unknown, actual: unknown }): string {
-        return new Diff(diff.expected, diff.actual).toString();
+        return new Diff(diff.expected, diff.actual)
+            .lines()
+            .map(line => line.decorated(this.lineDecorator))
+            .join('\n');
+    }
+}
+
+class NoOpLineDecorator implements DiffLineDecorator {
+    expected(line: string): string {
+        return line;
+    }
+
+    received(line: string): string {
+        return line;
+    }
+
+    unchanged(line: string): string {
+        return line;
+    }
+}
+
+export interface DiffLineDecorator {
+    expected(line: string): string;
+    received(line: string): string;
+    unchanged(line: string): string;
+}
+
+type DiffType = 'expected' | 'received' | 'unchanged';
+
+class DiffLine {
+    private static markers: Record<DiffType, string> = {
+        'expected':  '- ',
+        'received':  '+ ',
+        'unchanged': '  ',
+    }
+
+    static empty = () =>
+        new DiffLine('unchanged', '');
+
+    static unchanged = (line: any) =>
+        new DiffLine('unchanged', String(line));
+
+    static expected = (line: any) =>
+        new DiffLine('expected', String(line));
+
+    static received = (line: any) =>
+        new DiffLine('received', String(line));
+
+    static changed = (change: Change | ArrayChange<any>, line: string) => {
+        if (change.removed) {
+            return this.expected(line);
+        }
+
+        if (change.added) {
+            return this.received(line);
+        }
+
+        return this.unchanged(line);
+    }
+
+    private constructor(
+        private readonly type: DiffType,
+        private readonly value: string,
+    ) {
+    }
+
+    prependMarker(): DiffLine {
+        return this.prepend(this.marker());
+    }
+
+    appendMarker(): DiffLine {
+        return this.append(this.marker());
+    }
+
+    prepend(text: any): DiffLine {
+        return new DiffLine(this.type, String(text) + this.value);
+    }
+
+    append(text: any): DiffLine {
+        return new DiffLine(this.type, this.value + String(text));
+    }
+
+    decorated(decorator: DiffLineDecorator): string {
+        return decorator[this.type](this.value);
+    }
+
+    private marker(): string {
+        return DiffLine.markers[this.type];
     }
 }
 
@@ -47,12 +138,6 @@ class DiffValue {
         this.nameAndType            = `${ name } ${ typeOf(value) }`;
         this.desiredNameFieldLength = this.nameAndType.length;
         this.summary                = this.summaryOf(value);
-    }
-
-    withChanges(changes: string): this {
-        this.changes = changes;
-
-        return this;
     }
 
     withDesiredFieldLength(columns: number): this {
@@ -116,24 +201,16 @@ class DiffValue {
 }
 
 class Diff {
-    private readonly diff: string;
+    private readonly diff: DiffLine[];
 
     constructor(
         expectedValue: unknown,
         actualValue: unknown,
     ) {
-        this.diff = this.render(this.diffFrom(expectedValue, actualValue));
+        this.diff = this.diffFrom(expectedValue, actualValue);
     }
 
-    toString(): string {
-        return this.diff;
-    }
-
-    private render({ expected, actual, diff }: { expected: DiffValue, actual: DiffValue, diff: string }): string {
-        return `\n${ expected }\n${ actual }\n${ diff }`;
-    }
-
-    private diffFrom(expectedValue: unknown, actualValue: unknown): { expected: DiffValue, actual: DiffValue, diff: string } {
+    private diffFrom(expectedValue: unknown, actualValue: unknown): DiffLine[] {
         const { expected, actual } = this.aligned(
             new DiffValue('Expected', expectedValue),
             new DiffValue('Received', actualValue)
@@ -151,7 +228,11 @@ class Diff {
             return this.renderArrayDiff(expected, actual);
         }
 
-        return { expected, actual, diff: '' };
+        return [
+            DiffLine.expected(expected),
+            DiffLine.received(actual),
+            DiffLine.empty(),
+        ]
     }
 
     private shouldRenderActualValueOnly(expected: DiffValue, actual: DiffValue): boolean {
@@ -184,50 +265,66 @@ class Diff {
         };
     }
 
-    private renderActualValue(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string } {
-        return {
-            expected,
-            actual,
-            diff: `\n${ inspected(actual.value, { inline: false, markQuestions: false }) }\n`,
-        };
+    private renderActualValue(expected: DiffValue, actual: DiffValue): DiffLine[] {
+        const lines = inspected(actual.value, { inline: false, markQuestions: false })
+            .split('\n')
+            .map(DiffLine.unchanged);
+
+        return [
+            DiffLine.expected(expected),
+            DiffLine.received(actual),
+            DiffLine.empty(),
+            ...lines,
+            DiffLine.empty(),
+        ];
     }
 
-    private renderJsonDiff(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string } {
+    private renderJsonDiff(expected: DiffValue, actual: DiffValue): DiffLine[] {
         const changes = diffJson(expected.value as object, actual.value as object);
 
-        const diff = changes.reduce((acc, change) => {
-            const lines = change.value.split('\n');
-            return acc + lines.map(line =>
-                this.decorated(line, change)
-            ).join('\n').trimEnd() + '\n'
-        }, '\n');
+        const lines = changes.reduce((acc, change) => {
+            const changedLines = change.value.trimEnd().split('\n');
+            return acc.concat(
+                changedLines.map(line => DiffLine.changed(change, line).prependMarker())
+            )
+        }, []);
 
         const { added, removed } = this.countOf(changes);
 
-        return {
-            expected:   expected.withChanges(this.decorated(`${ removed }`, { removed })),
-            actual:     actual.withChanges(this.decorated(`${ added }`, { added })),
-            diff
-        };
+        return [
+            DiffLine.expected(expected).append('  ').appendMarker().append(`${ removed }`),
+            DiffLine.received(actual).append('  ').appendMarker().append(`${ added }`),
+            DiffLine.empty(),
+            ...lines,
+            DiffLine.empty(),
+        ];
     }
 
-    private renderArrayDiff(expected: DiffValue, actual: DiffValue): { expected: DiffValue, actual: DiffValue, diff: string }  {
+    private renderArrayDiff(expected: DiffValue, actual: DiffValue): DiffLine[]  {
         const changes = diffArrays(expected.value as Array<unknown>, actual.value as Array<unknown>, { comparator: equal } );
 
-        const diff = changes.reduce((acc, change) => {
+        const lines = changes.reduce((acc, change) => {
             const items = change.value;
-            return acc + items.map(item =>
-                `\n${ this.decorated('  ' + inspected(item, { inline:true, markQuestions: false }), change) }`
-            ).join('');
-        }, '\n  [') + `\n  ]\n`;
+            return acc.concat(
+                items.map(item =>
+                    DiffLine.changed(change, inspected(item, { inline:true, markQuestions: false }))
+                        .prepend('  ')
+                        .prependMarker()
+                )
+            );
+        }, []);
 
         const { added, removed } = this.countOf(changes);
 
-        return {
-            expected:   expected.withChanges(this.decorated(`${ removed }`, { removed })),
-            actual:     actual.withChanges(this.decorated(`${ added }`, { added })),
-            diff
-        };
+        return [
+            DiffLine.expected(expected).append('  ').appendMarker().append(`${ removed }`),
+            DiffLine.received(actual).append('  ').appendMarker().append(`${ added }`),
+            DiffLine.empty(),
+            DiffLine.unchanged('  ['),
+            ...lines,
+            DiffLine.unchanged('  ]'),
+            DiffLine.empty(),
+        ]
     }
 
     private countOf(changes: Array<Change | ArrayChange<unknown>>): { added: number, removed: number } {
@@ -239,21 +336,7 @@ class Diff {
         }, { removed: 0, added: 0 });
     }
 
-    private decorated(line: string, change: { added?: boolean | number, removed?: boolean | number }): string {
-        const trimmedLine = line.trim();
-
-        if (! trimmedLine) {
-            return line;
-        }
-
-        if (change.added) {
-            return `+ ${ line }`;
-        }
-
-        if (change.removed) {
-            return `- ${ line }`;
-        }
-
-        return `  ${ line }`;
+    lines(): DiffLine[] {
+        return this.diff;
     }
 }
