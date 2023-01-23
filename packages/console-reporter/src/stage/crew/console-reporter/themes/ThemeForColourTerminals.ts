@@ -1,9 +1,7 @@
 /* istanbul ignore file */
 
-import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
-
 import { TerminalTheme } from './TerminalTheme';
 
 /**
@@ -24,11 +22,7 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
      * @see https://www.npmjs.com/package/chalk
      */
     constructor(protected readonly chalk: Chalk) {
-        super(new AssertionReportDiffer({
-            expected: line => this.chalk.green(`+ ${ line }`),
-            actual:   line => this.chalk.red(`- ${ line }`),
-            matching: line => `  ${ line }`,
-        }));
+        super();
     }
 
     /**
@@ -62,20 +56,5 @@ export abstract class ThemeForColourTerminals extends TerminalTheme {
             default:
                 return this.chalk.green(this.joined(parts));
         }
-    }
-
-    /**
-     * @desc
-     *  Turns the serialised `expectedValue` and `actualValue` into
-     *  a visual diff, so that it's easier for the developer to spot
-     *  the difference between the two values.
-     *
-     * @param {string} expectedValue
-     * @param {string} actualValue
-     *
-     * @returns {string}
-     */
-    diff(expectedValue: string, actualValue: string): string {
-        return this.differ.diff(expectedValue, actualValue);
     }
 }

@@ -1,4 +1,3 @@
-export * from './AssertionReportDiffer';
 export * from './asyncMap';
 export * from './commaSeparated';
 export * from './Config';

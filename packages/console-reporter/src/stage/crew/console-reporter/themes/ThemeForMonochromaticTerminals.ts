@@ -1,4 +1,3 @@
-import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import { Outcome } from '@serenity-js/core/lib/model';
 
 import { TerminalTheme } from './TerminalTheme';
@@ -12,13 +11,6 @@ import { TerminalTheme } from './TerminalTheme';
  * @public
  */
 export class ThemeForMonochromaticTerminals extends TerminalTheme {
-    constructor() {
-        super(new AssertionReportDiffer({
-            expected: line => `+ ${ line }`,
-            actual:   line => `- ${ line }`,
-            matching: line => `  ${ line }`,
-        }));
-    }
 
     /**
      * @desc
@@ -62,21 +54,6 @@ export class ThemeForMonochromaticTerminals extends TerminalTheme {
      */
     separator(pattern: string): string {
         return this.repeat(pattern);
-    }
-
-    /**
-     * @desc
-     *  Turns the serialised `expectedValue` and `actualValue` into
-     *  a visual diff, so that it's easier for the developer to spot
-     *  the difference between the two values.
-     *
-     * @param {string} expectedValue
-     * @param {string} actualValue
-     *
-     * @returns {string}
-     */
-    diff(expectedValue: string, actualValue: string): string {
-        return this.differ.diff(expectedValue, actualValue);
     }
 
     /**

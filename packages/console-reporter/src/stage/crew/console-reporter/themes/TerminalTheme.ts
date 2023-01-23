@@ -1,4 +1,3 @@
-import { AssertionReportDiffer } from '@serenity-js/core/lib/io';
 import { Outcome } from '@serenity-js/core/lib/model';
 
 /**
@@ -10,13 +9,9 @@ import { Outcome } from '@serenity-js/core/lib/model';
  * @abstract
  */
 export abstract class TerminalTheme {
-    constructor(protected readonly differ: AssertionReportDiffer) {
-    }
-
     abstract heading(...parts: any[]): string;
     abstract outcome(outcome: Outcome | string, ...parts: any[]): string;
     abstract separator(pattern: string): string;
-    abstract diff(expected: string, actual: string): string;
     abstract log(...parts: any[]): string;
 
     /**
