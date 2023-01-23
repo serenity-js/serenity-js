@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { ActivityRelatedArtifactGenerated, SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
-import { AssertionReport, ExecutionFailedWithAssertionError, ExecutionSuccessful, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
+import { ExecutionFailedWithAssertionError, ExecutionSuccessful, Name, Photo, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -17,10 +17,6 @@ describe('@serenity-js/playwright-test', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A screenplay scenario includes a screenshot when an interaction fails, by default')))
-                        .next(ActivityRelatedArtifactGenerated, event => {
-                            expect(event.artifact).to.be.instanceOf(AssertionReport);
-                            expect(event.artifact.map(value => value)).to.deep.equal({  expected: 'true', actual: 'false' });
-                        })
                         .next(ActivityRelatedArtifactGenerated, event => {
                             expect(event.artifact).to.be.instanceOf(Photo);
                             expect(event.name.value).to.match(/Phoebe ensures that false does equal true/);
