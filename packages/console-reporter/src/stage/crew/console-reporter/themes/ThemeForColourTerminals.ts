@@ -2,6 +2,7 @@
 
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 import { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
+
 import { TerminalTheme } from './TerminalTheme';
 
 /**
