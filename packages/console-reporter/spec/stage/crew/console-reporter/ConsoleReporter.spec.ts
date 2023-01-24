@@ -191,16 +191,6 @@ describe('ConsoleReporter', () => {
                 |
                 |   Given a step that fails with an assertion error
                 |     ✗ Artemis ensures that list of numbers does equal a Promise (2ms)
-                |
-                |       Difference (+ expected, - actual):
-                |
-                |         [
-                |           1,
-                |       -   2,
-                |       -   3
-                |       +   2
-                |         ]
-                |
                 |   ⇢ And a step that passes
                 |
                 | ✗ Execution failed with assertion error (32ms)
@@ -256,12 +246,6 @@ describe('ConsoleReporter', () => {
                 |       Artemis connects to the database
                 |         ✗ Artemis ensures that the database server status does equal 'working' (7ms)
                 |           TestCompromisedError: Database server is down
-                |
-                |           Difference (+ expected, - actual):
-                |
-                |           - 'down'
-                |           + 'working'
-                |
                 |   ⇢ And a step that passes
                 |
                 | ✗ Execution compromised (49ms)
