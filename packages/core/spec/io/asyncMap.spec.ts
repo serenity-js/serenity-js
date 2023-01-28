@@ -29,4 +29,10 @@ describe('asyncMap', () => {
 
         expect(callOrder).to.deep.equal([ 'a', 'b', 'c' ])
     });
+
+    it('should map a list of lists without concatenating the items', async () => {
+        const mapped: string[][] = await asyncMap([ items, items ], list => list);
+
+        expect(mapped).to.deep.equal([ items, items ])
+    });
 });
