@@ -33,13 +33,11 @@ describe('property', () => {
         ).to.be.rejectedWith(AssertionError, trimmed`
             | Expected {"name":"Alice","age":27} to have property name that does equal 'Bob'
             |
-            | Expected string: Bob
-            | Received object
+            | Expectation: property('name', equals('Bob'))
             |
-            | {
-            |     "name": "Alice",
-            |     "age": 27
-            | }`);
+            | Expected string: Bob
+            | Received string: Alice
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

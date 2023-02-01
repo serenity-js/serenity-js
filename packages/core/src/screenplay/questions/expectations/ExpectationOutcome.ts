@@ -6,11 +6,12 @@ import { TinyType } from 'tiny-types';
  *
  * @group Expectations
  */
-export class ExpectationOutcome<Expected, Actual> extends TinyType {
+export class ExpectationOutcome extends TinyType {
     constructor(
         public readonly message: string,
-        public readonly expected: Expected,
-        public readonly actual: Actual,
+        public readonly expectation: string,
+        public readonly expected: unknown,
+        public readonly actual: unknown,
     ) {
         super();
     }

@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { By, isSelected, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isSelected', function () {
@@ -36,13 +37,43 @@ describe('isSelected', function () {
         it('is not selected', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.javaScript(), isSelected()),
-            )).to.be.rejectedWith(AssertionError, `Expected the JavaScript option to become selected`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected the JavaScript option to become present and become selected
+                | 
+                | Expectation: isSelected\\(\\)
+                |
+                | Expected boolean:\\s+true
+                | Received [A-Za-z]+PageElement
+                |
+                | [A-Za-z]+PageElement {
+                |   locator: [A-Za-z]+Locator {
+                |     parent: [A-Za-z]+RootLocator { }
+                |     selector: ByCss {
+                |       value: 'select\\[name="languages"\\] > option\\[value="JavaScript"\\]'
+                |     }
+                |   }
+                | }`, 'gm')));
 
         /** @test {isSelected} */
         it('is not present', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.java(), isSelected()),
-            )).to.be.rejectedWith(AssertionError, `Expected the Java option to become selected`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected the Java option to become present and become selected
+                | 
+                | Expectation: isSelected\\(\\)
+                |
+                | Expected boolean:\\s+true
+                | Received [A-Za-z]+PageElement
+                |
+                | [A-Za-z]+PageElement {
+                |   locator: [A-Za-z]+Locator {
+                |     parent: [A-Za-z]+RootLocator { }
+                |     selector: ByCss {
+                |       value: 'select\\[name="languages"\\] > option\\[value="Java"\\]'
+                |     }
+                |   }
+                | }`, 'gm')));
 
         /** @test {isSelected} */
         it('does not exist', () =>

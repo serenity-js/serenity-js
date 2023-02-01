@@ -19,8 +19,11 @@ describe('isGreaterThan', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 0 to have value greater than 2
             |
+            | Expectation: isGreaterThan(2)
+            |
             | Expected number: 2
-            | Received number: 0`);
+            | Received number: 0
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

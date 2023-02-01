@@ -1,4 +1,4 @@
-import { Answerable, Expectation } from '@serenity-js/core';
+import { Expectation } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `number`
@@ -42,7 +42,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  *
  * @group Expectations
  */
-export function isLessThan(expected: Answerable<number>): Expectation<number> {
-    return Expectation.thatActualShould<number, number>(`have value that's less than`, expected)
-        .soThat((actualValue, expectedValue) => actualValue < expectedValue);
-}
+export const isLessThan = Expectation.define(
+    'isLessThan', `have value that's less than`,
+    (actual: number, expected: number) =>
+        actual < expected,
+);

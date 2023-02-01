@@ -33,8 +33,11 @@ describe('equals', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 27 to equal 42
             |
+            | Expectation: equals(42)
+            |
             | Expected number: 42
-            | Received number: 27`);
+            | Received number: 27
+            |`);
     });
 
     it(`provides details when the actual value is undefined`, () => {
@@ -42,6 +45,8 @@ describe('equals', () => {
             Ensure.that(undefined, equals(1)),              // eslint-disable-line unicorn/no-useless-undefined
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected undefined to equal 1
+            |
+            | Expectation: equals(1)
             |
             | Expected number:    1
             | Received undefined
@@ -53,6 +58,8 @@ describe('equals', () => {
             Ensure.that(1, equals(undefined)),              // eslint-disable-line unicorn/no-useless-undefined
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 1 to equal undefined
+            |
+            | Expectation: equals(undefined)
             |
             | Expected undefined
             | Received number:    1

@@ -103,10 +103,12 @@ describe('Wait', () => {
                     )
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.match(new RegExp(trimmed`
+                expect(error.message).to.match(new RegExp(trimmed`
                     | Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
                     |
-                    | Expected number: 500
+                    | Expectation: isGreaterThan\\(${ timeout.inMilliseconds() }\\)
+                    |
+                    | Expected number: ${ timeout.inMilliseconds() }
                     | Received number: \\d+
                     |`, 'gm'));
             })
@@ -259,10 +261,11 @@ function brokenExpectationThatThrows(message: string): Expectation<any> {
         });
 }
 
-function isGreaterThan(expected: Answerable<number>): Expectation<number> {
-    return Expectation.thatActualShould<number, number>('have value greater than', expected)
-        .soThat((actualValue, expectedValue) => actualValue > expectedValue);
-}
+const isGreaterThan = Expectation.define(
+    'isGreaterThan', 'have value greater than',
+    (actual: number, expected: number) =>
+        actual > expected,
+)
 
 function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
     return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)

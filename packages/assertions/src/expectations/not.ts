@@ -37,15 +37,17 @@ class Not<Actual> extends Expectation<Actual> {
 
     constructor(private readonly expectation: Expectation<Actual>) {
         super(
+            'not',
             Not.flipped(expectation.toString()),
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
                 const subject = Not.flipped(expectation.toString());
 
                 const outcome = await actor.answer(expectation.isMetFor(actual));
+                const description = `not(${ outcome.expectation })`;
 
                 return outcome instanceof ExpectationNotMet
-                    ? new ExpectationMet(subject, outcome.expected, outcome.actual)
-                    : new ExpectationNotMet(subject, outcome.expected, outcome.actual);
+                    ? new ExpectationMet(subject, description, outcome.expected, outcome.actual )
+                    : new ExpectationNotMet(subject, description, outcome.expected, outcome.actual );
             }
         );
     }

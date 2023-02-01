@@ -19,8 +19,11 @@ describe('endsWith', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to end with 'Mundo!'
             |
+            | Expectation: endsWith('Mundo!')
+            |
             | Expected string: Mundo!
-            | Received string: Hello World!`);
+            | Received string: Hello World!
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

@@ -5,6 +5,7 @@ export * from './FileFinder';
 export * from './FileSystem';
 export * from './FileSystemLocation';
 export * from './format';
+export * from './inspected';
 export * from './loader';
 export * from './Path';
 export * from './reflection';

@@ -76,14 +76,17 @@ class HasProperty<Actual extends object, PropertyName extends keyof Actual> exte
     ) {
         const subject = `have property ${ String(propertyName) } that does ${ expectation }`;
         super(
+            'property',
             subject,
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
-                const actualValue = await actor.answer(actual);
-                const outcome = await actor.answer(expectation.isMetFor(actualValue[propertyName]));
+                const actualValue   = await actor.answer(actual);
+                const outcome       = await actor.answer(expectation.isMetFor(actualValue[propertyName]));
+
+                const description = `property('${ String(propertyName) }', ${ outcome.expectation })`;
 
                 return outcome instanceof ExpectationMet
-                    ? new ExpectationMet<any, Actual>(subject, outcome.expected, actualValue)
-                    : new ExpectationNotMet<any, Actual>(subject, outcome.expected, actualValue);
+                    ? new ExpectationMet(subject, description, outcome.expected, outcome.actual)
+                    : new ExpectationNotMet(subject, description, outcome.expected, outcome.actual);
             },
         );
     }

@@ -19,6 +19,8 @@ describe('matches', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to match /mundo$/gi
             |
+            | Expectation: matches(/mundo$/gi)
+            |
             | Expected RegExp: /mundo$/gi
             | Received string: Hello World!`);
     });

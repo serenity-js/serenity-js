@@ -101,6 +101,8 @@ describe('Wait', () => {
                 expect(error.message).to.be.equal(trimmed`
                     | Waited 2s, polling every 500ms, for the text of the header to equal 'Ready!'
                     |
+                    | Expectation: equals('Ready!')
+                    |
                     | Expected string: Ready!
                     | Received string: Loading...
                     |`);

@@ -22,11 +22,13 @@ describe('or', () => {
         });
     });
 
-    it('breaks the actor flow when "actual" does meets none of the expectations', () => {
+    it('breaks the actor flow when "actual" meets none of the expectations', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'
+            |
+            | Expectation: endsWith('Mundo!')
             |
             | Expected string: Mundo!
             | Received string: Hello World!`);

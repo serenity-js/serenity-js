@@ -30,7 +30,7 @@ export function or<Actual_Type>(...expectations: Array<Expectation<Actual_Type>>
 class Or<Actual> extends Expectation<Actual> {
     private static readonly Separator = ' or ';
 
-    private static descriptionFor<A>(expectations: Array<Expectation<A>>): string {
+    private static subjectFor<A>(expectations: Array<Expectation<A>>): string {
         return expectations
             .map(expectation => expectation.toString())
             .join(Or.Separator);
@@ -38,13 +38,14 @@ class Or<Actual> extends Expectation<Actual> {
 
     constructor(private readonly expectations: Array<Expectation<Actual>>) {
         super(
-            Or.descriptionFor(expectations),
+            'or',
+            Or.subjectFor(expectations),
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
                 if (! expectations || expectations.length === 0) {
                     throw new LogicError(`No expectations provided to or()`);
                 }
 
-                let outcome: ExpectationOutcome<unknown, Actual>;
+                let outcome: ExpectationOutcome;
                 for (const expectation of expectations) {
                     outcome = await actor.answer(expectation.isMetFor(actual));
 
@@ -54,7 +55,8 @@ class Or<Actual> extends Expectation<Actual> {
                 }
 
                 return new ExpectationNotMet(
-                    Or.descriptionFor(expectations),
+                    Or.subjectFor(expectations),
+                    outcome.expectation,
                     outcome.expected,
                     outcome.actual,
                 );

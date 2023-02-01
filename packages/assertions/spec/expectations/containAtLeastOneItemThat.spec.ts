@@ -19,6 +19,8 @@ describe('containAtLeastOneItemThat', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ 0, 1, 2 ] to contain at least one item that does equal 7
             |
+            | Expectation: containAtLeastOneItemThat(equals(7))
+            |
             | Expected number: 7
             | Received Array
             |
@@ -26,7 +28,46 @@ describe('containAtLeastOneItemThat', () => {
             |   0,
             |   1,
             |   2
-            | ]`);
+            | ]
+            |`);
+    });
+
+    it('works with nested arrays', () => {
+        const nestedArrays = Question.about('nested arrays', actor_ => [ [ 0, 1 ], [ 2, 3 ], [ 4, 5 ] ]);
+        const expectedValue = Question.about('expected value', actor_ => 6);
+
+        return expect(actorCalled('Astrid').attemptsTo(
+            Ensure.that(
+                nestedArrays,
+                containAtLeastOneItemThat(
+                    containAtLeastOneItemThat(
+                        equals(expectedValue)
+                    )
+                )
+            ),
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected nested arrays to contain at least one item that does contain at least one item that does equal expected value
+            |
+            | Expectation: containAtLeastOneItemThat(containAtLeastOneItemThat(equals(6)))
+            |
+            | Expected number: 6
+            | Received Array
+            |
+            | [
+            |   [ 
+            |     0, 
+            |     1 
+            |   ],
+            |   [ 
+            |     2, 
+            |     3 
+            |   ],
+            |   [ 
+            |     4, 
+            |     5 
+            |   ]
+            | ]
+            |`);
     });
 
     it('breaks the actor flow when "actual" is an empty list', () => {
@@ -35,17 +76,19 @@ describe('containAtLeastOneItemThat', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ ] to contain at least one item that does equal 42
             |
+            | Expectation: containAtLeastOneItemThat(<<unanswered>>)
+            |
             | Expected Unanswered
             | Received Array
             |
-            | [
-            | ]`);
+            | []
+            |`);
     });
 
     it('contributes to a human-readable description', () => {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         const numbers = () =>
-            Question.about('list of numbers', actor => [ 0, 1, 2 ]);
+            Question.about('list of numbers', actor_ => [ 0, 1, 2 ]);
 
         expect(Ensure.that(numbers(), containAtLeastOneItemThat(isGreaterThan(1))).toString())
             .to.equal(`#actor ensures that list of numbers does contain at least one item that does have value greater than 1`);

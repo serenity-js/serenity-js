@@ -1,5 +1,5 @@
 import { d } from '../../io';
-import { inspected } from '../../io/inspected';
+import { stringified } from '../../io/stringified';
 import { LogEntry, Name } from '../../model';
 import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
@@ -60,7 +60,7 @@ export class Log extends Interaction {
             const data = await actor.answer(item);
 
             actor.collect(
-                LogEntry.fromJSON({ data: inspected(data) }),
+                LogEntry.fromJSON({ data: stringified(data) }),
                 new Name(d`${ item }`)
             );
         }

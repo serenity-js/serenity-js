@@ -124,6 +124,8 @@ describe('@serenity-js/playwright-test', function () {
                             expect(outcome.error.message).to.equal(trimmed`
                                 | Expected false to equal true
                                 |
+                                | Expectation: equals(true)
+                                |
                                 | Expected boolean: true
                                 | Received boolean: false
                                 |`);

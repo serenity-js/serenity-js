@@ -18,13 +18,16 @@ describe('contain', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected [ 'Hello', 'World' ] to contain 'Mundo'
             |
+            | Expectation: contain('Mundo')
+            |
             | Expected string: Mundo
             | Received Array
             |
             | [
             |   'Hello',
             |   'World'
-            | ]`);
+            | ]
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

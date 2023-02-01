@@ -5,4 +5,4 @@ import { ExpectationOutcome } from './ExpectationOutcome';
  *
  * @group Expectations
  */
-export class ExpectationMet<Expected, Actual> extends ExpectationOutcome<Expected, Actual> {}
+export class ExpectationMet extends ExpectationOutcome {}

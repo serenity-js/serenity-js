@@ -19,8 +19,11 @@ describe('isFalse', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected true to equal false
             |
+            | Expectation: equals(false)
+            |
             | Expected boolean: false
-            | Received boolean: true`);
+            | Received boolean: true
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

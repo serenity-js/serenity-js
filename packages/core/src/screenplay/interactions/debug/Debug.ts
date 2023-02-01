@@ -1,6 +1,6 @@
 import { ErrorSerialiser } from '../../../errors';
 import { d } from '../../../io';
-import { inspected } from '../../../io/inspected';
+import { stringified } from '../../../io/stringified';
 import { LogEntry, Name } from '../../../model';
 import { UsesAbilities } from '../../abilities';
 import { Answerable } from '../../Answerable';
@@ -131,7 +131,7 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
             actor.collect(
                 LogEntry.fromJSON({
                     data: JSON.stringify({
-                        value: inspected(result.value),
+                        value: stringified(result.value),
                         error: result.error ? ErrorSerialiser.serialise(result.error) : result.error
                     }),
                 }),
