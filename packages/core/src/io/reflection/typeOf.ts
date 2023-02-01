@@ -1,3 +1,5 @@
+import { types } from 'util';
+
 /**
  * Describes the type of the provided value.
  *
@@ -7,6 +9,8 @@ export function typeOf(value: unknown): string {
     switch (true) {
         case value === null:
             return 'null';
+        case types.isProxy(value):
+            return `Proxy<${ Reflect.getPrototypeOf(value as object).constructor.name }>`;
         case typeof value !== 'object':
             return typeof value;
         case value instanceof Date:

@@ -1,10 +1,18 @@
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { typeOf } from '../../../src/io';
+import { typeOf } from '../../../src/io/reflection';
 import { expect } from '../../expect';
 
 class Example {}
+
+function proxy<T extends object>(value: T) {
+    return new Proxy(value, {
+        getPrototypeOf(target: T): object | null {
+            return Reflect.getPrototypeOf(target);
+        }
+    })
+}
 
 describe ('`typeOf` function', () => {
 
@@ -21,6 +29,9 @@ describe ('`typeOf` function', () => {
         { description: 'map',       value: new Map(),     expected: `Map`       },
         { description: 'RegExp',    value: /[Pp]attern/,  expected: `RegExp`    },
         { description: 'instance',  value: new Example(), expected: `Example`   },
+
+        { description: 'Proxy<T>',      value: proxy(new Example()),    expected: `Proxy<Example>`  },
+        { description: 'Proxy<Object>', value: new Proxy({}, {}),       expected: `Proxy<Object>`   },
 
         /* eslint-disable unicorn/new-for-builtins */
         { description: 'String',    value: new String('hi'),    expected: `String`   },
