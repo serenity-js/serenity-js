@@ -19,20 +19,26 @@ describe('and', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('¡Hola'), endsWith('World!'))),
             )).to.be.rejectedWith(AssertionError, trimmed`
-                | Expected 'Hello World!' to start with '¡Hola'
+                | Expected 'Hello World!' to start with '¡Hola' and end with 'World!'
+                |
+                | Expectation: startsWith('¡Hola')
                 |
                 | Expected string: ¡Hola
-                | Received string: Hello World!`);
+                | Received string: Hello World!
+                |`);
         });
 
         it('does not meet the second expectation', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that('Hello World!', and(startsWith('Hello'), endsWith('Mundo!'))),
             )).to.be.rejectedWith(AssertionError, trimmed`
-                | Expected 'Hello World!' to end with 'Mundo!'
+                | Expected 'Hello World!' to start with 'Hello' and end with 'Mundo!'
+                |
+                | Expectation: endsWith('Mundo!')
                 |
                 | Expected string: Mundo!
-                | Received string: Hello World!`);
+                | Received string: Hello World!
+                |`);
         });
     });
 

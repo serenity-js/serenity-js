@@ -19,6 +19,8 @@ describe('isTrue', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected false to equal true
             |
+            | Expectation: equals(true)
+            |
             | Expected boolean: true
             | Received boolean: false
             |`);

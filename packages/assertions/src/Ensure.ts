@@ -9,7 +9,6 @@ import {
     Expectation,
     ExpectationMet,
     ExpectationNotMet,
-    ExpectationOutcome,
     f,
     Interaction,
     LogicError,
@@ -17,7 +16,6 @@ import {
     UsesAbilities,
 } from '@serenity-js/core';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import { match } from 'tiny-types';
 
 /**
  * The {@apilink Interaction|interaction} to `Ensure`
@@ -100,21 +98,23 @@ export class Ensure<Actual> extends Interaction {
     async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
 
-        return match<ExpectationOutcome<unknown, Actual>, void>(outcome)
-            .when(ExpectationNotMet, o => {
+        if (outcome instanceof ExpectationNotMet) {
+            // todo: inject ErrorFactory via Ability
+            const errors = new ErrorFactory();
 
-                // todo: inject ErrorFactory via Ability
-                const errors = new ErrorFactory();
+            const actualDescription = d`${ this.actual }`;
+            const message = `Expected ${ actualDescription } to ${ outcome.message }`;
 
-                const actualDescription = d`${ this.actual }`;
-                const message = `Expected ${ actualDescription } to ${ outcome.message }`;
-
-                throw errors.create(AssertionError, { message, diff: outcome })
-            })
-            .when(ExpectationMet, _ => void 0)
-            .else(o => {
-                throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ o }`);
+            throw errors.create(AssertionError, {
+                message,
+                expectation: outcome.expectation,
+                diff: { expected: outcome.expected, actual: outcome.actual },
             });
+        }
+
+        if (! (outcome instanceof ExpectationMet)) {
+            throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ outcome }`);
+        }
     }
 
     /**

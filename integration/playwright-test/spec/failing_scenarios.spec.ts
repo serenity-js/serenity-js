@@ -101,6 +101,8 @@ describe('@serenity-js/playwright-test', function () {
                         expect(error.message).to.equal(trimmed`
                             | Expected 'Hello' to equal 'Hola'
                             |
+                            | Expectation: equals('Hola')
+                            |
                             | Expected string: Hola
                             | Received string: Hello
                             |`);

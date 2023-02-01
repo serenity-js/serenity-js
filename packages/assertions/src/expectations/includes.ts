@@ -1,4 +1,4 @@
-import { Answerable, Expectation } from '@serenity-js/core';
+import { Expectation } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the actual `string` value
@@ -19,7 +19,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  *
  * @group Expectations
  */
-export function includes(expected: Answerable<string>): Expectation<string> {
-    return Expectation.thatActualShould<string, string>('include', expected)
-        .soThat((actualValue, expectedValue) => actualValue.includes(expectedValue));
-}
+export const includes = Expectation.define(
+    'includes', 'include',
+    (actual: string, expected: string) =>
+        actual.includes(expected)
+);

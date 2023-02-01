@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { By, Click, isActive, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isActive', function () {
@@ -44,19 +45,57 @@ describe('isActive', function () {
         it('is inactive', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.inactiveInput(), isActive()),
-            )).to.be.rejectedWith(AssertionError, `Expected the inactive input to become active`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected the inactive input to become present and become active
+                | 
+                | Expectation: isActive\\(\\) 
+                |
+                | Expected boolean:\\s+true
+                | Received [A-Za-z]+PageElement
+                |
+                | [A-Za-z]+PageElement {
+                |   locator: [A-Za-z]+Locator {
+                |     parent: [A-Za-z]+RootLocator { }
+                |     selector: ById {
+                |       value: 'inactive'
+                |     }
+                |   }
+                | }`, 'gm')));
 
         /** @test {isActive} */
         it('does not exist', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.nonExistent(), isActive()),
-            )).to.be.rejectedWith(AssertionError, `Expected non-existent element to become present`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected non-existent element to become present and become active
+                | 
+                | Expectation: isPresent\\(\\)
+                |
+                | Expected boolean:\\s+true
+                | Received Proxy<QuestionStatement>
+                | 
+                | [A-Za-z]+PageElement {
+                |   locator: [A-Za-z]+Locator {
+                |     parent: [A-Za-z]+RootLocator { }
+                |     selector: ById {
+                |       value: 'does-not-exist'
+                |     }
+                |   }
+                | }`, 'gm')));
 
         /** @test {isActive} */
         it('does not exist in a list of PageElements', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.nonExistentElements().first(), isActive()),
-            )).to.be.rejectedWith(AssertionError, `Expected the first of non-existent elements to become present`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected the first of non-existent elements to become present and become active
+                | 
+                | Expectation: isPresent\\(\\)
+                |
+                | Expected boolean:\\s+true
+                | Received Proxy<QuestionStatement>
+                | 
+                | Unanswered { }`, 'gm')));
     });
 
     /** @test {isActive} */

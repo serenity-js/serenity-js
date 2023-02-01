@@ -40,6 +40,22 @@ describe('ErrorFactory', () => {
         expect(error.message).to.equal(message);
     });
 
+    it('adds information about the expectation used, if provided', () => {
+        const errors = new ErrorFactory();
+
+        const message   = `Assertion failed`;
+        const error     = errors.create(AssertionError, { message, diff: { expected: 5, actual: 2 }, expectation: 'equals(5)' });
+
+        expect(error.message).to.equal(trimmed`
+            | Assertion failed
+            |
+            | Expectation: equals(5)
+            |
+            | Expected number: 5
+            | Received number: 2
+            |`);
+    });
+
     given([
         { description: 'ConfigurationError',            errorType: ConfigurationError },
         { description: 'AssertionError',                errorType: AssertionError },
@@ -134,11 +150,11 @@ describe('ErrorFactory', () => {
                     | Received object
                     |
                     | {
-                    |     "name": "Alice",
-                    |     "pets": [
-                    |         "dog",
-                    |         "cat"
-                    |     ]
+                    |   name: 'Alice',
+                    |   pets: [
+                    |     'dog',
+                    |     'cat'
+                    |   ]
                     | }
                     |`
                 );
@@ -260,7 +276,9 @@ describe('ErrorFactory', () => {
                     | Expected Unanswered
                     | Received Name
                     |
-                    | Name(value=Bob)
+                    | Name {
+                    |   value: 'Bob'
+                    | }
                     |`);
                 });
 

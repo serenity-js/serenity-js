@@ -19,8 +19,11 @@ describe('not', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to not start with 'Hello'
             |
+            | Expectation: not(startsWith('Hello'))
+            |
             | Expected string: Hello
-            | Received string: Hello World!`);
+            | Received string: Hello World!
+            |`);
     });
 
     it('contributes to a human-readable description', () => {
@@ -57,9 +60,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 3 to not have value greater than 2 and have value that's less than 4
                     |
+                    | Expectation: not(isLessThan(4))
+                    |
                     | Expected number: 4
-                    | Received number: 3`
-                ));
+                    | Received number: 3
+                    |`));
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that(3, not(and(isGreaterThan(2), isLessThan(4)))).toString())
@@ -75,6 +80,8 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected [ 1, 2, 3 ] to not contain 2
                     |
+                    | Expectation: not(contain(2))
+                    |
                     | Expected number: 2
                     | Received Array
                     |
@@ -82,7 +89,8 @@ describe('not', () => {
                     |   1,
                     |   2,
                     |   3
-                    | ]`
+                    | ]
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -99,6 +107,8 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected [ 1, 2, 3 ] to not contain at least one item that does equal 2
                     |
+                    | Expectation: not(containAtLeastOneItemThat(equals(2)))
+                    |
                     | Expected number: 2
                     | Received Array
                     |
@@ -106,7 +116,8 @@ describe('not', () => {
                     |   1,
                     |   2,
                     |   3
-                    | ]`
+                    | ]
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -123,8 +134,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 'Hello' to not end with 'o'
                     |
+                    | Expectation: not(endsWith('o'))
+                    |
                     | Expected string: o
-                    | Received string: Hello`
+                    | Received string: Hello
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -141,8 +155,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected true to not equal true
                     |
+                    | Expectation: not(equals(true))
+                    |
                     | Expected boolean: true
-                    | Received boolean: true`
+                    | Received boolean: true
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -159,8 +176,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected true to not equal true
                     |
+                    | Expectation: not(equals(true))
+                    |
                     | Expected boolean: true
-                    | Received boolean: true`
+                    | Received boolean: true
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -177,8 +197,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected false to not equal false
                     |
+                    | Expectation: not(equals(false))
+                    |
                     | Expected boolean: false
-                    | Received boolean: false`
+                    | Received boolean: false
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -195,8 +218,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 'Hello' to not include 'Hello'
                     |
+                    | Expectation: not(includes('Hello'))
+                    |
                     | Expected string: Hello
-                    | Received string: Hello`
+                    | Received string: Hello
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -213,8 +239,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 2 to not have value greater than 1
                     |
+                    | Expectation: not(isGreaterThan(1))
+                    |
                     | Expected number: 1
-                    | Received number: 2`
+                    | Received number: 2
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -231,8 +260,11 @@ describe('not', () => {
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 1 to not have value that's less than 2
                     |
+                    | Expectation: not(isLessThan(2))
+                    |
                     | Expected number: 2
-                    | Received number: 1`
+                    | Received number: 1
+                    |`
                 ));
 
             it('contributes to a human-readable description', () => {
@@ -248,6 +280,8 @@ describe('not', () => {
                     Ensure.that(1, not(or(isGreaterThan(0), isLessThan(2)))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 1 to not have value greater than 0 or have value that's less than 2
+                    |
+                    | Expectation: not(isGreaterThan(0))
                     |
                     | Expected number: 0
                     | Received number: 1`
@@ -266,6 +300,8 @@ describe('not', () => {
                     Ensure.that('Hello', not(startsWith('H'))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
                     | Expected 'Hello' to not start with 'H'
+                    |
+                    | Expectation: not(startsWith('H'))
                     |
                     | Expected string: H
                     | Received string: Hello`

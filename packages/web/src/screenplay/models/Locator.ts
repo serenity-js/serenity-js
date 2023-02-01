@@ -1,3 +1,6 @@
+import { inspector } from '@serenity-js/core/lib/io';
+import * as util from 'util';   // eslint-disable-line unicorn/import-style
+
 import { PageElement } from './PageElement';
 import { RootLocator } from './RootLocator';
 import { Selector } from './selectors';
@@ -51,4 +54,6 @@ export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
     toString(): string {
         return this.selector.toString();
     }
+
+    [util.inspect.custom] = inspector(this, [ 'parent' as keyof this, 'selector' ]);
 }

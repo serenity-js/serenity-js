@@ -19,8 +19,11 @@ describe('startsWith', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to start with '¡Hola'
             |
+            | Expectation: startsWith('¡Hola')
+            |
             | Expected string: ¡Hola
-            | Received string: Hello World!`);
+            | Received string: Hello World!
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

@@ -36,20 +36,23 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
 
     constructor(private readonly expectation: Expectation<Item>) {
         super(
+            'containAtLeastOneItemThat',
             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
             async (actor: AnswersQuestions, actual: Answerable<Item[]>) => {
 
                 const items: Item[] = await actor.answer(actual);
 
                 if (! items || items.length === 0) {
+                    const unanswered = new Unanswered();
                     return new ExpectationNotMet(
                         ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                        new Unanswered(),
+                        `containAtLeastOneItemThat(<<${ unanswered }>>)`,
+                        unanswered,
                         items,
                     );
                 }
 
-                let outcome: ExpectationOutcome<unknown, Item>;
+                let outcome: ExpectationOutcome;
 
                 for (const item of items) {
 
@@ -58,13 +61,19 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
                     if (outcome instanceof ExpectationMet) {
                         return new ExpectationMet(
                             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
+                            `containAtLeastOneItemThat(${ outcome.expectation })`,
                             outcome.expected,
-                            items
+                            items,
                         );
                     }
                 }
 
-                return new ExpectationNotMet(ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation), outcome.expected, items);
+                return new ExpectationNotMet(
+                    ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
+                    `containAtLeastOneItemThat(${ outcome.expectation })`,
+                    outcome.expected,
+                    items,
+                );
             }
         );
     }

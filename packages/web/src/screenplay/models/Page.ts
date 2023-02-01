@@ -232,7 +232,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
         });
     }
 
-    private static async findMatchingPage(expectationDescription: string, pages: Page[], matcher: (page: Page) => Promise<ExpectationOutcome<any, any>>): Promise<Page> {
+    private static async findMatchingPage(expectationDescription: string, pages: Page[], matcher: (page: Page) => Promise<ExpectationOutcome>): Promise<Page> {
         for (const page of pages) {
             const outcome  = await matcher(page);
 

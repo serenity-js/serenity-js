@@ -19,8 +19,11 @@ describe('includes', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 'Hello World!' to include 'Mundo'
             |
+            | Expectation: includes('Mundo')
+            |
             | Expected string: Mundo
-            | Received string: Hello World!`);
+            | Received string: Hello World!
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

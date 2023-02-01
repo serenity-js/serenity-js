@@ -43,7 +43,7 @@ describe('Ensure', () => {
 
     given([
         { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7', description: 'Promise' },
-        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7', description: 'Questipn' },
+        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7', description: 'Question' },
         { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7', description: 'Question<Promise>'  },
     ]).
     it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
@@ -52,8 +52,11 @@ describe('Ensure', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | ${ expectedMessage }
             |
+            | Expectation: isIdenticalTo(7)
+            |
             | Expected number: 7
-            | Received number: 4`
+            | Received number: 4
+            |`
         );
     });
 
@@ -81,11 +84,18 @@ describe('Ensure', () => {
         )).to.be.fulfilled;
     });
 
+    it('works', () => {
+        return expect(actorCalled('Enrique').attemptsTo(
+            Ensure.that(q(p(42)), isIdenticalTo(42)),
+        )).to.be.fulfilled;
+    });
+
     it(`complains when given an Expectation that doesn't conform to the interface`, () => {
         class BrokenExpectation<Actual> extends Expectation<Actual> {
             constructor() {
                 super(
-                    `broken`,
+                    'broken',
+                    'broken',
                     (_actor: AnswersQuestions, _actual: Answerable<Actual>) => {
                         return undefined as any;    // eslint-disable-line unicorn/no-useless-undefined
                     },
@@ -123,6 +133,8 @@ describe('Ensure', () => {
                 expect(error.cause).to.be.instanceOf(AssertionError);
                 expect(error.cause.message).to.equal(trimmed `
                     | Expected 503 to equal 200
+                    |
+                    | Expectation: equals(200)
                     |
                     | Expected number: 200
                     | Received number: 503

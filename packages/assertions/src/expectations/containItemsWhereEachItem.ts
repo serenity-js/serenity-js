@@ -36,20 +36,23 @@ class ContainItemsWhereEachItemMeetsExpectation<Actual> extends Expectation<Actu
 
     constructor(private readonly expectation: Expectation<Actual>) {
         super(
+            'containItemsWhereEachItem',
             ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
             async (actor: AnswersQuestions, actual: Answerable<Actual[]>) => {
 
                 const items: Actual[] = await actor.answer(actual);
 
                 if (! items || items.length === 0) {
+                    const unanswered = new Unanswered();
                     return new ExpectationNotMet(
                         ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
-                        new Unanswered(),
+                        `containItemsWhereEachItem(<<${ unanswered }>>)`,
+                        unanswered,
                         items,
                     );
                 }
 
-                let outcome: ExpectationOutcome<unknown, Actual>;
+                let outcome: ExpectationOutcome;
 
                 for (const item of items) {
 
@@ -58,13 +61,19 @@ class ContainItemsWhereEachItemMeetsExpectation<Actual> extends Expectation<Actu
                     if (outcome instanceof ExpectationNotMet) {
                         return new ExpectationNotMet(
                             ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
+                            `containItemsWhereEachItem(${ outcome.expectation })`,
                             outcome.expected,
-                            items
+                            items,
                         );
                     }
                 }
 
-                return new ExpectationMet(ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation), outcome.expected, items);
+                return new ExpectationMet(
+                    ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
+                    `containItemsWhereEachItem(${ outcome.expectation })`,
+                    outcome.expected,
+                    items,
+                );
             }
         );
     }

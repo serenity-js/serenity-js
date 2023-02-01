@@ -91,16 +91,16 @@ class IsPresent<Actual> extends Expectation<Actual> {
 
     constructor() {
         super(
+            'isPresent',
             'become present',
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
 
-                const value = await IsPresent.valueToCheck(actual, actor);
-
+                const value  = await IsPresent.valueToCheck(actual, actor);
                 const result = await IsPresent.isPresent(value, actor);
 
                 return result
-                    ? new ExpectationMet('become present', undefined, undefined)
-                    : new ExpectationNotMet('become present', undefined, undefined);
+                    ? new ExpectationMet('become present', 'isPresent()', true, actual)
+                    : new ExpectationNotMet('become present', 'isPresent()', true, actual);
             }
         );
     }

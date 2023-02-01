@@ -21,5 +21,5 @@ import { equals } from './equals';
  * @group Expectations
  */
 export function isTrue(): Expectation<boolean> {
-    return Expectation.to<never, boolean>(`equal true`).soThatActual(equals(true));
+    return Expectation.to<boolean>(`equal true`).soThatActual(equals(true));
 }

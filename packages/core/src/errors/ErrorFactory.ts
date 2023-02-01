@@ -1,8 +1,9 @@
 import { ArrayChange, Change, diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
+import { inspect, InspectOptions, types } from 'util';
 
 import { isPrimitive, typeOf } from '../io';
-import { inspected, isPlainObject } from '../io/inspected';
+import { isPlainObject, stringified } from '../io/stringified';
 import { Unanswered } from '../screenplay';
 import { ErrorOptions } from './ErrorOptions';
 import { RuntimeError } from './RuntimeError';
@@ -19,11 +20,16 @@ export class ErrorFactory {
 
         const message = [
             this.title(options.message),
+            options.expectation && ('\n' + `Expectation: ${ options.expectation }`),
             options.diff && ('\n' + this.diffFrom(options.diff)),
             // todo: add interaction details
         ].
         filter(Boolean).
         join('\n');
+
+        // todo: decorate errors with additional fields, like:
+        //  - location for Playwright test
+        //  - expected/actual for Assertion Error
 
         return new errorType(message, options?.cause) as unknown as RE;
     }
@@ -154,7 +160,7 @@ class DiffValue {
     }
 
     isComplex(): boolean {
-        return typeof this.value === 'object'
+        return (typeof this.value === 'object' || types.isProxy(this.value))
             && ! (this.value instanceof RegExp)
             && ! (this.value instanceof Unanswered);
     }
@@ -266,7 +272,8 @@ class Diff {
     }
 
     private renderActualValue(expected: DiffValue, actual: DiffValue): DiffLine[] {
-        const lines = inspected(actual.value, { inline: false, markQuestions: false })
+        // todo: use the same for diffs?
+        const lines = inspected(actual.value)
             .split('\n')
             .map(DiffLine.unchanged);
 
@@ -307,7 +314,7 @@ class Diff {
             const items = change.value;
             return acc.concat(
                 items.map(item =>
-                    DiffLine.changed(change, inspected(item, { inline:true, markQuestions: false }))
+                    DiffLine.changed(change, stringified(item, { inline:true, markQuestions: false }))
                         .prepend('  ')
                         .prependMarker()
                 )
@@ -339,4 +346,17 @@ class Diff {
     lines(): DiffLine[] {
         return this.diff;
     }
+}
+
+function inspected(value: unknown, options: InspectOptions = {}): string {
+    return inspect(value, {
+        depth: Number.POSITIVE_INFINITY,
+        breakLength: Number.POSITIVE_INFINITY,
+        customInspect: true,
+        compact:  false,
+        sorted: true,
+        showProxy: false,
+        showHidden: false,
+        ...options,
+    });
 }

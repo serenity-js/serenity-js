@@ -46,6 +46,8 @@ describe('isCloseTo', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 10.25 to have value close to 10 ±0.1
             |
+            | Expectation: isCloseTo(10, 0.1)
+            |
             | Expected number: 10
             | Received number: 10.25`);
     });
@@ -55,6 +57,8 @@ describe('isCloseTo', () => {
             Ensure.that(Number.POSITIVE_INFINITY, isCloseTo(42)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected Infinity to have value close to 42 ±1e-9
+            |
+            | Expectation: isCloseTo(42)
             |
             | Expected number: 42
             | Received number: Infinity`);
@@ -66,7 +70,10 @@ describe('isCloseTo', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 42 to have value close to -Infinity ±1e-9
             |
+            | Expectation: isCloseTo(-Infinity)
+            |
             | Expected number: -Infinity
-            | Received number: 42`);
+            | Received number: 42
+            |`);
     });
 });

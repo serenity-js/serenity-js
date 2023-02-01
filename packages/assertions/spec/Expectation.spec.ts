@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, Answerable, AssertionError, Expectation } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
@@ -55,7 +56,15 @@ describe('Expectation', () => {
         it('provides a precise failure message when the expectation is not met', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(9, isWithin(7, 8)),
-            )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
+            )).to.be.rejectedWith(AssertionError, trimmed`
+                | Expected 9 to have value greater than 7 or equal 7 and have value that's less than 8 or equal 8
+                |
+                | Expectation: equals(8)
+                |
+                | Expected number: 8
+                | Received number: 9
+                |`
+            );
         });
     });
 
@@ -77,7 +86,14 @@ describe('Expectation', () => {
         it('provides a precise failure message when the expectation is not met', () => {
             return expect(actorCalled('Astrid').attemptsTo(
                 Ensure.that(9, isWithin(7, 8)),
-            )).to.be.rejectedWith(AssertionError, `Expected 9 to have value that's less than 8 or equal 8`);
+            )).to.be.rejectedWith(AssertionError, trimmed`
+                | Expected 9 to have value greater than 7 or equal 7 and have value that's less than 8 or equal 8
+                |
+                | Expectation: equals(8)
+                |
+                | Expected number: 8
+                | Received number: 9
+                |`);
         });
     });
 });

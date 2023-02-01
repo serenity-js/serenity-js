@@ -1,4 +1,6 @@
 import { Optional } from '@serenity-js/core';
+import { inspector } from '@serenity-js/core/lib/io';
+import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
  * {@apilink RootLocator} represents the context in which {@apilink Locator} looks for {@apilink PageElement} or {@apilink PageElements}.
@@ -23,4 +25,6 @@ export abstract class RootLocator<Native_Element_Type> implements Optional {
     toString(): string {
         return 'root locator';
     }
+
+    [util.inspect.custom] = inspector(this, [ ])
 }

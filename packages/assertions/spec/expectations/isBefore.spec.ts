@@ -19,8 +19,11 @@ describe('isBefore', () => {
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 1995-01-01T00:00:00.000Z to have value that is before 1985-01-01T00:00:00.000Z
             |
+            | Expectation: isBefore(1985-01-01T00:00:00.000Z)
+            |
             | Expected Date: 1985-01-01T00:00:00.000Z
-            | Received Date: 1995-01-01T00:00:00.000Z`);
+            | Received Date: 1995-01-01T00:00:00.000Z
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

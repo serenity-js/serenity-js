@@ -258,7 +258,7 @@ export class WaitUntil<Actual> extends Interaction {
      * @inheritDoc
      */
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        let outcome: ExpectationOutcome<unknown, Actual>;
+        let outcome: ExpectationOutcome;
 
         const expectation = async () => {
             outcome = await actor.answer(
@@ -290,7 +290,8 @@ export class WaitUntil<Actual> extends Interaction {
 
                 throw errors.create(AssertionError, {
                     message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
-                    diff: outcome,
+                    expectation: outcome?.expectation,
+                    diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
                     cause: error,
                 });
             }
