@@ -176,7 +176,7 @@ This design makes questions reusable and allows for them to be composed further,
 Serenity/JS web module provides [web-specific expectations](/api/core/class/Expectation) you use
 to verify if the actual state of the given element is what you expect it to be.
 
-For example, you might want to ensure that a given element [is visible](/api/web/function/isVisible/index.html), i.e. not obstructed by other elements:
+For example, you might want to ensure that a given element [is visible](/api/web/function/isVisible), i.e. not obstructed by other elements:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
@@ -211,7 +211,7 @@ Learn more about asserting on page elements in chapter "[Web-first assertions](/
 Serenity/JS web module provides [web-specific expectations](/api/core/class/Expectation) you use
 to synchronise your test code with the system under test and wait until its state meets your expectations.
 
-For example, you might want for your test scenario to wait until a given element [is visible](/api/web/function/isVisible/index.html):
+For example, you might want for your test scenario to wait until a given element [is visible](/api/web/function/isVisible):
 
 ```typescript
 import { actorCalled, Duration, Wait } from '@serenity-js/core'
@@ -488,7 +488,7 @@ You could also create your own [meta-questions](/api/core/interface/MetaQuestion
 While Serenity/JS [expectations](/api/core/class/Expectation) are most commonly used in [assertion](#asserting-on-a-page-element) and [synchronisation](#waiting-for-a-page-element) statements,
 when used with [`PageElements#where`](/api/web/class/PageElements#where) API they can offer a great and reusable alternative to complex CSS selectors and XPath expressions.
 
-For example, you could use the [meta-question](/api/core/interface/MetaQuestion) about the [`CssClasses`](/api/web/class/CssClasses) and an expectation to [`contain`](/api/assertions/function/contain/index.html)
+For example, you could use the [meta-question](/api/core/interface/MetaQuestion) about the [`CssClasses`](/api/web/class/CssClasses) and an expectation to [`contain`](/api/assertions/function/contain)
 to find only those items that still need to be bought:
 
 ```typescript
@@ -502,7 +502,7 @@ const boughtItems = () =>
 ```
 
 Furthermore, you can chain multiple filter statements together. For example, you might want to retrieve only those
-elements that [include](/api/assertions/function/includes/index.html) sub-string "co" ("coffee" and "coconut milk"), and of them only those that have already been marked as "bought":
+elements that [include](/api/assertions/function/includes) sub-string "co" ("coffee" and "coconut milk"), and of them only those that have already been marked as "bought":
 
 ```typescript
 import { By, CssClasses, PageElements } from '@serenity-js/web'

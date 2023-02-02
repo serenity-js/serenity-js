@@ -347,6 +347,7 @@ jobs:
     with:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=site install
+      download-artifact-name: 'compiled-libs'
       command: make site
       upload-artifact-name: 'website'
       upload-artifact-path: 'documentation/serenity-js.org/build'
