@@ -318,6 +318,8 @@ jobs:
     needs:
       - detect-website-changes
       - detect-source-code-changes
+      - lint
+      - compile
       - artifacts-publish
     if: |
       always() &&
