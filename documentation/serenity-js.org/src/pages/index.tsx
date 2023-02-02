@@ -39,7 +39,7 @@ function HeroBanner() {
                 <p>{description}</p>
                 <div className={ styles.indexCtas }>
                     <Link className="button button--primary" to="/handbook">
-                        <Translate>Get started in 15 minutes</Translate>
+                        <Translate>Start automating 🚀</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>
                       <iframe
