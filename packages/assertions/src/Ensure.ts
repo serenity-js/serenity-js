@@ -129,6 +129,8 @@ export class Ensure<Actual> extends Interaction {
      *  The message explaining the failure
      */
     otherwiseFailWith(typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError, message?: string): Interaction {
+        const location = this.instantiationLocation();
+
         return Interaction.where(this.toString(), async actor => {
             try {
                 await this.performAs(actor);
@@ -137,7 +139,7 @@ export class Ensure<Actual> extends Interaction {
                 // todo: inject ErrorFactory via Ability
                 const errors = new ErrorFactory();
 
-                throw errors.create(typeOfRuntimeError, { message: message ?? error.message, cause: error });
+                throw errors.create(typeOfRuntimeError, { message: message ?? error.message, location, cause: error });
             }
         });
     }

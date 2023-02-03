@@ -128,7 +128,10 @@ describe('@serenity-js/playwright-test', function () {
                         const error = outcome.error as TestCompromisedError;
 
                         expect(error).to.be.instanceof(TestCompromisedError);
-                        expect(error.message).to.equal(`Translation DB is down, please cheer it up`);
+                        expect(error.message).to.match(new RegExp(trimmed`
+                            | Translation DB is down, please cheer it up
+                            | \\s{4}at .*failing/test-compromised.spec.ts:11:24
+                            `));
                     })
                 ;
             }));
