@@ -1,9 +1,10 @@
 import { not } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
-import { ElementExpectation, PageElement } from '@serenity-js/web';
+import { PageElement } from '@serenity-js/web';
 
-export const hasCssClass = (expectedCssClassName: string) =>
-    ElementExpectation.forElementTo('have css class', async actual => {
+export const hasCssClass = Expectation.define(
+    'hasCssClass', 'have css class',
+    async (actual: PageElement, expectedCssClassName: string) => {
         const attributeValue = await actual.attribute('class');
         const cssClass = attributeValue ?? '';
         return cssClass
@@ -12,12 +13,13 @@ export const hasCssClass = (expectedCssClassName: string) =>
             .split(' ')
             .filter(Boolean)
             .includes(expectedCssClassName);
-    });
+    },
+);
 
 export const isDisplayedAsCompleted = () =>
-    Expectation.to<string[], PageElement>('get displayed as completed')
+    Expectation.to<PageElement>('get displayed as completed')
         .soThatActual(hasCssClass('completed'));
 
 export const isDisplayedAsOutstanding = () =>
-    Expectation.to<string[], PageElement>('get displayed as outstanding')
+    Expectation.to<PageElement>('get displayed as outstanding')
         .soThatActual(not(hasCssClass('completed')));
