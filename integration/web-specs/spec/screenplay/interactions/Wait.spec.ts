@@ -98,14 +98,15 @@ describe('Wait', () => {
 
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(trimmed`
+                expect(error.message).to.match(new RegExp(trimmed`
                     | Waited 2s, polling every 500ms, for the text of the header to equal 'Ready!'
                     |
-                    | Expectation: equals('Ready!')
+                    | Expectation: equals\\('Ready!'\\)
                     |
                     | Expected string: Ready!
                     | Received string: Loading...
-                    |`);
+                    |
+                    | \\s{4}at .*screenplay/interactions/Wait.spec.ts:97:22`));
             }));
 
         it('provides a sensible description of the interaction being performed', () => {

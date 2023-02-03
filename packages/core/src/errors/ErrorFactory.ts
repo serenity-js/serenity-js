@@ -3,7 +3,7 @@ import { equal } from 'tiny-types/lib/objects';
 import { inspect, InspectOptions, types } from 'util';
 
 import { isPrimitive, typeOf } from '../io';
-import { isPlainObject, stringified } from '../io/stringified';
+import { isPlainObject } from '../io/stringified';
 import { Unanswered } from '../screenplay';
 import { ErrorOptions } from './ErrorOptions';
 import { RuntimeError } from './RuntimeError';
@@ -15,21 +15,16 @@ export class ErrorFactory {
     ) {
     }
 
-    // todo: add interaction callstack to options object
     create<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
 
         const message = [
             this.title(options.message),
             options.expectation && ('\n' + `Expectation: ${ options.expectation }`),
             options.diff && ('\n' + this.diffFrom(options.diff)),
-            // todo: add interaction details
+            options.location && (`    at ${ options.location.path.value }:${ options.location.line }:${ options.location.column }`),
         ].
         filter(Boolean).
         join('\n');
-
-        // todo: decorate errors with additional fields, like:
-        //  - location for Playwright test
-        //  - expected/actual for Assertion Error
 
         return new errorType(message, options?.cause) as unknown as RE;
     }
@@ -272,7 +267,7 @@ class Diff {
     }
 
     private renderActualValue(expected: DiffValue, actual: DiffValue): DiffLine[] {
-        // todo: use the same for diffs?
+
         const lines = inspected(actual.value)
             .split('\n')
             .map(DiffLine.unchanged);
@@ -314,7 +309,7 @@ class Diff {
             const items = change.value;
             return acc.concat(
                 items.map(item =>
-                    DiffLine.changed(change, stringified(item, { inline:true, markQuestions: false }))
+                    DiffLine.changed(change, inspected(item, { compact: true }))
                         .prepend('  ')
                         .prependMarker()
                 )

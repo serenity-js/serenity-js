@@ -49,14 +49,15 @@ describe('Ensure', () => {
     it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(actual, isIdenticalTo(7)),
-        )).to.be.rejectedWith(AssertionError, trimmed`
+        )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
             | ${ expectedMessage }
             |
-            | Expectation: isIdenticalTo(7)
+            | Expectation: isIdenticalTo\\(7\\)
             |
             | Expected number: 7
             | Received number: 4
-            |`
+            |
+            | \\s{4}at.*Ensure.spec.ts:51:20`, 'gm')
         );
     });
 
@@ -131,15 +132,15 @@ describe('Ensure', () => {
             .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
             .then((error: RuntimeError) => {
                 expect(error.cause).to.be.instanceOf(AssertionError);
-                expect(error.cause.message).to.equal(trimmed `
+                expect(error.cause.message).to.match(new RegExp(trimmed `
                     | Expected 503 to equal 200
                     |
-                    | Expectation: equals(200)
+                    | Expectation: equals\\(200\\)
                     |
                     | Expected number: 200
                     | Received number: 503
-                    |`
-                );
+                    |
+                    | \\s{4}at.*Ensure.spec.ts:129:28`, 'gm'));
             }),
         );
 

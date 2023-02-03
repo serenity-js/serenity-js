@@ -204,11 +204,11 @@ describe('ErrorFactory', () => {
                     | Received Array  + 1
                     |
                     |   [
-                    |     {"name":"Alice"}
-                    |     {"name":"Bob"}
-                    | -   {"name":"Cindy"}
-                    |     {"name":"Daisy"}
-                    | +   {"name":"Elsa"}
+                    |     { name: 'Alice' }
+                    |     { name: 'Bob' }
+                    | -   { name: 'Cindy' }
+                    |     { name: 'Daisy' }
+                    | +   { name: 'Elsa' }
                     |   ]
                     |`
                 );
