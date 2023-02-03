@@ -1,8 +1,5 @@
 import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
 
-// todo: can I remove it? please
-import { parse, stringify } from './json';
-
 export interface SerialisedError extends JSONObject {
     /**
      *  Name of the constructor function used to instantiate
@@ -38,7 +35,7 @@ export class ErrorSerialiser {
 
     static serialise(error: Error): string {
         if (this.isSerialisable(error)) {
-            return stringify(error.toJSON());
+            return JSON.stringify(error.toJSON(), undefined, 0);
         }
 
         const name = error && error.constructor && error.constructor.name
@@ -50,7 +47,7 @@ export class ErrorSerialiser {
             return serialised;
         }, { name }) as SerialisedError;
 
-        return stringify(serialisedError);
+        return JSON.stringify(serialisedError, undefined, 0);
     }
 
     static registerErrorTypes(...types: Array<new (...args: any[]) => Error>): void {
@@ -67,7 +64,7 @@ export class ErrorSerialiser {
         }
 
         const serialisedError = typeof serialised === 'string'
-            ? parse(serialised) as SerialisedError
+            ? JSON.parse(serialised) as SerialisedError
             : serialised;
 
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
@@ -104,6 +101,6 @@ export class ErrorSerialiser {
 
         const [, name, message, callStack_ ] = stack.match(stackTracePattern);
 
-        return ErrorSerialiser.deserialise(stringify({ name, message: message.trim(), stack }));
+        return ErrorSerialiser.deserialise({ name, message: message.trim(), stack });
     }
 }
