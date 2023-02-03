@@ -64,27 +64,29 @@ export abstract class Activity {
     }
 
     protected static callerLocation(frameOffset: number): FileSystemLocation {
-        try {
-            throw new Error('Location');
-        } catch (error) {
-            const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity-js`+ `\\` + path.sep +`)`);
 
-            const frames = this.errorStackParser.parse(error);
-            const userLandFrames = frames.filter(frame => ! (
-                frame?.fileName.startsWith('node:') ||          // node 16 and 18
-                frame?.fileName.startsWith('internal') ||       // node 14
-                nonSerenityNodeModulePattern.test(frame?.fileName)    // ignore node_modules, except for @serenity-js/*
-            ));
+        const originalStackTraceLimit = Error.stackTraceLimit;
+        Error.stackTraceLimit = 30;
+        const error = new Error('Caller location marker');
+        Error.stackTraceLimit = originalStackTraceLimit;
 
-            const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
-            // use the desired user-land frame, or the last one from the stack trace for internal invocations
-            const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
+        const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity-js`+ `\\` + path.sep +`)`);
 
-            return new FileSystemLocation(
-                Path.from(invocationFrame.fileName),
-                invocationFrame.lineNumber,
-                invocationFrame.columnNumber,
-            );
-        }
+        const frames = this.errorStackParser.parse(error);
+        const userLandFrames = frames.filter(frame => ! (
+            frame?.fileName.startsWith('node:') ||          // node 16 and 18
+            frame?.fileName.startsWith('internal') ||       // node 14
+            nonSerenityNodeModulePattern.test(frame?.fileName)    // ignore node_modules, except for @serenity-js/*
+        ));
+
+        const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
+        // use the desired user-land frame, or the last one from the stack trace for internal invocations
+        const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
+
+        return new FileSystemLocation(
+            Path.from(invocationFrame.fileName),
+            invocationFrame.lineNumber,
+            invocationFrame.columnNumber,
+        );
     }
 }
