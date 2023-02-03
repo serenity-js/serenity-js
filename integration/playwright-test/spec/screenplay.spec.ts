@@ -121,14 +121,15 @@ describe('@serenity-js/playwright-test', function () {
 
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
                             expect(outcome.error.name).to.equal('AssertionError');
-                            expect(outcome.error.message).to.equal(trimmed`
+                            expect(outcome.error.message).to.match(new RegExp(trimmed`
                                 | Expected false to equal true
                                 |
-                                | Expectation: equals(true)
+                                | Expectation: equals\\(true\\)
                                 |
                                 | Expected boolean: true
                                 | Received boolean: false
-                                |`);
+                                |
+                                | \\s{4}at .*screenplay/assertion-error.spec.ts:10:24`));
                         })
                     ;
                 }));

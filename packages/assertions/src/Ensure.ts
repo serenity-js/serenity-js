@@ -109,6 +109,7 @@ export class Ensure<Actual> extends Interaction {
                 message,
                 expectation: outcome.expectation,
                 diff: { expected: outcome.expected, actual: outcome.actual },
+                location: this.instantiationLocation(),
             });
         }
 

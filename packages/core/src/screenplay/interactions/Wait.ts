@@ -292,6 +292,7 @@ export class WaitUntil<Actual> extends Interaction {
                     message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
                     expectation: outcome?.expectation,
                     diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
+                    location: this.instantiationLocation(),
                     cause: error,
                 });
             }

@@ -128,7 +128,10 @@ describe('Wait', () => {
                 const elapsedTime = Date.now() - startTime;
                 expect(elapsedTime).to.be.greaterThanOrEqual(5000);
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 5s, polling every 500ms, for the first of [ ] to have value greater than 1`);
+                expect(error.message).to.match(new RegExp(trimmed`
+                    | Waited 5s, polling every 500ms, for the first of \\[ \\] to have value greater than 1
+                    | \\s{4}at.*Wait.spec.ts:125:30
+                `));
             })
         });
 
@@ -187,7 +190,10 @@ describe('Wait', () => {
             ).
             to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1`);
+                expect(error.message).to.be.match(new RegExp(trimmed`
+                    | Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1
+                    | \\s{4}at.*Wait.spec.ts:185:26
+                `));
             });
         });
 

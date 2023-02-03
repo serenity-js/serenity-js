@@ -98,14 +98,15 @@ describe('@serenity-js/playwright-test', function () {
                         const error = outcome.error as AssertionError;
 
                         expect(error.name).to.equal('AssertionError');
-                        expect(error.message).to.equal(trimmed`
+                        expect(outcome.error.message).to.match(new RegExp(trimmed`
                             | Expected 'Hello' to equal 'Hola'
                             |
-                            | Expectation: equals('Hola')
+                            | Expectation: equals\\('Hola'\\)
                             |
                             | Expected string: Hola
                             | Received string: Hello
-                            |`);
+                            |
+                            | \\s{4}at .*failing/failing-serenity-js-screenplay-assertion.spec.ts:10:24`));
                     })
                 ;
             }));
