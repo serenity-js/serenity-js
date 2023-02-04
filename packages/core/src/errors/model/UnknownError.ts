@@ -1,17 +1,17 @@
 import { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from './ErrorSerialiser';
+import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that an assertion has failed.
+ * Thrown to indicate that an unknown error has occurred.
  *
  * @group Errors
  */
-export class AssertionError extends RuntimeError {
+export class UnknownError extends RuntimeError {
 
-    static fromJSON(serialised: JSONObject): AssertionError {
-        const error = new AssertionError(
+    static fromJSON(serialised: JSONObject): UnknownError {
+        const error = new UnknownError(
             serialised.message as string,
             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
         );
@@ -22,10 +22,10 @@ export class AssertionError extends RuntimeError {
     }
 
     /**
-     * @param message - Human-readable description of the error and the difference between the expected and actual values
+     * @param message - Human-readable description of the error
      * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
-        super(AssertionError, message, cause);
+        super(UnknownError, message, cause);
     }
 }
