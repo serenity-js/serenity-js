@@ -225,11 +225,12 @@ Serenity/JS [Makefile](https://github.com/serenity-js/serenity-js/blob/master/Ma
 Here's a list of commands you'll need to build and test Serenity/JS locally:
 - `make` - same as running `make install clean compile`,
 - `make install` - installs dependencies across the Serenity/JS monorepo,
-- `make clean` - removes any build and test artifacts,
-- `make compile test` - executes the unit tests located under `packages/*/spec`
+- `make cc` - removes Nx.js build cache
+- `make clean` - removes any artifacts produced while running the tests,
+- `make test` - executes the unit tests located under `packages/*/spec`
 - `make integration-test` - executes the integration tests located under `integration/*/spec`,
 - `make verify` - runs ESLint, transpiles TypeScript to JavaScript, runs the unit tests and other package-scope tests, runs the integration tests located under `integration/*/`
-- `make clean verify report site` - same as verify, but additionally generates aggregated test and coverage reports and produces the serenity-js.org website. This is the **full local build** you should run at least once before committing your changes and submitting the pull request.
+- `make verify report site` - same as verify, but additionally generates aggregated test and coverage reports and produces the serenity-js.org website. This is the **full local build** you should run at least once before committing your changes and submitting the pull request.
 
 If you encounter any issues, let us know on the [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby) on Gitter.
 And don't be shy, we're here to help 😊
