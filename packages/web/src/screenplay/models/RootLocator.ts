@@ -1,5 +1,5 @@
 import { Optional } from '@serenity-js/core';
-import { inspected } from '@serenity-js/core/lib/io';
+import { inspectedObject } from '@serenity-js/core/lib/io';
 import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
@@ -26,5 +26,5 @@ export abstract class RootLocator<Native_Element_Type> implements Optional {
         return 'root locator';
     }
 
-    [util.inspect.custom] = inspected(this, [ ])
+    [util.inspect.custom] = inspectedObject(this, [ ])
 }

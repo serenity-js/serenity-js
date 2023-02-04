@@ -1,5 +1,4 @@
 import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
-import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model';
 
 /**
  * @group Errors
@@ -14,15 +13,6 @@ export class ErrorSerialiser {
         SyntaxError,
         TypeError,
         URIError,
-
-        // Serenity/JS runtime errors
-        AssertionError,
-        ConfigurationError,
-        ImplementationPendingError,
-        LogicError,
-        TestCompromisedError,
-        TimeoutExpiredError,
-        UnknownError,
     ];
 
     static serialise(error: Error): string {

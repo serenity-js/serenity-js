@@ -6,6 +6,7 @@ import {
     AssertionError,
     ConfigurationError,
     ErrorFactory,
+    ExpectationDetails,
     ImplementationPendingError,
     ListItemNotFoundError,
     LogicError,
@@ -44,7 +45,11 @@ describe('ErrorFactory', () => {
         const errors = new ErrorFactory();
 
         const message   = `Assertion failed`;
-        const error     = errors.create(AssertionError, { message, diff: { expected: 5, actual: 2 }, expectation: 'equals(5)' });
+        const error     = errors.create(AssertionError, {
+            message,
+            diff: { expected: 5, actual: 2 },
+            expectation: ExpectationDetails.of('equals', 5)
+        });
 
         expect(error.message).to.equal(trimmed`
             | Assertion failed

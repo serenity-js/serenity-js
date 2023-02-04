@@ -2,7 +2,7 @@ import { isRecord } from 'tiny-types/lib/objects';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
-import { f, inspected } from '../io';
+import { f, inspectedObject } from '../io';
 import { UsesAbilities } from './abilities';
 import { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
@@ -458,7 +458,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     [util.inspect.custom](depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect): string {
-        return inspected(this.answer)(depth, options, inspect);
+        return inspectedObject(this.answer)(depth, options, inspect);
     }
 
     describedAs(subject: string): this {
