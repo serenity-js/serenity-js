@@ -6,8 +6,13 @@ import { isPrimitive, typeOf } from '../io';
 import { isPlainObject } from '../io/stringified';
 import { Unanswered } from '../screenplay';
 import { ErrorOptions } from './ErrorOptions';
-import { RuntimeError } from './RuntimeError';
+import { RuntimeError } from './model';
 
+/**
+ * Generates Serenity/JS {@apilink RuntimeError} objects based on provided {@apilink ErrorOptions|configuration}.
+ *
+ * @group Errors
+ */
 export class ErrorFactory {
 
     constructor(
