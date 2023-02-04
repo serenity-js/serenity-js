@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that negates the provided `expectation`.
@@ -43,11 +43,11 @@ class Not<Actual> extends Expectation<Actual> {
                 const subject = Not.flipped(expectation.toString());
 
                 const outcome = await actor.answer(expectation.isMetFor(actual));
-                const description = `not(${ outcome.expectation })`;
+                const expectationDetails = ExpectationDetails.of('not', outcome.expectation);
 
                 return outcome instanceof ExpectationNotMet
-                    ? new ExpectationMet(subject, description, outcome.expected, outcome.actual )
-                    : new ExpectationNotMet(subject, description, outcome.expected, outcome.actual );
+                    ? new ExpectationMet(subject, expectationDetails, outcome.expected, outcome.actual )
+                    : new ExpectationNotMet(subject, expectationDetails, outcome.expected, outcome.actual );
             }
         );
     }

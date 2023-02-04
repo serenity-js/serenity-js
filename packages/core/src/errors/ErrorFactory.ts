@@ -1,12 +1,12 @@
 import { ArrayChange, Change, diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
-import { inspect, InspectOptions, types } from 'util';
+import { types } from 'util';
 
-import { isPrimitive, typeOf } from '../io';
+import { inspected, isPrimitive, typeOf } from '../io';
 import { isPlainObject } from '../io/stringified';
 import { Unanswered } from '../screenplay';
 import { ErrorOptions } from './ErrorOptions';
-import { RuntimeError } from './model';
+import { RuntimeError } from './model/RuntimeError';
 
 /**
  * Generates Serenity/JS {@apilink RuntimeError} objects based on provided {@apilink ErrorOptions|configuration}.
@@ -24,7 +24,7 @@ export class ErrorFactory {
 
         const message = [
             this.title(options.message),
-            options.expectation && ('\n' + `Expectation: ${ options.expectation }`),
+            options.expectation && `\nExpectation: ${ options.expectation }`,
             options.diff && ('\n' + this.diffFrom(options.diff)),
             options.location && (`    at ${ options.location.path.value }:${ options.location.line }:${ options.location.column }`),
         ].
@@ -346,17 +346,4 @@ class Diff {
     lines(): DiffLine[] {
         return this.diff;
     }
-}
-
-function inspected(value: unknown, options: InspectOptions = {}): string {
-    return inspect(value, {
-        depth: Number.POSITIVE_INFINITY,
-        breakLength: Number.POSITIVE_INFINITY,
-        customInspect: true,
-        compact:  false,
-        sorted: true,
-        showProxy: false,
-        showHidden: false,
-        ...options,
-    });
 }

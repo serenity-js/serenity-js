@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when the actual array of `Item[]` contains
@@ -46,7 +46,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
                     const unanswered = new Unanswered();
                     return new ExpectationNotMet(
                         ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                        `containAtLeastOneItemThat(<<${ unanswered }>>)`,
+                        ExpectationDetails.of('containAtLeastOneItemThat', unanswered),
                         unanswered,
                         items,
                     );
@@ -61,7 +61,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
                     if (outcome instanceof ExpectationMet) {
                         return new ExpectationMet(
                             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                            `containAtLeastOneItemThat(${ outcome.expectation })`,
+                            ExpectationDetails.of('containAtLeastOneItemThat', outcome.expectation),
                             outcome.expected,
                             items,
                         );
@@ -70,7 +70,7 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
 
                 return new ExpectationNotMet(
                     ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                    `containAtLeastOneItemThat(${ outcome.expectation })`,
+                    ExpectationDetails.of('containAtLeastOneItemThat', outcome.expectation),
                     outcome.expected,
                     items,
                 );

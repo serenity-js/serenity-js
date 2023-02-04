@@ -1,6 +1,7 @@
+import { JSONValue } from 'tiny-types';
+
 import { asyncMap, d } from '../../io';
-import { stringified } from '../../io/stringified';
-import { Answerable, AnswersQuestions, ExpectationMet, ExpectationNotMet, Question, QuestionAdapter } from '../';
+import { Answerable, AnswersQuestions, ExpectationDetails, ExpectationMet, ExpectationNotMet, Question, QuestionAdapter } from '../';
 import { ExpectationOutcome } from './expectations';
 
 /**
@@ -119,20 +120,23 @@ export class Expectation<Actual> {
                 functionName,
                 description,
                 async (actor: AnswersQuestions, actualValue: Answerable<Actual_Type>): Promise<ExpectationOutcome> => {
-                    const predicateArguments = await asyncMap(answerableArguments, answerableArgument => actor.answer(answerableArgument))
+                    const predicateArguments = await asyncMap(answerableArguments, answerableArgument =>
+                        actor.answer(answerableArgument as Answerable<JSONValue>)
+                    );
+
                     const actual    = await actor.answer(actualValue);
 
                     const result    = await predicate(actual, ...predicateArguments as PredicateArguments);
 
-                    const invocationSignature = `${ functionName }(${ predicateArguments.map(predicateArgument => stringified(predicateArgument, { inline: true, markQuestions: false })).join(', ') })`;
+                    const expectationDetails = ExpectationDetails.of(functionName, ...predicateArguments);
 
                     const expected = predicateArguments.length > 0
                         ? predicateArguments[0]
                         : true;     // the only parameter-less expectations are boolean ones like `isPresent`, `isActive`, etc.
 
                     return result
-                        ? new ExpectationMet(description, invocationSignature, expected, actual)
-                        : new ExpectationNotMet(description, invocationSignature, expected, actual);
+                        ? new ExpectationMet(description, expectationDetails, expected, actual)
+                        : new ExpectationNotMet(description, expectationDetails, expected, actual);
                 }
             )
         }, 'name', {value: functionName, writable: false});
@@ -179,10 +183,11 @@ export class Expectation<Actual> {
                         const actual    = await actor.answer(actualValue);
 
                         const result    = await simplifiedPredicate(actual, expected);
+                        const expectationDetails = ExpectationDetails.of('unknown');
 
                         return result
-                            ? new ExpectationMet(message, 'unknown', expected, actual)
-                            : new ExpectationNotMet(message, 'unknown', expected, actual);
+                            ? new ExpectationMet(message, expectationDetails, expected, actual)
+                            : new ExpectationNotMet(message, expectationDetails, expected, actual);
                     }
                 );
             },
