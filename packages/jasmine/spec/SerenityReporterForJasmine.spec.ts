@@ -609,7 +609,9 @@ describe('SerenityReporterForJasmine', () => {
                                 |
                                 | Expected boolean: true
                                 | Received boolean: false
-                                |`);
+                                |
+                                |     at /path/to/spec.js:5:9
+                            `);
                         })
                         .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
                         .next(TaskFinished, event => {
@@ -623,7 +625,9 @@ describe('SerenityReporterForJasmine', () => {
                                 |
                                 | Expected string: hey
                                 | Received string: hello
-                                |`);
+                                |
+                                |     at /path/to/spec.js:5:9
+                            `);
                         })
                         .next(SceneFinished, event => {
                             const outcome = event.outcome as ExecutionFailedWithAssertionError;
@@ -636,7 +640,9 @@ describe('SerenityReporterForJasmine', () => {
                                 |
                                 | Expected boolean: true
                                 | Received boolean: false
-                                |`);
+                                |
+                                |     at /path/to/spec.js:5:9
+                            `);
                         });
                 });
             });

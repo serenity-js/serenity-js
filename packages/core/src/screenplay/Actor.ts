@@ -294,13 +294,12 @@ class TrackedActivity extends Activity {
     }
 
     performAs(actor: (PerformsActivities | UsesAbilities | AnswersQuestions) & { name: string }): Promise<void> {
-        const
-            sceneId = this.stage.currentSceneId(),
-            activityId = this.stage.assignNewActivityId(),
-            details = new ActivityDetails(
-                TrackedActivity.describer.describe(this.activity, actor),
-                this.activity.instantiationLocation(),
-            );
+        const sceneId = this.stage.currentSceneId();
+        const details = new ActivityDetails(
+            TrackedActivity.describer.describe(this.activity, actor),
+            this.activity.instantiationLocation(),
+        );
+        const activityId = this.stage.assignNewActivityId(details);
 
         const [ activityStarts, activityFinished] = this.activity instanceof Interaction
             ? [ InteractionStarts, InteractionFinished ]
