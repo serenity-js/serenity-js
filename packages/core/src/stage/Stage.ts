@@ -50,18 +50,19 @@ export class Stage {
 
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
-    private readonly errors = new ErrorFactory();
-
     /**
      * @param cast
      * @param manager
+     * @param errors
      */
     constructor(
         private cast: Cast,
         private readonly manager: StageManager,
+        private errors: ErrorFactory,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
+        ensure('ErrorFactory', errors, isDefined());
     }
 
     /**

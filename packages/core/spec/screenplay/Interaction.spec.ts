@@ -2,6 +2,7 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { ArtifactGenerated } from '../../src/events';
+import { ErrorFactory } from '../../src/errors';
 import { JSONData, Name } from '../../src/model';
 import { Actor, Interaction } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
@@ -20,8 +21,21 @@ describe('Interaction', () => {
         stage = new Stage(
             new Extras(),
             stageManager as unknown as StageManager,
+            new ErrorFactory(),
         );
         Ivonne = new Actor('Ivonne', stage);
+    });
+
+    it('correctly detects its invocation location', () => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
+        const activity = () =>
+            Interaction.where(`#actor interacts with the system`, (actor_: Actor) => { /* do nothing */ });
+
+        const location = activity().instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Interaction.spec.ts');
+        expect(location.line).to.equal(34);
+        expect(location.column).to.equal(26);
     });
 
     describe('when defining an interaction', () => {
@@ -101,17 +115,5 @@ describe('Interaction', () => {
             expect(event.name).to.equal(expectedArtifactName);
             expect(event.artifact).to.equal(expectedArtifact);
         });
-    });
-
-    it('correctly detects its invocation location', () => {
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        const activity = () =>
-            Interaction.where(`#actor interacts with the system`, (actor_: Actor) => { /* do nothing */ });
-
-        const location = activity().instantiationLocation();
-
-        expect(location.path.basename()).to.equal('Interaction.spec.ts');
-        expect(location.line).to.equal(111);
-        expect(location.column).to.equal(26);
     });
 });

@@ -1,4 +1,4 @@
-import { Actor, Cast, Stage, StageManager } from '@serenity-js/core';
+import { Actor, Cast, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import * as sinon from 'sinon';
 
 import { SerenityBDDReporter } from '../../../../src';
@@ -12,7 +12,7 @@ export function create(): { stageManager: sinon.SinonStubbedInstance<StageManage
 
     const
         stageManager    = sinon.createStubInstance(StageManager),
-        stage           = new Stage(new Extras(), stageManager as unknown as StageManager),
+        stage           = new Stage(new Extras(), stageManager as unknown as StageManager, new ErrorFactory()),
         reporter        = new SerenityBDDReporter(stage);
 
     return {

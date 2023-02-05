@@ -2,7 +2,7 @@ import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
 import { OutputStream } from './adapter';
 import { SerenityConfig } from './config';
-import { ConfigurationError, ErrorOptions, RuntimeError } from './errors';
+import { ConfigurationError, ErrorFactory, ErrorOptions, RuntimeError } from './errors';
 import { DomainEvent } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
 import { ActivityDetails, CorrelationId, Duration, Timestamp } from './model';
@@ -36,6 +36,7 @@ export class Serenity {
         this.stage = new Stage(
             Serenity.defaultActors,
             new StageManager(Serenity.defaultCueTimeout, clock),
+            new ErrorFactory(),
         );
 
         this.classLoader = new ClassLoader(
@@ -67,6 +68,7 @@ export class Serenity {
         this.stage = new Stage(
             Serenity.defaultActors,
             new StageManager(cueTimeout, this.clock),
+            new ErrorFactory(),
         );
 
         if (config.actors) {

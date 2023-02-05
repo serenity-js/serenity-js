@@ -1,5 +1,5 @@
 import { EventStreamEmitter, expect } from '@integration/testing-tools';
-import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
@@ -18,7 +18,7 @@ describe('ConsoleReporter', () => {
     beforeEach(() => {
         stdout = new FakeWritableStream();
 
-        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()));
+        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory());
         emitter = new EventStreamEmitter(stage);
 
         reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, outputStream: stdout });
