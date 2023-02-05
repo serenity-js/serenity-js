@@ -5,13 +5,13 @@ import {
     AssertionError,
     CollectsArtifacts,
     d,
-    ErrorFactory,
     Expectation,
     ExpectationMet,
     ExpectationNotMet,
     f,
     Interaction,
     LogicError,
+    RaiseErrors,
     RuntimeError,
     UsesAbilities,
 } from '@serenity-js/core';
@@ -99,13 +99,10 @@ export class Ensure<Actual> extends Interaction {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
 
         if (outcome instanceof ExpectationNotMet) {
-            // todo: inject ErrorFactory via Ability
-            const errors = new ErrorFactory();
-
             const actualDescription = d`${ this.actual }`;
             const message = `Expected ${ actualDescription } to ${ outcome.message }`;
 
-            throw errors.create(AssertionError, {
+            throw RaiseErrors.as(actor).create(AssertionError, {
                 message,
                 expectation: outcome.expectation,
                 diff: { expected: outcome.expected, actual: outcome.actual },
@@ -136,10 +133,11 @@ export class Ensure<Actual> extends Interaction {
                 await this.performAs(actor);
             }
             catch (error) {
-                // todo: inject ErrorFactory via Ability
-                const errors = new ErrorFactory();
-
-                throw errors.create(typeOfRuntimeError, { message: message ?? error.message, location, cause: error });
+                throw RaiseErrors.as(actor).create(typeOfRuntimeError, {
+                    message: message ?? error.message,
+                    location,
+                    cause: error
+                });
             }
         });
     }

@@ -107,12 +107,14 @@ describe('@serenity-js/jasmine', function () {
                         const error = outcome.error as AssertionError;
 
                         expect(error).to.be.instanceof(AssertionError);
-                        expect(error.message).to.equal(trimmed`
+                        expect(error.message).to.match(new RegExp(trimmed`
                             | Expected false to equal true.
                             |
                             | Expected boolean: true
                             | Received boolean: false
-                            |`);
+                            |
+                            | \\s{4}at .*/examples/failing/multiple-failures.spec.js:1:1
+                        `));
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })
                     .next(SceneFinished,       event => {

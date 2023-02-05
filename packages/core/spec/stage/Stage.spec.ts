@@ -3,8 +3,8 @@ import * as sinon from 'sinon';
 
 import { ConfigurationError, LogicError } from '../../src/errors';
 import { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } from '../../src/events';
-import { FileSystemLocation, Path } from '../../src/io';
-import { Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
+import { FileSystemLocation, Path, trimmed } from '../../src/io';
+import { ActivityDetails, Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
 import { Ability, Actor, Discardable } from '../../src/screenplay';
 import { Cast, Clock, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
@@ -271,7 +271,10 @@ describe('Stage', () => {
                 actors = new Extras(),
                 stage  = new Stage(actors, stageManager as unknown as StageManager);
 
-            const assigned = stage.assignNewActivityId();
+            const location = new FileSystemLocation(new Path('/home/alice/example.spec.ts'), 10, 4);
+            const activityDetails = new ActivityDetails(new Name('example activity'), location);
+
+            const assigned = stage.assignNewActivityId(activityDetails);
             const retrieved = stage.currentActivityId();
 
             expect(assigned).to.equal(retrieved);
@@ -358,6 +361,54 @@ describe('Stage', () => {
             expect(() => {
                 stage.actor(name);
             }).to.throw(ConfigurationError, `MoodyActors encountered a problem when preparing actor "${ name }" for stage`);
+        });
+    });
+
+    describe('when generating errors', () => {
+
+        const defaultLocation = new FileSystemLocation(new Path('/home/alice/example.spec.ts'), 10, 4);
+        const activityDetails = new ActivityDetails(new Name('example activity'), defaultLocation);
+
+        it('uses the current activity location by default', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            const assigned_ = stage.assignNewActivityId(activityDetails);
+
+            const error = stage.createError(LogicError, { message: 'Example error generated within an activity' });
+
+            expect(error.message).to.equal(trimmed`
+                | Example error generated within an activity
+                |     at /home/alice/example.spec.ts:10:4
+            `);
+        });
+
+        it(`doesn't add information about location if no activity has started yet`, () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            const error = stage.createError(LogicError, { message: 'Example error generated outside of an activity' });
+
+            expect(error.message).to.equal(`Example error generated outside of an activity`);
+        });
+
+        it('allows for the location to be overridden', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager);
+
+            const assigned_ = stage.assignNewActivityId(activityDetails);
+
+            const customLocation = new FileSystemLocation(new Path('/home/alice/another-example.spec.ts'), 16, 8);
+
+            const error = stage.createError(LogicError, { message: 'Example error generated within an activity', location: customLocation });
+
+            expect(error.message).to.equal(trimmed`
+                | Example error generated within an activity
+                |     at /home/alice/another-example.spec.ts:16:8
+            `);
         });
     });
 });

@@ -19,6 +19,8 @@ export * from './model';
 /* eslint-disable simple-import-sort/exports */
 export { ErrorSerialiser } from './ErrorSerialiser';
 export { ErrorStackParser } from './ErrorStackParser';
-export { ErrorOptions } from './ErrorOptions';
-export { ErrorFactory } from './ErrorFactory';
 /* eslint-enable simple-import-sort/exports */
+
+export { ErrorFactory } from './ErrorFactory';
+export { ErrorOptions } from './ErrorOptions';
+export * from './RaiseErrors'

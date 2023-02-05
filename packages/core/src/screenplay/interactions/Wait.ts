@@ -1,13 +1,12 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, ErrorFactory, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
+import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
 import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
-import { AnswersQuestions } from '../questions';
-import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
 
 /**
  * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
@@ -285,10 +284,7 @@ export class WaitUntil<Actual> extends Interaction {
 
             if (error instanceof TimeoutExpiredError) {
 
-                // todo: inject ErrorFactory
-                const errors = new ErrorFactory();
-
-                throw errors.create(AssertionError, {
+                throw RaiseErrors.as(actor).create(AssertionError, {
                     message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
                     expectation: outcome?.expectation,
                     diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
