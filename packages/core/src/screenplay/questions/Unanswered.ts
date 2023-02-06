@@ -9,6 +9,8 @@ import * as util from 'util';   // eslint-disable-line unicorn/import-style
  *
  * For example, making the actor answer questions about the expected value
  * and the actual value of each list item is unnecessary if we already know that the list itself is empty.
+ *
+ * @group Questions
  */
 export class Unanswered extends TinyType {
     [util.inspect.custom](): string {

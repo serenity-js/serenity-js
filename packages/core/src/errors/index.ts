@@ -14,6 +14,7 @@ ErrorSerialiser.registerErrorTypes(
     UnknownError,
 );
 
+export * from './diff';
 export * from './model';
 
 /* eslint-disable simple-import-sort/exports */

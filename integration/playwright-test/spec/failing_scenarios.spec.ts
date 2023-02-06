@@ -103,8 +103,8 @@ describe('@serenity-js/playwright-test', function () {
                             |
                             | Expectation: equals\\('Hola'\\)
                             |
-                            | Expected string: Hola
-                            | Received string: Hello
+                            | \\[32mExpected string: Hola\\[39m
+                            | \\[31mReceived string: Hello\\[39m
                             |
                             | \\s{4}at .*failing/failing-serenity-js-screenplay-assertion.spec.ts:10:24`));
                     })

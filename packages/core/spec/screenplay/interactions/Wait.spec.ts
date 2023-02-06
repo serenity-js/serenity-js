@@ -2,7 +2,7 @@
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, Question, Serenity, Timestamp, Wait } from '../../../src';
+import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../src';
 import { trimmed } from '../../../src/io';
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
@@ -13,7 +13,10 @@ describe('Wait', () => {
 
     beforeEach(async () => {
         serenity = new Serenity();
-        serenity.engage(Cast.whereEveryoneCan(new UseAStopwatch()))
+        serenity.configure({
+            actors: Cast.whereEveryoneCan(new UseAStopwatch()),
+            diffFormatter: new NoOpDiffFormatter(),
+        });
 
         await serenity.theActorCalled('Wendy')
             .attemptsTo(
@@ -130,7 +133,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
                     | Waited 5s, polling every 500ms, for the first of \\[ \\] to have value greater than 1
-                    | \\s{4}at.*Wait.spec.ts:125:30
+                    | \\s{4}at.*Wait.spec.ts:128:30
                 `));
             })
         });
@@ -192,7 +195,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.match(new RegExp(trimmed`
                     | Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1
-                    | \\s{4}at.*Wait.spec.ts:185:26
+                    | \\s{4}at.*Wait.spec.ts:188:26
                 `));
             });
         });
