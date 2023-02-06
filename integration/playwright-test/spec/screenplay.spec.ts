@@ -126,8 +126,8 @@ describe('@serenity-js/playwright-test', function () {
                                 |
                                 | Expectation: equals\\(true\\)
                                 |
-                                | Expected boolean: true
-                                | Received boolean: false
+                                | \\[32mExpected boolean: true\\[39m
+                                | \\[31mReceived boolean: false\\[39m
                                 |
                                 | \\s{4}at .*screenplay/assertion-error.spec.ts:10:24`));
                         })

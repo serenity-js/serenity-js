@@ -5,8 +5,10 @@ import { types } from 'util';
 import { inspected, isPrimitive, typeOf } from '../io';
 import { isPlainObject } from '../io/stringified';
 import { Unanswered } from '../screenplay';
+import { DiffFormatter } from './diff';
+import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
 import { ErrorOptions } from './ErrorOptions';
-import { RuntimeError } from './model/RuntimeError';
+import { RuntimeError } from './model';
 
 /**
  * Generates Serenity/JS {@apilink RuntimeError} objects based on provided {@apilink ErrorOptions|configuration}.
@@ -15,9 +17,7 @@ import { RuntimeError } from './model/RuntimeError';
  */
 export class ErrorFactory {
 
-    constructor(
-        private readonly lineDecorator: DiffLineDecorator = new NoOpLineDecorator(),
-    ) {
+    constructor(private readonly formatter: DiffFormatter = new AnsiDiffFormatter()) {
     }
 
     create<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
@@ -41,29 +41,9 @@ export class ErrorFactory {
     private diffFrom(diff: { expected: unknown, actual: unknown }): string {
         return new Diff(diff.expected, diff.actual)
             .lines()
-            .map(line => line.decorated(this.lineDecorator))
+            .map(line => line.decorated(this.formatter))
             .join('\n');
     }
-}
-
-class NoOpLineDecorator implements DiffLineDecorator {
-    expected(line: string): string {
-        return line;
-    }
-
-    received(line: string): string {
-        return line;
-    }
-
-    unchanged(line: string): string {
-        return line;
-    }
-}
-
-export interface DiffLineDecorator {
-    expected(line: string): string;
-    received(line: string): string;
-    unchanged(line: string): string;
 }
 
 type DiffType = 'expected' | 'received' | 'unchanged';
@@ -121,7 +101,7 @@ class DiffLine {
         return new DiffLine(this.type, this.value + String(text));
     }
 
-    decorated(decorator: DiffLineDecorator): string {
+    decorated(decorator: DiffFormatter): string {
         return decorator[this.type](this.value);
     }
 

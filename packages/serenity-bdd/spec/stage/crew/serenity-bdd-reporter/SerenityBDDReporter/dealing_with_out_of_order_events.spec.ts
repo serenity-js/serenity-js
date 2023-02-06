@@ -131,7 +131,7 @@ describe('SerenityBDDReporter', () => {
                                     'stackTrace': [
                                         {
                                             'declaringClass': '',
-                                            'methodName': 'undefined()',
+                                            'methodName': '',
                                             'fileName': 'AssertionError: Waited 5s for the first option to become clickable'
                                         }
                                     ]
@@ -165,7 +165,7 @@ describe('SerenityBDDReporter', () => {
             'stackTrace': [
                 {
                     'declaringClass': '',
-                    'methodName': 'undefined()',
+                    'methodName': '',
                     'fileName': 'Error: function timed out, ensure the promise resolves within 40000 milliseconds'
                 }
             ]
@@ -218,7 +218,7 @@ describe('SerenityBDDReporter', () => {
             'stackTrace': [
                 {
                     'declaringClass': '',
-                    'methodName': 'undefined()',
+                    'methodName': '',
                     'fileName': 'Error: function timed out, ensure the promise resolves within 10000 milliseconds'
                 }
             ]

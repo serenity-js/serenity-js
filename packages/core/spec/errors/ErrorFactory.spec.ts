@@ -10,6 +10,7 @@ import {
     ImplementationPendingError,
     ListItemNotFoundError,
     LogicError,
+    NoOpDiffFormatter,
     TestCompromisedError,
     TimeoutExpiredError,
     Unanswered,
@@ -19,6 +20,8 @@ import { trimmed } from '../../src/io';
 import { expect } from '../expect';
 
 describe('ErrorFactory', () => {
+
+    const errors = new ErrorFactory(new NoOpDiffFormatter());
 
     given([
         { description: 'ConfigurationError',            errorType: ConfigurationError },
@@ -32,8 +35,6 @@ describe('ErrorFactory', () => {
         { description: 'UnknownError',                  errorType: UnknownError },
     ]).
     it('instantiates a requested runtime error', ({ errorType }) => {
-        const errors = new ErrorFactory();
-
         const message   = `Something went wrong`;
         const error     = errors.create(errorType, { message });
 
@@ -42,8 +43,6 @@ describe('ErrorFactory', () => {
     });
 
     it('adds information about the expectation used, if provided', () => {
-        const errors = new ErrorFactory();
-
         const message   = `Assertion failed`;
         const error     = errors.create(AssertionError, {
             message,
@@ -73,8 +72,6 @@ describe('ErrorFactory', () => {
         { description: 'UnknownError',                  errorType: UnknownError },
     ]).
     it('attaches a cause when one is provided', ({ errorType }) => {
-        const errors = new ErrorFactory();
-
         const errorMessage = `Something went wrong`;
         const causeMessage = `Underlying cause`;
         const cause = new Error(causeMessage);
@@ -126,9 +123,6 @@ describe('ErrorFactory', () => {
                     |`
             } ]).
             it('shows expected and actual values and their types', ({ expected, actual, expectedDiff }) => {
-
-                const errors = new ErrorFactory();
-
                 const message = 'Example message';
 
                 const error = errors.create(AssertionError, { message, diff: { expected, actual } });
@@ -140,8 +134,6 @@ describe('ErrorFactory', () => {
         describe('for complex types', () => {
 
             it(`shows the actual value (no diff) when the type of actual and expected differ`, () => {
-                const errors = new ErrorFactory();
-
                 const message   = 'Example message';
                 const expected  = 'Alice';
                 const actual    = { name: 'Alice', pets: [ 'dog', 'cat' ] };
@@ -166,8 +158,6 @@ describe('ErrorFactory', () => {
             });
 
             it(`shows a diff of actual vs expected when both values are plain objects`, () => {
-                const errors = new ErrorFactory();
-
                 const message   = 'Example message';
                 const expected  = { name: 'Alice', pets: [ 'dog', 'cat' ] };
                 const actual    = { name: 'Marry', pets: [ 'little lamb' ] };
@@ -194,8 +184,6 @@ describe('ErrorFactory', () => {
             });
 
             it(`shows a diff of actual vs expected when the both values are arrays`, () => {
-                const errors = new ErrorFactory();
-
                 const message   = 'Example message';
                 const expected  = [ { name: 'Alice' }, { name: 'Bob' }, { name: 'Cindy' }, { name: 'Daisy' } ];
                 const actual    = [ { name: 'Alice' }, { name: 'Bob' }, { name: 'Daisy' }, { name: 'Elsa' } ];
@@ -220,8 +208,6 @@ describe('ErrorFactory', () => {
             });
 
             it(`shows a diff of actual vs expected when both values are serialisable to JSON`, () => {
-                const errors = new ErrorFactory();
-
                 const message   = 'Example message';
                 const expected  = new Person('Alice', 27);
                 const actual    = new Person('Bob', 32);
@@ -245,8 +231,6 @@ describe('ErrorFactory', () => {
             });
 
             it(`shows a diff of actual vs expected when both values are single-value TinyTypes`, () => {
-                const errors = new ErrorFactory();
-
                 const message   = 'Example message';
                 const expected  = new Name('Alice');
                 const actual    = new Name('Bob');
@@ -267,8 +251,6 @@ describe('ErrorFactory', () => {
 
             describe('when the value is Unanswered', () => {
                 it('shows the actual value when expected is Unanswered', () => {
-                    const errors = new ErrorFactory();
-
                     const message   = 'Example message';
                     const expected  = new Unanswered();
                     const actual    = new Name('Bob');
@@ -288,8 +270,6 @@ describe('ErrorFactory', () => {
                 });
 
                 it('shows the expected value when expected is Unanswered', () => {
-                    const errors = new ErrorFactory();
-
                     const message   = 'Example message';
                     const expected  = new Name('Bob');
                     const actual    = new Unanswered();
@@ -305,8 +285,6 @@ describe('ErrorFactory', () => {
                 });
 
                 it('shows no diff when both expected and actual are Unanswered', () => {
-                    const errors = new ErrorFactory();
-
                     const message   = 'Example message';
                     const expected  = new Unanswered();
                     const actual    = new Unanswered();

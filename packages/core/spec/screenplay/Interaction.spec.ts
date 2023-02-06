@@ -1,8 +1,8 @@
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { ArtifactGenerated } from '../../src/events';
 import { ErrorFactory } from '../../src/errors';
+import { ArtifactGenerated } from '../../src/events';
 import { JSONData, Name } from '../../src/model';
 import { Actor, Interaction } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
