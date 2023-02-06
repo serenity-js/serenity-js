@@ -208,7 +208,7 @@ describe('SerenityBDDReporter', () => {
 
             it('has failed with an assertion error', () => {
 
-                const assertionError = new AssertionError('expected true to equal false', false, true);
+                const assertionError = new AssertionError('expected true to equal false');
 
                 given(reporter).isNotifiedOfFollowingEvents(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),

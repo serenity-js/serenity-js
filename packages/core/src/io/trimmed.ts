@@ -6,7 +6,7 @@
  * @param templates
  * @param placeholders
  */
-export function trimmed(templates: TemplateStringsArray, ...placeholders: string[]): string {
+export function trimmed(templates: TemplateStringsArray, ...placeholders: Array<any>): string {
 
     const lines = templates
         .map((template, i) => i < placeholders.length
@@ -21,6 +21,6 @@ export function trimmed(templates: TemplateStringsArray, ...placeholders: string
         .filter(line => !! line);
 
     return nonEmptyLines
-        .map(line => line.replace(/\|\s?(.*)$/, '$1\n'))
-        .join('');
+        .map(line => line.replace(/\|\s?(.*)$/, '$1'))
+        .join('\n');
 }

@@ -1,6 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -47,7 +48,6 @@ describe('@serenity-js/playwright-test', function () {
 
                         expect(error.name).to.equal('Error');
 
-                        // TestError provided by Playwright is already serialised so we can't know the original expected and actual values
                         expect(error.message.split('\n')).to.deep.equal([
                             'expect(received).toEqual(expected) // deep equality',
                             '',
@@ -98,9 +98,15 @@ describe('@serenity-js/playwright-test', function () {
                         const error = outcome.error as AssertionError;
 
                         expect(error.name).to.equal('AssertionError');
-                        expect(error.message).to.equal(`Expected 'Hello' to equal 'Hola'`);
-                        expect(error.expected).to.equal('Hola');
-                        expect(error.actual).to.equal('Hello');
+                        expect(outcome.error.message).to.match(new RegExp(trimmed`
+                            | Expected 'Hello' to equal 'Hola'
+                            |
+                            | Expectation: equals\\('Hola'\\)
+                            |
+                            | \\[32mExpected string: Hola\\[39m
+                            | \\[31mReceived string: Hello\\[39m
+                            |
+                            | \\s{4}at .*failing/failing-serenity-js-screenplay-assertion.spec.ts:10:24`));
                     })
                 ;
             }));
@@ -122,7 +128,10 @@ describe('@serenity-js/playwright-test', function () {
                         const error = outcome.error as TestCompromisedError;
 
                         expect(error).to.be.instanceof(TestCompromisedError);
-                        expect(error.message).to.equal(`Translation DB is down, please cheer it up`);
+                        expect(error.message).to.match(new RegExp(trimmed`
+                            | Translation DB is down, please cheer it up
+                            | \\s{4}at .*failing/test-compromised.spec.ts:11:24
+                            `));
                     })
                 ;
             }));

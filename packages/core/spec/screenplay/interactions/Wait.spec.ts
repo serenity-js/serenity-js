@@ -2,7 +2,8 @@
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, Question, Serenity, Timestamp, UsesAbilities, Wait } from '../../../src';
+import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../src';
+import { trimmed } from '../../../src/io';
 import { expect } from '../../expect';
 import { Ensure } from '../Ensure';
 
@@ -12,7 +13,10 @@ describe('Wait', () => {
 
     beforeEach(async () => {
         serenity = new Serenity();
-        serenity.engage(Cast.whereEveryoneCan(new UseAStopwatch()))
+        serenity.configure({
+            actors: Cast.whereEveryoneCan(new UseAStopwatch()),
+            diffFormatter: new NoOpDiffFormatter(),
+        });
 
         await serenity.theActorCalled('Wendy')
             .attemptsTo(
@@ -102,9 +106,14 @@ describe('Wait', () => {
                     )
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time [ms] to have value greater than ${ timeout.inMilliseconds() }`);
-                expect(error.expected).to.be.equal(timeout.inMilliseconds());
-                expect(error.actual).to.be.greaterThanOrEqual(pollingInterval.inMilliseconds());
+                expect(error.message).to.match(new RegExp(trimmed`
+                    | Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
+                    |
+                    | Expectation: isGreaterThan\\(${ timeout.inMilliseconds() }\\)
+                    |
+                    | Expected number: ${ timeout.inMilliseconds() }
+                    | Received number: \\d+
+                    |`, 'gm'));
             })
         });
 
@@ -121,10 +130,11 @@ describe('Wait', () => {
             ).to.be.rejected.then((error: AssertionError) => {
                 const elapsedTime = Date.now() - startTime;
                 expect(elapsedTime).to.be.greaterThanOrEqual(5000);
-                expect(error.expected).to.be.undefined;
-                expect(error.actual).to.be.undefined;
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 5s, polling every 500ms, for the first of [ ] to have value greater than 1`);
+                expect(error.message).to.match(new RegExp(trimmed`
+                    | Waited 5s, polling every 500ms, for the first of \\[ \\] to have value greater than 1
+                    | \\s{4}at.*Wait.spec.ts:128:30
+                `));
             })
         });
 
@@ -171,19 +181,22 @@ describe('Wait', () => {
             const lazyLoadedList = () =>
                 List.of(numbersLoadedAfterADelay());
 
-            await expect (serenity.theActorCalled('Wendy')
-                    .attemptsTo(
-                        Stopwatch.start(),
-                        Wait.upTo(Duration.ofSeconds(1))
-                            .until(lazyLoadedList().first(), equals(1)),
-                        Stopwatch.stop(),
-                        Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 1_000),
-                        Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1_200),
-                    )).to.be.rejected.then((error: AssertionError) => {
-                expect(error.expected).to.be.undefined;
-                expect(error.actual).to.be.undefined;
+            await expect(serenity.theActorCalled('Wendy')
+                .attemptsTo(
+                    Stopwatch.start(),
+                    Wait.upTo(Duration.ofSeconds(1))
+                        .until(lazyLoadedList().first(), equals(1)),
+                    Stopwatch.stop(),
+                    Ensure.greaterThanOrEqual(Stopwatch.elapsedTime().inMilliseconds(), 1_000),
+                    Ensure.lessThan(Stopwatch.elapsedTime().inMilliseconds(), 1_200),
+                )
+            ).
+            to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1`);
+                expect(error.message).to.be.match(new RegExp(trimmed`
+                    | Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1
+                    | \\s{4}at.*Wait.spec.ts:188:26
+                `));
             });
         });
 
@@ -257,23 +270,21 @@ function brokenExpectationThatThrows(message: string): Expectation<any> {
         });
 }
 
-function isGreaterThan(expected: Answerable<number>): Expectation<number> {
-    return Expectation.thatActualShould<number, number>('have value greater than', expected)
-        .soThat((actualValue, expectedValue) => actualValue > expectedValue);
-}
+const isGreaterThan = Expectation.define(
+    'isGreaterThan', 'have value greater than',
+    (actual: number, expected: number) =>
+        actual > expected,
+)
 
 function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
     return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)
         .soThat((actual, expected) => equal(actual, expected));
 }
 
-class UseAStopwatch implements Ability {
-
-    static as(actor: UsesAbilities): UseAStopwatch {
-        return actor.abilityTo(UseAStopwatch);
-    }
+class UseAStopwatch extends Ability {
 
     constructor(public readonly stopwatch = new Stopwatch()) {
+        super();
     }
 }
 

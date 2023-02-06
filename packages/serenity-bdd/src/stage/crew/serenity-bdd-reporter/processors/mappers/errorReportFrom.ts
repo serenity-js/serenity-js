@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { ErrorStackParser, RuntimeError } from '@serenity-js/core';
+import ansiRegex from 'ansi-regex';
 import { inspect } from 'util';
 
 import { ErrorDetails } from '../../SerenityBDDJsonSchema';
@@ -18,7 +19,7 @@ export function errorReportFrom(error?: Error | string | number | boolean | obje
 function errorDetailsOf(maybeError: Error | string | number | boolean | object): ErrorDetails {
     return {
         errorType:  errorTypeOf(maybeError),
-        message:    errorMessageOf(maybeError),
+        message:    errorMessageOf(maybeError).replace(ansiRegex(), ''),
         stackTrace: errorStackOf(maybeError),
     }
 }
@@ -55,7 +56,7 @@ function errorStackOf(maybeError: any) {
 
         return parser.parse(maybeError).map(frame => ({
             declaringClass: '',
-            methodName:     `${ frame.functionName }(${ (frame.args || []).join(', ') })`,
+            methodName:     frame.functionName ? `${ frame.functionName }(${ (frame.args || []).join(', ') })` : '',
             fileName:       frame.fileName,
             lineNumber:     frame.lineNumber,
         }))

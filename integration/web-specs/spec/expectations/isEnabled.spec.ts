@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Wait } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { By, isEnabled, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isEnabled', function () {
@@ -35,7 +36,22 @@ describe('isEnabled', function () {
         it('is disabled', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Elements.disabledButton(), isEnabled()),
-            )).to.be.rejectedWith(AssertionError, `Expected the disabled button to become enabled`));
+            )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+                | Expected the disabled button to become present and become enabled
+                | 
+                | Expectation: isEnabled\\(\\)
+                |
+                | Expected boolean:\\s+true
+                | Received [A-Za-z]+PageElement
+                | 
+                | [A-Za-z]+PageElement {
+                |   locator: [A-Za-z]+Locator {
+                |     parent: [A-Za-z]+RootLocator { }
+                |     selector: ById {
+                |       value: 'disabled'
+                |     }
+                |   }
+                | }`, 'gm')));
 
         /** @test {isActive} */
         it('does not exist', () =>

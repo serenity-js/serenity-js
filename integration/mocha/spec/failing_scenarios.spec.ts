@@ -1,6 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -85,8 +86,12 @@ describe('@serenity-js/mocha', function () {
 
                         const error = outcome.error as AssertionError;
 
-                        expect(error.expected).to.equal('true');
-                        expect(error.actual).to.equal('false');
+                        expect(error.message).to.equal(trimmed`
+                            | Expected values to be strictly equal:
+                            |
+                            | false !== true
+                            |
+                        `)
                     })
                 ;
             }));

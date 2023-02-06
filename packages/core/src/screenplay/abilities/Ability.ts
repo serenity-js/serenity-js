@@ -1,3 +1,6 @@
+import { AbilityType } from './AbilityType';
+import { UsesAbilities } from './UsesAbilities';
+
 /**
  * Serenity/JS Screenplay Pattern `Ability` enables an {@apilink Actor} to interact with an external interface of the system under test.
  *
@@ -11,14 +14,7 @@
  * ```ts
  * import { Ability, actorCalled, Interaction } from '@serenity-js/core'
  *
- * class MakePhoneCalls implements Ability {
- *
- *   // Abilities typically expose a static method `as` used to retrieve the ability from an actor in an interaction,
- *   // for example:
- *   //   MakesPhoneCalls.as(actor).call(phoneNumber)
- *   static as(actor: UsesAbilities): MakesPhoneCalls {
- *     return actor.abilityTo(MakePhoneCalls)
- *   }
+ * class MakePhoneCalls extends Ability {
  *
  *   // A static method is typically used to inject a client of a given interface
  *   // and instantiate the ability, for example:
@@ -81,13 +77,10 @@
  *
  * // A custom Ability to give an Actor access to the low-level client:
  * class QueryPostgresDB
- *   implements Initialisable, Discardable, Ability
+ *   extends Ability
+ *   implements Initialisable, Discardable
  * {
- *   static as(actor: UsesAbilities) {
- *     return actor.abilityTo(QueryPostgresDB);
- *   }
- *
- *   protected constructor(private readonly client) {
+ *   constructor(private readonly client) {
  *   }
  *
  *   // Invoked by Serenity/JS upon the first invocation of `actor.attemptsTo`
@@ -159,5 +152,18 @@
  *
  * @group Abilities
  */
-export interface Ability {  // eslint-disable-line @typescript-eslint/no-empty-interface
+export abstract class Ability {
+
+    /**
+     * Used to access an {@apilink Actor|actor's} {@apilink Ability|ability}to {@apilink ManageALocalServer}
+     * from within the {@apilink Interaction} classes.
+     *
+     * @param actor
+     */
+    static as<A extends Ability>(
+        this: AbilityType<A>,
+        actor: UsesAbilities
+    ): A {
+        return actor.abilityTo(this) as A;
+    }
 }

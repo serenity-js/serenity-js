@@ -2,7 +2,11 @@ import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
-import { ElementExpectation } from './ElementExpectation';
+
+const isElementSelected = Expectation.define(
+    'isSelected', 'become selected',
+    (actual: PageElement) => actual.isSelected(),
+);
 
 /**
  *  {@apilink Expectation} that an `<option>` or `<input>` element is selected, which means it resolves to `true` when:
@@ -22,8 +26,8 @@ import { ElementExpectation } from './ElementExpectation';
  * @group Expectations
  */
 export function isSelected(): Expectation<PageElement> {
-    return Expectation.to<boolean, PageElement>('become selected').soThatActual(and(
+    return Expectation.to<PageElement>('become selected').soThatActual(and(
         isPresent(),
-        ElementExpectation.forElementTo('become selected', actual => actual.isSelected()),
+        isElementSelected(),
     ));
 }

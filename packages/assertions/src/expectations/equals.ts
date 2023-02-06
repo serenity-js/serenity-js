@@ -1,4 +1,4 @@
-import { Answerable, Expectation } from '@serenity-js/core';
+import { Expectation } from '@serenity-js/core';
 import { equal } from 'tiny-types/lib/objects';
 
 /**
@@ -26,7 +26,8 @@ import { equal } from 'tiny-types/lib/objects';
  *
  * @group Expectations
  */
-export function equals<Expected>(expectedValue: Answerable<Expected>): Expectation<Expected> {
-    return Expectation.thatActualShould<Expected, Expected>('equal', expectedValue)
-        .soThat((actual, expected) => equal(actual, expected));
-}
+export const equals = Expectation.define(
+    'equals', 'equal',
+    <T>(actual: T, expected: T) =>
+        equal(actual, expected),
+);

@@ -1,6 +1,6 @@
 import { Answerable, d } from '@serenity-js/core';
 import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
-import { inspected } from '@serenity-js/core/lib/io/inspected';
+import { stringified } from '@serenity-js/core/lib/io/stringified';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
 import { PageElement, SelectOption } from '../models';
@@ -133,7 +133,7 @@ export class Select {
     static values(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(`#actor selects values ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
+                Interaction.where(`#actor selects values ${ commaSeparated(values.flat(), item => stringified(item, { inline: true })) } from ${ stringified(pageElement, { inline: true }) }`, async actor => {
 
                     const answers       = await asyncMap(values, value => actor.answer(value));
                     const desiredValues = answers.flat();
@@ -267,7 +267,7 @@ export class Select {
     static options(...values: Array<Answerable<string[] | string>>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(`#actor selects ${ commaSeparated(values.flat(), item => inspected(item, { inline: true })) } from ${ inspected(pageElement, { inline: true }) }`, async actor => {
+                Interaction.where(`#actor selects ${ commaSeparated(values.flat(), item => stringified(item, { inline: true })) } from ${ stringified(pageElement, { inline: true }) }`, async actor => {
 
                     const answers       = await asyncMap(values, value => actor.answer(value));
                     const desiredLabels = answers.flat();

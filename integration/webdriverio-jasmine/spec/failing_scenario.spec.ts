@@ -1,6 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { BrowserTag, ExecutionFailedWithAssertionError, FeatureTag, Name, PlatformTag, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -33,9 +34,12 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
 
                     const error = outcome.error as AssertionError;
 
-                    expect(error.message).to.equal('Expected false to be true.');
-                    expect(error.expected).to.equal(true);
-                    expect(error.actual).to.equal(false);
+                    expect(error.message).to.equal(trimmed`
+                        | Expected false to be true.
+                        |
+                        | Expected boolean: true
+                        | Received boolean: false
+                        |`);
                 })
             ;
         }));

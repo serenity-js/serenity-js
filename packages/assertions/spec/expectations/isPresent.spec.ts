@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError, Optional, Question } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
@@ -34,21 +35,60 @@ describe('isPresent', () => {
         )).to.be.fulfilled;
     });
 
-    given([
-        { description: 'undefined', value: undefined    },
-        { description: 'null',      value: null         },  // eslint-disable-line unicorn/no-null
-    ]).
-    it('breaks the actor flow when "actual" is not present', ({ description, value }) => {
+    it('breaks the actor flow when "actual" is undefined', () => {
         return expect(actorCalled('Astrid').attemptsTo(
-            Ensure.that(value, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Expected ${ description } to become present`)
-            .then((error: AssertionError) => {
-                // return undefined in both cases
-                // since there's nothing meaningful
-                // we can show when the thing is "not present"
-                expect(error.expected).to.equal(undefined);
-                expect(error.actual).to.equal(undefined);
-            });
+            Ensure.that(undefined, isPresent()),
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected undefined to become present
+            |
+            | Expectation: isPresent()
+            |
+            | Expected boolean:   true
+            | Received undefined
+            |`);
+    });
+
+    it('breaks the actor flow when "actual" is null', () => {
+        return expect(actorCalled('Astrid').attemptsTo(
+            Ensure.that(null, isPresent()),                     // eslint-disable-line unicorn/no-null
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected null to become present
+            |
+            | Expectation: isPresent()
+            |
+            | Expected boolean: true
+            | Received null
+            |`);
+    });
+
+    it('breaks the actor flow when "actual" with custom isPresent method is not present', () => {
+        class CustomType implements Optional {
+            constructor(public readonly value: string) {
+            }
+            isPresent(): boolean {
+                return false;
+            }
+            toString(): string {
+                return `custom type: ${ this.value }`;
+            }
+        }
+
+        const value = Question.about('custom type, like a PageElement', actor_ => new CustomType('example'));
+
+        return expect(actorCalled('Astrid').attemptsTo(
+            Ensure.that(value, isPresent()),                     // eslint-disable-line unicorn/no-null
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected custom type, like a PageElement to become present
+            |
+            | Expectation: isPresent()
+            |
+            | Expected boolean:                  true
+            | Received Proxy<QuestionStatement>
+            |
+            | CustomType { 
+            |   value: 'example' 
+            | }
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

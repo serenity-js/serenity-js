@@ -1,9 +1,9 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { ConfigurationError, LogicError } from '../errors';
+import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
-import { CorrelationId, Description, Name, Timestamp } from '../model';
-import { Actor } from '../screenplay/actor';
+import { ActivityDetails, CorrelationId, Description, Name, Timestamp } from '../model';
+import { Actor } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
@@ -46,19 +46,23 @@ export class Stage {
      */
     private actorInTheSpotlight: Actor = undefined;
 
-    private currentActivity: CorrelationId = undefined;
+    private currentActivity: { id: CorrelationId, details: ActivityDetails } = undefined;
+
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
     /**
      * @param cast
      * @param manager
+     * @param errors
      */
     constructor(
         private cast: Cast,
         private readonly manager: StageManager,
+        private errors: ErrorFactory,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
+        ensure('ErrorFactory', errors, isDefined());
     }
 
     /**
@@ -81,7 +85,8 @@ export class Stage {
         if (! this.instantiatedActorCalled(name)) {
             let actor;
             try {
-                const newActor = new Actor(name, this);
+                const newActor = new Actor(name, this)
+                    .whoCan(new RaiseErrors(this));
 
                 actor = this.cast.prepare(newActor);
 
@@ -217,11 +222,13 @@ export class Stage {
      * #### Learn more
      * - {@apilink Stage.currentActivityId}
      */
-    assignNewActivityId(): CorrelationId {
-        // todo: inject an id factory to make it easier to test
-        this.currentActivity = CorrelationId.create();
+    assignNewActivityId(activityDetails: ActivityDetails): CorrelationId {
+        this.currentActivity = {
+            id: CorrelationId.create(),
+            details: activityDetails,
+        };
 
-        return this.currentActivity;
+        return this.currentActivity.id;
     }
 
     /**
@@ -235,7 +242,7 @@ export class Stage {
             throw new LogicError(`No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?`);
         }
 
-        return this.currentActivity;
+        return this.currentActivity.id;
     }
 
     /**
@@ -248,6 +255,13 @@ export class Stage {
      */
     waitForNextCue(): Promise<void> {
         return this.manager.waitForNextCue();
+    }
+
+    createError<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
+        return this.errors.create(errorType, {
+            location: this.currentActivity?.details.location,
+            ...options,
+        });
     }
 
     private instantiatedActorCalled(name: string): Actor | undefined {

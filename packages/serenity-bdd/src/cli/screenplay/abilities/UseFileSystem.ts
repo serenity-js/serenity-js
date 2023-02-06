@@ -1,20 +1,17 @@
-import { Ability, UsesAbilities } from '@serenity-js/core';
+import { Ability } from '@serenity-js/core';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
 import { ReadStream, Stats, WriteStream } from 'fs';
 
 /**
  * @package
  */
-export class UseFileSystem implements Ability {
+export class UseFileSystem extends Ability {
     static at(root: Path): UseFileSystem {
         return new UseFileSystem(new FileSystem(root));
     }
 
-    static as(actor: UsesAbilities): UseFileSystem {
-        return actor.abilityTo(UseFileSystem);
-    }
-
     constructor(private readonly fileSystem: FileSystem) {
+        super();
     }
 
     createReadStream(relativePathToFile: Path): ReadStream {

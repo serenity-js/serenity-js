@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the value of
@@ -76,14 +76,17 @@ class HasProperty<Actual extends object, PropertyName extends keyof Actual> exte
     ) {
         const subject = `have property ${ String(propertyName) } that does ${ expectation }`;
         super(
+            'property',
             subject,
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
-                const actualValue = await actor.answer(actual);
-                const outcome = await actor.answer(expectation.isMetFor(actualValue[propertyName]));
+                const actualValue   = await actor.answer(actual);
+                const outcome       = await actor.answer(expectation.isMetFor(actualValue[propertyName]));
+
+                const expectationDetails = ExpectationDetails.of('property', String(propertyName), outcome.expectation);
 
                 return outcome instanceof ExpectationMet
-                    ? new ExpectationMet<any, Actual>(subject, outcome.expected, actualValue)
-                    : new ExpectationNotMet<any, Actual>(subject, outcome.expected, actualValue);
+                    ? new ExpectationMet(subject, expectationDetails, outcome.expected, outcome.actual)
+                    : new ExpectationNotMet(subject, expectationDetails, outcome.expected, outcome.actual);
             },
         );
     }

@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
+import { d, Expectation } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when the actual value
@@ -21,46 +21,20 @@ import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, Expectati
  *
  * @group Expectations
  */
-export function isCloseTo(expected: Answerable<number>, absoluteTolerance: Answerable<number> = 1e-9): Expectation<number> {
-    return new IsCloseTo(expected, absoluteTolerance);
-}
+export const isCloseTo = Expectation.define(
+    'isCloseTo', (expected, absoluteTolerance = 1e-9) => d`have value close to ${ expected } ±${ absoluteTolerance }`,
+    (actual: number, expected: number, absoluteTolerance = 1e-9) => {
+        // short-circuit exact equality
+        if (actual === expected) {
+            return true;
+        }
 
-/**
- * @package
- */
-class IsCloseTo extends Expectation<number> {
+        if (! (Number.isFinite(actual) && Number.isFinite(expected))) {
+            return false;
+        }
 
-    constructor(
-        private readonly expected: Answerable<number>,
-        private readonly absoluteTolerance: Answerable<number>,
-    ) {
-        super(
-            d`have value close to ${ expected } ±${ absoluteTolerance }`,
-            async (actor: AnswersQuestions, actual: Answerable<number>) => {
+        const difference = Math.abs(actual - expected)
 
-                const actualValue: number   = await actor.answer(actual);
-                const expectedValue: number = await actor.answer(this.expected);
-                const tolerance: number     = await actor.answer(this.absoluteTolerance);
-
-                const description = `have value close to ${ expectedValue } ±${ tolerance }`
-
-                // short-circuit exact equality
-                if (actualValue === expectedValue) {
-                    return new ExpectationMet(description, expectedValue, actualValue);
-                }
-
-                if (! (Number.isFinite(actualValue) && Number.isFinite(expectedValue))) {
-                    return new ExpectationNotMet(description, expectedValue, actualValue);
-                }
-
-                const difference = Math.abs(actualValue - expectedValue)
-
-                const isClose = difference <= tolerance;
-
-                return isClose
-                    ? new ExpectationMet(description, expectedValue, actualValue)
-                    : new ExpectationNotMet(description, expectedValue, actualValue);
-            }
-        );
+        return difference <= absoluteTolerance;
     }
-}
+)

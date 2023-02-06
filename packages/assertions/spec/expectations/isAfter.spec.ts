@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { Ensure, isAfter } from '../../src';
@@ -15,11 +16,14 @@ describe('isAfter', () => {
     it('breaks the actor flow when "actual" is not after the "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(new Date('1985-01-01'), isAfter(new Date('1995-01-01'))),
-        )).to.be.rejectedWith(AssertionError, `Expected 1985-01-01T00:00:00.000Z to have value that is after 1995-01-01T00:00:00.000Z`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.deep.equal(new Date('1995-01-01'));
-                expect(error.actual).to.deep.equal(new Date('1985-01-01'));
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 1985-01-01T00:00:00.000Z to have value that is after 1995-01-01T00:00:00.000Z
+            |
+            | Expectation: isAfter(1995-01-01T00:00:00.000Z)
+            |
+            | Expected Date: 1995-01-01T00:00:00.000Z
+            | Received Date: 1985-01-01T00:00:00.000Z
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

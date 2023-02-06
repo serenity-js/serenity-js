@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
-import { ConfigurationError } from '@serenity-js/core';
+import { AssertionError, ConfigurationError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { inspect } from 'util';
 
@@ -36,6 +37,46 @@ describe('errorReportFrom', () => {
             expect(report.rootCause.errorType).to.equal('Error');
             expect(report.rootCause.message).to.equal('config file does not exist');
             expect(report.stackTrace.length).to.be.greaterThan(0);
+        });
+
+        it('strips any control sequences', () => {
+
+            const report = errorReportFrom(thrown(AssertionError, trimmed`
+                | Expected test users to equal expected users
+                | 
+                | Expectation: equals([ { age: 36, name: 'Jan' }, { age: 30, name: 'Alice' } ])
+                | 
+                | [32mExpected Array  - 2[39m
+                | [31mReceived Array  + 2[39m
+                | 
+                |   [
+                | [32m-   { age: 36, name: 'Jan' }[39m
+                | [32m-   { age: 30, name: 'Alice' }[39m
+                | [31m+   { age: 38, name: 'Jan' }[39m
+                | [31m+   { age: 27, name: 'Alice' }[39m
+                |   ]
+                | 
+                |     at /fake/path/spec/recording-items.spec.ts:51:24
+            `))
+
+            expect(report.errorType).to.equal('AssertionError');
+            expect(report.message).to.equal(trimmed`
+                | Expected test users to equal expected users
+                | 
+                | Expectation: equals([ { age: 36, name: 'Jan' }, { age: 30, name: 'Alice' } ])
+                | 
+                | Expected Array  - 2
+                | Received Array  + 2
+                | 
+                |   [
+                | -   { age: 36, name: 'Jan' }
+                | -   { age: 30, name: 'Alice' }
+                | +   { age: 38, name: 'Jan' }
+                | +   { age: 27, name: 'Alice' }
+                |   ]
+                | 
+                |     at /fake/path/spec/recording-items.spec.ts:51:24
+            `);
         });
     });
 

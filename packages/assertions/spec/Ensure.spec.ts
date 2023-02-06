@@ -1,9 +1,6 @@
-import 'chai-as-promised';
-
-import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
-import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
-import { Name } from '@serenity-js/core/lib/model';
+import { EventRecorder, expect } from '@integration/testing-tools';
+import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
@@ -11,6 +8,26 @@ import { Ensure, equals } from '../src';
 import { isIdenticalTo, p, q } from './fixtures';
 
 describe('Ensure', () => {
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = Ensure.that(true, equals(true));
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(14);
+            expect(location.column).to.equal(37);
+        });
+
+        it('correctly detects its invocation location when custom errors are used', () => {
+            const activity = Ensure.that(true, equals(true)).otherwiseFailWith(TestCompromisedError);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Ensure.spec.ts');
+            expect(location.line).to.equal(23);
+            expect(location.column).to.equal(62);
+        });
+    });
 
     it('allows the actor to make an assertion', () => {
         return expect(actorCalled('Enrique').attemptsTo(
@@ -25,14 +42,23 @@ describe('Ensure', () => {
     });
 
     given([
-        { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7 but got 4', description: 'Promise' },
-        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Questipn' },
-        { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7 but got 4', description: 'Question<Promise>'  },
+        { actual: p(4), expectedMessage: 'Expected Promise to have value identical to 7', description: 'Promise' },
+        { actual: q(4), expectedMessage: 'Expected something to have value identical to 7', description: 'Question' },
+        { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7', description: 'Question<Promise>'  },
     ]).
     it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(actual, isIdenticalTo(7)),
-        )).to.be.rejectedWith(AssertionError, expectedMessage);
+        )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+            | ${ expectedMessage }
+            |
+            | Expectation: isIdenticalTo\\(7\\)
+            |
+            | Expected number: 7
+            | Received number: 4
+            |
+            | \\s{4}at.*Ensure.spec.ts:51:20`, 'gm')
+        );
     });
 
     it('provides a description of the assertion being made', () => {
@@ -59,11 +85,18 @@ describe('Ensure', () => {
         )).to.be.fulfilled;
     });
 
+    it('works', () => {
+        return expect(actorCalled('Enrique').attemptsTo(
+            Ensure.that(q(p(42)), isIdenticalTo(42)),
+        )).to.be.fulfilled;
+    });
+
     it(`complains when given an Expectation that doesn't conform to the interface`, () => {
         class BrokenExpectation<Actual> extends Expectation<Actual> {
             constructor() {
                 super(
-                    `broken`,
+                    'broken',
+                    'broken',
                     (_actor: AnswersQuestions, _actual: Answerable<Actual>) => {
                         return undefined as any;    // eslint-disable-line unicorn/no-useless-undefined
                     },
@@ -86,51 +119,6 @@ describe('Ensure', () => {
                 crew: [ recorder ],
             });
         });
-
-        given([ {
-            description: 'tiny type',
-            expected: new Name('Alice'),
-            actual: new Name('Bob'),
-            artifact: { expected: 'Name(value=Alice)', actual: 'Name(value=Bob)' },
-        }, {
-            description: 'boolean',
-            expected: true,
-            actual: false,
-            artifact: { expected: 'true', actual: 'false' },
-        }, {
-            description: 'string',
-            expected: 'name',
-            actual: 'not-name',
-            artifact: { expected: `'name'`, actual: `'not-name'` },
-        }, {
-            description: 'list',
-            expected: [ { name: 'Bob' }, { name: 'Alice' } ],
-            actual: [ { name: 'Alice' } ],
-            artifact: { expected: '[\n  {\n    "name": "Bob"\n},\n  {\n    "name": "Alice"\n}\n]', actual: `[\n  {\n    "name": "Alice"\n}\n]` },
-        }, {
-            description: 'promise',
-            expected: Promise.resolve(true),
-            actual: Promise.resolve(false),
-            artifact: { expected: `true`, actual: `false` },
-        }, {
-            description: 'question',
-            expected: Question.about('some value', actor => true),
-            actual: Question.about('some value', actor => false),
-            artifact: { expected: 'true', actual: 'false' },
-        } ]).
-        it('emits an artifact describing the actual and expected values', ({ actual, expected, artifact }) => {
-
-            return expect(actorCalled('Enrique').attemptsTo(
-                Ensure.that(actual, equals(expected)),  // we don't care about the expectation itself in this test
-            )).
-            to.be.rejected.then(() =>
-                PickEvent.from(recorder.events)
-                    .next(ActivityRelatedArtifactGenerated, e => e.artifact.map(value => {
-                        expect(value.expected).to.equal(artifact.expected);
-                        expect(value.actual).to.equal(artifact.actual);
-                    })),
-            );
-        });
     });
 
     describe('custom errors', () => {
@@ -141,37 +129,25 @@ describe('Ensure', () => {
                     Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError),
                 ),
             )
-                .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
-                .then((error: RuntimeError) => {
-                    expect(error.cause).to.be.instanceOf(AssertionError);
-                    expect(error.cause.message).to.be.equal('Expected 503 to equal 200');
-                }),
+            .to.be.rejectedWith(TestCompromisedError, 'Expected 503 to equal 200')
+            .then((error: RuntimeError) => {
+                expect(error.cause).to.be.instanceOf(AssertionError);
+                expect(error.cause.message).to.match(new RegExp(trimmed `
+                    | Expected 503 to equal 200
+                    |
+                    | Expectation: equals\\(200\\)
+                    |
+                    | Expected number: 200
+                    | Received number: 503
+                    |
+                    | \\s{4}at.*Ensure.spec.ts:129:28`, 'gm'));
+            }),
         );
 
         it('allows the actor to fail the flow with a custom RuntimeError with a custom error message', () => {
             return expect(actorCalled('Enrique').attemptsTo(
                 Ensure.that(503, equals(200)).otherwiseFailWith(TestCompromisedError, 'The server is down. Please cheer it up.'),
             )).to.be.rejectedWith(TestCompromisedError, 'The server is down. Please cheer it up.');
-        });
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location', () => {
-            const activity = Ensure.that(true, equals(true));
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(160);
-            expect(location.column).to.equal(37);
-        });
-
-        it('correctly detects its invocation location when custom errors are used', () => {
-            const activity = Ensure.that(true, equals(true)).otherwiseFailWith(TestCompromisedError);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(169);
-            expect(location.column).to.equal(62);
         });
     });
 });

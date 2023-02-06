@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integration/testing-tools';
-import { Clock, Duration, Stage, StageManager } from '@serenity-js/core';
+import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { Extras } from '@serenity-js/core/lib/stage/Extras';
 import { beforeEach, describe, it } from 'mocha';
@@ -16,7 +16,7 @@ describe('SerenityBDDReporter', () => {
 
     beforeEach(() => {
         const frozenClock = new Clock(() => new Date(0))
-        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), frozenClock));
+        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), frozenClock), new ErrorFactory());
         emitter = new EventStreamEmitter(stage);
         recorder = new EventRecorder([], stage);
 
@@ -131,7 +131,7 @@ describe('SerenityBDDReporter', () => {
                                     'stackTrace': [
                                         {
                                             'declaringClass': '',
-                                            'methodName': 'undefined()',
+                                            'methodName': '',
                                             'fileName': 'AssertionError: Waited 5s for the first option to become clickable'
                                         }
                                     ]
@@ -165,7 +165,7 @@ describe('SerenityBDDReporter', () => {
             'stackTrace': [
                 {
                     'declaringClass': '',
-                    'methodName': 'undefined()',
+                    'methodName': '',
                     'fileName': 'Error: function timed out, ensure the promise resolves within 40000 milliseconds'
                 }
             ]
@@ -218,7 +218,7 @@ describe('SerenityBDDReporter', () => {
             'stackTrace': [
                 {
                     'declaringClass': '',
-                    'methodName': 'undefined()',
+                    'methodName': '',
                     'fileName': 'Error: function timed out, ensure the promise resolves within 10000 milliseconds'
                 }
             ]

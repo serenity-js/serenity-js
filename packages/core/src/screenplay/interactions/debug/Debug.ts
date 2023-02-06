@@ -1,11 +1,13 @@
 import { ErrorSerialiser } from '../../../errors';
 import { d } from '../../../io';
-import { inspected } from '../../../io/inspected';
+import { stringified } from '../../../io/stringified';
 import { LogEntry, Name } from '../../../model';
-import { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '../../actor';
+import { UsesAbilities } from '../../abilities';
 import { Answerable } from '../../Answerable';
 import { Answered } from '../../Answered';
+import { CollectsArtifacts } from '../../artifacts';
 import { Interaction } from '../../Interaction';
+import { AnswersQuestions } from '../../questions';
 import { breakpoint } from './breakpoint';
 import { DebuggingResult } from './DebuggingResult';
 import { viewer } from './viewer';
@@ -129,7 +131,7 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
             actor.collect(
                 LogEntry.fromJSON({
                     data: JSON.stringify({
-                        value: inspected(result.value),
+                        value: stringified(result.value),
                         error: result.error ? ErrorSerialiser.serialise(result.error) : result.error
                     }),
                 }),

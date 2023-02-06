@@ -1,4 +1,4 @@
-import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -16,6 +16,9 @@ import { AmbiguousStepDefinitionError } from '../../../errors';
  * @package
  */
 export class ResultMapper {
+
+    constructor(private readonly serenity: Serenity) {
+    }
 
     outcomeFor(status: string, maybeError: Error | string | undefined): Outcome {
         const error = this.errorFrom(maybeError);
@@ -77,7 +80,16 @@ export class ResultMapper {
         }
 
         if (this.isANonSerenityAssertionError(error)) {
-            return new ExecutionFailedWithAssertionError(new AssertionError(error.message, error.expected, error.actual, error));
+            return new ExecutionFailedWithAssertionError(
+                this.serenity.createError(AssertionError, {
+                    message: error.message,
+                    diff: {
+                        expected: error.expected,
+                        actual: error.actual,
+                    },
+                    cause: error,
+                }),
+            );
         }
 
         if (error instanceof TestCompromisedError) {

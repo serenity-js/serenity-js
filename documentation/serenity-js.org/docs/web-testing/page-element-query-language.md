@@ -4,12 +4,6 @@ sidebar_position: 2
 
 # Page Element Query Language
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-```
-
 Key points:
 - **Page Element Query Language (PEQL)** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
 - **[`PageElement`](/api/web/class/PageElement)** is a [question](/api/core/class/Question) that resolves to a [single web element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element), **[`PageElements`](/api/web/class/PageElements)** resolves to a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
@@ -17,14 +11,14 @@ Key points:
 - **[`By` selectors](/api/web/class/By)** help to identify page elements of interest
 - **[Partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions)** can be chained together to enable code reuse
 - [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
-[expectations](/api/web/class/ElementExpectation) and [meta-questions](/api/core/interface/MetaQuestion),
+[expectations](/api/core/class/Expectation) and [meta-questions](/api/core/interface/MetaQuestion),
 just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions) do.
 
 **Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
 around selectors and web element interaction methods provided by web integration tools like
 [WebdriverIO](/api/webdriverio), [Playwright](/api/playwright), or [Protractor](/api/protractor).
 
-**<abbr title="Page Element Query Language">PEQL</abbr>** leverages Serenity/JS [expectations library](/api/web/class/ElementExpectation)
+**<abbr title="Page Element Query Language">PEQL</abbr>** leverages Serenity/JS [expectations library](/api/core/class/Expectation)
 and [meta-questions](/api/core/interface/MetaQuestion) to give you
 a standardised, consistent, and extensible way to identify elements in a web interface.
 
@@ -179,7 +173,7 @@ This design makes questions reusable and allows for them to be composed further,
 
 ### Asserting on a page element
 
-Serenity/JS web module provides [web-specific expectations](/api/web/class/ElementExpectation) you use
+Serenity/JS web module provides [web-specific expectations](/api/core/class/Expectation) you use
 to verify if the actual state of the given element is what you expect it to be.
 
 For example, you might want to ensure that a given element [is visible](/api/web/function/isVisible), i.e. not obstructed by other elements:
@@ -214,7 +208,7 @@ Learn more about asserting on page elements in chapter "[Web-first assertions](/
 
 ### Waiting for a page element
 
-Serenity/JS web module provides [web-specific expectations](/api/web/class/ElementExpectation) you use
+Serenity/JS web module provides [web-specific expectations](/api/core/class/Expectation) you use
 to synchronise your test code with the system under test and wait until its state meets your expectations.
 
 For example, you might want for your test scenario to wait until a given element [is visible](/api/web/function/isVisible):
@@ -491,7 +485,7 @@ You could also create your own [meta-questions](/api/core/interface/MetaQuestion
 
 ### Filtering page elements in a collection
 
-While Serenity/JS [expectations](/api/web/class/ElementExpectation) are most commonly used in [assertion](#asserting-on-a-page-element) and [synchronisation](#waiting-for-a-page-element) statements,
+While Serenity/JS [expectations](/api/core/class/Expectation) are most commonly used in [assertion](#asserting-on-a-page-element) and [synchronisation](#waiting-for-a-page-element) statements,
 when used with [`PageElements#where`](/api/web/class/PageElements#where) API they can offer a great and reusable alternative to complex CSS selectors and XPath expressions.
 
 For example, you could use the [meta-question](/api/core/interface/MetaQuestion) about the [`CssClasses`](/api/web/class/CssClasses) and an expectation to [`contain`](/api/assertions/function/contain)
@@ -724,7 +718,7 @@ await actorCalled('Alice').attemptsTo(
 ### Filtering a collection using partially-applied meta-questions
 
 You can use [partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions) like `Text.of(label())` to filter the list of shopping list items
-to only those elements that meet your [expectations](/api/web/class/ElementExpectation):
+to only those elements that meet your [expectations](/api/core/class/Expectation):
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'

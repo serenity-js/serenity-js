@@ -2,11 +2,11 @@ import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
 import { OutputStream } from './adapter';
 import { SerenityConfig } from './config';
-import { ConfigurationError } from './errors';
+import { ConfigurationError, ErrorFactory, ErrorOptions, NoOpDiffFormatter, RuntimeError } from './errors';
 import { DomainEvent } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
-import { CorrelationId, Duration, Timestamp } from './model';
-import { Actor } from './screenplay/actor/Actor';
+import { ActivityDetails, CorrelationId, Duration, Timestamp } from './model';
+import { Actor } from './screenplay';
 import { StageCrewMember, StageCrewMemberBuilder } from './stage';
 import { Cast } from './stage/Cast';
 import { Clock } from './stage/Clock';
@@ -36,6 +36,7 @@ export class Serenity {
         this.stage = new Stage(
             Serenity.defaultActors,
             new StageManager(Serenity.defaultCueTimeout, clock),
+            new ErrorFactory(),
         );
 
         this.classLoader = new ClassLoader(
@@ -67,6 +68,7 @@ export class Serenity {
         this.stage = new Stage(
             Serenity.defaultActors,
             new StageManager(cueTimeout, this.clock),
+            new ErrorFactory(config.diffFormatter ?? new NoOpDiffFormatter()),
         );
 
         if (config.actors) {
@@ -285,8 +287,12 @@ export class Serenity {
         return this.stage.currentSceneId();
     }
 
-    assignNewActivityId(): CorrelationId {
-        return this.stage.assignNewActivityId();
+    assignNewActivityId(activityDetails: ActivityDetails): CorrelationId {
+        return this.stage.assignNewActivityId(activityDetails);
+    }
+
+    createError<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {
+        return this.stage.createError(errorType, options);
     }
 
     /**

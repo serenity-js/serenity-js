@@ -1,12 +1,12 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, ListItemNotFoundError, TimeoutExpiredError } from '../../errors';
+import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../errors';
 import { d } from '../../io';
 import { Duration } from '../../model';
-import { AnswersQuestions, UsesAbilities } from '../actor';
+import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
-import { Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
 
 /**
  * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
@@ -239,7 +239,7 @@ export class WaitUntil<Actual> extends Interaction {
         private readonly pollingInterval: Duration,
     ) {
         super(d`#actor waits up to ${ timeout }, polling every ${ pollingInterval }, until ${ actual } does ${ expectation }`);
-        
+
         ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()))
         ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()))
     }
@@ -252,12 +252,12 @@ export class WaitUntil<Actual> extends Interaction {
     pollingEvery(interval: Duration): Interaction {
         return new WaitUntil(this.actual, this.expectation, this.timeout, interval);
     }
-   
+
     /**
      * @inheritDoc
      */
     performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        let outcome: ExpectationOutcome<unknown, Actual>;
+        let outcome: ExpectationOutcome;
 
         const expectation = async () => {
             outcome = await actor.answer(
@@ -269,7 +269,7 @@ export class WaitUntil<Actual> extends Interaction {
 
         const timeout = timeoutAfter(this.timeout);
         const poller = waitUntil(expectation, this.pollingInterval);
-    
+
         return Promise.race([
             timeout.start(),
             poller.start(),
@@ -283,12 +283,14 @@ export class WaitUntil<Actual> extends Interaction {
             poller.stop();
 
             if (error instanceof TimeoutExpiredError) {
-                throw new AssertionError(
-                    d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
-                    outcome?.expected,
-                    outcome?.actual,
-                    error,
-                )
+
+                throw RaiseErrors.as(actor).create(AssertionError, {
+                    message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
+                    expectation: outcome?.expectation,
+                    diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
+                    location: this.instantiationLocation(),
+                    cause: error,
+                });
             }
 
             throw error;
@@ -320,7 +322,7 @@ function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterva
     let pollingActive = false;
 
     async function poll(): Promise<void> {
-        
+
         async function nextPollingInterval(): Promise<void> {
             if (pollingActive) {
                 delay = waitFor(pollingInterval);
@@ -371,10 +373,7 @@ function timeoutAfter(duration: Duration): { start: () => Promise<void>, stop: (
             new Promise<void>((resolve, reject) => {
                 timeoutId = setTimeout(() => {
                     clearTimeout(timeoutId);
-                    reject(new TimeoutExpiredError(
-                        d`Timeout of ${ duration } has expired`,
-                        duration,
-                    ));
+                    reject(new TimeoutExpiredError(d`Timeout of ${ duration } has expired`));
                 }, duration.inMilliseconds());
             }),
 

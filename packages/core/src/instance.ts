@@ -1,5 +1,5 @@
 import { SerenityConfig } from './config';
-import { Actor } from './screenplay/actor';
+import { Actor } from './screenplay';
 import { Serenity } from './Serenity';
 import { Cast, Clock } from './stage';
 

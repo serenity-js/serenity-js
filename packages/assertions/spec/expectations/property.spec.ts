@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { Ensure, equals, property } from '../../src';
@@ -9,7 +10,7 @@ interface Person {
     age?: number;
 }
 
-describe('hasProperty', () => {
+describe('property', () => {
 
     const Alice: Person = {
         name: 'Alice',
@@ -29,11 +30,14 @@ describe('hasProperty', () => {
             actorCalled('Astrid').attemptsTo(
                 Ensure.that(Alice, property('name', equals('Bob'))),
             )
-        ).to.be.rejectedWith(AssertionError, `{"name":"Alice","age":27} to have property name that does equal 'Bob'`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.equal('Bob');
-                expect(error.actual).to.deep.equal({ name: 'Alice', age: 27 });
-            });
+        ).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected {"name":"Alice","age":27} to have property name that does equal 'Bob'
+            |
+            | Expectation: property('name', equals('Bob'))
+            |
+            | Expected string: Bob
+            | Received string: Alice
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

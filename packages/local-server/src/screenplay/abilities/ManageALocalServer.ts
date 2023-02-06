@@ -1,4 +1,4 @@
-import { Ability, ConfigurationError, UsesAbilities } from '@serenity-js/core';
+import { Ability, ConfigurationError } from '@serenity-js/core';
 import * as http from 'http';
 import withShutdownSupport = require('http-shutdown');
 import * as https from 'https';
@@ -45,7 +45,7 @@ import { getPortPromise } from 'portfinder';
  *
  * @group Abilities
  */
-export class ManageALocalServer implements Ability {
+export class ManageALocalServer extends Ability {
 
     private readonly server: ServerWithShutdown;
 
@@ -67,7 +67,7 @@ export class ManageALocalServer implements Ability {
      *
      * @param listener
      * @param options
-     *  Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
+     *  Accepts an options object from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
      *
      * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */
@@ -80,16 +80,6 @@ export class ManageALocalServer implements Ability {
     }
 
     /**
-     * Used to access the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink ManageALocalServer}
-     * from within the {@apilink Interaction} classes, such as {@apilink StartLocalServer}.
-     *
-     * @param actor
-     */
-    static as(actor: UsesAbilities): ManageALocalServer {
-        return actor.abilityTo(ManageALocalServer);
-    }
-
-    /**
      * @param protocol
      *  Protocol to be used when communicating with the running server; `http` or `https`
      *
@@ -99,6 +89,7 @@ export class ManageALocalServer implements Ability {
      * @see https://www.npmjs.com/package/http-shutdown
      */
     constructor(private readonly protocol: SupportedProtocols, server: net.Server) {
+        super();
         this.server = withShutdownSupport(server);
     }
 

@@ -1,4 +1,5 @@
-import { TestError, TestInfo } from '@playwright/test';
+import { TestInfo } from '@playwright/test';
+import { Location, TestError } from '@playwright/test/reporter';
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import {
     ActivityFinished,
@@ -18,24 +19,6 @@ import { Photographer } from '@serenity-js/web';
 import { match } from 'tiny-types';
 
 const genericPathToPhotographer = Path.from(require.resolve('@serenity-js/web'))
-
-// https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/types/testReporter.d.ts#L524
-interface Location {
-    /**
-     * Path to the source file.
-     */
-    file: string;
-
-    /**
-     * Line number in the source file.
-     */
-    line: number;
-
-    /**
-     * Column number in the source file.
-     */
-    column: number;
-}
 
 // https://github.com/microsoft/playwright/blob/04f77f231981780704a3a5e2cea93e3c420809a0/packages/playwright-test/src/types.ts#L30
 interface TestStepInternal {

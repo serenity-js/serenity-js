@@ -12,7 +12,6 @@ import {
     TestRunFinished, TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import {
-    AssertionReport,
     CorrelationId,
     Duration,
     ExecutionCompromised,
@@ -279,27 +278,11 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
                     const artifactGeneratedEvents = this.artifacts.recordedFor(e.activityId);
 
-                    if (artifactGeneratedEvents.some(a => a instanceof AssertionReport || a instanceof LogEntry)) {
+                    if (artifactGeneratedEvents.some(a => a instanceof LogEntry)) {
                         this.printer.println();
                     }
 
                     artifactGeneratedEvents.forEach(artifactGenerated => {
-                        if (artifactGenerated.artifact instanceof AssertionReport) {
-                            const details = artifactGenerated.artifact.map(
-                                (artifactContents: { expected: string, actual: string }) =>
-                                    this.theme.diff(
-                                        artifactContents.expected,
-                                        artifactContents.actual,
-                                    ),
-                            );
-
-                            this.printer.println();
-
-                            this.printer.println(details);
-
-                            this.printer.println();
-                        }
-
                         if (artifactGenerated.artifact instanceof LogEntry) {
                             const details = artifactGenerated.artifact.map((artifactContents: { data: string }) => artifactContents.data);
 

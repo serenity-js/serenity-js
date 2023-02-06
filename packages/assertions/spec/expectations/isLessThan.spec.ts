@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { Ensure, isLessThan } from '../../src';
@@ -15,11 +16,13 @@ describe('isLessThan', () => {
     it('breaks the actor flow when "actual" is not less than "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(3, isLessThan(2)),
-        )).to.be.rejectedWith(AssertionError, `Expected 3 to have value that's less than 2`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.equal(2);
-                expect(error.actual).to.equal(3);
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 3 to have value that's less than 2
+            |
+            | Expectation: isLessThan(2)
+            |
+            | Expected number: 2
+            | Received number: 3`);
     });
 
     it('contributes to a human-readable description', () => {

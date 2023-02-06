@@ -2,7 +2,7 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { Writable } from 'stream';
 
-import { Actor, Cast, Clock, Duration, Stage, StageManager, StreamReporter } from '../../../../src';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter } from '../../../../src';
 import { TestRunFinished } from '../../../../src/events';
 import { Timestamp } from '../../../../src/model';
 import { expect } from '../../../expect';
@@ -22,6 +22,7 @@ describe('StreamReporter', () => {
         stage = new Stage(
             new Extras(),
             new StageManager(Duration.ofSeconds(2), new Clock()),
+            new ErrorFactory(),
         );
 
         output = sinon.createStubInstance(Writable);

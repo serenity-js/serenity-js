@@ -48,7 +48,7 @@ import { actorCalled } from '@serenity-js/core';
 import { Check } from '@serenity-js/assertions'; 
 import { Click, isVisible } from '@serenity-js/protractor';
 
-actorCalled('Erica').attemptsTo(
+await actorCalled('Erica').attemptsTo(
     Check.whether(NewsletterModal, isVisible())
         .andIfSo(Click.on(CloseModalButton)),
 );
@@ -60,7 +60,7 @@ actorCalled('Erica').attemptsTo(
 import { actorCalled } from '@serenity-js/core';
 import { Click, isVisible, Wait } from '@serenity-js/protractor';
 
-actorCalled('Erica').attemptsTo(
+await actorCalled('Erica').attemptsTo(
     Wait.until(CloseModalButton, isVisible()),
     Click.on(CloseModalButton)
 );
@@ -77,7 +77,7 @@ function isDivisibleBy(expected: Answerable<number>): Expectation<number> {
         .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0);
 }
 
-actorCalled('Erica').attemptsTo(
+await actorCalled('Erica').attemptsTo(
     Ensure.that(4, isDivisibleBy(2)),
 );
 ```
@@ -97,7 +97,7 @@ function isWithin(lowerBound: number, upperBound: number) {
         ));
 }
 
-actorCalled('Erica').attemptsTo(
+await actorCalled('Erica').attemptsTo(
     Ensure.that(5, isWithin(3, 6)),
 );
 ```

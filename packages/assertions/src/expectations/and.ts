@@ -1,5 +1,4 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationNotMet } from '@serenity-js/core';
-import { match } from 'tiny-types';
+import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when all the `expectations` are met for the given actual value.
@@ -32,18 +31,23 @@ class And<Actual> extends Expectation<Actual> {
     private static readonly Separator = ' and ';
 
     constructor(private readonly expectations: Array<Expectation<Actual>>) {
+        const description = expectations.map(expectation => expectation.toString()).join(And.Separator);
+
         super(
-            expectations.map(expectation => expectation.toString()).join(And.Separator),
-            (actor: AnswersQuestions, actual: Answerable<Actual>) => {
-                return expectations.reduce(
-                    (previous, current) =>
-                        previous.then(outcome =>
-                            match(outcome)
-                                .when(ExpectationNotMet, o => o)
-                                .else(_ => actor.answer(current.isMetFor(actual))),
-                        ),
-                    Promise.resolve(void 0),
-                );
+            'and',
+            description,
+            async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
+                let outcome: ExpectationOutcome;
+
+                for (const expectation of expectations) {
+                    outcome = await actor.answer(expectation.isMetFor(actual))
+
+                    if (outcome instanceof ExpectationNotMet) {
+                        return new ExpectationNotMet(description, outcome.expectation, outcome.expected, outcome.actual);
+                    }
+                }
+
+                return new ExpectationMet(description, outcome?.expectation, outcome?.expected, outcome?.actual);
             }
         );
     }

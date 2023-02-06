@@ -49,6 +49,9 @@ install:
 	npm ci
 	npm run lerna:bootstrap:$(BOOTSTRAP_SCOPE)
 
+cc:
+	npm run cc
+
 clean:
 	npm run clean
 
