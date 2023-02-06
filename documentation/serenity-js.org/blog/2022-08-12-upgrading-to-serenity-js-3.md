@@ -293,7 +293,7 @@ actorCalled('Leonard')
     TakeNotes.using(Notepad.empty<MyNotes>())
   )
   .attemptsTo(
-    notes<MyNotes>.set('credentials', { 
+    notes<MyNotes>().set('credentials', { 
         username: 'leonard@example.org',
         password: 'SuperSecretP@ssword1',
     }),
