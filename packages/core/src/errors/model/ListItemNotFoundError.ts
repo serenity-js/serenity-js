@@ -1,21 +1,21 @@
 import { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from './ErrorSerialiser';
+import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
  * Thrown to indicate that an {@apilink Interaction}, a {@apilink Task} or a test scenario
- * can't be executed due to a logical error.
+ * can't be executed due to no items are found in a list.
  *
- * For example, it's not possible to assert on the last HTTP Response if the request
- * hasn't been performed yet.
+ * For example, it's not possible to get the first() or the last() item of a list
+ * if the list is empty.
  *
  * @group Errors
  */
-export class LogicError extends RuntimeError {
+export class ListItemNotFoundError extends RuntimeError {
 
-    static fromJSON(serialised: JSONObject): LogicError {
-        const error = new LogicError(
+    static fromJSON(serialised: JSONObject): ListItemNotFoundError {
+        const error = new ListItemNotFoundError(
             serialised.message as string,
             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
         );
@@ -27,9 +27,9 @@ export class LogicError extends RuntimeError {
 
     /**
      * @param message - Human-readable description of the error
-     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
+     * @param [cause] - The root cause of this {@apilink ListItemNotFoundError}, if any
      */
     constructor(message: string, cause?: Error) {
-        super(LogicError, message, cause);
+        super(ListItemNotFoundError, message, cause);
     }
 }

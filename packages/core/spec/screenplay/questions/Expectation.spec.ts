@@ -41,29 +41,29 @@ describe('Expectation', () => {
             }];
 
             given(examples).
-            it('resolves to ExpectationMet when the expectation is met', ({ expected, message }) => {
+            it('resolves to ExpectationMet when the expectation is met', async ({ expected, message }) => {
 
-                return expect(
+                const outcome = await expect(
                     isIdenticalTo(expected).isMetFor(value).answeredBy(Ellie)
-                ).to.be.fulfilled.then(outcome => {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(message);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
-                })
+                ).to.be.fulfilled
+
+                expect(outcome).to.be.instanceOf(ExpectationMet);
+                expect(outcome.message).to.equal(message);
+                expect(outcome.expected).to.equal(value);
+                expect(outcome.actual).to.equal(value);
             });
 
             given(examples).
-            it('resolves with ExpectationNotMet when the expectation is not met', ({ expected, message }) => {
+            it('resolves with ExpectationNotMet when the expectation is not met', async ({ expected, message }) => {
 
-                return expect(
+                const outcome = await expect(
                     isIdenticalTo(expected).isMetFor(value).answeredBy(Ellie)
-                ).to.be.fulfilled.then(outcome => {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(message);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
-                })
+                ).to.be.fulfilled
+
+                expect(outcome).to.be.instanceOf(ExpectationMet);
+                expect(outcome.message).to.equal(message);
+                expect(outcome.expected).to.equal(value);
+                expect(outcome.actual).to.equal(value);
             });
         });
     });
@@ -73,7 +73,7 @@ describe('Expectation', () => {
         const value = 42;
 
         const isTheSameAs = <T>(expected: T) =>
-            Expectation.to<T, T>(`have value same as ${ expected }`)
+            Expectation.to<T>(`have value same as ${ expected }`)
                 .soThatActual(isIdenticalTo(expected));
 
         describe('provides a way to alias and compose expectations', () => {
@@ -82,28 +82,28 @@ describe('Expectation', () => {
                 expect(isTheSameAs(value).toString()).to.equal(`have value same as 42`)
             });
 
-            it('resolves to ExpectationMet when the expectation is met and the message alias', () => {
+            it('resolves to ExpectationMet when the expectation is met and the message alias', async () => {
 
-                return expect(
+                const outcome = await expect(
                     isTheSameAs(value).isMetFor(value).answeredBy(Ellie)
-                ).to.be.fulfilled.then(outcome => {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(`have value identical to 42`);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
-                })
+                ).to.be.fulfilled
+
+                expect(outcome).to.be.instanceOf(ExpectationMet);
+                expect(outcome.message).to.equal(`have value identical to 42`);
+                expect(outcome.expected).to.equal(value);
+                expect(outcome.actual).to.equal(value);
             });
 
-            it('resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations', () => {
+            it('resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations', async () => {
 
-                return expect(
+                const outcome = await expect(
                     isTheSameAs('hello').isMetFor('world').answeredBy(Ellie)
-                ).to.be.fulfilled.then(outcome => {
-                    expect(outcome).to.be.instanceOf(ExpectationNotMet);
-                    expect(outcome.message).to.equal(`have value identical to 'hello'`);
-                    expect(outcome.expected).to.equal('hello');
-                    expect(outcome.actual).to.equal('world');
-                })
+                ).to.be.fulfilled
+
+                expect(outcome).to.be.instanceOf(ExpectationNotMet);
+                expect(outcome.message).to.equal(`have value identical to 'hello'`);
+                expect(outcome.expected).to.equal('hello');
+                expect(outcome.actual).to.equal('world');
             });
         });
     });

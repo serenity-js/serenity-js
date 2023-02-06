@@ -1,10 +1,11 @@
 import { JSONObject } from 'tiny-types';
 
 import { commaSeparated } from '../../io';
-import { Actor } from '../actor';
+import { UsesAbilities } from '../abilities';
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import { Question, QuestionAdapter } from '../Question';
+import { AnswersQuestions } from '../questions';
 import { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
@@ -304,9 +305,9 @@ class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction im
         } as NotesToSet<Notes>)
     }
 
-    async performAs(actor: Actor): Promise<void> {
+    async performAs(actor: AnswersQuestions & UsesAbilities): Promise<void> {
 
-        const notepad = TakeNotes.as<Notes>(actor).notepad;
+        const notepad = TakeNotes.as(actor).notepad;
 
         for (const [ subject, value ] of Object.entries(this.notes)) {
             const answer = await actor.answer(value);

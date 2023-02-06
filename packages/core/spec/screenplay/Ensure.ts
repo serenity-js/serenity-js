@@ -11,7 +11,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (actualValue !== expectedValue) {
-                throw new AssertionError(`Expected ${ actualValue } to be the same as ${ expectedValue }`, expectedValue, actualValue);
+                throw new AssertionError(`Expected ${ actualValue } to be the same as ${ expectedValue }`);
             }
         }),
 
@@ -21,7 +21,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! equal(actualValue, expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to equal ${ expectedValue }`, expectedValue, actualValue);
+                throw new AssertionError(`Expected ${ actualValue } to equal ${ expectedValue }`);
             }
         }),
 
@@ -31,7 +31,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! (actualValue >= expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to be greater than or equal to ${ expectedValue }`, expectedValue, actualValue);
+                throw new AssertionError(`Expected ${ actualValue } to be greater than or equal to ${ expectedValue }`);
             }
         }),
 
@@ -41,7 +41,7 @@ export const Ensure = {
             const expectedValue = await actor.answer(expected);
 
             if (! (actualValue < expectedValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to be less than ${ expectedValue }`, expectedValue, actualValue);
+                throw new AssertionError(`Expected ${ actualValue } to be less than ${ expectedValue }`);
             }
         }),
 
@@ -52,7 +52,7 @@ export const Ensure = {
             const toleranceValue    = await actor.answer(tolerance);
 
             if (! (Math.abs(actualValue - expectedValue) <= toleranceValue)) {
-                throw new AssertionError(`Expected ${ actualValue } to be close to ${ expectedValue } ±${ toleranceValue }`, expectedValue, actualValue);
+                throw new AssertionError(`Expected ${ actualValue } to be close to ${ expectedValue } ±${ toleranceValue }`);
             }
         }),
 }

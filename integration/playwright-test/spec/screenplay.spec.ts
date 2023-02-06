@@ -1,5 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished, InteractionStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { CorrelationId, Description, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -120,7 +121,15 @@ describe('@serenity-js/playwright-test', function () {
 
                             expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
                             expect(outcome.error.name).to.equal('AssertionError');
-                            expect(outcome.error.message).to.equal('Expected false to equal true');
+                            expect(outcome.error.message).to.match(new RegExp(trimmed`
+                                | Expected false to equal true
+                                |
+                                | Expectation: equals\\(true\\)
+                                |
+                                | \\[32mExpected boolean: true\\[39m
+                                | \\[31mReceived boolean: false\\[39m
+                                |
+                                | \\s{4}at .*screenplay/assertion-error.spec.ts:10:24`));
                         })
                     ;
                 }));

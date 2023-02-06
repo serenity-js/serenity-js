@@ -1,12 +1,9 @@
-import { AssertionError } from './AssertionError';
-import { ConfigurationError } from './ConfigurationError';
+/* eslint-disable simple-import-sort/imports */
+import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model';
 import { ErrorSerialiser } from './ErrorSerialiser';
-import { ImplementationPendingError } from './ImplementationPendingError';
-import { LogicError } from './LogicError';
-import { TestCompromisedError } from './TestCompromisedError';
-import { TimeoutExpiredError } from './TimeoutExpiredError';
-import { UnknownError } from './UnknownError';
+/* eslint-enable simple-import-sort/imports */
 
+// todo: export ErrorSerialiser as an instance to avoid static method calls
 ErrorSerialiser.registerErrorTypes(
     AssertionError,
     ConfigurationError,
@@ -17,14 +14,14 @@ ErrorSerialiser.registerErrorTypes(
     UnknownError,
 );
 
-export { AssertionError } from './AssertionError';
-export { ConfigurationError } from './ConfigurationError';
+export * from './diff';
+export * from './model';
+
+/* eslint-disable simple-import-sort/exports */
 export { ErrorSerialiser } from './ErrorSerialiser';
 export { ErrorStackParser } from './ErrorStackParser';
-export { ImplementationPendingError } from './ImplementationPendingError';
-export { ListItemNotFoundError } from './ListItemNotFoundError';
-export { LogicError } from './LogicError';
-export { RuntimeError } from './RuntimeError';
-export { TestCompromisedError } from './TestCompromisedError';
-export { TimeoutExpiredError } from './TimeoutExpiredError';
-export { UnknownError } from './UnknownError';
+/* eslint-enable simple-import-sort/exports */
+
+export { ErrorFactory } from './ErrorFactory';
+export { ErrorOptions } from './ErrorOptions';
+export * from './RaiseErrors'

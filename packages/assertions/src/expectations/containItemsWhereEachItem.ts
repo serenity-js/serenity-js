@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when all the items of the actual array of `Item[]`
@@ -36,20 +36,23 @@ class ContainItemsWhereEachItemMeetsExpectation<Actual> extends Expectation<Actu
 
     constructor(private readonly expectation: Expectation<Actual>) {
         super(
+            'containItemsWhereEachItem',
             ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
             async (actor: AnswersQuestions, actual: Answerable<Actual[]>) => {
 
                 const items: Actual[] = await actor.answer(actual);
 
                 if (! items || items.length === 0) {
+                    const unanswered = new Unanswered();
                     return new ExpectationNotMet(
                         ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
-                        undefined,
+                        ExpectationDetails.of('containItemsWhereEachItem', unanswered),
+                        unanswered,
                         items,
                     );
                 }
 
-                let outcome: ExpectationOutcome<unknown, Actual>;
+                let outcome: ExpectationOutcome;
 
                 for (const item of items) {
 
@@ -58,13 +61,19 @@ class ContainItemsWhereEachItemMeetsExpectation<Actual> extends Expectation<Actu
                     if (outcome instanceof ExpectationNotMet) {
                         return new ExpectationNotMet(
                             ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
+                            ExpectationDetails.of('containItemsWhereEachItem', outcome.expectation),
                             outcome.expected,
-                            items
+                            items,
                         );
                     }
                 }
 
-                return new ExpectationMet(ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation), outcome.expected, items);
+                return new ExpectationMet(
+                    ContainItemsWhereEachItemMeetsExpectation.descriptionFor(expectation),
+                    ExpectationDetails.of('containItemsWhereEachItem', outcome.expectation),
+                    outcome.expected,
+                    items,
+                );
             }
         );
     }

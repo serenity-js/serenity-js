@@ -175,17 +175,24 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
 
         }
 
-        errorFrom(exception: Error | string): Error {
+        errorFrom(maybeError: Error | string): Error {
 
             switch (true) {
-                case exception instanceof RuntimeError:
-                    return exception as Error;
-                case exception instanceof Error && exception.name === 'AssertionError' && exception.message && hasOwnProperty(exception, 'expected') && hasOwnProperty(exception, 'actual'):
-                    return new AssertionError((exception as any).message, (exception as any).expected, (exception as any).actual, exception as Error);
-                case typeof exception === 'string' && exception.startsWith('Multiple step definitions match'):
-                    return new AmbiguousStepDefinitionError(exception as string);
+                case maybeError instanceof RuntimeError:
+                    return maybeError as Error;
+                case maybeError instanceof Error && maybeError.name === 'AssertionError' && maybeError.message && hasOwnProperty(maybeError, 'expected') && hasOwnProperty(maybeError, 'actual'):
+                    return serenity.createError(AssertionError, {
+                        message: (maybeError as any).message,
+                        diff: {
+                            expected: (maybeError as any).expected,
+                            actual: (maybeError as any).actual,
+                        },
+                        cause: maybeError as Error
+                    });
+                case typeof maybeError === 'string' && maybeError.startsWith('Multiple step definitions match'):
+                    return new AmbiguousStepDefinitionError(maybeError as string);
                 default:
-                    return ErrorSerialiser.deserialiseFromStackTrace(exception as string);
+                    return ErrorSerialiser.deserialiseFromStackTrace(maybeError as string);
             }
         }
     };

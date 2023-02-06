@@ -8,4 +8,6 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 chai.use(assertions);
 
+import 'chai-as-promised';
+
 export const expect = chai.expect;

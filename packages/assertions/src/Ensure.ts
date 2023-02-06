@@ -8,17 +8,14 @@ import {
     Expectation,
     ExpectationMet,
     ExpectationNotMet,
-    ExpectationOutcome,
     f,
     Interaction,
     LogicError,
+    RaiseErrors,
     RuntimeError,
     UsesAbilities,
 } from '@serenity-js/core';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import { inspected } from '@serenity-js/core/lib/io/inspected';
-import { Artifact, AssertionReport, Name } from '@serenity-js/core/lib/model';
-import { match } from 'tiny-types';
 
 /**
  * The {@apilink Interaction|interaction} to `Ensure`
@@ -87,7 +84,7 @@ export class Ensure<Actual> extends Interaction {
      * @param expectation
      * @param location
      */
-    protected constructor(
+    private constructor(
         protected readonly actual: Answerable<Actual>,
         protected readonly expectation: Expectation<Actual>,
         location: FileSystemLocation,
@@ -101,16 +98,21 @@ export class Ensure<Actual> extends Interaction {
     async performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
 
-        return match<ExpectationOutcome<unknown, Actual>, void>(outcome)
-            .when(ExpectationNotMet, o => {
-                actor.collect(this.artifactFrom(o.expected, o.actual), new Name(`Assertion Report`));
+        if (outcome instanceof ExpectationNotMet) {
+            const actualDescription = d`${ this.actual }`;
+            const message = `Expected ${ actualDescription } to ${ outcome.message }`;
 
-                throw this.errorForOutcome(o);
-            })
-            .when(ExpectationMet, _ => void 0)
-            .else(o => {
-                throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ o }`);
+            throw RaiseErrors.as(actor).create(AssertionError, {
+                message,
+                expectation: outcome.expectation,
+                diff: { expected: outcome.expected, actual: outcome.actual },
+                location: this.instantiationLocation(),
             });
+        }
+
+        if (! (outcome instanceof ExpectationMet)) {
+            throw new LogicError(f`Expectation#isMetFor(actual) should return an instance of an ExpectationOutcome, not ${ outcome }`);
+        }
     }
 
     /**
@@ -124,59 +126,19 @@ export class Ensure<Actual> extends Interaction {
      *  The message explaining the failure
      */
     otherwiseFailWith(typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError, message?: string): Interaction {
-        return new EnsureOrFailWithCustomError(this.actual, this.expectation, typeOfRuntimeError, message);
-    }
+        const location = this.instantiationLocation();
 
-    /**
-     * Maps an {@apilink ExpectationOutcome} to appropriate {@apilink RuntimeError}.
-     */
-    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
-        return this.asAssertionError(outcome);
-    }
-
-    /**
-     * Maps an {@apilink Outcome} to {@apilink AssertionError}.
-     *
-     * @param outcome
-     */
-    protected asAssertionError(outcome: ExpectationOutcome<any, Actual>): AssertionError {
-        const actualDescription = d`${ this.actual }`;
-        const inspectedActual = inspected(outcome.actual, { inline: true, markQuestions: false });
-        const message = actualDescription === inspectedActual
-            ? `Expected ${ actualDescription } to ${ outcome.message }`
-            : `Expected ${ actualDescription } to ${ outcome.message } but got ${ inspectedActual }`;
-
-        return new AssertionError(
-            message,
-            outcome.expected,
-            outcome.actual,
-        );
-    }
-
-    private artifactFrom(expected: any, actual: Actual): Artifact {
-        return AssertionReport.fromJSON({
-            expected: inspected(expected),
-            actual: inspected(actual),
+        return Interaction.where(this.toString(), async actor => {
+            try {
+                await this.performAs(actor);
+            }
+            catch (error) {
+                throw RaiseErrors.as(actor).create(typeOfRuntimeError, {
+                    message: message ?? error.message,
+                    location,
+                    cause: error
+                });
+            }
         });
-    }
-}
-
-/**
- * @package
- */
-class EnsureOrFailWithCustomError<Actual> extends Ensure<Actual> {
-    constructor(
-        actual: Answerable<Actual>,
-        expectation: Expectation<Actual>,
-        private readonly typeOfRuntimeError: new (message: string, cause?: Error) => RuntimeError,
-        private readonly message?: string,
-    ) {
-        super(actual, expectation, Activity.callerLocation(6));
-    }
-
-    protected errorForOutcome(outcome: ExpectationOutcome<any, Actual>): RuntimeError {
-        const assertionError = this.asAssertionError(outcome);
-
-        return new this.typeOfRuntimeError(this.message || assertionError.message, assertionError);
     }
 }

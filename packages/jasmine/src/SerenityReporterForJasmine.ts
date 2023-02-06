@@ -88,10 +88,8 @@ export class SerenityReporterForJasmine implements JasmineReporter {
          */
         if (result.failedExpectations.length > 1) {
             result.failedExpectations.forEach(failedExpectation => {
-                const
-                    sceneId = this.serenity.currentSceneId(),
-                    activityId = this.serenity.assignNewActivityId();
-                const details = new ActivityDetails(
+                const sceneId = this.serenity.currentSceneId();
+                const activityDetails = new ActivityDetails(
                     new Name('Expectation'),
                     new FileSystemLocation(
                         Path.from(result.location.path),
@@ -100,9 +98,11 @@ export class SerenityReporterForJasmine implements JasmineReporter {
                     ),
                 );
 
+                const activityId = this.serenity.assignNewActivityId(activityDetails);
+
                 this.emit(
-                    new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),
-                    new TaskFinished(sceneId, activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
+                    new TaskStarts(sceneId, activityId, activityDetails, this.serenity.currentTime()),
+                    new TaskFinished(sceneId, activityId, activityDetails, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),
                 );
             });
         }
@@ -240,7 +240,14 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         if (failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error
             return new ExecutionFailedWithAssertionError(
-                new AssertionError(failure.message, failure.expected, failure.actual, error),
+                this.serenity.createError(AssertionError, {
+                    message: failure.message,
+                    diff: {
+                        expected: failure.expected,
+                        actual: failure.actual,
+                    },
+                    cause: error,
+                }),
             );
         }
 

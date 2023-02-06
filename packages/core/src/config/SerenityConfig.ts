@@ -1,4 +1,5 @@
 import { OutputStream } from '../adapter';
+import { DiffFormatter } from '../errors';
 import { Duration } from '../model';
 import { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
 import { ClassDescription } from './ClassDescription';
@@ -44,6 +45,14 @@ export abstract class SerenityConfig {
      * a scenario timeout, which should be configured in your test runner.
      */
     cueTimeout?: Duration;
+
+    /**
+     * {@apilink DiffFormatter} that should be used by the {@apilink ErrorFactory} and the ability to {@apilink RaiseErrors}
+     * when generating diffs included in {@apilink RuntimeError} objects.
+     *
+     * By default, Serenity/JS uses {@apilink NoOpDiffFormatter}.
+     */
+    diffFormatter?: DiffFormatter;
 
     /**
      * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}

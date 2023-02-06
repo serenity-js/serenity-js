@@ -1,4 +1,4 @@
-import { Answerable, Expectation } from '@serenity-js/core';
+import { Expectation } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the actual `string` value
@@ -19,7 +19,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  *
  * @group Expectations
  */
-export function matches(expected: Answerable<RegExp>): Expectation<string> {
-    return Expectation.thatActualShould<RegExp, string>('match', expected)
-        .soThat((actualValue, expectedValue) => expectedValue.test(actualValue));
-}
+export const matches = Expectation.define(
+    'matches', 'match',
+    (actual: string, expected: RegExp) =>
+        expected.test(actual),
+);

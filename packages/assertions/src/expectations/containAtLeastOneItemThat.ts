@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when the actual array of `Item[]` contains
@@ -36,20 +36,23 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
 
     constructor(private readonly expectation: Expectation<Item>) {
         super(
+            'containAtLeastOneItemThat',
             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
             async (actor: AnswersQuestions, actual: Answerable<Item[]>) => {
 
                 const items: Item[] = await actor.answer(actual);
 
                 if (! items || items.length === 0) {
+                    const unanswered = new Unanswered();
                     return new ExpectationNotMet(
                         ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
-                        undefined,
+                        ExpectationDetails.of('containAtLeastOneItemThat', unanswered),
+                        unanswered,
                         items,
                     );
                 }
 
-                let outcome: ExpectationOutcome<unknown, Item>;
+                let outcome: ExpectationOutcome;
 
                 for (const item of items) {
 
@@ -58,13 +61,19 @@ class ContainAtLeastOneItemThatMeetsExpectation<Item> extends Expectation<Item[]
                     if (outcome instanceof ExpectationMet) {
                         return new ExpectationMet(
                             ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
+                            ExpectationDetails.of('containAtLeastOneItemThat', outcome.expectation),
                             outcome.expected,
-                            items
+                            items,
                         );
                     }
                 }
 
-                return new ExpectationNotMet(ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation), outcome.expected, items);
+                return new ExpectationNotMet(
+                    ContainAtLeastOneItemThatMeetsExpectation.descriptionFor(expectation),
+                    ExpectationDetails.of('containAtLeastOneItemThat', outcome.expectation),
+                    outcome.expected,
+                    items,
+                );
             }
         );
     }

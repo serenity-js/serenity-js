@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, isPresent } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration, ErrorSerialiser, Wait } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { By, Navigate, PageElement } from '@serenity-js/web';
 
 describe('isPresent', function () {
@@ -34,7 +35,22 @@ describe('isPresent', function () {
     it('breaks the actor flow when element is not present in the DOM', () =>
         expect(actorCalled('Wendy').attemptsTo(
             Ensure.that(Page.nonExistentHeader, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Expected the non-existent header to become present`));
+        )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+            | Expected the non-existent header to become present
+            | 
+            | Expectation: isPresent\\(\\) 
+            |
+            | Expected boolean:\\s+true
+            | Received Proxy<QuestionStatement>
+            |
+            | [A-Za-z]+PageElement {
+            |   locator: [A-Za-z]+Locator {
+            |     parent: [A-Za-z]+RootLocator { }
+            |     selector: ByCss {
+            |       value: 'h2'
+            |     }
+            |   }
+            | }`, 'gm')));
 
     /** @test {isPresent} */
     it(`produces an assertion error that can be serialised with ErrorSerialiser`, () =>

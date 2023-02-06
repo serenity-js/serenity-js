@@ -1,10 +1,10 @@
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { ConfigurationError, LogicError } from '../../src/errors';
+import { ConfigurationError, ErrorFactory, LogicError } from '../../src/errors';
 import { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } from '../../src/events';
-import { FileSystemLocation, Path } from '../../src/io';
-import { Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
+import { FileSystemLocation, Path, trimmed } from '../../src/io';
+import { ActivityDetails, Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
 import { Ability, Actor, Discardable } from '../../src/screenplay';
 import { Cast, Clock, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
@@ -23,7 +23,7 @@ describe('Stage', () => {
         const
             name   = 'Alice',
             actors = new Extras(),
-            stage  = new Stage(actors, stageManager as unknown as StageManager);
+            stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
         expect(stage.actor(name)).to.equal(stage.theActorCalled(name));
     });
@@ -34,7 +34,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             sinon.spy(actors, 'prepare');
 
@@ -48,7 +48,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             sinon.spy(actors, 'prepare');
 
@@ -67,7 +67,7 @@ describe('Stage', () => {
         it('retrieves the current actor, if there is any', () => {
             const
                 name   = 'Alice',
-                stage  = new Stage(new Extras(), stageManager as unknown as StageManager);
+                stage  = new Stage(new Extras(), stageManager as unknown as StageManager, new ErrorFactory());
 
             const a1 = stage.actor(name);
             const a2 = stage.theActorInTheSpotlight();
@@ -78,7 +78,7 @@ describe('Stage', () => {
         it('provides both the more verbose and more concise way of accessing the actors in the spotlight', () => {
             const
                 name   = 'Alice',
-                stage  = new Stage(new Extras(), stageManager as unknown as StageManager);
+                stage  = new Stage(new Extras(), stageManager as unknown as StageManager, new ErrorFactory());
 
             const a1 = stage.actor(name);
             const a2 = stage.theActorCalled(name);
@@ -90,7 +90,7 @@ describe('Stage', () => {
 
         it(`complains if you try to access the actor in the spotlight, but there isn't any yet`, () => {
             const
-                stage  = new Stage(new Extras(), stageManager as unknown as StageManager);
+                stage  = new Stage(new Extras(), stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(
                 () => stage.theActorInTheSpotlight(),
@@ -100,7 +100,10 @@ describe('Stage', () => {
 
     describe('when instantiating and dismissing the actors', () => {
 
-        class SomeAbilityThatNeedsDiscarding implements Discardable, Ability {
+        class SomeAbilityThatNeedsDiscarding
+            extends Ability
+            implements Discardable
+        {
             discard(): Promise<void> | void {
                 return Promise.resolve();
             }
@@ -137,7 +140,7 @@ describe('Stage', () => {
 
         describe('performing a single scene', () => {
             it('dismisses actors instantiated after SceneStarts when SceneFinished, allowing for any async operations to finish first', async () => {
-                const stage = new Stage(new Spies(), manager);
+                const stage = new Stage(new Spies(), manager, new ErrorFactory());
 
                 stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
 
@@ -163,7 +166,7 @@ describe('Stage', () => {
             it('re-instantiates actors dismissed when the SceneFinished', async () => {
                 const actors = new Spies();
 
-                const stage = new Stage(actors, manager);
+                const stage = new Stage(actors, manager, new ErrorFactory());
 
                 stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
                 stage.actor('Bob');
@@ -191,7 +194,7 @@ describe('Stage', () => {
         describe('performing across multiple scenes', () => {
 
             it('dismisses actors instantiated before SceneStarts when TestRunFinishes', async () => {
-                const stage = new Stage(new Spies(), manager);
+                const stage = new Stage(new Spies(), manager, new ErrorFactory());
 
                 const actor = stage.actor('Bob');
 
@@ -214,7 +217,7 @@ describe('Stage', () => {
             it('retains instances of actors instantiated before the SceneStarts', async () => {
                 const actors = new Spies();
 
-                const stage = new Stage(actors, manager);
+                const stage = new Stage(actors, manager, new ErrorFactory());
 
                 stage.actor('Bob');
 
@@ -245,7 +248,7 @@ describe('Stage', () => {
         it('assigns sceneIds', () => {
             const
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             const assigned = stage.assignNewSceneId();
             const retrieved = stage.currentSceneId();
@@ -256,7 +259,7 @@ describe('Stage', () => {
         it('returns a default sceneId when activities are performed outside of a test runner', () => {
             const
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             const retrieved = stage.currentSceneId();
 
@@ -266,9 +269,12 @@ describe('Stage', () => {
         it('assigns activityIds', () => {
             const
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
-            const assigned = stage.assignNewActivityId();
+            const location = new FileSystemLocation(new Path('/home/alice/example.spec.ts'), 10, 4);
+            const activityDetails = new ActivityDetails(new Name('example activity'), location);
+
+            const assigned = stage.assignNewActivityId(activityDetails);
             const retrieved = stage.currentActivityId();
 
             expect(assigned).to.equal(retrieved);
@@ -277,7 +283,7 @@ describe('Stage', () => {
         it('complains if an activityId is attempted to be retrieved before is has been assigned', () => {
             const
                 actors = new Extras(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(() => stage.currentActivityId()).to.throw(LogicError, 'No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?');
         });
@@ -287,13 +293,13 @@ describe('Stage', () => {
 
         it('complains when instantiated with no Cast', () => {
             expect(() => {
-                const stage_ = new Stage(undefined, stageManager as unknown as StageManager);
+                const stage_ = new Stage(undefined, stageManager as unknown as StageManager, new ErrorFactory());
             }).to.throw(Error, 'Cast should be defined');
         });
 
         it('complains when instantiated with no StageManager', () => {
             expect(() => {
-                const stage_ = new Stage(new Extras(), undefined);
+                const stage_ = new Stage(new Extras(), undefined, new ErrorFactory());
             }).to.throw(Error, 'StageManager should be defined');
         });
 
@@ -303,7 +309,7 @@ describe('Stage', () => {
                 actors: Cast = {
                     prepare: (actor: Actor) => undefined,   // eslint-disable-line unicorn/no-useless-undefined
                 },
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(() => {
                 stage.actor(name);
@@ -320,7 +326,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = new AwesomeActors(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(() => {
                 stage.actor(name);
@@ -333,7 +339,7 @@ describe('Stage', () => {
                 actors: Cast = {
                     prepare: (actor: Actor) => { throw new Error(`I'm not working today`); },
                 },
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(() => {
                 stage.actor(name);
@@ -350,11 +356,59 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors = new MoodyActors(),
-                stage  = new Stage(actors, stageManager as unknown as StageManager);
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
 
             expect(() => {
                 stage.actor(name);
             }).to.throw(ConfigurationError, `MoodyActors encountered a problem when preparing actor "${ name }" for stage`);
+        });
+    });
+
+    describe('when generating errors', () => {
+
+        const defaultLocation = new FileSystemLocation(new Path('/home/alice/example.spec.ts'), 10, 4);
+        const activityDetails = new ActivityDetails(new Name('example activity'), defaultLocation);
+
+        it('uses the current activity location by default', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
+
+            const assigned_ = stage.assignNewActivityId(activityDetails);
+
+            const error = stage.createError(LogicError, { message: 'Example error generated within an activity' });
+
+            expect(error.message).to.equal(trimmed`
+                | Example error generated within an activity
+                |     at /home/alice/example.spec.ts:10:4
+            `);
+        });
+
+        it(`doesn't add information about location if no activity has started yet`, () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
+
+            const error = stage.createError(LogicError, { message: 'Example error generated outside of an activity' });
+
+            expect(error.message).to.equal(`Example error generated outside of an activity`);
+        });
+
+        it('allows for the location to be overridden', () => {
+            const
+                actors = new Extras(),
+                stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory());
+
+            const assigned_ = stage.assignNewActivityId(activityDetails);
+
+            const customLocation = new FileSystemLocation(new Path('/home/alice/another-example.spec.ts'), 16, 8);
+
+            const error = stage.createError(LogicError, { message: 'Example error generated within an activity', location: customLocation });
+
+            expect(error.message).to.equal(trimmed`
+                | Example error generated within an activity
+                |     at /home/alice/another-example.spec.ts:16:8
+            `);
         });
     });
 });

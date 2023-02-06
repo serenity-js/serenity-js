@@ -2,7 +2,11 @@ import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
-import { ElementExpectation } from './ElementExpectation';
+
+const isElementVisible = Expectation.define(
+    'isVisible', 'become visible',
+    (actual: PageElement) => actual.isVisible(),
+);
 
 /**
  *  {@apilink Expectation} that an element is visible, which means it resolves to `true` when:
@@ -22,8 +26,8 @@ import { ElementExpectation } from './ElementExpectation';
  * @group Expectations
  */
 export function isVisible(): Expectation<PageElement> {
-    return Expectation.to<boolean, PageElement>('become visible').soThatActual(and(
+    return Expectation.to<PageElement>('become visible').soThatActual(and(
         isPresent(),
-        ElementExpectation.forElementTo('become visible', actual => actual.isVisible()),
+        isElementVisible(),
     ));
 }

@@ -1,5 +1,4 @@
-import { Ability } from '../Ability';
-import { UsesAbilities } from '../actor';
+import { Ability } from '../abilities';
 import { Notepad } from './Notepad';
 
 /**
@@ -230,7 +229,7 @@ import { Notepad } from './Notepad';
  *
  * @group Notes
  */
-export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
+export class TakeNotes<Notes_Type extends Record<any, any>> extends Ability {
 
     /**
      * Initialises an {@apilink Ability} to {@apilink TakeNotes} with {@apilink Notepad.empty}.
@@ -250,18 +249,9 @@ export class TakeNotes<Notes_Type extends Record<any, any>> implements Ability {
     }
 
     /**
-     * Used to access the Actor's ability to {@apilink TakeNotes}
-     * from within {@apilink Interaction} and {@apilink Question} classes.
-     *
-     * @param actor
-     */
-    static as<N extends Record<any, any>>(actor: UsesAbilities): TakeNotes<N> {
-        return actor.abilityTo(TakeNotes) as TakeNotes<N>;
-    }
-
-    /**
      * @param notepad
      */
     constructor(public readonly notepad: Notepad<Notes_Type>) {
+        super();
     }
 }

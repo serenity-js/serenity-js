@@ -1,7 +1,8 @@
 import { d } from '../../io';
+import { PerformsActivities } from '../activities';
 import { Activity } from '../Activity';
-import { AnswersQuestions, PerformsActivities } from '../actor';
 import { Answerable } from '../Answerable';
+import { AnswersQuestions } from '../questions';
 import { Task } from '../Task';
 import { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';

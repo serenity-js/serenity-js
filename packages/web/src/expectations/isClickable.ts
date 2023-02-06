@@ -2,7 +2,11 @@ import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { PageElement } from '../screenplay';
-import { ElementExpectation } from './ElementExpectation';
+
+const isElementClickable = Expectation.define(
+    'isClickable', 'become clickable',
+    (actual: PageElement) => actual.isClickable(),
+);
 
 /**
  *  {@apilink Expectation} that an element is clickable, which means it resolves to `true` when:
@@ -22,8 +26,8 @@ import { ElementExpectation } from './ElementExpectation';
  * @group Expectations
  */
 export function isClickable(): Expectation<PageElement> {
-    return Expectation.to<boolean, PageElement>('become clickable').soThatActual(and(
+    return Expectation.to<PageElement>('become clickable').soThatActual(and(
         isPresent(),
-        ElementExpectation.forElementTo('become clickable', actual => actual.isClickable())
+        isElementClickable(),
     ));
 }

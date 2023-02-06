@@ -1,5 +1,5 @@
 import { EventStreamEmitter, expect } from '@integration/testing-tools';
-import { Actor, Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
@@ -18,7 +18,7 @@ describe('ConsoleReporter', () => {
     beforeEach(() => {
         stdout = new FakeWritableStream();
 
-        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()));
+        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory());
         emitter = new EventStreamEmitter(stage);
 
         reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, outputStream: stdout });
@@ -75,7 +75,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 34ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 
@@ -120,7 +120,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 135ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('prints any steps that were skipped as a result of the failure', () => emitter.emit(`
@@ -163,7 +163,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 31ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('prints the details of the failed assertion', () => emitter.emit(`
@@ -174,7 +174,6 @@ describe('ConsoleReporter', () => {
             {"type":"SceneTagged","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","tag":{"name":"wip","type":"tag"},"timestamp":"2019-11-14T01:27:21.134Z","value":{"category":"Reporting","location":{"column":3,"line":24,"path":"features/reporting.feature"},"name":"The one with a failing assertion"}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yr70000hd6u9qquvkpr","timestamp":"2019-11-14T01:27:21.140Z","details":{"name":"Given a step that fails with an assertion error","location":{"path":"src/example.ts"}}}}
             {"type":"InteractionStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yrb0001hd6ub6joksw8","timestamp":"2019-11-14T01:27:21.143Z","details":{"name":"Artemis ensures that list of numbers does equal a Promise","location":{"path":"src/example.ts"}}}}
-            {"type":"ActivityRelatedArtifactGenerated","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yrb0001hd6ub6joksw8","artifact":{"type":"AssertionReport","base64EncodedValue":"eyJleHBlY3RlZCI6IltcbiAgMSxcbiAgMlxuXSIsImFjdHVhbCI6IltcbiAgMSxcbiAgMixcbiAgM1xuXSJ9"},"name":"Assertion Report","timestamp":"2019-11-14T01:27:21.144Z"}}
             {"type":"InteractionFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yrb0001hd6ub6joksw8","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Expected list of numbers to equal a Promise\\\\n    at Ensure.asAssertionError (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:56:16)\\\\n    at Ensure.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:52:21)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\",\\"message\\":\\"Expected list of numbers to equal a Promise\\",\\"expected\\":[1,2],\\"actual\\":[1,2,3]}"},"timestamp":"2019-11-14T01:27:21.145Z","details":{"name":"Artemis ensures that list of numbers does equal a Promise","location":{"path":"src/example.ts"}}}}
             {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yri0003hd6utrdysnaq","outcome":{"code":4,"error":"{\\"name\\":\\"AssertionError\\",\\"stack\\":\\"AssertionError: Expected list of numbers to equal a Promise\\\\n    at Ensure.asAssertionError (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:56:16)\\\\n    at Ensure.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:52:21)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\",\\"message\\":\\"Expected list of numbers to equal a Promise\\",\\"expected\\":[1,2],\\"actual\\":[1,2,3]}"},"timestamp":"2019-11-14T01:27:21.150Z","details":{"name":"Given a step that fails with an assertion error","location":{"path":"src/example.ts"}}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2y19yri0004hd6uezrh3spb","timestamp":"2019-11-14T01:27:21.150Z","details":{"name":"And a step that passes","location":{"path":"src/example.ts"}}}}
@@ -192,16 +191,6 @@ describe('ConsoleReporter', () => {
                 |
                 |   Given a step that fails with an assertion error
                 |     ✗ Artemis ensures that list of numbers does equal a Promise (2ms)
-                |
-                |       Difference (+ expected, - actual):
-                |
-                |         [
-                |           1,
-                |       -   2,
-                |       -   3
-                |       +   2
-                |         ]
-                |
                 |   ⇢ And a step that passes
                 |
                 | ✗ Execution failed with assertion error (32ms)
@@ -222,7 +211,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 35ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
 
         it('pinpoints exactly where the failure happened', () => emitter.emit(`
@@ -235,7 +224,6 @@ describe('ConsoleReporter', () => {
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpa0001fa6uusada8jg","timestamp":"2019-11-14T23:27:24.814Z","details":{"name":"Artemis sets up the test data","location":{"path":"src/example.ts"}}}}
             {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpa0002fa6u3bhkdnzq","timestamp":"2019-11-14T23:27:24.814Z","details":{"name":"Artemis connects to the database","location":{"path":"src/example.ts"}}}}
             {"type":"InteractionStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpb0003fa6u43q63m5z","timestamp":"2019-11-14T23:27:24.815Z","details":{"name":"Artemis ensures that the database server status does equal 'working'","location":{"path":"src/example.ts"}}}}
-            {"type":"ActivityRelatedArtifactGenerated","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpb0003fa6u43q63m5z","artifact":{"type":"AssertionReport","base64EncodedValue":"eyJleHBlY3RlZCI6Iid3b3JraW5nJyIsImFjdHVhbCI6Iidkb3duJyJ9"},"name":"Assertion Report","timestamp":"2019-11-14T23:27:24.816Z"}}
             {"type":"InteractionFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpb0003fa6u43q63m5z","outcome":{"code":1,"error":"{\\"name\\":\\"TestCompromisedError\\",\\"stack\\":\\"TestCompromisedError: Database server is down\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:87:16)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\\\nCaused by: AssertionError: Expected the database server status to equal 'working'\\\\n    at EnsureOrFailWithCustomError.Ensure.asAssertionError (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:56:16)\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:85:37)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\",\\"message\\":\\"Database server is down\\",\\"cause\\":{\\"name\\":\\"AssertionError\\",\\"expected\\":\\"working\\",\\"actual\\":\\"down\\"}}"},"timestamp":"2019-11-14T23:27:24.822Z","details":{"name":"Artemis ensures that the database server status does equal 'working'","location":{"path":"src/example.ts"}}}}
             {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpa0002fa6u3bhkdnzq","outcome":{"code":1,"error":"{\\"name\\":\\"TestCompromisedError\\",\\"stack\\":\\"TestCompromisedError: Database server is down\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:87:16)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\\\nCaused by: AssertionError: Expected the database server status to equal 'working'\\\\n    at EnsureOrFailWithCustomError.Ensure.asAssertionError (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:56:16)\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:85:37)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\",\\"message\\":\\"Database server is down\\",\\"cause\\":{\\"name\\":\\"AssertionError\\",\\"expected\\":\\"working\\",\\"actual\\":\\"down\\"}}"},"timestamp":"2019-11-14T23:27:24.826Z","details":{"name":"Artemis connects to the database","location":{"path":"src/example.ts"}}}}
             {"type":"TaskFinished","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ck2zcfkpa0001fa6uusada8jg","outcome":{"code":1,"error":"{\\"name\\":\\"TestCompromisedError\\",\\"stack\\":\\"TestCompromisedError: Database server is down\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:87:16)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\\\nCaused by: AssertionError: Expected the database server status to equal 'working'\\\\n    at EnsureOrFailWithCustomError.Ensure.asAssertionError (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:56:16)\\\\n    at EnsureOrFailWithCustomError.errorForOutcome (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:85:37)\\\\n    at MatchesObjectsWithCommonPrototype.transformation (/Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:33:36)\\\\n    at MatchesObjectsWithCommonPrototype.MatcherRule.execute (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/rules/MatcherRule.ts:13:21)\\\\n    at ObjectMatcher.PatternMatcher.else (/Users/jan/Projects/serenity-js/node_modules/tiny-types/src/pattern-matching/PatternMatcher.ts:17:71)\\\\n    at /Users/jan/Projects/serenity-js/packages/assertions/src/Ensure.ts:36:26\\",\\"message\\":\\"Database server is down\\",\\"cause\\":{\\"name\\":\\"AssertionError\\",\\"expected\\":\\"working\\",\\"actual\\":\\"down\\"}}"},"timestamp":"2019-11-14T23:27:24.827Z","details":{"name":"Artemis sets up the test data","location":{"path":"src/example.ts"}}}}
@@ -258,12 +246,6 @@ describe('ConsoleReporter', () => {
                 |       Artemis connects to the database
                 |         ✗ Artemis ensures that the database server status does equal 'working' (7ms)
                 |           TestCompromisedError: Database server is down
-                |
-                |           Difference (+ expected, - actual):
-                |
-                |           - 'down'
-                |           + 'working'
-                |
                 |   ⇢ And a step that passes
                 |
                 | ✗ Execution compromised (49ms)
@@ -290,7 +272,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 51ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 
@@ -363,7 +345,7 @@ describe('ConsoleReporter', () => {
                 | Real time: 56ms
                 | Scenarios:  1
                 | ================================================================================
-            `);
+                |`);
         }));
     });
 });

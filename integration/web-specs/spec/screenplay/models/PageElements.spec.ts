@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { Actor, actorCalled, Answerable, AssertionError, Duration, Interaction, notes, QuestionAdapter, Timestamp, Wait } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
@@ -471,10 +472,10 @@ describe('PageElements', () => {
                 const elapsedWallClockTime = endTime.diff(startTime);
 
                 expect(elapsedWallClockTime.inMilliseconds()).to.be.greaterThanOrEqual(timeout.inMilliseconds());
-                expect(error.expected).to.be.undefined;
-                expect(error.actual).to.be.undefined;
                 expect(error).to.be.instanceOf(AssertionError);
-                expect(error.message).to.be.equal(`Waited 1s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'`);
+                expect(error.message).to.match(new RegExp(trimmed`
+                    | Waited 1s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'
+                    | \\s{4}at .*screenplay/models/PageElements.spec.ts:458:26`));
             }
         });
     });

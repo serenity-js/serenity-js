@@ -1,1 +1,1 @@
-export * from './TrackedActivity';
+export * from './PerformsActivities';

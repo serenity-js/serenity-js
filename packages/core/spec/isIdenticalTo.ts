@@ -1,6 +1,8 @@
-import { Expectation } from '../src';
+import { d, Expectation } from '../src';
 
-export function isIdenticalTo<T>(expected: T): Expectation<T> {
-    return Expectation.thatActualShould<T, T>('have value identical to', expected)
-        .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
-}
+export const isIdenticalTo = Expectation.define(
+    'isIdenticalTo',
+    expected => d`have value identical to ${ expected }`,
+    <T>(actual: T, expected: T) =>
+        actual === expected,
+)

@@ -1,4 +1,4 @@
-import { Duration, Interaction } from '@serenity-js/core';
+import { Ability, Duration, Interaction } from '@serenity-js/core';
 import { describe, it, test } from '@serenity-js/playwright-test';
 
 describe('Playwright Test reporting', () => {
@@ -27,16 +27,13 @@ describe('Playwright Test reporting', () => {
 
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
-class CauseTimeoutProblemsWhenDiscarded {
-    static as(actor) {
-        return actor.abilityTo(CauseTimeoutProblemsWhenDiscarded);
-    }
-
+class CauseTimeoutProblemsWhenDiscarded extends Ability {
     constructor(private readonly timeout: Duration) {
+        super();
     }
 
     discard() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             setTimeout(resolve, this.timeout.inMilliseconds())
         });
     }

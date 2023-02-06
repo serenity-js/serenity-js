@@ -1,10 +1,11 @@
 import { beforeEach, describe, it } from 'mocha';
+import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question, UsesAbilities } from '../../src/screenplay';
+import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
@@ -40,7 +41,7 @@ describe('Actor', () => {
     });
 
     it('provides a developer-friendly toString', () => {
-        class DoCoolThings implements Ability {
+        class DoCoolThings extends Ability {
         }
 
         expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[])');
@@ -68,7 +69,7 @@ describe('Actor', () => {
             expect(guitar.play.getCall(2)).to.have.been.calledWith(Chords.EMajor);
         }));
 
-    describe('asks Questions about the state of the system', () => {
+    describe('answers Questions about the state of the system', () => {
 
         it('fulfills the promise should the question be answered as expected', () => {
             guitar.availableStrings.returns(Promise.resolve(['E2', 'A2', 'D3', 'G3', 'B3', 'E4' ]));
@@ -79,7 +80,7 @@ describe('Actor', () => {
             )).to.be.fulfilled;
         });
 
-        it('rejects the promise should the answer differ from what was expected', () => {
+        it('rejects the promise should it fail to complete an Activity', () => {
             const oneStringMissing = ['E2', 'A2', 'D3', 'G3', 'B3' ];
             guitar.availableStrings.returns(Promise.resolve(oneStringMissing));
 
@@ -102,18 +103,65 @@ describe('Actor', () => {
 
             expect(() => actor('Ben').whoCan(new DoSomethingElse()).abilityTo(PlayAGuitar))
                 .to.throw(ConfigurationError, `Ben can DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
-        })
+        });
 
-        it('complains if given the same ability twice', () => {
+        describe('that are abstract', () => {
 
-            expect(() =>
-                actor('Ben').whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
-            ).to.throw(ConfigurationError, `Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`);
+            class NotAnAbility {}
+
+            abstract class MakePhoneCalls extends Ability {}
+            class UseMobilePhone extends MakePhoneCalls {}
+            class UseLandline extends MakePhoneCalls {
+                constructor(public phoneNumber: string) {
+                    super();
+                }
+            }
+
+            given([
+                { description: 'undefined',     ability: undefined,             received: 'undefined'       },
+                { description: 'null',          ability: null,                  received: 'null'            },  // eslint-disable-line unicorn/no-null
+                { description: 'object',        ability: { },                   received: 'object'          },
+                { description: 'instance',      ability: new NotAnAbility(),    received: 'NotAnAbility'    },
+            ]).
+            it(`complains if requested to use an ability object that doesn't extend Ability`, ({ ability, received }) => {
+                expect(() =>
+                    actor('Ben').whoCan(ability)
+                ).to.throw(ConfigurationError, `Custom abilities must extend Ability from '@serenity-js/core'. Received ${ received }`);
+            });
+
+            it('retrieves the more specific ability when the more generic ability type is requested', () => {
+                const ben = actor('Ben').whoCan(new UseMobilePhone());
+
+                const ability = MakePhoneCalls.as(ben);
+
+                expect(ability).to.be.instanceOf(UseMobilePhone);
+            });
+
+            it('allows for an ability of a given type to be overridden', () => {
+                const ben = actor('Ben')
+                    .whoCan(new UseLandline('555-123-123'))
+                    .whoCan(new UseLandline('555-456-456'));
+
+                const ability = UseLandline.as(ben);
+
+                expect(ability.phoneNumber).to.equal('555-456-456');
+            });
+
+            it('allows for a specific ability of a given type to be overridden by another specific ability when they share the same generic type', () => {
+                const ben = actor('Ben')
+                    .whoCan(new UseLandline('555-123-123'))
+                    .whoCan(new UseMobilePhone());
+
+                const ability = MakePhoneCalls.as(ben);
+
+                expect(ability).to.be.instanceOf(UseMobilePhone);
+                expect(ben.toString()).to.equal(`Actor(name=Ben, abilities=[UseMobilePhone])`)
+            })
         });
 
         describe('that have to be initialised', () => {
 
-            class UseDatabase implements Initialisable, Ability {
+            class UseDatabase extends Ability implements Initialisable {
                 public callsToInitialise = 0;
                 private connection;
 
@@ -128,7 +176,7 @@ describe('Actor', () => {
                 }
             }
 
-            class UseBrokenDatabase implements Initialisable, Ability {
+            class UseBrokenDatabase extends Ability implements Initialisable {
                 initialise(): Promise<void> | void {
                     throw new Error('DB server is down, please cheer it up');
                 }
@@ -229,8 +277,5 @@ class See<S> extends Interaction {
     }
 }
 
-class DoSomethingElse implements Ability {
-    static as(actor: UsesAbilities): Ability {
-        return undefined;
-    }
+class DoSomethingElse extends Ability {
 }

@@ -1,5 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
 import { endsWith, Ensure } from '../../src';
@@ -15,11 +16,14 @@ describe('endsWith', () => {
     it('breaks the actor flow when "actual" does not end with "expected"', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', endsWith('Mundo!')),
-        )).to.be.rejectedWith(AssertionError, `Expected 'Hello World!' to end with 'Mundo!'`)
-            .then((error: AssertionError) => {
-                expect(error.expected).to.equal('Mundo!');
-                expect(error.actual).to.equal('Hello World!');
-            });
+        )).to.be.rejectedWith(AssertionError, trimmed`
+            | Expected 'Hello World!' to end with 'Mundo!'
+            |
+            | Expectation: endsWith('Mundo!')
+            |
+            | Expected string: Mundo!
+            | Received string: Hello World!
+            |`);
     });
 
     it('contributes to a human-readable description', () => {

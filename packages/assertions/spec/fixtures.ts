@@ -1,4 +1,4 @@
-import { Actor, Expectation, Question, QuestionAdapter } from '@serenity-js/core';
+import { Actor, d, Expectation, Question, QuestionAdapter } from '@serenity-js/core';
 
 export function p<T>(value: T): Promise<T> {
     return Promise.resolve(value);
@@ -8,7 +8,9 @@ export function q<T>(value: T): QuestionAdapter<Awaited<T>> {
     return Question.about(`something`, (_: Actor) => value);
 }
 
-export function isIdenticalTo<T>(expected: T): Expectation<T> {
-    return Expectation.thatActualShould<T, T>('have value identical to', expected)
-        .soThat((actualValue: T, expectedValue: T) => actualValue === expectedValue);
-}
+export const isIdenticalTo = Expectation.define(
+    'isIdenticalTo',
+    (expected) => d`have value identical to ${ expected }`,
+    <T>(actual: T, expected: T) =>
+        actual === expected,
+)

@@ -1,4 +1,4 @@
-import { Answerable, Expectation } from '@serenity-js/core';
+import { Expectation } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `Date`
@@ -39,7 +39,8 @@ import { Answerable, Expectation } from '@serenity-js/core';
  *
  * @group Expectations
  */
-export function isAfter(expected: Answerable<Date>): Expectation<Date> {
-    return Expectation.thatActualShould<Date, Date>('have value that is after', expected)
-        .soThat((actualValue, expectedValue) => actualValue.getTime() > expectedValue.getTime());
-}
+export const isAfter = Expectation.define(
+    'isAfter', 'have value that is after',
+    (actual: Date, expected: Date) =>
+        actual.getTime() > expected.getTime()
+);

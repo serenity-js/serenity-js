@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
-import { Cast, Clock, Duration, Stage, StageManager } from '@serenity-js/core';
+import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { RemoteCapability } from '@wdio/types/build/Capabilities';
 import { Suite, Test, TestResult } from '@wdio/types/build/Frameworks';
 import { afterEach, beforeEach, describe, it } from 'mocha';
@@ -72,7 +72,8 @@ describe('WebdriverIONotifier', () => {
 
         stage = new Stage(
             Cast.whereEveryoneCan(/* do nothing much */),
-            new StageManager(Duration.ofMilliseconds(250), new Clock())
+            new StageManager(Duration.ofMilliseconds(250), new Clock()),
+            new ErrorFactory(),
         );
 
         notifier = new WebdriverIONotifier(
@@ -588,8 +589,6 @@ describe('WebdriverIONotifier', () => {
                 expect(result.passed).to.equal(false);
                 expect(result.status).to.equal('failed');
                 expect(result.retries).to.deep.equal({ attempts: 0, limit: 0 });
-                expect(result.error.actual).to.equal(false);
-                expect(result.error.expected).to.equal(true);
                 expect(result.error.message).to.equal('Expected false to be true');
                 expect(result.error.name).to.equal('AssertionError');
                 expect(result.error.type).to.equal('AssertionError');

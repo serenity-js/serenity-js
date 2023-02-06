@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, Optional } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, Optional } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the `actual` value is not undefined or null.
@@ -91,16 +91,16 @@ class IsPresent<Actual> extends Expectation<Actual> {
 
     constructor() {
         super(
+            'isPresent',
             'become present',
             async (actor: AnswersQuestions, actual: Answerable<Actual>) => {
 
-                const value = await IsPresent.valueToCheck(actual, actor);
-
+                const value  = await IsPresent.valueToCheck(actual, actor);
                 const result = await IsPresent.isPresent(value, actor);
 
                 return result
-                    ? new ExpectationMet('become present', undefined, undefined)
-                    : new ExpectationNotMet('become present', undefined, undefined);
+                    ? new ExpectationMet('become present', ExpectationDetails.of('isPresent'), true, actual)
+                    : new ExpectationNotMet('become present', ExpectationDetails.of('isPresent'), true, actual);
             }
         );
     }

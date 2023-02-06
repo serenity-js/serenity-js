@@ -1,17 +1,17 @@
 import { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from './ErrorSerialiser';
+import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that a test framework or test suite configuration error occurred.
+ * Thrown to indicate that an unknown error has occurred.
  *
  * @group Errors
  */
-export class ConfigurationError extends RuntimeError {
+export class UnknownError extends RuntimeError {
 
-    static fromJSON(serialised: JSONObject): ConfigurationError {
-        const error = new ConfigurationError(
+    static fromJSON(serialised: JSONObject): UnknownError {
+        const error = new UnknownError(
             serialised.message as string,
             ErrorSerialiser.deserialise(serialised.cause as string | undefined),
         );
@@ -26,6 +26,6 @@ export class ConfigurationError extends RuntimeError {
      * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
      */
     constructor(message: string, cause?: Error) {
-        super(ConfigurationError, message, cause);
+        super(UnknownError, message, cause);
     }
 }

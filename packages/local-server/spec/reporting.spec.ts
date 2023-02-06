@@ -1,5 +1,3 @@
-import 'chai-as-promised';
-
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, not, startsWith } from '@serenity-js/assertions';
 import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';

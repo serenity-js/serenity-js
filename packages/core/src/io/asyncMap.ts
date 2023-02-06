@@ -10,7 +10,9 @@ export function asyncMap<Item_Type, Result_Type>(items: Item_Type[], mappingFunc
             previous.then(async (acc) => {
                 const result = await mappingFunction(item);
 
-                return acc.concat(result);
+                acc.push(result)
+
+                return acc;
             })
         , Promise.resolve([])
     );

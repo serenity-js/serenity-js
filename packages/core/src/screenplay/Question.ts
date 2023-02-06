@@ -1,11 +1,14 @@
 import { isRecord } from 'tiny-types/lib/objects';
+import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
-import { f } from '../io';
-import { AnswersQuestions, UsesAbilities } from './actor';
+import { f, inspectedObject } from '../io';
+import { UsesAbilities } from './abilities';
 import { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
 import { Optional } from './Optional';
+import { AnswersQuestions } from './questions/AnswersQuestions';
+import { Unanswered } from './questions/Unanswered';
 import { RecursivelyAnswered } from './RecursivelyAnswered';
 import { WithAnswerableProperties } from './WithAnswerableProperties';
 
@@ -217,10 +220,28 @@ export abstract class Question<T> {
     }
 
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
-        return new Proxy<() => Question<AT>, QuestionStatement<AT>>(() => statement, {
+        function getStatement() {
+            return statement;
+        }
+
+        if (typeof statement[util.inspect.custom] === 'function') {
+            Object.defineProperty(
+                // statement must be a function because Proxy apply trap works only with functions
+                getStatement,
+                util.inspect.custom, {
+                    value: statement[util.inspect.custom].bind(statement),
+                    writable: false,
+                })
+        }
+
+        return new Proxy<() => Question<AT>, QuestionStatement<AT>>(getStatement, {
 
             get(currentStatement: () => Question<AT>, key: string | symbol, receiver: any) {
                 const target = currentStatement();
+
+                if (key === util.inspect.custom) {
+                    return target[util.inspect.custom].bind(target);
+                }
 
                 if (key === Symbol.toPrimitive) {
                     return (_hint: 'number' | 'string' | 'default') => {
@@ -273,7 +294,6 @@ export abstract class Question<T> {
             },
 
             apply(currentStatement: () => Question<AT>, _thisArgument: any, parameters: unknown[]): QuestionAdapter<AT> {
-
                 const target = currentStatement();
 
                 return Question.about(Question.methodDescription(target, parameters), async actor => {
@@ -411,6 +431,8 @@ export type QuestionAdapter<T> =
 /** @package */
 class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
 
+    private answer: Answer_Type | Unanswered = new Unanswered();
+
     constructor(
         private subject: string,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
@@ -423,15 +445,20 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
      * returns a value other than `null` or `undefined`, and doesn't throw errors.
      */
     isPresent(): Question<Promise<boolean>> {
-        return new IsPresent(f`${ this }.isPresent()`, this.body);
+        return new IsPresent(this);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
-        return this.body(actor);
+        this.answer = await this.body(actor);
+        return this.answer;
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         await this.body(actor);
+    }
+
+    [util.inspect.custom](depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect): string {
+        return inspectedObject(this.answer)(depth, options, inspect);
     }
 
     describedAs(subject: string): this {
@@ -461,16 +488,16 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
  */
 class IsPresent<T> extends Question<Promise<boolean>> {
 
-    constructor(
-        private subject: string,
-        private readonly body: (actor: AnswersQuestions & UsesAbilities) => T,
-    ) {
+    private subject: string;
+
+    constructor(private readonly question: Question<T>) {
         super();
+        this.subject = f`${question}.isPresent()`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
         try {
-            const answer = await this.body(actor);
+            const answer = await actor.answer(this.question);
 
             if (answer === undefined || answer === null) {
                 return false;

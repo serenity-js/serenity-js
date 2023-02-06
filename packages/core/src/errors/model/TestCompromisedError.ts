@@ -1,6 +1,6 @@
 import { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from './ErrorSerialiser';
+import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**

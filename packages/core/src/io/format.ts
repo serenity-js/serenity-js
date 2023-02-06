@@ -1,5 +1,5 @@
 import { Answerable } from '../screenplay';
-import { inspected } from './inspected';
+import { stringified } from './stringified';
 
 /**
  * {@apilink format} is a factory function returning
@@ -62,9 +62,9 @@ export function format(config: { markQuestions: boolean }): (templates: Template
     return (templates: TemplateStringsArray, ...placeholders: Array<Answerable<any>>): string => {
         return templates
             .map((template, i) => i < placeholders.length
-                ? [ template, inspected(placeholders[i], { inline: true, markQuestions: config.markQuestions }) ]
+                ? [ template, stringified(placeholders[i], { inline: true, markQuestions: config.markQuestions }) ]
                 : [ template ])
-            .reduce((acc, tuple) => acc.concat(tuple))
+            .reduce((acc, tuple) => acc.concat(tuple), [])
             .join('');
     }
 }

@@ -113,15 +113,16 @@ export class CucumberMessagesParser {
 
     parseTestStepStarted(message: TestStepStarted): DomainEvent[] {
         return this.extract(this.stepFrom(message), (step): DomainEvent | void => {
-            this.currentStepActivityId = this.serenity.assignNewActivityId();
-
             if (this.shouldReportStep(step)) {
+                const activityDetails = this.activityDetailsFor(step);
+                this.currentStepActivityId = this.serenity.assignNewActivityId(activityDetails);
+
                 return new TaskStarts(
                     this.serenity.currentSceneId(),
                     this.currentStepActivityId,
                     this.activityDetailsFor(step),
                     this.serenity.currentTime()
-                )
+                );
             }
         });
     }

@@ -1,16 +1,19 @@
 import { TinyType } from 'tiny-types';
 
+import { ExpectationDetails } from './ExpectationDetails';
+
 /**
- * An outcome of an {@apilink Expectations},
- * which could be either {@apilink ExpectationMet|met} or {@apilink ExpectationNotMet|not met}
+ * An outcome of an {@apilink Expectation},
+ * which could be either {@apilink ExpectationMet|met} or {@apilink ExpectationNotMet|not met}.
  *
  * @group Expectations
  */
-export class ExpectationOutcome<Expected, Actual> extends TinyType {
+export class ExpectationOutcome extends TinyType {
     constructor(
         public readonly message: string,
-        public readonly expected: Expected,
-        public readonly actual: Actual,
+        public readonly expectation: ExpectationDetails,
+        public readonly expected: unknown,
+        public readonly actual: unknown,
     ) {
         super();
     }

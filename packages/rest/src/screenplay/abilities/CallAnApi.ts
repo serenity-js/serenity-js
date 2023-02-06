@@ -1,4 +1,4 @@
-import { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
+import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import axios, { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 /**
@@ -55,7 +55,7 @@ import axios, { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosReq
  *
  * @group Abilities
  */
-export class CallAnApi implements Ability {
+export class CallAnApi extends Ability {
 
     /** @private */
     private lastResponse: AxiosResponse;
@@ -95,24 +95,14 @@ export class CallAnApi implements Ability {
     }
 
     /**
-     * Used to access the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink CallAnApi}
-     * from within the {@apilink Interaction|interaction} classes,
-     * such as {@apilink Send}.
-     *
-     * @param actor
-     */
-    static as(actor: UsesAbilities): CallAnApi {
-        return actor.abilityTo(CallAnApi);
-    }
-
-    /**
      * #### Learn more
      * - [AxiosInstance](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L235-L238)
      *
      * @param axiosInstance
      *  A pre-configured instance of the Axios HTTP client
      */
-    protected constructor(private readonly axiosInstance: AxiosInstance) {
+    constructor(private readonly axiosInstance: AxiosInstance) {
+        super();
     }
 
     /**
