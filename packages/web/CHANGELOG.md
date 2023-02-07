@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
+
+
+### Bug Fixes
+
+* **core:** introduced ExpectationDetails to provide more accurate info re failed expectations ([02b8f33](https://github.com/serenity-js/serenity-js/commit/02b8f33732341a9391192fc52a59ea8a8f5f19f0)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **web:** renamed internal function `inspector` to `inspected` ([4d2b147](https://github.com/serenity-js/serenity-js/commit/4d2b14750ee2bfa3794cd0d5eba993689f1bc8b5))
+
+
+### Features
+
+* **core:** assertion errors include precise information about unmet expectations and improved diffs ([1eb09b1](https://github.com/serenity-js/serenity-js/commit/1eb09b1c1c8fb059b53bd7fcefab660581abc7bc)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** overridable abilities ([03966cc](https://github.com/serenity-js/serenity-js/commit/03966ccae40d102b7dbca1125beb90ceda8fbc50))
+
+
+
+
+
 # [3.0.0-rc.40](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.39...v3.0.0-rc.40) (2023-01-06)
 
 **Note:** Version bump only for package @serenity-js/web
