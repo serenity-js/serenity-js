@@ -1,5 +1,5 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
-import { ArtifactArchiver, configure, Duration } from '@serenity-js/core';
+import { ArtifactArchiver, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import * as playwright from 'playwright-core';
 
@@ -19,6 +19,7 @@ export const mochaHooks = {
                 defaultNavigationTimeout:   Duration.ofSeconds(1).inMilliseconds(),
                 defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
             }),
+            diffFormatter: new NoOpDiffFormatter(),
             crew: [
                 new TestRunnerTagger('playwright'),
                 ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
