@@ -1,3 +1,4 @@
+const { NoOpDiffFormatter } = require('@serenity-js/core');
 const { Actors } = require('./Actors');
 
 exports.config = {
@@ -11,6 +12,7 @@ exports.config = {
     serenity: {
         runner: 'cucumber',
         actors: new Actors(),
+        diffFormatter: new NoOpDiffFormatter(),
         // don't register the crew in here to allow for a native cucumber reporter test register a custom formatter
     },
 

@@ -1,4 +1,4 @@
-import { ArtifactArchiver, Serenity } from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Serenity } from '@serenity-js/core';
 import { protractor, Runner } from 'protractor';
 import { isRecord } from 'tiny-types/lib/objects';
 
@@ -41,6 +41,7 @@ export class ProtractorFrameworkAdapter {
         this.serenity.configure({
             cueTimeout:     config.serenity.cueTimeout,
             actors:         config.serenity.actors,
+            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
             crew:           [
                 BrowserDetector.with(StandardisedCapabilities.of(() => protractor.browser)),
                 ...config.serenity.crew,
