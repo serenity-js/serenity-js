@@ -1,8 +1,7 @@
 import { test as base, TestInfo } from '@playwright/test';
-import { Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
+import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { AnsiDiffFormatter } from '@serenity-js/core/src/errors/diff/AnsiDiffFormatter';
 import { BrowseTheWebWithPlaywright, PlaywrightPage } from '@serenity-js/playwright';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
