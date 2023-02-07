@@ -1,5 +1,5 @@
 const
-    { StreamReporter } = require('@serenity-js/core'),
+    { NoOpDiffFormatter, StreamReporter } = require('@serenity-js/core'),
     { ChildProcessReporter } = require('@integration/testing-tools'),
     { Actors } = require('./Actors');
 
@@ -14,6 +14,7 @@ exports.config = {
     serenity: {
         runner: 'mocha',
         actors: new Actors(),
+        diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new ChildProcessReporter(),
             new StreamReporter(),

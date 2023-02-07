@@ -1,5 +1,5 @@
 const { TestRunnerTagger } = require('@integration/testing-tools');
-const { ArtifactArchiver } = require('@serenity-js/core');
+const { ArtifactArchiver, NoOpDiffFormatter } = require('@serenity-js/core');
 const { ConsoleReporter } = require('@serenity-js/console-reporter');
 const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web');
 const { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
@@ -29,6 +29,7 @@ exports.config = {
     serenity: {
         actors: new Actors(),
         runner: 'mocha',
+        diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new TestRunnerTagger('protractor'),
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
