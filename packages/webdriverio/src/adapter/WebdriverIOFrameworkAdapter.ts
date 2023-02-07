@@ -1,4 +1,4 @@
-import { ArtifactArchiver, Serenity } from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Serenity } from '@serenity-js/core';
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import type { Capabilities } from '@wdio/types';
@@ -69,6 +69,7 @@ export class WebdriverIOFrameworkAdapter {
             outputStream:   outputStreamBuffer,
             cueTimeout:     config.serenity.cueTimeout,
             actors:         config.serenity.actors,
+            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
             crew: [
                 ...config.serenity.crew,
                 this.notifier,
