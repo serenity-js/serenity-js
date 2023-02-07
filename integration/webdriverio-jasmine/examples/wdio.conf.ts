@@ -1,5 +1,5 @@
 import { StdOutReporter } from '@integration/testing-tools';
-import { Duration } from '@serenity-js/core';
+import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 
 export const config: WebdriverIOConfig = {
@@ -8,6 +8,7 @@ export const config: WebdriverIOConfig = {
 
     serenity: {
         runner: 'jasmine',
+        diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new StdOutReporter(),
         ],

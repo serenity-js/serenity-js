@@ -1,5 +1,5 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
-import { ArtifactArchiver, Duration } from '@serenity-js/core';
+import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
@@ -77,6 +77,7 @@ export const config: WebdriverIOConfig = {
         actors: new Actors(),
         runner: 'mocha',
         cueTimeout: Duration.ofSeconds(10),
+        diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new TestRunnerTagger('webdriverio'),
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
