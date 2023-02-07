@@ -25,6 +25,6 @@ exports.config = {
             'features/step_definitions/**/*.ts',
             'features/support/setup.ts',
         ],
-        'require-module': ['ts-node/register'],
+        requireModule: ['ts-node/register'],
     },
 };
