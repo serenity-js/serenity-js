@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
+
+
+### Bug Fixes
+
+* **core:** removed AssertionReport and AssertionReportDiffer as they're no longer needed ([a968ac5](https://github.com/serenity-js/serenity-js/commit/a968ac57365e10b503e74db4319eb96b3430ffb0)), closes [#1480](https://github.com/serenity-js/serenity-js/issues/1480)
+
+
+### Features
+
+* **assertions:** diffs included in RuntimeErrors are now colour-coded ([f88efb4](https://github.com/serenity-js/serenity-js/commit/f88efb48180924351e8f7b25c44f3560b0e01b0d)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** better assertion errors reporting in Visual Studio Code ([3b94b7d](https://github.com/serenity-js/serenity-js/commit/3b94b7d606fae49e7ca77c2fbe09d07eeb042ea9)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** overridable abilities ([03966cc](https://github.com/serenity-js/serenity-js/commit/03966ccae40d102b7dbca1125beb90ceda8fbc50))
+
+
+
+
+
 # [3.0.0-rc.40](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.39...v3.0.0-rc.40) (2023-01-06)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

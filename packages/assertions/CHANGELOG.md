@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
+
+
+### Bug Fixes
+
+* **assertions:** custom errors thrown via Ensure now include activity location ([1fdf7a2](https://github.com/serenity-js/serenity-js/commit/1fdf7a29aa4065d9ad23a750aa7c3cde6e36e2f1)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **assertions:** interaction to Ensure no longer emits an AssertionReport artifact ([db3e5ae](https://github.com/serenity-js/serenity-js/commit/db3e5ae642f63ce808f52571f5ad840c614ef624)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** further improvements to how the expected vs received values are rendered in VS Code ([e2101d0](https://github.com/serenity-js/serenity-js/commit/e2101d0b11e56b1701bf75efe0d4f85ab72a6f48)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** introduced ExpectationDetails to provide more accurate info re failed expectations ([02b8f33](https://github.com/serenity-js/serenity-js/commit/02b8f33732341a9391192fc52a59ea8a8f5f19f0)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+
+
+### Features
+
+* **core:** assertion and synchronisation errors include location of the activity that threw them ([f06f378](https://github.com/serenity-js/serenity-js/commit/f06f378b9427d81a5adcea219ef01cf616a48c20)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** assertion errors include precise information about unmet expectations and improved diffs ([1eb09b1](https://github.com/serenity-js/serenity-js/commit/1eb09b1c1c8fb059b53bd7fcefab660581abc7bc)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** better assertion errors reporting in Visual Studio Code ([3b94b7d](https://github.com/serenity-js/serenity-js/commit/3b94b7d606fae49e7ca77c2fbe09d07eeb042ea9)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** new ability to RaiseErrors ([4617d39](https://github.com/serenity-js/serenity-js/commit/4617d39a7b0d72381834abe27ff4393cbc79d0f5)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+
+
+
+
+
 # [3.0.0-rc.40](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.39...v3.0.0-rc.40) (2023-01-06)
 
 **Note:** Version bump only for package @serenity-js/assertions

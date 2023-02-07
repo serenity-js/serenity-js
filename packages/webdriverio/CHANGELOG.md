@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
+
+
+### Features
+
+* **core:** better assertion errors reporting in Visual Studio Code ([3b94b7d](https://github.com/serenity-js/serenity-js/commit/3b94b7d606fae49e7ca77c2fbe09d07eeb042ea9)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **webdriverio:** improved assertion error reporting for WebdriverIO ([7513752](https://github.com/serenity-js/serenity-js/commit/75137526c70d92869c87a127454c5b90a9948b87)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+
+
+
+
+
 # [3.0.0-rc.40](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.39...v3.0.0-rc.40) (2023-01-06)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

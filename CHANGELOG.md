@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
+
+
+### Bug Fixes
+
+* **assertions:** custom errors thrown via Ensure now include activity location ([1fdf7a2](https://github.com/serenity-js/serenity-js/commit/1fdf7a29aa4065d9ad23a750aa7c3cde6e36e2f1)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **assertions:** interaction to Ensure no longer emits an AssertionReport artifact ([db3e5ae](https://github.com/serenity-js/serenity-js/commit/db3e5ae642f63ce808f52571f5ad840c614ef624)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** corrected issue in asyncMap that led lists of lists to be flat-mapped not mapped ([d7a6f1d](https://github.com/serenity-js/serenity-js/commit/d7a6f1d7281f34c56cf2b606681c8046b1cffce7))
+* **core:** easier configuration and automatic colour support detection for AnsiDiffFormatter ([637ed44](https://github.com/serenity-js/serenity-js/commit/637ed44ffb16484544ade975bcbc4c3929ffe8f9)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** further improvements to how the expected vs received values are rendered in VS Code ([e2101d0](https://github.com/serenity-js/serenity-js/commit/e2101d0b11e56b1701bf75efe0d4f85ab72a6f48)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** improved support for Node 14 ([f828b45](https://github.com/serenity-js/serenity-js/commit/f828b4563a3c5165dc066fc675d4e5c2b78c3a0a))
+* **core:** introduced ExpectationDetails to provide more accurate info re failed expectations ([02b8f33](https://github.com/serenity-js/serenity-js/commit/02b8f33732341a9391192fc52a59ea8a8f5f19f0)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** removed AssertionReport and AssertionReportDiffer as they're no longer needed ([a968ac5](https://github.com/serenity-js/serenity-js/commit/a968ac57365e10b503e74db4319eb96b3430ffb0)), closes [#1480](https://github.com/serenity-js/serenity-js/issues/1480)
+* **core:** removed the legacy Error (de-)serialisation mechanism ([7ea2b10](https://github.com/serenity-js/serenity-js/commit/7ea2b101c6d5ba1b32e14b3f24a5bd6b9c5c97f6))
+* **core:** typeOf now correctly recognises Proxy objects ([3ca68a3](https://github.com/serenity-js/serenity-js/commit/3ca68a33524556c43d288a9131e79cb53a9f392e))
+* **core:** updated npm-failsafe to 1.0.0 ([df80731](https://github.com/serenity-js/serenity-js/commit/df807312778e9722c893a9f410e51c1b15af01ac)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **playwright:** upgraded Playwright to 1.30.0 ([305a2c2](https://github.com/serenity-js/serenity-js/commit/305a2c258c06aa55685f99237cf3d3ce3c590122))
+* **web:** renamed internal function `inspector` to `inspected` ([4d2b147](https://github.com/serenity-js/serenity-js/commit/4d2b14750ee2bfa3794cd0d5eba993689f1bc8b5))
+
+
+### Features
+
+* **assertions:** diffs included in RuntimeErrors are now colour-coded ([f88efb4](https://github.com/serenity-js/serenity-js/commit/f88efb48180924351e8f7b25c44f3560b0e01b0d)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** assertion and synchronisation errors include location of the activity that threw them ([f06f378](https://github.com/serenity-js/serenity-js/commit/f06f378b9427d81a5adcea219ef01cf616a48c20)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** assertion errors include precise information about unmet expectations and improved diffs ([1eb09b1](https://github.com/serenity-js/serenity-js/commit/1eb09b1c1c8fb059b53bd7fcefab660581abc7bc)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** better assertion errors reporting in Visual Studio Code ([3b94b7d](https://github.com/serenity-js/serenity-js/commit/3b94b7d606fae49e7ca77c2fbe09d07eeb042ea9)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** error factory is now configurable, which allows for the diffs to include colours ([dac293d](https://github.com/serenity-js/serenity-js/commit/dac293de5f8baed5aee3246b5467c4bcfbebbb25)), closes [#1486](https://github.com/serenity-js/serenity-js/issues/1486)
+* **core:** new ability to RaiseErrors ([4617d39](https://github.com/serenity-js/serenity-js/commit/4617d39a7b0d72381834abe27ff4393cbc79d0f5)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **core:** overridable abilities ([03966cc](https://github.com/serenity-js/serenity-js/commit/03966ccae40d102b7dbca1125beb90ceda8fbc50))
+* **protractor:** improved assertion error reporting for Protractor ([8f8f91c](https://github.com/serenity-js/serenity-js/commit/8f8f91c4364239b6637b35e371c31a69674b9e72)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+* **webdriverio:** improved assertion error reporting for WebdriverIO ([7513752](https://github.com/serenity-js/serenity-js/commit/75137526c70d92869c87a127454c5b90a9948b87)), closes [#1102](https://github.com/serenity-js/serenity-js/issues/1102)
+
+
+
+
+
 # [3.0.0-rc.40](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.39...v3.0.0-rc.40) (2023-01-06)
 
 
