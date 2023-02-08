@@ -1,5 +1,5 @@
 import { BrowserTag, PlatformTag, Tag } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
+import type { Capabilities } from '@wdio/types';
 
 /**
  * @package

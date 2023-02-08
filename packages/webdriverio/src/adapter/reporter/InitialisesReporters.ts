@@ -1,4 +1,4 @@
-import { Reporters } from '@wdio/types';
+import type { Reporters } from '@wdio/types';
 
 /**
  * @package

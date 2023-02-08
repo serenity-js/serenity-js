@@ -2,7 +2,7 @@ import { Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { Tag } from '@serenity-js/core/lib/model';
 import Reporter from '@wdio/reporter';
-import { Capabilities, Options, Reporters } from '@wdio/types';
+import type { Capabilities, Options, Reporters } from '@wdio/types';
 
 import { TagPrinter } from './TagPrinter';
 

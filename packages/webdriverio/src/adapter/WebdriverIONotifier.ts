@@ -13,10 +13,10 @@ import {
     ProblemIndication,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
-import { Suite as suiteStats } from '@wdio/reporter/build/stats/suite';
-import { Test as testStats } from '@wdio/reporter/build/stats/test';
-import { RemoteCapability } from '@wdio/types/build/Capabilities';
-import * as frameworks from '@wdio/types/build/Frameworks';
+import type { Suite as suiteStats } from '@wdio/reporter/build/stats/suite';
+import type { Test as testStats } from '@wdio/reporter/build/stats/test';
+import type { RemoteCapability } from '@wdio/types/build/Capabilities';
+import type * as frameworks from '@wdio/types/build/Frameworks';
 import type { EventEmitter } from 'events';
 import { match } from 'tiny-types';
 
