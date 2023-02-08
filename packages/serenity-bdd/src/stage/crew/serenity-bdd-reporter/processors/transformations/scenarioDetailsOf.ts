@@ -1,5 +1,6 @@
 import { Path } from '@serenity-js/core/lib/io';
 import { ScenarioDetails } from '@serenity-js/core/lib/model';
+import { ensure, isNotBlank } from 'tiny-types';
 
 import { dashify } from '../mappers';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
@@ -9,7 +10,7 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
  */
 export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(details: ScenarioDetails): (context: Context) => Context  {
     return (context: Context): Context => {
-        context.report.name = details.name.value;
+        context.report.name = ensure('scenario name', details.name.value, isNotBlank());
         context.report.title = details.name.value;
         context.report.manual = false;
         context.report.testSteps = [];
