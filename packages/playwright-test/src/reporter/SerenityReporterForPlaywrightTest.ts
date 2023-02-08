@@ -191,13 +191,20 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     private scenarioDetailsFrom(test: TestCase) {
-        const [ root_, browserName_, fileName_, featureName, ...scenarioTitle] = test.titlePath();
+        const [ root_, browserName_, fileName, describeOrItBlockTitle, ...nestedTitles] = test.titlePath();
+
+        const path = new Path(test.location.file);
+        const scenarioName = nestedTitles.join(' ').trim();
+
+        const featureName = scenarioName
+            ? describeOrItBlockTitle
+            : fileName;
 
         return new ScenarioDetails(
-            new Name(scenarioTitle.join(' ')),
+            new Name(scenarioName || describeOrItBlockTitle),
             new Category(featureName),
             new FileSystemLocation(
-                new Path(test.location.file),
+                path,
                 test.location.line,
                 test.location.column,
             ),
