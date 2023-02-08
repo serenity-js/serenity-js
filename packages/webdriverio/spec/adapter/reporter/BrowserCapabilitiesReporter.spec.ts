@@ -2,8 +2,8 @@ import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
-import { RunnerStart } from '@wdio/types/build/Options';
+import type { Capabilities } from '@wdio/types';
+import type { RunnerStart } from '@wdio/types/build/Options';
 import { beforeEach, describe, it } from 'mocha';
 import { PassThrough } from 'stream';
 

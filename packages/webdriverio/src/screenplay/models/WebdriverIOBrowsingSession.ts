@@ -2,7 +2,7 @@ import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { BrowsingSession, ModalDialogHandler } from '@serenity-js/web';
 import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/api/Page';
-import * as wdio from 'webdriverio';
+import type * as wdio from 'webdriverio';
 
 import { WebdriverIOPage } from '../models';
 import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
@@ -16,7 +16,7 @@ import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerMo
  */
 export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
 
-    constructor(protected readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: wdio.Browser) {
         super();
 
         if (! browser.$ || ! browser.$$) {

@@ -43,14 +43,12 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || >=18"
   },
   "dependencies": {
     "@serenity-js/core": "3.0.0-rc.41",
     "@serenity-js/web": "3.0.0-rc.41",
-    "@wdio/reporter": "^7.29.1",
-    "@wdio/types": "^7.26.0",
+    "@wdio/reporter": "^8.3.0",
     "deepmerge": "^4.2.2",
     "tiny-types": "^1.19.0"
   },
@@ -58,8 +56,8 @@
     "@serenity-js/cucumber": "^3.0.0-rc",
     "@serenity-js/jasmine": "^3.0.0-rc",
     "@serenity-js/mocha": "^3.0.0-rc",
-    "@wdio/cli": "^7.29.1",
-    "webdriverio": "^7.29.1"
+    "@wdio/cli": "^8.3.3",
+    "webdriverio": "^8.3.3"
   },
   "peerDependenciesMeta": {
     "@serenity-js/cucumber": {
@@ -75,20 +73,20 @@
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
     "@types/mocha": "^10.0.1",
-    "@wdio/cli": "^7.29.1",
-    "@wdio/devtools-service": "^7.29.1",
-    "@wdio/dot-reporter": "^7.29.1",
-    "@wdio/local-runner": "^7.29.1",
-    "@wdio/mocha-framework": "^7.26.0",
-    "@wdio/spec-reporter": "^7.29.1",
-    "axios": "^1.2.2",
+    "@wdio/cli": "^8.3.3",
+    "@wdio/devtools-service": "^8.3.3",
+    "@wdio/dot-reporter": "^8.3.0",
+    "@wdio/local-runner": "^8.3.3",
+    "@wdio/mocha-framework": "^8.3.0",
+    "@wdio/spec-reporter": "^8.3.0",
+    "axios": "1.2.2",
     "cross-env": "^7.0.3",
     "mocha": "^10.2.0",
     "mocha-testdata": "^1.2.0",
     "nyc": "15.1.0",
     "puppeteer-core": "^19.4.1",
     "start-server-and-test": "^1.15.2",
-    "webdriverio": "^7.29.1"
+    "webdriverio": "^8.3.3"
   },
   "nyc": {
     "include": [

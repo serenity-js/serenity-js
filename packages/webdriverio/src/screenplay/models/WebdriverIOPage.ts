@@ -2,7 +2,7 @@ import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { URL } from 'url';
-import * as wdio from 'webdriverio';
+import type * as wdio from 'webdriverio';
 
 import { WebdriverIOLocator, WebdriverIORootLocator } from './locators';
 import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
@@ -15,13 +15,13 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement';
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
+export class WebdriverIOPage extends Page<wdio.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
         session: WebdriverIOBrowsingSession,
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: wdio.Browser,
         modalDialogHandler: ModalDialogHandler,
         private readonly errorHandler: WebdriverIOErrorHandler,
         pageId: CorrelationId,
@@ -34,13 +34,13 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         );
     }
 
-    locate(selector: Selector): PageElement<wdio.Element<'async'>> {
+    locate(selector: Selector): PageElement<wdio.Element> {
         return new WebdriverIOPageElement(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
-    locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
+    locateAll(selector: Selector): PageElements<wdio.Element> {
         return new PageElements(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         );

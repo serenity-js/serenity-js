@@ -36,13 +36,13 @@ import { WebdriverIOBrowsingSession } from '../models';
  *
  * @group Abilities
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element> {
 
-    static using(browserInstance: wdio.Browser<'async'>): BrowseTheWebWithWebdriverIO {
+    static using(browserInstance: wdio.Browser): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(browserInstance);
     }
 
-    constructor(protected readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: wdio.Browser) {
         super(new WebdriverIOBrowsingSession(browser));
     }
 
