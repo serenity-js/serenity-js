@@ -9,7 +9,7 @@ describe('@serenity-js/playwright-test', function () {
 
     describe('when no describe blocks are used', () => {
 
-        it('uses file name as feature name', () => playwrightTest('--project=default', 'no-describe-blocks.spec.ts')
+        it('uses file name as feature name', () => playwrightTest('--project=default', './no-describe-blocks.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -28,7 +28,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('uses nested file name as feature name', () => playwrightTest('--project=default', 'nested/no-describe-blocks.spec.ts')
+        it('uses nested file name as feature name', () => playwrightTest('--project=default', './nested/another-no-describe-blocks.spec.ts')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -40,7 +40,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
                     })
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('nested/no-describe-blocks.spec.ts')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('nested/another-no-describe-blocks.spec.ts')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 
                     .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
