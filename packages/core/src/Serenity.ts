@@ -271,8 +271,8 @@ export class Serenity {
         return this.stage.theActorInTheSpotlight();
     }
 
-    announce(event: DomainEvent): void {
-        this.stage.announce(event);
+    announce(...events: Array<DomainEvent>): void {
+        this.stage.announce(...events);
     }
 
     currentTime(): Timestamp {
