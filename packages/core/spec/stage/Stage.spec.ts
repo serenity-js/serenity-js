@@ -154,8 +154,10 @@ describe('Stage', () => {
 
                 stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()));
 
-                stage.announce(new TestRunFinishes(stage.currentTime()));
-                stage.announce(new TestRunFinished(stage.currentTime()));
+                stage.announce(
+                    new TestRunFinishes(stage.currentTime()),
+                    new TestRunFinished(new ExecutionSuccessful(), stage.currentTime())
+                );
 
                 await stage.waitForNextCue()
 
@@ -170,20 +172,26 @@ describe('Stage', () => {
 
                 stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
                 stage.actor('Bob');
-                stage.announce(new SceneFinishes(sceneId, stage.currentTime()));
-                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()));
+                stage.announce(
+                    new SceneFinishes(sceneId, stage.currentTime()),
+                    new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()),
+                );
 
                 await stage.waitForNextCue();
 
                 stage.announce(new SceneStarts(anotherSceneId, scenario, stage.currentTime()));
                 stage.actor('Bob');
-                stage.announce(new SceneFinishes(anotherSceneId, stage.currentTime()));
-                stage.announce(new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful(), stage.currentTime()));
+                stage.announce(
+                    new SceneFinishes(anotherSceneId, stage.currentTime()),
+                    new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful(), stage.currentTime()),
+                );
 
                 await stage.waitForNextCue();
 
-                stage.announce(new TestRunFinishes(stage.currentTime()));
-                stage.announce(new TestRunFinished(stage.currentTime()));
+                stage.announce(
+                    new TestRunFinishes(stage.currentTime()),
+                    new TestRunFinished(new ExecutionSuccessful(), stage.currentTime()),
+                );
 
                 await stage.waitForNextCue();
 
@@ -198,15 +206,18 @@ describe('Stage', () => {
 
                 const actor = stage.actor('Bob');
 
-                stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
-                stage.announce(new SceneFinishes(sceneId, stage.currentTime()));
+                stage.announce(
+                    new SceneStarts(sceneId, scenario, stage.currentTime()),
+                    new SceneFinishes(sceneId, stage.currentTime()),
+                );
 
                 expect(actor.dismiss).to.have.not.been.called;
 
-                stage.announce(new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()));
-
-                stage.announce(new TestRunFinishes(stage.currentTime()));
-                stage.announce(new TestRunFinished(stage.currentTime()));
+                stage.announce(
+                    new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()),
+                    new TestRunFinishes(stage.currentTime()),
+                    new TestRunFinished(new ExecutionSuccessful(), stage.currentTime()),
+                );
 
                 await stage.waitForNextCue()
 
@@ -233,8 +244,10 @@ describe('Stage', () => {
 
                 await stage.waitForNextCue();
 
-                stage.announce(new TestRunFinishes(stage.currentTime()));
-                stage.announce(new TestRunFinished(stage.currentTime()));
+                stage.announce(
+                    new TestRunFinishes(stage.currentTime()),
+                    new TestRunFinished(new ExecutionSuccessful(), stage.currentTime()),
+                );
 
                 await stage.waitForNextCue();
 

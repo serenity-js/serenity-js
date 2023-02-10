@@ -4,7 +4,7 @@ import { Writable } from 'stream';
 
 import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter } from '../../../../src';
 import { TestRunFinished } from '../../../../src/events';
-import { Timestamp } from '../../../../src/model';
+import { ExecutionSuccessful, Timestamp } from '../../../../src/model';
 import { expect } from '../../../expect';
 
 describe('StreamReporter', () => {
@@ -32,10 +32,10 @@ describe('StreamReporter', () => {
         const reporter = new StreamReporter(output as unknown as Writable, stage);
         stage.assign(reporter);
 
-        stage.announce(new TestRunFinished(Timestamp.fromJSON('2021-01-13T18:00:00Z')));
+        stage.announce(new TestRunFinished(new ExecutionSuccessful(), Timestamp.fromJSON('2021-01-13T18:00:00Z')));
 
         expect(output.write).to.have.been.calledWith(
-            `{"type":"TestRunFinished","event":"2021-01-13T18:00:00.000Z"}\n`
+            `{"type":"TestRunFinished","event":{"outcome":{"code":64},"timestamp":"2021-01-13T18:00:00.000Z"}}\n`
         );
     });
 });

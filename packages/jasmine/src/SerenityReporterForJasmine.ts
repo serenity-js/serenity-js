@@ -141,7 +141,11 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         return this.serenity.waitForNextCue()
             .then(() => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()));
+                this.emit(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+            })
+            .catch(error => {
+                this.emit(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+                throw error;
             });
     }
 

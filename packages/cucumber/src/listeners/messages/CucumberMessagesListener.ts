@@ -2,6 +2,7 @@ import { Envelope, IdGenerator } from '@cucumber/messages';
 import { Serenity } from '@serenity-js/core';
 import { DomainEvent, SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
 import { IParsedTestStep } from './types/cucumber';
@@ -73,10 +74,18 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslin
         public async finished(): Promise<void> {
             this.emit(new TestRunFinishes(serenity.currentTime()));
 
-            await serenity.waitForNextCue();
-            await super.finished();
+            try {
+                await serenity.waitForNextCue();
 
-            this.emit(new TestRunFinished(serenity.currentTime()));
+                this.emit(new TestRunFinished(new ExecutionSuccessful(), serenity.currentTime()));
+            }
+            catch(error) {
+                this.emit(new TestRunFinished(new ExecutionFailedWithError(error), serenity.currentTime()));
+                throw error;
+            }
+            finally {
+                await super.finished();
+            }
         }
 
         addAfterHook(code: (...args: any) => Promise<void> | void) {

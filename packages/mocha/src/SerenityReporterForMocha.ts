@@ -133,17 +133,22 @@ export class SerenityReporterForMocha extends reporters.Base {
         );
     }
 
-    public done(failures: number, fn?: (failures: number) => void): void {
+    public done(failures: number, callback?: (failures: number) => void): void {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
 
         this.serenity.waitForNextCue()
             .then(() => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()));
+                this.emit(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+                return callback(failures);
             })
             .catch(error => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()))     // todo: consider adding outcome to TestRunFinished
+                const numberOfFailures = failures === 0
+                    ? 1
+                    : failures;
+
+                this.emit(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+                return callback(numberOfFailures);
             })
-            .then(() => fn(failures));
     }
 
     private announceSuiteStartsFor(suite: Suite): void {
