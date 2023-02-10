@@ -1,6 +1,6 @@
 import { DomainEventQueues, Stage, StageCrewMember } from '@serenity-js/core';
-import { ArtifactGenerated, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
 
 import { EventQueueProcessors } from './processors';
 
@@ -100,17 +100,39 @@ export class SerenityBDDReporter implements StageCrewMember {
         }
 
         else if (event instanceof TestRunFinishes) {
+            const id = CorrelationId.create();
 
-            this.processors
-                .process(this.eventQueues)
-                .forEach(result => {
-                    this.stage.announce(new ArtifactGenerated(
-                        result.sceneId,
-                        result.name,
-                        result.artifact,
-                        this.stage.currentTime(),
-                    ));
-                });
+            this.stage.announce(new AsyncOperationAttempted(
+                new Name(this.constructor.name),
+                new Description(`Generating Serenity BDD JSON reports...`),
+                id,
+                this.stage.currentTime(),
+            ));
+
+            try {
+                this.processors
+                    .process(this.eventQueues)
+                    .forEach(result => {
+                        this.stage.announce(new ArtifactGenerated(
+                            result.sceneId,
+                            result.name,
+                            result.artifact,
+                            this.stage.currentTime(),
+                        ));
+                    });
+
+                this.stage.announce(new AsyncOperationCompleted(
+                    id,
+                    this.stage.currentTime(),
+                ));
+            }
+            catch (error) {
+                this.stage.announce(new AsyncOperationFailed(
+                    error,
+                    id,
+                    this.stage.currentTime(),
+                ));
+            }
         }
     }
 
