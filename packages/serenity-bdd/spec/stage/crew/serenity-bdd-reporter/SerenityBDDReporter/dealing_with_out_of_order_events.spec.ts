@@ -45,7 +45,7 @@ describe('SerenityBDDReporter', () => {
             {"type":"SceneFinishes","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.689Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
-            {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
+            {"type":"TestRunFinished","event":{"outcome":{"code":64},"timestamp":"2020-10-08T16:16:15.313Z"}}
         `).then(() => {
 
             PickEvent.from(recorder.events)
@@ -81,7 +81,7 @@ describe('SerenityBDDReporter', () => {
             {"type":"SceneFinishes","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.689Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
-            {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
+            {"type":"TestRunFinished","event":{"outcome":{"code":64},"timestamp":"2020-10-08T16:16:15.313Z"}}
         `).then(() => {
 
             PickEvent.from(recorder.events)

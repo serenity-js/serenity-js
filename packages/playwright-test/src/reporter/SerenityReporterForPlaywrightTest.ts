@@ -214,9 +214,14 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     async onEnd(): Promise<void> {
         this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()));
 
-        await this.serenity.waitForNextCue();
-
-        this.serenity.announce(new TestRunFinished(this.serenity.currentTime()));
+        try {
+            await this.serenity.waitForNextCue();
+            this.serenity.announce(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+        }
+        catch (error) {
+            this.serenity.announce(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+            throw error;
+        }
     }
 
     // TODO emit a text artifact with stdout?

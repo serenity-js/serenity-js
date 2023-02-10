@@ -74,7 +74,7 @@ export const
     scene2FinishedWith      = (outcome: Outcome) =>
         new SceneFinished(scene2Id, scenario2Details, outcome, startTime.plus(scene1Duration).plus(scene2Duration)),
     testRunFinishes         = new TestRunFinishes(startTime.plus(scene1Duration).plus(scene2Duration)),
-    testRunFinished         = new TestRunFinished(startTime.plus(scene1Duration).plus(scene2Duration)),
+    testRunFinished         = new TestRunFinished(new ExecutionSuccessful(), startTime.plus(scene1Duration).plus(scene2Duration)),
 
     retryableSceneStarts        = (index: number) =>
         new SceneStarts(new CorrelationId(`${ index }`), scenario1Details, startTime.plus(Duration.ofSeconds(index))),
