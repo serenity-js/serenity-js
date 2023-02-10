@@ -1,9 +1,9 @@
-import { Actor, Cast, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import * as sinon from 'sinon';
+import { EventRecorder } from '@integration/testing-tools';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 
 import { SerenityBDDReporter } from '../../../../src';
 
-export function create(): { stageManager: sinon.SinonStubbedInstance<StageManager>, reporter: SerenityBDDReporter } {
+export function create(): { stage: Stage, reporter: SerenityBDDReporter, recorder: EventRecorder } {
     class Extras implements Cast {
         prepare(actor: Actor): Actor {
             return actor;
@@ -11,12 +11,18 @@ export function create(): { stageManager: sinon.SinonStubbedInstance<StageManage
     }
 
     const
-        stageManager    = sinon.createStubInstance(StageManager),
-        stage           = new Stage(new Extras(), stageManager as unknown as StageManager, new ErrorFactory()),
-        reporter        = new SerenityBDDReporter(stage);
+        cueTimeout      = Duration.ofSeconds(1),
+        clock           = new Clock(),
+        stageManager    = new StageManager(cueTimeout, clock),
+        stage           = new Stage(new Extras(), stageManager, new ErrorFactory()),
+        reporter        = new SerenityBDDReporter(stage),
+        recorder        = new EventRecorder([], stage);
+
+    stage.assign(reporter, recorder);
 
     return {
-        stageManager,
+        stage,
         reporter,
+        recorder,
     };
 }

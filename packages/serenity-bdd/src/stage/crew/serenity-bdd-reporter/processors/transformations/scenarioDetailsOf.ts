@@ -10,13 +10,16 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
  */
 export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(details: ScenarioDetails): (context: Context) => Context  {
     return (context: Context): Context => {
-        context.report.name = ensure('scenario name', details.name.value, isNotBlank());
-        context.report.title = details.name.value;
+        const name      = ensure('scenario name', details.name.value, isNotBlank());
+        const category  = ensure('scenario category', details.category.value, isNotBlank());
+
+        context.report.name = name;
+        context.report.title = name;
         context.report.manual = false;
         context.report.testSteps = [];
         context.report.userStory = {
-            id: dashify(details.category.value),
-            storyName: details.category.value,
+            id: dashify(category),
+            storyName: category,
             path: isFeatureFile(details.location.path)
                 ? details.location.path.value
                 : '',
