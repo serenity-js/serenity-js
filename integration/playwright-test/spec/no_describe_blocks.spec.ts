@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
-import { FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { Category, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -19,6 +19,7 @@ describe('@serenity-js/playwright-test', function () {
                     .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
+                        expect(event.details.category).to.equal(new Category('no-describe-blocks.spec.ts'));
                     })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('no-describe-blocks.spec.ts')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
@@ -39,6 +40,7 @@ describe('@serenity-js/playwright-test', function () {
 
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
+                        expect(event.details.category).to.equal(new Category('nested/another-no-describe-blocks.spec.ts'));
                     })
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('nested/another-no-describe-blocks.spec.ts')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
