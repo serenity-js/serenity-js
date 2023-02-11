@@ -1,4 +1,5 @@
 import { Path } from '@serenity-js/core/lib/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../errors';
 import { Dependencies } from './Dependencies';
@@ -92,8 +93,16 @@ export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependen
             notifier.testRunFinishes();
 
             serenity.waitForNextCue()
-                .then(() => notifier.testRunFinished())
-                .then(() => callback(), error => callback(error));
+                .then(
+                    () => {
+                        notifier.testRunFinished(new ExecutionSuccessful());
+                        return callback();
+                    },
+                    error => {
+                        notifier.testRunFinished(new ExecutionFailedWithError(error));
+                        return callback(error);
+                    }
+                );
         });
     };
 };

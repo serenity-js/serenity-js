@@ -1,27 +1,32 @@
 /* eslint-disable unicorn/filename-case */
-import { expect } from '@integration/testing-tools';
-import { StageManager } from '@serenity-js/core';
-import { BusinessRuleDetected, SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { Stage } from '@serenity-js/core';
+import {
+    ArtifactGenerated,
+    BusinessRuleDetected,
+    SceneFinished,
+    SceneParametersDetected,
+    SceneSequenceDetected,
+    SceneStarts,
+    SceneTemplateDetected,
+    TestRunFinishes,
+} from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { BusinessRule, Category, CorrelationId, Description, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
-import * as sinon from 'sinon';
 
-import { SerenityBDDReporter } from '../../../../../src';
-import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
-import { given } from '../../given';
 import { create } from '../create';
 
 describe('SerenityBDDReporter', () => {
 
-    let stageManager: sinon.SinonStubbedInstance<StageManager>,
-        reporter: SerenityBDDReporter;
+    let stage: Stage,
+        recorder: EventRecorder;
 
     beforeEach(() => {
         const env = create();
 
-        stageManager    = env.stageManager;
-        reporter        = env.reporter;
+        stage       = env.stage;
+        recorder    = env.recorder;
     });
 
     // see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context
@@ -49,21 +54,24 @@ describe('SerenityBDDReporter', () => {
     ;
 
     it('captures information about the business rule for single-scene scenarios', () => {
-        given(reporter).isNotifiedOfFollowingEvents(
+        stage.announce(
             new SceneStarts(sceneIds[0], scenarios[0]),
             new BusinessRuleDetected(sceneIds[0], scenarios[0], new BusinessRule(new Name('my rule name'), new Description('my rule description'))),
             new SceneFinished(sceneIds[0], scenarios[0], new ExecutionSuccessful()),
             new TestRunFinishes(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
 
-        expect(report.rule.name).to.equal('my rule name');
-        expect(report.rule.description).to.equal('my rule description');
+                expect(report.rule.name).to.equal('my rule name');
+                expect(report.rule.description).to.equal('my rule description');
+            });
     });
 
     it('captures information about the business rule for scene sequences', () => {
-        given(reporter).isNotifiedOfFollowingEvents(
+        stage.announce(
             new SceneSequenceDetected(sceneIds[0], sequence),
             new SceneTemplateDetected(sceneIds[0], template),
             new SceneParametersDetected(
@@ -96,9 +104,12 @@ describe('SerenityBDDReporter', () => {
             new TestRunFinishes(),
         );
 
-        const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
 
-        expect(report.rule.name).to.equal('my rule name');
-        expect(report.rule.description).to.equal('my rule description');
+                expect(report.rule.name).to.equal('my rule name');
+                expect(report.rule.description).to.equal('my rule description');
+            });
     });
 });
