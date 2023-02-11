@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/filename-case */
-import { expect } from '@integration/testing-tools';
-import { AssertionError, ImplementationPendingError, StageManager, TestCompromisedError } from '@serenity-js/core';
-import { ArtifactGenerated, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { AssertionError, ImplementationPendingError, Stage, TestCompromisedError } from '@serenity-js/core';
+import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     Category,
@@ -14,18 +14,14 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-    JSONData,
     Name,
     ScenarioDetails,
     TestReport,
     Timestamp,
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
-import * as sinon from 'sinon';
 
-import { SerenityBDDReporter } from '../../../../src/stage';
 import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
-import { given } from '../given';
 import { create } from './create';
 
 describe('SerenityBDDReporter', () => {
@@ -62,41 +58,58 @@ describe('SerenityBDDReporter', () => {
         ),
     );
 
-    let stageManager: sinon.SinonStubbedInstance<StageManager>,
-        reporter: SerenityBDDReporter;
+    let stage: Stage,
+        recorder: EventRecorder;
 
     beforeEach(() => {
         const env = create();
 
-        stageManager    = env.stageManager;
-        reporter        = env.reporter;
+        stage       = env.stage;
+        recorder    = env.recorder;
     });
 
     describe('generates a SerenityBDDReport Artifact that', () => {
 
-        let artifact: JSONData;
-
-        beforeEach(() => {
-            given(reporter).isNotifiedOfFollowingEvents(
+        it('is a valid artifact', () => {
+            stage.announce(
                 new SceneStarts(aSceneId, defaultCardScenario),
                 new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
 
-            expect(stageManager.notifyOf.callCount).to.equal(1);
-
-            artifact = stageManager.notifyOf.firstCall.lastArg.artifact;
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    expect(event.artifact).to.be.instanceOf(TestReport);
+                });
         });
 
-        it('is a valid artifact', () => {
-            expect(artifact).to.be.instanceOf(TestReport);
+        // counter-example covered implicitly in `error handling` suite below
+        it('is produced asynchronously', () => {
+            stage.announce(
+                new SceneStarts(aSceneId, defaultCardScenario),
+                new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinishes(),
+            );
+
+            expect(recorder.events).to.have.lengthOf(6);
+
+            const eventTypes = recorder.events.map(event => event.constructor);
+
+            expect(eventTypes).to.deep.equal([
+                SceneStarts,
+                SceneFinished,
+                AsyncOperationAttempted,
+                ArtifactGenerated,
+                AsyncOperationCompleted,
+                TestRunFinishes
+            ]);
         });
     });
 
     describe('emits an ArtifactGenerated event that', () => {
 
         it('is separate for each scenario', () => {
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(aSceneId, defaultCardScenario),
                 new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
                 new SceneStarts(anotherSceneId, voucherScenario),
@@ -104,15 +117,14 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            expect(stageManager.notifyOf.callCount).to.equal(2);
-
-            const
-                event1: ArtifactGenerated = stageManager.notifyOf.firstCall.lastArg,
-                event2: ArtifactGenerated = stageManager.notifyOf.secondCall.lastArg;
-
-            expect(event1.artifact.map(_ => _).name).to.equal(defaultCardScenario.name.value);
-
-            expect(event2.artifact.map(_ => _).name).to.equal(voucherScenario.name.value);
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    expect(event.artifact.map(_ => _).name).to.equal(defaultCardScenario.name.value);
+                })
+                .next(ArtifactGenerated, event => {
+                    expect(event.artifact.map(_ => _).name).to.equal(voucherScenario.name.value);
+                })
+            ;
         });
     });
 
@@ -123,13 +135,17 @@ describe('SerenityBDDReporter', () => {
         describe('at the scenario level', () => {
 
             beforeEach(() => {
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario, startTime),
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+                    })
+                ;
             });
 
             it('contains the id of the scenario', () => {
@@ -153,74 +169,90 @@ describe('SerenityBDDReporter', () => {
         describe('describes the result of scenario execution that', () => {
 
             beforeEach(() => {
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario),
                 );
             });
 
             it('has finished with success', () => {
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
-
-                expect(report.result).to.equal('SUCCESS');
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+                        expect(report.result).to.equal('SUCCESS');
+                    })
+                ;
             });
 
             it(`hasn't been implemented yet`, () => {
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
-
-                expect(report.result).to.equal('PENDING');
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+                        expect(report.result).to.equal('PENDING');
+                    })
+                ;
             });
 
             it('has been ignored', () => {
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionIgnored(new Error(`Failed, retrying`))),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
-
-                expect(report.result).to.equal('IGNORED');
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+                        expect(report.result).to.equal('IGNORED');
+                    })
+                ;
             });
 
             it('has been skipped', () => {
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSkipped()),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
-
-                expect(report.result).to.equal('SKIPPED');
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+                        expect(report.result).to.equal('SKIPPED');
+                    })
+                ;
             });
 
             it('has failed with an assertion error', () => {
 
                 const assertionError = new AssertionError('expected true to equal false');
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.result).to.equal('FAILURE');
-                expect(report.testFailureCause.errorType).to.equal('AssertionError');
-                expect(report.testFailureCause.message).to.equal('expected true to equal false');
-                expect(report.testFailureCause.stackTrace).to.be.an('array');
+                        expect(report.result).to.equal('FAILURE');
+                        expect(report.testFailureCause.errorType).to.equal('AssertionError');
+                        expect(report.testFailureCause.message).to.equal('expected true to equal false');
+                        expect(report.testFailureCause.stackTrace).to.be.an('array');
+                    })
+                ;
             });
 
             it('has failed with a non-assertion error', () => {
@@ -233,29 +265,33 @@ describe('SerenityBDDReporter', () => {
                     // and so on
                 ].join('\n');
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionFailedWithError(error)),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.result).to.equal('ERROR');
-                expect(report.testFailureCause).to.deep.equal({
-                    errorType: 'Error',
-                    message: `We're sorry, something happened`,
-                    stackTrace: [ {
-                        declaringClass: '',
-                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
-                        lineNumber: 326,
-                        methodName: 'callFn()',
-                    }, {
-                        declaringClass: '',
-                        fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
-                        lineNumber: 319,
-                        methodName: 'Test.Runnable.run()',
-                    } ],
-                });
+                        expect(report.result).to.equal('ERROR');
+                        expect(report.testFailureCause).to.deep.equal({
+                            errorType: 'Error',
+                            message: `We're sorry, something happened`,
+                            stackTrace: [ {
+                                declaringClass: '',
+                                fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
+                                lineNumber: 326,
+                                methodName: 'callFn()',
+                            }, {
+                                declaringClass: '',
+                                fileName: '/fake/path/node_modules/mocha/lib/runnable.js',
+                                lineNumber: 319,
+                                methodName: 'Test.Runnable.run()',
+                            } ],
+                        });
+                    })
+                ;
             });
 
             it('has been compromised', () => {
@@ -273,113 +309,147 @@ describe('SerenityBDDReporter', () => {
                     // and so on
                 ].join('\n');
 
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionCompromised(error)),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.result).to.equal('COMPROMISED');
-                expect(report.testFailureCause).to.deep.equal({
-                    errorType: 'TestCompromisedError',
-                    message: `Test database not deployed, no point running the test`,
-                    stackTrace: [
-                        {
-                            declaringClass: '',
-                            fileName: '/fake/path/my-test/index.js',
-                            lineNumber: 12,
-                            methodName: 'callFn()',
-                        },
-                    ],
-                    rootCause: {
-                        errorType: `Error`,
-                        message: `Could not connect to the database`,
-                        stackTrace: [
-                            {
-                                declaringClass: '',
-                                fileName: '/fake/path/node_modules/db-module/index.js',
-                                lineNumber: 56,
-                                methodName: 'callFn()',
+                        expect(report.result).to.equal('COMPROMISED');
+                        expect(report.testFailureCause).to.deep.equal({
+                            errorType: 'TestCompromisedError',
+                            message: `Test database not deployed, no point running the test`,
+                            stackTrace: [
+                                {
+                                    declaringClass: '',
+                                    fileName: '/fake/path/my-test/index.js',
+                                    lineNumber: 12,
+                                    methodName: 'callFn()',
+                                },
+                            ],
+                            rootCause: {
+                                errorType: `Error`,
+                                message: `Could not connect to the database`,
+                                stackTrace: [
+                                    {
+                                        declaringClass: '',
+                                        fileName: '/fake/path/node_modules/db-module/index.js',
+                                        lineNumber: 56,
+                                        methodName: 'callFn()',
+                                    },
+                                ],
                             },
-                        ],
-                    },
-                });
+                        });
+                    })
+                ;
             });
         });
 
         describe('indicates its execution context', () => {
 
             it('specifies the test runner', () => {
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario),
                     new TestRunnerDetected(aSceneId, new Name('Cucumber')),
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.testSource).to.equal('Cucumber');
+                        expect(report.testSource).to.equal('Cucumber');
+                    })
+                ;
             });
 
             it('specifies the user story covered', () => {
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario),
                     new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.userStory).to.deep.equal({
-                    id: 'online-checkout',
-                    storyName: 'Online Checkout',           // category name, a.k.a. feature name
-                    path: 'payments/checkout.feature',
-                    type: 'feature',
-                });
+                        expect(report.userStory).to.deep.equal({
+                            id: 'online-checkout',
+                            storyName: 'Online Checkout',           // category name, a.k.a. feature name
+                            path: 'payments/checkout.feature',
+                            type: 'feature',
+                        });
+                    })
+                ;
             });
 
             it('does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)', () => {
-                given(reporter).isNotifiedOfFollowingEvents(
+                stage.announce(
                     new SceneStarts(aSceneId, jasmineScenario),
                     new SceneFinished(aSceneId, jasmineScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
-                report = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
 
-                expect(report.userStory).to.deep.equal({
-                    id: 'online-checkout',
-                    storyName: 'Online Checkout',           // category name, a.k.a. feature name
-                    path: '',
-                    type: 'feature',
-                });
-            });
-
-            describe('reports information from the cucumber feature file', () => {
-
-                it('reports the scenario-level narrative'); // eslint-disable-line mocha/no-pending-tests
-
-                it('reports the scenario-level background title');  // eslint-disable-line mocha/no-pending-tests
-
-                it('reports the scenario-level background description');    // eslint-disable-line mocha/no-pending-tests
+                        expect(report.userStory).to.deep.equal({
+                            id: 'online-checkout',
+                            storyName: 'Online Checkout',           // category name, a.k.a. feature name
+                            path: '',
+                            type: 'feature',
+                        });
+                    })
+                ;
             });
         });
     });
 
-    describe('attachements', () => {
-        it('todo'); // eslint-disable-line mocha/no-pending-tests
-        // todo:
-        // - screenshots
-        // - html source
-        // - http request/responses
-        // - arbitrary text data
-    });
+    describe('error handling', () => {
 
-    describe('Error handling', () => {
+        describe('complains when ScenarioDetails', () => {
 
-        // todo: node-cleanup
-        it('generates the report even when the test runner has crashed');   // eslint-disable-line mocha/no-pending-tests
+            it('does not mention the scenario name (as this breaks the Serenity BDD HTML report)', async () => {
+                const scenarioWithEmptyName = new ScenarioDetails(
+                    new Name(''),
+                    new Category('Online Checkout'),
+                    new FileSystemLocation(
+                        new Path(`payments/checkout.feature`),
+                    ),
+                );
+
+                stage.announce(
+                    new SceneStarts(aSceneId, scenarioWithEmptyName),
+                    new SceneFinished(aSceneId, scenarioWithEmptyName, new ExecutionSuccessful()),
+                    new TestRunFinishes(),
+                );
+
+                await expect(stage.waitForNextCue()).to.be.rejectedWith(Error, `[SerenityBDDReporter] Generating Serenity BDD JSON reports... - Error: scenario name should not be blank`);
+            });
+
+            it('does not mention the category name (as it breaks the Serenity BDD HTML report)', async () => {
+                const scenarioWithEmptyCategory = new ScenarioDetails(
+                    new Name('Paying with a default card'),
+                    new Category(''),
+                    new FileSystemLocation(
+                        new Path(`payments/checkout.feature`),
+                    ),
+                );
+
+                stage.announce(
+                    new SceneStarts(aSceneId, scenarioWithEmptyCategory),
+                    new SceneFinished(aSceneId, scenarioWithEmptyCategory, new ExecutionSuccessful()),
+                    new TestRunFinishes(),
+                );
+
+                await expect(stage.waitForNextCue()).to.be.rejectedWith(Error, `[SerenityBDDReporter] Generating Serenity BDD JSON reports... - Error: scenario category should not be blank`);
+            });
+        });
     });
 });

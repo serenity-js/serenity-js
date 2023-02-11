@@ -1,4 +1,4 @@
-import { JSONObject, TinyType } from 'tiny-types';
+import { ensure, isDefined, JSONObject, TinyType } from 'tiny-types';
 
 import { FileSystemLocation } from '../io';
 import { Category } from './Category';
@@ -19,5 +19,8 @@ export class ScenarioDetails extends TinyType {
         public readonly location: FileSystemLocation,
     ) {
         super();
+        ensure('scenario name', name, isDefined());
+        ensure('scenario category', category, isDefined());
+        ensure('scenario location', location, isDefined());
     }
 }

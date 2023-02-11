@@ -132,9 +132,9 @@ export class Notifier {
         );
     }
 
-    testRunFinished(): void {
+    testRunFinished(outcome: Outcome): void {
         this.emit(
-            new TestRunFinished(this.serenity.currentTime()),
+            new TestRunFinished(outcome, this.serenity.currentTime()),
         );
     }
 
