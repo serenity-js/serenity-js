@@ -27,7 +27,7 @@ import { OutcomeRecorder } from './OutcomeRecorder';
  */
 export class SerenityReporterForMocha extends reporters.Base {
 
-    private readonly testMapper: MochaTestMapper = new MochaTestMapper();
+    private readonly testMapper: MochaTestMapper;
     private readonly outcomeMapper: MochaOutcomeMapper = new MochaOutcomeMapper();
 
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
@@ -46,6 +46,8 @@ export class SerenityReporterForMocha extends reporters.Base {
         options?: MochaOptions,
     ) {
         super(runner, options);
+
+        this.testMapper = new MochaTestMapper(this.serenity.cwd())
 
         runner.on(Runner.constants.EVENT_RUN_BEGIN,
             () => {
@@ -199,7 +201,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         this.emit(
             new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
-            new SceneTagged(this.currentSceneId, new FeatureTag(this.testMapper.featureNameFor(test)), this.serenity.currentTime()),
+            new SceneTagged(this.currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
             new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
         );
     }
