@@ -6,6 +6,9 @@ import { Suite, Test } from 'mocha';
  * @package
  */
 export class MochaTestMapper {
+    constructor(private readonly cwd: Path) {
+    }
+
     public detailsOf(test: Test): ScenarioDetails {
 
         function fileOf(t) {
@@ -21,12 +24,18 @@ export class MochaTestMapper {
             }
         }
 
+        const path = new Path(fileOf(test));
+        const scenarioName = this.nameOf(test);
+        const title = this.fullNameOf(test);
+
+        const featureName = scenarioName
+            ? this.featureNameFor(test)
+            : this.cwd.relative(path).value;
+
         return new ScenarioDetails(
-            new Name(this.nameOf(test)),
-            new Category(this.featureNameFor(test)),
-            new FileSystemLocation(
-                new Path(fileOf(test)),
-            ),
+            new Name(scenarioName || title),
+            new Category(featureName),
+            new FileSystemLocation(path),
         );
     }
 

@@ -3,13 +3,13 @@ import { SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerD
 import { FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { playwrightTest } from '../src/playwright-test';
+import { mocha } from '../src/mocha';
 
-describe('@serenity-js/playwright-test', function () {
+describe('@serenity-js/mocha', function () {
 
     describe('when no describe blocks are used', () => {
 
-        it('uses file path as feature name', () => playwrightTest('--project=default', './no-describe-blocks.spec.ts')
+        it('uses file path as feature name', () => mocha('examples/no-describe-blocks.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -20,15 +20,15 @@ describe('@serenity-js/playwright-test', function () {
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
                     })
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('no-describe-blocks.spec.ts')))
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('examples/no-describe-blocks.spec.js')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
 
                     .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 ;
             }));
 
-        it('uses nested file path as feature name', () => playwrightTest('--project=default', './nested/another-no-describe-blocks.spec.ts')
+        it('uses nested file path as feature name', () => mocha('examples/nested/another-no-describe-blocks.spec.js')
             .then(ifExitCodeIsOtherThan(0, logOutput))
             .then(result => {
 
@@ -40,8 +40,8 @@ describe('@serenity-js/playwright-test', function () {
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
                     })
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('nested/another-no-describe-blocks.spec.ts')))
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('examples/nested/another-no-describe-blocks.spec.js')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
 
                     .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
                     .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))

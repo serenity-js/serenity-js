@@ -4,7 +4,7 @@ import { OutputStream } from './adapter';
 import { SerenityConfig } from './config';
 import { ConfigurationError, ErrorFactory, ErrorOptions, NoOpDiffFormatter, RuntimeError } from './errors';
 import { DomainEvent } from './events';
-import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader } from './io';
+import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader, Path } from './io';
 import { ActivityDetails, CorrelationId, Duration, Timestamp } from './model';
 import { Actor } from './screenplay';
 import { StageCrewMember, StageCrewMemberBuilder } from './stage';
@@ -25,6 +25,7 @@ export class Serenity {
     private outputStream: OutputStream  = process.stdout;
 
     private readonly classLoader: ClassLoader;
+    private readonly workingDirectory: Path;
 
     /**
      * @param clock
@@ -43,6 +44,8 @@ export class Serenity {
             new ModuleLoader(cwd),
             new ClassDescriptionParser(),
         );
+
+        this.workingDirectory = new Path(cwd);
     }
 
     /**
@@ -300,5 +303,9 @@ export class Serenity {
      */
     waitForNextCue(): Promise<void> {
         return this.stage.waitForNextCue();
+    }
+
+    cwd(): Path {
+        return this.workingDirectory;
     }
 }
