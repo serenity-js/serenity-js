@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+
+### Bug Fixes
+
+* **console-reporter:** any post-test StageCrewMember errors will now get printed to terminal ([e4935df](https://github.com/serenity-js/serenity-js/commit/e4935dff73781076f4a5ec9fbf2821aaf9fbfd69)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **core:** allow for multiple events to be announced using a single call to Stage ([2bcae80](https://github.com/serenity-js/serenity-js/commit/2bcae809075fd9ef4f77f41714c78a4da5643acd))
+* **core:** event TestRunFinished now incidates the Outcome of the test suite ([a941056](https://github.com/serenity-js/serenity-js/commit/a9410566891e543101b935a80db9c7daea0c9944)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **deps:** update website dependencies ([309c5f3](https://github.com/serenity-js/serenity-js/commit/309c5f3cac7517b9eb1fde5b22f3608c99c46000))
+* **jasmine:** default to using file name as feature name when describe blocks are absent ([3542955](https://github.com/serenity-js/serenity-js/commit/3542955d7c0d3582283ecf1fe482cf3da93f9e4f)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **mocha:** default to using file name as feature name when describe blocks are absent ([1ca81ef](https://github.com/serenity-js/serenity-js/commit/1ca81efe5fe5547bea3e4fd9abe7712f2e775b5d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **playwright-test:** default to using file name as feature name when describe blocks are absent ([1295b04](https://github.com/serenity-js/serenity-js/commit/1295b04adcd12a9d7eaef795e1080bb1c5a9056d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **serenity-bdd:** prevent invalid Serenity BDD JSON reports from being sent to processing ([e59d4da](https://github.com/serenity-js/serenity-js/commit/e59d4da0646c103db37631ecc33ecd66ae18d05e)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 
