@@ -9,7 +9,8 @@ import {
     SceneStarts,
     TaskFinished,
     TaskStarts,
-    TestRunFinished, TestRunStarts,
+    TestRunFinished,
+    TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import {
     CorrelationId,
@@ -229,7 +230,15 @@ export class ConsoleReporter implements ListensToDomainEvents {
             this.summary.recordTestRunFinishedAt(event.timestamp);
 
             this.printSummary(this.summary);
+
+            if (event.outcome instanceof ProblemIndication) {
+                this.printTestRunErrorOutcome(event.outcome);
+            }
         }
+    }
+
+    private printTestRunErrorOutcome(outcome: ProblemIndication): void {
+        this.printer.println(this.theme.outcome(outcome, outcome.error.stack));
     }
 
     private printScene(sceneId: CorrelationId): void {
@@ -239,11 +248,13 @@ export class ConsoleReporter implements ListensToDomainEvents {
             match(event)
                 .when(SceneStarts, (e: SceneStarts) => {
 
+                    const category = e.details.name.value ? `${ e.details.category.value }: ` : '';
+
                     // Print scenario header
                     this.printer.println(this.theme.separator('-'));
                     this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
                     this.printer.println();
-                    this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
+                    this.printer.println(this.theme.heading(category, e.details.name.value));
                     this.printer.println();
                 })
 

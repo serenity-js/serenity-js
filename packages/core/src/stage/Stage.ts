@@ -154,11 +154,18 @@ export class Stage {
     }
 
     /**
-     * Notifies all the assigned listeners of the event.
+     * Notifies all the assigned listeners of the events,
+     * emitting them one by one.
      *
-     * @param event
+     * @param events
      */
-    announce(event: DomainEvent): void {
+    announce(...events: Array<DomainEvent>): void {
+        events.forEach(event => {
+            this.announceSingle(event)
+        });
+    }
+
+    private announceSingle(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
             this.actorsOnStage = this.actorsOnFrontStage;
         }

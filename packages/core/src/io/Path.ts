@@ -50,6 +50,10 @@ export class Path extends TinyType {
         return new Path(path.resolve(this.value, another.value));
     }
 
+    relative(another: Path): Path {
+        return new Path(path.relative(this.value, another.value));
+    }
+
     directory(): Path {
         return new Path(path.dirname(this.value));
     }

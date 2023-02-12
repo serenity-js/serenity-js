@@ -64,7 +64,7 @@ describe('Photographer', () => {
                 new TaskStarts(sceneId, activityId, pickACard),
                 new TaskFinished(sceneId, activityId, pickACard, outcome),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
-                new TestRunFinished(),
+                new TestRunFinished(new ExecutionSuccessful()),
             ).areSentTo(photographer);
 
             return stage.waitForNextCue().then(() => {
@@ -88,7 +88,7 @@ describe('Photographer', () => {
             givenFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
-                new TestRunFinished(),
+                new TestRunFinished(new ExecutionFailedWithError(outcome.error)),
             ).areSentTo(photographer);
 
             return stage.waitForNextCue().then(() => {

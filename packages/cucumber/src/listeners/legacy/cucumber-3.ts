@@ -1,3 +1,5 @@
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
+
 import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
 import { Dependencies } from './Dependencies';
 
@@ -15,13 +17,17 @@ export = function (dependencies: Dependencies) {
             return dependencies.serenity.waitForNextCue();
         });
 
-        AfterAll(function () {
+        AfterAll(async function () {
             dependencies.notifier.testRunFinishes();
 
-            return dependencies.serenity.waitForNextCue()
-                .then(() => {
-                    dependencies.notifier.testRunFinished();
-                });
+            try {
+                await dependencies.serenity.waitForNextCue()
+                dependencies.notifier.testRunFinished(new ExecutionSuccessful());
+            }
+            catch(error) {
+                dependencies.notifier.testRunFinished(new ExecutionFailedWithError(error));
+                throw error;
+            }
         });
     });
 

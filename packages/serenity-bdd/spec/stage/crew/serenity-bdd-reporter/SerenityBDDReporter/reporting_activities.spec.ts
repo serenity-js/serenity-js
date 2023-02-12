@@ -1,33 +1,38 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
-import { expect } from '@integration/testing-tools';
-import { StageManager } from '@serenity-js/core';
-import { ActivityRelatedArtifactArchived, ActivityRelatedArtifactGenerated, SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
+import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
+import { Stage } from '@serenity-js/core';
+import {
+    ActivityRelatedArtifactArchived,
+    ActivityRelatedArtifactGenerated,
+    ArtifactGenerated,
+    SceneFinished,
+    SceneStarts,
+    TaskFinished,
+    TaskStarts,
+    TestRunFinishes,
+} from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
-import * as sinon from 'sinon';
 
-import { SerenityBDDReporter } from '../../../../../src/stage';
-import { SerenityBDDReport } from '../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
-import { given } from '../../given';
 import { defaultCardScenario, photo } from '../../samples';
 import { create } from '../create';
 
 describe('SerenityBDDReporter', () => {
-
-    let stageManager: sinon.SinonStubbedInstance<StageManager>,
-        reporter: SerenityBDDReporter;
 
     const
         sceneId = new CorrelationId('a-scene-id'),
         activityIds = [ new CorrelationId('activity-0'), new CorrelationId('activity-1') ],
         fakeLocation = new FileSystemLocation(Path.from('fake.ts'), 0, 0);
 
+    let stage: Stage,
+        recorder: EventRecorder;
+
     beforeEach(() => {
         const env = create();
 
-        stageManager    = env.stageManager;
-        reporter        = env.reporter;
+        stage       = env.stage;
+        recorder    = env.recorder;
     });
 
     describe('when reporting activities that took place during scenario execution', () => {
@@ -35,7 +40,7 @@ describe('SerenityBDDReporter', () => {
         it('reports the outcome of a single activity', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
@@ -43,18 +48,21 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(1);
-            expect(report.testSteps[0].description).to.equal(pickACard.name.value);
-            expect(report.testSteps[0].result).to.equal('SUCCESS');
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].description).to.equal(pickACard.name.value);
+                    expect(report.testSteps[0].result).to.equal('SUCCESS');
+                });
         });
 
         it('reports the outcome of a sequence of several activities', () => {
             const pickACard   = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
             const makePayment = new ActivityDetails(new Name('Make the payment'), fakeLocation);
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
@@ -64,20 +72,23 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(2);
-            expect(report.testSteps[0].description).to.equal(pickACard.name.value);
-            expect(report.testSteps[0].result).to.equal('SUCCESS');
-            expect(report.testSteps[1].description).to.equal(makePayment.name.value);
-            expect(report.testSteps[1].result).to.equal('SUCCESS');
+                    expect(report.testSteps).to.have.lengthOf(2);
+                    expect(report.testSteps[0].description).to.equal(pickACard.name.value);
+                    expect(report.testSteps[0].result).to.equal('SUCCESS');
+                    expect(report.testSteps[1].description).to.equal(makePayment.name.value);
+                    expect(report.testSteps[1].result).to.equal('SUCCESS');
+                });
         });
 
         it('reports the outcome of nested activities', () => {
             const pickACard = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
             const viewListOfCards = new ActivityDetails(new Name('View the list of available cards'), fakeLocation);
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                         new TaskStarts(sceneId, activityIds[1], viewListOfCards),
@@ -87,12 +98,15 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(1);
-            expect(report.testSteps[0].children).to.have.lengthOf(1);
-            expect(report.testSteps[0].children[0].description).to.equal(viewListOfCards.name.value);
-            expect(report.testSteps[0].children[0].result).to.equal('SUCCESS');
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].children).to.have.lengthOf(1);
+                    expect(report.testSteps[0].children[0].description).to.equal(viewListOfCards.name.value);
+                    expect(report.testSteps[0].children[0].result).to.equal('SUCCESS');
+                });
         });
     });
 
@@ -104,7 +118,7 @@ describe('SerenityBDDReporter', () => {
             const t1 = new Timestamp(new Date(0));
             const t2 = new Timestamp(new Date(10));
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo1'), photo),
@@ -116,13 +130,16 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .last(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(1);
-            expect(report.testSteps[0].screenshots).to.deep.equal([
-                { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
-                { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
-            ]);
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].screenshots).to.deep.equal([
+                        { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
+                        { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
+                    ]);
+                });
         });
 
         it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
@@ -130,7 +147,7 @@ describe('SerenityBDDReporter', () => {
                 pickACard   = new ActivityDetails(new Name('Pick a credit card'), fakeLocation),
                 makePayment = new ActivityDetails(new Name('Make a payment'), fakeLocation);
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
@@ -145,21 +162,24 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .last(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(2);
-            expect(report.testSteps[0].number).to.equal(1);
-            expect(report.testSteps[0].reportData[0].title).to.equal('pick a card message');
-            expect(report.testSteps[0].reportData[0].contents).to.equal('{\n    "card": "default"\n}');
+                    expect(report.testSteps).to.have.lengthOf(2);
+                    expect(report.testSteps[0].number).to.equal(1);
+                    expect(report.testSteps[0].reportData[0].title).to.equal('pick a card message');
+                    expect(report.testSteps[0].reportData[0].contents).to.equal('{\n    "card": "default"\n}');
 
-            expect(report.testSteps[1].number).to.equal(2);
+                    expect(report.testSteps[1].number).to.equal(2);
 
-            expect(report.testSteps[1].reportData[0].title).to.equal('make a payment message');
-            expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\n    "amount": "£42"\n}');
+                    expect(report.testSteps[1].reportData[0].title).to.equal('make a payment message');
+                    expect(report.testSteps[1].reportData[0].contents).to.deep.equal('{\n    "amount": "£42"\n}');
 
-            expect(report.testSteps[1].reportData[1].title).to.equal('server log');
-            expect(report.testSteps[1].reportData[1].contents).to.deep.equal('received payment request');
-        });
+                    expect(report.testSteps[1].reportData[1].title).to.equal('server log');
+                    expect(report.testSteps[1].reportData[1].contents).to.deep.equal('received payment request');
+                });
+            });
     });
 
     describe('artifacts', () => {
@@ -170,7 +190,7 @@ describe('SerenityBDDReporter', () => {
             const t1 = new Timestamp(new Date(0));
             const t2 = new Timestamp(new Date(10));
 
-            given(reporter).isNotifiedOfFollowingEvents(
+            stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo1'), photo),
@@ -182,13 +202,16 @@ describe('SerenityBDDReporter', () => {
                 new TestRunFinishes(),
             );
 
-            const report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(_ => _);
+            PickEvent.from(recorder.events)
+                .last(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
 
-            expect(report.testSteps).to.have.lengthOf(1);
-            expect(report.testSteps[0].screenshots).to.deep.equal([
-                { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
-                { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
-            ]);
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].screenshots).to.deep.equal([
+                        { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
+                        { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
+                    ]);
+                });
         });
     });
 });
