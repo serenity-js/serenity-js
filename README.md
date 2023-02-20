@@ -9,7 +9,6 @@
 [![Build Status](https://github.com/serenity-js/serenity-js/workflows/Main/badge.svg)](https://github.com/serenity-js/serenity-js/actions)
 [![CodeFactor](https://www.codefactor.io/repository/github/serenity-js/serenity-js/badge)](https://www.codefactor.io/repository/github/serenity-js/serenity-js)
 [![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=main)](https://coveralls.io/github/serenity-js/serenity-js?branch=main)
-
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Rate on Openbase](https://badges.openbase.io/js/rating/@serenity-js/core.svg)](https://openbase.io/js/@serenity-js/core?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
