@@ -17,10 +17,11 @@
 [![Serenity/JS on GitHub](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![Serenity/JS on StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
 [![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/from-referrer/)
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/SerenityJS?style=social)](https://twitter.com/@SerenityJS)
-[![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://matrix.to/#/#serenity-js:gitter.im)
 
 [Serenity/JS](https://serenity-js.org) is a Node.js framework designed to make acceptance and regression testing
 of modern full-stack applications faster, more collaborative and easier to scale.
@@ -35,7 +36,7 @@ of modern full-stack applications faster, more collaborative and easier to scale
 >
 > The default [`main` branch](https://github.com/serenity-js/serenity-js/tree/main) of this Serenity/JS repository contains code for the upcoming Serenity/JS v3 release, with the most recent builds released to [npmjs.com](https://www.npmjs.com/package/@serenity-js/core) and marked as "RC" - Release Candidate.
 >
-> All the public Serenity/JS APIs are now stable and unlikely to change much before the final release. You're welcome to go through the [v3 migration guide](https://serenity-js.org/handbook/release-notes/serenity-js-3.html), experiment with the new version, and ask any questions you might have about the migration on the [Serenity/JS Community Gitter Chat](https://gitter.im/serenity-js/Lobby).
+> All the public Serenity/JS APIs are now stable and unlikely to change much before the final release. You're welcome to go through the [v3 migration guide](https://serenity-js.org/handbook/release-notes/serenity-js-3.html), experiment with the new version, and ask any questions you might have about the migration on the [Serenity/JS Community Gitter Chat](https://matrix.to/#/#serenity-js:gitter.im).
 > 
 > We're also in the process migrating all the existing Serenity/JS project templates to make it easier for you to start your journey with the new version of the framework. You can already use:
 > - [serenity-js-cucumber-playwright-template](https://github.com/serenity-js/serenity-js-cucumber-playwright-template/tree/main)
@@ -77,7 +78,7 @@ or submit a pull request.
 
 Have feedback? Let me know on Twitter [@JanMolak](https://twitter.com/JanMolak) or [LinkedIn](https://www.linkedin.com/in/janmolak/).
 
-If you'd like to chat with fellow users of Serenity/JS, join us on [Gitter Chat](https://gitter.im/serenity-js/Lobby).
+If you'd like to chat with fellow users of Serenity/JS, join us on [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
 
 And if Serenity/JS has made your life a little bit easier, please consider [supporting its ongoing development](https://github.com/sponsors/serenity-js) 🙇
 
@@ -86,6 +87,8 @@ And if Serenity/JS has made your life a little bit easier, please consider [supp
 Serenity/JS is continuously delivered to you thanks to:
 * the time and commitment of [the author](https://janmolak.com/) and [the contributors](https://github.com/serenity-js/serenity-js/graphs/contributors)
 * the [amazing sponsors](https://serenity-js.org/community/sponsors.html)
+
+[![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://matrix.to/#/#serenity-js:gitter.im)
 
 ## License
 
