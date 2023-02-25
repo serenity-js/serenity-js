@@ -6,49 +6,49 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  /*--ifm-code-font-size: 95%;*/
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-navbar-link-hover-color: #fcd30a;
+    /*--ifm-code-font-size: 95%;*/
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ifm-navbar-link-hover-color: #fcd30a;
 
-  /*--ifm-footer-background-color: #3e495b;*/
-  /*--ifm-footer-color:#000;*/
-  /*--ifm-footer-link-color:#000;*/
+    /*--ifm-footer-background-color: #3e495b;*/
+    /*--ifm-footer-color:#000;*/
+    /*--ifm-footer-link-color:#000;*/
 }
 
 [data-theme='light'] {
-  --ifm-color-primary: #083693;
-  --ifm-color-primary-dark: #073184;
-  --ifm-color-primary-darker: #072e7d;
-  --ifm-color-primary-darkest: #062667;
-  --ifm-color-primary-light: #093ba2;
-  --ifm-color-primary-lighter: #093ea9;
-  --ifm-color-primary-lightest: #0a46bf;
-  /*--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.9);*/
+    --ifm-color-primary: #083693;
+    --ifm-color-primary-dark: #073184;
+    --ifm-color-primary-darker: #072e7d;
+    --ifm-color-primary-darkest: #062667;
+    --ifm-color-primary-light: #093ba2;
+    --ifm-color-primary-lighter: #093ea9;
+    --ifm-color-primary-lightest: #0a46bf;
+    /*--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.9);*/
 }
 
 .navbar__title,
 .main-wrapper > div > aside > div > div > a > b {
-  /* Replaced by Serenity/JS logo SVG */
-  display: none;
+    /* Replaced by Serenity/JS logo SVG */
+    display: none;
 }
 
 #__docusaurus > footer {
-  border-top: var(--ifm-color-emphasis-300) 1px solid;
+    border-top: var(--ifm-color-emphasis-300) 1px solid;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #fcd30a;
-  --ifm-color-primary-dark: #e9c203;
-  --ifm-color-primary-darker: #dcb703;
-  --ifm-color-primary-darkest: #b59702;
-  --ifm-color-primary-light: #fcd824;
-  --ifm-color-primary-lighter: #fcda31;
-  --ifm-color-primary-lightest: #fde158;
-  --ifm-background-color: #22272e;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --ifm-color-primary: #fcd30a;
+    --ifm-color-primary-dark: #e9c203;
+    --ifm-color-primary-darker: #dcb703;
+    --ifm-color-primary-darkest: #b59702;
+    --ifm-color-primary-light: #fcd824;
+    --ifm-color-primary-lighter: #fcda31;
+    --ifm-color-primary-lightest: #fde158;
+    --ifm-background-color: #22272e;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
-  --ifm-color-success-contrast-background: rgba(70,149,74,0.2) !important;
+    --ifm-color-success-contrast-background: rgba(70, 149, 74, 0.2) !important;
 }
 
 /*
@@ -56,86 +56,106 @@
  */
 
 .hero {
-  color: #040a16;
-  background-color: #fcd30a;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23fde158' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    color: #040a16;
+    background-color: #fcd30a;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23fde158' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 .navbar__link:hover,
 .navbar__link--active,
 .navbar-sidebar .menu__link--active {
-  color: #fcd30a;
+    color: #fcd30a;
 }
 
 [data-theme='light'] aside.theme-doc-sidebar-container img {
-  content:url('/images/serenity-js-logo-for-light-backgrounds.svg');
+    content: url('/images/serenity-js-logo-for-light-backgrounds.svg');
 }
 
 /*
  * API docs
  */
-html.plugin-typedoc-api .theme-doc-sidebar-menu > li::before{
-  display: block;
-  text-transform: uppercase;
-  font-size: 18px;
-  line-height: 28px;
-  color: var(--ifm-color-emphasis-700);
-  margin-top: 0.75rem;
-  /*padding: 0px 6px 0px 6px;*/
+html.plugin-typedoc-api .theme-doc-sidebar-menu > li::before {
+    display: block;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--ifm-color-emphasis-700);
+    margin-top: 0.75rem;
+    /*padding: 0px 6px 0px 6px;*/
 }
 
 html.plugin-typedoc-api .theme-doc-sidebar-menu > li:first-child::before {
-  content: 'Core modules';
+    content: 'Core modules';
 }
 
 html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(3)::before {
-  content: 'Web Testing';
+    content: 'Web Testing';
 }
 
 html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(7)::before {
-  content: 'REST API Testing';
+    content: 'REST API Testing';
 }
 
 html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(9)::before {
-  content: 'Reporting';
+    content: 'Reporting';
 }
 
 html.plugin-typedoc-api .theme-doc-sidebar-menu > li:nth-child(11)::before {
-  content: 'Test runners';
+    content: 'Test runners';
 }
 
 #giscus-comments {
-  display: block;
-  margin-top: 50px;
+    display: block;
+    margin-top: 50px;
 }
 
-.docusaurus-mermaid-container  {
-  background-color: var(--ifm-code-background);
-  /*background-color: rgb(246, 247, 248);*/
-  border-radius: var(--ifm-pre-border-radius);
-  text-align: center;
-  padding-top: 10px;
+.docusaurus-mermaid-container {
+    background-color: var(--ifm-code-background);
+    /*background-color: rgb(246, 247, 248);*/
+    border-radius: var(--ifm-pre-border-radius);
+    text-align: center;
+    padding-top: 10px;
 }
 
 .docusaurus-mermaid-container svg g.edgeLabel > .label {
-  font-size: 0.75em !important;
+    font-size: 0.75em !important;
 }
 
 .docusaurus-mermaid-container .socket > rect {
-  stroke-dasharray: 5 5;
+    stroke-dasharray: 5 5;
 }
 
 .docusaurus-mermaid-container .flowchart-link {
-  stroke: var(--ifm-color-primary) !important;
-  opacity: .9;
+    stroke: var(--ifm-color-primary) !important;
+    opacity: .9;
 }
 
 .docusaurus-mermaid-container #flowchart-pointEnd {
-  stroke: var(--ifm-color-primary) !important;
-  fill: var(--ifm-color-primary) !important;
-  opacity: 0.95;
+    stroke: var(--ifm-color-primary) !important;
+    fill: var(--ifm-color-primary) !important;
+    opacity: 0.95;
 }
 
 .docusaurus-mermaid-container .edgeLabel {
-  padding: 5px;
+    padding: 5px;
+}
+
+
+blockquote {
+    margin: 1.5em 1em;
+    padding: .5em 1em;
+    quotes: "\201C" "\201D";
+}
+
+blockquote:before {
+    color: #808080;
+    content: open-quote;
+    font-size: 4em;
+    line-height: .1em;
+    margin-right: .25em;
+    vertical-align: -.4em;
+}
+
+blockquote p {
+    padding-left: 2em;
 }
