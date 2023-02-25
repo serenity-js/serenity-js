@@ -128,7 +128,7 @@ const config = {
                             { label: 'Blog and announcements', to: '/blog' },
                             {
                                 label: 'Serenity/JS Community Chat',
-                                href: 'https://gitter.im/serenity-js/Lobby',
+                                href: 'https://matrix.to/#/#serenity-js:gitter.im',
                             },
                             {
                                 label: 'Stack Overflow',
