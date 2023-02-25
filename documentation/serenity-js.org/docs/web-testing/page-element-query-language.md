@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Page Element Query Language
 
-Key points:
+:::note Key points
 - **Page Element Query Language (PEQL)** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
 - **[`PageElement`](/api/web/class/PageElement)** is a [question](/api/core/class/Question) that resolves to a [single web element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element), **[`PageElements`](/api/web/class/PageElements)** resolves to a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
 - `PageElement` and `PageElements` are also [meta-questions](/api/core/interface/MetaQuestion), so can be resolved relatively to another `PageElement` to dynamically form a child-parent relationship
@@ -13,6 +13,7 @@ Key points:
 - [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
 [expectations](/api/core/class/Expectation) and [meta-questions](/api/core/interface/MetaQuestion),
 just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions) do.
+:::
 
 **Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
 around selectors and web element interaction methods provided by web integration tools like
