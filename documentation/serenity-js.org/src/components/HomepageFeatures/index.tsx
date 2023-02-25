@@ -51,7 +51,7 @@ const TopFeatures: FeatureItem[][] = [
             Svg: require('@site/static/images/serenity-js-share-code.svg').default,
             description: (
                 <>
-                    Serenity/JS is the first framework designed to make it easy to <a href={"/handbook/design/reusable-test-code"}>share and reuse test code</a> not just
+                    Serenity/JS is the first framework designed to make it easy to <a href={"/handbook/design/portable-test-code"}>share and reuse test code</a> not just
                     across test suites, but also across projects and teams. Help your whole organisation benefit from your test automation work!
                 </>
             ),
