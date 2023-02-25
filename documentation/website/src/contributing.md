@@ -41,9 +41,9 @@ When reporting a bug, please kindly remember to:
 
 Serenity/JS is an open source project that's open to your contributions and [pull requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
-Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or chatting with the development team on the [Contributors Channel](https://gitter.im/serenity-js/Contributors) on Gitter.
+Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or chatting with the development team on [Serenity/JS Contributors Channel](https://matrix.to/#/#serenity-js-contributors:gitter.im) on Gitter.
 
-[![Gitter](https://badges.gitter.im/serenity-js/Contributors.svg)](https://gitter.im/serenity-js/Contributors?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Serenity/JS Contributors Chat](https://img.shields.io/badge/Matrix-Serenity%2FJS%20Contributors%20Chat-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js-contributors:gitter.im)
 
 #### Working with the Serenity/JS code base
 
@@ -77,4 +77,4 @@ Here's a list of commands you'll need to build and test Serenity/JS locally:
 - `make clean verify` - removes build artifacts, runs the linter, transpiles TypeScript to JavaScript, runs the unit tests, runs the integration tests located under `integration/*/` 
 - `make clean verify report site` - same as verify, but additionally generates test reports and produces the serenity-js.org website. This is the **full local build** you should run at least once before committing your changes and submitting the pull request.
 
-If you encounter any issues, let us know on the [Serenity/JS Contributors Channel](https://gitter.im/serenity-js/Contributors) on Gitter.
+If you encounter any issues, let us know on the [Serenity/JS Contributors Channel](https://matrix.to/#/#serenity-js-contributors:gitter.im).

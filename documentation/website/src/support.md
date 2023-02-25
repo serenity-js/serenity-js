@@ -11,11 +11,11 @@ You can also [ask questions on Stack Overflow](http://stackoverflow.com/question
 where posts tagged with `serenity-js` will usually get answered by one of the Serenity/JS
 core developers.
 
-If you'd like to chat with fellow Serenity/JS users, [join us on Gitter](https://gitter.im/serenity-js/Lobby).
+If you'd like to chat with fellow Serenity/JS users, join us on [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
 
 [![GitHub](https://img.shields.io/badge/github-serenity--js-yellow?logo=github)](https://github.com/serenity-js/serenity-js)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-serenity--js-important?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/serenity-js)
-[![Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+[![Serenity/JS Community Chat](https://img.shields.io/badge/Matrix-Serenity%2FJS%20Community%20Chat-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 
 ## Sponsoring
 
