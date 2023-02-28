@@ -145,7 +145,7 @@ Learn more about:
 
 ### Interactions
 
-Abilities enable actors to perform [**interactions**](/handbook/design/interactions) with the system under test.
+Abilities enable actors to perform [**interactions**](/api/core/class/Interaction) with the system under test.
 Interactions are command objects that instruct an actor how to use their abilities to perform the given activity.
 Most interactions you will need are already provided by [Serenity/JS modules](/handbook/design/modular-architecture),
 and you can easily [create new ones](/api/core/class/Interaction) if you'd like to.
@@ -251,7 +251,7 @@ Learn more about:
 The idea that underpins the Screenplay Pattern is to capture your domain language and use your acceptance tests as an opportunity to demonstrate
 how actors interacting with your system accomplish their goals.
 
-Conceptually similar to functions, [**tasks**](/handbook/design/tasks) offer an easy way to associate business meaning with sequences of activities
+Conceptually similar to functions, [**tasks**](/api/core/class/Task) offer an easy way to associate business meaning with sequences of activities
 and turn them into reusable building blocks.
 
 Here, we extract some of the activities performed by Apisitt and turn them into a reusable task to `setupProductCatalogue`:
