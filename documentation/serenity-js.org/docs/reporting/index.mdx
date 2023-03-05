@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 9
 ---
 
 # Reporting
@@ -15,7 +15,7 @@ produce more events to prompt other crew members to action, or perform side effe
 Several of the Serenity/JS modules provide [`StageCrewMembers`](/api/core/interface/StageCrewMember) you can use for test reporting purposes:
 - [Console Reporter](/handbook/reporting/console-reporter) - writes text-based test reports to your computer terminal,
 - [Serenity BDD Reporter](/handbook/reporting/serenity-bdd-reporter) - emits [Serenity BDD](https://serenity-bdd.github.io/)-compatible JSON reports, to be archived via [`ArtifactArchiver`](/handbook/reporting/artifact-archiver) and consumed by the [Serenity BDD CLI](/api/serenity-bdd/#serenity-bdd-living-documentation) to produce HTML reports and living documentation,
-- [Photographer](/handbook/reporting/photographer) - automatically captures screenshots of the active web browser window, to be archived via [`ArtifactArchiver`](/handbook/reporting/artifact-archiver) and attached to [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter)
+- [Photographer](/handbook/reporting/photographer) - automatically captures screenshots of the web browser window used by the active actor, to be archived via [`ArtifactArchiver`](/handbook/reporting/artifact-archiver) and attached to [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter)
 - [Artifact Archiver](/handbook/reporting/artifact-archiver) - stores report artifacts on disk,
 - [Stream Reporter](/handbook/reporting/stream-reporter) - logs any events it receives to help you with debugging.
 

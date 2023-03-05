@@ -38,7 +38,7 @@ function HeroBanner() {
                 </h1>
                 <p>{description}</p>
                 <div className={ styles.indexCtas }>
-                    <Link className="button button--primary" to="/handbook">
+                    <Link className="button button--primary" to="/handbook/web-testing/your-first-web-scenario">
                         <Translate>Start automating 🚀</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>

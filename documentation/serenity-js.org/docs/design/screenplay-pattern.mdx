@@ -148,7 +148,7 @@ Learn more about:
 
 Abilities enable actors to perform [**interactions**](/api/core/class/Interaction) with the system under test.
 Interactions are command objects that instruct an actor how to use their abilities to perform the given activity.
-Most interactions you will need are already provided by [Serenity/JS modules](/handbook/design/modular-architecture),
+Most interactions you will need are already provided by [Serenity/JS modules](/handbook/about/architecture),
 and you can easily [create new ones](/api/core/class/Interaction) if you'd like to.
 
 Here, we instruct Apisitt to use the interaction to [`Send.a(HTTPRequest)`](/api/rest/class/Send) from the [Serenity/JS REST](/api/rest) module
@@ -348,7 +348,7 @@ describe('Serenity Airlines flight booking', () => {                            
 ```
 
 </TabItem>
-<TabItem value="mocha" label="Mocha" default>
+<TabItem value="mocha" label="Mocha">
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
@@ -368,7 +368,7 @@ describe('Serenity Airlines flight booking', () => {                            
 ```
 
 </TabItem>
-<TabItem value="jasmine" label="Jasmine" default>
+<TabItem value="jasmine" label="Jasmine">
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
