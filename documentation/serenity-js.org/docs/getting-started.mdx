@@ -4,6 +4,11 @@ sidebar_position: 2
 
 # Getting started
 
+```mdx-code-block
+import SupportedNodeVersions from '@site/src/components/SupportedNodeVersions'
+import CurrentNodeVersion from '@site/src/components/CurrentNodeVersion'
+```
+
 :::note Key points
 - [**Serenity/JS Gitpods**](#serenityjs-gitpods) let you experience the framework in your web browser _right now_, no installation required!
 - [**Serenity/JS Project Templates**](#serenityjs-project-templates) are a good starting point and a reference implementation for your new test automation project
@@ -19,7 +24,7 @@ They are the easiest way to get started with the framework, as every Serenity/JS
 
 In fact, all Serenity/JS tutorials you'll find in this handbook have a corresponding Serenity/JS Gitpod that lets you follow the tutorial without having to install anything on your machine. If you prefer to set up Serenity/JS locally, this handbook will also teach you how to do that.
 
-:::info Pro tip
+:::info Short on time? ⏱️
 To quickly see what Serenity/JS is capable of, go straight to the first tutorial where you'll learn how to use Serenity/JS and Playwright Test to [write test scenarios for web applications](/handbook/web-testing).
 :::
 
@@ -38,7 +43,7 @@ To use this feature, you'll need a [free account on GitHub.com](#your-githubcom-
 
 ## Serenity/JS Modules
 
-Serenity/JS is a modular framework based on Node.js, with official modules distributed under the `@serenity-js/*` namespace via [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js).
+Serenity/JS is a [modular framework](/handbook/about/architecture) based on Node.js, with official modules distributed under the `@serenity-js/*` namespace via [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js).
 You can use as many or as few of Serenity/JS Modules as you need to enable integrations with required test automation tools and test runners,
 interact with the various interfaces of your system under test, and to enable the desired reporting formats.
 
@@ -47,10 +52,13 @@ Each [Serenity/JS module](/api/) typically provides at least one of the followin
 - test runner adapters that translate test runner events into [Serenity/JS domain events](/handbook/reporting/domain-events) (used for [reporting](/handbook/reporting/)),
 - [reporting services](/handbook/reporting/) that translate domain events into test reports.
 
-To find out more about how to install a given Serenity/JS module, please consult its [installation instructions](/api/).
+To find out more about how to install a given Serenity/JS module, please consult its [installation instructions](/api/),
+as well as the general [Serenity/JS installation guide](/handbook/about/installation).
 
 In general, to use Serenity/JS modules you'll need:
-- **Node.js LTS** - a [long-term support version](https://github.com/nodejs/release#release-schedule) of Node.js; Serenity/JS is developed on macOS running Node.js 16 and [continuously tested](https://github.com/serenity-js/serenity-js/blob/main/.github/workflows/main.yaml) with Node 14, 16, 18 on Linux and Windows,
+- **Node.js LTS** - a [long-term support version](https://github.com/nodejs/release#release-schedule) of Node.js;
+Serenity/JS is developed on macOS running Node.js <CurrentNodeVersion />
+and [continuously tested](https://github.com/serenity-js/serenity-js/blob/main/.github/workflows/main.yaml) with the latest versions of Node <SupportedNodeVersions /> on Linux and Windows,
 - **Java Runtime Environment (JRE)**, if you'd like to use the [Serenity BDD reporter](/handbook/reporting/serenity-bdd-reporter),
 - a local **web browser** or a remote **Selenium Grid** if you're planning to [interact with web interfaces](/handbook/web-testing/),
 - a Node.js project, which you can initialise by running [`npm init ./my-project-name`](https://docs.npmjs.com/cli/v8/commands/npm-init)
