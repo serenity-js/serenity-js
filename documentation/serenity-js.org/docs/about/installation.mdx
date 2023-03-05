@@ -1,0 +1,213 @@
+---
+sidebar_position: 1
+---
+
+# Installation
+
+```mdx-code-block
+import SupportedNodeVersions from '@site/src/components/SupportedNodeVersions'
+import CurrentNodeVersion from '@site/src/components/CurrentNodeVersion'
+```
+
+In this article, you'll learn how to:
+- create a Node.js project capable of running Serenity/JS test scenarios
+- install runtime dependencies required to create automated tests based on Serenity/JS
+- configure TypeScript (if you'd like to)
+- install Serenity/JS modules
+
+:::info Getting started with Serenity/JS
+With Serenity/JS, you don't need to start from scratch!
+**Serenity/JS GitPods** and **Serenity/JS Project Templates** come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
+
+Learn more about faster ways of [getting started with Serenity/JS](/handbook/getting-started).
+:::
+
+## Installing Node.js
+
+Serenity/JS is a [Node.js](https://nodejs.org/) program. To help you ensure maximum stability of your test scenarios,
+Serenity/JS relies on a recent [Long-Term Support (LTS)](https://github.com/nodejs/Release) version of the [Node.js platform](https://nodejs.org/en/download/).
+
+You can get both Node.js and the Node Package Manager (npm) either from the [nodejs.org](https://nodejs.org/) website,
+which provides convenient installers for all the major operating systems, or using the [Node Version Manager (nvm)](http://nvm.sh).
+The second option is more appropriate if you need to work with several versions of the Node.js platform simultaneously.
+
+To check if your machine is set up correctly, execute the following command in your terminal:
+
+```shell
+node --version
+```
+
+The version number returned by the above command should be a recent version of Node <SupportedNodeVersions conjunction="or" />.
+For example, Node <CurrentNodeVersion />.
+
+## Installing Java Runtime Environment (JRE)
+
+Serenity/JS delegates the work of generating the illustrated HTML reports to [Serenity BDD](http://serenity-bdd.info/),
+which is a Java library and therefore requires
+a [Java Runtime Environment (JRE)](http://www.oracle.com/technetwork/java/javase/overview/index.html) **version 8** or newer.
+
+You can download the JRE from [oracle.com](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html),
+[adoptopenjdk.net](https://adoptopenjdk.net/),
+or by using the excellent [Software Development Kit Manager (SDKMan)](https://sdkman.io/)
+
+To verify that you have the JRE installed, execute the below command in your terminal:
+
+```shell
+java -version
+```
+The output should look similar to the following:
+```shell
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+```
+
+If you're working with several versions of the Java platform simultaneously, please make sure that you point
+your `JAVA_HOME` environment variable at the correct version.
+
+On macOS this could be:
+
+```shell
+echo $JAVA_HOME
+/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
+```
+
+Please consult the [Oracle documentation](https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html)
+for more details.
+
+## Creating a Node.js project
+
+Serenity/JS is typically installed as a [dev dependency](https://docs.npmjs.com/files/package.json#devdependencies)
+of a [Node.js project](https://docs.npmjs.com/files/package.json).
+This way it doesn't accidentally get bundled together with your production dependencies.
+
+If you're introducing Serenity/JS to an existing project you can skip this section as its purpose is to help you
+create `package.json` - a Node.js project descriptor file, which would already be part of your project.
+
+To create a Node.js project from scratch, create a new directory, such as `serenity-js-example`.
+Next, initialise a new Node.js project accepting the default configuration suggested by the npm with these terminal commands:
+
+```shell
+mkdir serenity-js-example
+cd serenity-js-example
+npm init
+```
+
+Your actions should result in a basic [`package.json`](https://docs.npmjs.com/files/package.json)
+file appearing under `serenity-js-example`, with contents similar to the following:
+
+```json title="serenity-js-example/package.json"
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+```
+
+## Installing a web browser
+
+If you're planning to make your acceptance tests interact with a web interface, you'll need a web browser.
+The way you install web browsers and their associated drivers depends on whether you want to use [Playwright](/handbook/test-runners/playwright-test)
+or a [Selenium Webdriver](https://www.selenium.dev)-based integration library, such as [WebdriverIO](/handbook/test-runners/webdriverio) or [Protractor](/handbook/test-runners/protractor).
+
+### Using Playwright
+
+For test suites using [Playwright](https://playwright.dev/), install `playwright` module, as well as its browsers and operating system-level dependencies
+by running the below commands in your terminal:
+
+```shell title="serenity-js-example/"
+npm install --save-dev playwright
+npx playwright install --with-deps
+```
+
+Learn more about the [installing Playwright](https://playwright.dev/docs/ci#introduction).
+
+### Using Selenium Webdriver
+
+For test suites using the Selenium Webdriver protocol via [WebdriverIO](/handbook/test-runners/webdriverio) or [Protractor](/handbook/test-runners/protractor),
+you'll need to install the appropriate web browsers and their [associated drivers](https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/) on any machine running the tests.
+
+If you already have [Google Chrome](https://www.google.com/chrome/) installed locally,
+you can add its [driver](https://www.npmjs.com/package/chromedriver) to your Node project by running the following command in your terminal:
+```shell title="serenity-js-example/"
+npm install --save-dev chromedriver
+```
+
+Consult the Selenium project documentation to learn [how to install other drivers](https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/).
+
+## Using TypeScript
+
+Serenity/JS is written in [TypeScript](https://www.typescriptlang.org/) and offers first-class support for TypeScript projects.
+
+To use TypeScript in your project, install the following dependencies:
+
+```shell title="serenity-js-example/"
+npm install typescript @types/node ts-node
+```
+
+Next, create a [`tsconfig.json`](https://www.typescriptlang.org/tsconfig) file in your project root directory:
+
+```json title="serenity-js-example/tsconfig.json"
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": ["es2019", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "types": [
+      "node"
+    ]
+  },
+
+  "include": [
+    "features/**/*.ts",
+    "test/**/*.ts"
+  ],
+
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
+Make sure to configure the [`include`](https://www.typescriptlang.org/tsconfig#include) property to cover all your
+testing-related TypeScript sources.
+
+## Installing Serenity/JS modules
+
+All the official [Serenity/JS modules](/handbook/about/architecture) are distributed
+via the Node Package Manager registry at [npmjs.com](https://www.npmjs.com/search?q=%40serenity-js)
+and published under the [`@serenity-js/`](https://www.npmjs.com/search?q=%40serenity-js) namespace.
+
+Each [Serenity/JS module](/api) provides detailed installation instructions, and you can install them from your computer
+terminal by running:
+
+```text
+npm install --save-dev @serenity-js/core
+```
+
+You can also install several Serenity/JS modules simultaneously:
+
+```text
+npm install --save-dev @serenity-js/{assertions,console-reporter,core,rest,serenity-bdd}
+```
+
+:::info Stay up to date
+Please make sure to always update your Serenity/JS dependencies together and use the same version number for all the `@serenity-js/*` modules you depend on.
+Learn more about [versioning](/handbook/about/versioning).
+:::
+
+If your machine is part of a corporate network and doesn't have direct access to npmjs.com, you should be able to download
+Serenity/JS (and other publicly available Node modules) from your company internal artifact registry:
+- [Using NPM with JFrog Artifactory](https://www.jfrog.com/confluence/display/JFROG/npm+Registry)
+- [Using NPM with Sonatype Nexus](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats/npm-registry/configuring-npm)

@@ -7,12 +7,15 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
+const pkg = require('./../../package.json');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Serenity/JS',
     tagline: 'Collaborative test automation at scale!',
     customFields: {
+        supportedEngines: pkg.engines,
+        currentNodeVersion: process.version,
         description:
             `Serenity/JS is an open-source acceptance testing framework that brings your business and software delivery teams together.
             It helps you capture your domain language and write high-quality single- and multi-actor test scenarios
@@ -331,7 +334,7 @@ const config = {
                 blogSidebarTitle: 'Changelog',
                 routeBasePath: '/changelog',
                 showReadingTime: false,
-                postsPerPage: 5,
+                postsPerPage: 1,
                 archiveBasePath: undefined,
                 blogTagsListComponent: '@theme/BlogTagsListPage',
                 blogTagsPostsComponent: '@theme/BlogTagsPostsPage',
@@ -353,7 +356,7 @@ const config = {
                 steps: 4,
                 disableInDev: true,
             },
-        ]
+        ],
     ],
 
     markdown: {
