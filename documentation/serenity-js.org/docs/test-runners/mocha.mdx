@@ -50,18 +50,20 @@ graph TB
 </figure>
 
 :::info
-Integration architecture described in this section applies when you want to invoke
-`mocha` command line interface directly, for example for **domain-level** or [**REST/HTTP API-level**](handbook/api-testing/)
-testing.
+Integration architecture described in this section applies to invoking
+`mocha` command line interface directly, for example for **domain-level**,
+[**REST/HTTP API-level**](/handbook/api-testing/), or [**web-based testing**](/handbook/web-testing/)
+using [Playwright](/api/playwright).
 
-If you want your Mocha scenarios to interact with **web interfaces**, however,
+If you want your Mocha scenarios to interact with **web interfaces** using [Selenium Webdriver protocol](https://www.selenium.dev/documentation/webdriver/),
+or connect them to a [Selenium Grid](https://www.selenium.dev/documentation/grid/),
 you should do so via [Protractor](/handbook/test-runners/protractor)
-or [WebdriverIO](/handbook/test-runners/webdriverio).
+or [WebdriverIO](/handbook/test-runners/webdriverio) instead.
 :::
 
 ## Installation
 
-Assuming you already have a [Node.js project and runtime dependencies](/handbook/installation) set up, add the following dev Node modules to your project:
+Assuming you already have a [Node.js project and runtime dependencies](/handbook/about/installation) set up, add the following Node modules to your project:
 - [`@serenity-js/core`](/api/core)
 - [`@serenity-js/mocha`](/api/mocha)
 - [`mocha`](https://www.npmjs.com/package/mocha)
