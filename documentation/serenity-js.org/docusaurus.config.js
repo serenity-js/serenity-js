@@ -116,6 +116,7 @@ const config = {
                     {
                         title: 'Handbook',
                         items: [
+                            { label: 'About Serenity/JS', to: '/handbook/about' },
                             { label: 'Web testing', to: '/handbook/web-testing' },
                             { label: 'API testing', to: '/handbook/api-testing' },
                             { label: 'Mobile testing', to: '/handbook/mobile-testing' },
@@ -139,7 +140,7 @@ const config = {
                             },
                             {
                                 label: 'Serenity/JS on LinkedIn',
-                                href: 'https://twitter.com/SerenityJS',
+                                href: 'https://www.linkedin.com/company/serenity-js',
                             },
                             {
                                 label: 'Serenity/JS GitHub Sponsors',
