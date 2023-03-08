@@ -1,6 +1,3 @@
-import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver } from '@serenity-js/core';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
@@ -12,10 +9,9 @@ export const config: WebdriverIOConfig = {
     serenity: {
         runner: 'cucumber',
         crew: [
-            ConsoleReporter.forDarkTerminals(),
-            new SerenityBDDReporter(),
-            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            // new StreamReporter(createWriteStream(`events-${ process.pid }.ndjson`)),
+            '@serenity-js/console-reporter',
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
         ]
     },
 
