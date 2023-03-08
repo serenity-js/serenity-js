@@ -1,4 +1,3 @@
-import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
@@ -10,8 +9,9 @@ export const config: WebdriverIOConfig = {
     serenity: {
         runner: 'jasmine',
         crew: [
-            ConsoleReporter.forDarkTerminals(),
-            // new StreamReporter(createWriteStream(`events-${ process.pid }.ndjson`)),
+            '@serenity-js/console-reporter',
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
         ]
     },
 

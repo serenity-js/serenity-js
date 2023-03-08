@@ -1,4 +1,3 @@
-import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
@@ -8,7 +7,9 @@ export const config: WebdriverIOConfig = {
 
     serenity: {
         crew: [
-            ConsoleReporter.forDarkTerminals(),
+            '@serenity-js/console-reporter',
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
         ]
     },
 
