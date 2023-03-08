@@ -1,5 +1,5 @@
-import { Actor, Question } from '@serenity-js/core';
 import { GetCalculationResult } from '@examples/calculator-app';
+import { Actor, Question } from '@serenity-js/core';
 
 import { InteractDirectly } from '../abilities';
 

@@ -1,5 +1,5 @@
-import { Ability } from '@serenity-js/core';
 import { CalculationId, Calculator, CalculatorCommand, CalculatorQuery, GetCalculationResult } from '@examples/calculator-app';
+import { Ability } from '@serenity-js/core';
 
 export class InteractDirectly extends Ability {
     /**
