@@ -20,7 +20,7 @@ jobs:
     runs-on:  'ubuntu-latest'
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
 
       - name: List artifacts
         working-directory: ${{ inputs.download-artifact-path }}
@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3
         with:
           retention-days: 3
           name: ${{ inputs.upload-artifact-name }}
