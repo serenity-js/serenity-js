@@ -1,7 +1,7 @@
+import { requestHandler } from '@examples/calculator-app';
 import { Actor, Cast, Notepad, TakeNotes } from '@serenity-js/core';
 import { ManageALocalServer } from '@serenity-js/local-server';
 import { CallAnApi } from '@serenity-js/rest';
-import { requestHandler } from '@examples/calculator-app';
 
 export class Actors extends Cast {
     private readonly sharedNotepad = Notepad.empty();
