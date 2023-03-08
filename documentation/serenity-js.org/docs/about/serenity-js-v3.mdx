@@ -347,7 +347,7 @@ Since the interactions were specific to browser integration tools, they'd also c
 In Serenity/JS 3, interactions to `Wait` **don't rely on any browser integration tool** and are, in fact, completely browser-independent.
 What this means in practice is that you can use `Wait` for both browser and API tests.
 
-Since `Wait` is no longer tied to the browser, it's also been moved to `@serenity-js/core`:
+Since [`Wait`](/api/core/class/Wait) is no longer tied to the browser, it's also been moved to `@serenity-js/core`, along with [`Expectation`](/api/core/class/Expectation):
 
 ```diff
 import { actorCalled, Duration } from '@serenity-js/core';
