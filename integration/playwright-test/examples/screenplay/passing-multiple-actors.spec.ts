@@ -1,10 +1,11 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { notes } from '@serenity-js/core';
-import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
+import { Cast, Notepad, notes, TakeNotes } from '@serenity-js/core';
+import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import { afterEach, describe, it, test } from '@serenity-js/playwright-test';
 import { By, Navigate, PageElement, Text } from '@serenity-js/web';
 
-import { MultipleWebActorsWithSharedNotes } from './actors/MultipleWebActorsWithSharedNotes';
+import { server } from './actors/server';
 
 interface Notes {
     testServerUrl: string;
@@ -14,7 +15,25 @@ describe('Playwright Test reporting', () => {
 
     test.use({
         actors: async ({ browser }, use) => {
-            await use(new MultipleWebActorsWithSharedNotes(browser));
+            const sharedNotepad = Notepad.empty();
+
+            const cast = Cast.where(actor => {
+                if (actor.name === 'Charlie') {
+                    return actor.whoCan(
+                        ManageALocalServer.runningAHttpListener(server),
+                        TakeNotes.using(sharedNotepad),
+                    );
+                }
+
+                return actor.whoCan(
+                    BrowseTheWebWithPlaywright.using(browser, {
+                        userAgent: `${ actor.name }`
+                    }),
+                    TakeNotes.using(sharedNotepad),
+                );
+            });
+
+            await use(cast)
         },
     });
 
