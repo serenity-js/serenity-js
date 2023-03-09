@@ -71,7 +71,7 @@ describe('WebdriverIONotifier', () => {
         reporter = sinon.createStubInstance(EventEmitter);
 
         stage = new Stage(
-            Cast.whereEveryoneCan(/* do nothing much */),
+            Cast.where(actor => actor/* who can do nothing much */),
             new StageManager(Duration.ofMilliseconds(250), new Clock()),
             new ErrorFactory(),
         );
