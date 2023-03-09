@@ -1,10 +1,11 @@
-import { AnsiDiffFormatter, ArtifactArchiver, Serenity } from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity, TakeNotes } from '@serenity-js/core';
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects';
 
+import { BrowseTheWebWithWebdriverIO } from '../screenplay';
 import { BrowserCapabilitiesReporter, InitialisesReporters, OutputStreamBuffer, ProvidesWriteStream } from './reporter';
 import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter';
 import { TestRunnerLoader } from './TestRunnerLoader';
@@ -68,7 +69,10 @@ export class WebdriverIOFrameworkAdapter {
         this.serenity.configure({
             outputStream:   outputStreamBuffer,
             cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors,
+            actors:         config.serenity.actors || Cast.where(actor => actor.whoCan(
+                BrowseTheWebWithWebdriverIO.using(browser),
+                TakeNotes.usingAnEmptyNotepad(),
+            )),
             diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
             crew: [
                 ...config.serenity.crew,
