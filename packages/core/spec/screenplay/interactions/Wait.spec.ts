@@ -14,7 +14,7 @@ describe('Wait', () => {
     beforeEach(async () => {
         serenity = new Serenity();
         serenity.configure({
-            actors: Cast.whereEveryoneCan(new UseAStopwatch()),
+            actors: Cast.where(actor => actor.whoCan(new UseAStopwatch())),
             diffFormatter: new NoOpDiffFormatter(),
         });
 
