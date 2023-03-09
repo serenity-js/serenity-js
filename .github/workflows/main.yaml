@@ -226,12 +226,12 @@ jobs:
     needs:
       - coverage-report
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         with:
           fetch-depth: 2
 
       - name: Download code coverage reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: 'aggregated-code-coverage-report'
 
@@ -269,7 +269,7 @@ jobs:
       - test-windows-node-lts-active
       - test-integration
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
@@ -280,14 +280,14 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: compiled-libs
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
           node-version: 16.x
 
@@ -351,7 +351,7 @@ jobs:
       - website-build
     steps:
       - name: Download website artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: website
       - name: Decompress website
