@@ -24,8 +24,8 @@ or [Playwright Test](/handbook/test-runners/playwright-test).
 :::info Should I use Serenity/JS with my existing Protractor project?
 **Yes**. The most common reason why you **should** introduce Serenity/JS
 to an **existing** Protractor project is that it can help you to **reliably migrate** your codebase
-to a more modern integration tool like [Protractor](/handbook/test-runners/webdriverio)
-or [Playwright](/handbook/test-runners/playwright) in the next step.
+to a more modern integration tool like [WebdriverIO](/api/webdriverio)
+or [Playwright](/api/playwright) in the next step.
 
 Using Serenity/JS [Screenplay Pattern APIs](/handbook/design/screenplay-pattern)
 will also help you **future-proof your codebase** and make it **agnostic** of the underlying integration tools.
@@ -55,7 +55,7 @@ by [Serenity/JS reporting services](/handbook/reporting/).
 
 To use [Serenity/JS reporting services](/handbook/reporting/) in a Protractor project, you need to:
 - attach the [`@serenity-js/protractor`](/api/protractor) test runner adapter to the Protractor test runner
-- use `protractor.conf.js` to [configure Serenity/JS](/api/protractor/interface/ProtractorConfig) to use the reporting services you want to use,
+- use `protractor.conf.js` to [configure Serenity/JS](/api/protractor-adapter/interface/Config) to use the reporting services you want to use,
 such as the [`ConsoleReporter`](/handbook/reporting/console-reporter)
 or [`SerenityBDDReporter`](/handbook/reporting/serenity-bdd-reporter)
 
@@ -205,7 +205,7 @@ dedicated guides to learn more about using Serenity/JS actors with:
 ### Configuring a custom cast of actors
 
 You can replace the default [cast of actors](/api/core/class/Cast)
-by providing a custom implementation via [`serenity.actors`](/api/protractor/interface/ProtractorConfig#serenity)
+by providing a custom implementation via [`serenity.actors`](/api/protractor-adapter/interface/Config#serenity)
 configuration option in your `protractor.conf.js`.
 
 For example, to implement a cast where every actor can [`BrowseTheWebWithProtractor`](/api/protractor/class/BrowseTheWebWithProtractor),
