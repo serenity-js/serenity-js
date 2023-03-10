@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **core:** introduced Cast.where factory method to make it easier to generate custom casts of actors ([26637f1](https://github.com/serenity-js/serenity-js/commit/26637f10746bbd264ab73ab14b43eaf11dea5652)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **deps:** update dependency deepmerge to ^4.3.0 ([ac08d09](https://github.com/serenity-js/serenity-js/commit/ac08d091eb61a666c9b9c53209b59fe7157c06d9))
+* **deps:** update dependency yargs to ^17.7.1 ([1e7a52b](https://github.com/serenity-js/serenity-js/commit/1e7a52b21a778ebc47b6279786391d96e482b57a))
+* **deps:** update playwright dependencies to ^1.31.2 ([ebac2ff](https://github.com/serenity-js/serenity-js/commit/ebac2ff37b7a922686daed0201d122f52b1d1040))
+* **deps:** update website dependencies ([#1531](https://github.com/serenity-js/serenity-js/issues/1531)) ([4a58010](https://github.com/serenity-js/serenity-js/commit/4a58010759d5f3d00919dc5de315b46fa9fadd7f))
+* **playwright-test:** ensure each new actor gets their own Playwright browser ([f4c527b](https://github.com/serenity-js/serenity-js/commit/f4c527b27446e32c31a230de3a4d29575ecc8c34)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **protractor:** default actors receive abilities to BrowseTheWebWithProtractor and TakeNotes ([edcf734](https://github.com/serenity-js/serenity-js/commit/edcf73426827ad76427deb457786b163423aaf96)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **webdriverio:** default actors receive abilities to BrowseTheWebWithWebdriverIO and TakeNotes ([3880d3b](https://github.com/serenity-js/serenity-js/commit/3880d3be3262dfa601f0ec31fa1518569b14b90b)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
 # [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
 
 

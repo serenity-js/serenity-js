@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **core:** introduced Cast.where factory method to make it easier to generate custom casts of actors ([26637f1](https://github.com/serenity-js/serenity-js/commit/26637f10746bbd264ab73ab14b43eaf11dea5652)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
 # [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
 
 

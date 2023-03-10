@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency deepmerge to ^4.3.0 ([ac08d09](https://github.com/serenity-js/serenity-js/commit/ac08d091eb61a666c9b9c53209b59fe7157c06d9))
+* **webdriverio:** default actors receive abilities to BrowseTheWebWithWebdriverIO and TakeNotes ([3880d3b](https://github.com/serenity-js/serenity-js/commit/3880d3be3262dfa601f0ec31fa1518569b14b90b)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
 # [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
 
 
