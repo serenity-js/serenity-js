@@ -36,16 +36,16 @@ export function isVisible(domNode: HTMLElement): boolean {
     // applicable if element's text is multiline.
     function getOverlappingRects (element: HTMLElement, context?: Document) {
         context = context || document
-        const elems = []
+        const elements = []
 
         const rects = element.getClientRects()
         // webdriver clicks on center of the first element's rect (line of text), it might change in future
         const rect = rects[0]
         const x = rect.left + (rect.width / 2)
         const y = rect.top + (rect.height / 2)
-        elems.push(context.elementFromPoint(x, y))
+        elements.push(context.elementFromPoint(x, y))
 
-        return elems
+        return elements
     }
 
     // get overlapping elements
