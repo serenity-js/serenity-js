@@ -29,7 +29,7 @@ import { BrowseTheWeb } from '../abilities';
  * - {@apilink Artifact}
  * - {@apilink ArtifactArchiver}
  *
- * @group Interactions
+ * @group Activities
  */
 export class TakeScreenshot extends Interaction {
 

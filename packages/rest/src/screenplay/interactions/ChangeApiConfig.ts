@@ -86,7 +86,7 @@ import { CallAnApi } from '../abilities';
  *   )
  * ```
  *
- * @group Interactions
+ * @group Activities
  */
 export class ChangeApiConfig {
 

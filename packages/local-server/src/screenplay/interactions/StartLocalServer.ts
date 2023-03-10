@@ -5,7 +5,7 @@ import { ManageALocalServer } from '../abilities';
 /**
  * Starts local server so that a test can interact with it.
  *
- * @group Interactions
+ * @group Activities
  */
 export class StartLocalServer {
 

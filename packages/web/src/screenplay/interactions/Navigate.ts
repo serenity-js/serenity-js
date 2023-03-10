@@ -11,7 +11,7 @@ import { BrowseTheWeb } from '../abilities';
  *
  * - {@apilink BrowseTheWeb}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Navigate {
 

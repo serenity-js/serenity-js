@@ -24,15 +24,63 @@ import { Question } from './Question';
 import { AnswersQuestions } from './questions';
 
 /**
- * Core element of the Screenplay Pattern,
- * an {@apilink Actor} represents a user or an external system interacting with the system under test.
+ * **Actors** represent **people** and **external systems** interacting with the system under test.
+ * Their role is to perform {@apilink Activity|activities} that demonstrate how to accomplish a given goal.
  *
- * ## Learn more
+ * Actors are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
+ * along with {@apilink Ability|Abilities}, {@apilink Interaction|Interactions}, {@apilink Task|Tasks}, and {@apilink Question|Questions}.
+ * Actors are also the first thing you see in a typical Serenity/JS test scenario.
  *
+ * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ *
+ * Learn more about:
  * - {@apilink Cast}
  * - {@apilink Stage}
+ * - {@apilink Ability|Abilities}
+ * - {@apilink Activity|Activities}
+ * - {@apilink Interaction|Interactions}
+ * - {@apilink Task|Tasks}
+ * - {@apilink Question|Questions}
  *
- * @group Actors
+ * ## Representing people and systems as actors
+ *
+ * To use a Serenity/JS {@apilink Actor}, all you need is to say their name:
+ *
+ * ```typescript
+ * import { actorCalled } from '@serenity-js/core'
+ *
+ * actorCalled('Alice')
+ * // returns: Actor
+ * ```
+ *
+ * Serenity/JS actors perform within the scope of a test scenario, so the first time you invoke {@apilink actorCalled},
+ * Serenity/JS instantiates a new actor from the default {@apilink Cast} of actors (or any custom cast you might have {@apilink configured|configured}).
+ * Any subsequent invocations of this function within the scope of the same test scenario retrieve the already instantiated actor, identified by their name.
+ *
+ * ```typescript
+ * import { actorCalled } from '@serenity-js/core'
+ *
+ * actorCalled('Alice')    // instantiates Alice
+ * actorCalled('Bob')      // instantiates Bob
+ * actorCalled('Alice')    // retrieves Alice, since she's already been instantiated
+ * ```
+ *
+ * Serenity/JS scenarios can involve as many or as few actors as you need to model the given business workflow.
+ * For example, you might want to use **multiple actors** in test scenarios that model how **different people** perform different parts of a larger business process, such as reviewing and approving a loan application.
+ * It is also quite common to introduce **supporting actors** to perform **administrative tasks**, like setting up test data and environment, or **audit tasks**, like checking the logs or messages emitted to a message queue
+ * by the system under test.
+ *
+ * :::info The Stan Lee naming convention
+ * Actor names can be much more than just simple identifiers like `Alice` or `Bob`. While you can give your actors any names you like, a good convention to follow is to give them
+ * names indicating the [personae](https://articles.uie.com/goodwin_interview/) they represent or the role they play in the system.
+ *
+ * Just like the characters in [Stan Lee](https://en.wikipedia.org/wiki/Stan_Lee) graphic novels,
+ * actors in Serenity/JS test scenarios are often given alliterate names as a mnemonic device.
+ * Names like "Adam the Admin", "Edna the Editor", "Trevor the Traveller", are far more memorable than a generic "UI user" or "API user".
+ * They're also much easier for people to associate with the context, constraints, and affordances of the given actor.
+ * :::
+ *
+ * @group Screenplay Pattern
  */
 export class Actor implements
     PerformsActivities,

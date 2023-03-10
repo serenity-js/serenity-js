@@ -47,7 +47,7 @@ import { PageElement } from '../models';
  * - {@apilink BrowseTheWeb}
  * - {@apilink PageElement}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Scroll extends Interaction {
 

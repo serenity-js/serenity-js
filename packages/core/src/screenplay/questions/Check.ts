@@ -45,7 +45,7 @@ import { ExpectationMet } from './expectations';
  * )
  * ```
  *
- * @group Tasks
+ * @group Activities
  */
 export class Check<Actual> extends Task {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
