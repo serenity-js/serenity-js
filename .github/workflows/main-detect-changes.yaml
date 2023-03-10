@@ -59,6 +59,7 @@ jobs:
         with:
           files: ${{ inputs.files }}
           files_ignore: ${{ inputs.files-ignore }}
+          since_last_remote_commit: true
 
       - name: Summary (no changes)
         if: steps.changed-files.outputs.any_changed == 'false'
