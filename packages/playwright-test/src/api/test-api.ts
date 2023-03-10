@@ -73,10 +73,10 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
 
     actors: [
         ({ browser, contextOptions }, use) =>
-            use(Cast.whereEveryoneCan(
+            use(Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
-            )),
+            ))),
         { option: true },
     ],
 

@@ -13,7 +13,7 @@ import { PageElement, SelectOption } from '../models';
  * ## Learn more
  * - {@apilink Selected}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Select {
 

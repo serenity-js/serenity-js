@@ -6,7 +6,7 @@ describe('Playwright Test reporting', () => {
 
     test.use({
         actors: ({ browser }, use) => {
-            use(Cast.whereEveryoneCan(BrowseTheWebWithPlaywright.using(browser)));
+            use(Cast.where(actor => actor.whoCan(BrowseTheWebWithPlaywright.using(browser))));
         },
     });
 

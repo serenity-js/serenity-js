@@ -84,7 +84,7 @@ import { Notepad } from './Notepad';
  *     TakeNotes.using(Notepad.with<MyNotes>({
  *       firstName: 'Leonard',
  *       lastName: 'McLaud',
- *     })
+ *     }))
  *   )
  *   .attemptsTo(
  *     notes<MyNotes>().set('lastName', 'Shelby'),

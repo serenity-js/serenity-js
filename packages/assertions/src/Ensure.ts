@@ -62,7 +62,7 @@ import { FileSystemLocation } from '@serenity-js/core/lib/io';
  *   )
  * ```
  *
- * @group Interactions
+ * @group Activities
  */
 export class Ensure<Actual> extends Interaction {
 

@@ -508,7 +508,7 @@ function actors(...names: string[]) {
 
             serenity.configure({
                 crew: [],
-                actors: Cast.whereEveryoneCan(...abilities),
+                actors: Cast.where(actor => actor.whoCan(...abilities)),
             });
 
             return names.map(name =>
