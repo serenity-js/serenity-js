@@ -6,7 +6,7 @@ import { ManageALocalServer } from '../abilities';
  * Stops the local server. Should be used in `afterEach` block to make sure that the server
  * is correctly shut down even when the test fails.
  *
- * @group Interactions
+ * @group Activities
  */
 export class StopLocalServer extends Interaction {
 

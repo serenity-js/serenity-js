@@ -20,6 +20,10 @@ export const serenity = new Serenity(clock);
  *
  * This function is an alias for {@apilink Serenity.configure}.
  *
+ * :::tip configure vs engage
+  * If you want to retain the configuration but reset the {@apilink Cast|cast of actors}, use {@apilink engage} instead.
+ * :::
+ *
  * @param config
  *
  * @group Serenity
@@ -35,6 +39,12 @@ export function configure(config: SerenityConfig): void {
  * This function is an alias for {@apilink Serenity.engage},
  * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
  * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
+ *
+ * :::tip configure vs engage
+ * Calling {@apilink engage} replaces the currently configured {@apilink Cast|cast of actors},
+ * but doesn't affect any other configuration.
+ * If you want to reset the Serenity/JS configuration completely, use {@apilink configure} instead.
+ * :::
  *
  * If your implementation of the {@apilink Cast} interface is stateless,
  * you can invoke this function just once before your entire test suite is executed, see
@@ -74,18 +84,52 @@ export function configure(config: SerenityConfig): void {
  *
  * ### Using with Jasmine test runner
  *
- * ```ts
+ * ```typescript
  * import 'jasmine'
  *
- * beforeEach(() => engage(new Actors()))
+ * describe('My feature', () => {
+ *   beforeEach(() => engage(new Actors()))
+ *
+ *
+ * })
  * ```
  *
  * ### Using with Cucumber.js test runner
  *
- * ```ts
+ * Engage `Actors` [before](https://github.com/cucumber/cucumber-js/blob/main/docs/support_files/hooks.md)
+ * each test scenario:
+ *
+ * ```typescript
  * import { Before } from '@cucumber/cucumber'
  *
  * Before(() => engage(new Actors()))
+ * ```
+ *
+ * Engage `Actors` before scenarios with [specific tags](https://github.com/cucumber/cucumber-js/blob/main/docs/support_files/hooks.md#tagged-hooks):
+ *
+ * ```typescript
+ * import { Before } from '@cucumber/cucumber'
+ *
+ * Before('@web', () => engage(new Actors()))
+ * ```
+ *
+ * ### Using with Playwright Test runner
+ *
+ * [Serenity/JS Playwright Test module](/api/playwright-test) will configure the cast on your behalf,
+ * so you don't need to call {@apilink engage}.
+ *
+ * ```ts
+ * import { describe, it, test } from '@serenity-js/playwright-test'
+ *
+ * describe('My feature', () => {
+ *
+ *   this.use({
+ *     actors: new Actors()
+ *   })
+ *
+ *   // test scenarios
+ *
+ * })
  * ```
  *
  * ## Learn more
@@ -95,7 +139,7 @@ export function configure(config: SerenityConfig): void {
  *
  * @param actors
  *
- * @group Stage
+ * @group Serenity
  */
 export function engage(actors: Cast): void {
     serenity.engage(actors);

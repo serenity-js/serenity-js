@@ -1,4 +1,4 @@
-import { AnsiDiffFormatter, ArtifactArchiver, Serenity } from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity } from '@serenity-js/core';
 import { protractor, Runner } from 'protractor';
 import { isRecord } from 'tiny-types/lib/objects';
 
@@ -7,6 +7,9 @@ import { Config } from './Config';
 import { ProtractorReport, ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './runner';
 import deepmerge = require('deepmerge');
+import { TakeNotes } from '@serenity-js/core';
+
+import { BrowseTheWebWithProtractor } from '../screenplay';
 
 const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -40,7 +43,10 @@ export class ProtractorFrameworkAdapter {
 
         this.serenity.configure({
             cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors,
+            actors:         config.serenity.actors || Cast.where(actor => actor.whoCan(
+                BrowseTheWebWithProtractor.using(protractor.browser),
+                TakeNotes.usingAnEmptyNotepad(),
+            )),
             diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
             crew:           [
                 BrowserDetector.with(StandardisedCapabilities.of(() => protractor.browser)),

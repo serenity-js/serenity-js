@@ -1,8 +1,6 @@
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
-import { Actors } from './src';
-
 export const config: WebdriverIOConfig = {
 
     baseUrl: 'https://todo-app.serenity-js.org/',
@@ -10,7 +8,6 @@ export const config: WebdriverIOConfig = {
     framework: '@serenity-js/webdriverio',
 
     serenity: {
-        actors: new Actors(),
         crew: [
             '@serenity-js/console-reporter',
             '@serenity-js/serenity-bdd',

@@ -72,9 +72,11 @@ export interface SerenityFixtures {
      *     test.use({
      *         defaultActorName: 'Serena',
      *         actors: ({ browser, contextOptions }, use) => {
-     *             const cast = Cast.whereEveryoneCan(
-     *                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
-     *                 TakeNotes.usingAnEmptyNotepad(),
+     *             const cast = Cast.where(actor =>
+     *                 actor.whoCan(
+     *                     BrowseTheWebWithPlaywright.using(browser, contextOptions),
+     *                     TakeNotes.usingAnEmptyNotepad(),
+     *                 )
      *             )
      *
      *             // Make sure to pass your custom cast to Playwright `use` callback

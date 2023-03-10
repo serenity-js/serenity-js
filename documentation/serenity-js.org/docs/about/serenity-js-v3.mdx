@@ -80,6 +80,32 @@ export class Actors implements Cast {
 }
 ```
 
+However, you might not need to a custom cast of actors at all! Serenity/JS now provides you a default one.
+
+### Default cast of actors
+
+To make it easier for you to get started with Serenity/JS [Screenplay Pattern](/handbook/design/screenplay-pattern) APIs,
+several of the Serenity/JS test runner integrations now come with a default cast of actors:
+- [Serenity/JS Playwright Test](/handbook/test-runners/playwright-test)
+- [Serenity/JS Protractor](/handbook/test-runners/protractor)
+- [Serenity/JS WebdriverIO](/handbook/test-runners/webdriverio)
+
+:::tip You might not need a custom cast of actors
+Default cast of actors provided by Serenity/JS v3 can help you to avoid having to specify a custom cast altogether.
+:::
+
+The default [`Cast`](/api/core/class/Cast) provides actors where each actor has the abilities to:
+- [`BrowseTheWeb`](/api/web/class/BrowseTheWeb), using the test runner-specific implementation of `BrowseTheWeb`
+- [`TakeNotes.usingAnEmptyNotepad()`](/api/core/class/TakeNotes)
+
+However, if the default configuration is not sufficient to your needs,
+every test runner integration still lets you configure a custom cast.
+
+Learn how to configure a custom cast of actors with:
+- [Playwright Test](/handbook/test-runners/playwright-test#configuring-a-custom-cast-of-actors)
+- [Protractor](/handbook/test-runners/protractor#configuring-a-custom-cast-of-actors)
+- [WebdriverIO](/handbook/test-runners/webdriverio#configuring-a-custom-cast-of-actors)
+
 ### Implementing portable `Interaction`s and `Question`s
 
 Because `BrowseTheWebWithWebdriverIO extends BrowseTheWeb`, any custom interactions and questions should still use the **generic and tool-agnostic** `BrowseTheWeb` from `@serenity-js/web` to be portable between the different integration tools. Note that this also means that there's a good chance that any custom interactions and questions you have implemented with Serenity/JS 2 would still work with few if any changes with Serenity/JS 3.

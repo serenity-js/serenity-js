@@ -120,7 +120,7 @@ import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } fro
  * - {@apilink Duration}
  * - {@apilink Expectation}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Wait {
 
@@ -229,7 +229,7 @@ class WaitFor extends Interaction {
  * ## Learn more
  * * {@apilink Wait.until}
  *
- * @group Interactions
+ * @group Activities
  */
 export class WaitUntil<Actual> extends Interaction {
     constructor(

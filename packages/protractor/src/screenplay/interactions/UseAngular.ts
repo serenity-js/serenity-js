@@ -51,7 +51,7 @@ import { ProtractorPage } from '../models';
  *
  * - [Cross-application testing with Serenity/JS](https://janmolak.com/cross-application-testing-with-serenity-js-4103a272b75b)
  *
- * @group Interactions
+ * @group Activities
  */
 export class UseAngular {
 

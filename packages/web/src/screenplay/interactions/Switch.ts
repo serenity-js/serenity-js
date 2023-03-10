@@ -98,7 +98,7 @@ import { Switchable } from '../models';
  * - {@apilink Switchable}
  * - {@apilink SwitchableOrigin}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Switch extends Interaction {
 
