@@ -50,7 +50,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  * - {@apilink BrowseTheWeb}
  * - {@apilink PageElement}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Hover extends PageElementInteraction {
 

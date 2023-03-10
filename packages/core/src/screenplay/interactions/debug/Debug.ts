@@ -54,7 +54,7 @@ import { viewer } from './viewer';
  * - [Node.js debugging in VS Code](https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
  * - [Running and debugging Node.js in WebStorm](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
  *
- * @group Interactions
+ * @group Activities
  */
 export class Debug<Values extends Array<Answerable<unknown>>> extends Interaction {
 

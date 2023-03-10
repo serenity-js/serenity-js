@@ -13,7 +13,7 @@ import { BrowseTheWeb } from '../abilities';
  * - {@apilink BrowseTheWeb}
  * - {@apilink LastScriptExecution.result}
  *
- * @group Interactions
+ * @group Activities
  */
 export class ExecuteScript {
 
@@ -200,7 +200,7 @@ export class ExecuteScript {
  * ## Learn more
  * -  {@apilink ExecuteScript}
  *
- * @group Interactions
+ * @group Activities
  */
 export abstract class ExecuteScriptWithArguments extends Interaction {
 

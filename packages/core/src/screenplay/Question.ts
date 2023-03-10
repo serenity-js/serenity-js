@@ -13,8 +13,18 @@ import { RecursivelyAnswered } from './RecursivelyAnswered';
 import { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
- * Serenity/JS Screenplay Pattern `Question` describes how an {@apilink Actor}
- * should query the system under test or the test environment.
+ * **Questions** describe how {@apilink Actor|actors} should query the system under test or the test environment to retrieve some information.
+ *
+ * Questions are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
+ * along with {@apilink Actor|Actors}, {@apilink Ability|Abilities}, {@apilink Interaction|Interactions}, and {@apilink Task|Tasks}.
+ *
+ * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ *
+ * Learn more about:
+ * - {@apilink Actor}
+ * - {@apilink Ability|Abilities}
+ * - {@apilink Interaction}
+ * - {@apilink QuestionAdapter}
  *
  * ## Implementing a basic custom Question
  *
@@ -32,7 +42,7 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  *  )
  * ```
  *
- * ## Implementing a Question using an Ability
+ * ## Implementing a Question that uses an Ability
  *
  * Just like the {@apilink Interaction|interactions}, a {@apilink Question}
  * also can use {@apilink Actor|actor's} {@apilink Ability|abilities}.
@@ -95,14 +105,7 @@ import { WithAnswerableProperties } from './WithAnswerableProperties';
  *   );
  * ```
  *
- * ## Learn more
- *
- * - {@apilink Actor}
- * - {@apilink Interaction}
- * - {@apilink Ability}
- * - {@apilink QuestionAdapter}
- *
- * @group Questions
+ * @group Screenplay Pattern
  */
 export abstract class Question<T> {
 

@@ -18,7 +18,7 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  * ## Giving the actors an ability to `BrowseTheWeb`
  *
  * To give an {@apilink Actor|actor} an ability to `BrowseTheWeb`, provide the **integration tool-specific implementation**
- * via {@apilink Actor.whoCan} in {@apilink Cast.prepare}, or via {@apilink Cast.whereEveryoneCan}.
+ * via {@apilink Actor.whoCan} in {@apilink Cast.prepare}, or via {@apilink Cast.where}.
  *
  * ```ts
  * import { beforeEach } from 'mocha'
@@ -73,7 +73,7 @@ import { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * - {@apilink Ability}
  * - {@apilink Actor.whoCan}
- * - {@apilink Cast.whereEveryoneCan}
+ * - {@apilink Cast.where}
  * - {@apilink Cast.prepare}
  *
  * @group Abilities

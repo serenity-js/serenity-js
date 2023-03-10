@@ -7,15 +7,15 @@ import { PerformsActivities } from './activities';
 import { AnswersQuestions } from './questions';
 
 /**
- * Serenity/JS Screenplay Pattern `Activity` represents
- * a {@apilink Task} or an {@apilink Interaction} to be performed by an {@apilink Actor}.
+ * **Activities** represents {@apilink Task|tasks} and {@apilink Interaction|interactions} to be performed by an {@apilink Actor|actor}.
  *
- * ## Learn more
+ * Learn more about:
+ * - [Performing activities at multiple levels](/handbook/design/screenplay-pattern#performing-activities-at-multiple-levels)
  * - {@apilink Actor}
  * - {@apilink PerformsActivities}
  * - [Command design pattern on Wikipedia](https://en.wikipedia.org/wiki/Command_pattern)
  *
- * @group Activities
+ * @group Screenplay Pattern
  */
 export abstract class Activity {
 
