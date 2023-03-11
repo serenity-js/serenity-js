@@ -1,7 +1,8 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { Path } from '../io';
-import { Artifact, ArtifactType, CorrelationId, Name, Timestamp } from '../model';
+import { Artifact, ArtifactType, CorrelationId, Name } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**

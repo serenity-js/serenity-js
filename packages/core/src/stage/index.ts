@@ -1,5 +1,4 @@
 export * from './Cast';
-export * from './Clock';
 export * from './crew';
 export * from './ListensToDomainEvents';
 export * from './queues';

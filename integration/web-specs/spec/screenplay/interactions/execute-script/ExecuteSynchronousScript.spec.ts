@@ -2,10 +2,9 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals, includes } from '@serenity-js/assertions';
-import { actorCalled, Question, Serenity, serenity } from '@serenity-js/core';
+import { actorCalled, Clock, Question, Serenity,serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
-import { Clock } from '@serenity-js/core/lib/stage';
 import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Value } from '@serenity-js/web';
 
 describe('ExecuteSynchronousScript', function () {
@@ -136,7 +135,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(135);
+            expect(location.line).to.equal(134);
             expect(location.column).to.equal(44);
         });
 
@@ -150,7 +149,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(149);
+            expect(location.line).to.equal(148);
             expect(location.column).to.equal(16);
         });
     });

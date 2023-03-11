@@ -1,12 +1,12 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../errors';
-import { d } from '../../io';
-import { Duration } from '../../model';
-import { UsesAbilities } from '../abilities';
-import { Answerable } from '../Answerable';
-import { Interaction } from '../Interaction';
-import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../questions';
+import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../../errors';
+import { d } from '../../../io';
+import { UsesAbilities } from '../../abilities';
+import { Answerable } from '../../Answerable';
+import { Interaction } from '../../Interaction';
+import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../../questions';
+import { Duration } from '../models';
 
 /**
  * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
@@ -60,8 +60,8 @@ import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } fro
  * await actorCalled('Inês')
  *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
  *   .attemptsTo(
- *     Wait.for(Duration.ofMilliseconds(1_500)),
- *     Ensure.that(App.status(), equals('Ready!')),
+ *       Wait.for(Duration.ofMilliseconds(1_500)),
+ *       Ensure.that(App.status(), equals('Ready!')),
  *   );
  * ```
  *
@@ -83,11 +83,11 @@ import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } fro
  * const browser = await chromium.launch({ headless: true })
  *
  * await actorCalled('Wendy')
- *   .whoCan(BrowseTheWebWithPlaywright.using(browser))
- *   .attemptsTo(
- *     Wait.until(App.status(), equals('Ready!')),
- *     // app is ready, proceed with the scenario
- *   );
+ *     .whoCan(BrowseTheWebWithPlaywright.using(browser))
+ *     .attemptsTo(
+ *         Wait.until(App.status(), equals('Ready!')),
+ *         // app is ready, proceed with the scenario
+ *     );
  * ```
  *
  * `Wait.until` makes the {@apilink Actor} keep asking the {@apilink Question},
@@ -120,7 +120,7 @@ import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } fro
  * - {@apilink Duration}
  * - {@apilink Expectation}
  *
- * @group Activities
+ * @group Time
  */
 export class Wait {
 
@@ -224,12 +224,14 @@ class WaitFor extends Interaction {
 /**
  * Synchronisation statement that instructs the {@apilink Actor} to wait before proceeding until a given {@apilink Expectation} is met.
  *
- * **PRO TIP:** To instantiate this {@apilink Interaction}, use {@apilink Wait.until}.
+ * :::tip
+ * To instantiate {@apilink Interaction|interaction} to {@apilink WaitUntil}, use the factory method {@apilink Wait.until}.
+ * :::
  *
  * ## Learn more
  * * {@apilink Wait.until}
  *
- * @group Activities
+ * @group Time
  */
 export class WaitUntil<Actual> extends Interaction {
     constructor(

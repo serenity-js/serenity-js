@@ -1,9 +1,8 @@
 import { EventRecorder } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Serenity } from '@serenity-js/core';
+import { Clock, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
 import { HTTPRequestResponse } from '@serenity-js/core/lib/model';
-import { Clock } from '@serenity-js/core/lib/stage';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { describe, it } from 'mocha';
@@ -17,6 +16,15 @@ describe('Send', () => {
     interface ExampleResponse {
         id: number;
     }
+
+    it('correctly detects its invocation location', () => {
+        const activity = Send.a(GetRequest.to('products/2'));
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('Send.spec.ts');
+        expect(location.line).to.equal(21);
+        expect(location.column).to.equal(31);
+    });
 
     it('enables the actor to send a HTTPRequest', () => {
         const { actor, mock } = actorUsingAMockedAxiosInstance();
@@ -100,14 +108,5 @@ describe('Send', () => {
             expect(artifactGenerated.timestamp.equals(frozenClock.now()))
                 .to.equal(true, artifactGenerated.timestamp.toString());
         });
-    });
-
-    it('correctly detects its invocation location', () => {
-        const activity = Send.a(GetRequest.to('products/2'));
-        const location = activity.instantiationLocation();
-
-        expect(location.path.basename()).to.equal('Send.spec.ts');
-        expect(location.line).to.equal(106);
-        expect(location.column).to.equal(31);
     });
 });

@@ -1,6 +1,6 @@
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
-import { Timestamp } from '../model';
+import { Timestamp } from '../screenplay';
 
 /**
  * Represents an internal domain event that occurs during test execution.

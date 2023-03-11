@@ -13,4 +13,5 @@ export * from './Question';
 export * from './questions';
 export * from './RecursivelyAnswered';
 export * from './Task';
+export * from './time';
 export * from './WithAnswerableProperties';

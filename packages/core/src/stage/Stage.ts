@@ -2,8 +2,8 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
-import { ActivityDetails, CorrelationId, Description, Name, Timestamp } from '../model';
-import { Actor } from '../screenplay';
+import { ActivityDetails, CorrelationId, Description, Name } from '../model';
+import { Actor, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';

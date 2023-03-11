@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Duration } from '../../src/model';
-import { expect } from '../expect';
+import { Duration } from '../../../../src';
+import { expect } from '../../../expect';
 
 describe('Duration', () => {
 

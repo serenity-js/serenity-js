@@ -1,12 +1,11 @@
 /* eslint-disable unicorn/filename-case */
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, ImplementationPendingError, Stage, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, Duration, ImplementationPendingError, Stage, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
     Category,
     CorrelationId,
-    Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -17,7 +16,6 @@ import {
     Name,
     ScenarioDetails,
     TestReport,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 

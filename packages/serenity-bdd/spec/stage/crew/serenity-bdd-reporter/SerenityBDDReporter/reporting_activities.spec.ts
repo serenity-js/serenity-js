@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { Stage } from '@serenity-js/core';
+import { Stage, Timestamp } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -12,7 +12,7 @@ import {
     TestRunFinishes,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } from '@serenity-js/core/lib/model';
+import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario, photo } from '../../samples';

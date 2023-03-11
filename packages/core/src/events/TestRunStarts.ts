@@ -1,4 +1,4 @@
-import { Timestamp } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**

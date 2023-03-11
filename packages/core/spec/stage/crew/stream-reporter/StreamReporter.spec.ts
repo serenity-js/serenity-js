@@ -2,9 +2,9 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { Writable } from 'stream';
 
-import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter } from '../../../../src';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter, Timestamp } from '../../../../src';
 import { TestRunFinished } from '../../../../src/events';
-import { ExecutionSuccessful, Timestamp } from '../../../../src/model';
+import { ExecutionSuccessful } from '../../../../src/model';
 import { expect } from '../../../expect';
 
 describe('StreamReporter', () => {

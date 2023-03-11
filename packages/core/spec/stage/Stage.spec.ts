@@ -4,9 +4,9 @@ import * as sinon from 'sinon';
 import { ConfigurationError, ErrorFactory, LogicError } from '../../src/errors';
 import { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } from '../../src/events';
 import { FileSystemLocation, Path, trimmed } from '../../src/io';
-import { ActivityDetails, Category, CorrelationId, Duration, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
-import { Ability, Actor, Discardable } from '../../src/screenplay';
-import { Cast, Clock, Stage, StageManager } from '../../src/stage';
+import { ActivityDetails, Category, CorrelationId, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
+import { Ability, Actor, Clock, Discardable, Duration } from '../../src/screenplay';
+import { Cast, Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Stage', () => {

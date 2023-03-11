@@ -3,7 +3,7 @@ import { ensure, isGreaterThanOrEqualTo, isInteger, JSONObject, TinyType } from 
 /**
  * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.
  *
- * @group Stage
+ * @group Time
  */
 export class Duration extends TinyType {
 
