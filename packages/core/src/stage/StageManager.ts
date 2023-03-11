@@ -1,7 +1,7 @@
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
-import { CorrelationId, Description, Duration, Name, Timestamp } from '../model';
+import { CorrelationId, Description, Name } from '../model';
+import { Clock, Duration, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
-import { Clock } from './Clock';
 
 /**
  * @group Stage

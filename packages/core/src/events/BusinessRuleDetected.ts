@@ -1,6 +1,7 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { BusinessRule, CorrelationId, ScenarioDetails, Timestamp } from '../model';
+import { BusinessRule, CorrelationId, ScenarioDetails } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**

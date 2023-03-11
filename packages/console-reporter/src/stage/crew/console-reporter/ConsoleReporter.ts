@@ -1,4 +1,4 @@
-import { AssertionError, d, DomainEventQueues, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
+import { AssertionError, d, DomainEventQueues, Duration, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,
@@ -14,7 +14,6 @@ import {
 } from '@serenity-js/core/lib/events';
 import {
     CorrelationId,
-    Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -26,7 +25,6 @@ import {
     Name,
     Outcome,
     ProblemIndication,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';

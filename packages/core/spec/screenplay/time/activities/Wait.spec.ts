@@ -2,10 +2,10 @@
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../src';
-import { trimmed } from '../../../src/io';
-import { expect } from '../../expect';
-import { Ensure } from '../Ensure';
+import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../../src';
+import { trimmed } from '../../../../src/io';
+import { expect } from '../../../expect';
+import { Ensure } from '../../Ensure';
 
 describe('Wait', () => {
 

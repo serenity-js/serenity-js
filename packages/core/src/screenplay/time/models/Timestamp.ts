@@ -12,7 +12,7 @@ import { Duration } from './Duration';
  * - {@apilink Duration}
  * - [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
  *
- * @group Stage
+ * @group Time
  */
 export class Timestamp extends TinyType {
     static fromJSON(v: string): Timestamp {

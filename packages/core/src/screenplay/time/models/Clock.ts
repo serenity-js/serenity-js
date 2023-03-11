@@ -1,4 +1,4 @@
-import { Timestamp } from '../model';
+import { Timestamp } from './Timestamp';
 
 /**
  * A {@apilink Clock} tells the time. This abstraction allows Serenity/JS to have a single place
@@ -12,7 +12,7 @@ import { Timestamp } from '../model';
  * - {@apilink Timestamp}
  * - {@apilink Duration}
  *
- * @group Stage
+ * @group Time
  */
 export class Clock {
 

@@ -1,6 +1,6 @@
 import { OutputStream } from '../adapter';
 import { DiffFormatter } from '../errors';
-import { Duration } from '../model';
+import { Duration } from '../screenplay';
 import { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
 import { ClassDescription } from './ClassDescription';
 

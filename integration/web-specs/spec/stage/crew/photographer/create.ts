@@ -1,6 +1,6 @@
 import { EventRecorder } from '@integration/testing-tools';
-import { Duration, ErrorFactory, serenity } from '@serenity-js/core';
-import { Clock, Stage, StageManager } from '@serenity-js/core/lib/stage';
+import { Clock, Duration, ErrorFactory, serenity } from '@serenity-js/core';
+import { Stage, StageManager } from '@serenity-js/core/lib/stage';
 
 export function create(timeout: Duration = Duration.ofSeconds(5)): { stage: Stage, recorder: EventRecorder } {
     const clock = new Clock();

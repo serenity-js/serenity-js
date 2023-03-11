@@ -1,12 +1,12 @@
 import 'sinon-chai';
 
 import { expect } from '@integration/testing-tools';
-import { Serenity } from '@serenity-js/core';
+import { Clock, Serenity } from '@serenity-js/core';
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, Outcome, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
-import { ArtifactArchiver, Clock, StageCrewMember } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver, StageCrewMember } from '@serenity-js/core/lib/stage';
 import { beforeEach, describe, it } from 'mocha';
 import { Config, Runner } from 'protractor';
 import * as sinon from 'sinon';

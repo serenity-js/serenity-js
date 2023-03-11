@@ -1,11 +1,11 @@
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Actor, ErrorFactory, StageCrewMember } from '../../../../src';
+import { Actor, Clock, Duration, ErrorFactory, StageCrewMember } from '../../../../src';
 import { ArtifactArchived, ArtifactGenerated, DomainEvent } from '../../../../src/events';
 import { FileSystem, Path } from '../../../../src/io';
-import { CorrelationId, Duration, JSONData, Name, TestReport } from '../../../../src/model';
-import { ArtifactArchiver, Cast, Clock, Stage, StageManager } from '../../../../src/stage';
+import { CorrelationId, JSONData, Name, TestReport } from '../../../../src/model';
+import { ArtifactArchiver, Cast, Stage, StageManager } from '../../../../src/stage';
 import { expect } from '../../../expect';
 import { photo } from '../samples';
 

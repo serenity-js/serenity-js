@@ -1,6 +1,7 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { Outcome, SerialisedOutcome, TestSuiteDetails, Timestamp } from '../model';
+import { Outcome, SerialisedOutcome, TestSuiteDetails } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**

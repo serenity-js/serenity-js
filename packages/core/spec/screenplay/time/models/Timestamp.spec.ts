@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Duration, Timestamp } from '../../src/model';
-import { expect } from '../expect';
+import { Duration, Timestamp } from '../../../../src';
+import { expect } from '../../../expect';
 
 describe('Timestamp', () => {
 
