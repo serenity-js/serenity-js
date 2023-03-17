@@ -14,7 +14,7 @@
     "access": "private"
   },
   "scripts": {
-    "clean": "rimraf ../../target/coverage/integration-webdriverio-cucumber",
+    "clean": "rimraf target",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {
@@ -45,6 +45,7 @@
     "@types/mocha": "^10.0.1",
     "chromedriver": "^110.0.0",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   }
