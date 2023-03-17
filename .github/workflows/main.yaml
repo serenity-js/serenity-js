@@ -203,7 +203,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
     with:
       upload-artifact-name: 'aggregated-code-coverage'
-      upload-artifact-path: 'package.json "packages/*/target/**/coverage-final.json" "integration/*/target/**/coverage-final.json"'
+      upload-artifact-path: 'package.json "**/coverage-final.json"'
 
   coverage-report:
     name: 'Coverage: report'
