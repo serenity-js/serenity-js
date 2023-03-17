@@ -17,4 +17,16 @@ exports.config = {
             lastName: 'Molak',
         }
     },
+
+    mochaOpts: {
+        timeout: 60_000,
+        require: [
+            'ts-node/register',
+        ],
+        reporter: 'mocha-multi',
+        reporterOptions: {
+            "dot": "-",
+            "json": "target/results.json",
+        },
+    },
 };

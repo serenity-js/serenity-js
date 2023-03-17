@@ -18,7 +18,7 @@
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf target ../../target/coverage/integration-playwright-web",
+    "clean": "rimraf target",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8082 start-server-and-test start http://localhost:8082 test:acceptance:run",
@@ -50,6 +50,7 @@
     "ci-info": "^3.8.0",
     "cross-env": "^7.0.3",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "npm-failsafe": "^1.0.0",
     "playwright": "^1.31.2",
     "start-server-and-test": "^1.15.4",

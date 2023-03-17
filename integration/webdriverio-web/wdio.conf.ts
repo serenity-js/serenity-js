@@ -7,6 +7,10 @@ import { cpus } from 'os';
 
 import { Actors } from './src/Actors';
 
+const protocol = process.env.PROTOCOL === 'devtools'
+    ? 'devtools'
+    : 'webdriver';
+
 const options = {
     specs: [
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
@@ -16,9 +20,7 @@ const options = {
         ? Number.parseInt(process.env.PORT, 10)
         : 8080,
 
-    protocol: process.env.PROTOCOL === 'devtools'
-        ? 'devtools'
-        : 'webdriver',
+    protocol,
 
     workers: workers(process.env),
 

@@ -32,8 +32,8 @@
     "restify"
   ],
   "scripts": {
-    "clean": "rimraf '../../target/coverage/local-server'",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "clean": "rimraf target",
+    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -67,6 +67,7 @@
     "express": "^4.18.2",
     "koa": "^2.14.1",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "nyc": "15.1.0",
     "restify": "^11.1.0",
     "semver": "^7.3.8",
