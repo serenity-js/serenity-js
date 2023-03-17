@@ -35,7 +35,7 @@ jobs:
 
       - name: Compress artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
-        run: 7z a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+        run: 7z a ${{ inputs.upload-artifact-name }}.zip -r ${{ inputs.upload-artifact-path }}
 
       - name: Upload artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
