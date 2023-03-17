@@ -81,7 +81,7 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: make test
       upload-artifact-name: 'test-reports'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "packages/*/target/**/*"'
 
   test-linux-node-lts-previous:
     name: 'Test: Linux, LTS-1'
@@ -153,7 +153,7 @@ jobs:
         npx --no playwright install --with-deps && \
         make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration:
     name: 'Integration'
@@ -188,7 +188,7 @@ jobs:
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   #
   # Reporting
@@ -203,7 +203,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
     with:
       upload-artifact-name: 'aggregated-code-coverage'
-      upload-artifact-path: 'package.json "target/coverage/*/coverage-final.json"'
+      upload-artifact-path: 'package.json "packages/*/target/coverage/**/*" "integration/*/target/coverage/**/*" "target/coverage/*/coverage-final.json"'
 
   coverage-report:
     name: 'Coverage: report'
