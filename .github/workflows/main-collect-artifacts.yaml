@@ -29,6 +29,10 @@ jobs:
       - name: Decompress all artifacts to current directory
         run:  ls **/*.zip | xargs -n1 7z x -aoa
 
+      # debug
+      - name: List decompressed artifacts
+        run: tree
+
       - name: Compress artifact
         if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
         run: 7z a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
