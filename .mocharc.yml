@@ -2,7 +2,10 @@ check-leaks: false
 color: true
 diff: true
 full-trace: true
-reporter: dot
+reporter: mocha-multi
+reporter-options: 'spec=-'
 require: 'ts-node/register'
 timeout: 10000
 v8-stack-trace-limit: 100
+node-option:
+  - trace-warnings
