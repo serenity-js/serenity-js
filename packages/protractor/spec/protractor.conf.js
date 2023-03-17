@@ -25,8 +25,8 @@ exports.config = {
         ],
         reporter: 'mocha-multi',
         reporterOptions: {
-            "dot": "-",
-            "json": "target/results.json",
+            dot: '-',
+            json: 'target/results.json',
         },
     },
 };
