@@ -55,14 +55,13 @@ export class Scheduler {
         limits: RepeatUntilLimits<Result> = {},
     ): Promise<Result> {
 
-        const { maxInvocations, delayBetweenInvocations, timeout, exitCondition, errorHandler } = {
-            exitCondition:              noEarlyExit,
-            maxInvocations:             Number.POSITIVE_INFINITY,
-            delayBetweenInvocations:    noDelay,
-            timeout:                    this.interactionTimeout,
-            errorHandler:               rethrowErrors,
-            ...limits
-        };
+        const {
+            maxInvocations          = Number.POSITIVE_INFINITY,
+            delayBetweenInvocations = noDelay,
+            timeout                 = this.interactionTimeout,
+            exitCondition           = noEarlyExit,
+            errorHandler            = rethrowErrors,
+        } = limits;
 
         this.remainingCallbacks.set(callback, {
             exitCondition: exitCondition,

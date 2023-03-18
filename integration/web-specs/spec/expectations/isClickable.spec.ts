@@ -54,6 +54,6 @@ describe('isClickable', function () {
     /** @test {isClickable} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Elements.enabledButton(), isClickable()).toString())
-            .to.equal(`#actor waits up to 5s, polling every 500ms, until the enabled button does become clickable`);
+            .to.equal(`#actor waits until the enabled button does become clickable`);
     });
 });

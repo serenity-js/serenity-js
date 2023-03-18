@@ -52,10 +52,13 @@ export abstract class SerenityConfig {
      * The maximum default amount of time allowed for interactions such as {@apilink Wait.until}
      * to complete.
      *
-     * Defaults to 10 seconds, can be overridden per interaction.
+     * Defaults to 5 seconds, can be overridden per interaction.
      *
      * **Please note** that this is not
      * a scenario timeout, which should be configured in your test runner.
+     *
+     * #### Learn more
+     * - {@apilink Wait.until}
      */
     interactionTimeout?: Duration;
 

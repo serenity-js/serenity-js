@@ -66,7 +66,7 @@ describe('Photographer', () => {
 
                     PickEvent.from(recorder.events)
                         .next(ActivityRelatedArtifactGenerated, event => {
-                            expect(event.name.value).to.match(/Betty waits up to 250ms/);
+                            expect(event.name.value).to.match(/Betty waits until/);
                             expect(event.artifact).to.be.instanceof(Photo);
                         });
                 }))

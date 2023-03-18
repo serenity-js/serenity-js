@@ -18,7 +18,7 @@ import { StageManager } from './stage/StageManager';
  */
 export class Serenity {
     private static defaultCueTimeout            = Duration.ofSeconds(5);
-    private static defaultInteractionTimeout    = Duration.ofSeconds(10);
+    private static defaultInteractionTimeout    = Duration.ofSeconds(5);
     private static defaultActors                = new Extras();
 
     private stage: Stage;

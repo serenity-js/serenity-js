@@ -97,6 +97,6 @@ describe('isSelected', function () {
     /** @test {isSelected} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Elements.typeScript(), isSelected()).toString())
-            .to.equal(`#actor waits up to 5s, polling every 500ms, until the TypeScript option does become selected`);
+            .to.equal(`#actor waits until the TypeScript option does become selected`);
     });
 });
