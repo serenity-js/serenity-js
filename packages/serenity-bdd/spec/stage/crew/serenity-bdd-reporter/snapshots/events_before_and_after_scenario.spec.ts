@@ -9,13 +9,16 @@ import { SerenityBDDReporter } from '../../../../../src';
 
 describe('SerenityBDDReporter', () => {
 
+    const clock = new Clock();
+    const interactionTimeout = Duration.ofSeconds(2);
+
     let reporter: SerenityBDDReporter,
         stage: Stage,
         emitter: EventStreamEmitter,
         recorder: EventRecorder;
 
     beforeEach(() => {
-        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory());
+        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory(), clock, interactionTimeout);
         emitter = new EventStreamEmitter(stage);
         recorder = new EventRecorder([], stage);
 

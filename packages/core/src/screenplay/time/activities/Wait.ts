@@ -6,6 +6,7 @@ import { UsesAbilities } from '../../abilities';
 import { Answerable } from '../../Answerable';
 import { Interaction } from '../../Interaction';
 import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../../questions';
+import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
 
 /**
@@ -124,6 +125,7 @@ import { Duration } from '../models';
  */
 export class Wait {
 
+    // todo: move defaultTimeout property to WorkSchedule
     /**
      * Default timeout of 5 seconds, used with {@apilink Wait.until}.
      *
@@ -137,6 +139,7 @@ export class Wait {
      */
     static readonly minimumTimeout = Duration.ofMilliseconds(250);
 
+    // todo: move defaultPollingInterval property to WorkSchedule
     /**
      * The amount of time {@apilink Wait.until} should wait between condition checks,
      * defaults to 500ms.
@@ -217,7 +220,7 @@ class WaitFor extends Interaction {
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const duration = await actor.answer(this.duration);
 
-        return waitFor(duration).start();
+        return ScheduleWork.as(actor).waitFor(duration);
     }
 }
 
@@ -258,129 +261,39 @@ export class WaitUntil<Actual> extends Interaction {
     /**
      * @inheritDoc
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        let outcome: ExpectationOutcome;
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
-        const expectation = async () => {
-            outcome = await actor.answer(
-                this.expectation.isMetFor(this.actual)
-            );
+        await ScheduleWork.as(actor).repeatUntil<ExpectationOutcome>(
+            () => actor.answer(this.expectation.isMetFor(this.actual)),
+            {
+                exitCondition: outcome =>
+                    outcome instanceof ExpectationMet,
 
-            return outcome instanceof ExpectationMet;
-        }
+                delayBetweenInvocations: (invocation) => invocation === 0
+                    ? Duration.ofMilliseconds(0)
+                    : this.pollingInterval,
 
-        const timeout = timeoutAfter(this.timeout);
-        const poller = waitUntil(expectation, this.pollingInterval);
+                timeout: this.timeout,
 
-        return Promise.race([
-            timeout.start(),
-            poller.start(),
-        ]).
-        then(() => {
-            timeout.stop();
-            poller.stop();
-        }).
-        catch(error => {
-            timeout.stop();
-            poller.stop();
+                errorHandler: (error, outcome) => {
+                    if (error instanceof ListItemNotFoundError) {
+                        return; // ignore, lists might get populated later
+                    }
 
-            if (error instanceof TimeoutExpiredError) {
+                    if (error instanceof TimeoutExpiredError) {
 
-                throw RaiseErrors.as(actor).create(AssertionError, {
-                    message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
-                    expectation: outcome?.expectation,
-                    diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
-                    location: this.instantiationLocation(),
-                    cause: error,
-                });
+                        throw RaiseErrors.as(actor).create(AssertionError, {
+                            message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
+                            expectation: outcome?.expectation,
+                            diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
+                            location: this.instantiationLocation(),
+                            cause: error,
+                        });
+                    }
+
+                    throw error;
+                }
             }
-
-            throw error;
-        });
+        );
     }
-}
-
-function waitFor(duration: Duration): { start: () => Promise<void>, stop: () => void } {
-    let timeoutId: NodeJS.Timeout;
-
-    return {
-        start() {
-            return new Promise((resolve, reject_) => {
-                timeoutId = setTimeout(() => {
-                    clearTimeout(timeoutId);
-                    resolve();
-                }, duration.inMilliseconds());
-            })
-        },
-
-        stop() {
-            clearTimeout(timeoutId);
-        }
-    };
-}
-
-function waitUntil(expectation: () => Promise<boolean> | boolean, pollingInterval: Duration): { start: () => Promise<void>, stop: () => void } {
-    let delay: { start: () => Promise<void>, stop: () => void };
-    let pollingActive = false;
-
-    async function poll(): Promise<void> {
-
-        async function nextPollingInterval(): Promise<void> {
-            if (pollingActive) {
-                delay = waitFor(pollingInterval);
-                await delay.start();
-                await poll();
-            }
-        }
-
-        try {
-            const expectationIsMet = await expectation();
-            if (expectationIsMet) {
-                delay?.stop();
-                return;
-            }
-            await nextPollingInterval();
-        } catch (error) {
-            delay?.stop();
-
-            if (error instanceof ListItemNotFoundError) {
-                await nextPollingInterval();
-                return;
-            }
-
-            throw error;
-        }
-
-    }
-
-    return {
-        async start () {
-            pollingActive = true;
-            await poll();
-        },
-
-        stop () {
-            delay?.stop();
-            pollingActive = false;
-        }
-    };
-}
-
-function timeoutAfter(duration: Duration): { start: () => Promise<void>, stop: () => void } {
-
-    let timeoutId: NodeJS.Timeout;
-
-    return {
-        start: () =>
-            new Promise<void>((resolve, reject) => {
-                timeoutId = setTimeout(() => {
-                    clearTimeout(timeoutId);
-                    reject(new TimeoutExpiredError(d`Timeout of ${ duration } has expired`));
-                }, duration.inMilliseconds());
-            }),
-
-        stop: () => {
-            clearTimeout(timeoutId);
-        }
-    };
 }

@@ -15,7 +15,7 @@ import sinon = require('sinon');
 describe('Serenity', () => {
 
     describe('when constructing a Stage', () => {
-        it('connects it with a provided Cast', () => {
+        it('connects it with a provided Cast', async () => {
 
             const prepareSpy = sinon.spy();
 
@@ -37,6 +37,8 @@ describe('Serenity', () => {
 
             expect(prepareSpy).to.have.been.calledOnce;
             expect(prepareSpy.getCall(0).args[0]).to.equal(Joe);
+
+            await Joe.dismiss();
         });
 
         it('connects it with provided StageCrewMembers', () => {
@@ -113,7 +115,7 @@ describe('Serenity', () => {
         });
     });
 
-    it(`enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers`, () => {
+    it(`enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers`, async () => {
 
         class Extras implements Cast {
             prepare(actor: Actor): Actor {
@@ -135,19 +137,23 @@ describe('Serenity', () => {
             crew: [ listener ],
         });
 
-        return serenity.theActorCalled('Joe').attemptsTo(
+        const actor = serenity.theActorCalled('Joe');
+
+        await actor.attemptsTo(
             PerformSomeInteraction(),
-        ).
-        then(() => serenity.waitForNextCue()).
-        then(() => {
-            expect(listener.events).to.have.lengthOf(2);
+        );
 
-            expect(listener.events[0]).to.be.instanceOf(ActivityStarts);
-            expect(listener.events[0].details.name.value).to.equal(`Joe performs some interaction`);
+        await actor.dismiss();
 
-            expect(listener.events[1]).to.be.instanceOf(ActivityFinished);
-            expect(listener.events[1].details.name.value).to.equal(`Joe performs some interaction`);
-        });
+        await serenity.waitForNextCue();
+
+        expect(listener.events).to.have.lengthOf(2);
+
+        expect(listener.events[0]).to.be.instanceOf(ActivityStarts);
+        expect(listener.events[0].details.name.value).to.equal(`Joe performs some interaction`);
+
+        expect(listener.events[1]).to.be.instanceOf(ActivityFinished);
+        expect(listener.events[1].details.name.value).to.equal(`Joe performs some interaction`);
     });
 
     it('allows for external parties, such as test runner adapters, to announce DomainEvents', () => {

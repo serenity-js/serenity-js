@@ -38,18 +38,18 @@ export = {
             describe: `The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`,
         },
     },
-    handler: (argv: Argv): Promise<void> => {
+    handler: async (argv: Argv): Promise<void> => {
 
         const
-            printer         = new Printer(process.stdout, process.stderr),
-            artifactGAV     = GAV.fromString(argv.artifact),
-            pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath()),
-            repository      = new URL(argv.repository);
+            printer = new Printer(process.stdout, process.stderr),
+            artifactGAV = GAV.fromString(argv.artifact),
+            pathToArtifact = new Path(argv.cacheDir).join(artifactGAV.toPath()),
+            repository = new URL(argv.repository);
 
         configure({
             actors: new UpdateCommandActors(
                 new Path(process.cwd()),
-                () => axiosClient(repository, Boolean(argv.ignoreSSL), process.env, Credentials.fromString(argv.auth))
+                () => axiosClient(repository, Boolean(argv.ignoreSSL), process.env, Credentials.fromString(argv.auth)),
             ),
             crew: [
                 new NotificationReporter(printer),
@@ -57,24 +57,26 @@ export = {
             ],
         });
 
-        return Promise.resolve()
-            .then(() =>
-                actorCalled('Serenity/JS Updater').attemptsTo(
-                    Check.whether(FileExists.at(pathToArtifact), isTrue())
-                        .andIfSo(
-                            Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
-                        )
-                        .otherwise(
-                            DownloadArtifact
-                                .identifiedBy(artifactGAV)
-                                .availableFrom(repository)
-                                .to(pathToArtifact.directory())
-                        ),
-                )
-            )
-            .catch(error => {
-                printer.error(formatError(error));
-                yargs.exit(1, error.message);
-            });
+        const actor = actorCalled('Serenity/JS Updater');
+
+        try {
+            await actorCalled('Serenity/JS Updater').attemptsTo(
+                Check.whether(FileExists.at(pathToArtifact), isTrue())
+                    .andIfSo(
+                        Notify.that(`Looks like you're good to go! Serenity BDD CLI is already at ${ pathToArtifact.value }`),
+                    )
+                    .otherwise(
+                        DownloadArtifact
+                            .identifiedBy(artifactGAV)
+                            .availableFrom(repository)
+                            .to(pathToArtifact.directory()),
+                    ),
+            );
+            await actor.dismiss();
+        }
+        catch (error) {
+            printer.error(formatError(error));
+            yargs.exit(1, error.message);
+        }
     },
 };
