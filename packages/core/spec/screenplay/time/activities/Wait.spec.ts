@@ -24,10 +24,12 @@ describe('Wait', () => {
             )
     });
 
-    afterEach(() =>
-        serenity.theActorCalled('Wendy')
-            .attemptsTo(Stopwatch.stop())
-    );
+    afterEach(async () => {
+        await serenity.theActorCalled('Wendy')
+            .attemptsTo(Stopwatch.stop());
+
+        await serenity.theActorCalled('Wendy').dismiss();
+    });
 
     describe('for', () => {
 
@@ -133,7 +135,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
                     | Waited 5s, polling every 500ms, for the first of \\[ \\] to have value greater than 1
-                    | \\s{4}at.*Wait.spec.ts:128:30
+                    | \\s{4}at.*Wait.spec.ts:130:30
                 `));
             })
         });
@@ -195,7 +197,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.match(new RegExp(trimmed`
                     | Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1
-                    | \\s{4}at.*Wait.spec.ts:188:26
+                    | \\s{4}at.*Wait.spec.ts:190:26
                 `));
             });
         });

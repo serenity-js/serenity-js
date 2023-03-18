@@ -33,15 +33,38 @@ export class Timestamp extends TinyType {
     }
 
     diff(another: Timestamp): Duration {
+        ensure('timestamp', another, isDefined());
         return new Duration(Math.abs(moment(this.value).diff(another.value, 'ms', true)));
     }
 
     plus(duration: Duration): Timestamp {
+        ensure('duration', duration, isDefined());
         return new Timestamp(moment(this.value).add(duration.inMilliseconds(), 'ms').toDate());
     }
 
     less(duration: Duration): Timestamp {
+        ensure('duration', duration, isDefined());
         return new Timestamp(moment(this.value).subtract(duration.inMilliseconds(), 'ms').toDate());
+    }
+
+    isBefore(another: Timestamp): boolean {
+        ensure('timestamp', another, isDefined());
+        return this.value.getTime() < another.value.getTime();
+    }
+
+    isBeforeOrEqual(another: Timestamp): boolean {
+        ensure('timestamp', another, isDefined());
+        return this.value.getTime() <= another.value.getTime();
+    }
+
+    isAfter(another: Timestamp): boolean {
+        ensure('timestamp', another, isDefined());
+        return this.value.getTime() > another.value.getTime();
+    }
+
+    isAfterOrEqual(another: Timestamp): boolean {
+        ensure('timestamp', another, isDefined());
+        return this.value.getTime() >= another.value.getTime();
     }
 
     toMilliseconds(): number {
@@ -57,7 +80,7 @@ export class Timestamp extends TinyType {
     }
 
     toString(): string {
-        return this.value.toString();
+        return this.value.toISOString();
     }
 }
 

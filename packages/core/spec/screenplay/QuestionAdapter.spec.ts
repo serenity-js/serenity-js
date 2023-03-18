@@ -10,7 +10,12 @@ function p<T>(value?: T): Promise<T> {
 
 describe('Question', () => {
 
-    const actor = actorCalled('Stella');
+    let actor: Actor;
+
+    beforeEach(() => {
+        actor =  actorCalled('Stella');
+    });
+    afterEach(() => actor.dismiss());
 
     describe('about()', () => {
 

@@ -2,12 +2,8 @@ import 'mocha';
 
 import { expect, givenFollowingEvents } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, LogicError } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { SceneFinished, SceneFinishes, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/lib/events';
 import {
-    ActivityDetails,
-    Category,
-    CorrelationId,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -15,31 +11,15 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-    Name,
     Outcome,
-    ScenarioDetails,
 } from '@serenity-js/core/lib/model';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 import { create } from './create';
+import { activityId, defaultCardScenario, pickACard, sceneId } from './fixtures';
 
 describe('Photographer', () => {
-
-    const
-        defaultCardScenario = new ScenarioDetails(
-            new Name('Paying with a default card'),
-            new Category('Online Checkout'),
-            new FileSystemLocation(
-                new Path(`payments/checkout.feature`),
-            ),
-        ),
-        pickACard = new ActivityDetails(
-            new Name('Pick the default credit card'),
-            new FileSystemLocation(Path.from('payments/checkout.steps.ts'), 0, 0),
-        ),
-        sceneId = new CorrelationId('a-scene-id'),
-        activityId = new CorrelationId('activity-id');
 
     it('complains when sent DomainEvents before getting assigned to a Stage', () => {
         const photographer = new Photographer(new TakePhotosOfFailures());
@@ -63,6 +43,7 @@ describe('Photographer', () => {
                 new SceneStarts(sceneId, defaultCardScenario),
                 new TaskStarts(sceneId, activityId, pickACard),
                 new TaskFinished(sceneId, activityId, pickACard, outcome),
+                new SceneFinishes(sceneId),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(new ExecutionSuccessful()),
             ).areSentTo(photographer);
@@ -87,6 +68,7 @@ describe('Photographer', () => {
 
             givenFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
+                new SceneFinishes(sceneId),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(new ExecutionFailedWithError(outcome.error)),
             ).areSentTo(photographer);

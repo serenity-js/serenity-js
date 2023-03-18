@@ -41,10 +41,23 @@ export abstract class SerenityConfig {
      * async operations to complete. Those include generating the screenshots,
      * saving reports to disk, {@apilink Discardable|dismissing the actors}, and so on.
      *
+     * Defaults to 5 seconds.
+     *
      * **Please note** that this is not
      * a scenario timeout, which should be configured in your test runner.
      */
     cueTimeout?: Duration;
+
+    /**
+     * The maximum default amount of time allowed for interactions such as {@apilink Wait.until}
+     * to complete.
+     *
+     * Defaults to 10 seconds, can be overridden per interaction.
+     *
+     * **Please note** that this is not
+     * a scenario timeout, which should be configured in your test runner.
+     */
+    interactionTimeout?: Duration;
 
     /**
      * {@apilink DiffFormatter} that should be used by the {@apilink ErrorFactory} and the ability to {@apilink RaiseErrors}

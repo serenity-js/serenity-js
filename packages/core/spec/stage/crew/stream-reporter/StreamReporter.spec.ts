@@ -9,6 +9,8 @@ import { expect } from '../../../expect';
 
 describe('StreamReporter', () => {
 
+    const interactionTimeout = Duration.ofSeconds(5);
+
     let stage:          Stage,
         output:         sinon.SinonStubbedInstance<Writable>;
 
@@ -19,10 +21,13 @@ describe('StreamReporter', () => {
     }
 
     beforeEach(() => {
+        const clock = new Clock();
         stage = new Stage(
             new Extras(),
-            new StageManager(Duration.ofSeconds(2), new Clock()),
+            new StageManager(Duration.ofSeconds(2), clock),
             new ErrorFactory(),
+            clock,
+            interactionTimeout
         );
 
         output = sinon.createStubInstance(Writable);

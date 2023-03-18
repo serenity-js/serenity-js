@@ -1,11 +1,13 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Ability, Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
+import { Ability, Actor, Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
 import { expect } from '../expect';
 import { Ensure } from './Ensure';
 
 describe('Notepad', () => {
+
+    afterEach(() => dismissAnyActiveActors());
 
     describe('when producing a description', () => {
 
@@ -37,7 +39,7 @@ describe('Notepad', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('notes.spec.ts');
-            expect(location.line).to.equal(36);
+            expect(location.line).to.equal(38);
             expect(location.column).to.equal(18);
         });
 
@@ -501,6 +503,8 @@ describe('Notepad', () => {
     });
 });
 
+let activeActors: Actor[] = [];
+
 function actors(...names: string[]) {
     return {
         whoCan: (...abilities: Ability[])  => {
@@ -511,9 +515,20 @@ function actors(...names: string[]) {
                 actors: Cast.where(actor => actor.whoCan(...abilities)),
             });
 
-            return names.map(name =>
-                serenity.theActorCalled(name)
+            names.forEach(name =>
+                activeActors.push(serenity.theActorCalled(name))
             );
+
+            return activeActors;
         }
     }
+}
+
+async function dismissAnyActiveActors(): Promise<void> {
+    for(const actor of activeActors) {
+        await actor.dismiss();
+
+    }
+
+    activeActors = [];
 }

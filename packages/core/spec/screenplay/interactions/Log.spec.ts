@@ -38,6 +38,8 @@ describe('Log', () => {
             log,
         );
 
+        await actor.dismiss();
+
         collect.firstCall.args[0].map(decoded => {
             expect(decoded.data).to.deep.equal(`'some value'`);
         });
@@ -49,7 +51,7 @@ describe('Log', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Log.spec.ts');
-        expect(location.line).to.equal(48);
+        expect(location.line).to.equal(50);
         expect(location.column).to.equal(30);
     });
 });

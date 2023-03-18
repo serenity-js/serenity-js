@@ -2,13 +2,13 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb, Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/web';
 
 import { create } from '../create';
-import { Perform } from '../fixtures';
+import { defaultCardScenario, Perform, sceneId } from '../fixtures';
 
 describe('Photographer', function () {
 
@@ -27,6 +27,12 @@ describe('Photographer', function () {
 
             photographer = new Photographer(new TakePhotosBeforeAndAfterInteractions(), stage);
             stage.assign(photographer);
+            stage.announce(new SceneStarts(sceneId, defaultCardScenario))
+        });
+
+        afterEach(async () => {
+            stage.announce(new SceneFinishes(sceneId));
+            await stage.waitForNextCue();
         });
 
         it('takes a before and after photo when the interaction goes well', () =>

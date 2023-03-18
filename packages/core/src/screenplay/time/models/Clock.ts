@@ -2,7 +2,7 @@ import { Timestamp } from './Timestamp';
 
 /**
  * A {@apilink Clock} tells the time. This abstraction allows Serenity/JS to have a single place
- * in the framework responsible for telling the time, that can also be easily mocked for internal testing.
+ * in the framework responsible for telling the time, and one that can be easily mocked for internal testing.
  *
  * ```ts
  * const now: Timestamp = new Clock().now()

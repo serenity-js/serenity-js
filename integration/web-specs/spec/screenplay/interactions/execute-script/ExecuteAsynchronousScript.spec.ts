@@ -3,9 +3,11 @@ import 'mocha';
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Clock, Question, Serenity,serenity } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { By, ExecuteScript, Navigate, PageElement, Value } from '@serenity-js/web';
+
+import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
 describe('ExecuteAsynchronousScript', function () {
 
@@ -106,7 +108,7 @@ describe('ExecuteAsynchronousScript', function () {
             `),
         )).to.be.rejectedWith(Error, `something's not quite right here`));
 
-    it('emits the events so that the details of the script being executed can be reported', () => {
+    it('emits the events so that the details of the script being executed can be reported', async () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
         const actors = (serenity as any).stage.cast;
         const localSerenity = new Serenity(frozenClock);
@@ -117,27 +119,33 @@ describe('ExecuteAsynchronousScript', function () {
             crew: [ recorder ],
         });
 
-        return localSerenity.theActorCalled('Ashwin').attemptsTo(
+        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario))
+
+        await localSerenity.theActorCalled('Ashwin').attemptsTo(
             ExecuteScript.async(`arguments[arguments.length - 1]();`),
-        ).then(() => {
-            const events = recorder.events;
+        );
 
-            expect(events).to.have.lengthOf(3);
-            expect(events[0]).to.be.instanceOf(ActivityStarts);
-            expect(events[1]).to.be.instanceOf(ArtifactGenerated);
-            expect(events[2]).to.be.instanceOf(ActivityFinished);
+        localSerenity.announce(new SceneFinishes(sceneId));
+        await localSerenity.waitForNextCue();
 
-            const artifactGenerated = events[1] as ActivityRelatedArtifactGenerated;
+        const events = recorder.events;
 
-            expect(artifactGenerated.name.value).to.equal(`Script source`);
+        expect(events.length).to.be.greaterThan(4);
+        expect(events[0]).to.be.instanceOf(SceneStarts);
+        expect(events[1]).to.be.instanceOf(ActivityStarts);
+        expect(events[2]).to.be.instanceOf(ArtifactGenerated);
+        expect(events[3]).to.be.instanceOf(ActivityFinished);
 
-            expect(artifactGenerated.artifact.equals(TextData.fromJSON({
-                contentType: 'text/javascript;charset=UTF-8',
-                data: 'arguments[arguments.length - 1]();',
-            }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+        const artifactGenerated = events[2] as ActivityRelatedArtifactGenerated;
 
-            expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
-        });
+        expect(artifactGenerated.name.value).to.equal(`Script source`);
+
+        expect(artifactGenerated.artifact.equals(TextData.fromJSON({
+            contentType: 'text/javascript;charset=UTF-8',
+            data: 'arguments[arguments.length - 1]();',
+        }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+
+        expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
     });
 
     describe('detecting invocation location', () => {
@@ -146,7 +154,7 @@ describe('ExecuteAsynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(145);
+            expect(location.line).to.equal(153);
             expect(location.column).to.equal(44);
         });
 
@@ -163,7 +171,7 @@ describe('ExecuteAsynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(162);
+            expect(location.line).to.equal(170);
             expect(location.column).to.equal(16);
         });
     });

@@ -60,13 +60,13 @@ export = {
             describe: `A Logback log level to pass to the Serenity BDD CLI jar`,
         },
     },
-    handler: (argv: Argv): Promise<void> => {
+    handler: async (argv: Argv): Promise<void> => {
 
         const
-            printer         = new Printer(process.stdout, process.stderr),
-            artifactGAV     = GAV.fromString(argv.artifact),
-            pathToArtifact  = new Path(argv.cacheDir).join(artifactGAV.toPath()),
-            moduleRoot      = path.resolve(__dirname, '../../../');
+            printer = new Printer(process.stdout, process.stderr),
+            artifactGAV = GAV.fromString(argv.artifact),
+            pathToArtifact = new Path(argv.cacheDir).join(artifactGAV.toPath()),
+            moduleRoot = path.resolve(__dirname, '../../../');
 
         configure({
             actors: new RunCommandActors(new Path(process.cwd())),
@@ -76,21 +76,23 @@ export = {
             ],
         });
 
-        return Promise.resolve()
-            .then(() =>
-                actorCalled('Serenity/JS Updater').attemptsTo(
-                    InvokeSerenityBDD.at(pathToArtifact)
-                        .withProperties(SystemProperties.of({
-                            'serenity.compress.filenames': `${ argv.shortFilenames }`,
-                            'LOG_LEVEL': argv.log,
-                            'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
-                        }))
-                        .withArguments(SerenityBDDArguments.from(argv)),
-                )
-            )
-            .catch(error => {
-                printer.error(formatError(error));
-                yargs.exit(1, error.message);
-            });
+        const actor = actorCalled('Serenity/JS Reporter');
+
+        try {
+            await actor.attemptsTo(
+                InvokeSerenityBDD.at(pathToArtifact)
+                    .withProperties(SystemProperties.of({
+                        'serenity.compress.filenames': `${ argv.shortFilenames }`,
+                        'LOG_LEVEL': argv.log,
+                        'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
+                    }))
+                    .withArguments(SerenityBDDArguments.from(argv)),
+            );
+            await actor.dismiss();
+        }
+        catch (error) {
+            printer.error(formatError(error));
+            yargs.exit(1, error.message);
+        }
     },
 };

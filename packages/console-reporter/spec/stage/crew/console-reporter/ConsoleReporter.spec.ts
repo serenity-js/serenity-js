@@ -10,6 +10,9 @@ import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/conso
 
 describe('ConsoleReporter', () => {
 
+    const clock = new Clock();
+    const interactionTimeout = Duration.ofSeconds(5);
+
     let stdout: FakeWritableStream,
         reporter: ConsoleReporter,
         stage: Stage,
@@ -18,7 +21,7 @@ describe('ConsoleReporter', () => {
     beforeEach(() => {
         stdout = new FakeWritableStream();
 
-        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory());
+        stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory(), clock, interactionTimeout);
         emitter = new EventStreamEmitter(stage);
 
         reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, outputStream: stdout });

@@ -3,7 +3,7 @@ import { ensure, isDefined } from 'tiny-types';
 import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
 import { ActivityDetails, CorrelationId, Description, Name } from '../model';
-import { Actor, Timestamp } from '../screenplay';
+import { Actor, Clock, Duration, ScheduleWork, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
@@ -54,15 +54,21 @@ export class Stage {
      * @param cast
      * @param manager
      * @param errors
+     * @param clock
+     * @param interactionTimeout
      */
     constructor(
         private cast: Cast,
         private readonly manager: StageManager,
         private errors: ErrorFactory,
+        private readonly clock: Clock,
+        private readonly interactionTimeout: Duration,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
         ensure('ErrorFactory', errors, isDefined());
+        ensure('Clock', clock, isDefined());
+        ensure('interactionTimeout', interactionTimeout, isDefined());
     }
 
     /**
@@ -86,7 +92,10 @@ export class Stage {
             let actor;
             try {
                 const newActor = new Actor(name, this)
-                    .whoCan(new RaiseErrors(this));
+                    .whoCan(
+                        new RaiseErrors(this),
+                        new ScheduleWork(this.clock, this.interactionTimeout),
+                    );
 
                 actor = this.cast.prepare(newActor);
 
