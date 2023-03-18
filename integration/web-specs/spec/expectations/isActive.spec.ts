@@ -107,6 +107,6 @@ describe('isActive', function () {
     /** @test {isActive} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Elements.activeInput(), isActive()).toString())
-            .to.equal(`#actor waits up to 5s, polling every 500ms, until the active input does become active`);
+            .to.equal(`#actor waits until the active input does become active`);
     });
 });

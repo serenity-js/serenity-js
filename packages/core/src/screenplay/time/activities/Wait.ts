@@ -10,13 +10,18 @@ import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
 
 /**
- * `Wait` is a synchronisation statement that instructs the {@apilink Actor}
+ * `Wait` is a synchronisation statement that instructs the {@apilink Actor|actor}
  * to wait before proceeding with their next {@apilink Activity|activity},
- * either for a set {@apilink Duration}, or until a given {@apilink Expectation} is met.
+ * either for a set {@apilink Duration|duration}, or until a given {@apilink Expectation|expectation} is met.
  *
- * **Please note** that Serenity/JS implements `Wait` from scratch, so that
- * the behaviour is consistent no matter the integration tool you use (Playwright, WebdriverIO, Selenium, etc.)
+ * You can configure the timeout of the interaction to {@apilink Wait.until}:
+ * - globally, using {@apilink SerenityConfig.interactionTimeout}
+ * - locally, on a per-interaction basis using {@apilink Wait.upTo}
+ *
+ * :::tip Portable waiting
+ * Serenity/JS implements `Wait` from scratch, so that the behaviour is consistent no matter the integration tool you use (Playwright, WebdriverIO, Selenium, etc.)
  * or the type of testing you do (Web, REST API, component testing, etc.)
+ * :::
  *
  * ## Wait with Web-based tests
  *
@@ -48,7 +53,7 @@ import { Duration } from '../models';
  *  }
  * ```
  *
- * ### Waiting for a set amount of time
+ * ### Waiting for a set duration
  *
  * ```ts
  * import { actorCalled, Duration, Wait } from '@serenity-js/core'
@@ -118,6 +123,7 @@ import { Duration } from '../models';
  * ```
  *
  * ## Learn more
+ * - {@apilink SerenityConfig.interactionTimeout}
  * - {@apilink Duration}
  * - {@apilink Expectation}
  *
@@ -125,21 +131,12 @@ import { Duration } from '../models';
  */
 export class Wait {
 
-    // todo: move defaultTimeout property to WorkSchedule
-    /**
-     * Default timeout of 5 seconds, used with {@apilink Wait.until}.
-     *
-     * Use {@apilink Wait.upTo} to override it for a given interaction.
-     */
-    static readonly defaultTimeout = Duration.ofSeconds(5);
-
     /**
      * Minimum timeout that can be used with {@apilink Wait.until},
      * defaults to 250 milliseconds,
      */
     static readonly minimumTimeout = Duration.ofMilliseconds(250);
 
-    // todo: move defaultPollingInterval property to WorkSchedule
     /**
      * The amount of time {@apilink Wait.until} should wait between condition checks,
      * defaults to 500ms.
@@ -172,17 +169,12 @@ export class Wait {
      * or the `timeout` expires.
      *
      * @param timeout
-     *  Custom timeout to override {@apilink Wait.defaultTimeout}
+     *  Custom timeout to override {@apilink SerenityConfig.interactionTimeout}
      */
     static upTo(timeout: Duration): { until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => WaitUntil<Actual> } {
         return {
             until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> =>
-                new WaitUntil(
-                    actual,
-                    expectation,
-                    timeout,
-                    Wait.defaultPollingInterval.isLessThan(timeout) ? Wait.defaultPollingInterval : timeout
-                ),
+                new WaitUntil(actual, expectation, Wait.defaultPollingInterval.isLessThan(timeout) ? Wait.defaultPollingInterval : timeout, timeout),
         };
     }
 
@@ -200,12 +192,7 @@ export class Wait {
      *  An {@apilink Expectation} to be met before proceeding
      */
     static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
-        return new WaitUntil(
-            actual,
-            expectation,
-            Wait.defaultTimeout,
-            Wait.defaultPollingInterval
-        );
+        return new WaitUntil(actual, expectation, Wait.defaultPollingInterval);
     }
 }
 
@@ -240,13 +227,17 @@ export class WaitUntil<Actual> extends Interaction {
     constructor(
         private readonly actual: Answerable<Actual>,
         private readonly expectation: Expectation<Actual>,
-        private readonly timeout: Duration,
         private readonly pollingInterval: Duration,
+        private readonly timeout?: Duration,
     ) {
-        super(d`#actor waits up to ${ timeout }, polling every ${ pollingInterval }, until ${ actual } does ${ expectation }`);
+        super(d`#actor waits until ${ actual } does ${ expectation }`);
 
-        ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()))
-        ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()))
+        if (timeout) {
+            ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()));
+            ensure('Polling interval', pollingInterval.inMilliseconds(), isInRange(Wait.minimumPollingInterval.inMilliseconds(), timeout.inMilliseconds()));
+        }
+
+        ensure('Polling interval', pollingInterval.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumPollingInterval.inMilliseconds()));
     }
 
     /**
@@ -255,7 +246,7 @@ export class WaitUntil<Actual> extends Interaction {
      * @param interval
      */
     pollingEvery(interval: Duration): Interaction {
-        return new WaitUntil(this.actual, this.expectation, this.timeout, interval);
+        return new WaitUntil(this.actual, this.expectation, interval, this.timeout);
     }
 
     /**
@@ -283,7 +274,7 @@ export class WaitUntil<Actual> extends Interaction {
                     if (error instanceof TimeoutExpiredError) {
 
                         throw RaiseErrors.as(actor).create(AssertionError, {
-                            message: d`Waited ${ this.timeout }, polling every ${ this.pollingInterval }, for ${ this.actual } to ${ this.expectation }`,
+                            message: error.message + d` while waiting for ${ this.actual } to ${ this.expectation }`,
                             expectation: outcome?.expectation,
                             diff: outcome && { expected: outcome?.expected, actual: outcome?.actual },
                             location: this.instantiationLocation(),

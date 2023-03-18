@@ -29,7 +29,22 @@ describe('isPresent', function () {
     it('breaks the actor flow when element does not become present in the DOM', () =>
         expect(actorCalled('Wendy').attemptsTo(
             Wait.upTo(Duration.ofMilliseconds(250)).until(Page.nonExistentHeader, isPresent()),
-        )).to.be.rejectedWith(AssertionError, `Waited 250ms, polling every 250ms, for the non-existent header to become present`));
+        )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
+            | Timeout of 250ms has expired while waiting for the non-existent header to become present
+            | 
+            | Expectation: isPresent\\(\\) 
+            |
+            | Expected boolean:\\s+true
+            | Received Proxy<QuestionStatement>
+            |
+            | [A-Za-z]+PageElement {
+            |   locator: [A-Za-z]+Locator {
+            |     parent: [A-Za-z]+RootLocator { }
+            |     selector: ByCss {
+            |       value: 'h2'
+            |     }
+            |   }
+            | }`, 'gm')));
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () =>
@@ -70,6 +85,6 @@ describe('isPresent', function () {
     /** @test {isPresent} */
     it('contributes to a human-readable description of a wait', () => {
         expect(Wait.until(Page.presentHeader, isPresent()).toString())
-            .to.equal(`#actor waits up to 5s, polling every 500ms, until the header does become present`);
+            .to.equal(`#actor waits until the header does become present`);
     });
 });

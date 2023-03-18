@@ -109,7 +109,7 @@ describe('Wait', () => {
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Waited ${ timeout }, polling every ${ pollingInterval }, for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
+                    | Timeout of ${ timeout } has expired while waiting for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
                     |
                     | Expectation: isGreaterThan\\(${ timeout.inMilliseconds() }\\)
                     |
@@ -134,7 +134,7 @@ describe('Wait', () => {
                 expect(elapsedTime).to.be.greaterThanOrEqual(5000);
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Waited 5s, polling every 500ms, for the first of \\[ \\] to have value greater than 1
+                    | Timeout of 5s has expired while waiting for the first of \\[ \\] to have value greater than 1
                     | \\s{4}at.*Wait.spec.ts:130:30
                 `));
             })
@@ -196,7 +196,7 @@ describe('Wait', () => {
             to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.match(new RegExp(trimmed`
-                    | Waited 1s, polling every 500ms, for the first of lazy-loaded numbers to equal 1
+                    | Timeout of 1s has expired while waiting for the first of lazy-loaded numbers to equal 1
                     | \\s{4}at.*Wait.spec.ts:190:26
                 `));
             });
@@ -233,7 +233,7 @@ describe('Wait', () => {
                 Wait.upTo(Duration.ofMilliseconds(250))
                     .until(Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'), isGreaterThan(250))
                     .pollingEvery(Duration.ofMilliseconds(50)).toString()
-            ).to.equal(`#actor waits up to 250ms, polling every 50ms, until elapsed time [ms] does have value greater than 250`);
+            ).to.equal(`#actor waits until elapsed time [ms] does have value greater than 250`);
         });
 
         it('complains when the timeout is less than the minimum', () => {
@@ -260,7 +260,7 @@ describe('Wait', () => {
         it('defaults the polling interval to the length of the timeout when timeout is less than the default polling interval', () => {
             const description = Wait.upTo(Duration.ofMilliseconds(250)).until(2, isGreaterThan(1)).toString()
 
-            expect(description).to.equal('#actor waits up to 250ms, polling every 250ms, until 2 does have value greater than 1');
+            expect(description).to.equal('#actor waits until 2 does have value greater than 1');
         });
     });
 });
