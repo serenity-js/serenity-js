@@ -7,6 +7,7 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
+const redirects = require('./redirects.config');
 const pkg = require('./../../package.json');
 
 /** @type {import('@docusaurus/types').Config} */
@@ -357,6 +358,10 @@ const config = {
                 steps: 4,
                 disableInDev: true,
             },
+        ],
+        [
+            '@docusaurus/plugin-client-redirects',
+            redirects,
         ],
     ],
 
