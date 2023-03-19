@@ -5,11 +5,10 @@ import { SerenityConfig } from './config';
 import { ConfigurationError, ErrorFactory, ErrorOptions, NoOpDiffFormatter, RuntimeError } from './errors';
 import { DomainEvent } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader, Path } from './io';
-import { ActivityDetails, CorrelationId, Duration, Timestamp } from './model';
-import { Actor } from './screenplay';
+import { ActivityDetails, CorrelationId } from './model';
+import { Actor, Clock, Duration, Timestamp } from './screenplay';
 import { StageCrewMember, StageCrewMemberBuilder } from './stage';
 import { Cast } from './stage/Cast';
-import { Clock } from './stage/Clock';
 import { Extras } from './stage/Extras';
 import { Stage } from './stage/Stage';
 import { StageManager } from './stage/StageManager';
@@ -18,8 +17,9 @@ import { StageManager } from './stage/StageManager';
  * @group Serenity
  */
 export class Serenity {
-    private static defaultCueTimeout    = Duration.ofSeconds(5);
-    private static defaultActors        = new Extras();
+    private static defaultCueTimeout            = Duration.ofSeconds(5);
+    private static defaultInteractionTimeout    = Duration.ofSeconds(5);
+    private static defaultActors                = new Extras();
 
     private stage: Stage;
     private outputStream: OutputStream  = process.stdout;
@@ -38,6 +38,8 @@ export class Serenity {
             Serenity.defaultActors,
             new StageManager(Serenity.defaultCueTimeout, clock),
             new ErrorFactory(),
+            clock,
+            Serenity.defaultInteractionTimeout,
         );
 
         this.classLoader = new ClassLoader(
@@ -64,6 +66,10 @@ export class Serenity {
             ? ensure('cueTimeout', config.cueTimeout, isInstanceOf(Duration))
             : Serenity.defaultCueTimeout;
 
+        const interactionTimeout = config.interactionTimeout
+            ? ensure('interactionTimeout', config.interactionTimeout, isInstanceOf(Duration))
+            : Serenity.defaultInteractionTimeout;
+
         if (config.outputStream) {
             this.outputStream = config.outputStream;
         }
@@ -72,6 +78,8 @@ export class Serenity {
             Serenity.defaultActors,
             new StageManager(cueTimeout, this.clock),
             new ErrorFactory(config.diffFormatter ?? new NoOpDiffFormatter()),
+            this.clock,
+            interactionTimeout,
         );
 
         if (config.actors) {

@@ -1,5 +1,5 @@
 import { expect } from '@integration/testing-tools';
-import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import { SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
@@ -16,7 +16,6 @@ import {
     Outcome,
     ProblemIndication,
     ScenarioDetails,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';

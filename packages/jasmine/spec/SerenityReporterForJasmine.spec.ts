@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import { expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError,Timestamp } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -26,7 +26,6 @@ import {
     ImplementationPending,
     Name,
     TestSuiteDetails,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 

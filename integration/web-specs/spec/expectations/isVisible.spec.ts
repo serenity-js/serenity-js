@@ -97,7 +97,7 @@ describe('isVisible', function () {
         /** @test {isVisible} */
         it('contributes to a human-readable description of a wait', () => {
             expect(Wait.until(Elements.displayed(), isVisible()).toString())
-                .to.equal(`#actor waits up to 5s, polling every 500ms, until visible element does become visible`);
+                .to.equal(`#actor waits until visible element does become visible`);
         });
     });
 

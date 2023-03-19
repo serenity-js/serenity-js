@@ -1,8 +1,9 @@
 import { describe, it } from 'mocha';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
-import { CorrelationId, Description, Duration, Name } from '../../src/model';
-import { Clock, StageManager } from '../../src/stage';
+import { CorrelationId, Description, Name } from '../../src/model';
+import { Clock, Duration } from '../../src/screenplay';
+import { StageManager } from '../../src/stage';
 import { expect } from '../expect';
 import { Recorder } from '../Recorder';
 

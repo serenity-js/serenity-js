@@ -28,7 +28,7 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf '../../target/coverage/serenity-bdd'",
+    "clean": "rimraf target",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
@@ -49,7 +49,7 @@
     "@serenity-js/core": "3.0.0-rc.43",
     "@serenity-js/rest": "3.0.0-rc.43",
     "ansi-regex": "^5.0.1",
-    "axios": "^1.2.2",
+    "axios": "^1.3.4",
     "chalk": "^4.1.2",
     "find-java-home": "^2.0.0",
     "https-proxy-agent": "^5.0.1",
@@ -66,6 +66,7 @@
     "if-env": "^1.0.4",
     "memfs": "^3.4.13",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "nyc": "15.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"

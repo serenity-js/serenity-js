@@ -1,6 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { LogicError } from '@serenity-js/core';
+import { Actor, LogicError } from '@serenity-js/core';
 import { AxiosRequestHeaders } from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
@@ -14,9 +15,20 @@ describe('ChangeApiConfig', () => {
         newUrl                  = 'http://example.com/',
         originalUrlWithNewPort  = 'http://localhost:8080/';
 
-    describe('when changing the API URL', () => {
+    let actor: Actor,
+        mock: MockAdapter;
 
-        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
+    beforeEach(() => {
+        const fixtures = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
+        actor = fixtures.actor;
+        mock = fixtures.mock;
+    });
+
+    afterEach(async () => {
+        await actor.dismiss();
+    });
+
+    describe('when changing the API URL', () => {
 
         beforeEach(() => {
             mock.onGet(originalUrl).reply(500);
@@ -25,28 +37,27 @@ describe('ChangeApiConfig', () => {
 
         afterEach(() =>  mock.reset());
 
-        it('changes the base URL used by any subsequent requests', () => actor.attemptsTo(
-            Send.a(GetRequest.to('/')),
-            Ensure.that(LastResponse.status(), equals(500)),
+        it('changes the base URL used by any subsequent requests', () =>
+            actor.attemptsTo(
+                Send.a(GetRequest.to('/')),
+                Ensure.that(LastResponse.status(), equals(500)),
 
-            ChangeApiConfig.setUrlTo(newUrl),
-            Send.a(GetRequest.to('/')),
-            Ensure.that(LastResponse.status(), equals(200)),
-        ));
+                ChangeApiConfig.setUrlTo(newUrl),
+                Send.a(GetRequest.to('/')),
+                Ensure.that(LastResponse.status(), equals(200)),
+            ));
 
         it('correctly detects its invocation location', () => {
             const activity = ChangeApiConfig.setUrlTo(newUrl);
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(38);
+            expect(location.line).to.equal(51);
             expect(location.column).to.equal(46);
         });
     });
 
     describe('when changing the API port', () => {
-
-        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
 
         beforeEach(() => {
             mock.onGet(originalUrl).reply(500);
@@ -82,14 +93,12 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(81);
+            expect(location.line).to.equal(92);
             expect(location.column).to.equal(46);
         });
     });
 
     describe('when setting a request header', () => {
-
-        const { actor, mock } = actorUsingAMockedAxiosInstance({ baseURL: originalUrl });
 
         beforeEach(() => {
             const dataMatcher = undefined;
@@ -129,7 +138,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(128);
+            expect(location.line).to.equal(137);
             expect(location.column).to.equal(46);
         });
     });

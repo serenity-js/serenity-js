@@ -4,8 +4,8 @@ import * as sinon from 'sinon';
 
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
-import { CorrelationId, ExecutionSuccessful, Name, Timestamp } from '../../src/model';
-import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question } from '../../src/screenplay';
+import { CorrelationId, ExecutionSuccessful, Name } from '../../src/model';
+import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question, Timestamp } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';

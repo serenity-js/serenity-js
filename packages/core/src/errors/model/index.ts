@@ -3,6 +3,7 @@ export * from './ConfigurationError';
 export * from './ImplementationPendingError';
 export * from './ListItemNotFoundError';
 export * from './LogicError';
+export * from './OperationInterruptedError';
 export * from './RuntimeError';
 export * from './TestCompromisedError';
 export * from './TimeoutExpiredError';

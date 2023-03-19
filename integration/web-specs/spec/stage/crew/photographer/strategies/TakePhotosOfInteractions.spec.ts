@@ -2,13 +2,13 @@ import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
-import { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, ActivityStarts, InteractionFinished, InteractionStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb, Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 import { create } from '../create';
-import { Perform } from '../fixtures';
+import { defaultCardScenario, Perform, sceneId } from '../fixtures';
 
 describe('Photographer', () => {
 
@@ -26,6 +26,13 @@ describe('Photographer', () => {
 
             photographer = new Photographer(new TakePhotosOfInteractions(), stage);
             stage.assign(photographer);
+
+            stage.announce(new SceneStarts(sceneId, defaultCardScenario))
+        });
+
+        afterEach(async () => {
+            stage.announce(new SceneFinishes(sceneId));
+            await stage.waitForNextCue();
         });
 
         it('takes a photo when the interaction goes well', () =>
@@ -125,9 +132,10 @@ describe('Photographer', () => {
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
-                expect(recorder.events.length).to.equal(2);
-                expect(recorder.events[0]).to.be.instanceOf(InteractionStarts);
-                expect(recorder.events[1]).to.be.instanceOf(InteractionFinished);
+                expect(recorder.events.length).to.equal(3);
+                expect(recorder.events[0]).to.be.instanceOf(SceneStarts);
+                expect(recorder.events[1]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[2]).to.be.instanceOf(InteractionFinished);
 
                 // no artifacts generated for an actor with no ability to BrowseTheWeb
             })));

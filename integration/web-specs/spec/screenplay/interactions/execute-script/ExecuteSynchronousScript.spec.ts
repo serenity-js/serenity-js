@@ -2,11 +2,12 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals, includes } from '@serenity-js/assertions';
-import { actorCalled, Question, Serenity, serenity } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
+import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
-import { Clock } from '@serenity-js/core/lib/stage';
 import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Value } from '@serenity-js/web';
+
+import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
 describe('ExecuteSynchronousScript', function () {
 
@@ -95,7 +96,7 @@ describe('ExecuteSynchronousScript', function () {
             `),
         )).to.be.rejectedWith(Error, `something's not quite right here`));
 
-    it('emits the events so that the details of the script being executed can be reported', () => {
+    it('emits the events so that the details of the script being executed can be reported', async () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
         const actors = (serenity as any).stage.cast;
         const localSerenity = new Serenity(frozenClock);
@@ -106,28 +107,32 @@ describe('ExecuteSynchronousScript', function () {
             crew: [ recorder ],
         });
 
-        return localSerenity.theActorCalled('Ashwin').attemptsTo(
+        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario))
+
+        await localSerenity.theActorCalled('Ashwin').attemptsTo(
             ExecuteScript.sync(`console.log('hello world');`),
-            // todo: implement Browser log questions when Webdriver supports it
-            // Ensure.that(Browser.log(), containAtLeastOneItemThat(property('message', includes('hello world')))),
-        ).then(() => {
-            const events = recorder.events;
+        );
 
-            expect(events[0]).to.be.instanceOf(ActivityStarts);
-            expect(events[1]).to.be.instanceOf(ArtifactGenerated);
-            expect(events[2]).to.be.instanceOf(ActivityFinished);
+        localSerenity.announce(new SceneFinishes(sceneId));
+        await localSerenity.waitForNextCue();
 
-            const artifactGenerated = events[1] as ActivityRelatedArtifactGenerated;
+        const events = recorder.events;
 
-            expect(artifactGenerated.name.value).to.equal(`Script source`);
+        expect(events.length).to.be.greaterThan(4);
+        expect(events[1]).to.be.instanceOf(ActivityStarts);
+        expect(events[2]).to.be.instanceOf(ArtifactGenerated);
+        expect(events[3]).to.be.instanceOf(ActivityFinished);
 
-            expect(artifactGenerated.artifact.equals(TextData.fromJSON({
-                contentType: 'text/javascript;charset=UTF-8',
-                data: 'console.log(\'hello world\');',
-            }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+        const artifactGenerated = events[2] as ActivityRelatedArtifactGenerated;
 
-            expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
-        });
+        expect(artifactGenerated.name.value).to.equal(`Script source`);
+
+        expect(artifactGenerated.artifact.equals(TextData.fromJSON({
+            contentType: 'text/javascript;charset=UTF-8',
+            data: 'console.log(\'hello world\');',
+        }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
+
+        expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
     });
 
     describe('detecting invocation location', () => {
@@ -136,7 +141,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(135);
+            expect(location.line).to.equal(140);
             expect(location.column).to.equal(44);
         });
 
@@ -150,7 +155,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(149);
+            expect(location.line).to.equal(154);
             expect(location.column).to.equal(16);
         });
     });
