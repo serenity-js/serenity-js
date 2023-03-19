@@ -11,10 +11,11 @@ export function create(): { stage: Stage, reporter: SerenityBDDReporter, recorde
     }
 
     const
-        cueTimeout      = Duration.ofSeconds(1),
+        interactionTimeout  = Duration.ofSeconds(2),
+        cueTimeout          = Duration.ofSeconds(1),
         clock           = new Clock(),
         stageManager    = new StageManager(cueTimeout, clock),
-        stage           = new Stage(new Extras(), stageManager, new ErrorFactory()),
+        stage           = new Stage(new Extras(), stageManager, new ErrorFactory(), clock, interactionTimeout),
         reporter        = new SerenityBDDReporter(stage),
         recorder        = new EventRecorder([], stage);
 

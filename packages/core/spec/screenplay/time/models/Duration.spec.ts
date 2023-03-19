@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Duration } from '../../src/model';
-import { expect } from '../expect';
+import { Duration } from '../../../../src';
+import { expect } from '../../../expect';
 
 describe('Duration', () => {
 
@@ -71,5 +71,23 @@ describe('Duration', () => {
     ]).
     it(`complains when the value is invalid`, ({ value, expected }) => {
         expect(() => new Duration(value)).to.throw(Error, expected)
+    });
+
+    describe('when serialising', () => {
+        it(`can deserialise duration from milliseconds`, () => {
+            const deserialised = Duration.fromJSON({ milliseconds: 1_000 });
+            const expected = Duration.ofSeconds(1);
+
+            expect(deserialised).to.equal(expected);
+        });
+
+        it(`serialises duration to milliseconds`, () => {
+            const oneSecond = Duration.ofSeconds(1);
+            const expectedMs = 1_000;
+
+            expect(oneSecond.toJSON()).to.deep.equal({
+                milliseconds: expectedMs
+            });
+        });
     });
 });

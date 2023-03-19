@@ -8,7 +8,8 @@ import * as path from 'path';
 const coverageMap = createCoverageMap({ });
 
 const input = [
-    path.join(path.resolve(__dirname, `../target/coverage/`),  `**/coverage-final.json`),
+    path.join(path.resolve(__dirname, `../packages/`),  `*/target/**/coverage-final.json`),
+    path.join(path.resolve(__dirname, `../integration/`),  `*/target/**/coverage-final.json`),
 ];
 
 console.log('Reading coverage reports from', input);

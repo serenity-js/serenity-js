@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Debug, Question, Serenity } from '../../../src';
+import { Actor, Debug, Question, Serenity } from '../../../src';
 import { Name } from '../../../src/model';
 import { expect } from '../../expect';
 
@@ -10,13 +10,16 @@ describe('Debug', () => {
     const sandbox = sinon.createSandbox();
 
     let serenity: Serenity;
+    let actor: Actor;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         serenity = new Serenity();
+        actor = serenity.theActorCalled('Debbie');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         sandbox.restore();
+        await actor.dismiss();
     })
 
     it('allows for a custom description', () => {
@@ -126,7 +129,7 @@ describe('Debug', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Debug.spec.ts');
-        expect(location.line).to.equal(125);
+        expect(location.line).to.equal(128);
         expect(location.column).to.equal(32);
     });
 
@@ -135,7 +138,7 @@ describe('Debug', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Debug.spec.ts');
-        expect(location.line).to.equal(134);
+        expect(location.line).to.equal(137);
         expect(location.column).to.equal(32);
     });
 });

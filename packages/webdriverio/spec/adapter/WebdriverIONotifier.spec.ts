@@ -61,6 +61,10 @@ describe('WebdriverIONotifier', () => {
 
     beforeEach(() => {
 
+        const clock = new Clock();
+        const cueTimeout = Duration.ofSeconds(5);
+        const interactionTimeout = Duration.ofSeconds(2);
+
         config = {
             beforeSuite:    configSandbox.spy() as sinon.SinonSpy<[suite: Suite], void>,
             beforeTest:     configSandbox.spy() as sinon.SinonSpy<[test: Test, context: any], void>,
@@ -72,8 +76,10 @@ describe('WebdriverIONotifier', () => {
 
         stage = new Stage(
             Cast.where(actor => actor/* who can do nothing much */),
-            new StageManager(Duration.ofMilliseconds(250), new Clock()),
+            new StageManager(cueTimeout, clock),
             new ErrorFactory(),
+            clock,
+            interactionTimeout,
         );
 
         notifier = new WebdriverIONotifier(

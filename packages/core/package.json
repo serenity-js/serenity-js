@@ -26,7 +26,7 @@
     "screenplay"
   ],
   "scripts": {
-    "clean": "rimraf '../../target/coverage/core'",
+    "clean": "rimraf target",
     "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
@@ -55,6 +55,7 @@
     "assertion-error-formatter": "^3.0.0",
     "memfs": "^3.4.13",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "nyc": "15.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"

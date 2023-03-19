@@ -3,9 +3,11 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Clock, LogicError, Serenity, serenity, Wait } from '@serenity-js/core';
-import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Name } from '@serenity-js/core/lib/model';
 import { By, Click, ModalDialog, Navigate, Page, PageElement, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
+
+import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
 
 /** @test {ModalDialog} */
 describe('ModalDialog', () => {
@@ -280,11 +282,16 @@ describe('ModalDialog', () => {
                 ],
             });
 
+            localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario))
+
             await localSerenity.theActorCalled('Nick').attemptsTo(
                 Navigate.to(`/screenplay/models/modal-dialog/void-alert.html`),
 
                 Click.on(Example.trigger),
             );
+
+            localSerenity.announce(new SceneFinishes(sceneId));
+            await localSerenity.waitForNextCue();
 
             let asyncOperationId: CorrelationId;
 

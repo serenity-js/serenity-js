@@ -73,7 +73,7 @@ export class Send extends Interaction {
         const requestHeaders: Record<string, string | number | boolean> = AxiosHeaders.from(axiosRequestHeaders).toJSON(true) as Record<string, string | number | boolean>;
 
         const axiosResponseHeaders: RawAxiosResponseHeaders | AxiosResponseHeaders = response.headers;
-        const responseHeaders: Record<string, string> & { 'set-cookie'?: string[] } = AxiosHeaders.from(axiosResponseHeaders).toJSON(false) as RawAxiosResponseHeaders;
+        const responseHeaders = AxiosHeaders.from(axiosResponseHeaders).toJSON(false) as RawAxiosResponseHeaders;
 
         const requestAndResponse: RequestAndResponse = {
             request: {
@@ -84,7 +84,7 @@ export class Send extends Interaction {
             },
             response: {
                 status:     response.status,
-                headers:    responseHeaders,
+                headers:    responseHeaders as unknown as Record<string, string> & { 'set-cookie'?: string[] },
                 data:       response.data,
             },
         };

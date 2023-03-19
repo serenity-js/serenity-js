@@ -18,14 +18,14 @@
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf target ../../target/coverage/integration-webdriverio-jasmine",
+    "clean": "rimraf target",
     "test:devtools": "cross-env PROTOCOL=devtools npm test",
     "test:webdriver": "cross-env PROTOCOL=webdriver npm test",
     "pretest": "serenity-bdd update --ignoreSSL",
     "test": "cross-env PORT=8080 failsafe clean test:acceptance test:report",
     "test:acceptance": "start-server-and-test start 'http://localhost:8080' test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "cross-env-shell nyc --report-dir='../target/coverage/integration-webdriverio-web-$PROTOCOL' wdio wdio.conf.ts",
+    "test:acceptance:run": "cross-env-shell nyc --report-dir=\"../integration/webdriverio-web/target/coverage/$PROTOCOL\" wdio wdio.conf.ts",
     "test:report": "serenity-bdd run"
   },
   "repository": {

@@ -113,7 +113,7 @@ describe('@serenity-js/jasmine', function () {
                             | Expected boolean: true
                             | Received boolean: false
                             |
-                            | \\s{4}at .*/examples/failing/multiple-failures.spec.js:1:1
+                            | \\s{4}at .*/examples/failing/multiple-failures.spec.js:5:9
                         `));
                         expect(error.cause.message).to.equal(`Expected false to equal true.`);
                     })

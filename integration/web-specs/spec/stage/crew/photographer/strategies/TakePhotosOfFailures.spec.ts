@@ -3,13 +3,13 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { isPresent } from '@serenity-js/assertions';
 import { Duration, Wait } from '@serenity-js/core';
-import { ActivityRelatedArtifactGenerated, ActivityStarts } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 
 import { create } from '../create';
-import { Perform } from '../fixtures';
+import { defaultCardScenario, Perform, sceneId } from '../fixtures';
 
 describe('Photographer', () => {
 
@@ -26,13 +26,20 @@ describe('Photographer', () => {
 
             photographer = new Photographer(new TakePhotosOfFailures(), stage);
             stage.assign(photographer);
+
+            stage.announce(new SceneStarts(sceneId, defaultCardScenario))
+        });
+
+        afterEach(async () => {
+            stage.announce(new SceneFinishes(sceneId));
+            await stage.waitForNextCue();
         });
 
         it('does nothing if everything goes well', () =>
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
-                expect(recorder.events).to.have.lengthOf(2);    // Interaction starts and finishes
+                expect(recorder.events).to.have.lengthOf(3);    // Scene starts, then Interaction starts and finishes
             })));
 
         it('takes a photo when a problem occurs', () =>
@@ -59,7 +66,7 @@ describe('Photographer', () => {
 
                     PickEvent.from(recorder.events)
                         .next(ActivityRelatedArtifactGenerated, event => {
-                            expect(event.name.value).to.match(/Betty waits up to 250ms/);
+                            expect(event.name.value).to.match(/Betty waits until/);
                             expect(event.artifact).to.be.instanceof(Photo);
                         });
                 }))

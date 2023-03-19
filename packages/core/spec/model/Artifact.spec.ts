@@ -1,3 +1,5 @@
+import { describe, it } from 'mocha';
+
 import { Artifact, JSONData, Photo } from '../../src/model';
 import { expect } from '../expect';
 
