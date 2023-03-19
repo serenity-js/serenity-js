@@ -29,7 +29,7 @@ describe('Ensure', () => {
         });
     });
 
-    it('allows the actor to make an assertion', () => {
+    it('enables the actor to make an assertion', () => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(4, isIdenticalTo(4)),
         )).to.be.fulfilled;
@@ -46,7 +46,7 @@ describe('Ensure', () => {
         { actual: q(4), expectedMessage: 'Expected something to have value identical to 7', description: 'Question' },
         { actual: q(p(4)), expectedMessage: 'Expected something to have value identical to 7', description: 'Question<Promise>'  },
     ]).
-    it('describe the actual as well as its value when possible', ({ actual, expectedMessage }) => {
+    it('describes the actual as well as its value when possible', ({ actual, expectedMessage }) => {
         return expect(actorCalled('Enrique').attemptsTo(
             Ensure.that(actual, isIdenticalTo(7)),
         )).to.be.rejectedWith(AssertionError, new RegExp(trimmed`
