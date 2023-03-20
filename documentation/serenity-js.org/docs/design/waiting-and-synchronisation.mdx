@@ -1,0 +1,86 @@
+---
+sidebar_position: 3
+---
+
+# Waiting and synchronisation
+
+Serenity/JS helps you model your test scenarios from the perspective of [actors](/api/core/class/Actor) performing [activities](/api/core/class/Activity) to accomplish their goals.
+Waiting for a condition to occur follows this same consistent approach, with any synchronisation statements assertions expressed using the interaction to [`Wait.until`](/api/core/class/Wait#until).
+
+## The anatomy of a synchronisation statement
+
+`Wait.until` follows the same consistent pattern as [`Ensure.eventually`](/api/assertions/class/Ensure#eventually) and accepts two arguments:
+- the ["actual value"](http://xunitpatterns.com/ResultVerification.html) - an [`Answerable`](/api/core#Answerable) to be evaluated in the context of the given [actor](/api/core/class/Actor),
+- an [`Expectation`](/api/core/class/Expectation) that defines the condition to be met by the actual value.
+
+An example Serenity/JS synchronisation statement might look like this:
+
+```typescript
+import { actorCalled, Wait } from '@serenity-js/core'
+import { and, startsWith, endsWith } from '@serenity-js/assertions'
+
+await actorCalled('Edna').attemptsTo(
+    Wait.until('Hello world', and(startsWith('Hello'), endsWith('world'))),
+    //   actual value --^      ^-- expectation
+)
+```
+
+## Wait vs Ensure
+
+Same as the interaction to [`Ensure.eventually`](/handbook/design/assertions#fault-tolerant-assertions),
+`Wait.until` allows for the "actual value" to be [**determined dynamically**](/api/core/class/Question)
+and resolved in the context of the actor performing the assertion.
+
+```html
+<span class="spinner">Loading...</span>
+```
+
+```typescript
+import { actorCalled, Wait } from '@serenity-js/core'
+import { not, isPresent } from '@serenity-js/assertions'
+import { PageElement, By } from '@serenity-js/web'
+
+const spinner = () =>
+    PageElement.located(By.css('.spinner')).describedAs('spinner')
+
+await actorCalled('Edna').attemptsTo(
+    Wait.until(spinner(), not(isPresent())),
+)
+```
+
+Again, same as the interaction to [`Ensure.eventually`](/handbook/design/assertions#fault-tolerant-assertions),
+the maximum [interaction timeout](/api/core/class/SerenityConfig#interactionTimeout) of `Wait.until`
+can be set globally via [Serenity/JS configuration](/api/core/function/configure),
+or per interaction:
+
+```typescript
+import { actorCalled, Duration, Wait } from '@serenity-js/core'
+import { not, isPresent } from '@serenity-js/assertions'
+
+await actorCalled('Edna').attemptsTo(
+    Wait.upDo(Duration.ofSeconds(2))
+        .until(spinner(), not(isPresent())),
+)
+```
+
+However, unlike `Ensure.eventually` which uses an **exponential backoff**
+algorithm to reduce the frequency of evaluation calls over time, `Wait.until` instructs the actor
+to resolve the actual value at a **consistent time interval** between the evaluation calls:
+
+```typescript title="Example web scenario interacting with the widget"
+import { actorCalled, Duration, Wait } from '@serenity-js/core'
+import { not, isPresent } from '@serenity-js/assertions'
+
+await actorCalled('Edna').attemptsTo(
+    Wait.until(spinner(), not(isPresent()))
+        .pollingEvery(Duration.ofSeconds(1)),
+)
+```
+
+## Implementing custom expectations
+
+Serenity/JS [assertions](/api/assertions) and [web](/api/web) modules provide expectations you'll need to implement
+even the most sophisticated test scenarios.
+
+However, you can also implement **custom expectations** when needed. To do that, consult the examples in [`Expectation`](/api/core/class/Expectation) API docs
+and the [Serenity/JS code base on GitHub](https://github.com/serenity-js/serenity-js).
