@@ -33,7 +33,7 @@ Note that several Serenity/JS modules provide expectations you can use to define
 
 ## Reusable assertions
 
-Unlike other assertion libraries, Serenity/JS allows for the "actual value" to be **determined dynamically**
+Unlike other assertion libraries, Serenity/JS allows for the "actual value" to be [**determined dynamically**](/api/core/class/Question)
 and resolved in the context of the actor performing the assertion.
 This design enables **great flexibility** and helps to maximise **opportunities for code reuse**.
 
@@ -150,6 +150,21 @@ import { isVisible } from '@serenity-js/web'
 
 await actorCalled('Edna').attemptsTo(
     Ensure.eventually(heading(), isVisible()),
+)
+```
+
+Note that while you can set the global
+[interaction timeout](/api/core/class/SerenityConfig#interactionTimeout)
+in Serenity/JS configuration, you can also configure it for the specific assertion:
+
+```typescript title="Example web scenario interacting with the widget"
+import { actorCalled, Duration } from '@serenity-js/core'
+import { Ensure } from '@serenity-js/assertions'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Edna').attemptsTo(
+    Ensure.eventually(heading(), isVisible())
+        .timeoutAfter(Duration.ofMilliseconds(500)),
 )
 ```
 
