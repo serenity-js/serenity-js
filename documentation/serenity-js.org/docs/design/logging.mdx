@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Logging
@@ -8,20 +8,27 @@ sidebar_position: 3
 import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
 ```
 
-<ArticleComingSoon />
+Serenity/JS helps you model your test scenarios from the perspective of [actors](/api/core/class/Actor) performing [activities](/api/core/class/Activity) to accomplish their goals.
+Logging follows this same consistent approach, with any log statements expressed using the interaction to [`Log`](/api/core/class/Log).
 
-Don't use `console.log` (explain why it won't work)
-
-Use the interaction to `Log`
+The interaction to [`Log`](/api/core/class/Log) accepts any number of arguments, including dynamic values such as [questions](/api/core/class/Question)
+and [question adapters](/api/core#QuestionAdapter):
 
 ```typescript
 import { actorCalled, Log } from '@serenity-js/core'
+import { Page } from '@serenity-js/web'
 
-await actorCalled('Logan').attemptTo(
-    Log.the('static value')
+await actorCalled('Laura').attemptsTo(
+  Log.the('Current page', Page.current().title(), Page.current().url().href),
+  //  static value --^        question --^          question adapter --^
 )
 ```
 
-Explain what events Log emits
+When the actor reaches the interaction to [`Log`](/api/core/class/Log) in their workflow, the interaction:
+- evaluates the arguments in the context of the given actor,
+- makes the actor [collect](/api/core/class/Actor#collect) data artifacts with the results of the evaluation,
+- the actor emits collected artifacts as [domain events](/handbook/reporting/domain-events),
+- domain events are announced to all the registered [Serenity/JS reporting services](/handbook/reporting/).
 
-Explain how reporters report the emitted events
+Since the interaction to `Log` relies on Serenity/JS domain events to propagate the information,
+all the registered reporting services receive the exact same information and can include it in their respective reports.
