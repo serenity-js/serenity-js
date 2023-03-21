@@ -2,10 +2,99 @@
 sidebar_position: 5
 ---
 
-# Page Objects Pattern
+# Lean Page Objects Pattern
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+While the [Screenplay Pattern](/handbook/design/screenplay-pattern) is a **behavioural pattern**,
+Lean Page Objects is a **structural pattern**. Contrary to the more [traditional definition of Page Objects](https://martinfowler.com/bliki/PageObject.html),
+Serenity/JS Lean Page Objects are minimalistic and focused only on grouping
+related [page elements](/handbook/web-testing/page-element-query-language).
+
+Consider the below UI widget showing product search results for an imaginary online grocery store:
+
+```html
+<ul id="product-search-results">
+    <li class="product-search-result">
+        <span class="product-name">apples</span>
+        <span class="product-price">£2.25</span>
+    </li>
+    <li class="product-search-result">
+        <span class="product-name">bananas</span>
+        <span class="product-price">£1.50</span>
+    </li>
+</ul>
 ```
 
-<ArticleComingSoon />
+How would you approach writing a test scenario that checks the displayed product price of an arbitrary product?
+
+With Serenity/JS you could define a Lean Page Object describing the interesting page elements of the individual `.product-search-result`:
+
+```typescript
+import { PageElement, By, Text } from '@serenity-js/web'
+
+class ProductSearchResult {
+    static name = () =>
+        Text.of(
+            PageElement.located(By.css('.product-name'))
+        ).describedAs('name')
+
+    static price = () =>
+        Text.of(
+            PageElement.located(By.css('.product-price'))
+        ).describedAs('price')
+}
+```
+
+Then, you could define another Lean Page Object to describe the container widget of `product-search-results`:
+
+```typescript
+import { PageElement, PageElements, By } from '@serenity-js/web'
+
+class ProductSearch {
+    static widget = () =>
+        PageElement.located(By.id('product-search-result'))
+            .describedAs('product search results widget')
+
+    static results = () =>
+        PageElements.located(By.css('.product-search-result'))
+            .of(this.widget())
+            .describedAs('product search results')
+}
+```
+Finally, you could use Serenity/JS [Page Element Query Language](/handbook/web-testing/page-element-query-language)
+to define a method like `resultFor` that returned the required search result based on the product name:
+
+```typescript
+import { Aswerable } from '@serenity-js/core'
+import { Text } from '@serenity-js/web'
+import { includes } from '@serenity-js/assertions'
+
+class ProductSearch {
+    static resultFor = (name: Aswerable<string>) =>
+        this.results()
+            .where(ProductSearchResult.name(), includes(name))
+            .first()
+
+    // implementation of `results()` and `widget()` omitted for brevity
+}
+```
+
+Once you've created a handful of simple Lean Page Objects to help you identify the correct page elements,
+writing a test scenario to verify the displayed price becomes trivial:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Leonora').attemptsTo(
+    Ensure.that(
+        ProductSearchResult.price().of(
+            ProductSearch.resultFor('bananas')
+        ),
+        equals('£1.50')
+    )
+)
+```
+
+This is just one of many possible ways to structure your Lean Page Objects.
+Once you get used to the Serenity/JS [Page Element Query Language](/handbook/web-testing/page-element-query-language),
+you'll likely find other page element structures that work for you and your project.
