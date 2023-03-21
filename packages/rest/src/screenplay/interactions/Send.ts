@@ -13,7 +13,7 @@ import { CallAnApi } from '../abilities';
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
- * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * await actorCalled('Apisit')
