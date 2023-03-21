@@ -12,7 +12,7 @@ sidebar_position: 2
 - **[Partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions)** can be chained together to enable code reuse
 - [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
 [expectations](/api/core/class/Expectation) and [meta-questions](/api/core/interface/MetaQuestion),
-just like [assertions](/handbook/web-testing/web-first-assertions) and [synchronisation statements](/handbook/web-testing/web-first-assertions) do.
+just like [assertions](/handbook/design/assertions) and [synchronisation statements](/handbook/design/waiting-and-synchronisation) do.
 :::
 
 **Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
@@ -152,7 +152,7 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
-When composed questions are used with [synchronisation statements](/handbook/web-testing/waiting-and-synchronisation),
+When composed questions are used with [synchronisation statements](/handbook/design/waiting-and-synchronisation),
 the underlying value will be retrieved every polling interval:
 
 ```typescript
@@ -204,7 +204,7 @@ Note that you're not limited to web-first expectations and you can use
 any other expectations from the [Serenity/JS assertions module](/api/assertions) or [write them yourself](/api/core/class/Expectation).
 
 :::info Learn more
-Learn more about asserting on page elements in chapter "[Web-first assertions](/handbook/web-testing/web-first-assertions)".
+Learn more about asserting on page elements in chapter "[Web-first assertions](/handbook/design/assertions#web-assertions)".
 :::
 
 ### Waiting for a page element
@@ -240,7 +240,7 @@ Note that you're not limited to web-first expectations and you can use
 any other expectations from the [Serenity/JS assertions module](/api/assertions) or [write them yourself](/api/core/class/Expectation).
 
 :::info Learn more
-Learn more about synchronising your web tests with the system under test in chapter "[Waiting and synchronisation](/handbook/web-testing/waiting-and-synchronisation)".
+Learn more about synchronising your web tests with the system under test in chapter "[Waiting and synchronisation](/handbook/design/waiting-and-synchronisation)".
 :::
 
 ### Using selector aliases
