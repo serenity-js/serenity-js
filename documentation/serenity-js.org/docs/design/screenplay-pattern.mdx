@@ -203,7 +203,7 @@ an expected status code (note that [Serenity/JS assertions](/handbook/design/ass
 
 ```typescript
 // ...
-import { CallAnApi, PostRequest } from '@serenity-js/rest'
+import { CallAnApi, PostRequest, Send, LastResponse } from '@serenity-js/rest'
 import { Ensure, equals } from '@serenity-js/assertions'
 
 // ...
@@ -220,7 +220,7 @@ await actorCalled('Apisitt')
 ```
 
 Even though Wendy uses a web browser and not an API client, the way we instruct her to answer [web questions](/handbook/web-testing/)
-and [perform web assertions](/handbook/web-testing/web-first-assertions) is consistent with how you'd interact with any other interface:
+and [perform web assertions](/handbook/design/assertions#web-assertions) is consistent with how you'd interact with any other interface:
 
 ```typescript
 // ...
