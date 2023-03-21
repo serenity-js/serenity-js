@@ -243,6 +243,10 @@ export class WaitUntil<Actual> extends Interaction {
     /**
      * Configure how frequently the {@apilink Actor} should check if the answer meets the expectation.
      *
+     * Note that the polling interval defines the delay between subsequent attempts
+     * to evaluate the expected value, and doesn't include the amount of time
+     * it take the actor to evaluate the value itself.
+     *
      * @param interval
      */
     pollingEvery(interval: Duration): Interaction {
