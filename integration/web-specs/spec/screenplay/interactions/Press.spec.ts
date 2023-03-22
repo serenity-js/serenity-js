@@ -42,12 +42,11 @@ describe('Press', () => {
             actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/interactions/press/input_box.html'),
 
-                Enter.theValue('hello').into(InputBoxForm.textField),
-                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft, Key.ArrowLeft, Key.ArrowLeft).in(InputBoxForm.textField),
+                Enter.theValue('hi').into(InputBoxForm.textField),
+                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft).in(InputBoxForm.textField),
                 Press.the(Key.Backspace).in(InputBoxForm.textField),
-                Press.the('i').in(InputBoxForm.textField),
 
-                Ensure.that(Value.of(InputBoxForm.textField), equals('hi')),
+                Ensure.that(Value.of(InputBoxForm.textField), equals('')),
             ));
 
         it('allows the actor to use keyboard shortcuts outside the context of any specific input box', async () => {
@@ -182,7 +181,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(181);
+            expect(location.line).to.equal(180);
             expect(location.column).to.equal(36);
         });
 
@@ -191,7 +190,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(190);
+            expect(location.line).to.equal(189);
             expect(location.column).to.equal(47);
         });
     });

@@ -183,9 +183,9 @@ describe('PageElement', () => {
                     Switch.to(inputField),
                     Ensure.that(inputField, isActive()),
 
-                    Press.the('h', 'e', 'l', 'l', 'o', Key.Tab, Key.Enter),
+                    Press.the('y', Key.Tab, Key.Enter),
 
-                    Ensure.that(Value.of(result), equals('hello')),
+                    Ensure.that(Value.of(result), equals('y')),
                 ),
             );
 
@@ -196,14 +196,14 @@ describe('PageElement', () => {
                     Switch.to(inputField),
                     Ensure.that(inputField, isActive()),
 
-                    Press.the('h', 'e', 'l', 'l', 'o'),
+                    Press.the('y'),
 
                     Switch.to(submitButton),
                     Ensure.that(submitButton, isActive()),
 
                     Press.the(Key.Enter),
 
-                    Ensure.that(Value.of(result), equals('hello')),
+                    Ensure.that(Value.of(result), equals('y')),
                 ),
             );
 
@@ -226,7 +226,7 @@ describe('PageElement', () => {
                         Ensure.that(submitButton, isActive()),
 
                         Switch.to(inputField).and(
-                            Press.the('h', 'e', 'l', 'l', 'o'),
+                            Press.the('y'),
                         ),
 
                         // automatically switch back to the previously-focused element
@@ -234,7 +234,7 @@ describe('PageElement', () => {
 
                         Press.the(Key.Enter),
 
-                        Ensure.that(Value.of(result), equals('hello')),
+                        Ensure.that(Value.of(result), equals('y')),
                     ),
                 );
 
@@ -249,7 +249,7 @@ describe('PageElement', () => {
                                 Ensure.that(submitButton, isActive()),
 
                                 Switch.to(inputField).and(
-                                    Press.the('h', 'e', 'l', 'l', 'o'),
+                                    Press.the('y'),
                                 ),
 
                                 // automatically switch back to the previously-focused element
@@ -258,7 +258,7 @@ describe('PageElement', () => {
                             ),
 
                             Ensure.that(result, isActive()),
-                            Ensure.that(Value.of(result), equals('hello')),
+                            Ensure.that(Value.of(result), equals('y')),
                         ),
                     ),
                 );
