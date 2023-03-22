@@ -17,27 +17,6 @@ export class StartLocalServer {
     }
 
     /**
-     *  Instructs the {@apilink Actor} to start a local test server on one of the preferred ports.
-     *
-     *  Please note: this method is kept for backwards compatibility. However, its behaviour has changed
-     *  and is currently identical to calling `StartLocalServer.onPort` with the first of `preferredPorts`
-     *  passed as an argument.
-     *
-     * :::warning
-     * This method is deprecated and will be removed in Serenity/JS 3.0.0.
-     * Please use {@apilink StartLocalServer.onPort} and {@apilink StartLocalServer.onRandomPortBetween} instead.
-     * :::
-     *
-     * @deprecated use {@link StartLocalServer.onPort} and {@link StartLocalServer.onRandomPortBetween} instead
-     *
-     * @param preferredPorts
-     *  A list of preferred ports. Please note that only the first one will be used!
-     */
-    static onOneOfThePreferredPorts(preferredPorts: Answerable<number[]>): Interaction {
-        return new StartLocalServerOnFirstOf(preferredPorts);
-    }
-
-    /**
      * Instructs the {@apilink Actor} to start a local test server on a `preferredPort`,
      * or a random one if that's not available.
      *
