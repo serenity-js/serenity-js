@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **playwright:** it's now easier to inspect PlaywrightPage using the new interaction to Debug ([cbf210a](https://github.com/serenity-js/serenity-js/commit/cbf210a689c5e88b3856a337ecfe92031439a311))
+
+
+
+
+
 # [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
 
 

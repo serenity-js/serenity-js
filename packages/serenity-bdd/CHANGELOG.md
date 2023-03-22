@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **core:** removed deprecated ContextTag ([d09a688](https://github.com/serenity-js/serenity-js/commit/d09a6888020f2a7f76c0830b6d2939205cf0b3aa)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+
+
+
+
+
 # [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
 
 
