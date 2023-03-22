@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **core:** re-implemented the interaction to Debug so that it works in JetBrains IDEs ([14737f9](https://github.com/serenity-js/serenity-js/commit/14737f9eaa8cd1a66bce02649f768f4227bf1c27)), closes [#1520](https://github.com/serenity-js/serenity-js/issues/1520)
+* **core:** removed deprecated API Cast.whereEveryoneCan ([7f2f5b9](https://github.com/serenity-js/serenity-js/commit/7f2f5b9e642a00b6ce6f66ec06dd32f7a248495e)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated API List.get ([6308686](https://github.com/serenity-js/serenity-js/commit/6308686cde3e908822265e53e68dd1df05aa2567)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated ContextTag ([d09a688](https://github.com/serenity-js/serenity-js/commit/d09a6888020f2a7f76c0830b6d2939205cf0b3aa)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **deps:** update dependency deepmerge to ^4.3.1 ([d605a6b](https://github.com/serenity-js/serenity-js/commit/d605a6ba034b0d9d5d716c82ea496bd726a86348))
+* **deps:** update dependency graceful-fs to ^4.2.11 ([3dc2d0b](https://github.com/serenity-js/serenity-js/commit/3dc2d0b30e474126c1427238e9440a9f942fbdd9))
+* **deps:** update dependency typedoc to ^0.23.28 ([5d5b8d7](https://github.com/serenity-js/serenity-js/commit/5d5b8d706dc885d16c7cfeef96723cd744584c99))
+* **local-server:** removed deprecated API StartLocalServer.onOneOfThePreferredPorts ([58cc29c](https://github.com/serenity-js/serenity-js/commit/58cc29cae1764e72d9c8e5d9ec26cfc8fe3fc0b7)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **playwright:** it's now easier to inspect PlaywrightPage using the new interaction to Debug ([cbf210a](https://github.com/serenity-js/serenity-js/commit/cbf210a689c5e88b3856a337ecfe92031439a311))
+
+
+
+
+
 # [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
 
 
