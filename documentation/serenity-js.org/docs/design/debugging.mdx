@@ -1,43 +1,122 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Debugging
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
-```
+Serenity/JS helps you model your test scenarios from the perspective of [actors](/api/core/class/Actor) performing [activities](/api/core/class/Activity) to accomplish their goals.
+Debugging follows this same consistent approach, with any debug statements expressed using the interaction to [`Debug`](/api/core/class/Debug).
 
-<ArticleComingSoon />
-
-Actor receives a sequence of activities to perform.
-so don't set the breakpoint when the activity is defined,
-use the activity to debug.
-
-## Debugging values
-
-how it works
+The interaction to [`Debug`](/api/core/class/Debug) accepts a `debuggerFunction` and any number of arguments, including dynamic values such as [questions](/api/core/class/Question)
+and [question adapters](/api/core#QuestionAdapter):
 
 ```typescript
-Debug.values(...)
+import { actorCalled, Debug } from '@serenity-js/core'
+import { Navigate, Page, PageElement, By } from '@serenity-js/web'
+
+await actorCalled('Debbie').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Debug.values(
+        // debuggerFunction:
+        (results, url, tagline) => {
+            // set a breakpoint anywhere inside the function to view:
+            // - `results`, which evaluates to Array<DebuggingResult>
+            // - `url`, which evaluates to 'https://serenity-js.org'
+            // - `tagline`, which evaluates to text content of the h1 element
+        },
+
+        // values to inspect (any number of values, to be evaluated one by one):
+        Page.current().url(),
+        Text.of(PageElement.located(By.css('h1')).describedAs('tagline'))
+    ),
+);
 ```
 
-## Conditional debugging
+When the actor reaches the interaction to [`Debug`](/api/core/class/Debug) in their workflow, the interaction:
+- instructs the actor to attempt to resolve provided arguments one by one,
+- passes them to your `debuggerFunction` as an array of [`DebuggingResults`](/api/core/interface/DebuggingResult), as well as individual values so that they're easier to inspect and interact with in your debugger,
+- makes the actor [collect](/api/core/class/Actor#collect) data artifacts with the results of the evaluation and emit collected artifacts as [domain events](/handbook/reporting/domain-events)
+  to all the registered [Serenity/JS reporting services](/handbook/reporting/) so that they're included in your test reports.
+
+## Error handling
+
+When resolving provided argument results in an error, the interaction to [`Debug`](/api/core/class/Debug) will still pass,
+but the `results` parameter will contain the details of the error so that you can debug it in your IDE:
 
 ```typescript
-Check.whether(...)
-    .andIfSo(Debug.values(...))
+import { actorCalled, Debug, Question } from '@serenity-js/core'
+
+const throws = () =>
+    Question.about('argument that throws an error', actor => {
+        throw new Error('example error')
+    })
+
+await actorCalled('Debbie').attemptsTo(
+    Debug.values(
+        // debuggerFunction:
+        (results, value) => {
+            // set a breakpoint anywhere inside the function to view:
+            // - `value`, which will be `undefined` since resolving it resulted in an error
+            // - `results`, which will contain one entry:
+            //   [{
+            //     description: `argument that throws an error`,    <- description of the Question
+            //     value: undefined,
+            //     error: Error                                     <- Error thrown during resolution
+            //   }]
+        },
+        throws(),
+    ),
+);
 ```
 
-## Setting breakpoints
+When resolving more than one argument results in an error, `results` array provides details of all the errors.
+
+## Embedding in Tasks
+
+Note that the interaction to [`Debug`](/api/core/class/Debug) can be embedded in other [tasks](/api/core/class/Task),
+to help with debugging nested workflows:
 
 ```typescript
-await actor.attemptsTo()
+import { actorCalled, Debug, Task } from '@serenity-js/core'
+import { Navigate, PageElement, By, Text } from '@serenity-js/web'
 
-await actor.attemptsTo()
+const browseSerenityDocs = () =>
+    Task.where(`#actor browses Serenity/JS documentation`,
+        Navigate.to('https://serenity-js.org'),
+        Debug.values(
+            // debuggerFunction:
+            (results, tagline) => {
+                // set a breakpoint anywhere inside this function
+            },
+            Text.of(PageElement.located(By.css('h1')).describedAs('tagline'))
+        ),
+    )
+
+await actorCalled('Debbie').attemptsTo(
+    browseSerenityDocs(),
+);
 ```
 
+## Tweaking Playwright locators
 
-## Using a debugger
+[Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
+provides features that allow for [experimenting with web UI locators](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright#tune-locators)
+while the test is paused at breakpoint.
 
-See Visual Studio and JetBrains integration guides.
+Since this functionality is specific to [Playwright](/api/playwright), you can use it by passing [`PlaywrightPage.current().nativePage()`](/api/playwright/class/PlaywrightPage)
+as one of the arguments. You must also name the evaluated value `page`, as this is the variable name that the Playwright VSCode extension looks for:
+
+```typescript
+import { actorCalled, Debug } from '@serenity-js/core'
+import { PlaywrightPage } from '@serenity-js/playwright'
+import { Navigate } from '@serenity-js/web'
+
+await actorCalled('Debbie').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Debug.values((results, page) => {
+        // set a breakpoint here to use Playwright locator debugging features
+        page.locator('h1')
+        // note that you can change this selector while having the test paused at breakpoint
+    }, PlaywrightPage.current().nativePage()),
+);
+```

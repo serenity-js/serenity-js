@@ -23,7 +23,7 @@ import { AnswersQuestions } from './questions';
  * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
  *
  * Learn more about:
- * - {@apilink Actors|Actor}
+ * - {@apilink Actor|Actor}
  * - {@apilink Ability|Abilities}
  * - {@apilink Activity|Activities}
  *

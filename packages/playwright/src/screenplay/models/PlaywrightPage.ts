@@ -1,4 +1,4 @@
-import { LogicError } from '@serenity-js/core';
+import { LogicError, QuestionAdapter } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
@@ -18,6 +18,10 @@ import { PlaywrightPageElement } from './PlaywrightPageElement';
 export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    static override current(): QuestionAdapter<PlaywrightPage> {
+        return super.current() as QuestionAdapter<PlaywrightPage>;
+    }
 
     constructor(
         session: PlaywrightBrowsingSession,
