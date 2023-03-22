@@ -1,4 +1,4 @@
-import { Ability, Actor } from '../screenplay';
+import { Actor } from '../screenplay';
 
 /**
  * Serenity/JS uses the concept of a _**cast of actors**_ to centralise the process of configuring the {@apilink Actor|actors} and assigning their {@apilink Ability|abilities}.
@@ -172,16 +172,4 @@ export abstract class Cast {
      * - {@apilink engage}
      */
     abstract prepare(actor: Actor): Actor;
-}
-
-/**
- * @package
- */
-class GenericCastWithActorsOfExactSameAbilities implements Cast {
-    constructor(private readonly abilities: Ability[]) {
-    }
-
-    prepare(actor: Actor): Actor {
-        return actor.whoCan(...this.abilities);
-    }
 }
