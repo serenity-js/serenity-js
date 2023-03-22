@@ -82,18 +82,6 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         });
     }
 
-    /**
-     *
-     * :::warning
-     * This method is deprecated and will be removed in Serenity/JS 3.0.0. Use {@apilink List.nth} instead.
-     * :::
-     *
-     * @deprecated use {@link List.nth} instead
-     */
-    get(index: number): QuestionAdapter<Item_Type> {
-        return this.nth(index);
-    }
-
     nth(index: number): QuestionAdapter<Item_Type> {
         return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
             const items = await this.answeredBy(actor);
