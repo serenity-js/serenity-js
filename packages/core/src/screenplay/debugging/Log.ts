@@ -24,7 +24,7 @@ import { AnswersQuestions } from '../questions';
  * )
  * ```
  *
- * @group Activities
+ * @group Debugging
  */
 export class Log extends Interaction {
 

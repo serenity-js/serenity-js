@@ -29,7 +29,7 @@ function HeroBanner() {
                             __html: translate({
                                 id: 'homepage.hero.title',
                                 message:
-                                    `Enable <b>collaborative<br />test automation</b><br />at <b>any scale</b>!`,
+                                    `Enable <b>collaborative<br /> test automation</b><br /> at <b>any scale</b>!`,
                                 description:
                                     'Home page hero title, can contain simple html tags',
                             }),

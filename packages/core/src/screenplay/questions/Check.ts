@@ -33,7 +33,6 @@ import { ExpectationMet } from './expectations';
  * ## Perform a sequence of activities when a condition is met
  *
  * ```ts
- * import { equals } from '@serenity-js/assertions'
  * import { actorCalled, Check } from '@serenity-js/core'
  * import { isVisible } from '@serenity-js/web'
  *
