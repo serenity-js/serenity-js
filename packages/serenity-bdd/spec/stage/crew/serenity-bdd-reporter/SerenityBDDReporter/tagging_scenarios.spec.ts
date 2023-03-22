@@ -2,7 +2,7 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Stage } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario } from '../../samples';
@@ -247,7 +247,7 @@ describe('SerenityBDDReporter', () => {
 
                     it('indicates the operating system where the test was executed', () => {
                         stage.announce(
-                            new SceneTagged(sceneId, new ContextTag('iphone')),
+                            new SceneTagged(sceneId, new PlatformTag('iphone')),
                             new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
@@ -261,7 +261,9 @@ describe('SerenityBDDReporter', () => {
                                 expect(report.tags).to.deep.include.members([{
                                     name: 'iphone',
                                     displayName: 'iphone',
-                                    type: 'context',
+                                    platformName: 'iphone',
+                                    platformVersion: '',
+                                    type: 'platform'
                                 }]);
                             });
                     });
@@ -269,7 +271,7 @@ describe('SerenityBDDReporter', () => {
                     it('ensures that the user-specified context takes precedence over browser context', () => {
                         stage.announce(
                             new SceneTagged(sceneId, new BrowserTag('safari', '13.0.5')),
-                            new SceneTagged(sceneId, new ContextTag('iphone')),
+                            new SceneTagged(sceneId, new PlatformTag('iphone')),
                             new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                             new TestRunFinishes(),
                         );
@@ -278,19 +280,21 @@ describe('SerenityBDDReporter', () => {
                             .last(ArtifactGenerated, event => {
                                 const report = event.artifact.map(_ => _);
 
-                                expect(report.context).to.equal('iphone');
+                                expect(report.context).to.equal('safari,iphone');
 
-                                expect(report.tags).to.deep.include.members([{
+                                expect(report.tags).to.deep.include.members([ {
                                     name: 'safari 13.0.5',
-                                    displayName: 'safari 13.0.5',
                                     type: 'browser',
                                     browserName: 'safari',
                                     browserVersion: '13.0.5',
+                                    displayName: 'safari 13.0.5',
                                 }, {
                                     name: 'iphone',
-                                    displayName: 'iphone',
-                                    type: 'context',
-                                }]);
+                                    type: 'platform',
+                                    platformName: 'iphone',
+                                    platformVersion: '',
+                                    displayName: 'iphone'
+                                } ]);
                             });
                     });
                 });

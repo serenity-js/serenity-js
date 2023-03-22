@@ -68,10 +68,10 @@ describe('@serenity-js/local-server', () => {
 
         it(`it falls back to a random port if the preferred one is taken`, () =>
             expect(Nadia.attemptsTo(
-                StartLocalServer.onOneOfThePreferredPorts([port]),
+                StartLocalServer.onPort(port),
                 Ensure.that(LocalServer.url(), endsWith(`${ port }`)),
             ).then(() => Phillip.attemptsTo(
-                StartLocalServer.onOneOfThePreferredPorts([port]),
+                StartLocalServer.onPort(port),
                 Ensure.that(LocalServer.url(), not(endsWith(`${ port }`))),
             ))).to.be.fulfilled);
 

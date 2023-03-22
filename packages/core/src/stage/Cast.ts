@@ -150,23 +150,6 @@ import { Ability, Actor } from '../screenplay';
 export abstract class Cast {
 
     /**
-     * Creates a generic `Cast` implementation, where every actor
-     * is given all the exact same abilities specified when the method is called.
-     *
-     * @deprecated
-     *  Giving all the actors the **exact same abilities** means that there will be
-     *  potentially multiple actors holding on to the **exact same resources**.
-     *  If those abilities were {@aplink Discardable}, dismissing the first actor
-     *  discards the abilities of other actors.
-     *  Use {@apilink Cast.where} instead.
-     *
-     * @param abilities
-     */
-    static whereEveryoneCan(...abilities: Ability[]): Cast {
-        return new GenericCastWithActorsOfExactSameAbilities(abilities);
-    }
-
-    /**
      * Creates a generic `Cast` implementation, where new actors receive the abilities
      * configured by the `prepareFunction`.
      *
