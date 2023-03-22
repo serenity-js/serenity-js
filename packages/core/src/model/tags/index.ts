@@ -1,7 +1,6 @@
 export * from './ArbitraryTag';
 export * from './BrowserTag';
 export * from './CapabilityTag';
-export * from './ContextTag';
 export * from './ExecutionRetriedTag';
 export * from './FeatureTag';
 export * from './IssueTag';

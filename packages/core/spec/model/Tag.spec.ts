@@ -1,7 +1,7 @@
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { ArbitraryTag, BrowserTag, CapabilityTag, ContextTag, FeatureTag, IssueTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';
+import { ArbitraryTag, BrowserTag, CapabilityTag, FeatureTag, IssueTag, ManualTag, Tag, Tags, ThemeTag } from '../../src/model';
 import { expect } from '../expect';
 
 describe('Tag', () => {
@@ -29,7 +29,6 @@ describe('Tag', () => {
         new ArbitraryTag('wip'),
         new BrowserTag('chrome', '80.0.3987.87'),
         new CapabilityTag('checkout'),
-        new ContextTag('mac osx'),
         new FeatureTag('testability'),
         new IssueTag('abc-123'),
         new ManualTag(),
