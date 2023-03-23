@@ -5,15 +5,12 @@
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://matrix.to/#/#serenity-js:gitter.im)
 
-[Serenity/JS](https://serenity-js.org) is a framework designed to make acceptance and regression testing
-of modern full-stack applications faster, more collaborative and easier to scale.
+[Serenity/JS](https://serenity-js.org) is an innovative framework designed to make acceptance and regression testing
+of complex software systems faster, more collaborative and easier to scale.
 
-## Serenity/JS Console Reporter
+To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
 
-`@serenity-js/console-reporter` module reports progress of your Serenity/JS tests to the terminal.
-
-`ConsoleReporter` supports both colour and monochromatic output, as well as simple colour themes for terminals
-with dark and light backgrounds.
+If you have any questions or just want to say hello, join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
 
 ### Installation
 

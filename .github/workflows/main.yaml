@@ -361,10 +361,10 @@ jobs:
       - name: List all (debug)
         run: tree
 
-#      - name: Publish website
-#        uses: JamesIves/github-pages-deploy-action@v4.3.0
-#        if: github.ref == 'refs/heads/main'
-#        with:
-#          BRANCH: gh-pages
-#          FOLDER: documentation/serenity-js.org/build
-#          CLEAN: true
+      - name: Publish website
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        if: github.ref == 'refs/heads/main'
+        with:
+          BRANCH: gh-pages
+          FOLDER: documentation/serenity-js.org/build
+          CLEAN: true
