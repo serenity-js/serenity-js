@@ -352,7 +352,6 @@ jobs:
           install-command: make BOOTSTRAP_SCOPE=site install
 
       - name: Download artifact
-        if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: 'compiled-libs'
