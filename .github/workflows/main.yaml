@@ -346,7 +346,14 @@ jobs:
 
   website-publish:
     name: 'Website: publish'
-    if: github.ref == 'refs/heads/main' && needs.website-build.status == 'success'
+    # Website build uses always() as otherwise it won't be executed if artifacts-publish was skipped because there were no code changes
+    #   https://github.com/actions/runner/issues/491#issuecomment-660122693
+    if: |
+      always() &&
+      (
+        github.ref == 'refs/heads/main' &&
+        needs.website-build.status == 'success'
+      )
     permissions:
       contents: write
     runs-on: ubuntu-latest
