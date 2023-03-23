@@ -117,6 +117,8 @@ const config = {
                     {
                         title: 'Handbook',
                         items: [
+                            { label: 'Why Serenity/JS', to: '/handbook/' },
+                            { label: 'Getting started', to: '/handbook/getting-started' },
                             { label: 'About Serenity/JS', to: '/handbook/about' },
                             { label: 'Web testing', to: '/handbook/web-testing' },
                             { label: 'API testing', to: '/handbook/api-testing' },
