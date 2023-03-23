@@ -4,17 +4,6 @@ sidebar_position: 2
 
 # Page Element Query Language
 
-:::note Key points
-- **Page Element Query Language (PEQL)** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
-- **[`PageElement`](/api/web/class/PageElement)** is a [question](/api/core/class/Question) that resolves to a [single web element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element), **[`PageElements`](/api/web/class/PageElements)** resolves to a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
-- `PageElement` and `PageElements` are also [meta-questions](/api/core/interface/MetaQuestion), so can be resolved relatively to another `PageElement` to dynamically form a child-parent relationship
-- **[`By` selectors](/api/web/class/By)** help to identify page elements of interest
-- **[Partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions)** can be chained together to enable code reuse
-- [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
-[expectations](/api/core/class/Expectation) and [meta-questions](/api/core/interface/MetaQuestion),
-just like [assertions](/handbook/design/assertions) and [synchronisation statements](/handbook/design/waiting-and-synchronisation) do.
-:::
-
 **Page Element Query Language (PEQL)** is a portable, composable, and type-safe abstraction layer
 around selectors and web element interaction methods provided by web integration tools like
 [WebdriverIO](/api/webdriverio), [Playwright](/api/playwright), or [Protractor](/api/protractor).
@@ -22,6 +11,16 @@ around selectors and web element interaction methods provided by web integration
 **<abbr title="Page Element Query Language">PEQL</abbr>** leverages Serenity/JS [expectations library](/api/core/class/Expectation)
 and [meta-questions](/api/core/interface/MetaQuestion) to give you
 a standardised, consistent, and extensible way to identify elements in a web interface.
+
+Key points:
+- **Page Element Query Language (PEQL)** is a portable and type-safe abstraction around web interaction APIs provided by your web integration tools
+- **[`PageElement`](/api/web/class/PageElement)** is a [question](/api/core/class/Question) that resolves to a [single web element](/handbook/web-testing/page-element-query-language#working-with-a-single-page-element), **[`PageElements`](/api/web/class/PageElements)** resolves to a [collection of elements](/handbook/web-testing/page-element-query-language#working-with-a-collection-of-page-elements)
+- `PageElement` and `PageElements` are also [meta-questions](/api/core/interface/MetaQuestion), so can be resolved relatively to another `PageElement` to dynamically form a child-parent relationship
+- **[`By` selectors](/api/web/class/By)** help to identify page elements of interest
+- **[Partially-applied meta-questions](/handbook/web-testing/page-element-query-language#using-partially-applied-meta-questions)** can be chained together to enable code reuse
+- [**<abbr title="Page Element Query Language">PEQL</abbr>**](/handbook/web-testing/page-element-query-language#querying-elements) leverages
+  [expectations](/api/core/class/Expectation) and [meta-questions](/api/core/interface/MetaQuestion),
+  just like [assertions](/handbook/design/assertions) and [synchronisation statements](/handbook/design/waiting-and-synchronisation) do.
 
 ## Working with a single page element
 
