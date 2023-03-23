@@ -8,24 +8,25 @@ sidebar_position: 1
 import Figure from '@site/src/components/Figure'
 ```
 
-In this guide, you'll learn the basics of web testing with Serenity/JS; I'll show you how to **run and debug existing tests**,
-and **how to write new test scenarios**. While we'll focus on helping you **get the basics right**, I'll point you to the more **advanced
+In this guide, you'll learn the basics of web testing with Serenity/JS; I'll show you how to **run and debug existing tests**
+and **write new test scenarios**. While we'll focus on helping you **get the basics right**, I'll point you to the more **advanced
 techniques** and **patterns** when needed.
 
-My goal with all the Serenity/JS guides in this handbook, including this one, is so that they're easy to follow no matter if you're a test automation expert,
-or only just starting on your journey. If you found anything here that isn't as clear as it could've been, please let me know in the comments,
-or [submit a correction](https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/docs/web-testing/your-first-web-scenario.mdx).
+My goal with all the Serenity/JS guides in this handbook, including this one, is that they're easy to follow whether
+you're a test automation expert or just starting on your journey.
+If you found anything here that could have been clearer, please let me know in the comments or
+[submit a correction](https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/docs/web-testing/your-first-web-scenario.mdx).
 
-To keep things simple, we'll be using a [**Gitpod.io workspace**](/handbook/getting-started#serenityjs-gitpods) to work with Serenity/JS in your web browser, so there's **no need to install anything** on you computer.
+To keep things simple, we'll use a [**Gitpod.io workspace**](/handbook/getting-started#serenityjs-gitpods) to work with Serenity/JS in your web browser, so there's **no need to install anything** on your computer.
 If you prefer to set up Serenity/JS locally instead, follow the installation instructions in [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template).
 
 Key points:
-- Serenity/JS works well with popular development environments, including the free [Visual Studio Code](https://code.visualstudio.com/)
-- Serenity/JS tests are just high-quality code, so all your regular programming tools will work as expected
-- Serenity/JS test scenarios are **actor-centric** and follow the [**Screenplay Pattern**](/handbook/design/screenplay-pattern) to help you capture **business domain vocabulary** and **business workflows**
-- Serenity/JS uses an **activity-based** composition model, optimised for readability and code reuse
-- Serenity/JS assertions and synchronisation statements are portable across interfaces and integration tools
-- Serenity/JS has first-class support for TypeScript and the asynchronous nature of the JavaScript runtime
+- Serenity/JS works well with popular development environments, including the free [Visual Studio Code](https://code.visualstudio.com/),
+- Serenity/JS tests are just high-quality code, so all your regular programming tools will work as expected,
+- Serenity/JS test scenarios are **actor-centric** and follow the [**Screenplay Pattern**](/handbook/design/screenplay-pattern) to help you capture **business domain vocabulary** and **business workflows**,
+- Serenity/JS uses an **activity-based** composition model, optimised for readability and code reuse,
+- Serenity/JS assertions and synchronisation statements are portable across interfaces and integration tools,
+- Serenity/JS has first-class support for TypeScript and the asynchronous nature of the JavaScript runtime.
 
 :::info Pro Tip
 If you get lost or stumble upon a problem you're not quite sure how to solve - ask on the **[Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im)**.
@@ -33,14 +34,14 @@ If you get lost or stumble upon a problem you're not quite sure how to solve - a
 
 ## Launching your workspace
 
-All [Serenity/JS project templates](/handbook/getting-started#serenityjs-project-templates), such as the one we'll be using in this chapter,
+All [Serenity/JS project templates](/handbook/getting-started#serenityjs-project-templates), such as the one we'll use in this chapter,
 [support Gitpod.io workspaces](/handbook/getting-started#serenityjs-gitpods) and are configured to
 make it easy for you to use them in a Visual Studio Code-based development environment.
 Of course, since Serenity/JS tests are standards-based Node.js code, they'll work just as well in any other modern <abbr title="Integrated Development Environment">IDE</abbr>.
 
-In this tutorial, we'll be using [Serenity/JS + Playwright Test template](https://github.com/serenity-js/serenity-js-playwright-test-template),
+In this tutorial, we'll use [Serenity/JS + Playwright Test template](https://github.com/serenity-js/serenity-js-playwright-test-template),
 which integrates Serenity/JS with [Playwright](https://playwright.dev/) web testing library and its dedicated [Playwright Test](https://playwright.dev/docs/test-runners#playwright-test) test runner.
-The test suite we'll be working on interacts with a simple to-do list app that you can experiment with at [todo-app.serenity-js.org](https://todo-app.serenity-js.org/).
+The test suite we'll work on interacts with a simple to-do list app that you can experiment with at [todo-app.serenity-js.org](https://todo-app.serenity-js.org/).
 
 To launch your workspace, make sure you have a [GitHub account](/handbook/getting-started#your-githubcom-account),
 which will make it easier for you to use all the other [Serenity/JS resources](/handbook/getting-started) too.
@@ -54,7 +55,7 @@ using your GitHub account.
 :::info Did you know?
 Serenity/JS integrates with several popular test runners, such as Cucumber, Mocha, Jasmine and Playwright Test, as well as various web integration tools,
 such as Selenium, Playwright and WebdriverIO. Once you know your way around your first [Serenity/JS project template](https://github.com/serenity-js/?q=template&type=all&language=&sort=),
-picking the one that's right for your team and your project will become a breeze.
+picking the one right for your team and your project will become a breeze.
 :::
 
 ## Running tests in Visual Studio Code
@@ -313,7 +314,7 @@ What's important to reiterate here is that Serenity/JS activities are designed t
 This means you could write a task like the one to `recordItem` just once
 and reuse it in any scenario that needs to record to-do items.
 If the steps involved in _how_ an actor would go about recording a to-do item in your system were to change,
-you'd only have to update them in this **one place in your codebase** where the task is defined,
+you'd only have to update them in this **one place in your codebase** where the task is defined
 and not in every single scenario that uses it.
 
 :::info Did you know?
@@ -328,11 +329,12 @@ In fact, you can make your Serenity/JS actors interact with **any interface of y
 be it **web UIs**, **REST APIs**, **mobile apps**, or whatever a Node.js program can talk to.
 
 To make your work easier, Serenity/JS modules provide [**dozens of lower-level interactions**](/api/) you can compose your custom tasks from.
-This will help you focus on **modelling your business workflows** and **designing your test scenarios** instead of wasting time
-having to figure out how to integrate with the given interface, or trying to integrate several incompatible libraries together.
+
+This will help you focus on **modelling your business workflows** and **designing your test scenarios** instead of
+wasting your time figuring out how to integrate with the given interface or trying to make several incompatible libraries work together.
 
 Serenity/JS activity-based code reuse model also means that as you evolve the vocabulary of your domain-specific tasks
-over time, writing test scenarios becomes easier as you're simply re-arranging existing tasks into new scenarios.
+over time, writing test scenarios becomes easier as you're simply re-arrange existing tasks into new scenarios.
 
 ### Using portable assertions
 
@@ -715,7 +717,7 @@ If you'd like to learn more, I'd suggest for you to:
 - Clone the [Serenity/JS + Playwright Test template](https://github.com/serenity-js/serenity-js-playwright-test-template) and try running it locally, perhaps as a starting point for your next big project?
 - Make sure to [give Serenity/JS a ⭐️ on GitHub](https://github.com/serenity-js/serenity-js) and leave a comment or 👍 if you've enjoyed this tutorial!
 
-New tutorials and videos are coming soon, follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+New tutorials and videos are coming soon, follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
 
 [![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
 [![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity--js-E62117?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
