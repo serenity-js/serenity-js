@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+
+### Features
+
+* **core:** release Serenity/JS v3 ([0937dfa](https://github.com/serenity-js/serenity-js/commit/0937dfa23b8ef2da7210c64f2e25585c3430af78))
+
+
+
+
+
 # [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
 
 
