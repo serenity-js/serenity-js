@@ -358,7 +358,7 @@ jobs:
           name: 'compiled-libs'
 
       - name: Decompress artifact
-        run:  ${{ env.SEVEN_ZIP }} x -aoa compiled-libs.zip
+        run:  7z x -aoa compiled-libs.zip
 
       - name: Build website
         run: make site
