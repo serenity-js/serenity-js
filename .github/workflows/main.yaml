@@ -311,11 +311,8 @@ jobs:
   #
   # Website
   #
-
-  # Website build uses always() as otherwise it won't be executed if artifacts-publish was skipped because there were no code changes
-  #   https://github.com/actions/runner/issues/491#issuecomment-660122693
-  website-build:
-    name: 'Website: build'
+  website:
+    name: 'Website'
     needs:
       - detect-website-changes
       - detect-source-code-changes
@@ -335,48 +332,44 @@ jobs:
           needs.artifacts-publish.result == 'success'
         )
       )
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      node-version: 16.x
-      npm-install-command: make BOOTSTRAP_SCOPE=site install
-      download-artifact-name: 'compiled-libs'
-      command: make site
-      upload-artifact-name: 'website'
-      upload-artifact-path: 'documentation/serenity-js.org/build'
-
-  website-publish:
-    name: 'Website: publish'
-    # Website build uses always() as otherwise it won't be executed if artifacts-publish was skipped because there were no code changes
-    #   https://github.com/actions/runner/issues/491#issuecomment-660122693
-    if: |
-      always() &&
-      (
-        github.ref == 'refs/heads/main' &&
-        needs.website-build.status == 'success'
-      )
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    needs:
-      - website-build
     steps:
-      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
+      - name: Checkout repository
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
         with:
           fetch-depth: 2
 
-      - name: Download website artifact
+      - name: Setup Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
+        with:
+          node-version: 16.x
+
+      - name: Install Node Modules (${{ inputs.npm-install-command }})
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP_SCOPE=site install
+
+      - name: Download artifact
+        if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
-          name: website
-      - name: Decompress website
-        run: 7z x -aoa website.zip
+          name: 'compiled-libs'
+
+      - name: Decompress artifact
+        run:  ${{ env.SEVEN_ZIP }} x -aoa compiled-libs.zip
+
+      - name: Build website
+        run: make site
 
       - name: List all (debug)
         run: tree
 
-      - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          BRANCH: gh-pages
-          FOLDER: documentation/serenity-js.org/build
-          CLEAN: true
+#      - name: Publish website
+#        uses: JamesIves/github-pages-deploy-action@v4.4.1
+#        if: github.ref == 'refs/heads/main'
+#        with:
+#          BRANCH: gh-pages
+#          FOLDER: documentation/serenity-js.org/build
+#          CLEAN: true
