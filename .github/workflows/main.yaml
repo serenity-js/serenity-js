@@ -351,6 +351,10 @@ jobs:
     needs:
       - website-build
     steps:
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
+        with:
+          fetch-depth: 2
+
       - name: Download website artifact
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
