@@ -188,6 +188,13 @@ const config = {
                     dark: 'neutral'
                 },
             },
+            algolia: {
+                appId: 'BQR1GG2FWV',
+                // Search only (public) API key
+                apiKey: 'b4ffe01f2e8ba40f5f49153cab71b9e8',
+                indexName: 'serenity-js',
+                contextualSearch: true,
+            },
         }),
 
     plugins: [
