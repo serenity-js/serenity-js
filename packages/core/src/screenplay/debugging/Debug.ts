@@ -69,7 +69,7 @@ import { DebuggingResult } from './DebuggingResult';
  * - [Running and debugging Node.js in WebStorm](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
  * - [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
  *
- * @group Debugging
+ * @group Activities
  */
 export class Debug<Values extends Array<Answerable<unknown>>> extends Interaction {
 
