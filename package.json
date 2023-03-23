@@ -78,9 +78,9 @@
     "lerna:bootstrap:@integration": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/*' --ignore='@documentation/*' --ignore '@examples/*' --include-dependencies",
     "lerna:bootstrap:@examples": "lerna bootstrap --scope '@serenity-js/*' --scope '@examples/*' --ignore='@documentation/*' --ignore '@integration/*' --include-dependencies",
     "lerna:bootstrap:@documentation": "lerna bootstrap --scope '@serenity-js/*' --scope '@documentation/*' --ignore '@examples/*' --ignore='@integration/*' --include-dependencies",
-    "lerna:publish": "lerna publish major --yes",
-    "lerna:test:version": "lerna version major --no-git-tag-version --no-push",
-    "lerna:test:publish": "lerna publish major --no-git-tag-version --no-push",
+    "lerna:publish": "lerna publish --yes",
+    "lerna:test:version": "lerna version --no-git-tag-version --no-push",
+    "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
     "version:print": "bin/print-versions.ts",
     "prepare": "husky install"
   },
