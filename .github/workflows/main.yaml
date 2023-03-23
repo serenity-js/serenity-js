@@ -346,7 +346,7 @@ jobs:
 
   website-publish:
     name: 'Website: publish'
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && needs.website-build.status == 'success'
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -369,7 +369,6 @@ jobs:
 
       - name: Publish website
         uses: JamesIves/github-pages-deploy-action@v4.4.1
-        if: github.ref == 'refs/heads/main'
         with:
           BRANCH: gh-pages
           FOLDER: documentation/serenity-js.org/build
