@@ -346,7 +346,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install Node Modules (${{ inputs.npm-install-command }})
+      - name: Install Node Modules
         uses: bahmutov/npm-install@v1
         with:
           install-command: make BOOTSTRAP_SCOPE=site install
