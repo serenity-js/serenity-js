@@ -100,6 +100,11 @@ const config = {
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
                     {
+                        href: 'https://matrix.to/#/#serenity-js:gitter.im',
+                        label: 'Community Chat',
+                        position: 'right',
+                    },
+                    {
                         href: 'https://github.com/serenity-js/serenity-js',
                         label: 'GitHub',
                         position: 'right',
