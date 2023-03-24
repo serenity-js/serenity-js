@@ -72,7 +72,7 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            image: 'images/serenity-js-banner.png', // open graph
+            image: 'images/serenity-js-social-card.jpg',    // open graph
             colorMode: {
                 disableSwitch: false,
                 respectPrefersColorScheme: true,
