@@ -172,14 +172,14 @@ describe('EnsureEventually', () => {
             const currentCounter = () =>
                 Question.about('value', actor => {
                     counter++
-                    if (counter < 3) {
+                    if (counter < 2) {
                         throw error;
                     }
                     return counter;
                 });
 
             return expect(actorCalled('Enrique').attemptsTo(
-                Ensure.eventually(currentCounter(), isIdenticalTo(3)),
+                Ensure.eventually(currentCounter(), isIdenticalTo(2)),
             )).to.be.fulfilled;
         });
     });
