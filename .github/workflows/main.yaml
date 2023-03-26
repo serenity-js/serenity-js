@@ -308,6 +308,14 @@ jobs:
       - name: Print versions
         run: npm run version:print >> $GITHUB_STEP_SUMMARY
 
+      - name: Upload changelog
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3
+        with:
+          retention-days: 3
+          name: changelog
+          path: |
+            CHANGELOG.md
+
   #
   # Website
   #
@@ -351,13 +359,19 @@ jobs:
         with:
           install-command: make BOOTSTRAP_SCOPE=site install
 
-      - name: Download artifact
+      - name: Download compiled libs
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: 'compiled-libs'
 
-      - name: Decompress artifact
+      - name: Decompress compiled libs
         run:  7z x -aoa compiled-libs.zip
+
+      - name: Download changelog
+        if: github.ref == 'refs/heads/main'
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        with:
+          name: changelog
 
       - name: Build website
         run: make site
