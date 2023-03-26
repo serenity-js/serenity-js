@@ -8,25 +8,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **deps:** update playwright dependencies to ^1.32.1 ([e8d9e0e](https://github.com/serenity-js/serenity-js/commit/e8d9e0e47b06977ddc421820c3a2973a248541ad))
-* **deps:** update playwright dependencies to ^1.32.1 ([e4981c4](https://github.com/serenity-js/serenity-js/commit/e4981c412c4bb9a6d92bda7f32c3e6b37b4e4046))
-* **deps:** update playwright dependencies to ^1.32.1 ([8f727aa](https://github.com/serenity-js/serenity-js/commit/8f727aa8aaed0f0b37ecd0bcc272909f16c1e2ba))
-* **deps:** update playwright dependencies to ^1.32.1 ([5732d1c](https://github.com/serenity-js/serenity-js/commit/5732d1c05239891c0883e72d290675b8487f711a))
-* **deps:** update playwright dependencies to ^1.32.1 ([9560bae](https://github.com/serenity-js/serenity-js/commit/9560baeb0981aa95571f5ef4a2260299a9e138e2))
-* **deps:** update playwright dependencies to ^1.32.1 ([81a4ed5](https://github.com/serenity-js/serenity-js/commit/81a4ed558b9bb5fd3ca508537a0a2a1d22f1dfeb))
-* **deps:** update playwright dependencies to ^1.32.1 ([c17ebd9](https://github.com/serenity-js/serenity-js/commit/c17ebd9b79640fe63e58609323dfd5b962b411a2))
 * **deps:** update playwright dependencies to ^1.32.1 ([1ab8b80](https://github.com/serenity-js/serenity-js/commit/1ab8b80487750cfe072cf113ecd13a3b40565f1f))
-* **deps:** update playwright dependencies to ^1.32.1 ([a421192](https://github.com/serenity-js/serenity-js/commit/a42119234df15fb87934dea2d7f7029be9b53f72))
-* **deps:** update playwright dependencies to ^1.32.1 ([5f4e2e4](https://github.com/serenity-js/serenity-js/commit/5f4e2e4a790d21600da54a6f0863eb908d2684af))
-* **deps:** update playwright dependencies to ^1.32.1 ([49ea38a](https://github.com/serenity-js/serenity-js/commit/49ea38abe052a97ab37fae1b51b3752127a64537))
-* **deps:** update playwright dependencies to ^1.32.1 ([987866e](https://github.com/serenity-js/serenity-js/commit/987866e7d19f9729e9c43672351cf448fd1ecc73))
-* **deps:** update playwright dependencies to ^1.32.1 ([4b9535b](https://github.com/serenity-js/serenity-js/commit/4b9535b1b285b740dae4238fa4b8ce8751095a84))
-* **deps:** update playwright dependencies to ^1.32.1 ([de195fb](https://github.com/serenity-js/serenity-js/commit/de195fbdb52bffef1c0f7b23c2335c8f2bd76743))
 * **deps:** update playwright dependencies to ^1.32.1 ([bcb6839](https://github.com/serenity-js/serenity-js/commit/bcb68394317440d4b2ac567407c0c3539bd7ea38))
 * **deps:** update playwright dependencies to ^1.32.1 ([3ba8d4c](https://github.com/serenity-js/serenity-js/commit/3ba8d4cdde99e48e5b74086d6ebf10630916f151))
-* **deps:** update website dependencies to v2.4.0 ([ba23ee2](https://github.com/serenity-js/serenity-js/commit/ba23ee29ea9dd2b35c9f0f0d885fed94712b0578))
-* **deps:** update website dependencies to v2.4.0 ([441dace](https://github.com/serenity-js/serenity-js/commit/441dace44760dc861c22de097f9db15f04aa5348))
-* **deps:** update website dependencies to v2.4.0 ([c39d9a5](https://github.com/serenity-js/serenity-js/commit/c39d9a572c3715167dc6fcdf0dd2db55fe6753b6))
 * **deps:** update website dependencies to v2.4.0 ([9d4e427](https://github.com/serenity-js/serenity-js/commit/9d4e42713a776c43aa4f6dba369f6d059b8554c6))
 
 
