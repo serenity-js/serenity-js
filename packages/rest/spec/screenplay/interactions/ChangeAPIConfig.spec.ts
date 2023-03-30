@@ -105,8 +105,8 @@ describe('ChangeApiConfig', () => {
             mock.onGet(originalUrl, dataMatcher).replyOnce(401);
             mock.onGet(originalUrl, dataMatcher, {
                 asymmetricMatch: function (actual: AxiosRequestHeaders) {
-                    return actual.get('Accept') === 'application/json, text/plain, */*'
-                        && actual.get('Authorization') === 'my-token'
+                    return actual['Accept'] === 'application/json, text/plain, */*'
+                        && actual['Authorization'] === 'my-token'
                 }
             }).replyOnce(200);
         });
