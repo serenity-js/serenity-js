@@ -367,9 +367,11 @@ jobs:
       - name: Decompress compiled libs
         run:  7z x -aoa compiled-libs.zip
 
+      # We generate an updated changelog only when there are artifacts to be published
       - name: Download changelog
         if: github.ref == 'refs/heads/main'
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        continue-on-error: true
         with:
           name: changelog
 
