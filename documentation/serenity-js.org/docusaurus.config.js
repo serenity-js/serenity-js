@@ -95,7 +95,7 @@ const config = {
                 },
                 items: [
                     { label: 'Handbook', type: 'doc', docId: 'index', position: 'left' },
-                    { label: 'API', to: '/api/core', position: 'left' },
+                    { label: 'API', to: '/api', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
@@ -159,7 +159,7 @@ const config = {
                     {
                         title: 'Developers',
                         items: [
-                            { label: 'API Docs', to: '/api/core' },
+                            { label: 'API Docs', to: '/api' },
                             { label: 'Project Templates', to: 'https://github.com/serenity-js/?q=template&type=all&language=&sort=' },
                             { label: 'Serenity/JS GitHub', href: 'https://github.com/serenity-js', },
                             { label: 'Report an issue', href: 'https://github.com/serenity-js/serenity-js/issues', },
