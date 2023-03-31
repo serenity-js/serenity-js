@@ -78,5 +78,18 @@ module.exports = {
 
         { from: '/license.html', to: '/license' },
         { from: '/changelog.html', to: '/changelog' },
+
+        // Serenity/JS v2 API docs
+        { from: '/modules/assertions',          to: '/api/assertions' },
+        { from: '/modules/console-reporter',    to: '/api/console-reporter' },
+        { from: '/modules/core',                to: '/api/core' },
+        { from: '/modules/cucumber',            to: '/api/cucumber' },
+        { from: '/modules/jasmine',             to: '/api/jasmine' },
+        { from: '/modules/local-server',        to: '/api/local-server' },
+        { from: '/modules/mocha',               to: '/api/mocha' },
+        { from: '/modules/protractor',          to: '/api/protractor' },
+        { from: '/modules/rest',                to: '/api/rest' },
+        { from: '/modules/serenity-bdd',        to: '/api/serenity-bdd' },
+        { from: '/modules/webdriverio',         to: '/api/webdriverio' },
     ],
 }
