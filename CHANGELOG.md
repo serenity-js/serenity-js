@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** pinned dependencies on Serenity/JS modules ([b314b11](https://github.com/serenity-js/serenity-js/commit/b314b11a3755e490b307df0eca8369a9371b7bb8))
+* **core:** replaced dependency on depracated cuid with cuid2 ([0417f1c](https://github.com/serenity-js/serenity-js/commit/0417f1c2c673dce7eaabe0ffae76311757e3b3ee))
+
+
+### Features
+
+* **cucumber:** support for Cucumber 9 ([48a8968](https://github.com/serenity-js/serenity-js/commit/48a8968807fc9214f913282604562ec1694f3229)), closes [#1431](https://github.com/serenity-js/serenity-js/issues/1431)
+* **cucumber:** support for Cucumber 9 ([ec7823e](https://github.com/serenity-js/serenity-js/commit/ec7823e384a47ae96a6006e52a58163020c0f851)), closes [#1431](https://github.com/serenity-js/serenity-js/issues/1431)
+
+
+
+
+
 ## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** pinned dependencies on Serenity/JS modules ([b314b11](https://github.com/serenity-js/serenity-js/commit/b314b11a3755e490b307df0eca8369a9371b7bb8))
+
+
+
+
+
 ## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
 
 **Note:** Version bump only for package @serenity-js/protractor

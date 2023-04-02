@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** replaced dependency on depracated cuid with cuid2 ([0417f1c](https://github.com/serenity-js/serenity-js/commit/0417f1c2c673dce7eaabe0ffae76311757e3b3ee))
+
+
+
+
+
 ## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
 
 **Note:** Version bump only for package @serenity-js/core
