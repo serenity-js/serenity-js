@@ -124,8 +124,8 @@ describe('Stage', () => {
         }
 
         const
-            sceneId = new CorrelationId('example scene'),
-            anotherSceneId = new CorrelationId('another example scene'),
+            sceneId = new CorrelationId('example-scene'),
+            anotherSceneId = new CorrelationId('another-example-scene'),
             scenario = new ScenarioDetails(
                 new Name('Paying with a default card'),
                 new Category('Online Checkout'),

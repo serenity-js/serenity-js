@@ -31,8 +31,8 @@
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.0",
     "chalk": "^4.1.2",
-    "cuid": "^2.1.8",
     "diff": "^5.1.0",
     "error-stack-parser": "2.1.4",
     "fast-glob": "^3.2.12",
@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
-    "@types/cuid": "^2.0.1",
     "@types/diff": "^5.0.3",
     "@types/filenamify": "^2.0.2",
     "@types/mocha": "^10.0.1",
