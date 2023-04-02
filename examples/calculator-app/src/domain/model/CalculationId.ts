@@ -1,9 +1,9 @@
-import cuid = require('cuid');
+import { createId } from '@paralleldrive/cuid2';
 import { ensure, isDefined, isString, TinyType } from 'tiny-types';
 
 export class CalculationId extends TinyType {
     static create() {
-        return new CalculationId(cuid());
+        return new CalculationId(createId());
     }
 
     constructor(public readonly value: string) {
