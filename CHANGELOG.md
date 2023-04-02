@@ -14,7 +14,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **cucumber:** support for Cucumber 9 ([48a8968](https://github.com/serenity-js/serenity-js/commit/48a8968807fc9214f913282604562ec1694f3229)), closes [#1431](https://github.com/serenity-js/serenity-js/issues/1431)
 * **cucumber:** support for Cucumber 9 ([ec7823e](https://github.com/serenity-js/serenity-js/commit/ec7823e384a47ae96a6006e52a58163020c0f851)), closes [#1431](https://github.com/serenity-js/serenity-js/issues/1431)
 
 
