@@ -100,18 +100,23 @@ const config = {
                     { to: '/contributing', label: 'Contribute', position: 'left' },
                     { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
                     {
-                        href: 'https://matrix.to/#/#serenity-js:gitter.im',
-                        label: 'Community Chat',
+                        to: 'https://matrix.to/#/#serenity-js:gitter.im',
+                        label: 'Chat',
                         position: 'right',
                     },
                     {
-                        href: 'https://github.com/serenity-js/serenity-js',
+                        to: 'https://github.com/serenity-js/serenity-js',
                         label: 'GitHub',
                         position: 'right',
                     },
                     {
-                        href: 'https://www.youtube.com/@serenity-js',
+                        to: 'https://www.youtube.com/@serenity-js',
                         label: 'YouTube',
+                        position: 'right',
+                    },
+                    {
+                        to: 'https://github.com/sponsors/serenity-js',
+                        label: 'Sponsors 💛',
                         position: 'right',
                     },
                 ],
