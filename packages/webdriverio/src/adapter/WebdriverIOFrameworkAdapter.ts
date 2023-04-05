@@ -67,13 +67,17 @@ export class WebdriverIOFrameworkAdapter {
         );
 
         this.serenity.configure({
-            outputStream:   outputStreamBuffer,
-            cueTimeout:     config.serenity.cueTimeout,
-            actors:         config.serenity.actors || Cast.where(actor => actor.whoCan(
+            outputStream:       outputStreamBuffer,
+            cueTimeout:         config.serenity.cueTimeout,
+            interactionTimeout: config.serenity.interactionTimeout,
+
+            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
+
+            actors: config.serenity.actors || Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithWebdriverIO.using(browser),
                 TakeNotes.usingAnEmptyNotepad(),
             )),
-            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
+
             crew: [
                 ...config.serenity.crew,
                 this.notifier,

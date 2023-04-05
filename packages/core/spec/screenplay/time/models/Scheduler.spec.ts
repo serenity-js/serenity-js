@@ -29,6 +29,16 @@ describe('Scheduler', () => {
         expect(scheduler.isRunning()).to.equal(false);
     });
 
+    it('can resolve a promise after a desired period', async () => {
+        const longTime = Duration.ofMinutes(5);
+
+        const result = scheduler.waitFor(longTime);
+
+        await scheduler.invokeCallbacksScheduledForNext(longTime);
+
+        await expect(result).to.be.fulfilled;
+    });
+
     describe('when scheduling a delayed callback', () => {
 
         it('allows for a callback function to be called after a delay', async () => {
@@ -57,7 +67,7 @@ describe('Scheduler', () => {
 
         it('allows for multiple callback functions to be called after a delay', async () => {
             const firstDelay    = Duration.ofMilliseconds(500);
-            const secondDelay   = Duration.ofMilliseconds(250);
+            const secondDelay  = Duration.ofMilliseconds(250);
 
             const instantiationTime = clock.now();
 
