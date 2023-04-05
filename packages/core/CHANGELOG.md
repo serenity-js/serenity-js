@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **core:** ensure Wait.for(..) is not terminated prematurely by interactionTimeout ([f1a94e2](https://github.com/serenity-js/serenity-js/commit/f1a94e259942725f2603cc33cd9772478e825dde)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
 # [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
 
 
