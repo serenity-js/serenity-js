@@ -52,7 +52,7 @@ describe('Wait', () => {
                 Ensure.that(Text.of(status()), equals('Not ready')),
                 Click.on(loadButton()),
 
-                Wait.for(Duration.ofMilliseconds(2_500)),
+                Wait.for(Duration.ofMilliseconds(6_000)),
 
                 Ensure.that(Text.of(status()), equals('Ready!')),
             ));

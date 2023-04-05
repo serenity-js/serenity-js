@@ -90,6 +90,11 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         { option: true },
     ],
 
+    interactionTimeout: [
+        Duration.ofSeconds(5),
+        { option: true },
+    ],
+
     crew: [
         [
             Photographer.whoWill(TakePhotosOfFailures)
@@ -109,13 +114,14 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         use({ name, version: os.release() });
     },
 
-    serenity: async ({ crew, cueTimeout, platform }, use, info: TestInfo) => {
+    serenity: async ({ crew, cueTimeout, interactionTimeout, platform }, use, info: TestInfo) => {
 
         const domainEventBuffer = new DomainEventBuffer();
 
         serenityInstance.configure({
             diffFormatter: new AnsiDiffFormatter(),
             cueTimeout: asDuration(cueTimeout),
+            interactionTimeout: asDuration(interactionTimeout),
             crew: [
                 ...crew,
                 domainEventBuffer,

@@ -198,6 +198,17 @@ export interface SerenityOptions {
     cueTimeout: number | Duration;
 
     /**
+     * The maximum default amount of time allowed for interactions such as {@apilink Wait.until}
+     * to complete.
+     *
+     * Defaults to **5 seconds**, can be overridden per interaction.
+     *
+     * #### Learn more
+     * - {@apilink Wait.until}
+     */
+    interactionTimeout?: Duration;
+
+    /**
      * Playwright [BrowserContextOptions](https://playwright.dev/docs/api/class-testoptions#test-options-context-options),
      * augmented with several convenience properties to be used with the {@apilink Ability|ability} to {@apilink BrowseTheWebWithPlaywright}.
      *
