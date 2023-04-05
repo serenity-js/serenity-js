@@ -40,10 +40,7 @@ export class ScheduleWork extends Ability implements Initialisable, Discardable 
     }
 
     waitFor(delay: Duration): Promise<void> {
-        this.scheduler.start();
-        return this.scheduler.after(delay, () => {
-            // do nothing
-        })
+        return this.scheduler.waitFor(delay);
     }
 
     discard(): void {
