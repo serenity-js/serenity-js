@@ -2,12 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://serenity-js.org/changelog</id>
     <title>Serenity/JS changelog</title>
-    <updated>2023-04-02T20:00:00.000Z</updated>
+    <updated>2023-04-05T20:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://serenity-js.org/changelog"/>
     <subtitle>Keep yourself up-to-date about new features in every release</subtitle>
     <icon>https://serenity-js.org/icons/favicon.ico</icon>
     <rights>Copyright © 2016-2023 Jan Molak, SmartCode Ltd</rights>
+    <entry>
+        <title type="html"><![CDATA[3.1.1]]></title>
+        <id>https://serenity-js.org/changelog/3.1.1</id>
+        <link href="https://serenity-js.org/changelog/3.1.1"/>
+        <updated>2023-04-05T20:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Summary]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithHideOnScrollNavbar_Yh18" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h2><p>This release introduces improvements to
+the following Serenity/JS modules:</p><ul><li><a href="/api/core"><code>@serenity-js/core</code></a></li><li><a href="/api/playwright-test"><code>@serenity-js/playwright-test</code></a></li><li><a href="/api/protractor"><code>@serenity-js/protractor</code></a></li><li><a href="/api/webdriverio"><code>@serenity-js/webdriverio</code></a></li></ul><p>View detailed <a href="https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1" target="_blank" rel="noopener noreferrer">code diff</a> on GitHub</p><h2 class="anchor anchorWithHideOnScrollNavbar_Yh18" id="bug-fixes">Bug Fixes<a href="#bug-fixes" class="hash-link" aria-label="Direct link to Bug Fixes" title="Direct link to Bug Fixes">​</a></h2><ul><li><strong>core:</strong> ensure Wait.for(..) is not terminated prematurely by interactionTimeout (<a href="https://github.com/serenity-js/serenity-js/commit/f1a94e259942725f2603cc33cd9772478e825dde" target="_blank" rel="noopener noreferrer">f1a94e2</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1604" target="_blank" rel="noopener noreferrer">#1604</a></li><li><strong>deps:</strong> update playwright dependencies to ^1.32.2 (<a href="https://github.com/serenity-js/serenity-js/commit/8398ec364836f45af9e5734687e1655ca10a7784" target="_blank" rel="noopener noreferrer">8398ec3</a>)</li><li><strong>playwright-test:</strong> use custom interactionTimeout when provided in the config (<a href="https://github.com/serenity-js/serenity-js/commit/71c0401539b722ad6858d9dcb6393593254c3787" target="_blank" rel="noopener noreferrer">71c0401</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1604" target="_blank" rel="noopener noreferrer">#1604</a></li><li><strong>protractor:</strong> use custom interactionTimeout when provided in the config (<a href="https://github.com/serenity-js/serenity-js/commit/df8f387d7f5b6a887f0f1b69881eec076d016147" target="_blank" rel="noopener noreferrer">df8f387</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1604" target="_blank" rel="noopener noreferrer">#1604</a></li><li><strong>webdriverio:</strong> use custom interactionTimeout when provided in the config (<a href="https://github.com/serenity-js/serenity-js/commit/4cc75bf1ef97556a991ad006314a1a413d3cde6a" target="_blank" rel="noopener noreferrer">4cc75bf</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1604" target="_blank" rel="noopener noreferrer">#1604</a></li></ul>]]></content>
+        <category label="core" term="core"/>
+        <category label="deps" term="deps"/>
+        <category label="playwright-test" term="playwright-test"/>
+        <category label="protractor" term="protractor"/>
+        <category label="webdriverio" term="webdriverio"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[3.1.0]]></title>
         <id>https://serenity-js.org/changelog/3.1.0</id>
