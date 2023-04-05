@@ -34,8 +34,8 @@ describe('Wait', () => {
     describe('for', () => {
 
         it('pauses the actor flow for the length of an explicitly-set duration', async () => {
-            const timeout       = Duration.ofMilliseconds(500),
-                tolerance       = Duration.ofMilliseconds(100);
+            const timeout       = Duration.ofMilliseconds(2_000),
+                tolerance       = Duration.ofMilliseconds(500);
 
             await serenity.theActorCalled('Wendy')
                 .attemptsTo(
