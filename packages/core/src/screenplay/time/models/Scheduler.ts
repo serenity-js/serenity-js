@@ -45,6 +45,24 @@ export class Scheduler {
     }
 
     /**
+     * Returns a `Promise` to be resolved after a `delay`
+     *
+     * @param delay
+     */
+    waitFor(delay: Duration): Promise<void> {
+        return this.repeatUntil<void>(
+            () => void 0,
+            {
+                maxInvocations: 1,
+                delayBetweenInvocations: () => delay,
+
+                // make sure waitFor doesn't get terminated before it's resolved
+                timeout: this.interactionTimeout.plus(delay),
+            },
+        );
+    }
+
+    /**
      * Schedules a callback function to be repeated, according to configured limits.
      *
      * @param callback
