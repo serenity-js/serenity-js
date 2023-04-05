@@ -42,12 +42,16 @@ export class ProtractorFrameworkAdapter {
         });
 
         this.serenity.configure({
-            cueTimeout:     config.serenity.cueTimeout,
+            cueTimeout:         config.serenity.cueTimeout,
+            interactionTimeout: config.serenity.interactionTimeout,
+
+            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
+
             actors:         config.serenity.actors || Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithProtractor.using(protractor.browser),
                 TakeNotes.usingAnEmptyNotepad(),
             )),
-            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
+
             crew:           [
                 BrowserDetector.with(StandardisedCapabilities.of(() => protractor.browser)),
                 ...config.serenity.crew,
