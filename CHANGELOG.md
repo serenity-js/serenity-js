@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **core:** ensure Wait.for(..) is not terminated prematurely by interactionTimeout ([f1a94e2](https://github.com/serenity-js/serenity-js/commit/f1a94e259942725f2603cc33cd9772478e825dde)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **deps:** update playwright dependencies to ^1.32.2 ([8398ec3](https://github.com/serenity-js/serenity-js/commit/8398ec364836f45af9e5734687e1655ca10a7784))
+* **playwright-test:** use custom interactionTimeout when provided in the config ([71c0401](https://github.com/serenity-js/serenity-js/commit/71c0401539b722ad6858d9dcb6393593254c3787)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **protractor:** use custom interactionTimeout when provided in the config ([df8f387](https://github.com/serenity-js/serenity-js/commit/df8f387d7f5b6a887f0f1b69881eec076d016147)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **webdriverio:** use custom interactionTimeout when provided in the config ([4cc75bf](https://github.com/serenity-js/serenity-js/commit/4cc75bf1ef97556a991ad006314a1a413d3cde6a)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
 # [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
 
 
