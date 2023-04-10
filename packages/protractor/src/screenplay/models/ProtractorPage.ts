@@ -117,7 +117,7 @@ export class ProtractorPage extends Page<ElementFinder> {
             return maybeKey.utf16codePoint;
         }
 
-        return await this.inContextOfThisPage(() => {
+        return await this.inContextOfThisPage(async () => {
             // keyDown for any modifier keys and sendKeys otherwise
             const keyDownActions = keys.reduce((actions, key) => {
                 return isModifier(key)
@@ -132,7 +132,7 @@ export class ProtractorPage extends Page<ElementFinder> {
                     : actions;
             }, keyDownActions);
 
-            return promised(keyUpActions.perform());
+            return await keyUpActions.perform();
         });
     }
 

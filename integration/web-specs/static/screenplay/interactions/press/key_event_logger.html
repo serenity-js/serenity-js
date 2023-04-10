@@ -1,0 +1,16 @@
+<html lang="en">
+<body>
+<form>
+    <input type="text" id="input" autocomplete="off" tabindex="1" />
+    <pre><code id="output">No event received yet</code></pre>
+</form>
+<script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+
+    input.addEventListener('keydown', ({ key, keyCode, ctrlKey, altKey, shiftKey, metaKey }) => {
+        output.innerText = JSON.stringify({ key, keyCode, ctrlKey, altKey, shiftKey, metaKey }, null, 4);
+    }, false);
+</script>
+</body>
+</html>

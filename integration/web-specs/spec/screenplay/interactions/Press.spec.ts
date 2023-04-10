@@ -2,9 +2,9 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, matches } from '@serenity-js/assertions';
-import { actorCalled, Check, d, Log, Question, Task } from '@serenity-js/core';
-import { BrowseTheWeb, By, Click, DoubleClick, Enter, Key, Navigate, PageElement, Press, Value } from '@serenity-js/web';
+import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
+import { By, Key, Navigate, PageElement, Press, Text, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 describe('Press', () => {
@@ -13,15 +13,10 @@ describe('Press', () => {
         textField: PageElement.located(By.id('input-box')).describedAs('the text field'),
     };
 
-    const CopyAndPasteBoxesForm = {
-        source: PageElement.located(By.id('source')).describedAs('source text field'),
-        destination: PageElement.located(By.id('destination')).describedAs('destination text field'),
-    };
-
-    const OS = () => Question.about('operating system', async actor => {
-        const capabilities = await BrowseTheWeb.as(actor).browserCapabilities();
-        return capabilities.platformName;
-    });
+    const KeyEventLoggerForm = {
+        input:  PageElement.located(By.id('input')).describedAs('input'),
+        output: PageElement.located(By.id('output')).describedAs('output'),
+    }
 
     describe('single keys', () => {
 
@@ -38,95 +33,41 @@ describe('Press', () => {
 
     describe('key chords', function () {
 
-        it('allows the actor to use modifier keys', () =>
+        const json = (text: string): object =>
+            JSON.parse(text);
+
+        it('allows the actor to use keyboard shortcuts in the context of the currently focused input box', () =>
             actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/input_box.html'),
+                Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
-                Enter.theValue('hi').into(InputBoxForm.textField),
-                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft).in(InputBoxForm.textField),
-                Press.the(Key.Backspace).in(InputBoxForm.textField),
+                Press.the(Key.Tab),
+                Press.the(Key.Control, 'b'),
 
-                Ensure.that(Value.of(InputBoxForm.textField), equals('')),
+                Ensure.that(Text.of(KeyEventLoggerForm.output).as(json), equals({
+                    'key':      'b',
+                    'keyCode':  66,
+                    'ctrlKey':  true,
+                    'altKey':   false,
+                    'shiftKey': false,
+                    'metaKey':  false
+                })),
             ));
 
-        it('allows the actor to use keyboard shortcuts outside the context of any specific input box', async () => {
+        it('allows the actor to use keyboard shortcuts in the context of a specific input box', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
-            const Copy = () => Task.where(`#actor performs a "copy" operation`,
-                Check.whether(OS(), matches(/^mac|darwin/i))
-                    .andIfSo(Press.the(Key.Control, Key.Insert))
-                    .otherwise(Press.the(Key.Control, 'c')),
-            );
+                Press.the(Key.Control, 'b').in(KeyEventLoggerForm.input),
 
-            const Paste = () => Task.where(`#actor performs a "paste" operation`,
-                Check.whether(OS(), matches(/^mac|darwin/i))
-                    .andIfSo(Press.the(Key.Shift, Key.Insert))
-                    .otherwise(Press.the(Key.Control, 'v')),
-            );
-
-            await actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/copy_and_paste_boxes.html'),
-
-                Enter.theValue('hi').into(CopyAndPasteBoxesForm.source),
-
-                // todo: SelectAll
-                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft).in(CopyAndPasteBoxesForm.source),
-                // Press.the(Key.Meta, 'a').in(CopyAndPasteBoxesForm.source),
-
-                Log.the(OS()),
-
-                Copy(),
-
-                Click.on(CopyAndPasteBoxesForm.destination),
-
-                Paste(),
-
-                Ensure.that(Value.of(CopyAndPasteBoxesForm.destination), equals('hi')),
-            );
-        });
-
-        it('allows the actor to use keyboard shortcuts in the context of a specific input box', async () => {
-
-            const SelectValueOf = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor selects the value of ${ field }`,
-                    Click.on(field),
-                    DoubleClick.on(field),
-                );
-
-            const CopyFrom = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor performs a "copy" operation on ${ field }`,
-                    SelectValueOf(field),
-                    Check.whether(OS(), matches(/^mac|darwin/i))
-                        .andIfSo(Press.the(Key.Control, Key.Insert).in(field))
-                        .otherwise(Press.the(Key.Control, 'c').in(field)),
-                );
-
-            const PasteInto = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor performs a "paste" operation on ${ field }`,
-                    Check.whether(OS(), matches(/^mac|darwin/i))
-                        .andIfSo(Press.the(Key.Shift, Key.Insert).in(field))
-                        .otherwise(Press.the(Key.Control, 'v').in(field)),
-                );
-
-            const LoseFocus = () =>
-                Task.where(`#actor makes sure their browser is not focused on any input box`,
-                    Press.the(Key.Escape),
-                );
-
-            await actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/copy_and_paste_boxes.html'),
-
-                Log.the(OS()),
-
-                Enter.theValue('example').into(CopyAndPasteBoxesForm.source),
-                LoseFocus(),
-
-                CopyFrom(CopyAndPasteBoxesForm.source),
-
-                PasteInto(CopyAndPasteBoxesForm.destination),
-
-                Ensure.that(Value.of(CopyAndPasteBoxesForm.destination), equals('example')),
-            );
-        });
+                Ensure.that(Text.of(KeyEventLoggerForm.output).as(json), equals({
+                    'key':      'b',
+                    'keyCode':  66,
+                    'ctrlKey':  true,
+                    'altKey':   false,
+                    'shiftKey': false,
+                    'metaKey':  false
+                })),
+            ));
     });
 
     given([
@@ -181,7 +122,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(180);
+            expect(location.line).to.equal(121);
             expect(location.column).to.equal(36);
         });
 
@@ -190,7 +131,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(189);
+            expect(location.line).to.equal(130);
             expect(location.column).to.equal(47);
         });
     });
