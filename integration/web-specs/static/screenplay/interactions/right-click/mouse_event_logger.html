@@ -1,0 +1,20 @@
+<html lang="en">
+<body>
+<form>
+    <input data-event-handled="false" type="text" id="input" />
+    <pre><code id="output">No event received yet</code></pre>
+</form>
+<script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+
+    input.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+
+        output.innerText = JSON.stringify({ button: event.button }, null, 4);
+
+        input.setAttribute('data-event-handled', 'true');
+    }, false);
+</script>
+</body>
+</html>

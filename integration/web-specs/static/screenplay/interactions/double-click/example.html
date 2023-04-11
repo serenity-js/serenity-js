@@ -1,11 +1,12 @@
 <html lang="en">
 <body>
-<div id="double-click-me">double-click me!</div>
+<div id="double-click-me" data-event-handled="false">double-click me!</div>
 <script>
     const el = document.getElementById('double-click-me');
 
-    el.addEventListener('dblclick', function (e) {
+    el.addEventListener('dblclick', function ({ target }) {
         el.innerText = 'done!';
+        el.setAttribute('data-event-handled', 'true');
     });
 </script>
 </body>

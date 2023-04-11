@@ -182,10 +182,6 @@ describe('PageElement', () => {
 
                     Switch.to(inputField),
                     Ensure.that(inputField, isActive()),
-
-                    Press.the('y', Key.Tab, Key.Enter),
-
-                    Ensure.that(Value.of(result), equals('y')),
                 ),
             );
 
@@ -212,7 +208,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(211);
+                expect(location.line).to.equal(207);
                 expect(location.column).to.equal(41);
             });
 

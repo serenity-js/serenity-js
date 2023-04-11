@@ -1,10 +1,9 @@
-/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
-import { By, Key, Navigate, PageElement, Press, Text, Value } from '@serenity-js/web';
+import { actorCalled, Wait } from '@serenity-js/core';
+import { Attribute, By, Key, Navigate, PageElement, Press, Text, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 describe('Press', () => {
@@ -33,6 +32,7 @@ describe('Press', () => {
 
     describe('key chords', function () {
 
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         const json = (text: string): object =>
             JSON.parse(text);
 
@@ -40,8 +40,12 @@ describe('Press', () => {
             actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
+                Ensure.eventually(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('false')),
+
                 Press.the(Key.Tab),
                 Press.the(Key.Control, 'b'),
+
+                Wait.until(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('true')),
 
                 Ensure.that(Text.of(KeyEventLoggerForm.output).as(json), equals({
                     'key':      'b',
@@ -57,7 +61,10 @@ describe('Press', () => {
             actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
+                Ensure.eventually(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('false')),
+
                 Press.the(Key.Control, 'b').in(KeyEventLoggerForm.input),
+                Wait.until(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('true')),
 
                 Ensure.that(Text.of(KeyEventLoggerForm.output).as(json), equals({
                     'key':      'b',
@@ -122,7 +129,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(121);
+            expect(location.line).to.equal(128);
             expect(location.column).to.equal(36);
         });
 
@@ -131,7 +138,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(130);
+            expect(location.line).to.equal(137);
             expect(location.column).to.equal(47);
         });
     });
