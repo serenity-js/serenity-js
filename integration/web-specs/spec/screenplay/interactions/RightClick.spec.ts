@@ -2,35 +2,46 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
-import { By, Navigate, PageElement, RightClick, Text } from '@serenity-js/web';
+import { actorCalled, Duration, Wait } from '@serenity-js/core';
+import { Attribute, By, Navigate, PageElement, RightClick, Text } from '@serenity-js/web';
 
 describe('RightClick', () => {
 
-    const Form = {
-        inputField: PageElement.located(By.id('field')).describedAs('the input field'),
-        result:     PageElement.located(By.id('result')).describedAs('a result'),
-    };
+    const MouseEventLoggerForm = {
+        input:  PageElement.located(By.id('input')).describedAs('input'),
+        output: PageElement.located(By.id('output')).describedAs('output'),
+    }
 
-    it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to('/screenplay/interactions/right-click/example.html'),
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const json = (text: string): object =>
+        JSON.parse(text);
 
-        Ensure.that(Text.of(Form.result), equals('No result yet')),
-        RightClick.on(Form.inputField),
-        Ensure.that(Text.of(Form.result), equals('Test for right click.')),
+    it('allows the actor to right-click on an element', () => actorCalled('Bernie').attemptsTo(
+        Navigate.to('/screenplay/interactions/right-click/mouse_event_logger.html'),
+
+        Ensure.eventually(Attribute.called('data-event-handled').of(MouseEventLoggerForm.input), equals('false')),
+        Wait.for(Duration.ofSeconds(1)),
+        RightClick.on(MouseEventLoggerForm.input),
+        Wait.for(Duration.ofSeconds(1)),
+
+        Wait.until(Attribute.called('data-event-handled').of(MouseEventLoggerForm.input), equals('true')),
+
+        Ensure.that(Text.of(MouseEventLoggerForm.output).as(json), equals({
+            button: 2,
+        })),
     ));
 
     it('provides a sensible description of the interaction being performed', () => {
-        expect(RightClick.on(Form.inputField).toString())
-            .to.equal('#actor right-clicks on the input field');
+        expect(RightClick.on(MouseEventLoggerForm.input).toString())
+            .to.equal('#actor right-clicks on input');
     });
 
     it('correctly detects its invocation location', () => {
-        const activity = RightClick.on(Form.inputField);
+        const activity = RightClick.on(MouseEventLoggerForm.input);
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('RightClick.spec.ts');
-        expect(location.line).to.equal(29);
+        expect(location.line).to.equal(40);
         expect(location.column).to.equal(37);
     });
 });
