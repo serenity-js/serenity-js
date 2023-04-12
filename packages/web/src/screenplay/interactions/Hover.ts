@@ -73,6 +73,7 @@ export class Hover extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.element);
-        return element.hoverOver();
+        await element.scrollIntoView();
+        await element.hoverOver();
     }
 }

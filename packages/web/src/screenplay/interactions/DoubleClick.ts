@@ -92,6 +92,7 @@ export class DoubleClick extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.pageElement);
-        return element.doubleClick();
+        await element.scrollIntoView();
+        await element.doubleClick();
     }
 }
