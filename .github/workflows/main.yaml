@@ -242,7 +242,7 @@ jobs:
         run: '7z x -aoa aggregated-code-coverage-report.zip'
 
       - name: Coveralls
-        uses: coverallsapp/github-action@67662d24394fd74bffcf7b462d1b432814159afd # v2.0.0
+        uses: coverallsapp/github-action@045a25193560dc194e405657f552faeb6b9433aa # v2.1.0
         with:
           github-token: ${{ github.token }}
           path-to-lcov: 'target/coverage/lcov.info'
