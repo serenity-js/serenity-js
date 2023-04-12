@@ -19,15 +19,15 @@ describe('RightClick', () => {
     it('allows the actor to right-click on an element', () => actorCalled('Bernie').attemptsTo(
         Navigate.to('/screenplay/interactions/right-click/mouse_event_logger.html'),
 
-        Ensure.eventually(Attribute.called('data-event-handled').of(MouseEventLoggerForm.input), equals('false')),
-        Wait.for(Duration.ofSeconds(1)),
+        Wait.until(Attribute.called('data-event-handled').of(MouseEventLoggerForm.input), equals('false')),
+
         RightClick.on(MouseEventLoggerForm.input),
-        Wait.for(Duration.ofSeconds(1)),
 
         Wait.until(Attribute.called('data-event-handled').of(MouseEventLoggerForm.input), equals('true')),
 
         Ensure.that(Text.of(MouseEventLoggerForm.output).as(json), equals({
             button: 2,
+            event: 'contextmenu'
         })),
     ));
 

@@ -8,13 +8,21 @@
     const input = document.getElementById('input');
     const output = document.getElementById('output');
 
-    input.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
+    function handle(eventType) {
+        return [eventType, (event) => {
+            event.preventDefault();
 
-        output.innerText = JSON.stringify({ button: event.button }, null, 4);
+            output.innerText = JSON.stringify({ event: eventType, button: event.button }, null, 4);
 
-        input.setAttribute('data-event-handled', 'true');
-    }, false);
+            input.setAttribute('data-event-handled', 'true');
+        }, false ];
+    }
+
+    input.addEventListener(...handle('contextmenu'));
+    input.addEventListener(...handle('click'));
+    input.addEventListener(...handle('dblclick'));
+
+    output.innerText = JSON.stringify({ handler: 'registered' }, null, 4);
 </script>
 </body>
 </html>
