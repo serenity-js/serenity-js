@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Duration, Wait } from '@serenity-js/core';
+import { actorCalled, Wait } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, RightClick, Text } from '@serenity-js/web';
 
 describe('RightClick', () => {
