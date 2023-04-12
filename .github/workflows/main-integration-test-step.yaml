@@ -85,8 +85,6 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           install-command: ${{ inputs.npm-install-command }}
-        env:
-          CHROMEDRIVER_FILEPATH: ${{ env.CHROMEWEBDRIVER }}
 
       - name: Download artifact(s)
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}

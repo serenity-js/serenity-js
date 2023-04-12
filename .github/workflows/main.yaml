@@ -297,8 +297,6 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           install-command: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Publish artifacts
         run: npm run lerna:publish
