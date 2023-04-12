@@ -71,8 +71,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
         await promised(
             webElement.getDriver().actions()
-                .mouseMove(webElement)
-                .doubleClick()
+                .doubleClick(webElement, protractor.Button.LEFT)
                 .perform(),
         );
     }
@@ -111,8 +110,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
         await promised(
             webElement.getDriver().actions()
-                .mouseMove(webElement)
-                .click(protractor.Button.RIGHT)
+                .click(webElement, protractor.Button.RIGHT)
                 .perform(),
         );
     }
