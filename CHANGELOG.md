@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typedoc to ^0.24.1 ([c52f4ed](https://github.com/serenity-js/serenity-js/commit/c52f4ed078dc25fea2a3fa672e9690846659b81c))
+* **playwright:** updated Playwright to 1.32.3 ([1d7f77b](https://github.com/serenity-js/serenity-js/commit/1d7f77bb0665ada8193b56598f31d3fb16c2384a))
+* **protractor:** click interactions now scroll element into view before performing their action ([3ea7bb8](https://github.com/serenity-js/serenity-js/commit/3ea7bb8158302bfec0390dca6bc88060f0f291e9))
+
+
+
+
+
 ## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
 
 
