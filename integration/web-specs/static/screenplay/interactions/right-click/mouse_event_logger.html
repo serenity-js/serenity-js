@@ -1,26 +1,32 @@
 <html lang="en">
 <body>
 <form>
-    <input data-event-handled="false" type="text" id="input" />
-    <pre><code id="output">No event received yet</code></pre>
+    <input type="text" id="input" />
+    <pre><code id="output">{ handler: 'no handler registered yet' }</code></pre>
 </form>
 <script>
     const input = document.getElementById('input');
     const output = document.getElementById('output');
 
-    function handle(eventType) {
-        return [eventType, (event) => {
-            event.preventDefault();
+    function handler(event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-            output.innerText = JSON.stringify({ event: eventType, button: event.button }, null, 4);
-
-            input.setAttribute('data-event-handled', 'true');
-        }, false ];
+        output.innerText = JSON.stringify({
+            event: event.type,
+            button: event.button,
+            receiver: event.target.nodeName.toLowerCase(),
+            position: { x: event.pageX, y: event.pageY }
+        }, null, 4);
     }
 
-    input.addEventListener(...handle('contextmenu'));
-    input.addEventListener(...handle('click'));
-    input.addEventListener(...handle('dblclick'));
+    input.addEventListener('contextmenu', handler, false);
+    input.addEventListener('click', handler, false);
+    input.addEventListener('dblclick', handler, false);
+
+    document.addEventListener('contextmenu', handler, false);
+    document.addEventListener('click', handler, false);
+    document.addEventListener('dblclick', handler, false);
 
     output.innerText = JSON.stringify({ handler: 'registered' }, null, 4);
 </script>
