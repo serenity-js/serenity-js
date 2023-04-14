@@ -48,9 +48,9 @@ export const config: WebdriverIOConfig = {
 
         browserName: 'chrome',
         'goog:chromeOptions': {
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--headless',
-                '--disable-infobars',
                 '--no-sandbox',
                 '--disable-gpu',
                 '--window-size=1024x768',

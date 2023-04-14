@@ -27,11 +27,11 @@ const options = {
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--disable-infobars',
                 '--ignore-certificate-errors',
                 '--headless',
                 '--disable-gpu',
