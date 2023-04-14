@@ -61,12 +61,12 @@ export const config: WebdriverIOConfig = {
 
         browserName: 'chrome',
         'goog:chromeOptions': {
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 // '--headless',
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--disable-infobars',
                 '--ignore-certificate-errors',
                 '--disable-gpu',
                 '--disable-gpu',
