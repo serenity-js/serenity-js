@@ -1,8 +1,24 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Stage } from '@serenity-js/core';
-import { ArtifactGenerated, FeatureNarrativeDetected, SceneBackgroundDetected, SceneDescriptionDetected, SceneFinished, SceneStarts, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+import {
+    ArtifactGenerated,
+    FeatureNarrativeDetected,
+    SceneBackgroundDetected,
+    SceneDescriptionDetected,
+    SceneFinished,
+    SceneStarts,
+    TestRunFinishes
+} from '@serenity-js/core/lib/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import {
+    Category,
+    CorrelationId,
+    Description,
+    ExecutionSuccessful,
+    Name,
+    ScenarioDetails
+} from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario } from '../../samples';
@@ -68,6 +84,33 @@ describe('SerenityBDDReporter', () => {
                 const report = event.artifact.map(_ => _);
 
                 expect(report.userStory.narrative).to.equal('Feature narrative');
+            });
+    });
+
+    // https://github.com/serenity-js/serenity-js/pull/1630
+    it('escapes HTML entities in scenario name', () => {
+        const scenario = new ScenarioDetails(
+            new Name(`<abbr title="Questions and Answers">'Q&A'</abbr>`),
+            new Category('Support'),
+            new FileSystemLocation(
+                new Path(`payments/qna.feature`),
+            ),
+        );
+
+        const escaped = `&lt;abbr title=&quot;Questions and Answers&quot;&gt;&apos;Q&amp;A&apos;&lt;/abbr&gt;`;
+
+        stage.announce(
+            new SceneStarts(sceneId, scenario),
+            new SceneFinished(sceneId, scenario, new ExecutionSuccessful()),
+            new TestRunFinishes(),
+        );
+
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
+
+                expect(report.name).to.equal(escaped);
+                expect(report.title).to.equal(escaped);
             });
     });
 });
