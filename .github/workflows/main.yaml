@@ -245,11 +245,16 @@ jobs:
           github-token: ${{ github.token }}
           path-to-lcov: 'target/coverage/lcov.info'
 
+      # https://github.com/actions/runner/issues/520
+      - name: Get CodeClimate reporter ID
+        id: secrets
+        run: echo '::set-output name=CC_TEST_REPORTER_ID::${{ secrets.CC_TEST_REPORTER_ID }}'
+
       - name: CodeClimate
-        if: secrets.CC_TEST_REPORTER_ID
+        if: steps.secrets.outputs.CC_TEST_REPORTER_ID
         uses: paambaati/codeclimate-action@ac3f177ece9928d220a8bd1c2f1957926fd3b67e # v3.2.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ steps.secrets.outputs.CC_TEST_REPORTER_ID }}
         with:
           coverageLocations: |
             ${{github.workspace}}/target/coverage/lcov.info:lcov
