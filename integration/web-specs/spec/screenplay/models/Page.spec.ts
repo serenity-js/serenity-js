@@ -46,7 +46,7 @@ describe('Page', () => {
             describe('title()', () => {
 
                 /** @test {Page#title()} */
-                it('returns the value of the <title /> tag of the current page', async () => {
+                it('returns the value of the HTML title tag of the current page', async () => {
                     const page  = await Page.current().answeredBy(actorCalled('Bernie'));
                     const title = await page.title();
 
