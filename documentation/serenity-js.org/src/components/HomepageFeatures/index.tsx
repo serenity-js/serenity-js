@@ -62,8 +62,7 @@ const TopFeatures: FeatureItem[][] = [
             description: (
                 <>
                     With Serenity/JS you can write, run, and debug your tests in
-                    popular <abbr title={ 'Integrated Development Environments' }>IDEs</abbr> like <a id={"cta-homepage-integration-jetbrains-idea"} href={"/handbook/integration/jetbrains-idea"}>JetBrains</a>
-                    and <a id={"cta-homepage-integration-visual-studio-code"} href={"/handbook/integration/visual-studio-code"}>VS Code</a>.
+                    popular <abbr title={ 'Integrated Development Environments' }>IDEs</abbr> like <a id={"cta-homepage-integration-jetbrains-idea"} href={"/handbook/integration/jetbrains-idea"}>JetBrains</a> and <a id={"cta-homepage-integration-visual-studio-code"} href={"/handbook/integration/visual-studio-code"}>VS Code</a>.
                     Serenity/JS tests are high-quality, standards-based Node.js code,
                     so you can <a id={"cta-homepage-integration"} href={"/handbook/integration/"}>commit them to Git</a> to support trunk-based, multi-branch, and pull request-based development workflows.
                 </>
