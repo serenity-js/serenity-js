@@ -248,7 +248,7 @@ jobs:
       # https://github.com/actions/runner/issues/520
       - name: Get CodeClimate reporter ID
         id: secrets
-        run: echo '::set-output name=CC_TEST_REPORTER_ID::${{ secrets.CC_TEST_REPORTER_ID }}'
+        run: echo "CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }}" >> $GITHUB_OUTPUT
 
       - name: CodeClimate
         if: steps.secrets.outputs.CC_TEST_REPORTER_ID
