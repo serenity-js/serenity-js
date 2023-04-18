@@ -16,7 +16,16 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
+import {
+    ArbitraryTag,
+    CorrelationId,
+    ExecutionFailedWithError,
+    ExecutionRetriedTag,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    TestSuiteDetails
+} from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runnable, Runner, Suite, Test } from 'mocha';
 
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';

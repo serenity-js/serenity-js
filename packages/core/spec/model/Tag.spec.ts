@@ -25,6 +25,30 @@ describe('Tag', () => {
         });
     });
 
+    given<string, string>(
+        [ 'tag', 'Tag' ],
+        [ 'Tag', 'Tag' ],
+        [ 'my_theme', 'My theme' ],
+        [ '  leading', 'Leading' ],
+        [ 'trailing  ', 'Trailing' ],
+        [ 'v1Theme', 'V1 theme'],
+        [ 'myTheme', 'My theme' ],
+        [ 'MyTheme', 'My theme' ],
+        [ 'My Theme', 'My theme' ],
+        [ 'BDD', 'BDD' ],
+        [ 'MyBDDTheme', 'My BDD theme' ],
+        [ 'My_ThemeWithSnakeCase_andCamelCase', 'My theme with snake case and camel case' ],
+        [ 'My theme with UPPERCASE abbreviations', 'My theme with UPPERCASE abbreviations' ],
+        [ 'multiple     spaces', 'Multiple spaces' ],
+        [ 'T3Capability3', 'T3 capability3' ],
+        [ '1Capability3', '1 capability3' ],
+    ).
+    it('can be human-readable', (stringTag: string, expectedResult: string) => {
+        const result = Tag.humanReadable(CapabilityTag, stringTag);
+
+        expect(result.name).to.equal(expectedResult);
+    });
+
     given([
         new ArbitraryTag('wip'),
         new BrowserTag('chrome', '80.0.3987.87'),

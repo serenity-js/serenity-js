@@ -164,8 +164,8 @@ export class Notifier {
         const [ featureName, capabilityName, themeName ]: string[] = hierarchy.reverse();
 
         return notEmpty([
-            themeName       && new ThemeTag(themeName),
-            capabilityName  && new CapabilityTag(capabilityName),
+            themeName       && Tag.humanReadable(ThemeTag, themeName),
+            capabilityName  && Tag.humanReadable(CapabilityTag, capabilityName),
             feature         && new FeatureTag(featureName),
         ]);
     }

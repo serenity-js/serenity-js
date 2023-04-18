@@ -1,5 +1,21 @@
-import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepResultStatus, TestStepStarted } from '@cucumber/messages';
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import {
+    GherkinDocument,
+    Location,
+    Pickle,
+    TestCaseFinished,
+    TestCaseStarted,
+    TestStepFinished,
+    TestStepResult,
+    TestStepResultStatus,
+    TestStepStarted
+} from '@cucumber/messages';
+import {
+    AssertionError,
+    ErrorSerialiser,
+    ImplementationPendingError,
+    Serenity,
+    TestCompromisedError
+} from '@serenity-js/core';
 import {
     BusinessRuleDetected,
     DomainEvent,
@@ -245,8 +261,8 @@ export class CucumberMessagesParser {
         const [featureName, capabilityName, themeName]: string[] = hierarchy.reverse();
 
         return notEmpty([
-            themeName && new ThemeTag(themeName),
-            capabilityName && new CapabilityTag(capabilityName),
+            themeName && Tag.humanReadable(ThemeTag, themeName),
+            capabilityName && Tag.humanReadable(CapabilityTag, capabilityName),
             new FeatureTag(featureName),
         ]);
     }
