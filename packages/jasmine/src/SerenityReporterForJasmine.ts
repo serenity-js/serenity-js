@@ -1,4 +1,10 @@
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import {
+    AssertionError,
+    ErrorSerialiser,
+    ImplementationPendingError,
+    Serenity,
+    TestCompromisedError
+} from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,

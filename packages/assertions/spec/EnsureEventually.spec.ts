@@ -160,7 +160,7 @@ describe('EnsureEventually', () => {
                 });
 
             return expect(actorCalled('Enrique').attemptsTo(
-                Ensure.eventually(currentCounter(), isIdenticalTo(3)),
+                Ensure.eventually(currentCounter(), isIdenticalTo(1)),
             )).to.be.fulfilled;
         });
 

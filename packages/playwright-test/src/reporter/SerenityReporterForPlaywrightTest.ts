@@ -1,6 +1,14 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
-import { ClassDescription, LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import {
+    ClassDescription,
+    LogicError,
+    Serenity,
+    serenity as reporterSerenityInstance,
+    StageCrewMember,
+    StageCrewMemberBuilder,
+    Timestamp
+} from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';
 import {
@@ -13,7 +21,7 @@ import {
     TestRunFinished,
     TestRunFinishes,
     TestRunnerDetected,
-    TestRunStarts,
+    TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
