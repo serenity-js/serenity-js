@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** webdriverio 7.31 breaks backwards-compatibility, pinning to 7.30 for now ([305fc64](https://github.com/serenity-js/serenity-js/commit/305fc648a8fdf96fdf5f26075845bfba6c61713c))
+
+
+
+
+
 ## [3.1.4](https://github.com/serenity-js/serenity-js/compare/v3.1.3...v3.1.4) (2023-04-16)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
