@@ -203,7 +203,7 @@ export abstract class Question<T> {
 
             for (const [ i, currentSource ] of [ source, ...overrides ].entries()) {
                 sources.push(
-                    await recursivelyAnswer(actor, currentSource as any, `argument ${ i }`) as Partial<RecursivelyAnswered<Source_Type>>,
+                    await recursivelyAnswer(actor, currentSource as any, `argument ${ i }`) as unknown as Partial<RecursivelyAnswered<Source_Type>>,
                 );
             }
 
