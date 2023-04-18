@@ -56,7 +56,7 @@ export class Duration extends TinyType {
     toString(): string {
         const ms = this.milliseconds;
 
-        const levels = [
+        const levels: Array<[ number, string ]> = [
             [ Math.floor(   ms / Duration.msPerYear), 'y'],
             [ Math.floor(  (ms % Duration.msPerYear) / Duration.msPerDay), 'd'],
             [ Math.floor( ((ms % Duration.msPerYear) % Duration.msPerDay) / Duration.msPerHour), 'h'],
