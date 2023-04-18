@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** improved support for nested requirement hierarchies with Cucumber.js ([749fb0f](https://github.com/serenity-js/serenity-js/commit/749fb0f9501575ac8152b01a980e4959a823471f)), closes [/github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java#L36](https://github.com//github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java/issues/L36) [#1649](https://github.com/serenity-js/serenity-js/issues/1649)
+
+
+
+
+
 ## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
 
 **Note:** Version bump only for package @serenity-js/mocha
