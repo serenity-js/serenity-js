@@ -3,8 +3,7 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { Actor, Clock, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, HTTPRequestResponse, Name } from '@serenity-js/core/lib/model';
-import { CorrelationId, ScenarioDetails } from '@serenity-js/core/src/model';
+import { Category, CorrelationId, HTTPRequestResponse, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
@@ -37,7 +36,7 @@ describe('Send', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Send.spec.ts');
-        expect(location.line).to.equal(36);
+        expect(location.line).to.equal(35);
         expect(location.column).to.equal(31);
     });
 
