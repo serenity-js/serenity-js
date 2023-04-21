@@ -1,6 +1,6 @@
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
-import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/api/Page';
-import type { Dialog } from 'puppeteer-core/lib/cjs/puppeteer/common/Dialog';
+import type { Page } from 'puppeteer-core';
+import type { Dialog } from 'puppeteer-core';
 
 /**
  * WebdriverIO-specific implementation of {@apilink {ModalDialogHandler}, applicable when WebdriverIO

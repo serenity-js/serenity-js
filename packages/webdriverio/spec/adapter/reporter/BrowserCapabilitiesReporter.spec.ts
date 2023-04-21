@@ -2,8 +2,7 @@ import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
-import { RunnerStart } from '@wdio/types/build/Options';
+import { Capabilities, Options } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
 import { PassThrough } from 'stream';
 
@@ -191,7 +190,7 @@ type MultiremoteCapabilities = Record<string, Capabilities.DesiredCapabilities |
  * Fixme: it looks like WDIO RunnerStart 7.4.2 implementation incorrectly defines MultiremoteCapabilities
  *  below is the correct representation of what the reporter actually receives
  */
-type RunnerStartEvent = RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
+type RunnerStartEvent = Options.RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
 
 function runnerStart(overrides: Partial<RunnerStartEvent>): RunnerStartEvent {
     return {

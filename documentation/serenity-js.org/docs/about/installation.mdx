@@ -156,10 +156,10 @@ Next, create a [`tsconfig.json`](https://www.typescriptlang.org/tsconfig) file i
 ```json title="serenity-js-example/tsconfig.json"
 {
   "compilerOptions": {
-    "target": "es2019",
-    "lib": ["es2019", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "es2021",
+    "lib": [ "es2021", "dom" ],
+    "module": "node16",
+    "moduleResolution": "nodenext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,

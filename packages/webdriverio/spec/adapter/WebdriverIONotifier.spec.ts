@@ -1,8 +1,7 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import { RemoteCapability } from '@wdio/types/build/Capabilities';
-import { Suite, Test, TestResult } from '@wdio/types/build/Frameworks';
+import { Capabilities, Frameworks } from '@wdio/types';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
@@ -38,7 +37,7 @@ import sinon = require('sinon');
 
 describe('WebdriverIONotifier', () => {
 
-    const capabilities: RemoteCapability = {
+    const capabilities: Capabilities.RemoteCapability = {
         browserName: 'chrome',
     };
 
@@ -49,10 +48,10 @@ describe('WebdriverIONotifier', () => {
     const configSandbox = sinon.createSandbox();
 
     let config: Partial<WebdriverIOConfig> & {
-        beforeSuite:    sinon.SinonSpy<[suite: Suite], void>,
-        beforeTest:     sinon.SinonSpy<[test: Test, context: any], void>,
-        afterTest:      sinon.SinonSpy<[test: Test, context: any, result: TestResult], void>,
-        afterSuite:     sinon.SinonSpy<[suite: Suite], void>,
+        beforeSuite:    sinon.SinonSpy<[suite: Frameworks.Suite], void>,
+        beforeTest:     sinon.SinonSpy<[test: Frameworks.Test, context: any], void>,
+        afterTest:      sinon.SinonSpy<[test: Frameworks.Test, context: any, result: Frameworks.TestResult], void>,
+        afterSuite:     sinon.SinonSpy<[suite: Frameworks.Suite], void>,
     }
 
     let notifier: WebdriverIONotifier,
@@ -66,10 +65,10 @@ describe('WebdriverIONotifier', () => {
         const interactionTimeout = Duration.ofSeconds(2);
 
         config = {
-            beforeSuite:    configSandbox.spy() as sinon.SinonSpy<[suite: Suite], void>,
-            beforeTest:     configSandbox.spy() as sinon.SinonSpy<[test: Test, context: any], void>,
-            afterTest:      configSandbox.spy() as sinon.SinonSpy<[test: Test, context: any, result: TestResult], void>,
-            afterSuite:     configSandbox.spy() as sinon.SinonSpy<[suite: Suite], void>,
+            beforeSuite:    configSandbox.spy() as sinon.SinonSpy<[suite: Frameworks.Suite], void>,
+            beforeTest:     configSandbox.spy() as sinon.SinonSpy<[test: Frameworks.Test, context: any], void>,
+            afterTest:      configSandbox.spy() as sinon.SinonSpy<[test: Frameworks.Test, context: any, result: Frameworks.TestResult], void>,
+            afterSuite:     configSandbox.spy() as sinon.SinonSpy<[suite: Frameworks.Suite], void>,
         }
 
         reporter = sinon.createStubInstance(EventEmitter);
@@ -528,7 +527,7 @@ describe('WebdriverIONotifier', () => {
 
             it('invokes afterTest when SceneFinished with success', () => {
                 const expectedContext = {};
-                const expectedResult: TestResult = {
+                const expectedResult: Frameworks.TestResult = {
                     passed: true,
                     duration: 500,
                     retries: {
