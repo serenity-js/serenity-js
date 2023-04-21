@@ -94,9 +94,9 @@ describe('Wait', () => {
         it('fails the actor flow when the timeout expires', async () => {
 
             const
-                timeout         = Duration.ofMilliseconds(500),
+                timeout         = Duration.ofMilliseconds(2000),
                 elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
-                pollingInterval = Duration.ofMilliseconds(100);
+                pollingInterval = Duration.ofMilliseconds(250);
 
             await expect(
                 serenity.theActorCalled('Wendy')
