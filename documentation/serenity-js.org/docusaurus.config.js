@@ -18,11 +18,10 @@ const config = {
         supportedEngines: pkg.engines,
         currentNodeVersion: process.version,
         description:
-            `Serenity/JS is an open-source acceptance testing framework that brings your business and software delivery teams together.
-            It helps you capture your domain language and write high-quality single- and multi-actor test scenarios
-            that interact with any interface of your system.
-            Your Serenity/JS-based test code is also portable and reusable, so you can share it with other teams to benefit your entire organisation.
-            `
+            `<strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to help you create
+            <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong>
+            and produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
+            `,
     },
     url: 'https://serenity-js.org',
     baseUrl: '/',
