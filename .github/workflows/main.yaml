@@ -48,7 +48,7 @@ jobs:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: npm ci
       command: make lint
 
@@ -56,7 +56,7 @@ jobs:
     name: 'Compile'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
       command: make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
@@ -75,7 +75,7 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
@@ -91,7 +91,7 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 14.x
+      node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
@@ -105,7 +105,7 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
@@ -120,7 +120,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
@@ -144,7 +144,7 @@ jobs:
           "playwright-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: |
@@ -183,7 +183,7 @@ jobs:
           "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
@@ -212,7 +212,7 @@ jobs:
       - coverage-aggregate
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: npm ci
       download-artifact-name: 'aggregated-code-coverage'
       command: make report
@@ -296,7 +296,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
@@ -356,7 +356,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: Install Node Modules
         uses: bahmutov/npm-install@v1
