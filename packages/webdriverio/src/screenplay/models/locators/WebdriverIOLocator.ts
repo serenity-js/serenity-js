@@ -2,9 +2,9 @@ import { f, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOErrorHandler } from '../WebdriverIOErrorHandler';
-import { WebdriverIOPageElement } from '../WebdriverIOPageElement';
-import { WebdriverIORootLocator } from './WebdriverIORootLocator';
+import { WebdriverIOErrorHandler } from '../WebdriverIOErrorHandler.js';
+import { WebdriverIOPageElement } from '../WebdriverIOPageElement.js';
+import { WebdriverIORootLocator } from './WebdriverIORootLocator.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink Locator}.

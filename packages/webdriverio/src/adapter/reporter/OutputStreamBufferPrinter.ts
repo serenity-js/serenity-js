@@ -1,8 +1,8 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import { OutputStream } from '@serenity-js/core/lib/adapter';
-import { DomainEvent, SceneFinished } from '@serenity-js/core/lib/events';
+import { OutputStream } from '@serenity-js/core/lib/adapter/index.js';
+import { DomainEvent, SceneFinished } from '@serenity-js/core/lib/events/index.js';
 
-import { OutputStreamBuffer } from './OutputStreamBuffer';
+import { OutputStreamBuffer } from './OutputStreamBuffer.js';
 
 /**
  * @package

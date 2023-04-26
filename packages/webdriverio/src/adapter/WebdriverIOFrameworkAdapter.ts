@@ -1,17 +1,23 @@
 import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity, TakeNotes } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
-import { isRecord } from 'tiny-types/lib/objects';
+import { isRecord } from 'tiny-types/lib/objects/index.js';
 
-import { BrowseTheWebWithWebdriverIO } from '../screenplay';
-import { BrowserCapabilitiesReporter, InitialisesReporters, OutputStreamBuffer, ProvidesWriteStream } from './reporter';
-import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter';
-import { TestRunnerLoader } from './TestRunnerLoader';
-import { WebdriverIOConfig } from './WebdriverIOConfig';
-import { WebdriverIONotifier } from './WebdriverIONotifier';
+import { BrowseTheWebWithWebdriverIO } from '../screenplay/index.js';
+import {
+    BrowserCapabilitiesReporter,
+    InitialisesReporters,
+    OutputStreamBuffer,
+    ProvidesWriteStream
+} from './reporter/index.js';
+import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter.js';
+import { TestRunnerLoader } from './TestRunnerLoader.js';
+import { WebdriverIOConfig } from './WebdriverIOConfig.js';
+import { WebdriverIONotifier } from './WebdriverIONotifier.js';
 import deepmerge = require('deepmerge');
+import { Reporters } from '@wdio/types';
 
 export class WebdriverIOFrameworkAdapter {
 
@@ -45,7 +51,7 @@ export class WebdriverIOFrameworkAdapter {
         //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/index.ts#L147-L181
         //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/reporter.ts#L24
         (reporter as any)._reporters.push(reporter.initReporter([
-            BrowserCapabilitiesReporter, { serenity: this.serenity },
+            BrowserCapabilitiesReporter as unknown as Reporters.ReporterClass, { serenity: this.serenity },
         ]));
 
         this.notifier = new WebdriverIONotifier(

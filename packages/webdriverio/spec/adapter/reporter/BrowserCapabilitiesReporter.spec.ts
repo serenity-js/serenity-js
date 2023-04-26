@@ -1,13 +1,15 @@
+import { EventEmitter } from 'node:events';
+import { PassThrough } from 'node:stream';
+
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
-import { SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
+import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model/index.js';
 import { Capabilities } from '@wdio/types';
-import { RunnerStart } from '@wdio/types/build/Options';
+import { Options } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
-import { PassThrough } from 'stream';
 
-import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter';
+import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter/index.js';
 
 describe('BrowserCapabilitiesReporter', () => {
 
@@ -16,7 +18,7 @@ describe('BrowserCapabilitiesReporter', () => {
         now                 = new Date(0),
         frozenClock         = new Clock(() => now);
 
-    let browserDetector: BrowserCapabilitiesReporter,
+    let browserDetector: BrowserCapabilitiesReporter & EventEmitter,
         serenity: Serenity,
         recorder: EventRecorder;
 
@@ -32,7 +34,7 @@ describe('BrowserCapabilitiesReporter', () => {
         browserDetector = new BrowserCapabilitiesReporter({
             serenity:       serenity,
             writeStream:    new PassThrough(), // nothing gets printed to writeStream as this is not a "real" WebdriverIO reporter
-        });
+        }) as any;
     });
 
     describe('when working with a single browser/device', () => {
@@ -191,7 +193,7 @@ type MultiremoteCapabilities = Record<string, Capabilities.DesiredCapabilities |
  * Fixme: it looks like WDIO RunnerStart 7.4.2 implementation incorrectly defines MultiremoteCapabilities
  *  below is the correct representation of what the reporter actually receives
  */
-type RunnerStartEvent = RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
+type RunnerStartEvent = Options.RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
 
 function runnerStart(overrides: Partial<RunnerStartEvent>): RunnerStartEvent {
     return {

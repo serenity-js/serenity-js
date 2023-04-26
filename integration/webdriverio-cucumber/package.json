@@ -15,7 +15,8 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "~test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "mocha --config .mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",

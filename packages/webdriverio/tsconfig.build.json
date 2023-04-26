@@ -1,8 +1,12 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "outDir": "lib",
     "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "lib": [
       "es2021",
       "dom"

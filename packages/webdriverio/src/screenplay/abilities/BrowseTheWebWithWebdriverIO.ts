@@ -1,7 +1,7 @@
 import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOBrowsingSession } from '../models';
+import { WebdriverIOBrowsingSession } from '../models/index.js';
 
 /**
  * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}

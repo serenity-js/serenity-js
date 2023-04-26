@@ -1,9 +1,10 @@
-import { ConfigurationError } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { WebdriverIO } from '@wdio/types/build/Options';
+import 'webdriverio';
 
-import { WebdriverIOConfig } from './WebdriverIOConfig';
+import { ConfigurationError } from '@serenity-js/core';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+
+import { WebdriverIOConfig } from './WebdriverIOConfig.js';
 
 export class TestRunnerLoader {
     private readonly fileSystem: FileSystem;

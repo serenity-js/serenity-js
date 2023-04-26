@@ -1,17 +1,16 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
-import Reporter from '@wdio/reporter';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model/index.js';
 import type { Capabilities, Reporters } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { WebdriverIOConfig } from '../../src';
-import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter';
-import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter';
+import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter/index.js';
+import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter/index.js';
+import { WebdriverIOConfig } from '../../src/index.js';
 import EventEmitter = require('events');
 
 describe('WebdriverIOFrameworkAdapterFactory', () => {
@@ -33,7 +32,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
         factory         = new WebdriverIOFrameworkAdapterFactory(
             serenity,
             loader,
-            Path.from(__dirname),
+            Path.from('/fake/path/to/project'),
         );
     });
 
@@ -116,7 +115,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
             };
         }
 
-        initReporter(reporter: Reporters.ReporterEntry): Reporter {
+        initReporter(reporter: Reporters.ReporterEntry): any {
             const
                 ReporterClass   = reporter[0],
                 options         = reporter[1];

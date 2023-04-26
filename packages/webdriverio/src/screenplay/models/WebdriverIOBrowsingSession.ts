@@ -1,13 +1,13 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import { BrowsingSession, ModalDialogHandler } from '@serenity-js/web';
-import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/api/Page';
+import type { Page } from 'puppeteer-core';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOPage } from '../models';
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler';
-import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler';
+import { WebdriverIOPage } from '../models/index.js';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
+import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink BrowsingSession}.

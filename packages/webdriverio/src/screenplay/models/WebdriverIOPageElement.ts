@@ -1,10 +1,10 @@
 import { LogicError } from '@serenity-js/core';
 import { Key, PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts';
+import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOLocator } from './locators';
-import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
+import { WebdriverIOLocator } from './locators/index.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink PageElement}.

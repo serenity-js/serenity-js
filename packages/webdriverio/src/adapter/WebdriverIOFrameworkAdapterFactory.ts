@@ -1,11 +1,11 @@
 import { Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 
-import { InitialisesReporters, ProvidesWriteStream } from './reporter';
-import { WebdriverIOConfig } from './WebdriverIOConfig';
-import { WebdriverIOFrameworkAdapter } from './WebdriverIOFrameworkAdapter';
+import { InitialisesReporters, ProvidesWriteStream } from './reporter/index.js';
+import { WebdriverIOConfig } from './WebdriverIOConfig.js';
+import { WebdriverIOFrameworkAdapter } from './WebdriverIOFrameworkAdapter.js';
 
 /**
  * @group Test Runner Adapter

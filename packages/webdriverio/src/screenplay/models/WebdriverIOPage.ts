@@ -1,14 +1,14 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOLocator, WebdriverIORootLocator } from './locators';
-import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
-import { WebdriverIOCookie } from './WebdriverIOCookie';
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverIOPageElement } from './WebdriverIOPageElement';
+import { WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
+import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
+import { WebdriverIOCookie } from './WebdriverIOCookie.js';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink Page}.

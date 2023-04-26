@@ -1,5 +1,5 @@
 import { LogicError, Stage, StageCrewMember } from '@serenity-js/core';
-import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
 import {
     CorrelationId,
     Description,
@@ -12,15 +12,13 @@ import {
     Outcome,
     ProblemIndication,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model';
-import { Suite as suiteStats } from '@wdio/reporter/build/stats/suite';
-import { Test as testStats } from '@wdio/reporter/build/stats/test';
-import { RemoteCapability } from '@wdio/types/build/Capabilities';
-import * as frameworks from '@wdio/types/build/Frameworks';
+} from '@serenity-js/core/lib/model/index.js';
+import type { Test as testStats } from '@wdio/reporter';
+import type { Capabilities, Frameworks } from '@wdio/types';
 import type { EventEmitter } from 'events';
 import { match } from 'tiny-types';
 
-import { WebdriverIOConfig } from './WebdriverIOConfig';
+import { WebdriverIOConfig } from './WebdriverIOConfig.js';
 
 /**
  * @package
@@ -41,7 +39,7 @@ export class WebdriverIONotifier implements StageCrewMember {
 
     constructor(
         private readonly config: WebdriverIOConfig,
-        private readonly capabilities: RemoteCapability,
+        private readonly capabilities: Capabilities.RemoteCapability,
         private readonly reporter: EventEmitter,
         private readonly successThreshold: Outcome | { Code: number },
         private readonly cid: string,
@@ -97,7 +95,7 @@ export class WebdriverIONotifier implements StageCrewMember {
         return this.invokeHooks('afterSuite', this.config.afterSuite, [suite as any]);  // todo: correct types
     }
 
-    private suiteStartEventFrom(started: TestSuiteStarts): suiteStats & frameworks.Suite {
+    private suiteStartEventFrom(started: TestSuiteStarts): { uid: string, cid: string, specs: string[] } & Frameworks.Suite {
         return {
             type:       'suite:start',
             uid:        started.details.correlationId.value,
@@ -115,7 +113,7 @@ export class WebdriverIONotifier implements StageCrewMember {
         return this.suites.map(suite => suite.name.value).concat(name).join(' ');
     }
 
-    private suiteEndEventFrom(started: TestSuiteStarts, finished: TestSuiteFinished): suiteStats & frameworks.Suite {
+    private suiteEndEventFrom(started: TestSuiteStarts, finished: TestSuiteFinished): Frameworks.Suite {
         return {
             ...this.suiteStartEventFrom(started),
             type:       'suite:end',
@@ -175,7 +173,7 @@ export class WebdriverIONotifier implements StageCrewMember {
             .trim();
     }
 
-    private testFrom(started: SceneStarts): frameworks.Test {
+    private testFrom(started: SceneStarts): Frameworks.Test {
         const
             title           = this.testShortTitleFrom(started);
 
@@ -219,14 +217,14 @@ export class WebdriverIONotifier implements StageCrewMember {
      * @param finished
      * @private
      */
-    private testResultFrom(started: SceneStarts, finished: SceneFinished): frameworks.TestResult {
+    private testResultFrom(started: SceneStarts, finished: SceneFinished): Frameworks.TestResult {
         const duration = finished.timestamp.diff(started.timestamp).inMilliseconds();
         const defaultRetries = { attempts: 0, limit: 0 };
 
         const passedOrFailed = (outcome: Outcome): boolean =>
             this.whenSuccessful<boolean>(outcome, true, false);
 
-        return match<Outcome, frameworks.TestResult>(finished.outcome)
+        return match<Outcome, Frameworks.TestResult>(finished.outcome)
             .when(ExecutionCompromised, (outcome: ExecutionCompromised) => {
                 const error = this.errorFrom(outcome);
                 return {

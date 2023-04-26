@@ -15,8 +15,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "keywords": [
     "serenity-js",
     "ui",
@@ -31,7 +32,8 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
+
+    "test": "mocha --config .mocharc.yml 'spec/adapter/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {

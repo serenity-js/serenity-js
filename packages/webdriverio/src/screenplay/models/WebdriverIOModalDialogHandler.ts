@@ -1,8 +1,8 @@
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink ModalDialogHandler},

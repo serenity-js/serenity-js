@@ -1,15 +1,18 @@
 import { Serenity } from '@serenity-js/core';
-import { SceneTagged } from '@serenity-js/core/lib/events';
-import { Tag } from '@serenity-js/core/lib/model';
-import Reporter from '@wdio/reporter';
-import { Capabilities, Options, Reporters } from '@wdio/types';
+import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
+import { Tag } from '@serenity-js/core/lib/model/index.js';
+import { RunnerStats } from '@wdio/reporter'
+// Todo: correct import when we move to WDIO v8
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+import reporter from '@wdio/reporter';
+import { Capabilities, Reporters } from '@wdio/types';
 
-import { TagPrinter } from './TagPrinter';
+import { TagPrinter } from './TagPrinter.js';
 
 /**
  * @package
  */
-export class BrowserCapabilitiesReporter extends Reporter {
+export class BrowserCapabilitiesReporter extends reporter.default {
 
     private readonly tagPrinter = new TagPrinter();
     private readonly serenity: Serenity;
@@ -20,12 +23,17 @@ export class BrowserCapabilitiesReporter extends Reporter {
         super({ ...options, stdout: false });
 
         this.serenity = options.serenity;
-
-        this.on('runner:start', BrowserCapabilitiesReporter.prototype.recordBrowserAndPlatformTags.bind(this));
-        this.on('test:start',   BrowserCapabilitiesReporter.prototype.emitRecordedTags.bind(this));
     }
 
-    private recordBrowserAndPlatformTags(event: Options.RunnerStart) {
+    onRunnerStart(runner: RunnerStats): void {
+        this.recordBrowserAndPlatformTags(runner);
+    }
+
+    onTestStart(): void {
+        this.emitRecordedTags();
+    }
+
+    private recordBrowserAndPlatformTags(event: RunnerStats) {
         const tags = event.isMultiremote
             ? this.tagsForAll(event.capabilities as unknown as Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>)  // fixme: WDIO MultiremoteCapabilities seem to have incorrect definition?
             : this.tagPrinter.tagsFor(event.capabilities)
