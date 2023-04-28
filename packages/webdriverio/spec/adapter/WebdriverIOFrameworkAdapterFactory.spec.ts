@@ -17,7 +17,8 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
     const
         cid     = '0-0',
-        specs   = [ '/users/jan/project/spec/example.spec.ts' ],
+        specURIs   = [ 'file:///users/jan/project/spec/example.spec.ts' ],
+        specs      = [ '/users/jan/project/spec/example.spec.ts' ],
         capabilities: Capabilities.RemoteCapability = { browserName: 'chrome' };
 
     let serenity:       Serenity,
@@ -55,7 +56,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
             loader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -70,7 +71,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
             loader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -85,7 +86,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
             loader.require.withArgs('@serenity-js/jasmine/lib/adapter').returns({ JasmineAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -97,7 +98,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            expect(() => factory.init(cid, config, specs, capabilities, baseReporter))
+            expect(() => factory.init(cid, config, specURIs, capabilities, baseReporter))
                 .to.throw(ConfigurationError, '"invalid" is not a supported test runner. Please use "mocha", "jasmine", or "cucumber"');
         });
     });
@@ -115,7 +116,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
             };
         }
 
-        initReporter(reporter: Reporters.ReporterEntry): any {
+        _loadReporter(reporter: Reporters.ReporterEntry): any {
             const
                 ReporterClass   = reporter[0],
                 options         = reporter[1];

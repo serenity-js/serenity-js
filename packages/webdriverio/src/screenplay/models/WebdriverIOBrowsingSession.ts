@@ -16,7 +16,7 @@ import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerMo
  */
 export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
 
-    constructor(protected readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: wdio.Browser) {
         super();
 
         if (! browser.$ || ! browser.$$) {

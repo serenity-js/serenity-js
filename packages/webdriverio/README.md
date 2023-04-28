@@ -60,7 +60,7 @@ import * as wdio from 'webdriverio';
 
 // example Actors class, confgures Serenity/JS actors to use WebdriverIO
 class Actors implements Cast {
-    constructor(private readonly browser: wdio.Browser<'async'>) {
+    constructor(private readonly browser: wdio.Browser) {
     }
 
     prepare(actor: Actor): Actor {

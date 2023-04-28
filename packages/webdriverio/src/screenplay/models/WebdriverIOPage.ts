@@ -15,13 +15,13 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
+export class WebdriverIOPage extends Page<wdio.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
         session: WebdriverIOBrowsingSession,
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: wdio.Browser,
         modalDialogHandler: ModalDialogHandler,
         private readonly errorHandler: WebdriverIOErrorHandler,
         pageId: CorrelationId,
@@ -34,13 +34,13 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         );
     }
 
-    locate(selector: Selector): PageElement<wdio.Element<'async'>> {
+    locate(selector: Selector): PageElement<wdio.Element> {
         return new WebdriverIOPageElement(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
-    locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
+    locateAll(selector: Selector): PageElements<wdio.Element> {
         return new PageElements(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         );

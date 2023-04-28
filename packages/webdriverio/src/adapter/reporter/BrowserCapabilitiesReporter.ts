@@ -1,26 +1,23 @@
 import { Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
 import { Tag } from '@serenity-js/core/lib/model/index.js';
-import { RunnerStats } from '@wdio/reporter'
-// Todo: correct import when we move to WDIO v8
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import reporter from '@wdio/reporter';
-import { Capabilities, Reporters } from '@wdio/types';
+import WDIOReporter, { RunnerStats } from '@wdio/reporter';
+import type { Capabilities, Reporters } from '@wdio/types';
 
 import { TagPrinter } from './TagPrinter.js';
 
 /**
  * @package
  */
-export class BrowserCapabilitiesReporter extends reporter.default {
+export class BrowserCapabilitiesReporter extends WDIOReporter {
 
     private readonly tagPrinter = new TagPrinter();
     private readonly serenity: Serenity;
 
     private readonly tags: Tag[] = [];
 
-    constructor (options: Partial<Reporters.Options> & { serenity: Serenity }) {
-        super({ ...options, stdout: false });
+    constructor(options: Partial<Reporters.Options> & { serenity: Serenity }) {
+        super({ ...options, stdout: false } as any);
 
         this.serenity = options.serenity;
     }
@@ -36,7 +33,7 @@ export class BrowserCapabilitiesReporter extends reporter.default {
     private recordBrowserAndPlatformTags(event: RunnerStats) {
         const tags = event.isMultiremote
             ? this.tagsForAll(event.capabilities as unknown as Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>)  // fixme: WDIO MultiremoteCapabilities seem to have incorrect definition?
-            : this.tagPrinter.tagsFor(event.capabilities)
+            : this.tagPrinter.tagsFor(event.capabilities as any)
 
         this.tags.push(...tags);
     }

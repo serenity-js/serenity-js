@@ -3,15 +3,12 @@ import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
-import { Actors } from './src';
-
 export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
 
     serenity: {
         runner: 'mocha',
-        actors: new Actors(),
         diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new StdOutReporter(),

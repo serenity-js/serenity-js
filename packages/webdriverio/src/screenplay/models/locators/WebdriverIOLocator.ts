@@ -11,10 +11,10 @@ import { WebdriverIORootLocator } from './WebdriverIORootLocator.js';
  *
  * @group Models
  */
-export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
+export class WebdriverIOLocator extends Locator<wdio.Element, string> {
 
     constructor(
-        parent: RootLocator<wdio.Element<'async'>>,
+        parent: RootLocator<wdio.Element>,
         selector: Selector,
         private readonly errorHandler: WebdriverIOErrorHandler,
     ) {
@@ -60,7 +60,7 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
         }
     }
 
-    async nativeElement(): Promise<wdio.Element<'async'>> {
+    async nativeElement(): Promise<wdio.Element> {
         try {
             return await this.resolveNativeElement();
         }
@@ -69,7 +69,7 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
         }
     }
 
-    private async resolveNativeElement(): Promise<wdio.Element<'async'>> {
+    private async resolveNativeElement(): Promise<wdio.Element> {
         const parent = await this.parent.nativeElement();
 
         if (parent.error) {
@@ -85,24 +85,24 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
         return element;
     }
 
-    async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
+    async allNativeElements(): Promise<Array<wdio.Element>> {
         const parent = await this.parent.nativeElement();
         return parent.$$(this.nativeSelector());
     }
 
-    of(parent: WebdriverIOLocator): Locator<wdio.Element<'async'>, string> {
+    of(parent: WebdriverIOLocator): Locator<wdio.Element, string> {
         return new WebdriverIOLocator(parent, this.selector, this.errorHandler);
     }
 
-    locate(child: WebdriverIOLocator): Locator<wdio.Element<'async'>, string> {
+    locate(child: WebdriverIOLocator): Locator<wdio.Element, string> {
         return new WebdriverIOLocator(this, child.selector, this.errorHandler);
     }
 
-    element(): PageElement<wdio.Element<'async'>> {
+    element(): PageElement<wdio.Element> {
         return new WebdriverIOPageElement(this);
     }
 
-    async allElements(): Promise<Array<PageElement<wdio.Element<'async'>>>> {
+    async allElements(): Promise<Array<PageElement<wdio.Element>>> {
         const elements = await this.allNativeElements();
 
         return elements.map(childElement =>
@@ -123,19 +123,19 @@ export class WebdriverIOLocator extends Locator<wdio.Element<'async'>, string> {
  */
 class ExistingElementLocator extends WebdriverIOLocator {
     constructor(
-        parentRoot: RootLocator<wdio.Element<'async'>>,
+        parentRoot: RootLocator<wdio.Element>,
         selector: Selector,
         errorHandler: WebdriverIOErrorHandler,
-        private readonly existingNativeElement: wdio.Element<'async'>,
+        private readonly existingNativeElement: wdio.Element,
     ) {
         super(parentRoot, selector, errorHandler);
     }
 
-    async nativeElement(): Promise<wdio.Element<'async'>> {
+    async nativeElement(): Promise<wdio.Element> {
         return this.existingNativeElement;
     }
 
-    async allNativeElements(): Promise<Array<wdio.Element<'async'>>> {
+    async allNativeElements(): Promise<Array<wdio.Element>> {
         return [ this.existingNativeElement ];
     }
 }

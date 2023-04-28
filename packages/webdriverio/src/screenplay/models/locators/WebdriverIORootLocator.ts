@@ -6,8 +6,8 @@ import * as wdio from 'webdriverio';
  *
  * @group Models
  */
-export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
-    constructor(private readonly browser: wdio.Browser<'async'>) {
+export class WebdriverIORootLocator extends RootLocator<wdio.Browser> {
+    constructor(private readonly browser: wdio.Browser) {
         super();
     }
 
@@ -15,11 +15,11 @@ export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
         return true;
     }
 
-    async nativeElement(): Promise<Pick<wdio.Browser<'async'>, '$' | '$$'>> {
+    async nativeElement(): Promise<Pick<wdio.Browser, '$' | '$$'>> {
         return this.browser;
     }
 
-    async switchToFrame(frame: wdio.Element<'async'>): Promise<void> {
+    async switchToFrame(frame: wdio.Element): Promise<void> {
         await this.browser.switchToFrame(frame);
     }
 

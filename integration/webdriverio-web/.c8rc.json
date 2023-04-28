@@ -1,0 +1,22 @@
+{
+  "extends": "../../.c8rc.json",
+  "cwd": "../../packages",
+  "reportDir": "../integration/webdriverio-web/target/coverage",
+  "tempDir": "../.nyc_output",
+  "include": [
+    "core/src/**/*.ts",
+    "core/lib/**/*.js",
+    "mocha/src/**/*.ts",
+    "mocha/lib/**/*.js",
+    "web/src/**/*.ts",
+    "web/lib/**/*.js",
+    "webdriverio/src/**/*.ts",
+    "webdriverio/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ]
+}

@@ -27,7 +27,7 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
     private currentHandler: () => Promise<void>;
 
     constructor(
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: wdio.Browser,
         private readonly errorHandler: WebdriverIOErrorHandler,
     ) {
         super();

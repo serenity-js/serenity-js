@@ -11,7 +11,7 @@ import * as wdio from 'webdriverio';
 export class WebdriverIOCookie extends Cookie {
 
     constructor(
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: wdio.Browser,
         cookieName: string,
     ) {
         super(cookieName);

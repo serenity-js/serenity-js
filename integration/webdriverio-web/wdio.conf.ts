@@ -5,7 +5,7 @@ import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { cpus } from 'os';
 
-import { Actors } from './src/Actors';
+import { Actors } from './src/Actors.js';
 
 const protocol = process.env.PROTOCOL === 'devtools'
     ? 'devtools'
