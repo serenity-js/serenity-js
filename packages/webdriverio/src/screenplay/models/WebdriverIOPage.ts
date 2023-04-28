@@ -68,9 +68,9 @@ export class WebdriverIOPage extends Page<wdio.Element> {
                 return key;
             }
 
-            if (this.browser.isDevTools) {
-                return key.devtoolsName;
-            }
+            // if (this.browser.isDevTools) {
+            //     return key.devtoolsName;
+            // }
 
             return key.utf16codePoint;
         });
