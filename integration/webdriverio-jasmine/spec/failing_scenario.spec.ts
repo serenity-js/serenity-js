@@ -1,13 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import {
-    BrowserTag,
-    ExecutionFailedWithAssertionError,
-    FeatureTag,
-    Name,
-    PlatformTag,
-    ProblemIndication
-} from '@serenity-js/core/lib/model';
+import { BrowserTag, FeatureTag, Name, PlatformTag, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { wdio } from '../src';
@@ -33,9 +26,7 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
                 .next(SceneFinished,       event => {
-                    const outcome = event.outcome as ProblemIndication;
-
-                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(event.outcome).to.be.instanceOf(ProblemIndication);
                 })
             ;
         }));

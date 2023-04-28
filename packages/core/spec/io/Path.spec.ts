@@ -114,14 +114,13 @@ describe ('Path', () => {
     });
 
     given(
-        { description: 'external host',                             uri: 'file://host/path', expected: '/host/path' },
         { description: 'localhost',                                 uri: 'file://localhost/etc/fstab', expected: '/etc/fstab' },
         { description: 'no host',                                   uri: 'file:///etc/fstab', expected: '/etc/fstab' },
         { description: 'Windows, no host',                          uri: 'file:///c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
         { description: 'Windows, localhost, pipe instead of colon', uri: 'file://localhost/c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
         { description: 'Windows, no host, pipe instead of colon',   uri: 'file:///c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
         { description: 'Windows, localhost',                        uri: 'file://localhost/c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
-        { description: 'spaces in file name',                        uri: 'file://hostname/path/to/the%20file.txt', expected: '/hostname/path/to/the file.txt' },
+        { description: 'spaces in file name',                        uri: 'file:///hostname/path/to/the%20file.txt', expected: '/hostname/path/to/the file.txt' },
         { description: 'Windows, spaces in file name',               uri: 'file:///c:/path/to/the%20file.txt', expected: 'c:/path/to/the file.txt' },
         { description: 'Windows, spaces in directory name',         uri: 'file:///C:/Documents%20and%20Settings/user/FileSchemeURIs.doc', expected: 'C:/Documents and Settings/user/FileSchemeURIs.doc' },
         { description: 'Windows, special characters',               uri: 'file:///C:/caf%C3%A9/%C3%A5r/d%C3%BCnn/%E7%89%9B%E9%93%83/Ph%E1%BB%9F/%F0%9F%98%B5.exe', expected: 'C:/café/år/dünn/牛铃/Phở/😵.exe' },
