@@ -32,7 +32,7 @@
   "scripts": {
     "clean": "rimraf target",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
-    "test": "ts-node node_modules/protractor/built/cli.js ./spec/protractor.conf.js",
+    "test": "protractor ./spec/protractor.conf.js",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
