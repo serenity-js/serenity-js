@@ -28,7 +28,8 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "~test": "c8 playwright test",
+    "~test": "c8 npm run test:no-coverage",
+    "~test:no-coverage": "playwright test",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
