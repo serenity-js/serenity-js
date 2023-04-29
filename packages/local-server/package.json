@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "c8 mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -63,11 +63,11 @@
     "@types/mocha": "^10.0.1",
     "@types/restify": "^8.5.6",
     "axios": "^1.3.5",
+    "c8": "7.13.0",
     "express": "^4.18.2",
     "koa": "^2.14.2",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
-    "nyc": "15.1.0",
     "restify": "^11.1.0",
     "semver": "^7.4.0",
     "ts-node": "^10.9.1",

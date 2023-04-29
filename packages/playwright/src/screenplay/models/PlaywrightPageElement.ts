@@ -76,7 +76,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
 
         const options = await element.$$eval(
             'option',
-            /* istanbul ignore next */
+            /* c8 ignore next */
             (optionNodes: Array<HTMLOptionElement>) =>
                 optionNodes.map((optionNode: HTMLOptionElement) => {
                     return {
@@ -127,7 +127,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
             }
 
             const previouslyFocusedElement = await element.evaluateHandle(
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 (domNode: HTMLElement) => {
                     const currentlyFocusedElement = document.activeElement;
                     domNode.focus();
@@ -145,7 +145,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         try {
             const element = await this.nativeElement();
             return element.evaluate(
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 domNode => domNode === document.activeElement
             );
         } catch {
@@ -217,7 +217,7 @@ class PreviouslyFocusedElementSwitcher implements SwitchableOrigin {
 
     async switchBack (): Promise<void> {
         await this.node.evaluate(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             (domNode: HTMLElement) => {
                 domNode.focus();
             },

@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { serenity } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { Runner } from 'protractor';

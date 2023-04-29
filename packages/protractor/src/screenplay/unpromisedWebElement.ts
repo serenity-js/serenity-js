@@ -18,7 +18,7 @@ export function unpromisedWebElement<T extends WebElement>(promiseLike: T): T {
         ownKeys: (target) =>
             Reflect.ownKeys(target)
                 .filter(property => property !== 'then'),
-        get: (target, property, receiver) =>
+        get: (target: any, property, receiver) =>
             (property in receiver)
                 ? target[property]
                 : undefined,

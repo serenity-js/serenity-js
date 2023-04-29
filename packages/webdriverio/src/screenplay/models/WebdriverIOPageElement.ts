@@ -25,7 +25,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element> {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         async function removeCharactersFrom(browser: wdio.Browser, inputElement: wdio.Element, numberOfCharacters: number): Promise<void> {
             await browser.execute(
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 function focusOn(element: any) {
                     element.focus();
                 },
@@ -104,7 +104,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element> {
         const browser = await this.browserFor(element);
 
         const options = await browser.execute(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             (select: HTMLSelectElement) => {
                 const options = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
@@ -167,7 +167,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element> {
             else {
                 // focus on element
                 const previouslyFocusedElement = await browser.execute(
-                    /* istanbul ignore next */
+                    /* c8 ignore next */
                     function focusOn(element: any) {
                         const currentlyFocusedElement = document.activeElement;
                         element.focus();
@@ -179,7 +179,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element> {
                 return {
                     switchBack: async (): Promise<void> => {
                         await browser.execute(
-                            /* istanbul ignore next */
+                            /* c8 ignore next */
                             function focusOn(element: any) {
                                 element.focus();
                             },

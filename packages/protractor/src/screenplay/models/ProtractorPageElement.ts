@@ -136,9 +136,9 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const browser = element.browser_;
 
         const options: Array<{ label: string, value: string, selected: boolean, disabled: boolean }> = await browser.executeScript(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             (select: HTMLSelectElement) => {
-                const options = [];
+                const options: Array<{ label: string, value: string, selected: boolean, disabled: boolean }> = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
                     options.push({
                         selected:   option.selected,
@@ -175,8 +175,8 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const webElement: WebElement = await element.getWebElement();
 
         return await promised(webElement.getDriver().executeScript(
-            /* istanbul ignore next */
-            function getValue(webElement) {
+            /* c8 ignore next */
+            function getValue(webElement: { value: string }) {
                 return webElement.value;
             },
             webElement,

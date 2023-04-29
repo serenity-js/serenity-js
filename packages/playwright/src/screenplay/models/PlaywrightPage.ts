@@ -206,7 +206,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
     async name(): Promise<string> {
         const currentFrame = await this.currentFrame();
         return currentFrame.evaluate(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             () => window.name
         );
     }

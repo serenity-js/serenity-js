@@ -1,9 +1,10 @@
 {
-  "all": true,
+  "all": false,
   "cache": true,
   "sourceMap": true,
   "exclude": [
     "**/src/**/*.d.ts",
+    "**/lib/**/*.d.ts",
     "**/spec/**"
   ],
   "extension": [
@@ -14,6 +15,8 @@
     "ts-node/register"
   ],
   "reporter": [
-    "json"
+    "json",
+    "html",
+    "text-summary"
   ]
 }

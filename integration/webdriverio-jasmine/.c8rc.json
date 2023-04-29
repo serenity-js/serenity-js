@@ -1,17 +1,17 @@
 {
   "extends": "../../.c8rc.json",
-  "cwd": "../../packages",
-  "reportDir": "../integration/webdriverio-jasmine/target/coverage",
+  "reportDir": "./target/coverage",
   "tempDir": "../.nyc_output",
+  "allowExternal": true,
   "include": [
-    "core/src/**/*.ts",
-    "core/lib/**/*.js",
-    "jasmine/src/**/*.ts",
-    "jasmine/lib/**/*.js",
-    "web/src/**/*.ts",
-    "web/lib/**/*.js",
-    "webdriverio/src/**/*.ts",
-    "webdriverio/lib/**/*.js"
+    "**/packages/core/src/**/*.ts",
+    "**/packages/core/lib/**/*.js",
+    "**/packages/jasmine/src/**/*.ts",
+    "**/packages/jasmine/lib/**/*.js",
+    "**/packages/web/src/**/*.ts",
+    "**/packages/web/lib/**/*.js",
+    "**/packages/webdriverio/src/**/*.ts",
+    "**/packages/webdriverio/lib/**/*.js"
   ],
   "exclude": [
     "**/target/**",

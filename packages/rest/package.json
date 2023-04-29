@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "c8 mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -53,9 +53,9 @@
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "axios-mock-adapter": "1.21.4",
+    "c8": "7.13.0",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
-    "nyc": "15.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

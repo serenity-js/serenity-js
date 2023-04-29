@@ -1,0 +1,18 @@
+{
+  "extends": "../../.c8rc.json",
+  "reportDir": "./target/coverage",
+  "tempDir": "../.nyc_output",
+  "allowExternal": true,
+  "include": [
+    "**/packages/core/src/**/*.ts",
+    "**/packages/core/lib/**/*.js",
+    "**/packages/mocha/src/**/*.ts",
+    "**/packages/mocha/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ]
+}

@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
+    "test": "c8 mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -51,7 +51,7 @@
     "@types/mocha": "^10.0.1",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
-    "nyc": "15.1.0",
+    "c8": "7.13.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

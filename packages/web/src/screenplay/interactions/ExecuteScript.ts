@@ -279,7 +279,7 @@ class ExecuteScriptFromUrl extends Interaction {
         const sourceUrl = await actor.answer(this.sourceUrl);
 
         return page.executeAsyncScript(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             function executeScriptFromUrl(sourceUrl: string, callback: (message?: string) => void) {
                 const alreadyLoadedScripts = Array.prototype.slice
                         .call(document.querySelectorAll('script'))
