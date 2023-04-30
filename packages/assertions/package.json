@@ -27,7 +27,8 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
+    "test": "nyc npm run test:no-coverage",
+    "test:no-coverage": "mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {

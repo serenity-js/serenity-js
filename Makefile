@@ -61,6 +61,9 @@ lint:
 test:
 	npm test
 
+test-no-coverage:
+	npm test
+
 compile:
 	npm run compile:$(COMPILE_SCOPE)
 
