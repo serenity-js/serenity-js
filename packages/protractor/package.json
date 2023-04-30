@@ -32,7 +32,8 @@
   "scripts": {
     "clean": "rimraf target",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
-    "test": "nyc protractor ./spec/protractor.conf.js",
+    "test": "nyc npm run test:no-coverage",
+    "test:no-coverage": "protractor ./spec/protractor.conf.js",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {

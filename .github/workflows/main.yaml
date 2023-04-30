@@ -94,7 +94,7 @@ jobs:
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   test-linux-node-lts-next:
     name: 'Test: Linux, LTS+1'
@@ -108,7 +108,7 @@ jobs:
       node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   test-windows-node-lts-active:
     name: 'Test: Windows, LTS'
@@ -123,7 +123,7 @@ jobs:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   #
   # Integration

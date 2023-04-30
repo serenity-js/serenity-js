@@ -35,6 +35,7 @@
     "compile:@examples": "lerna run compile --scope '@examples/*'",
     "compile:@documentation": "lerna run compile --scope '@documentation/*'",
     "test": "lerna run test --scope @serenity-js/*",
+    "test:no-coverage": "lerna run test:no-coverage --scope @serenity-js/*",
     "integration-test:all": "lerna run test --concurrency 1 --scope @integration/*",
     "integration-test:cucumber-all": "lerna run test --concurrency 1 --scope @integration/cucumber-*",
     "integration-test:cucumber-1": "lerna run test --scope @integration/cucumber-1",
