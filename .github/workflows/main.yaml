@@ -154,6 +154,30 @@ jobs:
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
+  # TODO: merge this with test-integration job when WebdriverIO v8 is supported
+  test-integration-webdriverio:
+    name: 'Integration: WebdriverIO'
+    needs:
+      - detect-source-code-changes
+      - lint
+      - compile
+    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: |
+        [
+          "webdriverio-test-runners",
+          "webdriverio-web-devtools",
+          "webdriverio-web-webdriver",
+        ]
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports-webdriverio'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+
   test-integration:
     name: 'Integration'
     needs:
@@ -178,9 +202,6 @@ jobs:
           "mocha",
           "protractor-test-runners",
           "protractor-web",
-          "webdriverio-test-runners",
-          "webdriverio-web-devtools",
-          "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
       node-version: 18.x
