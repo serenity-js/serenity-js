@@ -155,7 +155,7 @@ jobs:
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration-webdriver:
-    name: 'Integration: WebdriverIO'
+    name: 'Integration: Webdriver'
     needs:
       - detect-source-code-changes
       - lint
