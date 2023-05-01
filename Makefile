@@ -62,7 +62,7 @@ test:
 	npm test
 
 test-no-coverage:
-	npm test
+	npm run test:no-coverage
 
 compile:
 	npm run compile:$(COMPILE_SCOPE)
