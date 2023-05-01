@@ -154,8 +154,7 @@ jobs:
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
-  # TODO: merge this with test-integration job when WebdriverIO v8 is supported
-  test-integration-webdriverio:
+  test-integration-webdriver:
     name: 'Integration: WebdriverIO'
     needs:
       - detect-source-code-changes
@@ -166,6 +165,8 @@ jobs:
     with:
       modules: |
         [
+          "protractor-test-runners",
+          "protractor-web",
           "webdriverio-test-runners",
           "webdriverio-web-devtools",
           "webdriverio-web-webdriver",
@@ -200,8 +201,6 @@ jobs:
           "cucumber-9",
           "jasmine",
           "mocha",
-          "protractor-test-runners",
-          "protractor-web",
         ]
       runs-on: 'ubuntu-latest'
       node-version: 18.x
