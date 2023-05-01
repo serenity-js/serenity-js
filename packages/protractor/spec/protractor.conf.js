@@ -1,3 +1,5 @@
+require('ts-node/register');
+
 const port = process.env.PORT || 8081;
 
 exports.config = {
