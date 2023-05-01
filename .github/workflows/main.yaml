@@ -218,8 +218,9 @@ jobs:
     name: 'Coverage: aggregate'
     needs:
       - test-linux-node-lts-active
-      - test-integration-playwright
       - test-integration
+      - test-integration-playwright
+      - test-integration-webdriver
     uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
 
     with:
@@ -295,6 +296,8 @@ jobs:
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
       - test-integration
+      - test-integration-playwright
+      - test-integration-webdriver
     steps:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
