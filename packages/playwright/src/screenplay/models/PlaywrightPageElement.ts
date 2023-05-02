@@ -74,9 +74,9 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async selectedOptions(): Promise<Array<SelectOption>> {
         const element = await this.nativeElement();
 
+        /* c8 ignore start */
         const options = await element.$$eval(
             'option',
-            /* istanbul ignore next */
             (optionNodes: Array<HTMLOptionElement>) =>
                 optionNodes.map((optionNode: HTMLOptionElement) => {
                     return {
@@ -87,6 +87,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
                     }
                 })
         );
+        /* c8 ignore stop */
 
         return options.map(option =>
             new SelectOption(option.label, option.value, option.selected, option.disabled)
@@ -126,14 +127,15 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
                 }
             }
 
+            /* c8 ignore start */
             const previouslyFocusedElement = await element.evaluateHandle(
-                /* istanbul ignore next */
                 (domNode: HTMLElement) => {
                     const currentlyFocusedElement = document.activeElement;
                     domNode.focus();
                     return currentlyFocusedElement;
                 }
             );
+            /* c8 ignore stop */
 
             return new PreviouslyFocusedElementSwitcher(previouslyFocusedElement);
         } catch(error) {
@@ -145,7 +147,6 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         try {
             const element = await this.nativeElement();
             return element.evaluate(
-                /* istanbul ignore next */
                 domNode => domNode === document.activeElement
             );
         } catch {
@@ -216,12 +217,13 @@ class PreviouslyFocusedElementSwitcher implements SwitchableOrigin {
     }
 
     async switchBack (): Promise<void> {
+        /* c8 ignore start */
         await this.node.evaluate(
-            /* istanbul ignore next */
             (domNode: HTMLElement) => {
                 domNode.focus();
             },
             this.node
         );
+        /* c8 ignore stop */
     }
 }

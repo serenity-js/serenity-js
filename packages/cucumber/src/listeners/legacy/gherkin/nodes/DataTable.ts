@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { StepArgument } from './StepArgument';
 import { TableRow } from './TableRow';
 

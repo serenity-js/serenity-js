@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { ASTNode } from './ASTNode';
 import { ScenarioDefinition } from './ScenarioDefinition';
 import { Tag } from './Tag';

@@ -23,7 +23,7 @@
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8081 start-server-and-test start http://localhost:8081 test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "nyc protractor protractor.conf.js",
+    "test:acceptance:run": "c8 protractor protractor.conf.js",
     "test:report": "serenity-bdd run"
   },
   "repository": {
@@ -46,6 +46,7 @@
     "@serenity-js/serenity-bdd": "^3.0.0",
     "@serenity-js/web": "^3.0.0",
     "@types/mocha": "^10.0.1",
+    "c8": "7.13.0",
     "chromedriver": "^112.0.0",
     "cross-env": "^7.0.3",
     "mocha": "^10.2.0",

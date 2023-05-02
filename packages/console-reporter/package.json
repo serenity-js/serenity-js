@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc npm run test:no-coverage",
+    "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
@@ -50,9 +50,9 @@
     "@integration/testing-tools": "3.0.0",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
+    "c8": "7.13.0",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
-    "nyc": "15.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }

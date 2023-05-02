@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-for-loop,unicorn/consistent-function-scoping */
-/* istanbul ignore next */
+/* c8 ignore start */
 export function isVisible(domNode: HTMLElement): boolean {
 
     const style = window.getComputedStyle(domNode);
@@ -111,3 +111,4 @@ export function isVisible(domNode: HTMLElement): boolean {
 
     return isOverlappingElementMatch(getOverlappingElements(domNode) as any as HTMLElement[], domNode)
 }
+/* c8 ignore stop */

@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --parallel --config .mocharc.yml"
+    "test": "c8 mocha --parallel --config .mocharc.yml"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "@serenity-js/cucumber": "^3.0.0",
     "@types/mocha": "^10.0.1",
     "@types/chai": "^4.3.4",
+    "c8": "7.13.0",
     "cucumber": "5.1.0",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
