@@ -87,7 +87,6 @@ export class Debug<Values extends Array<Answerable<unknown>>> extends Interactio
         results: { [ Index in keyof Values ]: DebuggingResult<Values[Index]> },
         ...answers: { [ Index in keyof Values ]: Answered<Values[Index]> }
     ) => Promise<void> | void, ...values: Values): Interaction {
-        /* istanbul ignore next can't test using a debugger in an automated test */
         return new Debug<Values>(
             `#actor debugs ${ values.length } values`,
             debuggerFunction,

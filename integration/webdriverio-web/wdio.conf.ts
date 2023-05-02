@@ -114,7 +114,7 @@ export const config: WebdriverIOConfig = {
     connectionRetryCount: 5,
 
     autoCompileOpts: {
-        autoCompile: false,
+        autoCompile: true,
         tsNodeOpts: {
             transpileOnly: true,
             project: 'tsconfig.json'

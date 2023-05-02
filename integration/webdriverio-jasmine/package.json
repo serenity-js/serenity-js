@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "test": "c8 mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
+    "c8": "7.13.0",
     "jasmine": "^3.99.0",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7"

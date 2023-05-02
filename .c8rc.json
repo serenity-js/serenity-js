@@ -1,0 +1,27 @@
+{
+  "all": false,
+  "cache": true,
+  "sourceMap": true,
+  "clean": true,
+  "include": [
+    "**/packages/*/src/**/*.ts",
+    "**/packages/*/lib/**/*.js",
+    "**/spec/**"
+  ],
+  "exclude": [
+    "**/src/**/*.d.ts",
+    "**/lib/**/*.d.ts",
+    "**/spec/**"
+  ],
+  "extension": [
+    ".ts",
+    ".js"
+  ],
+  "require": [
+    "ts-node/register"
+  ],
+  "reporter": [
+    "json",
+    "text-summary"
+  ]
+}
