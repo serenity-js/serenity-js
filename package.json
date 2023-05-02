@@ -69,7 +69,7 @@
     "site": "lerna run site --stream --scope '@documentation/*'",
     "report": "npm run coverage:merge && npm run coverage:report",
     "coverage:merge": "bin/coverage-merge.ts",
-    "coverage:report": "c8 report --reporter=html --reporter=lcov --reporter=text-summary --temp-directory=./target/coverage/tmp --report-dir=./target/coverage",
+    "coverage:report": "node --max-old-space-size=4096 node_modules/.bin/c8 report --reporter=html --reporter=lcov --reporter=text-summary --temp-directory=./target/coverage/tmp --report-dir=./target/coverage",
     "coverage:publish": "cat ./target/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "commit": "bin/commit.ts",
     "lerna": "lerna",
