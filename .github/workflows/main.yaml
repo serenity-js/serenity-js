@@ -214,51 +214,38 @@ jobs:
   # Reporting
   #
 
-  coverage-aggregate:
-    name: 'Coverage: aggregate'
+  coverage:
+    name: 'Coverage'
     needs:
       - test-linux-node-lts-active
       - test-integration
       - test-integration-playwright
       - test-integration-webdriver
-    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
-
-    with:
-      upload-artifact-name: 'aggregated-code-coverage'
-      upload-artifact-path: 'package.json "packages/*/target/coverage" "integration/*/target/coverage"'
-
-  coverage-report:
-    name: 'Coverage: report'
-    needs:
-      - coverage-aggregate
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      node-version: 18.x
-      npm-install-command: npm ci
-      download-artifact-name: 'aggregated-code-coverage'
-      command: make report
-      upload-artifact-name: 'aggregated-code-coverage-report'
-      upload-artifact-path: 'package.json target'
-
-  coverage-publish:
-    name: 'Coverage: publish'
     runs-on: ubuntu-latest
-    continue-on-error: true
-#    if: github.ref == 'refs/heads/main'
-    needs:
-      - coverage-report
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      - name: Checkout repository
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
           fetch-depth: 2
 
-      - name: Download code coverage reports
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+      - name: Setup Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          name: 'aggregated-code-coverage-report'
+          node-version: 18.x
 
-      - name: Decompress code coverage reports
-        run: '7z x -aoa aggregated-code-coverage-report.zip'
+      - name: Install Node Modules
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+
+      - name: Decompress all artifacts to current directory
+        run: ls **/*.zip | xargs -n1 7z x -aoa
+
+      - name: Report coverage
+        run: make report
 
       - name: Coveralls
         uses: coverallsapp/github-action@f350da2c033043742f89e8c0b7b5145a1616da6d # v2.1.2
