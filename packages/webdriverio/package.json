@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "nyc npm run test:no-coverage",
+    "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
@@ -82,32 +82,12 @@
     "@wdio/spec-reporter": "7.31.1",
     "axios": "^1.3.5",
     "cross-env": "^7.0.3",
+    "c8": "7.13.0",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",
     "mocha-testdata": "^1.2.0",
-    "nyc": "15.1.0",
     "puppeteer-core": "^19.9.1",
     "start-server-and-test": "^2.0.0",
     "webdriverio": "7.31.1"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/**/*.d.ts",
-      "lib",
-      "node_modules",
-      "spec"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [],
-    "reporter": [
-      "json"
-    ],
-    "cache": true,
-    "all": false
   }
 }

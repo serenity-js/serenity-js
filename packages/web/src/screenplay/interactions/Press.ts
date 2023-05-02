@@ -130,7 +130,7 @@ class PressKeyInField extends PageElementInteraction {
 
         // fix for protractor
         await page.executeScript(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             function focus(element: any) {
                 element.focus();
             },

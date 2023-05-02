@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { Location } from './Location';
 
 /**
