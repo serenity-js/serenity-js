@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { Serenity } from '@serenity-js/core';
 import {
     DomainEvent,

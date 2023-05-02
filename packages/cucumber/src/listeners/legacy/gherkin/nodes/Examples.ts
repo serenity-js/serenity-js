@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { ASTNode } from './ASTNode';
 import { TableRow } from './TableRow';
 import { Tag } from './Tag';

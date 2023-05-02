@@ -28,7 +28,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
             const deleteKey = browser.isDevTools ? Key.Delete.devtoolsName : Key.Delete.utf16codePoint;
 
             await browser.execute(
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 function focusOn(element: any) {
                     element.focus();
                 },
@@ -106,7 +106,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
         const browser = await this.browserFor(element);
 
         const options = await browser.execute(
-            /* istanbul ignore next */
+            /* c8 ignore start */
             (select: HTMLSelectElement) => {
                 const options = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
@@ -121,6 +121,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
                 return options;
             },
             element as unknown
+            /* c8 ignore stop */
         );
 
         return options.map(option =>
@@ -169,7 +170,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
             else {
                 // focus on element
                 const previouslyFocusedElement = await browser.execute(
-                    /* istanbul ignore next */
+                    /* c8 ignore next */
                     function focusOn(element: any) {
                         const currentlyFocusedElement = document.activeElement;
                         element.focus();
@@ -181,7 +182,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
                 return {
                     switchBack: async (): Promise<void> => {
                         await browser.execute(
-                            /* istanbul ignore next */
+                            /* c8 ignore next */
                             function focusOn(element: any) {
                                 element.focus();
                             },

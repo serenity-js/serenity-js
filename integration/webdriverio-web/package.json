@@ -25,7 +25,7 @@
     "test": "cross-env PORT=8080 failsafe clean test:acceptance test:report",
     "test:acceptance": "start-server-and-test start 'http://localhost:8080' test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "cross-env-shell nyc --report-dir=\"../integration/webdriverio-web/target/coverage/$PROTOCOL\" wdio wdio.conf.ts",
+    "test:acceptance:run": "cross-env-shell c8 --reports-dir=\"./target/coverage/$PROTOCOL\" wdio wdio.conf.ts",
     "test:report": "serenity-bdd run"
   },
   "repository": {
@@ -51,6 +51,7 @@
     "@wdio/cli": "7.31.1",
     "@wdio/local-runner": "7.31.1",
     "@wdio/spec-reporter": "7.31.1",
+    "c8": "7.13.0",
     "chromedriver": "^112.0.0",
     "ci-info": "^3.8.0",
     "cross-env": "^7.0.3",
