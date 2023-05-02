@@ -52,6 +52,7 @@ mkdirSync(c8FilesOutputDirectory, { recursive: true });
 const c8TemporaryFiles = [
     path.join(path.resolve(__dirname, `../packages/`),  `*/target/coverage/tmp/coverage-*.json`),
     path.join(path.resolve(__dirname, `../integration/`),  `*/target/coverage/tmp/coverage-*.json`),
+    path.join(path.resolve(__dirname, `../integration/`),  `*/target/coverage/*/tmp/coverage-*.json`),
 ];
 
 const pathsToC8Files = glob(c8TemporaryFiles, { onlyFiles: false, globstar: true, absolute: true });
