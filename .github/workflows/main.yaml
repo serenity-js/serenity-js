@@ -260,6 +260,9 @@ jobs:
       - name: Decompress code coverage reports
         run: '7z x -aoa aggregated-code-coverage-report.zip'
 
+      - name: Check LCOV report
+        run: ls -lah target/coverage/lcov.info
+
       - name: Coveralls
         uses: coverallsapp/github-action@f350da2c033043742f89e8c0b7b5145a1616da6d # v2.1.2
         with:
