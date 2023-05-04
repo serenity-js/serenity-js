@@ -1,10 +1,10 @@
 import { Serenity } from '@serenity-js/core';
-import { SceneTagged } from '@serenity-js/core/lib/events';
-import { Tag } from '@serenity-js/core/lib/model';
+import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
+import { Tag } from '@serenity-js/core/lib/model/index.js';
 import Reporter from '@wdio/reporter';
-import { Capabilities, Options, Reporters } from '@wdio/types';
+import type { Capabilities, Options, Reporters } from '@wdio/types';
 
-import { TagPrinter } from './TagPrinter';
+import { TagPrinter } from './TagPrinter.js';
 
 /**
  * @package

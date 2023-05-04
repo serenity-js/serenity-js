@@ -1,1 +1,1 @@
-export * from './BrowseTheWebWithWebdriverIO';
+export * from './BrowseTheWebWithWebdriverIO.js';

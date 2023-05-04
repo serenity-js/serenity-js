@@ -1,13 +1,13 @@
 import { RootLocator } from '@serenity-js/web';
-import * as wdio from 'webdriverio';
+import type { Browser, Element } from 'webdriverio';
 
 /**
  * WebdriverIO-specific implementation of {@apilink RootLocator}.
  *
  * @group Models
  */
-export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
-    constructor(private readonly browser: wdio.Browser<'async'>) {
+export class WebdriverIORootLocator extends RootLocator<Browser> {
+    constructor(private readonly browser: Browser) {
         super();
     }
 
@@ -15,11 +15,11 @@ export class WebdriverIORootLocator extends RootLocator<wdio.Browser<'async'>> {
         return true;
     }
 
-    async nativeElement(): Promise<Pick<wdio.Browser<'async'>, '$' | '$$'>> {
+    async nativeElement(): Promise<Pick<Browser, '$' | '$$'>> {
         return this.browser;
     }
 
-    async switchToFrame(frame: wdio.Element<'async'>): Promise<void> {
+    async switchToFrame(frame: Element): Promise<void> {
         await this.browser.switchToFrame(frame);
     }
 

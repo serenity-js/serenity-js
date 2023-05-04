@@ -1,7 +1,7 @@
 import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
-import type * as wdio from 'webdriverio';
+import type { Browser, Element } from 'webdriverio';
 
-import { WebdriverIOBrowsingSession } from '../models';
+import { WebdriverIOBrowsingSession } from '../models/index.js';
 
 /**
  * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
@@ -36,13 +36,13 @@ import { WebdriverIOBrowsingSession } from '../models';
  *
  * @group Abilities
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<wdio.Element<'async'>> {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<Element> {
 
-    static using(browserInstance: wdio.Browser<'async'>): BrowseTheWebWithWebdriverIO {
+    static using(browserInstance: Browser): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(browserInstance);
     }
 
-    constructor(protected readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: Browser) {
         super(new WebdriverIOBrowsingSession(browser));
     }
 
