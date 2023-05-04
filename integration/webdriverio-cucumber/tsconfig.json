@@ -1,6 +1,8 @@
 {
-  "extends": "../../tsconfig.options.json",  
+  "extends": "../../tsconfig.options.json",
   "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node16",
     "target": "es2019",
     "lib": ["es2019", "dom"],
     "types": [
