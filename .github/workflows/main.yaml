@@ -154,8 +154,8 @@ jobs:
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
-  test-integration-webdriver:
-    name: 'Integration: Webdriver'
+  test-integration-protractor:
+    name: 'Integration: Protractor'
     needs:
       - detect-source-code-changes
       - lint
@@ -166,17 +166,14 @@ jobs:
       modules: |
         [
           "protractor-test-runners",
-          "protractor-web",
-          "webdriverio-test-runners",
-          "webdriverio-web-devtools",
-          "webdriverio-web-webdriver",
+          "protractor-web"
         ]
       runs-on: 'ubuntu-latest'
       node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
-      upload-artifact-name: 'test-integration-coverage-reports-webdriverio'
+      upload-artifact-name: 'test-integration-coverage-reports-protractor'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration:
@@ -201,6 +198,9 @@ jobs:
           "cucumber-9",
           "jasmine",
           "mocha",
+          "webdriverio-test-runners",
+          "webdriverio-web-devtools",
+          "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
       node-version: 18.x
@@ -220,7 +220,7 @@ jobs:
       - test-linux-node-lts-active
       - test-integration
       - test-integration-playwright
-      - test-integration-webdriver
+      - test-integration-protractor
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -284,7 +284,7 @@ jobs:
       - test-windows-node-lts-active
       - test-integration
       - test-integration-playwright
-      - test-integration-webdriver
+      - test-integration-protractor
     steps:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
