@@ -47,7 +47,7 @@ describe('BrowserCapabilitiesReporter', () => {
                     browserName:        'Chrome Headless',
                     browserVersion:     '90.0.4430.212',
                     platformName:       'darwin',
-                    platformVersion:    '20.4.0',
+                    os_version:         '20.4.0',
                 },
             }));
 
@@ -79,7 +79,7 @@ describe('BrowserCapabilitiesReporter', () => {
                     browserName:        'Chrome Headless',
                     browserVersion:     '90.0.4430.212',
                     platformName:       'darwin',
-                    platformVersion:    '20.4.0',
+                    os_version:         '20.4.0',
                 },
             }));
 
@@ -133,7 +133,7 @@ describe('BrowserCapabilitiesReporter', () => {
                         browserName:        'Chrome Headless',
                         browserVersion:     '90.0.4430.212',
                         platformName:       'darwin',
-                        platformVersion:    '20.4.0',
+                        os_version:         '20.4.0',
                     },
                     BenWindows: {
                         browserName:        'Chrome Headless',
@@ -143,9 +143,9 @@ describe('BrowserCapabilitiesReporter', () => {
                     },
                     CindyMobile: {
                         deviceName:         'iPhone 6 Plus',
-                        platformVersion:    '9.2',
                         platformName:       'iOS',
-                        app:                'sauce-storage:myApp.app',
+                        ['appium:app']:     'sauce-storage:myApp.app',
+                        ['appium:platformVersion']:  '9.2',
                     },
                 },
             }));
