@@ -2,6 +2,7 @@ import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity, TakeNotes } from '
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
 import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
+import * as deepmerge from 'deepmerge';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
 import type { Browser } from 'webdriverio';
@@ -17,7 +18,6 @@ import {
 import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter.js';
 import { TestRunnerLoader } from './TestRunnerLoader.js';
 import { WebdriverIONotifier } from './WebdriverIONotifier.js';
-import deepmerge = require('deepmerge');
 
 export class WebdriverIOFrameworkAdapter {
 
@@ -34,7 +34,7 @@ export class WebdriverIOFrameworkAdapter {
         private readonly capabilities: Capabilities.RemoteCapability,
         private readonly reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
     ) {
-        const config = deepmerge<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
+        const config = deepmerge.default<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
             isMergeableObject: isRecord,
         });
 
