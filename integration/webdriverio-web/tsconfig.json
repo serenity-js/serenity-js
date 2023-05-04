@@ -1,11 +1,11 @@
 {
   "extends": "../../tsconfig.options.json",  
   "compilerOptions": {
+    "target": "es2019",
     "lib": ["es2019", "dom"],
     "types": [
       "node",
-      "webdriverio/async",
-      "chai-as-promised"
+      "@wdio/globals/types"
     ]
   },
 
