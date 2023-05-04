@@ -96,7 +96,7 @@ describe ('Path', () => {
     });
 
     given(
-        { description: 'file in a sub-directory', path: new Path('/home/jan/file.json'), expected: new Path('/home/jan') },
+        { description: 'file in a sub-directory',  path: new Path('/home/jan/file.json'),  expected: new Path('/home/jan') },
         { description: 'sub-directory',           path: new Path('/home/jan'),           expected: new Path('/home') },
         { description: 'root',                    path: new Path('/'),                   expected: new Path('/') },
     ).
@@ -105,11 +105,33 @@ describe ('Path', () => {
     });
 
     given(
-        { description: 'file in a sub-directory', path: new Path('/home/jan/file.json'), expected: 'file.json' },
+        { description: 'file in a sub-directory',  path: new Path('/home/jan/file.json'),  expected: 'file.json' },
         { description: 'sub-directory',           path: new Path('/home/jan'),           expected: 'jan' },
         { description: 'root',                    path: new Path('/'),                   expected: '' },
     ).
     it('can tell the name of the directory in which the file lives', ({ path, expected }) => {
         expect(path.basename()).to.equal(expected);
     });
+
+    given(
+        { description: 'localhost',                                 uri: 'file://localhost/etc/fstab', expected: '/etc/fstab' },
+        { description: 'no host',                                   uri: 'file:///etc/fstab', expected: '/etc/fstab' },
+        { description: 'Windows, no host',                          uri: 'file:///c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, localhost, pipe instead of colon', uri: 'file://localhost/c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, no host, pipe instead of colon',   uri: 'file:///c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, localhost',                        uri: 'file://localhost/c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'spaces in file name',                        uri: 'file:///hostname/path/to/the%20file.txt', expected: '/hostname/path/to/the file.txt' },
+        { description: 'Windows, spaces in file name',               uri: 'file:///c:/path/to/the%20file.txt', expected: 'c:/path/to/the file.txt' },
+        { description: 'Windows, spaces in directory name',         uri: 'file:///C:/Documents%20and%20Settings/user/FileSchemeURIs.doc', expected: 'C:/Documents and Settings/user/FileSchemeURIs.doc' },
+        { description: 'Windows, special characters',               uri: 'file:///C:/caf%C3%A9/%C3%A5r/d%C3%BCnn/%E7%89%9B%E9%93%83/Ph%E1%BB%9F/%F0%9F%98%B5.exe', expected: 'C:/café/år/dünn/牛铃/Phở/😵.exe' },
+    ).
+    it('can be instantiated from a file:// URI', ({ uri, expected }) => {
+        expect(Path.fromURI(uri).value).to.equal(expected);
+    });
+
+    it('complains when instantiated from URI with a non-file URI', () => {
+        expect(() => {
+            Path.fromURI('https://serenity-js.org/index.html');
+        }).to.throw(TypeError, `A Path can be created only from URIs that start with 'file://'. Received: https://serenity-js.org/index.html`)
+    })
 });
