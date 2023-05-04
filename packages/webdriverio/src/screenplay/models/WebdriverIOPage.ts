@@ -1,27 +1,27 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { URL } from 'url';
-import * as wdio from 'webdriverio';
+import type { Browser, Element } from 'webdriverio';
 
-import { WebdriverIOLocator, WebdriverIORootLocator } from './locators';
-import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession';
-import { WebdriverIOCookie } from './WebdriverIOCookie';
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverIOPageElement } from './WebdriverIOPageElement';
+import { WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
+import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
+import { WebdriverIOCookie } from './WebdriverIOCookie.js';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink Page}.
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
+export class WebdriverIOPage extends Page<Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
         session: WebdriverIOBrowsingSession,
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: Browser,
         modalDialogHandler: ModalDialogHandler,
         private readonly errorHandler: WebdriverIOErrorHandler,
         pageId: CorrelationId,
@@ -34,13 +34,13 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         );
     }
 
-    locate(selector: Selector): PageElement<wdio.Element<'async'>> {
+    locate(selector: Selector): PageElement<Element> {
         return new WebdriverIOPageElement(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
-    locateAll(selector: Selector): PageElements<wdio.Element<'async'>> {
+    locateAll(selector: Selector): PageElements<Element> {
         return new PageElements(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         );
@@ -66,10 +66,6 @@ export class WebdriverIOPage extends Page<wdio.Element<'async'>> {
         const keySequence = keys.map(key => {
             if (! Key.isKey(key)) {
                 return key;
-            }
-
-            if (this.browser.isDevTools) {
-                return key.devtoolsName;
             }
 
             return key.utf16codePoint;

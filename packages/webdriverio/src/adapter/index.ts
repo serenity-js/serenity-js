@@ -1,2 +1,1 @@
-export * from './WebdriverIOConfig';
-export * from './WebdriverIOFrameworkAdapterFactory';
+export * from './WebdriverIOFrameworkAdapterFactory.js';

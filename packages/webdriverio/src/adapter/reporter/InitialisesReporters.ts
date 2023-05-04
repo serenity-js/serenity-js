@@ -1,8 +1,8 @@
-import { Reporters } from '@wdio/types';
+import type { Reporters } from '@wdio/types';
 
 /**
  * @package
  */
 export interface InitialisesReporters {
-    initReporter(reporter: Reporters.ReporterEntry): void;
+    _loadReporter(reporter: Reporters.ReporterEntry): Promise<void>;
 }

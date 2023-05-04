@@ -1,9 +1,14 @@
 import { ConfigurationError } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { WebdriverIO } from '@wdio/types/build/Options';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 
-import { WebdriverIOConfig } from './WebdriverIOConfig';
+import { WebdriverIOConfig } from '../config/index.js';
+
+// We define TestRunnerOptions to avoid importing the global WebdriverIO namespace.
+// WebdriverIO v8 doesn't offer any more precise type declarations anyway.
+interface TestRunnerOptions {
+    [key: string]: any;
+}
 
 export class TestRunnerLoader {
     private readonly fileSystem: FileSystem;
@@ -35,8 +40,8 @@ export class TestRunnerLoader {
         }
     }
 
-    private cucumberAdapter(cucumberOptions?: WebdriverIO.CucumberOpts): TestRunnerAdapter {
-        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/lib/adapter');
+    private cucumberAdapter(cucumberOptions?: TestRunnerOptions): TestRunnerAdapter {
+        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/lib/adapter/index.js');
 
         delete cucumberOptions?.timeout;   // todo: support setting a timeout via config?
         delete cucumberOptions?.parallel;  // WebdriverIO handles that already
@@ -74,13 +79,13 @@ export class TestRunnerLoader {
         return new CucumberCLIAdapter(cleanedCucumberOptions, this.loader, this.fileSystem, output);
     }
 
-    private jasmineAdapter(jasmineOptions: WebdriverIO.JasmineOpts): TestRunnerAdapter {
-        const { JasmineAdapter } = this.loader.require('@serenity-js/jasmine/lib/adapter')
+    private jasmineAdapter(jasmineOptions: TestRunnerOptions): TestRunnerAdapter {
+        const { JasmineAdapter } = this.loader.require('@serenity-js/jasmine/lib/adapter/index.js')
         return new JasmineAdapter(jasmineOptions, this.loader);
     }
 
-    private mochaAdapter(mochaOptions: WebdriverIO.MochaOpts): TestRunnerAdapter {
-        const { MochaAdapter } = this.loader.require('@serenity-js/mocha/lib/adapter')
+    private mochaAdapter(mochaOptions: TestRunnerOptions): TestRunnerAdapter {
+        const { MochaAdapter } = this.loader.require('@serenity-js/mocha/lib/adapter/index.js')
         return new MochaAdapter(mochaOptions, this.loader);
     }
 }
