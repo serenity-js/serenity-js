@@ -17,7 +17,7 @@
   },
   "main": "./build/cjs/index.js",
   "type": "module",
-  "module": "./build/index.js",
+  "module": "./esm/index.js",
   "exports": {
     ".": [
       {
@@ -29,7 +29,7 @@
     ],
     "./package.json": "./package.json"
   },
-  "types": "./lib/api.d.ts",
+  "types": "./esm/index.d.ts",
   "keywords": [
     "serenity-js",
     "ui",
