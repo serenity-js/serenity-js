@@ -1,8 +1,8 @@
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
-import * as wdio from 'webdriverio';
+import type { Browser } from 'webdriverio';
 
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink ModalDialogHandler},
@@ -27,7 +27,7 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
     private currentHandler: () => Promise<void>;
 
     constructor(
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: Browser,
         private readonly errorHandler: WebdriverIOErrorHandler,
     ) {
         super();

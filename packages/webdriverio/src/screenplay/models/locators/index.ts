@@ -1,2 +1,2 @@
-export * from './WebdriverIOLocator';
-export * from './WebdriverIORootLocator';
+export * from './WebdriverIOLocator.js';
+export * from './WebdriverIORootLocator.js';

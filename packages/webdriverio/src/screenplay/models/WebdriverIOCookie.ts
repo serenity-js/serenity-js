@@ -1,7 +1,7 @@
 import { Timestamp } from '@serenity-js/core';
 import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
 import { ensure, isDefined } from 'tiny-types';
-import * as wdio from 'webdriverio';
+import type { Browser } from 'webdriverio';
 
 /**
  * WebdriverIO-specific implementation of {@apilink Cookie}.
@@ -11,7 +11,7 @@ import * as wdio from 'webdriverio';
 export class WebdriverIOCookie extends Cookie {
 
     constructor(
-        private readonly browser: wdio.Browser<'async'>,
+        private readonly browser: Browser,
         cookieName: string,
     ) {
         super(cookieName);
