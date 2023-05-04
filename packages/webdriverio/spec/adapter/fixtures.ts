@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { AssertionError, Duration, ImplementationPendingError, StageCrewMember, TestCompromisedError, Timestamp } from '@serenity-js/core';
-import { DomainEvent, RetryableSceneDetected, SceneFinished, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { DomainEvent, RetryableSceneDetected, SceneFinished, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import {
     Category,
     CorrelationId,
@@ -16,7 +16,7 @@ import {
     Outcome,
     ScenarioDetails,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 
 function thrown<T extends Error>(error: T): T {
     try {

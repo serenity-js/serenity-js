@@ -1,16 +1,22 @@
 import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity, TakeNotes } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
-import { isRecord } from 'tiny-types/lib/objects';
+import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
+import type { Browser } from 'webdriverio';
 
-import { BrowseTheWebWithWebdriverIO } from '../screenplay';
-import { BrowserCapabilitiesReporter, InitialisesReporters, OutputStreamBuffer, ProvidesWriteStream } from './reporter';
-import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter';
-import { TestRunnerLoader } from './TestRunnerLoader';
-import { WebdriverIOConfig } from './WebdriverIOConfig';
-import { WebdriverIONotifier } from './WebdriverIONotifier';
+import { WebdriverIOConfig } from '../config/index.js';
+import { BrowseTheWebWithWebdriverIO } from '../screenplay/index.js';
+import {
+    BrowserCapabilitiesReporter,
+    InitialisesReporters,
+    OutputStreamBuffer,
+    ProvidesWriteStream
+} from './reporter/index.js';
+import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter.js';
+import { TestRunnerLoader } from './TestRunnerLoader.js';
+import { WebdriverIONotifier } from './WebdriverIONotifier.js';
 import deepmerge = require('deepmerge');
 
 export class WebdriverIOFrameworkAdapter {
@@ -26,7 +32,7 @@ export class WebdriverIOFrameworkAdapter {
         webdriverIOConfig: WebdriverIOConfig,
         private readonly specs: string[],
         private readonly capabilities: Capabilities.RemoteCapability,
-        reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
+        private readonly reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
     ) {
         const config = deepmerge<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
             isMergeableObject: isRecord,
@@ -41,13 +47,6 @@ export class WebdriverIOFrameworkAdapter {
         this.adapter = new TestRunnerLoader(this.loader, this.cwd, this.cid)
             .runnerAdapterFor(config);
 
-        // This is the only (hacky) way to register a fake reporter programmatically (as of @wdio/reporter 7.4.2)
-        //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/index.ts#L147-L181
-        //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/reporter.ts#L24
-        (reporter as any)._reporters.push(reporter.initReporter([
-            BrowserCapabilitiesReporter, { serenity: this.serenity },
-        ]));
-
         this.notifier = new WebdriverIONotifier(
             config,
             capabilities,
@@ -58,7 +57,7 @@ export class WebdriverIOFrameworkAdapter {
         );
 
         const outputStreamBuffer = new OutputStreamBuffer(
-            `[${this.cid}]`,
+            `[${ this.cid }]`,
         );
 
         const outputStreamBufferPrinter = new OutputStreamBufferPrinter(
@@ -67,14 +66,14 @@ export class WebdriverIOFrameworkAdapter {
         );
 
         this.serenity.configure({
-            outputStream:       outputStreamBuffer,
-            cueTimeout:         config.serenity.cueTimeout,
+            outputStream: outputStreamBuffer,
+            cueTimeout: config.serenity.cueTimeout,
             interactionTimeout: config.serenity.interactionTimeout,
 
-            diffFormatter:  config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
+            diffFormatter: config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
 
             actors: config.serenity.actors || Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithWebdriverIO.using(browser),
+                BrowseTheWebWithWebdriverIO.using(global.browser as unknown as Browser),
                 TakeNotes.usingAnEmptyNotepad(),
             )),
 
@@ -88,7 +87,21 @@ export class WebdriverIOFrameworkAdapter {
 
     async init(): Promise<WebdriverIOFrameworkAdapter> {
 
-        await this.adapter.load(this.specs);
+        // This is the only (hacky) way to register a fake reporter programmatically (as of @wdio/reporter 7.4.2)
+        //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/index.ts#L147-L181
+        //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/reporter.ts#L24
+        const browserCapabilitiesReporter = await (this.reporter._loadReporter([
+            BrowserCapabilitiesReporter, {
+                serenity: this.serenity
+            },
+        ]));
+
+        (this.reporter as any)._reporters.push(browserCapabilitiesReporter);
+
+        // WebdriverIO v8 represents paths to specs as file URIs, so they need to be converted to absolute paths to avoid confusing the test runners like Cucumber
+        const absolutePaths = this.specs.map(pathToSpec => Path.fromURI(pathToSpec).value);
+
+        await this.adapter.load(absolutePaths);
 
         return this;
     }

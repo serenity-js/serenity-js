@@ -1,24 +1,24 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
-import Reporter from '@wdio/reporter';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model/index.js';
 import type { Capabilities, Reporters } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { WebdriverIOConfig } from '../../src';
-import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter';
-import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter';
+import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter/index.js';
+import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter/index.js';
+import { WebdriverIOConfig } from '../../src/index.js';
 import EventEmitter = require('events');
 
 describe('WebdriverIOFrameworkAdapterFactory', () => {
 
     const
         cid     = '0-0',
-        specs   = [ '/users/jan/project/spec/example.spec.ts' ],
+        specURIs   = [ 'file:///users/jan/project/spec/example.spec.ts' ],
+        specs      = [ '/users/jan/project/spec/example.spec.ts' ],
         capabilities: Capabilities.RemoteCapability = { browserName: 'chrome' };
 
     let serenity:       Serenity,
@@ -33,7 +33,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
         factory         = new WebdriverIOFrameworkAdapterFactory(
             serenity,
             loader,
-            Path.from(__dirname),
+            Path.from('/fake/path/to/project'),
         );
     });
 
@@ -54,9 +54,9 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
             const config = defaultConfig();
 
-            loader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/mocha/lib/adapter/index.js').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -69,9 +69,9 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            loader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/mocha/lib/adapter/index.js').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -84,9 +84,9 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            loader.require.withArgs('@serenity-js/jasmine/lib/adapter').returns({ JasmineAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/jasmine/lib/adapter/index.js').returns({ JasmineAdapter: FakeTestRunnerAdapter })
 
-            await factory.init(cid, config, specs, capabilities, baseReporter);
+            await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
             expect(FakeTestRunnerAdapter.loadedPathsToScenarios).to.deep.equal(specs);
         });
@@ -98,7 +98,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            expect(() => factory.init(cid, config, specs, capabilities, baseReporter))
+            expect(() => factory.init(cid, config, specURIs, capabilities, baseReporter))
                 .to.throw(ConfigurationError, '"invalid" is not a supported test runner. Please use "mocha", "jasmine", or "cucumber"');
         });
     });
@@ -116,7 +116,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
             };
         }
 
-        initReporter(reporter: Reporters.ReporterEntry): Reporter {
+        _loadReporter(reporter: Reporters.ReporterEntry): any {
             const
                 ReporterClass   = reporter[0],
                 options         = reporter[1];

@@ -1,7 +1,7 @@
 import { serenity } from '@serenity-js/core';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 
-import { WebdriverIOFrameworkAdapterFactory } from './adapter';
+import { WebdriverIOFrameworkAdapterFactory } from './adapter/index.js';
 
 const adapterFactory = new WebdriverIOFrameworkAdapterFactory(
     serenity,
@@ -11,5 +11,4 @@ const adapterFactory = new WebdriverIOFrameworkAdapterFactory(
 
 export default adapterFactory;
 
-export { WebdriverIOConfig } from './adapter';
-export * from './screenplay';
+export * from './api.js';
