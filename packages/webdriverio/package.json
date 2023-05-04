@@ -15,9 +15,10 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./build/cjs/index.js",
   "type": "module",
   "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
+  "main": "./lib/index.js",
   "exports": {
     ".": [
       {
@@ -29,7 +30,6 @@
     ],
     "./package.json": "./package.json"
   },
-  "types": "./esm/index.d.ts",
   "keywords": [
     "serenity-js",
     "ui",
