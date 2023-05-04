@@ -5,7 +5,7 @@ import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
-    framework: '@serenity-js/webdriverio',
+    framework: resolve(__dirname, '../node_modules/@serenity-js/webdriverio/esm/index.js'),
     // framework: 'cucumber',
 
     serenity: {
