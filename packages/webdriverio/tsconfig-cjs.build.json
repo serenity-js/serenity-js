@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node16",
     "outDir": "lib",
     "rootDir": "src",
     "target": "es2019",
@@ -12,13 +12,7 @@
     ],
     "skipLibCheck": true
   },
-  "exclude": [
-    "src/adapter/**",
-    "src/index.ts"
-  ],
   "include": [
-    "src/config/**/*.ts",
-    "src/screenplay/**/*.ts",
-    "src/api.ts"
+    "src/**/*.ts"
   ]
 }
