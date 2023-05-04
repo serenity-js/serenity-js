@@ -206,9 +206,9 @@ jobs:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
-      command: 'tree -df >> tree.log && make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      command: 'tree -df && make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports'
-      upload-artifact-path: 'package.json tree.log "integration/*/target/**/*"'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   #
   # Reporting
