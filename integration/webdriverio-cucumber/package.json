@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "test": "c8 mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "@serenity-js/cucumber": "^3.0.0",
     "@serenity-js/webdriverio": "^3.0.0",
     "@wdio/cli": "8.10.0",
+    "@wdio/cucumber-framework": "8.10.0",
     "@wdio/local-runner": "8.10.0",
     "@wdio/reporter": "8.10.0",
     "@wdio/spec-reporter": "8.10.0",
