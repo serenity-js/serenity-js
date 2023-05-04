@@ -5,8 +5,8 @@ import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
-    // framework: '@serenity-js/webdriverio',
-    framework: 'cucumber',
+    framework: '@serenity-js/webdriverio',
+    // framework: 'cucumber',
 
     serenity: {
         runner: 'cucumber',
