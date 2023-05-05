@@ -5,17 +5,24 @@
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative framework designed to make acceptance and regression testing
+[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
 of complex software systems faster, more collaborative and easier to scale.
 
-To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+⭐️ Get started with Serenity/JS!
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
+- [API documentation](https://serenity-js.org/api/core), 
+- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
 
-If you have any questions or just want to say hello, join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
+👋 Join the Serenity/JS Community!
+- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
+- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+- Learn how to [contribute to Serenity/JS](https://serenity-js.org/contributing),
+- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
 
 ## Serenity/JS WebdriverIO
 
-[`@serenity-js/webdriverio`](https://serenity-js.org/modules/webdriverio/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
-for [WebdriverIO](https://webdriver.io/), that helps with testing Web-based and mobile apps.
+[`@serenity-js/webdriverio`](https://serenity-js.org/api/webdriverio/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
+for [WebdriverIO](https://webdriver.io/) that will help you with testing Web and mobile apps.
 
 ### Installation
 
@@ -25,7 +32,7 @@ To install this module, run the following command in your [WebdriverIO project d
 npm install --save-dev @serenity-js/{assertions,console-reporter,core,serenity-bdd,web,webdriverio}
 ```
 
-Next, install one of the below test runner adapters.
+Next, install a [Serenity/JS test runner adapter](https://serenity-js.org/handbook/test-runners/) appropriate for your preferred test runner.
 
 #### Usage with Cucumber.js
 
@@ -50,49 +57,34 @@ To use Serenity/JS WebdriverIO with Mocha, install the following adapter:
 npm install --save-dev @serenity-js/mocha
 ```
 
-### Configuring Webdriverio
+### Configuring WebdriverIO
 
-```typescript
-// serenity/Actors.ts
-import { Actor, Cast } from '@serenity-js/core';
-import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
-import * as wdio from 'webdriverio';
+To integrate Serenity/JS with WebdriverIO, 
+configure your `wdio.conf.ts` to specify `framework: '@serenity-js/webdriverio'`.
+You can [configure Serenity/JS](https://serenity-js.org/api/core/class/SerenityConfig) in the same file.
 
-// example Actors class, confgures Serenity/JS actors to use WebdriverIO
-class Actors implements Cast {
-    constructor(private readonly browser: wdio.Browser<'async'>) {
-    }
-
-    prepare(actor: Actor): Actor {
-        return actor.whoCan(
-            BrowseTheWebWithWebdriverIO.using(this.browser),
-            // ... add other abilities as needed, like CallAnApi or TakeNotes
-        );
-    }
-}
-
-```
-
-```typescript
+```typescript title="wdio.conf.ts"
 // wdio.conf.ts
 
-// Import Serenity/JS reporting services, a.k.a. the "Stage Crew Members"
+// Optional, import custom Actors if needed; More on this below.
 import { Actors } from './serenity/Actors.ts'
 
 export const config: WebdriverIOConfig = {
+    
     // Tell WebdriverIO to use Serenity/JS framework
     framework: '@serenity-js/webdriverio',
 
+    // Serenity/JS configuration
     serenity: {
         // Configure Serenity/JS to use an appropriate test runner adapter
         runner: 'cucumber',
         // runner: 'mocha',
         // runner: 'jasmine',
 
-        // register custom Actors class to configure your Serenity/JS actors
-        actors: new Actors(),
+        // Optional, register custom Cast to configure your Serenity/JS actors
+        actors: new Actors(`https://api.example.org`),
         
-        // Register StageCrewMembers we've imported at the top of this file    
+        // Register Serenity/JS reporting services, a.k.a. the "stage crew"
         crew: [
             '@serenity-js/console-reporter',
             '@serenity-js/serenity-bdd',
@@ -135,14 +127,58 @@ export const config: WebdriverIOConfig = {
 ```
 
 Learn more about:
-- [Cucumber configuration options](https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html)
-- [Jasmine configuration options](https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html)
-- [Mocha configuration options](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html)
+- [Cucumber configuration options](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
+- [Jasmine configuration options](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
+- [Mocha configuration options](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
 - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
 
-### Usage with Mocha
+#### Using custom Serenity/JS Actors
 
-```typescript
+By default, Serenity/JS uses a default [cast of actors](https://serenity-js.org/api/core/class/Cast) where every actor can:
+- [`BrowseTheWebWithWebdriverIO`](https://serenity-js.org/api/webdriverio/class/BrowseTheWebWithWebdriverIO)
+- [`TakeNotes.usingAnEmptyNotepad()`](https://serenity-js.org/api/core/class/TakeNotes)
+
+If you're planning to implement scenarios where [actors](https://serenity-js.org/api/core/class/Actor) have
+additional [abilities](https://serenity-js.org/api/core/class/Ability), you can replace this default setup
+with a custom [`Cast`](https://serenity-js.org/api/core/class/Cast), like this one:
+
+```typescript title="serenity/Actors.ts"
+// serenity/Actors.ts
+import { Actor, Cast, TakeNotes } from '@serenity-js/core';
+import { CallAnApi } from '@serenity-js/rest';
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+import type { Browser } from 'webdriverio';
+
+export class Actors implements Cast {
+
+    // Inject custom parameters via constructor
+    constructor(private readonly apiUrl: string) {
+    }
+    
+    prepare(actor: Actor): Actor {
+        // You can assign abilities based on actor name, env variables, and so on
+        switch (actor.name) {
+            
+            case 'Apisitt':
+                return actor.whoCan(
+                    CallAnApi.at(this.apiUrl)
+                );
+                
+            default:
+                return actor.whoCan(
+                    BrowseTheWebWithWebdriverIO.using(browser), // global WDIO browser
+                    TakeNotes.usingAnEmptyNotepad(),
+                );
+        }
+
+    }
+}
+```
+
+### Using Serenity/JS with WebdriverIO and Mocha
+
+```typescript title="specs/example.spec.ts"
+// specs/example.spec.ts
 import { actorCalled } from '@serenity-js/core';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { By, Navigate, PageElement, Text } from '@serenity-js/web';
@@ -165,10 +201,10 @@ describe('Serenity/JS', () => {
                 Navigate.to('https://serenity-js.org'),
                 Ensure.that(
                     Text.of(SerenityJSWebsite.header()),
-                    equals('Next generation acceptance testing')
+                    equals('Enable collaborative test automation at any scale!')
                 ),
             )
-    })
+    });
 });
 ```
 
@@ -182,6 +218,20 @@ The easiest way for you to start writing web-based acceptance tests using Sereni
 - [Serenity/JS, Cucumber, and WebdriverIO template](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template)
 - Serenity/JS, Jasmine, and WebdriverIO template (coming soon!)
 
-## More coming soon!
+## 📣 Stay up to date 
 
-New features, tutorials, and demos are coming soon, so follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and join the [Serenity/JS Community Chat channel](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+New features, tutorials, and demos are coming soon! 
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js), 
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+
+## 💛 Support Serenity/JS
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
