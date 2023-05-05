@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([0696639](https://github.com/serenity-js/serenity-js/commit/0696639e6333e9d8ef24230928609664513ff244)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+* **deps:** update playwright dependencies to ^1.33.0 ([e1cebc4](https://github.com/serenity-js/serenity-js/commit/e1cebc434eba9242c4bba33268ab48b76c486c5f))
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([d0f58a6](https://github.com/serenity-js/serenity-js/commit/d0f58a6ff1f03a4b7d9490af3c2ff33f2d1fef48)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+
+
+
+
+
 ## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
 
 

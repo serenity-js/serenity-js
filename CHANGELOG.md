@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([0696639](https://github.com/serenity-js/serenity-js/commit/0696639e6333e9d8ef24230928609664513ff244)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+* **deps:** update playwright dependencies to ^1.33.0 ([e1cebc4](https://github.com/serenity-js/serenity-js/commit/e1cebc434eba9242c4bba33268ab48b76c486c5f))
+* **webdriverio:** aligned CJS and ESM exports to offer a consistent developer experience ([3f9f50a](https://github.com/serenity-js/serenity-js/commit/3f9f50a75afc13b63d3d3aa5ddd796011f9a009c))
+* **webdriverio:** aligned CJS and ESM exports to offer a consistent developer experience ([c72213b](https://github.com/serenity-js/serenity-js/commit/c72213bc4527cda3bb64f208ebdb74f25b366302))
+* **webdriverio:** support for WebdriverIO 8.10.0 ([bf35d6c](https://github.com/serenity-js/serenity-js/commit/bf35d6ccee766523524e7267344acde2137d5bbc))
+* **webdriverio:** support for WebdriverIO 8.10.0 ([71da9f9](https://github.com/serenity-js/serenity-js/commit/71da9f93d6c4af3ae9e1734b38107418ada37f9a))
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([d0f58a6](https://github.com/serenity-js/serenity-js/commit/d0f58a6ff1f03a4b7d9490af3c2ff33f2d1fef48)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **core:** new factory method to create Path.fromURI ([185bc52](https://github.com/serenity-js/serenity-js/commit/185bc520d9ef6b7fa1b7bf1413b499adc852a6dc))
+* **core:** new factory method to create Path.fromURI ([baed8c4](https://github.com/serenity-js/serenity-js/commit/baed8c4a86a2d7b114783574c2326d8102c1b0e9))
+* **webdriverio:** support for WebdriverIO 8 ([6275cb6](https://github.com/serenity-js/serenity-js/commit/6275cb693a3f9072468b196411a1b3fbd6e6ef27)), closes [#1541](https://github.com/serenity-js/serenity-js/issues/1541) [#1682](https://github.com/serenity-js/serenity-js/issues/1682) [webdriverio/webdriverio#10314](https://github.com/webdriverio/webdriverio/issues/10314)
+* **webdriverio:** support for WebdriverIO 8 ([deeedad](https://github.com/serenity-js/serenity-js/commit/deeedadeeb50b5b5709d428e82249901282233ac)), closes [#1541](https://github.com/serenity-js/serenity-js/issues/1541) [#1682](https://github.com/serenity-js/serenity-js/issues/1682) [webdriverio/webdriverio#10314](https://github.com/webdriverio/webdriverio/issues/10314)
+
+
+
+
+
 ## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
 
 
