@@ -5,16 +5,23 @@
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative framework designed to make acceptance and regression testing
+[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
 of complex software systems faster, more collaborative and easier to scale.
 
-To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+⭐️ Get started with Serenity/JS!
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
+- [API documentation](https://serenity-js.org/api/core),
+- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
 
-If you have any questions or just want to say hello, join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
+👋 Join the Serenity/JS Community!
+- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
+- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+- Learn how to [contribute to Serenity/JS](https://serenity-js.org/contributing),
+- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
 
 ## Serenity/JS Mocha
 
-[`@serenity-js/mocha`](https://serenity-js.org/modules/mocha/) contains an adapter you register with [Mocha test runner](https://mochajs.org/) to enable integration between Mocha and Serenity/JS.
+[`@serenity-js/mocha`](https://serenity-js.org/api/mocha/) contains an adapter you register with [Mocha test runner](https://mochajs.org/) to enable integration between Mocha and Serenity/JS.
 
 ### Installation
 
@@ -24,17 +31,17 @@ Install [Mocha](https://mochajs.org/) version 8.x or newer:
 npm install --save-dev mocha@8.x
 ```
 
-Install the `@serenity-js/mocha` adapter, as well as `@serenity-js/core` and any [Serenity/JS reporting modules](https://serenity-js.org/modules/console-reporter/) you'd like to use, for example [`@serenity-js/console-reporter`](https://serenity-js.org/modules/console-reporter/):
+Install the `@serenity-js/mocha` adapter, as well as `@serenity-js/core` and any [Serenity/JS reporting modules](https://serenity-js.org/api/console-reporter/) you'd like to use, for example [`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter/):
 
 ```console
 npm install --save-dev @serenity-js/{core,console-reporter,mocha}
 ```
 
-Learn more about [integrating Serenity/JS with Mocha](https://serenity-js.org/handbook/integration/serenityjs-and-mocha.html)
+Learn more about [integrating Serenity/JS with Mocha](https://serenity-js.org/handbook/test-runners/mocha/)
 
 ### Usage with standalone Mocha
 
-To use Serenity/JS with standalone Mocha, for example to run tests of [REST APIs](https://serenity-js/modules/rest),
+To use Serenity/JS with standalone Mocha, for example to run tests of [REST APIs](https://serenity-js/api/rest),
 you'll need a setup file that configures Serenity/JS reporting services.
 
 #### JavaScript
@@ -126,17 +133,17 @@ v8-stack-trace-limit: 100
 # ...other config
 ```
 
-### Usage with Protractor
+### Using Serenity/JS Mocha with Protractor
 
-Configure your Protractor installation as per instructions in [`@serenity-js/protractor`](https://serenity-js.org/modules/protractor/) module.
+Configure your Protractor installation as per instructions in [`@serenity-js/protractor`](https://serenity-js.org/api/protractor/) module.
 
-Next, instruct Serenity/JS to run your tests using Mocha. You can also use your `protractor.conf.js` file to [configure Mocha](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html) if needed:
+Next, instruct Serenity/JS to run your tests using Mocha. You can also use your `protractor.conf.js` file to [configure Mocha](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/) if needed:
 
-```typescript
+```typescript title="protractor.conf.js"
 // protractor.conf.js
 
 exports.config = {
-    // Tell Protractor to use the Serenity/JS framework Protractor Adapter
+    // Tell Protractor to use the Serenity/JS framework adapter
     framework:      'custom',
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
   
@@ -153,8 +160,57 @@ exports.config = {
 };
 ```
 
-Learn more about supported [Mocha configuration options](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html).
+Learn more about supported [Mocha configuration options](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/).
+
+### Using Serenity/JS Mocha with WebdriverIO
+
+Configure your WebdriverIO installation as per instructions in [`@serenity-js/webdriverio`](https://serenity-js.org/api/webdriverio/) module.
+
+Next, instruct Serenity/JS to run your tests using Mocha. You can also use your `wdio.conf.ts` file to [configure Mocha](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/) if needed:
+
+```typescript title="wdio.conf.ts"
+// wdio.conf.ts
+
+export const config = {
+    // Tell WebdriverIO to use the Serenity/JS framework adapter
+    framework: '@serenity-js/webdriverio',
+
+    // Serenity/JS configuration
+    serenity: {
+        // Configure Serenity/JS to use an appropriate test runner adapter
+        runner: 'mocha',        // Use Mocha
+        // ... other Serenity/JS-specific configuration
+    },
+
+    mochaOpts: {
+        // Mocha-specific configuration
+    },
+
+    // ... other Protractor-specific configuration   
+};
+```
+
+Learn more about supported [Mocha configuration options](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/).
+
 
 ### Example projects
 
 Study [Serenity/JS example projects](https://github.com/serenity-js/serenity-js/tree/main/examples) to learn more. 
+
+## 📣 Stay up to date
+
+New features, tutorials, and demos are coming soon!
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+
+## 💛 Support Serenity/JS
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)

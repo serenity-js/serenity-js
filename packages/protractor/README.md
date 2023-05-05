@@ -5,20 +5,27 @@
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative framework designed to make acceptance and regression testing
+[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
 of complex software systems faster, more collaborative and easier to scale.
 
-To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+⭐️ Get started with Serenity/JS!
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
+- [API documentation](https://serenity-js.org/api/core),
+- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
 
-If you have any questions or just want to say hello, join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
+👋 Join the Serenity/JS Community!
+- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
+- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+- Learn how to [contribute to Serenity/JS](https://serenity-js.org/contributing),
+- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
 
 ## Serenity/JS Protractor
 
-[`@serenity-js/protractor`](https://serenity-js.org/modules/protractor/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
+[`@serenity-js/protractor`](https://serenity-js.org/api/protractor/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
 for [Protractor framework](https://www.protractortest.org/), that helps with testing Angular, React, Vue
 and other frontend web apps.
 
-Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html).
+Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/test-runners/protractor/).
 
 ### Installation
 
@@ -30,7 +37,7 @@ npm install --save-dev @serenity-js/{core,protractor}
 
 Next, install one of the below test runner adapters.
 
-Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html).
+Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/test-runners/protractor/).
 
 #### Usage with Cucumber.js
 
@@ -41,7 +48,7 @@ npm install --save-dev @serenity-js/cucumber
 
 **Please note** that Serenity/JS Protractor / Cucumber integration supports both [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/index.html) and [native Cucumber.js reporters](https://github.com/cucumber/cucumber-js/blob/main/docs/cli.md#built-in-formatters), so you can use this module as a drop-in replacement of [`protractor-cucumber-framework`](https://www.npmjs.com/package/protractor-cucumber-framework).
 
-Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-cucumber).
+Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/test-runners/protractor/).
 
 #### Usage with Jasmine
 
@@ -50,7 +57,7 @@ To use Serenity/JS Protractor with Jasmine, install the following adapter:
 npm install --save-dev @serenity-js/jasmine
 ```
 
-Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-jasmine).
+Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/test-runners/protractor/).
 
 #### Usage with Mocha
 
@@ -59,7 +66,7 @@ To use Serenity/JS Protractor with Mocha, install the following adapter:
 npm install --save-dev @serenity-js/mocha
 ```
 
-Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/integration/serenityjs-and-protractor.html#integrating-protractor-with-serenity-js-and-mocha).
+Learn more about [integrating Serenity/JS Protractor with Cucumber](https://serenity-js.org/handbook/test-runners/protractor/).
 
 ### Configuring Protractor
 
@@ -114,9 +121,9 @@ exports.config = {
 ```
 
 Learn more about:
-- [Cucumber configuration options](https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html)
-- [Jasmine configuration options](https://serenity-js.org/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html)
-- [Mocha configuration options](https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html)
+- [Cucumber configuration options](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
+- [Jasmine configuration options](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
+- [Mocha configuration options](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
 - [Protractor configuration file](https://github.com/angular/protractor/blob/master/lib/config.ts).
 
 ### Interacting with websites and web apps
@@ -162,4 +169,21 @@ The easiest way for you to start writing web-based acceptance tests using Sereni
 - [Serenity/JS, Cucumber, and Protractor template](https://github.com/serenity-js/serenity-js-cucumber-protractor-template)
 - [Serenity/JS, Jasmine, and Protractor template](https://github.com/serenity-js/serenity-js-jasmine-protractor-template)
 
+## 📣 Stay up to date
+
+New features, tutorials, and demos are coming soon!
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+
+## 💛 Support Serenity/JS
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
 

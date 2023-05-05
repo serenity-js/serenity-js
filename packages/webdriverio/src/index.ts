@@ -6,6 +6,9 @@ import { EventEmitter } from 'events';
 import { InitialisesReporters, ProvidesWriteStream } from './adapter/reporter/index.js';
 import { WebdriverIOConfig } from './config/index.js';
 
+/**
+ * WebdriverIO Framework Adapter integrates WebdriverIO with Serenity/JS
+ */
 export default {
     async init(
         cid: string,
