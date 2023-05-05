@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **webdriverio:** aligned CJS and ESM exports to offer a consistent developer experience ([c72213b](https://github.com/serenity-js/serenity-js/commit/c72213bc4527cda3bb64f208ebdb74f25b366302))
+* **webdriverio:** support for WebdriverIO 8.10.0 ([71da9f9](https://github.com/serenity-js/serenity-js/commit/71da9f93d6c4af3ae9e1734b38107418ada37f9a))
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **webdriverio:** support for WebdriverIO 8 ([deeedad](https://github.com/serenity-js/serenity-js/commit/deeedadeeb50b5b5709d428e82249901282233ac)), closes [#1541](https://github.com/serenity-js/serenity-js/issues/1541) [#1682](https://github.com/serenity-js/serenity-js/issues/1682) [webdriverio/webdriverio#10314](https://github.com/webdriverio/webdriverio/issues/10314)
+
+
+
+
+
 ## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
 
 
