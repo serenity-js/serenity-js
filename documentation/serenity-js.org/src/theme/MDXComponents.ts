@@ -6,7 +6,6 @@ import Tabs from '@theme-original/Tabs'
 export default {
     // Re-use the default mapping
     ...MDXComponents,
-    // LiteYouTubeEmbed,
     Tabs,
     TabItem,
     Figure
