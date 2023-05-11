@@ -9,6 +9,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
 const redirects = require('./redirects.config');
 const pkg = require('./../../package.json');
+const remarkPlugins = [
+    [ require('@docusaurus/remark-plugin-npm2yarn'), { sync: true, converters: [ 'yarn' ] } ],
+];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -50,16 +53,19 @@ const config = {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: 'handbook',
-                    remarkPlugins: [ ],
+                    remarkPlugins,
                     editUrl:
                         'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
                 },
                 blog: {
                     showReadingTime: true,
-                    // Please change this to your repo.
-                    // Remove this to remove the "edit this page" links.
+                    postsPerPage: 3,
                     editUrl:
                         'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
+                    remarkPlugins,
+                },
+                pages: {
+                    remarkPlugins,
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
