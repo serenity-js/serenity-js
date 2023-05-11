@@ -17,6 +17,8 @@ This is not that surprising, to be fair. After all, have you ever met any of the
 
 Well, in my case, this was about to change.
 
+<!--truncate-->
+
 What Titus had in mind was what became the very first [Test Automation Summit](https://www.selenium.dev/blog/2022/test-automation-summit/) - a way to help the maintainers of all the various free open-source projects facilitating web-based testing to connect better and collaborate more effectively.
 
 As you might have expected, as soon as I heard _test automation_, _collaboration_ and _open source_ all in one sentence, I immediately said "yes!" 
