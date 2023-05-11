@@ -260,7 +260,7 @@ jobs:
 
       - name: CodeClimate
         if: steps.secrets.outputs.CC_TEST_REPORTER_ID
-        uses: paambaati/codeclimate-action@b649ad206d2e83dafb9ed130deba698aa1b41d78 # v3.2.0
+        uses: paambaati/codeclimate-action@5f637ccd517bc8960de0fe59379dd922bcba9486 # v4.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ steps.secrets.outputs.CC_TEST_REPORTER_ID }}
         with:
