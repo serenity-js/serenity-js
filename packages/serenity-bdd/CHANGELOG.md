@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update serenity bdd dependencies ([4f39f2d](https://github.com/serenity-js/serenity-js/commit/4f39f2d7a0a7eedba2822dd08010ec77f0cb7984))
+
+
+
+
+
 # [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
 
 
