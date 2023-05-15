@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 9.1.2 ([e202cf8](https://github.com/serenity-js/serenity-js/commit/e202cf87b736b4d95613363e6b84c340d3e75f2c)), closes [#1690](https://github.com/serenity-js/serenity-js/issues/1690)
+* **deps:** update dependency typedoc to ^0.24.7 ([d821a13](https://github.com/serenity-js/serenity-js/commit/d821a13002a0ed4d400ebf9d227ee0514b7b5332))
+* **deps:** update serenity bdd dependencies ([4f39f2d](https://github.com/serenity-js/serenity-js/commit/4f39f2d7a0a7eedba2822dd08010ec77f0cb7984))
+
+
+
+
+
 # [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
 
 
