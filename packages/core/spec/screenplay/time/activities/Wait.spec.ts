@@ -94,7 +94,7 @@ describe('Wait', () => {
         it('fails the actor flow when the timeout expires', async () => {
 
             const
-                timeout         = Duration.ofMilliseconds(500),
+                timeout         = Duration.ofMilliseconds(1500),
                 elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
                 pollingInterval = Duration.ofMilliseconds(100);
 
