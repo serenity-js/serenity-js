@@ -1,7 +1,16 @@
 import { ensure, isDefined } from 'tiny-types';
 
 import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
-import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
+import {
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    AsyncOperationFailed,
+    DomainEvent,
+    EmitsDomainEvents,
+    SceneFinishes,
+    SceneStarts,
+    TestRunFinishes
+} from '../events';
 import { ActivityDetails, CorrelationId, Description, Name } from '../model';
 import { Actor, Clock, Duration, ScheduleWork, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
@@ -23,7 +32,7 @@ import { StageManager } from './StageManager';
  *
  * @group Stage
  */
-export class Stage {
+export class Stage implements EmitsDomainEvents {
 
     private static readonly unknownSceneId = new CorrelationId('unknown')
 
@@ -91,11 +100,10 @@ export class Stage {
         if (! this.instantiatedActorCalled(name)) {
             let actor;
             try {
-                const newActor = new Actor(name, this)
-                    .whoCan(
-                        new RaiseErrors(this),
-                        new ScheduleWork(this.clock, this.interactionTimeout),
-                    );
+                const newActor = new Actor(name, this, [
+                    new RaiseErrors(this),
+                    new ScheduleWork(this.clock, this.interactionTimeout)
+                ]);
 
                 actor = this.cast.prepare(newActor);
 
