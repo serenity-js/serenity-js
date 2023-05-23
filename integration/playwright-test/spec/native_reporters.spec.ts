@@ -14,7 +14,7 @@ describe('@serenity-js/playwright-test', function () {
     describe('supports native Playwright JSON reporter when', () => {
 
         it('is used with non-Screenplay scenarios', () =>
-            playwrightTest('--project=default', '--reporter=json:output/json-reporter/non-screenplay.json', 'native-reporters/passing.spec.ts')
+            playwrightTest('--project=default', '--reporter=json:output/json-reporter/non-screenplay.json', 'native-reporters/passing-non-screenplay.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
@@ -32,7 +32,7 @@ describe('@serenity-js/playwright-test', function () {
                 }));
 
         it('is used with Screenplay scenarios', () =>
-            playwrightTest('--project=default', '--reporter=json:output/json-reporter/screenplay.json', 'native-reporters/passing-single-actor.spec.ts')
+            playwrightTest('--project=default', '--reporter=json:output/json-reporter/screenplay.json', 'native-reporters/passing-screenplay.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
@@ -54,7 +54,7 @@ describe('@serenity-js/playwright-test', function () {
     describe('supports native Playwright HTML reporter when', () => {
 
         it('is used with non-Screenplay scenarios', () =>
-            playwrightTest('--project=default', '--reporter=html:output/html-reporter/non-screenplay', 'native-reporters/passing.spec.ts')
+            playwrightTest('--project=default', '--reporter=html:output/html-reporter/non-screenplay', 'native-reporters/passing-non-screenplay.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
@@ -68,7 +68,7 @@ describe('@serenity-js/playwright-test', function () {
                 }));
 
         it('is used with Screenplay scenarios', () =>
-            playwrightTest('--project=default', '--reporter=html:output/html-reporter/screenplay', 'native-reporters/passing-single-actor.spec.ts')
+            playwrightTest('--project=default', '--reporter=html:output/html-reporter/screenplay', 'native-reporters/passing-screenplay.spec.ts')
                 .then(ifExitCodeIsOtherThan(0, logOutput))
                 .then(result => {
 
