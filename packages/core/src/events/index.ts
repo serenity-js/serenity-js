@@ -10,6 +10,7 @@ export * from './AsyncOperationCompleted';
 export * from './AsyncOperationFailed';
 export * from './BusinessRuleDetected';
 export * from './DomainEvent';
+export * from './EmitsDomainEvents';
 export * from './FeatureNarrativeDetected';
 export * from './InteractionFinished';
 export * from './InteractionStarts';

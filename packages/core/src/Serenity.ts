@@ -3,7 +3,7 @@ import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 import { OutputStream } from './adapter';
 import { SerenityConfig } from './config';
 import { ConfigurationError, ErrorFactory, ErrorOptions, NoOpDiffFormatter, RuntimeError } from './errors';
-import { DomainEvent } from './events';
+import { DomainEvent, EmitsDomainEvents } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader, Path } from './io';
 import { ActivityDetails, CorrelationId } from './model';
 import { Actor, Clock, Duration, Timestamp } from './screenplay';
@@ -16,7 +16,7 @@ import { StageManager } from './stage/StageManager';
 /**
  * @group Serenity
  */
-export class Serenity {
+export class Serenity implements EmitsDomainEvents{
     private static defaultCueTimeout            = Duration.ofSeconds(5);
     private static defaultInteractionTimeout    = Duration.ofSeconds(5);
     private static defaultActors                = new Extras();

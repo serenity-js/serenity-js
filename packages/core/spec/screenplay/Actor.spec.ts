@@ -5,10 +5,27 @@ import * as sinon from 'sinon';
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name } from '../../src/model';
-import { Ability, Actor, AnswersQuestions, Initialisable, Interaction, Question, Timestamp } from '../../src/screenplay';
+import {
+    Ability,
+    Actor,
+    AnswersQuestions,
+    Initialisable,
+    Interaction,
+    Question,
+    Timestamp
+} from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
-import { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } from './example-implementation';
+import {
+    AcousticGuitar,
+    Chords,
+    Guitar,
+    MusicSheets,
+    NumberOfGuitarStringsLeft,
+    PlayAChord,
+    PlayAGuitar,
+    PlayASong
+} from './example-implementation';
 
 const equals = (expected: number) => (actual: Promise<number>) => expect(actual).to.equal(expected);
 
@@ -44,9 +61,9 @@ describe('Actor', () => {
         class DoCoolThings extends Ability {
         }
 
-        expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[])');
+        expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions])');
 
-        expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[DoCoolThings])');
+        expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions, DoCoolThings])');
     });
 
     it('has Abilities allowing them to perform Activities and interact with a given interface of the system under test', () =>
@@ -97,12 +114,12 @@ describe('Actor', () => {
 
             expect(actor('Ben').attemptsTo(
                 PlayAChord.of(Chords.AMajor),
-            )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can't PlayAGuitar yet. Did you give them the ability to do so?`));
+            )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can PerformActivities, AnswerQuestions. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`));
 
         it('admits if it does not have the Ability necessary to accomplish a given Interaction, but mentions any other abilities they might have', () => {
 
             expect(() => actor('Ben').whoCan(new DoSomethingElse()).abilityTo(PlayAGuitar))
-                .to.throw(ConfigurationError, `Ben can DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
+                .to.throw(ConfigurationError, `Ben can PerformActivities, AnswerQuestions, DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
         });
 
         describe('that are abstract', () => {
@@ -155,7 +172,7 @@ describe('Actor', () => {
                 const ability = MakePhoneCalls.as(ben);
 
                 expect(ability).to.be.instanceOf(UseMobilePhone);
-                expect(ben.toString()).to.equal(`Actor(name=Ben, abilities=[UseMobilePhone])`)
+                expect(ben.toString()).to.equal(`Actor(name=Ben, abilities=[PerformActivities, AnswerQuestions, UseMobilePhone])`)
             })
         });
 
