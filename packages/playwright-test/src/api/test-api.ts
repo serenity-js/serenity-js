@@ -8,6 +8,8 @@ import * as os from 'os';
 import { ensure, isFunction, JSONValue, property } from 'tiny-types';
 
 import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from '../reporter';
+import { AnswerQuestionsWithPlaywright } from './AnswerQuestionsWithPlaywright';
+import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import { SerenityFixtures } from './SerenityFixtures';
 import { SerenityOptions } from './SerenityOptions';
 import { SerenityTestType } from './SerenityTestType';
@@ -72,11 +74,15 @@ import { SerenityTestType } from './SerenityTestType';
 export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> & SerenityFixtures>({
 
     actors: [
-        ({ browser, contextOptions }, use) =>
-            use(Cast.where(actor => actor.whoCan(
+        async ({ browser, contextOptions, serenity }, use) => {
+
+            await use(Cast.where(actor => actor.whoCan(
+                new PerformActivitiesAsPlaywrightSteps(actor, serenity, it),
+                new AnswerQuestionsWithPlaywright(actor, browser),
                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
-            ))),
+            )))
+        },
         { option: true },
     ],
 
