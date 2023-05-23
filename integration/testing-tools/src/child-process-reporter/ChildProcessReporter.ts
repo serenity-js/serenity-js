@@ -5,11 +5,11 @@ import { JSONObject } from 'tiny-types';
 import { DTO } from './DTO';
 
 export class ChildProcessReporter implements StageCrewMember {
-    constructor(private readonly stage?: Stage) {
-    }
+    private stage?: Stage;
 
     assignedTo(stage: Stage): StageCrewMember {
-        return new ChildProcessReporter(stage);
+        this.stage = stage;
+        return this;
     }
 
     notifyOf(event: DomainEvent): void {
