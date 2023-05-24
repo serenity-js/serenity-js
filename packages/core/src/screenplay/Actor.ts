@@ -111,17 +111,10 @@ export class Actor implements PerformsActivities,
     abilityTo<T extends Ability>(abilityType: AbilityType<T>): T {
         const found = this.findAbilityTo(abilityType);
 
-        if (!found) {
-            if (this.abilities.size > 0) {
-                throw new ConfigurationError(
-                    `${ this.name } can ${ Array.from(this.abilities.keys()).map(type => type.name).join(', ') }. ` +
-                    `They can't, however, ${ abilityType.name } yet. ` +
-                    `Did you give them the ability to do so?`
-                );
-            }
-
+        if (! found) {
             throw new ConfigurationError(
-                `${ this.name } can't ${ abilityType.name } yet. ` +
+                `${ this.name } can ${ Array.from(this.abilities.keys()).map(type => type.name).join(', ') }. ` +
+                `They can't, however, ${ abilityType.name } yet. ` +
                 `Did you give them the ability to do so?`
             );
         }
