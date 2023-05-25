@@ -1,4 +1,5 @@
 import { LogicError, QuestionAdapter } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
@@ -15,7 +16,7 @@ import { PlaywrightPageElement } from './PlaywrightPageElement';
  *
  * @group Models
  */
-export class PlaywrightPage extends Page<playwright.ElementHandle> {
+export class PlaywrightPage extends Page<playwright.Locator> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
@@ -37,7 +38,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         );
     }
 
-    locate(selector: Selector): PageElement<playwright.ElementHandle> {
+    locate(selector: Selector): PageElement<playwright.Locator> {
         return new PlaywrightPageElement(
             new PlaywrightLocator(
                 this.rootLocator,
@@ -46,7 +47,7 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         );
     }
 
-    locateAll(selector: Selector): PageElements<playwright.ElementHandle> {
+    locateAll(selector: Selector): PageElements<playwright.Locator> {
         return new PageElements(
             new PlaywrightLocator(
                 this.rootLocator,
@@ -91,12 +92,10 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     async executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await Promise.all(
-            args.map(arg =>
-                arg instanceof PlaywrightPageElement
-                    ? arg.nativeElement()
-                    : arg
-            )
+        const nativeArguments = await asyncMap(args, item =>
+            item instanceof PlaywrightPageElement
+                ? item.nativeElement().then(element => element.elementHandle())
+                : item
         ) as InnerArguments;
 
         const serialisedScript = typeof script === 'function'
@@ -120,12 +119,10 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
 
     async executeAsyncScript<Result, InnerArguments extends any[]>(script: string | ((...args: [...parameters: InnerArguments, callback: (result: Result) => void]) => void), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await Promise.all(
-            args.map(arg =>
-                arg instanceof PlaywrightPageElement
-                    ? arg.nativeElement()
-                    : arg
-            )
+        const nativeArguments = await asyncMap(args, item =>
+            item instanceof PlaywrightPageElement
+                ? item.nativeElement().then(element => element.elementHandle())
+                : item
         ) as InnerArguments;
 
         const serialisedScript = typeof script === 'function'
@@ -219,8 +216,8 @@ export class PlaywrightPage extends Page<playwright.ElementHandle> {
         return this.page.viewportSize();
     }
 
-    setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.page.setViewportSize(size);
+    async setViewportSize(size: { width: number, height: number }): Promise<void> {
+        await this.page.setViewportSize(size);
     }
 
     async close(): Promise<void> {

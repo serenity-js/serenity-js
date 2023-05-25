@@ -125,8 +125,8 @@ class PressKeyInField extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const field = await this.resolve(actor, this.field);
-        const keys  = await actor.answer(this.keys);
-        const page  = await BrowseTheWeb.as(actor).currentPage();
+        const keys = await actor.answer(this.keys);
+        const page = await BrowseTheWeb.as(actor).currentPage();
 
         // fix for protractor
         await page.executeScript(
@@ -134,7 +134,7 @@ class PressKeyInField extends PageElementInteraction {
             function focus(element: any) {
                 element.focus();
             },
-            await field.nativeElement(),
+            await field,
         );
 
         return page.sendKeys(keys);
