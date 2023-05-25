@@ -10,10 +10,10 @@ import { PlaywrightRootLocator } from './PlaywrightRootLocator';
  *
  * @group Models
  */
-export class PlaywrightLocator extends Locator<playwright.ElementHandle, string> {
+export class PlaywrightLocator extends Locator<playwright.Locator, string> {
 
     constructor(
-        parent: RootLocator<playwright.ElementHandle>,
+        parent: RootLocator<playwright.Locator>,
         selector: Selector,
     ) {
         super(parent, selector);
@@ -57,52 +57,55 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
             }
 
             const parent = await this.parent.nativeElement();
-            const element = await parent.$(this.nativeSelector());
+            await parent.locator(this.nativeSelector()).first().waitFor({ state: 'attached' });
 
-            return Boolean(element);
+            return true;
         }
         catch (error) {
             if (error.name === 'TimeoutError') {
                 return false;
             }
+
             throw error;
         }
     }
 
-    async nativeElement(): Promise<playwright.ElementHandle> {
+    async nativeElement(): Promise<playwright.Locator> {
 
         const parent = await this.parent.nativeElement();
 
-        if (! parent) {
-            throw new LogicError(`Couldn't find parent element ${ this.parent } of ${ this }`);
-        }
+        // if (! parent) {
+        //     throw new LogicError(`Couldn't find parent element ${ this.parent } of ${ this }`);
+        // }
 
-        return parent.waitForSelector(this.nativeSelector(), { state: 'attached' });
+        // return parent.waitForSelector(this.nativeSelector(), { state: 'attached' });
+
+        return parent.locator(this.nativeSelector());
     }
 
-    async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
+    async allNativeElements(): Promise<Array<playwright.Locator>> {
         const parent = await this.parent.nativeElement();
 
         if (! parent) {
             return [];
         }
 
-        return parent.$$(this.nativeSelector());
+        return parent.locator(this.nativeSelector()).all();
     }
 
-    of(parent: PlaywrightRootLocator): Locator<playwright.ElementHandle, string> {
+    of(parent: PlaywrightRootLocator): Locator<playwright.Locator, string> {
         return new PlaywrightLocator(parent, this.selector);
     }
 
-    locate(child: PlaywrightLocator): Locator<playwright.ElementHandle, string> {
+    locate(child: PlaywrightLocator): Locator<playwright.Locator, string> {
         return new PlaywrightLocator(this, child.selector);
     }
 
-    element(): PageElement<playwright.ElementHandle> {
+    element(): PageElement<playwright.Locator> {
         return new PlaywrightPageElement(this);
     }
 
-    async allElements(): Promise<Array<PageElement<playwright.ElementHandle>>> {
+    async allElements(): Promise<Array<PageElement<playwright.Locator>>> {
         const elements = await this.allNativeElements();
 
         return elements.map(childElement =>
@@ -122,18 +125,18 @@ export class PlaywrightLocator extends Locator<playwright.ElementHandle, string>
  */
 class ExistingElementLocator extends PlaywrightLocator {
     constructor(
-        parent: RootLocator<playwright.ElementHandle>,
+        parent: RootLocator<playwright.Locator>,
         selector: Selector,
-        private readonly existingNativeElement: playwright.ElementHandle,
+        private readonly existingNativeElement: playwright.Locator,
     ) {
         super(parent, selector);
     }
 
-    async nativeElement(): Promise<playwright.ElementHandle> {
+    async nativeElement(): Promise<playwright.Locator> {
         return this.existingNativeElement;
     }
 
-    async allNativeElements(): Promise<Array<playwright.ElementHandle>> {
+    async allNativeElements(): Promise<Array<playwright.Locator>> {
         return [ this.existingNativeElement ];
     }
 }

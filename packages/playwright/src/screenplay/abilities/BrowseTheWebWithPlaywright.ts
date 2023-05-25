@@ -41,7 +41,7 @@ import { PlaywrightBrowsingSession } from '../models';
  *
  * @group Abilities
  */
-export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.ElementHandle> implements Discardable {
+export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
     static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(browser, options);
