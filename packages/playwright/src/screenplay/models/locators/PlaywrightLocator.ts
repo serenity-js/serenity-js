@@ -2,6 +2,7 @@ import { f, LogicError } from '@serenity-js/core';
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
+import { promised } from '../../promised';
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
@@ -57,7 +58,7 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
             }
 
             const parent = await this.parent.nativeElement();
-            await parent.locator(this.nativeSelector()).first().waitFor({ state: 'attached' });
+            await parent.locator(this.nativeSelector()).first().waitFor({ state: 'attached', timeout: 250 });
 
             return true;
         }
@@ -71,16 +72,9 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
     }
 
     async nativeElement(): Promise<playwright.Locator> {
-
         const parent = await this.parent.nativeElement();
 
-        // if (! parent) {
-        //     throw new LogicError(`Couldn't find parent element ${ this.parent } of ${ this }`);
-        // }
-
-        // return parent.waitForSelector(this.nativeSelector(), { state: 'attached' });
-
-        return parent.locator(this.nativeSelector());
+        return promised(parent.locator(this.nativeSelector()));
     }
 
     async allNativeElements(): Promise<Array<playwright.Locator>> {
@@ -90,7 +84,7 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
             return [];
         }
 
-        return parent.locator(this.nativeSelector()).all();
+        return promised(parent.locator(this.nativeSelector()).all());
     }
 
     of(parent: PlaywrightRootLocator): Locator<playwright.Locator, string> {

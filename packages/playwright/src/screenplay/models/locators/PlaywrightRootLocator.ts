@@ -2,6 +2,8 @@ import { RootLocator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
+import { promised } from '../../promised';
+
 /**
  * Playwright-specific implementation of {@apilink RootLocator}.
  *
@@ -20,8 +22,8 @@ export class PlaywrightRootLocator extends RootLocator<playwright.Locator> {
         return true;
     }
 
-    async nativeElement(): Promise<Pick<playwright.Locator, 'locator'>> {
-        return this.currentFrame;
+    nativeElement(): Promise<Pick<playwright.Locator, 'locator'>> {
+        return promised(this.currentFrame);
     }
 
     async switchToFrame(frame: playwright.Locator): Promise<void> {
