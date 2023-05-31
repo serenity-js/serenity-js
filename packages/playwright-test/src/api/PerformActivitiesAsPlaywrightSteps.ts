@@ -14,14 +14,17 @@ export class PerformActivitiesAsPlaywrightSteps extends PerformActivities {
 
     override async perform(activity: Activity): Promise<void> {
         const testInfo = this.test.info();
-        const runAsStep = (testInfo['_runAsStep']).bind(testInfo) as <T>(stepInfo: TestStepInternal, callback: (step: TestStepInternal) => Promise<T>) => Promise<T>;
-        const location = activity.instantiationLocation();
 
-        return runAsStep({
-            category: 'test.step',
-            title: this.nameOf(activity),
-            location: { file: location.path.value, line: location.line, column: location.column },
-        }, async step_ => {
+        // see https://github.com/microsoft/playwright/issues/23157
+        const runAsStep = (testInfo['_runAsStep']).bind(testInfo) as <T>(stepInfo: TestStepInternal, callback: (step: TestStepInternal) => Promise<T>) => Promise<T>;
+        const instantiationLocation = activity.instantiationLocation();
+        const location = {
+            file: instantiationLocation.path.value,
+            line: instantiationLocation.line,
+            column: instantiationLocation.column
+        };
+
+        return runAsStep({ category: 'test.step', title: this.nameOf(activity), location, }, async step_ => {
             await super.perform(activity)
         })
     }
