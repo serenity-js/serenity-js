@@ -6,27 +6,18 @@ import { expect } from '../../../expect';
 
 describe('Scheduler', () => {
 
-    const clock           = new Clock(() => new Date());
     const defaultTimeout  = Duration.ofSeconds(10);
-
     const delay           = Duration.ofMilliseconds(250);
 
+    let clock;
     let scheduler: Scheduler;
+
     beforeEach(() => {
+        clock = new Clock(() => new Date());
         scheduler = new Scheduler(clock, defaultTimeout);
     });
     afterEach(() => {
         scheduler.stop();
-    });
-
-    it('can be started and stopped', () => {
-        expect(scheduler.isRunning()).to.equal(false);
-
-        scheduler.start();
-        expect(scheduler.isRunning()).to.equal(true);
-
-        scheduler.stop();
-        expect(scheduler.isRunning()).to.equal(false);
     });
 
     it('can resolve a promise after a desired period', async () => {
@@ -34,7 +25,8 @@ describe('Scheduler', () => {
 
         const result = scheduler.waitFor(longTime);
 
-        await scheduler.invokeCallbacksScheduledForNext(longTime);
+        clock.setAhead(longTime);
+        await clock.tick();
 
         await expect(result).to.be.fulfilled;
     });
@@ -42,8 +34,6 @@ describe('Scheduler', () => {
     describe('when scheduling a delayed callback', () => {
 
         it('allows for a callback function to be called after a delay', async () => {
-            scheduler.start();
-
             const instantiationTime = clock.now();
             const expectedInvocationTime = instantiationTime.plus(delay);
 
@@ -52,12 +42,10 @@ describe('Scheduler', () => {
             });
 
             expect(expectedInvocationTime.isBeforeOrEqual(invocationTime))
-                .to.equal(true, `expected: ${ expectedInvocationTime }, actual: ${ invocationTime }`);
+                .to.equal(true, `expected: ${ expectedInvocationTime }, to be before or equal: ${ invocationTime }`);
         });
 
         it('rejects the returned promise if the callback function throws an error', async () => {
-            scheduler.start();
-
             const result = scheduler.after(delay, () => {
                 throw new Error('scheduled function failed');
             });
@@ -73,8 +61,6 @@ describe('Scheduler', () => {
 
             const expectedFirstInvocationTime   = instantiationTime.plus(firstDelay);
             const expectedSecondInvocationTime  = instantiationTime.plus(secondDelay);
-
-            scheduler.start();
 
             const firstInvocationTime = await scheduler.after(firstDelay, ({ currentTime }) => {
                 return currentTime;
@@ -98,7 +84,8 @@ describe('Scheduler', () => {
 
             const result = scheduler.after(longTime, callback);
 
-            await scheduler.invokeCallbacksScheduledForNext(longTime);
+            clock.setAhead(longTime);
+            await clock.tick();
 
             expect(callback).to.have.been.called;
 
@@ -113,16 +100,24 @@ describe('Scheduler', () => {
 
             const callback = sinon.spy();
 
-            scheduler.start();
-
-            const result = scheduler.after(delay, callback);
+            // required to work around the unhandled promise rejection in Mocha/Chai
+            // https://github.com/mochajs/mocha/issues/2797
+            let operationError: Error;
+            const result = scheduler.after(delay, callback).catch(error => {
+                operationError = error;
+            });
 
             scheduler.stop();
 
-            await scheduler.invokeCallbacksScheduledForNext(delay);
+            clock.setAhead(delay);
+            await clock.tick();
+
             expect(callback).callCount(0);
 
-            await expect(result).to.be.rejectedWith(OperationInterruptedError, /^Scheduler stopped before executing callback/);
+            await expect(result).to.be.fulfilled;
+
+            expect(operationError).to.be.instanceof(OperationInterruptedError)
+            expect(operationError.message).to.match(/^Scheduler stopped before executing callback/)
         });
     });
 
@@ -133,8 +128,6 @@ describe('Scheduler', () => {
             it('executes the work item at least once', async () => {
                 const callback = sinon.spy();
                 const expected = 1;
-
-                scheduler.start();
 
                 const result = await scheduler.repeatUntil(
                     () => {
@@ -153,8 +146,6 @@ describe('Scheduler', () => {
             it(`executes the work item as many times as needed to meet the condition`, async () => {
                 let callCount = 0;
 
-                scheduler.start();
-
                 await scheduler.repeatUntil(
                     () => ++ callCount,
                     {
@@ -167,8 +158,6 @@ describe('Scheduler', () => {
 
             it(`stops when the maximum number of allowed repetitions is reached`, async () => {
                 const callback = sinon.spy();
-
-                scheduler.start();
 
                 await scheduler.repeatUntil(
                     callback,
@@ -184,8 +173,6 @@ describe('Scheduler', () => {
             it(`doesn't start if the maximum number of invocations is 0`, async () => {
                 const callback = sinon.spy();
 
-                scheduler.start();
-
                 await scheduler.repeatUntil(
                     callback,
                     {
@@ -199,8 +186,6 @@ describe('Scheduler', () => {
 
             it(`introduces delays between executions if required`, async () => {
                 scheduler = new Scheduler(clock, defaultTimeout);
-
-                scheduler.start();
 
                 let callbackInvocationCount = 0;
                 const customDelayFunction = sinon.stub().returns(Duration.ofSeconds(0));
@@ -223,8 +208,6 @@ describe('Scheduler', () => {
 
         it(`stops the work if any unhandled errors occur in the callback`, async () => {
 
-            scheduler.start();
-
             const result = scheduler.repeatUntil(
                 () => { throw new Error('error in callback'); },
             );
@@ -233,8 +216,6 @@ describe('Scheduler', () => {
         });
 
         it(`stops the work if any unhandled errors occur in the condition`, async () => {
-            scheduler.start();
-
             const result = scheduler.repeatUntil(
                 doNothing,
                 {
@@ -249,46 +230,40 @@ describe('Scheduler', () => {
 
             const timeout = Duration.ofSeconds(0);
 
-            scheduler.start();
+            const callback = sinon.spy();
 
-            let callCount = 0;
+            await expect(
+                scheduler.repeatUntil(
+                    callback,
+                    {
+                        exitCondition: continueIndefinitely,
+                        delayBetweenInvocations: () => delay,
+                        timeout,
+                    },
+                )
+            ).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ timeout } has expired`);
 
-            const result = scheduler.repeatUntil(
-                () => ++ callCount,
-                {
-                    exitCondition: continueIndefinitely,
-                    delayBetweenInvocations: () => delay,
-                    timeout,
-                },
-            )
-
-            expect(callCount).to.equal(0);
-
-            await expect(result).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ timeout } has expired`);
+            expect(callback).to.not.have.been.called;
         });
 
         it(`stops the work when the timeout expires`, async () => {
 
             const twoDelays = delay.plus(delay);
 
-            scheduler.start();
-
             let callCount = 0;
 
-            const result = scheduler.repeatUntil(
-                () => ++ callCount,
-                {
-                    exitCondition: continueIndefinitely,
-                    delayBetweenInvocations: () => delay,
-                    timeout: twoDelays,
-                }
-            )
-
-            await scheduler.invokeCallbacksScheduledForNext(twoDelays);
+            await expect(
+                scheduler.repeatUntil(
+                    () => ++ callCount,
+                    {
+                        exitCondition: continueIndefinitely,
+                        delayBetweenInvocations: () => delay,
+                        timeout: twoDelays,
+                    }
+                )
+            ).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ twoDelays } has expired`);
 
             expect(callCount).to.equal(1);
-
-            await expect(result).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ twoDelays } has expired`);
         });
     });
 
@@ -297,8 +272,6 @@ describe('Scheduler', () => {
         describe('uses the custom error handler to process an error that', () => {
 
             it('occurred in the callback function', async () => {
-
-                scheduler.start();
 
                 const expectedError = new Error('scheduled function failed');
                 const spy = sinon.spy();
@@ -319,8 +292,6 @@ describe('Scheduler', () => {
             });
 
             it('occurred in the exitCondition function', async () => {
-
-                scheduler.start();
 
                 const expectedError = new Error('exitCondition function failed');
                 const spy = sinon.spy();
@@ -345,8 +316,6 @@ describe('Scheduler', () => {
         });
 
         it('continues repeating invocations if the error was handled by the error handler and remembers the last successful result', async () => {
-            scheduler.start();
-
             const expectedError = new Error('scheduled function failed');
             const firstResult = 'first result';
 

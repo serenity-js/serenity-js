@@ -1,4 +1,4 @@
-import { Ability, Discardable, Initialisable } from '../../abilities';
+import { Ability, Discardable } from '../../abilities';
 import { Clock, DelayedCallback, Duration, RepeatUntilLimits, Scheduler } from '../models';
 
 /**
@@ -11,21 +11,13 @@ import { Clock, DelayedCallback, Duration, RepeatUntilLimits, Scheduler } from '
  *
  * @group Time
  */
-export class ScheduleWork extends Ability implements Initialisable, Discardable {
+export class ScheduleWork extends Ability implements Discardable {
 
     private readonly scheduler: Scheduler;
 
     constructor(clock: Clock, interactionTimeout: Duration) {
         super();
         this.scheduler = new Scheduler(clock, interactionTimeout);
-    }
-
-    initialise(): void {
-        this.scheduler.start();
-    }
-
-    isInitialised(): boolean {
-        return this.scheduler.isRunning();
     }
 
     /**
