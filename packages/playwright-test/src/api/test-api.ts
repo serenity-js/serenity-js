@@ -8,7 +8,6 @@ import * as os from 'os';
 import { ensure, isFunction, JSONValue, property } from 'tiny-types';
 
 import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from '../reporter';
-import { AnswerQuestionsWithPlaywright } from './AnswerQuestionsWithPlaywright';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import { SerenityFixtures } from './SerenityFixtures';
 import { SerenityOptions } from './SerenityOptions';
@@ -78,7 +77,6 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
 
             await use(Cast.where(actor => actor.whoCan(
                 new PerformActivitiesAsPlaywrightSteps(actor, serenity, it),
-                new AnswerQuestionsWithPlaywright(actor, browser),
                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
             )))
@@ -109,7 +107,7 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
     ],
 
     // eslint-disable-next-line no-empty-pattern
-    platform: ({}, use) => {
+    platform: async ({}, use) => {
         const platform = os.platform();
 
         // https://nodejs.org/api/process.html#process_process_platform
@@ -117,7 +115,7 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
             ? 'Windows'
             : (platform === 'darwin' ? 'macOS' : 'Linux');
 
-        use({ name, version: os.release() });
+        await use({ name, version: os.release() });
     },
 
     serenity: async ({ crew, cueTimeout, interactionTimeout, platform }, use, info: TestInfo) => {
