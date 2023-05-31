@@ -6,6 +6,7 @@ import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
 import { PlaywrightOptions } from '../../PlaywrightOptions';
+import { promised } from '../promised';
 import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
@@ -230,12 +231,12 @@ export class PlaywrightPage extends Page<playwright.Locator> {
         await this.session.closePagesOtherThan(this);
     }
 
-    async isPresent(): Promise<boolean> {
-        return ! this.page.isClosed();
+    isPresent(): Promise<boolean> {
+        return promised(! this.page.isClosed());
     }
 
     async nativePage(): Promise<playwright.Page> {
-        return this.page;
+        return promised(this.page);
     }
 
     private async resetState() {
