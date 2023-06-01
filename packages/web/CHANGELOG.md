@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Features
+
+* **playwright:** support Playwright auto-waiting ([8f1750f](https://github.com/serenity-js/serenity-js/commit/8f1750f5b086e09eacd514783d561b0a2abb2156)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+
+
+
 ## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
 
 **Note:** Version bump only for package @serenity-js/web
