@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **protractor:** updated dependency on @types/selenium-webdriver ([a7a68ff](https://github.com/serenity-js/serenity-js/commit/a7a68ff05e822eb84b0cd62b112f3a951367ab4e))
+
+
+
+
+
 ## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
 
 **Note:** Version bump only for package @serenity-js/protractor

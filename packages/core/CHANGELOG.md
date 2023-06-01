@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **core:** ability to ScheduleWork preserves stack traces for better reporting ([c2ce5f7](https://github.com/serenity-js/serenity-js/commit/c2ce5f768732de5b01113c0f2dfa8e98d3e73667)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+### Features
+
+* **core:** enabled extending default behaviour of actor.perform and actor.answer APIs ([01bb213](https://github.com/serenity-js/serenity-js/commit/01bb213fa59a03737cd7d0770cd5df737cffcb19)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+
+
+
 ## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
 
 **Note:** Version bump only for package @serenity-js/core

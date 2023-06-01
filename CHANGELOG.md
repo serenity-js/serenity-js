@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **core:** ability to ScheduleWork preserves stack traces for better reporting ([c2ce5f7](https://github.com/serenity-js/serenity-js/commit/c2ce5f768732de5b01113c0f2dfa8e98d3e73667)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **deps:** update website dependencies to v2.4.1 ([6e4d17b](https://github.com/serenity-js/serenity-js/commit/6e4d17b046cf73441d1cac40d7f15a5bd393721a))
+* **playwright-test:** corrected synchronisation of the `platform` fixture ([7156f84](https://github.com/serenity-js/serenity-js/commit/7156f840dc8fe5688d25aca5ba87d925158e9c7d)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright:** support for Playwright 1.34.0 ([5d591c7](https://github.com/serenity-js/serenity-js/commit/5d591c71e89ac4cfd41b8f7e3a1c9017f962d9e3))
+* **playwright:** updated Playwright Core to 1.34.0 ([c5aa042](https://github.com/serenity-js/serenity-js/commit/c5aa042de25945c4fe4152eb06b2537c58a572e1))
+* **playwright:** updated Playwright to 1.34.2 ([c944031](https://github.com/serenity-js/serenity-js/commit/c94403199a349d59bb777b981897039c102f243f))
+* **playwright:** upgraded to Playwright 1.34.3 ([0ded19e](https://github.com/serenity-js/serenity-js/commit/0ded19e8ef3aea74307ab3bbd69ff5f7b3c9f78b))
+* **protractor:** updated dependency on @types/selenium-webdriver ([a7a68ff](https://github.com/serenity-js/serenity-js/commit/a7a68ff05e822eb84b0cd62b112f3a951367ab4e))
+
+
+### Features
+
+* **core:** enabled extending default behaviour of actor.perform and actor.answer APIs ([01bb213](https://github.com/serenity-js/serenity-js/commit/01bb213fa59a03737cd7d0770cd5df737cffcb19)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright-test:** improved integration with Playwright Test ([45b324f](https://github.com/serenity-js/serenity-js/commit/45b324f4b2e2992dc2df78c18013f2f235ff91b9)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright-test:** much more detailed Playwright Test reports ([5980a1e](https://github.com/serenity-js/serenity-js/commit/5980a1e37047d71199cc169271fa11869e98355b)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright:** support Playwright auto-waiting ([8f1750f](https://github.com/serenity-js/serenity-js/commit/8f1750f5b086e09eacd514783d561b0a2abb2156)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+
+
+
 ## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
 
 
