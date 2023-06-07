@@ -470,7 +470,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract title(): Promise<string>;
 
     /**
-     * Retrieves the URL of the current top-level browsing context.
+     * Retrieves the [URL](https://nodejs.org/api/url.html) of the current top-level browsing context.
      */
     abstract url(): Promise<URL>;
 
