@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([2aaa656](https://github.com/serenity-js/serenity-js/commit/2aaa656edb5692844ed12321fb5ffa012b6e6df7))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([e7ce99f](https://github.com/serenity-js/serenity-js/commit/e7ce99f14e96d5c72002e02a30c6d3bd612d5236))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([dd2148a](https://github.com/serenity-js/serenity-js/commit/dd2148a87c25574f4a1051e7e3c19ed9a28fe89a))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([eb37932](https://github.com/serenity-js/serenity-js/commit/eb37932dcf93cff36eabb4c36c1740025467eb74))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([1fa40c2](https://github.com/serenity-js/serenity-js/commit/1fa40c28bb6d7116c7dd3f4e85bc3ace25a1f42a))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([1ccc3e4](https://github.com/serenity-js/serenity-js/commit/1ccc3e4b8fae9f426b509a21de3234f974e26830))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([03a92d3](https://github.com/serenity-js/serenity-js/commit/03a92d32cefb7e4d56eaac74a5f5906b04875c59))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([e01b642](https://github.com/serenity-js/serenity-js/commit/e01b6420142466f564898090b4fa80024ac572a5))
+* **deps:** update dependency https-proxy-agent to v7 ([d2a033b](https://github.com/serenity-js/serenity-js/commit/d2a033b1214f106cbae5f8ec8cc206a6a278f63b))
+* **deps:** update dependency https-proxy-agent to v7 ([ed8a659](https://github.com/serenity-js/serenity-js/commit/ed8a659caf7a78cc9d4708ff15d953fc3ead967f))
+* **deps:** update dependency https-proxy-agent to v7 ([2a7935c](https://github.com/serenity-js/serenity-js/commit/2a7935c95817fabd238bd7f193bd0bf7c0ccf32a))
+* **deps:** update dependency https-proxy-agent to v7 ([beb95a3](https://github.com/serenity-js/serenity-js/commit/beb95a3c390a4e45d1b1c52492d68570f67d3389))
+* **deps:** update dependency https-proxy-agent to v7 ([546e6e0](https://github.com/serenity-js/serenity-js/commit/546e6e07ebe8044a99503362ce8ac9deed4c9d54))
+* **deps:** update dependency https-proxy-agent to v7 ([d52ecf6](https://github.com/serenity-js/serenity-js/commit/d52ecf6f07548c2b7dac046b87c15610f61cbf16))
+* **deps:** update dependency https-proxy-agent to v7 ([42bdd19](https://github.com/serenity-js/serenity-js/commit/42bdd1923107229e0f4262b12b7ac2ce98e45af7))
+* **deps:** update dependency https-proxy-agent to v7 ([dba90e4](https://github.com/serenity-js/serenity-js/commit/dba90e41457ecd98ab969c43f3e2bfa33bf6307a))
+* **deps:** update dependency https-proxy-agent to v7 ([479d25a](https://github.com/serenity-js/serenity-js/commit/479d25aed2fc440e3b584fbc5a63d29bfd3b5313))
+* **deps:** update dependency https-proxy-agent to v7 ([2c3043d](https://github.com/serenity-js/serenity-js/commit/2c3043dc9b7082ca7d910139654a0c17560c6335))
+* **deps:** update dependency https-proxy-agent to v7 ([2b8f775](https://github.com/serenity-js/serenity-js/commit/2b8f7758f09abdcd8b87030f6116c75ac221b26e))
+* **deps:** update dependency https-proxy-agent to v7 ([243e7de](https://github.com/serenity-js/serenity-js/commit/243e7de4315944a4af4887f1b1d137ffb3650676))
+* **deps:** update dependency typedoc to ^0.24.8 ([4170d13](https://github.com/serenity-js/serenity-js/commit/4170d138de11dbbf828a96bf63109cca54fa0b24))
+
+
+
+
+
 # [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
 
 
