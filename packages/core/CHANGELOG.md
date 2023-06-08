@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([eb37932](https://github.com/serenity-js/serenity-js/commit/eb37932dcf93cff36eabb4c36c1740025467eb74))
+
+
+
+
+
 # [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
 
 
