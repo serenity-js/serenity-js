@@ -230,7 +230,7 @@ export class WebdriverIONotifier implements StageCrewMember {
     }
 
     private parentSuiteName() {
-        return this.suites[this.suites.length - 1]?.name.value || '';
+        return this.suites.at(-1)?.name.value || '';
     }
 
     /**

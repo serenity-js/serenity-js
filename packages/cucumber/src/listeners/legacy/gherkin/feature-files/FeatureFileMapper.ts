@@ -200,7 +200,7 @@ export class FeatureFileMapper {
             const search = new RegExp('<' + variableCell.value + '>', 'g');
             // JS Specific - dollar sign needs to be escaped with another dollar sign
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
-            const replacement = valueCell.value.replace(new RegExp('\\$', 'g'), '$$$$');
+            const replacement = valueCell.value.replaceAll(new RegExp('\\$', 'g'), '$$$$');
             text = text.replace(search, replacement);
         });
         return text;

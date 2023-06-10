@@ -64,7 +64,7 @@ describe('List', () => {
         given(examples).
         it('returns the last item from the collection', ({ answerable }: { answerable: Answerable<string[]> }) =>
             expect(List.of(answerable).last().answeredBy(Fiona))
-                .to.eventually.deep.equal(collection[collection.length - 1])
+                .to.eventually.deep.equal(collection.at(-1))
         );
 
         given(examples).

@@ -13,7 +13,7 @@ export abstract class Tag extends TinyType {
             .match(/[\dA-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
             .map(chunk => /^[A-Z]+$/.test(chunk) ? chunk : chunk.toLowerCase())
             .join('_')
-            .replace(/[\s_]+/g, ' ')
+            .replaceAll(/[\s_]+/g, ' ')
         ;
 
         return new tagConstructor(name.charAt(0).toUpperCase() + name.slice(1));

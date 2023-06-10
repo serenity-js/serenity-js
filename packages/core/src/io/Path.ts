@@ -69,12 +69,12 @@ export class Path extends TinyType {
 
     static fromSanitisedString(value: string): Path {
         const
-            normalised = path.normalize(value).replace(/["'/:\\]/gi, ''),
+            normalised = path.normalize(value).replaceAll(/["'/:\\]/gi, ''),
             extension  = path.extname(normalised),
             basename   = path.basename(normalised, extension),
             filename   = filenamify(basename, { replacement: '-', maxLength: 250 })
                 .trim()
-                .replace(/[\s-]+/g, '-');
+                .replaceAll(/[\s-]+/g, '-');
 
         return new Path(path.join(
             path.dirname(normalised),

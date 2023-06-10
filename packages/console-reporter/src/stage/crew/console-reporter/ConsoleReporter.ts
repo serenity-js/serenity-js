@@ -393,7 +393,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     private deCamelCased(name: string) {
-        const deCamelCased = name.replace(/([^A-Z])([A-Z])/g, '$1 $2');
+        const deCamelCased = name.replaceAll(/([^A-Z])([A-Z])/g, '$1 $2');
 
         return deCamelCased.charAt(0).toUpperCase() + deCamelCased.slice(1).toLocaleLowerCase();
     }
