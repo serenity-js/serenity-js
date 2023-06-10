@@ -19,7 +19,7 @@ export class WebdriverIORootLocator extends RootLocator<Browser> {
         return this.browser;
     }
 
-    async switchToFrame(frame: Element): Promise<void> {
+    async switchToFrame(frame: Element | object): Promise<void> {
         await this.browser.switchToFrame(frame);
     }
 
