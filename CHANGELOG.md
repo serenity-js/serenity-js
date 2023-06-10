@@ -1,7 +1,24 @@
-# Changelog
+# Change Log
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.35.0 ([fb4359f](https://github.com/serenity-js/serenity-js/commit/fb4359f9a95f7ea4701590f71dab41ba4ed4fd02))
+* **webdriverio:** support for WebdriverIO 8.11 APIs ([cebbeec](https://github.com/serenity-js/serenity-js/commit/cebbeecb1176b2d4bb4d3a1b4a2b48a46ea4b2be)), closes [#1739](https://github.com/serenity-js/serenity-js/issues/1739)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
 
 ## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
 
