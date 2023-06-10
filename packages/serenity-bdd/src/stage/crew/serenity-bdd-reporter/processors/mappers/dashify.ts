@@ -3,7 +3,7 @@
  */
 export function dashify(text: string): string {
     return text
-        .replace(/\W/g, '-')
-        .replace(/^-+|-+$/g, '')
+        .replaceAll(/\W/g, '-')
+        .replaceAll(/^-+|-+$/g, '')
         .toLowerCase();
 }

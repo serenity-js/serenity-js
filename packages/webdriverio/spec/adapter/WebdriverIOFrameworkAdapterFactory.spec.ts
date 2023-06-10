@@ -104,6 +104,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
     });
 
     // https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-runner/src/reporter.ts#L127
+    // eslint-disable-next-line unicorn/prefer-event-target
     class FakeBaseReporter extends EventEmitter implements ProvidesWriteStream, InitialisesReporters {
         public output = '';
         public _reporters = [];

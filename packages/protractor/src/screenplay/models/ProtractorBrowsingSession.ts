@@ -80,7 +80,7 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
             if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
                 const allHandles = await promised(this.browser.getAllWindowHandles());
                 if (allHandles.length > 0) {
-                    const handle = allHandles[allHandles.length - 1];
+                    const handle = allHandles.at(-1);
                     await promised(this.browser.switchTo().window(handle));
 
                     return handle;

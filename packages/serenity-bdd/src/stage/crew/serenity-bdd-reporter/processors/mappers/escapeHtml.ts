@@ -11,5 +11,5 @@ export function escapeHtml(text: string): string {
         '>': '&gt;'
     };
 
-    return text.replace( /["&'<>]/g, character => replacements[character] );
+    return text.replaceAll( /["&'<>]/g, character => replacements[character] );
 }
