@@ -228,7 +228,7 @@ export class CucumberMessagesParser {
                 }, {}),
         }));
 
-        const parameters = examples.find(example => example.rowId === pickle.astNodeIds[pickle.astNodeIds.length - 1]);
+        const parameters = examples.find(example => example.rowId === pickle.astNodeIds.at(-1));
 
         return {
             details, template, parameters: new ScenarioParameters(new Name(parameters.name), new Description(parameters.description), parameters.values),

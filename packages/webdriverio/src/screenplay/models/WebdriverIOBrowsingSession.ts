@@ -87,7 +87,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
             if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
                 const allHandles = await this.browser.getWindowHandles();
                 if (allHandles.length > 0) {
-                    const handle = allHandles[allHandles.length - 1];
+                    const handle = allHandles.at(-1);
                     await this.browser.switchToWindow(handle);
 
                     return handle;
