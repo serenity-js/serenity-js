@@ -17,7 +17,6 @@ const isElementClickable = Expectation.define(
  *
  * ## Learn more
  * - {@apilink PageElement.isClickable}
- * - {@apilink ElementExpectation}
  * - {@apilink Expectation}
  * - {@apilink Check}
  * - {@apilink Ensure}

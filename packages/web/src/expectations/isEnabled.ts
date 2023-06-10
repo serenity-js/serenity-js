@@ -17,7 +17,6 @@ const isElementEnabled = Expectation.define(
  *
  * ## Learn more
  * - {@apilink PageElement.isEnabled}
- * - {@apilink ElementExpectation}
  * - {@apilink Expectation}
  * - {@apilink Check}
  * - {@apilink Ensure}
