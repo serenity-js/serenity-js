@@ -78,7 +78,7 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
                 throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
             }
 
-            return items[items.length - 1];
+            return items.at(-1);
         });
     }
 

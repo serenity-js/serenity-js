@@ -81,7 +81,7 @@ export abstract class Activity {
 
         const index = Math.min(Math.max(1, frameOffset), userLandFrames.length - 1);
         // use the desired user-land frame, or the last one from the stack trace for internal invocations
-        const invocationFrame = userLandFrames[index] || frames[frames.length - 1];
+        const invocationFrame = userLandFrames[index] || frames.at(-1);
 
         return new FileSystemLocation(
             Path.from(invocationFrame.fileName),

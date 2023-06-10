@@ -21,7 +21,7 @@ class ExpressionStringParser {
 
         const
             parsedNumber = new ParserBuffer(),
-            characters   = expression.replace(/\s+/g, '').split(''),
+            characters   = expression.replaceAll(/\s+/g, '').split(''),
             tokens       = [];
 
         characters.forEach(char => {
