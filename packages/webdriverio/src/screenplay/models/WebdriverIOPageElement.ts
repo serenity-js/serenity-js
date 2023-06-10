@@ -23,7 +23,7 @@ export class WebdriverIOPageElement extends PageElement<Element> {
         }
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
-        async function removeCharactersFrom(browser: Browser, inputElement: Element, numberOfCharacters: number): Promise<void> {
+        async function removeCharactersFrom(browser: Browser | Element, inputElement: Element, numberOfCharacters: number): Promise<void> {
             await browser.execute(
                 /* c8 ignore next */
                 function focusOn(element: any) {
@@ -253,10 +253,10 @@ export class WebdriverIOPageElement extends PageElement<Element> {
 
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
 
-    private async browserFor(nativeElement: Element | Browser): Promise<Browser> {
+    private async browserFor(nativeElement: Element | Browser): Promise<Element | Browser> {
         const element = nativeElement as Element;
         return element.parent
-            ? this.browserFor(element.parent)
+            ? this.browserFor(element.parent as (Element | Browser))
             : nativeElement
     }
 }
