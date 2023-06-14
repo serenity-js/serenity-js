@@ -39,7 +39,7 @@ The exact **Docker image** you choose depends on the runtime dependencies requir
 
 For example:
 - **REST API** tests that don't require any web browsers should use the official plain Node.js image: [`node:lts`](https://hub.docker.com/_/node)
-- **Web tests** using **Playwright** should use the official Playwright image: [`mcr.microsoft.com/playwright:latest`]('https://mcr.microsoft.com/en-us/product/playwright/about)
+- **Web tests** using **Playwright** should use the official Playwright image: [`mcr.microsoft.com/playwright:latest`](https://mcr.microsoft.com/en-us/product/playwright/about)
 - **Web tests** using **WebdriverIO** can use the official Puppeteer image: [`ghcr.io/puppeteer/puppeteer:latest`](https://github.com/puppeteer/puppeteer/pkgs/container/puppeteer)
 - Alternatively, **web tests** using **WebdriverIO** can also use a [`node:lts`](https://hub.docker.com/_/node) image and an attached [GitLab CI service](https://docs.gitlab.com/ee/ci/services/) running Selenium Standalone, for example:
   [`selenium/standalone-chrome:latest`](https://hub.docker.com/r/selenium/standalone-chrome), or [`selenium/standalone-firefox:latest`](https://hub.docker.com/r/selenium/standalone-firefox)
