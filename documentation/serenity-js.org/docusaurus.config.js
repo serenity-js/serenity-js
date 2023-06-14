@@ -194,7 +194,8 @@ const config = {
                 theme: lightCodeTheme,
                 darkTheme: darkCodeTheme,
                 additionalLanguages: [
-                    'gherkin'
+                    'docker',
+                    'gherkin',
                 ],
             },
             mermaid: {
