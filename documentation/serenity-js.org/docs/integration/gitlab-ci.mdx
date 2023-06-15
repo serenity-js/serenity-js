@@ -311,7 +311,7 @@ Next, build and publish your Docker image as per the instructions from your arti
 - [GitHub: "Working with the Container registry"](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 - [GitLab: "Build and push container images to the Container Registry"](https://docs.gitlab.com/ee/user/packages/container_registry/build_and_push_images.html)
 
-## Publishing Serenity BDD reports
+## Publishing Serenity BDD reports to GitLab Pages
 
 [GitLab Pages](https://docs.gitlab.com/ee/user/project/pages/) is a feature of GitLab CI that allows you to publish static HTML websites, such as Serenity BDD HTML reports,
 and share them with your team.
@@ -320,6 +320,10 @@ GitLab Pages rely on convention over configuration, so to use this feature your 
 - You must declare a GitLab CI job called `pages` in your `.gitlab-ci.yml`
 - There must be an explicit dependency between the `serenity` job and the `pages` job so that the `artifacts` are propagated between the stages of your pipeline
 - Any static content you wish to publish must be moved to a directory called `public`
+
+Additionally, since GitLab Pages are [branch/tag agnostic](https://docs.gitlab.com/ee/user/project/pages/introduction.html#gitlab-ciyml-for-a-repository-with-code),
+you should use [`rules:if`](https://docs.gitlab.com/ee/ci/yaml/#rulesif) to limit their deployment only to builds executed
+on the [default branch](https://docs.gitlab.com/ee/user/project/repository/branches/default.html) in your repository.
 
 To publish your Serenity BDD reports to GitLab Pages, add a `pages` job to your `.gitlab-ci.yml` as per the example below:
 
@@ -340,7 +344,14 @@ pages:
   artifacts:
     paths:
       - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 ```
+
+Note that GitLab Pages for repositories hosted on [gitlab.com](https://gitlab.com) are published to _gitlab.io_.
+For example, project hosted at `gitlab.com/my-group/my-project` will have its GitLab Pages published to `my-group.gitlab.io/my-project`.
+
+Consult GitLab documentation to learn more about the [GitLab Pages URL structure](https://docs.gitlab.com/ee/user/project/pages/getting_started_part_one.html).
 
 ## Generating JUnit reports
 
