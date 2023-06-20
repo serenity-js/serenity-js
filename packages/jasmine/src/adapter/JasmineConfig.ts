@@ -1,4 +1,4 @@
-import { JasmineReporter } from '../jasmine';
+import { JasmineReporter } from '../jasmine/index.js';
 
 /**
  * Configuration object that will be passed to the JasmineRunner.

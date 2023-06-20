@@ -1,4 +1,4 @@
-import { ErrorStackParser } from '@serenity-js/core/lib/errors/';
+import { ErrorStackParser } from '@serenity-js/core/lib/errors/index.js';
 
 const parser = new ErrorStackParser();
 

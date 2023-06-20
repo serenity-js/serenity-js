@@ -1,16 +1,18 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.build.json",
   "compilerOptions": {
-    "module": "Node16",
+    "module": "CommonJS",
     "moduleResolution": "Node16",
-    "esModuleInterop": true,
+    "outDir": "lib",
+    "rootDir": "src",
     "target": "es2021",
     "lib": [
       "es2021",
       "dom"
     ],
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
 }
-
-

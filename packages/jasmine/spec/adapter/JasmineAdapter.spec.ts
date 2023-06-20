@@ -1,13 +1,13 @@
 import 'sinon-chai';
 
 import { expect } from '@integration/testing-tools';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { JasmineAdapter } from '../../src/adapter';
-import { JasmineReporter } from '../../src/jasmine';
-import { FakeJasmineRunner } from './FakeJasmineRunner';
+import { JasmineAdapter } from '../../src/adapter/index.js';
+import { JasmineReporter } from '../../src/jasmine/index.js';
+import { FakeJasmineRunner } from './FakeJasmineRunner.js';
 
 describe('JasmineAdapter', () => {
 

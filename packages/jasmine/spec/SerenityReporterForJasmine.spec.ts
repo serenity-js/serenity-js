@@ -13,8 +13,8 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, trimmed } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, trimmed } from '@serenity-js/core/lib/io/index.js';
 import {
     CorrelationId,
     ExecutionCompromised,
@@ -26,10 +26,10 @@ import {
     ImplementationPending,
     Name,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 import { beforeEach, describe, it } from 'mocha';
 
-import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine';
+import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine.js';
 
 describe('SerenityReporterForJasmine', () => {
 

@@ -1,10 +1,10 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
-import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
+import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model/index.js';
 
-import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';
-import { JasmineConfig } from './JasmineConfig';
-import reporter = require('../index');
+import reporter from '../index.js';
+import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters/index.js';
+import { JasmineConfig } from './JasmineConfig.js';
 
 /**
  * Allows for programmatic execution of Jasmine test scenarios,

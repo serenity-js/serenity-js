@@ -1,6 +1,6 @@
-import { Expectation } from './Expectation';
-import { Location } from './Location';
-import { Result } from './Result';
+import { Expectation } from './Expectation.js';
+import { Location } from './Location.js';
+import { Result } from './Result.js';
 
 /**
  * @package

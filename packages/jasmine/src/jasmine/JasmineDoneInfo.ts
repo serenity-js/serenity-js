@@ -1,5 +1,5 @@
-import { Expectation } from './Expectation';
-import { Order } from './Order';
+import { Expectation } from './Expectation.js';
+import { Order } from './Order.js';
 
 /**
  * @desc
