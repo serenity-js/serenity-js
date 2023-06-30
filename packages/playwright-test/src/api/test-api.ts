@@ -76,7 +76,6 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         async ({ browser, contextOptions, serenity }, use) => {
 
             await use(Cast.where(actor => actor.whoCan(
-                new PerformActivitiesAsPlaywrightSteps(actor, serenity, it),
                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
             )))
@@ -166,7 +165,10 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
 
         serenity.engage(asCast(actors));
 
-        const actorCalled = serenity.theActorCalled.bind(serenity);
+        const actorCalled = (name: string) => {
+            const actor = serenity.theActorCalled(name);
+            return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
+        } ;
 
         serenity.announce(new SceneTagged(
             sceneId,
