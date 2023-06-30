@@ -16,7 +16,7 @@ import { StageManager } from './stage/StageManager';
 /**
  * @group Serenity
  */
-export class Serenity implements EmitsDomainEvents{
+export class Serenity implements EmitsDomainEvents {
     private static defaultCueTimeout            = Duration.ofSeconds(5);
     private static defaultInteractionTimeout    = Duration.ofSeconds(5);
     private static defaultActors                = new Extras();
