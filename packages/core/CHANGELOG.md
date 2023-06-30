@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-glob to ^3.3.0 ([bb00f5e](https://github.com/serenity-js/serenity-js/commit/bb00f5e0e916352bc5722064c0bcd97af4e38ab9))
+
+
+
+
+
 ## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
 
 **Note:** Version bump only for package @serenity-js/core
