@@ -251,6 +251,10 @@ describe('Actor', () => {
             Bob = new Actor('Bob', stage as unknown as Stage);
         });
 
+        it('tells the time', () => {
+            expect(Bob.currentTime()).to.equal(now);
+        })
+
         describe('announces events about the activities it performs', () => {
 
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
