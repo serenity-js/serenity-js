@@ -1,12 +1,12 @@
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
 import { CorrelationId, Description, Name } from '../model';
-import { Clock, Duration, Timestamp } from '../screenplay';
+import { Clock, Duration, TellsTime, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
 
 /**
  * @group Stage
  */
-export class StageManager {
+export class StageManager implements TellsTime {
     private readonly subscribers: ListensToDomainEvents[] = [];
     private readonly wip: WIP;
 

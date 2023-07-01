@@ -18,6 +18,7 @@ import { Activity } from './Activity';
 import { Answerable } from './Answerable';
 import { CollectsArtifacts } from './artifacts';
 import { AnswersQuestions } from './questions';
+import { TellsTime, Timestamp } from './time';
 
 /**
  * **Actors** represent **people** and **external systems** interacting with the system under test.
@@ -82,7 +83,9 @@ export class Actor implements PerformsActivities,
     UsesAbilities,
     CanHaveAbilities<Actor>,
     AnswersQuestions,
-    CollectsArtifacts {
+    CollectsArtifacts,
+    TellsTime
+{
     private readonly abilities: Map<AbilityType<Ability>, Ability> = new Map<AbilityType<Ability>, Ability>();
 
     constructor(
@@ -181,6 +184,13 @@ export class Actor implements PerformsActivities,
             artifact,
             this.stage.currentTime(),
         ));
+    }
+
+    /**
+     * Returns current time.
+     */
+    currentTime(): Timestamp {
+        return this.stage.currentTime();
     }
 
     /**
