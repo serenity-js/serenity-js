@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
+
+
+### Bug Fixes
+
+* **core:** code clean-up: use type-only TypeScript imports where possible ([aa49150](https://github.com/serenity-js/serenity-js/commit/aa49150ca7f367363bb6fcc5e054da8bd820825e))
+* **deps:** update dependency @giscus/react to v2.3.0 ([9146955](https://github.com/serenity-js/serenity-js/commit/91469559f2bb2e1147b23d7a79fc231e1be7ee93))
+
+
+### Features
+
+* **core:** actors can tell the current time ([c52959a](https://github.com/serenity-js/serenity-js/commit/c52959a877ee920955bdf45ce79fb2c2b5ac0148))
+
+
+
+
+
 ## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
 
 
