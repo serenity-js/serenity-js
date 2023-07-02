@@ -1,4 +1,4 @@
-import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
+import type { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 export class WebdriverIOErrorHandler {
 

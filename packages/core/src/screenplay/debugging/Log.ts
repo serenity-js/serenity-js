@@ -1,11 +1,11 @@
 import { d } from '../../io';
 import { stringified } from '../../io/stringified';
 import { LogEntry, Name } from '../../model';
-import { UsesAbilities } from '../abilities';
-import { Answerable } from '../Answerable';
-import { CollectsArtifacts } from '../artifacts';
+import type { UsesAbilities } from '../abilities';
+import type { Answerable } from '../Answerable';
+import type { CollectsArtifacts } from '../artifacts';
 import { Interaction } from '../Interaction';
-import { AnswersQuestions } from '../questions';
+import type { AnswersQuestions } from '../questions';
 
 /**
  * Instructs the {@apilink Actor} to {@apilink CollectsArtifacts|collect} arbitrary static values and answers to {@apilink Answerable|Answerables},

@@ -1,4 +1,4 @@
-import { Question } from './Question';
+import type { Question } from './Question';
 
 /**
  * Describes a recursively resolved plain JavaScript {@apilink WithAnswerableProperties}.

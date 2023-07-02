@@ -1,8 +1,10 @@
-import { Activity, Answerable, AnswersQuestions, d, Interaction, Question, UsesAbilities } from '@serenity-js/core';
+import type { Activity, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { d, Interaction, Question } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
-import { Key, PageElement } from '../models';
+import type { PageElement } from '../models';
+import { Key } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**

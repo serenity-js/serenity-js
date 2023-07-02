@@ -2,7 +2,8 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { Writable } from 'stream';
 
-import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter, Timestamp } from '../../../../src';
+import type { Actor, Cast} from '../../../../src';
+import { Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter, Timestamp } from '../../../../src';
 import { TestRunFinished } from '../../../../src/events';
 import { ExecutionSuccessful } from '../../../../src/model';
 import { expect } from '../../../expect';

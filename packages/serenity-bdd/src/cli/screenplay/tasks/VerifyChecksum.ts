@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/lib/io';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 
 import { Checksum } from '../questions';

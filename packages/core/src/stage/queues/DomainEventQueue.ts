@@ -1,7 +1,7 @@
 import { ensure, Predicate } from 'tiny-types';
 
-import { DomainEvent } from '../../events';
-import { CorrelationId } from '../../model';
+import type { DomainEvent } from '../../events';
+import type { CorrelationId } from '../../model';
 
 /**
  * @group Stage

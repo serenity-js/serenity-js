@@ -1,4 +1,4 @@
-import { Outcome } from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/lib/model';
 
 /**
  * @desc

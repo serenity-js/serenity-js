@@ -1,7 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Ability, Actor, Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
+import type { Ability, Actor} from '../../src';
+import { Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
 import { expect } from '../expect';
 import { Ensure } from './Ensure';
 
@@ -39,7 +40,7 @@ describe('Notepad', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('notes.spec.ts');
-            expect(location.line).to.equal(38);
+            expect(location.line).to.equal(39);
             expect(location.column).to.equal(18);
         });
 

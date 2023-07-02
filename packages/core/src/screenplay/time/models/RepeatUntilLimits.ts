@@ -1,4 +1,4 @@
-import { Duration } from './Duration';
+import type { Duration } from './Duration';
 
 /**
  * @group Time

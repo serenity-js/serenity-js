@@ -2,7 +2,7 @@ import { actorCalled, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as path from 'path';   // eslint-disable-line unicorn/import-style
 
-import { Argv } from '../Argv';
+import type { Argv } from '../Argv';
 import { defaults } from '../defaults';
 import { formatError } from '../io';
 import { GAV } from '../model';

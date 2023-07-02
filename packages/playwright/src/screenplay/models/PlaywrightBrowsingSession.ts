@@ -1,8 +1,9 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import { BrowsingSession, Cookie, CookieData } from '@serenity-js/web';
+import type { Cookie, CookieData } from '@serenity-js/web';
+import { BrowsingSession } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**

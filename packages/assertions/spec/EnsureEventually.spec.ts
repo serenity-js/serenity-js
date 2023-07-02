@@ -1,5 +1,6 @@
 import { EventRecorder, expect } from '@integration/testing-tools';
-import { actorCalled, Answerable, AssertionError, configure, Duration, ListItemNotFoundError, Question, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import type { Answerable, RuntimeError} from '@serenity-js/core';
+import { actorCalled, AssertionError, configure, Duration, ListItemNotFoundError, Question, TestCompromisedError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
@@ -15,7 +16,7 @@ describe('EnsureEventually', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('EnsureEventually.spec.ts');
-            expect(location.line).to.equal(14);
+            expect(location.line).to.equal(15);
             expect(location.column).to.equal(37);
         });
 
@@ -24,7 +25,7 @@ describe('EnsureEventually', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('EnsureEventually.spec.ts');
-            expect(location.line).to.equal(23);
+            expect(location.line).to.equal(24);
             expect(location.column).to.equal(68);
         });
 
@@ -33,7 +34,7 @@ describe('EnsureEventually', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('EnsureEventually.spec.ts');
-            expect(location.line).to.equal(32);
+            expect(location.line).to.equal(33);
             expect(location.column).to.equal(37);
         });
     });
@@ -55,7 +56,7 @@ describe('EnsureEventually', () => {
             | Expected number: 7
             | Received number: 4
             |
-            | \\s{4}at.*EnsureEventually.spec.ts:49:20`, 'gm'))
+            | \\s{4}at.*EnsureEventually.spec.ts:50:20`, 'gm'))
     });
 
     given([
@@ -74,7 +75,7 @@ describe('EnsureEventually', () => {
             | Expected number: 7
             | Received number: 4
             |
-            | \\s{4}at.*EnsureEventually.spec.ts:68:20`, 'gm')
+            | \\s{4}at.*EnsureEventually.spec.ts:69:20`, 'gm')
         );
     });
 
@@ -139,7 +140,7 @@ describe('EnsureEventually', () => {
                     | Expected number: 200
                     | Received number: 503
                     |
-                    | \\s{4}at.*EnsureEventually.spec.ts:128:28`, 'gm'));
+                    | \\s{4}at.*EnsureEventually.spec.ts:129:28`, 'gm'));
             }),
         );
 

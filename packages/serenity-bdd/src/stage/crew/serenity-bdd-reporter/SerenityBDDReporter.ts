@@ -1,5 +1,7 @@
-import { DomainEventQueues, Stage, StageCrewMember } from '@serenity-js/core';
-import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember } from '@serenity-js/core';
+import { DomainEventQueues } from '@serenity-js/core';
+import type { DomainEvent} from '@serenity-js/core/lib/events';
+import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
 
 import { EventQueueProcessors } from './processors';

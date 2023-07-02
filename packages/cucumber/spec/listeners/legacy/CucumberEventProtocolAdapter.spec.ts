@@ -7,7 +7,7 @@ import { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessf
 import { EventEmitter } from 'events';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
 import { AmbiguousStepDefinitionError } from '../../../src/errors';
 import { createListener } from '../../../src/listeners/legacy';

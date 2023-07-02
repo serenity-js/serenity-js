@@ -1,7 +1,7 @@
-import { Path } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/lib/io';
 import * as fs from 'fs';
 
-import { GherkinDocument } from '../nodes';
+import type { GherkinDocument } from '../nodes';
 import { UnableToParseFeatureFileError, UnableToReadFeatureFileError } from './errors';
 
 /**

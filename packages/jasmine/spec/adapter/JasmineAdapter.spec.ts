@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { JasmineAdapter } from '../../src/adapter';
-import { JasmineReporter } from '../../src/jasmine';
+import type { JasmineReporter } from '../../src/jasmine';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 
 describe('JasmineAdapter', () => {

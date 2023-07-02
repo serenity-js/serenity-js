@@ -1,7 +1,8 @@
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Actor, Debug, Question, Serenity } from '../../../src';
+import type { Actor} from '../../../src';
+import { Debug, Question, Serenity } from '../../../src';
 import { Name } from '../../../src/model';
 import { expect } from '../../expect';
 
@@ -132,7 +133,7 @@ describe('Debug', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Debug.spec.ts');
-        expect(location.line).to.equal(131);
+        expect(location.line).to.equal(132);
         expect(location.column).to.equal(32);
     });
 });

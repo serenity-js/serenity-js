@@ -1,10 +1,13 @@
-import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity } from '@serenity-js/core';
-import { protractor, Runner } from 'protractor';
+import type { Serenity } from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Cast } from '@serenity-js/core';
+import type { Runner } from 'protractor';
+import { protractor } from 'protractor';
 import { isRecord } from 'tiny-types/lib/objects';
 
 import { BrowserDetector, StandardisedCapabilities } from './browser-detector';
-import { Config } from './Config';
-import { ProtractorReport, ProtractorReporter } from './reporter';
+import type { Config } from './Config';
+import type { ProtractorReport} from './reporter';
+import { ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './runner';
 import deepmerge = require('deepmerge');
 import { TakeNotes } from '@serenity-js/core';

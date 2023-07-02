@@ -1,4 +1,5 @@
-import { JSONObject, TinyType } from 'tiny-types';
+import type { JSONObject} from 'tiny-types';
+import { TinyType } from 'tiny-types';
 
 import { Path } from './Path';
 

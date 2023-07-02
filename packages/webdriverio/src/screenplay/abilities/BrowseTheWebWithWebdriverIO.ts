@@ -1,4 +1,5 @@
-import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
+import type { BrowserCapabilities} from '@serenity-js/web';
+import { BrowseTheWeb } from '@serenity-js/web';
 import type { Browser, Element } from 'webdriverio';
 
 import { WebdriverIOBrowsingSession } from '../models/index.js';

@@ -1,7 +1,8 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, LogicError } from '@serenity-js/core';
-import { AxiosRequestHeaders } from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import type { Actor} from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
+import type { AxiosRequestHeaders } from 'axios';
+import type MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
@@ -52,7 +53,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(51);
+            expect(location.line).to.equal(52);
             expect(location.column).to.equal(46);
         });
     });
@@ -93,7 +94,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(92);
+            expect(location.line).to.equal(93);
             expect(location.column).to.equal(46);
         });
     });
@@ -138,7 +139,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(137);
+            expect(location.line).to.equal(138);
             expect(location.column).to.equal(46);
         });
     });

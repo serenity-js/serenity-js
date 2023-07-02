@@ -1,6 +1,7 @@
-import { Interaction, UsesAbilities } from '../../../../../core/src/screenplay';
+import type { UsesAbilities } from '../../../../../core/src/screenplay';
+import { Interaction } from '../../../../../core/src/screenplay';
 import { PlayAGuitar } from '../abilities';
-import { Chord } from '../Chord';
+import type { Chord } from '../Chord';
 
 export class PlayAChord extends Interaction {
     static of(chord: Chord): PlayAChord {

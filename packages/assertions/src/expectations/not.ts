@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions} from '@serenity-js/core';
+import { Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that negates the provided `expectation`.

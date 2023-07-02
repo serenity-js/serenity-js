@@ -1,5 +1,5 @@
 import { Notepad } from './Notepad';
-import { NotepadAdapter } from './NotepadAdapter';
+import type { NotepadAdapter } from './NotepadAdapter';
 
 /**
  * Alias for {@apilink Notepad.notes}.

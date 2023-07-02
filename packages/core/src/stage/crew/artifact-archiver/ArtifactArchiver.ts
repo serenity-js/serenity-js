@@ -1,6 +1,8 @@
-import { WriteFileOptions } from 'fs';
+import type { WriteFileOptions } from 'fs';
 import { ensure, isDefined, isGreaterThan, isString, property } from 'tiny-types';
 
+import type {
+    DomainEvent} from '../../../events';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -8,13 +10,13 @@ import {
     ArtifactGenerated,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
-    AsyncOperationFailed,
-    DomainEvent,
+    AsyncOperationFailed
 } from '../../../events';
 import { FileSystem, Path } from '../../../io';
-import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
-import { Stage } from '../../Stage';
-import { StageCrewMember } from '../../StageCrewMember';
+import type { Artifact, ArtifactType} from '../../../model';
+import { CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
+import type { Stage } from '../../Stage';
+import type { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
 
 /**

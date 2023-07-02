@@ -1,8 +1,9 @@
+import type {
+    ModalDialog} from '@serenity-js/web';
 import {
     AbsentModalDialog,
     AcceptedModalDialog,
     DismissedModalDialog,
-    ModalDialog,
     ModalDialogHandler
 } from '@serenity-js/web';
 import type { Dialog, Page } from 'puppeteer-core';

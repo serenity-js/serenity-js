@@ -1,7 +1,8 @@
-import { Answerable, AnswersQuestions, d, Interaction, LogicError } from '@serenity-js/core';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { Answerable, AnswersQuestions} from '@serenity-js/core';
+import { d, Interaction, LogicError } from '@serenity-js/core';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
-import { PageElement } from '../models';
+import type { PageElement } from '../models';
 
 /**
  * A base class for interactions with {@apilink PageElement} objects.

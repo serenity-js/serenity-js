@@ -1,4 +1,4 @@
-import { DiffFormatter } from './DiffFormatter';
+import type { DiffFormatter } from './DiffFormatter';
 
 /**
  * A no-op {@apilink DiffFormatter} that produces output identical to input.

@@ -1,6 +1,6 @@
 import { Timestamp } from '@serenity-js/core';
 
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

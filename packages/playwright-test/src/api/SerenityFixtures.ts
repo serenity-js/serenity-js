@@ -1,4 +1,4 @@
-import { Actor, Cast, Serenity } from '@serenity-js/core';
+import type { Actor, Cast, Serenity } from '@serenity-js/core';
 
 /**
  * Serenity/JS-specific [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)

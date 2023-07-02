@@ -1,10 +1,10 @@
 import { d } from '../../io';
-import { PerformsActivities } from '../activities';
-import { Activity } from '../Activity';
-import { Answerable } from '../Answerable';
-import { AnswersQuestions } from '../questions';
+import type { PerformsActivities } from '../activities';
+import type { Activity } from '../Activity';
+import type { Answerable } from '../Answerable';
+import type { AnswersQuestions } from '../questions';
 import { Task } from '../Task';
-import { Expectation } from './Expectation';
+import type { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 
 /**

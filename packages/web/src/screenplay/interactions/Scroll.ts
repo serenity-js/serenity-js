@@ -1,6 +1,7 @@
-import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { d, Interaction } from '@serenity-js/core';
 
-import { PageElement } from '../models';
+import type { PageElement } from '../models';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}

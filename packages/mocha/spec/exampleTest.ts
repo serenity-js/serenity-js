@@ -1,4 +1,4 @@
-import { Test } from 'mocha';
+import type { Test } from 'mocha';
 
 /* eslint-disable unicorn/no-null */
 export const exampleTest = {

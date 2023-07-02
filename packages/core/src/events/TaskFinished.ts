@@ -1,6 +1,7 @@
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
-import { ActivityDetails, CorrelationId, Outcome, SerialisedOutcome } from '../model';
+import type { SerialisedOutcome } from '../model';
+import { ActivityDetails, CorrelationId, Outcome } from '../model';
 import { Timestamp } from '../screenplay';
 import { ActivityFinished } from './ActivityFinished';
 

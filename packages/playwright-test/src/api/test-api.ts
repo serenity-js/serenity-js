@@ -1,17 +1,20 @@
-import { test as base, TestInfo } from '@playwright/test';
+import type { TestInfo } from '@playwright/test';
+import { test as base } from '@playwright/test';
 import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { BrowseTheWebWithPlaywright, PlaywrightPage } from '@serenity-js/playwright';
+import type { PlaywrightPage } from '@serenity-js/playwright';
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
-import { ensure, isFunction, JSONValue, property } from 'tiny-types';
+import type { JSONValue} from 'tiny-types';
+import { ensure, isFunction, property } from 'tiny-types';
 
 import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from '../reporter';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
-import { SerenityFixtures } from './SerenityFixtures';
-import { SerenityOptions } from './SerenityOptions';
-import { SerenityTestType } from './SerenityTestType';
+import type { SerenityFixtures } from './SerenityFixtures';
+import type { SerenityOptions } from './SerenityOptions';
+import type { SerenityTestType } from './SerenityTestType';
 
 /**
  * Declares a single test scenario.

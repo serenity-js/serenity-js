@@ -5,8 +5,10 @@ import { ConfigurationError, ErrorFactory, LogicError } from '../../src/errors';
 import { SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes } from '../../src/events';
 import { FileSystemLocation, Path, trimmed } from '../../src/io';
 import { ActivityDetails, Category, CorrelationId, ExecutionSuccessful, Name, ScenarioDetails } from '../../src/model';
-import { Ability, Actor, Clock, Discardable, Duration } from '../../src/screenplay';
-import { Cast, Stage, StageManager } from '../../src/stage';
+import type { Actor, Discardable} from '../../src/screenplay';
+import { Ability, Clock, Duration } from '../../src/screenplay';
+import type { Cast} from '../../src/stage';
+import { Stage, StageManager } from '../../src/stage';
 import { expect } from '../expect';
 
 describe('Stage', () => {

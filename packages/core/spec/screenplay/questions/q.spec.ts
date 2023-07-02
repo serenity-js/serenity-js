@@ -2,8 +2,8 @@ import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { q, Question, Serenity } from '../../../src';
-import { Actor } from '../../../src/screenplay';
-import { Cast } from '../../../src/stage';
+import type { Actor } from '../../../src/screenplay';
+import type { Cast } from '../../../src/stage';
 import { expect } from '../../expect';
 
 describe('q', () => {

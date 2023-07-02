@@ -1,14 +1,15 @@
-import { ArrayChange, Change, diffArrays, diffJson } from 'diff';
+import type { ArrayChange, Change} from 'diff';
+import { diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
 import { types } from 'util';
 
 import { inspected, isPrimitive, typeOf } from '../io';
 import { isPlainObject } from '../io/stringified';
 import { Unanswered } from '../screenplay/questions/Unanswered';
-import { DiffFormatter } from './diff';
+import type { DiffFormatter } from './diff';
 import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
-import { ErrorOptions } from './ErrorOptions';
-import { RuntimeError } from './model';
+import type { ErrorOptions } from './ErrorOptions';
+import type { RuntimeError } from './model';
 
 /**
  * Generates Serenity/JS {@apilink RuntimeError} objects based on provided {@apilink ErrorOptions|configuration}.

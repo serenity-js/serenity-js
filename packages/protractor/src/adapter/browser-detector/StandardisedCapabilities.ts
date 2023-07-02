@@ -1,4 +1,4 @@
-import { Capabilities, ProtractorBrowser } from 'protractor';
+import type { Capabilities, ProtractorBrowser } from 'protractor';
 
 /**
  * @private

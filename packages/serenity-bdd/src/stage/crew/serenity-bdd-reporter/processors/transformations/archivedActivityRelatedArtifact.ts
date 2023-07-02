@@ -1,8 +1,9 @@
-import { Timestamp } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
-import { ArtifactType, CorrelationId, Photo } from '@serenity-js/core/lib/model';
+import type { Timestamp } from '@serenity-js/core';
+import type { Path } from '@serenity-js/core/lib/io';
+import type { ArtifactType, CorrelationId} from '@serenity-js/core/lib/model';
+import { Photo } from '@serenity-js/core/lib/model';
 
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

@@ -2,13 +2,16 @@ import 'sinon-chai';
 
 import { expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, Outcome, ProblemIndication, ScenarioDetails } from '@serenity-js/core/lib/model';
-import { ArtifactArchiver, StageCrewMember } from '@serenity-js/core/lib/stage';
+import type { Outcome, ProblemIndication} from '@serenity-js/core/lib/model';
+import { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import type { StageCrewMember } from '@serenity-js/core/lib/stage';
+import { ArtifactArchiver } from '@serenity-js/core/lib/stage';
 import { beforeEach, describe, it } from 'mocha';
-import { Config, Runner } from 'protractor';
+import type { Config} from 'protractor';
+import { Runner } from 'protractor';
 import * as sinon from 'sinon';
 
 import { ProtractorFrameworkAdapter, TestRunnerDetector } from '../../src/adapter';

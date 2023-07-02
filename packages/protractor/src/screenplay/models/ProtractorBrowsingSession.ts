@@ -1,6 +1,6 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
 import { BrowsingSession } from '@serenity-js/web';
-import * as protractor from 'protractor';
+import type * as protractor from 'protractor';
 
 import { ProtractorPage } from '../models';
 import { promised } from '../promised';

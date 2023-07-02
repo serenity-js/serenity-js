@@ -1,7 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Actor, actorCalled, Answerable, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
+import type { Actor, Answerable} from '../../../src';
+import { actorCalled, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
 describe('List', () => {
@@ -321,7 +322,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(320);
+            expect(location.line).to.equal(321);
             expect(location.column).to.equal(18);
         });
     });

@@ -1,4 +1,4 @@
-import { SpecFilter } from './SpecFilter';
+import type { SpecFilter } from './SpecFilter';
 
 /**
  * @desc

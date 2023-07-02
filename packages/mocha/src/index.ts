@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { MochaOptions, Runner } from 'mocha';
+import type { MochaOptions, Runner } from 'mocha';
 
 import { SerenityReporterForMocha } from './SerenityReporterForMocha';
 

@@ -1,6 +1,7 @@
 import { equals } from '@serenity-js/assertions';
-import { Answerable, AnswersQuestions, Check, PerformsActivities, Question, Task, UsesAbilities } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import type { Answerable, AnswersQuestions, PerformsActivities, UsesAbilities } from '@serenity-js/core';
+import { Check, Question, Task } from '@serenity-js/core';
+import type { Path } from '@serenity-js/core/lib/io';
 
 import { Spawn } from '../interactions';
 import { TerminateFlow } from '../interactions/TerminateFlow';

@@ -1,4 +1,4 @@
-import { Location } from './Location';
+import type { Location } from './Location';
 
 /**
  * @private

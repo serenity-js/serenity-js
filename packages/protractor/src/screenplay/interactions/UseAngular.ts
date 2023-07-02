@@ -1,7 +1,7 @@
 import { Interaction } from '@serenity-js/core';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
-import { ProtractorPage } from '../models';
+import type { ProtractorPage } from '../models';
 
 /**
  * Instructs the {@apilink Actor} to enable or disable automated synchronisation between Protractor and Angular 1.x application.

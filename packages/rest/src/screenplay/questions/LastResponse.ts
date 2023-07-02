@@ -1,5 +1,6 @@
-import { Question, QuestionAdapter } from '@serenity-js/core';
-import { RawAxiosResponseHeaders } from 'axios';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
+import type { RawAxiosResponseHeaders } from 'axios';
 
 import { CallAnApi } from '../abilities';
 

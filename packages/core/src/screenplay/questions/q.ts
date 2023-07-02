@@ -1,5 +1,6 @@
-import { Answerable } from '../Answerable';
-import { Question, QuestionAdapter } from '../Question';
+import type { Answerable } from '../Answerable';
+import type { QuestionAdapter } from '../Question';
+import { Question } from '../Question';
 
 /**
  * A Serenity/JS Screenplay Pattern-flavour

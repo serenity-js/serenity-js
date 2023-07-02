@@ -2,10 +2,11 @@ import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
 import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../../errors';
 import { d } from '../../../io';
-import { UsesAbilities } from '../../abilities';
-import { Answerable } from '../../Answerable';
+import type { UsesAbilities } from '../../abilities';
+import type { Answerable } from '../../Answerable';
 import { Interaction } from '../../Interaction';
-import { AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome } from '../../questions';
+import type { AnswersQuestions, Expectation, ExpectationOutcome } from '../../questions';
+import { ExpectationMet } from '../../questions';
 import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
 

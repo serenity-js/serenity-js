@@ -1,4 +1,5 @@
-import { Question, QuestionAdapter } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 

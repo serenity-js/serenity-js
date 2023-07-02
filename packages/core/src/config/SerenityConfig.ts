@@ -1,8 +1,8 @@
-import { OutputStream } from '../adapter';
-import { DiffFormatter } from '../errors';
-import { Duration } from '../screenplay';
-import { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
-import { ClassDescription } from './ClassDescription';
+import type { OutputStream } from '../adapter';
+import type { DiffFormatter } from '../errors';
+import type { Duration } from '../screenplay';
+import type { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
+import type { ClassDescription } from './ClassDescription';
 
 /**
  * Describes the configuration object accepted by the {@apilink configure} function.

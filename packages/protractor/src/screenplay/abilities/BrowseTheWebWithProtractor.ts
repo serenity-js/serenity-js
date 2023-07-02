@@ -1,6 +1,7 @@
 import { ConfigurationError } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
-import * as protractor from 'protractor';
+import type { BrowserCapabilities} from '@serenity-js/web';
+import { BrowseTheWeb } from '@serenity-js/web';
+import type * as protractor from 'protractor';
 
 import { ProtractorBrowsingSession } from '../models';
 import { promised } from '../promised';

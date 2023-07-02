@@ -13,13 +13,15 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
-import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import type { CorrelationId} from '@serenity-js/core/lib/model';
+import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { beforeEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
-import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/adapter';
+import type { CucumberConfig, SerenityFormatterOutput} from '../../src/adapter';
+import { CucumberCLIAdapter, StandardOutput, TempFileOutput as TemporaryFileOutput } from '../../src/adapter';
 
 const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
 
@@ -42,7 +44,7 @@ describe('CucumberCLIAdapter', function () {
     describe('registers @serenity-js/cucumber and', () => {
 
         it('runs together with native Cucumber formatters, when configured to print to a temp file', async () => {
-            await run({ formatOptions: { colorsEnabled: false } }, new TempFileOutput(new FileSystem(rootDirectory)))
+            await run({ formatOptions: { colorsEnabled: false } }, new TemporaryFileOutput(new FileSystem(rootDirectory)))
                 .then(output => {
                     expect(output).to.include(trimmed`
                     | ..
@@ -98,7 +100,7 @@ describe('CucumberCLIAdapter', function () {
             expectedOutput: 'Pattern / Text'
         } ]).
         it('runs together with native Cucumber formatters, when configured to print to a temp file', ({ config, expectedOutput }: Example) =>
-            run(config, new TempFileOutput(new FileSystem(rootDirectory)))
+            run(config, new TemporaryFileOutput(new FileSystem(rootDirectory)))
                 .then(output => {
                     expect(output).to.include(expectedOutput);
 

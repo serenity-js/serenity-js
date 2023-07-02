@@ -1,5 +1,5 @@
-import { DomainEventQueue } from '@serenity-js/core';
-import {
+import type { DomainEventQueue } from '@serenity-js/core';
+import type {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     BusinessRuleDetected,
@@ -10,8 +10,8 @@ import {
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
 
-import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
-import { SerenityBDDReportContext } from './SerenityBDDReportContext';
+import type { SerenityBDDReport } from '../SerenityBDDJsonSchema';
+import type { SerenityBDDReportContext } from './SerenityBDDReportContext';
 import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf, businessRuleOf, descriptionOf, featureNarrativeOf, tagOf, testRunnerCalled } from './transformations';
 
 /**

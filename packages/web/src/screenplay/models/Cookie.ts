@@ -1,9 +1,11 @@
-import { Answerable, d, Interaction, Optional, Question, QuestionAdapter, Timestamp, WithAnswerableProperties } from '@serenity-js/core';
-import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
+import type { Answerable, Optional, QuestionAdapter, WithAnswerableProperties } from '@serenity-js/core';
+import { d, Interaction, Question, Timestamp } from '@serenity-js/core';
+import type { Predicate } from 'tiny-types';
+import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString } from 'tiny-types';
 
 import { CookieMissingError } from '../../errors';
 import { BrowseTheWeb } from '../abilities';
-import { CookieData } from './CookieData';
+import type { CookieData } from './CookieData';
 
 /**
  * A Screenplay Pattern-style model responsible for managing cookies available to the current {@apilink Page}.

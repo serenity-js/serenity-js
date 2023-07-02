@@ -1,4 +1,4 @@
-import { Chord } from './Chord';
+import type { Chord } from './Chord';
 
 export interface Guitar {
     play(chord: Chord): Promise<any>;

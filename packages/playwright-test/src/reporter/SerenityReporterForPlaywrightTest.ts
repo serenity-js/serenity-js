@@ -1,18 +1,21 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
-import {
+import type {
     ClassDescription,
-    LogicError,
     Serenity,
-    serenity as reporterSerenityInstance,
     StageCrewMember,
     StageCrewMemberBuilder,
     Timestamp
 } from '@serenity-js/core';
-import { OutputStream } from '@serenity-js/core/lib/adapter';
+import {
+    LogicError,
+    serenity as reporterSerenityInstance
+} from '@serenity-js/core';
+import type { OutputStream } from '@serenity-js/core/lib/adapter';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
 import {
-    DomainEvent,
     InteractionFinished,
     RetryableSceneDetected,
     SceneFinished,
@@ -24,10 +27,12 @@ import {
     TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import type {
+    CorrelationId,
+    Outcome} from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
-    CorrelationId,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionIgnored,
@@ -36,7 +41,6 @@ import {
     ExecutionSuccessful,
     FeatureTag,
     Name,
-    Outcome,
     ScenarioDetails,
 } from '@serenity-js/core/lib/model';
 

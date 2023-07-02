@@ -1,6 +1,8 @@
 /* eslint-disable unicorn/filename-case */
-import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, Duration, ImplementationPendingError, Stage, TestCompromisedError, Timestamp } from '@serenity-js/core';
+import type { EventRecorder} from '@integration/testing-tools';
+import { expect, PickEvent } from '@integration/testing-tools';
+import type { Stage} from '@serenity-js/core';
+import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
@@ -19,7 +21,7 @@ import {
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
-import { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
+import type { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { create } from './create';
 
 describe('SerenityBDDReporter', () => {

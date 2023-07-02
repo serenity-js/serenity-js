@@ -1,4 +1,4 @@
-import { Timestamp } from '@serenity-js/core';
+import type { Timestamp } from '@serenity-js/core';
 
 /**
  * A data structure describing a {@apilink Cookie} to be set, or one that's been read.

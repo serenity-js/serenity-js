@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, ExpectationOutcome } from '@serenity-js/core';
+import { Expectation, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when all the `expectations` are met for the given actual value.

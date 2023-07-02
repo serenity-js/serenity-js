@@ -1,8 +1,8 @@
-import { Writable } from 'stream';
+import type { Writable } from 'stream';
 
-import { DomainEvent } from '../../../events';
-import { Stage } from '../../Stage';
-import { StageCrewMember } from '../../StageCrewMember';
+import type { DomainEvent } from '../../../events';
+import type { Stage } from '../../Stage';
+import type { StageCrewMember } from '../../StageCrewMember';
 
 /**
  * Serialises all the {@apilink DomainEvent} objects it receives and streams

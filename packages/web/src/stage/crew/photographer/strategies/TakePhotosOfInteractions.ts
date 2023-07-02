@@ -1,4 +1,5 @@
-import { DomainEvent, InteractionFinished } from '@serenity-js/core/lib/events';
+import type { DomainEvent} from '@serenity-js/core/lib/events';
+import { InteractionFinished } from '@serenity-js/core/lib/events';
 
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 

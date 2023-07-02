@@ -1,4 +1,4 @@
-import { Activity } from '../Activity';
+import type { Activity } from '../Activity';
 
 /**
  * Describes an {@apilink Actor} who can perform a sequence of {@apilink Activity|Activities},

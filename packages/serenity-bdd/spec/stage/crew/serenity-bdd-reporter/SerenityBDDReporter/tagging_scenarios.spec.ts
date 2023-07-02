@@ -1,6 +1,7 @@
 /*eslint-disable unicorn/filename-case */
-import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { Stage } from '@serenity-js/core';
+import type { EventRecorder} from '@integration/testing-tools';
+import { expect, PickEvent } from '@integration/testing-tools';
+import type { Stage } from '@serenity-js/core';
 import { ArtifactGenerated, SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { ArbitraryTag, BrowserTag, CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';

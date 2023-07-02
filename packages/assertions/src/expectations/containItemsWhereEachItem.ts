@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, ExpectationOutcome, Unanswered } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, ExpectationOutcome} from '@serenity-js/core';
+import { d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, Unanswered } from '@serenity-js/core';
 
 /**
  * Produces an {@apilink Expectation|expectation} that is met when all the items of the actual array of `Item[]`

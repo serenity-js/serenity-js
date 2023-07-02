@@ -1,11 +1,12 @@
-import { DomainEventQueue } from '@serenity-js/core';
+import type { DomainEventQueue } from '@serenity-js/core';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
     BusinessRuleDetected,
-    DomainEvent,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
     SceneDescriptionDetected,
@@ -16,9 +17,9 @@ import {
 } from '@serenity-js/core/lib/events';
 import { match } from 'tiny-types';
 
-import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
+import type { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { EventQueueProcessor } from '../EventQueueProcessor';
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { activityFinished, activityStarted, executionFinishedAt, executionFinishedWith, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
 import { SingleSceneReportContext } from './SingleSceneReportContext';
 

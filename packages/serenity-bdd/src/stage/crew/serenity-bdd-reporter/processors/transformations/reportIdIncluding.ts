@@ -1,5 +1,5 @@
 import { dashify } from '../mappers';
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

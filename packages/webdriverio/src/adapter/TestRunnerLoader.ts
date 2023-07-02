@@ -1,8 +1,9 @@
 import { ConfigurationError } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import type { ModuleLoader} from '@serenity-js/core/lib/io/index.js';
+import { Config, FileFinder, FileSystem, Path } from '@serenity-js/core/lib/io/index.js';
 
-import { WebdriverIOConfig } from '../config/index.js';
+import type { WebdriverIOConfig } from '../config/index.js';
 
 // We define TestRunnerOptions to avoid importing the global WebdriverIO namespace.
 // WebdriverIO v8 doesn't offer any more precise type declarations anyway.

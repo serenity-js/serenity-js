@@ -1,5 +1,7 @@
-import { LogicError, Stage } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '@serenity-js/core/lib/events';
+import type { Stage } from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
+import type { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 
 import { BrowseTheWeb } from '../../../../screenplay';
