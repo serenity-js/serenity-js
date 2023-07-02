@@ -1,6 +1,6 @@
 import { TinyType } from 'tiny-types';
 
-import { ExpectationDetails } from './ExpectationDetails';
+import type { ExpectationDetails } from './ExpectationDetails';
 
 /**
  * An outcome of an {@apilink Expectation},

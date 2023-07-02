@@ -1,6 +1,7 @@
 import { ConfigurationError, LogicError } from '@serenity-js/core';
-import { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
-import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 
 import * as strategies from './strategies';
 

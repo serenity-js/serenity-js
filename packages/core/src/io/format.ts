@@ -1,4 +1,4 @@
-import { Answerable } from '../screenplay';
+import type { Answerable } from '../screenplay';
 import { stringified } from './stringified';
 
 /**

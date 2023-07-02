@@ -1,6 +1,6 @@
-import { PlaywrightTestOptions, PlaywrightWorkerArgs, TestFixture } from '@playwright/test';
-import { Cast, ClassDescription, Duration, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
-import { PlaywrightOptions } from '@serenity-js/playwright';
+import type { PlaywrightTestOptions, PlaywrightWorkerArgs, TestFixture } from '@playwright/test';
+import type { Cast, ClassDescription, Duration, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
+import type { PlaywrightOptions } from '@serenity-js/playwright';
 
 /**
  * Configuration object accepted by `@serenity-js/playwright-test`.

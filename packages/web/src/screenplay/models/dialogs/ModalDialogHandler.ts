@@ -1,7 +1,7 @@
 import { ensure, isDefined } from 'tiny-types';
 
 import { AbsentModalDialog } from './AbsentModalDialog';
-import { ModalDialog } from './ModalDialog';
+import type { ModalDialog } from './ModalDialog';
 
 /**
  * Represent the strategy to use with any upcoming {@apilink ModalDialog} windows.

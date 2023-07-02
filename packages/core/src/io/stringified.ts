@@ -1,6 +1,6 @@
 import { inspect } from 'util';
 
-import { Answerable } from '../screenplay/Answerable';
+import type { Answerable } from '../screenplay/Answerable';
 import { Question } from '../screenplay/Question';
 
 const indentationPrefix = '  ';

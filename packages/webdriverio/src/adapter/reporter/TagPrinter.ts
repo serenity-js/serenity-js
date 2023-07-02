@@ -1,4 +1,5 @@
-import { BrowserTag, PlatformTag, Tag } from '@serenity-js/core/lib/model/index.js';
+import type { Tag } from '@serenity-js/core/lib/model/index.js';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model/index.js';
 import type { Capabilities } from '@wdio/types';
 
 /**

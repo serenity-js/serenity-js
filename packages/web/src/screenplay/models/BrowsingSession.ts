@@ -1,6 +1,6 @@
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/lib/model';
 
-import { Page } from './Page';
+import type { Page } from './Page';
 
 /**
  * Represents the pages open in the current browsing context.

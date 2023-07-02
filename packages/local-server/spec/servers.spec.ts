@@ -1,6 +1,7 @@
 import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, actorInTheSpotlight, Cast, configure, LogicError } from '@serenity-js/core';
+import type { Actor, Cast} from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, configure, LogicError } from '@serenity-js/core';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';
 import * as https from 'https';

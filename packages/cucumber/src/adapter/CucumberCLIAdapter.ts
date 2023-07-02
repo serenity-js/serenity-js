@@ -1,11 +1,13 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { FileSystem, ModuleLoader, Version } from '@serenity-js/core/lib/io';
-import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import type { FileSystem, ModuleLoader} from '@serenity-js/core/lib/io';
+import { Version } from '@serenity-js/core/lib/io';
+import type { Outcome } from '@serenity-js/core/lib/model';
+import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
-import { CucumberConfig } from './CucumberConfig';
+import type { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';
-import { OutputDescriptor, SerenityFormatterOutput } from './output';
+import type { OutputDescriptor, SerenityFormatterOutput } from './output';
 
 /**
  * Allows for programmatic execution of Cucumber test scenarios.

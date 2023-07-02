@@ -3,14 +3,14 @@ import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
 import { f, inspectedObject } from '../io';
-import { UsesAbilities } from './abilities';
-import { Answerable } from './Answerable';
+import type { UsesAbilities } from './abilities';
+import type { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
-import { Optional } from './Optional';
-import { AnswersQuestions } from './questions/AnswersQuestions';
+import type { Optional } from './Optional';
+import type { AnswersQuestions } from './questions/AnswersQuestions';
 import { Unanswered } from './questions/Unanswered';
-import { RecursivelyAnswered } from './RecursivelyAnswered';
-import { WithAnswerableProperties } from './WithAnswerableProperties';
+import type { RecursivelyAnswered } from './RecursivelyAnswered';
+import type { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
  * **Questions** describe how {@apilink Actor|actors} should query the system under test or the test environment to retrieve some information.

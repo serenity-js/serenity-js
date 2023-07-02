@@ -3,9 +3,9 @@ import { describe, it } from 'mocha';
 import { ConfigurationError } from '../../../src/errors';
 import { ClassDescriptionParser, ClassLoader, ModuleLoader } from '../../../src/io';
 import { expect } from '../../expect';
-import { Example } from './examples/Example';
-import { ExampleNoArgument } from './examples/ExampleNoArgument';
-import { ExampleWithFactoryMethod } from './examples/ExampleWithFactoryMethod';
+import type { Example } from './examples/Example';
+import type { ExampleNoArgument } from './examples/ExampleNoArgument';
+import type { ExampleWithFactoryMethod } from './examples/ExampleWithFactoryMethod';
 
 describe('ClassLoader', () => {
 

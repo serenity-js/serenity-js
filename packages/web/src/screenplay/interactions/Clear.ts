@@ -1,6 +1,7 @@
-import { Answerable, AnswersQuestions, d, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
+import { d, LogicError } from '@serenity-js/core';
 
-import { PageElement } from '../models';
+import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**

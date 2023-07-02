@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, f, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
+import { f, Interaction, LogicError } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import { Name, TextData } from '@serenity-js/core/lib/model';
 

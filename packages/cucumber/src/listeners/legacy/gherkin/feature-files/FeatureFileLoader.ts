@@ -1,9 +1,9 @@
-import { Path } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/lib/io';
 
 import { Cache } from './Cache';
-import { FeatureFileMap } from './FeatureFileMap';
-import { FeatureFileMapper } from './FeatureFileMapper';
-import { FeatureFileParser } from './FeatureFileParser';
+import type { FeatureFileMap } from './FeatureFileMap';
+import type { FeatureFileMapper } from './FeatureFileMapper';
+import type { FeatureFileParser } from './FeatureFileParser';
 
 /**
  * @private

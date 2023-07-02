@@ -1,6 +1,6 @@
 import { createId } from '@paralleldrive/cuid2';
-import * as nodeFS from 'fs';
-import { WriteFileOptions } from 'fs';
+import type * as nodeFS from 'fs';
+import type { WriteFileOptions } from 'fs';
 import * as gracefulFS from 'graceful-fs';
 import * as nodeOS from 'os';
 import { promisify } from 'util';

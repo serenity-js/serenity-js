@@ -1,10 +1,11 @@
-import { Timestamp } from '@serenity-js/core';
-import { Artifact, CorrelationId, HTTPRequestResponse, JSONData, LogEntry, Name, RequestAndResponse, TextData } from '@serenity-js/core/lib/model';
+import type { Timestamp } from '@serenity-js/core';
+import type { Artifact, CorrelationId, Name, RequestAndResponse} from '@serenity-js/core/lib/model';
+import { HTTPRequestResponse, JSONData, LogEntry, TextData } from '@serenity-js/core/lib/model';
 import { createHash } from 'crypto';
 import { match } from 'tiny-types';
 import { inspect } from 'util';
 
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

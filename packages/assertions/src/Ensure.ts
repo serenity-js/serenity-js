@@ -1,21 +1,22 @@
-import {
-    Activity,
+import type {
     Answerable,
     AnswersQuestions,
-    AssertionError,
     CollectsArtifacts,
-    d,
     Expectation,
+    RuntimeError,
+    UsesAbilities} from '@serenity-js/core';
+import {
+    Activity,
+    AssertionError,
+    d,
     ExpectationMet,
     ExpectationNotMet,
     f,
     Interaction,
     LogicError,
-    RaiseErrors,
-    RuntimeError,
-    UsesAbilities,
+    RaiseErrors
 } from '@serenity-js/core';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
 import { EnsureEventually } from './EnsureEventually';
 

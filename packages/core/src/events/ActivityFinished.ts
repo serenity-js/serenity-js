@@ -1,7 +1,7 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { ActivityDetails, CorrelationId, Outcome } from '../model';
-import { Timestamp } from '../screenplay';
+import type { ActivityDetails, CorrelationId, Outcome } from '../model';
+import type { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**

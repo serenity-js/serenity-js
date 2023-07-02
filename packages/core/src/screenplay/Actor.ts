@@ -1,23 +1,27 @@
 import { ConfigurationError, TestCompromisedError } from '../errors';
 import { ActivityRelatedArtifactGenerated } from '../events';
 import { typeOf } from '../io';
-import { Artifact, Name, } from '../model';
-import { Stage } from '../stage';
-import {
-    Ability,
+import type { Artifact} from '../model';
+import { Name, } from '../model';
+import type { Stage } from '../stage';
+import type {
     AbilityType,
-    AnswerQuestions,
     CanHaveAbilities,
     Discardable,
     Initialisable,
-    PerformActivities,
     UsesAbilities
 } from './abilities';
-import { PerformsActivities } from './activities';
-import { Activity } from './Activity';
-import { Answerable } from './Answerable';
-import { CollectsArtifacts } from './artifacts';
-import { AnswersQuestions } from './questions';
+import {
+    Ability,
+    AnswerQuestions,
+    PerformActivities
+} from './abilities';
+import type { PerformsActivities } from './activities';
+import type { Activity } from './Activity';
+import type { Answerable } from './Answerable';
+import type { CollectsArtifacts } from './artifacts';
+import type { AnswersQuestions } from './questions';
+import type { TellsTime, Timestamp } from './time';
 
 /**
  * **Actors** represent **people** and **external systems** interacting with the system under test.
@@ -82,7 +86,9 @@ export class Actor implements PerformsActivities,
     UsesAbilities,
     CanHaveAbilities<Actor>,
     AnswersQuestions,
-    CollectsArtifacts {
+    CollectsArtifacts,
+    TellsTime
+{
     private readonly abilities: Map<AbilityType<Ability>, Ability> = new Map<AbilityType<Ability>, Ability>();
 
     constructor(
@@ -181,6 +187,13 @@ export class Actor implements PerformsActivities,
             artifact,
             this.stage.currentTime(),
         ));
+    }
+
+    /**
+     * Returns current time.
+     */
+    currentTime(): Timestamp {
+        return this.stage.currentTime();
     }
 
     /**

@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
+import type { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
 
-import { CucumberAdapterConfig } from './CucumberAdapterConfig';
+import type { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**
  * Loads a {@apilink TestRunnerAdapter} needed to invoke

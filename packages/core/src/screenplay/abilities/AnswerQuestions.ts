@@ -1,8 +1,8 @@
-import { Answerable } from '../Answerable';
+import type { Answerable } from '../Answerable';
 import { Question } from '../Question';
-import { AnswersQuestions } from '../questions';
+import type { AnswersQuestions } from '../questions';
 import { Ability } from './Ability';
-import { UsesAbilities } from './UsesAbilities';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * This {@apilink Ability} enables an {@apilink Actor} to resolve the value of a given {@apilink Answerable}.

@@ -1,5 +1,5 @@
-import { Ability } from './Ability';
-import { UsesAbilities } from './UsesAbilities';
+import type { Ability } from './Ability';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * Describes an {@apilink Actor} who can have an {@apilink Ability} to perform some {@apilink Activity}.

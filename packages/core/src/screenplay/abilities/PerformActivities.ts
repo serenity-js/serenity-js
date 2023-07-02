@@ -1,7 +1,12 @@
 import { match } from 'tiny-types';
 
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
-import { EmitsDomainEvents, InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
+import type { EmitsDomainEvents} from '../../events';
+import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
+import type {
+    Outcome,
+    ProblemIndication
+} from '../../model';
 import {
     ActivityDetails,
     ExecutionCompromised,
@@ -9,12 +14,10 @@ import {
     ExecutionFailedWithError,
     ExecutionSuccessful,
     ImplementationPending,
-    Name,
-    Outcome,
-    ProblemIndication
+    Name
 } from '../../model';
-import { PerformsActivities } from '../activities/PerformsActivities';
-import { Activity } from '../Activity';
+import type { PerformsActivities } from '../activities/PerformsActivities';
+import type { Activity } from '../Activity';
 import { Interaction } from '../Interaction';
 import { Ability } from './index';
 

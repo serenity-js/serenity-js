@@ -1,8 +1,9 @@
-import { JSONValue } from 'tiny-types';
+import type { JSONValue } from 'tiny-types';
 
 import { asyncMap, d } from '../../io';
-import { Answerable, AnswersQuestions, ExpectationDetails, ExpectationMet, ExpectationNotMet, Question, QuestionAdapter } from '../';
-import { ExpectationOutcome } from './expectations';
+import type { Answerable, AnswersQuestions, QuestionAdapter } from '../';
+import { ExpectationDetails, ExpectationMet, ExpectationNotMet, Question } from '../';
+import type { ExpectationOutcome } from './expectations';
 
 /**
  * @group Expectations

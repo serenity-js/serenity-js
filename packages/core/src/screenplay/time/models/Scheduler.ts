@@ -1,9 +1,9 @@
 import { OperationInterruptedError, TimeoutExpiredError } from '../../../errors';
-import { Clock } from './Clock';
-import { DelayedCallback } from './DelayedCallback';
+import type { Clock } from './Clock';
+import type { DelayedCallback } from './DelayedCallback';
 import { Duration } from './Duration';
-import { RepeatUntilLimits } from './RepeatUntilLimits';
-import { Timestamp } from './Timestamp';
+import type { RepeatUntilLimits } from './RepeatUntilLimits';
+import type { Timestamp } from './Timestamp';
 
 /**
  * @group Time

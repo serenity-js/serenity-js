@@ -1,7 +1,7 @@
 import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
-import { PageElement } from '../screenplay';
+import type { PageElement } from '../screenplay';
 
 const isElementVisible = Expectation.define(
     'isVisible', 'become visible',

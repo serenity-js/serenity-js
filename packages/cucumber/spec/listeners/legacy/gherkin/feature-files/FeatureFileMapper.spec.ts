@@ -3,7 +3,8 @@ import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { Background, Feature, FeatureFileMap, FeatureFileMapper, FeatureFileParser, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
+import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
+import { Background, Feature, FeatureFileMapper, FeatureFileParser, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
 import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
 describe('FeatureFileMapper', () => {

@@ -1,8 +1,10 @@
-import { AssertionError, d, DomainEventQueues, Duration, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
-import { OutputStream } from '@serenity-js/core/lib/adapter';
+import type { Duration, ListensToDomainEvents, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import { AssertionError, d, DomainEventQueues, LogicError } from '@serenity-js/core';
+import type { OutputStream } from '@serenity-js/core/lib/adapter';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
     ActivityRelatedArtifactGenerated,
-    DomainEvent,
     InteractionFinished,
     InteractionStarts,
     SceneFinished,
@@ -12,8 +14,11 @@ import {
     TestRunFinished,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
-import {
+import type {
     CorrelationId,
+    Name,
+    Outcome} from '@serenity-js/core/lib/model';
+import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -22,18 +27,17 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
     LogEntry,
-    Name,
-    Outcome,
     ProblemIndication,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
 
-import { ConsoleReporterConfig } from './ConsoleReporterConfig';
+import type { ConsoleReporterConfig } from './ConsoleReporterConfig';
 import { Printer } from './Printer';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
-import { TerminalTheme, ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
+import type { TerminalTheme} from './themes';
+import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
 
 /**
  * A {@apilink StageCrewMember} that uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)

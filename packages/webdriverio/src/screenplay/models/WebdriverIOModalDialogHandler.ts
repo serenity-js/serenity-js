@@ -1,7 +1,8 @@
-import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
+import type { ModalDialog} from '@serenity-js/web';
+import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialogHandler } from '@serenity-js/web';
 import type { Browser } from 'webdriverio';
 
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**

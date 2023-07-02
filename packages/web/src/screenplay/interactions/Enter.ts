@@ -1,7 +1,8 @@
-import { Answerable, AnswersQuestions, d, Interaction, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
+import { d } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
-import { PageElement } from '../models';
+import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**

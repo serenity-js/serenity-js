@@ -1,4 +1,4 @@
-import { WebElement } from 'protractor';
+import type { WebElement } from 'protractor';
 
 /**
  * Under [certain conditions](https://github.com/angular/protractor/blob/4bc80d1a459542d883ea9200e4e1f48d265d0fda/lib/element.ts#L797),

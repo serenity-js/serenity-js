@@ -1,6 +1,7 @@
 import { match } from 'tiny-types';
 
-import { ArbitraryTag, IssueTag, ManualTag, Tag } from './';
+import type { Tag } from './';
+import { ArbitraryTag, IssueTag, ManualTag } from './';
 
 /**
  * @package

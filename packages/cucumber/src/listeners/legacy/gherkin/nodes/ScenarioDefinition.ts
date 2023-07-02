@@ -1,6 +1,6 @@
-import { ASTNode } from './ASTNode';
-import { Step } from './Step';
-import { Tag } from './Tag';
+import type { ASTNode } from './ASTNode';
+import type { Step } from './Step';
+import type { Tag } from './Tag';
 
 /**
  * @private

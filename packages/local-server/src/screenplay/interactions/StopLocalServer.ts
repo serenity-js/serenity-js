@@ -1,4 +1,5 @@
-import { AnswersQuestions, CollectsArtifacts, Interaction, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
+import { Interaction } from '@serenity-js/core';
 
 import { ManageALocalServer } from '../abilities';
 

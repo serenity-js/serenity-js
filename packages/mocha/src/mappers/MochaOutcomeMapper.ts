@@ -1,4 +1,6 @@
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
+import type {
+    Outcome} from '@serenity-js/core/lib/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -6,10 +8,9 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
+    ImplementationPending
 } from '@serenity-js/core/lib/model';
-import { Test } from 'mocha';
+import type { Test } from 'mocha';
 
 /**
  * @package

@@ -1,5 +1,6 @@
 import { EventRecorder } from '@integration/testing-tools';
-import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
+import type { Actor, Cast} from '@serenity-js/core';
+import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 
 import { SerenityBDDReporter } from '../../../../src';
 

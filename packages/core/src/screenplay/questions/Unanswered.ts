@@ -1,4 +1,5 @@
-import { JSONValue, TinyType } from 'tiny-types';
+import type { JSONValue} from 'tiny-types';
+import { TinyType } from 'tiny-types';
 import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**

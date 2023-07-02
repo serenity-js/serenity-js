@@ -1,6 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import { BrowsingSession, ModalDialogHandler } from '@serenity-js/web';
+import type { ModalDialogHandler } from '@serenity-js/web';
+import { BrowsingSession } from '@serenity-js/web';
 import type { Page } from 'puppeteer-core';
 import type { Browser } from 'webdriverio';
 

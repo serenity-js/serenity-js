@@ -1,8 +1,9 @@
-import { Discardable } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb } from '@serenity-js/web';
+import type { Discardable } from '@serenity-js/core';
+import type { BrowserCapabilities} from '@serenity-js/web';
+import { BrowseTheWeb } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightBrowsingSession } from '../models';
 
 /**

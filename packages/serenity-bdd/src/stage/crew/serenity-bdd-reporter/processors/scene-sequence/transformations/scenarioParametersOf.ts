@@ -1,7 +1,7 @@
-import { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import type { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
 
-import { DataTable, DataTableDataSetDescriptor } from '../../../SerenityBDDJsonSchema';
-import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
+import type { DataTable, DataTableDataSetDescriptor } from '../../../SerenityBDDJsonSchema';
+import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters): (context: SceneSequenceReportContext) => SceneSequenceReportContext {
 

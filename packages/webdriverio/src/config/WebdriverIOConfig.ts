@@ -1,4 +1,4 @@
-import { SerenityConfig } from '@serenity-js/core';
+import type { SerenityConfig } from '@serenity-js/core';
 import type { Options } from '@wdio/types';
 
 /**

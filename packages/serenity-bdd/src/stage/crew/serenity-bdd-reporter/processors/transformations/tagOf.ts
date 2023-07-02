@@ -1,9 +1,10 @@
-import { BrowserTag, CapabilityTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import type { Tag} from '@serenity-js/core/lib/model';
+import { BrowserTag, CapabilityTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects';
 
-import * as serenitybdd from '../../SerenityBDDJsonSchema';
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type * as serenitybdd from '../../SerenityBDDJsonSchema';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { reportIdIncluding } from './reportIdIncluding';
 
 /**

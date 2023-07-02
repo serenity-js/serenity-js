@@ -3,7 +3,8 @@ import { Path } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';
+import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
+import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';
 import Gherkin = require('gherkin');
 
 describe('FeatureFileLoader', () => {

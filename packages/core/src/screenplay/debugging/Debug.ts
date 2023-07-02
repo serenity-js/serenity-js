@@ -2,13 +2,13 @@ import { ErrorSerialiser } from '../../errors';
 import { d } from '../../io';
 import { stringified } from '../../io/stringified';
 import { LogEntry, Name } from '../../model';
-import { UsesAbilities } from '../abilities';
-import { Answerable } from '../Answerable';
-import { Answered } from '../Answered';
-import { CollectsArtifacts } from '../artifacts';
+import type { UsesAbilities } from '../abilities';
+import type { Answerable } from '../Answerable';
+import type { Answered } from '../Answered';
+import type { CollectsArtifacts } from '../artifacts';
 import { Interaction } from '../Interaction';
-import { AnswersQuestions } from '../questions';
-import { DebuggingResult } from './DebuggingResult';
+import type { AnswersQuestions } from '../questions';
+import type { DebuggingResult } from './DebuggingResult';
 
 /**
  * Instructs the {@apilink Actor|actor} to evaluate and {@apilink Log|log} the provided {@apilink Answerable} values.

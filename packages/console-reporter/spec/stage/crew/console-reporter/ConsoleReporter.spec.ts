@@ -1,6 +1,7 @@
 import { EventStreamEmitter, expect } from '@integration/testing-tools';
-import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import { OutputStream } from '@serenity-js/core/lib/adapter';
+import type { Actor, Cast} from '@serenity-js/core';
+import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
+import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
 

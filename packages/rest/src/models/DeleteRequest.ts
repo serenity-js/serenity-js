@@ -1,5 +1,6 @@
-import { Answerable, Question, WithAnswerableProperties } from '@serenity-js/core';
-import { AxiosRequestConfig } from 'axios';
+import type { Answerable, WithAnswerableProperties } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
+import type { AxiosRequestConfig } from 'axios';
 
 import { HTTPRequest } from './HTTPRequest';
 

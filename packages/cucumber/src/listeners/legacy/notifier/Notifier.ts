@@ -1,5 +1,6 @@
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
-    DomainEvent,
     FeatureNarrativeDetected,
     SceneDescriptionDetected,
     SceneFinished,
@@ -16,10 +17,11 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
-import { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
-import { Serenity } from '@serenity-js/core/lib/Serenity';
+import type { CorrelationId, Outcome} from '@serenity-js/core/lib/model';
+import { ActivityDetails, CapabilityTag, Category, Description, FeatureTag, Name, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import type { Serenity } from '@serenity-js/core/lib/Serenity';
 
-import { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } from '../gherkin';
+import type { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } from '../gherkin';
 
 function notEmpty<T>(list: T[]) {
     return list.filter(item => !! item);

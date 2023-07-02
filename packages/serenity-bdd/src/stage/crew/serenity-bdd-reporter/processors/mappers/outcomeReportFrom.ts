@@ -1,15 +1,16 @@
+import type {
+    Outcome} from '@serenity-js/core/lib/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ImplementationPending,
-    Outcome,
+    ImplementationPending
 } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
-import { ErrorDetails } from '../../SerenityBDDJsonSchema';
+import type { ErrorDetails } from '../../SerenityBDDJsonSchema';
 import { errorReportFrom } from './errorReportFrom';
 
 /**

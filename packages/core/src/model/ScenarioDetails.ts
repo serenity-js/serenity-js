@@ -1,4 +1,5 @@
-import { ensure, isDefined, JSONObject, TinyType } from 'tiny-types';
+import type { JSONObject} from 'tiny-types';
+import { ensure, isDefined, TinyType } from 'tiny-types';
 
 import { FileSystemLocation } from '../io';
 import { Category } from './Category';

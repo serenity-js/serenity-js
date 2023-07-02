@@ -1,5 +1,5 @@
 import { RootLocator } from '@serenity-js/web';
-import * as protractor from 'protractor';
+import type * as protractor from 'protractor';
 
 import { promised } from '../../promised';
 

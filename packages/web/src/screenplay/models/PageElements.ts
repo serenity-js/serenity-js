@@ -1,9 +1,10 @@
-import { Answerable, List, MetaQuestion, Question } from '@serenity-js/core';
+import type { Answerable, MetaQuestion} from '@serenity-js/core';
+import { List, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
-import { Locator } from './Locator';
-import { PageElement } from './PageElement';
-import { Selector } from './selectors';
+import type { Locator } from './Locator';
+import type { PageElement } from './PageElement';
+import type { Selector } from './selectors';
 
 /**
  * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify

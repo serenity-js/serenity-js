@@ -1,10 +1,12 @@
-import { Stage, Timestamp } from '@serenity-js/core';
-import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSkipped, Name, Outcome, ProblemIndication } from '@serenity-js/core/lib/model';
-import { StageCrewMember } from '@serenity-js/core/lib/stage';
-import { Runner } from 'protractor';
+import type { Stage, Timestamp } from '@serenity-js/core';
+import type { DomainEvent} from '@serenity-js/core/lib/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import type { Outcome, ProblemIndication } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSkipped, Name } from '@serenity-js/core/lib/model';
+import type { StageCrewMember } from '@serenity-js/core/lib/stage';
+import type { Runner } from 'protractor';
 
-import { ProtractorReport } from './ProtractorReport';
+import type { ProtractorReport } from './ProtractorReport';
 
 /**
  * @private

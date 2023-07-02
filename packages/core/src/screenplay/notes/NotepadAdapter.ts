@@ -1,12 +1,13 @@
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
 import { commaSeparated } from '../../io';
-import { UsesAbilities } from '../abilities';
-import { Answerable } from '../Answerable';
+import type { UsesAbilities } from '../abilities';
+import type { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
-import { Question, QuestionAdapter } from '../Question';
-import { AnswersQuestions } from '../questions';
-import { ChainableSetter } from './ChainableSetter';
+import type { QuestionAdapter } from '../Question';
+import { Question } from '../Question';
+import type { AnswersQuestions } from '../questions';
+import type { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
 /**

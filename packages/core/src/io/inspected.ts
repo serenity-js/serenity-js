@@ -1,4 +1,5 @@
-import { inspect, InspectOptions } from 'util';
+import type { InspectOptions } from 'util';
+import { inspect } from 'util';
 
 export function inspected(value: unknown, options: InspectOptions = {}): string {
     return inspect(value, {

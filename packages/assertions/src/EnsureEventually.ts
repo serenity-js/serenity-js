@@ -1,22 +1,23 @@
-import {
+import type {
     Answerable,
     AnswersQuestions,
-    AssertionError,
     CollectsArtifacts,
+    Expectation,
+    ExpectationOutcome,
+    RuntimeError,
+    UsesAbilities} from '@serenity-js/core';
+import {
+    AssertionError,
     d,
     Duration,
-    Expectation,
     ExpectationMet,
-    ExpectationOutcome,
     Interaction,
     ListItemNotFoundError,
     RaiseErrors,
-    RuntimeError,
     ScheduleWork,
-    TimeoutExpiredError,
-    UsesAbilities,
+    TimeoutExpiredError
 } from '@serenity-js/core';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
 /**
  * The {@apilink Interaction|interaction} to `EnsureEventually`

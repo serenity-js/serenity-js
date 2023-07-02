@@ -1,5 +1,6 @@
 import { Timestamp } from '@serenity-js/core';
-import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
+import type { CookieData} from '@serenity-js/web';
+import { Cookie, CookieMissingError } from '@serenity-js/web';
 import { ensure, isDefined } from 'tiny-types';
 import type { Browser } from 'webdriverio';
 

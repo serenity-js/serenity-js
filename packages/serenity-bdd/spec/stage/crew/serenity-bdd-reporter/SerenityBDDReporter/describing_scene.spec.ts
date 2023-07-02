@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
-import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { Stage } from '@serenity-js/core';
+import type { EventRecorder} from '@integration/testing-tools';
+import { expect, PickEvent } from '@integration/testing-tools';
+import type { Stage } from '@serenity-js/core';
 import {
     ArtifactGenerated,
     FeatureNarrativeDetected,

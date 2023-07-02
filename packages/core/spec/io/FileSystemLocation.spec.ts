@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
 import { FileSystemLocation, Path } from '../../src/io';
 import { expect } from '../expect';

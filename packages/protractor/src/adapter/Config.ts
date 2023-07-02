@@ -1,5 +1,5 @@
-import { SerenityConfig } from '@serenity-js/core';
-import { Config as ProtractorConfig } from 'protractor';
+import type { SerenityConfig } from '@serenity-js/core';
+import type { Config as ProtractorConfig } from 'protractor';
 
 /**
  * Protractor configuration object with an additional

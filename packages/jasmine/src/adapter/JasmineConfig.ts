@@ -1,4 +1,4 @@
-import { JasmineReporter } from '../jasmine';
+import type { JasmineReporter } from '../jasmine';
 
 /**
  * Configuration object that will be passed to the JasmineRunner.

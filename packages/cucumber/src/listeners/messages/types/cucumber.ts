@@ -4,7 +4,7 @@
  * using older versions.
  */
 
-import {
+import type {
     Attachment,
     Envelope,
     GherkinDocument,

@@ -1,9 +1,10 @@
-import { AnswersQuestions, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, PerformsActivities, UsesAbilities } from '@serenity-js/core';
+import { Task } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { GetRequest } from '@serenity-js/rest';
-import { URL } from 'url';
+import type { URL } from 'url';
 
-import { GAV } from '../../model';
+import type { GAV } from '../../model';
 import { CreateDirectory, Notify, StreamResponse } from '../interactions';
 import { RenameFile } from '../interactions/RenameFile';
 import { VerifyChecksum } from './VerifyChecksum';

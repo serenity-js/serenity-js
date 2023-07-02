@@ -1,4 +1,5 @@
-import { ensure, isArray, isDefined, JSONObject, JSONValue, TinyType } from 'tiny-types';
+import type { JSONObject, JSONValue} from 'tiny-types';
+import { ensure, isArray, isDefined, TinyType } from 'tiny-types';
 
 import { inspected, typeOf } from '../../../io';
 import { Name } from '../../../model';

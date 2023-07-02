@@ -1,4 +1,4 @@
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
 // https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources
 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java

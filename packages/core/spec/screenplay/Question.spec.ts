@@ -2,8 +2,10 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, LogicError, QuestionAdapter, RecursivelyAnswered } from '../../src';
-import { Actor, Question, WithAnswerableProperties } from '../../src/screenplay';
+import type { Answerable, QuestionAdapter, RecursivelyAnswered } from '../../src';
+import { actorCalled, LogicError } from '../../src';
+import type { Actor, WithAnswerableProperties } from '../../src/screenplay';
+import { Question } from '../../src/screenplay';
 import { expect } from '../expect';
 
 describe('Question', () => {
@@ -147,7 +149,7 @@ describe('Question', () => {
                 const location = question().instantiationLocation();
 
                 expect(location.path.basename()).to.equal('Question.spec.ts');
-                expect(location.line).to.equal(147);
+                expect(location.line).to.equal(149);
                 expect(location.column).to.equal(34);
             });
         });

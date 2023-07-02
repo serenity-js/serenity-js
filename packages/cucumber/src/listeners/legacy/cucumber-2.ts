@@ -1,4 +1,4 @@
-import { Dependencies } from './Dependencies';
+import type { Dependencies } from './Dependencies';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export = function ({ serenity, notifier, resultMapper, loader, cucumber, cache }: Dependencies) {

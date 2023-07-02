@@ -1,14 +1,16 @@
-import { LogicError, QuestionAdapter } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
-import { CorrelationId } from '@serenity-js/core/lib/model';
-import { Cookie, CookieData, Key, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { Cookie, CookieData, PageElement, Selector } from '@serenity-js/web';
+import { Key, Page, PageElements } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
-import { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { promised } from '../promised';
 import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
-import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
+import type { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
 

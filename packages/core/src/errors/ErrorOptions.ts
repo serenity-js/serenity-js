@@ -1,5 +1,5 @@
-import { FileSystemLocation } from '../io';
-import { ExpectationDetails } from '../screenplay';
+import type { FileSystemLocation } from '../io';
+import type { ExpectationDetails } from '../screenplay';
 
 /**
  * @group Errors

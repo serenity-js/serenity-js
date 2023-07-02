@@ -1,21 +1,25 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
+import type { ErrorFactory, ErrorOptions, RuntimeError } from '../errors';
+import { ConfigurationError, LogicError, RaiseErrors } from '../errors';
+import type {
+    DomainEvent,
+    EmitsDomainEvents} from '../events';
 import {
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     AsyncOperationFailed,
-    DomainEvent,
-    EmitsDomainEvents,
     SceneFinishes,
     SceneStarts,
     TestRunFinishes
 } from '../events';
-import { ActivityDetails, CorrelationId, Description, Name } from '../model';
-import { Actor, Clock, Duration, ScheduleWork, Timestamp } from '../screenplay';
-import { ListensToDomainEvents } from '../stage';
-import { Cast } from './Cast';
-import { StageManager } from './StageManager';
+import type { ActivityDetails} from '../model';
+import { CorrelationId, Description, Name } from '../model';
+import type { Clock, Duration, Timestamp } from '../screenplay';
+import { Actor, ScheduleWork } from '../screenplay';
+import type { ListensToDomainEvents } from '../stage';
+import type { Cast } from './Cast';
+import type { StageManager } from './StageManager';
 
 /**
  * Stage is the place where {@apilink Actor|actors} perform.

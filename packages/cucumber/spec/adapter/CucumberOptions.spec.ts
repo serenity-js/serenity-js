@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import { expect } from '@integration/testing-tools';
-import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
+import type { FileSystem, Path} from '@serenity-js/core/lib/io';
+import { Version } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types,unicorn/prefer-math-trunc */
-import { JSONObject, match, TinyType } from 'tiny-types';
+import type { JSONObject} from 'tiny-types';
+import { match, TinyType } from 'tiny-types';
 
-import { AssertionError, ErrorSerialiser } from '../errors';
+import type { AssertionError} from '../errors';
+import { ErrorSerialiser } from '../errors';
 
 export interface SerialisedOutcome extends JSONObject {
     code:    number;

@@ -1,5 +1,5 @@
-import { Stage, StageCrewMember } from '@serenity-js/core';
-import { DomainEvent } from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember } from '@serenity-js/core';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 
 export class DomainEventBuffer implements StageCrewMember {
 

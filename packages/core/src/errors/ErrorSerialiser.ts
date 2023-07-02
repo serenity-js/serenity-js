@@ -1,4 +1,5 @@
-import { ensure, isDefined, isFunction, JSONObject, JSONValue } from 'tiny-types';
+import type { JSONObject, JSONValue } from 'tiny-types';
+import { ensure, isDefined, isFunction } from 'tiny-types';
 
 /**
  * @group Errors

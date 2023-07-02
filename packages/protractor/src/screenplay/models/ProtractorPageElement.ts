@@ -1,11 +1,13 @@
 import { LogicError } from '@serenity-js/core';
-import { PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
+import type { SwitchableOrigin } from '@serenity-js/web';
+import { PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
-import { by, ElementFinder, protractor } from 'protractor';
-import { Locator, WebElement } from 'selenium-webdriver';
+import type { ElementFinder} from 'protractor';
+import { by, protractor } from 'protractor';
+import type { Locator, WebElement } from 'selenium-webdriver';
 
 import { promised } from '../promised';
-import { ProtractorLocator } from './locators';
+import type { ProtractorLocator } from './locators';
 
 /**
  * Protractor-specific implementation of {@apilink PageElement}.

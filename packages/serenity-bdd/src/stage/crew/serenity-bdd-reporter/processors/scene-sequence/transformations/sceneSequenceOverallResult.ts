@@ -1,7 +1,7 @@
-import { Outcome } from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/lib/model';
 
 import { outcomeReportFrom } from '../../mappers';
-import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
+import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function sceneSequenceOverallResult(outcome: Outcome) {
     return (context: SceneSequenceReportContext): SceneSequenceReportContext => {
