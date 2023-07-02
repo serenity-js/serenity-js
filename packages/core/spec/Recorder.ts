@@ -1,5 +1,5 @@
-import { DomainEvent } from '../src/events';
-import { Stage, StageCrewMember } from '../src/stage';
+import type { DomainEvent } from '../src/events';
+import type { Stage, StageCrewMember } from '../src/stage';
 
 export class Recorder implements StageCrewMember {
 

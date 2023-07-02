@@ -1,7 +1,8 @@
 import { LogicError } from '../../errors';
-import { DomainEvent, SceneSequenceDetected, SceneStarts } from '../../events';
+import type { DomainEvent} from '../../events';
+import { SceneSequenceDetected, SceneStarts } from '../../events';
 import { d } from '../../io/format';
-import { CorrelationId, ScenarioDetails } from '../../model';
+import type { CorrelationId, ScenarioDetails } from '../../model';
 import { DomainEventQueue } from './DomainEventQueue';
 
 /**

@@ -1,7 +1,7 @@
 import { Ability } from '../screenplay';
-import { Stage } from '../stage';
-import { ErrorOptions } from './ErrorOptions';
-import { RuntimeError } from './model';
+import type { Stage } from '../stage';
+import type { ErrorOptions } from './ErrorOptions';
+import type { RuntimeError } from './model';
 
 /**
  * An {@apilink Ability} that enables an {@apilink Actor} to create a Serenity/JS {@apilink RuntimeError}

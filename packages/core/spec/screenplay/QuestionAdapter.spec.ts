@@ -1,7 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Actor, actorCalled, Interaction, Question, QuestionAdapter } from '../../src';
+import type { Actor, QuestionAdapter } from '../../src';
+import { actorCalled, Interaction, Question } from '../../src';
 import { expect } from '../expect';
 
 function p<T>(value?: T): Promise<T> {

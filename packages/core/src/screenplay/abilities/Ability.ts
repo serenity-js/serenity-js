@@ -1,5 +1,5 @@
-import { AbilityType } from './AbilityType';
-import { UsesAbilities } from './UsesAbilities';
+import type { AbilityType } from './AbilityType';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * **Abilities** enable {@apilink Actor|actors}

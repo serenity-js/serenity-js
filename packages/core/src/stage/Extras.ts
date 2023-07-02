@@ -1,5 +1,5 @@
-import { Actor } from '../screenplay';
-import { Cast } from './Cast';
+import type { Actor } from '../screenplay';
+import type { Cast } from './Cast';
 
 /**
  * Produces no-op actors with no special {@apilink Ability}

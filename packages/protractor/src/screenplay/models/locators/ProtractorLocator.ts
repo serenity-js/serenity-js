@@ -1,11 +1,12 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
 import * as protractor from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
-import { ProtractorErrorHandler } from '../ProtractorErrorHandler';
+import type { ProtractorErrorHandler } from '../ProtractorErrorHandler';
 import { ProtractorPageElement } from '../ProtractorPageElement';
-import { ProtractorRootLocator } from './ProtractorRootLocator';
+import type { ProtractorRootLocator } from './ProtractorRootLocator';
 
 /**
  * Protractor-specific implementation of {@apilink Locator}.

@@ -1,4 +1,4 @@
-import { Expectation } from './Expectation';
+import type { Expectation } from './Expectation';
 
 export interface Result {
 

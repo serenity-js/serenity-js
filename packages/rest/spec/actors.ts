@@ -1,5 +1,7 @@
-import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { Actor, Cast} from '@serenity-js/core';
+import { actorCalled, configure } from '@serenity-js/core';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { CallAnApi } from '../src';

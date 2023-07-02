@@ -2,7 +2,8 @@ import { equal } from 'tiny-types/lib/objects/equal';
 
 import { AssertionError } from '../../src/errors';
 import { d } from '../../src/io';
-import { Answerable, Interaction } from '../../src/screenplay';
+import type { Answerable} from '../../src/screenplay';
+import { Interaction } from '../../src/screenplay';
 
 export const Ensure = {
     same: <T>(actual: Answerable<T>, expected: T): Interaction =>

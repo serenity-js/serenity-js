@@ -1,6 +1,6 @@
-import { Description } from '@serenity-js/core/lib/model';
+import type { Description } from '@serenity-js/core/lib/model';
 
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

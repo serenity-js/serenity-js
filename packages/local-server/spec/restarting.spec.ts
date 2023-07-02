@@ -1,6 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, actorCalled, actorInTheSpotlight, Cast, configure, Log } from '@serenity-js/core';
+import type { Actor, Cast} from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, configure, Log } from '@serenity-js/core';
 import { CallAnApi } from '@serenity-js/rest';
 import axios from 'axios';
 import { afterEach, describe } from 'mocha';

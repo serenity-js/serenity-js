@@ -1,7 +1,8 @@
-import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../events';
-import { CorrelationId, Description, Name } from '../model';
-import { Clock, Duration, TellsTime, Timestamp } from '../screenplay';
-import { ListensToDomainEvents } from '../stage';
+import type { DomainEvent } from '../events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '../events';
+import type { CorrelationId, Description, Name } from '../model';
+import type { Clock, Duration, TellsTime, Timestamp } from '../screenplay';
+import type { ListensToDomainEvents } from '../stage';
 
 /**
  * @group Stage

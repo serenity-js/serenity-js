@@ -1,5 +1,5 @@
-import { ASTNode } from './ASTNode';
-import { StepArgument } from './StepArgument';
+import type { ASTNode } from './ASTNode';
+import type { StepArgument } from './StepArgument';
 
 /**
  * @private

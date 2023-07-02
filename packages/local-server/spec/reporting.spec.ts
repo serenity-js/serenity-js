@@ -1,6 +1,7 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, not, startsWith } from '@serenity-js/assertions';
-import { Actor, actorCalled, Cast, configure } from '@serenity-js/core';
+import type { Actor, Cast} from '@serenity-js/core';
+import { actorCalled, configure } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts } from '@serenity-js/core/lib/events';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import axios from 'axios';

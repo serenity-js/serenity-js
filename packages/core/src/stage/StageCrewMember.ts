@@ -1,5 +1,5 @@
-import { ListensToDomainEvents } from './ListensToDomainEvents';
-import { Stage } from './Stage';
+import type { ListensToDomainEvents } from './ListensToDomainEvents';
+import type { Stage } from './Stage';
 
 /**
  * You can think of the {@apilink StageCrewMember} as an in-memory microservice that reacts to {@apilink DomainEvent|domain events},

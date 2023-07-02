@@ -1,5 +1,6 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import axios, { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios from 'axios';
 
 /**
  * An {@apilink Ability} that enables the {@apilink Actor} to call an HTTP API.

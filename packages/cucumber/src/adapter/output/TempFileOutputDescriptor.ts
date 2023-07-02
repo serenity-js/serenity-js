@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import type { FileSystem, Path } from '@serenity-js/core/lib/io';
 
-import { OutputDescriptor } from './OutputDescriptor';
+import type { OutputDescriptor } from './OutputDescriptor';
 
 /**
  * Cucumber.js allows [max 1 formatter per output](https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/index.ts#L83-L140)

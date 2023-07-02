@@ -1,6 +1,6 @@
 import type { PlaywrightTestConfig as BasePlaywrightTestConfig } from '@playwright/test';
 
-import { SerenityOptions } from './SerenityOptions';
+import type { SerenityOptions } from './SerenityOptions';
 
 /**
  * Convenience alias for [PlaywrightTestConfig](https://playwright.dev/docs/test-configuration) object

@@ -1,9 +1,11 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
-import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import type { ModuleLoader } from '@serenity-js/core/lib/io';
+import type { Outcome } from '@serenity-js/core/lib/model';
+import { ExecutionIgnored } from '@serenity-js/core/lib/model';
 
-import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';
-import { JasmineConfig } from './JasmineConfig';
+import type { SpecFilter } from './filters';
+import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter } from './filters';
+import type { JasmineConfig } from './JasmineConfig';
 import reporter = require('../index');
 
 /**

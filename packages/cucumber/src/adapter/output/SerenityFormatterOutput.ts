@@ -1,4 +1,4 @@
-import { OutputDescriptor } from './OutputDescriptor';
+import type { OutputDescriptor } from './OutputDescriptor';
 
 /**
  * @group Integration

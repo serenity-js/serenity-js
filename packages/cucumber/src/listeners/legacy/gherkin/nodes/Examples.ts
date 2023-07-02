@@ -1,6 +1,6 @@
-import { ASTNode } from './ASTNode';
-import { TableRow } from './TableRow';
-import { Tag } from './Tag';
+import type { ASTNode } from './ASTNode';
+import type { TableRow } from './TableRow';
+import type { Tag } from './Tag';
 
 /**
  * @private

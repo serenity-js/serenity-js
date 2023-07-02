@@ -1,5 +1,5 @@
-import { StepArgument } from './StepArgument';
-import { TableRow } from './TableRow';
+import type { StepArgument } from './StepArgument';
+import type { TableRow } from './TableRow';
 
 /**
  * @private

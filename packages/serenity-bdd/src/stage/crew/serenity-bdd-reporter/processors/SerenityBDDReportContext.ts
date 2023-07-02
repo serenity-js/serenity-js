@@ -1,7 +1,7 @@
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/lib/model';
 
-import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
-import { LinkedTestStep } from './LinkedTestStep';
+import type { SerenityBDDReport } from '../SerenityBDDJsonSchema';
+import type { LinkedTestStep } from './LinkedTestStep';
 
 /**
  * @package

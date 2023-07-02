@@ -1,6 +1,7 @@
 import { Ability } from '@serenity-js/core';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { ReadStream, Stats, WriteStream } from 'fs';
+import type { Path } from '@serenity-js/core/lib/io';
+import { FileSystem } from '@serenity-js/core/lib/io';
+import type { ReadStream, Stats, WriteStream } from 'fs';
 
 /**
  * @package

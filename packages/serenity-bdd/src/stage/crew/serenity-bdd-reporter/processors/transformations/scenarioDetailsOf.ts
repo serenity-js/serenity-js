@@ -1,9 +1,9 @@
-import { Path } from '@serenity-js/core/lib/io';
-import { ScenarioDetails } from '@serenity-js/core/lib/model';
+import type { Path } from '@serenity-js/core/lib/io';
+import type { ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ensure, isNotBlank } from 'tiny-types';
 
 import { dashify, escapeHtml } from '../mappers';
-import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
+import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
  * @package

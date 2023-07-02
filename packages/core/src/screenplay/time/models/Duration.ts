@@ -1,4 +1,5 @@
-import { ensure, isGreaterThanOrEqualTo, isInteger, JSONObject, TinyType } from 'tiny-types';
+import type { JSONObject} from 'tiny-types';
+import { ensure, isGreaterThanOrEqualTo, isInteger, TinyType } from 'tiny-types';
 
 /**
  * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.

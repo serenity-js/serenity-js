@@ -1,5 +1,6 @@
 import { EventRecorder, expect } from '@integration/testing-tools';
-import { actorCalled, Answerable, AnswersQuestions, AssertionError, configure, Expectation, LogicError, RuntimeError, TestCompromisedError } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, RuntimeError} from '@serenity-js/core';
+import { actorCalled, AssertionError, configure, Expectation, LogicError, TestCompromisedError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
@@ -15,7 +16,7 @@ describe('Ensure', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(14);
+            expect(location.line).to.equal(15);
             expect(location.column).to.equal(37);
         });
 
@@ -24,7 +25,7 @@ describe('Ensure', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Ensure.spec.ts');
-            expect(location.line).to.equal(23);
+            expect(location.line).to.equal(24);
             expect(location.column).to.equal(62);
         });
     });
@@ -57,7 +58,7 @@ describe('Ensure', () => {
             | Expected number: 7
             | Received number: 4
             |
-            | \\s{4}at.*Ensure.spec.ts:51:20`, 'gm')
+            | \\s{4}at.*Ensure.spec.ts:52:20`, 'gm')
         );
     });
 
@@ -140,7 +141,7 @@ describe('Ensure', () => {
                     | Expected number: 200
                     | Received number: 503
                     |
-                    | \\s{4}at.*Ensure.spec.ts:129:28`, 'gm'));
+                    | \\s{4}at.*Ensure.spec.ts:130:28`, 'gm'));
             }),
         );
 

@@ -1,12 +1,13 @@
-import { Answerable, d, MetaQuestion, Optional, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, MetaQuestion, Optional, QuestionAdapter } from '@serenity-js/core';
+import { d, Question } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
-import { Locator } from './Locator';
-import { SelectOption } from './SelectOption';
-import { Selector } from './selectors';
-import { Switchable } from './Switchable';
-import { SwitchableOrigin } from './SwitchableOrigin';
+import type { Locator } from './Locator';
+import type { SelectOption } from './SelectOption';
+import type { Selector } from './selectors';
+import type { Switchable } from './Switchable';
+import type { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
  * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify

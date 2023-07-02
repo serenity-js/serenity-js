@@ -1,5 +1,5 @@
-import { ASTNode } from './ASTNode';
-import { TableCell } from './TableCell';
+import type { ASTNode } from './ASTNode';
+import type { TableCell } from './TableCell';
 
 /**
  * @private

@@ -1,6 +1,6 @@
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
-import { Suite, Test } from 'mocha';
+import type { Suite, Test } from 'mocha';
 
 /**
  * @package

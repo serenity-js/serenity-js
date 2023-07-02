@@ -1,7 +1,7 @@
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { Config as ProtractorConfig } from 'protractor';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
+import type { Config as ProtractorConfig } from 'protractor';
 
-import { TestRunnerLoader } from './TestRunnerLoader';
+import type { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
  * Detects the {@apilink TestRunnerAdapter} to use,

@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { FileSystem } from '@serenity-js/core/lib/io';
+import type { FileSystem } from '@serenity-js/core/lib/io';
 
-import { OutputDescriptor } from './OutputDescriptor';
-import { SerenityFormatterOutput } from './SerenityFormatterOutput';
+import type { OutputDescriptor } from './OutputDescriptor';
+import type { SerenityFormatterOutput } from './SerenityFormatterOutput';
 import { TempFileOutputDescriptor } from './TempFileOutputDescriptor';
 
 /**

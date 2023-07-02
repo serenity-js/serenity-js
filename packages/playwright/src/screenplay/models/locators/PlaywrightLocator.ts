@@ -1,10 +1,11 @@
 import { f, LogicError } from '@serenity-js/core';
-import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import { promised } from '../../promised';
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
-import { PlaywrightRootLocator } from './PlaywrightRootLocator';
+import type { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
 /**
  * Playwright-specific implementation of {@apilink Locator}.

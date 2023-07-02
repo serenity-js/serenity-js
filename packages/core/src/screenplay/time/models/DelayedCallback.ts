@@ -1,4 +1,4 @@
-import { Timestamp } from './Timestamp';
+import type { Timestamp } from './Timestamp';
 
 /**
  * @group Time

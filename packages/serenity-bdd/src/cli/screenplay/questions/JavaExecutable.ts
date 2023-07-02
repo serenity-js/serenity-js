@@ -1,4 +1,5 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as path from 'path';   // eslint-disable-line unicorn/import-style
 import { promisify } from 'util';

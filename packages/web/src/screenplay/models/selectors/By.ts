@@ -1,4 +1,5 @@
-import { Answerable, f, Question } from '@serenity-js/core';
+import type { Answerable} from '@serenity-js/core';
+import { f, Question } from '@serenity-js/core';
 
 import { ByCss } from './ByCss';
 import { ByCssContainingText } from './ByCssContainingText';

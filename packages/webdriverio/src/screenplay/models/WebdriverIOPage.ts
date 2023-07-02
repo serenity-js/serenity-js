@@ -1,13 +1,14 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
+import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
+import type { Cookie, CookieData, ModalDialogHandler, PageElement, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Key, Page, PageElements } from '@serenity-js/web';
 import { URL } from 'url';
 import type { Browser, Element } from 'webdriverio';
 
 import { WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
-import { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
+import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
 import { WebdriverIOCookie } from './WebdriverIOCookie.js';
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**

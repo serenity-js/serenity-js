@@ -1,6 +1,7 @@
-import { Serenity } from '@serenity-js/core';
+import type { Serenity } from '@serenity-js/core';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
-    DomainEvent,
     RetryableSceneDetected,
     SceneFinished,
     SceneFinishes,
@@ -24,7 +25,8 @@ import {
     Name,
     TestSuiteDetails
 } from '@serenity-js/core/lib/model';
-import { MochaOptions, reporters, Runnable, Runner, Suite, Test } from 'mocha';
+import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
+import { reporters, Runner } from 'mocha';
 
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
 import { OutcomeRecorder } from './OutcomeRecorder';

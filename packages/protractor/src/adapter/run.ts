@@ -1,9 +1,9 @@
 import { serenity } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
-import { Runner } from 'protractor';
+import type { Runner } from 'protractor';
 
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';
-import { ProtractorReport } from './reporter';
+import type { ProtractorReport } from './reporter';
 import { TestRunnerDetector, TestRunnerLoader } from './runner';
 
 /**

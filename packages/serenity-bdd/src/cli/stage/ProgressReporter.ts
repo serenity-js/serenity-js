@@ -1,9 +1,10 @@
-import { Stage, StageCrewMember } from '@serenity-js/core';
-import { ArtifactGenerated, DomainEvent } from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember } from '@serenity-js/core';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
+import { ArtifactGenerated } from '@serenity-js/core/lib/events';
 import ProgressBar from 'progress';
 
 import { DownloadProgressReport } from '../model';
-import { Printer } from '../Printer';
+import type { Printer } from '../Printer';
 
 /**
  * @desc

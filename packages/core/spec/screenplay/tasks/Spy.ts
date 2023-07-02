@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, Interaction } from '../../../src/screenplay';
+import type { Answerable, AnswersQuestions} from '../../../src/screenplay';
+import { Interaction } from '../../../src/screenplay';
 
 export class Spy extends Interaction {
     private static callArgs: any[][] = [];

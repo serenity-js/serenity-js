@@ -1,4 +1,4 @@
-import { JSONValue } from 'tiny-types';
+import type { JSONValue } from 'tiny-types';
 
 import { Artifact } from '../Artifact';
 

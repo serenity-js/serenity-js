@@ -1,13 +1,15 @@
-import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import type { Serenity} from '@serenity-js/core';
+import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
+import type {
+    Outcome,
+    ProblemIndication} from '@serenity-js/core/lib/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-    ProblemIndication,
+    ImplementationPending
 } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../../errors';

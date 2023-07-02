@@ -1,6 +1,7 @@
-import { Chalk, Instance as ChalkInstance, Options } from 'chalk';   // eslint-disable-line unicorn/import-style
+import type { Chalk, Options } from 'chalk';    // eslint-disable-line unicorn/import-style
+import { Instance as ChalkInstance } from 'chalk';   // eslint-disable-line unicorn/import-style
 
-import { DiffFormatter } from './DiffFormatter';
+import type { DiffFormatter } from './DiffFormatter';
 
 /**
  * A {@apilink DiffFormatter} that uses [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)

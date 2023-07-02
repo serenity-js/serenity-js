@@ -1,6 +1,6 @@
-import { Expectation } from './Expectation';
-import { Location } from './Location';
-import { Result } from './Result';
+import type { Expectation } from './Expectation';
+import type { Location } from './Location';
+import type { Result } from './Result';
 
 /**
  * @package

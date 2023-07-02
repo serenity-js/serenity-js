@@ -1,6 +1,7 @@
-import { Activity, Actor, Answerable, AnswersQuestions, Interaction, Task, UsesAbilities } from '@serenity-js/core';
+import type { Activity, Actor, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { Interaction, Task } from '@serenity-js/core';
 
-import { Switchable } from '../models';
+import type { Switchable } from '../models';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}

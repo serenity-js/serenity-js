@@ -1,9 +1,10 @@
 import { LogicError } from '@serenity-js/core';
-import { Key, PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
+import type { SwitchableOrigin } from '@serenity-js/web';
+import { Key, PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import type { Browser, Element } from 'webdriverio';
 
-import { WebdriverIOLocator } from './locators/index.js';
+import type { WebdriverIOLocator } from './locators/index.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**

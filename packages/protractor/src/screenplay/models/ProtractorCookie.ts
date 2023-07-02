@@ -1,6 +1,7 @@
 import { Timestamp } from '@serenity-js/core';
-import { Cookie, CookieData, CookieMissingError } from '@serenity-js/web';
-import { ProtractorBrowser } from 'protractor';
+import type { CookieData} from '@serenity-js/web';
+import { Cookie, CookieMissingError } from '@serenity-js/web';
+import type { ProtractorBrowser } from 'protractor';
 import { ensure, isDefined } from 'tiny-types';
 
 import { promised } from '../promised';

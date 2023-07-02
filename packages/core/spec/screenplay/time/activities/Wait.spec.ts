@@ -2,7 +2,8 @@
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
-import { Ability, Answerable, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../../src';
+import type { Answerable} from '../../../../src';
+import { Ability, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../../src';
 import { trimmed } from '../../../../src/io';
 import { expect } from '../../../expect';
 import { Ensure } from '../../Ensure';
@@ -135,7 +136,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
                     | Timeout of 5s has expired while waiting for the first of \\[ \\] to have value greater than 1
-                    | \\s{4}at.*Wait.spec.ts:130:30
+                    | \\s{4}at.*Wait.spec.ts:131:30
                 `));
             })
         });
@@ -197,7 +198,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.match(new RegExp(trimmed`
                     | Timeout of 1s has expired while waiting for the first of lazy-loaded numbers to equal 1
-                    | \\s{4}at.*Wait.spec.ts:190:26
+                    | \\s{4}at.*Wait.spec.ts:191:26
                 `));
             });
         });

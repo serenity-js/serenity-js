@@ -1,5 +1,5 @@
-import { OutputStream } from '../adapter';
-import { Stage } from './Stage';
+import type { OutputStream } from '../adapter';
+import type { Stage } from './Stage';
 
 /**
  * Dependencies injected by {@apilink Serenity.configure} into {@apilink StageCrewMemberBuilder.build}

@@ -1,4 +1,4 @@
-import { ScenarioDefinition } from './ScenarioDefinition';
+import type { ScenarioDefinition } from './ScenarioDefinition';
 
 /**
  * @private

@@ -1,4 +1,5 @@
-import { Answerable, d, Interaction, Optional, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Interaction, Optional, Question, QuestionAdapter } from '@serenity-js/core';
+import { d } from '@serenity-js/core';
 
 import { Page } from '../Page';
 

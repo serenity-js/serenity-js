@@ -2,7 +2,8 @@
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Actor, actorCalled, Check, Interaction } from '../../../src';
+import type { Actor} from '../../../src';
+import { actorCalled, Check, Interaction } from '../../../src';
 import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 
@@ -55,7 +56,7 @@ describe('Check', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Check.spec.ts');
-            expect(location.line).to.equal(54);
+            expect(location.line).to.equal(55);
             expect(location.column).to.equal(83);
         });
     });
@@ -97,7 +98,7 @@ describe('Check', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Check.spec.ts');
-            expect(location.line).to.equal(96);
+            expect(location.line).to.equal(97);
             expect(location.column).to.equal(93);
         });
     });

@@ -1,9 +1,9 @@
 import { inspectedObject } from '@serenity-js/core/lib/io';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
-import { PageElement } from './PageElement';
+import type { PageElement } from './PageElement';
 import { RootLocator } from './RootLocator';
-import { Selector } from './selectors';
+import type { Selector } from './selectors';
 
 /**
  * {@apilink Locator} uses a {@apilink Selector} to locate a {@apilink PageElement} or {@apilink PageElements}

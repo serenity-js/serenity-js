@@ -1,5 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Answerable, q, Task } from '@serenity-js/core';
+import type { Answerable} from '@serenity-js/core';
+import { q, Task } from '@serenity-js/core';
 import { LocalServer } from '@serenity-js/local-server';
 import { DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest';
 import { Navigate } from '@serenity-js/web';

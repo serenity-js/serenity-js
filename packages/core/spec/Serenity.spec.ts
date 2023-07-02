@@ -2,13 +2,16 @@
 import { describe, it } from 'mocha';
 
 import { ConfigurationError } from '../src';
-import { OutputStream } from '../src/adapter';
-import { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } from '../src/events';
+import type { OutputStream } from '../src/adapter';
+import type { DomainEvent} from '../src/events';
+import { ActivityFinished, ActivityStarts, TestRunnerDetected } from '../src/events';
 import { CorrelationId, Name } from '../src/model';
-import { Actor, Clock, Interaction } from '../src/screenplay';
+import type { Actor} from '../src/screenplay';
+import { Clock, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';
-import { Cast, ListensToDomainEvents, Stage, StageCrewMember, StageCrewMemberBuilder } from '../src/stage';
-import { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMemberBuilderDependencies';
+import type { Cast, ListensToDomainEvents, StageCrewMember, StageCrewMemberBuilder } from '../src/stage';
+import { Stage } from '../src/stage';
+import type { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMemberBuilderDependencies';
 import { expect } from './expect';
 import sinon = require('sinon');
 

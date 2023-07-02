@@ -1,7 +1,8 @@
 import type { IConfiguration } from '@cucumber/cucumber/api';
-import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
+import type { FileSystem} from '@serenity-js/core/lib/io';
+import { Path, Version } from '@serenity-js/core/lib/io';
 
-import { CucumberConfig } from './CucumberConfig';
+import type { CucumberConfig } from './CucumberConfig';
 
 /**
  * @private

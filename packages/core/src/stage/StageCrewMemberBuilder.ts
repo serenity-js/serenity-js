@@ -1,5 +1,5 @@
-import { ListensToDomainEvents } from './ListensToDomainEvents';
-import { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies';
+import type { ListensToDomainEvents } from './ListensToDomainEvents';
+import type { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies';
 
 /**
  * Use a {@apilink StageCrewMemberBuilder} to configure complex {@apilink StageCrewMember} objects.

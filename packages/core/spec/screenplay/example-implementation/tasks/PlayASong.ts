@@ -1,6 +1,7 @@
-import { PerformsActivities, Task } from '../../../../../core/src/screenplay';
+import type { PerformsActivities} from '../../../../../core/src/screenplay';
+import { Task } from '../../../../../core/src/screenplay';
 import { PlayAChord } from '../interactions';
-import { MusicSheet } from '../MusicSheet';
+import type { MusicSheet } from '../MusicSheet';
 
 export class PlayASong extends Task {
     static from(musicSheet: MusicSheet): PlayASong {

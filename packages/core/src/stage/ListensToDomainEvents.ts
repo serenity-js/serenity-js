@@ -1,4 +1,4 @@
-import { DomainEvent } from '../events';
+import type { DomainEvent } from '../events';
 
 /**
  * A {@apilink StageCrewMember} that can listen and react to {@apilink DomainEvent|DomainEvents}

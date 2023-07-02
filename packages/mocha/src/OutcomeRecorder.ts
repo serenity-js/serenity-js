@@ -1,5 +1,5 @@
-import { Outcome } from '@serenity-js/core/lib/model';
-import { Test } from 'mocha';
+import type { Outcome } from '@serenity-js/core/lib/model';
+import type { Test } from 'mocha';
 
 /**
  * @package

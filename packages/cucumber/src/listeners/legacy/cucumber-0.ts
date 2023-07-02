@@ -2,8 +2,9 @@ import { Path } from '@serenity-js/core/lib/io';
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../errors';
-import { Dependencies } from './Dependencies';
-import { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } from './gherkin';
+import type { Dependencies } from './Dependencies';
+import type { FeatureFileMap, Step } from './gherkin';
+import { Feature, Scenario, ScenarioOutline } from './gherkin';
 
 export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependencies) {
     return function (): void {

@@ -1,8 +1,8 @@
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { Description, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
 
 import { FeatureFileNode } from './FeatureFileNode';
-import { Step } from './Step';
+import type { Step } from './Step';
 
 /**
  * @private

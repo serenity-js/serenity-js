@@ -3,7 +3,7 @@ import { actorCalled, Check, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import { URL } from 'url';
 
-import { Argv } from '../Argv';
+import type { Argv } from '../Argv';
 import { defaults } from '../defaults';
 import { axiosClient, formatError } from '../io';
 import { Credentials, GAV } from '../model';

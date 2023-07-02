@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, CollectsArtifacts, d, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
+import { d, Interaction, LogicError } from '@serenity-js/core';
 import { URL } from 'url';
 
 import { CallAnApi } from '../abilities';

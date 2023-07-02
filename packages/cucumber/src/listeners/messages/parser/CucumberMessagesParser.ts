@@ -1,4 +1,4 @@
-import {
+import type {
     GherkinDocument,
     Location,
     Pickle,
@@ -6,19 +6,23 @@ import {
     TestCaseStarted,
     TestStepFinished,
     TestStepResult,
-    TestStepResultStatus,
     TestStepStarted
 } from '@cucumber/messages';
+import {
+    TestStepResultStatus
+} from '@cucumber/messages';
+import type {
+    Serenity} from '@serenity-js/core';
 import {
     AssertionError,
     ErrorSerialiser,
     ImplementationPendingError,
-    Serenity,
     TestCompromisedError
 } from '@serenity-js/core';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
     BusinessRuleDetected,
-    DomainEvent,
     FeatureNarrativeDetected,
     RetryableSceneDetected,
     SceneDescriptionDetected,
@@ -33,13 +37,15 @@ import {
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import type {
+    CorrelationId,
+    Outcome} from '@serenity-js/core/lib/model';
 import {
     ActivityDetails,
     ArbitraryTag,
     BusinessRule,
     CapabilityTag,
     Category,
-    CorrelationId,
     Description,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -50,7 +56,6 @@ import {
     FeatureTag,
     ImplementationPending,
     Name,
-    Outcome,
     ScenarioDetails,
     ScenarioParameters,
     Tag,
@@ -58,9 +63,9 @@ import {
     ThemeTag,
 } from '@serenity-js/core/lib/model';
 
-import { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';
+import type { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';
 import { TestStepFormatter } from './TestStepFormatter';
-import { ExtractedScenario, ExtractedScenarioOutline } from './types';
+import type { ExtractedScenario, ExtractedScenarioOutline } from './types';
 
 /**
  * @package

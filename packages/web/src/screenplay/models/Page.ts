@@ -1,20 +1,21 @@
-import { Expectation, ExpectationMet, ExpectationOutcome, LogicError, Optional, Question, QuestionAdapter } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { Expectation, ExpectationOutcome, Optional, QuestionAdapter } from '@serenity-js/core';
+import { ExpectationMet, LogicError, Question } from '@serenity-js/core';
+import type { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
-import { URL } from 'url';
+import type { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
-import { BrowsingSession } from './BrowsingSession';
-import { Cookie } from './Cookie';
-import { CookieData } from './CookieData';
-import { ModalDialogHandler } from './dialogs';
-import { Key } from './Key';
-import { PageElement } from './PageElement';
-import { PageElements } from './PageElements';
-import { RootLocator } from './RootLocator';
-import { Selector } from './selectors';
-import { Switchable } from './Switchable';
-import { SwitchableOrigin } from './SwitchableOrigin';
+import type { BrowsingSession } from './BrowsingSession';
+import type { Cookie } from './Cookie';
+import type { CookieData } from './CookieData';
+import type { ModalDialogHandler } from './dialogs';
+import type { Key } from './Key';
+import type { PageElement } from './PageElement';
+import type { PageElements } from './PageElements';
+import type { RootLocator } from './RootLocator';
+import type { Selector } from './selectors';
+import type { Switchable } from './Switchable';
+import type { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
  * Serenity/JS Screenplay Pattern-style model that enables interactions with a Web page

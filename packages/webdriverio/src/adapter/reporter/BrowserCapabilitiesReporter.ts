@@ -1,6 +1,6 @@
-import { Serenity } from '@serenity-js/core';
+import type { Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
-import { Tag } from '@serenity-js/core/lib/model/index.js';
+import type { Tag } from '@serenity-js/core/lib/model/index.js';
 import Reporter from '@wdio/reporter';
 import type { Capabilities, Options, Reporters } from '@wdio/types';
 

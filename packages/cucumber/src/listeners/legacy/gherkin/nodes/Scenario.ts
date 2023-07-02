@@ -1,5 +1,5 @@
-import { ScenarioDefinition } from './ScenarioDefinition';
-import { Tag } from './Tag';
+import type { ScenarioDefinition } from './ScenarioDefinition';
+import type { Tag } from './Tag';
 
 /**
  * @private
