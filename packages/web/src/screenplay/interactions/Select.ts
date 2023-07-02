@@ -1,9 +1,11 @@
-import { Answerable, d } from '@serenity-js/core';
+import type { Answerable} from '@serenity-js/core';
+import { d } from '@serenity-js/core';
 import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
 import { stringified } from '@serenity-js/core/lib/io/stringified';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { PageElement, SelectOption } from '../models';
+import type { PageElement} from '../models';
+import { SelectOption } from '../models';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}

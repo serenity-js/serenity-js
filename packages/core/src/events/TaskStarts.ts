@@ -1,4 +1,4 @@
-import { JSONObject } from 'tiny-types';
+import type { JSONObject } from 'tiny-types';
 
 import { ActivityDetails, CorrelationId } from '../model';
 import { Timestamp } from '../screenplay';

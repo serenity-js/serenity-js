@@ -2,9 +2,9 @@ import path from 'path';
 
 import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
-import { UsesAbilities } from './abilities';
-import { PerformsActivities } from './activities';
-import { AnswersQuestions } from './questions';
+import type { UsesAbilities } from './abilities';
+import type { PerformsActivities } from './activities';
+import type { AnswersQuestions } from './questions';
 
 /**
  * **Activities** represents {@apilink Task|tasks} and {@apilink Interaction|interactions} to be performed by an {@apilink Actor|actor}.

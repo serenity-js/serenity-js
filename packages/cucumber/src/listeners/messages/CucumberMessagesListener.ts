@@ -1,11 +1,13 @@
-import { Envelope, IdGenerator } from '@cucumber/messages';
-import { Serenity } from '@serenity-js/core';
-import { DomainEvent, SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import { ModuleLoader } from '@serenity-js/core/lib/io';
+import type { Envelope} from '@cucumber/messages';
+import { IdGenerator } from '@cucumber/messages';
+import type { Serenity } from '@serenity-js/core';
+import type { DomainEvent} from '@serenity-js/core/lib/events';
+import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import type { ModuleLoader } from '@serenity-js/core/lib/io';
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
-import { IParsedTestStep } from './types/cucumber';
+import type { IParsedTestStep } from './types/cucumber';
 
 export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
 

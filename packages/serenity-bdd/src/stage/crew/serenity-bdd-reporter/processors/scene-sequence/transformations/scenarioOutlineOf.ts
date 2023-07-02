@@ -1,6 +1,6 @@
-import { Description } from '@serenity-js/core/lib/model';
+import type { Description } from '@serenity-js/core/lib/model';
 
-import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
+import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioOutlineOf(outline: Description) {
     return (context: SceneSequenceReportContext): SceneSequenceReportContext => {

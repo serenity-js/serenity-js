@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, d, Interaction, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { d, Interaction, TestCompromisedError } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 

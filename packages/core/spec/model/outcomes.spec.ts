@@ -3,6 +3,8 @@ import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { ImplementationPendingError, TestCompromisedError } from '../../src/errors';
+import type {
+    ProblemIndication} from '../../src/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -11,8 +13,7 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-    Outcome,
-    ProblemIndication,
+    Outcome
 } from '../../src/model';
 import { expect } from '../expect';
 

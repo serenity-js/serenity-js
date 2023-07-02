@@ -1,19 +1,23 @@
-import { AnsiDiffFormatter, ArtifactArchiver, Cast, Serenity, TakeNotes } from '@serenity-js/core';
-import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import type { Serenity} from '@serenity-js/core';
+import { AnsiDiffFormatter, ArtifactArchiver, Cast, TakeNotes } from '@serenity-js/core';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import type { ModuleLoader} from '@serenity-js/core/lib/io/index.js';
+import { Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
 import * as deepmerge from 'deepmerge';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
 import type { Browser } from 'webdriverio';
 
-import { WebdriverIOConfig } from '../config/index.js';
+import type { WebdriverIOConfig } from '../config/index.js';
 import { BrowseTheWebWithWebdriverIO } from '../screenplay/index.js';
+import type {
+    InitialisesReporters,
+    ProvidesWriteStream
+} from './reporter/index.js';
 import {
     BrowserCapabilitiesReporter,
-    InitialisesReporters,
-    OutputStreamBuffer,
-    ProvidesWriteStream
+    OutputStreamBuffer
 } from './reporter/index.js';
 import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter.js';
 import { TestRunnerLoader } from './TestRunnerLoader.js';

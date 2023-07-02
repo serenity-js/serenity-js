@@ -1,4 +1,4 @@
-import { Ability } from './Ability';
+import type { Ability } from './Ability';
 
 /**
  * An interface describing the static access method that every {@apilink Ability} class

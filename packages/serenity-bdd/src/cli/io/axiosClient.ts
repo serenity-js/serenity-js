@@ -1,10 +1,11 @@
 import { ConfigurationError } from '@serenity-js/core';
-import axios, { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } from 'axios';
+import type { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import * as fs from 'fs';
 import * as https from 'https';
 import { URL } from 'url';
 
-import { Credentials } from '../model';
+import type { Credentials } from '../model';
 
 const HttpsProxyAgent = require('https-proxy-agent');   // eslint-disable-line @typescript-eslint/no-var-requires
 

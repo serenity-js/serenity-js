@@ -4,8 +4,8 @@ import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
 import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model/index.js';
-import { Capabilities, Reporters} from '@wdio/types';
-import { Options } from '@wdio/types';
+import type { Capabilities, Reporters} from '@wdio/types';
+import type { Options } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
 
 import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter/index.js';

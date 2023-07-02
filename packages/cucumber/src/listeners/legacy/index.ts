@@ -1,7 +1,9 @@
-import { ConfigurationError, Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import type { Serenity } from '@serenity-js/core';
+import { ConfigurationError } from '@serenity-js/core';
+import type { ModuleLoader, Path } from '@serenity-js/core/lib/io';
 
-import { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from './gherkin';
+import type { FeatureFileMap} from './gherkin';
+import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser } from './gherkin';
 import { Notifier, ResultMapper } from './notifier';
 import Gherkin = require('gherkin');
 

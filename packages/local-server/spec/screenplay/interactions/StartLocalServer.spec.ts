@@ -1,13 +1,14 @@
 import { expect } from '@integration/testing-tools';
 import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '@serenity-js/assertions';
-import { Actor, actorCalled, actorInTheSpotlight, Cast, configure } from '@serenity-js/core';
+import type { Actor, Cast} from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
 import { afterEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
-import { Server } from 'net';
+import type { Server } from 'net';
 import { satisfies } from 'semver';
 
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../../../src';
-import { RequestListener } from '../../../src/screenplay/abilities';
+import type { RequestListener } from '../../../src/screenplay/abilities';
 import servers = require('../../servers');
 
 describe('StartALocalServer', () => {
@@ -80,7 +81,7 @@ describe('StartALocalServer', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('StartLocalServer.spec.ts');
-            expect(location.line).to.equal(79);
+            expect(location.line).to.equal(80);
             expect(location.column).to.equal(47);
         });
 
@@ -89,7 +90,7 @@ describe('StartALocalServer', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('StartLocalServer.spec.ts');
-            expect(location.line).to.equal(88);
+            expect(location.line).to.equal(89);
             expect(location.column).to.equal(47);
         });
 
@@ -98,7 +99,7 @@ describe('StartALocalServer', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('StartLocalServer.spec.ts');
-            expect(location.line).to.equal(97);
+            expect(location.line).to.equal(98);
             expect(location.column).to.equal(47);
         });
 
@@ -107,7 +108,7 @@ describe('StartALocalServer', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('StartLocalServer.spec.ts');
-            expect(location.line).to.equal(106);
+            expect(location.line).to.equal(107);
             expect(location.column).to.equal(46);
         });
     });

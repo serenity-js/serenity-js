@@ -1,4 +1,4 @@
-import { Artifact, Name } from '../../model';
+import type { Artifact, Name } from '../../model';
 
 /**
  * Describes an {@apilink Actor} who can collect {@apilink Artifact|Artifacts}, such as {@apilink Photo|Photos} or {@apilink JSONData},

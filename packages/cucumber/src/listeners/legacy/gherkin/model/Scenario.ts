@@ -1,9 +1,9 @@
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import { Description, Name, Tag } from '@serenity-js/core/lib/model';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { Description, Name, Tag } from '@serenity-js/core/lib/model';
 
 import { FeatureFileNode } from './FeatureFileNode';
-import { Hook } from './Hook';
-import { Step } from './Step';
+import type { Hook } from './Hook';
+import type { Step } from './Step';
 
 /**
  * @private

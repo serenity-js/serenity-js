@@ -1,14 +1,15 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
-import { BrowserWindowClosedError, Cookie, CookieData, Key, ModalDialogHandler, Page, PageElement, PageElements, Selector } from '@serenity-js/web';
-import { ElementFinder, ProtractorBrowser } from 'protractor';
+import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { Cookie, CookieData, ModalDialogHandler, PageElement, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, Key, Page, PageElements } from '@serenity-js/web';
+import type { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
 import { ProtractorLocator, ProtractorRootLocator } from './locators';
-import { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
+import type { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
 import { ProtractorCookie } from './ProtractorCookie';
-import { ProtractorErrorHandler } from './ProtractorErrorHandler';
+import type { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 /**

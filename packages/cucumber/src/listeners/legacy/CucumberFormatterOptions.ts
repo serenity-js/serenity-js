@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import type { EventEmitter } from 'events';
 
 /**
  * @private

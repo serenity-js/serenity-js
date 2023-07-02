@@ -1,4 +1,4 @@
-import { SpecResult } from 'protractor/built/plugins';
+import type { SpecResult } from 'protractor/built/plugins';
 
 /**
  * A JSON object which needs to be returned to Protractor when {@apilink ProtractorFrameworkAdapter}

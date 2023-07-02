@@ -1,4 +1,4 @@
-import { ScenarioParameters } from '@serenity-js/core/lib/model';
+import type { ScenarioParameters } from '@serenity-js/core/lib/model';
 
 /**
  * @package

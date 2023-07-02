@@ -1,4 +1,4 @@
-import { Question } from './Question';
+import type { Question } from './Question';
 
 /**
  * Describes the type of answer a given {@apilink Answerable} would

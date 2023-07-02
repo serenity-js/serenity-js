@@ -1,13 +1,13 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import { Capabilities } from '@wdio/types';
-import { Frameworks } from '@wdio/types';
+import type { Capabilities } from '@wdio/types';
+import type { Frameworks } from '@wdio/types';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { WebdriverIONotifier } from '../../src/adapter/WebdriverIONotifier.js';
-import { WebdriverIOConfig } from '../../src/index.js';
+import type { WebdriverIOConfig } from '../../src/index.js';
 import {
     cid,
     executionCompromised,

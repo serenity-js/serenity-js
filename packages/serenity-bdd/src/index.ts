@@ -1,4 +1,4 @@
-import { StageCrewMember } from '@serenity-js/core';
+import type { StageCrewMember } from '@serenity-js/core';
 
 import { SerenityBDDReporter } from './stage';
 

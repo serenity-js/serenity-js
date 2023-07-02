@@ -1,6 +1,7 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, UsesAbilities } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 
-import { Argv } from '../../Argv';
+import type { Argv } from '../../Argv';
 
 /**
  * @package

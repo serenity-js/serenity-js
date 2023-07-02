@@ -1,6 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Actor, List, LogicError } from '@serenity-js/core';
-import MockAdapter from 'axios-mock-adapter';
+import type { Actor} from '@serenity-js/core';
+import { List, LogicError } from '@serenity-js/core';
+import type MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { GetRequest, LastResponse, Send } from '../../../src';

@@ -1,7 +1,8 @@
 import { expect } from '@integration/testing-tools';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
-import { Capabilities, ProtractorBrowser } from 'protractor';
+import type { ProtractorBrowser } from 'protractor';
+import { Capabilities } from 'protractor';
 
 import { StandardisedCapabilities } from '../../../src/adapter/browser-detector';
 

@@ -5,21 +5,23 @@ import * as sinon from 'sinon';
 import { ConfigurationError, TestCompromisedError } from '../../src/errors';
 import { InteractionFinished, InteractionStarts } from '../../src/events';
 import { CorrelationId, ExecutionSuccessful, Name } from '../../src/model';
+import type {
+    AnswersQuestions,
+    Initialisable,
+    Question} from '../../src/screenplay';
 import {
     Ability,
     Actor,
-    AnswersQuestions,
-    Initialisable,
     Interaction,
-    Question,
     Timestamp
 } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
+import type {
+    Guitar} from './example-implementation';
 import {
     AcousticGuitar,
     Chords,
-    Guitar,
     MusicSheets,
     NumberOfGuitarStringsLeft,
     PlayAChord,

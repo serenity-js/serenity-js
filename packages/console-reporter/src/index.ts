@@ -1,6 +1,7 @@
-import { StageCrewMemberBuilder } from '@serenity-js/core';
+import type { StageCrewMemberBuilder } from '@serenity-js/core';
 
-import { ConsoleReporter, ConsoleReporterConfig } from './stage';
+import type { ConsoleReporterConfig } from './stage';
+import { ConsoleReporter } from './stage';
 
 export * from './stage';
 

@@ -1,5 +1,6 @@
-import { LogicError, Question, QuestionAdapter } from '@serenity-js/core';
-import { AddressInfo } from 'net';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { LogicError, Question } from '@serenity-js/core';
+import type { AddressInfo } from 'net';
 import { URL } from 'url';
 
 import { ManageALocalServer } from '../abilities';

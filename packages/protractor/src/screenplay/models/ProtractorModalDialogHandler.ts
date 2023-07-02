@@ -1,9 +1,10 @@
-import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialog, ModalDialogHandler } from '@serenity-js/web';
-import * as protractor from 'protractor';
+import type { ModalDialog} from '@serenity-js/web';
+import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialogHandler } from '@serenity-js/web';
+import type * as protractor from 'protractor';
 import { error as errors } from 'protractor';
 
 import { promised } from '../promised';
-import { ProtractorErrorHandler } from './ProtractorErrorHandler';
+import type { ProtractorErrorHandler } from './ProtractorErrorHandler';
 
 /**
  * Protractor-specific implementation of {@apilink ModalDialogHandler}.

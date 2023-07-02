@@ -1,5 +1,5 @@
-import { Answerable } from '../Answerable';
-import { Interaction } from '../Interaction';
+import type { Answerable } from '../Answerable';
+import type { Interaction } from '../Interaction';
 
 /**
  * @group Notes

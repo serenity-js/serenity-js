@@ -1,8 +1,8 @@
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
-import { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
+import type { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
-import { ScenarioParametersDescriptor } from './ScenarioParametersDescriptor';
+import type { ScenarioParametersDescriptor } from './ScenarioParametersDescriptor';
 
 /**
  * @package

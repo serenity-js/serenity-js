@@ -1,10 +1,10 @@
-import { Serenity } from '@serenity-js/core';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import type { Serenity } from '@serenity-js/core';
+import type { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 
-import { WebdriverIOConfig } from '../config/index.js';
-import { InitialisesReporters, ProvidesWriteStream } from './reporter/index.js';
+import type { WebdriverIOConfig } from '../config/index.js';
+import type { InitialisesReporters, ProvidesWriteStream } from './reporter/index.js';
 import { WebdriverIOFrameworkAdapter } from './WebdriverIOFrameworkAdapter.js';
 
 /**

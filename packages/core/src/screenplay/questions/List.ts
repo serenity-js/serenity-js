@@ -1,14 +1,15 @@
 import { ListItemNotFoundError, LogicError } from '../../errors';
 import { d } from '../../io';
-import { UsesAbilities } from '../abilities';
-import { Actor } from '../Actor';
-import { Answerable } from '../Answerable';
-import { Question, QuestionAdapter } from '../Question';
-import { AnswersQuestions } from '../questions';
+import type { UsesAbilities } from '../abilities';
+import type { Actor } from '../Actor';
+import type { Answerable } from '../Answerable';
+import type { QuestionAdapter } from '../Question';
+import { Question } from '../Question';
+import type { AnswersQuestions } from '../questions';
 import { Task } from '../Task';
-import { Expectation } from './Expectation';
+import type { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
-import { MetaQuestion } from './MetaQuestion';
+import type { MetaQuestion } from './MetaQuestion';
 
 /**
  * Serenity/JS Screenplay Pattern-style wrapper around {@apilink Array}

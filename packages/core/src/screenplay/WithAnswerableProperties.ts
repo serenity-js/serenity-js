@@ -1,5 +1,5 @@
-import { Answerable } from './Answerable';
-import { Question } from './Question';
+import type { Answerable } from './Answerable';
+import type { Question } from './Question';
 
 /**
  * Describes a plain JavaScript object with {@apilink Answerable} properties.

@@ -1,4 +1,4 @@
-import { Timestamp } from './models';
+import type { Timestamp } from './models';
 
 /**
  * Describes an {@apilink Actor} or a supporting class capable of telling

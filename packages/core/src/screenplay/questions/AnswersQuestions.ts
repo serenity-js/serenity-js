@@ -1,4 +1,4 @@
-import { Answerable } from '../Answerable';
+import type { Answerable } from '../Answerable';
 
 /**
  * Describes an {@apilink Actor} who can answer a {@apilink Question} about the system under test.

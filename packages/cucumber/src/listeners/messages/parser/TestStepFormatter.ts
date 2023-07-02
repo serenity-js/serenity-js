@@ -1,4 +1,4 @@
-import { PickleDocString, PickleTable } from '@cucumber/messages';
+import type { PickleDocString, PickleTable } from '@cucumber/messages';
 import Table = require('cli-table3');
 
 /**

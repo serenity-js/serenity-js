@@ -1,5 +1,10 @@
-import { LogicError, Stage, StageCrewMember } from '@serenity-js/core';
-import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
+import type { Stage, StageCrewMember } from '@serenity-js/core';
+import { LogicError } from '@serenity-js/core';
+import type { DomainEvent} from '@serenity-js/core/lib/events/index.js';
+import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
+import type {
+    Outcome,
+    TestSuiteDetails} from '@serenity-js/core/lib/model/index.js';
 import {
     CorrelationId,
     Description,
@@ -9,16 +14,14 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ImplementationPending, Name,
-    Outcome,
-    ProblemIndication,
-    TestSuiteDetails,
+    ProblemIndication
 } from '@serenity-js/core/lib/model/index.js';
 import type { Test as testStats } from '@wdio/reporter';
 import type { Capabilities, Frameworks } from '@wdio/types';
 import type { EventEmitter } from 'events';
 import { match } from 'tiny-types';
 
-import { WebdriverIOConfig } from '../config/index.js';
+import type { WebdriverIOConfig } from '../config/index.js';
 
 // interface Argument {
 //     rows?: {

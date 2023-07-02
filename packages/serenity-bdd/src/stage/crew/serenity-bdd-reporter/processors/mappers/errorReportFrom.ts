@@ -3,7 +3,7 @@ import { ErrorStackParser, RuntimeError } from '@serenity-js/core';
 import ansiRegex from 'ansi-regex';
 import { inspect } from 'util';
 
-import { ErrorDetails } from '../../SerenityBDDJsonSchema';
+import type { ErrorDetails } from '../../SerenityBDDJsonSchema';
 
 /** @package */
 export function errorReportFrom(error?: Error | string | number | boolean | object): ErrorDetails {

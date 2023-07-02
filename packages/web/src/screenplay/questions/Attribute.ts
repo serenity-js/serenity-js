@@ -1,4 +1,5 @@
-import { Answerable, AnswersQuestions, d, LogicError, MetaQuestion, Question, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, MetaQuestion, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import { d, LogicError, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 

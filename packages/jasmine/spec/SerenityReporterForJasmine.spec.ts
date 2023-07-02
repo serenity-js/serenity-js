@@ -1,8 +1,10 @@
 /* eslint-disable unicorn/no-null */
 import { expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError,Timestamp } from '@serenity-js/core';
+import type { Stage, StageCrewMember} from '@serenity-js/core';
+import { AssertionError, Clock, ImplementationPendingError, Serenity, TestCompromisedError,Timestamp } from '@serenity-js/core';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
-    DomainEvent,
     SceneFinished,
     SceneStarts,
     SceneTagged,

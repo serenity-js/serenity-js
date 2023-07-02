@@ -1,6 +1,7 @@
-import { Answerable, AnswersQuestions, Question, UsesAbilities, WithAnswerableProperties } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, UsesAbilities, WithAnswerableProperties } from '@serenity-js/core';
+import { Question } from '@serenity-js/core';
 import { d } from '@serenity-js/core/lib/io';
-import { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 
 /**
  * HTTP Request sent by the {@apilink Actor}

@@ -1,5 +1,5 @@
 import { ImplementationPendingError } from '../errors';
-import { PerformsActivities } from './activities';
+import type { PerformsActivities } from './activities';
 import { Activity } from './Activity';
 
 /**

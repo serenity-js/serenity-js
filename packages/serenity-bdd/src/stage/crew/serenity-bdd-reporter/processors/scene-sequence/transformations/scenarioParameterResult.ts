@@ -1,7 +1,7 @@
-import { Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
+import type { Outcome, ScenarioDetails } from '@serenity-js/core/lib/model';
 
 import { outcomeReportFrom } from '../../mappers';
-import { SceneSequenceReportContext } from '../SceneSequenceReportContext';
+import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioParameterResult(scenario: ScenarioDetails, outcome: Outcome) {
     return (context: SceneSequenceReportContext): SceneSequenceReportContext => {

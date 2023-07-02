@@ -1,14 +1,16 @@
 import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
 
-import { OutputStream } from './adapter';
-import { SerenityConfig } from './config';
-import { ConfigurationError, ErrorFactory, ErrorOptions, NoOpDiffFormatter, RuntimeError } from './errors';
-import { DomainEvent, EmitsDomainEvents } from './events';
+import type { OutputStream } from './adapter';
+import type { SerenityConfig } from './config';
+import type { ErrorOptions, RuntimeError } from './errors';
+import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors';
+import type { DomainEvent, EmitsDomainEvents } from './events';
 import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader, Path } from './io';
-import { ActivityDetails, CorrelationId } from './model';
-import { Actor, Clock, Duration, Timestamp } from './screenplay';
-import { StageCrewMember, StageCrewMemberBuilder } from './stage';
-import { Cast } from './stage/Cast';
+import type { ActivityDetails, CorrelationId } from './model';
+import type { Actor, Timestamp } from './screenplay';
+import { Clock, Duration } from './screenplay';
+import type { StageCrewMember, StageCrewMemberBuilder } from './stage';
+import type { Cast } from './stage/Cast';
 import { Extras } from './stage/Extras';
 import { Stage } from './stage/Stage';
 import { StageManager } from './stage/StageManager';

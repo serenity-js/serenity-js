@@ -1,8 +1,9 @@
-import { DomainEventQueues } from '@serenity-js/core';
+import type { DomainEventQueues } from '@serenity-js/core';
 import { SceneStarts } from '@serenity-js/core/lib/events';
-import { Artifact, CorrelationId, Name, TestReport } from '@serenity-js/core/lib/model';
+import type { Artifact, CorrelationId} from '@serenity-js/core/lib/model';
+import { Name, TestReport } from '@serenity-js/core/lib/model';
 
-import { SerenityBDDReport } from '../SerenityBDDJsonSchema';
+import type { SerenityBDDReport } from '../SerenityBDDJsonSchema';
 import { SceneSequenceEventQueueProcessor } from './scene-sequence';
 import { SingleSceneEventQueueProcessor } from './single-scene';
 

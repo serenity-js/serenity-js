@@ -1,5 +1,7 @@
-import { Ability, Discardable } from '../../abilities';
-import { Clock, DelayedCallback, Duration, RepeatUntilLimits, Scheduler } from '../models';
+import type { Discardable } from '../../abilities';
+import { Ability } from '../../abilities';
+import type { Clock, DelayedCallback, Duration, RepeatUntilLimits} from '../models';
+import { Scheduler } from '../models';
 
 /**
  * An {@apilink Ability} that enables an {@apilink Actor} to schedule a callback function

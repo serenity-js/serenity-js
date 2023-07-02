@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { Answerable, d, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import { d, Question } from '@serenity-js/core';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
 

@@ -1,4 +1,5 @@
-import { Actor, d, Expectation, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Actor, QuestionAdapter } from '@serenity-js/core';
+import { d, Expectation, Question } from '@serenity-js/core';
 
 export function p<T>(value: T): Promise<T> {
     return Promise.resolve(value);

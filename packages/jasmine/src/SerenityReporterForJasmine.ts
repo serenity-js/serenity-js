@@ -1,12 +1,14 @@
+import type {
+    Serenity} from '@serenity-js/core';
 import {
     AssertionError,
     ErrorSerialiser,
     ImplementationPendingError,
-    Serenity,
     TestCompromisedError
 } from '@serenity-js/core';
+import type {
+    DomainEvent} from '@serenity-js/core/lib/events';
 import {
-    DomainEvent,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
@@ -21,6 +23,9 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import type {
+    Outcome,
+    ProblemIndication} from '@serenity-js/core/lib/model';
 import {
     ActivityDetails,
     Category,
@@ -33,13 +38,11 @@ import {
     FeatureTag,
     ImplementationPending,
     Name,
-    Outcome,
-    ProblemIndication,
     ScenarioDetails,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
 
-import { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
+import type { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
  * [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events

@@ -1,5 +1,6 @@
-import { Actor, Cast, TakeNotes } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import type { Actor, Cast} from '@serenity-js/core';
+import { TakeNotes } from '@serenity-js/core';
+import type { Path } from '@serenity-js/core/lib/io';
 
 import { UseFileSystem } from '../screenplay';
 

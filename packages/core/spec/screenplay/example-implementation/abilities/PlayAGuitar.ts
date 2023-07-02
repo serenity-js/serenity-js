@@ -1,6 +1,6 @@
 import { Ability } from '../../../../src/screenplay';
-import { Chord } from '../Chord';
-import { Guitar } from '../Guitar';
+import type { Chord } from '../Chord';
+import type { Guitar } from '../Guitar';
 
 export class PlayAGuitar extends Ability {
 
