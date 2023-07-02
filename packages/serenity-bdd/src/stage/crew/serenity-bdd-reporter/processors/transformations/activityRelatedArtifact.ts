@@ -1,4 +1,5 @@
-import { Artifact, CorrelationId, HTTPRequestResponse, JSONData, LogEntry, Name, RequestAndResponse, TextData, Timestamp } from '@serenity-js/core/lib/model';
+import { Timestamp } from '@serenity-js/core';
+import { Artifact, CorrelationId, HTTPRequestResponse, JSONData, LogEntry, Name, RequestAndResponse, TextData } from '@serenity-js/core/lib/model';
 import { createHash } from 'crypto';
 import { match } from 'tiny-types';
 import { inspect } from 'util';

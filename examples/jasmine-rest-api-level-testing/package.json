@@ -14,7 +14,7 @@
     "access": "private"
   },
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
@@ -31,23 +31,22 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "devDependencies": {
     "@examples/calculator-app": "3.0.0",
-    "@serenity-js/assertions": "^3.0.0-rc",
-    "@serenity-js/console-reporter": "^3.0.0-rc",
-    "@serenity-js/core": "^3.0.0-rc",
-    "@serenity-js/jasmine": "^3.0.0-rc",
-    "@serenity-js/local-server": "^3.0.0-rc",
-    "@serenity-js/rest": "^3.0.0-rc",
-    "@serenity-js/serenity-bdd": "^3.0.0-rc",
-    "@types/chai": "^4.3.4",
-    "@types/jasmine": "^3.10.7",
+    "@serenity-js/assertions": "^3.0.0",
+    "@serenity-js/console-reporter": "^3.0.0",
+    "@serenity-js/core": "^3.0.0",
+    "@serenity-js/jasmine": "^3.0.0",
+    "@serenity-js/local-server": "^3.0.0",
+    "@serenity-js/rest": "^3.0.0",
+    "@serenity-js/serenity-bdd": "^3.0.0",
+    "@types/chai": "^4.3.5",
+    "@types/jasmine": "^3.10.11",
     "jasmine": "^3.99.0",
     "npm-failsafe": "^1.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   }
 }

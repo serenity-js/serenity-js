@@ -11,8 +11,8 @@ import { PlaywrightLocator } from './locators';
  *
  * @group Models
  */
-export class PlaywrightPageElement extends PageElement<playwright.ElementHandle> {
-    of(parent: PageElement<playwright.ElementHandle>): PageElement<playwright.ElementHandle> {
+export class PlaywrightPageElement extends PageElement<playwright.Locator> {
+    of(parent: PageElement<playwright.Locator>): PageElement<playwright.Locator> {
         return new PlaywrightPageElement(this.locator.of(parent.locator));
     }
 
@@ -74,9 +74,8 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async selectedOptions(): Promise<Array<SelectOption>> {
         const element = await this.nativeElement();
 
-        const options = await element.$$eval(
-            'option',
-            /* istanbul ignore next */
+        /* c8 ignore start */
+        const options = await element.locator('option').evaluateAll(
             (optionNodes: Array<HTMLOptionElement>) =>
                 optionNodes.map((optionNode: HTMLOptionElement) => {
                     return {
@@ -87,6 +86,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
                     }
                 })
         );
+        /* c8 ignore stop */
 
         return options.map(option =>
             new SelectOption(option.label, option.value, option.selected, option.disabled)
@@ -110,14 +110,15 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
 
     async switchTo(): Promise<SwitchableOrigin> {
         try {
-            const element = await this.nativeElement();
+            const nativeLocator = await this.nativeElement();
+            const element = await nativeLocator.elementHandle();
 
             const frame = await element.contentFrame();
 
             if (frame) {
                 const locator = (this.locator as PlaywrightLocator);
 
-                await locator.switchToFrame(element);
+                await locator.switchToFrame(nativeLocator);
 
                 return {
                     switchBack: async (): Promise<void> => {
@@ -126,14 +127,15 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
                 }
             }
 
-            const previouslyFocusedElement = await element.evaluateHandle(
-                /* istanbul ignore next */
+            /* c8 ignore start */
+            const previouslyFocusedElement = await nativeLocator.evaluateHandle(
                 (domNode: HTMLElement) => {
                     const currentlyFocusedElement = document.activeElement;
                     domNode.focus();
                     return currentlyFocusedElement;
                 }
             );
+            /* c8 ignore stop */
 
             return new PreviouslyFocusedElementSwitcher(previouslyFocusedElement);
         } catch(error) {
@@ -145,7 +147,6 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
         try {
             const element = await this.nativeElement();
             return element.evaluate(
-                /* istanbul ignore next */
                 domNode => domNode === document.activeElement
             );
         } catch {
@@ -176,7 +177,7 @@ export class PlaywrightPageElement extends PageElement<playwright.ElementHandle>
     async isSelected(): Promise<boolean> {
 
         try {
-            const element: playwright.ElementHandle = await this.nativeElement();
+            const element: playwright.Locator = await this.nativeElement();
 
             // works for <option />
             const selected = await element.getAttribute('selected');
@@ -216,12 +217,13 @@ class PreviouslyFocusedElementSwitcher implements SwitchableOrigin {
     }
 
     async switchBack (): Promise<void> {
+        /* c8 ignore start */
         await this.node.evaluate(
-            /* istanbul ignore next */
             (domNode: HTMLElement) => {
                 domNode.focus();
             },
             this.node
         );
+        /* c8 ignore stop */
     }
 }

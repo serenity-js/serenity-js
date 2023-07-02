@@ -3,6 +3,211 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to v7 ([546e6e0](https://github.com/serenity-js/serenity-js/commit/546e6e07ebe8044a99503362ce8ac9deed4c9d54))
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update serenity bdd dependencies ([4f39f2d](https://github.com/serenity-js/serenity-js/commit/4f39f2d7a0a7eedba2822dd08010ec77f0cb7984))
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.1.4](https://github.com/serenity-js/serenity-js/compare/v3.1.3...v3.1.4) (2023-04-16)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** escape HTML tags in scenaio name and title ([c5ca1bf](https://github.com/serenity-js/serenity-js/commit/c5ca1bfcfcc297d913208246addf84d400608245)), closes [#1630](https://github.com/serenity-js/serenity-js/issues/1630)
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **core:** removed deprecated ContextTag ([d09a688](https://github.com/serenity-js/serenity-js/commit/d09a6888020f2a7f76c0830b6d2939205cf0b3aa)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** moved time-related code to a common package ([f29fedc](https://github.com/serenity-js/serenity-js/commit/f29fedc0e67d0db942b247aed53a243868a5f6dd)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+* **rest:** support for Axios 1.3.4 ([e926bbd](https://github.com/serenity-js/serenity-js/commit/e926bbde5232150f35e137601e321175d21d52d2))
+
+
+### Features
+
+* **core:** introduced a new ability ScheduleWork to enable [#1083](https://github.com/serenity-js/serenity-js/issues/1083) and [#1522](https://github.com/serenity-js/serenity-js/issues/1522) ([b275d18](https://github.com/serenity-js/serenity-js/commit/b275d18434cdedf069c5f1da3b9b359fc7da60fe))
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to ^17.7.1 ([1e7a52b](https://github.com/serenity-js/serenity-js/commit/1e7a52b21a778ebc47b6279786391d96e482b57a))
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+
+### Bug Fixes
+
+* **core:** event TestRunFinished now incidates the Outcome of the test suite ([a941056](https://github.com/serenity-js/serenity-js/commit/a9410566891e543101b935a80db9c7daea0c9944)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **playwright-test:** default to using file name as feature name when describe blocks are absent ([1295b04](https://github.com/serenity-js/serenity-js/commit/1295b04adcd12a9d7eaef795e1080bb1c5a9056d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **serenity-bdd:** prevent invalid Serenity BDD JSON reports from being sent to processing ([e59d4da](https://github.com/serenity-js/serenity-js/commit/e59d4da0646c103db37631ecc33ecd66ae18d05e)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

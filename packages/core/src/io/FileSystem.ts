@@ -1,4 +1,4 @@
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import * as nodeFS from 'fs';
 import { WriteFileOptions } from 'fs';
 import * as gracefulFS from 'graceful-fs';
@@ -106,7 +106,7 @@ export class FileSystem {
     }
 
     public tempFilePath(prefix = '', suffix = '.tmp'): Path {
-        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);
+        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ createId() }${ suffix }`);
     }
 
     private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {

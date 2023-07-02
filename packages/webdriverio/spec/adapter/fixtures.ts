@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { AssertionError, ImplementationPendingError, StageCrewMember, TestCompromisedError } from '@serenity-js/core';
-import { DomainEvent, RetryableSceneDetected, SceneFinished, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { AssertionError, Duration, ImplementationPendingError, StageCrewMember, TestCompromisedError, Timestamp } from '@serenity-js/core';
+import { DomainEvent, RetryableSceneDetected, SceneFinished, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import {
     Category,
     CorrelationId,
-    Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -17,8 +16,7 @@ import {
     Outcome,
     ScenarioDetails,
     TestSuiteDetails,
-    Timestamp,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 
 function thrown<T extends Error>(error: T): T {
     try {
@@ -74,7 +72,7 @@ export const
     scene2FinishedWith      = (outcome: Outcome) =>
         new SceneFinished(scene2Id, scenario2Details, outcome, startTime.plus(scene1Duration).plus(scene2Duration)),
     testRunFinishes         = new TestRunFinishes(startTime.plus(scene1Duration).plus(scene2Duration)),
-    testRunFinished         = new TestRunFinished(startTime.plus(scene1Duration).plus(scene2Duration)),
+    testRunFinished         = new TestRunFinished(new ExecutionSuccessful(), startTime.plus(scene1Duration).plus(scene2Duration)),
 
     retryableSceneStarts        = (index: number) =>
         new SceneStarts(new CorrelationId(`${ index }`), scenario1Details, startTime.plus(Duration.ofSeconds(index))),

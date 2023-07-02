@@ -16,7 +16,6 @@ jobs:
     name: 'Detect website changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
-      fetch-depth: 0
       files: |
         documentation/**
 
@@ -24,7 +23,6 @@ jobs:
     name: 'Detect source code and configuration changes'
     uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
     with:
-      fetch-depth: 0
       files: |
         .github/actions/**
         .github/workflows/main*.yaml
@@ -43,13 +41,12 @@ jobs:
         *.md
         .commitlintrc.js
         .cz-*.js
-        package-lock.json
 
   lint:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: npm ci
       command: make lint
 
@@ -57,11 +54,11 @@ jobs:
     name: 'Compile'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
       command: make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
-      upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*"'
+      upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*"'
 
   #
   # Test
@@ -76,12 +73,12 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
       upload-artifact-name: 'test-reports'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "packages/*/target/**/*"'
 
   test-linux-node-lts-previous:
     name: 'Test: Linux, LTS-1'
@@ -92,10 +89,10 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 14.x
+      node-version: 16.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   test-linux-node-lts-next:
     name: 'Test: Linux, LTS+1'
@@ -106,10 +103,10 @@ jobs:
     if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   test-windows-node-lts-active:
     name: 'Test: Windows, LTS'
@@ -121,10 +118,10 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: make test-no-coverage
 
   #
   # Integration
@@ -145,7 +142,7 @@ jobs:
           "playwright-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: |
@@ -153,7 +150,29 @@ jobs:
         npx --no playwright install --with-deps && \
         make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test
       upload-artifact-name: 'test-integration-coverage-reports-playwright'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+
+  test-integration-protractor:
+    name: 'Integration: Protractor'
+    needs:
+      - detect-source-code-changes
+      - lint
+      - compile
+    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: |
+        [
+          "protractor-test-runners",
+          "protractor-web"
+        ]
+      runs-on: 'ubuntu-latest'
+      node-version: 16.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports-protractor'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration:
     name: 'Integration'
@@ -174,80 +193,74 @@ jobs:
           "cucumber-6",
           "cucumber-7",
           "cucumber-8",
+          "cucumber-9",
           "jasmine",
           "mocha",
-          "protractor-test-runners",
-          "protractor-web",
           "webdriverio-test-runners",
           "webdriverio-web-devtools",
           "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports'
-      upload-artifact-path: 'package.json "target/**/*"'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
   #
   # Reporting
   #
 
-  coverage-aggregate:
-    name: 'Coverage: aggregate'
+  coverage:
+    name: 'Coverage'
     needs:
       - test-linux-node-lts-active
-      - test-integration-playwright
       - test-integration
-    uses: 'serenity-js/serenity-js/.github/workflows/main-collect-artifacts.yaml@main'
-    with:
-      upload-artifact-name: 'aggregated-code-coverage'
-      upload-artifact-path: 'package.json "target/coverage/*/coverage-final.json"'
-
-  coverage-report:
-    name: 'Coverage: report'
-    needs:
-      - coverage-aggregate
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      node-version: 16.x
-      npm-install-command: npm ci
-      download-artifact-name: 'aggregated-code-coverage'
-      command: make report
-      upload-artifact-name: 'aggregated-code-coverage-report'
-      upload-artifact-path: 'package.json target'
-
-  coverage-publish:
-    name: 'Coverage: publish'
+      - test-integration-playwright
+      - test-integration-protractor
     runs-on: ubuntu-latest
-    continue-on-error: true
-#    if: github.ref == 'refs/heads/main'
-    needs:
-      - coverage-report
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         with:
           fetch-depth: 2
 
-      - name: Download code coverage reports
-        uses: actions/download-artifact@v3
+      - name: Setup Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          name: 'aggregated-code-coverage-report'
+          node-version: 18.x
 
-      - name: Decompress code coverage reports
-        run: '7z x -aoa aggregated-code-coverage-report.zip'
+      - name: Install Node Modules
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+
+      - name: Decompress all artifacts to current directory
+        run: ls **/*.zip | xargs -n1 7z x -aoa
+
+      - name: Report coverage
+        run: make report
 
       - name: Coveralls
-        uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057 # 1.1.3
+        uses: coverallsapp/github-action@c7885c00cb7ec0b8f9f5ff3f53cddb980f7a4412 # v2.2.0
         with:
           github-token: ${{ github.token }}
           path-to-lcov: 'target/coverage/lcov.info'
 
+      # https://github.com/actions/runner/issues/520
+      - name: Get CodeClimate reporter ID
+        id: secrets
+        run: echo "CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }}" >> $GITHUB_OUTPUT
+
       - name: CodeClimate
-        uses: paambaati/codeclimate-action@ac3f177ece9928d220a8bd1c2f1957926fd3b67e # v3.2.0
+        if: steps.secrets.outputs.CC_TEST_REPORTER_ID
+        uses: paambaati/codeclimate-action@5f637ccd517bc8960de0fe59379dd922bcba9486 # v4.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ steps.secrets.outputs.CC_TEST_REPORTER_ID }}
         with:
           coverageLocations: |
             ${{github.workspace}}/target/coverage/lcov.info:lcov
@@ -268,8 +281,10 @@ jobs:
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
       - test-integration
+      - test-integration-playwright
+      - test-integration-protractor
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
@@ -280,23 +295,21 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: compiled-libs
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          node-version: 16.x
+          node-version: 18.x
 
       - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
         with:
           install-command: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Publish artifacts
         run: npm run lerna:publish
@@ -307,14 +320,19 @@ jobs:
       - name: Print versions
         run: npm run version:print >> $GITHUB_STEP_SUMMARY
 
+      - name: Upload changelog
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3
+        with:
+          retention-days: 3
+          name: changelog
+          path: |
+            CHANGELOG.md
+
   #
   # Website
   #
-
-  # Website build uses always() as otherwise it won't be executed if artifacts-publish was skipped because there were no code changes
-  #   https://github.com/actions/runner/issues/491#issuecomment-660122693
-  website-build:
-    name: 'Website: build'
+  website:
+    name: 'Website'
     needs:
       - detect-website-changes
       - detect-source-code-changes
@@ -334,36 +352,51 @@ jobs:
           needs.artifacts-publish.result == 'success'
         )
       )
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      node-version: 16.x
-      npm-install-command: make BOOTSTRAP_SCOPE=site install
-      download-artifact-name: 'compiled-libs'
-      command: make site
-      upload-artifact-name: 'website'
-      upload-artifact-path: 'documentation/serenity-js.org/build'
-
-  website-publish:
-    name: 'Website: publish'
-    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
-    needs:
-      - website-build
     steps:
-      - name: Download website artifact
-        uses: actions/download-artifact@v3
+      - name: Checkout repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
         with:
-          name: website
-      - name: Decompress website
-        run: 7z x -aoa website.zip
+          fetch-depth: 2
+
+      - name: Setup Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
+        with:
+          node-version: 18.x
+
+      - name: Install Node Modules
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP_SCOPE=site install
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        with:
+          name: 'compiled-libs'
+
+      - name: Decompress compiled libs
+        run:  7z x -aoa compiled-libs.zip
+
+      # We generate an updated changelog only when there are artifacts to be published
+      - name: Download changelog
+        if: github.ref == 'refs/heads/main'
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        continue-on-error: true
+        with:
+          name: changelog
+
+      - name: Build website
+        run: make site
 
       - name: List all (debug)
         run: tree
 
-#      - name: Publish website
-#        uses: JamesIves/github-pages-deploy-action@v4.3.0
-#        if: github.ref == 'refs/heads/main'
-#        with:
-#          BRANCH: gh-pages
-#          FOLDER: documentation/serenity-js.org/build
-#          CLEAN: true
+      - name: Publish website
+        uses: JamesIves/github-pages-deploy-action@22a6ee251d6f13c6ab1ecb200d974f1a6feb1b8d # v4.4.2
+        if: github.ref == 'refs/heads/main'
+        with:
+          BRANCH: gh-pages
+          FOLDER: documentation/serenity-js.org/build
+          CLEAN: true

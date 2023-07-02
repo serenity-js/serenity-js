@@ -18,12 +18,12 @@
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf target ../../target/coverage/integration-playwright-web",
+    "clean": "rimraf target",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "cross-env PORT=8082 start-server-and-test start http://localhost:8082 test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "nyc mocha --config .mocharc.yml",
+    "test:acceptance:run": "c8 mocha --config .mocharc.yml",
     "test:report": "serenity-bdd run"
   },
   "repository": {
@@ -34,26 +34,27 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
     "@integration/web-specs": "3.0.0",
-    "@serenity-js/console-reporter": "^3.0.0-rc",
-    "@serenity-js/core": "^3.0.0-rc",
-    "@serenity-js/mocha": "^3.0.0-rc",
-    "@serenity-js/playwright": "^3.0.0-rc",
-    "@serenity-js/serenity-bdd": "^3.0.0-rc",
-    "@serenity-js/web": "^3.0.0-rc",
+    "@serenity-js/console-reporter": "^3.0.0",
+    "@serenity-js/core": "^3.0.0",
+    "@serenity-js/mocha": "^3.0.0",
+    "@serenity-js/playwright": "^3.0.0",
+    "@serenity-js/serenity-bdd": "^3.0.0",
+    "@serenity-js/web": "^3.0.0",
     "@types/mocha": "^10.0.1",
-    "ci-info": "^3.7.1",
+    "c8": "8.0.0",
+    "ci-info": "^3.8.0",
     "cross-env": "^7.0.3",
     "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
     "npm-failsafe": "^1.0.0",
-    "playwright": "^1.30.0",
-    "start-server-and-test": "^1.15.2",
+    "playwright": "^1.35.1",
+    "start-server-and-test": "^2.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   }
 }

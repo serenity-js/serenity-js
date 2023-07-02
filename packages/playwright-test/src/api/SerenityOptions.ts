@@ -46,10 +46,12 @@ import { PlaywrightOptions } from '@serenity-js/playwright';
  *         // Register a custom cast of Serenity/JS actors
  *         // if you don't want to use the default one
  *         actors: ({ browser, contextOptions, apiUrl }, use) => {
- *              const cast = Cast.whereEveryoneCan(
- *                  BrowseTheWebWithPlaywright.using(browser, contextOptions),
- *                  TakeNotes.usingAnEmptyNotepad(),
- *                  CallAnApi.at(apiUrl),
+ *              const cast = Cast.where(actor =>
+ *                  actor.whoCan(
+ *                      BrowseTheWebWithPlaywright.using(browser, contextOptions),
+ *                      TakeNotes.usingAnEmptyNotepad(),
+ *                      CallAnApi.at(apiUrl),
+ *                  )
  *              )
  *
  *              use(cast)
@@ -121,11 +123,11 @@ export interface SerenityOptions {
      *         // as well as any other custom properties you define in the destructuring expression,
      *         // such as `apiUrl`.
      *         actors: ({ browser, contextOptions, apiUrl }, use) => {
-     *             const cast = Cast.whereEveryoneCan(
+     *             const cast = Cast.where(actor => actor.whoCan(
      *                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
      *                 TakeNotes.usingAnEmptyNotepad(),
      *                 CallAnApi.at(apiUrl),
-     *             )
+     *             ))
      *
      *             // Make sure to pass your custom cast to Playwright `use` callback
      *             use(cast)
@@ -196,6 +198,17 @@ export interface SerenityOptions {
     cueTimeout: number | Duration;
 
     /**
+     * The maximum default amount of time allowed for interactions such as {@apilink Wait.until}
+     * to complete.
+     *
+     * Defaults to **5 seconds**, can be overridden per interaction.
+     *
+     * #### Learn more
+     * - {@apilink Wait.until}
+     */
+    interactionTimeout?: Duration;
+
+    /**
      * Playwright [BrowserContextOptions](https://playwright.dev/docs/api/class-testoptions#test-options-context-options),
      * augmented with several convenience properties to be used with the {@apilink Ability|ability} to {@apilink BrowseTheWebWithPlaywright}.
      *
@@ -240,10 +253,10 @@ export interface SerenityOptions {
      *         // Custom cast of actors receives `contextOptions` with the
      *         // additional Serenity/JS properties.
      *         actors: ({ browser, contextOptions }, use) => {
-     *             const cast = Cast.whereEveryoneCan(
+     *             const cast = Cast.where(actor => actor.whoCan(
      *                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
      *                 TakeNotes.usingAnEmptyNotepad(),
-     *             )
+     *             ))
      *
      *             use(cast)
      *         },

@@ -14,7 +14,7 @@
     "access": "private"
   },
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "keywords": [
     "serenity-js",
     "internal"
@@ -30,22 +30,21 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "peerDependencies": {
-    "@serenity-js/core": "^3.0.0-rc"
+    "@serenity-js/core": "^3.0.0"
   },
   "devDependencies": {
-    "@serenity-js/core": "^3.0.0-rc"
+    "@serenity-js/core": "^3.0.0"
   },
   "dependencies": {
-    "@types/chai": "^4.3.4",
+    "@types/chai": "^4.3.5",
     "@types/chai-as-promised": "^7.1.5",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "tiny-types": "^1.19.0",
+    "tiny-types": "^1.19.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   }
 }

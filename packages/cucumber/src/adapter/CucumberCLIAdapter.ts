@@ -1,4 +1,3 @@
-/* istanbul ignore file covered in integration tests */
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { FileSystem, ModuleLoader, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
@@ -90,6 +89,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        if (version.isAtLeast(new Version('9.0.0'))) {
+            return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
+        }
+
         if (version.isAtLeast(new Version('8.7.0'))) {
             return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
         }

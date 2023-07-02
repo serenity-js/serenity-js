@@ -132,9 +132,9 @@ export class Notifier {
         );
     }
 
-    testRunFinished(): void {
+    testRunFinished(outcome: Outcome): void {
         this.emit(
-            new TestRunFinished(this.serenity.currentTime()),
+            new TestRunFinished(outcome, this.serenity.currentTime()),
         );
     }
 
@@ -164,8 +164,8 @@ export class Notifier {
         const [ featureName, capabilityName, themeName ]: string[] = hierarchy.reverse();
 
         return notEmpty([
-            themeName       && new ThemeTag(themeName),
-            capabilityName  && new CapabilityTag(capabilityName),
+            themeName       && Tag.humanReadable(ThemeTag, themeName),
+            capabilityName  && Tag.humanReadable(CapabilityTag, capabilityName),
             feature         && new FeatureTag(featureName),
         ]);
     }

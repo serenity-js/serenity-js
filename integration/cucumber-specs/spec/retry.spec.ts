@@ -1,6 +1,7 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';
+import { Timestamp } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -13,7 +14,7 @@ import {
     TestRunFinishes,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

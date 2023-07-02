@@ -1,7 +1,7 @@
 import { Given, Then, When } from '@cucumber/cucumber';
+import { Operand, Operator } from '@examples/calculator-app';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
-import { Operand, Operator } from '@serenity-js-examples/calculator-app';
 
 import { EnterOperand, RequestANewCalculation, ResultOfCalculation, UseOperator } from '../support/screenplay';
 

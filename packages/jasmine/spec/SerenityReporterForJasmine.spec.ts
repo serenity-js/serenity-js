@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import { expect, PickEvent } from '@integration/testing-tools';
-import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError,Timestamp } from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -26,7 +26,6 @@ import {
     ImplementationPending,
     Name,
     TestSuiteDetails,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
@@ -41,7 +40,7 @@ describe('SerenityReporterForJasmine', () => {
     const now = new Date('1970-01-01T00:00:00Z');
 
     beforeEach(() => {
-        serenity = new Serenity(new Clock(() => now));
+        serenity = new Serenity(new Clock(() => now), '/path/to');
         reporter = new SerenityReporterForJasmine(serenity);
         listener = new Listener();
 
@@ -691,9 +690,9 @@ describe('SerenityReporterForJasmine', () => {
                 });
             });
 
-            it('tags the feature as "unknown"', () => {
+            it('tags the feature using a relative path', () => {
                 PickEvent.from(listener.events)
-                    .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Unknown feature')));
+                    .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('spec.js')));
             });
 
             it('correctly derives the name of the spec', () => {

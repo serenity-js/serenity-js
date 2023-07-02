@@ -8,6 +8,7 @@ import * as os from 'os';
 import { ensure, isFunction, JSONValue, property } from 'tiny-types';
 
 import { DomainEventBuffer, PlaywrightStepReporter, SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from '../reporter';
+import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import { SerenityFixtures } from './SerenityFixtures';
 import { SerenityOptions } from './SerenityOptions';
 import { SerenityTestType } from './SerenityTestType';
@@ -72,11 +73,13 @@ import { SerenityTestType } from './SerenityTestType';
 export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> & SerenityFixtures>({
 
     actors: [
-        ({ browser, contextOptions }, use) =>
-            use(Cast.whereEveryoneCan(
+        async ({ browser, contextOptions, serenity }, use) => {
+
+            await use(Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
-            )),
+            )))
+        },
         { option: true },
     ],
 
@@ -90,6 +93,11 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
         { option: true },
     ],
 
+    interactionTimeout: [
+        Duration.ofSeconds(5),
+        { option: true },
+    ],
+
     crew: [
         [
             Photographer.whoWill(TakePhotosOfFailures)
@@ -98,7 +106,7 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
     ],
 
     // eslint-disable-next-line no-empty-pattern
-    platform: ({}, use) => {
+    platform: async ({}, use) => {
         const platform = os.platform();
 
         // https://nodejs.org/api/process.html#process_process_platform
@@ -106,16 +114,17 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
             ? 'Windows'
             : (platform === 'darwin' ? 'macOS' : 'Linux');
 
-        use({ name, version: os.release() });
+        await use({ name, version: os.release() });
     },
 
-    serenity: async ({ crew, cueTimeout, platform }, use, info: TestInfo) => {
+    serenity: async ({ crew, cueTimeout, interactionTimeout, platform }, use, info: TestInfo) => {
 
         const domainEventBuffer = new DomainEventBuffer();
 
         serenityInstance.configure({
             diffFormatter: new AnsiDiffFormatter(),
             cueTimeout: asDuration(cueTimeout),
+            interactionTimeout: asDuration(interactionTimeout),
             crew: [
                 ...crew,
                 domainEventBuffer,
@@ -156,7 +165,10 @@ export const it: SerenityTestType = base.extend<Omit<SerenityOptions, 'actors'> 
 
         serenity.engage(asCast(actors));
 
-        const actorCalled = serenity.theActorCalled.bind(serenity);
+        const actorCalled = (name: string) => {
+            const actor = serenity.theActorCalled(name);
+            return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
+        } ;
 
         serenity.announce(new SceneTagged(
             sceneId,

@@ -3,6 +3,223 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-glob to ^3.3.0 ([bb00f5e](https://github.com/serenity-js/serenity-js/commit/bb00f5e0e916352bc5722064c0bcd97af4e38ab9))
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([eb37932](https://github.com/serenity-js/serenity-js/commit/eb37932dcf93cff36eabb4c36c1740025467eb74))
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **core:** ability to ScheduleWork preserves stack traces for better reporting ([c2ce5f7](https://github.com/serenity-js/serenity-js/commit/c2ce5f768732de5b01113c0f2dfa8e98d3e73667)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+### Features
+
+* **core:** enabled extending default behaviour of actor.perform and actor.answer APIs ([01bb213](https://github.com/serenity-js/serenity-js/commit/01bb213fa59a03737cd7d0770cd5df737cffcb19)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **core:** new factory method to create Path.fromURI ([baed8c4](https://github.com/serenity-js/serenity-js/commit/baed8c4a86a2d7b114783574c2326d8102c1b0e9))
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** improved support for nested requirement hierarchies with Cucumber.js ([749fb0f](https://github.com/serenity-js/serenity-js/commit/749fb0f9501575ac8152b01a980e4959a823471f)), closes [/github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java#L36](https://github.com//github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java/issues/L36) [#1649](https://github.com/serenity-js/serenity-js/issues/1649)
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **core:** ensure Wait.for(..) is not terminated prematurely by interactionTimeout ([f1a94e2](https://github.com/serenity-js/serenity-js/commit/f1a94e259942725f2603cc33cd9772478e825dde)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** replaced dependency on depracated cuid with cuid2 ([0417f1c](https://github.com/serenity-js/serenity-js/commit/0417f1c2c673dce7eaabe0ffae76311757e3b3ee))
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **core:** re-implemented the interaction to Debug so that it works in JetBrains IDEs ([14737f9](https://github.com/serenity-js/serenity-js/commit/14737f9eaa8cd1a66bce02649f768f4227bf1c27)), closes [#1520](https://github.com/serenity-js/serenity-js/issues/1520)
+* **core:** removed deprecated API Cast.whereEveryoneCan ([7f2f5b9](https://github.com/serenity-js/serenity-js/commit/7f2f5b9e642a00b6ce6f66ec06dd32f7a248495e)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated API List.get ([6308686](https://github.com/serenity-js/serenity-js/commit/6308686cde3e908822265e53e68dd1df05aa2567)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated ContextTag ([d09a688](https://github.com/serenity-js/serenity-js/commit/d09a6888020f2a7f76c0830b6d2939205cf0b3aa)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **deps:** update dependency graceful-fs to ^4.2.11 ([3dc2d0b](https://github.com/serenity-js/serenity-js/commit/3dc2d0b30e474126c1427238e9440a9f942fbdd9))
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** moved time-related code to a common package ([f29fedc](https://github.com/serenity-js/serenity-js/commit/f29fedc0e67d0db942b247aed53a243868a5f6dd)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+
+
+### Features
+
+* **core:** introduced a new ability ScheduleWork to enable [#1083](https://github.com/serenity-js/serenity-js/issues/1083) and [#1522](https://github.com/serenity-js/serenity-js/issues/1522) ([b275d18](https://github.com/serenity-js/serenity-js/commit/b275d18434cdedf069c5f1da3b9b359fc7da60fe))
+* **core:** max timeout of Wait.until can now be configured globally ([8dd6895](https://github.com/serenity-js/serenity-js/commit/8dd68959c1c7c00ec7de0d4a18d6c9c0039c4a8e)), closes [#1083](https://github.com/serenity-js/serenity-js/issues/1083)
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **core:** introduced Cast.where factory method to make it easier to generate custom casts of actors ([26637f1](https://github.com/serenity-js/serenity-js/commit/26637f10746bbd264ab73ab14b43eaf11dea5652)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+
+### Bug Fixes
+
+* **core:** allow for multiple events to be announced using a single call to Stage ([2bcae80](https://github.com/serenity-js/serenity-js/commit/2bcae809075fd9ef4f77f41714c78a4da5643acd))
+* **core:** event TestRunFinished now incidates the Outcome of the test suite ([a941056](https://github.com/serenity-js/serenity-js/commit/a9410566891e543101b935a80db9c7daea0c9944)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **mocha:** default to using file name as feature name when describe blocks are absent ([1ca81ef](https://github.com/serenity-js/serenity-js/commit/1ca81efe5fe5547bea3e4fd9abe7712f2e775b5d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **playwright-test:** default to using file name as feature name when describe blocks are absent ([1295b04](https://github.com/serenity-js/serenity-js/commit/1295b04adcd12a9d7eaef795e1080bb1c5a9056d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

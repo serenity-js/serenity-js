@@ -52,7 +52,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  * - {@apilink Value}
  * - {@apilink PageElement}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Clear extends PageElementInteraction {
 

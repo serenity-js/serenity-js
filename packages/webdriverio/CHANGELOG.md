@@ -3,6 +3,217 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Bug Fixes
+
+* **webdriverio:** support for WebdriverIO 8.11 APIs ([cebbeec](https://github.com/serenity-js/serenity-js/commit/cebbeecb1176b2d4bb4d3a1b4a2b48a46ea4b2be)), closes [#1739](https://github.com/serenity-js/serenity-js/issues/1739)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **webdriverio:** aligned CJS and ESM exports to offer a consistent developer experience ([c72213b](https://github.com/serenity-js/serenity-js/commit/c72213bc4527cda3bb64f208ebdb74f25b366302))
+* **webdriverio:** support for WebdriverIO 8.10.0 ([71da9f9](https://github.com/serenity-js/serenity-js/commit/71da9f93d6c4af3ae9e1734b38107418ada37f9a))
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **webdriverio:** support for WebdriverIO 8 ([deeedad](https://github.com/serenity-js/serenity-js/commit/deeedadeeb50b5b5709d428e82249901282233ac)), closes [#1541](https://github.com/serenity-js/serenity-js/issues/1541) [#1682](https://github.com/serenity-js/serenity-js/issues/1682) [webdriverio/webdriverio#10314](https://github.com/webdriverio/webdriverio/issues/10314)
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** webdriverio 7.31 breaks backwards-compatibility, pinning to 7.30 for now ([305fc64](https://github.com/serenity-js/serenity-js/commit/305fc648a8fdf96fdf5f26075845bfba6c61713c))
+
+
+
+
+
+## [3.1.4](https://github.com/serenity-js/serenity-js/compare/v3.1.3...v3.1.4) (2023-04-16)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **webdriverio:** use custom interactionTimeout when provided in the config ([4cc75bf](https://github.com/serenity-js/serenity-js/commit/4cc75bf1ef97556a991ad006314a1a413d3cde6a)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** pinned dependencies on Serenity/JS modules ([b314b11](https://github.com/serenity-js/serenity-js/commit/b314b11a3755e490b307df0eca8369a9371b7bb8))
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency deepmerge to ^4.3.1 ([d605a6b](https://github.com/serenity-js/serenity-js/commit/d605a6ba034b0d9d5d716c82ea496bd726a86348))
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** moved time-related code to a common package ([f29fedc](https://github.com/serenity-js/serenity-js/commit/f29fedc0e67d0db942b247aed53a243868a5f6dd)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+* **rest:** support for Axios 1.3.4 ([e926bbd](https://github.com/serenity-js/serenity-js/commit/e926bbde5232150f35e137601e321175d21d52d2))
+
+
+### Features
+
+* **core:** introduced a new ability ScheduleWork to enable [#1083](https://github.com/serenity-js/serenity-js/issues/1083) and [#1522](https://github.com/serenity-js/serenity-js/issues/1522) ([b275d18](https://github.com/serenity-js/serenity-js/commit/b275d18434cdedf069c5f1da3b9b359fc7da60fe))
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency deepmerge to ^4.3.0 ([ac08d09](https://github.com/serenity-js/serenity-js/commit/ac08d091eb61a666c9b9c53209b59fe7157c06d9))
+* **webdriverio:** default actors receive abilities to BrowseTheWebWithWebdriverIO and TakeNotes ([3880d3b](https://github.com/serenity-js/serenity-js/commit/3880d3be3262dfa601f0ec31fa1518569b14b90b)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+
+### Bug Fixes
+
+* **core:** event TestRunFinished now incidates the Outcome of the test suite ([a941056](https://github.com/serenity-js/serenity-js/commit/a9410566891e543101b935a80db9c7daea0c9944)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

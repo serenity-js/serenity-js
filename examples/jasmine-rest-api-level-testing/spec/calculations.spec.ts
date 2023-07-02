@@ -1,9 +1,9 @@
 import 'jasmine';
 
 import { equals } from '@serenity-js/assertions';
-import { actorCalled, engage, Note, TakeNote } from '@serenity-js/core';
+import { actorCalled, engage, notes } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
+import { ChangeApiConfig, LastResponse } from '@serenity-js/rest';
 
 import { Actors, RequestCalculationOf, VerifyResultAt } from './screenplay';
 
@@ -17,7 +17,7 @@ describe('Calculator', () => {
             StartLocalServer.onRandomPort(),
 
             // Apisitt uses a shared notepad, so other actors can read his notes
-            TakeNote.of(LocalServer.url()),
+            notes().set('server-url', LocalServer.url()),
         )
     });
 
@@ -30,14 +30,14 @@ describe('Calculator', () => {
     it('calculates result of basic expressions', () =>
         actorCalled('Jane').attemptsTo(
             // Jane and Apisitt use a shared notepad
-            ChangeApiUrl.to(Note.of(LocalServer.url())),
+            ChangeApiConfig.setUrlTo(notes().get('server-url')),
             RequestCalculationOf('5 + 2'),
             VerifyResultAt(LastResponse.header('location'), equals({ result: 7 })),
         ));
 
     it('recognises order of operations', () =>
         actorCalled('Jane').attemptsTo(
-            ChangeApiUrl.to(Note.of(LocalServer.url())),
+            ChangeApiConfig.setUrlTo(notes().get('server-url')),
             RequestCalculationOf('2 + 2 * 2'),
             VerifyResultAt(LastResponse.header('location'), equals({ result: 6 })),
         ));

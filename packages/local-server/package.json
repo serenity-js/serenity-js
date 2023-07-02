@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/local-server",
-  "version": "3.0.0-rc.41",
+  "version": "3.4.2",
   "description": "Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify",
   "author": {
     "name": "Jan Molak",
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "keywords": [
     "serenity-js",
     "http",
@@ -32,8 +32,9 @@
     "restify"
   ],
   "scripts": {
-    "clean": "rimraf '../../target/coverage/local-server'",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "clean": "rimraf target",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -45,32 +46,32 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "dependencies": {
-    "@serenity-js/core": "3.0.0-rc.41",
+    "@serenity-js/core": "3.4.2",
     "http-shutdown": "^1.2.2",
     "portfinder": "^1.0.32"
   },
   "devDependencies": {
-    "@hapi/hapi": "^21.1.0",
+    "@hapi/hapi": "^21.3.2",
     "@integration/testing-tools": "3.0.0",
-    "@serenity-js/assertions": "3.0.0-rc.41",
-    "@serenity-js/rest": "3.0.0-rc.41",
-    "@types/chai": "^4.3.4",
-    "@types/express": "^4.17.15",
+    "@serenity-js/assertions": "3.4.2",
+    "@serenity-js/rest": "3.4.2",
+    "@types/chai": "^4.3.5",
+    "@types/express": "^4.17.17",
     "@types/hapi": "^18.0.8",
     "@types/mocha": "^10.0.1",
-    "@types/restify": "^8.5.5",
-    "axios": "^1.2.2",
+    "@types/restify": "^8.5.7",
+    "axios": "^1.4.0",
+    "c8": "8.0.0",
     "express": "^4.18.2",
-    "koa": "^2.14.1",
+    "koa": "^2.14.2",
     "mocha": "^10.2.0",
-    "nyc": "15.1.0",
-    "restify": "^10.0.0",
-    "semver": "^7.3.8",
+    "mocha-multi": "^1.1.7",
+    "restify": "^11.1.0",
+    "semver": "^7.5.3",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   }
 }

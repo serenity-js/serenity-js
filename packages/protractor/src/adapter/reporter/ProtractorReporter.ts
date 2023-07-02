@@ -1,6 +1,6 @@
-import { Stage } from '@serenity-js/core';
+import { Stage, Timestamp } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSkipped, Name, Outcome, ProblemIndication, Timestamp } from '@serenity-js/core/lib/model';
+import { CorrelationId, Description, ExecutionSkipped, Name, Outcome, ProblemIndication } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
 import { Runner } from 'protractor';
 

@@ -1,5 +1,5 @@
-import { Ensure, equals, Expectation } from '@serenity-js/assertions';
-import { Answerable, Task } from '@serenity-js/core';
+import { Ensure, equals } from '@serenity-js/assertions';
+import { Answerable, Expectation, Task } from '@serenity-js/core';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 
 export const VerifyResultAt = (url: Answerable<string>, expectation: Expectation<Answerable<any>>) =>

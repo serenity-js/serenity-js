@@ -6,7 +6,7 @@ import { outstandingItemsCount, persistedItemCalled, startWithAListContaining, s
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted, markAsOutstanding, recordItem } from './todo-list-app/TodoItem';
 import { itemCalled, items } from './todo-list-app/TodoList';
 
-describe('Recording items', () => {
+describe('Completing items', () => {
 
     describe('Todo List App', () => {
 

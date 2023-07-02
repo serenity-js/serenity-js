@@ -33,7 +33,6 @@ import { ExpectationMet } from './expectations';
  * ## Perform a sequence of activities when a condition is met
  *
  * ```ts
- * import { equals } from '@serenity-js/assertions'
  * import { actorCalled, Check } from '@serenity-js/core'
  * import { isVisible } from '@serenity-js/web'
  *
@@ -45,7 +44,7 @@ import { ExpectationMet } from './expectations';
  * )
  * ```
  *
- * @group Tasks
+ * @group Activities
  */
 export class Check<Actual> extends Task {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -169,7 +169,7 @@ export class ArtifactArchiver implements StageCrewMember {
             // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems
             // note: we can't do that in the Path constructor as the Path can be used to join other paths,
             // so restricting the length of the _path_ itself would not be correct.
-            `${ prefix.slice(0, 10) }-${ urlFriendly(artifactName.value).slice(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),
+            `${ prefix.slice(0, 10) }-${ urlFriendly(artifactName.value).slice(0, 64) }-${ hash }.${ extension }`.replaceAll(/-+/g, '-'),
             // characters:     10    1         64                                      1    10   1    4                                 < 100
         );
     }
@@ -226,5 +226,5 @@ export class ArtifactArchiver implements StageCrewMember {
  */
 function urlFriendly(name: string): string {
     return name.toLocaleLowerCase()
-        .replace(/[^\d.a-z-]/g, '-');
+        .replaceAll(/[^\d.a-z-]/g, '-');
 }

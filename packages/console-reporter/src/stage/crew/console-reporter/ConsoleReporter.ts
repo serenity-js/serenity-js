@@ -1,4 +1,4 @@
-import { AssertionError, d, DomainEventQueues, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder } from '@serenity-js/core';
+import { AssertionError, d, DomainEventQueues, Duration, ListensToDomainEvents, LogicError, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import {
     ActivityRelatedArtifactGenerated,
@@ -9,11 +9,11 @@ import {
     SceneStarts,
     TaskFinished,
     TaskStarts,
-    TestRunFinished, TestRunStarts,
+    TestRunFinished,
+    TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import {
     CorrelationId,
-    Duration,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -25,7 +25,6 @@ import {
     Name,
     Outcome,
     ProblemIndication,
-    Timestamp,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ensure, isDefined, match } from 'tiny-types';
@@ -229,7 +228,15 @@ export class ConsoleReporter implements ListensToDomainEvents {
             this.summary.recordTestRunFinishedAt(event.timestamp);
 
             this.printSummary(this.summary);
+
+            if (event.outcome instanceof ProblemIndication) {
+                this.printTestRunErrorOutcome(event.outcome);
+            }
         }
+    }
+
+    private printTestRunErrorOutcome(outcome: ProblemIndication): void {
+        this.printer.println(this.theme.outcome(outcome, outcome.error.stack));
     }
 
     private printScene(sceneId: CorrelationId): void {
@@ -239,11 +246,13 @@ export class ConsoleReporter implements ListensToDomainEvents {
             match(event)
                 .when(SceneStarts, (e: SceneStarts) => {
 
+                    const category = e.details.name.value ? `${ e.details.category.value }: ` : '';
+
                     // Print scenario header
                     this.printer.println(this.theme.separator('-'));
                     this.printer.println(e.details.location.path.value, e.details.location.line ? `:${ e.details.location.line }` : '');
                     this.printer.println();
-                    this.printer.println(this.theme.heading(e.details.category.value, ': ', e.details.name.value));
+                    this.printer.println(this.theme.heading(category, e.details.name.value));
                     this.printer.println();
                 })
 
@@ -384,7 +393,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     private deCamelCased(name: string) {
-        const deCamelCased = name.replace(/([^A-Z])([A-Z])/g, '$1 $2');
+        const deCamelCased = name.replaceAll(/([^A-Z])([A-Z])/g, '$1 $2');
 
         return deCamelCased.charAt(0).toUpperCase() + deCamelCased.slice(1).toLocaleLowerCase();
     }

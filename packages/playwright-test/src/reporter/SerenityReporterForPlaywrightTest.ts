@@ -1,6 +1,14 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
-import { ClassDescription, LogicError, Serenity, serenity as reporterSerenityInstance, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import {
+    ClassDescription,
+    LogicError,
+    Serenity,
+    serenity as reporterSerenityInstance,
+    StageCrewMember,
+    StageCrewMemberBuilder,
+    Timestamp
+} from '@serenity-js/core';
 import { OutputStream } from '@serenity-js/core/lib/adapter';
 import * as events from '@serenity-js/core/lib/events';
 import {
@@ -13,7 +21,7 @@ import {
     TestRunFinished,
     TestRunFinishes,
     TestRunnerDetected,
-    TestRunStarts,
+    TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
@@ -191,13 +199,20 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     private scenarioDetailsFrom(test: TestCase) {
-        const [ root_, browserName_, fileName_, featureName, ...scenarioTitle] = test.titlePath();
+        const [ root_, browserName_, fileName, describeOrItBlockTitle, ...nestedTitles] = test.titlePath();
+
+        const path = new Path(test.location.file);
+        const scenarioName = nestedTitles.join(' ').trim();
+
+        const featureName = scenarioName
+            ? describeOrItBlockTitle
+            : fileName;
 
         return new ScenarioDetails(
-            new Name(scenarioTitle.join(' ')),
+            new Name(scenarioName || describeOrItBlockTitle),
             new Category(featureName),
             new FileSystemLocation(
-                new Path(test.location.file),
+                path,
                 test.location.line,
                 test.location.column,
             ),
@@ -207,9 +222,14 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     async onEnd(): Promise<void> {
         this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()));
 
-        await this.serenity.waitForNextCue();
-
-        this.serenity.announce(new TestRunFinished(this.serenity.currentTime()));
+        try {
+            await this.serenity.waitForNextCue();
+            this.serenity.announce(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+        }
+        catch (error) {
+            this.serenity.announce(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+            throw error;
+        }
     }
 
     // TODO emit a text artifact with stdout?

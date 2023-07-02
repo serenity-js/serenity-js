@@ -13,7 +13,7 @@ import { BrowseTheWeb } from '../abilities';
  * - {@apilink BrowseTheWeb}
  * - {@apilink LastScriptExecution.result}
  *
- * @group Interactions
+ * @group Activities
  */
 export class ExecuteScript {
 
@@ -200,7 +200,7 @@ export class ExecuteScript {
  * ## Learn more
  * -  {@apilink ExecuteScript}
  *
- * @group Interactions
+ * @group Activities
  */
 export abstract class ExecuteScriptWithArguments extends Interaction {
 
@@ -279,7 +279,7 @@ class ExecuteScriptFromUrl extends Interaction {
         const sourceUrl = await actor.answer(this.sourceUrl);
 
         return page.executeAsyncScript(
-            /* istanbul ignore next */
+            /* c8 ignore start */
             function executeScriptFromUrl(sourceUrl: string, callback: (message?: string) => void) {
                 const alreadyLoadedScripts = Array.prototype.slice
                         .call(document.querySelectorAll('script'))
@@ -302,6 +302,7 @@ class ExecuteScriptFromUrl extends Interaction {
                 document.head.append(script);
             },
             sourceUrl
+            /* c8 ignore stop */
         )
         .then(errorMessage => {
             if (errorMessage) {

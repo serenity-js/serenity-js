@@ -1,6 +1,7 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
-import { CorrelationId, Name, Timestamp } from '../model';
+import { CorrelationId, Name } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
@@ -18,11 +19,10 @@ export class TestRunnerDetected extends DomainEvent {
     constructor(
         public readonly sceneId: CorrelationId,
         public readonly name: Name,
-        public readonly timestamp: Timestamp = new Timestamp(),
+        timestamp?: Timestamp,
     ) {
-        super();
+        super(timestamp);
         ensure('sceneId', sceneId, isDefined());
         ensure('name', name, isDefined());
-        ensure('timestamp', timestamp, isDefined());
     }
 }

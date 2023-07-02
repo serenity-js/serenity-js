@@ -13,11 +13,11 @@ const localChromeConfig = {
         'goog:chromeOptions': {
             // As of version 75, ChromeDriver is W3C by default, which Protractor does not fully support.
             w3c: false,
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
                 '--window-size=1024x768',

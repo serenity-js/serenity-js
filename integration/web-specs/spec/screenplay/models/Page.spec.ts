@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Duration, LogicError, notes, Wait } from '@serenity-js/core';
+import { actorCalled, Duration, LogicError, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
 import { URL } from 'url';
 
@@ -189,28 +189,28 @@ describe('Page', () => {
                 };
 
                 const viewportSize = {
+                    startingPoint: { width: 1024, height: 768 },
                     small:  { width: 640, height: 480 },
                     medium: { width: 667, height: 375 },    // iPhone 8, something in the middle, but still representative of what people might use
                     large:  { width: 800, height: 600 },
                 }
 
-                before(() =>
-                    actorCalled('Bernie').attemptsTo(
-                        Navigate.to('/screenplay/models/page/viewport_size.html'),
-                        notes().set('original_viewport_size', Page.current().viewportSize()),
-                    ));
-
                 beforeEach(() =>
                     actorCalled('Bernie').attemptsTo(
-                        Page.current().setViewportSize(notes().get('original_viewport_size')),
-                    ));
-
-                after(() =>
-                    actorCalled('Bernie').attemptsTo(
-                        Page.current().setViewportSize(notes().get('original_viewport_size')),
+                        Navigate.to('/screenplay/models/page/viewport_size.html'),
                     ));
 
                 describe('setViewportSize()', () => {
+
+                    beforeEach(() =>
+                        actorCalled('Bernie').attemptsTo(
+                            Page.current().setViewportSize(viewportSize.startingPoint),
+                        ));
+
+                    after(() =>
+                        actorCalled('Bernie').attemptsTo(
+                            Page.current().setViewportSize(viewportSize.startingPoint),
+                        ));
 
                     /** @test {Page.current()} */
                     /** @test {Page#viewportSize()} */

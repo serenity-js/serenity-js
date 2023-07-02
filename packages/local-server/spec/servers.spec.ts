@@ -74,7 +74,7 @@ describe('ManageALocalServer', () => {
     describe('when working with HTTPS', () => {
 
         const testHttpsServer = [
-            StartLocalServer.onOneOfThePreferredPorts([ 8443, 9443 ]),
+            StartLocalServer.onPort(8443),
             Ensure.that(LocalServer.url(), startsWith('https://127.0.0.1')),
             Send.a(GetRequest.to(LocalServer.url())),
             Ensure.that(LastResponse.status(), equals(200)),

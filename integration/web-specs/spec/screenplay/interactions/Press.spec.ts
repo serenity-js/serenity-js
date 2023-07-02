@@ -1,10 +1,9 @@
-/* eslint-disable unicorn/consistent-function-scoping */
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, matches } from '@serenity-js/assertions';
-import { actorCalled, Check, d, Log, Question, Task } from '@serenity-js/core';
-import { BrowseTheWeb, By, Click, DoubleClick, Enter, Key, Navigate, PageElement, Press, Value } from '@serenity-js/web';
+import { Ensure, equals } from '@serenity-js/assertions';
+import { actorCalled, notes, Wait } from '@serenity-js/core';
+import { Attribute, By, isVisible, Key, Navigate, PageElement, Press, Text, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 describe('Press', () => {
@@ -13,15 +12,10 @@ describe('Press', () => {
         textField: PageElement.located(By.id('input-box')).describedAs('the text field'),
     };
 
-    const CopyAndPasteBoxesForm = {
-        source: PageElement.located(By.id('source')).describedAs('source text field'),
-        destination: PageElement.located(By.id('destination')).describedAs('destination text field'),
-    };
-
-    const OS = () => Question.about('operating system', async actor => {
-        const capabilities = await BrowseTheWeb.as(actor).browserCapabilities();
-        return capabilities.platformName;
-    });
+    const KeyEventLoggerForm = {
+        input:  PageElement.located(By.id('input')).describedAs('input'),
+        output: PageElement.located(By.id('output')).describedAs('output'),
+    }
 
     describe('single keys', () => {
 
@@ -38,96 +32,42 @@ describe('Press', () => {
 
     describe('key chords', function () {
 
-        it('allows the actor to use modifier keys', () =>
+        it('allows the actor to use keyboard shortcuts in the context of the currently focused input box', () =>
             actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/input_box.html'),
+                Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
-                Enter.theValue('hello').into(InputBoxForm.textField),
-                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft, Key.ArrowLeft, Key.ArrowLeft).in(InputBoxForm.textField),
-                Press.the(Key.Backspace).in(InputBoxForm.textField),
-                Press.the('i').in(InputBoxForm.textField),
+                Wait.until(KeyEventLoggerForm.input, isVisible()),
 
-                Ensure.that(Value.of(InputBoxForm.textField), equals('hi')),
+                Ensure.eventually(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('false')),
+
+                Press.the(Key.Tab),
+                Press.the(Key.Control, 'b'),
+
+                Wait.until(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('true')),
+
+                notes<MyNotes>().set('event', Text.of(KeyEventLoggerForm.output).as(eventDetailsFromJson)),
+
+                Ensure.that(notes<MyNotes>().get('event').key, equals('b')),
+                Ensure.that(notes<MyNotes>().get('event').ctrlKey, equals(true)),
             ));
 
-        it('allows the actor to use keyboard shortcuts outside the context of any specific input box', async () => {
+        it('allows the actor to use keyboard shortcuts in the context of a specific input box', () =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to('/screenplay/interactions/press/key_event_logger.html'),
 
-            const Copy = () => Task.where(`#actor performs a "copy" operation`,
-                Check.whether(OS(), matches(/^mac|darwin/i))
-                    .andIfSo(Press.the(Key.Control, Key.Insert))
-                    .otherwise(Press.the(Key.Control, 'c')),
-            );
+                Wait.until(KeyEventLoggerForm.input, isVisible()),
 
-            const Paste = () => Task.where(`#actor performs a "paste" operation`,
-                Check.whether(OS(), matches(/^mac|darwin/i))
-                    .andIfSo(Press.the(Key.Shift, Key.Insert))
-                    .otherwise(Press.the(Key.Control, 'v')),
-            );
+                Ensure.eventually(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('false')),
 
-            await actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/copy_and_paste_boxes.html'),
+                Press.the(Key.Control, 'b').in(KeyEventLoggerForm.input),
 
-                Enter.theValue('hi').into(CopyAndPasteBoxesForm.source),
+                Wait.until(Attribute.called('data-event-handled').of(KeyEventLoggerForm.input), equals('true')),
 
-                // todo: SelectAll
-                Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft).in(CopyAndPasteBoxesForm.source),
-                // Press.the(Key.Meta, 'a').in(CopyAndPasteBoxesForm.source),
+                notes<MyNotes>().set('event', Text.of(KeyEventLoggerForm.output).as(eventDetailsFromJson)),
 
-                Log.the(OS()),
-
-                Copy(),
-
-                Click.on(CopyAndPasteBoxesForm.destination),
-
-                Paste(),
-
-                Ensure.that(Value.of(CopyAndPasteBoxesForm.destination), equals('hi')),
-            );
-        });
-
-        it('allows the actor to use keyboard shortcuts in the context of a specific input box', async () => {
-
-            const SelectValueOf = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor selects the value of ${ field }`,
-                    Click.on(field),
-                    DoubleClick.on(field),
-                );
-
-            const CopyFrom = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor performs a "copy" operation on ${ field }`,
-                    SelectValueOf(field),
-                    Check.whether(OS(), matches(/^mac|darwin/i))
-                        .andIfSo(Press.the(Key.Control, Key.Insert).in(field))
-                        .otherwise(Press.the(Key.Control, 'c').in(field)),
-                );
-
-            const PasteInto = (field: Question<Promise<PageElement>>) =>
-                Task.where(d `#actor performs a "paste" operation on ${ field }`,
-                    Check.whether(OS(), matches(/^mac|darwin/i))
-                        .andIfSo(Press.the(Key.Shift, Key.Insert).in(field))
-                        .otherwise(Press.the(Key.Control, 'v').in(field)),
-                );
-
-            const LoseFocus = () =>
-                Task.where(`#actor makes sure their browser is not focused on any input box`,
-                    Press.the(Key.Escape),
-                );
-
-            await actorCalled('Bernie').attemptsTo(
-                Navigate.to('/screenplay/interactions/press/copy_and_paste_boxes.html'),
-
-                Log.the(OS()),
-
-                Enter.theValue('example').into(CopyAndPasteBoxesForm.source),
-                LoseFocus(),
-
-                CopyFrom(CopyAndPasteBoxesForm.source),
-
-                PasteInto(CopyAndPasteBoxesForm.destination),
-
-                Ensure.that(Value.of(CopyAndPasteBoxesForm.destination), equals('example')),
-            );
-        });
+                Ensure.that(notes<MyNotes>().get('event').key, equals('b')),
+                Ensure.that(notes<MyNotes>().get('event').ctrlKey, equals(true)),
+            ));
     });
 
     given([
@@ -182,7 +122,7 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(181);
+            expect(location.line).to.equal(121);
             expect(location.column).to.equal(36);
         });
 
@@ -191,8 +131,25 @@ describe('Press', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(190);
+            expect(location.line).to.equal(130);
             expect(location.column).to.equal(47);
         });
     });
 });
+
+interface EventDetails {
+    key:      string;
+    keyCode:  number;
+    ctrlKey:  boolean;
+    altKey:   boolean;
+    shiftKey: boolean;
+    metaKey:  boolean;
+}
+
+interface MyNotes {
+    event: EventDetails;
+}
+
+function eventDetailsFromJson(text: string): EventDetails {
+    return JSON.parse(text);
+}

@@ -1,6 +1,4 @@
-import { ChildProcessReporter } from '@integration/testing-tools';
-import { devices } from '@playwright/test';
-import { StreamReporter } from '@serenity-js/core';
+import { devices, ReporterDescription } from '@playwright/test';
 import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
 
@@ -33,16 +31,19 @@ const config: PlaywrightTestConfig = {
 
     reporter: [
         [ 'line' ],
-        // [ 'html', { open: 'never' }],
         [
             path.resolve(__dirname, '../../packages/playwright-test'),    // '@serenity-js/playwright-test'
             {
                 crew: [
-                    new ChildProcessReporter(),
-                    new StreamReporter(),
+                    '@integration/testing-tools:ChildProcessReporter',
+                    '@serenity-js/core:StreamReporter',
                 ],
             },
         ],
+        ...[
+            process.env.REPORTER_JSON && [ 'json', { outputFile: process.env.REPORTER_JSON } ],
+            process.env.REPORTER_HTML && [ 'html', { outputFolder: process.env.REPORTER_HTML, open: 'never' } ],
+        ].filter(Boolean) as Array<ReporterDescription>,
     ],
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

@@ -1,5 +1,5 @@
-import { BrowserTag, PlatformTag, Tag } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
+import { BrowserTag, PlatformTag, Tag } from '@serenity-js/core/lib/model/index.js';
+import type { Capabilities } from '@wdio/types';
 
 /**
  * @package
@@ -31,12 +31,13 @@ export class TagPrinter {
     private browserNameFrom(capabilities: Capabilities.DesiredCapabilities): string {
         return capabilities.browserName
             || capabilities.browser
-            || (capabilities.app && capabilities.app.replace('sauce-storage:', ''))
+            || (capabilities['appium:app'] && capabilities['appium:app'].replace('sauce-storage:', ''))
             || 'unknown';
     }
 
     private browserVersionFrom(capabilities: Capabilities.DesiredCapabilities): string | undefined {
         return capabilities.deviceName          // mobile web
+            || capabilities['appium:deviceName']
             || capabilities.browserVersion      // W3C format
             || capabilities.version             // JSONWP format
             || capabilities.browser_version;    // BrowserStack
@@ -44,13 +45,14 @@ export class TagPrinter {
 
     private platformNameFrom(capabilities: Capabilities.DesiredCapabilities): string {
         return capabilities.platformName
+            || capabilities['appium:platformName']
             || capabilities.platform
             || capabilities.os
             || 'unknown';
     }
 
     private platformVersionFrom(capabilities: Capabilities.DesiredCapabilities): string | undefined {
-        return capabilities.platformVersion
+        return capabilities['appium:platformVersion']
             || capabilities.os_version;
     }
 

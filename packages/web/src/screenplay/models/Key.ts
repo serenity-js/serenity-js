@@ -81,6 +81,6 @@ export class Key {
     }
 
     toString(): string {
-        return this.devtoolsName.replace(/([a-z])([\dA-Z])/g, '$1 $2');
+        return this.devtoolsName.replaceAll(/([a-z])([\dA-Z])/g, '$1 $2');
     }
 }

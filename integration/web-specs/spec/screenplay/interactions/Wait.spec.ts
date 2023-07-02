@@ -52,7 +52,7 @@ describe('Wait', () => {
                 Ensure.that(Text.of(status()), equals('Not ready')),
                 Click.on(loadButton()),
 
-                Wait.for(Duration.ofMilliseconds(2_500)),
+                Wait.for(Duration.ofMilliseconds(6_000)),
 
                 Ensure.that(Text.of(status()), equals('Ready!')),
             ));
@@ -99,7 +99,7 @@ describe('Wait', () => {
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Waited 2s, polling every 500ms, for the text of the header to equal 'Ready!'
+                    | Timeout of 2s has expired while waiting for the text of the header to equal 'Ready!'
                     |
                     | Expectation: equals\\('Ready!'\\)
                     |
@@ -111,7 +111,7 @@ describe('Wait', () => {
 
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.upTo(Duration.ofSeconds(1)).until(Text.of(status()), equals('Ready!')).toString())
-                .to.equal(`#actor waits up to 1s, polling every 500ms, until the text of the header does equal 'Ready!'`);
+                .to.equal(`#actor waits until the text of the header does equal 'Ready!'`);
         });
     });
 });

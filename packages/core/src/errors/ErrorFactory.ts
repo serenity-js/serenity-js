@@ -4,7 +4,7 @@ import { types } from 'util';
 
 import { inspected, isPrimitive, typeOf } from '../io';
 import { isPlainObject } from '../io/stringified';
-import { Unanswered } from '../screenplay';
+import { Unanswered } from '../screenplay/questions/Unanswered';
 import { DiffFormatter } from './diff';
 import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
 import { ErrorOptions } from './ErrorOptions';

@@ -1,4 +1,7 @@
-import { Timestamp } from '../model';
+import { JSONObject } from 'tiny-types';
+
+import { Outcome, SerialisedOutcome } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
@@ -7,13 +10,17 @@ import { DomainEvent } from './DomainEvent';
  * @group Events
  */
 export class TestRunFinished extends DomainEvent {
-    static fromJSON(v: string): TestRunFinished {
+    static fromJSON(o: JSONObject): TestRunFinished {
         return new TestRunFinished(
-            Timestamp.fromJSON(v as string),
+            Outcome.fromJSON(o.outcome as SerialisedOutcome),
+            Timestamp.fromJSON(o.timestamp as string),
         );
     }
 
-    constructor(timestamp?: Timestamp) {
+    constructor(
+        public readonly outcome: Outcome,
+        timestamp?: Timestamp,
+    ) {
         super(timestamp);
     }
 }

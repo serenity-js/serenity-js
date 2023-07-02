@@ -1,6 +1,9 @@
 import { FileSystemLocation } from '../io';
 import { ExpectationDetails } from '../screenplay';
 
+/**
+ * @group Errors
+ */
 export interface ErrorOptions {
     message: string;
     location?: FileSystemLocation;

@@ -8,7 +8,7 @@ import { exampleTest } from '../exampleTest';
 
 describe('MochaTestMapper', () => {
 
-    const mapper = new MochaTestMapper();
+    const mapper = new MochaTestMapper(new Path('/fake/path'));
 
     it('treats the outer-most describe as the name of the feature', () => {
         const feature = mapper.featureNameFor(exampleTest)

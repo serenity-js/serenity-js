@@ -246,11 +246,11 @@ function isNative(v: any): v is Function {  // eslint-disable-line @typescript-e
         // Coerce `Object#toString` to a string
         String(toString)
         // Escape any special regexp characters
-            .replace(/[$()*+./?[\\\]^{|}]/g , '\\$&')
+            .replaceAll(/[$()*+./?[\\\]^{|}]/g, '\\$&')
             // Replace mentions of `toString` with `.*?` to keep the template generic.
             // Replace thing like `for ...` to support environments like Rhino which add extra info
             // such as method arity.
-            .replace(/toString|(function).*?(?=\\\()| for .+?(?=\\])/g, '$1.*?') +
+            .replaceAll(/toString|(function).*?(?=\\\()| for .+?(?=\\])/g, '$1.*?') +
         '$',
     );
 

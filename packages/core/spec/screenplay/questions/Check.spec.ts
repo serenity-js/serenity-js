@@ -2,7 +2,7 @@
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { actorCalled, Check, Interaction } from '../../../src';
+import { Actor, actorCalled, Check, Interaction } from '../../../src';
 import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 
@@ -12,12 +12,21 @@ describe('Check', () => {
         Interaction.where(`#actor calls a function`, actor => fn());
 
     let spy: sinon.SinonSpy;
-    beforeEach(() => spy = sinon.spy());
+    let actor: Actor;
+
+    beforeEach(() => {
+        spy = sinon.spy();
+        actor = actorCalled('Enrique');
+    });
+
+    afterEach(async () => {
+        await actor.dismiss()
+    });
 
     describe('(if branch)', () => {
 
         it('makes the actor execute the activities when the expectation is met', () =>
-            expect(actorCalled('Enrique').attemptsTo(
+            expect(actor.attemptsTo(
                 Check.whether('Hello World', isIdenticalTo('Hello World'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -30,7 +39,7 @@ describe('Check', () => {
         );
 
         it('makes the actor ignore the activities when the expectation is not met', () =>
-            expect(actorCalled('Enrique').attemptsTo(
+            expect(actor.attemptsTo(
                 Check.whether('Hello World', isIdenticalTo('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -46,7 +55,7 @@ describe('Check', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Check.spec.ts');
-            expect(location.line).to.equal(45);
+            expect(location.line).to.equal(54);
             expect(location.column).to.equal(83);
         });
     });
@@ -54,7 +63,7 @@ describe('Check', () => {
     describe('(if/else branches)', () => {
 
         it('makes the actor execute the activities when the expectation is met', () =>
-            expect(actorCalled('Enrique').attemptsTo(
+            expect(actor.attemptsTo(
                 Check.whether('Hello World', isIdenticalTo('Hello World'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -69,7 +78,7 @@ describe('Check', () => {
         );
 
         it('makes the actor execute the alternative activities when the expectation is not met', () =>
-            expect(actorCalled('Enrique').attemptsTo(
+            expect(actor.attemptsTo(
                 Check.whether('Hello World', isIdenticalTo('¡Hola'))
                     .andIfSo(
                         Call(() => spy(true)),
@@ -88,7 +97,7 @@ describe('Check', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('Check.spec.ts');
-            expect(location.line).to.equal(87);
+            expect(location.line).to.equal(96);
             expect(location.column).to.equal(93);
         });
     });

@@ -1,17 +1,17 @@
 import { LogicError } from '@serenity-js/core';
 import { Key, PageElement, SelectOption, SwitchableOrigin } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts';
-import * as wdio from 'webdriverio';
+import * as scripts from '@serenity-js/web/lib/scripts/index.js';
+import type { Browser, Element } from 'webdriverio';
 
-import { WebdriverIOLocator } from './locators';
-import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode';
+import { WebdriverIOLocator } from './locators/index.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink PageElement}.
  *
  * @group Models
  */
-export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
+export class WebdriverIOPageElement extends PageElement<Element> {
     of(parent: WebdriverIOPageElement): WebdriverIOPageElement {
         return new WebdriverIOPageElement(this.locator.of(parent.locator))
     }
@@ -23,20 +23,17 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
         }
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
-        async function removeCharactersFrom(browser: wdio.Browser<'async'>, inputElement: wdio.Element<'async'>, numberOfCharacters: number): Promise<void> {
-            const homeKey   = browser.isDevTools ? Key.Home.devtoolsName : Key.Home.utf16codePoint;
-            const deleteKey = browser.isDevTools ? Key.Delete.devtoolsName : Key.Delete.utf16codePoint;
-
+        async function removeCharactersFrom(browser: Browser | Element, inputElement: Element, numberOfCharacters: number): Promise<void> {
             await browser.execute(
-                /* istanbul ignore next */
+                /* c8 ignore next */
                 function focusOn(element: any) {
                     element.focus();
                 },
                 element
             );
-            await inputElement.keys([
-                homeKey,
-                ...times(numberOfCharacters, deleteKey),
+            await browser.keys([
+                Key.Home.utf16codePoint,
+                ...times(numberOfCharacters, Key.Delete.utf16codePoint),
             ]);
         }
 
@@ -69,8 +66,10 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
     }
 
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
-        const element = await this.nativeElement();
-        await element.addValue(value);
+        const text      = Array.isArray(value) ? value.join('') : value;
+        const element   = await this.nativeElement();
+
+        await element.addValue(text);
     }
 
     async scrollIntoView(): Promise<void> {
@@ -106,7 +105,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
         const browser = await this.browserFor(element);
 
         const options = await browser.execute(
-            /* istanbul ignore next */
+            /* c8 ignore start */
             (select: HTMLSelectElement) => {
                 const options = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
@@ -121,6 +120,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
                 return options;
             },
             element as unknown
+            /* c8 ignore stop */
         );
 
         return options.map(option =>
@@ -145,7 +145,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     async switchTo(): Promise<SwitchableOrigin> {
         try {
-            const element: wdio.Element<'async'> = await this.locator.nativeElement()
+            const element: Element = await this.locator.nativeElement()
 
             if (element.error) {
                 throw element.error;
@@ -169,7 +169,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
             else {
                 // focus on element
                 const previouslyFocusedElement = await browser.execute(
-                    /* istanbul ignore next */
+                    /* c8 ignore next */
                     function focusOn(element: any) {
                         const currentlyFocusedElement = document.activeElement;
                         element.focus();
@@ -181,7 +181,7 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
                 return {
                     switchBack: async (): Promise<void> => {
                         await browser.execute(
-                            /* istanbul ignore next */
+                            /* c8 ignore next */
                             function focusOn(element: any) {
                                 element.focus();
                             },
@@ -253,10 +253,10 @@ export class WebdriverIOPageElement extends PageElement<wdio.Element<'async'>> {
 
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
 
-    private async browserFor(nativeElement: wdio.Element<'async'> | wdio.Browser<'async'>): Promise<wdio.Browser<'async'>> {
-        const element = nativeElement as wdio.Element<'async'>;
+    private async browserFor(nativeElement: Element | Browser): Promise<Element | Browser> {
+        const element = nativeElement as Element;
         return element.parent
-            ? this.browserFor(element.parent)
+            ? this.browserFor(element.parent as (Element | Browser))
             : nativeElement
     }
 }
