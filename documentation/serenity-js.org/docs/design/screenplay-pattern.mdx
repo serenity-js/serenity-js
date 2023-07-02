@@ -4,22 +4,638 @@ sidebar_position: 1
 
 # Screenplay Pattern
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+The **Screenplay Pattern** is an innovative, [user-centred](https://en.wikipedia.org/wiki/User-centered_design) approach
+to writing high-quality automated acceptance tests.
+It steers you towards an effective use of **layers of abstraction**,
+helps your test scenarios capture the **business vernacular** of **your domain**,
+and encourages good testing and software engineering habits on your team.
+
+The design principle behind the Screenplay Pattern is simple but might forever change the way you look at test automation:
+
+:::tip Remember
+**Automated acceptance tests** should use **your domain language** to clearly express what **activities** the **actors**
+interacting with **your system** need to perform in order to accomplish **their goals**.
+:::
+
+Applying this design principle to your automated tests has a number of positive implications:
+- Expressing your test scenarios in **your domain language** makes them easier to understand and accessible to a wider audience
+- Focusing on **actors** and **their goals** makes it easy to correlate any test failures with the actual business impact
+- Modelling actor workflows using sequences of business-focused, reusable **activities** reduces code duplication, improves flexibility of your test code base,
+and means that your team can quickly compose new test scenarios from existing steps
+
+> To communicate effectively, the code must be based on the same language used to write the requirements—the same language that the developers speak with each other and with domain experts.
+>
+> ― _Eric Evans, ["Domain-Driven Design: Tackling Complexity in the Heart of Software"](https://amzn.to/3lKVpFv)_
+
+## The five elements of the Screenplay Pattern
+
+The **Screenplay Pattern** uses the [system metaphor](https://wiki.c2.com/?SystemMetaphor) of a **stage performance**,
+helping you model each test scenario like a little [screenplay](https://en.wikipedia.org/wiki/Screenplay)
+describing how the actors should go about performing their activities
+while interacting with the [system under test](http://xunitpatterns.com/SUT.html).
+
+Following the Screenplay Pattern helps you capture:
+- **Who** the actors interacting with your system are
+- **Why** they interact with your system
+- **What** they need to do to accomplish their goals
+- **How** exactly they would go about that
+
+The five building blocks of the Screenplay Pattern are:
+- **[Actors](#actors)**, who represent **people** and **external systems** interacting with the system under test
+- **[Abilities](#abilities)**, that act as **thin wrappers** around any **integration libraries** required to interact with the system under test
+- **[Interactions](#interactions)**, which represent the **low-level activities** an actor can perform using a given interface
+- **[Tasks](#tasks)**, used to model **sequences of activities** as meaningful steps of a business workflow in your domain
+- **[Questions](#questions)**, used to **retrieve information** from the system under test and the test execution environment
+
+<Figure
+    caption='Five elements of the Screenplay Pattern'
+    img={require('@site/static/images/design/serenity-js-screenplay-pattern.png')}
+/>
+
+## Screenplay Pattern with Serenity/JS
+
+The best way to illustrate the Screenplay Pattern is through a practical example, so assume for a moment that we're writing a test scenario
+for an online shop. The shop has a REST API that lets us configure its product catalogue with some test data,
+and a web storefront that lets customers find the products they need and make a purchase.
+
+### Actors
+
+A test scenario following the Screenplay Pattern has one or multiple [**actors**](/api/core/class/Actor)
+representing people and external systems interacting with the system under test and playing specific roles.
+
+:::info The role of an actor
+Just like the five core elements of the Screenplay Pattern, the term "role" comes from the system metaphor of a **stage performance**.
+It should be interpreted as the role a given actor plays in the performance,
+the role they play in the system. Some good examples of roles include "a doctor", "a trader", or "a writer".
+
+While a "role" might imply the _permissions_ a given actor has in the system they interact with (e.g. a "writer" can write articles,
+but only a "publisher" publishes articles), this is not a mechanism to _prevent_ the actor from performing activities inconsistent with their role.
+
+In particular, Serenity/JS will not prevent you from writing scenarios where a "writer" tries to impersonate a "publisher"
+and publish an article. If it did, you would not be able to test if your system correctly implemented its access control mechanisms!
+:::
+
+Our example scenario could have two actors, who we'll call:
+- Apisitt, responsible for setting up test data using the REST API
+- Wendy, representing a customer interacting with the web UI
+
+With Serenity/JS, we can instantiate new actors or retrieve the ones we've already referenced in the given scenario using the function
+[`actorCalled`](/api/core/function/actorCalled) and providing their name:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+
+actorCalled('Apisitt')
+actorCalled('Wendy')
 ```
 
-Key points:
-- **Screenplay Pattern** helps your automated tests focus on business workflows and reduce the complexity of your framework
-- **Screenplays** are sequences of _activities_ performed by _actors_ in a test scenario
-- **Actors** represent _users_ and _external systems_ interacting with the system under test
+Learn more about:
+- [Actors](/api/core/class/Actor)
+- [`actorCalled`](/api/core/function/actorCalled)
 
-<ArticleComingSoon />
+### Abilities
 
-> “To communicate effectively, the code must be based on the same language used to write the requirements—the same language that the developers speak with each other and with domain experts.”
-> ― Eric Evans @ericevans0, Domain-Driven Design
+Actors have [**abilities**](/api/core/class/Ability) that enable them to interact with the various interfaces
+of the system under test.
 
+:::info Did you know?
+The word "screen" in "screenplay" has nothing to do with the _computer screen_.
+On the contrary, the Screenplay Pattern is a **general method** of modelling acceptance tests interacting with _any_
+external interface of your system. In fact, Serenity/JS implementation of the Screenplay Pattern can help you
+break free from UI-only-based testing!
+:::
 
-From the software design perspective, Serenity/JS _tasks_ are conceptually similar to _procedures_, so _functions_ that don't return a value.
-Tasks encapsulate a business-focused sequence of operations that an end-user of our system, or an external system interacting with our system,
-would perform to achieve some business outcome. Examples of such tasks include one to `signUp`, `remindPassword`, `findProductByName`, and so on.
+For example, Apisitt will interact with the [REST API](/api/rest) using an Axios HTTP client:
 
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+import axios from 'axios'
+
+const httpClient = axios.create({ baseURL: 'https://api.example.org' })
+
+actorCalled('Apisitt')
+    .whoCan(CallAnApi.using(httpClient))
+```
+
+At the same time, Wendy will interact with the [web UI](/api/web) using Playwright (although she could do so using any other [popular web browser driver supported by Serenity/JS](/handbook/web-testing/)):
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+
+import { chromium } from 'playwright'
+
+const browser = await chromium.launch({ headless: true })
+
+actorCalled('Wendy')
+    .whoCan(BrowseTheWebWithPlaywright.using(browser))
+```
+
+Learn more about:
+- [Abilities](/api/core/class/Ability)
+- [Web testing](/handbook/web-testing/)
+- [Api testing](/handbook/api-testing/)
+- [Mobile testing](/handbook/mobile-testing/)
+
+### Interactions
+
+Abilities enable actors to perform [**interactions**](/api/core/class/Interaction) with the system under test.
+Interactions are command objects that instruct an actor how to use their abilities to perform the given activity.
+Most interactions you will need are already provided by [Serenity/JS modules](/handbook/about/architecture),
+and you can easily [create new ones](/api/core/class/Interaction) if you'd like to.
+
+Here, we instruct Apisitt to use the interaction to [`Send.a(HTTPRequest)`](/api/rest/class/Send) from the [Serenity/JS REST](/api/rest) module
+to set up some test data for our test scenario:
+
+```typescript
+// ...
+import { CallAnApi, PostRequest } from '@serenity-js/rest'
+
+// ...
+
+await actorCalled('Apisitt')
+    .whoCan(CallAnApi.using(httpClient))
+    .attemptsTo(                                    // actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([   // interactions like `Send` are command objects
+            { name: 'Apples', price: '£2.50' }
+        ])),
+    )
+```
+
+We can also instruct Wendy to use interactions from the [Serenity/JS Web](/api/web) module
+to [navigate](/api/web/class/Navigate) to the web interface of our system under test:
+
+```typescript
+// ...
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+import { Navigate } from '@serenity-js/web'
+
+// ...
+
+await actorCalled('Wendy')
+    .whoCan(BrowseTheWebWithPlaywright.using(browser))
+    .attemptsTo(
+        Navigate.to('https://example.org'), // all Serenity/JS interactions have a consistent API,
+    )                                       // no matter the interface they're interacting with
+```
+
+Learn more about:
+- [Actors](/api/core/class/Actor)
+- [Interactions](/api/core/class/Interaction)
+- [Debugging](/handbook/design/debugging)
+
+### Questions
+
+Apart from enabling interactions, abilities also enable actors to answer [**questions**](/api/core/class/Question)
+about the state of the system under test. Questions provide a way to parameterise activities
+and allow actors to retrieve information when the activity is performed.
+
+For example, we could instruct Apisitt to answer the question about the [`LastResponse.status()`](/api/rest/class/LastResponse#status)
+and use it to [`Ensure.that`](/api/assertions/class/Ensure) his last request returned
+an expected status code (note that [Serenity/JS assertions](/handbook/design/assertions) work just like any other interaction):
+
+```typescript
+// ...
+import { CallAnApi, PostRequest, Send, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+// ...
+
+await actorCalled('Apisitt')
+    .whoCan(CallAnApi.using(httpClient))
+    .attemptsTo(
+        Send.a(PostRequest.to('/products').with([ { name: 'Apples', price: '£2.50' } ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+```
+
+Even though Wendy uses a web browser and not an API client, the way we instruct her to answer [web questions](/handbook/web-testing/)
+and [perform web assertions](/handbook/design/assertions#web-assertions) is consistent with how you'd interact with any other interface:
+
+```typescript
+// ...
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, endsWith } from '@serenity-js/assertions'
+
+// ...
+
+await actorCalled('Wendy')
+    .whoCan(BrowseTheWebWithPlaywright.using(browser))
+    .attemptsTo(
+        Navigate.to('https://example.org'),
+        Ensure.that(
+            Page.current().title(),
+            endsWith('My Example Shop'),
+        )
+    )
+```
+
+Learn more about:
+- [Questions](/api/core/class/Question)
+- [Assertions and expectations](/handbook/design/assertions)
+- [Logging](/handbook/design/logging)
+- [Debugging](/handbook/design/debugging)
+
+### Tasks
+
+The idea that underpins the Screenplay Pattern is to capture your domain language and use your acceptance tests as an opportunity to demonstrate
+how actors interacting with your system accomplish their goals.
+
+Conceptually similar to functions, [**tasks**](/api/core/class/Task) offer an easy way to associate business meaning with sequences of activities
+and turn them into reusable building blocks.
+
+Here, we extract some of the activities performed by Apisitt and turn them into a reusable task to `setupProductCatalogue`:
+
+```typescript
+import { actorCalled, Task } from '@serenity-js/core'
+import { CallAnApi, PostRequest } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+// ...
+
+interface Product {
+    name: string;
+    price: string;
+}
+
+const setupProductCatalogue = (products: Product[]) =>
+    Task.where(`#actor sets up the product catalogue`,
+        Send.a(PostRequest.to('/products').with(products)),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+
+await actorCalled('Apisitt')
+    .whoCan(CallAnApi.using(httpClient))
+    .attemptsTo(
+        setupProductCatalogue([ { name: 'Apples', price: '£2.50' } ])
+    )
+```
+
+In the exact same manner we define a task for Wendy to `openOnlineStore`:
+
+```typescript
+import { actorCalled, Task } from '@serenity-js/core'
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, endsWith } from '@serenity-js/assertions'
+// ...
+
+const openOnlineStore = () =>
+    Task.where(`#actor opens the online store`,
+        Navigate.to('https://example.org'),
+        Ensure.that(
+            Page.current().title(),
+            endsWith('My Example Shop'),
+        )
+    )
+
+await actorCalled('Wendy')
+    .whoCan(BrowseTheWebWithPlaywright.using(browser))
+    .attemptsTo(
+        openOnlineStore(),
+    )
+```
+
+Learn more about:
+- [Actors](/api/core/class/Actor)
+- [Tasks](/api/core/class/Task)
+
+## Performing activities at multiple levels
+
+The role of an actor is to perform [activities](/api/core/class/Activity) that demonstrate how to accomplish a given goal.
+
+:::tip Remember
+**Actors** represent **people** and **external systems** interacting with the system under test.
+:::
+
+For example, we might have an acceptance test that demonstrates how the system under test enables an actor to accomplish the goal of booking a plane
+ticket.
+If we were using Serenity/JS with a spec-style test runner like [Jasmine](/handbook/test-runners/jasmine), [Mocha](/handbook/test-runners/mocha), or [Playwright Test](/handbook/test-runners/playwright-test),
+we could implement such scenario like this:
+
+<Tabs>
+<TabItem value="playwright-test" label="Playwright Test" default>
+
+```typescript
+import { describe, it, test } from '@serenity-js/playwright-test'
+
+test.use({ defaultActorName: 'Trevor' })
+
+describe('Serenity Airlines flight booking', () => {                            // system feature
+
+  it('should allow travellers to book a plane ticket', async ({ actor }) => {   // scenario goal
+    await actor.attemptsTo(
+      findFlight('London', 'New York'),                                         // activities
+      chooseFlightClass(FlightClass.Economy),
+      providePaymentDetails(defaultCard),
+      receiveBookingConfirmation(),
+    )
+  })
+})
+```
+
+</TabItem>
+<TabItem value="mocha" label="Mocha">
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { describe, it } from 'mocha'
+
+describe('Serenity Airlines flight booking', () => {                            // system feature
+
+  it('should allow travellers to book a plane ticket', () => {                  // scenario goal
+    await actorCalled('Trevor').attemptsTo(
+      findFlight('London', 'New York'),                                         // activities
+      chooseFlightClass(FlightClass.Economy),
+      providePaymentDetails(defaultCard),
+      receiveBookingConfirmation(),
+    )
+  })
+})
+```
+
+</TabItem>
+<TabItem value="jasmine" label="Jasmine">
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+
+describe('Serenity Airlines flight booking', () => {                            // system feature
+
+  it('should allow travellers to book a plane ticket', () => {                  // scenario goal
+    await actorCalled('Trevor').attemptsTo(
+      findFlight('London', 'New York'),                                         // activities
+      chooseFlightClass(FlightClass.Economy),
+      providePaymentDetails(defaultCard),
+      receiveBookingConfirmation(),
+    )
+  })
+})
+```
+
+</TabItem>
+</Tabs>
+
+If we were using [Cucumber.js](/handbook/test-runners/cucumber), the name of the feature, the goal of the scenario,
+as well as the high-level steps necessary to achieve the goal would already be captured in our [`.feature`](https://cucumber.io/docs/gherkin/reference/) files:
+
+```gherkin
+Feature: Serenity Airlines flight booking                                       # system feature
+
+  Scenario: traveller books a plane ticket                                      # scenario goal
+
+    Given Trevor finds a flight from 'London' to 'New York'                     # high-level steps
+      And he chooses the 'Economy' flight class
+     When he provides his payment details
+     Then he should receive a booking confirmation
+```
+
+In this case, each Cucumber [step definition](https://cucumber.io/docs/cucumber/step-definitions/?lang=javascript) is mapped
+to a Serenity/JS actor performing one or more activities.
+Completing those activities helps the actor accomplish the mini-goal of the associated Cucumber step:
+
+```typescript
+import { Given } from '@cucumber/cucumber'
+import { Actor } from '@serenity-js/core'
+
+Given('{actor} finds a flight from {string} to {string}',                       // step goal
+  async (actor: Actor, origin: string, destination: string) => {
+    await actor.attemptsTo(
+      findFlight(origin, destination),                                          // activities
+    )
+  }
+)
+
+Given(`{pronoun} chooses the '{flightClass}' flight class`,                     // step goal
+  async (actor: Actor, flightClass: FlightClass) => {
+    await actor.attemptsTo(
+      chooseFlightClass(flightClass),                                           // activities
+    )
+  }
+)
+```
+
+From the implementation perspective, functions like `findFlight` or `providePaymentDetails` produce [activities](/api/core/class/Activity),
+which are [command objects](https://en.wikipedia.org/wiki/Command_pattern) that encapsulate information needed for the actor to perform some defined action.
+
+The way you instruct an actor to perform some activities is always exactly the same, no matter the kind of test you write
+or the type of interface the actor interacts with - you pass them to the [`Actor.attemptsTo`](/api/core/class/Actor#attemptsTo) method.
+This method call makes the actor attempt to perform the activities one by one and returns a standard JavaScript [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+that's resolved when the process is finished, or rejected in case of any errors:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+
+await actorCalled('Alice').attemptsTo(
+    activity1,
+    activity2,
+    activity3,
+    // ...
+)
+// returns: Promise<void>
+```
+
+Looking at activities from the _design philosophy perspective_, however, can be much more interesting.
+
+The role of an actor is not _just_ to perform _any_ activities. It is to perform activities that demonstrate how a goal can be accomplished at the given **level of abstraction**.
+The interesting bit is that the way we describe what the goal is and the vocabulary we use to describe what activities it requires vary depending on the level of abstraction we're operating at.
+
+:::tip Remember
+**Actors** demonstrate how to accomplish a **goal** by performing **activities** at multiple **levels of abstraction**.
+:::
+
+At the **high levels of abstraction**, e.g. in business-focused acceptance test scenarios,
+the vocabulary we use is rooted in the **business domain**, and so are the names we choose for the activities.
+
+For example, an acceptance test scenario might state that for the system to enable the actor to accomplish the **goal** of _booking a plane ticket_,
+an actor should be able to successfully perform the following **high-level activities**:
+- find an appropriate flight connection,
+- choose flight class,
+- provide payment details,
+- receive booking confirmation.
+
+The names we give functions that produce those activities, such as `findFlight` or `chooseFlightClass`,
+represent those steps in the business process and are agnostic of the interface through which actors interact with the system under test.
+
+:::info Model the expected process, not the existing implementation
+When describing an acceptance test at a high level of abstraction,
+the way we **name the activities** is focused on representing the steps of the **expected business process**
+and **not tied to the implementation** of any specific interface of the system under test.
+"Find an appropriate flight connection", "choose flight class", or "provide payment details"
+are all good examples of such high-level activity names.
+
+This design approach helps to produce test scenarios that are **easier to read and understand** and to a much **wider audience** than the traditional test scripts.
+It also results in two other major advantages:
+- once the business process is clearly described in our test scenario, we can often use our acceptance tests to identify **obstacles in user journeys**, or even **highlight errors** and **hidden assumptions** in the **business process** itself
+- since we're not tying the implementation to any particular interface, we leave ourselves **more integration options** when it comes to automation.
+
+After all, most business process stepscould be accomplished in different ways.
+An actor could `findFlight` by interacting with a web UI, a mobile app, by sending requests to a web service, or even by actually going to the ticket office at the airport!
+:::
+
+At the **low level of abstraction**, e.g. in UI component tests, the vocabulary we use to describe actor's activities
+is focused on the **interface** the actor needs to interact with.
+Here the goal might be to _use the web UI to specify the origin airport_. To accomplish it, the actor would need to:
+- click on the `origin airport` widget
+- enter the name of the origin city, like `London`
+- pick the first suggested airport from the list
+
+:::tip Remember
+The core idea behind the Screenplay Pattern is to express the acceptance tests from the perspective of **actors**
+playing a certain **role** and attempting to accomplish their **goals** by performing **activities** at **multiple levels** of abstraction.
+:::
+
+Of course, most activities fall **somewhere in between** the high and low levels of abstraction.
+Furthermore, turns out that **higher-level** activities can be **composed of lower-level activities**,
+which themselves could be composed of _**even lower-level activities**_!
+
+If you're familiar with [User Experience Design](https://en.wikipedia.org/wiki/User_experience_design),
+you might recognise this style of [functional decomposition](https://en.wikipedia.org/wiki/Functional_decomposition)
+from [Hierarchical Task Analysis](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555).
+
+The fascinating aspect of looking at your test scenarios as sequences of activities made up of activities,
+made up of activities, is that this mental model lends itself perfectly to [functional composition](https://en.wikipedia.org/wiki/Function_composition_(computer_science))
+and making _activities_ the primary component of code reuse in Serenity/JS.
+
+## Screenplay Pattern in test scenarios
+
+Screenplay Pattern helps you to create acceptance tests that demonstrate how actors interacting with your system
+go about accomplishing their goals.
+Serenity/JS Screenplay Pattern APIs make it easy to write single- and multi-actor scenarios that interact
+with any interface of the system under test, help you capture your domain language,
+and produce [test reports and living documentation](/handbook/reporting/) that's accessible to everyone involved in your project.
+
+Serenity/JS also supports a number of [popular test runners](/handbook/test-runners/),
+including [Playwright Test](/handbook/test-runners/playwright-test) where your test scenario could look like this:
+
+```typescript title="spec/online_store.spec.ts"
+import { describe, it } from '@serenity-js/playwright-test'
+// ...
+
+describe('Online Store', () => {
+    // ...
+
+    it('should allow customers to find products of interest', async ({ actorCalled, browser }) => {
+
+        await actorCalled('Apisitt')
+            .whoCan(CallAnApi.using(httpClient))
+            .attemptsTo(
+                setupProductCatalogue([ { name: 'Apples', price: '£2.50' } ]),
+            )
+
+        await actorCalled('Wendy')
+            .whoCan(BrowseTheWebWithPlaywright.using(browser))
+            .attemptsTo(
+                openOnlineStore(),
+                findProductCalled('Apples'),
+                Ensure.that(topSearchResult().name, equals('Apples')),
+                Ensure.that(topSearchResult().price, equals('£2.50')),
+            )
+    })
+})
+```
+
+Another benefit of using Serenity/JS Screenplay Pattern APIs is that they work great not just
+with spec-style test runners like [Jasmine](/handbook/test-runners/jasmine), [Mocha](/handbook/test-runners/mocha), or [Playwright Test](/handbook/test-runners/playwright-test).
+
+The user-centred task-based code reuse model will also feel like a natural fit for teams using [Serenity/JS with Cucumber](/handbook/test-runners/cucumber):
+
+```gherkin title="features/online_store.feature"
+Feature: Online Store
+
+  Scenario: customer finds product by name
+
+    Given Apisitt sets up product catalogue with:
+      | name    | price |
+      | Apples  | £2.50 |
+    When Wendy looks for 'Apples'
+    Then she should see top search result of:
+      | name  | Apples |
+      | price | £2.50  |
+```
+```typescript title="features/online_store.steps.ts"
+import { Given, When, Then, DataTable } from '@cucumber/cucumber'
+import { Actor } from '@serenity-js/core'
+// ...
+
+Given('{actor} sets up product catalogue with:', (actor: Actor, products: DataTable) =>
+    actor.attemptsTo(
+        setupProductCatalogue(products.hashes()),
+    ))
+
+When('{actor} looks for {string}', (actor: Actor, productName: string) =>
+    actor.attemptsTo(
+        openOnlineStore(),
+        findProductCalled(productName),
+    ))
+
+Then('{pronoun} should see top search result of', (actor: Actor, expectedResult: string) =>
+    actor.attemptsTo(
+        Ensure.that(topSearchResult().name, equals(expectedResult.rowsHash().name)),
+        Ensure.that(topSearchResult().price, equals(expectedResult.rowsHash().price)),
+    ))
+```
+
+## Start with Serenity/JS Screenplay Pattern 🚀
+
+The easiest way to **experience** working with Serenity/JS and the Screenplay Pattern is
+to **follow the tutorial** and write [**your first web scenario**](/handbook/web-testing/your-first-web-scenario)!
+
+When you're ready to **start your own test automation project**, use one of the available [**Serenity/JS Project Templates**](/handbook/getting-started#serenityjs-project-templates)
+as they include a handful of Screenplay scenarios and combine some of the most popular configurations of Serenity/JS modules and test automation tools:
+
+- [REST API testing with Cucumber and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-template)
+- [REST API testing with Mocha and Serenity/JS](https://github.com/serenity-js/serenity-js-mocha-template)
+- [Web testing with Cucumber, Playwright, and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-playwright-template)
+- [Web testing with Playwright Test and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/playwright-test-todomvc)
+- [Web testing with WebdriverIO, Mocha, and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha-todomvc)
+- [Web testing with WebdriverIO, Cucumber, and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template)
+
+To dive even deeper, check out the [Serenity/JS repository](https://github.com/serenity-js/serenity-js)
+and explore the [examples](https://github.com/serenity-js/serenity-js/tree/main/examples).
+
+:::tip Try Serenity/JS in your browser
+Thanks to [Gitpod.io](/handbook/getting-started#serenityjs-gitpods),
+you can follow the [web testing tutorial](/handbook/web-testing/your-first-web-scenario)
+and use any of the [Serenity/JS Project Templates](/handbook/getting-started#serenityjs-project-templates) right here in your browser,
+no local installation required! 🚀
+:::
+
+## History of the Screenplay Pattern
+
+[Serenity/JS](https://github.com/serenity-js) introduced the Screenplay Pattern to JavaScript back in 2016,
+but the ideas behind the pattern have been around since 2007 in various forms.
+
+This list is a chronological order of significant events, implementations, and writings related to the evolution of the Screenplay Pattern.
+
+:::note Credits
+* 2007: <abbr title="Agile Alliance Functional Test Tools">AAFTT</abbr> workshop - [In praise of abstraction](https://developertesting.com/archives/month200710/20071013-In%20Praise%20of%20Abstraction.html) - **Kevin Lawrence** introduces the idea of using the language of interaction designers to model automated tests
+* 2007: <abbr title="Agile Alliance Functional Test Tools">AAFTT</abbr> workshop - [**Antony Marcano**](http://antonymarcano.com/) demonstrates the ["Roles, Goals, Tasks, Actions" model](http://antonymarcano.com/blog/2011/03/goals-tasks-action/), which later evolves into the Screenplay Pattern
+* 2008: [JNarrate](https://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern) - first experimental Java implementation of the "Roles, Goals, Tasks, Actions" model by Antony Marcano and [**Andy Palmer**](https://andypalmer.com/)
+* 2011: [Cuke Salad](https://github.com/RiverGlide/CukeSalad/) - Ruby implementation of the "Roles, Goals, Tasks, Actions" model by Antony Marcano
+* 2011: [A bit of UCD for BDD & ATDD: Goals -> Tasks -> Actions](http://antonymarcano.com/blog/2011/03/goals-tasks-action/) - blog post by Antony Marcano explaining the motivation behind the "Roles, Goals, Tasks, Actions" model
+* 2012: [Screenplay4j](https://bitbucket-archive.softwareheritage.org/projects/te/testingreflections/screenplay4j.html) - first public Java implementation by Antony Marcano and Andy Palmer
+* 2012: [User Centred Scenarios: Describing capabilities, not solutions](https://skillsmatter.com/skillscasts/3141-user-centred-scenarios-describing-capabilities-not-solutions) - talk by Antony Marcano and **James Martin**
+* 2013: [ScreenplayJVM](https://github.com/screenplay/screenplay-jvm) - Java implementation by Antony Marcano and [**Jan Molak**](https://linkedin.com/in/janmolak)
+* 2013: [A journey beyond the page object pattern](https://www.slideshare.net/RiverGlide/a-journey-beyond-the-page-object-pattern) - talk by Antony Marcano, Jan Molak and [**Kostas Mamalis**](https://www.linkedin.com/in/kostasmamalis)
+* 2015: [Serenity BDD](http://serenity-bdd.info/) - [**John Ferguson Smart**](https://www.linkedin.com/in/john-ferguson-smart/) and Jan Molak, along with Andy Palmer and Antony Marcano, add native support for the Screenplay Pattern to Serenity BDD, popularising the pattern in the Java testing community
+* 2016: [Beyond Page Objects: Next Generation Test Automation with Serenity and the Screenplay Pattern](https://www.infoq.com/articles/Beyond-Page-Objects-Test-Automation-Serenity-Screenplay/) by Andy Palmer, Antony Marcano, John Ferguson Smart, and Jan Molak
+* 2016: [Page Objects Refactored: SOLID Steps to the Screenplay/Journey Pattern](https://dzone.com/articles/page-objects-refactored-solid-steps-to-the-screenp) - by Antony Marcano, Andy Palmer, John Ferguson Smart, and Jan Molak
+* 2016: [Screenplays and Journeys, Not Page Objects](https://testerstories.com/2016/06/screenplays-and-journeys-not-page-objects/) - blog post by Jeff Nyman
+* 2016: [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern.html) as described by Jan Molak
+* 2016: [Serenity/JS](https://github.com/serenity-js/serenity-js) - Jan Molak starts the Serenity/JS project - the original JavaScript/TypeScript implementation of the Screenplay Pattern
+* 2017: [Testing modern webapps. At scale.](https://www.slideshare.net/janmolak/testing-modern-webapps-at-scale) - Jan Molak introduces the idea of "Blended Testing" - making Screenplay Pattern tests scenarios interact with multiple interfaces as a way to improve test performance and encourage code reuse
+* 2017: [Having Our Cake and Eating It](https://speakerdeck.com/npryce/having-our-cake-and-eating-it-1) - [Nat Pryce](http://www.natpryce.com/) introduces the idea of using the Screenplay Pattern to write tests that run in milliseconds
+* 2019: [ScreenPy](https://pypi.org/project/screenpy/) - Python implementation of the Screenplay Pattern by [Perry Goy](https://www.linkedin.com/in/perry-goy/), inspired by Serenity BDD and Serenity/JS implementations
+* 2020: [Boa Constrictor](https://automationpanda.com/2020/10/16/introducing-boa-constrictor-the-net-screenplay-pattern/) - a .NET implementation of Screenplay by [Andrew Knight](https://automationpanda.com/), inspired by Serenity BDD and Serenity/JS
+* 2020: [Understanding Screenplay](https://cucumber.io/blog/bdd/understanding-screenplay-(part-1)/) - blog series by [Matt Wynne](https://blog.mattwynne.net/)
+* 2021: [Cucumber Screenplay](https://github.com/cucumber/screenplay.js) and [Sub-second TDD](https://github.com/subsecondtdd/todo-subsecond) - implementation by [Aslak Hellesøy](https://www.aslakhellesoy.com/), building on the Screenplay Pattern, and further exploring Nat Pryce's idea of sub-second acceptance tests and Jan Molak's "blended testing"
+* 2021: [BDD in Action, 2nd Edition](https://www.manning.com/books/bdd-in-action-second-edition) by John Ferguson Smart and Jan Molak includes several chapters and many examples of using the Screenplay Pattern in Java and TypeScript
+:::

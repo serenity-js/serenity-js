@@ -32,7 +32,7 @@ export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
         const allPages = await this.allPages()
 
-        return allPages[allPages.length-1];
+        return allPages.at(-1);
     }
 
     /**

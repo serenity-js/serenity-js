@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { LogicError } from '@serenity-js/core';
 import { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { ModuleLoader } from '@serenity-js/core/lib/io';

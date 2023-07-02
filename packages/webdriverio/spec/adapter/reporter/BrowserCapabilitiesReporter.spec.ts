@@ -1,13 +1,14 @@
+import { PassThrough } from 'node:stream';
+
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Clock, Serenity } from '@serenity-js/core';
-import { SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
-import { RunnerStart } from '@wdio/types/build/Options';
+import { SceneTagged } from '@serenity-js/core/lib/events/index.js';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model/index.js';
+import { Capabilities, Reporters} from '@wdio/types';
+import { Options } from '@wdio/types';
 import { beforeEach, describe, it } from 'mocha';
-import { PassThrough } from 'stream';
 
-import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter';
+import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter/index.js';
 
 describe('BrowserCapabilitiesReporter', () => {
 
@@ -16,11 +17,11 @@ describe('BrowserCapabilitiesReporter', () => {
         now                 = new Date(0),
         frozenClock         = new Clock(() => now);
 
-    let browserDetector: BrowserCapabilitiesReporter,
+    let browserDetector: Reporters.ReporterInstance,
         serenity: Serenity,
         recorder: EventRecorder;
 
-    beforeEach(() => {
+    beforeEach(async () => {
 
         serenity = new Serenity(frozenClock);
         recorder = new EventRecorder();
@@ -46,7 +47,7 @@ describe('BrowserCapabilitiesReporter', () => {
                     browserName:        'Chrome Headless',
                     browserVersion:     '90.0.4430.212',
                     platformName:       'darwin',
-                    platformVersion:    '20.4.0',
+                    os_version:         '20.4.0',
                 },
             }));
 
@@ -78,7 +79,7 @@ describe('BrowserCapabilitiesReporter', () => {
                     browserName:        'Chrome Headless',
                     browserVersion:     '90.0.4430.212',
                     platformName:       'darwin',
-                    platformVersion:    '20.4.0',
+                    os_version:         '20.4.0',
                 },
             }));
 
@@ -132,7 +133,7 @@ describe('BrowserCapabilitiesReporter', () => {
                         browserName:        'Chrome Headless',
                         browserVersion:     '90.0.4430.212',
                         platformName:       'darwin',
-                        platformVersion:    '20.4.0',
+                        os_version:         '20.4.0',
                     },
                     BenWindows: {
                         browserName:        'Chrome Headless',
@@ -142,9 +143,9 @@ describe('BrowserCapabilitiesReporter', () => {
                     },
                     CindyMobile: {
                         deviceName:         'iPhone 6 Plus',
-                        platformVersion:    '9.2',
                         platformName:       'iOS',
-                        app:                'sauce-storage:myApp.app',
+                        ['appium:app']:     'sauce-storage:myApp.app',
+                        ['appium:platformVersion']:  '9.2',
                     },
                 },
             }));
@@ -188,10 +189,10 @@ describe('BrowserCapabilitiesReporter', () => {
 type MultiremoteCapabilities = Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>;
 
 /**
- * Fixme: it looks like WDIO RunnerStart 7.4.2 implementation incorrectly defines MultiremoteCapabilities
+ * Fixme: it looks like WDIO RunnerStart 7.4.2 implementation and newer incorrectly define MultiremoteCapabilities
  *  below is the correct representation of what the reporter actually receives
  */
-type RunnerStartEvent = RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
+type RunnerStartEvent = Options.RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
 
 function runnerStart(overrides: Partial<RunnerStartEvent>): RunnerStartEvent {
     return {

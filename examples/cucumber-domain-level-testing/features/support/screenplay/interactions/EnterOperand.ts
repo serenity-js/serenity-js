@@ -1,6 +1,6 @@
+import { EnterOperandCommand, Operand } from '@examples/calculator-app';
 import { Actor, Interaction } from '@serenity-js/core';
 import { JSONData } from '@serenity-js/core/lib/model';
-import { EnterOperandCommand, Operand } from '@serenity-js-examples/calculator-app';
 
 import { InteractDirectly } from '../abilities';
 

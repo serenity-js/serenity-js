@@ -1,13 +1,13 @@
 import { LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import { BrowsingSession, ModalDialogHandler } from '@serenity-js/web';
-import type { Page } from 'puppeteer-core/lib/cjs/puppeteer/api/Page';
-import * as wdio from 'webdriverio';
+import type { Page } from 'puppeteer-core';
+import type { Browser } from 'webdriverio';
 
-import { WebdriverIOPage } from '../models';
-import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler';
-import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler';
-import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler';
+import { WebdriverIOPage } from '../models/index.js';
+import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
+import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler.js';
 
 /**
  * WebdriverIO-specific implementation of {@apilink BrowsingSession}.
@@ -16,7 +16,7 @@ import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerMo
  */
 export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
 
-    constructor(protected readonly browser: wdio.Browser<'async'>) {
+    constructor(protected readonly browser: Browser) {
         super();
 
         if (! browser.$ || ! browser.$$) {
@@ -87,7 +87,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
             if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
                 const allHandles = await this.browser.getWindowHandles();
                 if (allHandles.length > 0) {
-                    const handle = allHandles[allHandles.length - 1];
+                    const handle = allHandles.at(-1);
                     await this.browser.switchToWindow(handle);
 
                     return handle;

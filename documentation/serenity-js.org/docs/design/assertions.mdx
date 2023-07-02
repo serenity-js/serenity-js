@@ -1,10 +1,177 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 ---
-# Assertions and Expectations
+# Assertions and expectations
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+Serenity/JS helps you model your test scenarios from the perspective of [actors](/api/core/class/Actor) performing [activities](/api/core/class/Activity) to accomplish their goals.
+Assertions follow this same consistent approach, with any assertions expressed using the interaction to [`Ensure`](/api/assertions/class/Ensure).
+
+The interaction to [`Ensure`](/api/assertions/class/Ensure) has two flavours:
+- [`Ensure.that`](/api/assertions/class/Ensure#that), which makes the actor evaluate the expectation, and fails immediately if its condition is not met,
+- [`Ensure.eventually`](/api/assertions/class/Ensure#eventually), which keeps evaluating the expectation until the condition is met, or the [interaction timeout](/api/core/class/SerenityConfig#interactionTimeout) expires.
+
+## The anatomy of a Serenity/JS assertion
+
+Both `Ensure.that` and `Ensure.eventually` follow the same consistent pattern and accept two arguments:
+- the ["actual value"](http://xunitpatterns.com/ResultVerification.html) - an [`Answerable`](/api/core#Answerable) to be evaluated in the context of the given [actor](/api/core/class/Actor),
+- an [`Expectation`](/api/core/class/Expectation) that defines the condition to be met by the actual value.
+
+An example Serenity/JS assertion might look like this:
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, and, startsWith, endsWith } from '@serenity-js/assertions'
+
+await actorCalled('Edna').attemptsTo(
+    Ensure.that('Hello world', and(startsWith('Hello'), endsWith('world'))),
+    //   actual value --^      ^-- expectation
+)
 ```
 
-<ArticleComingSoon />
+Note that several Serenity/JS modules provide expectations you can use to define your assertions, most notably:
+- [Serenity/JS assertions module](/api/assertions) provides general use expectations for any type of test automation
+- [Serenity/JS web module](/api/web) provides expectations dedicated to automating interactions with web interfaces
+
+## Reusable assertions
+
+Unlike other assertion libraries, Serenity/JS allows for the "actual value" to be [**determined dynamically**](/api/core/class/Question)
+and resolved in the context of the actor performing the assertion.
+This design enables **great flexibility** and helps to maximise **opportunities for code reuse**.
+
+Consider a simple test scenario, verifying that an [interaction with a REST API](/api/rest) returns
+the status code of [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200):
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Apisit')
+    .whoCan(CallAnApi.at('https://serenity-js.org/'))
+    .attemptsTo(
+        Send.a(GetRequest.to('/handbook/design/assertions')),
+        Ensure.that(LastResponse.status(), equals(200)),
+    )
+```
+
+Since the question about the [`LastResponse.status()`](/api/rest/class/LastResponse#status) is evaluated dynamically
+by the actor who performed the [`GetRequest`](/api/rest/class/GetRequest),
+you could create a custom [task](/api/core/class/Task) that encapsulates this operation:
+
+```typescript
+import { Answerable, d, Task } from '@serenity-js/rest'
+import { Send, GetRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+const checkUrl = (url: Answerable<string>) =>
+    Task.where(d`#actor checks the ${ url }`,
+        Send.a(GetRequest.to(url)),
+        Ensure.that(LastResponse.status(), equals(200)),
+    )
+```
+
+You could then use such custom task to create a simple link checker:
+
+```typescript
+import { actorCalled, List } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+
+await actorCalled('Apisit')
+    .whoCan(CallAnApi.at('https://serenity-js.org/'))
+    .attemptsTo(
+        checkUrl('/handbook/design/assertions'),
+    )
+```
+Or even combine it with a [List](/api/core/class/List)
+to check multiple URLs one after another:
+
+```typescript
+import { actorCalled, List } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+
+await actorCalled('Apisit')
+    .whoCan(CallAnApi.at('https://serenity-js.org/'))
+    .attemptsTo(
+        List.of([
+            '/handbook/design/assertions',
+            '/handbook/design/screenplay-pattern'
+        ]).
+        forEach(({ actor, item }) =>
+            actor.attemptsTo(
+                checkUrl(item),
+            ))
+    )
+```
+
+## Web assertions
+
+Interactions to [`Ensure.that`](/api/assertions/class/Ensure#that) and [`Ensure.eventually`](/api/assertions/class/Ensure#eventually)
+are interface-agnostic, so you can use them to verify interactions with [REST APIs](/handbook/api-testing/), [mobile apps](/handbook/mobile-testing/), [web UIs](/handbook/web-testing/), and so on.
+
+Consider the following example web widget:
+```html
+<h1 class="heading">Hello Serenity!</h1>
+```
+
+To interact with such widget, you'd define a [`PageElement`](/api/web/class/PageElement) describing how to locate it:
+
+```typescript
+import { PageElement, By } from '@serenity-js/web'
+
+const heading = () =>
+    PageElement.located(By.css('.heading'))
+```
+
+Since `PageElement` is an implementation of the standard Serenity/JS [`Question`](/api/core/class/Question) interface,
+it is accepted by the interaction to `Ensure` just like any other [`Answerable`](/api/core#Answerable) value:
+
+```typescript title="Example web scenario interacting with the widget"
+import { actorCalled } from '@serenity-js/core'
+import { Ensure } from '@serenity-js/assertions'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Edna').attemptsTo(
+    Ensure.that(heading(), isVisible()),
+)
+```
+
+## Fault-tolerant assertions
+
+What makes web testing challenging is having to deal with **unpredictable delays** typically caused by **network traffic**
+or **complex animations**.
+
+To help you work around that, Serenity/JS offers an interaction to [`Ensure.eventually`](/api/assertions/class/Ensure#eventually),
+which instead of failing the scenario immediately when the expectation is not met, instructs the actor
+to evaluate the actual value until it meets the expectation, or the [interaction timeout](/api/core/class/SerenityConfig#interactionTimeout) expires.
+
+```typescript title="Example web scenario interacting with the widget"
+import { actorCalled } from '@serenity-js/core'
+import { Ensure } from '@serenity-js/assertions'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Edna').attemptsTo(
+    Ensure.eventually(heading(), isVisible()),
+)
+```
+
+Note that while you can set the global
+[interaction timeout](/api/core/class/SerenityConfig#interactionTimeout)
+in Serenity/JS configuration, you can also configure it for the specific assertion:
+
+```typescript title="Example web scenario interacting with the widget"
+import { actorCalled, Duration } from '@serenity-js/core'
+import { Ensure } from '@serenity-js/assertions'
+import { isVisible } from '@serenity-js/web'
+
+await actorCalled('Edna').attemptsTo(
+    Ensure.eventually(heading(), isVisible())
+        .timeoutAfter(Duration.ofMilliseconds(500)),
+)
+```
+
+## Implementing custom expectations
+
+Serenity/JS [assertions](/api/assertions) and [web](/api/web) modules provide expectations you'll need to implement
+even the most sophisticated test scenarios.
+
+However, you can also implement **custom expectations** when needed. To do that, consult the examples in [`Expectation`](/api/core/class/Expectation) API docs
+and the [Serenity/JS code base on GitHub](https://github.com/serenity-js/serenity-js).

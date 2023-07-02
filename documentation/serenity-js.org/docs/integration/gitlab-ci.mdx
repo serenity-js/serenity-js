@@ -1,13 +1,414 @@
-# GitLab CI
+---
+title: GitLab CI
+---
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
+# Continuous Testing with GitLab CI
+
+Serenity/JS integrates with [industry-standard test runners](/handbook/test-runners/), build tools, and <abbr title="Continuous Integration and Delivery">CI/CD</abbr> pipelines
+to help your team [continuously deliver](https://docs.gitlab.com/ee/ci/introduction/index.html#introduction-to-cicd-methodologies) high-quality software.
+
+In this article, I'll show you how to configure [GitLab CI](https://docs.gitlab.com/ee/ci/introduction/)
+to run automated acceptance tests built using Serenity/JS and publish test execution reports and living documentation to GitLab Pages, so that you can share them with your team.
+
+**You will learn:**
+- How to run Serenity/JS test scenarios as part of a GitLab CI pipeline
+- How to produce Serenity BDD reports and living documentation and publish them to GitLab Pages
+- How to make your test suite produce JUnit-standard reports and use them to decorate GitLab Merge Requests
+
+## Writing tests
+
+To run your automated tests on GitLab CI you first need to write them 😊
+The easiest way to get started with automating tests using Serenity/JS is to use one of the available [**Serenity/JS Project Templates**](/handbook/getting-started#serenityjs-project-templates)
+as they come with example scenarios and combine some of the most popular configurations of Serenity/JS modules and test automation tools:
+
+- [REST API testing with Cucumber and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-template)
+- [REST API testing with Mocha and Serenity/JS](https://github.com/serenity-js/serenity-js-mocha-template)
+- [Web testing with Cucumber, Playwright, and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-playwright-template)
+- [Web testing with Playwright Test and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/playwright-test-todomvc)
+- [Web testing with WebdriverIO, Mocha, and Serenity/JS](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha-todomvc)
+- [Web testing with WebdriverIO, Cucumber, and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template)
+
+If you're new to Serenity/JS, you might want to follow the **tutorial** to learn how to [**write your first web scenario**](/handbook/web-testing/your-first-web-scenario)!
+
+## Running tests on GitLab CI
+
+GitLab CI uses [Docker containers](https://docs.gitlab.com/ee/ci/docker/using_docker_images.html) to run your <abbr title="Continuous Integration and Delivery">CI/CD</abbr> jobs.
+To ensure maximum stability of your test suite, you should run Serenity/JS in a container that offers the latest [Long-Term Support](https://github.com/nodejs/Release) version of Node.js, as per the the [Serenity/JS installation guide](/handbook/about/installation).
+
+The exact **Docker image** you choose depends on the runtime dependencies required for your tests.
+
+For example:
+- **REST API** tests that don't require any web browsers should use the official plain Node.js image: [`node:lts`](https://hub.docker.com/_/node)
+- **Web tests** using **Playwright** should use the official Playwright image: [`mcr.microsoft.com/playwright:latest`](https://mcr.microsoft.com/en-us/product/playwright/about)
+- **Web tests** using **WebdriverIO** can use the official Puppeteer image: [`ghcr.io/puppeteer/puppeteer:latest`](https://github.com/puppeteer/puppeteer/pkgs/container/puppeteer)
+- Alternatively, **web tests** using **WebdriverIO** can also use a [`node:lts`](https://hub.docker.com/_/node) image and an attached [GitLab CI service](https://docs.gitlab.com/ee/ci/services/) running Selenium Standalone, for example:
+  [`selenium/standalone-chrome:latest`](https://hub.docker.com/r/selenium/standalone-chrome), or [`selenium/standalone-firefox:latest`](https://hub.docker.com/r/selenium/standalone-firefox)
+- Additionally, if your organisation uses an in-house or external [**Selenium Grid**](https://www.selenium.dev/documentation/grid/), such as [SauceLabs](https://saucelabs.com/) or [BrowserStack](https://www.browserstack.com/), you can use the [`node:lts`](https://hub.docker.com/_/node) image
+  and connect your tests to the grid, as per the configuration instructions from your Selenium Grid provider
+
+Below example shows basic configuration of a [GitLab CI Pipeline](https://docs.gitlab.com/ee/ci/yaml/gitlab_ci_yaml.html) you can place in the `.gitlab-ci.yml` file in the root directory of your GitLab repository:
+
+<Tabs>
+<TabItem value="node" label="Plain Node" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: node:lts
+  script:
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
 ```
 
-<ArticleComingSoon />
+</TabItem>
+<TabItem value="playwright" label="Playwright" default>
 
-## Dependencies
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
 
-## Running tests
+serenity:
+  stage: test
+  image: mcr.microsoft.com/playwright:latest
+  script:
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
 
-## Publishing to GitLab Pages
+# other configuration
+```
+
+</TabItem>
+<TabItem value="webdriverio-puppeteer" label="WebdriverIO with Puppeteer" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: ghcr.io/puppeteer/puppeteer:latest
+  script:
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+<TabItem value="webdriverio-selenium-standalone" label="WebdriverIO with Selenium Standalone" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: node:lts
+  services:
+    - selenium/standalone-chrome
+  script:
+    - npm ci
+
+    # configure your tests to use Selenium Grid at
+    # selenium__standalone-chrome:4444
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+</Tabs>
+
+**How a GitLab CI pipeline works**:
+- When a code change is pushed to your [source control repository](https://docs.gitlab.com/ee/user/project/repository/), GitLab CI runs your code through the [`stages`](https://docs.gitlab.com/ee/ci/yaml/#stages) of a pipeline you've defined in your pipeline configuration file.
+  The pipeline in our example has one stage so far: `test`, however most pipelines will have additional stages like `build`, `report`, or `deploy`.
+- Each pipeline stage can have multiple [jobs](https://docs.gitlab.com/ee/ci/jobs/), in this case a job called `serenity` provisions a Docker container specified as [`image`](https://docs.gitlab.com/ee/ci/yaml/#image), checks out your code, and invokes a `script` responsible for running your automated tests.
+- In our example, `script` runs:
+    - `npm ci`, which installs the Node.js modules that your automation projects depends on
+    - `npm test`, which invokes the [`test` script](https://docs.npmjs.com/cli/v8/commands/npm-test) defined in your [`package.json`](https://docs.npmjs.com/cli/v9/configuring-npm/package-json)
+- Since all the [**Serenity/JS Project Templates**](/handbook/getting-started#serenityjs-project-templates) are configured to run tests via `npm test` and produce [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter) under `target/site/serenity`,
+  we configure GitLab to archive any [`artifacts`](https://docs.gitlab.com/ee/ci/yaml/#artifacts) under `target`. This way you can [inspect them in GitLab UI](https://docs.gitlab.com/ee/ci/jobs/job_artifacts.html) or use them in subsequent stages of your pipeline.
+
+## Generating Serenity BDD reports
+
+Serenity/JS uses [Serenity BDD CLI](/handbook/reporting/serenity-bdd-reporter) to generate Serenity BDD HTML reports and living documentation. Serenity BDD CLI is a [Java program](https://github.com/serenity-bdd/serenity-core/tree/main/serenity-cli) downloaded and managed by Serenity/JS.
+However, since Serenity BDD CLI is a Java program, it requires a Java Runtime Environment (JRE) which might not be available in your Docker image.
+
+If the Docker image you use doesn't offer a Java Runtime Environment (JRE), you can:
+- Install a JRE as part of your GitLab CI job
+- Create a custom Docker image with both Node.js and a JRE
+
+### Installing a Java Runtime Environment
+
+To install a JRE before running the tests, add `apt-get update && apt-get install default-jre -y` to your GitLab CI script:
+
+<Tabs>
+<TabItem value="node" label="Plain Node" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: node:lts
+  script:
+    // highlight-next-line
+    - apt-get update && apt-get install default-jre -y
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+<TabItem value="playwright" label="Playwright" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: mcr.microsoft.com/playwright:latest
+  script:
+    // highlight-next-line
+    - apt-get update && apt-get install default-jre -y
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+<TabItem value="webdriverio-puppeteer" label="WebdriverIO with Puppeteer" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: ghcr.io/puppeteer/puppeteer:latest
+  script:
+    // highlight-next-line
+    - apt-get update && apt-get install default-jre -y
+    - npm ci
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+<TabItem value="webdriverio-selenium-standalone" label="WebdriverIO with Selenium Standalone" default>
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  image: node:lts
+  services:
+    - selenium/standalone-chrome
+  script:
+    // highlight-next-line
+    - apt-get update && apt-get install default-jre -y
+    - npm ci
+
+    # configure your tests to use Selenium Grid at
+    # selenium__standalone-chrome:4444
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - target
+
+# other configuration
+```
+
+</TabItem>
+</Tabs>
+
+### Building a custom Docker image
+
+To avoid installing the Java Runtime Environment every time your GitLab CI pipeline runs, you might prefer to [build a custom Docker image](https://docs.docker.com/build/building/packaging/),
+publish it to your organisation's artifact registry, and use that image instead.
+
+To add a JRE to your base Docker image of choice, use a `Dockerfile` like in the example below:
+
+<Tabs>
+<TabItem value="node" label="Plain Node" default>
+
+```docker title="Dockerfile"
+FROM node:lts
+
+RUN apt-get update \
+ && apt-get install default-jre -y \
+ && apt-get clean
+```
+
+</TabItem>
+<TabItem value="playwright" label="Playwright" default>
+
+```docker title="Dockerfile"
+FROM mcr.microsoft.com/playwright:latest
+
+RUN apt-get update \
+ && apt-get install default-jre -y \
+ && apt-get clean
+```
+
+</TabItem>
+<TabItem value="webdriverio-puppeteer" label="WebdriverIO with Puppeteer" default>
+
+```docker title="Dockerfile"
+FROM ghcr.io/puppeteer/puppeteer:latest
+
+RUN apt-get update \
+ && apt-get install default-jre -y \
+ && apt-get clean
+```
+
+</TabItem>
+</Tabs>
+
+Next, build and publish your Docker image as per the instructions from your artifact registry vendor:
+- [Artifactory: "Docker registry"](https://jfrog.com/help/r/jfrog-artifactory-documentation/docker-registry)
+- [GitHub: "Working with the Container registry"](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+- [GitLab: "Build and push container images to the Container Registry"](https://docs.gitlab.com/ee/user/packages/container_registry/build_and_push_images.html)
+
+## Publishing Serenity BDD reports to GitLab Pages
+
+[GitLab Pages](https://docs.gitlab.com/ee/user/project/pages/) is a feature of GitLab CI that allows you to publish static HTML websites, such as Serenity BDD HTML reports,
+and share them with your team.
+
+GitLab Pages rely on convention over configuration, so to use this feature your pipeline needs to meet the below criteria:
+- You must declare a GitLab CI job called `pages` in your `.gitlab-ci.yml`
+- There must be an explicit dependency between the `serenity` job and the `pages` job so that the `artifacts` are propagated between the stages of your pipeline
+- Any static content you wish to publish must be moved to a directory called `public`
+
+Additionally, since GitLab Pages are [branch/tag agnostic](https://docs.gitlab.com/ee/user/project/pages/introduction.html#gitlab-ciyml-for-a-repository-with-code),
+you should use [`rules:if`](https://docs.gitlab.com/ee/ci/yaml/#rulesif) to limit their deployment only to builds executed
+on the [default branch](https://docs.gitlab.com/ee/user/project/repository/branches/default.html) in your repository.
+
+To publish your Serenity BDD reports to GitLab Pages, add a `pages` job to your `.gitlab-ci.yml` as per the example below:
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+  - publish
+
+serenity:
+  # ...
+
+pages:
+  stage: publish
+  dependencies:
+    - serenity
+  script:
+    - mv target/site/serenity public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+```
+
+Note that GitLab Pages for repositories hosted on [gitlab.com](https://gitlab.com) are published to _gitlab.io_.
+For example, project hosted at `gitlab.com/my-group/my-project` will have its GitLab Pages published to `my-group.gitlab.io/my-project`.
+
+Consult GitLab documentation to learn more about the [GitLab Pages URL structure](https://docs.gitlab.com/ee/user/project/pages/getting_started_part_one.html).
+
+## Generating JUnit reports
+
+GitLab CI recognises test execution reports that conform to the [**JUnit XML standard**](https://llg.cubic.org/docs/junit/).
+Serenity/JS integrates with all the **native reporters** offered by the supported [test runners](/handbook/test-runners/),
+including the ones producing JUnit reports, such as:
+- [Cucumber.js JUnit formatter](https://github.com/cucumber/cucumber-js/blob/main/docs/formatters.md#junit)
+- [Jasmine JUnit reporter](https://www.npmjs.com/package/jasmine-reporters)
+- [Mocha JUnit reporter](https://www.npmjs.com/package/mocha-junit-reporter)
+- [Playwright Test JUnit reporter](https://playwright.dev/docs/test-reporters#junit-reporter)
+- [WebdriverIO](https://webdriver.io/docs/junit-reporter/)
+
+To make GitLab CI recognise a JUnit-standard report produced by your Serenity/JS test suite and [surface test results in your Merge Requests](https://docs.gitlab.com/ee/ci/testing/unit_test_reports.html), you should:
+- Use a native JUnit reporter appropriate for your test runner
+- Configure [`artifacts:reports:junit`](https://docs.gitlab.com/ee/ci/testing/unit_test_reports.html)  to tell GitLab where to find the report.
+
+For example, if you have configured your JUnit reporter to produce a report at `target/junit-results.xml`, you can configure your GitLab CI job as follows:
+
+```yaml title=".gitlab-ci.yml"
+stages:
+  - test
+
+serenity:
+  stage: test
+  # ...
+  artifacts:
+    when: always
+    paths:
+      - target
+    # highlight-start
+    reports:
+      junit: target/junit-results.xml
+    # highlight-end
+
+# other configuration
+```
+
+:::tip Pro Tip
+Note that in the above example I use [`artifacts:when: always`](https://docs.gitlab.com/ee/ci/yaml/#artifactswhen).
+This instructs GitLab to upload and analyse the test report even when the test run fails, which is exactly when you need your test reports the most 😊
+:::
+
+## Next steps
+
+Congratulations! 🥳 You've just learnt how to run your Serenity/JS test scenarios on GitLab CI!
+If you enjoyed this tutorial, please leave a 👍 in the reactions section below.
+
+New tutorials and videos are coming soon, follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+
+[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
+[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity--js-E62117?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+
+:::info Help us help you
+
+Serenity/JS is a free open-source framework, so we rely on our [wonderful GitHub sponsors](https://github.com/sponsors/serenity-js) to keep the lights on.
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+:::

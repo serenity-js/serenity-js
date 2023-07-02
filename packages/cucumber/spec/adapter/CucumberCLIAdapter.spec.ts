@@ -1,5 +1,5 @@
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
-import { configure } from '@serenity-js/core';
+import { configure, Timestamp } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityStarts,
@@ -13,7 +13,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
-import { CorrelationId, ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { beforeEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
@@ -40,6 +40,45 @@ describe('CucumberCLIAdapter', function () {
     });
 
     describe('registers @serenity-js/cucumber and', () => {
+
+        it('runs together with native Cucumber formatters, when configured to print to a temp file', async () => {
+            await run({ formatOptions: { colorsEnabled: false } }, new TempFileOutput(new FileSystem(rootDirectory)))
+                .then(output => {
+                    expect(output).to.include(trimmed`
+                    | ..
+                    |
+                    | 1 scenario (1 passed)
+                    | 1 step (1 passed)
+                `);
+
+                    let currentSceneId: CorrelationId;
+
+                    PickEvent.from(recorder.events)
+                        .next(TestRunStarts, event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                        .next(SceneStarts, event => {
+                            expect(event.details.name).to.equal(new Name('A passing scenario'))
+                            expect(event.details.location.path.value).to.match(/features\/passing_scenario.feature$/)
+                            expect(event.details.location.line).to.equal(3);
+                            expect(event.details.location.column).to.equal(3);
+
+                            currentSceneId = event.sceneId;
+                        })
+                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
+                        .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))
+                        .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
+                        .next(ActivityFinished, event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
+                        .next(SceneFinishes, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                        })
+                        .next(SceneFinished, event => {
+                            expect(event.sceneId).to.equal(currentSceneId);
+                            expect(event.outcome).to.equal(new ExecutionSuccessful());
+                        })
+                        .next(TestRunFinishes, event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                        .next(TestRunFinished, event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                    ;
+                })
+        });
 
         given<Example>([ {
             description: 'no custom formats => default output',

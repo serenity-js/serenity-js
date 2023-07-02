@@ -118,13 +118,13 @@ export class CucumberOptions {
      */
     private asCliOptionName(option: string): string {
         return option
-            .replace(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+            .replaceAll(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2')
             .toLowerCase();
     }
 
     private tagsToCucumberExpressions(tags: string[]): string {
         return tags.filter(tag => !! tag.replace)
-                .map(tag => tag.replace(/~/g, 'not '))
+                .map(tag => tag.replaceAll('~', 'not '))
                 .join(' and ');
     }
 

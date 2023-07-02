@@ -17,7 +17,6 @@ const isElementSelected = Expectation.define(
  *
  * ## Learn more
  * - {@apilink PageElement.isSelected}
- * - {@apilink ElementExpectation}
  * - {@apilink Expectation}
  * - {@apilink Check}
  * - {@apilink Ensure}

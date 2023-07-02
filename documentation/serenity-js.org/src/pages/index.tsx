@@ -8,7 +8,7 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import styles from './index.module.css';
 
 function HeroBanner() {
-    const { siteConfig} = useDocusaurusContext();
+    const { siteConfig } = useDocusaurusContext();
     const description = siteConfig.customFields.description as string[];
 
     return (
@@ -29,16 +29,21 @@ function HeroBanner() {
                             __html: translate({
                                 id: 'homepage.hero.title',
                                 message:
-                                    `Enable <b>collaborative<br />test automation</b><br />at <b>any scale</b>!`,
+                                    `Enable <b>collaborative<br /> test automation</b><br /> at <b>any scale</b>!`,
                                 description:
                                     'Home page hero title, can contain simple html tags',
                             }),
                         } }
                     />
                 </h1>
-                <p>{description}</p>
+                <p
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={ {
+                        __html: description,
+                    } }></p>
                 <div className={ styles.indexCtas }>
-                    <Link className="button button--primary" to="/handbook">
+                    <Link id="cta-start-automating" className="button button--primary"
+                          to="/handbook/web-testing/your-first-web-scenario">
                         <Translate>Start automating 🚀</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>

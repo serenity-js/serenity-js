@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
-import { By, DoubleClick, Navigate, PageElement, Text } from '@serenity-js/web';
+import { actorCalled, Wait } from '@serenity-js/core';
+import { Attribute, By, DoubleClick, Navigate, PageElement, Text } from '@serenity-js/web';
 
 describe('DoubleClick', () => {
 
@@ -15,7 +15,11 @@ describe('DoubleClick', () => {
         actorCalled('Bernie').attemptsTo(
             Navigate.to('/screenplay/interactions/double-click/example.html'),
 
+            Ensure.eventually(Attribute.called('data-event-handled').of(interactiveElement), equals('false')),
+
             DoubleClick.on(interactiveElement),
+
+            Wait.until(Attribute.called('data-event-handled').of(interactiveElement), equals('true')),
 
             Ensure.that(Text.of(interactiveElement), equals('done!')),
         ));
@@ -31,7 +35,7 @@ describe('DoubleClick', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('DoubleClick.spec.ts');
-        expect(location.line).to.equal(30);
+        expect(location.line).to.equal(34);
         expect(location.column).to.equal(38);
     });
 });

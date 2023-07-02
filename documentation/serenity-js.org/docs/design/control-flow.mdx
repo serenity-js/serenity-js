@@ -1,0 +1,270 @@
+---
+sidebar_position: 6
+---
+
+# Control flow
+
+Serenity/JS introduces idiomatic control flow constructs to support implementing conditional and repeated [activities](/api/core/class/Activity) in your [Screenplay Pattern](/handbook/design/screenplay-pattern) scenarios.
+
+Consistently with the design of Serenity/JS [assertions](/handbook/design/assertions) and [synchronisation statements](/handbook/design/waiting-and-synchronisation),
+all the Serenity/JS control flow statements rely on reusable [expectations](/api/core/class/Expectation).
+
+## Conditional statements
+
+[`Check.whether`](/api/core/class/Check) is the Serenity/JS equivalent of an [`if...else`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) statement.
+
+However, while `if...else` is a construct limited to operating on static values, `Check.whether` evaluates
+the provided value dynamically in the context of the given actor:
+
+```typescript
+import { actorCalled, Check } from '@serenity-js/core'
+import { PageElement, By, isVisible, Click } from '@serenity-js/web'
+
+class CookieConsent {
+    static banner = () =>
+        PageElement.located(By.id('cookie-consent'))
+            .describedAs('cookie consent banner')
+
+    static closeButton = () =>
+        PageElement.located(By.css('.close'))
+            .describedAs('close button')
+            .of(this.banner())
+}
+
+await actorCalled('Chuck').attemptsTo(
+    Check.whether(CookieConsent.banner(), isVisible())
+        .andIfSo(
+            Click.on(CookieConsent.closeButton()),
+        )
+)
+```
+
+Optionally, the interaction to `Check` can also define the **alternative activities**
+to perform when the condition is not met:
+
+```typescript
+import { actorCalled, Check, Log } from '@serenity-js/core'
+import { isVisible, Click } from '@serenity-js/web'
+
+await actorCalled('Chuck').attemptsTo(
+    Check.whether(CookieConsent.banner(), isVisible())
+        .andIfSo(
+            Click.on(CookieConsent.closeButton()),
+        )
+        .otherwise(
+            Log.the('Cookies already accepted')
+        )
+```
+
+
+## Loops
+
+Serenity/JS [`List`](/api/core/class/List)
+offers a [`forEach`](/api/core/class/List#forEach) method that
+- enables actors to iterate over synchronous and asynchronous collections,
+- provides access to the actor iterating over the list as well as the item accessed in the current iteration
+- ensures correct synchronisation of actor's [activities](/api/core/class/Activity).
+
+Since [`PageElements`](/api/web/class/PageElements) class derives from `List`, it also offers this functionality.
+
+### Iterating over a static Array
+
+To instruct an actor to iterate over a static [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array),
+wrap it using [`List.of`](/api/core/class/List#of):
+
+```typescript
+import { actorCalled, List, Log } from '@serenity-js/core'
+
+const items = List.of([ 'first', 'second', 'third' ]);
+
+await actorCalled('Joe').attemptsTo(
+    items.forEach(({ actor, item }) => actor.attemptsTo(
+        Log.the('current item', item)
+    )),
+)
+```
+
+### Iterating over REST API responses
+
+[`List.of`](/api/core/class/List#of) pattern also applies to
+wrapping iterables returned from a [`Question`](/api/core/class/Question) or [`QuestionAdapter`](/api/core#QuestionAdapter).
+
+This is particularly useful when iterating over responses from [REST APIs](/api/rest):
+
+```json title="GET /products"
+{
+  "products": [
+      { "name": "apples" },
+      { "name": "bananas" },
+      { "name": "cinnamon rolls" }
+  ]
+}
+```
+
+```typescript
+import { actorCalled, List, Log } from '@serenity-js/core'
+import { GetRequest, LastResponse, Send } from '@serenity-js/rest'
+
+interface ProductsResponse {
+    products: Array<{ name: string }>
+}
+
+await actorCalled('Apisit')
+    .attemptsTo(
+        Send.a(GetRequest.to('/products')),
+        List.of(LastResponse.body<ProductsResponse>().products)
+            .forEach(({ actor, item }) => actor.attemptsTo(
+                Log.the(item),
+            ))
+    )
+```
+
+### Iterating over web UI elements
+
+[`PageElements`](/api/web/class/PageElements) is derived from `List`, so it also offers a [`forEach`](/api/web/class/PageElements#forEach) method:
+
+```html title="example widget"
+<label for="tnc-consent">
+    <input type="checkbox" name="tnc-consent">
+    Yes, I agree with terms and conditions
+</label>
+<label for="newsletter-consent">
+    <input type="checkbox" name="newsletter-consent">
+    Yes, I'd like to receive the newsletter
+</label>
+```
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { PageElements, By, Click } from '@serenity-js/web'
+
+const checkboxes = () =>
+    PageElements.located(By.css('[type="checkbox"]'))
+        .describeAs('checkboxes')
+
+await actorCalled('Francis')
+    .attemptsTo(
+        checkboxes().forEach(({ actor, item }) => actor.attemptsTo(
+            Click.on(item),
+        ))
+    )
+```
+
+### Synchronisation caveats
+
+All the [activities](/api/core/class/Activity) performed by Serenity/JS actors are **asynchronous**.
+While the framework takes care of sequencing them correctly when they're executed
+via [`Actor.attemptsTo`](/api/core/class/Actor#attemptsTo),
+the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+returned by this method itself **must be synchronised** with the [test runner](/handbook/test-runners/).
+
+This is very easy to do using [`async/await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await),
+like in this example:
+```typescript
+import { describe, it } from 'mocha'
+import { actorCalled, Log } from '@serenity-js/core'
+
+describe('Serenity/JS actor.attemptsTo', () => {
+
+    it('returns a Promise', async () => {           // note "async"
+        await actorCalled('Joe').attemptsTo(        // note "await"
+            Log.the('current item')
+        )
+    })
+})
+```
+However, most low-level JavaScript control flow constructs **DO NOT SUPPORT** `async/await`.
+
+For example, this listing **DOESN'T WORK** as
+[`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+expects a **synchronous function** and  **does not wait for promises**.
+This means that the promise return by `Actor.attemptsTo`
+is ignored and the behaviour of the test scenario becomes unpredictable:
+```typescript
+import { describe, it } from 'mocha'
+import { actorCalled, Log } from '@serenity-js/core'
+
+describe('Serenity/JS actor.attemptsTo', () => {
+
+    it('returns a Promise', async () => {
+        // BROKEN, DON'T USE! JavaScript forEach doesn't support Promises
+        await [ 'first', 'second', 'third' ]
+            .forEach(async item => {              // async/await ignored!
+                await actorCalled('Joe').attemptsTo(
+                    Log.the('current item', item)
+                )
+            })
+    })
+})
+```
+
+If you want to iterate over a [native JavaScript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array),
+make sure to do so using a construct that supports [async iterables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_async_iterator_and_async_iterable_protocols),
+such as [`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of):
+
+```typescript
+import { describe, it } from 'mocha'
+import { actorCalled, Log } from '@serenity-js/core'
+
+describe('Serenity/JS actor.attemptsTo', () => {
+
+    it('returns a Promise', async () => {
+        const items = [ 'first', 'second', 'third' ];
+
+        for (const item of items) {                 // for...of
+            await actorCalled('Joe').attemptsTo(    // supports async/await
+                Log.the('current item', item)
+            )
+        }
+    })
+})
+```
+
+Of course, the **most flexible approach** is to use the Serenity/JS-native [`List`](/api/core/class/List) data structure,
+which provides a custom implementation of [`forEach`](/api/core/class/List#forEach)
+that returns a [task](/api/core/class/Task) and **DOES SUPPORT**
+asynchronous operations:
+
+```typescript
+import { describe, it } from 'mocha'
+import { actorCalled, List, Log } from '@serenity-js/core'
+
+describe('Serenity/JS actor.attemptsTo', () => {
+
+    it('returns a Promise', async () => {
+        const items = List.of([ 'first', 'second', 'third' ]);
+
+        await actorCalled('Joe').attemptsTo(
+            items.forEach(({ actor, item }) => actor.attemptsTo(
+                Log.the('current item', item)
+            )),
+        )
+    })
+})
+```
+
+[`List.forEach`](/api/core/class/List) allows loops to be encapsulated in other [tasks](/api/core/class/Task),
+and is therefore the **recommended approach**:
+
+```typescript
+import { describe, it } from 'mocha'
+import { actorCalled, List, Log, Task } from '@serenity-js/core'
+
+describe('Serenity/JS actor.attemptsTo', () => {
+
+    const logEachOf = <T>(items: List<T>) =>
+        Task.where(`#actor logs each item`,
+            items.forEach(({ actor, item }) => actor.attemptsTo(
+                Log.the('current item', item)
+            )),
+        )
+
+    it('returns a Promise', async () => {
+        const items = List.of([ 'first', 'second', 'third' ]);
+
+        await actorCalled('Joe').attemptsTo(
+            logEachOf(items),
+        )
+    })
+})
+```

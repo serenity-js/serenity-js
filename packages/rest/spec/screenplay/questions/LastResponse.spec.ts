@@ -1,5 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, List, LogicError } from '@serenity-js/core';
+import { Actor, List, LogicError } from '@serenity-js/core';
+import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
 import { GetRequest, LastResponse, Send } from '../../../src';
@@ -8,9 +9,19 @@ import { expect } from '../../expect';
 
 describe('LastResponse', () => {
 
-    const { actor, mock } = actorUsingAMockedAxiosInstance();
+    let actor: Actor,
+        mock: MockAdapter;
 
-    afterEach(() =>  mock.reset());
+    beforeEach(() => {
+        const fixtures = actorUsingAMockedAxiosInstance();
+        actor = fixtures.actor;
+        mock = fixtures.mock;
+    });
+
+    afterEach(async () => {
+        mock.reset();
+        await actor.dismiss();
+    });
 
     interface Product {
         id: number;
@@ -137,10 +148,8 @@ describe('LastResponse', () => {
 
     describe('when handling errors', () => {
 
-        const Babs = actorCalled('Babs');
-
         it('complains if the last response is attempted to be retrieved without making a request first', () =>
-            expect(Babs.attemptsTo(
+            expect(actor.attemptsTo(
                 Ensure.that(LastResponse.status(), equals(200)),
             )).to.be.rejectedWith(LogicError, 'Make sure to perform a HTTP API call before checking on the response'),
         );

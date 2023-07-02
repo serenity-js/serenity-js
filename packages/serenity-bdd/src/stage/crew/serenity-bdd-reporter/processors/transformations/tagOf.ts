@@ -1,4 +1,4 @@
-import { BrowserTag, CapabilityTag, ContextTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import { BrowserTag, CapabilityTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects';
 
@@ -86,15 +86,6 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
                 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java
                 context.report.context = appendIfNotPresent(context.report.context, simplifyPlatformName(platformTag.platformName) /* todo: toLowerCase? */);
                 context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(platformTag));
-
-                return context;
-            })
-            .when(ContextTag, _ => {
-
-                reportIdIncluding(tag.name)(context);
-
-                context.report.context = tag.name;
-                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(tag));
 
                 return context;
             })

@@ -15,8 +15,8 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                 expect(result.exitCode).to.equal(0);
 
                 PickEvent.from(result.events)
-                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ThemeTag('example_theme')))
-                    .next(SceneTagged,  event => expect(event.tag).to.equal(new CapabilityTag('example_capability')))
+                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ThemeTag('Example theme')))
+                    .next(SceneTagged,  event => expect(event.tag).to.equal(new CapabilityTag('Example capability')))
                     .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises capabilities and themes')))
                 ;
             }));

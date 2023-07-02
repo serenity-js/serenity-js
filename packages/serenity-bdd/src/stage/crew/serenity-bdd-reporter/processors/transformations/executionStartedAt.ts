@@ -1,4 +1,4 @@
-import { Timestamp } from '@serenity-js/core/lib/model';
+import { Timestamp } from '@serenity-js/core';
 
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 

@@ -4,13 +4,34 @@ import { CollectsArtifacts } from './artifacts';
 import { AnswersQuestions } from './questions';
 
 /**
- * Serenity/JS Screenplay Pattern `Interaction` is a low-level {@apilink Activity|activity} that directly
- * uses the {@apilink Actor|actor's} {@apilink Ability|ability} to interact
- * with the system under test.
+ * **Interactions** are low-level {@apilink Activity|activities} that encapsulate
+ * a handful of instructions for an {@apilink Actor|actor} on how to use their {@apilink Ability|abilities}
+ * to perform an individual interaction with the given interface of the system under test.
  *
- * Use the factory method `Interaction.where(description, interactionFunction)` to define custom interactions.
+ * :::tip Tasks or interactions?
+ * Because of their low-level nature, interactions are named using the vocabulary of the [solution domain](https://blog.mattwynne.net/2013/01/17/the-problem-with-solutions/),
+ * and represent an individual interaction with the given interface, e.g. {@apilink Click}, {@apilink Enter}, or {@apilink Send}.
  *
- * ## Defining a custom interaction
+ * Interactions follow the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) which means that they do _one thing and one thing only_.
+ * If you're considering implementing an "interaction" that performs more than one logical activity, e.g. checks if the button is visible and then clicks on it if is,
+ * consider using separate interactions for separate responsibilities and then composing them using a {@apilink Task|task}.
+ * :::
+ *
+ * Interactions are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
+ * along with {@apilink Actor|Actors}, {@apilink Ability|Abilities}, {@apilink Question|Questions}, and {@apilink Task|Tasks}.
+ *
+ * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ *
+ * Learn more about:
+ * - {@apilink Actor|Actor}
+ * - {@apilink Ability|Abilities}
+ * - {@apilink Activity|Activities}
+ *
+ * ## Writing a custom interaction
+ *
+ * [Serenity/JS modules](/handbook/about/architecture) ship with dozens of interactions to help you compose your test scenarios.
+ * However, if you need to interact with a non-standard interface, or want to create a flavour of a given interaction that behaves slightly differently than the built-in version,
+ * you can easily create your own implementations using the {@apilink Interaction.where} factory method.
  *
  * ```ts
  * import { Actor, Interaction } from '@serenity-js/core'
@@ -43,7 +64,7 @@ import { AnswersQuestions } from './questions';
  *   )
  * ```
  *
- * @group Activities
+ * @group Screenplay Pattern
  */
 export abstract class Interaction extends Activity {
 

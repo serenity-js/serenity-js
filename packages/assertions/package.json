@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/assertions",
-  "version": "3.0.0-rc.41",
+  "version": "3.4.2",
   "description": "Screenplay-style assertion library",
   "author": {
     "name": "Jan Molak",
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "types": "./lib/index.d.ts",
   "keywords": [
     "serenity-js",
     "cucumber",
@@ -26,8 +26,9 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf '../../target/coverage/assertions'",
-    "test": "nyc mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "clean": "rimraf target",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config ../../.mocharc.yml --reporter-options 'mocha-multi=.mocha-reporters.json' 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -39,20 +40,20 @@
     "url": "https://github.com/serenity-js/serenity-js/issues"
   },
   "engines": {
-    "node": "^14 || ^16 || ^18",
-    "npm": "^6 || ^7 || ^8"
+    "node": "^16.13 || ^18.12 || ^20"
   },
   "dependencies": {
-    "@serenity-js/core": "3.0.0-rc.41",
-    "tiny-types": "^1.19.0"
+    "@serenity-js/core": "3.4.2",
+    "tiny-types": "^1.19.1"
   },
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
-    "@types/chai": "^4.3.4",
+    "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
+    "c8": "8.0.0",
     "mocha": "^10.2.0",
-    "nyc": "15.1.0",
+    "mocha-multi": "^1.1.7",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^5.1.6"
   }
 }

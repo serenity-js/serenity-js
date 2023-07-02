@@ -1,4 +1,5 @@
 import { Question, QuestionAdapter } from '@serenity-js/core';
+import { RawAxiosResponseHeaders } from 'axios';
 
 import { CallAnApi } from '../abilities';
 
@@ -202,9 +203,9 @@ export class LastResponse {
      *   )
      * ```
      */
-    static headers(): QuestionAdapter<Record<string, string>> {
-        return Question.about<Record<string, string>>(`the headers or the last response`, async actor => {
-            return CallAnApi.as(actor).mapLastResponse(response => response.headers);
+    static headers(): QuestionAdapter<RawAxiosResponseHeaders> {
+        return Question.about<RawAxiosResponseHeaders>(`the headers or the last response`, async actor => {
+            return CallAnApi.as(actor).mapLastResponse(response => response.headers as RawAxiosResponseHeaders);
         });
     }
 }

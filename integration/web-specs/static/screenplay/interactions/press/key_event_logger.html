@@ -1,0 +1,27 @@
+<html lang="en">
+<body>
+<form>
+    <input data-event-handled="" type="text" id="input" autocomplete="off" tabindex="1" />
+    <pre><code id="output">No event received yet</code></pre>
+</form>
+<script>
+    let typingTimer;
+    const delay = 2_500;
+
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+
+    input.addEventListener('keydown', ({ key, keyCode, ctrlKey, altKey, shiftKey, metaKey }) => {
+        input.setAttribute('data-event-handled', 'false');
+
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+            output.innerText = JSON.stringify({ key, keyCode, ctrlKey, altKey, shiftKey, metaKey }, null, 4);
+            input.setAttribute('data-event-handled', 'true');
+        }, delay);
+    }, false);
+
+    input.setAttribute('data-event-handled', 'false');
+</script>
+</body>
+</html>

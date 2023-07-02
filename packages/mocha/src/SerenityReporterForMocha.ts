@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { Serenity } from '@serenity-js/core';
 import {
     DomainEvent,
@@ -16,7 +14,16 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
+import {
+    ArbitraryTag,
+    CorrelationId,
+    ExecutionFailedWithError,
+    ExecutionRetriedTag,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    TestSuiteDetails
+} from '@serenity-js/core/lib/model';
 import { MochaOptions, reporters, Runnable, Runner, Suite, Test } from 'mocha';
 
 import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
@@ -27,7 +34,7 @@ import { OutcomeRecorder } from './OutcomeRecorder';
  */
 export class SerenityReporterForMocha extends reporters.Base {
 
-    private readonly testMapper: MochaTestMapper = new MochaTestMapper();
+    private readonly testMapper: MochaTestMapper;
     private readonly outcomeMapper: MochaOutcomeMapper = new MochaOutcomeMapper();
 
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
@@ -46,6 +53,8 @@ export class SerenityReporterForMocha extends reporters.Base {
         options?: MochaOptions,
     ) {
         super(runner, options);
+
+        this.testMapper = new MochaTestMapper(this.serenity.cwd())
 
         runner.on(Runner.constants.EVENT_RUN_BEGIN,
             () => {
@@ -133,17 +142,22 @@ export class SerenityReporterForMocha extends reporters.Base {
         );
     }
 
-    public done(failures: number, fn?: (failures: number) => void): void {
+    public done(failures: number, callback?: (failures: number) => void): void {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
 
         this.serenity.waitForNextCue()
             .then(() => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()));
+                this.emit(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+                return callback(failures);
             })
             .catch(error => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()))     // todo: consider adding outcome to TestRunFinished
+                const numberOfFailures = failures === 0
+                    ? 1
+                    : failures;
+
+                this.emit(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+                return callback(numberOfFailures);
             })
-            .then(() => fn(failures));
     }
 
     private announceSuiteStartsFor(suite: Suite): void {
@@ -194,7 +208,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         this.emit(
             new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
-            new SceneTagged(this.currentSceneId, new FeatureTag(this.testMapper.featureNameFor(test)), this.serenity.currentTime()),
+            new SceneTagged(this.currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
             new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
         );
     }

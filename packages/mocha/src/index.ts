@@ -1,4 +1,3 @@
-/* istanbul ignore file covered in integration tests */
 import { serenity } from '@serenity-js/core';
 import { MochaOptions, Runner } from 'mocha';
 

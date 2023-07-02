@@ -1,6 +1,7 @@
 import { ensure, isDefined, JSONObject } from 'tiny-types';
 
 import { CorrelationId, Description, Name } from '../model';
+import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
@@ -19,8 +20,9 @@ export class SceneBackgroundDetected extends DomainEvent {
         public readonly sceneId: CorrelationId,
         public readonly name: Name,
         public readonly description: Description,
+        timestamp?: Timestamp,
     ) {
-        super();
+        super(timestamp);
         ensure('sceneId', sceneId, isDefined());
         ensure('name', name, isDefined());
         ensure('description', description, isDefined());

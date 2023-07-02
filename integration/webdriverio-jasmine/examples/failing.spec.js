@@ -1,9 +1,15 @@
+const { AssertionError } = require('assert');
+
 describe('Jasmine', () => {
 
     describe('A scenario', () => {
 
         it('fails', () => {
-            expect(false).toBe(true);
+            throw new AssertionError({
+                actual: false,
+                expected: true,
+                operator: 'strictEqual',
+            });
         });
     });
 });

@@ -4,12 +4,14 @@ import * as sinon from 'sinon';
 import { ErrorFactory } from '../../src/errors';
 import { ArtifactGenerated } from '../../src/events';
 import { JSONData, Name } from '../../src/model';
-import { Actor, Interaction } from '../../src/screenplay';
+import { Actor, Clock, Duration, Interaction } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
 import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
 
 describe('Interaction', () => {
+
+    const interactionTimeout = Duration.ofSeconds(5);
 
     let stage: Stage,
         Ivonne: Actor,
@@ -22,6 +24,8 @@ describe('Interaction', () => {
             new Extras(),
             stageManager as unknown as StageManager,
             new ErrorFactory(),
+            new Clock(),
+            interactionTimeout,
         );
         Ivonne = new Actor('Ivonne', stage);
     });
@@ -34,7 +38,7 @@ describe('Interaction', () => {
         const location = activity().instantiationLocation();
 
         expect(location.path.basename()).to.equal('Interaction.spec.ts');
-        expect(location.line).to.equal(34);
+        expect(location.line).to.equal(38);
         expect(location.column).to.equal(26);
     });
 

@@ -2,12 +2,14 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { Writable } from 'stream';
 
-import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter } from '../../../../src';
+import { Actor, Cast, Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter, Timestamp } from '../../../../src';
 import { TestRunFinished } from '../../../../src/events';
-import { Timestamp } from '../../../../src/model';
+import { ExecutionSuccessful } from '../../../../src/model';
 import { expect } from '../../../expect';
 
 describe('StreamReporter', () => {
+
+    const interactionTimeout = Duration.ofSeconds(5);
 
     let stage:          Stage,
         output:         sinon.SinonStubbedInstance<Writable>;
@@ -19,10 +21,13 @@ describe('StreamReporter', () => {
     }
 
     beforeEach(() => {
+        const clock = new Clock();
         stage = new Stage(
             new Extras(),
-            new StageManager(Duration.ofSeconds(2), new Clock()),
+            new StageManager(Duration.ofSeconds(2), clock),
             new ErrorFactory(),
+            clock,
+            interactionTimeout
         );
 
         output = sinon.createStubInstance(Writable);
@@ -32,10 +37,10 @@ describe('StreamReporter', () => {
         const reporter = new StreamReporter(output as unknown as Writable, stage);
         stage.assign(reporter);
 
-        stage.announce(new TestRunFinished(Timestamp.fromJSON('2021-01-13T18:00:00Z')));
+        stage.announce(new TestRunFinished(new ExecutionSuccessful(), Timestamp.fromJSON('2021-01-13T18:00:00Z')));
 
         expect(output.write).to.have.been.calledWith(
-            `{"type":"TestRunFinished","event":"2021-01-13T18:00:00.000Z"}\n`
+            `{"type":"TestRunFinished","event":{"outcome":{"code":64},"timestamp":"2021-01-13T18:00:00.000Z"}}\n`
         );
     });
 });

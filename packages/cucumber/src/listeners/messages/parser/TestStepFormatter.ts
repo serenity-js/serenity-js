@@ -69,7 +69,7 @@ export class TestStepFormatter {
 
         const rows = dataTable.rows.map(row =>
             row.cells.map(cell =>
-                cell.value.replace(/\\\\/g, '\\\\\\\\').replace(/\\n/g, '\\\\n')
+                cell.value.replaceAll('\\\\', '\\\\\\\\').replaceAll('\\n', '\\\\n')
             )
         );
 

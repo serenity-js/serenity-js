@@ -2,14 +2,14 @@ import { After, Before, Then, When } from '@cucumber/cucumber';
 import { equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { ChangeApiUrl, LastResponse } from '@serenity-js/rest';
+import { ChangeApiConfig, LastResponse } from '@serenity-js/rest';
 
 import { RequestCalculationOf, VerifyResultAt } from '../support/screenplay';
 
 Before(() =>
     actorCalled('Apisitt').attemptsTo(
         StartLocalServer.onRandomPort(),
-        ChangeApiUrl.to(LocalServer.url()),
+        ChangeApiConfig.setUrlTo(LocalServer.url()),
     ));
 
 When(/^(.*) asks for the following calculation: (.*)$/, (actorName: string, expression: string) =>

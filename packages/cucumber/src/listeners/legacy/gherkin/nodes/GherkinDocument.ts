@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { Comment } from './Comment';
 import { Feature } from './Feature';
 

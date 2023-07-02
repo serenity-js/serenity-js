@@ -1,4 +1,10 @@
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
+import {
+    AssertionError,
+    ErrorSerialiser,
+    ImplementationPendingError,
+    Serenity,
+    TestCompromisedError
+} from '@serenity-js/core';
 import {
     DomainEvent,
     SceneFinished,
@@ -75,7 +81,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         this.emit(
             new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
-            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureName()), this.serenity.currentTime()),
+            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureNameFor(result)), this.serenity.currentTime()),
             new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
         );
     }
@@ -141,7 +147,11 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         return this.serenity.waitForNextCue()
             .then(() => {
-                this.emit(new TestRunFinished(this.serenity.currentTime()));
+                this.emit(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+            })
+            .catch(error => {
+                this.emit(new TestRunFinished(new ExecutionFailedWithError(error), this.serenity.currentTime()));
+                throw error;
             });
     }
 
@@ -161,7 +171,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     private scenarioDetailsOf(spec: SpecResult): ScenarioDetails {
         return new ScenarioDetails(
             new Name(this.currentScenarioNameFor(spec.description)),
-            new Category(this.currentFeatureName()),
+            new Category(this.currentFeatureNameFor(spec)),
             FileSystemLocation.fromJSON(spec.location as any),
         );
     }
@@ -183,10 +193,12 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @private
      * @returns {string}
      */
-    private currentFeatureName(): string {
+    private currentFeatureNameFor(spec: SpecResult): string {
+        const path = new Path(spec.location.path);
+
         return this.describes[0]
             ? this.describes[0].description
-            : 'Unknown feature';
+            : this.serenity.cwd().relative(path).value;
     }
 
     /**

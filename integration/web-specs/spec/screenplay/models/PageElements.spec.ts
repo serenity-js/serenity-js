@@ -474,7 +474,7 @@ describe('PageElements', () => {
                 expect(elapsedWallClockTime.inMilliseconds()).to.be.greaterThanOrEqual(timeout.inMilliseconds());
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Waited 1s, polling every 500ms, for the text of the first of items of shopping list app to equal 'coffee'
+                    | Timeout of 1s has expired while waiting for the text of the first of items of shopping list app to equal 'coffee'
                     | \\s{4}at .*screenplay/models/PageElements.spec.ts:458:26`));
             }
         });

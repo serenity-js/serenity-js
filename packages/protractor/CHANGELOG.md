@@ -3,6 +3,201 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **protractor:** updated dependency on @types/selenium-webdriver ([a7a68ff](https://github.com/serenity-js/serenity-js/commit/a7a68ff05e822eb84b0cd62b112f3a951367ab4e))
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* **protractor:** click interactions now scroll element into view before performing their action ([3ea7bb8](https://github.com/serenity-js/serenity-js/commit/3ea7bb8158302bfec0390dca6bc88060f0f291e9))
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+
+### Bug Fixes
+
+* **protractor:** introduced an explicit dependency on @serenity-js/web ([a12271b](https://github.com/serenity-js/serenity-js/commit/a12271b9f3280bac7675ee653dd0a6fae8523aa9))
+* **protractor:** moved @serenity-js/assertions to dev dependencies ([dd187d1](https://github.com/serenity-js/serenity-js/commit/dd187d100507e63675cc066c5da22834dcb35db1))
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **protractor:** use custom interactionTimeout when provided in the config ([df8f387](https://github.com/serenity-js/serenity-js/commit/df8f387d7f5b6a887f0f1b69881eec076d016147)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** pinned dependencies on Serenity/JS modules ([b314b11](https://github.com/serenity-js/serenity-js/commit/b314b11a3755e490b307df0eca8369a9371b7bb8))
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency deepmerge to ^4.3.1 ([d605a6b](https://github.com/serenity-js/serenity-js/commit/d605a6ba034b0d9d5d716c82ea496bd726a86348))
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** moved time-related code to a common package ([f29fedc](https://github.com/serenity-js/serenity-js/commit/f29fedc0e67d0db942b247aed53a243868a5f6dd)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+* **rest:** support for Axios 1.3.4 ([e926bbd](https://github.com/serenity-js/serenity-js/commit/e926bbde5232150f35e137601e321175d21d52d2))
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency deepmerge to ^4.3.0 ([ac08d09](https://github.com/serenity-js/serenity-js/commit/ac08d091eb61a666c9b9c53209b59fe7157c06d9))
+* **protractor:** default actors receive abilities to BrowseTheWebWithProtractor and TakeNotes ([edcf734](https://github.com/serenity-js/serenity-js/commit/edcf73426827ad76427deb457786b163423aaf96)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

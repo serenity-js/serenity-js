@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { beforeEach, describe, it } from 'mocha';
 
-import { OutputStreamBuffer } from '../../../src/adapter/reporter';
+import { OutputStreamBuffer } from '../../../src/adapter/reporter/index.js';
 
 describe('OutputStreamBuffer', () => {
 

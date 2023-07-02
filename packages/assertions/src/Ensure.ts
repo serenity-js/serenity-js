@@ -17,6 +17,8 @@ import {
 } from '@serenity-js/core';
 import { FileSystemLocation } from '@serenity-js/core/lib/io';
 
+import { EnsureEventually } from './EnsureEventually';
+
 /**
  * The {@apilink Interaction|interaction} to `Ensure`
  * verifies if the resolved value of the provided {@apilink Answerable}
@@ -62,11 +64,16 @@ import { FileSystemLocation } from '@serenity-js/core/lib/io';
  *   )
  * ```
  *
- * @group Interactions
+ * @group Activities
  */
 export class Ensure<Actual> extends Interaction {
 
     /**
+     * Creates an {@apilink Interaction|interaction} to `Ensure`, which
+     * verifies if the resolved value of the provided {@apilink Answerable}
+     * meets the specified {@apilink Expectation}.
+     * If not, it immediately throws an {@apilink AssertionError}.
+     *
      * @param {Answerable<Actual_Type>} actual
      *  An {@apilink Answerable} describing the actual state of the system.
      *
@@ -77,6 +84,27 @@ export class Ensure<Actual> extends Interaction {
      */
     static that<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): Ensure<Actual_Type> {
         return new Ensure(actual, expectation, Activity.callerLocation(5));
+    }
+
+    /**
+     * Creates an {@apilink Interaction|interaction} to {@apilink EnsureEventually}, which
+     * verifies if the resolved value of the provided {@apilink Answerable}
+     * meets the specified {@apilink Expectation} within the expected timeframe.
+     *
+     * If the expectation is not met by the time the timeout expires, the interaction throws an {@apilink AssertionError}.
+     * `EnsureEventually` ignores retries the evaluation if resolving the `actual` results in an {@apilink OptionalNotPresentError},
+     * but rethrows any other errors.
+     *
+     * @param {Answerable<Actual_Type>} actual
+     *  An {@apilink Answerable} describing the actual state of the system.
+     *
+     * @param {Expectation<Actual_Type>} expectation
+     *  An {@apilink Expectation} you expect the `actual` value to meet
+     *
+     * @returns {Ensure<Actual_Type>}
+     */
+    static eventually<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): EnsureEventually<Actual_Type> {
+        return new EnsureEventually(actual, expectation, Activity.callerLocation(5));
     }
 
     /**

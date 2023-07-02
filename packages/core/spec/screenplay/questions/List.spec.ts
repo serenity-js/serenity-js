@@ -1,12 +1,19 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, Answerable, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
+import { Actor, actorCalled, Answerable, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
 import { expect } from '../../expect';
 
 describe('List', () => {
 
-    const Fiona = actorCalled('Fiona');
+    let Fiona: Actor;
+    beforeEach(() => {
+        Fiona = actorCalled('Fiona');
+    });
+
+    afterEach(async () => {
+        await Fiona.dismiss()
+    });
 
     describe('when wrapping an Answerable<Array>', () => {
 
@@ -57,7 +64,7 @@ describe('List', () => {
         given(examples).
         it('returns the last item from the collection', ({ answerable }: { answerable: Answerable<string[]> }) =>
             expect(List.of(answerable).last().answeredBy(Fiona))
-                .to.eventually.deep.equal(collection[collection.length - 1])
+                .to.eventually.deep.equal(collection.at(-1))
         );
 
         given(examples).
@@ -314,7 +321,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(313);
+            expect(location.line).to.equal(320);
             expect(location.column).to.equal(18);
         });
     });

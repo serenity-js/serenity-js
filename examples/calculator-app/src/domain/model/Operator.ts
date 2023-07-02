@@ -1,9 +1,9 @@
 import { ensure, hasLengthOf, isDefined, isString, TinyType } from 'tiny-types';
 
-import * as operators from './operators';
-
 export abstract class Operator extends TinyType {
     static fromString(symbol: string): Operator {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const operators = require('./operators');
         const found = Object.keys(operators)
             .map(name => operators[name])
             .find(operatorType => operatorType.Symbol === symbol);

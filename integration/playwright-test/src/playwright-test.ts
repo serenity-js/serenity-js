@@ -7,16 +7,35 @@ const playwrightExecutable = path.resolve(
     'cli.js',
 );
 
-const playwrightSpawner = spawner(
-    playwrightExecutable,
-    { cwd: path.resolve(__dirname, '..') },
-);
-
 export function playwrightTest(...params: string[]): Promise<SpawnResult> {
-    return playwrightSpawner(
+
+    /* eslint-disable unicorn/consistent-function-scoping */
+    const isReporter = (parameter: string) => parameter.startsWith('--reporter=');
+    const reporterNameAndOutputPathFrom = (parameter: string): [ string, string ] => {
+        return parameter.split('=')[1].split(':') as [ string, string ];
+    }
+    /* eslint-enable unicorn/consistent-function-scoping */
+
+    const [ reporters, parameters ] = params.reduce(
+        ([ reporters, parameters ], parameter: string) => {
+            return isReporter(parameter)
+                ? [ [... reporters, reporterNameAndOutputPathFrom(parameter) ], parameters ]
+                : [ reporters, [... parameters, parameter] ]
+        },
+        [[], []]
+    );
+
+    const env = Object.fromEntries(
+        reporters.map(([name, outputPath]) => [ `REPORTER_${ name.toUpperCase() }`, outputPath ])
+    );
+
+    return spawner(
+        playwrightExecutable,
+        { cwd: path.resolve(__dirname, '..'), env },
+    )(
         'test',
         `--config=${ path.resolve(__dirname, '../playwright.config.ts') }`,
 
-        ...params,
+        ...parameters,
     );
 }

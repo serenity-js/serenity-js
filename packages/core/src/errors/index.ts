@@ -1,5 +1,5 @@
 /* eslint-disable simple-import-sort/imports */
-import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model';
+import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, OperationInterruptedError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model';
 import { ErrorSerialiser } from './ErrorSerialiser';
 /* eslint-enable simple-import-sort/imports */
 
@@ -9,6 +9,7 @@ ErrorSerialiser.registerErrorTypes(
     ConfigurationError,
     ImplementationPendingError,
     LogicError,
+    OperationInterruptedError,
     TestCompromisedError,
     TimeoutExpiredError,
     UnknownError,

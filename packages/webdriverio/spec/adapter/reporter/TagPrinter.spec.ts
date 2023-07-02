@@ -1,8 +1,8 @@
 import { expect } from '@integration/testing-tools';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
+import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model/index.js';
 import { beforeEach, describe, it } from 'mocha';
 
-import { TagPrinter } from '../../../src/adapter/reporter';
+import { TagPrinter } from '../../../src/adapter/reporter/index.js';
 
 describe('TagPrinter', () => {
 
@@ -15,10 +15,10 @@ describe('TagPrinter', () => {
 
         it('should tag browser and platform for mobile web browser', () => {
             const tags = tagPrinter.tagsFor({
-                deviceName:         'iPhone 6 Plus',
-                platformVersion:    '9.2',
-                platformName:       'iOS',
-                browserName:        'Safari'
+                deviceName:                 'iPhone 6 Plus',
+                ['appium:platformName']:    'iOS',
+                ['appium:platformVersion']: '9.2',
+                browserName:                'Safari',
             });
 
             expect(tags).have.lengthOf(2);
@@ -28,9 +28,9 @@ describe('TagPrinter', () => {
 
         it('should mark browser as "unknown" when information is missing', () => {
             const tags = tagPrinter.tagsFor({
-                deviceName:         'iPhone 6 Plus',
-                platformVersion:    '9.2',
-                platformName:       'iOS'
+                deviceName:                 'iPhone 6 Plus',
+                ['appium:platformName']:    'iOS',
+                ['appium:platformVersion']: '9.2',
             });
 
             expect(tags).have.lengthOf(2);
@@ -40,10 +40,10 @@ describe('TagPrinter', () => {
 
         it('should tag the native app as "browser"', () => {
             const tags = tagPrinter.tagsFor({
-                deviceName:         'iPhone 6 Plus',
-                platformVersion:    '9.2',
-                platformName:       'iOS',
-                app:                'sauce-storage:myApp.app'
+                deviceName:                 'iPhone 6 Plus',
+                ['appium:platformName']:    'iOS',
+                ['appium:platformVersion']: '9.2',
+                ['appium:app']:             'sauce-storage:myApp.app',
             });
 
             expect(tags).have.lengthOf(2);
@@ -54,12 +54,12 @@ describe('TagPrinter', () => {
         it('should tag a simulator', () => {
             // https://appium.io/docs/en/writing-running-appium/caps/
             const tags = tagPrinter.tagsFor({
-                automationName: 'XCUITest',
+                ['appium:automationName']: 'XCUITest',
                 browserName: 'Safari',
                 deviceName: 'iPhone Simulator',
                 platformName: 'iOS',
-                platformVersion: undefined,
-                udid: undefined,
+                ['appium:platformVersion']: undefined,
+                ['appium:udid']: undefined,
             });
 
             expect(tags).have.lengthOf(2);
@@ -98,7 +98,7 @@ describe('TagPrinter', () => {
                 browserName:        'Chrome Headless',
                 browserVersion:     '90.0.4430.212',
                 platformName:       'darwin',
-                platformVersion:    '20.4.0',
+                os_version:         '20.4.0',
             });
 
             expect(tags).have.lengthOf(2);

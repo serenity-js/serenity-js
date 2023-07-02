@@ -71,8 +71,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
         await promised(
             webElement.getDriver().actions()
-                .mouseMove(webElement)
-                .doubleClick()
+                .doubleClick(webElement, protractor.Button.LEFT)
                 .perform(),
         );
     }
@@ -111,8 +110,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
         await promised(
             webElement.getDriver().actions()
-                .mouseMove(webElement)
-                .click(protractor.Button.RIGHT)
+                .click(webElement, protractor.Button.RIGHT)
                 .perform(),
         );
     }
@@ -138,7 +136,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const browser = element.browser_;
 
         const options: Array<{ label: string, value: string, selected: boolean, disabled: boolean }> = await browser.executeScript(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             (select: HTMLSelectElement) => {
                 const options = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
@@ -177,7 +175,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const webElement: WebElement = await element.getWebElement();
 
         return await promised(webElement.getDriver().executeScript(
-            /* istanbul ignore next */
+            /* c8 ignore next */
             function getValue(webElement) {
                 return webElement.value;
             },

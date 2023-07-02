@@ -19,7 +19,6 @@ export function monkeyPatched(
     wrappers: {[key: string]: (original: (attrs: object) => any) => (attrs: object) => any} = {},
 ) {
     const result = function MonkeyPatched(attrs: object) {
-
         Object.keys(wrappers).forEach(key => {
             attrs[key] = wrappers[key](attrs[key]);
         });
@@ -50,7 +49,7 @@ export function monkeyPatched(
 function callerLocation() {
     const found = parser.parse(new Error('fake error'))
         .filter(frame => ! /(node_modules)/.test(frame.fileName))
-        .find(frame => /^(Suite|Object)/.test(frame.functionName));
+        .find(frame => /^(Suite|Object|Proxy)/.test(frame.functionName));
 
     const caller = found || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };
 

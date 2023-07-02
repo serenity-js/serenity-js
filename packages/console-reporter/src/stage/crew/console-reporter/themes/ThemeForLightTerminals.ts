@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
 
 import { ThemeForColourTerminals } from './ThemeForColourTerminals';

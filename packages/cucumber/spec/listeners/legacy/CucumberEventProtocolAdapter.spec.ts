@@ -39,7 +39,7 @@ describe('CucumberEventProtocolAdapter', () => {
         moduleLoader = sinon.createStubInstance(ModuleLoader);
         serenity = new Serenity();
         recorder = new EventRecorder();
-        eventBroadcaster = new EventEmitter();
+        eventBroadcaster = new EventEmitter();  // eslint-disable-line unicorn/prefer-event-target
 
         serenity.configure({
             crew: [recorder],

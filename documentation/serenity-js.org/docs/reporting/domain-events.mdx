@@ -4,10 +4,16 @@ sidebar_position: 1
 
 # Domain Events
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
-```
+Serenity/JS [domain events](/api/core-events/class/DomainEvent) represent all the important things that happen during the execution of your test suite.
+They are a critical part of the Serenity/JS messaging infrastructure that enables the [loosely coupled, modular architecture](/handbook/about/architecture)
+of the framework, and ensure that all the registered [reporting services](/handbook/reporting/)
+have the same, consistent picture of your test scenarios.
 
-<ArticleComingSoon />
+Serenity/JS domain events are produced when [actors](/api/core/class/Actor) perform their [activities](/api/core/class/Activity)
+and when [test runner adapters](/handbook/test-runners/) translate information about your test runner lifecycle events.
+Domain events are then propagated via the [stage](/api/core/class/Stage) and consumed by all
+the registered [stage crew members](/api/core/interface/StageCrewMember) for reporting purposes.
 
-Learn more about the [`DomainEvents`](/api/core-events/class/DomainEvent), recognised by Serenity/JS [stage crew members](/api/core/interface/StageCrewMember).
+You'll typically only need to learn about Serenity/JS domain events when implementing custom reporting services. In this case, you should study:
+- the [`@serenity-js/core/lib/events`](/api/core-events/class/DomainEvent) package, to see what domain events are available,
+- built-in implementations of the [`StageCrewMemeber`](/api/core/interface/StageCrewMember) interface, to see examples of how to work with events.

@@ -4,7 +4,7 @@ import { PageElement } from '../models';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to scroll until a given Web element comes into view.
+ * to scroll until a given {@apilink PageElement} comes into view.
  *
  * ## Example widget
  *
@@ -47,7 +47,7 @@ import { PageElement } from '../models';
  * - {@apilink BrowseTheWeb}
  * - {@apilink PageElement}
  *
- * @group Interactions
+ * @group Activities
  */
 export class Scroll extends Interaction {
 
@@ -70,7 +70,6 @@ export class Scroll extends Interaction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const target = await actor.answer(this.element);
-
-        return target.scrollIntoView();
+        await target.scrollIntoView();
     }
 }

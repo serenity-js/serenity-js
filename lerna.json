@@ -17,6 +17,7 @@
     "express",
     "jasmine",
     "mocha",
+    "mocha-multi",
     "protractor",
     "selenium-webdriver",
     "webdriverio"
@@ -27,7 +28,7 @@
     "integration/*",
     "packages/*"
   ],
-  "version": "3.0.0-rc.41",
+  "version": "3.4.2",
   "command": {
     "create": {
       "homepage": "https://serenity-js.org",
@@ -39,9 +40,7 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
-      "conventionalPrerelease": "*",
       "createRelease": "github",
-      "preid": "rc",
       "private": false,
       "exact": true,
       "message": "chore(release): %s\n[ci skip]",

@@ -3,6 +3,312 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-glob to ^3.3.0 ([bb00f5e](https://github.com/serenity-js/serenity-js/commit/bb00f5e0e916352bc5722064c0bcd97af4e38ab9))
+* **playwright-test:** preserve Playwright Test-specific reporting when overriding actors ([8bf0bbb](https://github.com/serenity-js/serenity-js/commit/8bf0bbb86fd7f6d4f829ff943d3f970b9a960cc4))
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.35.1 ([9124e2e](https://github.com/serenity-js/serenity-js/commit/9124e2e33a78ec1cd4c141abfad3f4874e5c3485))
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.35.0 ([fb4359f](https://github.com/serenity-js/serenity-js/commit/fb4359f9a95f7ea4701590f71dab41ba4ed4fd02))
+* **webdriverio:** support for WebdriverIO 8.11 APIs ([cebbeec](https://github.com/serenity-js/serenity-js/commit/cebbeecb1176b2d4bb4d3a1b4a2b48a46ea4b2be)), closes [#1739](https://github.com/serenity-js/serenity-js/issues/1739)
+
+
+### Features
+
+* **core:** compile Serenity/JS against ES2021 ([6b31184](https://github.com/serenity-js/serenity-js/commit/6b31184986f78b454ec1eeed53553fba8ebc868c))
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.1 ([e01b642](https://github.com/serenity-js/serenity-js/commit/e01b6420142466f564898090b4fa80024ac572a5))
+* **deps:** update dependency https-proxy-agent to v7 ([243e7de](https://github.com/serenity-js/serenity-js/commit/243e7de4315944a4af4887f1b1d137ffb3650676))
+* **deps:** update dependency typedoc to ^0.24.8 ([4170d13](https://github.com/serenity-js/serenity-js/commit/4170d138de11dbbf828a96bf63109cca54fa0b24))
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+
+### Bug Fixes
+
+* **core:** ability to ScheduleWork preserves stack traces for better reporting ([c2ce5f7](https://github.com/serenity-js/serenity-js/commit/c2ce5f768732de5b01113c0f2dfa8e98d3e73667)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **deps:** update website dependencies to v2.4.1 ([6e4d17b](https://github.com/serenity-js/serenity-js/commit/6e4d17b046cf73441d1cac40d7f15a5bd393721a))
+* **playwright-test:** corrected synchronisation of the `platform` fixture ([7156f84](https://github.com/serenity-js/serenity-js/commit/7156f840dc8fe5688d25aca5ba87d925158e9c7d)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright:** support for Playwright 1.34.0 ([5d591c7](https://github.com/serenity-js/serenity-js/commit/5d591c71e89ac4cfd41b8f7e3a1c9017f962d9e3))
+* **playwright:** updated Playwright Core to 1.34.0 ([c5aa042](https://github.com/serenity-js/serenity-js/commit/c5aa042de25945c4fe4152eb06b2537c58a572e1))
+* **playwright:** updated Playwright to 1.34.2 ([c944031](https://github.com/serenity-js/serenity-js/commit/c94403199a349d59bb777b981897039c102f243f))
+* **playwright:** upgraded to Playwright 1.34.3 ([0ded19e](https://github.com/serenity-js/serenity-js/commit/0ded19e8ef3aea74307ab3bbd69ff5f7b3c9f78b))
+* **protractor:** updated dependency on @types/selenium-webdriver ([a7a68ff](https://github.com/serenity-js/serenity-js/commit/a7a68ff05e822eb84b0cd62b112f3a951367ab4e))
+
+
+### Features
+
+* **core:** enabled extending default behaviour of actor.perform and actor.answer APIs ([01bb213](https://github.com/serenity-js/serenity-js/commit/01bb213fa59a03737cd7d0770cd5df737cffcb19)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright-test:** improved integration with Playwright Test ([45b324f](https://github.com/serenity-js/serenity-js/commit/45b324f4b2e2992dc2df78c18013f2f235ff91b9)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright-test:** much more detailed Playwright Test reports ([5980a1e](https://github.com/serenity-js/serenity-js/commit/5980a1e37047d71199cc169271fa11869e98355b)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+* **playwright:** support Playwright auto-waiting ([8f1750f](https://github.com/serenity-js/serenity-js/commit/8f1750f5b086e09eacd514783d561b0a2abb2156)), closes [#1717](https://github.com/serenity-js/serenity-js/issues/1717)
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **cucumber:** updated Cucumber to 9.1.2 ([e202cf8](https://github.com/serenity-js/serenity-js/commit/e202cf87b736b4d95613363e6b84c340d3e75f2c)), closes [#1690](https://github.com/serenity-js/serenity-js/issues/1690)
+* **deps:** update dependency typedoc to ^0.24.7 ([d821a13](https://github.com/serenity-js/serenity-js/commit/d821a13002a0ed4d400ebf9d227ee0514b7b5332))
+* **deps:** update serenity bdd dependencies ([4f39f2d](https://github.com/serenity-js/serenity-js/commit/4f39f2d7a0a7eedba2822dd08010ec77f0cb7984))
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+* **deps:** update playwright dependencies to ^1.33.0 ([e1cebc4](https://github.com/serenity-js/serenity-js/commit/e1cebc434eba9242c4bba33268ab48b76c486c5f))
+* **webdriverio:** aligned CJS and ESM exports to offer a consistent developer experience ([3f9f50a](https://github.com/serenity-js/serenity-js/commit/3f9f50a75afc13b63d3d3aa5ddd796011f9a009c))
+* **webdriverio:** support for WebdriverIO 8.10.0 ([bf35d6c](https://github.com/serenity-js/serenity-js/commit/bf35d6ccee766523524e7267344acde2137d5bbc))
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([d0f58a6](https://github.com/serenity-js/serenity-js/commit/d0f58a6ff1f03a4b7d9490af3c2ff33f2d1fef48)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+* **core:** new factory method to create Path.fromURI ([baed8c4](https://github.com/serenity-js/serenity-js/commit/baed8c4a86a2d7b114783574c2326d8102c1b0e9))
+* **webdriverio:** support for WebdriverIO 8 ([6275cb6](https://github.com/serenity-js/serenity-js/commit/6275cb693a3f9072468b196411a1b3fbd6e6ef27)), closes [#1541](https://github.com/serenity-js/serenity-js/issues/1541) [#1682](https://github.com/serenity-js/serenity-js/issues/1682) [webdriverio/webdriverio#10314](https://github.com/webdriverio/webdriverio/issues/10314)
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** improved support for nested requirement hierarchies with Cucumber.js ([749fb0f](https://github.com/serenity-js/serenity-js/commit/749fb0f9501575ac8152b01a980e4959a823471f)), closes [/github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java#L36](https://github.com//github.com/serenity-bdd/serenity-core/blob/8f7d14c6dad47bb58a1585fef5f9d9a44bb963fd/serenity-model/src/main/java/net/thucydides/core/requirements/AbstractRequirementsTagProvider.java/issues/L36) [#1649](https://github.com/serenity-js/serenity-js/issues/1649)
+* **webdriverio:** webdriverio 7.31 breaks backwards-compatibility, pinning to 7.30 for now ([305fc64](https://github.com/serenity-js/serenity-js/commit/305fc648a8fdf96fdf5f26075845bfba6c61713c))
+
+
+
+
+
+## [3.1.4](https://github.com/serenity-js/serenity-js/compare/v3.1.3...v3.1.4) (2023-04-16)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** escape HTML tags in scenaio name and title ([c5ca1bf](https://github.com/serenity-js/serenity-js/commit/c5ca1bfcfcc297d913208246addf84d400608245)), closes [#1630](https://github.com/serenity-js/serenity-js/issues/1630)
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typedoc to ^0.24.1 ([c52f4ed](https://github.com/serenity-js/serenity-js/commit/c52f4ed078dc25fea2a3fa672e9690846659b81c))
+* **playwright:** updated Playwright to 1.32.3 ([1d7f77b](https://github.com/serenity-js/serenity-js/commit/1d7f77bb0665ada8193b56598f31d3fb16c2384a))
+* **protractor:** click interactions now scroll element into view before performing their action ([3ea7bb8](https://github.com/serenity-js/serenity-js/commit/3ea7bb8158302bfec0390dca6bc88060f0f291e9))
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+
+### Bug Fixes
+
+* **protractor:** introduced an explicit dependency on @serenity-js/web ([a12271b](https://github.com/serenity-js/serenity-js/commit/a12271b9f3280bac7675ee653dd0a6fae8523aa9))
+* **protractor:** moved @serenity-js/assertions to dev dependencies ([dd187d1](https://github.com/serenity-js/serenity-js/commit/dd187d100507e63675cc066c5da22834dcb35db1))
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **core:** ensure Wait.for(..) is not terminated prematurely by interactionTimeout ([f1a94e2](https://github.com/serenity-js/serenity-js/commit/f1a94e259942725f2603cc33cd9772478e825dde)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **deps:** update playwright dependencies to ^1.32.2 ([8398ec3](https://github.com/serenity-js/serenity-js/commit/8398ec364836f45af9e5734687e1655ca10a7784))
+* **playwright-test:** use custom interactionTimeout when provided in the config ([71c0401](https://github.com/serenity-js/serenity-js/commit/71c0401539b722ad6858d9dcb6393593254c3787)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **protractor:** use custom interactionTimeout when provided in the config ([df8f387](https://github.com/serenity-js/serenity-js/commit/df8f387d7f5b6a887f0f1b69881eec076d016147)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+* **webdriverio:** use custom interactionTimeout when provided in the config ([4cc75bf](https://github.com/serenity-js/serenity-js/commit/4cc75bf1ef97556a991ad006314a1a413d3cde6a)), closes [#1604](https://github.com/serenity-js/serenity-js/issues/1604)
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+
+### Bug Fixes
+
+* **core:** pinned dependencies on Serenity/JS modules ([b314b11](https://github.com/serenity-js/serenity-js/commit/b314b11a3755e490b307df0eca8369a9371b7bb8))
+* **core:** replaced dependency on depracated cuid with cuid2 ([0417f1c](https://github.com/serenity-js/serenity-js/commit/0417f1c2c673dce7eaabe0ffae76311757e3b3ee))
+
+
+### Features
+
+* **cucumber:** support for Cucumber 9 ([ec7823e](https://github.com/serenity-js/serenity-js/commit/ec7823e384a47ae96a6006e52a58163020c0f851)), closes [#1431](https://github.com/serenity-js/serenity-js/issues/1431)
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.32.1 ([1ab8b80](https://github.com/serenity-js/serenity-js/commit/1ab8b80487750cfe072cf113ecd13a3b40565f1f))
+* **deps:** update playwright dependencies to ^1.32.1 ([bcb6839](https://github.com/serenity-js/serenity-js/commit/bcb68394317440d4b2ac567407c0c3539bd7ea38))
+* **deps:** update playwright dependencies to ^1.32.1 ([3ba8d4c](https://github.com/serenity-js/serenity-js/commit/3ba8d4cdde99e48e5b74086d6ebf10630916f151))
+* **deps:** update website dependencies to v2.4.0 ([9d4e427](https://github.com/serenity-js/serenity-js/commit/9d4e42713a776c43aa4f6dba369f6d059b8554c6))
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+
+### Features
+
+* **core:** release Serenity/JS v3 ([0937dfa](https://github.com/serenity-js/serenity-js/commit/0937dfa23b8ef2da7210c64f2e25585c3430af78))
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+
+### Bug Fixes
+
+* **core:** re-implemented the interaction to Debug so that it works in JetBrains IDEs ([14737f9](https://github.com/serenity-js/serenity-js/commit/14737f9eaa8cd1a66bce02649f768f4227bf1c27)), closes [#1520](https://github.com/serenity-js/serenity-js/issues/1520)
+* **core:** removed deprecated API Cast.whereEveryoneCan ([7f2f5b9](https://github.com/serenity-js/serenity-js/commit/7f2f5b9e642a00b6ce6f66ec06dd32f7a248495e)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated API List.get ([6308686](https://github.com/serenity-js/serenity-js/commit/6308686cde3e908822265e53e68dd1df05aa2567)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **core:** removed deprecated ContextTag ([d09a688](https://github.com/serenity-js/serenity-js/commit/d09a6888020f2a7f76c0830b6d2939205cf0b3aa)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **deps:** update dependency deepmerge to ^4.3.1 ([d605a6b](https://github.com/serenity-js/serenity-js/commit/d605a6ba034b0d9d5d716c82ea496bd726a86348))
+* **deps:** update dependency graceful-fs to ^4.2.11 ([3dc2d0b](https://github.com/serenity-js/serenity-js/commit/3dc2d0b30e474126c1427238e9440a9f942fbdd9))
+* **deps:** update dependency typedoc to ^0.23.28 ([5d5b8d7](https://github.com/serenity-js/serenity-js/commit/5d5b8d706dc885d16c7cfeef96723cd744584c99))
+* **local-server:** removed deprecated API StartLocalServer.onOneOfThePreferredPorts ([58cc29c](https://github.com/serenity-js/serenity-js/commit/58cc29cae1764e72d9c8e5d9ec26cfc8fe3fc0b7)), closes [#1403](https://github.com/serenity-js/serenity-js/issues/1403)
+* **playwright:** it's now easier to inspect PlaywrightPage using the new interaction to Debug ([cbf210a](https://github.com/serenity-js/serenity-js/commit/cbf210a689c5e88b3856a337ecfe92031439a311))
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** moved time-related code to a common package ([f29fedc](https://github.com/serenity-js/serenity-js/commit/f29fedc0e67d0db942b247aed53a243868a5f6dd)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+* **jasmine:** improved filesystem location detection for Jasmine scenarios ([ec180d6](https://github.com/serenity-js/serenity-js/commit/ec180d618d19e8a7f9d081c4f067329d252c72a3))
+* **rest:** support for Axios 1.3.4 ([e926bbd](https://github.com/serenity-js/serenity-js/commit/e926bbde5232150f35e137601e321175d21d52d2))
+
+
+### Features
+
+* **assertions:** fault-tolerant interaction to Ensure.eventually ([d6297f7](https://github.com/serenity-js/serenity-js/commit/d6297f7f15c096a51461c484c6a8d1eeb2182b24)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** introduced a new ability ScheduleWork to enable [#1083](https://github.com/serenity-js/serenity-js/issues/1083) and [#1522](https://github.com/serenity-js/serenity-js/issues/1522) ([b275d18](https://github.com/serenity-js/serenity-js/commit/b275d18434cdedf069c5f1da3b9b359fc7da60fe))
+* **core:** max timeout of Wait.until can now be configured globally ([8dd6895](https://github.com/serenity-js/serenity-js/commit/8dd68959c1c7c00ec7de0d4a18d6c9c0039c4a8e)), closes [#1083](https://github.com/serenity-js/serenity-js/issues/1083)
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+
+### Bug Fixes
+
+* **core:** introduced Cast.where factory method to make it easier to generate custom casts of actors ([26637f1](https://github.com/serenity-js/serenity-js/commit/26637f10746bbd264ab73ab14b43eaf11dea5652)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **deps:** update dependency deepmerge to ^4.3.0 ([ac08d09](https://github.com/serenity-js/serenity-js/commit/ac08d091eb61a666c9b9c53209b59fe7157c06d9))
+* **deps:** update dependency yargs to ^17.7.1 ([1e7a52b](https://github.com/serenity-js/serenity-js/commit/1e7a52b21a778ebc47b6279786391d96e482b57a))
+* **deps:** update playwright dependencies to ^1.31.2 ([ebac2ff](https://github.com/serenity-js/serenity-js/commit/ebac2ff37b7a922686daed0201d122f52b1d1040))
+* **deps:** update website dependencies ([#1531](https://github.com/serenity-js/serenity-js/issues/1531)) ([4a58010](https://github.com/serenity-js/serenity-js/commit/4a58010759d5f3d00919dc5de315b46fa9fadd7f))
+* **playwright-test:** ensure each new actor gets their own Playwright browser ([f4c527b](https://github.com/serenity-js/serenity-js/commit/f4c527b27446e32c31a230de3a4d29575ecc8c34)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **protractor:** default actors receive abilities to BrowseTheWebWithProtractor and TakeNotes ([edcf734](https://github.com/serenity-js/serenity-js/commit/edcf73426827ad76427deb457786b163423aaf96)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+* **webdriverio:** default actors receive abilities to BrowseTheWebWithWebdriverIO and TakeNotes ([3880d3b](https://github.com/serenity-js/serenity-js/commit/3880d3be3262dfa601f0ec31fa1518569b14b90b)), closes [#1523](https://github.com/serenity-js/serenity-js/issues/1523)
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+
+### Bug Fixes
+
+* **console-reporter:** any post-test StageCrewMember errors will now get printed to terminal ([e4935df](https://github.com/serenity-js/serenity-js/commit/e4935dff73781076f4a5ec9fbf2821aaf9fbfd69)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **core:** allow for multiple events to be announced using a single call to Stage ([2bcae80](https://github.com/serenity-js/serenity-js/commit/2bcae809075fd9ef4f77f41714c78a4da5643acd))
+* **core:** event TestRunFinished now incidates the Outcome of the test suite ([a941056](https://github.com/serenity-js/serenity-js/commit/a9410566891e543101b935a80db9c7daea0c9944)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **deps:** update website dependencies ([309c5f3](https://github.com/serenity-js/serenity-js/commit/309c5f3cac7517b9eb1fde5b22f3608c99c46000))
+* **jasmine:** default to using file name as feature name when describe blocks are absent ([3542955](https://github.com/serenity-js/serenity-js/commit/3542955d7c0d3582283ecf1fe482cf3da93f9e4f)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **mocha:** default to using file name as feature name when describe blocks are absent ([1ca81ef](https://github.com/serenity-js/serenity-js/commit/1ca81efe5fe5547bea3e4fd9abe7712f2e775b5d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **playwright-test:** default to using file name as feature name when describe blocks are absent ([1295b04](https://github.com/serenity-js/serenity-js/commit/1295b04adcd12a9d7eaef795e1080bb1c5a9056d)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+* **serenity-bdd:** prevent invalid Serenity BDD JSON reports from being sent to processing ([e59d4da](https://github.com/serenity-js/serenity-js/commit/e59d4da0646c103db37631ecc33ecd66ae18d05e)), closes [#1495](https://github.com/serenity-js/serenity-js/issues/1495)
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

@@ -7,6 +7,10 @@ import { cpus } from 'os';
 
 import { Actors } from './src/Actors';
 
+const protocol = process.env.PROTOCOL === 'devtools'
+    ? 'devtools'
+    : 'webdriver';
+
 const options = {
     specs: [
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
@@ -16,20 +20,18 @@ const options = {
         ? Number.parseInt(process.env.PORT, 10)
         : 8080,
 
-    protocol: process.env.PROTOCOL === 'devtools'
-        ? 'devtools'
-        : 'webdriver',
+    protocol,
 
     workers: workers(process.env),
 
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--disable-infobars',
                 '--ignore-certificate-errors',
                 '--headless',
                 '--disable-gpu',
@@ -112,7 +114,7 @@ export const config: WebdriverIOConfig = {
     connectionRetryCount: 5,
 
     autoCompileOpts: {
-        autoCompile: false,
+        autoCompile: true,
         tsNodeOpts: {
             transpileOnly: true,
             project: 'tsconfig.json'

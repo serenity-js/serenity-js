@@ -17,7 +17,6 @@ const isElementVisible = Expectation.define(
  *
  * ## Learn more
  * - {@apilink PageElement.isVisible}
- * - {@apilink ElementExpectation}
  * - {@apilink Expectation}
  * - {@apilink Check}
  * - {@apilink Ensure}

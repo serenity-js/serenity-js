@@ -1,0 +1,34 @@
+<html lang="en">
+<body>
+<form>
+    <input type="text" id="input" />
+    <pre><code id="output">{ handler: 'no handler registered yet' }</code></pre>
+</form>
+<script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+
+    function handler(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        output.innerText = JSON.stringify({
+            event: event.type,
+            button: event.button,
+            receiver: event.target.nodeName.toLowerCase(),
+            position: { x: event.pageX, y: event.pageY }
+        }, null, 4);
+    }
+
+    input.addEventListener('contextmenu', handler, false);
+    input.addEventListener('click', handler, false);
+    input.addEventListener('dblclick', handler, false);
+
+    document.addEventListener('contextmenu', handler, false);
+    document.addEventListener('click', handler, false);
+    document.addEventListener('dblclick', handler, false);
+
+    output.innerText = JSON.stringify({ handler: 'registered' }, null, 4);
+</script>
+</body>
+</html>

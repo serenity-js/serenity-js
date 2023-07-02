@@ -5,7 +5,7 @@ import { PageElementInteraction } from './PageElementInteraction';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to perfom a right click on a given {@apilink PageElement}.
+ * to perform a right click on a given {@apilink PageElement}.
  *
  * This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
  * on a given Web element, since it's not possible to interact with the standard context menu offered by your browser.
@@ -65,7 +65,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  * - {@apilink BrowseTheWeb}
  * - {@apilink PageElement}
  *
- * @group Interactions
+ * @group Activities
  */
 export class RightClick extends PageElementInteraction {
     /**
@@ -87,6 +87,7 @@ export class RightClick extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.pageElement);
-        return element.rightClick();
+        await element.scrollIntoView();
+        await element.rightClick();
     }
 }

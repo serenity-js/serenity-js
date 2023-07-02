@@ -1,0 +1,20 @@
+{
+  "extends": "../../.c8rc.json",
+  "reportDir": "./target/coverage",
+  "allowExternal": true,
+  "include": [
+    "**/packages/core/src/**/*.ts",
+    "**/packages/core/lib/**/*.hs",
+    "**/packages/mocha/src/**/*.ts",
+    "**/packages/mocha/lib/**/*.js",
+    "**/packages/web/src/**/*.ts",
+    "**/packages/protractor/src/**/*.ts",
+    "**/packages/protractor/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ]
+}

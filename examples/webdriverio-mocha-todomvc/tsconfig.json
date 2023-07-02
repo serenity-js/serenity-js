@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "lib": ["es2019", "dom"],
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "declaration": true,
+    "target": "es2021",
+    "lib": ["es2021", "dom"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "types": [
       "node",
-      "webdriverio/async"
-    ]
+      "@wdio/globals/types"
+    ],
   },
 
   "exclude": [

@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 export * from './Background';
 export * from './Comment';
 export * from './DataTable';

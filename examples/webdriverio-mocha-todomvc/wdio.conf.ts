@@ -1,7 +1,3 @@
-import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver } from '@serenity-js/core';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
@@ -14,13 +10,14 @@ export const config: WebdriverIOConfig = {
     framework: '@serenity-js/webdriverio',
 
     serenity: {
+        // optional, custom cast of actors
         actors: new Actors(),
         crew: [
-            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            Photographer.whoWill(TakePhotosOfFailures),
-            // Photographer.whoWill(TakePhotosOfInteractions),
-            ConsoleReporter.forDarkTerminals(),
-            new SerenityBDDReporter(),
+            '@serenity-js/console-reporter',
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+            // [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ],
+            [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ],
         ]
     },
 
@@ -68,12 +65,12 @@ export const config: WebdriverIOConfig = {
 
         browserName: 'chrome',
         'goog:chromeOptions': {
+            excludeSwitches: [ 'enable-automation' ],
             args: [
                 // '--headless',
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--disable-infobars',
                 '--ignore-certificate-errors',
                 '--disable-gpu',
                 '--disable-gpu',

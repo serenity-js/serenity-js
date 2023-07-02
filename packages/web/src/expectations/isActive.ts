@@ -17,7 +17,6 @@ const isElementActive = Expectation.define(
  *
  * ## Learn more
  * - {@apilink PageElement.isActive}
- * - {@apilink ElementExpectation}
  * - {@apilink Expectation}
  * - {@apilink Check}
  * - {@apilink Ensure}

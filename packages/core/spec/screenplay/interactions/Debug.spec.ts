@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import { Debug, Question, Serenity } from '../../../src';
+import { Actor, Debug, Question, Serenity } from '../../../src';
 import { Name } from '../../../src/model';
 import { expect } from '../../expect';
 
@@ -10,23 +10,17 @@ describe('Debug', () => {
     const sandbox = sinon.createSandbox();
 
     let serenity: Serenity;
+    let actor: Actor;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         serenity = new Serenity();
+        actor = serenity.theActorCalled('Debbie');
     });
 
-    afterEach(() => {
+    afterEach(async () => {
         sandbox.restore();
+        await actor.dismiss();
     })
-
-    it('allows for a custom description', () => {
-        const noValues = [];
-        const dummyDebugger = sandbox.spy();
-
-        const debug = new Debug('#actor attempts to debug', dummyDebugger, noValues);
-
-        expect(debug.toString()).to.equal('#actor attempts to debug');
-    });
 
     it('invokes the debugger function with provided values when the interaction is performed', async () => {
         const primitiveValues = [
@@ -35,16 +29,20 @@ describe('Debug', () => {
         ];
         const debuggerSpy = sandbox.spy();
 
-        const debug = new Debug('#actor attempts to debug', debuggerSpy, primitiveValues);
+        const debug = Debug.values(debuggerSpy, ...primitiveValues);
 
         await serenity.theActorCalled('Debbie').attemptsTo(
             debug,
         );
 
-        expect(debuggerSpy).to.have.been.calledWith([
-            { description: '1',     value: 1,       error: undefined },
-            { description: `'two'`, value: 'two',   error: undefined },
-        ]);
+        expect(debuggerSpy).to.have.been.calledWith(
+            [
+                { description: '1',     value: 1,       error: undefined },
+                { description: `'two'`, value: 'two',   error: undefined },
+            ],
+            1,
+            'two'
+        );
     });
 
     it(`resolves any Answerable values before they're passed on to the debugger function`, async () => {
@@ -54,16 +52,20 @@ describe('Debug', () => {
         ];
         const debuggerSpy = sandbox.spy();
 
-        const debug = new Debug('#actor attempts to debug', debuggerSpy, answerables);
+        const debug = Debug.values(debuggerSpy, ...answerables);
 
         await serenity.theActorCalled('Debbie').attemptsTo(
             debug,
         );
 
-        expect(debuggerSpy).to.have.been.calledWith([
-            { description: 'Promise',           value: 1,       error: undefined },
-            { description: `question adapter`,  value: 'two',   error: undefined },
-        ]);
+        expect(debuggerSpy).to.have.been.calledWith(
+            [
+                { description: 'Promise',           value: 1,       error: undefined },
+                { description: `question adapter`,  value: 'two',   error: undefined },
+            ],
+            1,
+            'two'
+        );
     });
 
     it(`passes any error to the debugger function`, async () => {
@@ -73,22 +75,26 @@ describe('Debug', () => {
         ];
         const debuggerSpy = sandbox.spy();
 
-        const debug = new Debug('#actor attempts to debug', debuggerSpy, answerables);
+        const debug = Debug.values(debuggerSpy, ...answerables);
 
         await serenity.theActorCalled('Debbie').attemptsTo(
             debug,
         );
 
-        const firstValue    = debuggerSpy.firstCall.args[0][0];
-        const secondValue   = debuggerSpy.firstCall.args[0][1];
+        const results       = debuggerSpy.firstCall.args[0];
+        const firstAnswer   = debuggerSpy.firstCall.args[1];
+        const secondAnswer  = debuggerSpy.firstCall.args[2];
 
-        expect(firstValue.description).to.equal('Promise');
-        expect(firstValue.value).to.be.undefined;
-        expect(firstValue.error.message).to.equal('first error');
+        expect(results).to.have.lengthOf(2);
+        expect(results[0].description).to.equal('Promise');
+        expect(results[0].value).to.be.undefined;
+        expect(results[0].error.message).to.equal('first error');
+        expect(results[1].description).to.equal('question adapter');
+        expect(results[1].value).to.be.undefined;
+        expect(results[1].error.message).to.equal('second error');
 
-        expect(secondValue.description).to.equal('question adapter');
-        expect(secondValue.value).to.be.undefined;
-        expect(secondValue.error.message).to.equal('second error');
+        expect(firstAnswer).to.be.undefined;
+        expect(secondAnswer).to.be.undefined;
     });
 
     it('emits debugged values so that they can be included in reports', async () => {
@@ -98,7 +104,7 @@ describe('Debug', () => {
         ];
         const debuggerSpy = sandbox.spy();
 
-        const debug = new Debug('#actor attempts to debug', debuggerSpy, answerables);
+        const debug = Debug.values(debuggerSpy, ...answerables);
 
         const actor = serenity.theActorCalled('Debbie');
 
@@ -121,21 +127,12 @@ describe('Debug', () => {
         expect(collect.secondCall.args[1]).to.equal(new Name(`question adapter`));
     });
 
-    it('correctly detects its invocation location when setting a breakpoint', () => {
-        const activity = Debug.setBreakpoint();
-        const location = activity.instantiationLocation();
-
-        expect(location.path.basename()).to.equal('Debug.spec.ts');
-        expect(location.line).to.equal(125);
-        expect(location.column).to.equal(32);
-    });
-
     it('correctly detects its invocation location when debugging values', () => {
-        const activity = Debug.values();
+        const activity = Debug.values(() => {});   // eslint-disable-line @typescript-eslint/no-empty-function
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Debug.spec.ts');
-        expect(location.line).to.equal(134);
+        expect(location.line).to.equal(131);
         expect(location.column).to.equal(32);
     });
 });

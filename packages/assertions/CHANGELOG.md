@@ -3,6 +3,179 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/serenity-js/serenity-js/compare/v3.4.1...v3.4.2) (2023-06-30)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.4.1](https://github.com/serenity-js/serenity-js/compare/v3.4.0...v3.4.1) (2023-06-23)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.4.0](https://github.com/serenity-js/serenity-js/compare/v3.3.1...v3.4.0) (2023-06-10)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.3.1](https://github.com/serenity-js/serenity-js/compare/v3.3.0...v3.3.1) (2023-06-08)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.3.0](https://github.com/serenity-js/serenity-js/compare/v3.2.1...v3.3.0) (2023-06-01)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.2.1](https://github.com/serenity-js/serenity-js/compare/v3.2.0...v3.2.1) (2023-05-15)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.2.0](https://github.com/serenity-js/serenity-js/compare/v3.1.6...v3.2.0) (2023-05-05)
+
+
+### Bug Fixes
+
+* **core:** use "types" instead of "typings" in package.json files ([b83d922](https://github.com/serenity-js/serenity-js/commit/b83d922076242c6cd5d6f2da055a05aa5e77f11b)), closes [#1682](https://github.com/serenity-js/serenity-js/issues/1682)
+
+
+### Features
+
+* **core:** introduced support for Node.js 20, dropped support for Node.js 14 ([491fef8](https://github.com/serenity-js/serenity-js/commit/491fef8df672a2b40d247887b3da409dccbd26fd)), closes [#1678](https://github.com/serenity-js/serenity-js/issues/1678)
+
+
+
+
+
+## [3.1.6](https://github.com/serenity-js/serenity-js/compare/v3.1.5...v3.1.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **webdriverio:** upgraded to TypeScript 5 and WebdriverIO 7.31.1 ([15b1ba7](https://github.com/serenity-js/serenity-js/commit/15b1ba77e157d77123a2e8922414e937c0d2869d)), closes [#1558](https://github.com/serenity-js/serenity-js/issues/1558) [#1651](https://github.com/serenity-js/serenity-js/issues/1651)
+
+
+
+
+
+## [3.1.5](https://github.com/serenity-js/serenity-js/compare/v3.1.4...v3.1.5) (2023-04-18)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.1.3](https://github.com/serenity-js/serenity-js/compare/v3.1.2...v3.1.3) (2023-04-14)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.1.2](https://github.com/serenity-js/serenity-js/compare/v3.1.1...v3.1.2) (2023-04-07)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.1.1](https://github.com/serenity-js/serenity-js/compare/v3.1.0...v3.1.1) (2023-04-05)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.1.0](https://github.com/serenity-js/serenity-js/compare/v3.0.1...v3.1.0) (2023-04-02)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.0.1](https://github.com/serenity-js/serenity-js/compare/v3.0.0...v3.0.1) (2023-03-25)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.0.0](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.45...v3.0.0) (2023-03-23)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.0.0-rc.45](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.44...v3.0.0-rc.45) (2023-03-22)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.0.0-rc.44](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.43...v3.0.0-rc.44) (2023-03-19)
+
+
+### Bug Fixes
+
+* **core:** support for NPM 9 ([0493474](https://github.com/serenity-js/serenity-js/commit/0493474a1e28b86b1b60f69ec0d591c1a3265425))
+* **deps:** update dependency tiny-types to ^1.19.1 ([ce335eb](https://github.com/serenity-js/serenity-js/commit/ce335ebca434d1fd0e6e809a65a0882fd10a311a))
+
+
+### Features
+
+* **assertions:** fault-tolerant interaction to Ensure.eventually ([d6297f7](https://github.com/serenity-js/serenity-js/commit/d6297f7f15c096a51461c484c6a8d1eeb2182b24)), closes [#1522](https://github.com/serenity-js/serenity-js/issues/1522)
+* **core:** introduced a new ability ScheduleWork to enable [#1083](https://github.com/serenity-js/serenity-js/issues/1083) and [#1522](https://github.com/serenity-js/serenity-js/issues/1522) ([b275d18](https://github.com/serenity-js/serenity-js/commit/b275d18434cdedf069c5f1da3b9b359fc7da60fe))
+
+
+
+
+
+# [3.0.0-rc.43](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.42...v3.0.0-rc.43) (2023-03-10)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+# [3.0.0-rc.42](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.41...v3.0.0-rc.42) (2023-02-12)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
 # [3.0.0-rc.41](https://github.com/serenity-js/serenity-js/compare/v3.0.0-rc.40...v3.0.0-rc.41) (2023-02-07)
 
 

@@ -1,9 +1,18 @@
 import { ensure, isDefined } from 'tiny-types';
 
 import { ConfigurationError, ErrorFactory, ErrorOptions, LogicError, RaiseErrors, RuntimeError } from '../errors';
-import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent, SceneFinishes, SceneStarts, TestRunFinishes } from '../events';
-import { ActivityDetails, CorrelationId, Description, Name, Timestamp } from '../model';
-import { Actor } from '../screenplay';
+import {
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    AsyncOperationFailed,
+    DomainEvent,
+    EmitsDomainEvents,
+    SceneFinishes,
+    SceneStarts,
+    TestRunFinishes
+} from '../events';
+import { ActivityDetails, CorrelationId, Description, Name } from '../model';
+import { Actor, Clock, Duration, ScheduleWork, Timestamp } from '../screenplay';
 import { ListensToDomainEvents } from '../stage';
 import { Cast } from './Cast';
 import { StageManager } from './StageManager';
@@ -23,7 +32,7 @@ import { StageManager } from './StageManager';
  *
  * @group Stage
  */
-export class Stage {
+export class Stage implements EmitsDomainEvents {
 
     private static readonly unknownSceneId = new CorrelationId('unknown')
 
@@ -54,15 +63,21 @@ export class Stage {
      * @param cast
      * @param manager
      * @param errors
+     * @param clock
+     * @param interactionTimeout
      */
     constructor(
         private cast: Cast,
         private readonly manager: StageManager,
         private errors: ErrorFactory,
+        private readonly clock: Clock,
+        private readonly interactionTimeout: Duration,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
         ensure('ErrorFactory', errors, isDefined());
+        ensure('Clock', clock, isDefined());
+        ensure('interactionTimeout', interactionTimeout, isDefined());
     }
 
     /**
@@ -85,8 +100,10 @@ export class Stage {
         if (! this.instantiatedActorCalled(name)) {
             let actor;
             try {
-                const newActor = new Actor(name, this)
-                    .whoCan(new RaiseErrors(this));
+                const newActor = new Actor(name, this, [
+                    new RaiseErrors(this),
+                    new ScheduleWork(this.clock, this.interactionTimeout)
+                ]);
 
                 actor = this.cast.prepare(newActor);
 
@@ -154,11 +171,18 @@ export class Stage {
     }
 
     /**
-     * Notifies all the assigned listeners of the event.
+     * Notifies all the assigned listeners of the events,
+     * emitting them one by one.
      *
-     * @param event
+     * @param events
      */
-    announce(event: DomainEvent): void {
+    announce(...events: Array<DomainEvent>): void {
+        events.forEach(event => {
+            this.announceSingle(event)
+        });
+    }
+
+    private announceSingle(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
             this.actorsOnStage = this.actorsOnFrontStage;
         }

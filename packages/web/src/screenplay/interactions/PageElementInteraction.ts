@@ -9,7 +9,7 @@ import { PageElement } from '../models';
  * **Note:** The recommended way to implement custom interactions
  * in your code is to use the {@apilink Interaction.where} factory method.
  *
- * @group Interactions
+ * @group Activities
  */
 export abstract class PageElementInteraction extends Interaction {
 

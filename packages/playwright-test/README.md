@@ -1,24 +1,23 @@
-_** This README is for Serenity/JS version 3.0-RC. Some links might not work yet as we're working on getting the new website and API docs ready. Thanks for your patience and support! **_
-
 # Serenity/JS
 
-[Serenity/JS](https://serenity-js.org) is a framework designed to make acceptance and regression testing
-of modern full-stack applications faster, more collaborative and easier to scale.
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-Visit [serenity-js.org](https://serenity-js.org/) for the [latest tutorials](https://serenity-js.org/handbook/)
-and [API docs](https://serenity-js.org/modules/), and follow [@SerenityJS](https://twitter.com/SerenityJS) and [@JanMolak](https://twitter.com/JanMolak) on Twitter for project updates.
+[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
+of complex software systems faster, more collaborative and easier to scale.
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/SerenityJS?style=social)](https://twitter.com/@SerenityJS)
-[![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+⭐️ Get started with Serenity/JS!
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
+- [API documentation](https://serenity-js.org/api/core),
+- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
 
-Subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when new demos and video tutorials are available.
-
-### Learning Serenity/JS
-
-To learn more about Serenity/JS, [follow the tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), [review the examples](https://github.com/serenity-js/serenity-js/tree/main/examples), and create your own test suite using the [Serenity/JS template projects](https://github.com/serenity-js).
-
-If you have any questions, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
+👋 Join the Serenity/JS Community!
+- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
+- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+- Learn how to [contribute to Serenity/JS](https://serenity-js.org/contributing),
+- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
 
 ## Serenity/JS Playwright Test
 
@@ -94,7 +93,7 @@ To configure the name of your default actor, use the `defaultActorName` configur
 // example.spec.ts
 
 import { describe, it, test } from '@serenity-js/playwright-test'   // import fixtures
-import { Navigate, Page } from '@serenity-js/playwright'            // import Screenplay Pattern Web APIs
+import { Navigate, Page } from '@serenity-js/playwright'            // import Screenplay Pattern web APIs
 import { Ensure, equals } from '@serenity-js/assertions'            // import Screenplay Pattern assertion APIs                            
 
 test.use({
@@ -179,11 +178,11 @@ import { CallAnApi } from '@serenity-js/rest'
 test.use({
     actors: async ({ browser, baseURL }, use) => {
         await use(
-            Cast.whereEveryoneCan(
+            Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithPlaywright.using(browser),
                 TakeNotes.usingAnEmptyNotepad(),
                 CallAnApi.at(baseURL),
-            )
+            ))
         )
     },
 })
@@ -273,13 +272,20 @@ Note that Serenity/JS reporters work well with the built-in [Playwright reporter
 You can find a reference implementation demonstrating how to integrate Serenity/JS with Playwright Test in the [Serenity/JS
 GitHub repository](https://github.com/serenity-js/serenity-js/tree/main/examples/playwright-test-todomvc).
 
-## More coming soon!
+## 📣 Stay up to date
 
-New features, tutorials, and demos are coming soon, so follow us on Twitter and join the [Serenity/JS Community chat channel](https://gitter.im/serenity-js/Lobby) to stay up to date!
+New features, tutorials, and demos are coming soon!
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/SerenityJS?style=social)](https://twitter.com/@SerenityJS)
-[![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
 
-If you enjoy using Serenity/JS and would like to keep new features coming, become our [GitHub Sponsor](https://github.com/sponsors/serenity-js)
-and donate as much or as little as you find appropriate.
+## 💛 Support Serenity/JS
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
