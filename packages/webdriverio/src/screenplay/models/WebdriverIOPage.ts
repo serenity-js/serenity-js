@@ -1,11 +1,11 @@
 import { LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElement, Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, Key, Page, PageElements } from '@serenity-js/web';
+import { BrowserWindowClosedError, ByCss, Key, Page, PageElements } from '@serenity-js/web';
 import { URL } from 'url';
 import type { Browser, Element } from 'webdriverio';
 
-import { WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
+import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
 import { WebdriverIOCookie } from './WebdriverIOCookie.js';
 import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
@@ -32,6 +32,17 @@ export class WebdriverIOPage extends Page<Element> {
             new WebdriverIORootLocator(browser),
             modalDialogHandler,
             pageId,
+        );
+    }
+
+    createPageElement(nativeElement: Element): PageElement<Element> {
+        return new WebdriverIOPageElement(
+            new WebdriverIOExistingElementLocator(
+                this.rootLocator,
+                new ByCss(String(nativeElement.selector)),
+                this.errorHandler,
+                nativeElement
+            )
         );
     }
 
