@@ -1,9 +1,9 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Cookie, CookieData } from '@serenity-js/web';
-import { BrowsingSession } from '@serenity-js/web';
+import type { BrowserCapabilities } from '@serenity-js/web';
+import { BrowsingSession, type Cookie, type CookieData } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import { type PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
@@ -11,40 +11,22 @@ import { PlaywrightCookie, PlaywrightPage } from '../models';
  *
  * @group Models
  */
-export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
+export abstract class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
     private currentPlaywrightBrowserContext: playwright.BrowserContext;
 
-    constructor(
-        protected readonly browser: playwright.Browser,
-        protected readonly browserContextOptions: PlaywrightOptions,
-    ) {
+    protected constructor(protected readonly browserContextOptions: PlaywrightOptions) {
         super();
     }
 
-    protected async registerCurrentPage(): Promise<PlaywrightPage> {
-        const context = await this.browserContext();
-
-        await context.newPage();
-
-        // calling context.newPage() triggers a callback registered via browserContext(),
-        // which wraps playwright.Page in PlaywrightPage and adds it to the list of pages
-        // returned by this.allPages()
-
-        const allPages = await this.allPages()
-
-        return allPages.at(-1);
-    }
-
     /**
-     * @override
+     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
+     *
+     * **Please note** that since Playwright does not expose information about the operating system
+     * the tests are running on, **Serenity/JS assumes that the tests are running locally**
+     * and therefore returns the value of Node.js `process.platform` for `platformName`.
      */
-    async closeAllPages(): Promise<void> {
-        await super.closeAllPages();
-
-        const context = await this.browserContext();
-        await context.close();
-    }
+    public abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
     async cookie(name: string): Promise<Cookie> {
         const context = await this.browserContext();
@@ -62,9 +44,23 @@ export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
         await context.clearCookies();
     }
 
-    private async browserContext(): Promise<playwright.BrowserContext> {
+    protected override async registerCurrentPage(): Promise<PlaywrightPage> {
+        const context = await this.browserContext();
+
+        await context.newPage();
+
+        // calling context.newPage() triggers a callback registered via browserContext(),
+        // which wraps playwright.Page in PlaywrightPage and adds it to the list of pages
+        // returned by this.allPages()
+
+        const allPages = await this.allPages()
+
+        return allPages.at(-1);
+    }
+
+    protected async browserContext(): Promise<playwright.BrowserContext> {
         if (! this.currentPlaywrightBrowserContext) {
-            this.currentPlaywrightBrowserContext = await this.browser.newContext(this.browserContextOptions);
+            this.currentPlaywrightBrowserContext = await this.createBrowserContext(this.browserContextOptions);
 
             this.currentPlaywrightBrowserContext.on('page', async page => {
                 this.register(
@@ -83,4 +79,6 @@ export class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
         return this.currentPlaywrightBrowserContext;
     }
+
+    protected abstract createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext>;
 }
