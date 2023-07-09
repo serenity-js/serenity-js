@@ -6,7 +6,8 @@ import type { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
-import { ProtractorLocator, ProtractorRootLocator } from './locators';
+import { ProtractorExistingElementLocator, ProtractorLocator, ProtractorRootLocator } from './locators';
+import { ProtractorSelectors } from './locators/ProtractorSelectors';
 import type { ProtractorBrowsingSession } from './ProtractorBrowsingSession';
 import { ProtractorCookie } from './ProtractorCookie';
 import type { ProtractorErrorHandler } from './ProtractorErrorHandler';
@@ -37,6 +38,17 @@ export class ProtractorPage extends Page<ElementFinder> {
             modalDialogHandler,
             pageId,
         );
+    }
+
+    createPageElement(nativeElement: ElementFinder): PageElement<ElementFinder> {
+        return new ProtractorPageElement(
+            new ProtractorExistingElementLocator(
+                this.rootLocator as ProtractorRootLocator,
+                ProtractorSelectors.selectorFrom(nativeElement.locator()),
+                this.errorHandler,
+                nativeElement,
+            )
+        )
     }
 
     locate(selector: Selector): PageElement<ElementFinder> {
