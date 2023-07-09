@@ -1,10 +1,8 @@
 import { ConfigurationError } from '@serenity-js/core';
-import type { BrowserCapabilities} from '@serenity-js/web';
 import { BrowseTheWeb } from '@serenity-js/web';
 import type * as protractor from 'protractor';
 
 import { ProtractorBrowsingSession } from '../models';
-import { promised } from '../promised';
 
 /**
  * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
@@ -61,16 +59,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
      */
     constructor(protected browser: protractor.ProtractorBrowser) {
         super(new ProtractorBrowsingSession(browser));
-    }
-
-    async browserCapabilities(): Promise<BrowserCapabilities> {
-        const capabilities = await promised(this.browser.getCapabilities());
-
-        return {
-            platformName:   capabilities.get('platform'),
-            browserName:    capabilities.get('browserName'),
-            browserVersion: capabilities.get('version'),
-        };
     }
 
     /**

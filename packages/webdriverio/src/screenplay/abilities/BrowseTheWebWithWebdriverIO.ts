@@ -1,4 +1,3 @@
-import type { BrowserCapabilities} from '@serenity-js/web';
 import { BrowseTheWeb } from '@serenity-js/web';
 import type { Browser, Element } from 'webdriverio';
 
@@ -40,14 +39,6 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<Element> {
 
     static using(browserInstance: Browser): BrowseTheWebWithWebdriverIO {
-        return new BrowseTheWebWithWebdriverIO(browserInstance);
-    }
-
-    constructor(protected readonly browser: Browser) {
-        super(new WebdriverIOBrowsingSession(browser));
-    }
-
-    browserCapabilities(): Promise<BrowserCapabilities> {
-        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
+        return new BrowseTheWebWithWebdriverIO(new WebdriverIOBrowsingSession(browserInstance));
     }
 }

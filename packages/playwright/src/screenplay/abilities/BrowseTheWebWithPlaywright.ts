@@ -1,10 +1,9 @@
 import type { Discardable } from '@serenity-js/core';
-import type { BrowserCapabilities} from '@serenity-js/web';
 import { BrowseTheWeb } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
-import { PlaywrightBrowsingSession } from '../models';
+import { PlaywrightBrowsingSessionWithBrowser } from '../models/PlaywrightBrowsingSessionWithBrowser';
 
 /**
  * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
@@ -45,11 +44,7 @@ import { PlaywrightBrowsingSession } from '../models';
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
     static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(browser, options);
-    }
-
-    constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
-        super(new PlaywrightBrowsingSession(browser, browserContextOptions));
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, options));
     }
 
     /**
@@ -61,20 +56,5 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
      */
     async discard(): Promise<void> {
         await this.session.closeAllPages();
-    }
-
-    /**
-     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
-     *
-     * **Please note** that since Playwright does not expose information about the operating system
-     * the tests are running on, **Serenity/JS assumes that the tests are running locally**
-     * and therefore returns the value of Node.js `process.platform` for `platformName`.
-     */
-    async browserCapabilities(): Promise<BrowserCapabilities> {
-        return {
-            browserName: (this.browser as any)._initializer.name,   // todo: raise a PR to Playwright to expose this information
-            platformName: process.platform,                         // todo: get the actual platform from Playwright
-            browserVersion: this.browser.version()
-        }
     }
 }
