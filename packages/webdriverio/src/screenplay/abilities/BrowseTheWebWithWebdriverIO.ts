@@ -14,6 +14,7 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
  * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
  * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { browser } from '@wdio/globals'
  *
  * const HomePage = {
  *   title: () =>
