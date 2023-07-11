@@ -105,7 +105,7 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
 
         return elements.map(childElement =>
             new PlaywrightPageElement(
-                new ExistingElementLocator(
+                new PlaywrightExistingElementLocator(
                     this.parent as PlaywrightRootLocator,
                     this.selector,
                     childElement,
@@ -116,9 +116,9 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
 }
 
 /**
- * @private
+ * @internal
  */
-class ExistingElementLocator extends PlaywrightLocator {
+export class PlaywrightExistingElementLocator extends PlaywrightLocator {
     constructor(
         parent: RootLocator<playwright.Locator>,
         selector: Selector,

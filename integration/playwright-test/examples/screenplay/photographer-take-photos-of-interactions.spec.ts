@@ -1,8 +1,16 @@
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { afterEach, describe, it } from '@serenity-js/playwright-test';
+import { afterEach, describe, it, test } from '@serenity-js/playwright-test';
 import { Navigate } from '@serenity-js/web';
 
+import { ActorsWithLocalServer } from './actors/ActorsWithLocalServer';
+
 describe('Playwright Test reporting', () => {
+
+    test.use({
+        actors: ({ page, contextOptions }, use) => {
+            use(new ActorsWithLocalServer(page, contextOptions));
+        },
+    });
 
     describe('A screenplay scenario', () => {
 

@@ -1,12 +1,12 @@
-import { f, LogicError } from '@serenity-js/core';
 import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
-import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
-import * as protractor from 'protractor';
+import { Locator } from '@serenity-js/web';
+import type * as protractor from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
 import type { ProtractorErrorHandler } from '../ProtractorErrorHandler';
 import { ProtractorPageElement } from '../ProtractorPageElement';
 import type { ProtractorRootLocator } from './ProtractorRootLocator';
+import { ProtractorSelectors } from './ProtractorSelectors';
 
 /**
  * Protractor-specific implementation of {@apilink Locator}.
@@ -23,37 +23,8 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         super(parent, selector);
     }
 
-    // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): protractor.Locator {
-        if (this.selector instanceof ByCss) {
-            return protractor.by.css(this.selector.value);
-        }
-
-        if (this.selector instanceof ByDeepCss) {
-            if (! protractor.by.shadowDomCss) {
-                throw new LogicError(`By.deepCss() requires query-selector-shadow-dom plugin, which Serenity/JS ProtractorFrameworkAdapter registers by default. If you're using Serenity/JS without ProtractorFrameworkAdapter, please register the plugin yourself.`)
-            }
-
-            return protractor.by.shadowDomCss(this.selector.value.replace('>>>', '').trim());
-        }
-
-        if (this.selector instanceof ByCssContainingText) {
-            return protractor.by.cssContainingText(this.selector.value, this.selector.text);
-        }
-
-        if (this.selector instanceof ById) {
-            return protractor.by.id(this.selector.value);
-        }
-
-        if (this.selector instanceof ByTagName) {
-            return protractor.by.tagName(this.selector.value);
-        }
-
-        if (this.selector instanceof ByXPath) {
-            return protractor.by.xpath(this.selector.value);
-        }
-
-        throw new LogicError(f `${ this.selector } is not supported by ${ this.constructor.name }`);
+        return ProtractorSelectors.locatorFrom(this.selector);
     }
 
     async isPresent(): Promise<boolean> {
@@ -107,7 +78,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
 
         return Promise.all(elements.map(childElement =>
             new ProtractorPageElement(
-                new ExistingElementLocator(
+                new ProtractorExistingElementLocator(
                     this.parent as ProtractorRootLocator,
                     this.selector,
                     this.errorHandler,
@@ -119,9 +90,9 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
 }
 
 /**
- * @private
+ * @internal
  */
-class ExistingElementLocator extends ProtractorLocator {
+export class ProtractorExistingElementLocator extends ProtractorLocator {
     constructor(
         parent: ProtractorRootLocator,
         selector: Selector,

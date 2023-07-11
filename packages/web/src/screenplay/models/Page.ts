@@ -258,6 +258,13 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
+     * Creates a {@apilink PageElement} wrapping a native element.
+     *
+     * @param nativeElement
+     */
+    abstract createPageElement(nativeElement: Native_Element_Type): PageElement<Native_Element_Type>;
+
+    /**
      * Creates a {@apilink PageElement}, retrieving an element located by {@apilink Selector}.
      *
      * @param selector

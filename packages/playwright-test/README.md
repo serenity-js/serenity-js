@@ -82,7 +82,7 @@ describe('Serenity Screenplay with Playwright', () => {
 
 ### Serenity/JS Screenplay Pattern Actors
 
-Serenity/JS test fixtures simplify how you instantiate and use Serenity/JS Screenplay Pattern Actors.
+Serenity/JS test fixtures simplify how you instantiate and use [Serenity/JS Screenplay Pattern Actors](https://serenity-js.org/api/core/class/Actor/).
 
 #### Single-actor scenarios
 
@@ -123,7 +123,7 @@ describe('Serenity Screenplay with Playwright', () => {
 For multi-actor scenarios where you need each actor to use a separate browser, use the `actorCalled` fixture.
 You can also use this pattern to override the default actor name on a per-scenario basis:
 
-```````typescript
+```typescript
 // example.spec.ts
 
 import { describe, it, test } from '@serenity-js/playwright-test'   // import fixtures
@@ -155,7 +155,7 @@ describe('Serenity Screenplay with Playwright', () => {
         })
     })
 })
-```````
+```
 
 #### Customising Actors
 
@@ -222,6 +222,71 @@ test.use({
             defaultNavigationWaitUntil: 'domcontentloaded'
         }))
     }
+})
+```
+
+### UI Component Testing
+
+You can use Serenity/JS and Playwright Test to write UI component tests and **reuse your test code** between component and end-to-end test suites.
+
+To get started with component testing:
+- Follow the [Playwright Test Component Testing tutorial](https://playwright.dev/docs/test-components) to configure your component test suite,
+- Use Serenity/JS test fixtures instead of the default ones.
+
+```diff
+// src/App.spec.tsx
+- import { test, expect } from '@playwright/experimental-ct-react'
++ import { test as componentTest } from '@playwright/experimental-ct-react'
++ import { useBase } from '@serenity-js/playwright-test'
+
++ const { test, expect } = useBase(componentTest)
+
+import App from './App';
+
+test.use({ viewport: { width: 500, height: 500 } });
+
+test('should work', async ({ mount }) => {
+  const component = await mount(<App />);
+  await expect(component).toContainText('Learn React');
+});
+```
+
+#### Using Serenity/JS Screenplay Pattern Actors for Component Testing
+
+Serenity/JS [`useBase(test)`](https://serenity-js.org/api/playwright-test/function/useBase/) creates
+a test API that gives you access to all the [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
+you could access in any other regular end-to-end test.
+
+This capability allows you to use [Serenity/JS Actors](https://serenity-js.org/api/core/class/Actor/) and design
+and experiment with your [Screenplay Pattern Tasks](https://serenity-js.org/api/core/class/Task/)
+before incorporating them in your high-level acceptance and end-to-end tests.
+
+```tsx
+import { test as componentTest } from '@playwright/experimental-ct-react'
+import { Ensure, contain } from '@serenity-js/assertions'
+import { useBase } from '@serenity-js/playwright-test'
+import { Enter, PageElement, CssClasses } from '@serenity-js/web'
+
+import EmailInput from './EmailInput';
+
+const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: string }>({
+    emailAddress: ({ actor }, use) => {
+        use(`${ actor.name }@example.org`)
+    }
+})
+
+describe('EmailInput', () => {
+
+    it('allows valid email addresses', async ({ actor, mount, emailAddress }) => {
+        const nativeComponent = await mount(<EmailInput/>);
+
+        const component = PageElement.from(nativeComponent);
+
+        await actor.attemptsTo(
+            Enter.theValue(emailAddress).into(component),
+            Ensure.that(CssClasses.of(component), contain('valid')),
+        )
+    })
 })
 ```
 
