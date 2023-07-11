@@ -55,5 +55,8 @@ export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
         return this.selector.toString();
     }
 
+    /**
+     * Custom [Node.js inspection method](https://nodejs.org/api/util.html#utilinspectcustom).
+     */
     [util.inspect.custom] = inspectedObject(this, [ 'parent' as keyof this, 'selector' ]);
 }

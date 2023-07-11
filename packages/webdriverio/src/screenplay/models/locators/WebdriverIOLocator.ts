@@ -108,7 +108,7 @@ export class WebdriverIOLocator extends Locator<Element, string> {
 
         return elements.map(childElement =>
             new WebdriverIOPageElement(
-                new ExistingElementLocator(
+                new WebdriverIOExistingElementLocator(
                     this.parent as WebdriverIORootLocator,
                     this.selector,
                     this.errorHandler,
@@ -120,9 +120,9 @@ export class WebdriverIOLocator extends Locator<Element, string> {
 }
 
 /**
- * @private
+ * @internal
  */
-class ExistingElementLocator extends WebdriverIOLocator {
+export class WebdriverIOExistingElementLocator extends WebdriverIOLocator {
     constructor(
         parentRoot: RootLocator<Element>,
         selector: Selector,
