@@ -84,7 +84,7 @@ export abstract class Activity {
         const invocationFrame = userLandFrames[index] || frames.at(-1);
 
         return new FileSystemLocation(
-            Path.from(invocationFrame.fileName),
+            Path.from(invocationFrame.fileName?.replace(/^file:/, '')),
             invocationFrame.lineNumber,
             invocationFrame.columnNumber,
         );
