@@ -66,7 +66,7 @@ If you prefer, Serenity/JS also offers the more concise BDD-style `describe/it` 
 import { describe, it, test } from '@serenity-js/playwright-test'
 
 test.use({
-    headles: true,
+    headless: true,
 })
 
 describe('Serenity Screenplay with Playwright', () => {
@@ -97,7 +97,7 @@ import { Navigate, Page } from '@serenity-js/playwright'            // import Sc
 import { Ensure, equals } from '@serenity-js/assertions'            // import Screenplay Pattern assertion APIs                            
 
 test.use({
-    headles: true,
+    headless: true,
     defaultActorName: 'Serena'  // change default actor name
 })
 
