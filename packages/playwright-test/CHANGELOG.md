@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to ^1.20.0 ([6d7bf43](https://github.com/serenity-js/serenity-js/commit/6d7bf43c6135968bc90869cb8f9782ed70ca8dd9))
+
+
+### Features
+
+* **playwright-test:** enable BrowseTheWebWithPlaywright to reuse an existing page instance ([5c2deb1](https://github.com/serenity-js/serenity-js/commit/5c2deb1853f27884fcdaccccc0b1b108c0a8489b)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **playwright-test:** introducing Component Testing with Serenity/JS and Playwright Test ([7b3c6c8](https://github.com/serenity-js/serenity-js/commit/7b3c6c83d5caa48b4362dee0f30a154f00cb46e2)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
 # [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
 
 

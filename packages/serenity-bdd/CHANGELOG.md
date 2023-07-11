@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to ^7.0.1 ([9ea4610](https://github.com/serenity-js/serenity-js/commit/9ea4610563d7ce02ebfc42c5746671c5147cf745))
+* **deps:** update dependency tiny-types to ^1.20.0 ([6d7bf43](https://github.com/serenity-js/serenity-js/commit/6d7bf43c6135968bc90869cb8f9782ed70ca8dd9))
+
+
+
+
+
 # [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
 
 
