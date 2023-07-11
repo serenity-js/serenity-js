@@ -1,16 +1,26 @@
 import type { Discardable } from '@serenity-js/core';
-import type { BrowserCapabilities} from '@serenity-js/web';
 import { BrowseTheWeb } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
-import { PlaywrightBrowsingSession } from '../models';
+import {
+    PlaywrightBrowsingSessionWithBrowser,
+    PlaywrightBrowsingSessionWithPage
+} from '../models';
 
 /**
  * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
  * enables the {@apilink Actor} to interact with web front-ends using [Playwright](https://playwright.dev/).
  *
  * ## Using Playwright to `BrowseTheWeb`
+ *
+ * In the example below, we configure the ability to {@apilink BrowseTheWebWithPlaywright} with a Playwright
+ * [`Browser`](https://playwright.dev/docs/api/class-browser) so that Serenity/JS {@apilink Actor|actors}
+ * can create a new [`BrowserContext`](https://playwright.dev/docs/api/class-browsercontext) and
+ * instantiate Playwright [`page`s](https://playwright.dev/docs/api/class-page) as and when needed.
+ *
+ * This configuration allows Serenity/JS to control the process of launching and shutting down browser instances
+ * and is useful when your test runner, e.g. [Cucumber.js](/api/cucumber), doesn't offer this functionality.
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -34,6 +44,55 @@ import { PlaywrightBrowsingSession } from '../models';
  *   )
  * ```
  *
+ * ## Using `BrowseTheWeb` with an existing Playwright `page`
+ *
+ * Test runners like [Playwright Test](/api/playwright-test/) manage Playwright browsers for you
+ * and offer a [`page`](https://playwright.dev/docs/api/class-page) instance you can
+ * inject into the ability to {@apilink BrowseTheWebWithPlaywright}.
+ *
+ * Note that [Serenity/JS Playwright Test module](/api/playwright-test/)
+ * automatically configures all your {@apilink Actor|actors}
+ * with an ability to {@apilink BrowseTheWebWithPlaywright},
+ * so you don't need to do it by hand unless you want to override the {@apilink SerenityOptions|default configuration}.
+ *
+ * The example below demonstrates how to use the {@apilink BrowseTheWebWithPlaywright.usingPage} API and
+ * override the default {@apilink Cast} of actors.
+ *
+ * ```ts title="specs/example.spec.ts"
+ * import { describe, it, test } from '@playwright/playwright-test'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * const HomePage = {
+ *   title: () =>
+ *     PageElement.located(By.css('h1')).describedAs('title')
+ * }
+ *
+ * describe('Serenity/JS with Playwright', () => {
+ *
+ *   test.use({
+ *     actors: async ({ page, contextOptions }, use) => {
+ *       await use(
+ *         Cast.where((actorName: string) => {
+ *           return actor.whoCan(
+ *             BrowseTheWebWithPlaywright.usingPage(page),
+ *             // ... add any other abilities
+ *           )
+ *         })
+ *       )
+ *     }
+ *   })
+ *
+ *   it('lets you reuse an existing page', async ({ actor }) => {
+ *     await actor.attemptsTo(
+ *       Navigate.to(`https://serenity-js.org`),
+ *       Ensure.that(Text.of(HomePage.title()), equals('Serenity/JS')),
+ *     )
+ *   })
+ * })
+ * ```
+ *
  * ## Learn more
  * - [Playwright website](https://playwright.dev/)
  * - {@apilink BrowseTheWeb}
@@ -45,11 +104,11 @@ import { PlaywrightBrowsingSession } from '../models';
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
     static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(browser, options);
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, options));
     }
 
-    constructor(protected readonly browser: playwright.Browser, browserContextOptions: PlaywrightOptions = {}) {
-        super(new PlaywrightBrowsingSession(browser, browserContextOptions));
+    static usingPage(page: playwright.Page, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, options));
     }
 
     /**
@@ -61,20 +120,5 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
      */
     async discard(): Promise<void> {
         await this.session.closeAllPages();
-    }
-
-    /**
-     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
-     *
-     * **Please note** that since Playwright does not expose information about the operating system
-     * the tests are running on, **Serenity/JS assumes that the tests are running locally**
-     * and therefore returns the value of Node.js `process.platform` for `platformName`.
-     */
-    async browserCapabilities(): Promise<BrowserCapabilities> {
-        return {
-            browserName: (this.browser as any)._initializer.name,   // todo: raise a PR to Playwright to expose this information
-            platformName: process.platform,                         // todo: get the actual platform from Playwright
-            browserVersion: this.browser.version()
-        }
     }
 }
