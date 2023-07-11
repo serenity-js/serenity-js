@@ -9,6 +9,7 @@ const port = process.env.PORT || 8080;
 
 const specs = [
     './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+    './spec/**/*.spec.ts',
 ];
 
 exports.config = {

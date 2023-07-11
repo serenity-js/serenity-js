@@ -15,6 +15,21 @@ describe('Selector', () => {
         expect(selector.toString()).to.equal(`by react component name containing text ('header', 'expected text')`)
     });
 
+    it('is comparable', () => {
+        const first = new ByReactComponentNameContainingText('header', 'expected text');
+        const second = new ByReactComponentNameContainingText('header', 'expected text');
+        expect(first).to.equal(second);
+    });
+
+    it('is serialisable to JSON', () => {
+        const selector = new ByReactComponentNameContainingText('header', 'expected text');
+
+        expect(selector.toJSON()).to.deep.equal({
+            value: 'header',
+            text: 'expected text'
+        });
+    });
+
     describe('when read', () => {
 
         it('provides access to selector value', async () => {

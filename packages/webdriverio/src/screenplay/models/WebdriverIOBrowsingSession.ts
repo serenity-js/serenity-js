@@ -1,6 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import type { ModalDialogHandler } from '@serenity-js/web';
+import type { BrowserCapabilities, ModalDialogHandler } from '@serenity-js/web';
 import { BrowsingSession } from '@serenity-js/web';
 import type { Page } from 'puppeteer-core';
 import type { Browser } from 'webdriverio';
@@ -25,7 +25,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         }
     }
 
-    async allPages(): Promise<Array<WebdriverIOPage>> {
+    override async allPages(): Promise<Array<WebdriverIOPage>> {
         // scan all the active window handles and add any newly opened windows if needed
         const windowHandles: string[] = await this.browser.getWindowHandles();
 
@@ -56,10 +56,9 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
     }
 
     /**
-     * @override
      * @param page
      */
-    async changeCurrentPageTo(page: WebdriverIOPage): Promise<void> {
+    override async changeCurrentPageTo(page: WebdriverIOPage): Promise<void> {
         const currentPage = await this.currentPage();
 
         // are we already on this page?
@@ -122,7 +121,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         return this.currentBrowserPage;
     }
 
-    protected async registerCurrentPage(): Promise<WebdriverIOPage> {
+    protected override async registerCurrentPage(): Promise<WebdriverIOPage> {
         const windowHandle = await this.browser.getWindowHandle();
 
         const errorHandler = new WebdriverIOErrorHandler();
@@ -168,5 +167,9 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         }
 
         return page;
+    }
+
+    override browserCapabilities(): Promise<BrowserCapabilities> {
+        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
     }
 }
