@@ -1,9 +1,17 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { afterEach, describe, expect, it } from '@serenity-js/playwright-test';
+import { afterEach, describe, expect, it, test } from '@serenity-js/playwright-test';
 import { Navigate, Page } from '@serenity-js/web';
 
+import { ActorsWithLocalServer } from './actors/ActorsWithLocalServer';
+
 describe('Playwright Test integration', () => {
+
+    test.use({
+        actors: ({ page, contextOptions }, use) => {
+            use(new ActorsWithLocalServer(page, contextOptions));
+        },
+    });
 
     describe('A screenplay scenario', () => {
 

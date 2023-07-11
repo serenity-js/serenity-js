@@ -14,6 +14,7 @@ const protocol = process.env.PROTOCOL === 'devtools'
 const options = {
     specs: [
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+        './spec/**/*.spec.ts',
     ],
 
     port: process.env.PORT
