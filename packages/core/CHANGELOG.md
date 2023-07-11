@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* **playwright-test:** ensure activity instantiation location is correct in component tests ([87d59ef](https://github.com/serenity-js/serenity-js/commit/87d59ef7549b12c071c09c103153599e86f74c90)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
 # [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
 
 
