@@ -44,7 +44,7 @@ import type { PlaywrightOptions } from '@serenity-js/playwright';
  *         ],
  *
  *         // Register a custom cast of Serenity/JS actors
- *         // if you don't want to use the default one
+ *         // if you don't want to use the default ones
  *         actors: ({ browser, contextOptions, apiUrl }, use) => {
  *              const cast = Cast.where(actor =>
  *                  actor.whoCan(
