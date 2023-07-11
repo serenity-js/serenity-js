@@ -1,15 +1,14 @@
 import type { TestInfo } from '@playwright/test';
 import type { Stage, StageCrewMember } from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import {
     ActivityRelatedArtifactGenerated,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     SceneTagged,
 } from '@serenity-js/core/lib/events';
+import type { Tag } from '@serenity-js/core/lib/model';
 import { BrowserTag, CorrelationId, Description, Name, Photo, PlatformTag } from '@serenity-js/core/lib/model';
-import type { Tag } from '@serenity-js/core/src/model';
 
 export class PlaywrightStepReporter implements StageCrewMember {
 

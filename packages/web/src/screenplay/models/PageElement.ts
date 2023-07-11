@@ -22,6 +22,14 @@ import type { SwitchableOrigin } from './SwitchableOrigin';
  */
 export abstract class PageElement<Native_Element_Type = any> implements Optional, Switchable {
 
+    static from<NET>(nativeElement: NET): QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement> {
+        return Question.about(`native page element`, async actor => {
+            const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
+
+            return currentPage.createPageElement(nativeElement);
+        }) as QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement>;
+    }
+
     static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement> {
         return Question.about(d`page element located ${ selector }`, async actor => {
             const bySelector  = await actor.answer(selector);
