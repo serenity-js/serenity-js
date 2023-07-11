@@ -56,6 +56,7 @@ import type { Switchable } from '../models';
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
  * import { Click, Enter, Switch } from '@serenity-js/web'
+ * import { browser } from '@wdio/globals'
  *
  * await actorCalled('Francesca')
  *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
@@ -78,6 +79,7 @@ import type { Switchable } from '../models';
  * import { Ensure, equals } from '@serenity-js/assertions'
  * import { actorCalled } from '@serenity-js/core'
  * import { Key, PageElement, Press, Switch, Value } from '@serenity-js/web'
+ * import { browser } from '@wdio/globals'
  *
  * const inputField = () =>
  *   PageElement.located(By.css('input'));
