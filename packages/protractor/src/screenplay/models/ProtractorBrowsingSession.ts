@@ -1,4 +1,5 @@
 import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession } from '@serenity-js/web';
 import type * as protractor from 'protractor';
 
@@ -18,7 +19,7 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
         super();
     }
 
-    async allPages(): Promise<Array<ProtractorPage>> {
+    override async allPages(): Promise<Array<ProtractorPage>> {
         // scan all the active window handles and add any newly opened windows if needed
         const windowHandles: string[] = await promised(this.browser.getAllWindowHandles());
 
@@ -48,10 +49,9 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
     }
 
     /**
-     * @override
      * @param page
      */
-    async changeCurrentPageTo(page: ProtractorPage): Promise<void> {
+    override async changeCurrentPageTo(page: ProtractorPage): Promise<void> {
         const currentPage = await this.currentPage();
 
         // are we already on this page?
@@ -113,7 +113,7 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
         return this.currentBrowserPage;
     }
 
-    protected async registerCurrentPage(): Promise<ProtractorPage> {
+    protected override async registerCurrentPage(): Promise<ProtractorPage> {
         const windowHandle = await this.browser.getWindowHandle();
 
         const errorHandler = new ProtractorErrorHandler();
@@ -129,5 +129,15 @@ export class ProtractorBrowsingSession extends BrowsingSession<ProtractorPage> {
         this.register(page)
 
         return page;
+    }
+
+    override async browserCapabilities(): Promise<BrowserCapabilities> {
+        const capabilities = await promised(this.browser.getCapabilities());
+
+        return {
+            platformName:   capabilities.get('platform'),
+            browserName:    capabilities.get('browserName'),
+            browserVersion: capabilities.get('version'),
+        };
     }
 }

@@ -1,15 +1,14 @@
-import type { QuestionAdapter } from '@serenity-js/core';
-import { LogicError } from '@serenity-js/core';
+import { LogicError, type QuestionAdapter } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import type { Cookie, CookieData, PageElement, Selector } from '@serenity-js/web';
-import { Key, Page, PageElements } from '@serenity-js/web';
+import { ByDeepCss, Key, Page, PageElements } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { promised } from '../promised';
-import { PlaywrightLocator, PlaywrightRootLocator } from './locators';
+import { PlaywrightExistingElementLocator, PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import type { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
 import { PlaywrightPageElement } from './PlaywrightPageElement';
@@ -38,6 +37,16 @@ export class PlaywrightPage extends Page<playwright.Locator> {
             new PlaywrightRootLocator(page),
             new PlaywrightModalDialogHandler(page),
             pageId
+        );
+    }
+
+    createPageElement(nativeElement: playwright.Locator): PageElement<playwright.Locator> {
+        return new PlaywrightPageElement(
+            new PlaywrightExistingElementLocator(
+                this.rootLocator,
+                new ByDeepCss((nativeElement as any)._selector),
+                nativeElement,
+            )
         );
     }
 

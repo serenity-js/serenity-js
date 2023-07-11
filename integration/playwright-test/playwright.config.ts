@@ -2,7 +2,6 @@ import { devices, ReporterDescription } from '@playwright/test';
 import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 import * as path from 'path';
 
-import { ActorsWithLocalServer } from './examples/screenplay/actors/ActorsWithLocalServer';
 import { CustomCast } from './examples/screenplay/actors/CustomCast';
 
 /**
@@ -69,9 +68,6 @@ const config: PlaywrightTestConfig = {
             name: 'screenplay-local-server',
             use: {
                 ...devices['Desktop Chrome'],
-                actors: ({ browser, contextOptions }, use) => {
-                    use(new ActorsWithLocalServer(browser, contextOptions));
-                },
                 defaultActorName: 'Phoebe',
             },
         },
@@ -96,9 +92,6 @@ const config: PlaywrightTestConfig = {
             name: 'screenplay-photographer-default',
             use: {
                 ...devices['Desktop Chrome'],
-                actors: ({ browser, contextOptions }, use) => {
-                    use(new ActorsWithLocalServer(browser, contextOptions));
-                },
                 defaultActorName: 'Phoebe',
             },
         },
@@ -109,9 +102,6 @@ const config: PlaywrightTestConfig = {
                 crew: [
                     [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ]
                 ],
-                actors: ({ browser, contextOptions }, use) => {
-                    use(new ActorsWithLocalServer(browser, contextOptions));
-                },
                 defaultActorName: 'Phoebe'
             },
         },
