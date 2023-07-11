@@ -85,11 +85,6 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> extends Ability {
     }
 
     /**
-     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
-     */
-    abstract browserCapabilities(): Promise<BrowserCapabilities>;
-
-    /**
      * Returns a {@apilink Page} representing the currently active browser tab.
      */
     async currentPage(): Promise<Page<Native_Element_Type>> {
@@ -102,5 +97,12 @@ export abstract class BrowseTheWeb<Native_Element_Type = any> extends Ability {
      */
     allPages(): Promise<Array<Page<Native_Element_Type>>> {
         return this.session.allPages();
+    }
+
+    /**
+     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
+     */
+    async browserCapabilities(): Promise<BrowserCapabilities> {
+        return this.session.browserCapabilities();
     }
 }

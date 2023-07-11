@@ -1,5 +1,6 @@
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 
+import type { BrowserCapabilities } from './BrowserCapabilities';
 import type { Page } from './Page';
 
 /**
@@ -29,6 +30,11 @@ export abstract class BrowsingSession<Page_Type extends Page> {
      * Opens a new browser page and associates it with a {@apilink Page} object.
      */
     protected abstract registerCurrentPage(): Promise<Page_Type>;
+
+    /**
+     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this browsing session.
+     */
+    public abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
     /**
      * Returns a {@apilink Page} representing the currently active top-level browsing context.
