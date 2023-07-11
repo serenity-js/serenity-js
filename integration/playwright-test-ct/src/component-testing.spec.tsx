@@ -1,7 +1,7 @@
 import { test as componentTest } from '@playwright/experimental-ct-react17';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { expect, useBase } from '@serenity-js/playwright-test';
-import { By, ByDeepCss, Enter, PageElement, Text, Value } from '@serenity-js/web';
+import { By, ByDeepCss, Click, Enter, PageElement, Text, Value } from '@serenity-js/web';
 
 import UppercaseInput from './UppercaseInput';
 
@@ -30,6 +30,17 @@ describe('Serenity/JS', () => {
     });
 
     describe('PageElement', () => {
+
+        it('recognises instantiation location', async ({ actor, mount }) => {
+            const nativeComponent = await mount(<UppercaseInput/>);
+            const component = PageElement.from(nativeComponent);
+
+            const location = Click.on(component).instantiationLocation();
+
+            expect(location.path.value).toMatch(/component-testing.spec.tsx$/);
+            expect(location.line).toEqual(38);
+            expect(location.column).toEqual(36);
+        });
 
         it('can wrap a native component', async ({ actor, mount }) => {
             const nativeComponent = await mount(<UppercaseInput/>);
