@@ -3,7 +3,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, ListItemNotFoundError } from '@serenity-js/core';
+import { actorCalled, ListItemNotFoundError, LogicError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 import { ExportedPageElements } from './fixtures/ExportedPageElements';
@@ -31,11 +31,11 @@ describe('PageElements', () => {
                     ));
             });
 
-            describe('using a child-parent locator pattern', () => {
+            describe('using a "child of parent" locator pattern', () => {
 
                 const childParentStrategySection = () =>
-                    PageElement.located(By.css('[data-test-id="child-parent-locator-pattern"]'))
-                        .describedAs('child-parent locator strategy section');
+                    PageElement.located(By.css('[data-test-id="child-of-parent-locator-pattern"]'))
+                        .describedAs('child of parent locator strategy section');
 
                 const child = () =>
                     PageElement.located(By.css('.child'));
@@ -74,6 +74,62 @@ describe('PageElements', () => {
                             equals('child 1.1')
                         ),
                     ));
+            });
+
+            describe('using a "parent closest to child" pattern', () => {
+
+                const childParentStrategySection = () =>
+                    PageElement.located(By.css('[data-test-id="parent-closest-to-child-locator-pattern"]'))
+                        .describedAs('parent closest to child locator strategy section');
+
+                const child2 = () =>
+                    PageElement.located(By.css('[data-test-id="child-2-1"]'))
+                        .of(childParentStrategySection());
+
+                const parent = () =>
+                    PageElement.located(By.css('.parent'))
+                        .describedAs('parent');
+
+                const nonExistentElement = () =>
+                    PageElement.located(By.css('.non-existent'))
+                        .describedAs('non-existent element');
+
+                const parentLocatedByNonCssSelector = () =>
+                    PageElement.located(By.xpath('//div'))
+                        .describedAs('parent located by a non-CSS selector');
+
+                it(`traverses the DOM tree to find the parent specified by a CSS selector`, async () => {
+                    await actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Attribute.called('data-test-id').of(
+                                parent().closestTo(child2())
+                            ),
+                            equals('parent-2')
+                        ),
+                    )
+                });
+
+                it(`knows if the parent element doesn't exist`, () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            nonExistentElement().closestTo(child2()),
+                            not(isPresent()),
+                        ),
+                    ));
+
+                // Element.closest(selector) is executed in browser and supports only standard CSS selectors.
+                it(`complains if given a non-CSS selector`, async () => {
+                    await expect(
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Attribute.called('data-test-id').of(
+                                    parentLocatedByNonCssSelector().closestTo(child2())
+                                ),
+                                equals('should never match'),
+                            ),
+                        )
+                    ).to.be.rejectedWith(LogicError, `by xpath ('//div') can't be expressed as a CSS selector`)
+                });
             });
 
             describe('using a filter locator pattern to find a non-unique parent element', () => {

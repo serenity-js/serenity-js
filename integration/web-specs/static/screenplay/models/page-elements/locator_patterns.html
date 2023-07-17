@@ -4,12 +4,21 @@
         <div class="element">expected</div>
     </section>
 
-    <section data-test-id="child-parent-locator-pattern">
+    <section data-test-id="child-of-parent-locator-pattern">
         <ul class="parent" data-test-id="parent-1">
             <li class="child" data-test-id="child-1-1">child 1.1</li>
         </ul>
         <ul class="parent" data-test-id="parent-2">
             <li class="child" data-test-id="child-2-1">child 2.1</li>
+        </ul>
+    </section>
+
+    <section data-test-id="parent-closest-to-child-locator-pattern">
+        <ul class="parent" data-test-id="parent-1">
+            <li class="child" data-test-id="child-1-1">child 1.1</li>
+        </ul>
+        <ul class="parent" data-test-id="parent-2">
+            <li class="child" data-test-id="child-2-1">child 2.1<span class="parent" data-test-id="child-2-1-1">example</span></li>
         </ul>
     </section>
 
