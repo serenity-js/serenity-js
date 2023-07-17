@@ -1,12 +1,15 @@
+import { LogicError } from '@serenity-js/core';
 import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
-import { Locator } from '@serenity-js/web';
-import type * as protractor from 'protractor';
+import { ByCss, Locator } from '@serenity-js/web';
+import * as protractor from 'protractor';
 
 import { unpromisedWebElement } from '../../unpromisedWebElement';
 import type { ProtractorErrorHandler } from '../ProtractorErrorHandler';
 import { ProtractorPageElement } from '../ProtractorPageElement';
 import type { ProtractorRootLocator } from './ProtractorRootLocator';
 import { ProtractorSelectors } from './ProtractorSelectors';
+import { WebElement } from 'selenium-webdriver';
+import { promised } from '../../promised';
 
 /**
  * Protractor-specific implementation of {@apilink Locator}.
@@ -46,7 +49,7 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         }
     }
 
-    private async resolveNativeElement(): Promise<protractor.ElementFinder> {
+    protected async resolveNativeElement(): Promise<protractor.ElementFinder> {
         const parent = await this.parent.nativeElement();
         const result = await unpromisedWebElement(parent.element(this.nativeSelector()));
 
@@ -65,7 +68,11 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         return new ProtractorLocator(parent, this.selector, this.errorHandler);
     }
 
-    locate(child: ProtractorLocator): Locator<protractor.ElementFinder, any> {
+    closestTo(child: ProtractorLocator): Locator<protractor.ElementFinder, protractor.Locator> {
+        return new ProtractorParentElementLocator(this.parent, this.selector, child, this.errorHandler);
+    }
+
+    locate(child: ProtractorLocator): Locator<protractor.ElementFinder, protractor.Locator> {
         return new ProtractorLocator(this, child.selector, this.errorHandler);
     }
 
@@ -102,11 +109,39 @@ export class ProtractorExistingElementLocator extends ProtractorLocator {
         super(parent, selector, errorHandler);
     }
 
-    async nativeElement(): Promise<protractor.ElementFinder> {
+    override async nativeElement(): Promise<protractor.ElementFinder> {
         return this.existingNativeElement;
     }
 
-    async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
+    override async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
         return [ this.existingNativeElement ];
+    }
+}
+
+class ProtractorParentElementLocator extends ProtractorLocator {
+    constructor(
+        parent: RootLocator<protractor.ElementFinder>,
+        selector: Selector,
+        private readonly child: ProtractorLocator,
+        errorHandler: ProtractorErrorHandler
+    ) {
+        super(parent, selector, errorHandler);
+    }
+
+    protected async resolveNativeElement(): Promise<protractor.ElementFinder> {
+        const cssSelector = this.asCssSelector(this.selector);
+        const child = await this.child.nativeElement();
+
+        const webElement: WebElement = await child.getWebElement();
+
+        return await promised(webElement.getDriver().executeScript(
+            `return arguments[0].closest(arguments[1])`,
+            webElement,
+            cssSelector.value,
+        ));
+    }
+
+    override async allNativeElements(): Promise<Array<protractor.ElementFinder>> {
+        return [ await this.nativeElement() ];
     }
 }
