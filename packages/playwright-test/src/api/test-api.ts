@@ -11,7 +11,7 @@ import { test as playwrightBaseTest, } from '@playwright/test';
 import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
 import type { JSONValue } from 'tiny-types';
@@ -27,6 +27,8 @@ import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywri
 import type { SerenityFixtures } from './SerenityFixtures';
 import type { SerenityOptions } from './SerenityOptions';
 
+const serenitySelectorEngines = new SerenitySelectorEngines();
+
 export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -38,6 +40,11 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
         },
         { option: true },
     ],
+
+    playwright: async ({ playwright }, use) => {
+        await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
+        await use(playwright);
+    },
 
     defaultActorName: [
         'Serena',

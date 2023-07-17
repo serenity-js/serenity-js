@@ -6,6 +6,7 @@ import type * as playwright from 'playwright-core';
 import { promised } from '../../promised';
 import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import type { PlaywrightRootLocator } from './PlaywrightRootLocator';
+import { SerenitySelectorEngines } from '../../../selector-engines';
 
 /**
  * Playwright-specific implementation of {@apilink Locator}.
@@ -92,6 +93,10 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
         return new PlaywrightLocator(parent, this.selector);
     }
 
+    closestTo(child: PlaywrightLocator): Locator<playwright.Locator, string> {
+        return new PlaywrightParentElementLocator(this.parent, this.selector, child);
+    }
+
     locate(child: PlaywrightLocator): Locator<playwright.Locator, string> {
         return new PlaywrightLocator(this, child.selector);
     }
@@ -133,5 +138,26 @@ export class PlaywrightExistingElementLocator extends PlaywrightLocator {
 
     async allNativeElements(): Promise<Array<playwright.Locator>> {
         return [ this.existingNativeElement ];
+    }
+}
+
+class PlaywrightParentElementLocator extends PlaywrightLocator {
+    constructor(
+        parent: RootLocator<playwright.Locator>,
+        selector: Selector,
+        private readonly child: PlaywrightLocator
+    ) {
+        super(parent, selector);
+    }
+
+    override async nativeElement(): Promise<playwright.Locator> {
+        const cssSelector = this.asCssSelector(this.selector);
+        const child = await this.child.nativeElement();
+
+        return child.locator(`${ SerenitySelectorEngines.engineIdOf('closest') }=${ cssSelector.value }`)
+    }
+
+    async allNativeElements(): Promise<Array<playwright.Locator>> {
+        return [ await this.nativeElement() ];
     }
 }
