@@ -2,8 +2,8 @@ import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
-import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { SerenitySelectorEngines } from '../../selector-engines';
+import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 
 export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSession {
     private readonly serenitySelectorEngines = new SerenitySelectorEngines();
