@@ -17,6 +17,10 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
         return new PlaywrightPageElement(this.locator.of(parent.locator));
     }
 
+    closestTo(child: PageElement<playwright.Locator>): PageElement<playwright.Locator> {
+        return new PlaywrightPageElement(this.locator.closestTo(child.locator));
+    }
+
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
         const text = [].concat(value).join('');
 
