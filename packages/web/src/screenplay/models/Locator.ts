@@ -1,9 +1,10 @@
+import { LogicError } from '@serenity-js/core';
 import { inspectedObject } from '@serenity-js/core/lib/io';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import type { PageElement } from './PageElement';
 import { RootLocator } from './RootLocator';
-import type { Selector } from './selectors';
+import { ByCss, ById, ByTagName, type Selector } from './selectors';
 
 /**
  * {@apilink Locator} uses a {@apilink Selector} to locate a {@apilink PageElement} or {@apilink PageElements}
@@ -45,7 +46,33 @@ export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
     protected abstract nativeSelector(): Native_Selector_Type;
 
     abstract of(parent: RootLocator<Native_Element_Type>): Locator<Native_Element_Type>;
+    abstract closestTo(child: Locator<Native_Element_Type>): Locator<Native_Element_Type>;
     abstract locate(child: Locator<Native_Element_Type>): Locator<Native_Element_Type>;
+
+    /**
+     * Expresses {@apilink ByCss}, {@apilink ById}, or {@apilink ByTagName} as a {@apilink ByCss} selector.
+     *
+     * @throws LogicError
+     *  if the `selector` can't be expressed as {@apilink ByCss}
+     *
+     * @param selector
+     * @protected
+     */
+    protected asCssSelector(selector: Selector): ByCss {
+        if (selector instanceof ByCss) {
+            return selector;
+        }
+
+        if (selector instanceof ById) {
+            return new ByCss(`#${ selector.value }`);
+        }
+
+        if (selector instanceof ByTagName) {
+            return new ByCss(`${ selector.value }`);
+        }
+
+        throw new LogicError(`${ selector } can't be expressed as a CSS selector`)
+    }
 
     abstract element(): PageElement<Native_Element_Type>;
 
