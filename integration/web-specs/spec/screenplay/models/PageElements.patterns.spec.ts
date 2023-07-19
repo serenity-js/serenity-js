@@ -3,7 +3,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, ListItemNotFoundError, LogicError } from '@serenity-js/core';
+import { actorCalled, ListItemNotFoundError, LogicError, MetaQuestion, Question } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 import { ExportedPageElements } from './fixtures/ExportedPageElements';
@@ -227,7 +227,7 @@ describe('PageElements', () => {
                                 .where(Text.ofAll(listItems()), contain('coffee'))
                                 .eachMappedTo(heading())
                         ),
-                        equals(['First shopping list', 'Second shopping list'])
+                        equals([ 'First shopping list', 'Second shopping list' ])
                     ),
                 ));
 
@@ -256,6 +256,51 @@ describe('PageElements', () => {
                     `the text of heading of the last of containers of filter pattern with mapping section where the text of list items does contain 'coffee'`
                 );
             });
+        });
+
+        describe('to map elements', () => {
+
+            const mappingPatternSection = () =>
+                PageElement.located(By.css('[data-test-id="mapping-tabular-data-to-object"]'))
+                    .describedAs('mapping pattern');
+
+            const container = () =>
+                PageElement.located(By.css('.container'))
+                    .describedAs('container')
+                    .of(mappingPatternSection());
+
+            const items = () =>
+                PageElements.located(By.css('.item'))
+                    .of(container())
+                    .describedAs('items')
+
+            const BasketItemDetails: MetaQuestion<PageElement, Promise<{ name: string, price: number }>> = {
+                of: (element: PageElement) =>
+                    Question.fromObject({
+
+                        name: Text
+                            .of(PageElement.located(By.css('.name')))
+                            .of(element),
+
+                        price: Text
+                            .of(PageElement.located(By.css('.price')).of(element))
+                            .trim()
+                            .replace('£', '')
+                            .as(Number)
+
+                    }).describedAs('basket item details')
+            }
+
+            it('supports custom meta questions', () =>
+                actorCalled('Peggy').attemptsTo(
+                    Ensure.that(
+                        items().eachMappedTo(BasketItemDetails),
+                        equals([
+                            { name: 'apples',  price: 2.25 },
+                            { name: 'bananas', price: 1.5  },
+                        ])
+                    ),
+                ));
         });
     });
 });

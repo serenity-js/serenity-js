@@ -152,6 +152,27 @@ describe('Question', () => {
                 expect(location.line).to.equal(149);
                 expect(location.column).to.equal(34);
             });
+
+            it('allows for proxying of the underlying methods', async () => {
+                const v = <V>(value: V) =>
+                    Question.about<V>('a value', (actor: Actor) =>
+                        Promise.resolve(value)
+                    );
+
+                const question = Question.about('subject', actor_ => Promise.resolve(' £1,000.75 '))
+                    .trimStart()
+                    .trimEnd()
+                    .replace('£', '')
+                    .replace(v(','), '')
+                    .as(Number)
+                    .describedAs('price');
+
+                expect(question.toString()).to.equal('price');
+
+                const result = await question.answeredBy(Quentin);
+
+                expect(result).to.equal(1000.75);
+            })
         });
     });
 
