@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
+
+
+### Features
+
+* **web:** new PageElement Query Language API - parentElement.closestTo(childElement) ([7d48fd8](https://github.com/serenity-js/serenity-js/commit/7d48fd8c1dcda6cbd5f8d0579e4cce129b24618f))
+
+
+
+
+
 ## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
 
 **Note:** Version bump only for package @serenity-js/web
