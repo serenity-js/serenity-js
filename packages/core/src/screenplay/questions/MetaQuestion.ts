@@ -1,5 +1,5 @@
 import type { Answerable } from '../Answerable';
-import type { Question, QuestionAdapter } from '../Question';
+import type { Question } from '../Question';
 
 /**
  * A "meta question" is a {@apilink Question} about another {@apilink Answerable},
