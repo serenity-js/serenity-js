@@ -203,7 +203,7 @@ Learn more about asserting on page elements in chapter "[Web assertions](/handbo
 Serenity/JS web module provides [web-specific expectations](/api/core/class/Expectation) you use
 to synchronise your test code with the system under test and wait until its state meets your expectations.
 
-For example, you might want for your test scenario to wait until a given element [is present](/api/web/function/isPresent) in the DOM tree:
+For example, you might want for your test scenario to wait until a given element [is present](/api/assertions/function/isPresent/) in the DOM tree:
 
 ```typescript
 import { actorCalled, Duration, Wait } from '@serenity-js/core'
