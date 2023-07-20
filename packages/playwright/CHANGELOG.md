@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.36.1 ([b86289b](https://github.com/serenity-js/serenity-js/commit/b86289b3f6d703baa9867ad167502de102591545))
+
+
+### Features
+
+* **playwright:** support for parentElement.closestTo(childElement) API ([cee2c48](https://github.com/serenity-js/serenity-js/commit/cee2c48e63cc8edbfc9daece57e9966f8833beeb)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
 ## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
 
 
