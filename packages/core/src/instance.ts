@@ -152,46 +152,69 @@ export function engage(actors: Cast): void {
  *
  * This method is an alias for {@apilink Serenity.theActorCalled}.
  *
- * ## Usage with Mocha
- *
- * ```typescript
- *   import { describe, it } from 'mocha';
- *   import { actorCalled } from '@serenity-js/core';
- *
- *   describe('Feature', () => {
- *
- *      it('should have some behaviour', () =>
- *          actorCalled('James').attemptsTo(
- *              // ... activities
- *          ))
- *   })
- * ```
- *
- * ## Usage with Jasmine
- *
- * ```typescript
- *   import 'jasmine';
- *   import { actorCalled } from '@serenity-js/core';
- *
- *   describe('Feature', () => {
- *
- *      it('should have some behaviour', () =>
- *          actorCalled('James').attemptsTo(
- *              // ... activities
- *          ))
- *   })
- * ```
- *
  * ## Usage with Cucumber
  *
  * ```typescript
  * import { actorCalled } from '@serenity-js/core';
  * import { Given } from '@cucumber/cucumber';
  *
- * Given(/(.*?) is a registered user/, (name: string) =>
- *   actorCalled(name).attemptsTo(
+ * Given(/(.*?) is a registered user/, async (name: string) => {
+ *   await actorCalled(name).attemptsTo(
  *     // ... activities
- *   ))
+ *   )
+ * })
+ * ```
+ *
+ * ## Usage with Jasmine
+ *
+ * ```typescript
+ * import 'jasmine';
+ * import { actorCalled } from '@serenity-js/core';
+ *
+ * describe('Feature', () => {
+ *
+ *     it('should have some behaviour', async () {
+ *         await actorCalled('James').attemptsTo(
+ *             // ... activities
+ *         )
+ *     })
+ * })
+ * ```
+ *
+ * ## Usage with Mocha
+ *
+ * ```typescript
+ * import { describe, it } from 'mocha';
+ * import { actorCalled } from '@serenity-js/core';
+ *
+ * describe('Feature', () => {
+ *
+ *     it('should have some behaviour', async () => {
+ *         await actorCalled('James').attemptsTo(
+ *             // ... activities
+ *         )
+ *     })
+ * })
+ * ```
+ *
+ * ## Usage with Playwright Test
+ *
+ * When using [Serenity/JS with Playwright Test](/api/playwright-test/), you should use either
+ * the default [`actor`](/api/playwright-test/interface/SerenityFixtures/#actorCalled) fixture
+ * or the injected [`actorCalled`](/api/playwright-test/interface/SerenityFixtures/#actorCalled) function
+ * instead of importing it from `@serenity-js/core`.
+ *
+ * ```typescript
+ * import { describe, it } from '@serenity-js/playwright-test';
+ *
+ * describe('Feature', () => {
+ *
+ *     it('should have some behaviour', async ({ actorCalled }) => {
+ *         await actorCalled('James').attemptsTo(
+ *             // ... activities
+ *         )
+ *     })
+ * })
  * ```
  *
  * ## Learn more
