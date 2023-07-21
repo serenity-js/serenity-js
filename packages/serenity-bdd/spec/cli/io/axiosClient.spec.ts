@@ -163,7 +163,7 @@ describe('axiosClient', () => {
 
         describe('when no proxy is needed', () => {
 
-            it('uses a HTTPS Agent configured to ignored SSL errors', () => {
+            it('uses a HTTPS Agent configured to ignore SSL errors', () => {
                 const env = { npm_config_ca: ca };
                 const ignoreSsl = true;
 
@@ -179,7 +179,7 @@ describe('axiosClient', () => {
                 expect(client.defaults.httpsAgent.options.rejectUnauthorized).to.equal(!ignoreSsl);
             });
 
-            it('uses a HTTPS Agent configured to not ignored SSL errors', () => {
+            it('uses a HTTPS Agent configured to not ignore SSL errors', () => {
                 const env = { npm_config_ca: ca };
                 const ignoreSsl = false;
 
