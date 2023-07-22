@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** corrected downloading Serenity BDD jar using HTTP Proxy Agent ([48f79b9](https://github.com/serenity-js/serenity-js/commit/48f79b950b596e124afc415cab4a72279e50b367)), closes [#1795](https://github.com/serenity-js/serenity-js/issues/1795)
+
+
+
+
+
 # [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
