@@ -21,9 +21,9 @@ const config = {
         supportedEngines: pkg.engines,
         currentNodeVersion: process.version,
         description:
-            `<strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to help you create
-            <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong>
-            and produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
+            `Serenity/JS is an innovative test automation framework designed to help you create
+            high-quality, business-focused test scenarios that interact with any interface of your system
+            and produce comprehensive test reports that build trust between delivery teams and the business.
             `,
     },
     url: 'https://serenity-js.org',
