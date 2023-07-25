@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
+
+**Note:** Version bump only for package @serenity-js/playwright
+
+
+
+
+
+# [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.36.1 ([b86289b](https://github.com/serenity-js/serenity-js/commit/b86289b3f6d703baa9867ad167502de102591545))
+
+
+### Features
+
+* **playwright:** support for parentElement.closestTo(childElement) API ([cee2c48](https://github.com/serenity-js/serenity-js/commit/cee2c48e63cc8edbfc9daece57e9966f8833beeb)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
+## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.36.0 ([8b60383](https://github.com/serenity-js/serenity-js/commit/8b6038338b35d04072b166a9b66f63fa24af8dc0))
+
+
+
+
+
+# [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to ^1.20.0 ([6d7bf43](https://github.com/serenity-js/serenity-js/commit/6d7bf43c6135968bc90869cb8f9782ed70ca8dd9))
+
+
+### Features
+
+* **playwright-test:** enable BrowseTheWebWithPlaywright to reuse an existing page instance ([5c2deb1](https://github.com/serenity-js/serenity-js/commit/5c2deb1853f27884fcdaccccc0b1b108c0a8489b)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **web:** you can now use Serenity/JS Screenplay Pattern APIs for UI component testing ([3c9aa4b](https://github.com/serenity-js/serenity-js/commit/3c9aa4b16d223844116ffcb21d23f9cc8b96a793)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
 # [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
 
 

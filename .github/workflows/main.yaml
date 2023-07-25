@@ -247,7 +247,7 @@ jobs:
         run: make report
 
       - name: Coveralls
-        uses: coverallsapp/github-action@c7885c00cb7ec0b8f9f5ff3f53cddb980f7a4412 # v2.2.0
+        uses: coverallsapp/github-action@95b1a2355bd0e526ad2fd62da9fd386ad4c98474 # v2.2.1
         with:
           github-token: ${{ github.token }}
           path-to-lcov: 'target/coverage/lcov.info'
@@ -395,7 +395,7 @@ jobs:
         run: tree
 
       - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@22a6ee251d6f13c6ab1ecb200d974f1a6feb1b8d # v4.4.2
+        uses: JamesIves/github-pages-deploy-action@a1ea191d508feb8485aceba848389d49f80ca2dc # v4.4.3
         if: github.ref == 'refs/heads/main'
         with:
           BRANCH: gh-pages

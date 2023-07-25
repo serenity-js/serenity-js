@@ -1,6 +1,6 @@
 import type { Discardable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
-import type * as playwright from 'playwright-core';
+import * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import {
@@ -104,7 +104,7 @@ import {
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
     static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, options));
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, options, playwright.selectors));
     }
 
     static usingPage(page: playwright.Page, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {

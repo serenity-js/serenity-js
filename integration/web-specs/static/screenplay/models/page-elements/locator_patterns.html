@@ -4,12 +4,21 @@
         <div class="element">expected</div>
     </section>
 
-    <section data-test-id="child-parent-locator-pattern">
+    <section data-test-id="child-of-parent-locator-pattern">
         <ul class="parent" data-test-id="parent-1">
             <li class="child" data-test-id="child-1-1">child 1.1</li>
         </ul>
         <ul class="parent" data-test-id="parent-2">
             <li class="child" data-test-id="child-2-1">child 2.1</li>
+        </ul>
+    </section>
+
+    <section data-test-id="parent-closest-to-child-locator-pattern">
+        <ul class="parent" data-test-id="parent-1">
+            <li class="child" data-test-id="child-1-1">child 1.1</li>
+        </ul>
+        <ul class="parent" data-test-id="parent-2">
+            <li class="child" data-test-id="child-2-1">child 2.1<span class="parent" data-test-id="child-2-1-1">example</span></li>
         </ul>
     </section>
 
@@ -53,27 +62,17 @@
         </div>
     </section>
 
-<!--    <div class="container">-->
-<!--        <h1>First shopping list</h1>-->
-<!--        <ul>-->
-<!--            <li>coffee</li>-->
-<!--            <li>biscuits</li>-->
-<!--            <li>milk</li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div class="container">-->
-<!--        <h1>Second shopping list</h1>-->
-<!--        <ul>-->
-<!--            <li>cake</li>-->
-<!--            <li>coffee</li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div class="container">-->
-<!--        <h1>Third shopping list</h1>-->
-<!--        <ul>-->
-<!--            <li>apples</li>-->
-<!--            <li>oranges</li>-->
-<!--        </ul>-->
-<!--    </div>-->
+    <section data-test-id="mapping-tabular-data-to-object">
+        <ul class="container">
+            <li class="item">
+                <span class="name">apples</span>
+                <span class="price">£2.25</span>
+            </li>
+            <li class="item">
+                <span class="name">bananas</span>
+                <span class="price">£1.50</span>
+            </li>
+        </ul>
+    </section>
 </body>
 </html>

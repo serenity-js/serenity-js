@@ -405,15 +405,19 @@ declare global {
  */
 export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
-    // is it a method?
-    Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
-        // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
-        ? (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
-            QuestionAdapter<Awaited<OriginalMethodResult>>
-        // is it an object? wrap each field
-        : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
-            ? QuestionAdapter<Awaited<Original_Type[Field]>>
-            : any;
+        // is it a method?
+        Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
+            // Workaround for TypeScript giving up too soon when resolving type aliases in lib.es2015.symbol.wellknown
+            ? Field extends 'replace'
+                ? (searchValue: Answerable<string | RegExp>, replaceValue: Answerable<string>) => QuestionAdapter<string>
+
+                // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
+                : (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
+                    QuestionAdapter<Awaited<OriginalMethodResult>>
+            // is it an object? wrap each field
+            : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
+                ? QuestionAdapter<Awaited<Original_Type[Field]>>
+                : any;
 };
 /* eslint-enable @typescript-eslint/indent */
 

@@ -70,7 +70,7 @@ export class WebdriverIOLocator extends Locator<Element, string> {
         }
     }
 
-    private async resolveNativeElement(): Promise<Element> {
+    protected async resolveNativeElement(): Promise<Element> {
         const parent = await this.parent.nativeElement();
 
         if (parent.error) {
@@ -93,6 +93,10 @@ export class WebdriverIOLocator extends Locator<Element, string> {
 
     of(parent: WebdriverIOLocator): Locator<Element, string> {
         return new WebdriverIOLocator(parent, this.selector, this.errorHandler);
+    }
+
+    closestTo(child: WebdriverIOLocator): Locator<Element, string> {
+        return new WebdriverIOParentElementLocator(this.parent, this.selector, child, this.errorHandler);
     }
 
     locate(child: WebdriverIOLocator): Locator<Element, string> {
@@ -138,5 +142,34 @@ export class WebdriverIOExistingElementLocator extends WebdriverIOLocator {
 
     async allNativeElements(): Promise<Array<Element>> {
         return [ this.existingNativeElement ];
+    }
+}
+
+class WebdriverIOParentElementLocator extends WebdriverIOLocator {
+    constructor(
+        parentRoot: RootLocator<Element>,
+        selector: Selector,
+        private readonly child: WebdriverIOLocator,
+        errorHandler: WebdriverIOErrorHandler
+    ) {
+        super(parentRoot, selector, errorHandler);
+    }
+
+    protected override async resolveNativeElement(): Promise<Element> {
+        const cssSelector = this.asCssSelector(this.selector);
+        const child = await this.child.nativeElement();
+
+        if (child.error)  {
+            throw child.error;
+        }
+
+        return child.$(
+            /* c8 ignore next */
+            new Function(`return this.closest(\`${ cssSelector.value }\`)`) as () => HTMLElement
+        );
+    }
+
+    override async allNativeElements(): Promise<Array<Element>> {
+        return [ await this.nativeElement() ];
     }
 }
