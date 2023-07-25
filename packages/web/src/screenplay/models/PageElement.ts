@@ -52,7 +52,64 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         ensure('native element locator', locator, isDefined());
     }
 
+    /**
+     * Locates a child element that:
+     * - matches the given selector
+     * - is located within the `parentElement`
+     *
+     * @param parentElement
+     */
     abstract of(parentElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
+
+    /**
+     * Traverses the element and its parents, heading toward the document root,
+     * until it finds a parent {@apilink PageElement} that matches its associated CSS selector.
+     *
+     * #### Example
+     *
+     * ```html
+     * <div class="form-entry">
+     *     <input id="username" />
+     *     <ul class="warnings">
+     *         <li>Username should be an email address</li>
+     *     </ul>
+     * </div>
+     * ```
+     *
+     * ```typescript
+     * class Username {
+     *   static field = () =>
+     *     PageElement.located(By.id('username'))
+     *       .describedAs('username field')
+     *
+     *   private static container = () =>
+     *     PageElement.located(By.css('.form-entry'))
+     *       .describedAs('form entry container')
+     *
+     *   static warnings = () =>
+     *     PageElements.located(By.css('ul.warnings li'))
+     *       .describedAs('warnings')
+     *       .of(
+     *         Username.container().closestTo(Username.field())
+     *       )
+     * }
+     * ```
+     *
+     * :::info
+     * This method relies on [Element: closest() API](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest),
+     * and so is only compatible with locating parent elements specified using the following CSS selectors:
+     * - {@apilink ByCss}
+     * - {@apilink ById}
+     * - {@apilink ByTagName}
+     * :::
+     *
+     * @param childElement
+     * @returns
+     *
+     * #### Learn more
+     * - [Element: closest() method](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest)
+     */
+    abstract closestTo(childElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
     /**
      * An "escape hatch" providing access to the integration tool-specific implementation of a Web element.

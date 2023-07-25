@@ -20,6 +20,10 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         return new ProtractorPageElement(this.locator.of(parent.locator));
     }
 
+    closestTo(child: ProtractorPageElement): ProtractorPageElement {
+        return new ProtractorPageElement(this.locator.closestTo(child.locator));
+    }
+
     async clearValue(): Promise<void> {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         function times(length: number, key: string) {

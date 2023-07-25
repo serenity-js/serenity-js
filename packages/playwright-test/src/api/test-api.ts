@@ -11,7 +11,7 @@ import { test as playwrightBaseTest, } from '@playwright/test';
 import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
 import type { JSONValue } from 'tiny-types';
@@ -22,10 +22,11 @@ import {
     PlaywrightStepReporter,
     SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
 } from '../reporter';
-import type { DescribeFunction } from './DescribeFunction';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import type { SerenityFixtures } from './SerenityFixtures';
 import type { SerenityOptions } from './SerenityOptions';
+
+const serenitySelectorEngines = new SerenitySelectorEngines();
 
 export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
     actors: [
@@ -38,6 +39,11 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
         },
         { option: true },
     ],
+
+    playwright: async ({ playwright }, use) => {
+        await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
+        await use(playwright);
+    },
 
     defaultActorName: [
         'Serena',
@@ -179,7 +185,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
         useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
         it: TestType<TestArgs, WorkerArgs>,
         test: TestType<TestArgs, WorkerArgs>,
-        describe: DescribeFunction,
+        describe: typeof playwrightBaseTest.describe,
     }
 
 function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(baseTest: TestType<TestArgs, WorkerArgs>): TestApi<TestArgs, WorkerArgs> {
@@ -198,125 +204,133 @@ function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends 
     };
 }
 
-export const {
-    /**
-     * Declares a single test scenario.
-     *
-     * ## Example
-     *
-     * ```typescript
-     * import { Ensure, equals } from '@serenity-js/assertions'
-     * import { describe, it } from '@serenity-js/playwright-test'
-     *
-     * describe(`Todo List App`, () => {
-     *
-     *   it(`should allow me to add a todo item`, async ({ actor }) => {
-     *     await actor.attemptsTo(
-     *       startWithAnEmptyList(),
-     *
-     *       recordItem('Buy some milk'),
-     *
-     *       Ensure.that(itemNames(), equals([
-     *         'Buy some milk',
-     *       ])),
-     *     )
-     *   })
-     *
-     *   it('supports multiple actors using separate browsers', async ({ actorCalled }) => {
-     *     await actorCalled('Alice').attemptsTo(
-     *       startWithAListContaining(
-     *         'Feed the cat'
-     *       ),
-     *     )
-     *
-     *     await actorCalled('Bob').attemptsTo(
-     *       startWithAListContaining(
-     *         'Walk the dog'
-     *       ),
-     *     )
-     *
-     *     await actorCalled('Alice').attemptsTo(
-     *       Ensure.that(itemNames(), equals([
-     *         'Feed the cat'
-     *       ])),
-     *     )
-     *
-     *     await actorCalled('Bob').attemptsTo(
-     *       Ensure.that(itemNames(), equals([
-     *         'Walk the dog'
-     *       ])),
-     *     )
-     *   })
-     * })
-     * ```
-     *
-     * ## Learn more
-     * - [Grouping test scenarios](/api/playwright-test/function/describe/)
-     * - {@apilink SerenityFixtures}
-     * - [Playwright Test `test` function](https://playwright.dev/docs/api/class-test#test-call)
-     * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
-     */
-    it,
-    /**
-     * Declares a single test scenario. Alias for [`it`](/api/playwright-test/function/it/).
-     */
-    test,
-    /**
-     * Declares a group of test scenarios.
-     *
-     * ## Example
-     *
-     * ```typescript
-     * import { Ensure, equals } from '@serenity-js/assertions'
-     * import { describe, it, test } from '@serenity-js/playwright-test'
-     * import { Photographer, TakePhotosOfFailures, Value } from '@serenity-js/web'
-     *
-     * describe(`Todo List App`, () => {
-     *
-     *   test.use({
-     *     defaultActorName: 'Serena',
-     *     crew: [
-     *       Photographer.whoWill(TakePhotosOfFailures),
-     *     ],
-     *   })
-     *
-     *   it(`should allow me to add a todo item`, async ({ actor }) => {
-     *     await actor.attemptsTo(
-     *       startWithAnEmptyList(),
-     *
-     *       recordItem('Buy some milk'),
-     *
-     *       Ensure.that(itemNames(), equals([
-     *         'Buy some milk',
-     *       ])),
-     *     )
-     *   })
-     *
-     *   it('should clear text input field when an item is added', async ({ actor }) => {
-     *     await actor.attemptsTo(
-     *       startWithAnEmptyList(),
-     *
-     *       recordItem('Buy some milk'),
-     *
-     *       Ensure.that(Value.of(newTodoInput()), equals('')),
-     *     )
-     *   })
-     * })
-     * ```
-     *
-     * ## Learn more
-     * - Declaring a Serenity/JS [test scenario](/api/playwright-test/function/it/)
-     * - [Playwright Test `describe` function](https://playwright.dev/docs/api/class-test#test-describe-1)
-     * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
-     */
-    describe,
-    beforeAll,
-    beforeEach,
-    afterEach,
-    afterAll,
-    expect,
-    useFixtures,
-} = createTestApi(playwrightBaseTest).useFixtures(fixtures);
+const api = createTestApi(playwrightBaseTest).useFixtures(fixtures);
+
+/**
+ * Declares a single test scenario.
+ *
+ * ## Example
+ *
+ * ```typescript
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { describe, it } from '@serenity-js/playwright-test'
+ *
+ * describe(`Todo List App`, () => {
+ *
+ *   it(`should allow me to add a todo item`, async ({ actor }) => {
+ *     await actor.attemptsTo(
+ *       startWithAnEmptyList(),
+ *
+ *       recordItem('Buy some milk'),
+ *
+ *       Ensure.that(itemNames(), equals([
+ *         'Buy some milk',
+ *       ])),
+ *     )
+ *   })
+ *
+ *   it('supports multiple actors using separate browsers', async ({ actorCalled }) => {
+ *     await actorCalled('Alice').attemptsTo(
+ *       startWithAListContaining(
+ *         'Feed the cat'
+ *       ),
+ *     )
+ *
+ *     await actorCalled('Bob').attemptsTo(
+ *       startWithAListContaining(
+ *         'Walk the dog'
+ *       ),
+ *     )
+ *
+ *     await actorCalled('Alice').attemptsTo(
+ *       Ensure.that(itemNames(), equals([
+ *         'Feed the cat'
+ *       ])),
+ *     )
+ *
+ *     await actorCalled('Bob').attemptsTo(
+ *       Ensure.that(itemNames(), equals([
+ *         'Walk the dog'
+ *       ])),
+ *     )
+ *   })
+ * })
+ * ```
+ *
+ * ## Learn more
+ * - [Grouping test scenarios](/api/playwright-test/function/describe/)
+ * - {@apilink SerenityFixtures}
+ * - [Playwright Test `test` function](https://playwright.dev/docs/api/class-test#test-call)
+ * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
+ */
+export const it = api.it;
+
+/**
+ * Declares a single test scenario. Alias for [`it`](/api/playwright-test/function/it/).
+ */
+export const test = api.test;
+
+/**
+ * Declares a group of test scenarios.
+ *
+ * ## Example
+ *
+ * ```typescript
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { describe, it, test } from '@serenity-js/playwright-test'
+ * import { Photographer, TakePhotosOfFailures, Value } from '@serenity-js/web'
+ *
+ * describe(`Todo List App`, () => {
+ *
+ *   test.use({
+ *     defaultActorName: 'Serena',
+ *     crew: [
+ *       Photographer.whoWill(TakePhotosOfFailures),
+ *     ],
+ *   })
+ *
+ *   it(`should allow me to add a todo item`, async ({ actor }) => {
+ *     await actor.attemptsTo(
+ *       startWithAnEmptyList(),
+ *
+ *       recordItem('Buy some milk'),
+ *
+ *       Ensure.that(itemNames(), equals([
+ *         'Buy some milk',
+ *       ])),
+ *     )
+ *   })
+ *
+ *   it('should clear text input field when an item is added', async ({ actor }) => {
+ *     await actor.attemptsTo(
+ *       startWithAnEmptyList(),
+ *
+ *       recordItem('Buy some milk'),
+ *
+ *       Ensure.that(Value.of(newTodoInput()), equals('')),
+ *     )
+ *   })
+ * })
+ * ```
+ *
+ * ## Learn more
+ * - Declaring a Serenity/JS [test scenario](/api/playwright-test/function/it/)
+ * - [Playwright Test `describe` function](https://playwright.dev/docs/api/class-test#test-describe-1)
+ * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
+ */
+export const describe: typeof playwrightBaseTest.describe = api.describe;
+
+export const beforeAll = api.beforeAll;
+
+export const beforeEach = api.beforeEach;
+
+export const afterEach = api.afterEach;
+
+export const afterAll = api.afterAll;
+
+export const expect = api.expect;
+
+export const useFixtures = api.useFixtures;
 
 /**
  * Creates a Serenity/JS BDD-style test API around the given Playwright [base test](https://playwright.dev/docs/test-fixtures).

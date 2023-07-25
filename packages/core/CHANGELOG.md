@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
+
+**Note:** Version bump only for package @serenity-js/core
+
+
+
+
+
+# [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* **core:** support for proxying String.replace in QuestionAdapter ([251113d](https://github.com/serenity-js/serenity-js/commit/251113d50002f2be175ca8e17466a8c5a8e9418d))
+
+
+
+
+
+## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* **playwright-test:** ensure activity instantiation location is correct in component tests ([87d59ef](https://github.com/serenity-js/serenity-js/commit/87d59ef7549b12c071c09c103153599e86f74c90)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
+# [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to ^1.20.0 ([6d7bf43](https://github.com/serenity-js/serenity-js/commit/6d7bf43c6135968bc90869cb8f9782ed70ca8dd9))
+
+
+
+
+
 # [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
 
 

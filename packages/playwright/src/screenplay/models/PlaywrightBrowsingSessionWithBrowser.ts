@@ -2,17 +2,23 @@ import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 
 export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSession {
+    private readonly serenitySelectorEngines = new SerenitySelectorEngines();
+
     constructor(
         protected readonly browser: playwright.Browser,
         browserContextOptions: PlaywrightOptions,
+        private readonly selectors: playwright.Selectors,
     ) {
         super(browserContextOptions);
     }
 
-    protected override createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
+    protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
+        await this.serenitySelectorEngines.ensureRegisteredWith(this.selectors);
+
         return this.browser.newContext(this.browserContextOptions);
     }
 

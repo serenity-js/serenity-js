@@ -5,7 +5,7 @@ export class ExportedPageElements {
     // return type omitted on purpose, see issue #1106
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     static childParentStrategySection = () =>
-        PageElement.located(By.css('[data-test-id="child-parent-locator-pattern"]'))
+        PageElement.located(By.css('[data-test-id="child-of-parent-locator-pattern"]'))
             .describedAs('child-parent locator strategy section');
 
     // return type omitted on purpose, see issue #1106

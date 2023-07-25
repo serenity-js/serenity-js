@@ -17,6 +17,10 @@ export class WebdriverIOPageElement extends PageElement<Element> {
         return new WebdriverIOPageElement(this.locator.of(parent.locator))
     }
 
+    closestTo(child: WebdriverIOPageElement): WebdriverIOPageElement {
+        return new WebdriverIOPageElement(this.locator.closestTo(child.locator))
+    }
+
     async clearValue(): Promise<void> {
         // eslint-disable-next-line unicorn/consistent-function-scoping
         function times(length: number, key: string) {

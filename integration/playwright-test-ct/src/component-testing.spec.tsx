@@ -1,7 +1,7 @@
 import { test as componentTest } from '@playwright/experimental-ct-react17';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { expect, useBase } from '@serenity-js/playwright-test';
-import { By, ByDeepCss, Enter, PageElement, Text, Value } from '@serenity-js/web';
+import { Attribute, By, ByDeepCss, Click, Enter, PageElement, Text, Value } from '@serenity-js/web';
 
 import UppercaseInput from './UppercaseInput';
 
@@ -31,6 +31,17 @@ describe('Serenity/JS', () => {
 
     describe('PageElement', () => {
 
+        it('recognises instantiation location', async ({ actor, mount }) => {
+            const nativeComponent = await mount(<UppercaseInput/>);
+            const component = PageElement.from(nativeComponent);
+
+            const location = Click.on(component).instantiationLocation();
+
+            expect(location.path.value).toMatch(/component-testing.spec.tsx$/);
+            expect(location.line).toEqual(38);
+            expect(location.column).toEqual(36);
+        });
+
         it('can wrap a native component', async ({ actor, mount }) => {
             const nativeComponent = await mount(<UppercaseInput/>);
 
@@ -41,7 +52,7 @@ describe('Serenity/JS', () => {
             expect((selector as ByDeepCss).value).toEqual('#root >> internal:control=component');
         });
 
-        it('allows for chaining PageElements with wrapped native elements', async ({ actor, mount }) => {
+        it('allows for chaining PageElements with wrapped native elements using .of()', async ({ actor, mount }) => {
             const nativeComponent = await mount(<UppercaseInput/>);
 
             const component = PageElement.from(nativeComponent);
@@ -49,6 +60,29 @@ describe('Serenity/JS', () => {
 
             const nativeInput = await actor.answer(input.nativeElement())
             expect((nativeInput as any)._selector).toEqual('#root >> internal:control=component >> :light(input)');
+        });
+
+        it('should find a parent element of a child element using .closestTo()', async ({ actor, mount }) => {
+            const nativeComponent = await mount(<UppercaseInput/>);
+
+            const component = PageElement.from(nativeComponent);
+            const input = PageElement.located(By.css('input')).of(component);
+
+            const container = PageElement.located(By.css('.example-input'));
+            const output = PageElement.located(By.css('.output'));
+
+            const outputElement = output.of(
+                container.closestTo(input)
+            );
+
+            const nativeOutput = await actor.answer(outputElement.nativeElement());
+
+            // expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> :light(input) >> _sjs_closest=.output');
+            expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> :light(input) >> _sjs_closest=.example-input >> :light(.output)');
+
+            await actor.attemptsTo(
+                Ensure.that(Attribute.called('class').of(outputElement), equals('output')),
+            );
         });
 
         it('enables interactions with native components', async ({ actor, mount }) => {

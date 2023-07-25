@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** corrected downloading Serenity BDD jar using HTTP Proxy Agent ([48f79b9](https://github.com/serenity-js/serenity-js/commit/48f79b950b596e124afc415cab4a72279e50b367)), closes [#1795](https://github.com/serenity-js/serenity-js/issues/1795)
+
+
+
+
+
+# [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* **core:** support for proxying String.replace in QuestionAdapter ([251113d](https://github.com/serenity-js/serenity-js/commit/251113d50002f2be175ca8e17466a8c5a8e9418d))
+* **deps:** update playwright dependencies to ^1.36.1 ([b86289b](https://github.com/serenity-js/serenity-js/commit/b86289b3f6d703baa9867ad167502de102591545))
+
+
+### Features
+
+* **playwright:** support for parentElement.closestTo(childElement) API ([cee2c48](https://github.com/serenity-js/serenity-js/commit/cee2c48e63cc8edbfc9daece57e9966f8833beeb)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **protractor:** support for parentElement.closestTo(childElement) API ([ec21e18](https://github.com/serenity-js/serenity-js/commit/ec21e18acf670cd090eb5b666e78d29b2943fd61))
+* **webdriverio:** support for parentElement.closestTo(childElement) API ([ee1b3c4](https://github.com/serenity-js/serenity-js/commit/ee1b3c47180c384b2109cee3bac43ce7bfaff5e8))
+* **web:** new PageElement Query Language API - parentElement.closestTo(childElement) ([7d48fd8](https://github.com/serenity-js/serenity-js/commit/7d48fd8c1dcda6cbd5f8d0579e4cce129b24618f))
+
+
+
+
+
+## [3.6.1](https://github.com/serenity-js/serenity-js/compare/v3.6.0...v3.6.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.36.0 ([8b60383](https://github.com/serenity-js/serenity-js/commit/8b6038338b35d04072b166a9b66f63fa24af8dc0))
+* **playwright-test:** ensure activity instantiation location is correct in component tests ([87d59ef](https://github.com/serenity-js/serenity-js/commit/87d59ef7549b12c071c09c103153599e86f74c90)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
+# [3.6.0](https://github.com/serenity-js/serenity-js/compare/v3.5.0...v3.6.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to ^7.0.1 ([f49b293](https://github.com/serenity-js/serenity-js/commit/f49b2931ea3944854cd889a031f245b794b22566))
+* **deps:** update dependency https-proxy-agent to ^7.0.1 ([9ea4610](https://github.com/serenity-js/serenity-js/commit/9ea4610563d7ce02ebfc42c5746671c5147cf745))
+* **deps:** update dependency tiny-types to ^1.20.0 ([6d7bf43](https://github.com/serenity-js/serenity-js/commit/6d7bf43c6135968bc90869cb8f9782ed70ca8dd9))
+
+
+### Features
+
+* **playwright-test:** enable BrowseTheWebWithPlaywright to reuse an existing page instance ([5c2deb1](https://github.com/serenity-js/serenity-js/commit/5c2deb1853f27884fcdaccccc0b1b108c0a8489b)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **playwright-test:** introducing Component Testing with Serenity/JS and Playwright Test ([7b3c6c8](https://github.com/serenity-js/serenity-js/commit/7b3c6c83d5caa48b4362dee0f30a154f00cb46e2)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **web:** selectors are comparable and serialisable to JSON ([b285389](https://github.com/serenity-js/serenity-js/commit/b2853897e18a1a6693af156844830e8760d1a2b7)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+* **web:** you can now use Serenity/JS Screenplay Pattern APIs for UI component testing ([3c9aa4b](https://github.com/serenity-js/serenity-js/commit/3c9aa4b16d223844116ffcb21d23f9cc8b96a793)), closes [#1784](https://github.com/serenity-js/serenity-js/issues/1784)
+
+
+
+
+
 # [3.5.0](https://github.com/serenity-js/serenity-js/compare/v3.4.2...v3.5.0) (2023-07-02)
 
 
