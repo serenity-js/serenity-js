@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.2](https://github.com/serenity-js/serenity-js/compare/v3.7.1...v3.7.2) (2023-07-26)
+
+
+### Bug Fixes
+
+* **core:** disabled emitting decorator meta-data ([a0b0425](https://github.com/serenity-js/serenity-js/commit/a0b04258faaa275325112b98a2fb340cd508c007))
+* **deps:** update dependency fast-glob to ^3.3.1 ([0822973](https://github.com/serenity-js/serenity-js/commit/0822973cace7872cfa27e056c8c0276884ac8076))
+* **deps:** update playwright dependencies to ^1.36.2 ([f9cc78f](https://github.com/serenity-js/serenity-js/commit/f9cc78fb75f431f92ef3788e9ed1e39d18039eac))
+* **playwright-test:** simplified exported types, as per [@mxschmitt](https://github.com/mxschmitt) suggestion ([94874ba](https://github.com/serenity-js/serenity-js/commit/94874bae848713523b3513b91551097d6090351a)), closes [microsoft/playwright#24146](https://github.com/microsoft/playwright/issues/24146) [microsoft/TypeScript#5711](https://github.com/microsoft/TypeScript/issues/5711)
+
+
+
+
+
 ## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
 
 
