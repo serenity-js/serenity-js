@@ -1,0 +1,76 @@
+name: Bug Report
+description: Spotted a bug? Let's fix it!
+title: "Feature X fails when Y happens"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        👋 Hello! Thanks for helping us make Serenity/JS better for everyone!
+      
+        If you saw a bug, please provide as much information as possible to help us find it and fix it.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What happened?
+      description: |
+        What error or unexpected behaviour did you observe?
+        Did you see any error messages?
+        Are there any execution logs you can share?
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: false
+
+  - type: textarea
+    id: serenity-js-versions
+    attributes:
+      label: Serenity/JS version
+      description: |
+        What **Serenity/JS modules** and **what versions** are you using? Are you on the [latest version](https://serenity-js.org/changelog/)?
+        Run `npm ls` and paste the output below
+      placeholder:
+        Output of `npm ls`
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: |
+        What version of Node.js are you using? Are you on the [**latest Active LTS**](https://github.com/nodejs/release#release-schedule)?
+        To find out, run `node --version`
+    validations:
+      required: true
+
+  - type: textarea
+    id: execution-environment
+    attributes:
+      label: Execution environment
+      description: |
+        What **operating system** are you using?
+        What **web browser** are you using?
+        Are there any runtime dependencies that might be causing the issue?
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproducible-example
+    attributes:
+      label: How to reproduce the bug.
+      description: |
+        The easier you make it for us to [reproduce the issue](https://serenity-js.org/contributing/#report-an-issue), the more likely we will fix it.
+        Please provide a [minimal reproducible example](https://en.wikipedia.org/wiki/Minimal_reproducible_example) using one of the [Serenity/JS project templates](https://github.com/serenity-js?q=template&type=all&language=&sort=).
+      placeholder: |
+        Link to your GitHub repository demonstrating the issue: ...
+        
+        Steps to reproduce:
+        - ...
+    validations:
+      required: true
