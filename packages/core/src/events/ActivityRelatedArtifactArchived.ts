@@ -22,6 +22,7 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
             Name.fromJSON(o.name as string),
             Artifact.ofType(o.type as string),
             Path.fromJSON(o.path as string),
+            Timestamp.fromJSON(o.artifactTimestamp as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
@@ -32,9 +33,10 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
         name: Name,
         type: ArtifactType,
         path: Path,
+        artifactTimestamp: Timestamp,
         timestamp?: Timestamp,
     ) {
-        super(sceneId, name, type, path, timestamp);
+        super(sceneId, name, type, path, artifactTimestamp, timestamp);
         ensure('activityId', activityId, isDefined());
     }
 
@@ -45,6 +47,7 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
             name: this.name.toJSON(),
             type: this.type.name,
             path: this.path.toJSON(),
+            artifactTimestamp: this.artifactTimestamp.toJSON(),
             timestamp: this.timestamp.toJSON(),
         };
     }

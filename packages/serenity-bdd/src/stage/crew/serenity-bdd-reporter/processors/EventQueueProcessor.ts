@@ -66,6 +66,6 @@ export abstract class EventQueueProcessor {
     protected onActivityRelatedArtifactArchived<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: ActivityRelatedArtifactArchived): Context =>
             report
-                .with(archivedActivityRelatedArtifact(event.activityId, event.type, event.path, event.timestamp))
+                .with(archivedActivityRelatedArtifact(event.activityId, event.type, event.path, event.artifactTimestamp))
     }
 }

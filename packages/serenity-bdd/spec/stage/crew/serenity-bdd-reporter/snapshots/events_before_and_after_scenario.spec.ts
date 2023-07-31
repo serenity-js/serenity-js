@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import { contentsOf, EventRecorder, EventStreamEmitter, expect } from '@integration/testing-tools';
-import type { Actor, Cast} from '@serenity-js/core';
+import type { Actor, Cast } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { ArtifactGenerated } from '@serenity-js/core/lib/events';
