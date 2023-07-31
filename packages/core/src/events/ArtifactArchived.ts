@@ -17,6 +17,7 @@ export class ArtifactArchived extends DomainEvent {
             Name.fromJSON(o.name as string),
             Artifact.ofType(o.type as string),
             Path.fromJSON(o.path as string),
+            Timestamp.fromJSON(o.artifactTimestamp as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }
@@ -26,6 +27,7 @@ export class ArtifactArchived extends DomainEvent {
         public readonly name: Name,
         public readonly type: ArtifactType,
         public readonly path: Path,
+        public readonly artifactTimestamp: Timestamp,
         timestamp?: Timestamp,
     ) {
         super(timestamp);
@@ -34,6 +36,7 @@ export class ArtifactArchived extends DomainEvent {
         ensure('name', name, isDefined());
         ensure('type', type, isDefined());
         ensure('path', path, isDefined());
+        ensure('artifactTimestamp', artifactTimestamp, isDefined());
     }
 
     toJSON(): JSONObject {
@@ -41,6 +44,7 @@ export class ArtifactArchived extends DomainEvent {
             name: this.name.toJSON(),
             type: this.type.name,
             path: this.path.toJSON(),
+            createdAt: this.artifactTimestamp.toJSON(),
             timestamp: this.timestamp.toJSON(),
         };
     }

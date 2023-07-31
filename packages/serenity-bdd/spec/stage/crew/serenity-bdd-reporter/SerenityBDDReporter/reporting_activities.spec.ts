@@ -147,17 +147,19 @@ describe('SerenityBDDReporter', () => {
         it('records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context', () => {
             const
                 pickACard   = new ActivityDetails(new Name('Pick a credit card'), fakeLocation),
-                makePayment = new ActivityDetails(new Name('Make a payment'), fakeLocation);
+                makePayment = new ActivityDetails(new Name('Make a payment'), fakeLocation),
+                artifactT1 = new Timestamp(new Date(0)),
+                artifactT2 = new Timestamp(new Date(10));
 
             stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
-                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('pick a card message'), JSONData.fromJSON({ card: 'default' })),
-                        new ActivityRelatedArtifactArchived(sceneId, activityIds[0], new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json')),
+                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('pick a card message'), JSONData.fromJSON({ card: 'default' }), artifactT1),
+                        new ActivityRelatedArtifactArchived(sceneId, activityIds[0], new Name('pick a card message'), JSONData, new Path('target/site/serenity/pick-a-card-message-md5hash.json'), artifactT1),
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
                     new TaskStarts(sceneId, activityIds[1], makePayment),
-                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[1], new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' })),
-                        new ActivityRelatedArtifactArchived(sceneId, activityIds[1], new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json')),
+                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[1], new Name('make a payment message'), JSONData.fromJSON({ amount: '£42' }), artifactT2),
+                        new ActivityRelatedArtifactArchived(sceneId, activityIds[1], new Name('make a payment message'), JSONData, new Path('target/site/serenity/make-a-payment-message-md5hash.json'), artifactT2),
                         new ActivityRelatedArtifactGenerated(sceneId, activityIds[1], new Name('server log'), TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' })),
                     new TaskFinished(sceneId, activityIds[1], makePayment, new ExecutionSuccessful()),
                 new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
@@ -195,10 +197,10 @@ describe('SerenityBDDReporter', () => {
             stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                     new TaskStarts(sceneId, activityIds[0], pickACard),
-                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo1'), photo),
+                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo1'), photo, t1),
                         new ActivityRelatedArtifactArchived(sceneId, activityIds[0], new Name('photo1'), Photo, new Path('target/site/serenity/photo1.png'), t1),
                     new TaskFinished(sceneId, activityIds[0], pickACard, new ExecutionSuccessful()),
-                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo2'), photo),
+                        new ActivityRelatedArtifactGenerated(sceneId, activityIds[0], new Name('photo2'), photo, t2),
                         new ActivityRelatedArtifactArchived(sceneId, activityIds[0], new Name('photo2'), Photo, new Path('target/site/serenity/photo2.png'), t2),
                 new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
