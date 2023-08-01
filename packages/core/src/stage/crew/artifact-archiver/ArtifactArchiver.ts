@@ -20,7 +20,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
 
 /**
- * Stores any {@apilink Artifact|artifacts} emitted via {@apilink ArtifactGenerated} events on the {@apilink FileSystem}
+ * Stores any {@apilink Artifact|artifacts} emitted via {@apilink ArtifactGenerated} events on the {@apilink FileSystem}.
  *
  * ## Registering `ArtifactArchiver` programmatically
  *
@@ -35,48 +35,68 @@ import { Hash } from './Hash';
  * })
  * ```
  *
- * ## Registering `ArtifactArchiver` using Protractor configuration
+ * ## Using `ArtifactArchiver` with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ *
+ * const config: PlaywrightTestConfig = {
+ *   testDir: './spec',
+ *
+ *   reporter: [
+ *     [ '@serenity-js/playwright-test', {
+ *       crew: [
+ *         '@serenity-js/serenity-bdd',
+ *         [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *         [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
+ *       ]
+ *       // other Serenity/JS config
+ *     }]
+ *   ],
+ *   // other Playwright Test config
+ * }
+ * ```
+ *
+ * ## Using `ArtifactArchiver` with Protractor
  *
  * ```js
  * // protractor.conf.js
- * const { ArtifactArchiver } = require('@serenity-js/core')
- *
  * exports.config = {
  *   framework:     'custom',
  *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
  *   serenity: {
  *     crew: [
- *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
  *     ],
  *     // other Serenity/JS config
  *   },
  *   // other Protractor config
- * };
+ * }
  * ```
  *
- * ## Registering `ArtifactArchiver` using WebdriverIO configuration
+ * ## Using `ArtifactArchiver` with WebdriverIO
  *
  * ```ts
- * // wdio.conf.js
- * import { ArtifactArchiver } from '@serenity-js/core'
+ * // wdio.conf.ts
  * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
  * export const config: WebdriverIOConfig = {
  *
- *     framework: '@serenity-js/webdriverio',
+ *   framework: '@serenity-js/webdriverio',
  *
- *     serenity: {
- *         crew: [
- *             ArtifactArchiver.storingArtifactsAt(`/target/site/serenity`),
- *         ]
- *         // other Serenity/JS config
- *     },
- *     // other WebdriverIO config
+ *   serenity: {
+ *     crew: [
+ *      '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *     ]
+ *     // other Serenity/JS config
+ *   },
+ *   // other WebdriverIO config
  * }
  * ```
- *
- * [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
  *
  * @group Stage
  */
@@ -209,6 +229,8 @@ export class ArtifactArchiver implements StageCrewMember {
                     event.name,
                     event.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
+                    event.timestamp,
+                    this.stage.currentTime(),
                 ));
             } else if (event instanceof ArtifactGenerated) {
                 this.stage.announce(new ArtifactArchived(
@@ -216,6 +238,8 @@ export class ArtifactArchiver implements StageCrewMember {
                     event.name,
                     event.artifact.constructor as ArtifactType,
                     relativePathToArtifact,
+                    event.timestamp,
+                    this.stage.currentTime(),
                 ));
             }
         };

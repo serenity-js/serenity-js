@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.2](https://github.com/serenity-js/serenity-js/compare/v3.7.1...v3.7.2) (2023-07-26)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.36.2 ([f9cc78f](https://github.com/serenity-js/serenity-js/commit/f9cc78fb75f431f92ef3788e9ed1e39d18039eac))
+* **playwright-test:** simplified exported types, as per [@mxschmitt](https://github.com/mxschmitt) suggestion ([94874ba](https://github.com/serenity-js/serenity-js/commit/94874bae848713523b3513b91551097d6090351a)), closes [microsoft/playwright#24146](https://github.com/microsoft/playwright/issues/24146) [microsoft/TypeScript#5711](https://github.com/microsoft/TypeScript/issues/5711)
+
+
+
+
+
+## [3.7.1](https://github.com/serenity-js/serenity-js/compare/v3.7.0...v3.7.1) (2023-07-22)
+
+**Note:** Version bump only for package @serenity-js/playwright-test
+
+
+
+
+
 # [3.7.0](https://github.com/serenity-js/serenity-js/compare/v3.6.1...v3.7.0) (2023-07-20)
 
 

@@ -38,6 +38,19 @@ describe('WebdriverIOPageElement', () => {
                 Ensure.that(pageElement, isSelected()),
             )
         });
+
+        it('correctly detects its invocation location', async () => {
+            const nativeElement = await $('#checkbox');
+
+            const pageElement = PageElement.from(nativeElement);
+
+            const activity = Click.on(pageElement);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('WebdriverIOPageElement.spec.ts');
+            expect(location.line).to.equal(47);
+            expect(location.column).to.equal(36);
+        });
     });
 });
 
