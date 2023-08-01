@@ -38,7 +38,7 @@ const config: PlaywrightTestConfig = {
                 '@serenity-js/serenity-bdd',
                 '@serenity-js/console-reporter',
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
-                // '@serenity-js/core:StreamReporter',
+                // [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
             ]
         }]
     ],
