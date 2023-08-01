@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/serenity-js/serenity-js/compare/v3.7.2...v3.8.0) (2023-08-01)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** corrected screenshot sort order in screenshot detail viewer ([7537622](https://github.com/serenity-js/serenity-js/commit/7537622d41193e3cf358a1b939c7422bcc3b207f)), closes [#1790](https://github.com/serenity-js/serenity-js/issues/1790)
+
+
+### Features
+
+* **core:** allow for easier debugging of Serenity/JS domain events using StreamReporter ([108677e](https://github.com/serenity-js/serenity-js/commit/108677e213423004127b6752301e73f66231030e)), closes [#1790](https://github.com/serenity-js/serenity-js/issues/1790)
+
+
+
+
+
 ## [3.7.2](https://github.com/serenity-js/serenity-js/compare/v3.7.1...v3.7.2) (2023-07-26)
 
 
