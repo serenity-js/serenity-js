@@ -120,3 +120,11 @@ await actorCalled('Debbie').attemptsTo(
     }, PlaywrightPage.current().nativePage()),
 );
 ```
+
+## Inspecting Serenity/JS domain events
+
+Serenity/JS uses [domain events](/handbook/reporting/domain-events/) to facilitate communication between [actors](/api/core/class/Actor)
+and [stage crew members](/api/core/interface/StageCrewMember/) (a.k.a. reporting services).
+
+If you're developing a [custom `StageCrewMember`](/api/core/interface/StageCrewMember/), or [suspect a bug in Serenity/JS](/contributing/#report-an-issue) itself,
+you can inspect those events using the [`StreamReporter`](/api/core/class/StreamReporter/).
