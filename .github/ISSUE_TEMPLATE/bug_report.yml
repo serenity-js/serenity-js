@@ -33,9 +33,10 @@ body:
       label: Serenity/JS version
       description: |
         What **Serenity/JS modules** and **what versions** are you using? Are you on the [latest version](https://serenity-js.org/changelog/)?
-        Run `npm ls` and paste the output below
+        Run `npm ls --all` and paste the output below
       placeholder:
-        Output of `npm ls`
+        npm ls --all
+      render: shell
     validations:
       required: true
 
