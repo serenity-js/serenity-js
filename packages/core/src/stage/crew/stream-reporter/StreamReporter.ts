@@ -1,12 +1,14 @@
 import type { Writable } from 'stream';
+import { ensure, isDefined, isString } from 'tiny-types';
 
 import type { DomainEvent } from '../../../events';
+import { FileSystem, Path } from '../../../io';
 import type { Stage } from '../../Stage';
 import type { StageCrewMember } from '../../StageCrewMember';
 
 /**
  * Serialises all the {@apilink DomainEvent} objects it receives and streams
- * them as [ndjson](http://ndjson.org/) to the output stream.
+ * them as [ndjson](http://ndjson.org/) to the output stream or file.
  *
  * Useful when debugging issues related to custom Serenity/JS test runner adapters.
  *
@@ -35,43 +37,61 @@ import type { StageCrewMember } from '../../StageCrewMember';
  * })
  * ```
  *
- * ## Registering `StreamReporter` using Protractor configuration
+ * ## Using `StreamReporter` with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ *
+ * const config: PlaywrightTestConfig = {
+ *   testDir: './spec',
+ *
+ *   reporter: [
+ *     [ '@serenity-js/playwright-test', {
+ *       crew: [
+ *         [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
+ *       ]
+ *       // other Serenity/JS config
+ *     }]
+ *   ],
+ *   // other Playwright Test config
+ * }
+ * ```
+ *
+ * ## Using `StreamReporter` with Protractor
  *
  * ```js
  * // protractor.conf.js
- * const { StreamReporter } = require('@serenity-js/core');
- *
  * exports.config = {
  *   framework:     'custom',
  *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
  *   serenity: {
  *     crew: [
- *       new StreamReporter(process.stdout),
+ *       [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
  *     ],
  *     // other Serenity/JS config
  *   },
  *   // other Protractor config
- * };
+ * }
  * ```
  *
- * ## Registering `StreamReporter` using WebdriverIO configuration
+ * ## Using `StreamReporter` with WebdriverIO
  *
  * ```ts
- * // wdio.conf.js
- * import { StreamReporter } from '@serenity-js/core'
+ * // wdio.conf.ts
  * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
  * export const config: WebdriverIOConfig = {
  *
- *     framework: '@serenity-js/webdriverio',
+ *   framework: '@serenity-js/webdriverio',
  *
- *     serenity: {
- *         crew: [
- *           new StreamReporter(process.stdout),
- *         ]
- *         // other Serenity/JS config
- *     },
+ *   serenity: {
+ *     crew: [
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
+ *     ]
+ *     // other Serenity/JS config
  *   },
  *   // other WebdriverIO config
  * }
@@ -80,6 +100,21 @@ import type { StageCrewMember } from '../../StageCrewMember';
  * @group Stage
  */
 export class StreamReporter implements StageCrewMember {
+
+    /**
+     * Instantiates a `StreamReporter` outputting a stream of {@apilink DomainEvent|domain events}
+     * to an `outputFile` at the given location.
+     *
+     * @param config
+     */
+    static fromJSON(config: { outputFile: string, cwd?: string }): StageCrewMember {
+        const outputFile = ensure('outputFile', config?.outputFile, isDefined(), isString());
+        const cwd = config.cwd || process.cwd();
+
+        const fs = new FileSystem(Path.from(cwd))
+
+        return new StreamReporter(fs.createWriteStreamTo(Path.from(outputFile)));
+    }
 
     /**
      * @param {stream~Writable} output

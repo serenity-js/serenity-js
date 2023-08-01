@@ -3,11 +3,10 @@ import type { AxiosInstance, AxiosProxyConfig, AxiosRequestConfig } from 'axios'
 import axios from 'axios';
 import * as fs from 'fs';
 import * as https from 'https';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 import { URL } from 'url';
 
 import type { Credentials } from '../model';
-
-const HttpsProxyAgent = require('https-proxy-agent');   // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
  * @package
@@ -32,13 +31,13 @@ export function axiosClient(
     const options: AxiosRequestConfig = {
         baseURL:    repository.toString(),
         adapter:    [ 'http' ],
-        auth:       repositoryAuth,
+        auth:       repositoryAuth.toJSON() as { username: string, password: string },
     };
 
     if (isHttps(repository.protocol)) {
         options.proxy = false;
         options.httpsAgent = shouldProxy(repository, configuredProxy, configuredNoProxy)
-            ? proxiedHttpsAgent(proxyConfigFrom(configuredProxy), configuredCa, rejectUnauthorized)
+            ? proxiedHttpsAgent(configuredProxy.value, configuredCa, rejectUnauthorized)
             : httpsAgent(configuredCa, rejectUnauthorized);
     }
     else {
@@ -84,10 +83,6 @@ export function shouldProxy(url: URL, configuredProxy: EnvVar, configuredNoProxy
 
 function proxyConfigFrom(proxyUrl: EnvVar): AxiosProxyConfig | undefined {
 
-    if (! proxyUrl || ! proxyUrl.value) {
-        return undefined;
-    }
-
     let parsed: URL;
 
     try {
@@ -120,8 +115,8 @@ function shouldRejectUnauthorizedCertificates(env: { [key: string]: string }, ig
         || env.npm_config_strict_ssl === 'true'
 }
 
-function proxiedHttpsAgent(proxyConfig: AxiosProxyConfig, ca: string, rejectUnauthorized: boolean) {
-    return new HttpsProxyAgent({ ca, rejectUnauthorized, ...proxyConfig });
+function proxiedHttpsAgent(configuredProxy: string, ca: string, rejectUnauthorized: boolean) {
+    return new HttpsProxyAgent(configuredProxy, { ca, rejectUnauthorized });
 }
 
 function httpsAgent(ca: string, rejectUnauthorized: boolean): https.Agent {

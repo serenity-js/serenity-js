@@ -142,6 +142,7 @@ export class Navigate {
      * import { actorCalled } from '@serenity-js/core'
      * import { Ensure, endsWith } from '@serenity-js/assertions'
      * import { Navigate, Cookie } from '@serenity-js/web'
+     * import { browser } from '@wdio/globals'
      *
      * await actorCalled('Hannu')
      *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
