@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/serenity-js/serenity-js/compare/v3.7.2...v3.8.0) (2023-08-01)
+
+
+### Bug Fixes
+
+* **webdriverio:** updated WebdriverIO to 8.13 ([b8916df](https://github.com/serenity-js/serenity-js/commit/b8916df65a18fd820578b1fd522f4e52119a79db))
+
+
+### Features
+
+* **webdriverio:** support for WebdriverIO 8.14 ([27c5cec](https://github.com/serenity-js/serenity-js/commit/27c5cec56be405bd729ab6b69170645e582248f1))
+
+
+
+
+
 ## [3.7.2](https://github.com/serenity-js/serenity-js/compare/v3.7.1...v3.7.2) (2023-07-26)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
