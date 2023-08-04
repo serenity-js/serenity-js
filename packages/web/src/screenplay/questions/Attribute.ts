@@ -1,4 +1,4 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 import { d, LogicError, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
@@ -97,7 +97,7 @@ import { PageElement } from '../models';
  */
 export class Attribute
     extends Question<Promise<string>>
-    implements MetaQuestion<Answerable<PageElement>, Promise<string>>
+    implements MetaQuestion<PageElement, string>
 {
     private subject: string;
 
@@ -115,7 +115,7 @@ export class Attribute
 
     protected constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: Answerable<PageElement>,
+        private readonly element?: QuestionAdapter<PageElement> | PageElement,
     ) {
         super();
         this.subject = element
@@ -131,7 +131,7 @@ export class Attribute
      *
      * @param pageElement
      */
-    of(pageElement: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
+    of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
         return Question.createAdapter(
             new Attribute(
                 this.name,
@@ -139,7 +139,7 @@ export class Attribute
                     ? PageElement.of(this.element, pageElement)
                     : pageElement
             )
-        ) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
+        ) as MetaQuestionAdapter<PageElement, string>;
     }
 
     /**

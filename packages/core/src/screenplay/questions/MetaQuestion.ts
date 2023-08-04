@@ -2,11 +2,12 @@ import type { Answerable } from '../Answerable';
 import type { Question } from '../Question';
 
 /**
- * A "meta question" is a {@apilink Question} about another {@apilink Answerable},
- * used to retrieve a transformed version of the value that answerable holds.
+ * A meta-question is a {@apilink Question} that can be answered
+ * in the context of another {@apilink Answerable},
+ * typically to transform its value.
  *
- * For example, the question {@apilink Text.of}
- * returns text content of a {@apilink PageElement}.
+ * For example, the question {@apilink Text.of} can be answered in the context
+ * of a {@apilink PageElement} to return its text content.
  *
  * {@apilink MetaQuestion|Meta questions} are typically used when filtering a {@apilink List}.
  *
@@ -15,15 +16,15 @@ import type { Question } from '../Question';
  *
  * @group Questions
  */
-export interface MetaQuestion<Supported_Answerable_Type extends Answerable<any>, Answer> {
+export interface MetaQuestion<Supported_Context_Type, Answer_Type> {
 
     /**
-     * Transforms a given `answerable` to another {@apilink Question}.
+     * Answers the given `MetaQuestion` in the context of another {@apilink Answerable}.
      *
      * #### Learn more
      * - {@apilink List}
      */
-    of(answerable: Supported_Answerable_Type): Question<Answer>;
+    of(context: Answerable<Supported_Context_Type>): Question<Promise<Answer_Type>> | Question<Answer_Type>;
 
     /**
      * Human-readable description of this {@apilink MetaQuestion},
