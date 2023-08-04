@@ -1,4 +1,4 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
@@ -98,7 +98,7 @@ import { PageElement } from '../models';
  */
 export class CssClasses
     extends Question<Promise<string[]>>
-    implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
+    implements MetaQuestion<PageElement, string[]>
 {
     private subject: string;
 
@@ -113,11 +113,11 @@ export class CssClasses
      *
      * @param pageElement
      */
-    static of(pageElement: Answerable<PageElement>): QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>> {
-        return Question.createAdapter(new CssClasses(pageElement)) as QuestionAdapter<string[]> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>;
+    static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string[]> {
+        return Question.createAdapter(new CssClasses(pageElement)) as MetaQuestionAdapter<PageElement, string[]>;
     }
 
-    protected constructor(private readonly pageElement: Answerable<PageElement>) {
+    protected constructor(private readonly pageElement: QuestionAdapter<PageElement> | PageElement) {
         super();
         this.subject = d`CSS classes of ${ pageElement}`;
     }
@@ -134,7 +134,7 @@ export class CssClasses
      *
      * @param parent
      */
-    of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
+    of(parent: QuestionAdapter<PageElement> | PageElement): Question<Promise<string[]>> {
         return new CssClasses(PageElement.of(this.pageElement, parent));
     }
 

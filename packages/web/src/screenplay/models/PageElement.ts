@@ -1,4 +1,4 @@
-import type { Answerable, MetaQuestion, Optional, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, MetaQuestion, MetaQuestionAdapter,Optional, QuestionAdapter } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
@@ -39,13 +39,16 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         }) as QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement>;
     }
 
-    static of<NET>(childElement: Answerable<PageElement<NET>>, parentElement: Answerable<PageElement<NET>>): QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement> {
+    static of<NET>(
+        childElement: MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> | PageElement<NET>,
+        parentElement: Answerable<PageElement<NET>>
+    ): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
         return Question.about(d`${ childElement } of ${ parentElement }`, async actor => {
-            const child     = await actor.answer(childElement);
-            const parent    = await actor.answer(parentElement);
+            const parent = await actor.answer(parentElement);
+            const child = childElement.of(parent)
 
-            return child.of(parent);
-        }) as QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement>;
+            return actor.answer(child);
+        });
     }
 
     constructor(public readonly locator: Locator<Native_Element_Type>) {

@@ -14,7 +14,7 @@ describe('Question', () => {
     let actor: Actor;
 
     beforeEach(() => {
-        actor =  actorCalled('Stella');
+        actor = actorCalled('Stella');
     });
     afterEach(() => actor.dismiss());
 
@@ -35,8 +35,7 @@ describe('Question', () => {
                         { description: 'Promise<object>', actual: p({ name: 'Alice' }), expected: { name: 'Alice' } },
                         { description: 'primitive', actual: 42, expected: 42 },
                         { description: 'Promise<primitive>', actual: p(42), expected: 42 },
-                    ]).
-                    it('returns a promise of the underlying answer', async ({ expected, actual }) => {
+                    ]).it('returns a promise of the underlying answer', async ({ expected, actual }) => {
                         const answer = await actor.answer(Question.about('some value', _actor => actual));
 
                         expect(answer).to.deep.equal(expected);
@@ -48,15 +47,14 @@ describe('Question', () => {
                     given([
                         undefined,
                         null,           // eslint-disable-line unicorn/no-null
-                    ]).
-                    it('resolves to false when the answer is not defined', async (value: any) => {
+                    ]).it('resolves to false when the answer is not defined', async (value: any) => {
                         const answer = await actor.answer(Question.about('some value', _actor => value).isPresent());
 
                         expect(answer).to.equal(false);
                     });
 
                     it('resolves to false when one of the links in the chain is not defined', async () => {
-                        const example: { a?: { b?: { c?: string }}}   = { a: {} };
+                        const example: { a?: { b?: { c?: string } } } = { a: {} };
 
                         const actual = await actor.answer(
                             Question.about('some array', _actor => example)
@@ -76,7 +74,7 @@ describe('Question', () => {
                     });
 
                     it('provides a human-readable description', async () => {
-                        const example: { a?: { b?: { c?: string }}}   = { a: {} };
+                        const example: { a?: { b?: { c?: string } } } = { a: {} };
 
                         const actual = Question.about('some array', _actor => example)
                             .a
@@ -89,7 +87,7 @@ describe('Question', () => {
                     });
 
                     it('can have its description overridden', async () => {
-                        const example: { a?: { b?: { c?: string }}}   = { a: {} };
+                        const example: { a?: { b?: { c?: string } } } = { a: {} };
 
                         const actual = Question.about('some array', _actor => example)
                             .a
@@ -147,7 +145,7 @@ describe('Question', () => {
 
                     it('resolves to `undefined` if any links in the chain are `undefined`', async () => {
 
-                        const example: { a?: { b?: { c?: string }}}   = { a: {} };
+                        const example: { a?: { b?: { c?: string } } } = { a: {} };
 
                         const QuestionAdapter = Question.about('some array', _actor => example)
                             .a
@@ -161,7 +159,7 @@ describe('Question', () => {
 
                     it('resolves to `undefined` when a mapping function is used on a chain with an undefined link', async () => {
 
-                        const example: { a?: { b?: { c?: string }}}   = { a: {} };
+                        const example: { a?: { b?: { c?: string } } } = { a: {} };
 
                         const QuestionAdapter = Question.about('some array', _actor => example)
                             .a
@@ -235,9 +233,13 @@ describe('Question', () => {
                     interface Person {
                         firstName: string;
                         lastName: string;
+
                         fullName(): string;
+
                         address: Address;
+
                         lastKnownAddress(): Address;
+
                         siblings?: Person[]
                     }
 
@@ -259,7 +261,7 @@ describe('Question', () => {
                                 return this.address
                             },
                             address,
-                            siblings: [ ],
+                            siblings: [],
                         }
 
                         const Michael: Person = {
@@ -272,13 +274,13 @@ describe('Question', () => {
                                 return this.address
                             },
                             address,
-                            siblings: [ ],
+                            siblings: [],
                         }
 
                         Jane.siblings.push(Michael);
                         Michael.siblings.push(Jane);
 
-                        return [Jane, Michael]
+                        return [ Jane, Michael ]
                     }
 
                     // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -300,7 +302,7 @@ describe('Question', () => {
 
                         const name: Question<Promise<string>> = Value(Jane).siblings[0].siblings[0].firstName;
 
-                        const subject: string   = name.toString();
+                        const subject: string = name.toString();
 
                         expect(subject).to.equal('<<some value>>.siblings[0].siblings[0].firstName');
                     });
@@ -311,7 +313,7 @@ describe('Question', () => {
 
                 it('is an instance of Interaction', async () => {
 
-                    const stack: Interaction & QuestionAdapter<Array<number>> = Question.about('some stack', _actor => [1,2,3]);
+                    const stack: Interaction & QuestionAdapter<Array<number>> = Question.about('some stack', _actor => [ 1, 2, 3 ]);
                     const push: Interaction = stack.push(4);
 
                     expect(stack).to.be.instanceOf(Interaction);
@@ -319,8 +321,8 @@ describe('Question', () => {
                 });
 
                 it('allows for method calls to be executed as part of the Actor flow', async () => {
-                    const actual: number[]  = [];
-                    const expected          = [ 1, 2 ];
+                    const actual: number[] = [];
+                    const expected = [ 1, 2 ];
 
                     const stack: QuestionAdapter<Array<number>> = Question.about('some stack', _actor => actual);
 
@@ -358,8 +360,8 @@ describe('Question', () => {
                 });
 
                 it('wraps methods of the underlying answer in Interactions', async () => {
-                    const example  = [ 3, 1, 2 ];
-                    const sorted   = [ 1, 2, 3 ];
+                    const example = [ 3, 1, 2 ];
+                    const sorted = [ 1, 2, 3 ];
 
                     await actor.attemptsTo(
                         Question.about('some array', _actor => example).sort(),
@@ -369,8 +371,8 @@ describe('Question', () => {
                 });
 
                 it('makes the wrapped methods of the underlying answer accept Answerables', async () => {
-                    const example   = [ 1, 2, 3 ];
-                    const expected  = [ 1, 2, 3, 4, 5, 6 ];
+                    const example = [ 1, 2, 3 ];
+                    const expected = [ 1, 2, 3, 4, 5, 6 ];
 
                     await actor.attemptsTo(
                         Question.about('some array', _actor => example).push(
@@ -384,8 +386,8 @@ describe('Question', () => {
                 });
 
                 it('allows chaining method calls', async () => {
-                    const example   = [ 'c', 'b', 'a' ];
-                    const expected  = [ 'a', 'b', 'c', 'd', 'e' ];
+                    const example = [ 'c', 'b', 'a' ];
+                    const expected = [ 'a', 'b', 'c', 'd', 'e' ];
 
                     const actual = await actor.answer(
                         Question.about('some array', _actor => example)
@@ -398,8 +400,8 @@ describe('Question', () => {
                 });
 
                 it('allows chaining field calls', async () => {
-                    const example   = { a: { b: { c: 'value' }}};
-                    const expected  = 'value';
+                    const example = { a: { b: { c: 'value' } } };
+                    const expected = 'value';
 
                     const actual = await actor.answer(
                         Question.about('some array', _actor => example)
@@ -412,8 +414,8 @@ describe('Question', () => {
                 });
 
                 it('resolves to undefined if any of the links in the chain resolves to `undefined`', async () => {
-                    const example: { a?: { b?: { c?: string }}}   = { a: {} };
-                    const expected  = undefined;
+                    const example: { a?: { b?: { c?: string } } } = { a: {} };
+                    const expected = undefined;
 
                     const actual = await actor.answer(
                         Question.about('some array', _actor => example)
@@ -441,8 +443,8 @@ describe('Question', () => {
                                 // "caller" and "argument" are here to show how a proxy resolves conflicts
                                 // between a built-in fields like function.caller and function.arguments
                                 // and properties of the wrapped object of the same name
-                                { name: 'Alice',    caller: 'Bob',      arguments: false,   location: 'London',     description: 'first actor' },
-                                { name: 'Bob',      caller: 'Alice',    arguments: true,    location: 'New York',   description: 'second actor'  },
+                                { name: 'Alice', caller: 'Bob', arguments: false, location: 'London', description: 'first actor' },
+                                { name: 'Bob', caller: 'Alice', arguments: true, location: 'New York', description: 'second actor' },
                             ]
                         }));
 
@@ -548,6 +550,35 @@ describe('Question', () => {
                 });
             });
         });
+
+        describe('creates a MetaQuestionAdapter, which', () => {
+
+            describe('when used as a Question', () => {
+
+                const questionMetaAdapter = Question.about(
+                    'introduction',
+                    (actor: Actor) => `I'm ${ actor.name }`,
+                    (city: City) =>
+                        Question.about(
+                            `introduction from ${ city.name }`,
+                            (actor: Actor) => `I'm ${ actor.name } from ${ city.name }`
+                        )
+                );
+
+                it(`can be answered in the context of another question`, async () => {
+                    const result: string = await actor.answer(
+                        questionMetaAdapter.of({ name: 'London' })
+                    );
+
+                    expect(result).to.equal(`I'm Stella from London`);
+                });
+
+                it('has a human-readable description', () => {
+                    expect(questionMetaAdapter.of({ name: 'London', toString: () => 'London' }).toString())
+                        .to.equal(`'introduction' of London`)
+                });
+            });
+        });
     });
 });
 
@@ -559,4 +590,9 @@ class Counter {
         this.current++;
         return this;
     }
+}
+
+interface City {
+    name: string;
+    toString(): string;
 }

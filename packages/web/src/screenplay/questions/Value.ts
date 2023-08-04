@@ -1,4 +1,4 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
@@ -59,7 +59,7 @@ import { PageElement } from '../models';
  */
 export class Value
     extends Question<Promise<string>>
-    implements MetaQuestion<Answerable<PageElement>, Promise<string>>
+    implements MetaQuestion<PageElement, string>
 {
     private subject: string;
 
@@ -73,11 +73,11 @@ export class Value
      *
      * @param pageElement
      */
-    static of(pageElement: Answerable<PageElement>): QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
-        return Question.createAdapter(new Value(pageElement)) as QuestionAdapter<string> & MetaQuestion<Answerable<PageElement>, Promise<string>>;
+    static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
+        return Question.createAdapter(new Value(pageElement)) as MetaQuestionAdapter<PageElement, string>;
     }
 
-    protected constructor(private readonly element: Answerable<PageElement>) {
+    protected constructor(private readonly element: QuestionAdapter<PageElement> | PageElement) {
         super();
         this.subject = d`the value of ${ element }`;
     }
@@ -93,7 +93,7 @@ export class Value
      *
      * @param parent
      */
-    of(parent: Answerable<PageElement>): Question<Promise<string>> {
+    of(parent: QuestionAdapter<PageElement> | PageElement): Question<Promise<string>> {
         return new Value(PageElement.of(this.element, parent));
     }
 

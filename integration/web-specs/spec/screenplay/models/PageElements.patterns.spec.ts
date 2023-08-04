@@ -141,9 +141,11 @@ describe('PageElements', () => {
                 const parents = () =>
                     PageElements.located(By.css('.parent'))
                         .of(filterStrategySection())
+                        .describedAs('parents')
 
                 const children = () =>
-                    PageElements.located(By.css('.child'));
+                    PageElements.located(By.css('.child'))
+                        .describedAs('children');
 
                 it(`finds the element, if one exists`, () =>
                     actorCalled('Peggy').attemptsTo(
@@ -153,6 +155,18 @@ describe('PageElements', () => {
                                     .where(Text.ofAll(children()), contain('tea'))
                                     // AND
                                     .where(Text.ofAll(children()), contain('coffee'))
+                                    .first()
+                            ),
+                            equals('parent-2')
+                        ),
+                    ));
+
+                it(`finds the element based on one of the children`, () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Attribute.called('data-test-id').of(
+                                parents()
+                                    .where(Text.of(children().last()), equals('coffee'))
                                     .first()
                             ),
                             equals('parent-2')

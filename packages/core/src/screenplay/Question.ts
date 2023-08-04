@@ -2,12 +2,14 @@ import { isRecord } from 'tiny-types/lib/objects';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
-import { f, inspectedObject } from '../io';
+import type { FileSystemLocation } from '../io';
+import { d, f, inspectedObject } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
 import type { Optional } from './Optional';
 import type { AnswersQuestions } from './questions/AnswersQuestions';
+import type { MetaQuestion } from './questions/MetaQuestion';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
 import type { WithAnswerableProperties } from './WithAnswerableProperties';
@@ -123,9 +125,30 @@ export abstract class Question<T> {
      *
      * @param description
      * @param body
+     * @param [metaQuestionBody]
      */
-    static about<Result_Type>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => Promise<Result_Type> | Result_Type): QuestionAdapter<Awaited<Result_Type>> {
-        return Question.createAdapter(new QuestionStatement(description, body));
+    static about<Answer_Type, Supported_Context_Type>(
+        description: string,
+        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => Question<Promise<Answer_Type>> | Question<Answer_Type>,
+    ): MetaQuestionAdapter<Supported_Context_Type, Awaited<Answer_Type>>
+
+    static about<Answer_Type>(
+        description: string,
+        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type
+    ): QuestionAdapter<Awaited<Answer_Type>>
+
+    static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
+        description: string,
+        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        metaQuestionBody?: (answerable: Supported_Context_Type) => QuestionAdapter<Answer_Type>,
+    ): any
+    {
+        const statement = typeof metaQuestionBody === 'function'
+            ? new MetaQuestionStatement(description, body, metaQuestionBody)
+            : new QuestionStatement(description, body);
+
+        return Question.createAdapter(statement);
     }
 
     /**
@@ -429,13 +452,25 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
  *
  * @group Questions
  */
-export type QuestionAdapter<T> =
-    & Question<Promise<T>>
+export type QuestionAdapter<Answer_Type> =
+    & Question<Promise<Answer_Type>>
     & Interaction
     & { isPresent(): Question<Promise<boolean>>; }  // more specialised Optional
-    & QuestionAdapterFieldDecorator<T>;
+    & QuestionAdapterFieldDecorator<Answer_Type>;
 
-/** @package */
+/**
+ * An extension of {@apilink QuestionAdapter}, that in addition to proxying methods and fields
+ * of the wrapped object can also act as a {@apilink MetaQuestion}.
+ *
+ * @group Questions
+ */
+export type MetaQuestionAdapter<Context_Type, Answer_Type> =
+    & QuestionAdapter<Answer_Type>
+    & MetaQuestion<Context_Type, Answer_Type>
+
+/**
+ * @package
+ */
 class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
 
     private answer: Answer_Type | Unanswered = new Unanswered();
@@ -443,8 +478,9 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     constructor(
         private subject: string,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
+        location: FileSystemLocation = QuestionStatement.callerLocation(4),
     ) {
-        super(subject, QuestionStatement.callerLocation(4));
+        super(subject, location);
     }
 
     /**
@@ -487,6 +523,29 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
 
             return mapping(answer);
         });
+    }
+}
+
+/**
+ * @package
+ */
+class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerable<any>>
+    extends QuestionStatement<Answer_Type>
+    implements MetaQuestion<Supported_Context_Type, Answer_Type>
+{
+    constructor(
+        subject: string,
+        body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
+        private readonly metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => QuestionAdapter<Answer_Type>,
+    ) {
+        super(subject, body);
+    }
+
+    of(answerable: Answerable<Supported_Context_Type>): Question<Promise<Answer_Type>> | Question<Answer_Type> {
+        return Question.about(
+            d`${ this.toString() } of ${ answerable }`,
+            actor => actor.answer(this.metaQuestionBody(answerable))
+        );
     }
 }
 
