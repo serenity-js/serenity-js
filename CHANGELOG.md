@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/serenity-js/serenity-js/compare/v3.8.0...v3.9.0) (2023-08-04)
+
+
+### Features
+
+* **core:** introduced MetaQuestionAdapter ([b6676fd](https://github.com/serenity-js/serenity-js/commit/b6676fd6ee2a2f67fd56e0642b3af72027d50a75))
+
+
+
+
+
 # [3.8.0](https://github.com/serenity-js/serenity-js/compare/v3.7.2...v3.8.0) (2023-08-01)
 
 
