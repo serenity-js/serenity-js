@@ -722,7 +722,7 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
-Furthermore, you can compose the result of your query with another question: 
+Furthermore, you can compose the result of your query with another question, like `label().of(...)`: 
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
