@@ -180,7 +180,10 @@ To see the browser:
     img={require('@site/static/images/web-testing/your-first-web-scenario/vs-code-showing-the-browser.gif')}
 />
 
-If your development environment is not based on Visual Studio Code, you can configure your tests to start the browser
+If your development environment is not based on Visual Studio Code,
+or if your version of Playwright Test Extension for VSCode displays a warning message saying
+`Show browser mode does not work in remote vscode`,
+you can configure your tests to start the browser
 in non-headless mode by setting the `headless` flag to `false` in [Playwright Test configuration file](https://playwright.dev/docs/test-configuration):
 
 ```typescript title="playwright.config.ts"
