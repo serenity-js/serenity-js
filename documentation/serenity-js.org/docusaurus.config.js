@@ -111,7 +111,7 @@ const config = {
                         position: 'right',
                     },
                     {
-                        to: 'https://github.com/serenity-js/serenity-js',
+                        to: 'https://github.com/serenity-js',
                         label: 'GitHub',
                         position: 'right',
                     },
