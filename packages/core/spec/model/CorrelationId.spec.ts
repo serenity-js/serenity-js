@@ -11,6 +11,12 @@ describe('CorrelationId', () => {
         }).to.not.throw();
     });
 
+    it('can represent a Window handle from iOS on BrowserStack', () => {
+        expect(() => {
+            new CorrelationId('112786.1')
+        }).to.not.throw();
+    });
+
     it('can be serialised to JSON', () => {
 
         const correlationId = CorrelationId.create();
@@ -32,6 +38,6 @@ describe('CorrelationId', () => {
     it('complains when initialised with an invalid value', () => {
         expect(() => {
             new CorrelationId('invalid value with spaces and special characters!');
-        }).to.throw('CorrelationId should either be a Cuid or match pattern /^[\\dA-Za-z-]+$/');
+        }).to.throw('CorrelationId should either be a Cuid or match pattern /^[\\d.A-Za-z-]+$/');
     });
 });
