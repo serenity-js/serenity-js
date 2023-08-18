@@ -12,7 +12,7 @@ export class CorrelationId extends TinyType {
 
     constructor(public readonly value: string) {
         super();
-        ensure(this.constructor.name, value, or(isACuid(), matches(/^[\dA-Za-z-]+$/)));
+        ensure(this.constructor.name, value, or(isACuid(), matches(/^[\d.A-Za-z-]+$/)));
     }
 }
 
