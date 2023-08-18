@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/serenity-js/serenity-js/compare/v3.9.0...v3.9.1) (2023-08-18)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
 # [3.9.0](https://github.com/serenity-js/serenity-js/compare/v3.8.0...v3.9.0) (2023-08-04)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
