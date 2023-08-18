@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.9.1](https://github.com/serenity-js/serenity-js/compare/v3.9.0...v3.9.1) (2023-08-18)
+
+
+### Bug Fixes
+
+* **core:** support iOS window handles in CorrelationId ([4e15e1a](https://github.com/serenity-js/serenity-js/commit/4e15e1aac28bf2952bf578edbf972968c6892270))
+* **deps:** update dependency @paralleldrive/cuid2 to ^2.2.2 ([1bec9da](https://github.com/serenity-js/serenity-js/commit/1bec9da27a44dd6f7fed3c68c03e346d87e77cbd))
+
+
+
+
+
 # [3.9.0](https://github.com/serenity-js/serenity-js/compare/v3.8.0...v3.9.0) (2023-08-04)
 
 
