@@ -65,7 +65,7 @@ offers a [`forEach`](/api/core/class/List#forEach) method that
 - provides access to the actor iterating over the list as well as the item accessed in the current iteration
 - ensures correct synchronisation of actor's [activities](/api/core/class/Activity).
 
-Since [`PageElements`](/api/web/class/PageElements) class derives from `List`, it also offers this functionality.
+Since [`PageElements`](/api/web/class/PageElements) class produces a `List<PageElement>`, it also offers this functionality.
 
 ### Iterating over a static Array
 
@@ -121,7 +121,7 @@ await actorCalled('Apisit')
 
 ### Iterating over web UI elements
 
-[`PageElements`](/api/web/class/PageElements) is derived from `List`, so it also offers a [`forEach`](/api/web/class/PageElements#forEach) method:
+[`PageElements`](/api/web/class/PageElements) produces a `List<PageElement>`, so it also offers a [`forEach`](/api/web/class/PageElements#forEach) method:
 
 ```html title="example widget"
 <label for="tnc-consent">

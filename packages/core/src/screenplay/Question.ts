@@ -204,14 +204,15 @@ export abstract class Question<T> {
      *          )
      *        )
      *    );
-     *
-     * @param source
-     * @param overrides
+     * ```
      *
      * #### Learn more
      * - {@apilink WithAnswerableProperties}
      * - {@apilink RecursivelyAnswered}
      * - {@apilink Answerable}
+     *
+     * @param source
+     * @param overrides
      */
     static fromObject<Source_Type extends object>(
         source: Answerable<WithAnswerableProperties<Source_Type>>,
@@ -243,6 +244,18 @@ export abstract class Question<T> {
     static isAQuestion<T>(maybeQuestion: unknown): maybeQuestion is Question<T> {
         return !! maybeQuestion
             && typeof (maybeQuestion as any).answeredBy === 'function';
+    }
+
+    /**
+     * Checks if the value is a {@apilink MetaQuestion}.
+     *
+     * @param maybeMetaQuestion
+     *  The value to check
+     */
+    static isAMetaQuestion<CT, RQT extends Question<unknown>>(maybeMetaQuestion: unknown): maybeMetaQuestion is MetaQuestion<CT, RQT> {
+        return !! maybeMetaQuestion
+            && typeof maybeMetaQuestion['of'] === 'function'
+            && maybeMetaQuestion['of'].length === 1;            // arity of 1
     }
 
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
@@ -466,7 +479,7 @@ export type QuestionAdapter<Answer_Type> =
  */
 export type MetaQuestionAdapter<Context_Type, Answer_Type> =
     & QuestionAdapter<Answer_Type>
-    & MetaQuestion<Context_Type, Answer_Type>
+    & MetaQuestion<Context_Type, QuestionAdapter<Answer_Type>>
 
 /**
  * @package
@@ -531,7 +544,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
  */
 class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerable<any>>
     extends QuestionStatement<Answer_Type>
-    implements MetaQuestion<Supported_Context_Type, Answer_Type>
+    implements MetaQuestion<Supported_Context_Type, QuestionAdapter<Answer_Type>>
 {
     constructor(
         subject: string,
@@ -541,9 +554,9 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
         super(subject, body);
     }
 
-    of(answerable: Answerable<Supported_Context_Type>): Question<Promise<Answer_Type>> | Question<Answer_Type> {
+    of(answerable: Answerable<Supported_Context_Type>): QuestionAdapter<Answer_Type> {
         return Question.about(
-            d`${ this.toString() } of ${ answerable }`,
+            this.toString() + d` of ${ answerable }`,
             actor => actor.answer(this.metaQuestionBody(answerable))
         );
     }

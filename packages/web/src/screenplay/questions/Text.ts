@@ -1,8 +1,16 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type {
+    Answerable,
+    AnswersQuestions,
+    ChainableMetaQuestion,
+    List,
+    MetaList,
+    MetaQuestionAdapter,
+    QuestionAdapter
+} from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElements } from '../models';
+import { PageElement } from '../models';
 
 /**
  * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
@@ -104,7 +112,15 @@ export class Text {
      * @param pageElement
      */
     static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
-        return TextOfSingleElement.of(pageElement);
+        return Question.about(d`the text of ${ pageElement }`,
+            async actor => {
+                const element = await actor.answer(pageElement);
+
+                return element.text();
+            },
+            (parent: Answerable<PageElement>) =>
+                Text.of(PageElement.of(pageElement, parent))
+        );
     }
 
     /**
@@ -117,111 +133,26 @@ export class Text {
      *
      * @param pageElements
      */
-    static ofAll(pageElements: PageElements): MetaQuestionAdapter<PageElement, string[]>
+    static ofAll(pageElements: MetaList<PageElement, PageElement>): MetaQuestionAdapter<PageElement, string[]>
     static ofAll(pageElements: Answerable<PageElement[]>): QuestionAdapter<string[]>
-    static ofAll(pageElements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
-        if (pageElements instanceof PageElements) {
-            return TextOfMultipleElements.of(pageElements);
+    static ofAll(pageElements: (List<PageElement> & ChainableMetaQuestion<PageElement, List<PageElement>>) | List<PageElement>): QuestionAdapter<string[]> {
+        if (Question.isAMetaQuestion(pageElements)) {
+            return Question.about(d`the text of ${ pageElements }`,
+                textOfMultiple(pageElements),
+                (parent: Answerable<PageElement>) =>
+                    Text.ofAll(
+                        (pageElements as MetaList<PageElement, PageElement>).of(parent)
+                    )
+            );
         }
 
-        return Question.about(d`the text of ${ pageElements }`, async actor => {
-            const elements: PageElement[] = await actor.answer(pageElements);
-
-            return asyncMap(elements, element => element.text());
-        });
+        return Question.about(d`the text of ${ pageElements }`, textOfMultiple(pageElements));
     }
 }
 
-class TextOfSingleElement
-    extends Question<Promise<string>>
-    implements MetaQuestion<PageElement, string>
-{
-    /**
-     * @private
-     */
-    private subject: string;
-
-    static of(element: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
-        return Question.createAdapter(new TextOfSingleElement(element)) as MetaQuestionAdapter<PageElement, string>;
-    }
-
-    protected constructor(private readonly element: QuestionAdapter<PageElement> | PageElement) {
-        super();
-        this.subject = d`the text of ${ element }`;
-    }
-
-    of(parent: QuestionAdapter<PageElement> | PageElement): Question<Promise<string>> {
-        return new TextOfSingleElement(PageElement.of(this.element, parent));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const element = await actor.answer(this.element);
-
-        return element.text();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
-    }
-}
-
-class TextOfMultipleElements
-    extends Question<Promise<string[]>>
-    implements MetaQuestion<PageElement, string[]>
-{
-    /**
-     * @private
-     */
-    private subject: string;
-
-    static of(elements: PageElements): MetaQuestionAdapter<PageElement, string[]> {
-        return Question.createAdapter(new TextOfMultipleElements(elements)) as MetaQuestionAdapter<PageElement, string[]>;
-    }
-
-    protected constructor(private readonly elements: PageElements) {
-        super();
-        this.subject = d`the text of ${ elements }`;
-    }
-
-    of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
-        return new TextOfMultipleElements(this.elements.of(parent));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const elements: PageElement[] = await actor.answer(this.elements);
-
+function textOfMultiple(pageElements: Answerable<PageElement[]>) {
+    return async (actor: AnswersQuestions) => {
+        const elements: PageElement[] = await actor.answer(pageElements);
         return asyncMap(elements, element => element.text());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
     }
 }

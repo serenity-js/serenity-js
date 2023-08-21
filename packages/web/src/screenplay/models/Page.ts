@@ -1,4 +1,5 @@
-import type { Expectation, ExpectationOutcome, Optional, QuestionAdapter } from '@serenity-js/core';
+import type { Expectation, ExpectationOutcome, List,Optional, QuestionAdapter } from '@serenity-js/core';
+import type { ChainableMetaQuestion } from '@serenity-js/core';
 import { ExpectationMet, LogicError, Question } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
@@ -11,7 +12,6 @@ import type { CookieData } from './CookieData';
 import type { ModalDialogHandler } from './dialogs';
 import type { Key } from './Key';
 import type { PageElement } from './PageElement';
-import type { PageElements } from './PageElements';
 import type { RootLocator } from './RootLocator';
 import type { Selector } from './selectors';
 import type { Switchable } from './Switchable';
@@ -276,7 +276,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * @param selector
      */
-    abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
+    // abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
+    abstract locateAll(selector: Selector): List<PageElement<Native_Element_Type>> & ChainableMetaQuestion<PageElement<Native_Element_Type>, List<PageElement<Native_Element_Type>>>;
 
     /**
      * Navigate to a given destination, specified as an absolute URL

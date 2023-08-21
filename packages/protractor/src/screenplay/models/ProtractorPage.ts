@@ -1,7 +1,8 @@
-import { LogicError } from '@serenity-js/core';
+import type { ChainableMetaQuestion} from '@serenity-js/core';
+import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import type { Cookie, CookieData, ModalDialogHandler, PageElement, Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, Key, Page, PageElements } from '@serenity-js/web';
+import { BrowserWindowClosedError, Key, Page, PageElementsLocator } from '@serenity-js/web';
 import type { ElementFinder, ProtractorBrowser } from 'protractor';
 import { URL } from 'url';
 
@@ -57,9 +58,11 @@ export class ProtractorPage extends Page<ElementFinder> {
         )
     }
 
-    locateAll(selector: Selector): PageElements<ElementFinder> {
-        return new PageElements(
-            new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
+    locateAll(selector: Selector): List<PageElement<ElementFinder>> & ChainableMetaQuestion<PageElement<ElementFinder>, List<PageElement<ElementFinder>>> {
+        return List.of(
+            new PageElementsLocator(
+                new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
+            )
         );
     }
 

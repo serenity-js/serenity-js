@@ -308,7 +308,7 @@ To help you understand how to use this abstraction, remember the shopping basket
 
 Similarly to how you model a [single page element](/handbook/web-testing/page-element-query-language/#modelling-a-single-page-element), to model a **collection of page elements**:
 - Create a function that captures the name of the concept they represent, like `basketItems`.
-- Make the function return a [PageElements](/api/web/class/PageElements/#located) object.
+- Make the function return [PageElements](/api/web/class/PageElements/#located).
 - Define a custom description to be used for reporting purposes.
 
 For example, you could represent the items displayed in the shopping basket as follows:
@@ -330,9 +330,9 @@ and retrieve only those elements you need.
 ### Retrieving element from a collection
 
 If you need to retrieve a specific element from a collection, and you know what position it occupies, you can use
-[`PageElements#first()`](/api/web/class/PageElements#first), 
-[`PageElements#last()`](/api/web/class/PageElements#last), 
-and [`PageElements#nth(index)`](/api/web/class/PageElements#nth) APIs:
+[`List#first()`](/api/core/class/List#first), 
+[`List#last()`](/api/core/class/List#last), 
+and [`List#nth(index)`](/api/core/class/List#nth) APIs:
 
 ```typescript
 import { By, PageElements } from '@serenity-js/web'
@@ -356,7 +356,7 @@ nth position from a league table, and so on.
 
 ### Retrieving text of multiple elements
 
-Similarly to [`PageElement`](/api/web/class/PageElement), [`PageElements`](/api/web/class/PageElements) can be composed with other questions,
+Similarly to [`PageElement`](/api/web/class/PageElement), [`List<PageElement>`](/api/core/class/List) produced by calling [`PageElements.located(...)`](/api/web/class/PageElements) can be composed with other questions,
 like [`Text.ofAll`](/api/web/class/Text):
 
 ```typescript
@@ -452,6 +452,36 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
+Just like `PageElement` is a meta-question, `PageElements` produces a [`MetaList`](/api/core/class/MetaList)
+that can be composed with another `PageElement` using a declarative [`pageElements.of(pageElement)`](/api/core/class/MetaList/#of) API
+to dynamically model a descendants/ancestor (a.k.a. child/parent) relationship between the elements and their relative root element.
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { By, PageElement } from '@serenity-js/web'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+const basketItem = () =>
+  PageElement.located(By.css('#basket .item')) // <- Note singular `PageElement` 
+    .describedAs('basket item')
+
+const itemNames = () =>                         
+  PageElements.located(By.css('.name'))        // <- Note plural `PageElements`  
+    .describedAs('name')
+
+await actorCalled('Alice').attemptsTo(
+  Ensure.that(
+    Text.ofAll(                                // <- retrieve text of 
+        itemNames().of(basketItem())           //    ALL the item names in one go   
+    ),      
+    equals([
+        'apples',
+        'bananas',
+    )    
+  ),
+)
+```
+
 Serenity/JS lets you compose not just the page elements, but also their **descriptions**.
 In our example, description of `Text.of(itemName().of(basketItem()))` will be **derived from individual descriptions** of 
 questions in the chain and reported as `text of name of basket item`. 
@@ -474,7 +504,7 @@ especially when the system under test uses a consistent convention to name eleme
 
 Similarly to how you [transform answers to individual questions](/handbook/web-testing/page-element-query-language/#transforming-answers-to-questions),
 you can also transform each element in a collection
-using [`PageElements#eachMappedTo`](/api/web/class/PageElements#eachMappedTo) API
+using [`List#eachMappedTo`](/api/core/class/List#eachMappedTo) API
 and providing a [meta-question](/api/core/interface/MetaQuestion) to be used for the mapping.
 
 For example, just how you'd use the meta-question about [`Text`](/api/web/class/Text/) to retrieve the text
@@ -582,9 +612,9 @@ const basketItems = () =>                           // Locate basket item contai
   PageElements.located(By.css('#basket .item'))
     .describedAs('basket items')
 
-const BasketItemDetails: MetaQuestion<PageElement, Promise<{ name: string, price: number }>> = {
+const BasketItemDetails: MetaQuestion<PageElement, Question<Promise<{ name: string, price: number }>>> = {
   
-  of: (element: PageElement) =>
+  of: (element: PageElement) =>    // A meta-qustion must provide a method called `of`
 
     Question.about('basket item details', async actor => {  // Create a question
     
@@ -621,7 +651,7 @@ you can also use [`Question.fromObject`](/api/core/class/Question/#fromObject), 
 more concise: 
 
 ```typescript
-const BasketItemDetails: MetaQuestion<PageElement, Promise<{ name: string, price: number }>> = {
+const BasketItemDetails: MetaQuestion<PageElement, Question<Promise<{ name: string, price: number }>>> = {
     of: (element: PageElement) =>
       Question.fromObject({                             // Create a question that returns a JSON object
   
@@ -701,8 +731,9 @@ const destroyButton = () =>                             // Destroy button
 
 ### Filtering page elements
 
-Serenity/JS [`PageElements`](/api/web/class/PageElements/) are a [`List`](/api/core/class/List/), which means they offer a filtering API
-[`list.where(metaQuestion, expectation)`](/api/core/class/List/#where) and methods like [`first()`](/api/web/class/PageElements/#first),
+Serenity/JS [`PageElements`](/api/web/class/PageElements/) produces a [`List<PageElement>`](/api/core/class/List/), 
+which means it offer a filtering API [`list.where(metaQuestion, expectation)`](/api/core/class/List/#where) and methods like
+[`first()`](/api/web/class/PageElements/#first),
 [`last()`](/api/web/class/PageElements/#last),
 or [`count()`](/api/web/class/PageElements/#count).
 
@@ -710,7 +741,7 @@ You can use those APIs to find only those shopping list items that have `buy` wi
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web';
+import { CssClasses } from '@serenity-js/web'
 
 await actorCalled('Alice').attemptsTo(
     Ensure.that(
@@ -726,7 +757,7 @@ Furthermore, you can compose the result of your query with another question, lik
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web';
+import { CssClasses } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
@@ -745,7 +776,7 @@ You can also combine several `.where` calls, adding multiple meta-questions to y
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web';
+import { CssClasses } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
@@ -761,6 +792,28 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
+You can also define a chain of filtering calls to **resolve it dynamically**
+in the context of a root element at runtime, improving reusability of your code:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals, isPresent } from '@serenity-js/assertions'
+
+const itemCalled = (name: string) =>
+    PageElements.located(By.css('.item'))
+        .where(label(), equals(name))
+        .first()
+        .describedAs(`item called ${ name }`)   // note how we DON'T have to specify the container element
+
+await actorCalled('Alice').attemptsTo(
+    Ensure.that(
+        itemCalled('coffee')
+            .of(shoppingList()),                // container defined at runtime
+        isPresent(),
+    )
+)
+```
+
 ### Finding a sibling element
 
 To find a sibling element, e.g. find a destroy button for an item which label contains a certain text:
@@ -769,7 +822,7 @@ To find a sibling element, e.g. find a destroy button for an item which label co
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses, Click } from '@serenity-js/web';
+import { CssClasses, Click } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 const itemCalled = (name: string) =>
@@ -787,8 +840,8 @@ await actorCalled('Alice').attemptsTo(
 
 ### Iterating over elements
 
-
-The [`List`](/api/core/class/List/) interface implemented by [`PageElements`](/api/web/class/PageElements/) lets you
+Under the hood, [`PageElements`](/api/web/class/PageElements/) produce 
+a [`List<PageElement>`](/api/core/class/List/) that lets you
 use the [`List#forEach`](/api/core/class/List#forEach) API to
 perform a sequence of interactions with each element of the collection.
 
@@ -798,7 +851,7 @@ For example, to toggle every item that hasn't been bought yet:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web';
+import { CssClasses } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
