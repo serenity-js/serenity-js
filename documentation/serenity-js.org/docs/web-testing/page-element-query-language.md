@@ -452,7 +452,7 @@ await actorCalled('Alice').attemptsTo(
 )
 ```
 
-Just like `PageElement` is a meta-question, `PageElements` produces a [`MetaList`](/api/core/class/MetaList)
+Just like `PageElement` is a meta-question, `PageElements` is a [`MetaList`](/api/core/class/MetaList)
 that can be composed with another `PageElement` using a declarative [`pageElements.of(pageElement)`](/api/core/class/MetaList/#of) API
 to dynamically model a descendants/ancestor (a.k.a. child/parent) relationship between the elements and their relative root element.
 
