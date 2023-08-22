@@ -308,7 +308,7 @@ To help you understand how to use this abstraction, remember the shopping basket
 
 Similarly to how you model a [single page element](/handbook/web-testing/page-element-query-language/#modelling-a-single-page-element), to model a **collection of page elements**:
 - Create a function that captures the name of the concept they represent, like `basketItems`.
-- Make the function return [PageElements](/api/web/class/PageElements/#located).
+- Make the function return a [PageElements](/api/web/class/PageElements/#located) object.
 - Define a custom description to be used for reporting purposes.
 
 For example, you could represent the items displayed in the shopping basket as follows:
@@ -330,9 +330,9 @@ and retrieve only those elements you need.
 ### Retrieving element from a collection
 
 If you need to retrieve a specific element from a collection, and you know what position it occupies, you can use
-[`List#first()`](/api/core/class/List#first), 
-[`List#last()`](/api/core/class/List#last), 
-and [`List#nth(index)`](/api/core/class/List#nth) APIs:
+[`PageElements#first()`](/api/web/class/PageElements#first),
+[`PageElements#last()`](/api/web/class/PageElements#last),
+and [`PageElements#nth(index)`](/api/web/class/PageElements#nth) APIs:
 
 ```typescript
 import { By, PageElements } from '@serenity-js/web'
@@ -356,7 +356,7 @@ nth position from a league table, and so on.
 
 ### Retrieving text of multiple elements
 
-Similarly to [`PageElement`](/api/web/class/PageElement), [`List<PageElement>`](/api/core/class/List) produced by calling [`PageElements.located(...)`](/api/web/class/PageElements) can be composed with other questions,
+Similarly to [`PageElement`](/api/web/class/PageElement), [`PageElements`](/api/web/class/PageElements) can be composed with other questions,
 like [`Text.ofAll`](/api/web/class/Text):
 
 ```typescript
@@ -504,7 +504,7 @@ especially when the system under test uses a consistent convention to name eleme
 
 Similarly to how you [transform answers to individual questions](/handbook/web-testing/page-element-query-language/#transforming-answers-to-questions),
 you can also transform each element in a collection
-using [`List#eachMappedTo`](/api/core/class/List#eachMappedTo) API
+using [`PageElements#eachMappedTo`](/api/web/class/PageElements#eachMappedTo) API
 and providing a [meta-question](/api/core/interface/MetaQuestion) to be used for the mapping.
 
 For example, just how you'd use the meta-question about [`Text`](/api/web/class/Text/) to retrieve the text
@@ -731,8 +731,8 @@ const destroyButton = () =>                             // Destroy button
 
 ### Filtering page elements
 
-Serenity/JS [`PageElements`](/api/web/class/PageElements/) produces a [`List<PageElement>`](/api/core/class/List/), 
-which means it offer a filtering API [`list.where(metaQuestion, expectation)`](/api/core/class/List/#where) and methods like
+Serenity/JS [`PageElements`](/api/web/class/PageElements/) are a [`List`](/api/core/class/List/), which means they offer a filtering API
+[`list.where(metaQuestion, expectation)`](/api/core/class/List/#where) and methods like 
 [`first()`](/api/web/class/PageElements/#first),
 [`last()`](/api/web/class/PageElements/#last),
 or [`count()`](/api/web/class/PageElements/#count).
@@ -840,8 +840,7 @@ await actorCalled('Alice').attemptsTo(
 
 ### Iterating over elements
 
-Under the hood, [`PageElements`](/api/web/class/PageElements/) produce 
-a [`List<PageElement>`](/api/core/class/List/) that lets you
+The [`List`](/api/core/class/List/) interface implemented by [`PageElements`](/api/web/class/PageElements/) lets you
 use the [`List#forEach`](/api/core/class/List#forEach) API to
 perform a sequence of interactions with each element of the collection.
 

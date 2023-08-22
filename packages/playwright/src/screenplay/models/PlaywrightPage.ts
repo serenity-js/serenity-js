@@ -1,8 +1,7 @@
-import type { ChainableMetaQuestion} from '@serenity-js/core';
 import { List, LogicError, type QuestionAdapter } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Cookie, CookieData, PageElement, Selector } from '@serenity-js/web';
+import type { Cookie, CookieData, PageElement, PageElements,Selector } from '@serenity-js/web';
 import { ByDeepCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
@@ -60,7 +59,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
         );
     }
 
-    locateAll(selector: Selector): List<PageElement<playwright.Locator>> & ChainableMetaQuestion<PageElement<playwright.Locator>, List<PageElement<playwright.Locator>>> {
+    locateAll(selector: Selector): PageElements<playwright.Locator> {
         return List.of(
             new PageElementsLocator(
                 new PlaywrightLocator(

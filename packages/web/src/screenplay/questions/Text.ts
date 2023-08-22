@@ -1,15 +1,8 @@
-import type {
-    Answerable,
-    AnswersQuestions,
-    ChainableMetaQuestion,
-    List,
-    MetaList,
-    MetaQuestionAdapter,
-    QuestionAdapter
-} from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, MetaQuestionAdapter, QuestionAdapter } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
+import type { PageElements } from '../models';
 import { PageElement } from '../models';
 
 /**
@@ -133,16 +126,14 @@ export class Text {
      *
      * @param pageElements
      */
-    static ofAll(pageElements: MetaList<PageElement, PageElement>): MetaQuestionAdapter<PageElement, string[]>
+    static ofAll(pageElements: PageElements): MetaQuestionAdapter<PageElement, string[]>
     static ofAll(pageElements: Answerable<PageElement[]>): QuestionAdapter<string[]>
-    static ofAll(pageElements: (List<PageElement> & ChainableMetaQuestion<PageElement, List<PageElement>>) | List<PageElement>): QuestionAdapter<string[]> {
+    static ofAll(pageElements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
         if (Question.isAMetaQuestion(pageElements)) {
             return Question.about(d`the text of ${ pageElements }`,
                 textOfMultiple(pageElements),
                 (parent: Answerable<PageElement>) =>
-                    Text.ofAll(
-                        (pageElements as MetaList<PageElement, PageElement>).of(parent)
-                    )
+                    Text.ofAll(pageElements.of(parent))
             );
         }
 

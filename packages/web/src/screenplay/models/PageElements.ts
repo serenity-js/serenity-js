@@ -1,5 +1,5 @@
-import type { Answerable, MetaList, Question } from '@serenity-js/core';
-import { List } from '@serenity-js/core';
+import type { Answerable } from '@serenity-js/core';
+import { MetaList } from '@serenity-js/core';
 
 import type { PageElement } from './PageElement';
 import { PageElementsLocator } from './PageElementsLocator';
@@ -18,10 +18,10 @@ import type { Selector } from './selectors';
  *
  * @group Models
  */
-export class PageElements {
-    static located<NET>(selector: Answerable<Selector>): MetaList<PageElement<NET>, PageElement<NET>> {
-        return List.of<PageElement<NET>, PageElement<NET>, Question<Promise<Array<PageElement<NET>>>>>(
-            PageElementsLocator.fromDocumentRoot<NET>(selector)
-        );
+export class PageElements<Native_Element_Type = any>
+    extends MetaList<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>>
+{
+    static located<NET>(selector: Answerable<Selector>): PageElements {
+        return new PageElements(PageElementsLocator.fromDocumentRoot<NET>(selector));
     }
 }
