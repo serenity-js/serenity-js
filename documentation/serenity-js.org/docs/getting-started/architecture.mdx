@@ -1,8 +1,9 @@
 ---
-sidebar_position: 2
+sidebar_position: 4
+title: Architecture
 ---
 
-# Architecture
+# Serenity/JS Architecture
 
 Serenity/JS is a **modular**, **full-stack acceptance testing framework** based on Node.js.
 The official Serenity/JS Node modules are distributed via [NPM](https://www.npmjs.com/)
@@ -17,14 +18,14 @@ At the high level, Serenity/JS framework is a [**collection of modules**](/api) 
 - [**Reporting Services**](/handbook/reporting/) that translate Serenity/JS domain events into test reports
 
 To build a Serenity/JS-based test automation framework, you pick those Serenity/JS modules that provide the capabilities
-supporting the type of testing and reporting you want to do.
-If you wish, you can also extend Serenity/JS and create your own modules that [wrap another low-level integration library](/api/core/class/Ability),
-or interact with an interface that the framework itself doesn't support yet.
+**supporting the type of testing** and **reporting** you want to do.
+If you wish, you can also **extend Serenity/JS** and create your own modules that [wrap another low-level integration library](/api/core/class/Ability),
+or interact with an interface that the framework itself doesn't support yet!
 
 ## Serenity/JS Test Runner Adapters
 
-Serenity/JS **Test Runner Adapters** are tiny reporting libraries that you attach to your test runner of choice.
-The task of an adapter is to listen to the actions performed by the test runner and translate them to [Serenity/JS Domain Events](/handbook/reporting/domain-events),
+Serenity/JS **Test Runner Adapters** are tiny reporting libraries that **attach to your test runner of choice**.
+The responsibility of an adapter is to listen to the actions performed by the test runner and translate them to [Serenity/JS Domain Events](/handbook/reporting/domain-events),
 which are then used for [test reporting purposes](/handbook/reporting/).
 
 :::tip First steps with Serenity/JS
@@ -32,42 +33,12 @@ Setting up a Serenity/JS test adapter and reporting services is the first thing 
 :::
 
 Out of the box, Serenity/JS offers test runner adapters for the following test runners:
-- [Cucumber](/api/cucumber)
+- [Cucumber](/api/cucumber) - Serenity/JS supports **all latest major versions** of Cucumber.js
 - [Jasmine](/api/jasmine)
 - [Mocha](/api/mocha)
 - [Playwright Test](/api/playwright-test)
 - [Protractor](/api/protractor)
 - [WebdriverIO](/api/webdriverio)
-
-Attaching a Serenity/JS adapter to a test runner makes it emit [Serenity/JS Domain Events](/handbook/reporting/domain-events)
-compatible with [Serenity/JS reporting services](/handbook/reporting/) (a.k.a. [`StageCrewMembers`](/api/core/interface/StageCrewMember)) attached to a [`Stage`](/api/core/class/Stage), via [`configure`](/api/core/function/configure).
-
-<figure>
-
-```mermaid
-flowchart TB
-    Developer["💻 You"]
-    TestCode["Your Test Code"]
-    Stage
-
-    subgraph TestRunner["Test Runner"]
-        direction TB
-        TestRunnerAdapter["Serenity/JS Test Runner Adapter"]
-    end
-
-    subgraph ReportingServices["Serenity/JS Reporting Services"]
-        direction TB
-        StageCrewMember["StageCrewMember"]
-    end
-
-    Developer -- invoke --> TestRunner
-    TestRunner -- executes --> TestCode
-    TestRunnerAdapter --> |emits DomainEvents| Stage
-    Stage --> |forwards DomainEvents| ReportingServices
-```
-
-<figcaption>Serenity/JS Test Runner Adapter integration diagram</figcaption>
-</figure>
 
 ## Serenity/JS Reporting Services
 
@@ -84,39 +55,6 @@ The [`StageCrewMembers`](/api/core/interface/StageCrewMember) observe the [actor
 watch the [`Activities`](/api/core/class/Activity) they perform, and listen to the [domain events](/handbook/reporting/domain-events) emitted by their environment.
 They use the information they gather to [generate artifacts](/api/core-events/class/ArtifactGenerated), such as test reports,
 produce more events to prompt other crew members to action, or perform side effects like printing to the terminal, writing files to disk, or performing network or database calls.
-
-<figure>
-
-```mermaid
-flowchart TB
-    Developer["💻 You"]
-    TestCode["Your Test Code"]
-    SerenityModules["Serenity/JS Modules"]
-    TestReports["Test Execution Reports"]
-    Stage
-
-    subgraph TestRunner["Test Runner"]
-        direction TB
-        TestRunnerAdapter["Serenity/JS Test Runner Adapter"]
-    end
-
-    subgraph ReportingServices["Serenity/JS Reporting Services"]
-        direction TB
-        StageCrewMember["StageCrewMember"]
-    end
-
-    Developer -- invoke --> TestRunner
-
-    TestCode -- uses --> SerenityModules
-    TestRunner -- executes --> TestCode
-    TestRunnerAdapter --> |emits DomainEvents| Stage
-    SerenityModules --> |emit DomainEvents| Stage
-    Stage --> |forwards DomainEvents| ReportingServices
-    ReportingServices --> |produce| TestReports
-```
-
-<figcaption>Serenity/JS Reporting Services integration diagram</figcaption>
-</figure>
 
 Several of the Serenity/JS modules provide [`StageCrewMembers`](/api/core/interface/StageCrewMember) you can use for test reporting purposes:
 - [Console Reporter](/handbook/reporting/console-reporter) - writes text-based test reports to your computer terminal,
@@ -149,6 +87,40 @@ In particular:
 
 Apart from the integration modules, the framework also offers [**Serenity/JS Assertions**](/api/assertions) - a dedicated and interface-agnostic assertions library based on the Screenplay Pattern.
 
+
+## What Serenity/JS modules do I need?
+
+What Serenity/JS modules you need depends on the **type of tests** you want to write and the **lower-level integration libraries**
+you want to use.
+
+For example, if you wanted to create a test suite that exercised a **REST API** and didn't need to touch the UI, you'd use:
+- [`@serenity-js/core`](/api/core)
+- [`@serenity-js/assertions`](/api/assertions)
+- [`@serenity-js/rest`](/api/rest)
+- plus a [test runner adapter](/handbook/test-runners/) and a [reporting module](/handbook/reporting/)
+
+If you wanted to create a test suite that exercised a **web interface**, you'd need:
+- [`@serenity-js/core`](/api/core)
+- [`@serenity-js/assertions`](/api/assertions)
+- [`@serenity-js/web`](/api/web), plus a module providing wrappers for your integration library of choice, so [`@serenity-js/playwright`](/api/playwright), [`@serenity-js/protractor`](/api/protractor), or [`@serenity-js/webdriverio`](/api/webdriverio)
+- you'd also want a [test runner adapter](/handbook/test-runners/) and a [reporting module](/handbook/reporting/)
+
+:::info Short on time? ⏱️
+**Serenity/JS Project Templates** and **Serenity/JS GitPods** come with all the appropriate Serenity/JS modules
+and lower-level integration and test tools already configured, so you can start automating your tests straight away!
+
+Learn more about faster ways to get started using [Serenity/JS Project Templates](/handbook/getting-started/project-templates/).
+:::
+
+## Integration architecture summary
+
+At the high level:
+- [**Serenity/JS Test Runner Adapter**](/handbook/test-runners/) attaches to your test runner and enables test reporting
+- [**Serenity/JS Screenplay Pattern**](/handbook/design/screenplay-pattern/) libraries provide an abstraction that enables your test scenarios to interact with the system under test,
+while being agnostic of the underlying integration tool
+- [**Serenity/JS Reporting Services**](/handbook/reporting/) combine the information provided by your test runner and any custom test automation code
+to produce test execution reports and living documentation in various formats
+
 <figure>
 
 ```mermaid
@@ -161,24 +133,24 @@ flowchart TB
     Stage
 
     subgraph TestRunner["Test Runner"]
-        direction TB
-        TestRunnerAdapter["Serenity/JS Test Runner Adapter"]
+    direction TB
+    TestRunnerAdapter["Serenity/JS Test Runner Adapter"]
     end
 
     subgraph TestCode["Your Test Code"]
-        direction TB
-        TestScenarios["Your Test Scenarios"]
-        TestDSL["Your Custom Screenplay Pattern APIs"]
+    direction TB
+    TestScenarios["Your Test Scenarios"]
+    TestDSL["Your Custom Screenplay Pattern APIs"]
     end
 
     subgraph SerenityModules["Serenity/JS Modules"]
-        direction TB
-        ScreenplayPatternAPIs["Serenity/JS Screenplay Pattern APIs"]
+    direction TB
+    ScreenplayPatternAPIs["Serenity/JS Screenplay Pattern APIs"]
     end
 
     subgraph ReportingServices["Serenity/JS Reporting Services"]
-        direction TB
-        StageCrewMember["StageCrewMember"]
+    direction TB
+    StageCrewMember["StageCrewMember"]
     end
 
     Developer -- invoke --> TestRunner
@@ -194,29 +166,5 @@ flowchart TB
     ReportingServices --> |produce| TestReports
 ```
 
-<figcaption>Serenity/JS full integration diagram</figcaption>
+<figcaption>Serenity/JS integration architecture diagram</figcaption>
 </figure>
-
-## What Serenity/JS modules do I need?
-
-What Serenity/JS modules you need depends on the type of tests you want to write and the lower-level integration libraries
-you want to use.
-
-For example, if you wanted to create a test suite that exercised a **REST API** and didn't need to touch the UI, you'd use:
-- [`@serenity-js/core`](/api/core)
-- [`@serenity-js/assertions`](/api/assertions)
-- [`@serenity-js/rest`](/api/rest)
-- plus a [test runner adapter](/handbook/test-runners/) and a [reporting module](/handbook/reporting/)
-
-If you wanted to create a test suite that exercised a **web interface**, you'd need:
-- [`@serenity-js/core`](/api/core)
-- [`@serenity-js/assertions`](/api/assertions)
-- [`@serenity-js/web`](/api/web), plus a module providing wrappers for your integration library of choice, so [`@serenity-js/playwright`](/api/playwright), [`@serenity-js/protractor`](/api/protractor), or [`@serenity-js/webdriverio`](/api/webdriverio)
-- as well as a [test runner adapter](/handbook/test-runners/) and a [reporting module](/handbook/reporting/)
-
-:::info Getting started with Serenity/JS
-With Serenity/JS, you don't need to start from scratch!
-**Serenity/JS GitPods** and **Serenity/JS Project Templates** come with appropriate Serenity/JS modules and lower-level integration and test tools already configured.
-
-Learn more about faster ways of [getting started with Serenity/JS](/handbook/getting-started).
-:::
