@@ -179,18 +179,53 @@ describe('Question', () => {
     describe('isAQuestion', () => {
 
         given([
-            { isAQuestion: false, value: null                                                           },
-            { isAQuestion: false, value: false                                                          },
-            { isAQuestion: false, value: void 0                                                         },
-            { isAQuestion: false, value: ''                                                             },
-            { isAQuestion: false, value: {}                                                             },
-            { isAQuestion: false, value: 42                                                             },
-            { isAQuestion: false, value: () => void 0                                                   },
-            { isAQuestion: true,  value: Question.about('something', actor => void 0)                   },
-            { isAQuestion: true,  value: Question.about('proxied question', actor => 'result').length   },
+            { expected: false, value: null                                                           },
+            { expected: false, value: false                                                          },
+            { expected: false, value: void 0                                                         },
+            { expected: false, value: ''                                                             },
+            { expected: false, value: {}                                                             },
+            { expected: false, value: 42                                                             },
+            { expected: false, value: () => void 0                                                   },
+            { expected: true,  value: Question.about('something', actor => void 0)                   },
+            { expected: true,  value: Question.about('proxied question', actor => 'result').length   },
         ]).
-        it('recognises if something is a question', ({ value, isAQuestion }) => {
-            expect(Question.isAQuestion(value)).to.equal(isAQuestion);
+        it('recognises if something is a question', ({ value, expected }) => {
+            expect(Question.isAQuestion(value)).to.equal(expected);
+        });
+    });
+
+    describe('isAMetaQuestion', () => {
+
+        given([
+            { expected: false, value: null                                                            },
+            { expected: false, value: false                                                           },
+            { expected: false, value: void 0                                                          },
+            { expected: false, value: ''                                                              },
+            { expected: false, value: {}                                                              },
+            { expected: false, value: 42                                                              },
+            { expected: false, value: () => void 0                                                    },
+            { expected: false, value: Question.about('something', actor => void 0)                    },
+            { expected: false, value: Question.about('proxied question', actor => 'result').length    },
+            { expected: true,  value: Question.about(
+                'meta-value',
+                actor => '',
+                context => Question.about('context', actor => '')
+            ) },
+            { expected: true,  value: Question.about(
+                'chainable meta-value',
+                actor => '',
+                context => Question.about(
+                    'context',
+                    actor => '',
+                    nestedContext => Question.about(
+                        'nested context',
+                        actor => ''
+                    )
+                )
+            ) },
+        ]).
+        it('recognises if something is a question', ({ value, expected }) => {
+            expect(Question.isAMetaQuestion(value)).to.equal(expected);
         });
     });
 

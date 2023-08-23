@@ -8,6 +8,7 @@ export * from './Locator';
 export * from './Page';
 export * from './PageElement';
 export * from './PageElements';
+export * from './PageElementsLocator';
 export * from './RootLocator';
 export * from './SelectOption';
 export * from './selectors';

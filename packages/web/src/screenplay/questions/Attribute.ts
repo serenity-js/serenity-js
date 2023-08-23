@@ -97,7 +97,7 @@ import { PageElement } from '../models';
  */
 export class Attribute
     extends Question<Promise<string>>
-    implements MetaQuestion<PageElement, string>
+    implements MetaQuestion<PageElement, Question<Promise<string>>>
 {
     private subject: string;
 

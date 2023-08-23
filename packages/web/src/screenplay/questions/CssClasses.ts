@@ -1,4 +1,4 @@
-import type { AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { Answerable,MetaQuestionAdapter, QuestionAdapter } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
@@ -96,11 +96,7 @@ import { PageElement } from '../models';
  *
  * @group Questions
  */
-export class CssClasses
-    extends Question<Promise<string[]>>
-    implements MetaQuestion<PageElement, string[]>
-{
-    private subject: string;
+export class CssClasses {
 
     /**
      * Instantiates a {@apilink Question} that uses
@@ -114,58 +110,21 @@ export class CssClasses
      * @param pageElement
      */
     static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string[]> {
-        return Question.createAdapter(new CssClasses(pageElement)) as MetaQuestionAdapter<PageElement, string[]>;
-    }
+        return Question.about(d`CSS classes of ${ pageElement }`,
+            async actor => {
+                const element = await actor.answer(pageElement);
 
-    protected constructor(private readonly pageElement: QuestionAdapter<PageElement> | PageElement) {
-        super();
-        this.subject = d`CSS classes of ${ pageElement}`;
-    }
-
-    /**
-     * Instantiates a {@apilink Question} that uses
-     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
-     * a list of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)
-     * of a given {@apilink PageElement},
-     * located in a given `parent` element.
-     *
-     * #### Learn more
-     * - {@apilink MetaQuestion}
-     *
-     * @param parent
-     */
-    of(parent: QuestionAdapter<PageElement> | PageElement): Question<Promise<string[]>> {
-        return new CssClasses(PageElement.of(this.pageElement, parent));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const element = await actor.answer(this.pageElement);
-
-        return element.attribute('class')
-            .then(attribute => attribute ?? '')
-            .then(attribute => attribute
-                .replace(/\s+/, ' ')
-                .trim()
-                .split(' ')
-                .filter(cssClass => !! cssClass),
-            );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
+                return element.attribute('class')
+                    .then(attribute => attribute ?? '')
+                    .then(attribute => attribute
+                        .replace(/\s+/, ' ')
+                        .trim()
+                        .split(' ')
+                        .filter(cssClass => !! cssClass),
+                    );
+            },
+            (parent: Answerable<PageElement>) =>
+                CssClasses.of(PageElement.of(pageElement, parent))
+        );
     }
 }

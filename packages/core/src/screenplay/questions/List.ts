@@ -3,13 +3,12 @@ import { d } from '../../io';
 import type { UsesAbilities } from '../abilities';
 import type { Actor } from '../Actor';
 import type { Answerable } from '../Answerable';
-import type { QuestionAdapter } from '../Question';
+import type { MetaQuestionAdapter, QuestionAdapter } from '../Question';
 import { Question } from '../Question';
-import type { AnswersQuestions } from '../questions';
+import type { AnswersQuestions, ChainableMetaQuestion, MetaQuestion } from '../questions';
 import { Task } from '../Task';
 import type { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
-import type { MetaQuestion } from './MetaQuestion';
 
 /**
  * Serenity/JS Screenplay Pattern-style wrapper around {@apilink Array}
@@ -17,83 +16,43 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * @group Questions
  */
-export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
-    private subject: string;
+export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
+    protected subject?: string;
 
-    static of<IT>(collection: Answerable<Array<IT>>): List<IT> {
-        return new List<IT>(collection);
+    static of<IT, CT, RQT extends (Question<Promise<Array<IT>>> | Question<Array<IT>>)>(collection: Answerable<Array<IT>> & ChainableMetaQuestion<CT, RQT>): MetaList<CT, IT>;
+    static of<IT>(collection: Answerable<Array<IT>>): List<IT>;
+    static of<IT>(collection: unknown): unknown {
+        if (Question.isAMetaQuestion<unknown, Question<Array<IT>>>(collection)) {
+            return new MetaList(collection as Answerable<Array<IT>> & ChainableMetaQuestion<unknown, Question<Array<IT>>>);
+        }
+
+        return new ArrayList<IT>(collection as Answerable<Array<IT>>);
     }
 
-    constructor(
-        protected readonly collection: Answerable<Array<Item_Type>>,
-    ) {
+    constructor(protected readonly collection: Answerable<Array<Item_Type>>) {
         super();
-        this.subject = d`${ collection }`;
-    }
-
-    eachMappedTo<Mapped_Item_Type>(
-        question: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
-    ): List<Mapped_Item_Type> {
-        return new List(
-            new EachMappedTo(this.collection, question, this.subject)
-        );
     }
 
     forEach(callback: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void): Task {
-        return new ForEachLoop(this.collection, this.subject, callback);
+        return new ForEachLoop(this.collection, this.toString(), callback);
     }
 
-    where<Answer_Type>(
-        question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
+    abstract eachMappedTo<Mapped_Item_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>
+    ): List<Mapped_Item_Type>;
+
+    abstract where<Answer_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
         expectation: Expectation<Answer_Type>
-    ): this {
-        return new List<Item_Type>(
-            new Where(this.collection, question, expectation, this.subject)
-        ) as this;
-    }
+    ): List<Item_Type>;
 
-    count(): QuestionAdapter<number> {
-        return Question.about(`the number of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
-            return items.length;
-        });
-    }
+    abstract count(): QuestionAdapter<number>;
 
-    first(): QuestionAdapter<Item_Type> {
-        return Question.about(`the first of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
+    abstract first(): QuestionAdapter<Item_Type>;
 
-            if (items.length === 0) {
-                throw new ListItemNotFoundError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
-            }
+    abstract last(): QuestionAdapter<Item_Type>;
 
-            return items[0];
-        });
-    }
-
-    last(): QuestionAdapter<Item_Type> {
-        return Question.about(`the last of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
-
-            if (items.length === 0) {
-                throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
-            }
-
-            return items.at(-1);
-        });
-    }
-
-    nth(index: number): QuestionAdapter<Item_Type> {
-        return Question.about(`the ${ ordinal(index + 1) } of ${ this.subject }`, async actor => {
-            const items = await this.answeredBy(actor);
-
-            if (index < 0 || items.length <= index) {
-                throw new ListItemNotFoundError(`Can't retrieve the ${ ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
-            }
-
-            return items[index];
-        });
-    }
+    abstract nth(index: number): QuestionAdapter<Item_Type>;
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
         const collection = await actor.answer(this.collection);
@@ -111,28 +70,214 @@ export class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     }
 
     toString(): string {
-        return this.subject;
+        return this.subject ?? d`${ this.collection }`;
+    }
+
+    /**
+     * @param {number} index
+     */
+    protected ordinal(index: number): string {
+        const
+            lastDigit     = Math.abs(index) % 10,
+            lastTwoDigits = Math.abs(index) % 100;
+
+        switch (true) {
+            case (lastDigit === 1 && lastTwoDigits !== 11):
+                return index + 'st';
+            case (lastDigit === 2 && lastTwoDigits !== 12):
+                return index + 'nd';
+            case (lastDigit === 3 && lastTwoDigits !== 13):
+                return index + 'rd';
+            default:
+                return index + 'th';
+        }
     }
 }
 
 /**
  * @package
- * @param {number} index
  */
-function ordinal(index: number): string {
-    const
-        lastDigit     = Math.abs(index) % 10,
-        lastTwoDigits = Math.abs(index) % 100;
+class ArrayList<Item_Type> extends List<Item_Type> {
 
-    switch (true) {
-        case (lastDigit === 1 && lastTwoDigits !== 11):
-            return index + 'st';
-        case (lastDigit === 2 && lastTwoDigits !== 12):
-            return index + 'nd';
-        case (lastDigit === 3 && lastTwoDigits !== 13):
-            return index + 'rd';
-        default:
-            return index + 'th';
+    override eachMappedTo<Mapped_Item_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>,
+    ): List<Mapped_Item_Type> {
+        return new ArrayList(
+            new EachMappedTo(this.collection, question, this.toString())
+        );
+    }
+
+    override where<Answer_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
+        expectation: Expectation<Answer_Type>
+    ): List<Item_Type> {
+        return new ArrayList<Item_Type>(
+            new Where(this.collection, question, expectation, this.toString())
+        ) as this;
+    }
+
+    override count(): QuestionAdapter<number> {
+        return Question.about(`the number of ${ this.toString() }`, async actor => {
+            const items = await this.answeredBy(actor);
+            return items.length;
+        });
+    }
+
+    override first(): QuestionAdapter<Item_Type> {
+        return Question.about(`the first of ${ this.toString() }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (items.length === 0) {
+                throw new ListItemNotFoundError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
+            }
+
+            return items[0];
+        });
+    }
+
+    override last(): QuestionAdapter<Item_Type> {
+        return Question.about(`the last of ${ this.toString() }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (items.length === 0) {
+                throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
+            }
+
+            return items.at(-1);
+        });
+    }
+
+    override nth(index: number): QuestionAdapter<Item_Type> {
+        return Question.about(`the ${ this.ordinal(index + 1) } of ${ this.toString() }`, async actor => {
+            const items = await this.answeredBy(actor);
+
+            if (index < 0 || items.length <= index) {
+                throw new ListItemNotFoundError(`Can't retrieve the ${ this.ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
+            }
+
+            return items[index];
+        });
+    }
+}
+
+/**
+ * Serenity/JS Screenplay Pattern-style wrapper around
+ * a {@apilink ChainableMetaQuestion} representing a collection
+ * that can be resolved in `Supported_Context_Type` of another {@apilink Question}.
+ *
+ * For example, {@apilink PageElements.located} returns `MetaList<PageElement>`,
+ * which allows for the collection of page elements to be resolved in the context
+ * of dynamically-provided root element.
+ *
+ * ```typescript
+ * import { By, PageElements, PageElement } from '@serenity-js/web'
+ *
+ * const firstLabel = () =>
+ *   PageElements.located(By.css('label'))
+ *      .first()
+ *      .describedAs('first label')
+ *
+ * const exampleForm = () =>
+ *   PageElement.located(By.css('form#example1'))
+ *      .describedAs('example form')
+ *
+ * const anotherExampleForm = () =>
+ *   PageElement.located(By.css('form#example2'))
+ *      .describedAs('another example form')
+ *
+ * // Next, you can compose the above questions dynamically with various "contexts":
+ * //   firstLabel().of(exampleForm())
+ * //   firstLabel().of(anotherExampleForm())
+ * ```
+ *
+ * @group Questions
+ */
+export class MetaList<Supported_Context_Type, Item_Type>
+    extends List<Item_Type>
+    implements ChainableMetaQuestion<Supported_Context_Type, MetaList<Supported_Context_Type, Item_Type>>
+{
+    constructor(
+        protected override readonly collection: Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>
+    ) {
+        super(collection);
+    }
+
+    of(context: Answerable<Supported_Context_Type>): MetaList<Supported_Context_Type, Item_Type> {
+        return new MetaList<Supported_Context_Type, Item_Type>(
+            this.collection.of(context)
+        ).describedAs(this.toString() + d` of ${ context }`)
+    }
+
+    override eachMappedTo<Mapped_Item_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>,
+    ): MetaList<Supported_Context_Type, Mapped_Item_Type> {
+        return new MetaList(
+            new MetaEachMappedTo(this.collection, question, this.toString()),
+        );
+    }
+
+    override where<Answer_Type>(
+        question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
+        expectation: Expectation<Answer_Type>
+    ): MetaList<Supported_Context_Type, Item_Type> {
+        return new MetaList<Supported_Context_Type, Item_Type>(
+            new MetaWhere(this.collection, question, expectation, this.toString())
+        ) as this;
+    }
+
+    override count(): MetaQuestionAdapter<Supported_Context_Type, number> {
+        return Question.about(`the number of ${ this.toString() }`,
+            async actor => {
+                const items = await this.answeredBy(actor);
+                return items.length;
+            },
+            (parent: Answerable<Supported_Context_Type>) => this.of(parent).count()
+        );
+    }
+
+    override first(): MetaQuestionAdapter<Supported_Context_Type, Item_Type> {
+        return Question.about(`the first of ${ this.toString() }`,
+            async actor => {
+                const items = await this.answeredBy(actor);
+
+                if (items.length === 0) {
+                    throw new ListItemNotFoundError(d`Can't retrieve the first item from a list with 0 items: ${ items }`)
+                }
+
+                return items[0];
+            },
+            (parent: Answerable<Supported_Context_Type>) => this.of(parent).first()
+        );
+    }
+
+    override last(): MetaQuestionAdapter<Supported_Context_Type, Item_Type> {
+        return Question.about(`the last of ${ this.toString() }`,
+            async actor => {
+                const items = await this.answeredBy(actor);
+
+                if (items.length === 0) {
+                    throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`)
+                }
+
+                return items.at(-1);
+            },
+            (parent: Answerable<Supported_Context_Type>) => this.of(parent).last()
+        );
+    }
+
+    override nth(index: number): MetaQuestionAdapter<Supported_Context_Type, Item_Type> {
+        return Question.about(`the ${ this.ordinal(index + 1) } of ${ this.toString() }`,
+            async actor => {
+                const items = await this.answeredBy(actor);
+
+                if (index < 0 || items.length <= index) {
+                    throw new ListItemNotFoundError(`Can't retrieve the ${ this.ordinal(index) } item from a list with ${ items.length } items: ` + d`${ items }`)
+                }
+
+                return items[index];
+            },
+            (parent: Answerable<Supported_Context_Type>) => this.of(parent).nth(index)
+        );
     }
 }
 
@@ -145,9 +290,9 @@ class Where<Item_Type, Answer_Type>
     private subject: string;
 
     constructor(
-        private readonly collection: Answerable<Array<Item_Type>>,
-        private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
-        private readonly expectation: Expectation<Answer_Type>,
+        protected readonly collection: Answerable<Array<Item_Type>>,
+        protected readonly question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
+        protected readonly expectation: Expectation<Answer_Type>,
         originalSubject: string,
     ) {
         super();
@@ -175,7 +320,7 @@ class Where<Item_Type, Answer_Type>
 
             return results;
         } catch (error) {
-            throw new LogicError(d`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }`, error);
+            throw new LogicError(d`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }: ` + error.message, error);
         }
     }
 
@@ -192,13 +337,32 @@ class Where<Item_Type, Answer_Type>
 /**
  * @package
  */
+class MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>
+    extends Where<Item_Type, Answer_Type>
+    implements ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>
+{
+    protected override readonly collection: Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>;
+
+    of(context: Answerable<Supported_Context_Type>): MetaWhere<Supported_Context_Type, Item_Type, Answer_Type> {
+        return new MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>(
+            this.collection.of(context),
+            this.question,
+            this.expectation,
+            this.toString()
+        );
+    }
+}
+
+/**
+ * @package
+ */
 class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<Mapped_Item_Type>>> {
 
     private subject: string;
 
     constructor(
-        private readonly collection: Answerable<Array<Item_Type>>,
-        private readonly mapping: MetaQuestion<Item_Type, Promise<Mapped_Item_Type> | Mapped_Item_Type>,
+        protected readonly collection: Answerable<Array<Item_Type>>,
+        protected readonly mapping: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>,
         originalSubject: string,
     ) {
         super();
@@ -225,6 +389,19 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
 
     toString(): string {
         return this.subject;
+    }
+}
+
+/**
+ * @package
+ */
+class MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type>
+    extends EachMappedTo<Item_Type, Mapped_Item_Type>
+{
+    protected override readonly collection: Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>;
+
+    of(context: Answerable<Supported_Context_Type>): MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type> {
+        return new MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type>(this.collection.of(context), this.mapping, this.toString());
     }
 }
 

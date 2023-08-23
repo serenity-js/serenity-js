@@ -16,7 +16,7 @@ import type { Question } from '../Question';
  *
  * @group Questions
  */
-export interface MetaQuestion<Supported_Context_Type, Answer_Type> {
+export interface MetaQuestion<Supported_Context_Type, Returned_Question_Type extends Question<unknown>> {
 
     /**
      * Answers the given `MetaQuestion` in the context of another {@apilink Answerable}.
@@ -24,7 +24,7 @@ export interface MetaQuestion<Supported_Context_Type, Answer_Type> {
      * #### Learn more
      * - {@apilink List}
      */
-    of(context: Answerable<Supported_Context_Type>): Question<Promise<Answer_Type>> | Question<Answer_Type>;
+    of(context: Answerable<Supported_Context_Type>): Returned_Question_Type;
 
     /**
      * Human-readable description of this {@apilink MetaQuestion},
