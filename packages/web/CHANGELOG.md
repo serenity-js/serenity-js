@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/serenity-js/serenity-js/compare/v3.9.1...v3.10.0) (2023-08-23)
+
+
+### Features
+
+* **web:** chainable `PageElements` ([#1864](https://github.com/serenity-js/serenity-js/issues/1864)) ([4d0c7eb](https://github.com/serenity-js/serenity-js/commit/4d0c7eb97c24fe3ae1eed702773cf3b80f104947))
+
+
+
+
+
 ## [3.9.1](https://github.com/serenity-js/serenity-js/compare/v3.9.0...v3.9.1) (2023-08-18)
 
 **Note:** Version bump only for package @serenity-js/web
