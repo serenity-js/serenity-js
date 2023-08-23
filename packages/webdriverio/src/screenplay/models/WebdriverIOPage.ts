@@ -1,7 +1,7 @@
-import { LogicError } from '@serenity-js/core';
+import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import type { Cookie, CookieData, ModalDialogHandler, PageElement, Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, ByCss, Key, Page, PageElements } from '@serenity-js/web';
+import type { Cookie, CookieData, ModalDialogHandler, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, ByCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
 import { URL } from 'url';
 import type { Browser, Element } from 'webdriverio';
 
@@ -53,8 +53,10 @@ export class WebdriverIOPage extends Page<Element> {
     }
 
     locateAll(selector: Selector): PageElements<Element> {
-        return new PageElements(
-            new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
+        return List.of(
+            new PageElementsLocator(
+                new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
+            )
         );
     }
 

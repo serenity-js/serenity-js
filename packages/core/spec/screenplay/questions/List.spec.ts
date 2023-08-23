@@ -1,8 +1,19 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
+import type { JSONObject } from 'tiny-types';
 
-import type { Actor, Answerable} from '../../../src';
-import { actorCalled, Expectation, Interaction, List, ListItemNotFoundError, LogicError, Question } from '../../../src';
+import type { Actor, Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities } from '../../../src';
+import {
+    actorCalled,
+    d,
+    Expectation,
+    Interaction,
+    List,
+    ListItemNotFoundError,
+    LogicError,
+    MetaList,
+    Question
+} from '../../../src';
 import { expect } from '../../expect';
 
 describe('List', () => {
@@ -16,7 +27,7 @@ describe('List', () => {
         await Fiona.dismiss()
     });
 
-    describe('when wrapping an Answerable<Array>', () => {
+    describe('when wrapping a collection represented by an Answerable<Array>', () => {
 
         const collection = [ 'first', 'second', 'third' ];
 
@@ -322,55 +333,8 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(321);
+            expect(location.line).to.equal(332);
             expect(location.column).to.equal(18);
-        });
-    });
-
-    describe('when used as a base of a custom collection', () => {
-
-        it('returns all items from the underlying collection when no filters are applied', async () => {
-            const items = new Collection([ 1, 2, 3 ]);
-
-            const result = await items.answeredBy(Fiona)
-
-            expect(result).to.deep.equal([ 1, 2, 3 ]);
-        });
-
-        it('returns only those items that match the filter', async () => {
-            const items = new Collection([ 1, 2, 3, 4, 5 ]);
-
-            const result = await items
-                .where(Value, isGreaterThan(2))
-                .answeredBy(Fiona)
-
-            expect(result).to.deep.equal([ 3, 4, 5 ]);
-        });
-
-        it('returns only those items that match all the filters', async () => {
-            const items = new Collection([ 1, 2, 3, 4, 5 ]);
-
-            const list = List.of(items);
-
-            const result = await list
-                .where(Value, isGreaterThan(2))
-                .where(Value, isLessThan(5))
-                .answeredBy(Fiona)
-
-            expect(result).to.deep.equal([ 3, 4 ]);
-        });
-
-        it('describes the filters applied', () => {
-            const items = new Collection([ 1, 2, 3, 4, 5 ]);
-
-            const result = items
-                .where(Value, isGreaterThan(2))
-                .where(Value, isLessThan(5))
-                .first();
-
-            expect(result.toString()).to.equal(
-                'the first of lazily-fetched items where Value does have value greater than 2 and Value does have value less than 5'
-            );
         });
     });
 
@@ -460,7 +424,322 @@ describe('List', () => {
             expect(result.cause.message).to.equal('Some error in expectation');
         });
     });
+
+    describe('when wrapping a collection represented by a chainable meta-question', () => {
+
+        const example: JSONObject = {
+            first: {
+                second: {
+                    third: ['a', 'b', 'c'],
+                    fourth: ['c', 'd', 'e']
+                },
+            },
+            empty: [],
+        }
+
+        it('produces a MetaList', async () => {
+
+            const list = List.of(new ObjectKeys(example));
+
+            expect(Question.isAMetaQuestion(list)).to.equal(true);
+            expect(list).to.be.instanceOf(MetaList);
+
+            const keys = await Fiona.answer(list);
+
+            expect(keys).to.deep.equal([ 'first', 'empty' ]);
+        });
+
+        it('allows for further chaining', async () => {
+
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second');
+
+            const keys = await Fiona.answer(list);
+
+            expect(keys).to.deep.equal([ 'third', 'fourth' ]);
+        });
+
+        it('allows for filtering', async () => {
+
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .where(Value, startsWith('f'));
+
+            const keys = await Fiona.answer(list);
+
+            expect(keys).to.deep.equal([ 'fourth' ]);
+        });
+
+        it('allows for mapping', async () => {
+
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .of('fourth')
+                .eachMappedTo(NumericValue);
+
+            const keys = await Fiona.answer(list);
+
+            expect(keys).to.deep.equal([ 0, 1, 2 ]);
+        });
+
+        it('returns the number of items in the collection', async () => {
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .of('third');
+
+            const key = await Fiona.answer(list.count());
+
+            expect(key).to.equal(3);
+        });
+
+        it('returns the first item from the collection', async () => {
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .of('third');
+
+            const key = await Fiona.answer(list.first());
+
+            expect(key).to.equal('0');
+        });
+
+        it('returns the last item from the collection', async () => {
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .of('third');
+
+            const key = await Fiona.answer(list.last());
+
+            expect(key).to.equal('2');
+        });
+
+        it('returns nth item from the collection', async () => {
+            const list = List.of(new ObjectKeys(example))
+                .of('first')
+                .of('second')
+                .of('third');
+
+            const key = await Fiona.answer(list.nth(2));
+
+            expect(key).to.equal('2');
+        });
+
+        describe('when using lazily-evaluated filters', () => {
+
+            describe('evaluates context links established via of() before it', () => {
+
+                it('applies the filters', async () => {
+
+                    const list = List.of(new ObjectKeys(example))
+                        .where(Value, startsWith('t'))
+                        .of('first')
+                        .where(Value, endsWith('d'))
+                        .of('second')
+                    ;
+
+                    const keys = await Fiona.answer(list);
+
+                    expect(keys).to.deep.equal([ 'third' ]);
+                });
+
+                it('applies the mapping', async () => {
+
+                    const list = List.of(new ObjectKeys(example))
+                        .of('first')
+                        .of('second')
+                        .where(Value, startsWith('1'))
+                        .eachMappedTo(NumericValue)
+                        .of('fourth');
+
+                    const keys = await Fiona.answer(list);
+
+                    expect(keys).to.deep.equal([ 1 ]);
+                });
+
+                it('returns the number of items in the collection', async () => {
+                    const list = List.of(new ObjectKeys(example))
+                        .of('first')
+                        .of('second')
+                        .count()
+                        .of('third');
+
+                    const key = await Fiona.answer(list);
+
+                    expect(key).to.equal(3);
+                });
+
+                it('returns the first item from the collection', async () => {
+                    const list = List.of(new ObjectKeys(example))
+                        .of('first')
+                        .of('second')
+                        .first()
+                        .of('third');
+
+                    const key = await Fiona.answer(list);
+
+                    expect(key).to.equal('0');
+                });
+
+                it('returns the last item from the collection', async () => {
+                    const list = List.of(new ObjectKeys(example))
+                        .of('first')
+                        .of('second')
+                        .last()
+                        .of('third');
+
+                    const key = await Fiona.answer(list);
+
+                    expect(key).to.equal('2');
+                });
+
+                it('returns nth item from the collection', async () => {
+                    const list = List.of(new ObjectKeys(example))
+                        .of('first')
+                        .of('second')
+                        .nth(2)
+                        .of('third');
+
+                    const key = await Fiona.answer(list);
+
+                    expect(key).to.equal('2');
+                });
+            });
+
+            describe('when handling errors', () => {
+
+                describe('complains when the collection is empty as it', () => {
+
+                    it('returns the first item from the collection', async () => {
+                        const first = List.of(new ObjectKeys(example))
+                            .first()
+                            .of('empty');
+
+                        await expect(first.answeredBy(Fiona))
+                            .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`);
+                    });
+
+                    it('returns the last item from the collection', async () => {
+                        const last = List.of(new ObjectKeys(example))
+                            .last()
+                            .of('empty');
+
+                        await expect(last.answeredBy(Fiona))
+                            .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the last item from a list with 0 items: [ ]`);
+                    });
+
+                    it('returns nth item from the collection', async () => {
+                        const nth = List.of(new ObjectKeys(example))
+                            .nth(2)
+                            .of('empty');
+
+                        await expect(nth.answeredBy(Fiona))
+                            .to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the 2nd item from a list with 0 items: [ ]`);
+                    });
+                });
+            });
+        });
+
+        describe('when producing descriptions', () => {
+
+            it('produces a sensible description when a custom one is not provided', () => {
+
+                const list = List.of(new ObjectKeys(example))
+                    .of('first')
+                    .of('second')
+                    .where(Value, startsWith('1'));
+
+                expect(list.toString()).to.equal(
+                    `{"first":{"second":{"third":["a","b","c"],"fourth":["c","d","e"]}},"empty":[]} of 'first' of 'second' where Value does start with '1'`
+                );
+            });
+
+            it('allows for setting a custom description when mapping', async () => {
+
+                const list = List.of(new ObjectKeys(example))
+                    .of('first')
+                    .of('second')
+                    .of('fourth')
+                    .eachMappedTo(NumericValue)
+                    .describedAs('numeric values');
+
+                expect(list.toString()).to.equal('numeric values');
+            });
+
+            it('allows for setting a custom description when specifying filters', async () => {
+
+                const list = List.of(new ObjectKeys(example))
+                    .of('first')
+                    .of('second')
+                    .where(Value, startsWith('1'))
+                    .describedAs('my collection');
+
+                expect(list.toString()).to.equal('my collection');
+            });
+
+            it('allows for setting a custom description, and then combining it further', async () => {
+
+                const list = List.of(new ObjectKeys(example))
+                    .of('first')
+                    .of('second')
+                    .where(Value, startsWith('1'))
+                    .describedAs('my collection')
+                    .of('third')
+                ;
+
+                expect(list.toString()).to.equal(`my collection of 'third'`);
+            });
+        });
+    });
 });
+
+class ObjectKeys
+    extends Question<Promise<Array<string>>>
+    implements ChainableMetaQuestion<string, Question<Promise<Array<string>>>>
+{
+    private subject?: string;
+
+    constructor(private readonly jsonObject: Answerable<JSONObject>) {
+        super();
+    }
+
+    of(context: Answerable<string>): Question<Promise<string[]>> & ChainableMetaQuestion<string, Question<Promise<string[]>>> {
+        return new ObjectKeys(
+            Question.about('JSON object', async actor => {
+                const jsonObject: JSONObject = await actor.answer(this.jsonObject);
+                const key = await actor.answer(context);
+
+                return jsonObject[key] as JSONObject;
+            }),
+        )
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<any>> {
+        const jsonObject = await actor.answer(this.jsonObject);
+        return Object.keys(jsonObject);
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject ?? d`${ this.jsonObject }`
+    }
+}
+
+class NumericValue {
+    static of = (value: Answerable<string>) =>
+        Question.about('numeric value', async actor => {
+            const answer = await actor.answer(value);
+            return Number.parseInt(answer, 10);
+        })
+}
 
 interface Account {
     id: number;
@@ -493,18 +772,6 @@ class BrokenQuestion {
         });
 }
 
-class Collection<Item_Type>
-    extends List<Item_Type>
-{
-    constructor(items: Item_Type[]) {
-        super(Question.about('lazily-fetched items', actor => items));
-    }
-
-    toString() {
-        return 'my collection items';
-    }
-}
-
 function throws(message: string): Expectation<number> {
     return Expectation.thatActualShould<number, number>('have value greater than', 42)
         .soThat((_actualValue, _expectedValue) => {
@@ -525,4 +792,9 @@ function isLessThan(expected: Answerable<number>): Expectation<number> {
 function startsWith(expected: Answerable<string>): Expectation<string> {
     return Expectation.thatActualShould<string, string>('start with', expected)
         .soThat((actualValue, expectedValue) => actualValue.startsWith(expectedValue));
+}
+
+function endsWith(expected: Answerable<string>): Expectation<string> {
+    return Expectation.thatActualShould<string, string>('ends with', expected)
+        .soThat((actualValue, expectedValue) => actualValue.endsWith(expectedValue));
 }

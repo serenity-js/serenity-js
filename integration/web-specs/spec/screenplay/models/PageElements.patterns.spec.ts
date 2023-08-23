@@ -2,7 +2,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
 import { actorCalled, ListItemNotFoundError, LogicError, MetaQuestion, Question } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
@@ -132,7 +132,7 @@ describe('PageElements', () => {
                 });
             });
 
-            describe('using a filter locator pattern to find a non-unique parent element', () => {
+            describe('using a filter locator pattern to find', () => {
 
                 const filterStrategySection = () =>
                     PageElement.located(By.css('[data-test-id="filter-locator-pattern"]'))
@@ -143,74 +143,159 @@ describe('PageElements', () => {
                         .of(filterStrategySection())
                         .describedAs('parents')
 
+                const secondParent = () =>
+                    parents().where(Attribute.called('data-test-id'), equals('parent-2')).first();
+
                 const children = () =>
                     PageElements.located(By.css('.child'))
                         .describedAs('children');
 
-                it(`finds the element, if one exists`, () =>
-                    actorCalled('Peggy').attemptsTo(
-                        Ensure.that(
-                            Attribute.called('data-test-id').of(
+                describe('a child amongst children', () => {
+                    it(`finds the element, if one exists`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Text.of(
+                                    children()
+                                        .of(secondParent())
+                                        .last(),
+                                ),
+                                equals('coffee')
+                            ),
+                        ));
+
+                    it(`finds the element, when a filter is applied before specifying the parent`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Text.of(
+                                    children()
+                                        // add a filter
+                                        .where(Text, startsWith('t'))
+                                        .of(secondParent())
+                                        .last(),
+                                ),
+                                equals('tea')
+                            ),
+                        ));
+
+                    it(`finds the element, when a filter is applied after specifying the parent`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Text.of(
+                                    children()
+                                        .of(secondParent())
+                                        // add a filter
+                                        .where(Text, startsWith('t'))
+                                        .last(),
+                                ),
+                                equals('tea')
+                            ),
+                        ));
+
+                    it(`allows to check if the element of interest is present`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                children()
+                                    .of(secondParent())
+                                    .last(),
+                                isPresent(),
+                            ),
+                        ));
+
+                    it(`complains if the element is not present`, () =>
+                        expect(
+                            actorCalled('Peggy').answer(
+                                children()
+                                    .of(secondParent())
+                                    .where(Text, equals('coffee'))
+                                    .where(Text, equals('tea'))
+                                    // there are no child elements that meet the above criteria
+                                    .first()
+                                    .nativeElement()
+                            )
+                        ).to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`)
+                    );
+
+                    it(`allows to check if the element of interest is not present`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                children()
+                                    .of(secondParent())
+                                    .where(Text, equals('coffee'))
+                                    .where(Text, equals('tea'))
+                                    // there are no child elements that meet the above criteria
+                                    .last(),
+                                not(isPresent())
+                            ),
+                        ));
+                });
+
+                describe('a non-unique parent element', () => {
+
+                    it(`finds the element, if one exists`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Attribute.called('data-test-id').of(
+                                    parents()
+                                        .where(Text.ofAll(children()), contain('tea'))
+                                        // AND
+                                        .where(Text.ofAll(children()), contain('coffee'))
+                                        .first()
+                                ),
+                                equals('parent-2')
+                            ),
+                        ));
+
+                    it(`finds the element based on one of the children`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                Attribute.called('data-test-id').of(
+                                    parents()
+                                        .where(Text.of(children().last()), equals('coffee'))
+                                        .first()
+                                ),
+                                equals('parent-2')
+                            ),
+                        ));
+
+                    it(`allows to check if the element of interest is present`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
                                 parents()
                                     .where(Text.ofAll(children()), contain('tea'))
                                     // AND
                                     .where(Text.ofAll(children()), contain('coffee'))
-                                    .first()
+                                    .first(),
+                                isPresent(),
                             ),
-                            equals('parent-2')
-                        ),
-                    ));
+                        ));
 
-                it(`finds the element based on one of the children`, () =>
-                    actorCalled('Peggy').attemptsTo(
-                        Ensure.that(
-                            Attribute.called('data-test-id').of(
+                    it(`complains if the element is not present`, () =>
+                        expect(
+                            actorCalled('Peggy').answer(
                                 parents()
-                                    .where(Text.of(children().last()), equals('coffee'))
+                                    .where(Text.ofAll(children()), contain('tea'))
+                                    .where(Text.ofAll(children()), contain('coffee'))
+                                    .where(Text.ofAll(children()), contain('juice'))
+                                    // there's no parent container with all the three items
                                     .first()
+                                    .nativeElement()
+                            )
+                        ).to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`)
+                    );
+
+                    it(`allows to check if the element of interest is not present`, () =>
+                        actorCalled('Peggy').attemptsTo(
+                            Ensure.that(
+                                parents()
+                                    .where(Text.ofAll(children()), contain('tea'))
+                                    .where(Text.ofAll(children()), contain('coffee'))
+                                    .where(Text.ofAll(children()), contain('juice'))
+                                    // there's no parent container with all the three items
+                                    .first(),
+                                not(isPresent())
                             ),
-                            equals('parent-2')
-                        ),
-                    ));
-
-                it(`allows to check if the element of interest is present`, () =>
-                    actorCalled('Peggy').attemptsTo(
-                        Ensure.that(
-                            parents()
-                                .where(Text.ofAll(children()), contain('tea'))
-                                // AND
-                                .where(Text.ofAll(children()), contain('coffee'))
-                                .first(),
-                            isPresent(),
-                        ),
-                    ));
-
-                it(`complains if the element is not present`, () =>
-                    expect(
-                        actorCalled('Peggy').answer(
-                            parents()
-                                .where(Text.ofAll(children()), contain('tea'))
-                                .where(Text.ofAll(children()), contain('coffee'))
-                                .where(Text.ofAll(children()), contain('juice'))
-                                // there's no parent container with all the three items
-                                .first()
-                                .nativeElement()
-                        )
-                    ).to.be.rejectedWith(ListItemNotFoundError, `Can't retrieve the first item from a list with 0 items: [ ]`)
-                );
-
-                it(`allows to check if the element of interest is not present`, () =>
-                    actorCalled('Peggy').attemptsTo(
-                        Ensure.that(
-                            parents()
-                                .where(Text.ofAll(children()), contain('tea'))
-                                .where(Text.ofAll(children()), contain('coffee'))
-                                .where(Text.ofAll(children()), contain('juice'))
-                                // there's no parent container with all the three items
-                                .first(),
-                            not(isPresent())
-                        ),
-                    ));
+                        ));
+                });
             });
         });
 
@@ -288,7 +373,7 @@ describe('PageElements', () => {
                     .of(container())
                     .describedAs('items')
 
-            const BasketItemDetails: MetaQuestion<PageElement, Promise<{ name: string, price: number }>> = {
+            const BasketItemDetails: MetaQuestion<PageElement, Question<Promise<{ name: string, price: number }>>> = {
                 of: (element: PageElement) =>
                     Question.fromObject({
 

@@ -1,4 +1,5 @@
 export * from './AnswersQuestions';
+export * from './ChainableMetaQuestion';
 export * from './Check';
 export * from './Expectation';
 export * from './expectations';
