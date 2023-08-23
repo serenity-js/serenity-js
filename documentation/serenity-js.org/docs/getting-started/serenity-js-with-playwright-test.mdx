@@ -3,4 +3,269 @@ sidebar_position: 6
 title: Using with Playwright Test
 ---
 
-# Using with Playwright Test
+# Using Serenity/JS with Playwright Test
+
+Serenity/JS offers great support for Playwright, including **Playwright Test**, **Playwright Test UI Mode**, **Playwright trace viewer**, and **Playwright auto-waiting locators**!
+
+In this article, and in **less than 5 minutes**, you'll learn how to:
+- **integrate Serenity/JS** with your Playwright test suite,
+- **enable Serenity BDD reports**,
+- start using the **Screenplay Pattern**,
+- and get started with **Playwright Test UI Mode**!
+
+Want to jump straight into the code? Check out:
+- [Serenity/JS + Playwright Test project template on GitHub](https://github.com/serenity-js/serenity-js-playwright-test-template)
+- [Live Serenity BDD report](https://serenity-js.github.io/serenity-js-playwright-test-template/serenity/)
+- [Live Playwright Test report](https://serenity-js.github.io/serenity-js-playwright-test-template/playwright/)
+
+## About Serenity/JS
+
+[Serenity/JS](https://serenity-js.org) is an open-source framework designed to make acceptance and regression testing of complex software systems faster, more collaborative, and easier to scale.
+
+For test suites based on [Playwright Test](/handbook/test-runners/playwright-test), Serenity/JS offers:
+- [Enhanced Reporting](/handbook/reporting/) - [`@serenity-js/playwright-test`](/api/playwright-test) integration module
+acts as a drop-in replacement of `@playwright/test`. This means that with a one-line code change you can make your test suite produce in-depth test execution reports, start using the Screenplay Pattern, and write multi-actor test scenarios.
+- [Screenplay Pattern APIs](/handbook/design/screenplay-pattern/) - To make your test code portable and reusable across projects and teams,
+Serenity/JS gives you an optional [web abstraction layer](/api/web) on top of the native [Playwright](/api/playwright) and [Playwright Test](/api/playwright-test) APIs.
+- [Integration Libraries](/api/core/) - For test suites that follow the Screenplay Pattern,
+Serenity/JS also provides optional integration libraries to help you write [API tests](/api/rest/),
+[manage local servers](/api/local-server/), [perform assertions](/api/assertions/), and more!
+
+## Installing Serenity/JS
+
+You can add Serenity/JS to your existing Playwright Test project, or [create a new project](https://playwright.dev/docs/intro) if you don't have it yet.
+
+To install Serenity/JS from NPM, run the following command:
+
+```sh npm2yarn
+npm install @serenity-js/{core,web,playwright,playwright-test,assertions,console-reporter,serenity-bdd} --save-dev
+```
+
+Learn more about [Serenity/JS architecture](/handbook/getting-started/architecture/) and Serenity/JS modules:
+- [`@serenity-js/core`](/api/core/)
+- [`@serenity-js/web`](/api/web/)
+- [`@serenity-js/playwright`](/api/playwright/)
+- [`@serenity-js/playwright-test`](/api/playwright-test/)
+- [`@serenity-js/assertions`](/api/assertions/)
+- [`@serenity-js/console-reporter`](/api/console-reporter/)
+- [`@serenity-js/serenity-bdd`](/api/serenity-bdd/)
+
+## Configuring Serenity/JS
+
+To enable [Serenity/JS reporting services](/handbook/reporting/), configure Playwright Test as follows:
+
+```typescript title="playwright.config.ts"
+import type { PlaywrightTestConfig } from '@playwright/test'
+
+const config: PlaywrightTestConfig = {
+    reporter: [
+        // Serenity/JS reporting services
+        [ '@serenity-js/playwright-test', {
+            crew: [
+                '@serenity-js/console-reporter',
+                '@serenity-js/serenity-bdd',
+                [
+                    '@serenity-js/core:ArtifactArchiver',
+                    { outputDirectory: 'target/site/serenity' }
+                ],
+            ]
+        }],
+
+        // Any other native Playwright Test reporters
+        [ 'html', { open: 'never' } ],
+    ],
+
+    use: {
+        // Serenity/JS configuration options
+        crew: [
+            // Automatically take screenshots upon an assertion failure
+            ['@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' }]
+        ],
+        defaultActorName: 'Tess',
+    },
+
+    // Other Playwright Test configuration options
+}
+
+export default config
+```
+
+Learn more about:
+- [Serenity/JS configuration options](/api/playwright-test/interface/SerenityOptions)
+- [Playwright Test configuration options](https://playwright.dev/docs/test-configuration)
+
+## Producing extended Playwright HTML reports
+
+Serenity/JS **automatically augments** the built-in [Playwright HTML reports](https://playwright.dev/docs/test-reporters#html-reporter)
+to include information about your [Screenplay Pattern](/handbook/design/screenplay-pattern) tasks.
+
+To use this feature, simply [start using the Screenplay Pattern APIs](/api/playwright-test) in your Playwright Test scenarios and enable
+the [Playwright HTML reporter](https://playwright.dev/docs/test-reporters#html-reporter) in your Playwright configuration.
+
+View [live Playwright Test report on GitHub](https://serenity-js.github.io/serenity-js-playwright-test-template/playwright/) 👀
+
+<Figure
+    caption='Enhanced reporting with Playwright Test HTML reporter'
+    externalLink={'https://serenity-js.github.io/serenity-js-playwright-test-template/playwright/'}
+    img={require('@site/static/images/getting-started/serenity-js-with-playwright-test/serenity-js-playwright-html-report.png')}
+/>
+
+To learn more about the Screenplay Pattern, check out:
+- [Your first web scenario tutorial (Serenity/JS + Playwright Test)](/handbook/web-testing/your-first-web-scenario)
+- [The Screenplay Pattern](/handbook/design/screenplay-pattern/)
+- [Web testing with Serenity/JS](/handbook/web-testing/)
+- ["BDD in Action, Second Edition"](https://www.manning.com/books/bdd-in-action-second-edition)
+
+## Using Playwright Test UI Mode
+
+Serenity/JS supports [Playwright Test UI Mode](https://playwright.dev/docs/test-ui-mode), which means that all your
+[Screenplay Pattern](/handbook/design/screenplay-pattern) tasks are automatically presented in the Playwright Test UI runner.
+
+<Figure
+    caption='Using Serenity/JS Screenplay Pattern with Playwright Test UI Mode'
+    externalLink={'https://serenity-js.github.io/serenity-js-playwright-test-template/playwright/'}
+    img={require('@site/static/images/getting-started/serenity-js-with-playwright-test/serenity-js-playwright-ui-mode.png')}
+/>
+
+To use Playwright Test UI Mode, run the following command in your Playwright Test project:
+```sh
+npx playwright test --ui
+```
+
+To learn more about the Playwright Test UI Mode, check out:
+- [Serenity/JS + Playwright Test template project](https://github.com/serenity-js/serenity-js-playwright-test-template)
+- [Playwright Test UI Mode](https://playwright.dev/docs/test-ui-mode)
+
+## Using Playwright Test Trace Viewer
+
+Serenity/JS supports [Playwright Test Trace Viewer](https://playwright.dev/docs/trace-viewer-intro), which means that all your
+[Screenplay Pattern](/handbook/design/screenplay-pattern) tasks are automatically presented in the Trace Viewer UI.
+
+To use this feature, simply [start using the Screenplay Pattern APIs](/api/playwright-test) in your Playwright Test scenarios and enable
+tracing in [Playwright Test configuration](https://playwright.dev/docs/test-configuration).
+
+<Figure
+    caption='Using Serenity/JS Screenplay Pattern with Playwright Test Trace Viewer'
+    externalLink={'https://serenity-js.github.io/serenity-js-playwright-test-template/playwright/'}
+    img={require('@site/static/images/getting-started/serenity-js-with-playwright-test/serenity-js-playwright-test-trace-viewer.png')}
+/>
+
+To learn more about the Playwright Test Trace Viewer, check out:
+- [Serenity/JS + Playwright Test template project](https://github.com/serenity-js/serenity-js-playwright-test-template)
+- [Playwright Test Trace Viewer](https://playwright.dev/docs/trace-viewer)
+- [Playwright Test configuration options](https://playwright.dev/docs/test-configuration)
+
+## Producing Serenity BDD reports
+
+[Serenity reports and living documentation](/handbook/reporting/serenity-bdd-reporter) are a powerful feature enabled by Serenity BDD.
+They aim not only to **report test results**, but also to document **how features are tested**, and **what your application does**.
+
+Serenity BDD reports are generated by [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-core/tree/main/serenity-cli),
+a Java program downloaded and managed by the [`@serenity-js/serenity-bdd`](/api/serenity-bdd/) module.
+
+View [live Serenity BDD report on GitHub](https://serenity-js.github.io/serenity-js-playwright-test-template/serenity/) 👀
+
+<Figure
+    caption='Example Serenity BDD report'
+    externalLink={'https://serenity-js.github.io/serenity-js-playwright-test-template/serenity/'}
+    img={require('@site/static/images/reporting/serenity-bdd-reporter.png')}
+/>
+
+To produce Serenity BDD reports, your test suite must:
+- download the Serenity BDD CLI, by calling `serenity-bdd update` (which caches the CLI `jar` locally)
+- produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#configuring-serenityjs)
+- invoke the Serenity BDD CLI when you want to produce the report, by calling `serenity-bdd run`
+
+The pattern used by all the [Serenity/JS Project Templates](/handbook/getting-started#serenityjs-project-templates) relies
+on using:
+- a [`postinstall`](https://docs.npmjs.com/cli/v9/using-npm/scripts#life-cycle-operation-order) NPM script to download the Serenity BDD CLI
+- [`npm-failsafe`](https://www.npmjs.com/package/npm-failsafe) to run the reporting process even if the test suite itself has failed (which is precisely when you need test reports the most...).
+- [`rimraf`](https://www.npmjs.com/package/rimraf) as a convenience method to remove any test reports left over from the previous run
+
+```json title="package.json"
+{
+  "scripts": {
+    "postinstall": "serenity-bdd update",
+    "clean": "rimraf target",
+    "test": "failsafe clean test:execute test:report",
+    "test:execute": "playwright test",
+    "test:report": "serenity-bdd run",
+  }
+}
+```
+
+To learn more about the `SerenityBDDReporter`, please consult:
+- installation instructions in [`@serenity-js/serenity-bdd` documentation](/api/serenity-bdd/),
+- configuration examples in [`SerenityBDDReporter` API docs](/api/serenity-bdd/class/SerenityBDDReporter/),
+- [Serenity/JS + Playwright Test project template on GitHub](https://github.com/serenity-js/serenity-js-playwright-test-template)
+- [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples).
+
+## Using Serenity/JS Screenplay Pattern APIs
+
+The [Screenplay Pattern](/handbook/design/screenplay-pattern/) is an innovative, user-centred approach to writing high-quality automated acceptance tests.
+It steers you towards an effective use of layers of abstraction, helps your test scenarios capture the business vernacular of your domain,
+and encourages good testing and software engineering habits on your team.
+
+[`@serenity-js/playwright-test`](https://serenity-js.org/api/playwright-test/) module offers [fixtures](https://playwright.dev/docs/test-fixtures)
+that integrate [Playwright Test](https://playwright.dev/docs/intro) with Serenity/JS Screenplay Pattern APIs.
+
+By default, Serenity/JS configures a default [cast](/api/core/class/Cast/) of [actors](/api/core/class/Actor/),
+where every actor can:
+- [`BrowseTheWebWithPlaywright`](/api/playwright/class/BrowseTheWebWithPlaywright/)
+- [`TakeNotes.usingAnEmptyNotepad()`](/api/core/class/TakeNotes/)
+
+This should be enough to help you get started with introducing test scenarios that follow the Screenplay Pattern even to an existing test suite, for example:
+
+
+```typescript title="specs/example.spec.ts"
+// import { test, expect } from '@playwright/test'          // replace this
+import { test, expect } from '@serenity-js/playwright-test' // with this
+
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, matches } from '@serenity-js/assertions'
+
+test.describe('My awesome website', () => {
+
+    test('can have test scenarios that follow the Screenplay Pattern', async ({ actor }) => {
+        await actor.attemptsTo(
+            Navigate.to(`https://playwright.dev`),
+            Ensure.that(
+                Page.current().title(),
+                matches(/Fast and reliable end-to-end testing for modern web apps.*/)
+            ),
+        )
+    })
+
+    test('can have non-Screenplay scenarios too', async ({ page }) => {
+        await page.goto('https://playwright.dev')
+        await expect(page)
+            .toHaveTitle(/Fast and reliable end-to-end testing for modern web apps.*/);
+    })
+})
+```
+
+To learn more about the Screenplay Pattern, check out:
+- [The Screenplay Pattern](/handbook/design/screenplay-pattern/)
+- [Web testing with Serenity/JS](/handbook/web-testing/)
+- ["BDD in Action, Second Edition"](https://www.manning.com/books/bdd-in-action-second-edition)
+
+## Next steps
+
+Well done, your Playwright Test suite is now integrated with Serenity/JS! 🎉🎉🎉
+
+To take things further, check out:
+- [Web testing with Serenity/JS](/handbook/web-testing/)
+- [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples/)
+- [Serenity/JS Playwright project templates](https://github.com/serenity-js?q=playwright+template&type=all&language=&sort=)
+- [Serenity/JS Web API docs](/api/web/)
+- [Serenity/JS Assertions API docs](/api/assertions/)
+
+Remember, new features, tutorials, and demos are coming soon!
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
