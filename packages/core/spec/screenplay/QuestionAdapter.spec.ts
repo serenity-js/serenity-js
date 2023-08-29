@@ -575,7 +575,7 @@ describe('Question', () => {
 
                 it('has a human-readable description', () => {
                     expect(questionMetaAdapter.of({ name: 'London', toString: () => 'London' }).toString())
-                        .to.equal(`'introduction' of London`)
+                        .to.equal(`introduction of London`)
                 });
             });
         });

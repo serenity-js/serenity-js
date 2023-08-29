@@ -1,4 +1,4 @@
-import type { Answerable, MetaQuestion, MetaQuestionAdapter,Optional, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, MetaQuestionAdapter, Optional } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
@@ -22,21 +22,21 @@ import type { SwitchableOrigin } from './SwitchableOrigin';
  */
 export abstract class PageElement<Native_Element_Type = any> implements Optional, Switchable {
 
-    static from<NET>(nativeElement: NET): QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement> {
+    static from<NET>(nativeElement: NET): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
         return Question.about(`native page element`, async actor => {
             const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
 
             return currentPage.createPageElement(nativeElement);
-        }) as QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement>;
+        });
     }
 
-    static located<NET>(selector: Answerable<Selector>): QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement> {
+    static located<NET>(selector: Answerable<Selector>): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
         return Question.about(d`page element located ${ selector }`, async actor => {
             const bySelector  = await actor.answer(selector);
             const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
 
             return currentPage.locate(bySelector);
-        }) as QuestionAdapter<PageElement<NET>> & MetaQuestion<PageElement, PageElement>;
+        });
     }
 
     static of<NET>(
