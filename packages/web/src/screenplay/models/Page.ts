@@ -276,6 +276,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * @param selector
      */
+    // abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
     abstract locateAll(selector: Selector): PageElements<Native_Element_Type>;
 
     /**
