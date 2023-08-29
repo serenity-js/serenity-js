@@ -3,4 +3,323 @@ sidebar_position: 7
 title: Using with Protractor
 ---
 
-# Using with Protractor
+# Using Serenity/JS with Protractor
+
+Serenity/JS offers excellent support for **Protractor**!
+Plus, it accommodates both classic Protractor tests and Serenity/JS [Screenplay Pattern scenarios](/handbook/design/screenplay-pattern/),
+allowing you to migrate to Screenplay gradually,
+and then simply switch to using Serenity/JS with a more modern web integration tool
+like [Playwright](/handbook/getting-started/serenity-js-with-playwright-test/) or
+[WebdriverIO](/handbook/getting-started/serenity-js-with-webdriverio/).
+
+:::tip Use Serenity/JS to migrate away from Protractor
+As Protractor [reaches its end of life](https://www.protractortest.org/#/project-status),
+you can use Serenity/JS as an abstraction layer that allows you to gradually migrate your tests
+to follow the [Screenplay Pattern](/handbook/design/screenplay-pattern/),
+and then swap out Protractor for a more modern integration tool.
+All this while keeping your test suites working all the time!
+:::
+
+
+In this article, and in **less than 5 minutes**, you'll learn how to:
+- **integrate Serenity/JS** with your Protractor test suite,
+- **enable Serenity BDD reports**,
+- start using the **Screenplay Pattern**,
+- replace Protractor with **Playwright** or **WebdriverIO** while keeping your tests working!
+
+Want to jump straight into the code? Check out:
+- [Serenity/JS + Cucumber + Protractor project template on GitHub](https://github.com/serenity-js/serenity-js-cucumber-protractor-template),
+and its [Live Serenity BDD report](https://serenity-js.github.io/serenity-js-cucumber-protractor-template/)
+- [Serenity/JS + Mocha + Protractor project template on GitHub](https://github.com/serenity-js/serenity-js-mocha-protractor-template),
+and its [Live Serenity BDD report](https://serenity-js.github.io/serenity-js-mocha-protractor-template/)
+- [Serenity/JS + Jasmine + Protractor project template on GitHub](https://github.com/serenity-js/serenity-js-jasmine-protractor-template),
+and its [Live Serenity BDD report](https://serenity-js.github.io/serenity-js-jasmine-protractor-template/)
+
+## About Serenity/JS
+
+[Serenity/JS](https://serenity-js.org) is an open-source framework designed to make acceptance and regression testing of complex software systems faster, more collaborative, and easier to scale.
+
+For Protractor test suites, Serenity/JS offers:
+- [Enhanced Reporting](/handbook/reporting/) - You can use Serenity/JS
+  as a drop-in replacement of any built-in Protractor framework to produce in-depth test execution reports and living documentation of your project.
+- [Screenplay Pattern APIs](/handbook/design/screenplay-pattern/) - To make your test code portable and reusable across projects and teams,
+  Serenity/JS gives you an optional [abstraction layer](/api/protractor) on top of native Protractor APIs.
+- [Integration Libraries](/api/core/) - For test suites that follow the Screenplay Pattern,
+  Serenity/JS also provides optional integration libraries to help you write [API tests](/api/rest/),
+  [manage local servers](/api/local-server/), [perform assertions](/api/assertions/), and more!
+
+![Serenity BDD Report Example](/images/reporting/serenity-bdd-reporter.png)
+
+## Installing Serenity/JS
+
+To add Serenity/JS to an [existing Protractor project](https://www.protractortest.org/#/), install the following Serenity/JS modules from NPM:
+
+```sh npm2yarn
+npm install @serenity-js/{core,web,protractor,assertions,console-reporter,serenity-bdd} --save-dev
+```
+
+Learn more about Serenity/JS modules:
+- [`@serenity-js/core`](/api/core/)
+- [`@serenity-js/web`](/api/web/)
+- [`@serenity-js/protractor`](/api/protractor/)
+- [`@serenity-js/assertions`](/api/assertions/)
+- [`@serenity-js/console-reporter`](/api/console-reporter/)
+- [`@serenity-js/serenity-bdd`](/api/serenity-bdd/)
+
+## Configuring Serenity/JS and Protractor
+
+To enable integration with Serenity/JS, configure Protractor as follows:
+
+<Tabs>
+<TabItem value="protractor-conf-cucumber" label="Cucumber" default>
+
+```javascript title="protractor.conf.js"
+exports.config = {
+    // Disable Selenium promise manager
+    SELENIUM_PROMISE_MANAGER: false,
+
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [ 'features/**/*.feature' ],
+
+    serenity: {
+        runner: 'cucumber',
+        crew: [
+            // Optional, print test execution results to standard output
+            '@serenity-js/console-reporter',
+
+            // Optional, produce Serenity BDD reports
+            // and living documentation (HTML)
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', {
+                outputDirectory: 'target/site/serenity'
+            } ],
+
+            // Optional, automatically capture screenshots
+            // upon interaction failure
+            [ '@serenity-js/web:Photographer', {
+                strategy: 'TakePhotosOfFailures'
+            } ],
+        ]
+    },
+
+    cucumberOpts: {
+        require: [
+            'features/step_definitions/**/*.steps.ts',      // If you're using TypeScript
+            'features/support/*.ts',
+            // 'features/step_definitions/**/*.steps.js',   // If you're using JavaScript
+            // 'features/support/*.js'
+        ],
+        requireModule:   [
+            // Optional, if you're using TypeScript
+            'ts-node/register'
+        ],
+        tags:    ['not @wip'],
+        strict:  false,
+    }
+};
+```
+
+</TabItem>
+<TabItem value="protractor-conf-mocha" label="Mocha">
+
+```javascript title="protractor.conf.js"
+exports.config = {
+    // Disable Selenium promise manager
+    SELENIUM_PROMISE_MANAGER: false,
+
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [
+        './spec/*.spec.ts',     // If you're using TypeScript
+        // './spec/*.spec.js',  // If you're using JavaScript
+    ],
+
+    serenity: {
+        runner: 'mocha',
+        crew: [
+            // Optional, print test execution results to standard output
+            '@serenity-js/console-reporter',
+
+            // Optional, produce Serenity BDD reports
+            // and living documentation (HTML)
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', {
+                outputDirectory: 'target/site/serenity'
+            } ],
+
+            // Optional, automatically capture screenshots
+            // upon interaction failure
+            [ '@serenity-js/web:Photographer', {
+                strategy: 'TakePhotosOfFailures'
+            } ],
+        ]
+    },
+
+    mochaOpts: {
+        require: [
+            // Optional, if you're using TypeScript
+            'ts-node/register',
+        ],
+        timeout: 10000,
+        // retries: 2       // auto-retry failed tests up to n times
+    },
+};
+```
+
+</TabItem>
+<TabItem value="protractor-conf-jasmine" label="Jasmine">
+
+```javascript title="protractor.conf.js"
+exports.config = {
+    // Disable Selenium promise manager
+    SELENIUM_PROMISE_MANAGER: false,
+
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    specs: [
+        './spec/*.spec.ts',     // If you're using TypeScript
+        // './spec/*.spec.js',  // If you're using JavaScript
+    ],
+
+    serenity: {
+        runner: 'jasmine',
+        crew: [
+            // Optional, print test execution results to standard output
+            '@serenity-js/console-reporter',
+
+            // Optional, produce Serenity BDD reports
+            // and living documentation (HTML)
+            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/core:ArtifactArchiver', {
+                outputDirectory: 'target/site/serenity'
+            } ],
+
+            // Optional, automatically capture screenshots
+            // upon interaction failure
+            [ '@serenity-js/web:Photographer', {
+                strategy: 'TakePhotosOfFailures'
+            } ],
+        ]
+    },
+
+    jasmineNodeOpts: {
+        requires: [
+            // Optional, if you're using TypeScript
+            'ts-node/register'
+        ],
+    },
+};
+```
+
+</TabItem>
+</Tabs>
+
+Learn more about:
+- [Serenity/JS Cucumber configuration options](/api/cucumber-adapter/interface/CucumberConfig/)
+and complete [`protractor.conf.js`](https://github.com/serenity-js/serenity-js-cucumber-protractor-template/blob/main/protractor.conf.js) for Cucumber projects
+- [Serenity/JS Jasmine configuration options](/api/jasmine-adapter/interface/JasmineConfig/)
+and complete [`protractor.conf.js`](https://github.com/serenity-js/serenity-js-jasmine-protractor-template/blob/main/protractor.conf.js) for Jasmine projects
+- [Serenity/JS Mocha configuration options](/api/mocha-adapter/interface/MochaConfig/)
+and complete [`protractor.conf.js`](https://github.com/serenity-js/serenity-js-mocha-protractor-template/blob/main/protractor.conf.js) for Mocha projects
+- [Protractor configuration file](https://github.com/angular/protractor/blob/master/lib/config.ts)
+
+## Producing Serenity BDD reports and living documentation
+
+[Serenity BDD reports and living documentation](https://serenity-bdd.github.io/docs/reporting/the_serenity_reports) are generated by [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-core/tree/main/serenity-cli),
+a Java program downloaded and managed by the [`@serenity-js/serenity-bdd`](/api/serenity-bdd/) module.
+
+To produce Serenity BDD reports, your test suite must:
+- download the Serenity BDD CLI, by calling `serenity-bdd update` which caches the CLI `jar` locally
+- produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#configuring-serenityjs)
+- invoke the Serenity BDD CLI when you want to produce the report, by calling `serenity-bdd run`
+
+The pattern used by all the [Serenity/JS Project Templates](/handbook/getting-started#serenityjs-project-templates) relies
+on using:
+- a [`postinstall`](https://docs.npmjs.com/cli/v9/using-npm/scripts#life-cycle-operation-order) NPM script to download the Serenity BDD CLI
+- [`npm-failsafe`](https://www.npmjs.com/package/npm-failsafe) to run the reporting process even if the test suite itself has failed (which is precisely when you need test reports the most...).
+- [`rimraf`](https://www.npmjs.com/package/rimraf) as a convenience method to remove any test reports left over from the previous run
+
+```json title="package.json"
+{
+  "scripts": {
+    "postinstall": "serenity-bdd update",
+    "clean": "rimraf target",
+    "test": "failsafe clean test:execute test:report",
+    "test:execute": "protractor ./protractor.conf.js",
+    "test:report": "serenity-bdd run"
+  }
+}
+```
+
+To learn more about the `SerenityBDDReporter`, please consult:
+- installation instructions in [`@serenity-js/serenity-bdd` documentation](/api/serenity-bdd/),
+- configuration examples in [`SerenityBDDReporter` API docs](/api/serenity-bdd/class/SerenityBDDReporter/),
+- [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples).
+
+## Using Serenity/JS Screenplay Pattern APIs
+
+The [Screenplay Pattern](/handbook/design/screenplay-pattern/) is an innovative, user-centred approach to writing high-quality automated acceptance tests. It steers you towards an effective use of layers of abstraction,
+helps your test scenarios capture the business vernacular of your domain, and encourages good testing and software engineering habits on your team.
+
+By default, when you register `@serenity-js/protractor` as your Protractor `framework`,
+Serenity/JS configures a default [cast](/api/core/class/Cast/) of [actors](/api/core/class/Actor/),
+where every actor can:
+- [`BrowseTheWebWithProtractor`](/api/protractor/class/BrowseTheWebWithProtractor/)
+- [`TakeNotes.usingAnEmptyNotepad()`](/api/core/class/TakeNotes/)
+
+This should be enough to help you get started with introducing test scenarios that follow the Screenplay Pattern even to an existing test suite, for example:
+
+```typescript title="specs/example.spec.ts"
+import 'jasmine'
+import { actorCalled } from '@serenity-js/core'
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+describe('My awesome website', () => {
+    it('can have test scenarios that follow the Screenplay Pattern', async () => {
+        await actorCalled('Alice').attemptsTo(
+            Navigate.to(`https://www.protractortest.org/`),
+            Ensure.that(
+                Page.current().title(),
+                equals(`Protractor - end-to-end testing for AngularJS`)
+            ),
+        )
+    })
+
+    it('can have non-Screenplay scenarios too', async () => {
+        await browser.get(`https://www.protractortest.org`)
+        await expect(browser.getTitle())
+            .toBe('Protractor - end-to-end testing for AngularJS')
+    })
+})
+```
+
+To learn more about the Screenplay Pattern, check out:
+- [The Screenplay Pattern](/handbook/design/screenplay-pattern/)
+- [Web testing with Serenity/JS](/handbook/web-testing/)
+- ["BDD in Action, Second Edition"](https://www.manning.com/books/bdd-in-action-second-edition)
+
+## Next steps
+
+Well done, your Protractor test suite is now integrated with Serenity/JS! 🎉🎉🎉
+
+To take things further, check out:
+- [Web testing with Serenity/JS](/handbook/web-testing/)
+- [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples/)
+- [Serenity/JS Protractor project templates](https://github.com/serenity-js?q=protractor-template&type=all&language=&sort=)
+- [Serenity/JS API docs](/api/web/)
+
+Remember, new features, tutorials, and demos are coming soon!
+Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
+subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
+Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
+[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+
