@@ -1,3 +1,4 @@
+
 module.exports = {
     // fromExtensions: [ 'html', 'htm' ], // /myPage.html -> /myPage
     // toExtensions: [ 'exe', 'zip' ], // /myAsset -> /myAsset.zip (if latter exists)
@@ -7,6 +8,11 @@ module.exports = {
         // { from: '/community/index.html',               to: '' },
         // { from: '/community/sponsors.html',            to: '' },
         // { from: '/support.html', to: '' },
+
+        { from: '/handbook/about/', to: '/handbook/getting-started/' },
+        { from: '/handbook/about/architecture/', to: '/handbook/getting-started/architecture' },
+        { from: '/handbook/about/installation/', to: '/handbook/getting-started/installation' },
+        { from: '/handbook/about/serenity-js-v3/', to: '/handbook/getting-started/upgrading-to-serenity-js-3' },
 
         // Serenity/JS v2 website
         {
@@ -37,13 +43,13 @@ module.exports = {
         { from: '/handbook/design/tasks.html', to: '/api/core/class/Task' },
         { from: '/handbook/design/the-trouble-with-test-scripts.html', to: '/handbook/design' },
 
-        { from: '/handbook/integration/architecture.html', to: '/handbook/about/architecture' },
-        { from: '/handbook/integration/installation.html', to: '/handbook/about/installation' },
+        { from: '/handbook/integration/architecture.html', to: '/handbook/getting-started/architecture' },
+        { from: '/handbook/integration/installation.html', to: '/handbook/getting-started/installation' },
         {
             from: '/handbook/integration/jira-and-other-issue-trackers.html',
             to: '/handbook/integration/jira-and-other-issue-trackers'
         },
-        { from: '/handbook/integration/runtime-dependencies.html', to: '/handbook/about/installation' },
+        { from: '/handbook/integration/runtime-dependencies.html', to: '/handbook/getting-started/installation' },
         { from: '/handbook/integration/serenityjs-and-cucumber.html', to: '/handbook/test-runners/cucumber' },
         { from: '/handbook/integration/serenityjs-and-jasmine.html', to: '/handbook/test-runners/jasmine' },
         { from: '/handbook/integration/serenityjs-and-mocha.html', to: '/handbook/test-runners/mocha' },
@@ -55,10 +61,10 @@ module.exports = {
                 '/handbook/integration/serenity-2-migration-guide.html',
                 '/handbook/release-notes/serenity-js-2.html',
                 '/handbook/release-notes/serenity-js-3.html'
-            ], to: '/handbook/about/serenity-js-v3'
+            ], to: '/handbook/getting-started/upgrading-to-serenity-js-3'
         },
 
-        { from: '/handbook/release-notes/versioning.html', to: '/handbook/about/versioning' },
+        { from: '/handbook/release-notes/versioning.html', to: '/handbook/getting-started/versioning' },
 
         { from: '/handbook/reporting/artifact-archiver.html', to: '/handbook/reporting/artifact-archiver' },
         { from: '/handbook/reporting/console-reporter.html', to: '/handbook/reporting/console-reporter' },
