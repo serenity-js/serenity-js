@@ -6,13 +6,13 @@ import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
 import type { Outcome } from '@serenity-js/core/lib/model/index.js';
 import { ExecutionIgnored } from '@serenity-js/core/lib/model/index.js';
 import type { Capabilities, Reporters } from '@wdio/types';
+import { EventEmitter } from 'events';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter/index.js';
 import type { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter/index.js';
 import type { WebdriverIOConfig } from '../../src/index.js';
-import EventEmitter = require('events');
 
 describe('WebdriverIOFrameworkAdapterFactory', () => {
 

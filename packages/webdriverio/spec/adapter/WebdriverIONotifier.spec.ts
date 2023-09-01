@@ -1,10 +1,11 @@
 /* eslint-disable unicorn/filename-case */
 import { expect } from '@integration/testing-tools';
 import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import type { Capabilities } from '@wdio/types';
-import type { Frameworks } from '@wdio/types';
+import type { Capabilities, Frameworks } from '@wdio/types';
+import { EventEmitter } from 'events';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
+import * as sinon from 'sinon';
 
 import { WebdriverIONotifier } from '../../src/adapter/WebdriverIONotifier.js';
 import type { WebdriverIOConfig } from '../../src/index.js';
@@ -33,8 +34,6 @@ import {
     testSuiteStarts,
     when,
 } from './fixtures.js';
-import EventEmitter = require('events');
-import sinon = require('sinon');
 
 describe('WebdriverIONotifier', () => {
 
@@ -49,10 +48,10 @@ describe('WebdriverIONotifier', () => {
     const configSandbox = sinon.createSandbox();
 
     let config: Partial<WebdriverIOConfig> & {
-        beforeSuite:    sinon.SinonSpy<[suite: Frameworks.Suite], void>,
-        beforeTest:     sinon.SinonSpy<[test: Frameworks.Test, context: any], void>,
-        afterTest:      sinon.SinonSpy<[test: Frameworks.Test, context: any, result: Frameworks.TestResult], void>,
-        afterSuite:     sinon.SinonSpy<[suite: Frameworks.Suite], void>,
+        beforeSuite: sinon.SinonSpy<[ suite: Frameworks.Suite ], void>,
+        beforeTest: sinon.SinonSpy<[ test: Frameworks.Test, context: any ], void>,
+        afterTest: sinon.SinonSpy<[ test: Frameworks.Test, context: any, result: Frameworks.TestResult ], void>,
+        afterSuite: sinon.SinonSpy<[ suite: Frameworks.Suite ], void>,
     }
 
     let notifier: WebdriverIONotifier,
@@ -66,10 +65,10 @@ describe('WebdriverIONotifier', () => {
         const interactionTimeout = Duration.ofSeconds(2);
 
         config = {
-            beforeSuite:    configSandbox.spy() as sinon.SinonSpy<[suite: Frameworks.Suite], void>,
-            beforeTest:     configSandbox.spy() as sinon.SinonSpy<[test: Frameworks.Test, context: any], void>,
-            afterTest:      configSandbox.spy() as sinon.SinonSpy<[test: Frameworks.Test, context: any, result: Frameworks.TestResult], void>,
-            afterSuite:     configSandbox.spy() as sinon.SinonSpy<[suite: Frameworks.Suite], void>,
+            beforeSuite: configSandbox.spy() as sinon.SinonSpy<[ suite: Frameworks.Suite ], void>,
+            beforeTest: configSandbox.spy() as sinon.SinonSpy<[ test: Frameworks.Test, context: any ], void>,
+            afterTest: configSandbox.spy() as sinon.SinonSpy<[ test: Frameworks.Test, context: any, result: Frameworks.TestResult ], void>,
+            afterSuite: configSandbox.spy() as sinon.SinonSpy<[ suite: Frameworks.Suite ], void>,
         }
 
         reporter = sinon.createStubInstance(EventEmitter);
@@ -101,7 +100,7 @@ describe('WebdriverIONotifier', () => {
 
     describe('failureCount()', () => {
 
-        given([{
+        given([ {
             description: 'no scenarios',
             expectedFailureCount: 0,
             events: []
@@ -137,7 +136,7 @@ describe('WebdriverIONotifier', () => {
                 scene2Starts,
                 scene2FinishedWith(executionFailedWithError)
             ]
-        }]).it('returns the number of scenarios that failed', ({ events, expectedFailureCount }) => {
+        } ]).it('returns the number of scenarios that failed', ({ events, expectedFailureCount }) => {
             when(notifier).receives(
                 testRunStarts,
                 ...events,
@@ -149,13 +148,13 @@ describe('WebdriverIONotifier', () => {
         });
 
         given([
-            { description: 'successful',        expectedFailureCount: 0, outcome: executionSuccessful },
-            { description: 'skipped',           expectedFailureCount: 0, outcome: executionSkipped },
-            { description: 'ignored',           expectedFailureCount: 0, outcome: executionIgnored },
-            { description: 'pending',           expectedFailureCount: 1, outcome: implementationPending },
+            { description: 'successful', expectedFailureCount: 0, outcome: executionSuccessful },
+            { description: 'skipped', expectedFailureCount: 0, outcome: executionSkipped },
+            { description: 'ignored', expectedFailureCount: 0, outcome: executionIgnored },
+            { description: 'pending', expectedFailureCount: 1, outcome: implementationPending },
             { description: 'assertion failure', expectedFailureCount: 1, outcome: executionFailedWithAssertionError },
-            { description: 'error',             expectedFailureCount: 1, outcome: executionFailedWithError },
-            { description: 'compromised',       expectedFailureCount: 1, outcome: executionCompromised },
+            { description: 'error', expectedFailureCount: 1, outcome: executionFailedWithError },
+            { description: 'compromised', expectedFailureCount: 1, outcome: executionCompromised },
         ]).it('counts results above the success threshold as successful', ({ expectedFailureCount, outcome }) => {
             when(notifier).receives(
                 testRunStarts,
@@ -456,7 +455,7 @@ describe('WebdriverIONotifier', () => {
 
             it('invokes beforeSuite when TestSuiteStarts', () => {
 
-                expect(config.beforeSuite.getCalls().map(_ => _.args)).to.deep.equal([[{
+                expect(config.beforeSuite.getCalls().map(_ => _.args)).to.deep.equal([ [ {
                     type: 'suite:start',
                     uid: 'suite-0',
                     cid: '0-0',
@@ -466,7 +465,7 @@ describe('WebdriverIONotifier', () => {
                     file: 'payments/checkout.feature',
                     specs: [ '/users/jan/project/feature.spec.ts' ],
                     pending: false
-                }], [{
+                } ], [ {
                     type: 'suite:start',
                     uid: 'suite-1',
                     cid,
@@ -476,12 +475,12 @@ describe('WebdriverIONotifier', () => {
                     file: 'payments/checkout.feature',
                     specs,
                     pending: false
-                }]]);
+                } ] ]);
             });
 
             it('invokes afterSuite when TestSuiteFinished', () => {
 
-                expect(config.afterSuite.getCalls().map(_ => _.args)).to.deep.equal([[{
+                expect(config.afterSuite.getCalls().map(_ => _.args)).to.deep.equal([ [ {
                     type: 'suite:end',
                     uid: 'suite-1',
                     cid,
@@ -492,7 +491,7 @@ describe('WebdriverIONotifier', () => {
                     specs,
                     pending: false,
                     duration: 500
-                }], [{
+                } ], [ {
                     type: 'suite:end',
                     uid: 'suite-0',
                     cid,
@@ -503,7 +502,7 @@ describe('WebdriverIONotifier', () => {
                     specs,
                     pending: false,
                     duration: 500
-                }]]);
+                } ] ]);
             });
 
             it('invokes beforeTest when SceneStarts', () => {
@@ -512,14 +511,14 @@ describe('WebdriverIONotifier', () => {
                 expect(config.beforeTest.getCalls().map(_ => _.args)).to.deep.equal([
                     [
                         {
-                            ctx:        expectedContext,
-                            file:       'payments/checkout.feature',
-                            fullName:   'Checkout Credit card payment Paying with a default card',
-                            fullTitle:  'Checkout Credit card payment Paying with a default card',
-                            parent:     'Credit card payment',
-                            pending:    false,
-                            title:      'Paying with a default card',
-                            type:       'test',
+                            ctx: expectedContext,
+                            file: 'payments/checkout.feature',
+                            fullName: 'Checkout Credit card payment Paying with a default card',
+                            fullTitle: 'Checkout Credit card payment Paying with a default card',
+                            parent: 'Credit card payment',
+                            pending: false,
+                            title: 'Paying with a default card',
+                            type: 'test',
                         },
                         expectedContext,
                     ],
