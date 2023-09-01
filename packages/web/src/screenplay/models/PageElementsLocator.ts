@@ -7,7 +7,7 @@ import type { PageElement } from './PageElement';
 import type { Selector } from './selectors';
 
 /**
- * @package
+ * @group Models
  */
 export class PageElementsLocator<Native_Element_Type = any>
     extends Question<Promise<Array<PageElement<Native_Element_Type>>>>
