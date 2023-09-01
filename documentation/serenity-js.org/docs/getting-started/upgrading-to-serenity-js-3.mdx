@@ -1,24 +1,34 @@
 ---
-sidebar_position: 4
+sidebar_position: 9
+title: Upgrading to Serenity/JS 3
 ---
 
-# What's new in Serenity/JS v3
+# Upgrading to Serenity/JS 3
 
 Serenity/JS 3.0 introduces a number of new features while aiming to retain backwards compatibility of most of the core APIs.
 
-The latest Release Candidate (RC) is already [available on NPM](https://www.npmjs.com/package/@serenity-js/core) and this guide
-will help you get started and highlight notable differences from Serenity/JS version 2.
+Serenity/JS 3 is [available on NPM](https://www.npmjs.com/package/@serenity-js/core) and this guide
+will help you get started and highlight notable differences from Serenity/JS 2.
 
-We've already migrated several of the popular [Serenity/JS templates](https://github.com/serenity-js?q=template&type=all&language=&sort=), and you'll find code using the new Serenity/JS APIs on the `main` branch (the old `2.x` branch still contains Serenity/JS 2 code):
+All the [Serenity/JS Project Templates](/handbook/getting-started/project-templates/) are migrated to Serenity/JS 3.
+You'll find code using the new Serenity/JS APIs on the `main` branch while the `2.x` branch still contains Serenity/JS 2
+code for comparison:
 - [serenity-js-cucumber-webdriverio-template](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template/tree/main) ([see diff](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template/compare/2.x...main))
 - [serenity-js-mocha-webdriverio-template](https://github.com/serenity-js/serenity-js-mocha-webdriverio-template/tree/main) ([see diff](https://github.com/serenity-js/serenity-js-mocha-webdriverio-template/compare/2.x...main))
 
 
-## Portable Web Tests
+## Universal Web Testing Façade and Portable Test Code
 
-The most significant change in the Web testing space is the introduction of the [`@serenity-js/web`](https://github.com/serenity-js/serenity-js/tree/main/packages/web) module and numerous features that help your tests become portable across the different test integration tools (such as Protractor, WebdriverIO, Puppeteer, etc.)
+The most significant change in the Web testing space is the introduction of the universal web testing façade - [`@serenity-js/web`](https://github.com/serenity-js/serenity-js/tree/main/packages/web),
+and numerous features that help your tests become portable across the different test integration tools,
+such as Protractor, WebdriverIO, Playwright, Puppeteer, and so on.
 
-The new module contains all the Web-related interactions and questions, while the integration-tool specific modules such as [`@serenity-js/protractor`](https://github.com/serenity-js/serenity-js/tree/main/packages/protractor) and [`@serenity-js/webdriverio`](https://github.com/serenity-js/serenity-js/tree/main/packages/webdriverio) contain only tool-specific models and abilities. This change will help your test code be much more portable between the different integration tools, and will also help us significantly reduce the effort of introducing new integrations (with [support for Playwright](https://github.com/serenity-js/serenity-js/pull/911) already in the works).
+The new module contains all the Web-related interactions and questions,
+while the integration-tool specific modules such as [`@serenity-js/playwright`](/api/playwright),
+[`@serenity-js/protractor`](/api/protractor) and
+[`@serenity-js/webdriverio`](/api/webdriverio) contain only tool-specific models and abilities.
+This change will help your test code be much more portable between the different integration tools,
+and will also help us significantly reduce the effort of introducing new integrations.
 
 To see what the changes look like in practice, have a look at the TodoMVC tests implemented using:
 - [Serenity/JS 3.x](https://github.com/serenity-js/serenity-js/tree/main/examples/webdriverio-mocha-todomvc)
@@ -80,7 +90,7 @@ export class Actors implements Cast {
 }
 ```
 
-However, you might not need to a custom cast of actors at all! Serenity/JS now provides you a default one.
+However, you might not need to a custom cast of actors at all! **Serenity/JS now provides you a default one**.
 
 ### Default cast of actors
 
@@ -200,7 +210,9 @@ To see the new [`PageElement`](/api/web/class/PageElement) and [`PageElements`](
 check out the section on [Page Element Query Language](/handbook/web-testing/page-element-query-language)
 and have a look at the [PageElements patterns spec](https://github.com/serenity-js/serenity-js/blob/main/integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts) on GitHub.
 
+:::info Want more docs?
 If you'd like to see more tutorials or a screencast on this topic, let me know in the comments section below 👇👇👇
+:::
 
 ## Taking Notes
 
@@ -596,3 +608,19 @@ await actorCalled('Bernie').attemptsTo(
   // automatically switch back to the original window
 )
 ```
+
+## Your feedback matters!
+
+If you like Serenity/JS, [give it a ⭐ star on GitHub](https://github.com/serenity-js/serenity-js) and tell your friends about it!
+For questions about Serenity/JS, check out [Serenity/JS Q'n'A](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+and make sure to join our [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to say hi 👋
+
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Serenity%2FJS-Q'n'A-FBD30B?logo=github)](https://matrix.to/#/#serenity-js:gitter.im)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+
+New tutorials and videos are coming soon, follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+
+[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
+[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity--js-E62117?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)

@@ -1,20 +1,28 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
+title: Semantic versioning
 ---
 
-# Versioning
+# Semantic Versioning
 
-Serenity/JS complies with [Semantic Versioning 2.0.0](https://semver.org/), with release versions [determined automatically](/contributing#conventional-commits-and-automated-releases) based on the changes introduced to the `master` branch since the most recent release.
+Serenity/JS complies with [Semantic Versioning 2.0.0](https://semver.org/),
+with release versions [determined automatically](/contributing#conventional-commits-and-automated-releases) based on the changes
+introduced to the [`main` branch](https://github.com/serenity-js/serenity-js/tree/main) since the most recent release.
 
 All [Serenity/JS modules](/handbook/about/architecture) are released together, even if not all of them have changed in a given release.
 This is to make it easier for you to stay up to date without having to worry about any compatibility issues between the framework's modules.
 
 ## Release cadence
 
-New minor and patch versions of Serenity/JS modules are typically released [at least once per month](/changelog).
-The easiest way to stay up to date with the latest features and bug fixes is to always use the latest version of Serenity/JS modules.
+New minor and patch versions of Serenity/JS modules are typically released [at least once per month](/changelog),
+but typically more frequently to help ensure the framework is up-to-date
+with any [security fixes](https://snyk.io/test/github/serenity-js/serenity-js) and patches to its dependencies
 
-To do that, set the required version of each Serenity/JS module to `3.x` in your `package.json` file, for example:
+:::info Stay up to date!
+The easiest way to stay up to date with the latest features and bug fixes is to **always use the latest version of your chosen Serenity/JS modules**.
+:::
+
+To stay up to date, set the required version of each Serenity/JS module to `3.x` in your `package.json` file, for example:
 
 ```json title="package.json"
 {
@@ -53,3 +61,19 @@ When a new experimental API is introduced to the framework, a ticket marked as [
 Please be aware that experimental APIs might change or get removed without prior notice and without affecting the major version number of the Serenity/JS framework.
 
 You can [watch](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository) the [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js) repository to be notified of experimental APIs.
+
+## Your feedback matters!
+
+If you like Serenity/JS, [give it a ⭐ star on GitHub](https://github.com/serenity-js/serenity-js) and tell your friends about it!
+For questions about Serenity/JS, check out [Serenity/JS Q'n'A](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
+and make sure to join our [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to say hi 👋
+
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js)](https://github.com/serenity-js/serenity-js)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Serenity%2FJS-Q'n'A-FBD30B?logo=github)](https://matrix.to/#/#serenity-js:gitter.im)
+[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
+
+New tutorials and videos are coming soon, follow us on [LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+
+[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
+[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity--js-E62117?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
