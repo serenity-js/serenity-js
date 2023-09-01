@@ -5,6 +5,10 @@ title: Using with Protractor
 
 # Using Serenity/JS with Protractor
 
+```mdx-code-block
+import CurrentNodeVersion from '@site/src/components/CurrentNodeVersion'
+```
+
 Serenity/JS offers excellent support for **Protractor**!
 Plus, it accommodates both classic Protractor tests and Serenity/JS [Screenplay Pattern scenarios](/handbook/design/screenplay-pattern/),
 allowing you to migrate to Screenplay gradually,
@@ -302,6 +306,238 @@ To learn more about the Screenplay Pattern, check out:
 - [The Screenplay Pattern](/handbook/design/screenplay-pattern/)
 - [Web testing with Serenity/JS](/handbook/web-testing/)
 - ["BDD in Action, Second Edition"](https://www.manning.com/books/bdd-in-action-second-edition)
+
+## Migrating from Protractor to Serenity/JS
+
+Serenity/JS accommodates both classic Protractor tests and Serenity/JS [Screenplay Pattern scenarios](/handbook/design/screenplay-pattern/),
+allowing you to migrate to Screenplay gradually while **keeping your existing test suites working** and providing value to your organisation
+during the migration. With Serenity/JS, there's **no need for a big-bang rewrite**!
+
+If you have an existing Protractor test suite and want to upgrade to a more modern web integration tool like Playwright or WebdriverIO, you'll need to:
+- Upgrade your Node.js to the latest [Long-Term Support (LTS)](https://github.com/nodejs/Release) version, such as <strong><CurrentNodeVersion /></strong>
+- Install [Serenity/JS dependencies](/handbook/getting-started/serenity-js-with-protractor/#installing-serenityjs) for Protractor,
+as well as [Java Runtime Environment](/handbook/getting-started/installation/#installing-java-runtime-environment-jre) if you'd like to use
+[Serenity BDD](/handbook/reporting/serenity-bdd-reporter/) reports
+- Migrate your existing Protractor tests to use [Serenity/JS Screenplay Pattern web APIs](/api/web/), which you can do gradually while keeping the remaining scenarios working
+- When all your test scenarios are using [Serenity/JS Screenplay Pattern web APIs](/api/web/) and there are no Protractor API calls left,
+introduce [Playwright](/handbook/getting-started/serenity-js-with-playwright-test/) or [WebdriverIO](/handbook/getting-started/serenity-js-with-webdriverio/) to ensure
+your migrated scenarios work with the new integration library
+- Remove Protractor dependencies and enjoy your modernised test suite!
+
+:::tip Migrate or rewrite?
+Migrating existing Protractor test scenarios to follow the Serenity/JS Screenplay Pattern can be a big undertaking, depending on the size, complexity, and stability of your current test suite.
+
+When migrating to Serenity/JS, start with the easy scenarios so that you can focus the first steps of your migration on making sure your
+[continuous integration](/handbook/integration/) and [reporting infrastructure](/handbook/reporting/) work reliably.
+This way you'll build a stable foundation upon which you can migrate the more complex tests.
+
+Remember, if your current Protractor test suite is reasonably stable, still works and provides value, there's no need for a risky big bang rewrite
+as you can migrate it one scenario at a time while keeping the existing tests working.
+However, if your current Protractor test suite _doesn't work_ and you'd rather delete it than migrate it, you might prefer to start from scratch and use Serenity/JS with [Playwright](/handbook/getting-started/serenity-js-with-playwright-test/) or [WebdriverIO](/handbook/getting-started/serenity-js-with-webdriverio/) straight away.
+The choice is yours and Serenity/JS will support you either way.
+:::
+
+### Locating elements
+
+To identify web elements with Serenity/JS you use the [Page Element Query Language](/handbook/web-testing/page-element-query-language/).
+
+In short:
+- [`PageElement`](/api/web/class/PageElement/) represents a single HTML element,
+- [`PageElements`](/api/web/class/PageElements/) represent a collection of HTML elements and lets you filter it based on your criteria.
+- [`By`](/api/web/class/PageElements/) represents portable locators used to identify the elements,
+
+For example, to identify an element `<h1 id="title">My article</h1>` in plain Protractor you'd say:
+```typescript
+element(by.css('h1.title'))
+```
+Serenity/JS has a similar construct and allows you to specify a description to be used when reporting interactions
+with the element:
+```typescript
+import { By, PageElement } from '@serenity-js/web'
+
+PageElement.located(By.css('h1.title'))
+```
+However, Serenity/JS also allows you to specify a human-readable description to be used when reporting interactions
+with the element:
+
+```typescript
+import { By, PageElement } from '@serenity-js/web'
+
+PageElement.located(By.css('h1.title'))
+    .describedAs('article title')
+```
+
+The below table shows how you can translate common Protractor [element finder expressions](https://www.protractortest.org/#/locators#locators)
+to Serenity/JS page element expressions:
+
+| Protractor                                           | Serenity/JS                                                                                                                                                                              |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `element(by.css('.selector'))`                       | `PageElement.located(By.css('...'))`                                                                                                                                                     |
+| `element(by.id('...'))`                              | `PageElement.located(By.id('...'))`                                                                                                                                                      |
+| `element(by.xpath('...'))`                           | `PageElement.located(By.xpath('...'))`                                                                                                                                                   |
+| `element(by.model('...'))`                           | `PageElement.located(By.css('[ng-model="..."]'))`                                                                                                                                        |
+| `element(by.repeater('...'))`                        | `PageElement.located(By.css('[ng-repeat="..."]'))`                                                                                                                                       |
+| `element(by.cssContainingText('.selector', 'text'))` | `PageElement.located(By.cssContainingText('.selector', 'text'))`<br />or for greater flexibility:<br />`PageElements.located(By.css('.selector')).where(Text, includes('text')).first()` |
+| `element(by.buttonText('Submit'))`                   | `PageElements.located(By.css('button')).where(Text, equals('Submit')).first()`                                                                                                           |
+| `element.all`                                        | `PageElements.located(By.css('...'))`                                                                                                                                                    |
+
+Note how with Serenity/JS you can easily express complex queries using intuitive syntax.
+For example, you can locate the [last](/api/web/class/PageElements/#last) `<button />` which text meets some [expectation](/api/core/class/Expectation/):
+
+```typescript
+import { By, PageElements, Text } from '@serenity-js/web'
+import { equals } from '@serenity-js/assertions'
+
+PageElements.located(By.css('button'))
+    .where(Text, equals('Submit'))
+    .last()
+```
+
+You can also create aliases for expressions you use frequently:
+
+```typescript
+import { By, PageElements, Text } from '@serenity-js/web'
+import { equals } from '@serenity-js/assertions'
+
+const approveButton = () =>
+    PageElements.located(By.css('button'))
+        .where(Text, equals('Approve'))
+        .first()
+```
+
+You can also [compose page elements](/handbook/web-testing/page-element-query-language/#composing-page-elements-using-meta-questions) and make them reusable:
+
+```typescript
+import { actorCalled, Expectation } from '@serenity-js/core'
+import { equals } from '@serenity-js/assertions'
+import { By, Click, PageElement, PageElements } from '@serenity-js/web'
+
+const clientNameField = () =>
+    PageElement.located(By.css('[data-test-id="client-name"]'))
+        .describedAs('client name field')
+
+const invoiceRecordForClientWhereName = (expectation: Expectation<string>) =>
+    PageElements.located(By.css('li.invoice'))
+        .where(Text.of(clientNameField()), expectation)
+        .first()
+
+await actorCalled('Alice').attemptsTo(
+    Click.on(
+        approveButton().of(invoiceRecordForClientWhereName(equals('Acme')))
+    )
+)
+```
+
+Learn more:
+- [Page Element Query Language](/handbook/web-testing/page-element-query-language/)
+
+### Retrieving information
+
+To retrieve information about the current web page, use [`Page.current()`](/api/web/class/Page/). For example:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, endsWith, equals } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+await actorCalled('Amanda').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Ensure.that(
+        Page.current().title(),
+        endsWith('Serenity/JS')
+    ),
+    Ensure.that(
+        Page.current().url().href,
+        equals('https://serenity-js.org')
+    ),
+)
+```
+
+| Protractor                | Serenity/JS                 |
+|---------------------------|-----------------------------|
+| `browser.getCurrentUrl()` | `Page.current().url().href` |
+| `browser.getTitle()`      | `Page.current().title()`    |
+
+To retrieve information about a page element, use [Serenity/JS web questions](/api/web/):
+
+| Protractor                                                                                                                             | Serenity/JS                                                                                           | Notes                                                                                             |
+|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| [`element(by.id('...')).getAttribute('class')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`CssClasses.of(pageElement)`](/api/web/class/CssClasses/)                                            | Serenity/JS returns an array of CSS classes to make assertions easier, instead of a single string |
+| [`element(by.id('...')).getAttribute('value')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`Value.of(pageElement)`](/api/web/class/Value/)                                                      | Serenity/JS has a dedicated question for retrieving the `value` attribute of `<input />` elements |
+| [`element(by.id('...')).getText()`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getText)                  | [`Text.of(pageElement)`](/api/web/class/Text/) and [`Text.ofAll(pageElements)`](/api/web/class/Text/) | Serenity/JS makes it easier to retrieve text content of all elements in a collection              |
+
+### Performing interactions
+
+To interact with a web page or a page element, instruct an [actor](/handbook/design/screenplay-pattern/#actors) to perform
+a desired [interaction](/handbook/design/screenplay-pattern/#interactions).
+Note that Serenity/JS also consistently models all [assertion](/handbook/design/assertions/), [synchronisation](/handbook/design/waiting-and-synchronisation/)
+[logging](/handbook/design/logging/), [debugging](//handbook/design/debugging/), and [control flow](/handbook/design/control-flow/) statements as interactions too.
+
+For example, to navigate to a page, click on a button and perform an assertion, you could say:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { By, Click, Navigate, PageElement } from '@serenity-js/web'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+const startAutomatingButton = () =>
+    PageElement.located(By.cssContainingText('.button', 'Start automating'))
+        .describedAs('"Start automating" button')
+
+await actorCalled('Amanda').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Click.on(startAutomatingButton()),
+    Ensure.that(
+        Page.current().url().path,
+        equals('/handbook/web-testing/your-first-web-scenario/')
+    )
+)
+```
+
+Note that one of Serenity/JS super-powers is the ability to compose
+interactions into [tasks](/handbook/design/screenplay-pattern/#tasks) to make them reusable:
+
+```typescript
+import { actorCalled, Task } from '@serenity-js/core'
+import { By, Click, Navigate, PageElement } from '@serenity-js/web'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+// ...
+
+const startTutorial = () =>
+    Task.where(`#actor starts the Serenity/JS tutorial`,
+        Click.on(startAutomatingButton()),
+        Ensure.that(
+            Page.current().url().path,
+            equals('/handbook/web-testing/your-first-web-scenario/')
+        )
+    )
+
+await actorCalled('Amanda').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    startTutorial(),
+)
+```
+
+| Protractor                        | Serenity/JS                                                     |
+|-----------------------------------|-----------------------------------------------------------------|
+| `element(locator).click()`        | [Click.on(pageElement)](/api/web/class/Click/)                  |
+| `element(locator).clear()`        | [Clear.theValueOf(pageElement)](/api/web/class/Clear/)          |
+| `element(locator).sendKeys(text)` | [Enter.theValue(text).into(pageElement)](/api/web/class/Enter/) |
+
+
+### Waiting and synchronisation
+
+To express a [synchronisation statement](/handbook/design/waiting-and-synchronisation/),
+use [`Wait.until`](/api/core/class/Wait/)
+or [`Ensure.eventually`](/api/assertions/class/Ensure/#eventually).
+
+| Protractor                       | Serenity/JS                                                                   |
+|----------------------------------|-------------------------------------------------------------------------------|
+| `element(locator).isPresent()`   | [`Wait.until(pageElement, isPresent())`](/api/assertions/function/isPresent/) |
+| `element(locator).isEnabled()`   | [`Wait.until(pageElement, isEnabled())`](/api/web/function/isEnabled/)        |
+| `element(locator).isSelected()`  | [`Wait.until(pageElement, isSelected())`](/api/web/function/isSelected/)      |
+| `element(locator).isDisplayed()` | [`Wait.until(pageElement, isVisible())`](/api/web/function/isVisible/)        |
 
 ## Next steps
 
