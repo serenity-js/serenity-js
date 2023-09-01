@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.1](https://github.com/serenity-js/serenity-js/compare/v3.10.0...v3.10.1) (2023-09-01)
+
+
+### Bug Fixes
+
+* **core:** use module: es2020 instead of Node16 to avoid issue nrwl/nx[#18801](https://github.com/serenity-js/serenity-js/issues/18801) ([935e655](https://github.com/serenity-js/serenity-js/commit/935e655a9a707ed8c97797e8b1bfab4e806c984c))
+* **deps:** update dependency which to v4 ([592c3e1](https://github.com/serenity-js/serenity-js/commit/592c3e19764632e56528dbffff41f975db3e9528))
+* **deps:** update website dependencies ([04b33b5](https://github.com/serenity-js/serenity-js/commit/04b33b579ed8e501fd2037e7b218bc72ad8271d2))
+* **webdriverio:** use Node16 module loader ([105be09](https://github.com/serenity-js/serenity-js/commit/105be094af2050e6ec3ae4dbb9768b8d372a5cef))
+
+
+
+
+
 # [3.10.0](https://github.com/serenity-js/serenity-js/compare/v3.9.1...v3.10.0) (2023-08-23)
 
 
