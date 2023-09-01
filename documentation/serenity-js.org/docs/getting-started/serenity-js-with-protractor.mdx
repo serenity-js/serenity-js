@@ -22,6 +22,8 @@ you can use Serenity/JS as an abstraction layer that allows you to gradually mig
 to follow the [Screenplay Pattern](/handbook/design/screenplay-pattern/),
 and then swap out Protractor for a more modern integration tool.
 All this while keeping your test suites working all the time!
+
+Check out the [Protractor migration guide](/handbook/getting-started/serenity-js-with-protractor/#migrating-from-protractor-to-serenityjs) below 👇👇👇
 :::
 
 
@@ -572,7 +574,9 @@ In many ways, [WebdriverIO](https://webdriver.io/) is very similar to Protractor
 - it integrates with the same test runners, such as [Cucumber, Mocha, and Jasmine](https://webdriver.io/docs/frameworks/)
 - it works well with [Serenity/JS](https://webdriver.io/docs/frameworks/#using-serenityjs)
 - it works with local browsers and remote Selenium Grids
-- its [configuration file] follows a similar structure
+- it supports multi-tab and multi-window test scenarios
+- it supports mobile testing
+- its [configuration file](https://webdriver.io/docs/configuration) follows a similar structure
 
 Once you've migrated your test scenarios to follow the Screenplay Pattern and there are no Protractor API calls left
 in your code, follow WebdriverIO Protractor migration guide to:
@@ -606,6 +610,9 @@ Once your test suite works, remove Protractor and its related Serenity/JS module
 npm uninstall protractor @serenity-js/protractor --save
 ```
 
+Learn more:
+- [Serenity/JS WebdriverIO Test Runner Adapter](/handbook/test-runners/webdriverio/)
+
 ## Next steps
 
 Well done, your Protractor test suite is now integrated with Serenity/JS! 🎉🎉🎉
@@ -626,4 +633,6 @@ Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
 
-If you spotted any errors in Serenity/JS docs, please submit a patch using the `Edit this page` link below.
+If you have found any errors in Serenity/JS documentation, feel free to submit a fix using the `Edit this page` button below,
+and if you'd like to see more examples of using Serenity/JS with Protractor or have questions about the migration - let us
+know in the comments 👇👇👇
