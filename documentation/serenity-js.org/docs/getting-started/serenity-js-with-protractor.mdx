@@ -326,6 +326,8 @@ your migrated scenarios work with the new integration library
 
 :::tip Migrate or rewrite?
 Migrating existing Protractor test scenarios to follow the Serenity/JS Screenplay Pattern can be a big undertaking, depending on the size, complexity, and stability of your current test suite.
+Not to mention that every team has a slightly different Protractor setup and uses the tool in different ways, which makes automating the migration process
+challenging.
 
 When migrating to Serenity/JS, start with the easy scenarios so that you can focus the first steps of your migration on making sure your
 [continuous integration](/handbook/integration/) and [reporting infrastructure](/handbook/reporting/) work reliably.
@@ -393,7 +395,7 @@ PageElements.located(By.css('button'))
     .last()
 ```
 
-You can also create aliases for expressions you use frequently:
+You can create aliases for expressions you use frequently:
 
 ```typescript
 import { By, PageElements, Text } from '@serenity-js/web'
@@ -405,7 +407,7 @@ const approveButton = () =>
         .first()
 ```
 
-You can also [compose page elements](/handbook/web-testing/page-element-query-language/#composing-page-elements-using-meta-questions) and make them reusable:
+And you can also [compose page elements](/handbook/web-testing/page-element-query-language/#composing-page-elements-using-meta-questions), making them reusable:
 
 ```typescript
 import { actorCalled, Expectation } from '@serenity-js/core'
@@ -433,7 +435,14 @@ Learn more:
 
 ### Retrieving information
 
-To retrieve information about the current web page, use [`Page.current()`](/api/web/class/Page/). For example:
+To retrieve information about the current web page, use [`Page.current()`](/api/web/class/Page/).
+
+| Protractor                | Serenity/JS                 |
+|---------------------------|-----------------------------|
+| `browser.getCurrentUrl()` | `Page.current().url().href` |
+| `browser.getTitle()`      | `Page.current().title()`    |
+
+For example, to navigate to a page and then assert on its [title](/api/web/class/Page/#title) and [URL](/api/web/class/Page/#url) you can say:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
@@ -453,18 +462,33 @@ await actorCalled('Amanda').attemptsTo(
 )
 ```
 
-| Protractor                | Serenity/JS                 |
-|---------------------------|-----------------------------|
-| `browser.getCurrentUrl()` | `Page.current().url().href` |
-| `browser.getTitle()`      | `Page.current().title()`    |
-
 To retrieve information about a page element, use [Serenity/JS web questions](/api/web/):
 
-| Protractor                                                                                                                             | Serenity/JS                                                                                           | Notes                                                                                             |
-|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| [`element(by.id('...')).getAttribute('class')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`CssClasses.of(pageElement)`](/api/web/class/CssClasses/)                                            | Serenity/JS returns an array of CSS classes to make assertions easier, instead of a single string |
-| [`element(by.id('...')).getAttribute('value')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`Value.of(pageElement)`](/api/web/class/Value/)                                                      | Serenity/JS has a dedicated question for retrieving the `value` attribute of `<input />` elements |
-| [`element(by.id('...')).getText()`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getText)                  | [`Text.of(pageElement)`](/api/web/class/Text/) and [`Text.ofAll(pageElements)`](/api/web/class/Text/) | Serenity/JS makes it easier to retrieve text content of all elements in a collection              |
+| Protractor                                                                                                                             | Serenity/JS                                                                                           | Notes                                                                                                                   |
+|----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| [`element(by.id('...')).getAttribute('class')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`CssClasses.of(pageElement)`](/api/web/class/CssClasses/)                                            | Serenity/JS returns an array of CSS classes to make assertions easier, instead of a single string like plain Protractor |
+| [`element(by.id('...')).getAttribute('value')`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getAttribute) | [`Value.of(pageElement)`](/api/web/class/Value/)                                                      | Serenity/JS has a dedicated question for retrieving the `value` attribute of `<input />` elements                       |
+| [`element(by.id('...')).getText()`](https://www.protractortest.org/#/api?view=webdriver.WebElement.prototype.getText)                  | [`Text.of(pageElement)`](/api/web/class/Text/) and [`Text.ofAll(pageElements)`](/api/web/class/Text/) | Serenity/JS makes it easier to retrieve text content of all elements in a collection                                    |
+
+For example, to navigate to a page and assert on the CSS classes of an element, you could say:
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { By, CssClasses, Navigate, PageElement } from '@serenity-js/web'
+import { Ensure, include } from '@serenity-js/assertions'
+
+const startAutomatingButton = () =>
+    PageElement.located(By.cssContainingText('.button', 'Start automating'))
+        .describedAs('"Start automating" button')
+
+await actorCalled('Amanda').attemptsTo(
+    Navigate.to('https://serenity-js.org'),
+    Ensure.that(
+        CssClasses.of(startAutomatingButton()),
+        include('button--primary')
+    ),
+)
+```
 
 ### Performing interactions
 
@@ -477,7 +501,7 @@ For example, to navigate to a page, click on a button and perform an assertion, 
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { By, Click, Navigate, PageElement } from '@serenity-js/web'
+import { By, Click, Navigate, Page, PageElement } from '@serenity-js/web'
 import { Ensure, equals } from '@serenity-js/assertions'
 
 const startAutomatingButton = () =>
@@ -495,11 +519,12 @@ await actorCalled('Amanda').attemptsTo(
 ```
 
 Note that one of Serenity/JS super-powers is the ability to compose
-interactions into [tasks](/handbook/design/screenplay-pattern/#tasks) to make them reusable:
+interactions into [tasks](/handbook/design/screenplay-pattern/#tasks), like `startTutorial()` below,
+which makes your code easy to share and reuse:
 
 ```typescript
 import { actorCalled, Task } from '@serenity-js/core'
-import { By, Click, Navigate, PageElement } from '@serenity-js/web'
+import { Click, Navigate, Page } from '@serenity-js/web'
 import { Ensure, equals } from '@serenity-js/assertions'
 
 // ...
@@ -518,6 +543,8 @@ await actorCalled('Amanda').attemptsTo(
     startTutorial(),
 )
 ```
+
+Below table shows how you can replace Protractor-specific API calls with [Serenity/JS web interactions](/api/web/#Index):
 
 | Protractor                        | Serenity/JS                                                     |
 |-----------------------------------|-----------------------------------------------------------------|
@@ -539,6 +566,46 @@ or [`Ensure.eventually`](/api/assertions/class/Ensure/#eventually).
 | `element(locator).isSelected()`  | [`Wait.until(pageElement, isSelected())`](/api/web/function/isSelected/)      |
 | `element(locator).isDisplayed()` | [`Wait.until(pageElement, isVisible())`](/api/web/function/isVisible/)        |
 
+### Replacing Protractor with WebdriverIO
+
+In many ways, [WebdriverIO](https://webdriver.io/) is very similar to Protractor:
+- it integrates with the same test runners, such as [Cucumber, Mocha, and Jasmine](https://webdriver.io/docs/frameworks/)
+- it works well with [Serenity/JS](https://webdriver.io/docs/frameworks/#using-serenityjs)
+- it works with local browsers and remote Selenium Grids
+- its [configuration file] follows a similar structure
+
+Once you've migrated your test scenarios to follow the Screenplay Pattern and there are no Protractor API calls left
+in your code, follow WebdriverIO Protractor migration guide to:
+- [migrate the configuration file](https://webdriver.io/docs/protractor-migration#first-the-config-file)
+- [install the WebdriverIO dependencies](https://webdriver.io/docs/protractor-migration#install-webdriverio-dependencies)
+
+Next, install Serenity/JS WebdriverIO module:
+
+```sh npm2yarn
+npm install @serenity-js/webdriverio --save-dev
+```
+
+Update the `script` section in your `package.json` to use `wdio` instead of `protractor`:
+
+```diff title="package.json"
+{
+  "scripts": {
+    "postinstall": "serenity-bdd update",
+    "clean": "rimraf target",
+    "test": "failsafe clean test:execute test:report",
+-   "test:execute": "protractor ./protractor.conf.js",
++   "test:execute": "wdio ./wdio.conf.ts",
+    "test:report": "serenity-bdd run"
+  }
+}
+```
+
+Once your test suite works, remove Protractor and its related Serenity/JS module:
+
+```sh npm2yarn
+npm uninstall protractor @serenity-js/protractor --save
+```
+
 ## Next steps
 
 Well done, your Protractor test suite is now integrated with Serenity/JS! 🎉🎉🎉
@@ -559,3 +626,4 @@ Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
 
+If you spotted any errors in Serenity/JS docs, please submit a patch using the `Edit this page` link below.
