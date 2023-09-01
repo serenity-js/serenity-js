@@ -47,7 +47,7 @@ export class CucumberFormat {
     }
 }
 
-/**]
+/**
  * @private
  */
 function partNeedsRecombined(i: number): boolean {
