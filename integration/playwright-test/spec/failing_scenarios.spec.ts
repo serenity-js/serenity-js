@@ -1,12 +1,18 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AssertionError, LogicError, TestCompromisedError } from '@serenity-js/core';
+import { AssertionError, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import {
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    FeatureTag,
+    Name,
+    ProblemIndication
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
-import { ConfigurationError } from '@serenity-js/core/src';
 
 describe('@serenity-js/playwright-test', function () {
 

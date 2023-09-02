@@ -1,5 +1,5 @@
-import { describe, it } from '@serenity-js/playwright-test';
 import { ConfigurationError } from '@serenity-js/core/src';
+import { describe, it } from '@serenity-js/playwright-test';
 
 describe('Playwright Test reporting', () => {
 
