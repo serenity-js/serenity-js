@@ -6,6 +6,7 @@ import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFaile
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
+import { ConfigurationError } from '@serenity-js/core/src';
 
 describe('@serenity-js/playwright-test', function () {
 
@@ -77,6 +78,34 @@ describe('@serenity-js/playwright-test', function () {
                         // Playwright doesn't serialise expected and actual fields on AssertionError
                         expect(error.name).to.equal('Error');
                         expect(error.message).to.equal('Expected true to equal false');
+                    })
+                ;
+            }));
+
+        it('fails with a Serenity/JS ConfigurationError', () => playwrightTest('--project=default', 'failing/failing-serenity-js-configuration-error.spec.ts')
+            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(result => {
+
+                expect(result.exitCode).to.equal(1);
+
+                PickEvent.from(result.events)
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails with a Serenity/JS ConfigurationError')))
+                    .next(SceneFinished,       event => {
+                        const outcome = event.outcome as ProblemIndication;
+                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                        const error = outcome.error as ConfigurationError;
+
+                        // Playwright doesn't serialise expected and actual fields on AssertionError
+                        expect(error.name).to.equal('Error');
+                        expect(error.message).to.equal('Example configuration error');
+
+                        const stack = error.stack.split('\n');
+
+                        expect(stack).to.include.members([
+                            'ConfigurationError: Example configuration error',
+                            'Error: Example nested error',
+                        ]);
                     })
                 ;
             }));
