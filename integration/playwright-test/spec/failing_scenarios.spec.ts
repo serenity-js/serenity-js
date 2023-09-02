@@ -96,7 +96,6 @@ describe('@serenity-js/playwright-test', function () {
 
                         const error = outcome.error as ConfigurationError;
 
-                        // Playwright doesn't serialise expected and actual fields on AssertionError
                         expect(error.name).to.equal('Error');
                         expect(error.message).to.equal('Example configuration error');
 
