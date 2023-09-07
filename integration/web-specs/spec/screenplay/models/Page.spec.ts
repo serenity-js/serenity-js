@@ -205,6 +205,8 @@ describe('Page', () => {
                     beforeEach(() =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.startingPoint),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.startingPoint.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.startingPoint.width)),
                         ));
 
                     after(() =>
@@ -220,8 +222,8 @@ describe('Page', () => {
                             Page.current().setViewportSize(viewportSize.small)
                                 .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
 
-                            Ensure.that(RenderedViewportSize.height, equals(viewportSize.small.height)),
-                            Ensure.that(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.small.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.small.width)),
                         )
                     );
 
@@ -233,14 +235,14 @@ describe('Page', () => {
                             Page.current().setViewportSize(viewportSize.small)
                                 .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
 
-                            Ensure.that(RenderedViewportSize.height, equals(viewportSize.small.height)),
-                            Ensure.that(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.small.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.small.width)),
 
                             Page.current().setViewportSize(viewportSize.medium)
                                 .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
 
-                            Ensure.that(RenderedViewportSize.height, equals(viewportSize.medium.height)),
-                            Ensure.that(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.medium.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
                         )
                     );
 
@@ -252,14 +254,14 @@ describe('Page', () => {
                             Page.current().setViewportSize(viewportSize.large)
                                 .describedAs(`#actor resizes viewport to ${ viewportSize.large.width }x${ viewportSize.large.height }`),
 
-                            Ensure.that(RenderedViewportSize.height, equals(viewportSize.large.height)),
-                            Ensure.that(RenderedViewportSize.width,  equals(viewportSize.large.width)),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.large.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.large.width)),
 
                             Page.current().setViewportSize(viewportSize.medium)
                                 .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
 
-                            Ensure.that(RenderedViewportSize.height, equals(viewportSize.medium.height)),
-                            Ensure.that(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.medium.height)),
+                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
                         )
                     );
                 });
