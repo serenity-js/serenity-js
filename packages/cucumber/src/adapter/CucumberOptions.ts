@@ -62,7 +62,6 @@ export class CucumberOptions {
             // paths: string[],
             // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
             publish: false,
-            publishQuiet: true,
             require: this.asArray(this.config.require),
             requireModule: this.asArray(this.config.requireModule),
             retry: this.config.retry,
