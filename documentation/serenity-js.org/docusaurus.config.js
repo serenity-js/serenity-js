@@ -14,11 +14,11 @@ const remarkPlugins = [
     [ require('docusaurus-remark-plugin-tab-blocks'), {
         sync: true,
         labels: [
-            ["json", "JSON"],
-            ["jsx", "JSX"],
-            ["tsx", "TSX"],
-            ["js", "JavaScript"],
-            ["ts", "TypeScript"],
+            ['json', 'JSON'],
+            ['jsx', 'JSX'],
+            ['tsx', 'TSX'],
+            ['js', 'JavaScript'],
+            ['ts', 'TypeScript'],
         ],
     } ]
 ];
