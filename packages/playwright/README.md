@@ -33,7 +33,7 @@ To install this module, run the following command in your [Playwright project di
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
 ```
 
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
 
 ### Usage with Mocha
 
