@@ -11,6 +11,16 @@ const redirects = require('./redirects.config');
 const pkg = require('./../../package.json');
 const remarkPlugins = [
     [ require('@docusaurus/remark-plugin-npm2yarn'), { sync: true, converters: [ 'yarn' ] } ],
+    [ require('docusaurus-remark-plugin-tab-blocks'), {
+        sync: true,
+        labels: [
+            ["json", "JSON"],
+            ["jsx", "JSX"],
+            ["tsx", "TSX"],
+            ["js", "JavaScript"],
+            ["ts", "TypeScript"],
+        ],
+    } ]
 ];
 
 /** @type {import('@docusaurus/types').Config} */

@@ -88,10 +88,33 @@ Serenity/JS is typically installed as a [dev dependency](https://docs.npmjs.com/
 of a [Node.js project](https://docs.npmjs.com/files/package.json).
 This way it doesn't accidentally get bundled together with your production dependencies.
 
-If you're introducing Serenity/JS to an existing project you can skip this section as its purpose is to help you
+If you're introducing Serenity/JS to an **existing project** you can skip this section as its purpose is to help you
 create `package.json` - a Node.js project descriptor file, which would already be part of your project.
 
-To create a Node.js project from scratch, create a new directory, such as `serenity-js-example`.
+### Using WebdriverIO installation wizard
+
+If you're planning to start a new project using **WebdriverIO**, use the [WebdriverIO installation wizard](https://webdriver.io/docs/gettingstarted/#initiate-a-webdriverio-setup) to generate the initial structure:
+
+```sh npm2yarn
+npm init wdio .
+```
+
+Next, follow the [Serenity/JS "Getting Started" guide for WebdriverIO](/handbook/getting-started/serenity-js-with-webdriverio/).
+
+### Using Playwright Test installation wizard
+
+If you're planning to use **Playwright Test**, use [Playwright Test installation wizard](https://playwright.dev/docs/intro#installing-playwright):
+
+```sh npm2yarn
+npm init playwright@latest
+```
+
+Next, follow the [Serenity/JS "Getting Started" guide for Playwright Test](/handbook/getting-started/serenity-js-with-playwright-test/)
+
+### Using plain Node.js
+
+If your chosen [test runner](/handbook/test-runners/) doesn't offer an installation wizard,
+or when you want to create a Node.js project from scratch, create a new directory, such as `serenity-js-example`.
 Next, initialise a new Node.js project accepting the default configuration suggested by the npm with these terminal commands:
 
 ```shell
@@ -123,12 +146,19 @@ If you're planning to make your acceptance tests interact with a web interface, 
 The way you install web browsers and their associated drivers depends on whether you want to use [Playwright](/handbook/test-runners/playwright-test)
 or a [Selenium Webdriver](https://www.selenium.dev)-based integration library, such as [WebdriverIO](/handbook/test-runners/webdriverio) or [Protractor](/handbook/test-runners/protractor).
 
-### Using Playwright
+### Using Playwright browsers
 
-For test suites using [Playwright](https://playwright.dev/), install `playwright` module, as well as its browsers and operating system-level dependencies
+To use Serenity/JS with [Playwright](https://playwright.dev/) and its default test runner - [Playwright Test](https://playwright.dev/docs/api/class-test),
+use its [dedicated installation wizard](https://playwright.dev/docs/intro#installing-playwright) then [add Serenity/JS as per the getting started guide](/handbook/getting-started/serenity-js-with-playwright-test/):
+
+```sh npm2yarn
+npm init playwright@latest
+```
+
+To use [Playwright](https://playwright.dev/) with another test runner, like [Cucumber.js](/handbook/test-runners/cucumber/), install the `playwright` module, as well as its browsers and operating system-level dependencies
 by running the below commands in your terminal:
 
-```shell title="serenity-js-example/"
+```sh title="serenity-js-example/"
 npm install --save-dev playwright
 npx playwright install --with-deps
 ```
@@ -142,7 +172,7 @@ you'll need to install the appropriate web browsers and their [associated driver
 
 If you already have [Google Chrome](https://www.google.com/chrome/) installed locally,
 you can add its [driver](https://www.npmjs.com/package/chromedriver) to your Node project by running the following command in your terminal:
-```shell title="serenity-js-example/"
+```sh title="serenity-js-example/"
 npm install --save-dev chromedriver
 ```
 
@@ -157,7 +187,7 @@ Serenity/JS is written in [TypeScript](https://www.typescriptlang.org/) and offe
 
 To use TypeScript in your project, install the following dependencies:
 
-```shell title="serenity-js-example/"
+```sh npm2yarn title="serenity-js-example/"
 npm install typescript @types/node ts-node
 ```
 
@@ -204,14 +234,35 @@ by the Serenity/JS Team from other modules created by the Serenity/JS Community.
 Each [Serenity/JS module](/api) provides detailed installation instructions, and you can install them from your computer
 terminal by running command similar to the one below:
 
-```text
+```sh npm2yarn
 npm install --save-dev @serenity-js/core
 ```
 
-You can also install several Serenity/JS modules simultaneously:
+On **macOS** and **Linux** you can save yourself some keystrokes and install several Serenity/JS modules simultaneously
+thanks to the terminal supporting [Bash brace expansion](https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html):
 
-```text
+```sh npm2yarn
 npm install --save-dev @serenity-js/{assertions,console-reporter,core,rest,serenity-bdd}
+```
+
+On **Windows**, or when your shell doesn't support Bash brace expansion, you'll need to specify each Serenity/JS module individually:
+
+```js tab={"label":"macOS/Linux"}
+npm install --save-dev \
+    @serenity-js/assertions \
+    @serenity-js/console-reporter \
+    @serenity-js/core \
+    @serenity-js/rest \
+    @serenity-js/serenity-bdd
+```
+
+```ts tab={"label":"Windows"}
+npm install --save-dev ^
+    @serenity-js/assertions ^
+    @serenity-js/console-reporter ^
+    @serenity-js/core ^
+    @serenity-js/rest ^
+    @serenity-js/serenity-bdd
 ```
 
 :::info Stay up to date
@@ -224,8 +275,22 @@ Serenity/JS (and other publicly available Node modules) from your company intern
 - [Using NPM with JFrog Artifactory](https://www.jfrog.com/confluence/display/JFROG/npm+Registry)
 - [Using NPM with Sonatype Nexus](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats/npm-registry/configuring-npm)
 
+## Configuring a test runner
+
+Follow the below instructions to configure your chosen [test runner](/handbook/test-runners/):
+- [Cucumber](/handbook/test-runners/cucumber)
+- [Jasmine](/handbook/test-runners/jasmine)
+- [Mocha](/handbook/test-runners/mocha)
+- [Playwright Test](/handbook/test-runners/playwright-test)
+- [Protractor](/handbook/test-runners/protractor)
+- [WebdriverIO](/handbook/test-runners/webdriverio)
+
+You might also want to consult the [Serenity/JS Examples and Reference Implementations](https://github.com/serenity-js/serenity-js/tree/main/examples) on GitHub.
+
 ## Examples and reference implementations
 
 If you ever get stuck setting up a Serenity/JS project from scratch, make sure to review:
 - [Serenity/JS Project Templates](/handbook/getting-started/project-templates/)
 - [Serenity/JS Examples and Reference Implementations](https://github.com/serenity-js/serenity-js/tree/main/examples)
+
+Also, remember to join the [Serenity/JS Community chat](https://matrix.to/#/#serenity-js:gitter.im) where you can meet fellow Serenity/JS developers who might be able to help you out.

@@ -81,12 +81,12 @@ add the following Node modules:
 - [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber)
 
 To do that, run the following command in your terminal:
-```shell
-npm install --save-dev @serenity-js/{core,cucumber} @cucumber/cucumber
+```sh npm2yarn
+npm install --save-dev @serenity-js/core @serenity-js/cucumber @cucumber/cucumber
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```shell
+```sh npm2yarn
 npm install --save-dev typescript ts-node @types/node
 ```
 
@@ -96,10 +96,7 @@ If you intend to run your Cucumber scenarios using the [Cucumber CLI](https://gi
 the best way to configure Serenity/JS is to invoke the Serenity/JS [`configure`](/api/core/function/configure) function
 in the Cucumber [`BeforeAll` hook](https://github.com/cucumber/cucumber-js/blob/main/docs/support_files/hooks.md#beforeall--afterall):
 
-<Tabs>
-<TabItem value="typescript" label="TypeScript project" default>
-
-```typescript title="features/support/serenity.config.ts"
+```ts title="features/support/serenity.config.ts" tab={"label":"TypeScript"}
 import { BeforeAll } from '@cucumber/cucumber'
 import { configure } from '@serenity-js/core'
 
@@ -117,10 +114,7 @@ BeforeAll(() => {
 })
 ```
 
-</TabItem>
-<TabItem value="javascript" label="JavaScript project">
-
-```javascript title="features/support/serenity.config.js"
+```js title="features/support/serenity.config.js" tab={"label":"JavaScript"}
 const { BeforeAll } = require('@cucumber/cucumber')
 const { configure } = require('@serenity-js/core')
 
@@ -138,9 +132,6 @@ BeforeAll(() => {
 })
 ```
 
-</TabItem>
-</Tabs>
-
 To learn more about installing and configuring Serenity/JS reporting services appropriate for your project,
 follow the [Serenity/JS reporting guide](/handbook/reporting/).
 
@@ -154,10 +145,7 @@ with feature and scenario descriptions, detailed information about Cucumber step
 To make sure Cucumber loads your Serenity/JS configuration file and correctly interprets TypeScript (if you're using it),
 create a [`cucumber.js` profile](https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md):
 
-<Tabs>
-<TabItem value="typescript" label="TypeScript project" default>
-
-```javascript title="cucumber.js"
+```js title="cucumber.js" tab={"label":"TypeScript"}
 /**
  * This is a Cucumber.js profile
  * @see https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
@@ -175,10 +163,7 @@ module.exports = {
 }
 ```
 
-</TabItem>
-<TabItem value="javascript" label="JavaScript project">
-
-```javascript title="cucumber.js"
+```javascript title="cucumber.js" tab={"label":"JavaScript"}
 /**
  * This is a Cucumber.js profile
  * @see https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
@@ -194,9 +179,6 @@ module.exports = {
     ].join(' ')
 }
 ```
-
-</TabItem>
-</Tabs>
 
 The above configuration works with the latest version of the `cucumber.Cli` available as part of
 the [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber) module.

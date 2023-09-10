@@ -80,13 +80,13 @@ add the following Node modules:
 - [`jasmine`](https://www.npmjs.com/package/jasmine)
 
 To do that, run the following command in your terminal:
-```shell
-npm install --save-dev @serenity-js/{core,jasmine} jasmine
+```npm2yarn
+npm install --save-dev @serenity-js/core @serenity-js/jasmine jasmine
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```shell
-npm install --save-dev typescript ts-node @types/{jasmine,node}
+```sh npm2yarn
+npm install --save-dev typescript ts-node @types/jasmine @types/node
 ```
 
 ### Configuring Serenity/JS
@@ -96,10 +96,7 @@ the best way to configure Serenity/JS is to invoke the Serenity/JS [`configure`]
 in a [`beforeAll` hook](https://jasmine.github.io/api/edge/global.html#beforeAll),
 defined in a Jasmine helper file:
 
-<Tabs>
-<TabItem value="typescript" label="TypeScript project" default>
-
-```typescript title="spec/helpers/serenity.config.ts"
+```ts title="spec/helpers/serenity.config.ts" tab
 import 'jasmine'
 
 import { ArtifactArchiver, configure } from '@serenity-js/core'
@@ -119,10 +116,7 @@ beforeAll(async () => {
 })
 ```
 
-</TabItem>
-<TabItem value="javascript" label="JavaScript project">
-
-```javascript title="spec/helpers/serenity.config.js"
+```js title="spec/helpers/serenity.config.js" tab
 const { configure } = require('@serenity-js/core')
 
 beforeAll(async () => {
@@ -137,9 +131,6 @@ beforeAll(async () => {
     })
 })
 ```
-
-</TabItem>
-</Tabs>
 
 To learn more about installing and configuring Serenity/JS reporting services appropriate for your project,
 follow the [Serenity/JS reporting guide](/handbook/reporting/).

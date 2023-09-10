@@ -35,12 +35,20 @@ For WebdriverIO test suites, Serenity/JS offers:
 
 ![Serenity BDD Report Example](/images/reporting/serenity-bdd-reporter.png)
 
-## Installing Serenity/JS
+## Creating a WebdriverIO project
 
-To add Serenity/JS to an [existing WebdriverIO project](https://webdriver.io/docs/gettingstarted), install the following Serenity/JS modules from NPM:
+You can add Serenity/JS to an existing WebdriverIO project, or create a new project using the [WebdriverIO installation wizard](https://webdriver.io/docs/gettingstarted/#initiate-a-webdriverio-setup):
 
 ```sh npm2yarn
-npm install @serenity-js/{core,web,webdriverio,assertions,console-reporter,serenity-bdd} --save-dev
+npm init wdio .
+```
+
+## Installing Serenity/JS
+
+To add Serenity/JS to a WebdriverIO project, install the following Serenity/JS modules from NPM:
+
+```sh npm2yarn
+npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/webdriverio @serenity-js/assertions @serenity-js/console-reporter @serenity-js/serenity-bdd
 ```
 
 Learn more about Serenity/JS modules:
@@ -55,10 +63,7 @@ Learn more about Serenity/JS modules:
 
 To enable integration with Serenity/JS, configure WebdriverIO as follows:
 
-<Tabs>
-<TabItem value="wdio-conf-typescript" label="TypeScript" default>
-
-```typescript title="wdio.conf.ts"
+```typescript title="wdio.conf.ts" tab={"label":"TypeScript"}
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 
 export const config: WebdriverIOConfig = {
@@ -114,10 +119,7 @@ export const config: WebdriverIOConfig = {
 };
 ```
 
-</TabItem>
-<TabItem value="wdio-conf-javascript" label="JavaScript">
-
-```typescript title="wdio.conf.js"
+```typescript title="wdio.conf.js" tab={"label":"JavaScript"}
 export const config = {
 
     // Tell WebdriverIO to use Serenity/JS framework
@@ -160,9 +162,6 @@ export const config = {
     // Any other WebdriverIO configuration
 };
 ```
-
-</TabItem>
-</Tabs>
 
 Learn more about:
 - [Serenity/JS Cucumber configuration options](/api/cucumber-adapter/interface/CucumberConfig/)
