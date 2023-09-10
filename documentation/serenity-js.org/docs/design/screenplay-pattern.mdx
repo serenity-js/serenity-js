@@ -335,10 +335,7 @@ ticket.
 If we were using Serenity/JS with a spec-style test runner like [Jasmine](/handbook/test-runners/jasmine), [Mocha](/handbook/test-runners/mocha), or [Playwright Test](/handbook/test-runners/playwright-test),
 we could implement such scenario like this:
 
-<Tabs>
-<TabItem value="playwright-test" label="Playwright Test" default>
-
-```typescript
+```typescript tab={"label":"PlaywrightTest"}
 import { describe, it, test } from '@serenity-js/playwright-test'
 
 test.use({ defaultActorName: 'Trevor' })
@@ -356,10 +353,7 @@ describe('Serenity Airlines flight booking', () => {                            
 })
 ```
 
-</TabItem>
-<TabItem value="mocha" label="Mocha">
-
-```typescript
+```typescript tab={"label":"Mocha"}
 import { actorCalled } from '@serenity-js/core'
 import { describe, it } from 'mocha'
 
@@ -376,10 +370,7 @@ describe('Serenity Airlines flight booking', () => {                            
 })
 ```
 
-</TabItem>
-<TabItem value="jasmine" label="Jasmine">
-
-```typescript
+```typescript tab={"label":"Jasmine"}
 import { actorCalled } from '@serenity-js/core'
 
 describe('Serenity Airlines flight booking', () => {                            // system feature
@@ -394,9 +385,6 @@ describe('Serenity Airlines flight booking', () => {                            
   })
 })
 ```
-
-</TabItem>
-</Tabs>
 
 If we were using [Cucumber.js](/handbook/test-runners/cucumber), the name of the feature, the goal of the scenario,
 as well as the high-level steps necessary to achieve the goal would already be captured in our [`.feature`](https://cucumber.io/docs/gherkin/reference/) files:

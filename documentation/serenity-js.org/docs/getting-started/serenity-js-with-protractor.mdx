@@ -61,7 +61,7 @@ For Protractor test suites, Serenity/JS offers:
 To add Serenity/JS to an [existing Protractor project](https://www.protractortest.org/#/), install the following Serenity/JS modules from NPM:
 
 ```sh npm2yarn
-npm install @serenity-js/{core,web,protractor,assertions,console-reporter,serenity-bdd} --save-dev
+npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/protractor @serenity-js/assertions @serenity-js/console-reporter @serenity-js/serenity-bdd
 ```
 
 Learn more about Serenity/JS modules:
@@ -76,10 +76,7 @@ Learn more about Serenity/JS modules:
 
 To enable integration with Serenity/JS, configure Protractor as follows:
 
-<Tabs>
-<TabItem value="protractor-conf-cucumber" label="Cucumber" default>
-
-```javascript title="protractor.conf.js"
+```javascript title="protractor.conf.js" tab={"label":"Cucumber"}
 exports.config = {
     // Disable Selenium promise manager
     SELENIUM_PROMISE_MANAGER: false,
@@ -127,10 +124,7 @@ exports.config = {
 };
 ```
 
-</TabItem>
-<TabItem value="protractor-conf-mocha" label="Mocha">
-
-```javascript title="protractor.conf.js"
+```javascript title="protractor.conf.js" tab={"label":"Mocha"}
 exports.config = {
     // Disable Selenium promise manager
     SELENIUM_PROMISE_MANAGER: false,
@@ -175,10 +169,7 @@ exports.config = {
 };
 ```
 
-</TabItem>
-<TabItem value="protractor-conf-jasmine" label="Jasmine">
-
-```javascript title="protractor.conf.js"
+```javascript title="protractor.conf.js" tab={"label":"Jasmine"}
 exports.config = {
     // Disable Selenium promise manager
     SELENIUM_PROMISE_MANAGER: false,
@@ -220,9 +211,6 @@ exports.config = {
     },
 };
 ```
-
-</TabItem>
-</Tabs>
 
 Learn more about:
 - [Serenity/JS Cucumber configuration options](/api/cucumber-adapter/interface/CucumberConfig/)

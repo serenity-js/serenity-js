@@ -79,13 +79,13 @@ add the following Node modules:
 - [`mocha`](https://www.npmjs.com/package/mocha)
 
 To do that, run the following command in your terminal:
-```shell
-npm install --save-dev @serenity-js/{core,mocha} mocha
+```sh npm2yarn
+npm install --save-dev @serenity-js/core @serenity-js/mocha mocha
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```shell
-npm install --save-dev typescript ts-node @types/{mocha,node}
+```sh npm2yarn
+npm install --save-dev typescript ts-node @types/mocha @types/node
 ```
 
 ### Configuring Serenity/JS
@@ -95,10 +95,7 @@ the best way to configure Serenity/JS is to invoke the Serenity/JS [`configure`]
 in a [`beforeAll` hook](https://mochajs.org/#available-root-hooks),
 defined in a Mocha support file [`required` upon test execution](https://mochajs.org/#-require-module-r-module):
 
-<Tabs>
-<TabItem value="typescript" label="TypeScript project" default>
-
-```typescript title="spec/support/serenity.config.ts"
+```ts title="spec/support/serenity.config.ts" tab
 import 'mocha'
 
 import { configure } from '@serenity-js/core'
@@ -116,10 +113,7 @@ beforeAll(async () => {
 })
 ```
 
-</TabItem>
-<TabItem value="javascript" label="JavaScript project">
-
-```javascript title="spec/support/serenity.config.js"
+```js title="spec/support/serenity.config.js" tab
 const { configure } = require('@serenity-js/core')
 
 beforeAll(async () => {
@@ -135,9 +129,6 @@ beforeAll(async () => {
 })
 ```
 
-</TabItem>
-</Tabs>
-
 To learn more about installing and configuring Serenity/JS reporting services appropriate for your project,
 follow the [Serenity/JS reporting guide](/handbook/reporting/).
 
@@ -147,10 +138,7 @@ To make sure Mocha loads your Serenity/JS configuration file and correctly inter
 create one of the supported [Mocha configuration files](https://mochajs.org/#configuring-mocha-nodejs) in your project
 root directory, e.g. `.mocharc.yml`:
 
-<Tabs>
-<TabItem value="typescript" label="TypeScript project" default>
-
-```yaml title=".mocharc.yml"
+```yaml title=".mocharc.yml" tab={"label":"TypeScript"}
 check-leaks: false
 full-trace: true
 reporter: '@serenity-js/mocha'
@@ -162,10 +150,7 @@ timeout: 5000
 v8-stack-trace-limit: 100
 ```
 
-</TabItem>
-<TabItem value="javascript" label="JavaScript project">
-
-```yaml title=".mocharc.yml"
+```yaml title=".mocharc.yml" tab={"label":"JavaScript"}
 check-leaks: false
 full-trace: true
 reporter: '@serenity-js/mocha'
@@ -175,9 +160,6 @@ spec: 'spec/**/*.spec.js'
 timeout: 5000
 v8-stack-trace-limit: 100
 ```
-
-</TabItem>
-</Tabs>
 
 ### Defining Mocha test scenarios
 

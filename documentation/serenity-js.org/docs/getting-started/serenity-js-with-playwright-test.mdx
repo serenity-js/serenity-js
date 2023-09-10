@@ -33,14 +33,20 @@ Serenity/JS gives you an optional [web abstraction layer](/api/web) on top of th
 Serenity/JS also provides optional integration libraries to help you write [API tests](/api/rest/),
 [manage local servers](/api/local-server/), [perform assertions](/api/assertions/), and more!
 
-## Installing Serenity/JS
+## Creating a Playwright Test project
 
-You can add Serenity/JS to your existing Playwright Test project, or [create a new project](https://playwright.dev/docs/intro) if you don't have it yet.
+You can add Serenity/JS to an existing Playwright Test project, or create a new project using the [Playwright Test installation wizard](https://playwright.dev/docs/intro#installing-playwright):
+
+```sh npm2yarn
+npm init playwright@latest
+```
+
+## Installing Serenity/JS
 
 To install Serenity/JS from NPM, run the following command:
 
 ```sh npm2yarn
-npm install @serenity-js/{core,web,playwright,playwright-test,assertions,console-reporter,serenity-bdd} --save-dev
+npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test @serenity-js/assertions @serenity-js/console-reporter @serenity-js/serenity-bdd
 ```
 
 Learn more about [Serenity/JS architecture](/handbook/getting-started/architecture/) and Serenity/JS modules:
