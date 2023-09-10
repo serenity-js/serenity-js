@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -28,18 +29,20 @@ of complex software systems faster, more collaborative and easier to scale.
 To install this module, as well as [`axios` HTTP client](https://github.com/axios/axios),
 run the following command in your computer terminal:
 
-```console
-npm install --save-dev @serenity-js/{core,rest,assertions} axios
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/rest @serenity-js/assertions axios
 ```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Example test
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core'
 import { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest'
-import { Ensure, equals, startsWith } from '@serenity-js/assertions';
+import { Ensure, equals, startsWith } from '@serenity-js/assertions'
 
-const actor = actorCalled('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
+const actor = actorCalled('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'))
 
 await actor.attemptsTo(
     // no users present in the system
@@ -58,7 +61,7 @@ await actor.attemptsTo(
     // delete the test user account
     Send.a(DeleteRequest.to(LastResponse.header('Location'))),
     Ensure.that(LastResponse.status(), equals(200)),
-);
+)
 ```
 
 ## 📣 Stay up to date

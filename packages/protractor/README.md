@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -31,13 +32,11 @@ Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.o
 
 To install this module, run:
 
-```console
-npm install --save-dev @serenity-js/{core,protractor}
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/protractor
 ```
 
-Next, install one of the below test runner adapters.
-
-Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/test-runners/protractor/).
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide for Protractor](https://serenity-js.org/handbook/getting-started/serenity-js-with-protractor/).
 
 #### Usage with Cucumber.js
 
@@ -78,7 +77,7 @@ const
     { ArtifactArchiver } = require('@serenity-js/core'),
     { ConsoleReporter } = require('@serenity-js/console-reporter'),
     { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
-    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
+    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd')
 
 exports.config = {
     // Tell Protractor to use the Serenity/JS framework Protractor Adapter
@@ -117,7 +116,7 @@ exports.config = {
     },
 
     // ... other Protractor-specific configuration   
-};
+}
 ```
 
 Learn more about:
@@ -129,17 +128,17 @@ Learn more about:
 ### Interacting with websites and web apps
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
-import { Ensure, equals } from '@serenity-js/assertions';
-import { By, Navigate, Target, Text } from '@serenity-js/web';
-import { BrowseTheWebWithProtractor } from '@serenity-js/protractor';
-import { protractor } from 'protractor';
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { By, Navigate, Target, Text } from '@serenity-js/web'
+import { BrowseTheWebWithProtractor } from '@serenity-js/protractor'
+import { protractor } from 'protractor'
 
 // example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {
     static header = () =>
         PageElement.located(By.css('h1'))   // selector to identify the interactable element
-            .describedAs('header');         // description to be used in reports
+            .describedAs('header')          // description to be used in reports
 }
 
 // example Jasmine test

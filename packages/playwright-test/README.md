@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -26,17 +27,19 @@ and fixtures that integrate [Playwright Test](https://playwright.dev/docs/intro)
 
 ### Installation
 
-To install this module, use an existing [Playwright project](https://playwright.dev/docs/intro) or generate a new one by running:
+To install this module, use an existing [Playwright Test project](https://playwright.dev/docs/intro) or generate a new one by running:
 
-```bash
+```sh
 npm init playwright@latest
 ```
 
-Next, run the following command in your Playwright project directory:
+Install the below Serenity/JS modules in your Playwright Test project directory:
 
-```bash
-npm install --save-dev @serenity-js/{assertions,console-reporter,core,serenity-bdd,web,playwright,playwright-test}
+```sh
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test
 ```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
 
 ### Serenity/JS Playwright Fixtures
 
@@ -241,14 +244,14 @@ To get started with component testing:
 
 + const { test, expect } = useBase(componentTest)
 
-import App from './App';
+import App from './App'
 
-test.use({ viewport: { width: 500, height: 500 } });
+test.use({ viewport: { width: 500, height: 500 } })
 
 test('should work', async ({ mount }) => {
-  const component = await mount(<App />);
-  await expect(component).toContainText('Learn React');
-});
+  const component = await mount(<App />)
+  await expect(component).toContainText('Learn React')
+})
 ```
 
 #### Using Serenity/JS Screenplay Pattern Actors for Component Testing
@@ -267,7 +270,7 @@ import { Ensure, contain } from '@serenity-js/assertions'
 import { useBase } from '@serenity-js/playwright-test'
 import { Enter, PageElement, CssClasses } from '@serenity-js/web'
 
-import EmailInput from './EmailInput';
+import EmailInput from './EmailInput'
 
 const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: string }>({
     emailAddress: ({ actor }, use) => {
@@ -278,9 +281,9 @@ const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: stri
 describe('EmailInput', () => {
 
     it('allows valid email addresses', async ({ actor, mount, emailAddress }) => {
-        const nativeComponent = await mount(<EmailInput/>);
+        const nativeComponent = await mount(<EmailInput/>)
 
-        const component = PageElement.from(nativeComponent);
+        const component = PageElement.from(nativeComponent)
 
         await actor.attemptsTo(
             Enter.theValue(emailAddress).into(component),
@@ -298,7 +301,7 @@ To use Serenity/JS reporting capabilities, register the `@serenity-js/playwright
 For example, to enable Serenity/JS Console Reporter and Serenity BDD reporter, install the relevant modules:
 
 ```bash
-npm install --save-dev @serenity-js/{console-reporter,serenity-bdd}
+npm install --save-dev @serenity-js/console-reporter @serenity-js/serenity-bdd
 ```
 
 Next, configure your Playwright project as follows:

@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -29,27 +30,29 @@ for [Playwright](https://playwright.dev/), that helps with testing Web-based app
 To install this module, run the following command in your [Playwright project directory](https://playwright.dev/docs/intro):
 
 ```bash
-npm install --save-dev @serenity-js/{assertions,console-reporter,core,serenity-bdd,web,playwright}
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
 ```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Usage with Mocha
 
 ```typescript
-import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Actor, ArtifactArchiver, Cast, configure, Duration } from '@serenity-js/core';
-import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { By, Navigate, PageElement, Photographer, TakePhotosOfFailures, Text } from '@serenity-js/web';
+import { Ensure, equals } from '@serenity-js/assertions'
+import { actorCalled, Actor, ArtifactArchiver, Cast, configure, Duration } from '@serenity-js/core'
+import { ConsoleReporter } from '@serenity-js/console-reporter'
+import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
+import { By, Navigate, PageElement, Photographer, TakePhotosOfFailures, Text } from '@serenity-js/web'
 
-import { describe, it, beforeAll, afterAll } from 'mocha';
-import * as playwright from 'playwright';
+import { describe, it, beforeAll, afterAll } from 'mocha'
+import * as playwright from 'playwright'
 
 // example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {                   
     static header = () => 
         PageElement.located(By.css('h1'))   // selector to identify the interactable element
-            .describedAs('header');         // description to be used in reports
+            .describedAs('header')          // description to be used in reports
 }
 
 // example Actors class, confgures Serenity/JS actors to use Playwright
@@ -64,13 +67,13 @@ class Actors implements Cast {
         return actor.whoCan(
             BrowseTheWebWithPlaywright.using(this.browser, this.options),
             // ... add other abilities as needed, like CallAnApi or TakeNotes
-        );
+        )
     }
 }
 
 describe('Serenity/JS', () => {
 
-    let browser: playwright.Browser;
+    let browser: playwright.Browser
     
     beforeAll(async () => {
         // Start a single browser before all the tests,
@@ -78,7 +81,7 @@ describe('Serenity/JS', () => {
         // and manage Playwright browser context as needed  
         browser = await playwright.chromium.launch({
             headless: true
-        });
+        })
 
         // Configure Serenity/JS providing your Actors
         // and required "stage crew memebers" (a.k.a. reporting services)
@@ -94,8 +97,8 @@ describe('Serenity/JS', () => {
                 new SerenityBDDReporter(),
                 ConsoleReporter.forDarkTerminals(),
             ]
-        });
-    });
+        })
+    })
     
     it('supports Playwright', async () => {
         // actorCalled(name) instantiates or retrieves an existing actor identified by name
@@ -115,8 +118,8 @@ describe('Serenity/JS', () => {
         if (browser) {
             await browser.close()
         }
-    });
-});
+    })
+})
 ```
 
 Next steps:

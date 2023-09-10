@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -26,16 +27,19 @@ of complex software systems faster, more collaborative and easier to scale.
 ### Installation
 
 To install this module, run the following command in your computer terminal:
-```console
-npm install --save-dev @serenity-js/{core,assertions}
+
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/assertions
 ```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Performing verifications using `Ensure`
 
 ```typescript
-import { Ensure, endsWith } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
-import { Navigate, Page } from '@serenity-js/web';
+import { Ensure, endsWith } from '@serenity-js/assertions'
+import { actorCalled } from '@serenity-js/core'
+import { Navigate, Page } from '@serenity-js/web'
 
 await actorCalled('Erica').attemptsTo(
     Navigate.to('https://serenity-js.org'),
@@ -43,55 +47,55 @@ await actorCalled('Erica').attemptsTo(
         Page.current().title(), 
         endsWith('Serenity/JS')
     ),
-);
+)
 ```
 
 ### Controlling execution flow using `Check`
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
-import { Check } from '@serenity-js/assertions'; 
-import { Click, isVisible } from '@serenity-js/protractor';
+import { actorCalled } from '@serenity-js/core'
+import { Check } from '@serenity-js/assertions' 
+import { Click, isVisible } from '@serenity-js/protractor'
 
 await actorCalled('Erica').attemptsTo(
     Check.whether(NewsletterModal, isVisible())
         .andIfSo(Click.on(CloseModalButton)),
-);
+)
 ```
 
 ### Synchronising the test with the System Under Test using `Wait`
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
-import { Click, isVisible, Wait } from '@serenity-js/protractor';
+import { actorCalled } from '@serenity-js/core'
+import { Click, isVisible, Wait } from '@serenity-js/protractor'
 
 await actorCalled('Erica').attemptsTo(
     Wait.until(CloseModalButton, isVisible()),
     Click.on(CloseModalButton)
-);
+)
 ```
 
 ### Defining custom expectations using `Expectation.thatActualShould`
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
-import { Expectation, Ensure } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core'
+import { Expectation, Ensure } from '@serenity-js/assertions'
 
 function isDivisibleBy(expected: Answerable<number>): Expectation<number> {
     return Expectation.thatActualShould<number, number>('have value divisible by', expected)
-        .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0);
+        .soThat((actualValue, expectedValue) => actualValue % expectedValue === 0)
 }
 
 await actorCalled('Erica').attemptsTo(
     Ensure.that(4, isDivisibleBy(2)),
-);
+)
 ```
 
 ### Composing expectations using `Expectation.to`
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
-import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core'
+import { Expectation, Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions'
 
 function isWithin(lowerBound: number, upperBound: number) {
     return Expectation
@@ -99,12 +103,12 @@ function isWithin(lowerBound: number, upperBound: number) {
         .soThatActual(and(
            or(isGreaterThan(lowerBound), equals(lowerBound)),
            or(isLessThan(upperBound), equals(upperBound)),
-        ));
+        ))
 }
 
 await actorCalled('Erica').attemptsTo(
     Ensure.that(5, isWithin(3, 6)),
-);
+)
 ```
 
 ## 📣 Stay up to date

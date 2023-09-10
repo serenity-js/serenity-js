@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -30,27 +31,30 @@ or raw [Node.js](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transactio
 ### Installation
 
 To install this module, run the following command in your computer terminal:
-```console
-npm install --save-dev @serenity-js/{core,local-server}
+
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/local-server
 ```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Example test
 
 ```typescript
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core'
 import {
     ManageALocalServer, StartLocalTestServer, StopLocalTestServer
 } from '@serenity-js/local-server'
-import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
-import { Ensure, equals } from '@serenity-js/assertions';
-import axios from 'axios';
+import { CallAnApi, GetRequest, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+import axios from 'axios'
 
-import { requestListener } from './listener';                           (1)
+import { requestListener } from './listener'                            (1)
 
 const actor = actorCalled('Apisit').whoCan(
     ManageALocalServer.using(requestListener),                          (2)
     CallAnApi.using(axios.create()),
-);
+)
 
 await actor.attemptsTo(
     StartLocalTestServer.onRandomPort(),                                (3)
@@ -58,7 +62,7 @@ await actor.attemptsTo(
     Ensure.that(LastResponse.status(), equals(200)),
     Ensure.that(LastResponse.body(), equals('Hello!')),
     StopLocalTestServer.ifRunning(),                                    (5)
-);
+)
 ```
 
 In the above example:
@@ -84,8 +88,8 @@ satisfy the above test.
 ```javascript
 // listener.js
 module.exports.requestListener = (request, response) => {
-  response.setHeader('Connection', 'close');
-  response.end('Hello World!');
+  response.setHeader('Connection', 'close')
+  response.end('Hello World!')
 }
 ```
 
@@ -95,12 +99,12 @@ module.exports.requestListener = (request, response) => {
 
 ```javascript
 // listener.js
-const express = require('express');
+const express = require('express')
 
 module.exports.requestListener = express().
     get('/', (req: express.Request, res: express.Response) => {
-        res.status(200).send('Hello World!');
-    });
+        res.status(200).send('Hello World!')
+    })
 ```
 
 [Learn more about Express](https://expressjs.com/).
@@ -109,12 +113,12 @@ module.exports.requestListener = express().
 
 ```javascript
 // listener.js
-const hapi = require('@hapi/hapi');
+const hapi = require('@hapi/hapi')
 
-const server = new hapi.Server();
+const server = new hapi.Server()
 server.route({ method: 'GET', path: '/', handler: (req, h) => 'Hello World!' })
 
-module.exports.requestListener = server.listener;
+module.exports.requestListener = server.listener
 ```
 
 [Learn more about HAPI](https://hapijs.com/).
@@ -123,11 +127,11 @@ module.exports.requestListener = server.listener;
 
 ```javascript
 // listener.js
-const Koa = require('koa');
+const Koa = require('koa')
 
 module.exports.requestListener = new Koa()
     .use(ctx => Promise.resolve(ctx.body = 'Hello World!'))
-    .callback();
+    .callback()
 ```
 
 [Learn more about Koa](https://koajs.com/).
@@ -136,15 +140,15 @@ module.exports.requestListener = new Koa()
 
 ```javascript
 // listener.js
-const restify = require('restify');
+const restify = require('restify')
 
-const server = restify.createServer(options);
+const server = restify.createServer(options)
 
 server.get('/', (req, res, next) => {
-    res.send('Hello World!');
-});
+    res.send('Hello World!')
+})
 
-module.exports.requestListener = server;
+module.exports.requestListener = server
 ```
 
 [Learn more about Restify](http://restify.com/).

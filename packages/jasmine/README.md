@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -28,11 +29,12 @@ to enable integration between Jasmine and Serenity/JS.
 ### Installation
 
 To install this module, run the following command in your computer terminal:
-```console
-npm install --save-dev @serenity-js/{core,jasmine}
+
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/jasmine
 ```
 
-Learn more about [integrating Serenity/JS with Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/)
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Command line usage
 
@@ -43,9 +45,9 @@ jasmine --reporter=@serenity-js/jasmine
 ### Programmatic usage
 
 ```typescript
-import serenityReporterForJasmine = require('@serenity-js/jasmine');
+import serenityReporterForJasmine = require('@serenity-js/jasmine')
 
-jasmine.getEnv().addReporter(serenityReporterForJasmine);
+jasmine.getEnv().addReporter(serenityReporterForJasmine)
 ```
 
 ## 📣 Stay up to date

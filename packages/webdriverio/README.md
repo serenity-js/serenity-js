@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core), 
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -26,13 +27,19 @@ for [WebdriverIO](https://webdriver.io/) that will help you with testing Web and
 
 ### Installation
 
-To install this module, run the following command in your [WebdriverIO project directory](https://webdriver.io/docs/gettingstarted/):
+To install this module, use an [existing WebdriverIO project](https://webdriver.io/docs/gettingstarted/) or generate a new one by running:
 
-```bash
-npm install --save-dev @serenity-js/{assertions,console-reporter,core,serenity-bdd,web,webdriverio}
+```sh
+npm init wdio .
 ```
 
-Next, install a [Serenity/JS test runner adapter](https://serenity-js.org/handbook/test-runners/) appropriate for your preferred test runner.
+Install the below Serenity/JS modules in your WebdriverIO project directory:
+
+```sh
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/webdriverio
+```
+
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide fpr WebdriverIO](https://serenity-js.org/handbook/getting-started/serenity-js-with-webdriverio/).
 
 #### Usage with Cucumber.js
 
@@ -123,7 +130,7 @@ export const config: WebdriverIOConfig = {
     // ],
 
     // ... other WebdriverIO-specific configuration   
-};
+}
 ```
 
 Learn more about:
@@ -144,10 +151,10 @@ with a custom [`Cast`](https://serenity-js.org/api/core/class/Cast), like this o
 
 ```typescript title="serenity/Actors.ts"
 // serenity/Actors.ts
-import { Actor, Cast, TakeNotes } from '@serenity-js/core';
-import { CallAnApi } from '@serenity-js/rest';
-import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
-import type { Browser } from 'webdriverio';
+import { Actor, Cast, TakeNotes } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
+import type { Browser } from 'webdriverio'
 
 export class Actors implements Cast {
 
@@ -162,13 +169,13 @@ export class Actors implements Cast {
             case 'Apisitt':
                 return actor.whoCan(
                     CallAnApi.at(this.apiUrl)
-                );
+                )
                 
             default:
                 return actor.whoCan(
                     BrowseTheWebWithWebdriverIO.using(browser), // global WDIO browser
                     TakeNotes.usingAnEmptyNotepad(),
-                );
+                )
         }
 
     }
@@ -179,16 +186,16 @@ export class Actors implements Cast {
 
 ```typescript title="specs/example.spec.ts"
 // specs/example.spec.ts
-import { actorCalled } from '@serenity-js/core';
-import { Ensure, equals } from '@serenity-js/assertions';
-import { By, Navigate, PageElement, Text } from '@serenity-js/web';
-import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { By, Navigate, PageElement, Text } from '@serenity-js/web'
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
 
 // example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {
     static header = () =>
         PageElement.located(By.css('h1'))   // selector to identify the interactable element
-            .describedAs('header');         // description to be used in reports
+            .describedAs('header')          // description to be used in reports
 }
 
 describe('Serenity/JS', () => {
@@ -204,8 +211,8 @@ describe('Serenity/JS', () => {
                     equals('Enable collaborative test automation at any scale!')
                 ),
             )
-    });
-});
+    })
+})
 ```
 
 To learn more, check out the [example projects](https://github.com/serenity-js/serenity-js/tree/main/examples).
