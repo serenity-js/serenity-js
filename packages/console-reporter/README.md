@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -27,11 +28,11 @@ to your computer terminal.
 
 ### Installation
 
-```console
-npm install --save-dev @serenity-js/{core,console-reporter}
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/console-reporter
 ```
 
-Learn more about [Serenity/JS Console Reporter](https://serenity-js.org/handbook/reporting/console-reporter.html)
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 #### Windows
 
@@ -54,7 +55,7 @@ Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.or
 
 ```typescript
 // playwright.config.ts
-import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
 
 const config: PlaywrightTestConfig = {
     reporter: [
@@ -71,9 +72,9 @@ const config: PlaywrightTestConfig = {
 
     // Other configuration omitted for brevity
     // For details, see https://playwright.dev/docs/test-configuration    
-};
+}
 
-export default config;
+export default config
 ```
 
 #### Usage with WebdriverIO
@@ -83,7 +84,7 @@ Learn more about using [Serenity/JS with WebdriverIO](https://serenity-js.org/ap
 ```typescript
 // wdio.conf.ts
 
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WebdriverIOConfig } from '@serenity-js/webdriverio'
 
 export const config: WebdriverIOConfig = {
 
@@ -101,7 +102,7 @@ export const config: WebdriverIOConfig = {
 
     // Other configuration omitted for brevity
     // For details, see https://webdriver.io/docs/options
-};
+}
 ```
 
 #### Usage with Protractor
@@ -135,14 +136,14 @@ exports.config = {
 Learn more about [configuring Serenity/JS programmatically](https://serenity-js.org/api/core/class/SerenityConfig).
 
 ```typescript
-import { configure } from '@serenity-js/core';
-import { ConsoleReporter } from '@serenity-js/console-reporter';
+import { configure } from '@serenity-js/core'
+import { ConsoleReporter } from '@serenity-js/console-reporter'
 
 configure({
     crew: [
         ConsoleReporter.withDefaultColourSupport(),
     ],
-});
+})
 ```
 
 #### Colour Themes

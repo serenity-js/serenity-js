@@ -9,9 +9,10 @@
 of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario),
-- [API documentation](https://serenity-js.org/api/core),
-- [Serenity/JS project templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates).
+- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [API documentation](https://serenity-js.org/api/core)
+- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -33,13 +34,13 @@ Learn more about integrating Serenity/JS Cucumber:
 
 To install this module, run:
 ```
-npm install --save-dev @serenity-js/{cucumber,core}
+npm install --save-dev @serenity-js/cucumber @serenity-js/core
 ```
 
-This module reports test scenarios executed by **any version of Cucumber.js**, from 0.x to 7.x, which you need to install
+This module reports test scenarios executed by **any version of Cucumber.js**, from 0.x to 9.x, which you need to install
 separately.
 
-To install [Cucumber 7.x](https://www.npmjs.com/package/@cucumber/cucumber), run:
+To install [Cucumber 9.x](https://www.npmjs.com/package/@cucumber/cucumber), run:
 ```
 npm install --save-dev @cucumber/cucumber 
 ```
@@ -49,9 +50,11 @@ To install [Cucumber 6.x](https://www.npmjs.com/package/cucumber) or earlier, ru
 npm install --save-dev cucumber 
 ```
 
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
+
 ### Command line usage
 
-#### Cucumber 7.x
+#### Cucumber 7.x and newer
 
 ```
 cucumber-js --format @serenity-js/cucumber \
@@ -82,11 +85,11 @@ When used with a configuration file written in JavaScript:
 ```javascript
 // features/support/setup.js
 
-const { configure } = require('@serenity-js/core');
+const { configure } = require('@serenity-js/core')
 
 configure({
     // ... configure Serenity/JS 
-});
+})
 ```
 
 When used with a configuration file written in TypeScript:
@@ -94,11 +97,11 @@ When used with a configuration file written in TypeScript:
 ```typescript
 // features/support/setup.ts
 
-import { configure } from '@serenity-js/core';
+import { configure } from '@serenity-js/core'
 
 configure({
     // ... configure Serenity/JS 
-});
+})
 ```
 
 ### Integration
