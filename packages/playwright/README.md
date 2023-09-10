@@ -33,7 +33,16 @@ To install this module, run the following command in your [Playwright project di
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
 ```
 
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
+To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
+
+## Usage with `@playwright/test`
+
+Follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
+
+## Usage with Cucumber
+
+Follow the [Serenity/JS configuration guide for Cucumber](https://serenity-js.org/handbook/test-runners/cucumber/)
+and review the [Serenity/JS Cucumber and Playwright Project Template](https://github.com/serenity-js/serenity-js-cucumber-playwright-template).
 
 ### Usage with Mocha
 
@@ -126,16 +135,6 @@ Next steps:
 - Add [`@serenity-js/mocha`](https://serenity-js.org/api/mocha/) adapter to produce the reports
 - Learn about the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern.html)
 - Explore [`@serenity-js/web`](https://serenity-js.org/api/web) and [`@serenity-js/assertions`](https://serenity-js.org/api/assertions) APIs
-
-## Usage with `@playwright/test`
-
-See [@serenity-js/playwright-test](https://serenity-js.org/api/playwright-test).
-
-## Usage with Cucumber
-
-Tutorial coming soon! 
-
-Follow [@SerenityJS on Twitter](https://twitter.com/@SerenityJS) to get notified about new tutorials.
 
 ## 📣 Stay up to date
 
