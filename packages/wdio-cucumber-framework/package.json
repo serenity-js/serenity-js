@@ -1,0 +1,87 @@
+{
+  "name": "@serenity-js/wdio-cucumber-framework",
+  "version": "3.10.2",
+  "description": "Serenity/JS plugin for WebdriverIO, executes Cucumber.js scenarios and produces comprehensive reports.",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./esm/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "serenity-js",
+    "ui",
+    "frontend",
+    "bdd",
+    "tdd",
+    "test",
+    "testing",
+    "webdriverio",
+    "wdio",
+    "wdio-reporter"
+  ],
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config .mocharc.yml 'spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git",
+    "directory": "packages/wdio-cucumber-framework"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^16.13 || ^18.12 || ^20"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^9.5.1",
+    "@serenity-js/core": "3.10.2",
+    "@serenity-js/cucumber": "3.10.2",
+    "@serenity-js/webdriverio": "3.10.2",
+    "@wdio/types": "8.15.10"
+  },
+  "peerDependencies": {
+    "@wdio/cli": "^8.15.10",
+    "webdriverio": "^8.15.10"
+  },
+  "devDependencies": {
+    "@integration/testing-tools": "3.0.0",
+    "@types/mocha": "^10.0.1",
+    "@wdio/cli": "8.15.10",
+    "c8": "8.0.1",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.2.0",
+    "mocha-multi": "^1.1.7",
+    "webdriverio": "8.15.10"
+  }
+}

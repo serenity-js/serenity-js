@@ -2,16 +2,13 @@ import type { SerenityConfig } from '@serenity-js/core';
 import type { Options } from '@wdio/types';
 
 /**
- * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)
+ * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/),
  * with Serenity/JS-specific {@apilink SerenityConfig|additions}.
  *
- * ## Configuring WebdriverIO with Serenity/JS and Cucumber
+ * ## Integrating WebdriverIO with Serenity/JS
  *
  * ```ts
  * // wdio.conf.ts
- * import { ConsoleReporter } from '@serenity-js/console-reporter'
- * import { ArtifactArchiver } from '@serenity-js/core'
- * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
  * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
  * export const config: WebdriverIOConfig = {
@@ -20,84 +17,105 @@ import type { Options } from '@wdio/types';
  *
  *   serenity: {
  *     runner: 'cucumber',
+ *     // runner: 'mocha',
+ *     // runner: 'jasmine',
+ *
  *     crew: [
- *       ConsoleReporter.forDarkTerminals(),
- *       new SerenityBDDReporter(),
- *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
+ *       // Optional, print test execution results to standard output
+ *       '@serenity-js/console-reporter',
+ *
+ *       // Optional, produce Serenity BDD reports
+ *       // and living documentation (HTML)
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', {
+ *           outputDirectory: 'target/site/serenity'
+ *       } ],
+ *
+ *       // Optional, automatically capture screenshots
+ *       // upon interaction failure
+ *       [ '@serenity-js/web:Photographer', {
+ *           strategy: 'TakePhotosOfFailures'
+ *       } ],
  *     ]
  *   },
  *
+ *   // Configure your Cucumber runner
  *   cucumberOpts: {
- *     // ...
+ *     // see Cucumber configuration options below
  *   },
+ *
+ *   // ... or Jasmine runner
+ *   jasmineOpts: {
+ *     // see Jasmine configuration options below
+ *   },
+ *
+ *   // ... or Mocha runner
+ *   mochaOpts: {
+ *      // see Mocha configuration options below
+ *   },
+ *
+ *   runner: 'local',
+ *
+ *   specs: [
+ *     './features/*.feature',
+ *
+ *     // or for Mocha/Jasmine
+ *     // './*.spec.ts'
+ *   ],
+ *
+ *   // Any other WebdriverIO configuration
+ * }
+ * ```
+ *
+ * ## Using Serenity/JS WebdriverIO Cucumber framework
+ *
+ * To simplify your setup, you might want to install the Serenity/JS WebdriverIO Cucumber framework,
+ * which bundles Cucumber.js and the Serenity/JS modules responsible for integrating it with WebdriverIO.
+ *
+ * ```sh
+ * npm install --save-dev @serenity-js/wdio-cucumber-framework
+ * ```
+ *
+ * ```ts
+ * // wdio.conf.ts
+ * import { WebdriverIOConfig } from '@serenity-js/webdriverio-cucumber-framework'
+ *
+ * export const config: WebdriverIOConfig = {
+ *
+ *   framework: '@serenity-js/webdriverio-cucumber-framework',
+ *
+ *   serenity: {
+ *     crew: [
+ *       // Optional, print test execution results to standard output
+ *       '@serenity-js/console-reporter',
+ *
+ *       // Optional, produce Serenity BDD reports
+ *       // and living documentation (HTML)
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', {
+ *           outputDirectory: 'target/site/serenity'
+ *       } ],
+ *
+ *       // Optional, automatically capture screenshots
+ *       // upon interaction failure
+ *       [ '@serenity-js/web:Photographer', {
+ *           strategy: 'TakePhotosOfFailures'
+ *       } ],
+ *     ]
+ *   },
+ *
+ *   // Configure your Cucumber runner
+ *   cucumberOpts: {
+ *     // see Cucumber configuration options below
+ *   },
+ *
+ *   runner: 'local',
  *
  *   specs: [
  *     './features/*.feature',
  *   ],
- * }
- * ```
  *
- * ## Configuring WebdriverIO with Serenity/JS and Mocha
- *
- * ```ts
- * // wdio.conf.ts
- * import { ConsoleReporter } from '@serenity-js/console-reporter'
- * import { ArtifactArchiver } from '@serenity-js/core'
- * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
- * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
- *
- * export const config: WebdriverIOConfig = {
- *
- *   framework: '@serenity-js/webdriverio',
- *
- *   serenity: {
- *     runner: 'mocha',
- *     crew: [
- *       ConsoleReporter.forDarkTerminals(),
- *       new SerenityBDDReporter(),
- *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *     ]
- *   },
- *
- *   mochaOpts: {
- *     // ...
- *   },
- *
- *   specs: [
- *     './spec/*.spec.*',
- *   ],
- * }
- * ```
- *
- * ## Configuring WebdriverIO with Serenity/JS and Jasmine
- *
- * ```ts
- * // wdio.conf.ts
- * import { ConsoleReporter } from '@serenity-js/console-reporter'
- * import { ArtifactArchiver } from '@serenity-js/core'
- * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
- * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
- *
- * export const config: WebdriverIOConfig = {
- *
- *   framework: '@serenity-js/webdriverio',
- *
- *   serenity: {
- *     runner: 'jasmine',
- *     crew: [
- *       ConsoleReporter.forDarkTerminals(),
- *       new SerenityBDDReporter(),
- *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *     ]
- *   },
- *
- *   jasmineOpts: {
- *     // ...
- *   },
- *
- *   specs: [
- *     './spec/*.spec.*',
- *   ],
+ *   // Any other WebdriverIO configuration
  * }
  * ```
  *

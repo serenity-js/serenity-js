@@ -1,15 +1,14 @@
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WebdriverIOConfig } from '@serenity-js/wdio-cucumber-framework';
 import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
-    framework: '@serenity-js/webdriverio',
+    framework: '@serenity-js/wdio-cucumber-framework',
     // framework: 'cucumber',
 
     serenity: {
-        runner: 'cucumber',
         diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new StdOutReporter(),

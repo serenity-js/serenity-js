@@ -288,6 +288,7 @@ const config = {
                         'packages/rest',
                         'packages/serenity-bdd',
                         'packages/web',
+                        'packages/wdio-cucumber-framework',
                     ].map(pathToPackage => ({
                         path: pathToPackage,
                         entry: {
@@ -320,6 +321,7 @@ const config = {
                         '@serenity-js/jasmine',
                         '@serenity-js/mocha',
                         '@serenity-js/playwright-test',
+                        '@serenity-js/wdio-cucumber-framework',
                     ]
 
                     return packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName);
