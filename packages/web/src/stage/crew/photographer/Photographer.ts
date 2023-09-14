@@ -9,7 +9,7 @@ import * as strategies from './strategies';
  * The Photographer is a {@apilink StageCrewMember} who takes screenshots
  * using the web browser associated with the {@apilink Actor} that is currently {@apilink actorInTheSpotlight|in the spotlight}.
  *
- * ## Programmatically assigning the `Photographer` to the {@apilink Stage}
+ * ## Registering Photographer programmatically
  *
  * ```ts
  * import { configure, ArtifactArchiver } from '@serenity-js/core'
@@ -23,12 +23,43 @@ import * as strategies from './strategies';
  * })
  * ```
  *
+ * ## Using Photographer with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ *
+ * const config: PlaywrightTestConfig = {
+ *   reporter: [
+ *       [ '@serenity-js/playwright-test', {
+ *           crew: [
+ *               '@serenity-js/serenity-bdd',
+ *               [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *           ]
+ *           // other Serenity/JS config
+ *       }]
+ *   ],
+ *
+ *   use: {
+ *     crew: [
+ *       [ '@serenity-js/web:Photographer', {
+ *         strategy: 'TakePhotosOfFailures',
+ *         // strategy: 'TakePhotosOfInteractions',
+ *       } ]
+ *     ],
+ *   },
+ * };
+ * export default config;
+ * ```
+ *
+ * #### Learn more
+ * - {@apilink SerenityOptions}
+ *
  * ## Using `Photographer` with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
  * import { ArtifactArchiver } from '@serenity-js/core'
- * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
  * import { WebdriverIOConfig } from '@serenity-js/webdriverio'
  *
  * export const config: WebdriverIOConfig= {
@@ -47,8 +78,12 @@ import * as strategies from './strategies';
  *
  *     // Register StageCrewMembers we've imported at the top of this file
  *     crew: [
- *       ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),
- *       Photographer.whoWill(TakePhotosOfFailures),
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *       [ '@serenity-js/web:Photographer', {
+ *         strategy: 'TakePhotosOfFailures',
+ *         // strategy: 'TakePhotosOfInteractions',
+ *       } ]
  *     ]
  *   },
  *
@@ -56,32 +91,10 @@ import * as strategies from './strategies';
  * }
  * ```
  *
- * ## Using `Photographer` with Playwright Test
- *
- * ```ts
- * // playwright.config.ts
- * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
- *
- * const config: PlaywrightTestConfig = {
- *     use: {
- *         crew: [
- *             [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ] // or 'TakePhotosOfInteractions'
- *         ],
- *     },
- * };
- * export default config;
- * ```
- *
- * #### Learn more
- * - {@apilink SerenityOptions}
- *
  * ## Using `Photographer` with Protractor
  *
  * ```ts
  * // protractor.conf.js
- * const { ArtifactArchiver } = require('@serenity-js/core')
- * const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web')
- *
  * exports.config = {
  *
  *   // Tell Protractor to use the Serenity/JS framework Protractor Adapter
@@ -89,16 +102,20 @@ import * as strategies from './strategies';
  *   frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
  *
  *   serenity: {
- *         runner: 'jasmine',
- *         // runner: 'cucumber',
- *         // runner: 'mocha',
- *         crew: [
- *             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *             Photographer.whoWill(TakePhotosOfFailures),
- *         ]
- *     },
+ *     runner: 'jasmine',
+ *     // runner: 'cucumber',
+ *     // runner: 'mocha',
+ *     crew: [
+ *       @serenity-js/serenity-bdd',
+ *        '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *        '@serenity-js/web:Photographer', {
+ *          strategy: 'TakePhotosOfFailures',
+ *          // strategy: 'TakePhotosOfInteractions',
+ *        ]
+ *     ]
+ *   },
  *
- *     // ... rest of the config omitted for brevity
+ *   // ... rest of the config omitted for brevity
  * }
  * ```
  *
