@@ -51,7 +51,7 @@ import { PageElement, PageElements, By } from '@serenity-js/web'
 
 class ProductSearch {
     static widget = () =>
-        PageElement.located(By.id('product-search-result'))
+        PageElement.located(By.id('product-search-results'))
             .describedAs('product search results widget')
 
     static results = () =>
@@ -64,12 +64,12 @@ Finally, you could use Serenity/JS [Page Element Query Language](/handbook/web-t
 to define a method like `resultFor` that returned the required search result based on the product name:
 
 ```typescript
-import { Aswerable } from '@serenity-js/core'
+import { Answerable } from '@serenity-js/core'
 import { Text } from '@serenity-js/web'
 import { includes } from '@serenity-js/assertions'
 
 class ProductSearch {
-    static resultFor = (name: Aswerable<string>) =>
+    static resultFor = (name: Answerable<string>) =>
         this.results()
             .where(ProductSearchResult.name(), includes(name))
             .first()
