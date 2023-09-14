@@ -727,7 +727,7 @@ const label = () =>                                     // Text of the item labe
         .describedAs('label')
 
 const destroyButton = () =>                             // Destroy button
-    Text.of(PageElement.located(By.css('.destroy')))
+    PageElement.located(By.css('.destroy'))
         .describedAs('destroy button')
 ```
 
@@ -779,7 +779,7 @@ You can also combine several `.where` calls, adding multiple meta-questions to y
 ```typescript
 import { actorCalled } from '@serenity-js/core'
 import { CssClasses } from '@serenity-js/web'
-import { Ensure, contain, equals } from '@serenity-js/assertions'
+import { Ensure, contain, equals, includes } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
     Ensure.that(
@@ -852,7 +852,7 @@ For example, to toggle every item that hasn't been bought yet:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web'
+import { CssClasses, Click } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
