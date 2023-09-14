@@ -133,7 +133,10 @@ export class CallAnApi extends Ability {
      *  provided when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
      */
     request(config: AxiosRequestConfig): Promise<AxiosResponse> {
-        return this.captureResponseOf(this.axiosInstance.request(config));
+        return this.captureResponseOf(this.axiosInstance.request({
+            ...config,
+            url: this.resolveUrl(config),
+        }));
     }
 
     /**
@@ -147,7 +150,9 @@ export class CallAnApi extends Ability {
      * @param config
      */
     resolveUrl(config: AxiosRequestConfig): string {
-        return this.axiosInstance.getUri(config);
+        return config.baseURL
+            ? new URL(config.url, config.baseURL).toString()
+            : config.url;
     }
 
     /**
