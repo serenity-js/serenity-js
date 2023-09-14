@@ -1,5 +1,5 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import type { AxiosDefaults, AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosDefaults, AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 
 /**
@@ -132,11 +132,36 @@ export class CallAnApi extends Ability {
      *  Axios request configuration, which can be used to override the defaults
      *  provided when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
      */
-    request(config: AxiosRequestConfig): Promise<AxiosResponse> {
-        return this.captureResponseOf(this.axiosInstance.request({
-            ...config,
-            url: this.resolveUrl(config),
-        }));
+    async request(config: AxiosRequestConfig): Promise<AxiosResponse> {
+        let url: string;
+
+        try {
+            url = this.resolveUrl(config);
+            this.lastResponse = await this.axiosInstance.request({
+                ...config,
+                url,
+            });
+
+            return this.lastResponse;
+        }
+        catch(error) {
+            const description = `${ config.method.toUpperCase() } ${ url || config.url }`;
+
+            switch (true) {
+                case /timeout.*exceeded/.test(error.message):
+                    throw new TestCompromisedError(`The request has timed out: ${ description }`, error);
+                case /Network Error/.test(error.message):
+                    throw new TestCompromisedError(`A network error has occurred: ${ description }`, error);
+                case error instanceof TypeError:
+                    throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
+                case ! (error as AxiosError).response:
+                    throw new TestCompromisedError(`The API call has failed: ${ description }`, error);
+                default:
+                    this.lastResponse = error.response;
+
+                    return error.response;
+            }
+        }
     }
 
     /**
@@ -150,8 +175,10 @@ export class CallAnApi extends Ability {
      * @param config
      */
     resolveUrl(config: AxiosRequestConfig): string {
-        return config.baseURL
-            ? new URL(config.url, config.baseURL).toString()
+        const baseURL = this.axiosInstance.defaults.baseURL || config.baseURL;
+
+        return baseURL
+            ? new URL(config.url, baseURL).toString()
             : config.url;
     }
 
@@ -170,32 +197,5 @@ export class CallAnApi extends Ability {
         }
 
         return mappingFunction(this.lastResponse);
-    }
-
-    private captureResponseOf(promisedResponse: AxiosPromise): AxiosPromise {
-        return promisedResponse
-            .then(
-                lastResponse => {
-                    this.lastResponse = lastResponse;
-
-                    return lastResponse;
-                },
-                error => {
-                    switch (true) {
-                        case /timeout.*exceeded/.test(error.message):
-                            throw new TestCompromisedError(`The request has timed out`, error);
-                        case /Network Error/.test(error.message):
-                            throw new TestCompromisedError(`A network error has occurred`, error);
-                        case error instanceof TypeError:
-                            throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
-                        case ! (error as AxiosError).response:
-                            throw new TestCompromisedError(`The API call has failed`, error);   // todo: include request url
-                        default:
-                            this.lastResponse = error.response;
-
-                            return error.response;
-                    }
-                },
-            );
     }
 }
