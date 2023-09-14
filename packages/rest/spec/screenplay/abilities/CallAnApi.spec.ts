@@ -75,9 +75,17 @@ describe('CallAnApi', () => {
     it('provides a way to determine the actual target URL the request will be sent to', () => {
         const callaAnApi = CallAnApi.at('https://example.org/api/v4');
 
-        const actualUrl = callaAnApi.resolveUrl({ url: 'products/3' });
+        const actualUrl = callaAnApi.resolveUrl({ baseURL: 'https://example.org/api/v4/', url: 'products/3' });
 
         expect(actualUrl).to.equal('https://example.org/api/v4/products/3')
+    });
+
+    it('correctly resolves absolute URL paths', () => {
+        const callaAnApi = CallAnApi.at('https://example.org/api/v4');
+
+        const actualUrl = callaAnApi.resolveUrl({ baseURL: 'https://example.org/api/v4/', url: '/api/v5/products/3' });
+
+        expect(actualUrl).to.equal('https://example.org/api/v5/products/3')
     });
 
     describe('when dealing with errors', () => {
