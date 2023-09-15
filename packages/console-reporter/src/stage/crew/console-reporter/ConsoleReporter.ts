@@ -47,7 +47,7 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  * as well as a monochromatic theme for those moments when you're in a noir mood
  * (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
- * ## Registering the reporter programmatically
+ * ## Registering Console Reporter programmatically
  *
  * ```ts
  *  import { configure } from '@serenity-js/core';
@@ -68,11 +68,33 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  *  import { createWriteStream } from 'fs';
  *
  *  configure({
- *      outputStream: createWriteStream('./output.log'),
- *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
+ *    outputStream: createWriteStream('./output.log'),
+ *    crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
  *  ```
- * ## Registering the reporter with WebdriverIO
+ *
+ * ## Registering Console Reporter with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import { devices } from '@playwright/test';
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+ *
+ * const config: PlaywrightTestConfig = {
+ *
+ *   reporter: [
+ *     [ 'line' ],
+ *     [ 'html', { open: 'never' } ],
+ *     [ '@serenity-js/playwright-test', {
+ *       crew: [
+ *         '@serenity-js/console-reporter',
+ *       ]
+ *     }]
+ *   ],
+ * }
+ * ```
+ *
+ * ## Registering Console Reporter with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
@@ -85,7 +107,7 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  *
  *   serenity: {
  *     crew: [
- *       ConsoleReporter.forDarkTerminals(),
+ *       '@serenity-js/console-reporter',
  *     ]
  *     // other Serenity/JS config
  *   },
@@ -94,7 +116,7 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  * }
  * ```
  *
- * ## Registering the reporter with Protractor
+ * ## Registering Console Reporter with Protractor
  *
  * ```js
  * // protractor.conf.js
@@ -106,13 +128,30 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  *
  *   serenity: {
  *     crew: [
- *       ConsoleReporter.withDefaultColourSupport(),
+ *       '@serenity-js/console-reporter',
  *     ],
  *     // other Serenity/JS config
  *   },
  *
  *   // other Protractor config
  * }
+ * ```
+ *
+ * ## Changing the default colour theme
+ *
+ * ```js
+ *   // ...
+ *   serenity: {
+ *     crew: [
+ *       [ '@serenity-js/console-reporter', {
+ *         theme: 'light',
+ *         // theme: 'dark',
+ *         // theme: 'mono',
+ *         // theme: 'auto',
+ *       } ]
+ *     ],
+ *   },
+ *   //...
  * ```
  *
  * @public

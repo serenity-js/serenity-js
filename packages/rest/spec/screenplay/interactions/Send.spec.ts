@@ -71,7 +71,7 @@ describe('Send', () => {
     it('emits the events so that the details of the HTTP interaction can be reported', async () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
         const axiosInstance = axios.create({
-            baseURL: 'https://myapp.com/api'
+            baseURL: 'https://myapp.com/api/'
         });
         const mock     = new MockAdapter(axiosInstance);
         const serenity = new Serenity(frozenClock);

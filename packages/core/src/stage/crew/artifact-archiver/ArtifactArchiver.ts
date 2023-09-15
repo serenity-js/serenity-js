@@ -22,7 +22,7 @@ import { Hash } from './Hash';
 /**
  * Stores any {@apilink Artifact|artifacts} emitted via {@apilink ArtifactGenerated} events on the {@apilink FileSystem}.
  *
- * ## Registering `ArtifactArchiver` programmatically
+ * ## Registering Artifact Archiver programmatically
  *
  * ```ts
  * import { ArtifactArchiver, configure } from '@serenity-js/core'
@@ -35,7 +35,7 @@ import { Hash } from './Hash';
  * })
  * ```
  *
- * ## Using `ArtifactArchiver` with Playwright Test
+ * ## Using Artifact Archiver with Playwright Test
  *
  * ```ts
  * // playwright.config.ts
@@ -49,7 +49,6 @@ import { Hash } from './Hash';
  *       crew: [
  *         '@serenity-js/serenity-bdd',
  *         [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
- *         [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
  *       ]
  *       // other Serenity/JS config
  *     }]
@@ -58,26 +57,7 @@ import { Hash } from './Hash';
  * }
  * ```
  *
- * ## Using `ArtifactArchiver` with Protractor
- *
- * ```js
- * // protractor.conf.js
- * exports.config = {
- *   framework:     'custom',
- *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
- *
- *   serenity: {
- *     crew: [
- *       '@serenity-js/serenity-bdd',
- *       [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
- *     ],
- *     // other Serenity/JS config
- *   },
- *   // other Protractor config
- * }
- * ```
- *
- * ## Using `ArtifactArchiver` with WebdriverIO
+ * ## Using Artifact Archiver with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
@@ -95,6 +75,25 @@ import { Hash } from './Hash';
  *     // other Serenity/JS config
  *   },
  *   // other WebdriverIO config
+ * }
+ * ```
+ *
+ * ## Using Artifact Archiver with Protractor
+ *
+ * ```js
+ * // protractor.conf.js
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *     crew: [
+ *       '@serenity-js/serenity-bdd',
+ *       [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *   // other Protractor config
  * }
  * ```
  *

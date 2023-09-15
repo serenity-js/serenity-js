@@ -228,6 +228,60 @@ test.use({
 })
 ```
 
+#### Customising test fixtures
+
+[`useFixtures`](https://serenity-js.org/api/playwright-test/function/useFixtures/) lets you configure
+Serenity/JS Screenplay Pattern actors in a single place,
+and define custom [test fixtures](https://playwright.dev/docs/test-fixtures) if needed.   
+
+```typescript
+// my-custom-api.ts
+export const { 
+    describe, it, test, beforeAll, beforeEach, afterEach, afterAll, expect
+} = useFixtures<{ email: string }>({
+    
+    // Override Serenity/JS fixtures:
+    actors: async ({ browser, baseURL }, use) => {
+        await use(
+            Cast.where(actor => actor.whoCan(
+                BrowseTheWebWithPlaywright.using(browser),
+                TakeNotes.usingAnEmptyNotepad(),
+                CallAnApi.at(baseURL),
+            ))
+        )
+    },
+    
+    // Add your own fixtures:
+    email: async ({ actor }, use) => {
+        await use(`${ actor.name }@example.org`);
+    },    
+})
+```
+
+With the custom test API definition in place, use it in your test files instead of the default one:
+
+```typescript
+// example.spec.ts
+import { Log } from '@serenity-js/core'
+
+import { describe, it, test } from './my-custom-api'    // Note the custom test API
+
+describe('Serenity Screenplay with Playwright', () => {
+
+    describe('New Todo', () => {
+
+        // inject default actor:
+        it('should allow me to add todo items', async ({ actor, email }) => {
+
+            // define test workflow
+            await actor.attemptsTo(
+                Log.the(email),
+            )
+        })
+    })
+})
+```
+
 ### UI Component Testing
 
 You can use Serenity/JS and Playwright Test to write UI component tests and **reuse your test code** between component and end-to-end test suites.

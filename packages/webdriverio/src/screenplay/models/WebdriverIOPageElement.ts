@@ -1,8 +1,9 @@
+import 'webdriverio';
+
 import { LogicError } from '@serenity-js/core';
 import type { SwitchableOrigin } from '@serenity-js/web';
 import { Key, PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
-import type { Browser, Element } from 'webdriverio';
 
 import type { WebdriverIOLocator } from './locators/index.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
@@ -12,7 +13,7 @@ import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
  *
  * @group Models
  */
-export class WebdriverIOPageElement extends PageElement<Element> {
+export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
     of(parent: WebdriverIOPageElement): WebdriverIOPageElement {
         return new WebdriverIOPageElement(this.locator.of(parent.locator))
     }
@@ -28,7 +29,7 @@ export class WebdriverIOPageElement extends PageElement<Element> {
         }
 
         // eslint-disable-next-line unicorn/consistent-function-scoping
-        async function removeCharactersFrom(browser: Browser | Element, inputElement: Element, numberOfCharacters: number): Promise<void> {
+        async function removeCharactersFrom(browser: WebdriverIO.Browser | WebdriverIO.Element, inputElement: WebdriverIO.Element, numberOfCharacters: number): Promise<void> {
             await browser.execute(
                 /* c8 ignore next */
                 function focusOn(element: any) {
@@ -150,7 +151,7 @@ export class WebdriverIOPageElement extends PageElement<Element> {
 
     async switchTo(): Promise<SwitchableOrigin> {
         try {
-            const element: Element = await this.locator.nativeElement()
+            const element: WebdriverIO.Element = await this.locator.nativeElement()
 
             if (element.error) {
                 throw element.error;
@@ -258,10 +259,10 @@ export class WebdriverIOPageElement extends PageElement<Element> {
 
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
 
-    private async browserFor(nativeElement: Element | Browser): Promise<Element | Browser> {
-        const element = nativeElement as Element;
+    private async browserFor(nativeElement: WebdriverIO.Element | WebdriverIO.Browser): Promise<WebdriverIO.Element | WebdriverIO.Browser> {
+        const element = nativeElement as WebdriverIO.Element;
         return element.parent
-            ? this.browserFor(element.parent as (Element | Browser))
+            ? this.browserFor(element.parent)
             : nativeElement
     }
 }
