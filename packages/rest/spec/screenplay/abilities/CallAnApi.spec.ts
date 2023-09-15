@@ -73,11 +73,19 @@ describe('CallAnApi', () => {
     });
 
     it('provides a way to determine the actual target URL the request will be sent to', () => {
-        const callaAnApi = CallAnApi.at('https://example.org/api/v4');
+        const callaAnApi = CallAnApi.at('https://example.org/api/v4/');
 
         const actualUrl = callaAnApi.resolveUrl({ url: 'products/3' });
 
         expect(actualUrl).to.equal('https://example.org/api/v4/products/3')
+    });
+
+    it('correctly resolves absolute URL paths', () => {
+        const callaAnApi = CallAnApi.at('https://example.org/api/v4/');
+
+        const actualUrl = callaAnApi.resolveUrl({ url: '/api/v5/products/3' });
+
+        expect(actualUrl).to.equal('https://example.org/api/v5/products/3')
     });
 
     describe('when dealing with errors', () => {
@@ -108,7 +116,7 @@ describe('CallAnApi', () => {
 
             mock.onAny().timeout();
 
-            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The request has timed out')
+            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The request has timed out: GET /some/api')
                 .then((error: TestCompromisedError) => {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain('Caused by: Error: timeout of 0ms exceeded');
@@ -120,7 +128,7 @@ describe('CallAnApi', () => {
 
             mock.onAny().networkError();
 
-            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('A network error has occurred')
+            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('A network error has occurred: GET /some/api')
                 .then((error: TestCompromisedError) => {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain('Caused by: Error: Network Error');
@@ -132,7 +140,7 @@ describe('CallAnApi', () => {
 
             mock.onAny().reply(() => Promise.reject(new Error('something unpredictable')));
 
-            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The API call has failed')
+            return expect(callAnApi.request({ method: 'get', url: '/some/api' })).to.be.rejectedWith('The API call has failed: GET /some/api')
                 .then((error: TestCompromisedError) => {
                     expect(error).to.be.instanceOf(TestCompromisedError);
                     expect(error.stack).to.contain('Caused by: Error: something unpredictable');

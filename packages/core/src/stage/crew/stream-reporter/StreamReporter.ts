@@ -12,7 +12,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
  *
  * Useful when debugging issues related to custom Serenity/JS test runner adapters.
  *
- * ## Registering `StreamReporter` programmatically
+ * ## Registering Stream Reporter programmatically
  *
  * ```ts
  * import { configure, StreamReporter } from '@serenity-js/core'
@@ -24,7 +24,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
  * })
  * ```
  *
- * ## Writing `DomainEvents` to a file
+ * ## Writing Domain Events to a file
  *
  * ```ts
  * import { configure, StreamReporter } from '@serenity-js/core'
@@ -37,19 +37,18 @@ import type { StageCrewMember } from '../../StageCrewMember';
  * })
  * ```
  *
- * ## Using `StreamReporter` with Playwright Test
+ * ## Using Stream Reporter with Playwright Test
  *
  * ```ts
  * // playwright.config.ts
  * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
  *
  * const config: PlaywrightTestConfig = {
- *   testDir: './spec',
  *
  *   reporter: [
  *     [ '@serenity-js/playwright-test', {
  *       crew: [
- *         [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
+ *         [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' } ]
  *       ]
  *       // other Serenity/JS config
  *     }]
@@ -58,25 +57,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
  * }
  * ```
  *
- * ## Using `StreamReporter` with Protractor
- *
- * ```js
- * // protractor.conf.js
- * exports.config = {
- *   framework:     'custom',
- *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
- *
- *   serenity: {
- *     crew: [
- *       [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
- *     ],
- *     // other Serenity/JS config
- *   },
- *   // other Protractor config
- * }
- * ```
- *
- * ## Using `StreamReporter` with WebdriverIO
+ * ## Using Stream Reporter with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
@@ -94,6 +75,24 @@ import type { StageCrewMember } from '../../StageCrewMember';
  *     // other Serenity/JS config
  *   },
  *   // other WebdriverIO config
+ * }
+ * ```
+ *
+ * ## Using Stream Reporter with Protractor
+ *
+ * ```js
+ * // protractor.conf.js
+ * exports.config = {
+ *   framework:     'custom',
+ *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
+ *
+ *   serenity: {
+ *     crew: [
+ *       [ '@serenity-js/core:StreamReporter', { outputFile: './events.ndjson' }]
+ *     ],
+ *     // other Serenity/JS config
+ *   },
+ *   // other Protractor config
  * }
  * ```
  *

@@ -1,3 +1,5 @@
+import 'webdriverio';
+
 import type { Serenity} from '@serenity-js/core';
 import { AnsiDiffFormatter, ArtifactArchiver, Cast, TakeNotes } from '@serenity-js/core';
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
@@ -7,7 +9,6 @@ import type { Capabilities } from '@wdio/types';
 import * as deepmerge from 'deepmerge';
 import type { EventEmitter } from 'events';
 import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
-import type { Browser } from 'webdriverio';
 
 import type { WebdriverIOConfig } from '../config/index.js';
 import { BrowseTheWebWithWebdriverIO } from '../screenplay/index.js';
@@ -77,7 +78,7 @@ export class WebdriverIOFrameworkAdapter {
             diffFormatter: config.serenity.diffFormatter ?? new AnsiDiffFormatter(),
 
             actors: config.serenity.actors || Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithWebdriverIO.using(global.browser as unknown as Browser),
+                BrowseTheWebWithWebdriverIO.using(global.browser as unknown as WebdriverIO.Browser),
                 TakeNotes.usingAnEmptyNotepad(),
             )),
 

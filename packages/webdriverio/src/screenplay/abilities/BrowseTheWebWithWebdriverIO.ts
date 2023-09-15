@@ -1,5 +1,6 @@
+import 'webdriverio';
+
 import { BrowseTheWeb } from '@serenity-js/web';
-import type { Browser, Element } from 'webdriverio';
 
 import { WebdriverIOBrowsingSession } from '../models/index.js';
 
@@ -37,9 +38,9 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  *
  * @group Abilities
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<Element> {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<WebdriverIO.Element> {
 
-    static using(browserInstance: Browser): BrowseTheWebWithWebdriverIO {
+    static using(browserInstance: WebdriverIO.Browser): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(new WebdriverIOBrowsingSession(browserInstance));
     }
 }

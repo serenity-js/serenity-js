@@ -7,7 +7,7 @@ import type {
     TestInfo,
     TestType,
 } from '@playwright/test';
-import { test as playwrightBaseTest, } from '@playwright/test';
+import { test as playwrightBaseTest } from '@playwright/test';
 import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
@@ -22,6 +22,7 @@ import {
     PlaywrightStepReporter,
     SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
 } from '../reporter';
+import type { DescribeFunction } from './DescribeFunction';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import type { SerenityFixtures } from './SerenityFixtures';
 import type { SerenityOptions } from './SerenityOptions';
@@ -185,7 +186,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
         useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
         it: TestType<TestArgs, WorkerArgs>,
         test: TestType<TestArgs, WorkerArgs>,
-        describe: typeof playwrightBaseTest.describe,
+        describe: DescribeFunction,
     }
 
 function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(baseTest: TestType<TestArgs, WorkerArgs>): TestApi<TestArgs, WorkerArgs> {
@@ -318,7 +319,7 @@ export const test = api.test;
  * - [Playwright Test `describe` function](https://playwright.dev/docs/api/class-test#test-describe-1)
  * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
  */
-export const describe: typeof playwrightBaseTest.describe = api.describe;
+export const describe = api.describe;
 
 export const beforeAll = api.beforeAll;
 

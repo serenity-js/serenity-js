@@ -11,7 +11,7 @@ import { EventQueueProcessors } from './processors';
  * to be parsed by [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)
  * to produce HTML reports and living documentation.
  *
- * ## Registering the reporter programmatically
+ * ## Registering Serenity BDD Reporter programmatically
  *
  * ```ts
  * import { ArtifactArchiver, configure } from '@serenity-js/core';
@@ -25,7 +25,29 @@ import { EventQueueProcessors } from './processors';
  * })
  * ```
  *
- * ## Registering the reporter using WebdriverIO configuration
+ * ## Using Serenity BDD Reporter with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import { devices } from '@playwright/test';
+ * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+ *
+ * const config: PlaywrightTestConfig = {
+ *
+ *   reporter: [
+ *     [ 'line' ],
+ *     [ 'html', { open: 'never' } ],
+ *     [ '@serenity-js/playwright-test', {
+ *       crew: [
+ *         '@serenity-js/serenity-bdd',
+ *         [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+ *       ]
+ *     }]
+ *   ],
+ * }
+ * ```
+ *
+ * ## Using Serenity BDD Reporter with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
@@ -39,8 +61,8 @@ import { EventQueueProcessors } from './processors';
  *
  *   serenity: {
  *     crew: [
- *         ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *         new SerenityBDDReporter(),
+ *       '@serenity-js/serenity-bdd',
+ *        [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
  *     ],
  *     // other Serenity/JS config
  *   },
@@ -48,7 +70,7 @@ import { EventQueueProcessors } from './processors';
  * }
  * ```
  *
- * ## Registering the reporter using Protractor configuration
+ * ## Using Serenity BDD Reporter with Protractor
  *
  * ```js
  * // protractor.conf.js
@@ -62,8 +84,8 @@ import { EventQueueProcessors } from './processors';
  *
  *   serenity: {
  *     crew: [
- *       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *       new SerenityBDDReporter(),
+ *         '@serenity-js/serenity-bdd',
+ *          [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
  *     ],
  *     // other Serenity/JS config
  *   },
