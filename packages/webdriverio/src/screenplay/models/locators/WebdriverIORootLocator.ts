@@ -1,13 +1,14 @@
+import 'webdriverio';
+
 import { RootLocator } from '@serenity-js/web';
-import type { Browser, Element } from 'webdriverio';
 
 /**
  * WebdriverIO-specific implementation of {@apilink RootLocator}.
  *
  * @group Models
  */
-export class WebdriverIORootLocator extends RootLocator<Browser> {
-    constructor(private readonly browser: Browser) {
+export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Browser> {
+    constructor(private readonly browser: WebdriverIO.Browser) {
         super();
     }
 
@@ -15,7 +16,7 @@ export class WebdriverIORootLocator extends RootLocator<Browser> {
         return true;
     }
 
-    async nativeElement(): Promise<Pick<Browser, '$' | '$$'>> {
+    async nativeElement(): Promise<Pick<WebdriverIO.Browser, '$' | '$$'>> {
         return this.browser;
     }
 
