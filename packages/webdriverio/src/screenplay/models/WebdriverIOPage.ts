@@ -1,9 +1,10 @@
+import 'webdriverio';
+
 import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { BrowserWindowClosedError, ByCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
 import { URL } from 'url';
-import type { Browser, Element } from 'webdriverio';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
@@ -16,13 +17,13 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<Element> {
+export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     constructor(
         session: WebdriverIOBrowsingSession,
-        private readonly browser: Browser,
+        private readonly browser: WebdriverIO.Browser,
         modalDialogHandler: ModalDialogHandler,
         private readonly errorHandler: WebdriverIOErrorHandler,
         pageId: CorrelationId,
@@ -35,7 +36,7 @@ export class WebdriverIOPage extends Page<Element> {
         );
     }
 
-    createPageElement(nativeElement: Element): PageElement<Element> {
+    createPageElement(nativeElement: WebdriverIO.Element): PageElement<WebdriverIO.Element> {
         return new WebdriverIOPageElement(
             new WebdriverIOExistingElementLocator(
                 this.rootLocator,
@@ -46,13 +47,13 @@ export class WebdriverIOPage extends Page<Element> {
         );
     }
 
-    locate(selector: Selector): PageElement<Element> {
+    locate(selector: Selector): PageElement<WebdriverIO.Element> {
         return new WebdriverIOPageElement(
             new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
-    locateAll(selector: Selector): PageElements<Element> {
+    locateAll(selector: Selector): PageElements<WebdriverIO.Element> {
         return List.of(
             new PageElementsLocator(
                 new WebdriverIOLocator(this.rootLocator, selector, this.errorHandler)
