@@ -78,7 +78,7 @@ with an [appropriate web question](/api/web).
 For example, to retrieve the text value of a `PageElement` returned by `Basket.total()`, compose it with a question about its [`Text`](/api/web/class/Text):
 
 ```typescript
-import { By, PageElement } from '@serenity-js/web'
+import { By, PageElement, Text } from '@serenity-js/web'
 
 export const basketTotal = () =>
   PageElement.located(By.css('#basket .total'))
@@ -146,7 +146,7 @@ Those two mechanisms combined give you a unique and flexible way to retrieve and
 For example, instead of retrieving the basket total amount as `string` you might want to clean it up and transform into a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number):
 
 ```typescript
-import { By, PageElement } from '@serenity-js/web'
+import { By, PageElement, Text } from '@serenity-js/web'
 
 export const basketTotal = () =>
   PageElement.located(By.css('#basket .total'))
@@ -182,6 +182,8 @@ You can also assert that a specific property of the element, like its [text](/ap
 ```typescript
 import { actorCalled } from '@serenity-js/core'
 import { Ensure, equals } from '@serenity-js/assertions'
+import { Text } from '@serenity-js/web'
+
 
 await actorCalled('Alice').attemptsTo(
   Ensure.that(Text.of(basketTotal()), equals('£3.75')),
@@ -360,14 +362,14 @@ Similarly to [`PageElement`](/api/web/class/PageElement), [`PageElements`](/api/
 like [`Text.ofAll`](/api/web/class/Text):
 
 ```typescript
-import { Text, PageElements } from '@serenity-js/web'
+import { By, PageElements, Text } from '@serenity-js/web'
 
 const basketItemNameElements = () =>
   PageElements.located(By.css('#basket .item .name'))
     .describedAs('basket item names')
 
 const basketItemNameElementNames = () =>
-    Text.ofAll(basketItemsNames())
+    Text.ofAll(basketItemNameElements())
 ```
 
 [`Text.ofAll`](/api/web/class/Text) API is useful when you need to retrieve text content of multiple elements and assert on it all at once:
@@ -458,7 +460,7 @@ to dynamically model a descendants/ancestor (a.k.a. child/parent) relationship b
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { By, PageElement } from '@serenity-js/web'
+import { By, PageElement, Text } from '@serenity-js/web'
 import { Ensure, equals } from '@serenity-js/assertions'
 
 const basketItem = () =>
@@ -477,7 +479,7 @@ await actorCalled('Alice').attemptsTo(
     equals([
         'apples',
         'bananas',
-    )    
+    ])    
   ),
 )
 ```
@@ -520,7 +522,7 @@ const basketItemName = () =>
     .describedAs('basket item name')
 
 await actorCalled('Alice').attemptsTo(
-    Ensure.that(basketItemName(), equals('apples'))
+    Ensure.that(Text.of(basketItemName()), equals('apples'))
 )
 ```
 
@@ -541,7 +543,7 @@ await actorCalled('Alice').attemptsTo(
         equals([ 
             'apples',
             'bananas',
-        )
+        ])
     )
 )
 ```
@@ -572,14 +574,14 @@ await actorCalled('Alice').attemptsTo(
     equals([ 
       'apples',
       'bananas'
-    )
+    ])
   ),
   Ensure.that(
     basketItems().eachMappedTo(Text.of(itemPrice())),
     equals([
       '£2.25',
       '£1.50',
-    )
+    ])
   )
 )
 ```
@@ -641,7 +643,7 @@ await actorCalled('Alice').attemptsTo(
     equals([
       { name: 'apples',  price: 2.25 },
       { name: 'bananas', price: 1.50 },
-    )
+    ])
   ),
 )
 ```
@@ -725,7 +727,7 @@ const label = () =>                                     // Text of the item labe
         .describedAs('label')
 
 const destroyButton = () =>                             // Destroy button
-    Text.of(PageElement.located(By.css('.destroy')))
+    PageElement.located(By.css('.destroy'))
         .describedAs('destroy button')
 ```
 
@@ -777,7 +779,7 @@ You can also combine several `.where` calls, adding multiple meta-questions to y
 ```typescript
 import { actorCalled } from '@serenity-js/core'
 import { CssClasses } from '@serenity-js/web'
-import { Ensure, contain, equals } from '@serenity-js/assertions'
+import { Ensure, contain, equals, includes } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
     Ensure.that(
@@ -850,7 +852,7 @@ For example, to toggle every item that hasn't been bought yet:
 
 ```typescript
 import { actorCalled } from '@serenity-js/core'
-import { CssClasses } from '@serenity-js/web'
+import { CssClasses, Click } from '@serenity-js/web'
 import { Ensure, contain, equals } from '@serenity-js/assertions'
 
 await actorCalled('Alice').attemptsTo(
