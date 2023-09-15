@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
+
+
+### Bug Fixes
+
+* **webdriverio:** updated WebdriverIO to 8.16.7 and switched to its new global types ([ecd96b2](https://github.com/serenity-js/serenity-js/commit/ecd96b2623c267923db4f79aa2ccb338f10bb09f))
+
+
+
+
+
 ## [3.10.2](https://github.com/serenity-js/serenity-js/compare/v3.10.1...v3.10.2) (2023-09-10)
 
 

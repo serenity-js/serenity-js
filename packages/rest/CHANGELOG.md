@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
+
+
+### Bug Fixes
+
+* **rest:** correctly resolve relative paths in REST requests ([1bdf3eb](https://github.com/serenity-js/serenity-js/commit/1bdf3eb05701007c8d640e4529f701862f223480))
+* **rest:** improved error messages and error handling for failed requests ([e6eb0c3](https://github.com/serenity-js/serenity-js/commit/e6eb0c36db0979be4c8e861cfe402094b7157024)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+
+
+
+
+
 ## [3.10.2](https://github.com/serenity-js/serenity-js/compare/v3.10.1...v3.10.2) (2023-09-10)
 
 

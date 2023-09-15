@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.38.0 ([0b8074b](https://github.com/serenity-js/serenity-js/commit/0b8074b19155a38aa2009049d9a395b7026d12b3))
+* **playwright-test:** simplified and documented implementing custom Playwright Test fixtures ([61fc2bc](https://github.com/serenity-js/serenity-js/commit/61fc2bce72c9758658851949afac84d573698677)), closes [microsoft/playwright#24146](https://github.com/microsoft/playwright/issues/24146)
+* **rest:** correctly resolve relative paths in REST requests ([1bdf3eb](https://github.com/serenity-js/serenity-js/commit/1bdf3eb05701007c8d640e4529f701862f223480))
+* **rest:** improved error messages and error handling for failed requests ([e6eb0c3](https://github.com/serenity-js/serenity-js/commit/e6eb0c36db0979be4c8e861cfe402094b7157024)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+* **webdriverio:** updated WebdriverIO to 8.16.7 and switched to its new global types ([ecd96b2](https://github.com/serenity-js/serenity-js/commit/ecd96b2623c267923db4f79aa2ccb338f10bb09f))
+
+
+
+
+
 ## [3.10.2](https://github.com/serenity-js/serenity-js/compare/v3.10.1...v3.10.2) (2023-09-10)
 
 
