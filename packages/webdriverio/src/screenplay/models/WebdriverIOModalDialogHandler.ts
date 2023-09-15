@@ -1,6 +1,7 @@
+import 'webdriverio';
+
 import type { ModalDialog} from '@serenity-js/web';
 import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialogHandler } from '@serenity-js/web';
-import type { Browser } from 'webdriverio';
 
 import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
@@ -28,7 +29,7 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
     private currentHandler: () => Promise<void>;
 
     constructor(
-        private readonly browser: Browser,
+        private readonly browser: WebdriverIO.Browser,
         private readonly errorHandler: WebdriverIOErrorHandler,
     ) {
         super();

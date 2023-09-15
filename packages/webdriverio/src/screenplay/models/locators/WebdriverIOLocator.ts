@@ -1,7 +1,8 @@
+import 'webdriverio';
+
 import { f, LogicError } from '@serenity-js/core';
 import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
-import type { Element } from 'webdriverio';
 
 import type { WebdriverIOErrorHandler } from '../WebdriverIOErrorHandler.js';
 import { WebdriverIOPageElement } from '../WebdriverIOPageElement.js';
@@ -12,10 +13,10 @@ import type { WebdriverIORootLocator } from './WebdriverIORootLocator.js';
  *
  * @group Models
  */
-export class WebdriverIOLocator extends Locator<Element, string> {
+export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
 
     constructor(
-        parent: RootLocator<Element>,
+        parent: RootLocator<WebdriverIO.Element>,
         selector: Selector,
         private readonly errorHandler: WebdriverIOErrorHandler,
     ) {
@@ -61,7 +62,7 @@ export class WebdriverIOLocator extends Locator<Element, string> {
         }
     }
 
-    async nativeElement(): Promise<Element> {
+    async nativeElement(): Promise<WebdriverIO.Element> {
         try {
             return await this.resolveNativeElement();
         }
@@ -70,7 +71,7 @@ export class WebdriverIOLocator extends Locator<Element, string> {
         }
     }
 
-    protected async resolveNativeElement(): Promise<Element> {
+    protected async resolveNativeElement(): Promise<WebdriverIO.Element> {
         const parent = await this.parent.nativeElement();
 
         if (parent.error) {
@@ -86,28 +87,28 @@ export class WebdriverIOLocator extends Locator<Element, string> {
         return element;
     }
 
-    async allNativeElements(): Promise<Array<Element>> {
+    async allNativeElements(): Promise<Array<WebdriverIO.Element>> {
         const parent = await this.parent.nativeElement();
         return parent.$$(this.nativeSelector());
     }
 
-    of(parent: WebdriverIOLocator): Locator<Element, string> {
+    of(parent: WebdriverIOLocator): Locator<WebdriverIO.Element, string> {
         return new WebdriverIOLocator(parent, this.selector, this.errorHandler);
     }
 
-    closestTo(child: WebdriverIOLocator): Locator<Element, string> {
+    closestTo(child: WebdriverIOLocator): Locator<WebdriverIO.Element, string> {
         return new WebdriverIOParentElementLocator(this.parent, this.selector, child, this.errorHandler);
     }
 
-    locate(child: WebdriverIOLocator): Locator<Element, string> {
+    locate(child: WebdriverIOLocator): Locator<WebdriverIO.Element, string> {
         return new WebdriverIOLocator(this, child.selector, this.errorHandler);
     }
 
-    element(): PageElement<Element> {
+    element(): PageElement<WebdriverIO.Element> {
         return new WebdriverIOPageElement(this);
     }
 
-    async allElements(): Promise<Array<PageElement<Element>>> {
+    async allElements(): Promise<Array<PageElement<WebdriverIO.Element>>> {
         const elements = await this.allNativeElements();
 
         return elements.map(childElement =>
@@ -128,26 +129,26 @@ export class WebdriverIOLocator extends Locator<Element, string> {
  */
 export class WebdriverIOExistingElementLocator extends WebdriverIOLocator {
     constructor(
-        parentRoot: RootLocator<Element>,
+        parentRoot: RootLocator<WebdriverIO.Element>,
         selector: Selector,
         errorHandler: WebdriverIOErrorHandler,
-        private readonly existingNativeElement: Element,
+        private readonly existingNativeElement: WebdriverIO.Element,
     ) {
         super(parentRoot, selector, errorHandler);
     }
 
-    async nativeElement(): Promise<Element> {
+    async nativeElement(): Promise<WebdriverIO.Element> {
         return this.existingNativeElement;
     }
 
-    async allNativeElements(): Promise<Array<Element>> {
+    async allNativeElements(): Promise<Array<WebdriverIO.Element>> {
         return [ this.existingNativeElement ];
     }
 }
 
 class WebdriverIOParentElementLocator extends WebdriverIOLocator {
     constructor(
-        parentRoot: RootLocator<Element>,
+        parentRoot: RootLocator<WebdriverIO.Element>,
         selector: Selector,
         private readonly child: WebdriverIOLocator,
         errorHandler: WebdriverIOErrorHandler
@@ -155,7 +156,7 @@ class WebdriverIOParentElementLocator extends WebdriverIOLocator {
         super(parentRoot, selector, errorHandler);
     }
 
-    protected override async resolveNativeElement(): Promise<Element> {
+    protected override async resolveNativeElement(): Promise<WebdriverIO.Element> {
         const cssSelector = this.asCssSelector(this.selector);
         const child = await this.child.nativeElement();
 
@@ -169,7 +170,7 @@ class WebdriverIOParentElementLocator extends WebdriverIOLocator {
         );
     }
 
-    override async allNativeElements(): Promise<Array<Element>> {
+    override async allNativeElements(): Promise<Array<WebdriverIO.Element>> {
         return [ await this.nativeElement() ];
     }
 }
