@@ -95,7 +95,8 @@ describe('Wait', () => {
         it('fails the actor flow when the timeout expires', async () => {
 
             const
-                timeout         = Duration.ofMilliseconds(2_000),
+                timeout         = Duration.ofMilliseconds(1_000),
+                tooMuch         = Duration.ofMilliseconds(2_000),
                 elapsedTime     = Stopwatch.elapsedTime().inMilliseconds().describedAs('elapsed time [ms]'),
                 pollingInterval = Duration.ofMilliseconds(250);
 
@@ -104,17 +105,17 @@ describe('Wait', () => {
                     .attemptsTo(
                         Stopwatch.start(),
                         Wait.upTo(timeout)
-                            .until(elapsedTime, isGreaterThan(timeout.inMilliseconds()))
+                            .until(elapsedTime, isGreaterThan(tooMuch.inMilliseconds()))
                             .pollingEvery(pollingInterval),
                     )
             ).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Timeout of ${ timeout } has expired while waiting for elapsed time \\[ms\] to have value greater than ${ timeout.inMilliseconds() }
+                    | Timeout of ${ timeout } has expired while waiting for elapsed time \\[ms\] to have value greater than ${ tooMuch.inMilliseconds() }
                     |
-                    | Expectation: isGreaterThan\\(${ timeout.inMilliseconds() }\\)
+                    | Expectation: isGreaterThan\\(${ tooMuch.inMilliseconds() }\\)
                     |
-                    | Expected number: ${ timeout.inMilliseconds() }
+                    | Expected number: ${ tooMuch.inMilliseconds() }
                     | Received number: \\d+
                     |`, 'gm'));
             })
@@ -134,9 +135,10 @@ describe('Wait', () => {
                 const elapsedTime = Date.now() - startTime;
                 expect(elapsedTime).to.be.greaterThanOrEqual(5000);
                 expect(error).to.be.instanceOf(AssertionError);
+
                 expect(error.message).to.match(new RegExp(trimmed`
                     | Timeout of 5s has expired while waiting for the first of \\[ \\] to have value greater than 1
-                    | \\s{4}at.*Wait.spec.ts:131:30
+                    | \\s{4}at.*Wait.spec.ts:132:30
                 `));
             })
         });
@@ -198,7 +200,7 @@ describe('Wait', () => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.match(new RegExp(trimmed`
                     | Timeout of 1s has expired while waiting for the first of lazy-loaded numbers to equal 1
-                    | \\s{4}at.*Wait.spec.ts:191:26
+                    | \\s{4}at.*Wait.spec.ts:193:26
                 `));
             });
         });
