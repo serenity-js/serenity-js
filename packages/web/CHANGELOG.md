@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.2](https://github.com/serenity-js/serenity-js/compare/v3.10.1...v3.10.2) (2023-09-10)
+
+
+### Bug Fixes
+
+* **core:** updated installation instruction in the README ([ec3f277](https://github.com/serenity-js/serenity-js/commit/ec3f2778334abbd7324497ceaa2df9f0560a103e)), closes [#1915](https://github.com/serenity-js/serenity-js/issues/1915)
+
+
+
+
+
 ## [3.10.1](https://github.com/serenity-js/serenity-js/compare/v3.10.0...v3.10.1) (2023-09-01)
 
 **Note:** Version bump only for package @serenity-js/web
