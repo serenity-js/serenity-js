@@ -55,7 +55,7 @@ import * as strategies from './strategies';
  * #### Learn more
  * - {@apilink SerenityOptions}
  *
- * ## Using `Photographer` with WebdriverIO
+ * ## Using Photographer with WebdriverIO
  *
  * ```ts
  * // wdio.conf.ts
@@ -91,7 +91,7 @@ import * as strategies from './strategies';
  * }
  * ```
  *
- * ## Using `Photographer` with Protractor
+ * ## Using Photographer with Protractor
  *
  * ```ts
  * // protractor.conf.js
