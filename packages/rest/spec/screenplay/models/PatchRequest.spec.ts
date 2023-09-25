@@ -1,9 +1,9 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { PatchRequest } from '../../src/models';
-import { actorUsingAMockedAxiosInstance } from '../actors';
-import { expect } from '../expect';
+import { PatchRequest } from '../../../src';
+import { actorUsingAMockedAxiosInstance } from '../../actors';
+import { expect } from '../../expect';
 
 describe('PatchRequest', () => {
 

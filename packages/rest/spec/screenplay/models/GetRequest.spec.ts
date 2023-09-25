@@ -1,38 +1,40 @@
 import { q, Question } from '@serenity-js/core';
 import { describe, it } from 'mocha';
 
-import { DeleteRequest } from '../../src/models';
-import { actorUsingAMockedAxiosInstance } from '../actors';
-import { expect } from '../expect';
+import { GetRequest } from '../../../src';
+import { actorUsingAMockedAxiosInstance } from '../../actors';
+import { expect } from '../../expect';
 
-describe('DeleteRequest', () => {
+describe('GetRequest', () => {
 
     const { actor } = actorUsingAMockedAxiosInstance();
 
     it('represents an Axios request', () =>
-        expect(actor.answer(DeleteRequest.to('/products/2')))
+        expect(actor.answer(GetRequest.to('/products/2')))
             .to.eventually.deep.equal({
-                method: 'DELETE',
+                method: 'GET',
                 url: '/products/2',
             }));
 
     it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(DeleteRequest.to('/products/2').using({
+        expect(actor.answer(GetRequest.to('/products/2').using({
             headers: {
-                Authorization: 'token',
+                Accept: 'application/json',
             },
+            maxRedirects: 0,
         }))).
         to.eventually.deep.equal({
-            method: 'DELETE',
+            method: 'GET',
             url: '/products/2',
             headers: {
-                Authorization: 'token',
+                Accept: 'application/json',
             },
+            maxRedirects: 0,
         }));
 
     it('accepts dynamic records', () =>
         expect(
-            actor.answer(DeleteRequest.to('/products/2')
+            actor.answer(GetRequest.to('/products/2')
                 .using({
                     headers: {
                         Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
@@ -41,7 +43,7 @@ describe('DeleteRequest', () => {
             )
         ).
         to.eventually.deep.equal({
-            method: 'DELETE',
+            method: 'GET',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
@@ -50,7 +52,7 @@ describe('DeleteRequest', () => {
     );
 
     it('provides a sensible description of the interaction being performed', () => {
-        expect(DeleteRequest.to('/products/2').toString())
-            .to.equal(`a DELETE request to '/products/2'`);
+        expect(GetRequest.to('/products/2').toString())
+            .to.equal(`a GET request to '/products/2'`);
     });
 });
