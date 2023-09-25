@@ -12,6 +12,7 @@ import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNo
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
+import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import * as os from 'os';
 import type { JSONValue } from 'tiny-types';
@@ -32,10 +33,14 @@ const serenitySelectorEngines = new SerenitySelectorEngines();
 export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ contextOptions, page, serenity }, use): Promise<void> => {
+        async ({ contextOptions, page }, use): Promise<void> => {
             await use(Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithPlaywright.usingPage(page, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
+                CallAnApi.using({
+                    baseURL: contextOptions.baseURL,
+                    headers: contextOptions.extraHTTPHeaders,
+                }),
             )))
         },
         { option: true },
