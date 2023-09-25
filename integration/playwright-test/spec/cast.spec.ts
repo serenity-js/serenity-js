@@ -24,6 +24,7 @@ describe('@serenity-js/playwright-test', function () {
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'GenericCast'`)))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'BrowseTheWebWithPlaywright'`)))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'TakeNotes'`)))
+                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'CallAnApi'`)))
                         .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
                     ;
                 }));
