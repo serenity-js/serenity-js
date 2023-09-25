@@ -63,7 +63,7 @@ export class DeleteRequest extends HTTPRequest {
      * #### Learn more
      * - {@apilink Answerable}
      * - {@apilink WithAnswerableProperties}
-     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
+     * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)
      *
      * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config
      *  Axios request configuration overrides
