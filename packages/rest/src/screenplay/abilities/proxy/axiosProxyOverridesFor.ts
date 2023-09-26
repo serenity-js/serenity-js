@@ -1,14 +1,14 @@
-import { type CreateAxiosDefaults } from 'axios';
 import type * as http from 'http';
 import { ensure, isDefined } from 'tiny-types';
 
+import type { AxiosRequestConfigDefaults } from '../AxiosRequestConfigDefaults';
 import { createUrl } from './createUrl';
 import { ProxyAgent } from './ProxyAgent';
 
 /**
  * @param options
  */
-export function axiosProxyOverridesFor<Data = any>(options: CreateAxiosDefaults<Data>): {
+export function axiosProxyOverridesFor<Data = any>(options: AxiosRequestConfigDefaults<Data>): {
     proxy: false, httpAgent: http.Agent, httpsAgent: http.Agent
 } {
     const envProxyOverride: string | false = options.proxy
