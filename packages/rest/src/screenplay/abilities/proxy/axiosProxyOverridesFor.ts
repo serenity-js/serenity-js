@@ -1,4 +1,4 @@
-import { type AxiosInstance, type CreateAxiosDefaults } from 'axios';
+import { type CreateAxiosDefaults } from 'axios';
 import type * as http from 'http';
 import { ensure, isDefined } from 'tiny-types';
 
@@ -6,19 +6,9 @@ import { createUrl } from './createUrl';
 import { ProxyAgent } from './ProxyAgent';
 
 /**
- * @param axiosInstance
+ * @param options
  */
-export function withProxySupport(axiosInstance: AxiosInstance): AxiosInstance {
-    const overrides = proxyConfigUsing(axiosInstance.defaults);
-
-    for (const [ key, override ] of Object.entries(overrides)) {
-        axiosInstance.defaults[key] = override;
-    }
-
-    return axiosInstance;
-}
-
-function proxyConfigUsing<Data = any>(options: CreateAxiosDefaults<Data>): {
+export function axiosProxyOverridesFor<Data = any>(options: CreateAxiosDefaults<Data>): {
     proxy: false, httpAgent: http.Agent, httpsAgent: http.Agent
 } {
     const envProxyOverride: string | false = options.proxy

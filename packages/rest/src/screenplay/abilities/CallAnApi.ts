@@ -1,7 +1,16 @@
 import { Ability, ConfigurationError, Duration, LogicError, TestCompromisedError } from '@serenity-js/core';
-import axios, { Axios, type AxiosDefaults, type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type CreateAxiosDefaults } from 'axios';
+import axios, {
+    Axios,
+    type AxiosDefaults,
+    type AxiosError,
+    type AxiosInstance,
+    type AxiosRequestConfig,
+    type AxiosResponse,
+    type CreateAxiosDefaults,
+} from 'axios';
 
-import { withProxySupport } from './proxy';
+import type { AxiosRequestConfigDefaults } from './AxiosRequestConfigDefaults';
+import { axiosProxyOverridesFor } from './proxy';
 
 /**
  * An {@apilink Ability} that wraps [axios client](https://axios-http.com/docs/api_intro) and enables
@@ -319,7 +328,7 @@ export class CallAnApi extends Ability {
 
     private static readonly defaults: CreateAxiosDefaults<any> = {
         timeout: Duration.ofSeconds(10).inMilliseconds(),
-    }
+    };
 
     /**
      * Produces an {@apilink Ability|ability} to call a REST API at a specified `baseURL`;
@@ -328,8 +337,12 @@ export class CallAnApi extends Ability {
      *
      * @param baseURL
      */
-    static at(baseURL: string): CallAnApi {
-        return CallAnApi.using({ baseURL });
+    static at(baseURL: URL | string): CallAnApi {
+        return CallAnApi.using({
+            baseURL: baseURL instanceof URL
+                ? baseURL.toString()
+                : baseURL
+        });
     }
 
     /**
@@ -344,21 +357,32 @@ export class CallAnApi extends Ability {
      *
      * When you provide an Axios instance, it's enhanced with proxy support and no other modifications are made.
      *
-     * If you don't want Serenity/JS to augment or modify your Axios instance in any way, please use the {@apilink CallAnApi.constructor}
-     * directly.
+     * If you don't want Serenity/JS to augment or modify your Axios instance in any way,
+     * please use the {@apilink CallAnApi.constructor} directly.
      *
      * @param axiosInstanceOrConfig
      */
-    static using(axiosInstanceOrConfig: AxiosInstance | CreateAxiosDefaults): CallAnApi {
+    static using(axiosInstanceOrConfig: AxiosInstance | AxiosRequestConfigDefaults): CallAnApi {
 
-        const instance = isAxiosInstance(axiosInstanceOrConfig)
+        const axiosInstanceGiven = isAxiosInstance(axiosInstanceOrConfig);
+
+        const axiosInstance = axiosInstanceGiven
             ? axiosInstanceOrConfig
             : axios.create({
                 ...CallAnApi.defaults,
-                ...axiosInstanceOrConfig
+                ...omit(axiosInstanceOrConfig, 'proxy'),
             });
 
-        return new CallAnApi(withProxySupport(instance));
+        const proxyConfig = axiosInstanceGiven
+            ? axiosInstanceOrConfig.defaults.proxy
+            : axiosInstanceOrConfig.proxy
+
+        const proxyOverrides = axiosProxyOverridesFor({
+            ...axiosInstance.defaults,
+            ...proxyConfig
+        });
+
+        return new CallAnApi(withOverrides(axiosInstance, proxyOverrides));
     }
 
     /**
@@ -410,7 +434,7 @@ export class CallAnApi extends Ability {
 
             return this.lastResponse;
         }
-        catch(error) {
+        catch (error) {
             const description = `${ config.method.toUpperCase() } ${ url || config.url }`;
 
             switch (true) {
@@ -468,4 +492,17 @@ export class CallAnApi extends Ability {
 function isAxiosInstance(axiosInstanceOrConfig: any): axiosInstanceOrConfig is AxiosInstance {
     return axiosInstanceOrConfig
         && (axiosInstanceOrConfig instanceof Axios || axiosInstanceOrConfig.defaults);
+}
+
+function withOverrides<Data = any>(axiosInstance: AxiosInstance, overrides: AxiosRequestConfig<Data>): AxiosInstance {
+    for (const [key, override] of Object.entries(overrides)) {
+        axiosInstance.defaults[key] = override;
+    }
+
+    return axiosInstance;
+}
+
+function omit<T extends object, K extends keyof T>(record: T, key: K): Omit<T, K> {
+    const { [key]: omitted_, ...rest } = record;
+    return rest;
 }

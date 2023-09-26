@@ -1,1 +1,1 @@
-export * from './withProxySupport';
+export * from './axiosProxyOverridesFor';
