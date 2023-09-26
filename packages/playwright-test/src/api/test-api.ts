@@ -40,8 +40,11 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
                 CallAnApi.using({
                     baseURL: contextOptions.baseURL,
                     headers: contextOptions.extraHTTPHeaders,
+                    proxy: contextOptions.proxy && contextOptions.proxy?.server
+                        ? asProxyConfig(contextOptions.proxy)
+                        : undefined,
                 }),
-            )))
+            )));
         },
         { option: true },
     ],
@@ -199,14 +202,14 @@ function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends 
         useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>): TestApi<TestArgs & T, WorkerArgs & W> {
             return createTestApi(baseTest.extend(customFixtures));
         },
-        beforeAll:  baseTest.beforeAll,
+        beforeAll: baseTest.beforeAll,
         beforeEach: baseTest.beforeEach,
-        afterEach:  baseTest.afterEach,
-        afterAll:   baseTest.afterAll,
-        describe:   baseTest.describe,
-        expect:     baseTest.expect,
-        it:     baseTest,
-        test:   baseTest,
+        afterEach: baseTest.afterEach,
+        afterAll: baseTest.afterAll,
+        describe: baseTest.describe,
+        expect: baseTest.expect,
+        it: baseTest,
+        test: baseTest,
     };
 }
 
@@ -499,4 +502,32 @@ function asDuration(maybeDuration: number | Duration): Duration {
  */
 function asCast(maybeCast: unknown): Cast {
     return ensure('actors', maybeCast as Cast, property('prepare', isFunction()));
+}
+
+/**
+ * @private
+ * @param proxy
+ */
+function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
+    host: string,
+    port?: number,
+    auth?: { username: string, password: string }
+} {
+
+    // Playwright defaults to http when proxy.server does not define the protocol
+    // See https://playwright.dev/docs/api/class-testoptions#test-options-proxy
+    const hasProtocol = /[\dA-Za-z]+:\/\//.test(proxy.server);
+    const proxyUrl = hasProtocol
+        ? new URL(proxy.server)
+        : new URL(`http://${ proxy.server }`);
+
+    const host = proxyUrl.hostname;
+    const port = proxyUrl.port
+        ? Number(proxyUrl.port)
+        : undefined;
+    const auth = proxy.username
+        ? { username: proxy.username, password: proxy.password || '' }
+        : undefined;
+
+    return { host, port, auth };
 }
