@@ -9,7 +9,7 @@ import axios, {
     type CreateAxiosDefaults,
 } from 'axios';
 
-import type { AxiosRequestConfigDefaults } from './AxiosRequestConfigDefaults';
+import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults';
 import { axiosProxyOverridesFor } from './proxy';
 
 /**
@@ -373,13 +373,13 @@ export class CallAnApi extends Ability {
                 ...omit(axiosInstanceOrConfig, 'proxy'),
             });
 
-        const proxyConfig = axiosInstanceGiven
+        const proxyConfig: AxiosRequestConfigProxyDefaults | false | undefined = axiosInstanceGiven
             ? axiosInstanceOrConfig.defaults.proxy
-            : axiosInstanceOrConfig.proxy
+            : axiosInstanceOrConfig.proxy;
 
         const proxyOverrides = axiosProxyOverridesFor({
             ...axiosInstance.defaults,
-            ...proxyConfig
+            proxy: proxyConfig || undefined,
         });
 
         return new CallAnApi(withOverrides(axiosInstance, proxyOverrides));
@@ -444,7 +444,7 @@ export class CallAnApi extends Ability {
                     throw new TestCompromisedError(`A network error has occurred: ${ description }`, error);
                 case error instanceof TypeError:
                     throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
-                case ! (error as AxiosError).response:
+                case !(error as AxiosError).response:
                     throw new TestCompromisedError(`The API call has failed: ${ description }`, error);
                 default:
                     this.lastResponse = error.response;
