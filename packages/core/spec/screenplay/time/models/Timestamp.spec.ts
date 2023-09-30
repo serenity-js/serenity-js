@@ -1,5 +1,6 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
+import { inspect } from 'util';
 
 import { Duration, Timestamp } from '../../../../src';
 import { expect } from '../../../expect';
@@ -21,6 +22,10 @@ describe('Timestamp', () => {
             expect(() => new Timestamp()).to.not.throw;
         });
 
+        it('can represent the current point in time', () => {
+            expect(() => Timestamp.now()).to.not.throw;
+        });
+
         given<any>(
             {},
             '01 May 2018 10:00 UTC-2',
@@ -39,6 +44,12 @@ describe('Timestamp', () => {
 
         it('can be deserialised from an ISO-8601-compliant string', () => {
             expect(Timestamp.fromJSON(currentTimeIso8601).equals(now)).to.equal(true);
+        });
+
+        it('can be inspected', () => {
+            const result = inspect(Timestamp.fromJSON(currentTimeIso8601));
+
+            expect(result).to.equal(`Timestamp(${ currentTimeIso8601 })`);
         });
 
         given<any>(

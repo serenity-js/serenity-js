@@ -1,12 +1,13 @@
 import moment from 'moment';
 import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
+import { inspect } from 'util';
 
 import { Duration } from './Duration';
 
 /**
  * Represents a point in time.
  *
- * `Timestamp` makes it easier for Serenity/JS to work with information related to time, like {@apilink DomainEvent|domain events}.
+ * `Timestamp` makes it easier for you to work with information related to time, like {@apilink DomainEvent|domain events}.
  *
  * ## Learn more
  * - {@apilink Duration}
@@ -25,6 +26,10 @@ export class Timestamp extends TinyType {
 
     static fromTimestampInMilliseconds(v: number): Timestamp {
         return new Timestamp(moment(v).toDate());
+    }
+
+    static now(): Timestamp {
+        return new Timestamp();
     }
 
     constructor(public readonly value: Date = new Date()) {
@@ -81,6 +86,10 @@ export class Timestamp extends TinyType {
 
     toString(): string {
         return this.value.toISOString();
+    }
+
+    [inspect.custom](): string {
+        return `Timestamp(${ this.value.toISOString() })`;
     }
 }
 
