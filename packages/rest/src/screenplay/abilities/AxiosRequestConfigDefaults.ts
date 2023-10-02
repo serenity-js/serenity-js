@@ -1,6 +1,6 @@
 import { type CreateAxiosDefaults } from 'axios';
 
-export interface AxiosRequestConfigProxyDefaults {
+export type AxiosRequestConfigProxyDefaults = {
     host: string;
     port?: number;          // SOCKS proxies don't require port number
     auth?: {
