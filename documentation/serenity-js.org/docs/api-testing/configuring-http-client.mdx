@@ -1,0 +1,400 @@
+---
+sidebar_position: 2
+title: Configuring the HTTP client
+---
+
+# Configuring the HTTP client
+
+To interact with an HTTP-based API, your Serenity/JS [actor](/handbook/design/screenplay-pattern/#actors)
+needs the [ability](/handbook/design/screenplay-pattern/#abilities)
+to [CallAnApi](/api/rest/class/CallAnApi/), which wraps the Axios HTTP client enabling the low-level interactions.
+
+In addition to wrapping the Axios client, the ability to `CallAnApi` also adds automatic proxy server support based
+on your [environment variables or configuration](/api/rest/class/CallAnApi/).
+
+## Configuring API-only test scenarios
+
+You can integrate Serenity/JS directly with [Cucumber](/handbook/test-runners/cucumber/), [Mocha](/handbook/test-runners/mocha/),
+or [Jasmine](/handbook/test-runners/jasmine/) to write API-only test scenarios without the overhead of managing a web browser.
+In those cases, you should add the ability to `CallAnApi` yourself when [configuring the cast of actors](/api/core/class/Cast/):
+
+```typescript title="spec/example.spec.ts" tab={"label":"Mocha (API-only)"}
+import { before, describe, it } from 'mocha'
+import { engage, Cast } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+
+describe('GitHub Status API v2', () => {
+
+    before(async () => {
+        engage(Cast.where(actor => actor.whoCan(
+            CallAnApi.at('https://www.githubstatus.com/api/v2/')
+        )))
+    })
+})
+```
+
+```typescript title="spec/example.spec.ts" tab={"label":"Jasmine (API-only)"}
+import 'jasmine';
+import { engage, Cast } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+
+describe('GitHub Status API v2', () => {
+
+    beforeAll(async () => {
+        engage(Cast.where(actor => actor.whoCan(
+            CallAnApi.at('https://www.githubstatus.com/api/v2/')
+        )))
+    })
+})
+```
+
+```typescript title="features/support/serenity.config.ts" tab={"label":"Cucumber (API-only)"}
+import { BeforeAll } from '@cucumber/cucumber'
+import { engage, Cast } from '@serenity-js/core'
+import { CallAnApi } from '@serenity-js/rest'
+
+BeforeAll(async () => {
+
+    engage(Cast.where(actor => actor.whoCan(
+        CallAnApi.at('https://www.githubstatus.com/api/v2/')
+    )))
+})
+```
+
+Make sure to review the [examples and reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples), as well as [Serenity/JS REST API testing Project Templates](/handbook/getting-started/project-templates/#resthttp-api-testing)
+to see how to apply the above configuration to an existing project.
+
+## Configuring blended test scenarios
+
+You can use Serenity/JS with [Playwright Test](/handbook/test-runners/playwright-test/), [WebdriverIO](/handbook/test-runners/webdriverio/),
+or [Protractor](/handbook/test-runners/protractor/) to write [**blended test scenarios**](/handbook/api-testing/blended-testing/) interacting with **both the web UI and APIs**.
+In those cases, the ability to `CallAnApi` is **configured for you automatically** by the respective Serenity/JS test runner adapter
+and uses the **base URL** defined in your test runner configuration file.
+To override the base URL, provide a full URL when performing `Send` interactions.
+
+
+```typescript title="spec/healthcheck.spec.ts" tab={"label":"Playwright Test (UI+API)"}
+import { describe, it, test } from '@serenity-js/playwright-test'
+import { Send, GetRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+describe('GitHub', () => {
+
+    // Set the baseURL directly in the test or in playwright.config.ts, for example:
+    test.use({
+        baseURL: 'https://github.com/'
+    })
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async ({ actor }) => {
+
+            await actor.attemptsTo(
+                // Perform API-based interactions
+                Send.a(GetRequest.to('https://www.githubstatus.com/api/v2/summary.json')),
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(
+                    LastResponse.body().status.indicator,
+                    equals('none')
+                ),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+            )
+        })
+    })
+})
+```
+
+```typescript title="spec/healthcheck.spec.ts" tab={"label":"WebdriverIO (UI+API)"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Send, GetRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+describe('GitHub', () => {
+
+    // Set the baseUrl in wdio.conf.ts, for example:
+    //
+    //   baseUrl: 'https://jsonplaceholder.typicode.com/'
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async ({ }) => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // Perform API-based interactions
+                Send.a(GetRequest.to('https://www.githubstatus.com/api/v2/summary.json')),
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(
+                    LastResponse.body().status.indicator,
+                    equals('none')
+                ),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+            )
+        })
+    })
+})
+```
+
+```typescript title="spec/healthcheck.spec.ts" tab={"label":"Protractor (UI+API)"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Send, GetRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+describe('GitHub', () => {
+
+    // Set the baseUrl in protractor.conf.js, for example:
+    //
+    //   baseUrl: 'https://jsonplaceholder.typicode.com/'
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async ({ }) => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // Perform API-based interactions
+                Send.a(GetRequest.to('https://www.githubstatus.com/api/v2/summary.json')),
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(
+                    LastResponse.body().status.indicator,
+                    equals('none')
+                ),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+            )
+        })
+    })
+})
+```
+
+**Learn more**:
+- [Configuring Playwright Test](https://playwright.dev/docs/test-configuration)
+- [Configuring WebdriverIO](https://webdriver.io/docs/configurationfile/)
+- [Configuring Protractor](https://github.com/angular/protractor/blob/master/lib/config.ts)
+
+## Dynamically configuring the base URL
+
+If you need to dynamically [change the base URL](/api/rest/class/ChangeApiConfig/#setUrlTo)
+or [port](/api/rest/class/ChangeApiConfig/#setPortTo) of the API you're interacting with,
+or [set extra HTTP headers](/api/rest/class/ChangeApiConfig/#setHeader), use the task to [`ChangeApiConfig`](/api/rest/class/ChangeApiConfig/).
+This approach works for both API-only and [blended test scenarios](/handbook/api-testing/blended-testing/), with any config overrides returning to their original state before the next scenario starts:
+
+```typescript
+import { ChangeApiConfig } from '@serenity-js/rest';
+
+await actorCalled('Apisitt').attemptsTo(
+    ChangeApiConfig.setUrlTo('https://example.org/secure/oauth'),
+
+    // ... perform some API calls
+)
+```
+
+## Dynamically overriding abilities
+
+You can **add or override** the ability to `CallAnApi` on a per-scenario / per-actor basis using [`actor.whoCan`](/api/core/class/Actor/#whoCan).
+This approach works for both API-only and blended test scenarios, with any config overrides returning to their original state before the next scenario starts:
+
+```typescript title="spec/product-search.spec.ts" tab={"label":"Mocha (API-only)"}
+import { describe, it, before } from 'mocha'
+import { engage, Cast, actorCalled } from '@serenity-js/core'
+import { CallAnApi, Send, GetRequest, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+describe('My Shop', () => {
+
+    // Assume there are 2 web services:
+    // - test data service, responsible for populating an example online shop with test data
+    // - search service, using the test data created by the test data service
+    const testDataServiceUrl = 'https://test-data.example.org/api/v1/';
+    const searchServiceUrl   = 'https://search.example.org/api/v1/';
+
+    before(() => {
+        // Configure the cast so that all actor can interact with the search service
+        engage(
+            Cast.where(actor => actor.whoCan(CallAnApi.at(searchServiceUrl)))
+        )
+    })
+
+    describe('Product Search', () => {
+
+        it('finds products based on their name', async () => {
+
+            // Override the CallAnApi ability
+            await actorCalled('Admin')
+                .whoCan(CallAnApi.at(testDataServiceUrl))
+                .attemptsTo(
+                    // Perform API-based interactions to set up the test data
+                    Send.a(PostRequest.to('products').with({ name: 'Apples', price: '£2.50' })),
+                    Ensure.that(LastResponse.status(), equals(201)),
+                )
+
+            await actorCalled('Barbara')
+                .attemptsTo(
+                    // Perform API-based interactions with the search service
+                    Send.a(GetRequest.to('search?name=Apples')),
+                    Ensure.that(LastResponse.status(), equals(200)),
+                    Ensure.that(LastResponse.body(), equals([
+                        { name: 'Apples', price: '£2.50' }
+                    ])),
+                )
+        })
+    })
+})
+```
+
+```typescript title="spec/product-search.spec.ts" tab={"label":"Playwright Test (UI+API)"}
+import { describe, it, test } from '@serenity-js/playwright-test'
+import { CallAnApi, Send, GetRequest, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+describe('My Shop', () => {
+
+    // Assume there are 2 web services:
+    // - test data service, responsible for populating an example online shop with test data
+    // - search service, using the test data created by the test data service
+    const testDataServiceUrl = 'https://test-data.example.org/api/v1/';
+    const searchServiceUrl   = 'https://search.example.org/api/v1/';
+
+    // Configure the cast so that all actor can interact with the search service
+    test.use({
+        baseURL: searchServiceUrl
+    })
+
+    describe('Product Search', () => {
+
+        it('finds products based on their name', async ({ actorCalled }) => {
+
+            // Override the CallAnApi ability
+            await actorCalled('Admin')
+                .whoCan(CallAnApi.at(testDataServiceUrl))
+                .attemptsTo(
+                    // Perform API-based interactions to set up the test data
+                    Send.a(PostRequest.to('products').with({ name: 'Apples', price: '£2.50' })),
+                    Ensure.that(LastResponse.status(), equals(201)),
+                )
+
+            await actorCalled('Barbara')
+                .attemptsTo(
+                    // Perform API-based interactions with the search service
+                    Send.a(GetRequest.to('search?name=Apples')),
+                    Ensure.that(LastResponse.status(), equals(200)),
+                    Ensure.that(LastResponse.body(), equals([
+                        { name: 'Apples', price: '£2.50' }
+                    ])),
+                )
+        })
+    })
+})
+```
+
+```typescript title="spec/product-search.spec.ts" tab={"label":"WebdriverIO (UI+API)"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, Send, GetRequest, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+describe('My Shop', () => {
+
+    // Assume there are 2 web services:
+    // - test data service, responsible for populating an example online shop with test data
+    // - search service, using the test data created by the test data service
+
+    // Set the baseUrl of the search service available to all actors in wdio.conf.ts, for example:
+    //
+    //   baseUrl: 'https://search.example.org/api/v1/'
+
+    // URLs of other services can be set in the test itself, for example:
+    const testDataServiceUrl = 'https://test-data.example.org/api/v1/';
+
+    describe('Product Search', () => {
+
+        it('finds products based on their name', async () => {
+
+            // Override the CallAnApi ability
+            await actorCalled('Admin')
+                .whoCan(CallAnApi.at(testDataServiceUrl))
+                .attemptsTo(
+                    // Perform API-based interactions to set up the test data
+                    Send.a(PostRequest.to('products').with({ name: 'Apples', price: '£2.50' })),
+                    Ensure.that(LastResponse.status(), equals(201)),
+                )
+
+            await actorCalled('Barbara')
+                .attemptsTo(
+                    // Perform API-based interactions with the search service
+                    Send.a(GetRequest.to('search?name=Apples')),
+                    Ensure.that(LastResponse.status(), equals(200)),
+                    Ensure.that(LastResponse.body(), equals([
+                        { name: 'Apples', price: '£2.50' }
+                    ])),
+                )
+        })
+    })
+})
+```
+
+```typescript title="spec/product-search.spec.ts" tab={"label":"Protractor (UI+API)"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, Send, GetRequest, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+describe('My Shop', () => {
+
+    // Assume there are 2 web services:
+    // - test data service, responsible for populating an example online shop with test data
+    // - search service, using the test data created by the test data service
+
+    // Set the baseUrl of the search service available to all actors in protractor.conf.js, for example:
+    //
+    //   baseUrl: 'https://search.example.org/api/v1/'
+
+    // URLs of other services can be set in the test itself, for example:
+    const testDataServiceUrl = 'https://test-data.example.org/api/v1/';
+
+    describe('Product Search', () => {
+
+        it('finds products based on their name', async () => {
+
+            // Override the CallAnApi ability
+            await actorCalled('Admin')
+                .whoCan(CallAnApi.at(testDataServiceUrl))
+                .attemptsTo(
+                    // Perform API-based interactions to set up the test data
+                    Send.a(PostRequest.to('products').with({ name: 'Apples', price: '£2.50' })),
+                    Ensure.that(LastResponse.status(), equals(201)),
+                )
+
+            await actorCalled('Barbara')
+                .attemptsTo(
+                    // Perform API-based interactions with the search service
+                    Send.a(GetRequest.to('search?name=Apples')),
+                    Ensure.that(LastResponse.status(), equals(200)),
+                    Ensure.that(LastResponse.body(), equals([
+                        { name: 'Apples', price: '£2.50' }
+                    ])),
+                )
+        })
+    })
+})
+```
