@@ -23,7 +23,7 @@ import { HTTPRequest } from './HTTPRequest';
  * import { CallAnApi, LastResponse, PutRequest, Send } from '@serenity-js/rest';
  * import { Ensure, equals } from '@serenity-js/assertions';
  *
- * await actorCalled('Apisit')
+ * await actorCalled('Apisitt')
  *   .whoCan(CallAnApi.at('https://api.example.org/'))
  *   .attemptsTo(
  *     Send.a(PutRequest.to('/books/0-688-00230-7').with({

@@ -24,5 +24,5 @@ export function actorUsingAMockedAxiosInstance(config: AxiosRequestConfig = {}):
         actors: new APIActors(axiosInstance),
     });
 
-    return { mock, actor: actorCalled('Apisit') };
+    return { mock, actor: actorCalled('Apisitt') };
 }

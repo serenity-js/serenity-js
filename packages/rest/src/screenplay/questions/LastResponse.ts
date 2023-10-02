@@ -20,7 +20,7 @@ import { CallAnApi } from '../abilities';
  *     author: string;
  * }
  *
- * await actorCalled('Apisit')
+ * await actorCalled('Apisitt')
  *   .whoCan(CallAnApi.at('https://api.example.org/'))
  *   .attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
