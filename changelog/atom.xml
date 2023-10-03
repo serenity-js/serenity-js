@@ -2,12 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://serenity-js.org/changelog</id>
     <title>Serenity/JS changelog</title>
-    <updated>2023-09-22T20:00:00.000Z</updated>
+    <updated>2023-10-03T20:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://serenity-js.org/changelog"/>
     <subtitle>Keep yourself up-to-date about new features in every release</subtitle>
     <icon>https://serenity-js.org/icons/favicon.ico</icon>
     <rights>Copyright © 2016-2023 Jan Molak, SmartCode Ltd</rights>
+    <entry>
+        <title type="html"><![CDATA[3.11.0]]></title>
+        <id>https://serenity-js.org/changelog/3.11.0</id>
+        <link href="https://serenity-js.org/changelog/3.11.0"/>
+        <updated>2023-10-03T20:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Summary]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithHideOnScrollNavbar_Yh18" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary">​</a></h2><p>This release introduces improvements to
+the following Serenity/JS modules:</p><ul><li><a href="/api/assertions/"><code>@serenity-js/assertions</code></a></li><li><a href="/api/core/"><code>@serenity-js/core</code></a></li><li><a href="/api/playwright-test/"><code>@serenity-js/playwright-test</code></a></li><li><a href="/api/rest/"><code>@serenity-js/rest</code></a></li><li><a href="/api/serenity-bdd/"><code>@serenity-js/serenity-bdd</code></a></li><li><a href="/api/web/"><code>@serenity-js/web</code></a></li></ul><p>View detailed <a href="https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0" target="_blank" rel="noopener noreferrer">code diff</a> on GitHub</p><h2 class="anchor anchorWithHideOnScrollNavbar_Yh18" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h2><ul><li><strong>assertions:</strong> isBefore and isAfter accept Timestamp as well as Date objects (<a href="https://github.com/serenity-js/serenity-js/commit/55e13d00a447c0ec70dd496fb7948f171977a682" target="_blank" rel="noopener noreferrer">55e13d0</a>)</li><li><strong>core:</strong> inspecting a Timestamp returns a human-friendly description of its value (<a href="https://github.com/serenity-js/serenity-js/commit/da26b5478108c811e52ea8d902dd6c626c843ffc" target="_blank" rel="noopener noreferrer">da26b54</a>)</li><li><strong>playwright-test:</strong> enabled the ability to CallAnApi for all default actors (<a href="https://github.com/serenity-js/serenity-js/commit/436cde5283c14cea420000389d7c2c73e6122764" target="_blank" rel="noopener noreferrer">436cde5</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1876" target="_blank" rel="noopener noreferrer">#1876</a></li><li><strong>playwright-test:</strong> explicit proxy config will override env variables for REST interaction (<a href="https://github.com/serenity-js/serenity-js/commit/1c277d6e45064fbb4ab3432c11d125f529268b5c" target="_blank" rel="noopener noreferrer">1c277d6</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1949" target="_blank" rel="noopener noreferrer">#1949</a></li><li><strong>rest:</strong> automatic proxy server configuration for CallAnApi (<a href="https://github.com/serenity-js/serenity-js/commit/27a163024120068bc4d5b7ec07704fb774b2e312" target="_blank" rel="noopener noreferrer">27a1630</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1949" target="_blank" rel="noopener noreferrer">#1949</a></li><li><strong>serenity-bdd:</strong> serenity-bdd downloader will now automatically detect proxy server configuration (<a href="https://github.com/serenity-js/serenity-js/commit/c221210c95753a518621b5e97f6e037fa9383be1" target="_blank" rel="noopener noreferrer">c221210</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1949" target="_blank" rel="noopener noreferrer">#1949</a></li><li><strong>web:</strong> ability to CallAnApi is now available by default (<a href="https://github.com/serenity-js/serenity-js/commit/dfaf8e4f4cb40f9be99624f0d616ebcf012c1fb0" target="_blank" rel="noopener noreferrer">dfaf8e4</a>), closes <a href="https://github.com/serenity-js/serenity-js/issues/1876" target="_blank" rel="noopener noreferrer">#1876</a></li></ul>]]></content>
+        <category label="assertions" term="assertions"/>
+        <category label="core" term="core"/>
+        <category label="playwright-test" term="playwright-test"/>
+        <category label="rest" term="rest"/>
+        <category label="serenity-bdd" term="serenity-bdd"/>
+        <category label="web" term="web"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[3.10.4]]></title>
         <id>https://serenity-js.org/changelog/3.10.4</id>

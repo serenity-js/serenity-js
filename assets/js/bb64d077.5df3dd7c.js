@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[40972],{31459:e=>{e.exports=JSON.parse('{"label":"serenity-bdd","permalink":"/changelog/tags/serenity-bdd","allTagsPath":"/changelog/tags","count":11}')}}]);
