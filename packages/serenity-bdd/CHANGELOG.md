@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **serenity-bdd:** serenity-bdd downloader will now automatically detect proxy server configuration ([c221210](https://github.com/serenity-js/serenity-js/commit/c221210c95753a518621b5e97f6e037fa9383be1)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+
+
+
+
+
 ## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

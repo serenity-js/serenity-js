@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **core:** inspecting a Timestamp returns a human-friendly description of its value ([da26b54](https://github.com/serenity-js/serenity-js/commit/da26b5478108c811e52ea8d902dd6c626c843ffc))
+
+
+
+
+
 ## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
 
 **Note:** Version bump only for package @serenity-js/core

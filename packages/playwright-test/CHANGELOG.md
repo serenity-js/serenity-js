@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **playwright-test:** enabled the ability to CallAnApi for all default actors ([436cde5](https://github.com/serenity-js/serenity-js/commit/436cde5283c14cea420000389d7c2c73e6122764)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+* **playwright-test:** explicit proxy config will override env variables for REST interaction ([1c277d6](https://github.com/serenity-js/serenity-js/commit/1c277d6e45064fbb4ab3432c11d125f529268b5c)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **web:** ability to CallAnApi is now available by default ([dfaf8e4](https://github.com/serenity-js/serenity-js/commit/dfaf8e4f4cb40f9be99624f0d616ebcf012c1fb0)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+
+
+
+
+
 ## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
 
 
