@@ -1,7 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
+import { HeadRequest, LastResponse,Send } from '@serenity-js/rest';
 import { Navigate, Page } from '@serenity-js/web';
-import { Send, HeadRequest, LastResponse } from '@serenity-js/rest';
 
 import { recordItem } from '../TodoItem/tasks';
 
