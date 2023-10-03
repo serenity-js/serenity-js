@@ -1,0 +1,60 @@
+---
+sidebar_position: 4
+title: Verifying responses
+---
+
+# Verifying responses
+
+With Serenity/JS, you can verify responses to your API requests using [`LastResponse`](/api/rest/class/LastResponse/)
+and the exact same [Serenity/JS assertions](/handbook/design/assertions/)
+module you'd use for other kinds of test scenarios.
+
+Check the [`LastResponse`](/api/rest/class/LastResponse/) documentation for examples on how to extract interesting information from the response:
+- [extracting response status](/api/rest/class/LastResponse/#status)
+- [extracting response body](/api/rest/class/LastResponse/#body)
+- [extracting response headers](/api/rest/class/LastResponse/#headers)
+
+## Verifying the response status
+
+To extract the response status, instruct the actor to [`Send`](/api/rest/class/Send) a [`HTTPRequest`](/api/rest/class/HTTPRequest) and use [`LastResponse.status()`](/api/rest/class/LastResponse/#body).
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Apisitt')
+  .whoCan(CallAnApi.at('https://api.example.org/'))
+  .attemptsTo(
+    Send.a(GetRequest.to('/books/0-688-00230-7')),
+    Ensure.that(LastResponse.status(), equals(200)),
+  )
+```
+
+## Verifying the response body
+
+To extract the response body, instruct the actor to [`Send`](/api/rest/class/Send) a [`HTTPRequest`](/api/rest/class/HTTPRequest) and use [`LastResponse.body<T>()`](/api/rest/class/LastResponse/#body).
+Here `T` is an optional generic parameter describing the shape of the response body.
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+interface Book {
+    title: string;
+    author: string;
+}
+
+await actorCalled('Apisitt')
+  .whoCan(CallAnApi.at('https://api.example.org/'))
+  .attemptsTo(
+    Send.a(GetRequest.to('/books/0-688-00230-7')),
+    Ensure.that(LastResponse.status(), equals(200)),
+    Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),
+    Ensure.that(LastResponse.body<Book>(), equals({
+        title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+        author: 'Robert M. Pirsig',
+    })),
+  )
+```

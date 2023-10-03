@@ -5,8 +5,6 @@ import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { cpus } from 'os';
 
-import { Actors } from './src/Actors';
-
 const protocol = process.env.PROTOCOL === 'devtools'
     ? 'devtools'
     : 'webdriver';
@@ -77,7 +75,6 @@ export const config: WebdriverIOConfig = {
     baseUrl: `http://localhost:${ options.port }`,
 
     serenity: {
-        actors: new Actors(),
         runner: 'mocha',
         cueTimeout: Duration.ofSeconds(10),
         diffFormatter: new NoOpDiffFormatter(),

@@ -6,6 +6,9 @@ import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightPage } from './PlaywrightPage';
 
+/**
+ *  @group Models
+ */
 export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession {
     constructor(
         protected readonly page: playwright.Page,

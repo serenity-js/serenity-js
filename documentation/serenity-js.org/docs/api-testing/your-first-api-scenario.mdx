@@ -1,0 +1,610 @@
+---
+sidebar_position: 1
+title: Your first API scenario
+---
+
+# Your first API test scenario
+
+**Serenity/JS** streamlines  designing and implementing test scenarios that interact with REST- and other HTTP-based APIs.
+The single, consistent programming model offered by the framework and based on the Serenity/JS [Screenplay Pattern](/handbook/design/screenplay-pattern)
+helps you write **dedicated API test scenarios** or **incorporate API interactions into web-based tests** to enable [Blended Testing](/handbook/api-testing/blended-testing/).
+
+Similarly to other test automation frameworks, you can use Serenity/JS REST to send HTTP requests and verify the responses.
+With Serenity/JS, however, both those activities form a natural part of the actor workflow, reuse the same assertions, synchronisation mechanisms, and reporting capabilities
+as any other kind of Serenity/JS test scenario. This makes them not only easier to write and maintain, but also to share across test suites, projects, and teams.
+
+Using the same, consistent programming model to write both API and web-based scenarios can be incredibly powerful as it
+significantly reduces the cognitive load on your team and unlocks code reuse patterns across your organisation.
+
+To demonstrate how this can be accomplished, in this tutorial I'll show you how to:
+- write an API test using Serenity/JS,
+- identify reusable sequences of API interactions,
+- extract them as _tasks_,
+- and apply them in the context of a web-based scenario.
+
+## Writing dedicated API test scenarios
+
+We'll write a simple "health check" test, where an actor sends a HTTP request to check if a web service is up and running.
+You can write API test scenarios like this using one of the [Serenity/JS Project Templates for API Testing](/handbook/getting-started/project-templates/#resthttp-api-testing),
+as they integrate Serenity/JS directly with [Cucumber](/handbook/test-runners/cucumber/), [Mocha](/handbook/test-runners/mocha/), or [Jasmine](/handbook/test-runners/jasmine/),
+without the overhead of managing a web browser.
+
+For our example, we'll use the [GitHub Status API](https://www.githubstatus.com/api)
+and make the actor check if a [`GetRequest`](/api/rest/class/GetRequest/) sent to the [status endpoint](https://www.githubstatus.com/api#status)
+results in a [`200 OK`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses) response status. Next, we'll check if the JSON body of the response contains a message indicating that all GitHub systems are operational,
+and if the status we received from the API is up to date.
+
+```typescript title="spec/github-status.spec.ts" tab={"label":"Mocha (API-only)"}
+import { Ensure, equals } from '@serenity-js/assertions'
+import { actorCalled, Cast, engage } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { before,describe, it } from 'mocha'
+
+describe('GitHub Status API v2', () => {
+
+    const baseURL = 'https://www.githubstatus.com/api/v2/'
+
+    before(() => {
+        engage(Cast.where(actor =>
+            // highlight-next-line
+            actor.whoCan(CallAnApi.at(baseURL)))                  // 1) Add ability
+        )
+    })
+
+    describe('status endpoint', () => {
+
+        it('returns 200 OK when GitHub is up', async () => {
+
+            // highlight-start
+            await actorCalled('Apisitt').attemptsTo(
+                Send.a(GetRequest.to('status.json')),             // 2) Send request
+                Ensure.that(LastResponse.status(), equals(200)),  // 3) Verify response
+            )
+            // highlight-end
+        })
+    })
+})
+```
+
+If you've already completed the [Serenity/JS web testing tutorial](/handbook/web-testing/your-first-web-scenario/),
+the above scenario should look familiar:
+1. We start by giving all actors in our [`Cast`](/api/core/class/Cast) abilities to [`CallAnApi`](/api/rest/class/CallAnApi) at a given `baseURL`
+2. Next, the actor sends a [`GetRequest`](/api/rest/class/GetRequest) to the `status` endpoint
+3. Finally, the actor ensures that the [`LastResponse.status()`](/api/rest/class/LastResponse#status) is [`200 OK`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses)
+
+If all goes well, the scenario passes, and when the assertion fails, Serenity/JS produces a test report showing how the actual response status code differs from the expected one.
+
+:::tip Want to try it yourself?
+
+If you'd like to follow along with the coding, generate a new project from [Serenity/JS Project Template for Mocha](https://github.com/serenity-js/serenity-js-mocha-template/generate) and clone it to your machine,
+or simply start a new GitPod workspace to experiment with Serenity/JS in your browser!
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/serenity-js/serenity-js-mocha-template/)
+:::
+
+### Working with JSON responses
+
+Our health check scenario is rather rudimentary at the moment as it only verifies if the service is up and running and received the request.
+Let's make it more thorough by verifying that the response body contains a message indicating that all GitHub systems are operational.
+
+As you can see in the [GitHub Status API documentation](https://www.githubstatus.com/api#status),
+the `status.indicator` field in the response JSON should have the value of `none` when all systems work as expected, and `minor`, `major`, or `critical` to indicate partial or complete service disruption:
+
+```json title="https://www.githubstatus.com/api/v2/status.json"
+{
+  "page":{
+    "id":"kctbh9vrtdwd",
+    "name":"GitHub",
+    "url":"https://www.githubstatus.com",
+    "updated_at": "2023-09-29T07:41:15Z"
+  },
+  "status": {
+    "description": "Partial System Outage",
+    "indicator": "major"
+  }
+}
+```
+
+With Serenity/JS, you can access the last response body using the [question](/handbook/design/screenplay-pattern/#questions) about [`LastResponse.body<T>()`](/api/rest/class/LastResponse/#body).
+You can also access any fields and nested objects in the response body as Serenity/JS
+conveniently and automatically wraps them in [`Question`](/api/core/class/Question) objects and makes them available for further assertions.
+
+```typescript title="spec/github-status.spec.ts" tab={"label":"Mocha (API-only)"}
+import { Ensure, equals } from '@serenity-js/assertions'
+import { actorCalled, Cast, engage } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { before, describe, it } from 'mocha'
+
+describe('GitHub Status API v2', () => {
+
+    // ... Configuration skipped for brevity
+
+    describe('status endpoint', () => {
+
+        it('returns a status indicator of "none" when all GitHub systems are functional', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                Send.a(GetRequest.to('status.json')),
+                // highlight-start
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(
+                    LastResponse.body().status.indicator,
+                    equals('none')
+                ),
+                // highlight-end
+            )
+        })
+    })
+})
+```
+
+Note how in the above example you can perform several assertions against the [`LastResponse`](/api/rest/class/LastResponse/)
+without having to introduce any additional local variables or helper functions,
+and how the code remains readable and easy to understand even to non-technical stakeholders.
+
+### Using question adapters
+
+[`LastResponse`](/api/rest/class/LastResponse/) proxies the underlying `AxiosResponse` object through Serenity/JS [`question adapters`](/api/core#QuestionAdapter) to make it easy to work with in Screenplay Pattern scenarios.
+This mechanism lets you access the desired field like `status.indicator` just like you would access a nested property of a regular deserialised JSON object:
+
+```typescript
+await actorCalled('Apisitt').attemptsTo(
+    Send.a(GetRequest.to('summary.json')),
+    // highlight-start
+    Ensure.that(
+        LastResponse.body().status.indicator,
+        equals('none')
+    ),
+    // highlight-end
+)
+```
+
+You can use the same mechanism in the context of much more complex responses, too. For example, the data structure
+returned by the [`summary` endpoint](https://www.githubstatus.com/api#summary)
+contains nested arrays of objects. Here Serenity/JS lets you access not just such nested objects
+but also their properties like the [`.length` of an Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length):
+
+```typescript
+await actorCalled('Apisitt').attemptsTo(
+    Send.a(GetRequest.to('summary.json')),
+    // highlight-start
+    Ensure.that(
+        LastResponse.body().incidents.length,
+        equals(0)
+    ),
+    // highlight-end
+)
+```
+
+Serenity/JS can even proxy methods exposed by the underlying objects, like [`.toUpperCase()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase):
+
+```typescript
+await actorCalled('Apisitt').attemptsTo(
+    Send.a(GetRequest.to('summary.json')),
+    // highlight-start
+    Ensure.that(
+        LastResponse.body().status.indicator.toUpperCase(),
+        equals('NONE')
+    ),
+    // highlight-end
+)
+```
+
+Properties accessed this way, as well as results of method calls, are automatically wrapped in [`Question`](/api/core/class/Question) objects behind the scenes so that you can avoid unnecessary boilerplate code and noise in your test scenarios.
+
+### Using type-safe assertions
+
+[`LastResponse.body<T>()`](/api/rest/class/LastResponse/#body) supports [TypeScript generics](https://www.typescriptlang.org/docs/handbook/2/generics.html).
+This allows you to specify a TypeScript type describing the **structure of the response body** and benefit from type-safe assertions and code completion in your IDE.
+
+For example, the response of the [`status` endpoint](https://www.githubstatus.com/api#status) returns a JSON object with the following structure:
+
+```json title="https://www.githubstatus.com/api/v2/status.json"
+{
+  "page":{
+    "id":"kctbh9vrtdwd",
+    "name":"GitHub",
+    "url":"https://www.githubstatus.com",
+    "updated_at": "2023-09-28T08:05:39Z"
+  },
+  "status": {
+    "description": "Partial System Outage",
+    "indicator": "major"
+  }
+}
+```
+
+Such response could be described using the following TypeScript `StatusJSON` type:
+
+```typescript
+interface StatusJSON {
+    page: {
+        id: string,
+        name: string,
+        url: string,
+        updated_at: string
+    };
+    status: {
+        description: string,
+        indicator: 'none' | 'minor' | 'major' | 'critical'
+    };
+}
+```
+
+You can then use the `StatusJSON` type to describe the structure of the response body in your test scenario:
+
+```typescript
+await actorCalled('Apisitt').attemptsTo(
+    Send.a(GetRequest.to('status.json')),
+    Ensure.that(LastResponse.status(), equals(200)),
+    // highlight-next-line
+    Ensure.that(LastResponse.body<StatusJSON>().status.indicator, equals('none')),
+)
+```
+
+Using generic types like the one above allows your TypeScript transpiler and your IDE to warn you when your code doesn't match the structure of the response body:
+
+<Figure
+    caption='Visual Studio Code user interface showing a typo resulting in a type error'
+    img={require('@site/static/images/api-testing/your-first-api-scenario/vs-code-type-safe-assertions.png')}
+/>
+
+:::tip Full-stack type safety with Serenity/JS
+Serenity/JS support for TypeScript generics will benefit you even more when the HTTP APIs of your system under test are also written in TypeScript.
+In such case, you can reuse the type definitions from your API codebase in your test scenarios to make sure your tests are always in sync with the API.
+:::
+
+### Transforming data types
+
+HTTP APIs operating on JSON data structures use primitive data types like `string` or `number` (or composites thereof) to represent more complex types such as monetary amounts, dates, or timestamps.
+While this strategy makes it easier for the API to serialise a complex type and transport it over the HTTP protocol, it also makes it harder for an automated test to work with.
+That's because such simplified data representations would need to be deserialised before any meaningful assertions could be performed against them.
+
+For example, how would you check if a timestamp expressed as `"updated_at": "2023-09-29T07:41:15Z"` represented a moment that occurred _within the last 24 hours_?
+
+Thankfully, here too Serenity/JS has you covered as any [`Question`](/api/core/class/Question) can be transformed to another type using the [`Question.as`](/api/core/class/Question/#as) method.
+
+Here, you could transform the `page.updated_at` field of the response body to a [`Timestamp`](/api/core/class/Timestamp/)
+and make sure [it's after the current time](/api/assertions/function/isAfter/), less the [duration of 24 hours](/api/core/class/Duration/):
+
+```typescript title="spec/github-status.spec.ts" tab={"label":"Mocha (API-only)"}
+import { Ensure, equals, isAfter } from '@serenity-js/assertions'
+import { actorCalled, Cast, engage, Duration, Timestamp } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { before, describe, it } from 'mocha'
+
+describe('GitHub Status API v2', () => {
+
+    // ...
+
+    describe('status endpoint', () => {
+
+        it('returns a status indicator of "none" when all GitHub systems are functional', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                Send.a(GetRequest.to('status.json')),
+
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(LastResponse.body<StatusJSON>().status.indicator, equals('none')),
+                // highlight-start
+                Ensure.that(
+                    LastResponse.body<StatusJSON>().page.updated_at.as(Timestamp.fromJSON),
+                    isAfter(Timestamp.now().less(Duration.ofHours(24)))
+                ),
+                // highlight-end
+            )
+        })
+    })
+})
+```
+
+## Composing interactions into tasks
+
+As you can see, Serenity/JS makes it easy and intuitive to write test scenarios that interact with HTTP-based APIs.
+What's even more powerful, however, is that just like with the web-based interactions, API interactions
+can also be composed into [tasks](/handbook/design/screenplay-pattern/#tasks).
+
+Conceptually similar to functions, Serenity/JS tasks offer an easy way to associate business domain meaning with sequences of activities
+and turn them into reusable building blocks you can share across test suites, projects, and teams.
+
+For example, you could create a `ensureAllSystemsOperational` task function that encapsulated the logic of
+ensuring that all GitHub systems are operational.
+You could then us it in your test scenario instead of the individual low-level interactions:
+
+```typescript title="spec/github-status.spec.ts" tab={"label":"Mocha (API-only)"}
+import { Ensure, equals, isAfter } from '@serenity-js/assertions'
+import { actorCalled, Cast, engage, Duration, Task, Timestamp } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { before, describe, it } from 'mocha'
+
+describe('GitHub Status API v2', () => {
+
+    // ...
+
+    describe('status endpoint', () => {
+
+        // highlight-start
+        const ensureAllSystemsOperational = () =>
+            Task.where(`#actor ensures all GitHub systems are operational`,
+                Send.a(GetRequest.to('status.json')),
+                Ensure.that(LastResponse.status(), equals(200)),
+                Ensure.that(LastResponse.body<StatusJSON>().status.indicator, equals('none')),
+                Ensure.that(
+                    LastResponse.body<StatusJSON>().page.updated_at.as(Timestamp.fromJSON),
+                    isAfter(Timestamp.now().less(Duration.ofHours(24)))
+                ),
+            )
+        // highlight-end
+
+        it('returns a status indicator of "none" when all GitHub systems are functional', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // highlight-next-line
+                ensureAllSystemsOperational(),
+            )
+        })
+    })
+})
+```
+
+Extracting individual interactions into tasks makes your test scenarios more readable and easier to maintain.
+It also allows you to reuse the same task in other scenarios.
+
+### API Actions Class Pattern
+
+To take code reusability to the next level, you can extract the task function together with any associated information,
+like the interfaces describing the response structure, or information about API endpoint URLs and so on, into a completely separate class.
+
+I called this pattern the **API Actions Class** pattern, and you'll notice that it's conceptually similar to the [Lean Page Objects Pattern](/handbook/web-testing/page-objects-pattern/)
+I developed in the context of web UI automation.
+
+API Actions Class pattern is a great way to encapsulate the knowledge about the API and make your test code reusable
+not only across test scenarios within a single test suite,
+but also across test suites, projects, and teams. After all, an API Actions Class is just a regular TypeScript class.
+You could publish it as part of a Node.js module to your organisation's private NPM registry
+and share with other teams.
+
+
+In our example, we could create a `GitHubStatus` class that encapsulated the logic of ensuring that all GitHub systems are operational,
+together with the information about the API endpoint URLs and the structure of the response body:
+
+```typescript title="src/GitHubStatus.ts" tab={"label":"GitHubStatus Task"}
+import { Ensure, equals, isAfter } from '@serenity-js/assertions'
+import { Duration, Task, Timestamp } from '@serenity-js/core'
+import { GetRequest, LastResponse, Send } from '@serenity-js/rest'
+
+export class GitHubStatus {
+    private static readonly baseURL = 'https://www.githubstatus.com/api/v2/'
+    private static readonly statusJson = `${ GitHubStatus.baseURL }status.json}`
+
+    // highlight-start
+    static ensureAllSystemsOperational = () =>
+        Task.where(`#actor ensures all GitHub systems are operational`,
+            Send.a(GetRequest.to(GitHubStatus.statusJson)),
+            Ensure.that(LastResponse.status(), equals(200)),
+            Ensure.that(LastResponse.body<StatusJSON>().status.indicator, equals('none')),
+            Ensure.that(
+                LastResponse.body<StatusJSON>().page.updated_at.as(Timestamp.fromJSON),
+                isAfter(Timestamp.now().less(Duration.ofHours(24)))
+            ),
+        )
+    // highlight-end
+}
+
+interface StatusJSON {
+    page: {
+        id: string,
+        name: string,
+        url: string,
+        updated_at: string
+    };
+    status: {
+        description: string,
+        indicator: 'none' | 'minor' | 'major' | 'critical'
+    };
+}
+```
+
+Note how the information about the API endpoint URLs is `private`, and so it won't leak out of the class and into test scenarios.
+Should the API change, you'll only need to update the actions class, and all the test scenarios using it will automatically
+start using the new endpoint URLs and data structures.
+
+With an API Actions Class in place, we could then update our test scenario to use the `GitHubStatus` class instead of the task function
+we used previously:
+
+```typescript title="spec/github-status.spec.ts" tab={"label":"GitHubStatus Test Scenario"}
+import { actorCalled } from '@serenity-js/core'
+import { before, describe, it } from 'mocha'
+
+import { GitHubStatus } from '../src/GitHubStatus'   // highlight-line
+
+describe('GitHub Status API v2', () => {
+
+    // ...
+
+    describe('status endpoint', () => {
+
+        it('returns a status indicator of "none" when all GitHub systems are functional', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // highlight-next-line
+                GitHubStatus.ensureAllSystemsOperational(),
+            )
+        })
+    })
+})
+```
+
+## Reusing API interactions in web-based scenarios
+
+The advantage of **encapsulating API interactions in tasks** and organising them into **API Actions Classes**
+is that it makes your code easy to reuse in other test scenarios.
+The beauty of the Serenity/JS Screenplay Pattern is that the universal programming model it enables
+allows you to reuse such test code in other test scenarios within the same test suite and in entirely different contexts.
+
+
+A popular use case is to **reuse API interactions in web-based scenarios** to perform **health checks**, **authentication**,
+or **test data setup and teardown** operations that would be much more expensive to achieve through the web UI.
+I call this approach [**Blended Testing**](/handbook/api-testing/blended-testing/).
+
+To support you in using Blended Testing in your test suites,
+all [Serenity/JS web test runner adapters](/handbook/test-runners/)
+and [Serenity/JS Project Templates for Web Testing](/handbook/getting-started/project-templates/#web-testing) come with **built-in support for REST and HTTP-based interactions**,
+so there's no need to install additional dependencies or manually configure anything.
+
+
+For example, you could instruct your Serenity/JS actors to use our `GitHubStatus` API Actions Class
+in a web-based scenario by simply giving them an API task to perform:
+
+```typescript title="e2e/github-sponsors.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it, test } from '@serenity-js/playwright-test'
+import { Ensure, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+import { GitHubStatus } from '../src/GitHubStatus'
+
+describe('GitHub', () => {
+
+    // Set the baseURL directly in the test or in playwright.config.ts
+    //
+    // Note that Serenity/JS Playwright Test adapter configures the cast of actors for you
+    // and ensures that each actor receives the ability to CallAnApi.at(baseURL)
+    test.use({
+        baseURL: 'https://github.com/'
+    })
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async ({ actor }) => {
+
+            await actor.attemptsTo(
+                // highlight-start
+                // Use the status API to ensure system is ready to be tested
+                GitHubStatus.ensureAllSystemsOperational(),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+                // highlight-end
+                // ...
+            )
+        })
+    })
+})
+```
+
+```typescript title="e2e/github-sponsors.spec.ts" tab={"label":"WebdriverIO"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+import { GitHubStatus } from '../src/GitHubStatus'
+
+describe('GitHub', () => {
+
+    // Set the baseUrl in wdio.conf.ts, for example:
+    //
+    //   baseUrl: 'https://github.com/'
+    //
+    // Note that Serenity/JS WebdriverIO adapter configures the cast of actors for you
+    // and ensures that each actor receives the ability to CallAnApi.at(baseUrl)
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // highlight-start
+                // Use the status API to ensure system is ready to be tested
+                GitHubStatus.ensureAllSystemsOperational(),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+                // highlight-end
+                // ...
+            )
+        })
+    })
+})
+```
+
+```typescript title="e2e/github-sponsors.spec.ts" tab={"label":"Protractor"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, startsWith } from '@serenity-js/assertions'
+import { Navigate, Page } from '@serenity-js/web'
+
+import { GitHubStatus } from '../src/GitHubStatus'
+
+describe('GitHub', () => {
+
+    // Set the baseUrl in protractor.conf.js, for example:
+    //
+    //   baseUrl: 'https://github.com/'
+    //
+    // Note that Serenity/JS Protractor adapter configures the cast of actors for you
+    // and ensures that each actor receives the ability to CallAnApi.at(baseUrl)
+
+    describe('Sponsors', () => {
+
+        it('lets developers support Serenity/JS', async () => {
+
+            await actorCalled('Apisitt').attemptsTo(
+                // highlight-start
+                // Use the status API to ensure system is ready to be tested
+                GitHubStatus.ensureAllSystemsOperational(),
+
+                // Perform any web-based interactions
+                Navigate.to('/sponsors/serenity-js'),
+                Ensure.that(
+                    Page.current().title(),
+                    startsWith('Sponsor @serenity-js on GitHub Sponsors')
+                ),
+                // highlight-end
+                // ...
+            )
+        })
+    })
+})
+```
+
+## Using Serenity/JS REST testing templates
+
+Use [Serenity/JS Project Templates](/handbook/getting-started/project-templates/) to create a new GitHub repository for your automation project in seconds.
+
+Remember that each Serenity/JS template comes with a [GitPod workspace](/handbook/getting-started/project-templates/#serenityjs-gitpods) that uses a dedicated Docker image with all the required dependencies
+and comes with pre-configured VisualStudio Code extensions to help you experiment with running Serenity/JS straight away in your browser with no local installation required.
+
+## Next steps
+
+Congratulations! 🥳 You've just learnt how to write REST interactions using Serenity/JS and reuse your test code!
+
+If you enjoyed this tutorial, please leave a 👍 in the reactions section below.
+
+Now that you know the basics, it's time to take a deeper dive into the Serenity/JS REST module and learn more about:
+
+- [Configuring the HTTP client](/handbook/api-testing/configuring-http-client/)
+- [Sending HTTP requests](/handbook/api-testing/sending-requests/)
+- [Verifying the responses](/handbook/api-testing/verifying-responses/)
+
+New tutorials and videos are coming soon, follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js) and subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when they're available!
+
+[![LinkedIn Follow](https://img.shields.io/badge/Follow%20Serenity%2FJS-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/serenity-js)
+[![YouTube Follow](https://img.shields.io/badge/Watch%20@serenity--js-E62117?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@serenity-js)
+
+:::info Help us help you
+
+Serenity/JS is a free open-source framework, so we rely on our [wonderful GitHub sponsors](https://github.com/sponsors/serenity-js) to keep the lights on.
+
+If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+:::

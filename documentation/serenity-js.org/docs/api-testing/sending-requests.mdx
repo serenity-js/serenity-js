@@ -1,0 +1,151 @@
+---
+sidebar_position: 3
+title: Sending requests
+---
+
+# Sending requests
+
+To make a Serenity/JS actor send an HTTP request, you need to [configure it with the ability to `CallAnApi`](/handbook/api-testing/configuring-http-client/)
+and instruct to perform an interaction to [`Send`](/api/rest/class/Send/) one of the available [`HTTPRequest`](/api/rest/class/HeadRequest/)
+implementations:
+- [`GetRequest`](/api/rest/class/GetRequest)
+- [`PostRequest`](/api/rest/class/PostRequest)
+- [`DeleteRequest`](/api/rest/class/DeleteRequest)
+- [`HeadRequest`](/api/rest/class/HeadRequest)
+- [`PatchRequest`](/api/rest/class/PatchRequest)
+- [`PutRequest`](/api/rest/class/PutRequest)
+- [`OptionsRequest`](/api/rest/class/OptionsRequest)
+
+Code listings below present some of the common usage patterns, but make sure to check the [Serenity/JS REST API documentation](/api/rest) for more examples.
+
+## Using relative resource URLs
+
+When a `HTTPRequest` is configured with a relative URL, such URL gets resolved against the base URL configured in the ability to [`CallAnApi`](/api/rest/class/CallAnApi/).
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Apisitt')
+    .whoCan(CallAnApi.at('https://api.example.org/v1/'))
+    .attemptsTo(
+        Send.a(GetRequest.to('users')),                        // GET https://api.example.org/v1/users
+        Ensure.that(LastResponse.status(), equals(200)),
+    )
+```
+
+## Using absolute resource URLs
+
+When a `HTTPRequest` is configured with absolute URL, base URL configured in the ability to [`CallAnApi`](/api/rest/class/CallAnApi/) is ignored for this request.
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Apisitt')
+    .whoCan(CallAnApi.at('https://api.example.org/v1/'))
+    .attemptsTo(
+        Send.a(GetRequest.to('https://auth.example.org/token')), // GET https://auth.example.org/token
+        Ensure.that(LastResponse.status(), equals(200)),
+    )
+```
+
+## Sending data
+
+[`PostRequest`](/api/rest/class/PostRequest), [`PatchRequest`](/api/rest/class/PatchRequest) and [`PutRequest`](/api/rest/class/PutRequest) can be configured using the `.with(data)` method to send data in the request body.
+Such data can be any [`Answerable`](/api/core/#Answerable) that resolves to a JSON object, a `string`, `ArrayBuffer`, `ArrayBufferView`, `Buffer`, `Stream`, or `URLSearchParams`.
+See [Axios API documentation](https://axios-http.com/docs/req_config) for more details on supported data types.
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { LastResponse, PostRequest, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+await actorCalled('Apisitt')
+  .attemptsTo(
+    Send.a(PostRequest.to('/books').with({
+      isbn: '0-688-00230-7',
+      title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',
+      author: 'Robert M. Pirsig',
+    })),
+    Ensure.that(LastResponse.status(), equals(201)),
+  )
+```
+
+### Sending dynamic JSON data
+
+If you need to send data that's determined dynamically as part of the test scenario, use [`Question.fromObject`](/api/core/class/Question/#fromObject)
+to create a [`Question`](/api/core/class/Question/) that resolves to a JSON object.
+
+```typescript
+import { actorCalled, Question } from '@serenity-js/core'
+import { LastResponse, PostRequest, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { By, Text, PageElement } from '@serenity-js/web'
+
+await actorCalled('Apisitt')
+  .attemptsTo(
+    Send.a(PostRequest.to('/register').with(
+        Question.fromObject({                                       // Generate a Question<JSONObject>
+          token: Text.of(PageElement.located(By.id('#api-token'))), // with text of an HTML element
+        })
+    ),
+    Ensure.that(LastResponse.status(), equals(201)),
+  )
+```
+
+### Sending form data
+
+To post `multipart/form-data`, use [`axios.toFormData`](https://axios-http.com/docs/multipart) helper.
+
+```typescript
+import { actorCalled } from '@serenity-js/core'
+import { LastResponse, PostRequest, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+
+import axios from 'axios'
+
+const form = axios.toFormData({
+    grant_type: 'password',
+    username:   'alice.smith',
+    password:   'secret',
+})
+
+await actorCalled('Apisitt')
+  .attemptsTo(
+    Send.a(PostRequest.to('/oauth/token').with(form)),
+    Ensure.that(LastResponse.status(), equals(200)),
+  )
+```
+
+### Sending dynamic form data
+
+To post `multipart/form-data` where form data is determined dynamically as part of the test scenario,
+combine [`Question.fromObject`](/api/core/class/Question/#fromObject), [`Question.as`](http://localhost:3000/api/core/class/Question/#as),
+and the [`axios.toFormData`](https://axios-http.com/docs/multipart) helper.
+
+```typescript
+import { actorCalled, Question } from '@serenity-js/core'
+import { LastResponse, PostRequest, Send } from '@serenity-js/rest'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { By, Text, PageElement } from '@serenity-js/web'
+
+import axios from 'axios'
+
+const form = Question
+    .fromObject({
+        grant_type: 'password',                                     // Some data can be static
+        username:   'alice.smith',
+        password:   Text.of(PageElement.located(By.id('#totp'))),   // while some can be dynamic
+    })
+    .as(data => axios.toFormData(data))
+
+await actorCalled('Apisitt')
+  .attemptsTo(
+    Send.a(PostRequest.to('/oauth/token').with(form)),
+    Ensure.that(LastResponse.status(), equals(200)),
+  )
+```
+
