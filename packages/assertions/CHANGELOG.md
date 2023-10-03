@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **assertions:** isBefore and isAfter accept Timestamp as well as Date objects ([55e13d0](https://github.com/serenity-js/serenity-js/commit/55e13d00a447c0ec70dd496fb7948f171977a682))
+
+
+
+
+
 ## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
 
 **Note:** Version bump only for package @serenity-js/assertions
