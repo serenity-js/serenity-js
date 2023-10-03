@@ -33,15 +33,15 @@ const serenitySelectorEngines = new SerenitySelectorEngines();
 export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ contextOptions, page }, use): Promise<void> => {
+        async ({ contextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
             await use(Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithPlaywright.usingPage(page, contextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
                 CallAnApi.using({
-                    baseURL: contextOptions.baseURL,
-                    headers: contextOptions.extraHTTPHeaders,
-                    proxy: contextOptions.proxy && contextOptions.proxy?.server
-                        ? asProxyConfig(contextOptions.proxy)
+                    baseURL: baseURL,
+                    headers: extraHTTPHeaders,
+                    proxy: proxy && proxy?.server
+                        ? asProxyConfig(proxy)
                         : undefined,
                 }),
             )));
