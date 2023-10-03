@@ -5,6 +5,9 @@ import type { PlaywrightOptions } from '../../PlaywrightOptions';
 import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 
+/**
+ *  @group Models
+ */
 export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSession {
     private readonly serenitySelectorEngines = new SerenitySelectorEngines();
 

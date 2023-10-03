@@ -1,4 +1,4 @@
-import { Expectation } from '@serenity-js/core';
+import { Expectation, type Timestamp } from '@serenity-js/core';
 
 /**
  * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `Date`
@@ -41,6 +41,15 @@ import { Expectation } from '@serenity-js/core';
  */
 export const isAfter = Expectation.define(
     'isAfter', 'have value that is after',
-    (actual: Date, expected: Date) =>
-        actual.getTime() > expected.getTime()
+    (actual: Date | Timestamp, expected: Date | Timestamp) => {
+        const actualInMilliseconds = actual instanceof Date
+            ? actual.getTime()
+            : actual.toMilliseconds();
+
+        const expectedInMilliseconds = expected instanceof Date
+            ? expected.getTime()
+            : expected.toMilliseconds();
+
+        return actualInMilliseconds > expectedInMilliseconds;
+    }
 );

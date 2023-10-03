@@ -60,7 +60,7 @@ export class Clock {
     async waitFor(duration: Duration): Promise<void> {
         const stopAt = this.now().plus(duration);
 
-        let timer: NodeJS.Timer;
+        let timer: NodeJS.Timeout;
 
         return new Promise<void>(resolve => {
             timer = setInterval(() => {

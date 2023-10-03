@@ -1,15 +1,11 @@
 {
   "extends": "../../.c8rc.json",
   "reportDir": "./target/coverage",
-    "allowExternal": true,
+  "allowExternal": true,
   "include": [
-    "**/packages/core/src/**/*.ts",
     "**/packages/core/lib/**/*.js",
-    "**/packages/mocha/src/**/*.ts",
     "**/packages/mocha/lib/**/*.js",
-    "**/packages/web/src/**/*.ts",
     "**/packages/web/lib/**/*.js",
-    "**/packages/webdriverio/src/**/*.ts",
     "**/packages/webdriverio/lib/**/*.js",
     "**/packages/webdriverio/esm/**/*.js"
   ],

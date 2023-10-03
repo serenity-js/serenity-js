@@ -8,7 +8,7 @@ import { AxiosHeaders } from 'axios';
 import { CallAnApi } from '../abilities';
 
 /**
- * Sends a {@apilink HTTPRequest} to a specified url.
+ * Sends a {@apilink HTTPRequest} to a specified URL.
  *
  * The response to the request is made available via {@apilink LastResponse}.
  *
@@ -19,7 +19,7 @@ import { CallAnApi } from '../abilities';
  * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * await actorCalled('Apisit')
+ * await actorCalled('Apisitt')
  *   .whoCan(CallAnApi.at('https://api.example.org/'))
  *   .attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
@@ -35,7 +35,7 @@ export class Send extends Interaction {
      * Instantiates a new {@apilink Interaction|interaction} to {@apilink Send}.
      *
      * #### Learn more
-     * - [AxiosRequestConfig](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L75-L113)
+     * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)
      *
      * @param request
      */

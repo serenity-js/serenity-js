@@ -125,12 +125,9 @@ For example, Apisitt will interact with the [REST API](/api/rest) using an Axios
 ```typescript
 import { actorCalled } from '@serenity-js/core'
 import { CallAnApi } from '@serenity-js/rest'
-import axios from 'axios'
-
-const httpClient = axios.create({ baseURL: 'https://api.example.org' })
 
 actorCalled('Apisitt')
-    .whoCan(CallAnApi.using(httpClient))
+    .whoCan(CallAnApi.using({ baseURL: 'https://api.example.org' }))
 ```
 
 At the same time, Wendy will interact with the [web UI](/api/web) using Playwright (although she could do so using any other [popular web browser driver supported by Serenity/JS](/handbook/web-testing/)):
