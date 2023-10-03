@@ -1,5 +1,5 @@
 import { contain, containItemsWhereEachItem, Ensure, equals, isPresent, not, property } from '@serenity-js/assertions';
-import { afterEach, beforeEach, describe, it } from '@serenity-js/playwright-test';
+import { afterEach, beforeEach, describe, it, test } from '@serenity-js/playwright-test';
 import { Click, CssClasses, isSelected, Text } from '@serenity-js/web';
 
 import { TODO_ITEMS } from './test-data';
