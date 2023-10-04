@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
+
+
+### Bug Fixes
+
+* **core:** allow for QuestionAdapter\<string\> to proxy .replaceAll() method ([f1200c1](https://github.com/serenity-js/serenity-js/commit/f1200c1648471088c1f2943770c1bb4cc940e22f))
+
+
+
+
+
 # [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
 
 
