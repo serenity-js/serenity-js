@@ -443,11 +443,9 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
     [Field in keyof Omit<Original_Type, keyof QuestionStatement<Original_Type>>]:
         // is it a method?
         Original_Type[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
-            // Workaround for TypeScript giving up too soon when resolving type aliases in lib.es2015.symbol.wellknown
-            ? Field extends 'replace'
+            // Workaround for TypeScript giving up too soon when resolving type aliases in lib.es2015.symbol.wellknown and lib.es2021.string
+            ? Field extends 'replace' | 'replaceAll'
                 ? (searchValue: Answerable<string | RegExp>, replaceValue: Answerable<string>) => QuestionAdapter<string>
-
-                // make the method signature asynchronous, accepting Answerables and returning a QuestionAdapter
                 : (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
                     QuestionAdapter<Awaited<OriginalMethodResult>>
             // is it an object? wrap each field
