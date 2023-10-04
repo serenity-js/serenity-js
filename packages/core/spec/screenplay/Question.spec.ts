@@ -159,11 +159,11 @@ describe('Question', () => {
                         Promise.resolve(value)
                     );
 
-                const question = Question.about('subject', actor_ => Promise.resolve(' £1,000.75 '))
+                const question = Question.about('subject', actor_ => Promise.resolve(' £1,000,000.75 '))
                     .trimStart()
                     .trimEnd()
                     .replace('£', '')
-                    .replace(v(','), '')
+                    .replaceAll(v(','), '')
                     .as(Number)
                     .describedAs('price');
 
@@ -171,7 +171,7 @@ describe('Question', () => {
 
                 const result = await question.answeredBy(Quentin);
 
-                expect(result).to.equal(1000.75);
+                expect(result).to.equal(1_000_000.75);
             })
         });
     });
