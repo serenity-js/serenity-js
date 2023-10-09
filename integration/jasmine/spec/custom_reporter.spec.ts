@@ -20,10 +20,10 @@ describe('@serenity-js/jasmine', function () {
                 'examples/custom-reporter-requirements/jasmine_failure_types.js',
                 '--random=false',
             )
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(3, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(3);
 
                 PickEvent.from(result.events)
                     .next(TestSuiteStarts,      event => expect(event.details.name).to.equal(new Name(`a suite`)))
@@ -53,10 +53,10 @@ describe('@serenity-js/jasmine', function () {
                 'examples/custom-reporter-requirements/jasmine_exclusions.js',
                 '--random=false',
             )
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(2, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(2);
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,          event => expect(event.details.name).to.equal(new Name(`pending suite will be pending`)))
