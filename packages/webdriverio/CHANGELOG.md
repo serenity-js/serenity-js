@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+
+### Features
+
+* **webdriverio:** support for Jasmine 5 ([881196f](https://github.com/serenity-js/serenity-js/commit/881196f8ab869230e4bc791db7a54cdb685b2e08))
+
+
+
+
+
 ## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

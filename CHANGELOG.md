@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typedoc to ^0.25.2 ([95dfd3d](https://github.com/serenity-js/serenity-js/commit/95dfd3d4d9c83df5ba4f6314ada0e560610f12b6))
+
+
+### Features
+
+* **jasmine:** support for Jasmine 5 ([ee80215](https://github.com/serenity-js/serenity-js/commit/ee802152d1af7a50665def985fd946fc04e6399d)), closes [#1088](https://github.com/serenity-js/serenity-js/issues/1088) [#913](https://github.com/serenity-js/serenity-js/issues/913)
+* **jasmine:** support for Jasmine 5 ([9b34e1e](https://github.com/serenity-js/serenity-js/commit/9b34e1eb9bfe1a1ad507fff569083da429b10f30))
+* **protractor:** support for Jasmine 5 ([f638532](https://github.com/serenity-js/serenity-js/commit/f638532da48b56dcc997605175141c67fbeb231e))
+* **webdriverio:** support for Jasmine 5 ([881196f](https://github.com/serenity-js/serenity-js/commit/881196f8ab869230e4bc791db7a54cdb685b2e08))
+
+
+
+
+
 ## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
 
 
