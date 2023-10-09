@@ -81,11 +81,12 @@ export class TestRunnerLoader {
     }
 
     private jasmineAdapter(jasmineOptions: TestRunnerOptions): TestRunnerAdapter {
-        const { JasmineAdapter } = this.loader.require('@serenity-js/jasmine/lib/adapter/index.js')
+        const { JasmineAdapter } = this.loader.require('@serenity-js/jasmine/adapter')
         return new JasmineAdapter(jasmineOptions, this.loader);
     }
 
     private mochaAdapter(mochaOptions: TestRunnerOptions): TestRunnerAdapter {
+        // todo: update path to mocha adapter too
         const { MochaAdapter } = this.loader.require('@serenity-js/mocha/lib/adapter/index.js')
         return new MochaAdapter(mochaOptions, this.loader);
     }
