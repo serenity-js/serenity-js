@@ -41,7 +41,7 @@ export class TestRunnerLoader {
      * @param jasmineNodeOpts
      */
     forJasmine(jasmineNodeOpts: object /* JasmineConfig */): TestRunnerAdapter {
-        const { JasmineAdapter } = this.moduleLoader.require('@serenity-js/jasmine/lib/adapter')
+        const { JasmineAdapter } = this.moduleLoader.require('@serenity-js/jasmine/adapter')
         return new JasmineAdapter(jasmineNodeOpts, this.moduleLoader);
     }
 

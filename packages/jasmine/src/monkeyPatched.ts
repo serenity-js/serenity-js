@@ -1,4 +1,4 @@
-import { ErrorStackParser } from '@serenity-js/core/lib/errors/';
+import { ErrorStackParser } from '@serenity-js/core/lib/errors/index.js';
 
 const parser = new ErrorStackParser();
 
@@ -47,9 +47,11 @@ export function monkeyPatched(
  * @package
  */
 function callerLocation() {
-    const found = parser.parse(new Error('fake error'))
+    const frames = parser.parse(new Error('fake error'));
+
+    const found = frames
         .filter(frame => ! /(node_modules)/.test(frame.fileName))
-        .find(frame => /^(Suite|Object|Proxy)/.test(frame.functionName));
+        .find(frame => /^(Suite|Object|Proxy)/.test(frame.functionName) || ! frame.functionName);
 
     const caller = found || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };
 
