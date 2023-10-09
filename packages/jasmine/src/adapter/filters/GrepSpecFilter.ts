@@ -1,4 +1,4 @@
-import type { SpecFilter } from './SpecFilter';
+import type { SpecFilter } from './SpecFilter.js';
 
 /**
  * @desc

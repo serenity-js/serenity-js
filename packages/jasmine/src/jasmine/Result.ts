@@ -1,4 +1,4 @@
-import type { Expectation } from './Expectation';
+import type { Expectation } from './Expectation.js';
 
 export interface Result {
 

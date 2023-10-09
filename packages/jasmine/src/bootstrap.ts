@@ -1,7 +1,7 @@
 import { RuntimeError, serenity } from '@serenity-js/core';
 
-import { monkeyPatched } from './monkeyPatched';
-import { SerenityReporterForJasmine } from './SerenityReporterForJasmine';
+import { monkeyPatched } from './monkeyPatched.js';
+import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
 
 /**
  * Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information,
