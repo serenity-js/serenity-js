@@ -49,7 +49,6 @@ describe('@serenity-js/jasmine', function () {
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Jasmine')))
 
-                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncBrowserDetectionId))
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                 })
@@ -58,6 +57,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     asyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncBrowserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);

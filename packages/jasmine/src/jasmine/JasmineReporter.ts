@@ -1,7 +1,7 @@
-import type { JasmineDoneInfo } from './JasmineDoneInfo';
-import type { JasmineStartedInfo } from './JasmineStartedInfo';
-import type { SpecResult } from './SpecResult';
-import type { SuiteResult } from './SuiteResult';
+import type { JasmineDoneInfo } from './JasmineDoneInfo.js';
+import type { JasmineStartedInfo } from './JasmineStartedInfo.js';
+import type { SpecResult } from './SpecResult.js';
+import type { SuiteResult } from './SuiteResult.js';
 
 /**
  * @desc

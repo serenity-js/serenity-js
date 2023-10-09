@@ -12,10 +12,10 @@ describe('@serenity-js/jasmine', function () {
     describe('recognises a failing scenario that', () => {
 
         it('has an explicit call to fail()', () => jasmine('examples/failing/marked-as-failing.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(3, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(3);
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when marked as failed')))
@@ -31,10 +31,10 @@ describe('@serenity-js/jasmine', function () {
             }));
 
         it('throws an error', () => jasmine('examples/failing/error-thrown.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(3, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(3);
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
@@ -50,10 +50,10 @@ describe('@serenity-js/jasmine', function () {
             }));
 
         it('fails because of a failing assertion', () => jasmine('examples/failing/assertion-fails.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(3, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(3);
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
@@ -78,10 +78,10 @@ describe('@serenity-js/jasmine', function () {
             }));
 
         it('has multiple failing assertions, which will be wrapped in individual activities', () => jasmine('examples/failing/multiple-failures.spec.js')
-            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(ifExitCodeIsOtherThan(3, logOutput))
             .then(result => {
 
-                expect(result.exitCode).to.equal(1);
+                expect(result.exitCode).to.equal(3);
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario can fail with multiple failures')))

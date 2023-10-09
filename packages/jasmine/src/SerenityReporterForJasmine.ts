@@ -1,14 +1,6 @@
-import type {
-    Serenity} from '@serenity-js/core';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, type Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
-    AssertionError,
-    ErrorSerialiser,
-    ImplementationPendingError,
-    TestCompromisedError
-} from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
-import {
+    type DomainEvent,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
@@ -21,11 +13,8 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import type {
-    Outcome,
-    ProblemIndication} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import {
     ActivityDetails,
     Category,
@@ -38,11 +27,20 @@ import {
     FeatureTag,
     ImplementationPending,
     Name,
+    type Outcome,
+    type ProblemIndication,
     ScenarioDetails,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 
-import type { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
+import type {
+    Expectation,
+    JasmineDoneInfo,
+    JasmineReporter,
+    JasmineStartedInfo,
+    SpecResult,
+    SuiteResult
+} from './jasmine/index.js';
 
 /**
  * [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events
@@ -50,7 +48,7 @@ import type { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo,
  */
 export class SerenityReporterForJasmine implements JasmineReporter {
 
-    private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/;
+    private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/m;
     private describes: SuiteResult[] = [];
 
     private currentSceneId: CorrelationId = undefined;
@@ -274,6 +272,10 @@ export class SerenityReporterForJasmine implements JasmineReporter {
             return ErrorSerialiser.deserialiseFromStackTrace(failure.stack);
         }
 
+        if (this.containsIncorrectlySerialisedErrorWithErrorPropertiesInStack(failure)) {
+            return ErrorSerialiser.deserialiseFromStackTrace(this.repairedStackTraceOf(failure));
+        }
+
         if (this.containsIncorrectlySerialisedError(failure)) {
             return ErrorSerialiser.deserialiseFromStackTrace(this.repairedStackTraceOf(failure));
         }
@@ -283,6 +285,12 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
     private containsCorrectlySerialisedError(failure: Expectation): boolean {
         return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split('\n')[0]);
+    }
+
+    private containsIncorrectlySerialisedErrorWithErrorPropertiesInStack(failure: Expectation): boolean {
+        return !! failure.stack
+            && failure.stack.startsWith('error properties: ')
+            && SerenityReporterForJasmine.errorMessagePattern.test(failure.message);
     }
 
     private containsIncorrectlySerialisedError(failure: Expectation): boolean {
@@ -302,9 +310,12 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @param {Expectation} failure
      */
     private repairedStackTraceOf(failure: Expectation): string {
+        const lastLine = failure.message.split('\n').pop();
+        const frames = failure.stack.split('\n').filter(line => ! line.startsWith('error properties:'))
+
         return [
             failure.message,
-            ...failure.stack.split('\n').slice(1),
+            ...frames.slice(frames.indexOf(lastLine) + 1),
         ].join('\n');
     }
 }

@@ -1,2 +1,2 @@
-export * from './JasmineAdapter';
-export * from './JasmineConfig';
+export * from './JasmineAdapter.js';
+export * from './JasmineConfig.js';

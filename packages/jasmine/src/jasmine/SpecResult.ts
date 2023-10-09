@@ -1,5 +1,5 @@
-import type { Expectation } from './Expectation';
-import type { Location } from './Location';
+import type { Expectation } from './Expectation.js';
+import type { Location } from './Location.js';
 
 export interface SpecResult {
     /** The unique id of this spec. */
