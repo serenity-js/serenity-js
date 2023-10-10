@@ -110,7 +110,7 @@ use the "Refresh Tests" icon in the Test Explorer to reload test configuration.
 ### Exercises
 
 To get familiar with running Serenity/JS test scenarios in Visual Studio Code, conduct the following experiments:
-1. Open [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts) and run test scenarios such as`it('should clear text input field when an item is added')` individually using the play/check mark icon next to the `it` block. Make sure they're passing.
+1. Open [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts) and run test scenarios such as `it('should clear text input field when an item is added')` individually using the play/check mark icon next to the `it` block. Make sure they're passing.
 1. Run a group of test scenarios by clicking on the play/check mark icon next to the `describe` block, such as `describe('Todo List App')`. Make sure they're passing.
 1. Run individual test scenarios using Visual Studio Code Test Explorer panel.
 1. Navigate from a test scenario in a Visual Studio Code Test Explorer panel to its location in the codebase using the "Go to test" icon next to the name of the test.
@@ -119,7 +119,7 @@ To get familiar with running Serenity/JS test scenarios in Visual Studio Code, c
 
 Now that you know how to run Serenity/JS test scenarios in VS Code, let's talk about what's involved in writing some new ones.
 
-First, add the bellow code snippet to your existing test suite in [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts)
+First, add the below code snippet to your existing test suite in [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts)
 by placing it inside the `describe('Todo List App')` block.
 
 ```typescript title="spec/recording-items.spec.ts"
@@ -165,7 +165,7 @@ This setting is configurable, so you can change it when you need to see what's g
 or to access the developer tools offered by your browser to [debug your test scenarios](/handbook/web-testing/your-first-web-scenario#debugging-tests)
 or the system under test.
 
-In addition to being able to interact with the browser when running the tests locally,
+In addition to being able to interact with the browser when running the tests locally, the
 [Serenity/JS + Playwright Test GitPod.io workspace](https://github.com/serenity-js/serenity-js-playwright-test-template)
 I have prepared for you comes equipped with [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing),
 so you can see the browser on Gitpod.io as well.
@@ -173,6 +173,7 @@ so you can see the browser on Gitpod.io as well.
 To see the browser:
 - Enable ["Show browser"](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright#show-browsers) checkbox in the Playwright panel
 - In the "Ports" panel, open VNC running on port `6080` in "Preview" mode (this step applies only to Gitpod.io)
+    - If your "Ports" panel is empty, click the bell in the lower right corner and click the appropriate "Open preview" button.
 - Run the test!
 
 <Figure
@@ -204,23 +205,23 @@ Now that you know how to run the tests, let's get back to code.
 
 You might have noticed that the scenario you've just added starts with an `actor`.
 In fact, all Serenity/JS test scenarios are **actor-centred** and start like that.
-This design based on the  [**Screenplay Pattern**](/handbook/design/screenplay-pattern) helps your test scenarios
+This design, based on the [**Screenplay Pattern**](/handbook/design/screenplay-pattern), helps your test scenarios
 move away from automation and integration tools taking centre stage
-and instead helps you focus on [**actors**](/api/core/class/Actor), so **people** and **processes** interacting with
+and instead helps you focus on [**actors**](/api/core/class/Actor)—**people** and **processes** interacting with
 the **system under test**.
 
 So what are _actors_? Actors can represent **end-users**, like a shopper interacting with an online store,
 or a traveller interacting with a flight booking system. However, actors can also represent **automated processes** and **external systems**
 _acting upon_ the system under test.
 Examples here could include an external financial data provider submitting asset price information to our batch processing system,
-or a website crawler bot scanning a web UI and receiving a different version than a regular user. You can also use actors to represents
+or a website crawler bot scanning a web UI and receiving a different version than a regular user. You can also use actors to represent
 **components** of a software system initiating some interaction with the component we're interested in, like a microservice sending requests to another microservice under test.
 
 :::info Remember
 **Actors** represent **people** and **external systems** interacting with the system under test.
 :::
 
-From the implementation perspective, [Serenity/JS Playwright Test](/api/playwright-test)
+From the implementation perspective, the [Serenity/JS Playwright Test](/api/playwright-test)
 module takes care of initialising and injecting actors into your test scenarios
 and dismissing them and freeing their resources when the test scenario is finished.
 
@@ -270,11 +271,11 @@ but for now let's use the following definitions:
   or one to [send](/api/rest/class/Send) a `POST` request to a REST API.
   Serenity/JS provides [dozens of such interactions](/api/) out of the box, and you can create your own when needed.
 - **Tasks** are **composites of other activities**, created to capture **business domain vocabulary**
-  and help to make steps in your test scenario reflect **steps in you business workflow**. Examples here might include
+  and help to make steps in your test scenario reflect **steps in your business workflow**. Examples here might include
   a task to "record a to-do item", "create a customer account", or to "purchase a plane ticket".
 
-In our example, a **task** that accomplishes a **goal** to "record a to-do item" can be achieved by performing three lower-level activities:
-- enter the name of the to-do item into a "What needs to be done?" input box,
+In our example, a **task** that accomplishes the **goal** of "record a to-do item" can be achieved by performing three lower-level activities:
+- enter the name of the to-do item into the "What needs to be done?" input box,
 - press the enter key,
 - make sure the item is recorded as expected.
 
@@ -323,7 +324,7 @@ you'd only have to update them in this **one place in your codebase** where the 
 and not in every single scenario that uses it.
 
 :::info Did you know?
-Task decomposition model implemented by Serenity/JS is based on Hierarchical Task Analysis, a technique typically used in User-Centred Design.
+The task decomposition model implemented by Serenity/JS is based on Hierarchical Task Analysis, a technique typically used in User-Centred Design.
 You can read more about it in my article ["User-Centred Design: How a 50-year-old technique became the key to scalable test automation"](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555).
 :::
 
@@ -338,17 +339,17 @@ To make your work easier, Serenity/JS modules provide [**dozens of lower-level i
 This will help you focus on **modelling your business workflows** and **designing your test scenarios** instead of
 wasting your time figuring out how to integrate with the given interface or trying to make several incompatible libraries work together.
 
-Serenity/JS activity-based code reuse model also means that as you evolve the vocabulary of your domain-specific tasks
-over time, writing test scenarios becomes easier as you're simply re-arrange existing tasks into new scenarios.
+The Serenity/JS activity-based code reuse model also means that as you evolve the vocabulary of your domain-specific tasks
+over time, writing test scenarios becomes easier as you're simply re-arranging existing tasks into new scenarios.
 
 ### Using portable assertions
 
-Serenity/JS activity-based programming model applies to performing [assertions](/handbook/design/assertions) just as well as it applies
+The Serenity/JS activity-based programming model applies to performing [assertions](/handbook/design/assertions) just as well as it applies
 to performing [tasks and interactions](/handbook/web-testing/your-first-web-scenario#modelling-a-workflow-using-reusable-activities).
-In fact, Serenity/JS assertion to [`Ensure`](/api/assertions/class/Ensure) is just another interaction
+In fact, the Serenity/JS assertion to [`Ensure`](/api/assertions/class/Ensure) is just another interaction
 you give to an actor to perform.
 
-Consider the test scenario [you've written earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
+Consider the test scenario [you wrote earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
 
 ```typescript title="spec/recording-items.spec.ts"
 describe('Todo List App', () => {
@@ -394,7 +395,7 @@ that are portable across web integration tools, such as Playwright, WebdriverIO,
 You've already seen what happens when an assertion passes. But what happens when it fails?
 
 To experience how you'd go about analysing a Serenity/JS assertion failure,
-modify the scenario [you've written earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios)
+modify the scenario [you wrote earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios)
 to make it fail:
 
 ```typescript title="spec/recording-items.spec.ts"
@@ -427,7 +428,7 @@ makes it easy to see exactly where the assertion failure has happened.
 
 ### Exercises
 
-1.  Compare a single-actor scenario in [`spec/recording.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts)
+1.  Compare a single-actor scenario in [`spec/recording-items.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/recording-items.spec.ts)
     and a multi-actor scenario in [`spec/multi-actor.spec.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/multi-actor.spec.ts).
     What differences and what similarities can you see in how the actors are accessed?
 1.  Inspect tasks in [`spec/todo-list-app/TodoItem/tasks.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/todo-list-app/TodoItem/tasks.ts).
@@ -480,7 +481,7 @@ The great thing about the interaction to [`Debug`](/api/core/class/Debug) is tha
 test scenarios**, but also in **any custom Serenity/JS tasks** you define.
 
 To try it out, open [`spec/todo-list-app/TodoApp/tasks.ts`](https://github.com/serenity-js/serenity-js-playwright-test-template/blob/main/spec/todo-list-app/TodoApp/tasks.ts)
-and modify the task to `startWithAnEmptyList` to add the interaction to `Debug` and set a breakpoint on the line indicated by the comment:
+and modify the task called `startWithAnEmptyList` by adding the interaction to `Debug` and set a breakpoint on the line indicated by the comment:
 
 ```typescript title="spec/todo-list-app/TodoApp/tasks.ts"
 import { Ensure, equals } from '@serenity-js/assertions';
@@ -511,11 +512,11 @@ However, setting breakpoints is **not the only thing** the interaction to `Debug
 In the [Screenplay Pattern](/handbook/design/screenplay-pattern), we design our automated tests to model how actors
 perform their activities to accomplish their goals. However, performing interactions is just one side of the coin.
 The other thing an actor must do is to determine if the behaviour of the system under test meets its acceptance criteria.
-To do that, actors need to retrieve information from the system, its execution environment, and sometimes - additional
+To do that, actors need to retrieve information from the system, its execution environment and sometimes additional
 data sources.
 
-Serenity/JS models the act of information retrieval as [questions](/handbook/design/screenplay-pattern#questions) -
-an actor answers a question to obtain some information. Since questions represent a **way for actor to obtain the information**,
+Serenity/JS models the act of information retrieval as [questions](/handbook/design/screenplay-pattern#questions)—an 
+actor answers a question to obtain some information. Since questions represent a **way for actor to obtain the information**,
 and **not the result itself**, they can be used to parameterise actor's activities and resolved whenever the actor gets
 to performing the parameterised activity.
 
@@ -569,7 +570,7 @@ Also note how all the questions define [custom descriptions](/api/core/class/Que
 ### Debugging questions
 
 To use the interaction to [`Debug`](/api/core/class/Debug) to analyse what a given question resolves to,
-modify the scenario [you've written earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
+modify the scenario [you wrote earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
 
 ```typescript title="spec/recording-items.spec.ts"
 describe('Todo List App', () => {
@@ -600,9 +601,9 @@ describe('Todo List App', () => {
 ```
 
 When you run the scenario in debug mode and the execution pauses on the line where you've set the breakpoint,
-you'll notice that the actor resolved the question returned by `itemNames()` and
+you'll notice that the actor has resolved the question returned by `itemNames()` and
 that the [Run and Debug](https://code.visualstudio.com/docs/editor/debugging) panel
-shows the values of `results` and `names` you've specified as your function arguments.
+shows the values of `results` and `names` which you specified as your function arguments.
 
 To learn more about how this works, check out the [debugging guide](/handbook/design/debugging).
 
@@ -613,20 +614,20 @@ To learn more about how this works, check out the [debugging guide](/handbook/de
 
 ### Exploring page element locators
 
-Serenity/JS [Playwright Test module](/handbook/test-runners/playwright-test) enables you to leverage
+The Serenity/JS [Playwright Test module](/handbook/test-runners/playwright-test) enables you to leverage the
 [locator tuning](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright#tune-locators)
 capabilities of the Playwright Test Visual Studio Code extension.
-This functionality is provided by Playwright, and more specifically
+This functionality is provided by Playwright, and more specifically the
 [`page.locator`](https://playwright.dev/docs/api/class-page#page-locator) API that it offers.
 
 To use it, you'll need to:
-- use the interaction to [`Debug`](/api/core/class/Debug) to pause the scenario at breakpoint,
+- use the interaction to [`Debug`](/api/core/class/Debug) to pause the scenario at a breakpoint,
 - use [`PlaywrightPage.current().nativePage()`](/api/playwright/class/PlaywrightPage) from `@serenity-js/playwright`
   to extract a Playwright `page` from the Serenity/JS [`Page`](/api/web/class/Page) that's wrapping it,
 - interact directly with the `page.locator` API.
 
 To see how the locator tuning features work in practice,
-modify the scenario [you've written earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
+modify the scenario [you wrote earlier](/handbook/web-testing/your-first-web-scenario#writing-serenityjs-test-scenarios):
 
 ```typescript title="spec/recording-items.spec.ts"
 describe('Todo List App', () => {
