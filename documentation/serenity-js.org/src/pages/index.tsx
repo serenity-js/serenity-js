@@ -38,7 +38,7 @@ function HeroBanner() {
                 </h1>
                 <p>
                     <strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to help you
-                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong>
+                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong> 
                     and produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
                 </p>
                 <div className={ styles.indexCtas }>
