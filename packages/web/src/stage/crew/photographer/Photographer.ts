@@ -180,8 +180,8 @@ export class Photographer implements StageCrewMember {
             }
 
             throw new ConfigurationError(
-                `'${ config.strategy }' is not an available PhotoTakingStrategy. ` +
-                `Available strategies: ${ availableStrategies.join(', ') }.`
+                `'${ config.strategy }' is not an available PhotoTakingStrategy, ` +
+                `available strategies: ${ availableStrategies.join(', ') }.`
             );
         }
 
