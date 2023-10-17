@@ -91,6 +91,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        if (version.isAtLeast(new Version('10.0.0'))) {
+            return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
+        }
+
         if (version.isAtLeast(new Version('9.0.0'))) {
             return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
         }
