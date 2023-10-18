@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+
+### Features
+
+* **protractor:** support for Jasmine 5 ([f638532](https://github.com/serenity-js/serenity-js/commit/f638532da48b56dcc997605175141c67fbeb231e))
+
+
+
+
+
+## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **rest:** automatic proxy server configuration for CallAnApi ([27a1630](https://github.com/serenity-js/serenity-js/commit/27a163024120068bc4d5b7ec07704fb774b2e312)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **web:** ability to CallAnApi is now available by default ([dfaf8e4](https://github.com/serenity-js/serenity-js/commit/dfaf8e4f4cb40f9be99624f0d616ebcf012c1fb0)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+
+
+
+
+
+## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
 ## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
 
 **Note:** Version bump only for package @serenity-js/protractor

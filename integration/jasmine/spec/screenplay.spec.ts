@@ -14,10 +14,10 @@ describe('@serenity-js/Jasmine', function () {
 
         it('fails because of a failing Screenplay expectation', () =>
             jasmine('examples/screenplay/assertion-error.spec.js')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
+                .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
 
-                    expect(result.exitCode).to.equal(1);
+                    expect(result.exitCode).to.equal(3);
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
@@ -41,9 +41,9 @@ describe('@serenity-js/Jasmine', function () {
 
         it('fails when discarding an ability results in Error', () =>
             jasmine('examples/screenplay/ability-discard-error.spec.js')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
+                .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
-                    expect(result.exitCode).to.equal(1);
+                    expect(result.exitCode).to.equal(3);
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
@@ -65,9 +65,9 @@ describe('@serenity-js/Jasmine', function () {
 
         it(`fails when discarding an ability doesn't complete within a timeout`, () =>
             jasmine('examples/screenplay/ability-discard-timeout.spec.js')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
+                .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
-                    expect(result.exitCode).to.equal(1);
+                    expect(result.exitCode).to.equal(3);
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
@@ -89,9 +89,9 @@ describe('@serenity-js/Jasmine', function () {
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
             jasmine('examples/screenplay/ability-discard-error-should-not-affect-stage-cue.spec.js')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
+                .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
-                    expect(result.exitCode).to.equal(1);
+                    expect(result.exitCode).to.equal(3);
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))

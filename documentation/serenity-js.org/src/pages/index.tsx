@@ -1,16 +1,15 @@
 import React from 'react';
+
 import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import Layout from '@theme/Layout';
+
 import styles from './index.module.css';
 
 function HeroBanner() {
-    const { siteConfig } = useDocusaurusContext();
-    const description = siteConfig.customFields.description as string[];
-
     return (
         <div className={ styles.hero } data-theme="dark">
             <div className={ styles.heroInner }>
@@ -38,22 +37,22 @@ function HeroBanner() {
                 </h1>
                 <p>
                     <strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to help you
-                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong>
-                    and produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
+                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong> and
+                    produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
                 </p>
                 <div className={ styles.indexCtas }>
                     <Link id="cta-start-automating" className="button button--primary"
-                          to="/handbook/web-testing/your-first-web-scenario">
+                        to="/handbook/web-testing/your-first-web-scenario">
                         <Translate>Start automating 🚀</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>
-                      <iframe
-                          className={ styles.indexCtasGitHubButton }
-                          src="https://ghbtns.com/github-btn.html?user=serenity-js&amp;repo=serenity-js&amp;type=star&amp;count=true&amp;size=large"
-                          width={ 160 }
-                          height={ 30 }
-                          title="GitHub Stars"
-                      />
+                        <iframe
+                            className={ styles.indexCtasGitHubButton }
+                            src="https://ghbtns.com/github-btn.html?user=serenity-js&amp;repo=serenity-js&amp;type=star&amp;count=true&amp;size=large"
+                            width={ 160 }
+                            height={ 30 }
+                            title="GitHub Stars"
+                        />
                     </span>
                 </div>
             </div>

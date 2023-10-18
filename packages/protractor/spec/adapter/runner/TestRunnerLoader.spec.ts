@@ -40,7 +40,7 @@ describe('TestRunnerLoader', () => {
                 const testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
 
                 const JasmineAdapter = sinon.spy();
-                moduleLoader.require.withArgs('@serenity-js/jasmine/lib/adapter').returns({ JasmineAdapter })
+                moduleLoader.require.withArgs('@serenity-js/jasmine/adapter').returns({ JasmineAdapter })
 
                 const runner_ = testRunnerLoader.forJasmine(jasmineNodeOpts);
 

@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
+## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **playwright-test:** explicit proxy config will override env variables for REST interaction ([1c277d6](https://github.com/serenity-js/serenity-js/commit/1c277d6e45064fbb4ab3432c11d125f529268b5c)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **rest:** automatic proxy server configuration for CallAnApi ([27a1630](https://github.com/serenity-js/serenity-js/commit/27a163024120068bc4d5b7ec07704fb774b2e312)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+
+
+
+
+
+## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
 ## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
 
 

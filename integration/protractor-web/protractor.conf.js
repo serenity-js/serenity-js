@@ -3,7 +3,6 @@ const { ArtifactArchiver, NoOpDiffFormatter } = require('@serenity-js/core');
 const { ConsoleReporter } = require('@serenity-js/console-reporter');
 const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web');
 const { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
-const { Actors } = require('./src/Actors');
 
 const port = process.env.PORT || 8080;
 
@@ -28,7 +27,6 @@ exports.config = {
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
     serenity: {
-        actors: new Actors(),
         runner: 'mocha',
         diffFormatter: new NoOpDiffFormatter(),
         crew: [
