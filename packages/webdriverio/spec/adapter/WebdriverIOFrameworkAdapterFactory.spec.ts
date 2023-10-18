@@ -85,7 +85,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            loader.require.withArgs('@serenity-js/jasmine/lib/adapter/index.js').returns({ JasmineAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/jasmine/adapter').returns({ JasmineAdapter: FakeTestRunnerAdapter })
 
             await factory.init(cid, config, specURIs, capabilities, baseReporter);
 

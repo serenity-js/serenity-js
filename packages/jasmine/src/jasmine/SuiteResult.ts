@@ -1,6 +1,6 @@
-import type { Expectation } from './Expectation';
-import type { Location } from './Location';
-import type { Result } from './Result';
+import type { Expectation } from './Expectation.js';
+import type { Location } from './Location.js';
+import type { Result } from './Result.js';
 
 /**
  * @package

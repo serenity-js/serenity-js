@@ -20,7 +20,7 @@ import { CallAnApi } from '../abilities';
  *     author: string;
  * }
  *
- * await actorCalled('Apisit')
+ * await actorCalled('Apisitt')
  *   .whoCan(CallAnApi.at('https://api.example.org/'))
  *   .attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
@@ -62,7 +62,7 @@ import { CallAnApi } from '../abilities';
  * ```
  *
  * ## Learn more
- * - [AxiosResponse](https://github.com/axios/axios/blob/v0.27.2/index.d.ts#L133-L140)
+ * - [AxiosResponse](https://axios-http.com/docs/res_schema)
  *
  * @group Questions
  */

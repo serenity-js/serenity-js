@@ -33,6 +33,15 @@ describe('CallAnApi', () => {
     it('provides a convenient factory method to be used when no custom configuration is required', () => {
         const
             baseURL = 'https://mycompany.com/api',
+            callAnApi = CallAnApi.at(new URL(baseURL));
+
+        expect(callAnApi).to.be.instanceOf(CallAnApi);
+        expect((callAnApi as any).axiosInstance.defaults.baseURL).to.equal(baseURL);
+    });
+
+    it('allows for the ability to be instantiated using a URL object instead of a string', () => {
+        const
+            baseURL = 'https://mycompany.com/api',
             callAnApi = CallAnApi.at(baseURL);
 
         expect(callAnApi).to.be.instanceOf(CallAnApi);

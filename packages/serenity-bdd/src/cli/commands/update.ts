@@ -1,11 +1,12 @@
 import { isTrue } from '@serenity-js/assertions';
 import { actorCalled, Check, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
+import * as https from 'https';
 import { URL } from 'url';
 
 import type { Argv } from '../Argv';
 import { defaults } from '../defaults';
-import { axiosClient, formatError } from '../io';
+import { formatError } from '../io';
 import { Credentials, GAV } from '../model';
 import { Printer } from '../Printer';
 import { DownloadArtifact, FileExists, Notify } from '../screenplay';
@@ -44,12 +45,19 @@ export = {
             printer = new Printer(process.stdout, process.stderr),
             artifactGAV = GAV.fromString(argv.artifact),
             pathToArtifact = new Path(argv.cacheDir).join(artifactGAV.toPath()),
-            repository = new URL(argv.repository);
+            repository = new URL(argv.repository),
+            ignoreSSL = Boolean(argv.ignoreSSL);
 
         configure({
             actors: new UpdateCommandActors(
                 new Path(process.cwd()),
-                () => axiosClient(repository, Boolean(argv.ignoreSSL), process.env, Credentials.fromString(argv.auth)),
+                {
+                    baseURL: repository.toString(),
+                    auth: Credentials.fromString(argv.auth).toJSON() as { username: string, password: string } | undefined,
+                    httpsAgent: ignoreSSL
+                        ? new https.Agent({ rejectUnauthorized: ! ignoreSSL })
+                        : undefined,
+                }
             ),
             crew: [
                 new NotificationReporter(printer),

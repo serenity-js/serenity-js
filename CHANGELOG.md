@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typedoc to ^0.25.2 ([95dfd3d](https://github.com/serenity-js/serenity-js/commit/95dfd3d4d9c83df5ba4f6314ada0e560610f12b6))
+
+
+### Features
+
+* **jasmine:** support for Jasmine 5 ([ee80215](https://github.com/serenity-js/serenity-js/commit/ee802152d1af7a50665def985fd946fc04e6399d)), closes [#1088](https://github.com/serenity-js/serenity-js/issues/1088) [#913](https://github.com/serenity-js/serenity-js/issues/913)
+* **jasmine:** support for Jasmine 5 ([9b34e1e](https://github.com/serenity-js/serenity-js/commit/9b34e1eb9bfe1a1ad507fff569083da429b10f30))
+* **protractor:** support for Jasmine 5 ([f638532](https://github.com/serenity-js/serenity-js/commit/f638532da48b56dcc997605175141c67fbeb231e))
+* **webdriverio:** support for Jasmine 5 ([881196f](https://github.com/serenity-js/serenity-js/commit/881196f8ab869230e4bc791db7a54cdb685b2e08))
+
+
+
+
+
+## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
+
+
+### Bug Fixes
+
+* **core:** allow for QuestionAdapter\<string\> to proxy .replaceAll() method ([f1200c1](https://github.com/serenity-js/serenity-js/commit/f1200c1648471088c1f2943770c1bb4cc940e22f))
+* **deps:** update website dependencies ([06041e9](https://github.com/serenity-js/serenity-js/commit/06041e91ce9800b6ea04640a9ed98f82aa077651))
+
+
+
+
+
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+
+### Features
+
+* **assertions:** isBefore and isAfter accept Timestamp as well as Date objects ([55e13d0](https://github.com/serenity-js/serenity-js/commit/55e13d00a447c0ec70dd496fb7948f171977a682))
+* **core:** inspecting a Timestamp returns a human-friendly description of its value ([da26b54](https://github.com/serenity-js/serenity-js/commit/da26b5478108c811e52ea8d902dd6c626c843ffc))
+* **playwright-test:** enabled the ability to CallAnApi for all default actors ([436cde5](https://github.com/serenity-js/serenity-js/commit/436cde5283c14cea420000389d7c2c73e6122764)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+* **playwright-test:** explicit proxy config will override env variables for REST interaction ([1c277d6](https://github.com/serenity-js/serenity-js/commit/1c277d6e45064fbb4ab3432c11d125f529268b5c)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **rest:** automatic proxy server configuration for CallAnApi ([27a1630](https://github.com/serenity-js/serenity-js/commit/27a163024120068bc4d5b7ec07704fb774b2e312)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **serenity-bdd:** serenity-bdd downloader will now automatically detect proxy server configuration ([c221210](https://github.com/serenity-js/serenity-js/commit/c221210c95753a518621b5e97f6e037fa9383be1)), closes [#1949](https://github.com/serenity-js/serenity-js/issues/1949)
+* **web:** ability to CallAnApi is now available by default ([dfaf8e4](https://github.com/serenity-js/serenity-js/commit/dfaf8e4f4cb40f9be99624f0d616ebcf012c1fb0)), closes [#1876](https://github.com/serenity-js/serenity-js/issues/1876)
+
+
+
+
+
+## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.38.1 ([0072ddb](https://github.com/serenity-js/serenity-js/commit/0072ddbe42cc147e9cce5a7bca79bc87c707e1ce))
+
+
+
+
+
 ## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
 
 

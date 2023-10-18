@@ -1,5 +1,14 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { Timestamp } from '@serenity-js/core';
+import {
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    TestRunFinished,
+    TestRunStarts
+} from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -29,9 +38,16 @@ describe('@serenity-js/jasmine', function () {
             let currentSceneId: CorrelationId,
                 firstAsyncHooksId: CorrelationId,
                 secondAsyncHooksId: CorrelationId,
-                thirdAsyncHooksId: CorrelationId;
+                thirdAsyncHooksId: CorrelationId,
+                browserDetectionId: CorrelationId;
 
             PickEvent.from(result.events)
+                .next(TestRunStarts,            event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts, event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the first time'));
                     currentSceneId = event.sceneId;
@@ -44,12 +60,18 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     firstAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(firstAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
                 })
 
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the second time'));
                     currentSceneId = event.sceneId;
@@ -62,12 +84,18 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     secondAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(secondAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful())
                 })
 
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the third time'));
                     currentSceneId = event.sceneId;
@@ -80,6 +108,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     thirdAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(thirdAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
@@ -103,9 +132,16 @@ describe('@serenity-js/jasmine', function () {
             let currentSceneId: CorrelationId,
                 firstAsyncHooksId: CorrelationId,
                 secondAsyncHooksId: CorrelationId,
-                thirdAsyncHooksId: CorrelationId;
+                thirdAsyncHooksId: CorrelationId,
+                browserDetectionId: CorrelationId;
 
             PickEvent.from(result.events)
+                .next(TestRunStarts,            event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the first time'));
                     currentSceneId = event.sceneId;
@@ -118,12 +154,18 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     firstAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(firstAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
                 })
 
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the second time'));
                     currentSceneId = event.sceneId;
@@ -136,12 +178,18 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     secondAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(secondAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());
                 })
 
+                .next(AsyncOperationAttempted,  event => {
+                    expect(event.name).to.equal(new Name('BrowserDetector'))
+                    expect(event.description).to.equal(new Description('Detecting web browser details...'))
+                    browserDetectionId = event.correlationId;
+                })
                 .next(SceneStarts,              event => {
                     expect(event.details.name).to.equal(new Name('A scenario passes the third time'));
                     currentSceneId = event.sceneId;
@@ -154,6 +202,7 @@ describe('@serenity-js/jasmine', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     thirdAsyncHooksId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(browserDetectionId))
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(thirdAsyncHooksId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);

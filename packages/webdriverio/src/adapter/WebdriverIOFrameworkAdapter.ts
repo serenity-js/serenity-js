@@ -1,10 +1,11 @@
 import 'webdriverio';
 
-import type { Serenity} from '@serenity-js/core';
+import type { Serenity } from '@serenity-js/core';
 import { AnsiDiffFormatter, ArtifactArchiver, Cast, TakeNotes } from '@serenity-js/core';
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import type { ModuleLoader} from '@serenity-js/core/lib/io/index.js';
+import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { Path } from '@serenity-js/core/lib/io/index.js';
+import { CallAnApi } from '@serenity-js/rest';
 import type { Capabilities } from '@wdio/types';
 import * as deepmerge from 'deepmerge';
 import type { EventEmitter } from 'events';
@@ -12,14 +13,8 @@ import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
 
 import type { WebdriverIOConfig } from '../config/index.js';
 import { BrowseTheWebWithWebdriverIO } from '../screenplay/index.js';
-import type {
-    InitialisesReporters,
-    ProvidesWriteStream
-} from './reporter/index.js';
-import {
-    BrowserCapabilitiesReporter,
-    OutputStreamBuffer
-} from './reporter/index.js';
+import type { InitialisesReporters, ProvidesWriteStream } from './reporter/index.js';
+import { BrowserCapabilitiesReporter, OutputStreamBuffer } from './reporter/index.js';
 import { OutputStreamBufferPrinter } from './reporter/OutputStreamBufferPrinter.js';
 import { TestRunnerLoader } from './TestRunnerLoader.js';
 import { WebdriverIONotifier } from './WebdriverIONotifier.js';
@@ -80,6 +75,9 @@ export class WebdriverIOFrameworkAdapter {
             actors: config.serenity.actors || Cast.where(actor => actor.whoCan(
                 BrowseTheWebWithWebdriverIO.using(global.browser as unknown as WebdriverIO.Browser),
                 TakeNotes.usingAnEmptyNotepad(),
+                CallAnApi.using({
+                    baseURL: webdriverIOConfig.baseUrl,
+                }),
             )),
 
             crew: [

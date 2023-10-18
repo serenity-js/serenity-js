@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/serenity-js/serenity-js/compare/v3.11.1...v3.12.0) (2023-10-09)
+
+
+### Features
+
+* **jasmine:** support for Jasmine 5 ([ee80215](https://github.com/serenity-js/serenity-js/commit/ee802152d1af7a50665def985fd946fc04e6399d)), closes [#1088](https://github.com/serenity-js/serenity-js/issues/1088) [#913](https://github.com/serenity-js/serenity-js/issues/913)
+* **jasmine:** support for Jasmine 5 ([9b34e1e](https://github.com/serenity-js/serenity-js/commit/9b34e1eb9bfe1a1ad507fff569083da429b10f30))
+
+
+
+
+
+## [3.11.1](https://github.com/serenity-js/serenity-js/compare/v3.11.0...v3.11.1) (2023-10-04)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
+# [3.11.0](https://github.com/serenity-js/serenity-js/compare/v3.10.4...v3.11.0) (2023-10-03)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
+## [3.10.4](https://github.com/serenity-js/serenity-js/compare/v3.10.3...v3.10.4) (2023-09-22)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
 ## [3.10.3](https://github.com/serenity-js/serenity-js/compare/v3.10.2...v3.10.3) (2023-09-15)
 
 **Note:** Version bump only for package @serenity-js/jasmine

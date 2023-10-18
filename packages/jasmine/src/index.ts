@@ -1,3 +1,1 @@
-import { bootstrap } from './bootstrap';
-
-export = bootstrap;
+export { bootstrap as default } from './bootstrap.js';
