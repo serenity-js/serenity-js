@@ -1,3 +1,5 @@
+import * as gherkin from '@cucumber/gherkin';
+import * as messages from '@cucumber/messages';
 import { expect } from '@integration/testing-tools';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
@@ -5,7 +7,6 @@ import { describe, it } from 'mocha';
 
 import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
 import { Background, Feature, FeatureFileMapper, FeatureFileParser, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
-import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
 
 describe('FeatureFileMapper', () => {
 
@@ -55,7 +56,7 @@ describe('FeatureFileMapper', () => {
             const firstBackground = map.get(Background).onLine(3);
 
             expect(firstBackground.name).to.equal(new Name(''));
-            expect(firstBackground.description).to.equal(undefined);
+            expect(firstBackground.description).to.equal('');
             expect(firstBackground.steps).to.deep.equal([
                 new Step(
                     new FileSystemLocation(fixtures.join(new Path('background_with_no_name_or_description.feature')),
@@ -335,10 +336,15 @@ describe('FeatureFileMapper', () => {
     });
 
     function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {
+        const uuidGenerator = messages.IdGenerator.uuid();
+        const builder = new gherkin.AstBuilder(uuidGenerator);
+        const matcher = new gherkin.GherkinClassicTokenMatcher('en');
+        const parser  = new gherkin.Parser(builder, matcher);
+
         const
             path = fixtures.join(new Path(featureFileName)),
             mapper = new FeatureFileMapper(),
-            loader = new FeatureFileParser(new Gherkin.Parser());
+            loader = new FeatureFileParser(parser);
 
         // eslint-disable-next-line unicorn/no-array-method-this-argument
         return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);

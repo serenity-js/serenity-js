@@ -4,6 +4,7 @@ import type { EventEmitter } from 'events';
  * @private
  */
 export interface CucumberFormatterOptions {
+    cleanup: () => Promise<any>;
     colorFns: any;
     cwd: any;
     eventDataCollector: any;
@@ -12,4 +13,5 @@ export interface CucumberFormatterOptions {
     snippetBuilder: any;
     stream: any;
     supportCodeLibrary: any;
+    formatterHelpers: any;
 }

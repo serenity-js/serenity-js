@@ -1,9 +1,0 @@
-import type { StepArgument } from './StepArgument';
-
-/**
- * @private
- */
-export interface DocString extends StepArgument {
-    type: 'DocString';
-    content: string;
-}

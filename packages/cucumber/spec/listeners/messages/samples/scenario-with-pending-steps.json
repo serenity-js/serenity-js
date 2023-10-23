@@ -1,0 +1,14 @@
+[
+  {"meta":{"protocolVersion":"22.0.0","implementation":{"version":"10.0.0","name":"cucumber-js"},"cpu":{"name":"arm64"},"os":{"name":"darwin","version":"23.0.0"},"runtime":{"name":"node.js","version":"18.18.0"}}},
+  {"source":{"data":"Feature: Event Protocol\n\n  Scenario: Pending steps\n\n    Given I have a pending step\n","uri":"features/pending-steps.feature","mediaType":"text/x.cucumber.gherkin+plain"}},
+  {"gherkinDocument":{"feature":{"tags":[],"location":{"line":1,"column":1},"language":"en","keyword":"Feature","name":"Event Protocol","description":"","children":[{"scenario":{"id":"de16dcb1-addc-4c94-a7b3-99fc16fbdbd6","tags":[],"location":{"line":3,"column":3},"keyword":"Scenario","name":"Pending steps","description":"","steps":[{"id":"6d862247-9aa6-4749-95d3-c0b72f03db19","location":{"line":5,"column":5},"keyword":"Given ","keywordType":"Context","text":"I have a pending step"}],"examples":[]}}]},"comments":[],"uri":"features/pending-steps.feature"}},
+  {"pickle":{"id":"eb92c612-0693-4373-a555-d898d36b168c","uri":"features/pending-steps.feature","astNodeIds":["de16dcb1-addc-4c94-a7b3-99fc16fbdbd6"],"tags":[],"name":"Pending steps","language":"en","steps":[{"id":"cffd160d-693c-4de1-8a7f-89c5e9ceb690","text":"I have a pending step","type":"Context","astNodeIds":["6d862247-9aa6-4749-95d3-c0b72f03db19"]}]}},
+  {"stepDefinition":{"id":"d6fd02f0-52e5-4a74-a2c7-bf7d980e4651","pattern":{"source":"I have a pending step","type":"CUCUMBER_EXPRESSION"},"sourceReference":{"uri":"features/step_definitions/pending.steps.ts","location":{"line":3}}}},
+  {"testRunStarted":{"timestamp":{"seconds":1697885579,"nanos":951000000}}},
+  {"testCase":{"pickleId":"eb92c612-0693-4373-a555-d898d36b168c","id":"c7f7e4e6-8348-41ee-9088-d04c5db02294","testSteps":[{"id":"751e34e9-dc66-4c2e-9cc0-856e21fae8fa","pickleStepId":"cffd160d-693c-4de1-8a7f-89c5e9ceb690","stepDefinitionIds":["d6fd02f0-52e5-4a74-a2c7-bf7d980e4651"],"stepMatchArgumentsLists":[{"stepMatchArguments":[]}]}]}},
+  {"testCaseStarted":{"attempt":0,"testCaseId":"c7f7e4e6-8348-41ee-9088-d04c5db02294","id":"b98c2aaa-01c6-427f-bd07-0aa2a932bd38","timestamp":{"seconds":1697885579,"nanos":953000000}}},
+  {"testStepStarted":{"testCaseStartedId":"b98c2aaa-01c6-427f-bd07-0aa2a932bd38","testStepId":"751e34e9-dc66-4c2e-9cc0-856e21fae8fa","timestamp":{"seconds":1697885579,"nanos":954000000}}},
+  {"testStepFinished":{"testCaseStartedId":"b98c2aaa-01c6-427f-bd07-0aa2a932bd38","testStepId":"751e34e9-dc66-4c2e-9cc0-856e21fae8fa","testStepResult":{"duration":{"seconds":0,"nanos":110917},"status":"PENDING"},"timestamp":{"seconds":1697885579,"nanos":954000000}}},
+  {"testCaseFinished":{"testCaseStartedId":"b98c2aaa-01c6-427f-bd07-0aa2a932bd38","timestamp":{"seconds":1697885579,"nanos":954000000},"willBeRetried":false}},
+  {"testRunFinished":{"timestamp":{"seconds":1697885579,"nanos":954000000},"success":false}}
+]
