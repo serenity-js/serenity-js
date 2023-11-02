@@ -16,16 +16,16 @@ export class FeatureFileLoader {
     ) {
     }
 
-    load(path: Path): Promise<FeatureFileMap> {
+    async load(path: Path): Promise<FeatureFileMap> {
         if (this.cache.has(path)) {
-            return Promise.resolve(this.cache.get(path));
+            return this.cache.get(path);
         }
 
-        return this.parser.parse(path)
-            .then(document => this.mapper.map(document, path))  // eslint-disable-line unicorn/no-array-method-this-argument
-            .then(map => {
-                this.cache.set(path, map);
-                return this.cache.get(path);
-            });
+        const document = await this.parser.parse(path);
+        const map = this.mapper.map(document, path)  // eslint-disable-line unicorn/no-array-method-this-argument
+
+        this.cache.set(path, map);
+
+        return this.cache.get(path);
     }
 }
