@@ -27,19 +27,6 @@ body:
     validations:
       required: false
 
-  - type: textarea
-    id: serenity-js-versions
-    attributes:
-      label: Serenity/JS version
-      description: |
-        What **Serenity/JS modules** and **what versions** are you using? Are you on the [latest version](https://serenity-js.org/changelog/)?
-        Run `npm ls --all` and paste the output below
-      placeholder:
-        npm ls --all
-      render: shell
-    validations:
-      required: true
-
   - type: input
     id: node-version
     attributes:
@@ -73,5 +60,18 @@ body:
         
         Steps to reproduce:
         - ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: serenity-js-versions
+    attributes:
+      label: Serenity/JS version
+      description: |
+        What **Serenity/JS modules** and **what versions** are you using? Are you on the [latest version](https://serenity-js.org/changelog/)?
+        Run `npm ls --all` and paste the output below (when using yarn run `yarn list`)
+      placeholder:
+        npm ls --all
+      render: shell
     validations:
       required: true
