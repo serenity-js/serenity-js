@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.13.1](https://github.com/serenity-js/serenity-js/compare/v3.13.0...v3.13.1) (2023-11-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to ^1.21.0 ([d4921f9](https://github.com/serenity-js/serenity-js/commit/d4921f9cedb502487c176216fbf15dd2ef83dcc4))
+
+
+
+
+
 # [3.13.0](https://github.com/serenity-js/serenity-js/compare/v3.12.0...v3.13.0) (2023-10-19)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
