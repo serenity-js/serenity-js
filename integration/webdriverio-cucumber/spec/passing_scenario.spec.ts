@@ -1,4 +1,4 @@
-import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
+import { expect, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
 import { BrowserTag, ExecutionSuccessful, FeatureTag, Name, PlatformTag } from '@serenity-js/core/lib/model';
@@ -15,7 +15,8 @@ describe('@serenity-js/webdriverio with @serenity-js/cucumber', function () {
             './examples/wdio.conf.ts',
             '--spec=./examples/features/passing.feature',
         )
-        .then(ifExitCodeIsOtherThan(0, logOutput))
+        // .then(ifExitCodeIsOtherThan(0, logOutput))
+        .then(logOutput)
         .then(result => {
 
             expect(result.exitCode).to.equal(0);

@@ -102,7 +102,10 @@ export class WebdriverIOFrameworkAdapter {
         (this.reporter as any)._reporters.push(browserCapabilitiesReporter);
 
         // WebdriverIO v8 represents paths to specs as file URIs, so they need to be converted to absolute paths to avoid confusing the test runners like Cucumber
+        console.log('>> DEBUG: specs', this.specs)
         const absolutePaths = this.specs.map(pathToSpec => Path.fromURI(pathToSpec).value);
+
+        console.log('>> DEBUG: absolutePaths', absolutePaths)
 
         await this.adapter.load(absolutePaths);
 
