@@ -228,7 +228,7 @@ jobs:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      command: 'npm run integration-test:webdriverio-cucumber'
       upload-artifact-name: 'test-integration-coverage-reports'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
