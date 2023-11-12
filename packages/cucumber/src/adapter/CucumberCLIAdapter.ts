@@ -92,7 +92,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
         if (version.isAtLeast(new Version('10.0.0'))) {
-            return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
+            return this.runWithCucumber10(serenityListener, pathsToScenarios);
         }
 
         if (version.isAtLeast(new Version('9.0.0'))) {
@@ -124,11 +124,27 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
     }
 
+    private async runWithCucumber10(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const output = this.output.get();
+
+        // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md#ambiguous-colons-in-formats
+        const formatter = [
+            `"${ pathToSerenityListener }"`,
+            output.value() && `"${ output.value() }"`,
+        ].filter(Boolean).join(':');
+
+        return await this.runWithCucumberApi(formatter, pathsToScenarios, output);
+    }
+
     // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md
     private async runWithCucumber8JavaScriptApi(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const output = this.output.get();
+        return await this.runWithCucumberApi(`${ pathToSerenityListener }:${ output.value() }`, pathsToScenarios, output);
+    }
+
+    private async runWithCucumberApi(serenityFormatter: string, pathsToScenarios: string[], output: OutputDescriptor): Promise<void> {
         const configuration = this.options.asCucumberApiConfiguration();
         const { loadConfiguration, loadSupport, runCucumber }  = this.loader.require('@cucumber/cucumber/api');
-        const output = this.output.get();
 
         // https://github.com/cucumber/cucumber-js/blob/main/src/api/environment.ts
         const environment = {
@@ -139,7 +155,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
             debug:  false,
         };
 
-        configuration.format.push(`${ pathToSerenityListener }:${ output.value() }`)
+        configuration.format.push(serenityFormatter)
         configuration.paths = pathsToScenarios;
 
         // https://github.com/cucumber/cucumber-js/blob/main/src/configuration/types.ts

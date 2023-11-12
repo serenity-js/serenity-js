@@ -80,12 +80,12 @@ export class TestRunnerLoader {
                     const filenameParts = basename.split('.');
 
                     if (filenameParts[0] === basename) {
-                        return `"${ format.formatter }":"${ format.output }.${ this.runnerId }"`;
+                        return `${ format.formatter }:${ format.output }.${ this.runnerId }`;
                     }
 
                     filenameParts.splice(-1, 0, `${ this.runnerId }`);
 
-                    return `"${ format.formatter }":"${ format.output.replace(basename, filenameParts.join('.')) }"`;
+                    return `${ format.formatter }:${ format.output.replace(basename, filenameParts.join('.')) }`;
                 })
             );
 
