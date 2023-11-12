@@ -128,14 +128,11 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         const output = this.output.get();
 
         // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md#ambiguous-colons-in-formats
-        const formatter = [
-            `"${ pathToSerenityListener }"`,
-            output.value() && `"${ output.value() }"`,
-        ].filter(Boolean).join(':');
-
-        console.log('>> DEBUG formatter', formatter);
-
-        return await this.runWithCucumberApi(formatter, pathsToScenarios, output);
+        // https://github.com/cucumber/cucumber-js/issues/2326#issuecomment-1711701382
+        return await this.runWithCucumberApi([
+            pathToSerenityListener,
+            output.value() ?? undefined,
+        ], pathsToScenarios, output);
     }
 
     // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md
@@ -144,7 +141,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         return await this.runWithCucumberApi(`${ pathToSerenityListener }:${ output.value() }`, pathsToScenarios, output);
     }
 
-    private async runWithCucumberApi(serenityFormatter: string, pathsToScenarios: string[], output: OutputDescriptor): Promise<void> {
+    private async runWithCucumberApi(serenityFormatter: string | [string, string?], pathsToScenarios: string[], output: OutputDescriptor): Promise<void> {
         const configuration = this.options.asCucumberApiConfiguration();
         const { loadConfiguration, loadSupport, runCucumber }  = this.loader.require('@cucumber/cucumber/api');
 
