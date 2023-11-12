@@ -133,6 +133,8 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
             output.value() && `"${ output.value() }"`,
         ].filter(Boolean).join(':');
 
+        console.log('>> DEBUG formatter', formatter);
+
         return await this.runWithCucumberApi(formatter, pathsToScenarios, output);
     }
 
