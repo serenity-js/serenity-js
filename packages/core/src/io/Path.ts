@@ -10,19 +10,16 @@ export class Path extends TinyType {
         return new Path(v);
     }
 
-    static fromURI(uri: string): Path {
+    static fromFileURL(fileUrl: URL): Path {
         // inspired by https://github.com/TooTallNate/file-uri-to-path
-        if (
-            typeof uri !== 'string' ||
-            uri.length <= 7 ||
-            uri.slice(0, 7) !== 'file://'
-        ) {
+        if (fileUrl.protocol !== 'file:') {
             throw new TypeError(
-                `A Path can be created only from URIs that start with 'file://'. Received: ${ uri }`
+                `A Path can be created only from URLs that start with 'file://'. Received: ${ fileUrl }`
             );
         }
 
-        const rest = decodeURI(uri.slice(7));
+        const url = fileUrl.toString();
+        const rest = decodeURI(url.slice(7));
         const firstSlash = rest.indexOf('/');
 
         let host = rest.slice(0, Math.max(0, firstSlash));
@@ -51,8 +48,7 @@ export class Path extends TinyType {
 
         // for Windows, we need to invert the path separators from what a URI uses
         if (sep === '\\') {
-            throw new Error('that used?')
-            // path = path.replace(/\//g, '\\');
+            path = path.replaceAll('/', '\\');
         }
 
         if (! (/^.+:/.test(path))) {
@@ -121,5 +117,11 @@ export class Path extends TinyType {
 
     root(): Path {
         return new Path(path.parse(this.value).root);
+    }
+
+    toFileURL(): URL {
+        return new URL(
+            encodeURI(`file://${this.value}`).replaceAll(/[#?]/g, encodeURIComponent)
+        );
     }
 }

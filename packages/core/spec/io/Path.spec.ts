@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Path } from '../../src/io';
+import { Path } from '../../src/io/Path';
 import { expect } from '../expect';
 
 describe ('Path', () => {
@@ -114,24 +114,38 @@ describe ('Path', () => {
     });
 
     given(
-        { description: 'localhost',                                 uri: 'file://localhost/etc/fstab', expected: '/etc/fstab' },
-        { description: 'no host',                                   uri: 'file:///etc/fstab', expected: '/etc/fstab' },
-        { description: 'Windows, no host',                          uri: 'file:///c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
-        { description: 'Windows, localhost, pipe instead of colon', uri: 'file://localhost/c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
-        { description: 'Windows, no host, pipe instead of colon',   uri: 'file:///c|/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
-        { description: 'Windows, localhost',                        uri: 'file://localhost/c:/WINDOWS/clock.avi', expected: 'c:/WINDOWS/clock.avi' },
-        { description: 'spaces in file name',                        uri: 'file:///hostname/path/to/the%20file.txt', expected: '/hostname/path/to/the file.txt' },
-        { description: 'Windows, spaces in file name',               uri: 'file:///c:/path/to/the%20file.txt', expected: 'c:/path/to/the file.txt' },
-        { description: 'Windows, spaces in directory name',         uri: 'file:///C:/Documents%20and%20Settings/user/FileSchemeURIs.doc', expected: 'C:/Documents and Settings/user/FileSchemeURIs.doc' },
-        { description: 'Windows, special characters',               uri: 'file:///C:/caf%C3%A9/%C3%A5r/d%C3%BCnn/%E7%89%9B%E9%93%83/Ph%E1%BB%9F/%F0%9F%98%B5.exe', expected: 'C:/café/år/dünn/牛铃/Phở/😵.exe' },
+        { description: 'localhost',                                 url: 'file://localhost/etc/fstab',                                                              expected: '/etc/fstab' },
+        { description: 'no host',                                   url: 'file:///etc/fstab',                                                                       expected: '/etc/fstab' },
+        { description: 'Windows, no host',                          url: 'file:///c:/WINDOWS/clock.avi',                                                            expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, localhost, pipe instead of colon', url: 'file://localhost/c|/WINDOWS/clock.avi',                                                   expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, no host, pipe instead of colon',   url: 'file:///c|/WINDOWS/clock.avi',                                                            expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'Windows, localhost',                        url: 'file://localhost/c:/WINDOWS/clock.avi',                                                   expected: 'c:/WINDOWS/clock.avi' },
+        { description: 'spaces in file name',                       url: 'file:///hostname/path/to/the%20file.txt',                                                 expected: '/hostname/path/to/the file.txt' },
+        { description: 'Windows, spaces in file name',              url: 'file:///c:/path/to/the%20file.txt',                                                       expected: 'c:/path/to/the file.txt' },
+        { description: 'Windows, spaces in directory name',         url: 'file:///C:/Documents%20and%20Settings/user/FileSchemeURIs.doc',                           expected: 'C:/Documents and Settings/user/FileSchemeURIs.doc' },
+        { description: 'Windows, special characters',               url: 'file:///C:/caf%C3%A9/%C3%A5r/d%C3%BCnn/%E7%89%9B%E9%93%83/Ph%E1%BB%9F/%F0%9F%98%B5.exe',  expected: 'C:/café/år/dünn/牛铃/Phở/😵.exe' },
     ).
-    it('can be instantiated from a file:// URI', ({ uri, expected }) => {
-        expect(Path.fromURI(uri).value).to.equal(expected);
+    it('can be instantiated from a file:// URI', ({ url, expected }) => {
+        expect(Path.fromFileURL(new URL(url)).value).to.equal(expected);
     });
+
+    given(
+        { description: 'no host',                           path: '/etc/fstab',                                         expected: 'file:///etc/fstab' },
+        { description: 'Windows, no host',                  path: 'c:/WINDOWS/clock.avi',                               expected: 'file:///c:/WINDOWS/clock.avi' },
+        { description: 'spaces in file name',               path: '/hostname/path/to/the file.txt',                     expected: 'file:///hostname/path/to/the%20file.txt' },
+        { description: 'Windows, backslashes',              path: 'c:\\path\\to\\file.txt',                             expected: 'file:///c:/path/to/file.txt' },
+        { description: 'Windows, slashes',                  path: 'c:/path/to/file.txt',                                expected: 'file:///c:/path/to/file.txt' },
+        { description: 'Windows, spaces in file name',      path: 'c:/path/to/the file.txt',                            expected: 'file:///c:/path/to/the%20file.txt' },
+        { description: 'Windows, spaces in directory name', path: 'C:/Documents and Settings/user/FileSchemeURIs.doc',  expected: 'file:///C:/Documents%20and%20Settings/user/FileSchemeURIs.doc' },
+        { description: 'Windows, special characters',       path: 'C:/café/år/dünn/牛铃/Phở/😵.exe',                       expected: 'file:///C:/caf%C3%A9/%C3%A5r/d%C3%BCnn/%E7%89%9B%E9%93%83/Ph%E1%BB%9F/%F0%9F%98%B5.exe' },
+    ).
+    it('can be converted to a file:// URI', ({ path, expected }) => {
+        expect(Path.from(path).toFileURL().toString()).to.equal(expected);
+    })
 
     it('complains when instantiated from URI with a non-file URI', () => {
         expect(() => {
-            Path.fromURI('https://serenity-js.org/index.html');
-        }).to.throw(TypeError, `A Path can be created only from URIs that start with 'file://'. Received: https://serenity-js.org/index.html`)
+            Path.fromFileURL(new URL('https://serenity-js.org/index.html'));
+        }).to.throw(TypeError, `A Path can be created only from URLs that start with 'file://'. Received: https://serenity-js.org/index.html`)
     })
 });

@@ -1,6 +1,6 @@
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import type { FileSystem, ModuleLoader} from '@serenity-js/core/lib/io';
-import { Version } from '@serenity-js/core/lib/io';
+import { Path, Version } from '@serenity-js/core/lib/io';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
@@ -126,12 +126,15 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private async runWithCucumber10(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
         const output = this.output.get();
+        const serenityListenerUrl = pathToSerenityListener;
+        const outputUrl = output.value() ?? undefined;
+        console.log('>> DEBUG', { outputValue: output.value(), outputUrl });
 
         // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md#ambiguous-colons-in-formats
         // https://github.com/cucumber/cucumber-js/issues/2326#issuecomment-1711701382
         return await this.runWithCucumberApi([
-            pathToSerenityListener,
-            output.value() ?? undefined,
+            serenityListenerUrl,
+            outputUrl,
         ], pathsToScenarios, output);
     }
 
