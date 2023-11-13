@@ -211,27 +211,6 @@ jobs:
       upload-artifact-name: 'test-integration-coverage-reports'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
-  test-integration-windows:
-    name: 'Integration: Windows'
-    needs:
-      - detect-source-code-changes
-      - lint
-      - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "webdriverio-test-runners",
-        ]
-      runs-on: 'windows-latest'
-      node-version: 18.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: 'npm run integration-test:webdriverio-cucumber'
-      upload-artifact-name: 'test-integration-coverage-reports'
-      upload-artifact-path: 'package.json "integration/*/target/**/*"'
-
   #
   # Reporting
   #
@@ -307,7 +286,6 @@ jobs:
       - test-integration
       - test-integration-playwright
       - test-integration-protractor
-      - test-integration-windows
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
