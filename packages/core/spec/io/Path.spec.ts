@@ -44,9 +44,10 @@ describe ('Path', () => {
     });
 
     given([
-        { path: Path.from('../home'),   expected: '../home' },
-        { path: Path.from('./home'),    expected: 'home'    },
-        { path: Path.from('home'),      expected: 'home'    },
+        { path: Path.from('../home'),       expected: '../home' },
+        { path: Path.from('./home'),        expected: 'home'    },
+        { path: Path.from('home'),          expected: 'home'    },
+        { path: Path.from('file:///home'),  expected: '/home'    },
     ]).
     it('can be instantiated from a path segment', ({ path, expected }) => {
         expect(path.value).to.equal(expected);

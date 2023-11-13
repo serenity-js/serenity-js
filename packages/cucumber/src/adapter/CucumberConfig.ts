@@ -8,6 +8,14 @@
 export interface CucumberConfig {
 
     /**
+     * Paths to where your feature files are
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     */
+    paths?: string[];
+
+    /**
      * Prepare a test run but don't run it
      *
      * #### Learn more

@@ -60,6 +60,9 @@ export class Path extends TinyType {
     }
 
     static from(...segments: string[]): Path {
+        if (segments.length === 1 && segments[0].startsWith('file://')) {
+            return Path.fromFileURL(new URL(segments[0]));
+        }
         return new Path(path.joinSafe(...segments));
     }
 
