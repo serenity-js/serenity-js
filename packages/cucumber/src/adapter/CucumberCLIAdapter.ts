@@ -165,7 +165,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         const { runConfiguration } = await loadConfiguration({ provided: configuration }, environment);
 
         try {
-            console.log('>> DEBUG', { runConfiguration,  })
+            console.log('>> DEBUG', JSON.stringify({ runConfiguration }, undefined, 4))
 
             // load the support code upfront
             const support = await loadSupport(runConfiguration, environment)
