@@ -62,7 +62,7 @@ export class CucumberOptions {
             import: this.asArray(this.config.import)
                 .flatMap(glob => this.finder.filesMatching(glob).map(path => path.toFileURL().href)),
             require: this.asArray(this.config.require)
-                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.value)),
+                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.toFileURL().href)),
             requireModule: this.asArray(this.config.requireModule),
 
             language: this.config.language,
