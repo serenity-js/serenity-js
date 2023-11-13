@@ -345,8 +345,7 @@ describe('CucumberOptions', () => {
 
             expect(options.asCucumberApiConfiguration().require).to.deep.equal(
                 [
-                    // Path.from(__dirname, 'features/step_definitions/steps.ts').value,
-                    Path.from(__dirname, 'features/step_definitions/steps.ts').toFileURL().href,
+                    Path.from(__dirname, 'features/step_definitions/steps.ts').value,
                 ]
             );
         });

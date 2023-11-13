@@ -126,7 +126,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private async runWithCucumber10(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
         const output = this.output.get();
-        const serenityListenerUrl = pathToSerenityListener;
+        const serenityListenerUrl = Path.from(pathToSerenityListener).toFileURL().href;
         const outputUrl = output.value() ?? undefined;
 
         // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md#ambiguous-colons-in-formats
