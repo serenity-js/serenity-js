@@ -164,10 +164,12 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         // https://github.com/cucumber/cucumber-js/blob/main/src/configuration/types.ts
         const { runConfiguration } = await loadConfiguration({ provided: configuration }, environment);
 
-        // load the support code upfront
-        const support = await loadSupport(runConfiguration, environment)
-
         try {
+            console.log('>> DEBUG', { runConfiguration,  })
+
+            // load the support code upfront
+            const support = await loadSupport(runConfiguration, environment)
+
             // run cucumber, using the support code we loaded already
             const { success } = await runCucumber({ ...runConfiguration, support }, environment)
             await output.cleanUp();
