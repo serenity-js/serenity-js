@@ -65,9 +65,6 @@ export class TestRunnerLoader {
         const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.moduleLoader.require('@serenity-js/cucumber/lib/adapter');
 
         const config = new Config<CucumberConfig>(cucumberOpts)
-            .where('require', requires =>
-                this.finder.filesMatching(requires).map(p => p.value)
-            )
             .whereIf(adapterConfig.uniqueFormatterOutputs, 'format', values =>
                 [].concat(values).map(value => {
                     const format = new CucumberFormat(value);

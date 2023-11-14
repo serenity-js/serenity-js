@@ -1,6 +1,6 @@
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import type { FileSystem, ModuleLoader} from '@serenity-js/core/lib/io';
-import { Version } from '@serenity-js/core/lib/io';
+import type { FileSystem, ModuleLoader } from '@serenity-js/core/lib/io';
+import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
@@ -29,7 +29,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         fileSystem: FileSystem,
         private readonly output: SerenityFormatterOutput,
     ) {
-        this.options = new CucumberOptions(fileSystem, config);
+        this.options = new CucumberOptions(new FileFinder(Path.from(this.loader.cwd)), fileSystem, config);
     }
 
     /**
@@ -92,7 +92,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
         if (version.isAtLeast(new Version('10.0.0'))) {
-            return this.runWithCucumber8JavaScriptApi(serenityListener, pathsToScenarios);
+            return this.runWithCucumber10(serenityListener, pathsToScenarios);
         }
 
         if (version.isAtLeast(new Version('9.0.0'))) {
@@ -124,11 +124,28 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
         return this.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
     }
 
+    private async runWithCucumber10(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const output = this.output.get();
+        const serenityListenerUrl = Path.from(pathToSerenityListener).toFileURL().href;
+        const outputUrl = output.value() ?? undefined;
+
+        // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md#ambiguous-colons-in-formats
+        // https://github.com/cucumber/cucumber-js/issues/2326#issuecomment-1711701382
+        return await this.runWithCucumberApi([
+            serenityListenerUrl,
+            outputUrl,
+        ], pathsToScenarios, output);
+    }
+
     // https://github.com/cucumber/cucumber-js/blob/main/docs/deprecations.md
     private async runWithCucumber8JavaScriptApi(pathToSerenityListener: string, pathsToScenarios: string[]): Promise<void> {
+        const output = this.output.get();
+        return await this.runWithCucumberApi(`${ pathToSerenityListener }:${ output.value() }`, pathsToScenarios, output);
+    }
+
+    private async runWithCucumberApi(serenityFormatter: string | [string, string?], pathsToScenarios: string[], output: OutputDescriptor): Promise<void> {
         const configuration = this.options.asCucumberApiConfiguration();
         const { loadConfiguration, loadSupport, runCucumber }  = this.loader.require('@cucumber/cucumber/api');
-        const output = this.output.get();
 
         // https://github.com/cucumber/cucumber-js/blob/main/src/api/environment.ts
         const environment = {
@@ -139,16 +156,16 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
             debug:  false,
         };
 
-        configuration.format.push(`${ pathToSerenityListener }:${ output.value() }`)
+        configuration.format.push(serenityFormatter)
         configuration.paths = pathsToScenarios;
 
         // https://github.com/cucumber/cucumber-js/blob/main/src/configuration/types.ts
         const { runConfiguration } = await loadConfiguration({ provided: configuration }, environment);
 
-        // load the support code upfront
-        const support = await loadSupport(runConfiguration, environment)
-
         try {
+            // load the support code upfront
+            const support = await loadSupport(runConfiguration, environment)
+
             // run cucumber, using the support code we loaded already
             const { success } = await runCucumber({ ...runConfiguration, support }, environment)
             await output.cleanUp();

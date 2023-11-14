@@ -48,9 +48,6 @@ export class TestRunnerLoader {
         delete cucumberOptions?.parallel;  // WebdriverIO handles that already
 
         const cleanedCucumberOptions = new Config(cucumberOptions)
-            .where('require', requires =>
-                this.finder.filesMatching(requires).map(p => p.value)
-            )
             .where('format', values =>
                 [].concat(values).map(value => {
                     const format = new CucumberFormat(value);
