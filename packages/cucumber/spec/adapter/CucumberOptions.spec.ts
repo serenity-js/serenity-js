@@ -1,13 +1,15 @@
 /* eslint-disable unicorn/no-null */
 import { expect } from '@integration/testing-tools';
-import type { FileSystem, Path} from '@serenity-js/core/lib/io';
-import { Version } from '@serenity-js/core/lib/io';
+import type { FileSystem } from '@serenity-js/core/lib/io';
+import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { CucumberOptions } from '../../src/adapter/CucumberOptions';
 
 describe('CucumberOptions', () => {
+
+    const finder = new FileFinder(Path.from(__dirname));
 
     describe('strict mode', () => {
 
@@ -19,7 +21,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('is strict by default', (majorVersion: Version) => {
-            const options = new CucumberOptions(dummyFS(), { });
+            const options = new CucumberOptions(finder, dummyFS(), { });
 
             expect(options.isStrict()).to.equal(true);
 
@@ -34,7 +36,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be explicitly enabled', (majorVersion: Version) => {
-            const options = new CucumberOptions(dummyFS(), { strict: true });
+            const options = new CucumberOptions(finder, dummyFS(), { strict: true });
 
             expect(options.isStrict()).to.equal(true);
 
@@ -49,7 +51,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be disabled', (majorVersion: Version) => {
-            const options = new CucumberOptions(dummyFS(), { strict: false });
+            const options = new CucumberOptions(finder, dummyFS(), { strict: false });
 
             expect(options.isStrict()).to.equal(false);
 
@@ -64,7 +66,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be disabled via cucumberOpts.noStrict', (majorVersion: Version) => {
-            const options = new CucumberOptions(dummyFS(), { noStrict: true } as any);
+            const options = new CucumberOptions(finder, dummyFS(), { noStrict: true } as any);
 
             expect(options.isStrict()).to.equal(false);
 
@@ -83,18 +85,18 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('returns no additional arguments when the config is empty', (majorVersion: Version) => {
-            const options = new CucumberOptions(dummyFS(), {});
+            const options = new CucumberOptions(finder, dummyFS(), {});
 
             expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);
         });
 
         /**
          * @see https://github.com/cucumber/cucumber-js/blob/main/features/rerun_formatter.feature
-          */
+         */
         describe('rerun formatter', () => {
 
             it('adds the rerun formatter', () => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     format: 'rerun=@rerun.txt',
                 });
 
@@ -104,7 +106,7 @@ describe('CucumberOptions', () => {
             });
 
             it('appends the rerun file', () => {
-                const options = new CucumberOptions(fsWithRerunFile(true), {
+                const options = new CucumberOptions(finder, fsWithRerunFile(true), {
                     format: 'rerun=@rerun.txt',
                     rerun: '@rerun.txt'
                 });
@@ -115,7 +117,7 @@ describe('CucumberOptions', () => {
             });
 
             it('does not append the rerun file when it does not exist', () => {
-                const options = new CucumberOptions(fsWithRerunFile(false), {
+                const options = new CucumberOptions(finder, fsWithRerunFile(false), {
                     format: 'rerun=@rerun.txt',
                     rerun: '@rerun.txt'
                 });
@@ -137,7 +139,7 @@ describe('CucumberOptions', () => {
             ];
 
             given(emptyTags).it('ignores empty tags when generating tag expressions (>=2.x)', ({ tags }) => {
-                const options = new CucumberOptions(dummyFS(), { tags });
+                const options = new CucumberOptions(finder, dummyFS(), { tags });
 
                 expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
                     'node', 'cucumber-js',
@@ -145,7 +147,7 @@ describe('CucumberOptions', () => {
             });
 
             given(emptyTags).it('ignores empty tags when working with Cucumber 1.x', ({ tags }) => {
-                const options = new CucumberOptions(dummyFS(), { tags });
+                const options = new CucumberOptions(finder, dummyFS(), { tags });
 
                 expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
                     'node', 'cucumber-js',
@@ -157,7 +159,7 @@ describe('CucumberOptions', () => {
                 new Version('3.0.0'),
             ]).
             it('converts a list of tags into a Cucumber expression for Cucumber 2.x and newer', (majorVersion: Version) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     tags: [
                         '@smoke-test',
                         '~@wip',
@@ -171,7 +173,7 @@ describe('CucumberOptions', () => {
             });
 
             it('passes the tags individually to Cucumber 1.x', () => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     tags: [
                         '@smoke-test',
                         '~@wip',
@@ -202,7 +204,7 @@ describe('CucumberOptions', () => {
                 { description: 'colors on',        option: 'colors',       state: true,   expected: '--colors'         },
             ]).
             it('correctly interprets boolean options', ({ option, state, expected }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: state,
                 });
 
@@ -226,7 +228,7 @@ describe('CucumberOptions', () => {
                 { description: 'colors on',        option: 'no-colors',       state: false, expected: '--colors'         },
             ]).
             it('correctly interprets negated boolean options', ({ option, state, expected }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: state,
                 });
 
@@ -244,7 +246,7 @@ describe('CucumberOptions', () => {
                 { description: 'name',       option: 'name',       value: [ 'checkout.*', 'smoke.*' ],  expected: [ '--name', 'checkout.*',  '--name', 'smoke.*'  ] },
             ]).
             it('includes any other options', ({ option, value, expected }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: value,
                 });
 
@@ -263,7 +265,7 @@ describe('CucumberOptions', () => {
                 { description: 'retryTagFilter',    option: 'retryTagFilter',   value: '@flaky',    expected: [ '--retry-tag-filter', '@flaky' ] },
             ]).
             it('converts camelCased options to kebab-case', ({ option, value, expected }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: value,
                 });
 
@@ -281,7 +283,7 @@ describe('CucumberOptions', () => {
                 { description: 'empty list',        option: 'format',           value: [],          },
             ]).
             it('ignores empty values', ({ option, value }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: value,
                 });
 
@@ -299,7 +301,7 @@ describe('CucumberOptions', () => {
                 { description: 'string',      option: 'worldParameters',    value: '{"baseUrl":"https://example.org"}'  },
             ]).
             it('ignores empty values', ({ option, value }) => {
-                const options = new CucumberOptions(dummyFS(), {
+                const options = new CucumberOptions(finder, dummyFS(), {
                     [option]: value,
                 });
 
@@ -307,6 +309,45 @@ describe('CucumberOptions', () => {
                     ['node', 'cucumber-js', '--world-parameters', '{"baseUrl":"https://example.org"}'],
                 );
             });
+        });
+    });
+
+    describe('when used to produce configuration for Cucumber API', () => {
+
+        it('resolves spec `paths` as absolute file paths', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                paths: [ './features/**/*.feature' ],
+            });
+
+            expect(options.asCucumberApiConfiguration().paths).to.deep.equal(
+                [
+                    Path.from(__dirname, 'features/passing_scenario.feature').value,
+                ]
+            );
+        });
+
+        it('resolves `import` option as absolute file URLs', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                import: [ './features/step_definitions/**/*.ts' ],
+            });
+
+            expect(options.asCucumberApiConfiguration().import).to.deep.equal(
+                [
+                    Path.from(__dirname, 'features/step_definitions/steps.ts').toFileURL().href,
+                ]
+            );
+        });
+
+        it('resolves `require` option as absolute file paths', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                require: [ './features/step_definitions/**/*.ts' ],
+            });
+
+            expect(options.asCucumberApiConfiguration().require).to.deep.equal(
+                [
+                    Path.from(__dirname, 'features/step_definitions/steps.ts').value,
+                ]
+            );
         });
     });
 });
