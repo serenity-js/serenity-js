@@ -1,5 +1,5 @@
 import type { IConfiguration } from '@cucumber/cucumber/api';
-import type { FileSystem} from '@serenity-js/core/lib/io';
+import type { FileFinder, FileSystem } from '@serenity-js/core/lib/io';
 import { Path, Version } from '@serenity-js/core/lib/io';
 
 import type { CucumberConfig } from './CucumberConfig';
@@ -9,6 +9,7 @@ import type { CucumberConfig } from './CucumberConfig';
  */
 export class CucumberOptions {
     constructor(
+        private readonly finder: FileFinder,
         private readonly fileSystem: FileSystem,
         private readonly config: CucumberConfig,
     ) {
@@ -55,20 +56,26 @@ export class CucumberOptions {
             failFast: this.config.failFast,
             format: this.asArray(this.config.format),
             formatOptions: this.config.formatOptions as any,
-            import: this.asArray(this.config.import),
+
+            paths: this.asArray(this.config.paths)
+                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.value)),
+            import: this.asArray(this.config.import)
+                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.toFileURL().href)),
+            require: this.asArray(this.config.require)
+                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.value)),
+            requireModule: this.asArray(this.config.requireModule),
+
             language: this.config.language,
             name: this.asArray(this.config.name),
-            // order: PickleOrder
-            // paths: string[],
-            // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
             publish: false,
-            require: this.asArray(this.config.require),
-            requireModule: this.asArray(this.config.requireModule),
             retry: this.config.retry,
             retryTagFilter: this.config.retryTagFilter,
             strict: this.config.strict,
             tags: this.asArray(this.config.tags).join(' and '),
             worldParameters: this.config.worldParameters,
+
+            // order: PickleOrder
+            // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
         };
     }
 
@@ -124,8 +131,8 @@ export class CucumberOptions {
 
     private tagsToCucumberExpressions(tags: string[]): string {
         return tags.filter(tag => !! tag.replace)
-                .map(tag => tag.replaceAll('~', 'not '))
-                .join(' and ');
+            .map(tag => tag.replaceAll('~', 'not '))
+            .join(' and ');
     }
 
     private flagToArg(option: string, value: boolean): string {
