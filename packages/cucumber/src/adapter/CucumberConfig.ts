@@ -8,6 +8,15 @@
 export interface CucumberConfig {
 
     /**
+     * Paths to where your feature files are. Note that you don't need to specify the paths when
+     * using Serenity/JS with WebdriverIO or Protractor, as their respective adapters will do it for you.
+     *
+     * #### Learn more
+     * - [Cucumber docs: configuration](https://github.com/cucumber/cucumber-js/blob/main/docs/configuration.md)
+     */
+    paths?: string[];
+
+    /**
      * Prepare a test run but don't run it
      *
      * #### Learn more

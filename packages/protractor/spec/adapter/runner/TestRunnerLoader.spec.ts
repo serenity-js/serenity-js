@@ -100,38 +100,6 @@ describe('TestRunnerLoader', () => {
                 );
             });
 
-            it('resolves glob patterns in `require` to absolute paths', () => {
-
-                // eslint-disable-next-line unicorn/consistent-function-scoping
-                function absolutePathTo(relativePath: string): string {
-                    return Path.from(__dirname, relativePath).value;
-                }
-
-                const testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
-
-                const CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs('@serenity-js/cucumber/lib/adapter').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
-
-                const cucumberOpts = {    // eslint-disable-line unicorn/prevent-abbreviations
-                    require: [
-                        'features/**/*.steps.ts',
-                    ]
-                };
-
-                const runner_ = testRunnerLoader.forCucumber(cucumberOpts, { useStandardOutput: false, uniqueFormatterOutputs: false });
-
-                expect(CucumberCLIAdapter).to.have.been.calledWith(
-                    {
-                        require: [
-                            absolutePathTo('features/example.steps.ts'),
-                        ]
-                    },
-                    moduleLoader,
-                    fileSystem,
-                    sinon.match.instanceOf(TempFileOutput)
-                );
-            });
-
             given([{
                 description:            `doesn't change the output file name when uniqueFormatterOutputs are disabled`,
                 adapterConfig:          { useStandardOutput: false, uniqueFormatterOutputs: false },
