@@ -10,13 +10,49 @@ by all browser vendors and guarantees a true cross-browser testing experience.
 Furthermore, WebdriverIO also supports alternative, proprietary automation protocols like [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) via [Puppeteer](https://www.npmjs.com/package/puppeteer).
 
 **You will learn:**
+- How to create a new Serenity/JS + WebdriverIO project
 - How to use [Serenity/JS reporting services](/handbook/reporting/), including the [Serenity BDD reporter](/handbook/reporting/serenity-bdd-reporter), even if your test scenarios don't follow the Screenplay Pattern yet
 - How to implement WebdriverIO test scenarios using reusable [Serenity/JS Screenplay Pattern](/handbook/design/screenplay-pattern) APIs and the [Serenity/JS WebdriverIO module](/api/webdriverio)
 
-## Examples and Project Templates
+## Creating a new  project
+
+The easiest way to create a new Serenity/JS and WebdriverIO project is to use the WebdriverIO configuration wizard,
+or clone one of the [Serenity/JS + WebdriverIO project templates](/handbook/getting-started/project-templates/#webdriverio).
+
+### Using the WebdriverIO wizard
+
+To use the WebdriverIO configuration wizard, run the following command in your computer terminal:
+
+```sh npm2yarn
+npm init wdio
+```
+
+Next, select the following options:
+- Type of testing: **E2E Testing**
+- Automation backend: **any**, as Serenity/JS supports both local and remote WebdriverIO test runners
+- Environment: **web**
+- Browser: **any**, as Serenity/JS supports all browsers supported by WebdriverIO
+- Framework: **Jasmine with Serenity/JS**, **Mocha with Serenity/JS**, or **Cucumber with Serenity/JS**
+- Compiler: **any**, as Serenity/JS supports both TypeScript and JavaScript (we recommend TypeScript)
+- Generate test files: **yes**, if you'd like Serenity/JS to give you a starting point for your test scenarios
+- Test file location: **accept the defaults**, unless you'd like to store your code in a different directory
+- Test reporter: **any**, Serenity/JS configures the project to use [Serenity/JS reporting services](/handbook/reporting/), and you can add native WebdriverIO reporters too if needed
+
+Check out the below video to see how to create a new project step by step:
+
+<figure>
+    <iframe width="100%" height="494" src="https://www.youtube.com/embed/8mMY6Of4nCw?si=iMT8jiH3xA9lWl0v"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+            allowfullscreen></iframe>
+    <figcaption>Generating a new Serenity/JS project using the WebdriverIO configuration wizard</figcaption>
+</figure>
+
+### Using Serenity/JS Project Templates
 
 If you'd like to dive straight into the code, [Serenity/JS GitHub repository](https://github.com/serenity-js) provides:
-- [Serenity/JS + WebdriverIO project templates](https://github.com/serenity-js?q=webdriverio+template&type=all&language=&sort=), which are the easiest way to start with the framework,
+- [Serenity/JS + WebdriverIO project templates](/handbook/getting-started/project-templates/#webdriverio), which are the easiest way to start with the framework,
 - several [reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples), demonstrating using Serenity/JS with WebdriverIO to write web-based acceptance tests
 
 ## Using Serenity/JS reporting services
