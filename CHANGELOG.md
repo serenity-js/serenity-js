@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.13.3](https://github.com/serenity-js/serenity-js/compare/v3.13.2...v3.13.3) (2023-11-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lru-cache to ^10.0.3 ([d3c41f8](https://github.com/serenity-js/serenity-js/commit/d3c41f89b905a8b92448d0915e0d985ccc1f0460))
+* **deps:** update playwright dependencies to ^1.40.0 ([56c6ec0](https://github.com/serenity-js/serenity-js/commit/56c6ec03aff4db0a7d9bcd4d216c934f551c8dfd))
+* **webdriverio:** migrated WebdriverIOPageElement to us WDIO 8.23.4 types ([6881790](https://github.com/serenity-js/serenity-js/commit/68817901cd653d1c0adad2af0c48f52e3c5375ab)), closes [webdriverio/webdriverio#11679](https://github.com/webdriverio/webdriverio/issues/11679)
+
+
+
+
+
 ## [3.13.2](https://github.com/serenity-js/serenity-js/compare/v3.13.1...v3.13.2) (2023-11-14)
 
 
