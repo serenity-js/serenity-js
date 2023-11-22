@@ -25,7 +25,7 @@ describe('@serenity-js/playwright-test', function () {
                         const outcome: ProblemIndication = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                         expect(outcome.error.name).to.equal('Error');
-                        expect(outcome.error.message).to.equal('Something happened');
+                        expect(outcome.error.message).to.equal('Error: Something happened');
                     })
                 ;
             }));
@@ -49,7 +49,7 @@ describe('@serenity-js/playwright-test', function () {
                         expect(error.name).to.equal('Error');
 
                         expect(error.message.split('\n')).to.deep.equal([
-                            'expect(received).toEqual(expected) // deep equality',
+                            'Error: expect(received).toEqual(expected) // deep equality',
                             '',
                             'Expected: false',
                             'Received: true',
@@ -76,7 +76,7 @@ describe('@serenity-js/playwright-test', function () {
 
                         // Playwright doesn't serialise expected and actual fields on AssertionError
                         expect(error.name).to.equal('Error');
-                        expect(error.message).to.equal('Expected true to equal false');
+                        expect(error.message).to.equal('AssertionError: Expected true to equal false');
                     })
                 ;
             }));
