@@ -33,7 +33,7 @@ describe('@serenity-js/playwright-test', function () {
                         const outcome: ProblemIndication = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionIgnored);
                         expect(outcome.error.name).to.equal('Error');
-                        expect(outcome.error.message).to.equal('Trigger failure for worker 0');
+                        expect(outcome.error.message).to.equal('Error: Trigger failure for worker 0');
                     })
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('A scenario passes the third time'))
@@ -47,7 +47,7 @@ describe('@serenity-js/playwright-test', function () {
                         const outcome: ProblemIndication = event.outcome as ProblemIndication;
                         expect(outcome).to.be.instanceOf(ExecutionIgnored);
                         expect(outcome.error.name).to.equal('Error');
-                        expect(outcome.error.message).to.equal('Trigger failure for worker 1');
+                        expect(outcome.error.message).to.equal('Error: Trigger failure for worker 1');
                     })
                     .next(SceneStarts,         event => {
                         expect(event.details.name).to.equal(new Name('A scenario passes the third time'))
