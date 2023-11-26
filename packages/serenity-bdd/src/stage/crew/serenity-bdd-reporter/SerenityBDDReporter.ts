@@ -1,8 +1,10 @@
-import type { Stage, StageCrewMember } from '@serenity-js/core';
+import type { DomainEventQueue, Stage, StageCrewMember } from '@serenity-js/core';
 import { DomainEventQueues } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events';
-import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
+import type {DomainEvent} from '@serenity-js/core/lib/events';
+import { ActivityRelatedArtifactGenerated,ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, SceneFinished, TestRunFinishes } from '@serenity-js/core/lib/events';
+import type { Outcome } from '@serenity-js/core/lib/model';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
+import { match } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
 
@@ -124,6 +126,8 @@ export class SerenityBDDReporter implements StageCrewMember {
         }
 
         else if (event instanceof TestRunFinishes) {
+            const outcome = this.eventQueues.forEach( (q) => this.getOutcome(q));
+            this.eventQueues.forEach( (q) => this.announcePhotos(q));
             const id = CorrelationId.create();
 
             this.stage.announce(new AsyncOperationAttempted(
@@ -162,5 +166,68 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
         return Object.prototype.hasOwnProperty.call(event, 'sceneId');
+    }
+
+    private getOutcome(queue: DomainEventQueue) : Outcome {
+        const outcome = queue.reduce((result, event) =>
+            match<DomainEvent, Outcome>(event)
+            .when(SceneFinished, _ => (event as SceneFinished).outcome)
+            .else(() => result),
+        // eslint-disable-next-line unicorn/no-useless-undefined
+        undefined
+        );
+        return outcome
+    }
+
+    private announcePhotos(queue: DomainEventQueue) : any {
+        const x = queue.reduce((result, event) =>
+            match<DomainEvent, string>(event)
+            .when(ActivityRelatedArtifactGenerated,
+                _ => this.onPhotoGenerated(event as ActivityRelatedArtifactGenerated))
+            .else(() => result),
+        // eslint-disable-next-line unicorn/no-useless-undefined
+        undefined
+        );
+        return x;
+    }
+
+    private onPhotoGenerated(event: ActivityRelatedArtifactGenerated) : string {
+        const id = CorrelationId.create();
+
+        this.stage.announce(new AsyncOperationAttempted(
+            new Name(this.constructor.name),
+            new Description(`Generating Serenity BDD JSON reports...`),
+            id,
+            this.stage.currentTime(),
+        ));
+
+        try {
+            this.processors
+
+            this.stage.announce(new ArtifactGenerated(
+                event.sceneId,
+                event.name,
+                event.artifact,
+                event.timestamp
+            ));
+
+            this.stage.announce(new AsyncOperationCompleted(
+                id,
+                this.stage.currentTime(),
+            ));
+        }
+        catch (error) {
+            this.stage.announce(new AsyncOperationFailed(
+                error,
+                id,
+                this.stage.currentTime(),
+            ));
+        }
+    
+        return 'x'
+    }
+
+    private onSceneFinished(event: SceneFinished) : Outcome {
+        return event.outcome;
     }
 }

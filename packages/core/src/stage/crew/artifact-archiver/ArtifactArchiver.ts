@@ -160,7 +160,12 @@ export class ArtifactArchiver implements StageCrewMember {
             return void 0;
         }
 
-        if (event.artifact instanceof Photo) {
+        if (event instanceof ActivityRelatedArtifactGenerated && event.artifact instanceof Photo) {
+            // ignore a photo if it's generated out of an activity
+            return void 0;
+        }
+
+        if (event instanceof ArtifactGenerated && event.artifact instanceof Photo) {
             const filename = this.fileNameFor('photo', event.name, event.artifact, 'png');
 
             this.archive(
