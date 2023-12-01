@@ -3,6 +3,7 @@ import type { FileFinder, FileSystem } from '@serenity-js/core/lib/io';
 import { Path, Version } from '@serenity-js/core/lib/io';
 
 import type { CucumberConfig } from './CucumberConfig';
+import { ConfigurationError } from '@serenity-js/core/src';
 
 /**
  * @private
@@ -58,11 +59,11 @@ export class CucumberOptions {
             formatOptions: this.config.formatOptions as any,
 
             paths: this.asArray(this.config.paths)
-                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.value)),
+                .flatMap(glob => this.absolutePathsToFilesMatching(glob)),
             import: this.asArray(this.config.import)
-                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.toFileURL().href)),
+                .flatMap(glob => this.absolutePathsToFilesMatching(glob)),
             require: this.asArray(this.config.require)
-                .flatMap(glob => this.finder.filesMatching(glob).map(path => path.value)),
+                .flatMap(glob => this.absolutePathsToFilesMatching(glob)),
             requireModule: this.asArray(this.config.requireModule),
 
             language: this.config.language,
@@ -77,6 +78,16 @@ export class CucumberOptions {
             // order: PickleOrder
             // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
         };
+    }
+
+    private absolutePathsToFilesMatching(glob: string): string[] {
+        const matchingPaths = this.finder.filesMatching(glob);
+
+        if (matchingPaths.length === 0) {
+            throw new ConfigurationError(`No files found matching the pattern ${ glob }`);
+        }
+
+        return matchingPaths.map(path => path.value);
     }
 
     private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {
