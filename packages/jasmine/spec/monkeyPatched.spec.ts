@@ -67,7 +67,7 @@ describe('@serenity-js/jasmine', () => {
                 const result = attrs.expectationResultFactory({ passing: false, error });
 
                 const frames = result.stack.split('\n');
-                expect(frames[0]).to.equal('TestCompromisedError: DB is down');
+                expect(frames[0]).to.equal('TestCompromisedError: DB is down; Connection error');
                 expect(frames).to.include('Caused by: Error: Connection error');
             });
         });
@@ -95,7 +95,7 @@ describe('@serenity-js/jasmine', () => {
                 const result = attrs.expectationResultFactory({ passing: false, error });
 
                 const frames = result.stack.split('\n');
-                expect(frames[0]).to.equal('TestCompromisedError: DB is down');
+                expect(frames[0]).to.equal('TestCompromisedError: DB is down; Connection error');
                 expect(frames).to.include('Caused by: Error: Connection error');
             });
         });

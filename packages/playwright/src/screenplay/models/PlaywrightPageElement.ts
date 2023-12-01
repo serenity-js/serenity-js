@@ -34,7 +34,7 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
             await element.fill('');
         }
         catch(error) {
-            throw new LogicError(`The input field doesn't seem to have a 'value' attribute that could be cleared.`, error);
+            throw new LogicError(`The input field doesn't seem to have a 'value' attribute that could be cleared`, error);
         }
     }
 

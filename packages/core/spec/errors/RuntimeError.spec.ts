@@ -59,8 +59,8 @@ describe('RuntimeError', () => {
             const significantFrames = appError.stack.split('\n').filter(frame => ! frame.startsWith('    '));
 
             expect(significantFrames).to.deep.equal([
-                'ApplicationError: Report could not be saved',
-                'Caused by: IOError: Directory not writable',
+                'ApplicationError: Report could not be saved; Directory not writable; ENOENT: no such file or directory',
+                'Caused by: IOError: Directory not writable; ENOENT: no such file or directory',
                 'Caused by: Error: ENOENT: no such file or directory',
             ]);
         });

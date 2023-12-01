@@ -34,6 +34,8 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslin
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
 
+            this.supportCodeLibrary = this.supportCodeLibrary ?? options.supportCodeLibrary;
+
             this.addAfterHook(() => {
                 this.emit(new SceneFinishes(
                     serenity.currentSceneId(),

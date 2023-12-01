@@ -149,7 +149,7 @@ export class Attribute
         const name = await actor.answer(this.name);
 
         if (! this.element) {
-            throw new LogicError(d`Couldn't read attribute ${ name } of an unspecified page element.`);
+            throw new LogicError(d`Couldn't read attribute ${ name } of an unspecified page element`);
         }
 
         const element = await actor.answer(this.element);

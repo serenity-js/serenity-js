@@ -153,7 +153,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         const handles = await this.browser.getWindowHandles();
 
         if (handles.length !== pages.length) {
-            throw new LogicError(`The number of registered Puppeteer pages doesn't match WebdriverIO window handles.`)
+            throw new LogicError(`The number of registered Puppeteer pages doesn't match WebdriverIO window handles`)
         }
 
         const index = handles.indexOf(windowHandle);
@@ -164,7 +164,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         const page = pages[index] as unknown as Page;
 
         if (! page) {
-            throw new LogicError(`Couldn't find Puppeteer page for WebdriverIO window handle ${ windowHandle }.`)
+            throw new LogicError(`Couldn't find Puppeteer page for WebdriverIO window handle ${ windowHandle }`)
         }
 
         return page;
