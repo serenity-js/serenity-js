@@ -6,6 +6,7 @@ import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { CucumberOptions } from '../../src/adapter/CucumberOptions';
+import { ConfigurationError } from '@serenity-js/core/src';
 
 describe('CucumberOptions', () => {
 
@@ -326,16 +327,34 @@ describe('CucumberOptions', () => {
             );
         });
 
-        it('resolves `import` option as absolute file URLs', () => {
+        it('complains when `paths` did not match any files', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                paths: [ './features/**/non-existent.feature' ],
+            });
+
+            expect(() => options.asCucumberApiConfiguration())
+                .to.throw(ConfigurationError, `No files found matching the pattern ./features/**/non-existent.feature`);
+        });
+
+        it('resolves `import` option as absolute file paths', () => {
             const options = new CucumberOptions(finder, dummyFS(), {
                 import: [ './features/step_definitions/**/*.ts' ],
             });
 
             expect(options.asCucumberApiConfiguration().import).to.deep.equal(
                 [
-                    Path.from(__dirname, 'features/step_definitions/steps.ts').toFileURL().href,
+                    Path.from(__dirname, 'features/step_definitions/steps.ts').value,
                 ]
             );
+        });
+
+        it('complains when `import` did not match any files', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                import: [ './features/step_definitions/**/non-existent.ts' ],
+            });
+
+            expect(() => options.asCucumberApiConfiguration())
+                .to.throw(ConfigurationError, `No files found matching the pattern ./features/step_definitions/**/non-existent.ts`);
         });
 
         it('resolves `require` option as absolute file paths', () => {
@@ -348,6 +367,15 @@ describe('CucumberOptions', () => {
                     Path.from(__dirname, 'features/step_definitions/steps.ts').value,
                 ]
             );
+        });
+
+        it('complains when `require` did not match any files', () => {
+            const options = new CucumberOptions(finder, dummyFS(), {
+                require: [ './features/step_definitions/**/non-existent.ts' ],
+            });
+
+            expect(() => options.asCucumberApiConfiguration())
+                .to.throw(ConfigurationError, `No files found matching the pattern ./features/step_definitions/**/non-existent.ts`);
         });
     });
 });
