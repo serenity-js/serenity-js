@@ -2,11 +2,11 @@
 import { expect } from '@integration/testing-tools';
 import type { FileSystem } from '@serenity-js/core/lib/io';
 import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
+import { ConfigurationError } from '@serenity-js/core/src';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { CucumberOptions } from '../../src/adapter/CucumberOptions';
-import { ConfigurationError } from '@serenity-js/core/src';
 
 describe('CucumberOptions', () => {
 
