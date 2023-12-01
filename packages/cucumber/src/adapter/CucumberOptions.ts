@@ -1,7 +1,7 @@
 import type { IConfiguration } from '@cucumber/cucumber/api';
+import { ConfigurationError } from '@serenity-js/core';
 import type { FileFinder, FileSystem } from '@serenity-js/core/lib/io';
 import { Path, Version } from '@serenity-js/core/lib/io';
-import { ConfigurationError } from '@serenity-js/core/src';
 
 import type { CucumberConfig } from './CucumberConfig';
 
