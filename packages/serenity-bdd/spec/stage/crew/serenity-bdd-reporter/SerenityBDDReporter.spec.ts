@@ -321,7 +321,7 @@ describe('SerenityBDDReporter', () => {
                         expect(report.result).to.equal('COMPROMISED');
                         expect(report.testFailureCause).to.deep.equal({
                             errorType: 'TestCompromisedError',
-                            message: `Test database not deployed, no point running the test`,
+                            message: `Test database not deployed, no point running the test; Could not connect to the database`,
                             stackTrace: [
                                 {
                                     declaringClass: '',

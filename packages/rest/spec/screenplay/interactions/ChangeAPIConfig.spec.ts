@@ -81,7 +81,7 @@ describe('ChangeApiConfig', () => {
             expect(actor.attemptsTo(
                 ChangeApiConfig.setUrlTo(undefined),    // eslint-disable-line unicorn/no-useless-undefined
                 ChangeApiConfig.setPortTo(8080),
-            )).to.be.rejectedWith(LogicError, `Can't change the port of a baseURL that has not been set.`));
+            )).to.be.rejectedWith(LogicError, `Can't change the port of a baseURL that has not been set`));
 
         it('complains if the url to be changed is invalid', () =>
             expect(actor.attemptsTo(

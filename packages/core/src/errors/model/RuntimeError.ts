@@ -77,7 +77,16 @@ export abstract class RuntimeError extends Error {
         message: string,
         public readonly cause?: Error,
     ) {
-        super(message);
+        const errorMessage = message || '';
+        const isMultiline = errorMessage.includes('\n');
+        const causeAlreadyIncluded = cause?.message && errorMessage.includes(cause.message);
+
+        super(
+            isMultiline || causeAlreadyIncluded
+                ? errorMessage
+                : errorMessage + (cause && cause?.message ? `; ${ cause.message }` : '')
+        );
+
         Object.setPrototypeOf(this, type.prototype);
         this.name = this.constructor.name;
 

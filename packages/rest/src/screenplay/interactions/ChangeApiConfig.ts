@@ -151,7 +151,7 @@ class ChangeApiConfigSetPort  extends Interaction {
         return actor.answer(this.newPort)
             .then(newPort => CallAnApi.as(actor).modifyConfig(config => {
                 if (! config.baseURL) {
-                    throw new LogicError(`Can't change the port of a baseURL that has not been set.`)
+                    throw new LogicError(`Can't change the port of a baseURL that has not been set`)
                 }
 
                 try {
