@@ -33,7 +33,7 @@ describe('Attribute', () => {
         it('complains if the target is not specified', () =>
             expect(actorCalled('Wendy').attemptsTo(
                 Ensure.that(Attribute.called('lang'), equals('en')),
-            )).to.be.rejectedWith(LogicError, `Couldn't read attribute "lang" of an unspecified page element.`));
+            )).to.be.rejectedWith(LogicError, `Couldn't read attribute 'lang' of an unspecified page element`));
 
         it('produces a QuestionAdapter that enables access to the underlying value', () =>
             actorCalled('Wendy').attemptsTo(
