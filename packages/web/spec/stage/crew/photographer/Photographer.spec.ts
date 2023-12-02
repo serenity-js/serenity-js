@@ -28,6 +28,6 @@ describe('Photographer', () => {
     it('complains when the provided strategy is not valid', () => {
         expect(() => {
             Photographer.fromJSON({ strategy: 'Invalid' } as any);
-        }).to.throw(ConfigurationError, `'Invalid' is not an available PhotoTakingStrategy. Available strategies: TakePhotosBeforeAndAfterInteractions, TakePhotosOfFailures, TakePhotosOfInteractions`);
+        }).to.throw(ConfigurationError, `'Invalid' is not an available PhotoTakingStrategy, available strategies: TakePhotosBeforeAndAfterInteractions, TakePhotosOfFailures, TakePhotosOfInteractions.`);
     });
 });
