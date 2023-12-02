@@ -509,6 +509,7 @@ function asCast(maybeCast: unknown): Cast {
  * @param proxy
  */
 function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
+    protocol: string,
     host: string,
     port?: number,
     auth?: { username: string, password: string }
@@ -529,5 +530,10 @@ function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
         ? { username: proxy.username, password: proxy.password || '' }
         : undefined;
 
-    return { host, port, auth };
+    return {
+        protocol: proxyUrl.protocol,
+        host,
+        port,
+        auth
+    };
 }
