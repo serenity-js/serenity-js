@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/serenity-js/serenity-js/compare/v3.13.3...v3.14.0) (2023-12-02)
+
+
+### Bug Fixes
+
+* **web:** question about Attribute is now generic and specifies native element type ([c2b7663](https://github.com/serenity-js/serenity-js/commit/c2b76638c4ab87de7a54368820803f13bd54e1f9))
+* **web:** removed duplicate quotes in the error message ([4ee1c10](https://github.com/serenity-js/serenity-js/commit/4ee1c10cf0d091f9566b594c4390c2862e62540b))
+* **web:** replaced dot in error message by a comma ([d78551e](https://github.com/serenity-js/serenity-js/commit/d78551e5528ee9c1edebcd39ee46fc33e04e031f))
+
+
+### Features
+
+* **core:** nested error cause is now added to the main error message ([815c8ce](https://github.com/serenity-js/serenity-js/commit/815c8ce54205d813224cb5746e42bc48b7c388c9)), closes [#1823](https://github.com/serenity-js/serenity-js/issues/1823)
+* **web:** question about ComputedStyle retrieves computed style property ([219f9b9](https://github.com/serenity-js/serenity-js/commit/219f9b98cb329d7fac54b953de9727ca2fd28d00)), closes [#1633](https://github.com/serenity-js/serenity-js/issues/1633)
+
+
+
+
+
 ## [3.13.3](https://github.com/serenity-js/serenity-js/compare/v3.13.2...v3.13.3) (2023-11-22)
 
 **Note:** Version bump only for package @serenity-js/web
