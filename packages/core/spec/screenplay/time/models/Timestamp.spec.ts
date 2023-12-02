@@ -104,6 +104,14 @@ describe('Timestamp', () => {
             expect(Timestamp.fromTimestampInSeconds(now.toSeconds()))
                 .to.equal(now);
         });
+
+        it('can be converted to ISO8601-compatible string', () => {
+            expect(now.toISOString()).to.equal(currentTimeIso8601);
+        });
+
+        it('returns an IS8601-compatible value when converted to string', () => {
+            expect(now.toString()).to.equal(currentTimeIso8601);
+        });
     });
 
     describe('comparison', () => {
@@ -131,10 +139,6 @@ describe('Timestamp', () => {
             expect(later.isAfterOrEqual(earlier)).to.equal(true);
             expect(later.isAfterOrEqual(earlier)).to.equal(true);
         });
-    });
-
-    it('provides an ISO8601-compatible description when converting to string', () => {
-        expect(now.toString()).to.equal(currentTimeIso8601);
     });
 
     describe('error handling', () => {
