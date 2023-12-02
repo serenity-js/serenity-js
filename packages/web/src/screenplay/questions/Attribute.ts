@@ -20,13 +20,13 @@ import { PageElement } from '../models';
  * ## Retrieve an HTML attribute of a given {@apilink PageElement}
  *
  * ```ts
- *  import { actorCalled } from '@serenity-js/core'
- *  import { Ensure, equals } from '@serenity-js/assertions'
- *  import { Attribute, By, PageElement } from '@serenity-js/web'
+ * import { actorCalled } from '@serenity-js/core'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ * import { Attribute, By, PageElement } from '@serenity-js/web'
  *
- *  const shoppingList = () =>
- *    PageElement.located(By.id('shopping-list'))
- *      .describedAs('shopping list')
+ * const shoppingList = () =>
+ *   PageElement.located(By.id('shopping-list'))
+ *     .describedAs('shopping list')
  *
  * await actorCalled('Lisa')
  *   .attemptsTo(
@@ -95,9 +95,9 @@ import { PageElement } from '../models';
  *
  * @group Questions
  */
-export class Attribute
+export class Attribute<Native_Element_Type>
     extends Question<Promise<string>>
-    implements MetaQuestion<PageElement, Question<Promise<string>>>
+    implements MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<string>>>
 {
     private subject: string;
 
@@ -109,7 +109,7 @@ export class Attribute
      * @param name
      *  The name of the attribute to retrieve
      */
-    static called(name: Answerable<string>): Attribute {
+    static called<NET = any>(name: Answerable<string>): Attribute<NET> {
         return new Attribute(name);
     }
 
@@ -131,7 +131,7 @@ export class Attribute
      *
      * @param pageElement
      */
-    of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
+    of(pageElement: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
         return Question.createAdapter(
             new Attribute(
                 this.name,
@@ -149,7 +149,7 @@ export class Attribute
         const name = await actor.answer(this.name);
 
         if (! this.element) {
-            throw new LogicError(d`Couldn't read attribute ${ name } of an unspecified page element.`);
+            throw new LogicError(d`Couldn't read attribute ${ name } of an unspecified page element`);
         }
 
         const element = await actor.answer(this.element);
