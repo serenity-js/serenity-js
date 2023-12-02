@@ -108,7 +108,7 @@ describe ('ErrorSerialiser', () => {
 
             expect(deserialised).to.be.instanceOf(TimeoutExpiredError);
             expect(deserialised.name).to.equal(`TimeoutExpiredError`);
-            expect(deserialised.message).to.equal(`Interaction took longer than expected`);
+            expect(deserialised.message).to.equal(`Interaction took longer than expected; root cause`);
             expect(deserialised.stack).to.equal(error.stack);
             expect(deserialised.cause.name).to.equal(cause.name);
             expect(deserialised.cause.message).to.equal(cause.message);

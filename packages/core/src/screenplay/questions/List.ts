@@ -341,11 +341,9 @@ class MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>
     extends Where<Item_Type, Answer_Type>
     implements ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>
 {
-    protected override readonly collection: Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>;
-
     of(context: Answerable<Supported_Context_Type>): MetaWhere<Supported_Context_Type, Item_Type, Answer_Type> {
         return new MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>(
-            this.collection.of(context),
+            (this.collection as Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>).of(context),
             this.question,
             this.expectation,
             this.toString()
@@ -398,10 +396,12 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
 class MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type>
     extends EachMappedTo<Item_Type, Mapped_Item_Type>
 {
-    protected override readonly collection: Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>;
-
     of(context: Answerable<Supported_Context_Type>): MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type> {
-        return new MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type>(this.collection.of(context), this.mapping, this.toString());
+        return new MetaEachMappedTo<Supported_Context_Type, Item_Type, Mapped_Item_Type>(
+            (this.collection as Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>).of(context),
+            this.mapping,
+            this.toString()
+        );
     }
 }
 

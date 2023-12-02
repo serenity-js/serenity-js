@@ -79,7 +79,7 @@ describe('ErrorFactory', () => {
         const error = errors.create(errorType, { message: errorMessage, cause });
 
         expect(error).to.be.instanceOf(errorType);
-        expect(error.message).to.equal(errorMessage);
+        expect(error.message).to.equal(`${ errorMessage }; ${ causeMessage }`);
         expect(error.cause).to.equal(cause);
         expect(error.stack).to.include(`${ errorType.name }: ${ errorMessage }`);
         expect(error.stack).to.include(`Caused by: Error: ${ causeMessage }`);

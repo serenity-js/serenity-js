@@ -33,7 +33,7 @@ describe('errorReportFrom', () => {
             const report = errorReportFrom(thrown(ConfigurationError, 'wrong config', thrown(Error, 'config file does not exist')))
 
             expect(report.errorType).to.equal('ConfigurationError');
-            expect(report.message).to.equal('wrong config');
+            expect(report.message).to.equal('wrong config; config file does not exist');
             expect(report.rootCause.errorType).to.equal('Error');
             expect(report.rootCause.message).to.equal('config file does not exist');
             expect(report.stackTrace.length).to.be.greaterThan(0);
