@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/serenity-js/serenity-js/compare/v3.13.3...v3.14.0) (2023-12-02)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ^1.40.1 ([da2e7ba](https://github.com/serenity-js/serenity-js/commit/da2e7ba610954a20bd33ccae702f285874484399))
+* **playwright-test:** corrected proxy protocol detection and configuration ([090b322](https://github.com/serenity-js/serenity-js/commit/090b322fd54b2c654c6b9ff30a6aaa172b2ac8fd))
+
+
+### Features
+
+* **core:** nested error cause is now added to the main error message ([815c8ce](https://github.com/serenity-js/serenity-js/commit/815c8ce54205d813224cb5746e42bc48b7c388c9)), closes [#1823](https://github.com/serenity-js/serenity-js/issues/1823)
+
+
+
+
+
 ## [3.13.3](https://github.com/serenity-js/serenity-js/compare/v3.13.2...v3.13.3) (2023-11-22)
 
 
