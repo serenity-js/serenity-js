@@ -84,8 +84,12 @@ export class Timestamp extends TinyType {
         return this.value.toJSON();
     }
 
-    toString(): string {
+    toISOString(): string {
         return this.value.toISOString();
+    }
+
+    toString(): string {
+        return this.toISOString();
     }
 
     [inspect.custom](): string {
