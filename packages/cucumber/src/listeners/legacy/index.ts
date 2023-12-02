@@ -42,6 +42,6 @@ export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): 
         });
     }
     catch (error) {
-        throw new ConfigurationError(`Cucumber version ${ version.toString() } is not supported yet.`, error);
+        throw new ConfigurationError(`Cucumber version ${ version.toString() } is not supported yet`, error);
     }
 }
