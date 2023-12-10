@@ -13,7 +13,8 @@
   "homepage": "https://serenity-js.org",
   "license": "Apache-2.0",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
@@ -45,9 +46,9 @@
   "dependencies": {
     "@cucumber/messages": "22.0.0",
     "@serenity-js/core": "3.14.0",
-    "cli-table3": "^0.6.3",
+    "cli-table3": "0.6.3",
     "gherkin": "5.1.0",
-    "tiny-types": "^1.21.0"
+    "tiny-types": "1.21.0"
   },
   "peerDependencies": {
     "@cucumber/cucumber": "^7.3.2 || ^8.5.0 || ^9.1.0 || ^10.0.0",
@@ -62,14 +63,14 @@
     }
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^10.0.0",
+    "@cucumber/cucumber": "10.0.1",
     "@integration/testing-tools": "3.0.0",
-    "@types/chai": "^4.3.11",
-    "@types/mocha": "^10.0.6",
+    "@types/chai": "4.3.11",
+    "@types/mocha": "10.0.6",
     "c8": "8.0.1",
-    "mocha": "^10.2.0",
-    "mocha-multi": "^1.1.7",
-    "ts-node": "^10.9.1",
+    "mocha": "10.2.0",
+    "mocha-multi": "1.1.7",
+    "ts-node": "10.9.2",
     "typescript": "5.1.6"
   }
 }

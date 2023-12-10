@@ -13,7 +13,8 @@
   "homepage": "https://serenity-js.org",
   "license": "Apache-2.0",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
@@ -43,17 +44,17 @@
   },
   "dependencies": {
     "@serenity-js/core": "3.14.0",
-    "chalk": "^4.1.2",
-    "tiny-types": "^1.21.0"
+    "chalk": "4.1.2",
+    "tiny-types": "1.21.0"
   },
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
-    "@types/chai": "^4.3.11",
-    "@types/mocha": "^10.0.6",
+    "@types/chai": "4.3.11",
+    "@types/mocha": "10.0.6",
     "c8": "8.0.1",
-    "mocha": "^10.2.0",
-    "mocha-multi": "^1.1.7",
-    "ts-node": "^10.9.1",
+    "mocha": "10.2.0",
+    "mocha-multi": "1.1.7",
+    "ts-node": "10.9.2",
     "typescript": "5.1.6"
   }
 }
