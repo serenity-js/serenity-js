@@ -10,16 +10,40 @@ import { PlaywrightPage } from './PlaywrightPage';
  *  @group Models
  */
 export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession {
+    private readonly playwrightManagedPage: PlaywrightPage;
     constructor(
         protected readonly page: playwright.Page,
         browserContextOptions: PlaywrightOptions,
+        selectors: playwright.Selectors,
     ) {
-        super(browserContextOptions);
-        this.currentBrowserPage = new PlaywrightPage(this, this.page, this.browserContextOptions, CorrelationId.create());
+        super(browserContextOptions, selectors);
+        this.playwrightManagedPage = new PlaywrightPage(this, this.page, this.browserContextOptions, CorrelationId.create());
+    }
+
+    protected override async registerCurrentPage(): Promise<PlaywrightPage> {
+        await this.browserContext();
+
+        this.register(this.playwrightManagedPage);
+
+        return this.playwrightManagedPage;
     }
 
     protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
         return this.page.context();
+    }
+
+    /**
+     * Closes any newly opened pages, leaving only the original one managed by Playwright Test.
+     */
+    async closeAllPages(): Promise<void> {
+        for (const page of this.pages.values()) {
+            if (! page.id.equals(this.playwrightManagedPage.id)) {
+                await page.close();
+                this.pages.delete(page.id);
+            }
+        }
+
+        this.currentBrowserPage = this.playwrightManagedPage;
     }
 
     override async browserCapabilities(): Promise<BrowserCapabilities> {
@@ -31,4 +55,3 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
         }
     }
 }
-

@@ -108,7 +108,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
     }
 
     static usingPage(page: playwright.Page, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, options));
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, options, playwright.selectors));
     }
 
     /**
