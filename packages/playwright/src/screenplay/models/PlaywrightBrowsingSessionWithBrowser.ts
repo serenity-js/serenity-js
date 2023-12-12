@@ -2,27 +2,38 @@ import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import type { PlaywrightOptions } from '../../PlaywrightOptions';
-import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
+import type { PlaywrightPage } from './PlaywrightPage';
 
 /**
  *  @group Models
  */
 export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSession {
-    private readonly serenitySelectorEngines = new SerenitySelectorEngines();
 
     constructor(
         protected readonly browser: playwright.Browser,
         browserContextOptions: PlaywrightOptions,
-        private readonly selectors: playwright.Selectors,
+        selectors: playwright.Selectors,
     ) {
-        super(browserContextOptions);
+        super(browserContextOptions, selectors);
     }
 
     protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
-        await this.serenitySelectorEngines.ensureRegisteredWith(this.selectors);
-
         return this.browser.newContext(this.browserContextOptions);
+    }
+
+    protected override async registerCurrentPage(): Promise<PlaywrightPage> {
+        const context = await this.browserContext();
+
+        await context.newPage();
+
+        // calling context.newPage() triggers a callback registered via browserContext(),
+        // which wraps playwright.Page in PlaywrightPage and adds it to the list of pages
+        // returned by this.allPages()
+
+        const allPages = await this.allPages()
+
+        return allPages.at(-1);
     }
 
     override async closeAllPages(): Promise<void> {

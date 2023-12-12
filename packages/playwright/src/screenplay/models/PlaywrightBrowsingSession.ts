@@ -4,6 +4,7 @@ import { BrowsingSession, type Cookie, type CookieData } from '@serenity-js/web'
 import type * as playwright from 'playwright-core';
 
 import { type PlaywrightOptions } from '../../PlaywrightOptions';
+import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
@@ -13,9 +14,13 @@ import { PlaywrightCookie, PlaywrightPage } from '../models';
  */
 export abstract class PlaywrightBrowsingSession extends BrowsingSession<PlaywrightPage> {
 
+    protected readonly serenitySelectorEngines = new SerenitySelectorEngines();
     private currentPlaywrightBrowserContext: playwright.BrowserContext;
 
-    protected constructor(protected readonly browserContextOptions: PlaywrightOptions) {
+    protected constructor(
+        protected readonly browserContextOptions: PlaywrightOptions,
+        protected readonly selectors: playwright.Selectors
+    ) {
         super();
     }
 
@@ -44,22 +49,9 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
         await context.clearCookies();
     }
 
-    protected override async registerCurrentPage(): Promise<PlaywrightPage> {
-        const context = await this.browserContext();
-
-        await context.newPage();
-
-        // calling context.newPage() triggers a callback registered via browserContext(),
-        // which wraps playwright.Page in PlaywrightPage and adds it to the list of pages
-        // returned by this.allPages()
-
-        const allPages = await this.allPages()
-
-        return allPages.at(-1);
-    }
-
     protected async browserContext(): Promise<playwright.BrowserContext> {
         if (! this.currentPlaywrightBrowserContext) {
+            await this.serenitySelectorEngines.ensureRegisteredWith(this.selectors);
             this.currentPlaywrightBrowserContext = await this.createBrowserContext(this.browserContextOptions);
 
             this.currentPlaywrightBrowserContext.on('page', async page => {
