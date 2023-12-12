@@ -105,7 +105,7 @@ describe('@serenity-js/playwright-test', function () {
         }));
 
     it(`tracks newly opened pages`, () => playwrightTest('--project=screenplay-local-server', `--grep=tracks newly opened pages`, 'native-page.spec.ts')
-        .then(ifExitCodeIsOtherThan(10, logOutput))
+        .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(result => {
 
             expect(result.exitCode).to.equal(0);
