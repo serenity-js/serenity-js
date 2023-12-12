@@ -1,8 +1,8 @@
 import { List, LogicError, type QuestionAdapter } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Cookie, CookieData, PageElement, PageElements,Selector } from '@serenity-js/web';
-import { ByDeepCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
+import type { Cookie, CookieData, PageElement, PageElements, Selector } from '@serenity-js/web';
+import { BrowserWindowClosedError, ByDeepCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
@@ -174,9 +174,22 @@ export class PlaywrightPage extends Page<playwright.Locator> {
     }
 
     async takeScreenshot(): Promise<string> {
-        const screenshot: Buffer = await this.page.screenshot();
+        try {
+            const screenshot: Buffer = await this.page.screenshot();
 
-        return screenshot.toString('base64');
+            return screenshot.toString('base64');
+        }
+        catch(error) {
+
+            if (error?.message.includes('Target page, context or browser has been closed')) {
+                throw new BrowserWindowClosedError(
+                    `Couldn't take screenshot since the browser window is already closed`,
+                    error
+                );
+            }
+
+            throw error;
+        }
     }
 
     async cookie(name: string): Promise<Cookie> {

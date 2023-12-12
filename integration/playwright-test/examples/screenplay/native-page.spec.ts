@@ -1,7 +1,9 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { endsWith, Ensure, equals, isPresent } from '@serenity-js/assertions';
+import { Question, Wait } from '@serenity-js/core';
+import { asyncMap } from '@serenity-js/core/lib/io';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { afterEach, describe, expect, it, test } from '@serenity-js/playwright-test';
-import { Navigate, Page } from '@serenity-js/web';
+import { BrowseTheWeb, By, Click, Navigate, Page, PageElement } from '@serenity-js/web';
 
 import { ActorsWithLocalServer } from './actors/ActorsWithLocalServer';
 
@@ -45,6 +47,42 @@ describe('Playwright Test integration', () => {
             expect(await page.url()).toEqual(expectedLocalServerUrl);
         });
 
+        it(`registers the native page with actor's BrowsingSession`, async ({ actor }) => {
+            await actor.attemptsTo(
+                StartLocalServer.onRandomPort(),
+                Navigate.to(LocalServer.url()),
+            );
+
+            const localServerUrl = await actor.answer(LocalServer.url());
+            const expectedLocalServerUrl = localServerUrl + '/';
+
+            const openPageUrls: string[] = await actor.answer(allPageUrls());
+
+            expect(openPageUrls).toEqual([
+                expectedLocalServerUrl
+            ]);
+        });
+
+        it(`tracks newly opened pages`, async ({ actor }) => {
+            await actor.attemptsTo(
+                StartLocalServer.onRandomPort(),
+                Navigate.to(LocalServer.url()),
+                Click.on(PageElement.located(By.id('open-new-tab-link'))),
+                Wait.until(Page.whichUrl(endsWith('/open-new-tab-link')), isPresent()),
+            );
+
+            const localServerUrl = await actor.answer(LocalServer.url());
+            const expectedLocalServerUrl = localServerUrl + '/';
+            const expectedNewTabUrl = localServerUrl + '/open-new-tab-link';
+
+            const openPageUrls: string[] = await actor.answer(allPageUrls());
+
+            expect(openPageUrls).toEqual([
+                expectedLocalServerUrl,
+                expectedNewTabUrl,
+            ]);
+        });
+
         afterEach(async ({ actor }) => {
             await actor.attemptsTo(
                 StopLocalServer.ifRunning(),
@@ -52,3 +90,14 @@ describe('Playwright Test integration', () => {
         });
     });
 });
+
+function allPageUrls() {
+    return Question.about<string[]>('active page urls', async actor => {
+        const pages = await BrowseTheWeb.as(actor).allPages();
+
+        return asyncMap(pages, async page => {
+            const url = await page.url();
+            return url.href;
+        });
+    })
+}
