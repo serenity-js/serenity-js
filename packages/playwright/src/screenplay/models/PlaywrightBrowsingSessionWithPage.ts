@@ -10,22 +10,24 @@ import { PlaywrightPage } from './PlaywrightPage';
  *  @group Models
  */
 export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession {
-    private readonly playwrightManagedPage: PlaywrightPage;
+    private readonly playwrightManagedPageId: CorrelationId = CorrelationId.create();
+
     constructor(
         protected readonly page: playwright.Page,
         browserContextOptions: PlaywrightOptions,
         selectors: playwright.Selectors,
     ) {
         super(browserContextOptions, selectors);
-        this.playwrightManagedPage = new PlaywrightPage(this, this.page, this.browserContextOptions, CorrelationId.create());
     }
 
     protected override async registerCurrentPage(): Promise<PlaywrightPage> {
         await this.browserContext();
 
-        this.register(this.playwrightManagedPage);
+        const playwrightPage = new PlaywrightPage(this, this.page, this.browserContextOptions, this.playwrightManagedPageId);
 
-        return this.playwrightManagedPage;
+        this.register(playwrightPage);
+
+        return playwrightPage;
     }
 
     protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
@@ -37,13 +39,13 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
      */
     async closeAllPages(): Promise<void> {
         for (const page of this.pages.values()) {
-            if (! page.id.equals(this.playwrightManagedPage.id)) {
+            if (! page.id.equals(this.playwrightManagedPageId)) {
                 await page.close();
-                this.pages.delete(page.id);
             }
         }
 
-        this.currentBrowserPage = this.playwrightManagedPage;
+        this.pages.clear();
+        this.currentBrowserPage = undefined;
     }
 
     override async browserCapabilities(): Promise<BrowserCapabilities> {

@@ -1,5 +1,5 @@
-import { Ensure, equals } from '@serenity-js/assertions';
-import { Question } from '@serenity-js/core';
+import { endsWith, Ensure, equals, isPresent } from '@serenity-js/assertions';
+import { Question, Wait } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { afterEach, describe, expect, it, test } from '@serenity-js/playwright-test';
@@ -68,6 +68,7 @@ describe('Playwright Test integration', () => {
                 StartLocalServer.onRandomPort(),
                 Navigate.to(LocalServer.url()),
                 Click.on(PageElement.located(By.id('open-new-tab-link'))),
+                Wait.until(Page.whichUrl(endsWith('/open-new-tab-link')), isPresent()),
             );
 
             const localServerUrl = await actor.answer(LocalServer.url());
