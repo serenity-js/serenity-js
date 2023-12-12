@@ -181,8 +181,6 @@ export class PlaywrightPage extends Page<playwright.Locator> {
         }
         catch(error) {
 
-            console.log({ error });
-
             if (error?.message.includes('Target page, context or browser has been closed')) {
                 throw new BrowserWindowClosedError(
                     `Couldn't take screenshot since the browser window is already closed`,
