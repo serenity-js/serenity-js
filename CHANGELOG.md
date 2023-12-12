@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
+
+
+### Bug Fixes
+
+* **playwright-test:** fixed switching between multiple pages ([375f3aa](https://github.com/serenity-js/serenity-js/commit/375f3aaac05843b71a88d56ae0f5e4d99522f10e))
+* **playwright:** ignore taking the screenshot if the page is already closed ([fdedeb8](https://github.com/serenity-js/serenity-js/commit/fdedeb8d8ca5fe6406101be930c17ad281a8f26d))
+
+
+
+
+
 ## [3.14.1](https://github.com/serenity-js/serenity-js/compare/v3.14.0...v3.14.1) (2023-12-10)
 
 
