@@ -185,13 +185,13 @@ import type { UsesAbilities } from './UsesAbilities';
  *
  * await actorCalled('Trevor')
  *   .whoCan(
- *       BrowseTheWebWithPlaywright.using(browser, { baseURL }),
- *       CallAnApi.at(`${ baseURL }/api`),
- *       TakeNotes.using(Notepad.with<MyNotes>({
- *           firstName: 'Trevor',
- *           lastName: 'Traveller',
- *           emailAddress: 'Trevor.Traveller@example.org',
- *       }))
+ *     BrowseTheWebWithPlaywright.using(browser, { baseURL }),
+ *     CallAnApi.at(`${ baseURL }/api`),
+ *     TakeNotes.using(Notepad.with<MyNotes>({
+ *       firstName: 'Trevor',
+ *       lastName: 'Traveller',
+ *       emailAddress: 'Trevor.Traveller@example.org',
+ *     }))
  *   )
  * ```
  *
