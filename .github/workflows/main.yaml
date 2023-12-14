@@ -240,7 +240,7 @@ jobs:
           install-command: npm ci
 
       - name: Download all artifacts
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        uses: actions/download-artifact@7a1cd3216ca9260cd8022db641d960b1db4d1be4 # v4
 
       - name: Decompress all artifacts to current directory
         run: ls **/*.zip | xargs -n1 7z x -aoa
@@ -299,7 +299,7 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        uses: actions/download-artifact@7a1cd3216ca9260cd8022db641d960b1db4d1be4 # v4
         with:
           name: compiled-libs
       - name: Decompress Libs
@@ -376,7 +376,7 @@ jobs:
           install-command: make BOOTSTRAP_SCOPE=site install
 
       - name: Download compiled libs
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        uses: actions/download-artifact@7a1cd3216ca9260cd8022db641d960b1db4d1be4 # v4
         with:
           name: 'compiled-libs'
 
@@ -386,7 +386,7 @@ jobs:
       # We generate an updated changelog only when there are artifacts to be published
       - name: Download changelog
         if: github.ref == 'refs/heads/main'
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        uses: actions/download-artifact@7a1cd3216ca9260cd8022db641d960b1db4d1be4 # v4
         continue-on-error: true
         with:
           name: changelog
