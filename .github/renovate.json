@@ -19,7 +19,9 @@
   "packageRules": [
     {
       "groupName": "Core dependencies",
-      "labels": [ "@serenity-js/core" ],
+      "labels": [
+        "@serenity-js/core"
+      ],
       "packagePatterns": [
         "@paralleldrive/cuid2",
         "@types/diff",
@@ -38,7 +40,9 @@
     },
     {
       "groupName": "Cucumber",
-      "labels": [ "@serenity-js/cucumber" ],
+      "labels": [
+        "@serenity-js/cucumber"
+      ],
       "packagePatterns": [
         "^@cucumber",
         "cli-table3",
@@ -47,7 +51,9 @@
     },
     {
       "groupName": "Local Server dependencies",
-      "labels": [ "@serenity-js/local-server" ],
+      "labels": [
+        "@serenity-js/local-server"
+      ],
       "packagePatterns": [
         "http-shutdown",
         "portfinder",
@@ -60,7 +66,10 @@
     },
     {
       "groupName": "Playwright dependencies",
-      "labels": [ "@serenity-js/playwright", "@serenity-js/web" ],
+      "labels": [
+        "@serenity-js/playwright",
+        "@serenity-js/web"
+      ],
       "packagePatterns": [
         "playwright",
         "playwright-core",
@@ -69,7 +78,10 @@
     },
     {
       "groupName": "Protractor dependencies",
-      "labels": [ "@serenity-js/protractor", "@serenity-js/web" ],
+      "labels": [
+        "@serenity-js/protractor",
+        "@serenity-js/web"
+      ],
       "packagePatterns": [
         "@types/html-minifier",
         "@types/selenium-webdriver",
@@ -82,7 +94,10 @@
     },
     {
       "groupName": "WebdriverIO dependencies",
-      "labels": [ "@serenity-js/webdriverio", "@serenity-js/web" ],
+      "labels": [
+        "@serenity-js/webdriverio",
+        "@serenity-js/web"
+      ],
       "packagePatterns": [
         "^@wdio",
         "^webdriverio",
@@ -92,7 +107,9 @@
     },
     {
       "groupName": "Serenity BDD dependencies",
-      "labels": [ "@serenity-js/serenity-bdd" ],
+      "labels": [
+        "@serenity-js/serenity-bdd"
+      ],
       "packagePatterns": [
         "@types/progress",
         "find-java-home",
@@ -159,6 +176,17 @@
         "^@serenity-js/"
       ],
       "enabled": false
+    },
+    {
+      "groupName": "GitHub Actions",
+      "packagePatterns": [
+        "^actions/",
+        "^tj-actions/",
+        "^github/codeql-action$",
+        "^jamesives/github-pages-deploy-action$",
+        "^mattraks/delete-workflow-runs$",
+        "^paambaati/codeclimate-action$"
+      ]
     }
   ],
   "schedule": [
