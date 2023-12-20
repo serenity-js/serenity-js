@@ -230,7 +230,7 @@ jobs:
           fetch-depth: 2
 
       - name: Setup Node
-        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
         with:
           node-version: 18.x
 
@@ -306,7 +306,7 @@ jobs:
         run: 7z x -aoa compiled-libs.zip
 
       - name: Setup Node
-        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
         with:
           node-version: 18.x
 
@@ -366,7 +366,7 @@ jobs:
           fetch-depth: 2
 
       - name: Setup Node
-        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
         with:
           node-version: 18.x
 
