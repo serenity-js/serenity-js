@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
+
+
+### Bug Fixes
+
+* **playwright-test:** fixed switching between multiple pages ([375f3aa](https://github.com/serenity-js/serenity-js/commit/375f3aaac05843b71a88d56ae0f5e4d99522f10e))
+* **playwright:** ignore taking the screenshot if the page is already closed ([fdedeb8](https://github.com/serenity-js/serenity-js/commit/fdedeb8d8ca5fe6406101be930c17ad281a8f26d))
+
+
+
+
+
+## [3.14.1](https://github.com/serenity-js/serenity-js/compare/v3.14.0...v3.14.1) (2023-12-10)
+
+
+### Bug Fixes
+
+* **core:** added provenance statements ([04c2d87](https://github.com/serenity-js/serenity-js/commit/04c2d878be0f2d853b14e4fa390f312688b868cf))
+* **core:** pinned all the direct dependencies ([498b336](https://github.com/serenity-js/serenity-js/commit/498b33614f678327ba207b30e3b2452728545aaf))
+* **protractor:** removed direct dependency on selenium-webdriver 3.6.0 ([33cbd16](https://github.com/serenity-js/serenity-js/commit/33cbd16a1569e97281f8af81d4f7efcc593c6d0a)), closes [#2095](https://github.com/serenity-js/serenity-js/issues/2095)
+
+
+
+
+
 # [3.14.0](https://github.com/serenity-js/serenity-js/compare/v3.13.3...v3.14.0) (2023-12-02)
 
 

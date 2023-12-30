@@ -1,7 +1,6 @@
 import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
 import { Locator } from '@serenity-js/web';
 import type * as protractor from 'protractor';
-import type { WebElement } from 'selenium-webdriver';
 
 import { promised } from '../../promised';
 import { unpromisedWebElement } from '../../unpromisedWebElement';
@@ -131,7 +130,7 @@ class ProtractorParentElementLocator extends ProtractorLocator {
         const cssSelector = this.asCssSelector(this.selector);
         const child = await this.child.nativeElement();
 
-        const webElement: WebElement = await child.getWebElement();
+        const webElement: protractor.WebElement = await child.getWebElement();
 
         return await promised(webElement.getDriver().executeScript(
             `return arguments[0].closest(arguments[1])`,
