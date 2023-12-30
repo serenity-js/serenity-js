@@ -74,4 +74,62 @@ describe('@serenity-js/playwright-test', function () {
                 .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
             ;
         }));
+
+    it(`registers the native page with actor's BrowsingSession`, () => playwrightTest('--project=screenplay-local-server', `--grep=registers the native page with actor's BrowsingSession`, 'native-page.spec.ts')
+        .then(ifExitCodeIsOtherThan(0, logOutput))
+        .then(result => {
+
+            expect(result.exitCode).to.equal(0);
+
+            let currentSceneId: CorrelationId;
+
+            PickEvent.from(result.events)
+                .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name(`A screenplay scenario registers the native page with actor's BrowsingSession`));
+                    currentSceneId = event.sceneId;
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+
+                .next(SceneFinishes,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(SceneFinished,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                    expect(event.outcome).to.equal(new ExecutionSuccessful());
+                })
+                .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
+            ;
+        }));
+
+    it(`tracks newly opened pages`, () => playwrightTest('--project=screenplay-local-server', `--grep=tracks newly opened pages`, 'native-page.spec.ts')
+        .then(ifExitCodeIsOtherThan(0, logOutput))
+        .then(result => {
+
+            expect(result.exitCode).to.equal(0);
+
+            let currentSceneId: CorrelationId;
+
+            PickEvent.from(result.events)
+                .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name(`A screenplay scenario tracks newly opened pages`));
+                    currentSceneId = event.sceneId;
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+
+                .next(SceneFinishes,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(SceneFinished,       event => {
+                    expect(event.sceneId).to.equal(currentSceneId);
+                    expect(event.outcome).to.equal(new ExecutionSuccessful());
+                })
+                .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))
+            ;
+        }));
 });

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
+
+**Note:** Version bump only for package @serenity-js/assertions
+
+
+
+
+
+## [3.14.1](https://github.com/serenity-js/serenity-js/compare/v3.14.0...v3.14.1) (2023-12-10)
+
+
+### Bug Fixes
+
+* **core:** added provenance statements ([04c2d87](https://github.com/serenity-js/serenity-js/commit/04c2d878be0f2d853b14e4fa390f312688b868cf))
+* **core:** pinned all the direct dependencies ([498b336](https://github.com/serenity-js/serenity-js/commit/498b33614f678327ba207b30e3b2452728545aaf))
+
+
+
+
+
 # [3.14.0](https://github.com/serenity-js/serenity-js/compare/v3.13.3...v3.14.0) (2023-12-02)
 
 **Note:** Version bump only for package @serenity-js/assertions

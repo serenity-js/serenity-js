@@ -15,7 +15,7 @@ export default function AuthorBio() {
 
     return (
         <footer className={ styles.authorBio }>
-            <Image img={ require('@site/static/images/jan-molak.png') } width={ 200 } alt="Jan Molak"/>
+            <Image img={ require('@site/static/images/jan-molak.png') } width={ 200 } alt="Jan Molak" style={{overflow: 'hidden'}}  />
             <div>
                 <p>
                     <strong>Jan Molak</strong> is an independent software development consultant and trainer
