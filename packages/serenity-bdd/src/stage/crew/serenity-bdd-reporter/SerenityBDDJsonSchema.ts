@@ -4,37 +4,34 @@ import type { JSONObject } from 'tiny-types';
 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java
 
 /** @package */
-export interface SerenityBDDReport extends JSONObject {
-    name: string;
-    id: string;
-    testSteps: TestStep[];
-    userStory: UserStory;
-    // https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/
-    // serenity-core/src/test/resources/historical-reports/sample-report-4.json
-
-    featureTag: Tag;
-    title: string;
-    description: string;
-    tags: Tag[];
-    startTime: number;
-    duration: number;
-    rule: BusinessRule;
-    projectKey: string;                 // todo [ ]     protractor
-    sessionId?: string;                 // todo [ ]     protractor
-    driver?: string;                    // todo [ ]     protractor     'chrome:jill'
+export interface SerenityBDD3ReportSchema extends JSONObject {
+    backgroundDescription?: string;
+    additionalIssues?: string[];
+    backgroundTitle?: string;
     context?: string;
     dataTable?: DataTable;
-    manual: boolean;
+    description: string;
+    driver?: string;
+    duration: number;
+    featureTag: Tag;
+    id: string;
     issues?: string[];
-    additionalIssues?: string[];
-    testSource: string;
+    manual: boolean;                 // todo [ ]     protractor
+    name: string;                 // todo [ ]     protractor
+    projectKey: string;                    // todo [ ]     protractor     'chrome:jill'
     result: string;
+    rule: BusinessRule;
+    sessionId?: string;
+    startTime: number;
+    tags: Tag[];
     testFailureCause?: ErrorDetails;
     testFailureClassname?: string;
     testFailureMessage?: string;
     testFailureSummary?: string;
-    backgroundTitle?: string;
-    backgroundDescription?: string;
+    testSource: string;
+    testSteps: TestStep[];
+    title: string;
+    userStory: UserStory;
 }
 
 export interface BusinessRule extends JSONObject {
@@ -43,57 +40,57 @@ export interface BusinessRule extends JSONObject {
 }
 
 export interface TestStep extends JSONObject {
-    number: number;
+    children?: TestStep[];
     description: string;
     duration: number;
-    startTime: number;
-    result: string;
-    children?: TestStep[];
-    screenshots?: Screenshot[];
+    exception?: ErrorDetails;
+    number: number;
     reportData: ReportData[];
     restQuery?: RESTQuery;
-    exception?: ErrorDetails;
+    result: string;
+    screenshots?: Screenshot[];
+    startTime: number;
     // precondition: false;             // not needed?
 }
 
 // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java
 export interface ReportData extends JSONObject {
+    contents: string;
     id: string;
     isEvidence: boolean;
     path: string;
     title: string;
-    contents: string;
 }
 
 /**
  * https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/screenshots/ScreenshotAndHtmlSource.java
  */
 export interface Screenshot extends JSONObject {
+    htmlSource?: string;
     screenshot: string;
-    timeStamp: number;
-    htmlSource?: string;     // "htmlSource": "pagesource7953468346968205961.html.txt"
+    timeStamp: number;     // "htmlSource": "pagesource7953468346968205961.html.txt"
 }
 
 export interface UserStory extends JSONObject {
     id: string;             // dashified feature name
-    storyName: string;      // feature name
+    narrative?: string;      // feature name
     path: string;           // relative feature file path
-    type: string;           // 'feature'
-    narrative?: string;     // cucumber narrative, if any
+    storyName: string;           // 'feature'
+    type: string;     // cucumber narrative, if any
 }
 
 export interface Tag extends JSONObject {
-    name: string;
     displayName: string;
+    name: string;
     type: string;
 }
 
 export interface DataTable extends JSONObject {
-    headers: string[];
-    rows: DataTableRow[];
-    predefinedRows: boolean;
-    scenarioOutline: string;
     dataSetDescriptors: DataTableDataSetDescriptor[];
+    headers: string[];
+    predefinedRows: boolean;
+    rows: DataTableRow[];
+    scenarioOutline: string;
 }
 
 export interface DataTableRow extends JSONObject {
@@ -102,22 +99,22 @@ export interface DataTableRow extends JSONObject {
 }
 
 export interface DataTableDataSetDescriptor extends JSONObject {
-    startRow: number;
-    rowCount: number;
-    name: string;
     description: string;
+    name: string;
+    rowCount: number;
+    startRow: number;
 }
 
 export interface RESTQuery extends JSONObject {
-    method: string;
-    path: string;
     content: string;
     contentType: string;
-    requestHeaders: string;
+    method: string;
+    path: string;
     requestCookies: string;
-    responseHeaders: string;
-    responseCookies: string;
+    requestHeaders: string;
     responseBody: string;
+    responseCookies: string;
+    responseHeaders: string;
     statusCode: number;
 }
 

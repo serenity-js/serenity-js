@@ -21,7 +21,7 @@ import {
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
-import type { SerenityBDDReport } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
+import type { SerenityBDD3ReportSchema } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
 import { create } from './create';
 
 describe('SerenityBDDReporter', () => {
@@ -38,7 +38,7 @@ describe('SerenityBDDReporter', () => {
         new Name('Paying with a default card'),
         new Category('Online Checkout'),
         new FileSystemLocation(
-            new Path(`payments/checkout.feature`),
+            new Path(`/home/alice/my-project/features/payments/checkout.feature`),
         ),
     );
 
@@ -46,15 +46,15 @@ describe('SerenityBDDReporter', () => {
         new Name('Paying with a voucher'),
         new Category('Online Checkout'),
         new FileSystemLocation(
-            new Path(`payments/checkout.feature`),
+            new Path(`/home/alice/my-project/payments/checkout.feature`),
         ),
     );
 
-    const jasmineScenario = new ScenarioDetails(
+    const nestedScenario = new ScenarioDetails(
         new Name('Paying with a default card'),
-        new Category('Online Checkout'),
+        new Category('Default card'),
         new FileSystemLocation(
-            new Path(`spec/checkout.spec.ts`),
+            new Path(`/home/alice/my-project/spec/payments/express-checkout/default_card.spec.ts`),
         ),
     );
 
@@ -130,7 +130,7 @@ describe('SerenityBDDReporter', () => {
 
     describe('produces a SerenityBDDReport that', () => {
 
-        let report: SerenityBDDReport;
+        let report: SerenityBDD3ReportSchema;
 
         describe('at the scenario level', () => {
 
@@ -158,7 +158,7 @@ describe('SerenityBDDReporter', () => {
             });
 
             it('contains the start time of the scenario', () => {
-                expect(report.startTime).to.equal(startTime.toMilliseconds());
+                expect(report.startTime).to.equal(startTime.toISOString());
             });
 
             it('contains the duration of the scenario', () => {
@@ -350,7 +350,7 @@ describe('SerenityBDDReporter', () => {
 
         describe('indicates its execution context', () => {
 
-            it('specifies the test runner', () => {
+            it('specifies "Cucumber" test runner for Cucumber scenarios', () => {
                 stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario),
                     new TestRunnerDetected(aSceneId, new Name('Cucumber')),
@@ -367,6 +367,25 @@ describe('SerenityBDDReporter', () => {
                 ;
             });
 
+            it('specifies "JS" test runner for non-Cucumber scenarios', () => {
+                stage.announce(
+                    new SceneStarts(aSceneId, defaultCardScenario),
+                    new TestRunnerDetected(aSceneId, new Name('Playwright')),
+                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                    new TestRunFinishes(),
+                );
+
+                PickEvent.from(recorder.events)
+                    .next(ArtifactGenerated, event => {
+                        report = event.artifact.map(_ => _);
+
+                        expect(report.testSource).to.equal('JS');
+                    })
+                ;
+            });
+
+            // todo: add test for FeatureNarrativeDetected
+
             it('specifies the user story covered', () => {
                 stage.announce(
                     new SceneStarts(aSceneId, defaultCardScenario),
@@ -381,17 +400,23 @@ describe('SerenityBDDReporter', () => {
                         expect(report.userStory).to.deep.equal({
                             id: 'online-checkout',
                             storyName: 'Online Checkout',           // category name, a.k.a. feature name
-                            path: 'payments/checkout.feature',
+                            displayName: 'Online Checkout',         //  repeated here again as display name
+                            narrative: '',
+                            path: 'payments/checkout',
+                            pathElements: [
+                                { name: 'payments', description: 'Payments' },
+                                { name: 'checkout', description: 'Checkout' },
+                            ],
                             type: 'feature',
                         });
                     })
                 ;
             });
 
-            it('does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)', () => {
+            it('produces path and pathElements required by Serenity BDD 4 to understand the requirements hierarchy', () => {
                 stage.announce(
-                    new SceneStarts(aSceneId, jasmineScenario),
-                    new SceneFinished(aSceneId, jasmineScenario, new ExecutionSuccessful()),
+                    new SceneStarts(aSceneId, nestedScenario),
+                    new SceneFinished(aSceneId, nestedScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
@@ -402,7 +427,14 @@ describe('SerenityBDDReporter', () => {
                         expect(report.userStory).to.deep.equal({
                             id: 'online-checkout',
                             storyName: 'Online Checkout',           // category name, a.k.a. feature name
-                            path: '',
+                            displayName: 'Online Checkout',         //  repeated here again as display name
+                            narrative: '',
+                            path: 'payments/express-checkout/default_card',
+                            pathElements: [
+                                { name: 'payments', description: 'Payments' },
+                                { name: 'express-checkout', description: 'Express Checkout' },
+                                { name: 'default_card', description: 'Default card' },
+                            ],
                             type: 'feature',
                         });
                     })

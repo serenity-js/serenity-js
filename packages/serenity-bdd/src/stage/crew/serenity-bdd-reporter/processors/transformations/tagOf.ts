@@ -3,7 +3,7 @@ import { BrowserTag, CapabilityTag, ExecutionRetriedTag, FeatureTag, IssueTag, M
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects';
 
-import type * as serenitybdd from '../../SerenityBDDJsonSchema';
+import type * as serenitybdd from '../../serenity-bdd-report-schema';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { reportIdIncluding } from './reportIdIncluding';
 
@@ -160,7 +160,7 @@ function appendIfNotPresent(commaSeparatedStringOrEmpty: string, item: string): 
     ).join(',');
 }
 
-function tagReportFor(tag: Tag): serenitybdd.Tag {
+function tagReportFor(tag: Tag): serenitybdd.TagSchema {
     return {
         ...tag.toJSON(),
         displayName: tag.name.replace(/_+/, ' '),
@@ -175,7 +175,7 @@ function unique(items: string[]) {
     return [...new Set(items)];
 }
 
-function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.Tag[]) {
+function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]) {
     const found = (tags || []).find(t => t.type === typeOfTag.Type);
 
     return found && found.displayName;

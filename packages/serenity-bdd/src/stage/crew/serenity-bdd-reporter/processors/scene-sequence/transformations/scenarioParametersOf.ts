@@ -1,14 +1,14 @@
 import type { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
 
-import type { DataTable, DataTableDataSetDescriptor } from '../../../SerenityBDDJsonSchema';
+import type { DataTableDataSetDescriptorSchema, DataTableSchema } from '../../../serenity-bdd-report-schema';
 import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters): (context: SceneSequenceReportContext) => SceneSequenceReportContext {
 
-    function descriptorFor(dataTable: DataTable) {
+    function descriptorFor(dataTable: DataTableSchema) {
         const parameterSetDescription = parameters.description && parameters.description.value;
 
-        const existingDescriptor: DataTableDataSetDescriptor = dataTable.dataSetDescriptors
+        const existingDescriptor: DataTableDataSetDescriptorSchema = dataTable.dataSetDescriptors
             .find(descriptor => descriptor.name === parameters.name.value && descriptor.description === parameterSetDescription);
 
         if (existingDescriptor) {
@@ -31,7 +31,7 @@ export function scenarioParametersOf(scenario: ScenarioDetails, parameters: Scen
 
         const headers = Object.keys(parameters.values);
 
-        const dataTable: DataTable = context.report.dataTable;
+        const dataTable: DataTableSchema = context.report.dataTable;
 
         dataTable.headers = headers;
 

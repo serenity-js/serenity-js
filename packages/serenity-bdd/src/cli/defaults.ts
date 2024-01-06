@@ -1,7 +1,6 @@
 /**
- * @desc
- *  Default configuration to be used when invoking the serenity-bdd command line interface.
- *  See the source code to find out more about the values being used.
+ * Default configuration to be used when invoking the serenity-bdd command line interface.
+ * See the source code to find out more about the values being used.
  *
  * @typedef {Object} defaults
  * @property {string} artifact      The GAV identifier of the artifact to download from the artifact repository
@@ -15,7 +14,7 @@
  * @public
  */
 export const defaults = {
-    artifact:    'net.serenity-bdd:serenity-cli:jar:3.1.0',
+    artifact:    'net.serenity-bdd:serenity-cli:jar:4.0.30',
     repository:  'https://repo1.maven.org/maven2/',
     cacheDir:    'node_modules/@serenity-js/serenity-bdd/cache',
     sourceDir:   'target/site/serenity',

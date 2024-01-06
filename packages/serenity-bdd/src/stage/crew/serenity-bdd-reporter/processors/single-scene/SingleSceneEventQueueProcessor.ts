@@ -17,7 +17,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import { match } from 'tiny-types';
 
-import type { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { activityFinished, activityStarted, executionFinishedAt, executionFinishedWith, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
@@ -33,7 +33,7 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
             && queue.first() instanceof SceneStarts;
     }
 
-    process(queue: DomainEventQueue): SerenityBDDReport {
+    process(queue: DomainEventQueue): SerenityBDD4ReportSchema {
         return queue.reduce((context, event) =>
             match<DomainEvent, SingleSceneReportContext>(event)
                 .when(SceneStarts,                      this.onSceneStarts(context))
