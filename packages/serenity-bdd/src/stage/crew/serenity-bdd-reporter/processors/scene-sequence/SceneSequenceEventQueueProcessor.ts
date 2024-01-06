@@ -20,7 +20,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import { match } from 'tiny-types';
 
-import type { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { activityFinished, activityStarted, executionFinishedAt, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
@@ -39,7 +39,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
             && queue.first() instanceof SceneSequenceDetected;
     }
 
-    process(queue: DomainEventQueue): SerenityBDDReport {
+    process(queue: DomainEventQueue): SerenityBDD4ReportSchema {
         return queue.reduce((context, event) =>
             // eslint-disable-next-line @typescript-eslint/indent
             match<DomainEvent, SceneSequenceReportContext>(event)

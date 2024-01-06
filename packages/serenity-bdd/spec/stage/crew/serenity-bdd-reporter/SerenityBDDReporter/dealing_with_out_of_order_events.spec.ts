@@ -156,10 +156,16 @@ describe('SerenityBDDReporter', () => {
         'userStory': {
             'id': 'search',
             'storyName': 'Search',
-            'path': 'features/search.feature',
+            'displayName': 'Search',
+            'narrative': '',
+            'path': 'search',
+            'pathElements': {
+                'name': 'search',
+                'description': '',
+            },
             'type': 'feature'
         },
-        'startTime': 1602173699637,
+        'startTime': '2020-10-08T16:14:59.637Z',
         'duration': 41024,
         'result': 'ERROR',
         'testFailureCause': {
@@ -209,7 +215,13 @@ describe('SerenityBDDReporter', () => {
         'userStory': {
             'id': 'tag-management',
             'storyName': 'Tag management',
-            'path': 'features/tags.feature',
+            'displayName': 'Tag management',
+            'narrative': '',
+            'path': 'tags',
+            'pathElements': {
+                'name': 'tags',
+                'description': '',
+            },
             'type': 'feature'
         },
         'startTime': 1602173740663,

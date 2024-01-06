@@ -10,7 +10,7 @@ import type {
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
 
-import type { SerenityBDDReport } from '../SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { SerenityBDDReportContext } from './SerenityBDDReportContext';
 import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf, businessRuleOf, descriptionOf, featureNarrativeOf, tagOf, testRunnerCalled } from './transformations';
 
@@ -19,7 +19,7 @@ import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf,
  */
 export abstract class EventQueueProcessor {
     abstract supports(queue: DomainEventQueue): boolean;
-    abstract process(queue: DomainEventQueue): SerenityBDDReport;  // todo: return Artifact with a name instead
+    abstract process(queue: DomainEventQueue): SerenityBDD4ReportSchema;  // todo: return Artifact with a name instead
 
     protected onFeatureNarrativeDetected<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: FeatureNarrativeDetected): Context =>

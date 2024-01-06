@@ -1,6 +1,6 @@
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
 
-import type { SerenityBDDReport } from '../../SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import type { ScenarioParametersDescriptor } from './ScenarioParametersDescriptor';
 
@@ -11,7 +11,7 @@ export class SceneSequenceReportContext extends SerenityBDDReportContext {
     public readonly parameters: ScenarioParametersDescriptor[] = [];
     public readonly worstOutcomeSoFar = new ExecutionSuccessful();
 
-    build(): SerenityBDDReport {
+    build(): SerenityBDD4ReportSchema {
         const report = super.build();
 
         this.parameters.forEach((entry, index) => {

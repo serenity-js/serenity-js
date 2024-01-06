@@ -1,6 +1,6 @@
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 
-import type { SerenityBDDReport } from '../SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { LinkedTestStep } from './LinkedTestStep';
 
 /**
@@ -8,7 +8,7 @@ import type { LinkedTestStep } from './LinkedTestStep';
  */
 export abstract class SerenityBDDReportContext {
 
-    public readonly report: Partial<SerenityBDDReport> = {};
+    public readonly report: Partial<SerenityBDD4ReportSchema> = {};
     public readonly steps: Map<string, LinkedTestStep> = new Map();
     public currentActivityId: CorrelationId = undefined;
 
@@ -16,7 +16,7 @@ export abstract class SerenityBDDReportContext {
         return fn(this);
     }
 
-    build(): SerenityBDDReport {
+    build(): SerenityBDD4ReportSchema {
 
         const eraseDuplicateExceptionReportFromParentSteps = (current: LinkedTestStep) => {
             if (current.parentActivityId) {
@@ -45,6 +45,6 @@ export abstract class SerenityBDDReportContext {
         return {
             ...this.report,
             testSteps,
-        } as SerenityBDDReport;
+        } as SerenityBDD4ReportSchema;
     }
 }
