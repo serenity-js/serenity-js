@@ -14,6 +14,7 @@ export function archivedActivityRelatedArtifact<Context extends SerenityBDDRepor
         if (type === Photo && context.steps.has(activityId.value)) {
             context.steps.get(activityId.value).step.screenshots.push({
                 screenshot: path.basename(),
+                screenshotName: path.basename(),
                 timeStamp: timestamp.toMilliseconds(),
             });
         }

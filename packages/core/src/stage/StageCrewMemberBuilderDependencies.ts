@@ -1,4 +1,5 @@
 import type { OutputStream } from '../adapter';
+import type { FileSystem } from '../io';
 import type { Stage } from './Stage';
 
 /**
@@ -11,5 +12,6 @@ import type { Stage } from './Stage';
  */
 export interface StageCrewMemberBuilderDependencies {
     stage: Stage;
+    fileSystem: FileSystem;
     outputStream: OutputStream;
 }

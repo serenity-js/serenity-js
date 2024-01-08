@@ -5,7 +5,7 @@ import type { SerenityConfig } from './config';
 import type { ErrorOptions, RuntimeError } from './errors';
 import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors';
 import type { DomainEvent, EmitsDomainEvents } from './events';
-import { ClassDescriptionParser, ClassLoader, d, has, ModuleLoader, Path } from './io';
+import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, Path } from './io';
 import type { ActivityDetails, CorrelationId } from './model';
 import type { Actor, Timestamp } from './screenplay';
 import { Clock, Duration } from './screenplay';
@@ -24,6 +24,7 @@ export class Serenity implements EmitsDomainEvents {
     private static defaultActors                = new Extras();
 
     private stage: Stage;
+    private readonly fileSystem: FileSystem;
     private outputStream: OutputStream  = process.stdout;
 
     private readonly classLoader: ClassLoader;
@@ -31,6 +32,7 @@ export class Serenity implements EmitsDomainEvents {
 
     /**
      * @param clock
+     * @param cwd
      */
     constructor(
         private readonly clock: Clock = new Clock(),
@@ -50,6 +52,8 @@ export class Serenity implements EmitsDomainEvents {
         );
 
         this.workingDirectory = new Path(cwd);
+
+        this.fileSystem = new FileSystem(this.workingDirectory);
     }
 
     /**
@@ -97,7 +101,11 @@ export class Serenity implements EmitsDomainEvents {
                         : stageCrewMemberDescription;
 
                     if (looksLikeBuilder(stageCrewMember)) {
-                        return stageCrewMember.build({ stage: this.stage, outputStream: this.outputStream });
+                        return stageCrewMember.build({
+                            stage: this.stage,
+                            fileSystem: this.fileSystem,
+                            outputStream: this.outputStream,
+                        });
                     }
 
                     if (looksLikeStageCrewMember(stageCrewMember)) {

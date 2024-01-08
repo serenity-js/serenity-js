@@ -1,11 +1,11 @@
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 
-import type { TestStep } from '../SerenityBDDJsonSchema';
+import type { TestStepSchema } from '../serenity-bdd-report-schema';
 
 /**
  * @package
  */
 export interface LinkedTestStep {
-    step: TestStep;
+    step: TestStepSchema;
     parentActivityId: CorrelationId;
 }

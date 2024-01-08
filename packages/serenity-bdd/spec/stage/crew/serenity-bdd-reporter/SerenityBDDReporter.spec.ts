@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/filename-case */
-import type { EventRecorder} from '@integration/testing-tools';
+import type { EventRecorder } from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
-import type { Stage} from '@serenity-js/core';
+import type { Stage } from '@serenity-js/core';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
@@ -21,59 +21,114 @@ import {
 } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
-import type { SerenityBDD3ReportSchema } from '../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema';
+import type { SerenityBDD4ReportSchema } from '../../../../src/stage/crew/serenity-bdd-reporter/serenity-bdd-report-schema';
 import { create } from './create';
 
 describe('SerenityBDDReporter', () => {
 
     const
         startTime = Timestamp.fromJSON('2018-05-25T00:00:00.123Z'),
-        scenarioDuration = Duration.ofMilliseconds(142);
+        scenarioDuration = Duration.ofMilliseconds(142),
+        cwd = Path.from(`/home/alice/projects/example`);
 
     const
         aSceneId = new CorrelationId('a-scene-id'),
         anotherSceneId = new CorrelationId('another-scene-id');
 
-    const defaultCardScenario = new ScenarioDetails(
+    const cucumberWorkspace = {
+        [`${ cwd.value }`]: {
+            'features': {
+                'checkout.feature': 'Feature: Checkout',
+                'payments': {
+                    'vouchers.feature': 'Feature: Vouchers',
+                }
+            }
+        }
+    }
+
+    const playwrightWorkspace = {
+        [`${ cwd.value }`]: {
+            'spec': {
+                'payments': { 
+                    'express_checkout': {
+                        'default_card.spec.ts': 'describe("Default card", () => { /* ... */ })'
+                    },
+                }
+            }
+        }
+    }
+
+    /**
+     * Cucumber test scenarios in a flat directory structure
+     *
+     * ```gherkin
+     * Feature: Online Checkout
+     *
+     *   Scenario: Paying with a default card
+     * ```
+     *
+     * Feature:     Online Checkout
+     * Capability:  NONE
+     * Theme:       NONE
+     */
+    const simpleCucumberScenario = new ScenarioDetails(
         new Name('Paying with a default card'),
         new Category('Online Checkout'),
         new FileSystemLocation(
-            new Path(`/home/alice/my-project/features/payments/checkout.feature`),
+            cwd.resolve(Path.from(`features/checkout.feature`)),
         ),
     );
 
-    const voucherScenario = new ScenarioDetails(
+    /**
+     * Cucumber test scenarios in a nested directory structure
+     *
+     * ```gherkin
+     * Feature: Vouchers
+     *
+     *   Scenario: Paying with a voucher
+     * ```
+     *
+     * Feature:     Online Checkout
+     * Capability:  Payments
+     * Theme:       NONE
+     */
+    const nestedCucumberScenario = new ScenarioDetails(
         new Name('Paying with a voucher'),
+        new Category('Vouchers'),
+        new FileSystemLocation(
+            cwd.resolve(Path.from(`features/payments/vouchers.feature`)),
+        ),
+    );
+
+    /**
+     * Playwright Test scenario in a nested directory structure
+     *
+     * ```ts
+     * describe('Default card', () => {
+     *     it('Paying with a default card')
+     * })
+     * ```
+     *
+     * Feature:     Default card
+     * Capability:  Express checkout
+     * Theme:       Payments
+     */
+    const nestedPlaywrightScenario = new ScenarioDetails(
+        new Name('Paying with a default card'),
         new Category('Online Checkout'),
         new FileSystemLocation(
-            new Path(`/home/alice/my-project/payments/checkout.feature`),
+            cwd.resolve(Path.from(`spec/payments/express_checkout/default_card.spec.ts`)),
         ),
     );
-
-    const nestedScenario = new ScenarioDetails(
-        new Name('Paying with a default card'),
-        new Category('Default card'),
-        new FileSystemLocation(
-            new Path(`/home/alice/my-project/spec/payments/express-checkout/default_card.spec.ts`),
-        ),
-    );
-
-    let stage: Stage,
-        recorder: EventRecorder;
-
-    beforeEach(() => {
-        const env = create();
-
-        stage       = env.stage;
-        recorder    = env.recorder;
-    });
 
     describe('generates a SerenityBDDReport Artifact that', () => {
 
         it('is a valid artifact', () => {
+            const { stage, recorder } = create({ specDirectory: 'features' }, cucumberWorkspace);
+
             stage.announce(
-                new SceneStarts(aSceneId, defaultCardScenario),
-                new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                new SceneStarts(aSceneId, simpleCucumberScenario),
+                new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
 
@@ -85,9 +140,11 @@ describe('SerenityBDDReporter', () => {
 
         // counter-example covered implicitly in `error handling` suite below
         it('is produced asynchronously', () => {
+            const { stage, recorder } = create({ specDirectory: 'features' }, cucumberWorkspace);
+
             stage.announce(
-                new SceneStarts(aSceneId, defaultCardScenario),
-                new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                new SceneStarts(aSceneId, simpleCucumberScenario),
+                new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
 
@@ -109,20 +166,22 @@ describe('SerenityBDDReporter', () => {
     describe('emits an ArtifactGenerated event that', () => {
 
         it('is separate for each scenario', () => {
+            const { stage, recorder } = create({ specDirectory: 'features' }, cucumberWorkspace);
+
             stage.announce(
-                new SceneStarts(aSceneId, defaultCardScenario),
-                new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
-                new SceneStarts(anotherSceneId, voucherScenario),
-                new SceneFinished(anotherSceneId, voucherScenario, new ExecutionSkipped()),
+                new SceneStarts(aSceneId, simpleCucumberScenario),
+                new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
+                new SceneStarts(anotherSceneId, nestedCucumberScenario),
+                new SceneFinished(anotherSceneId, nestedCucumberScenario, new ExecutionSkipped()),
                 new TestRunFinishes(),
             );
 
             PickEvent.from(recorder.events)
                 .next(ArtifactGenerated, event => {
-                    expect(event.artifact.map(_ => _).name).to.equal(defaultCardScenario.name.value);
+                    expect(event.artifact.map(_ => _).name).to.equal(simpleCucumberScenario.name.value);
                 })
                 .next(ArtifactGenerated, event => {
-                    expect(event.artifact.map(_ => _).name).to.equal(voucherScenario.name.value);
+                    expect(event.artifact.map(_ => _).name).to.equal(nestedCucumberScenario.name.value);
                 })
             ;
         });
@@ -130,14 +189,21 @@ describe('SerenityBDDReporter', () => {
 
     describe('produces a SerenityBDDReport that', () => {
 
-        let report: SerenityBDD3ReportSchema;
+        let report: SerenityBDD4ReportSchema;
 
         describe('at the scenario level', () => {
 
+            let stage: Stage,
+                recorder: EventRecorder;
+
             beforeEach(() => {
+                const env = create({ specDirectory: 'features' }, cucumberWorkspace);
+                stage = env.stage;
+                recorder = env.recorder;
+
                 stage.announce(
-                    new SceneStarts(aSceneId, defaultCardScenario, startTime),
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),
+                    new SceneStarts(aSceneId, simpleCucumberScenario, startTime),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful(), startTime.plus(scenarioDuration)),
                     new TestRunFinishes(),
                 );
 
@@ -153,8 +219,8 @@ describe('SerenityBDDReporter', () => {
             });
 
             it('contains the name of the scenario', () => {
-                expect(report.name).to.equal(defaultCardScenario.name.value);
-                expect(report.title).to.equal(defaultCardScenario.name.value);
+                expect(report.name).to.equal(simpleCucumberScenario.name.value);
+                expect(report.title).to.equal(simpleCucumberScenario.name.value);
             });
 
             it('contains the start time of the scenario', () => {
@@ -168,16 +234,23 @@ describe('SerenityBDDReporter', () => {
 
         describe('describes the result of scenario execution that', () => {
 
+            let stage: Stage,
+                recorder: EventRecorder;
+
             beforeEach(() => {
+                const env = create({ specDirectory: 'features' }, cucumberWorkspace);
+                stage = env.stage;
+                recorder = env.recorder;
+
                 stage.announce(
-                    new SceneStarts(aSceneId, defaultCardScenario),
+                    new SceneStarts(aSceneId, simpleCucumberScenario),
                 );
             });
 
             it('has finished with success', () => {
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
@@ -192,7 +265,7 @@ describe('SerenityBDDReporter', () => {
             it(`hasn't been implemented yet`, () => {
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ImplementationPending(new ImplementationPendingError('method missing'))),
                     new TestRunFinishes(),
                 );
 
@@ -207,7 +280,7 @@ describe('SerenityBDDReporter', () => {
             it('has been ignored', () => {
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionIgnored(new Error(`Failed, retrying`))),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionIgnored(new Error(`Failed, retrying`))),
                     new TestRunFinishes(),
                 );
 
@@ -222,7 +295,7 @@ describe('SerenityBDDReporter', () => {
             it('has been skipped', () => {
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSkipped()),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSkipped()),
                     new TestRunFinishes(),
                 );
 
@@ -239,7 +312,7 @@ describe('SerenityBDDReporter', () => {
                 const assertionError = new AssertionError('expected true to equal false');
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionFailedWithAssertionError(assertionError)),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionFailedWithAssertionError(assertionError)),
                     new TestRunFinishes(),
                 );
 
@@ -266,7 +339,7 @@ describe('SerenityBDDReporter', () => {
                 ].join('\n');
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionFailedWithError(error)),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionFailedWithError(error)),
                     new TestRunFinishes(),
                 );
 
@@ -310,7 +383,7 @@ describe('SerenityBDDReporter', () => {
                 ].join('\n');
 
                 stage.announce(
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionCompromised(error)),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionCompromised(error)),
                     new TestRunFinishes(),
                 );
 
@@ -351,10 +424,13 @@ describe('SerenityBDDReporter', () => {
         describe('indicates its execution context', () => {
 
             it('specifies "Cucumber" test runner for Cucumber scenarios', () => {
+
+                const { stage, recorder } = create({ specDirectory: 'features' }, cucumberWorkspace);
+
                 stage.announce(
-                    new SceneStarts(aSceneId, defaultCardScenario),
+                    new SceneStarts(aSceneId, simpleCucumberScenario),
                     new TestRunnerDetected(aSceneId, new Name('Cucumber')),
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                    new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
@@ -368,16 +444,32 @@ describe('SerenityBDDReporter', () => {
             });
 
             it('specifies "JS" test runner for non-Cucumber scenarios', () => {
+                const { stage, recorder } = create({ specDirectory: 'spec' }, playwrightWorkspace);
+
                 stage.announce(
-                    new SceneStarts(aSceneId, defaultCardScenario),
+                    new SceneStarts(aSceneId, nestedPlaywrightScenario),
                     new TestRunnerDetected(aSceneId, new Name('Playwright')),
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
+                    new SceneFinished(aSceneId, nestedPlaywrightScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
                 PickEvent.from(recorder.events)
                     .next(ArtifactGenerated, event => {
                         report = event.artifact.map(_ => _);
+
+                        expect(report.userStory).to.deep.equal({
+                            id: 'online-checkout',
+                            storyName: 'Online Checkout',           // category name, a.k.a. feature name
+                            displayName: 'Online Checkout',         //  repeated here again as display name
+                            narrative: '',
+                            path: 'payments/express_checkout/default_card',
+                            pathElements: [
+                                { name: 'payments', description: 'Payments' },
+                                { name: 'express_checkout', description: 'Express checkout' },
+                                { name: 'default_card', description: 'Default card' },
+                            ],
+                            type: 'feature',
+                        });
 
                         expect(report.testSource).to.equal('JS');
                     })
@@ -386,37 +478,13 @@ describe('SerenityBDDReporter', () => {
 
             // todo: add test for FeatureNarrativeDetected
 
-            it('specifies the user story covered', () => {
-                stage.announce(
-                    new SceneStarts(aSceneId, defaultCardScenario),
-                    new SceneFinished(aSceneId, defaultCardScenario, new ExecutionSuccessful()),
-                    new TestRunFinishes(),
-                );
-
-                PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, event => {
-                        report = event.artifact.map(_ => _);
-
-                        expect(report.userStory).to.deep.equal({
-                            id: 'online-checkout',
-                            storyName: 'Online Checkout',           // category name, a.k.a. feature name
-                            displayName: 'Online Checkout',         //  repeated here again as display name
-                            narrative: '',
-                            path: 'payments/checkout',
-                            pathElements: [
-                                { name: 'payments', description: 'Payments' },
-                                { name: 'checkout', description: 'Checkout' },
-                            ],
-                            type: 'feature',
-                        });
-                    })
-                ;
-            });
-
             it('produces path and pathElements required by Serenity BDD 4 to understand the requirements hierarchy', () => {
+
+                const { stage, recorder } = create({ specDirectory: 'spec' }, playwrightWorkspace);
+
                 stage.announce(
-                    new SceneStarts(aSceneId, nestedScenario),
-                    new SceneFinished(aSceneId, nestedScenario, new ExecutionSuccessful()),
+                    new SceneStarts(aSceneId, nestedPlaywrightScenario),
+                    new SceneFinished(aSceneId, nestedPlaywrightScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
 
@@ -429,10 +497,10 @@ describe('SerenityBDDReporter', () => {
                             storyName: 'Online Checkout',           // category name, a.k.a. feature name
                             displayName: 'Online Checkout',         //  repeated here again as display name
                             narrative: '',
-                            path: 'payments/express-checkout/default_card',
+                            path: 'payments/express_checkout/default_card',
                             pathElements: [
                                 { name: 'payments', description: 'Payments' },
-                                { name: 'express-checkout', description: 'Express Checkout' },
+                                { name: 'express_checkout', description: 'Express checkout' },
                                 { name: 'default_card', description: 'Default card' },
                             ],
                             type: 'feature',
@@ -446,6 +514,13 @@ describe('SerenityBDDReporter', () => {
     describe('error handling', () => {
 
         describe('complains when ScenarioDetails', () => {
+
+            let stage: Stage;
+
+            beforeEach(() => {
+                const env = create({ specDirectory: 'features' }, cucumberWorkspace);
+                stage = env.stage;
+            });
 
             it('does not mention the scenario name (as this breaks the Serenity BDD HTML report)', async () => {
                 const scenarioWithEmptyName = new ScenarioDetails(

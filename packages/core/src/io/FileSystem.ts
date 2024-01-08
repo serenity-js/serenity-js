@@ -17,28 +17,32 @@ export class FileSystem {
     ) {
     }
 
+    public resolve(relativeOrAbsolutePath: Path): Path {
+        return this.root.resolve(relativeOrAbsolutePath);
+    }
+
     public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {
         return Promise.resolve()
             .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
-            .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
+            .then(() => this.write(this.resolve(relativeOrAbsolutePathToFile), data, encoding));
     }
 
     public createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {
-        return this.fs.createReadStream(this.root.resolve(relativeOrAbsolutePathToFile).value);
+        return this.fs.createReadStream(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
     public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {
-        return this.fs.createWriteStream(this.root.resolve(relativeOrAbsolutePathToFile).value);
+        return this.fs.createWriteStream(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
     public stat(relativeOrAbsolutePathToFile: Path): Promise<nodeFS.Stats> {
         const stat = promisify(this.fs.stat);
 
-        return stat(this.root.resolve(relativeOrAbsolutePathToFile).value);
+        return stat(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
     public exists(relativeOrAbsolutePathToFile: Path): boolean {
-        return this.fs.existsSync(this.root.resolve(relativeOrAbsolutePathToFile).value);
+        return this.fs.existsSync(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
     public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {
@@ -48,7 +52,7 @@ export class FileSystem {
             readdir = promisify(this.fs.readdir),
             rmdir = promisify(this.fs.rmdir);
 
-        const absolutePath = this.root.resolve(relativeOrAbsolutePathToFileOrDirectory);
+        const absolutePath = this.resolve(relativeOrAbsolutePathToFileOrDirectory);
 
         return stat(absolutePath.value)
             .then(result =>
@@ -72,7 +76,7 @@ export class FileSystem {
 
     public ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {
 
-        const absolutePath = this.root.resolve(relativeOrAbsolutePathToDirectory);
+        const absolutePath = this.resolve(relativeOrAbsolutePathToDirectory);
 
         return absolutePath.split().reduce((promisedParent, child) => {
             return promisedParent.then(parent => new Promise((resolve, reject) => {

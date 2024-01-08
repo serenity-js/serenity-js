@@ -1,10 +1,15 @@
-import type { Stage, StageCrewMember } from '@serenity-js/core';
-import { DomainEventQueues } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember , StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
+import { ConfigurationError, DomainEventQueues } from '@serenity-js/core';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
+import type { FileSystem} from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/lib/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
+import { isDefined } from 'tiny-types';
+import { ensure } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
+import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
 
 /**
  * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
@@ -98,12 +103,22 @@ import { EventQueueProcessors } from './processors';
  */
 export class SerenityBDDReporter implements StageCrewMember {
     private readonly eventQueues = new DomainEventQueues();
-    private readonly processors = new EventQueueProcessors();
+    private readonly processors: EventQueueProcessors;
+
+    static fromJSON(config: SerenityBDDReporterConfig): StageCrewMemberBuilder<SerenityBDDReporter> {
+        return new SerenityBDDReporterBuilder(config);
+    }
 
     /**
-     * @param [stage=undefined] stage
+     * @param {Path} specDirectory
+     * @param {Stage} [stage]
+     *  The stage this {@apilink StageCrewMember} should be assigned to
      */
-    constructor(private stage?: Stage) {
+    constructor(
+        private readonly specDirectory: Path,
+        private stage?: Stage,
+    ) {
+        this.processors = new EventQueueProcessors(this.specDirectory)
     }
 
     /**
@@ -162,5 +177,54 @@ export class SerenityBDDReporter implements StageCrewMember {
 
     private isSceneSpecific(event: DomainEvent): event is DomainEvent & { sceneId: CorrelationId } {
         return Object.prototype.hasOwnProperty.call(event, 'sceneId');
+    }
+}
+
+class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDReporter> {
+
+    private readonly specDirectoryCandidates = [
+        `features`,
+        `spec`,
+        `tests`,
+        `test`,
+        `src`,
+    ];
+
+    constructor(private readonly config: SerenityBDDReporterConfig) {
+    }
+
+    build({ stage, fileSystem }: StageCrewMemberBuilderDependencies): SerenityBDDReporter {
+        ensure('stage', stage, isDefined());
+        ensure('fileSystem', fileSystem, isDefined());
+
+        return new SerenityBDDReporter(this.specDirectoryFrom(fileSystem), stage);
+    }
+
+    private specDirectoryFrom(fileSystem: FileSystem): Path {
+        return this.config.specDirectory
+            ? this.userDefinedSpecDir(fileSystem, this.config.specDirectory)
+            : this.guessedSpecDir(fileSystem);
+    }
+
+    private userDefinedSpecDir(fileSystem: FileSystem, configuredSpecDirectory: string): Path {
+        const specDirectory = Path.from(configuredSpecDirectory);
+
+        if (! fileSystem.exists(specDirectory)) {
+            throw new ConfigurationError(`Configured specDirectory \`${ this.config.specDirectory }\` does not exist`);
+        }
+
+        return fileSystem.resolve(specDirectory);
+    }
+
+    private guessedSpecDir(fileSystem: FileSystem): Path {
+        for (const candidate of this.specDirectoryCandidates) {
+            const candidateSpecDirectory = Path.from(candidate);
+            if (fileSystem.exists(Path.from(candidate))) {
+                return fileSystem.resolve(candidateSpecDirectory);
+            }
+        }
+
+        // default to current working directory
+        return fileSystem.resolve(Path.from('.'));
     }
 }
