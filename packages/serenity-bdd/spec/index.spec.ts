@@ -14,6 +14,7 @@ const { memfs } = require('memfs'); // Typings incorrectly assume the presence o
 describe('SerenityBDDReporter', () => {
 
     const stage = createStubInstance(Stage);
+    const cwd = Path.from(process.cwd());
 
     it('offers a default builder', () => {
         const reporter = SerenityBDDReporter({ specDirectory: 'features' }).build({
@@ -40,7 +41,7 @@ describe('SerenityBDDReporter', () => {
                 outputStream: undefined,
             });
 
-            expect((reporter as any).specDirectory).to.equal(Path.from(`/home/alice/my-project/${ specDirectory }`));
+            expect((reporter as any).specDirectory).to.equal(cwd.resolve(Path.from(`/home/alice/my-project/${ specDirectory }`)));
         })
 
         it('can be configured to use a custom spec directory, as long as it exists', () => {
@@ -51,7 +52,7 @@ describe('SerenityBDDReporter', () => {
                 outputStream: undefined,
             });
 
-            expect((reporter as any).specDirectory).to.equal(Path.from(`/home/alice/my-project/${ specDirectory }`));
+            expect((reporter as any).specDirectory).to.equal(cwd.resolve(Path.from(`/home/alice/my-project/${ specDirectory }`)));
         });
 
         it('complains if the custom spec directory does not exist', () => {
@@ -74,7 +75,7 @@ describe('SerenityBDDReporter', () => {
                 outputStream: undefined,
             });
 
-            expect((reporter as any).specDirectory).to.equal(Path.from(`/home/alice/my-project`));
+            expect((reporter as any).specDirectory).to.equal(cwd.resolve(Path.from(`/home/alice/my-project`)));
         });
     });
 });
