@@ -25,7 +25,11 @@ describe('ConsoleReporter', () => {
         stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory(), clock, interactionTimeout);
         emitter = new EventStreamEmitter(stage);
 
-        reporter = ConsoleReporter.forMonochromaticTerminals().build({ stage, outputStream: stdout });
+        reporter = ConsoleReporter.forMonochromaticTerminals().build({
+            stage,
+            fileSystem: undefined,  // Console Reporter doesn't use the file system, so we don't need it
+            outputStream: stdout,
+        });
 
         stage.assign(reporter);
     });

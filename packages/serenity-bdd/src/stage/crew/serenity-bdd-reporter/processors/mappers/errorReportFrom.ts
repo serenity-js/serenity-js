@@ -3,10 +3,10 @@ import { ErrorStackParser, RuntimeError } from '@serenity-js/core';
 import ansiRegex from 'ansi-regex';
 import { inspect } from 'util';
 
-import type { ErrorDetails } from '../../SerenityBDDJsonSchema';
+import type { ErrorDetailsSchema } from '../../serenity-bdd-report-schema';
 
 /** @package */
-export function errorReportFrom(error?: Error | string | number | boolean | object): ErrorDetails {
+export function errorReportFrom(error?: Error | string | number | boolean | object): ErrorDetailsSchema {
     return {
         ...errorDetailsOf(error),
         ...(error instanceof RuntimeError && (error as RuntimeError).cause)
@@ -16,7 +16,7 @@ export function errorReportFrom(error?: Error | string | number | boolean | obje
 }
 
 /** @package */
-function errorDetailsOf(maybeError: Error | string | number | boolean | object): ErrorDetails {
+function errorDetailsOf(maybeError: Error | string | number | boolean | object): ErrorDetailsSchema {
     return {
         errorType:  errorTypeOf(maybeError),
         message:    errorMessageOf(maybeError).replace(ansiRegex(), ''),

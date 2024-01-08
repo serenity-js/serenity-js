@@ -138,8 +138,8 @@ describe('SerenityBDDReporter', () => {
 
                     expect(report.testSteps).to.have.lengthOf(1);
                     expect(report.testSteps[0].screenshots).to.deep.equal([
-                        { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
-                        { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
+                        { screenshot: 'photo1.png', screenshotName: 'photo1.png', timeStamp: t1.toMilliseconds() },
+                        { screenshot: 'photo2.png', screenshotName: 'photo2.png', timeStamp: t2.toMilliseconds() },
                     ]);
                 });
         });
@@ -212,8 +212,8 @@ describe('SerenityBDDReporter', () => {
 
                     expect(report.testSteps).to.have.lengthOf(1);
                     expect(report.testSteps[0].screenshots).to.deep.equal([
-                        { screenshot: 'photo1.png', timeStamp: t1.toMilliseconds() },
-                        { screenshot: 'photo2.png', timeStamp: t2.toMilliseconds() },
+                        { screenshot: 'photo1.png', screenshotName: 'photo1.png', timeStamp: t1.toMilliseconds() },
+                        { screenshot: 'photo2.png', screenshotName: 'photo2.png', timeStamp: t2.toMilliseconds() },
                     ]);
                 });
         });

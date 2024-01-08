@@ -93,14 +93,14 @@ export interface TestStepSchema /* extends JSONObject */ {
     description: string;
     duration: number;
     exception?: ErrorDetailsSchema;
-    level: number;  // todo this is new
+    level?: number;  // todo this is new and doesn't seem to be used
     number: number;
-    precondition: boolean;  // todo this is new
+    precondition?: boolean;  // todo this is new and doesn't seem to be used
     reportData?: ReportDataSchema[];
     restQuery?: RESTQuerySchema;
     result: string;
     screenshots?: ScreenshotAndHtmlSourceSchema[];
-    startTime: string;  // todo date string instead of EPOCH
+    startTime: string;
 }
 
 /**
@@ -108,8 +108,8 @@ export interface TestStepSchema /* extends JSONObject */ {
  */
 export interface ScreenshotAndHtmlSourceSchema /* extends JSONObject */ {
     htmlSource?: string;
-    screenshot: string;
-    screenshotName: string;   // todo this is new
+    screenshot: string;       // todo: we could remove it in favour of 'screenshotName': https://github.com/serenity-bdd/serenity-core/blob/5bebe8e77cf0c4ea99e0d3d1035d54822bcde9af/serenity-model/src/main/java/net/thucydides/model/screenshots/ScreenshotAndHtmlSource.java#L32
+    screenshotName: string;   // this is now preferred over "screenshot": https://github.com/search?q=repo%3Aserenity-bdd%2Fserenity-core%20screenshotName&type=code
     timeStamp: number;
 }
 

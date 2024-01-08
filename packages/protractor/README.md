@@ -71,14 +71,6 @@ Learn more about [integrating Serenity/JS Protractor with Cucumber](https://sere
 
 ```typescript
 // protractor.conf.js
-
-// Import the Serenity/JS reporting services, a.k.a. the "Stage Crew Members"
-const
-    { ArtifactArchiver } = require('@serenity-js/core'),
-    { ConsoleReporter } = require('@serenity-js/console-reporter'),
-    { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
-    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd')
-
 exports.config = {
     // Tell Protractor to use the Serenity/JS framework Protractor Adapter
     framework:      'custom',

@@ -59,7 +59,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(context))
                 .when(SceneFinished,                    this.onSceneFinished(context))
                 .else(() => context),
-            new SceneSequenceReportContext()    // eslint-disable-line @typescript-eslint/indent
+            new SceneSequenceReportContext(this.specDirectory)    // eslint-disable-line @typescript-eslint/indent
         ).build();
     }
 

@@ -10,14 +10,14 @@ import {
 } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 
-import type { ErrorDetails } from '../../SerenityBDDJsonSchema';
+import type { ErrorDetailsSchema } from '../../serenity-bdd-report-schema';
 import { errorReportFrom } from './errorReportFrom';
 
 /**
  * @package
  */
-export function outcomeReportFrom(outcome: Outcome): { result: string, error?: ErrorDetails }  {
-    return match<Outcome, { result: string, error?: ErrorDetails }>(outcome).
+export function outcomeReportFrom(outcome: Outcome): { result: string, error?: ErrorDetailsSchema }  {
+    return match<Outcome, { result: string, error?: ErrorDetailsSchema }>(outcome).
         when(ExecutionCompromised, ({ error }: ExecutionCompromised) =>
             ({ result: 'COMPROMISED', error: errorReportFrom(error) })
         ).
