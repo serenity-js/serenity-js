@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 
 import { ConfigurationError } from '../../../src/errors';
-import { ClassDescriptionParser, ClassLoader, ModuleLoader } from '../../../src/io';
+import { ClassDescriptionParser, ClassLoader, ModuleLoader, trimmed } from '../../../src/io';
 import { expect } from '../../expect';
 import type { Example } from './examples/Example';
 import type { ExampleNoArgument } from './examples/ExampleNoArgument';
@@ -30,6 +30,11 @@ describe('ClassLoader', () => {
             expect(example.name).to.equal('example with no-arg constructor');
         });
 
+        it(`instantiates a class from a module providing a named export with a single-argument constructor function`, () => {
+            const example = loader.instantiate<Example>(['./examples/Example:Example', 'my example' ]);
+            expect(example.name).to.equal('my example');
+        });
+
         it('instantiates a class from a module providing a named export with a fromJSON factory method', () => {
             const example = loader.instantiate<ExampleWithFactoryMethod>([ './examples/module-with-factory-method:ExampleWithFactoryMethod', { name: 'custom name' } ]);
             expect(example.name).to.equal('custom name');
@@ -38,6 +43,11 @@ describe('ClassLoader', () => {
         it('instantiates a class from a module providing a default export with a fromJSON factory method', () => {
             const example = loader.instantiate<ExampleWithFactoryMethod>(['./examples/module-with-default-export-and-factory-method', { name: 'custom name' } ]);
             expect(example.name).to.equal('custom name');
+        });
+
+        it(`instantiates a class from a module providing a default export with a constructor function`, () => {
+            const example = loader.instantiate<Example>(['./examples/module-with-default-export', 'my example' ]);
+            expect(example.name).to.equal('my example');
         });
     });
 
@@ -55,28 +65,28 @@ describe('ClassLoader', () => {
             }).to.throw(ConfigurationError, `Module './examples/module-with-named-export' doesn't seem to export 'InvalidType'. Exported members include: 'ExampleNoArgument'`)
         });
 
-        it(`doesn't provide a default export with no no-arg constructor`, () => {
+        it(`provides an export that produces an undefined`, () => {
             expect(() => {
-                loader.instantiate('./examples/module-with-default-export')
-            }).to.throw(ConfigurationError, `Class 'default' exported by './examples/module-with-default-export' doesn't seem to offer a no-arg constructor`)
+                loader.instantiate('./examples/module-with-default-export-producing-undefined')
+            }).to.throw(ConfigurationError, trimmed`
+                | 'default' exported by './examples/module-with-default-export-producing-undefined' must be either:
+                | - a constructor function accepting config
+                | - a function accepting config`
+            )
         });
 
-        it(`doesn't provide a default export with no fromJSON method when a parameter is used`, () => {
+        it(`provides an export that requires a parameter when no parameter is given`, () => {
             expect(() => {
-                loader.instantiate(['./examples/module-with-default-export', { name: 'my example'} ]);
-            }).to.throw(ConfigurationError, `Class 'default' exported by './examples/module-with-default-export' needs a static fromJSON() method that accepts {"name":"my example"}`);
+                loader.instantiate('./examples/module-with-default-export-with-one-parameter')
+            }).to.throw(ConfigurationError, `'default' exported by './examples/module-with-default-export-with-one-parameter' must be a parameterless function since no config parameter is specified`)
         });
 
-        it(`doesn't provide a named export with no no-arg constructor`, () => {
+        it(`provides an export that requires more than one parameter when only one parameter is given`, () => {
             expect(() => {
-                loader.instantiate('./examples/Example:Example');
-            }).to.throw(ConfigurationError, `Class 'Example' exported by './examples/Example' doesn't seem to offer a no-arg constructor`);
-        });
-
-        it(`doesn't provide a named export with no fromJSON method when a parameter is used`, () => {
-            expect(() => {
-                loader.instantiate(['./examples/Example:Example', { name: 'my named export example'} ]);
-            }).to.throw(ConfigurationError, `Class 'Example' exported by './examples/Example' needs a static fromJSON() method that accepts {"name":"my named export example"}`);
+                loader.instantiate(['./examples/module-with-default-export-with-two-parameters', { name: 'my example' }])
+            }).to.throw(ConfigurationError, `'default' exported by './examples/module-with-default-export-with-two-parameters' `+
+                `must be a class with a static fromJSON(config) method or a function that accepts a single config parameter: {"name":"my example"}`
+            )
         });
     });
 });
