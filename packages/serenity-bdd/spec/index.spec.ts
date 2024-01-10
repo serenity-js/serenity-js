@@ -16,16 +16,16 @@ describe('SerenityBDDReporter', () => {
     const stage = createStubInstance(Stage);
     const cwd = Path.from(process.cwd());
 
-    it('offers a default builder', () => {
-        const reporter = SerenityBDDReporter({ specDirectory: 'features' }).build({
-            stage,
-            fileSystem: fileSystem({ '/home/alice/my-project': { 'features': {} } }),
-            outputStream: undefined,
-        });
-        expect(reporter.assignedTo).to.be.a('function');
-    });
+    describe('factory method', () => {
 
-    describe('default builder', () => {
+        it('instantiates the reporter based on provided configuration', () => {
+            const reporter = SerenityBDDReporter.fromJSON({ specDirectory: 'features' }).build({
+                stage,
+                fileSystem: fileSystem({ '/home/alice/my-project': { 'features': {} } }),
+                outputStream: undefined,
+            });
+            expect(reporter.assignedTo).to.be.a('function');
+        });
 
         given([
             `features`,
@@ -35,7 +35,7 @@ describe('SerenityBDDReporter', () => {
             `src`,
         ]).
         it('auto-detects the spec directory ', (specDirectory) => {
-            const reporter = SerenityBDDReporter({ specDirectory: specDirectory }).build({
+            const reporter = SerenityBDDReporter.fromJSON({ specDirectory: specDirectory }).build({
                 stage,
                 fileSystem: fileSystem({ '/home/alice/my-project': { [`${ specDirectory }`]: {} } }),
                 outputStream: undefined,
@@ -46,7 +46,7 @@ describe('SerenityBDDReporter', () => {
 
         it('can be configured to use a custom spec directory, as long as it exists', () => {
             const specDirectory = 'e2e';
-            const reporter = SerenityBDDReporter({ specDirectory }).build({
+            const reporter = SerenityBDDReporter.fromJSON({ specDirectory }).build({
                 stage,
                 fileSystem: fileSystem({ '/home/alice/my-project': { [`${ specDirectory }`]: {} } }),
                 outputStream: undefined,
@@ -59,7 +59,7 @@ describe('SerenityBDDReporter', () => {
             const specDirectory = 'e2e';
 
             expect(() =>
-                SerenityBDDReporter({ specDirectory }).build({
+                SerenityBDDReporter.fromJSON({ specDirectory }).build({
                     stage,
                     fileSystem: fileSystem({ '/home/alice/my-project': {} }),
                     outputStream: undefined,
@@ -69,7 +69,7 @@ describe('SerenityBDDReporter', () => {
 
         it('defaults to the current working directory when no custom specDirectory is provided', () => {
             const specDirectory = undefined;
-            const reporter = SerenityBDDReporter({ specDirectory }).build({
+            const reporter = SerenityBDDReporter.fromJSON({ specDirectory }).build({
                 stage,
                 fileSystem: fileSystem({ '/home/alice/my-project': { } }),
                 outputStream: undefined,

@@ -1,6 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { default as SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { cpus } from 'os';
@@ -82,7 +82,7 @@ export const config: WebdriverIOConfig = {
             new TestRunnerTagger('webdriverio'),
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
             Photographer.whoWill(TakePhotosOfFailures),
-            SerenityBDDReporter({
+            SerenityBDDReporter.fromJSON({
                 specDirectory: '.'
             }),
         ]

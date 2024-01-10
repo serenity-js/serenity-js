@@ -2,7 +2,7 @@ const { TestRunnerTagger } = require('@integration/testing-tools');
 const { ArtifactArchiver, NoOpDiffFormatter } = require('@serenity-js/core');
 const { ConsoleReporter } = require('@serenity-js/console-reporter');
 const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web');
-const SerenityBDDReporter = require('@serenity-js/serenity-bdd').default;
+const { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
 
 const port = process.env.PORT || 8080;
 
@@ -34,7 +34,7 @@ exports.config = {
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
             // Photographer.whoWill(TakePhotosOfInteractions),
             Photographer.whoWill(TakePhotosOfFailures),
-            SerenityBDDReporter({
+            SerenityBDDReporter.fromJSON({
                 specDirectory: '.'
             }),
             ConsoleReporter.forDarkTerminals(),
