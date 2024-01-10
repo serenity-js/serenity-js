@@ -1,8 +1,4 @@
-const { TestRunnerTagger } = require('@integration/testing-tools');
-const { ArtifactArchiver, NoOpDiffFormatter } = require('@serenity-js/core');
-const { ConsoleReporter } = require('@serenity-js/console-reporter');
-const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web');
-const { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
+const { NoOpDiffFormatter } = require('@serenity-js/core');
 
 const port = process.env.PORT || 8080;
 
@@ -30,16 +26,13 @@ exports.config = {
         runner: 'mocha',
         diffFormatter: new NoOpDiffFormatter(),
         crew: [
-            new TestRunnerTagger('protractor'),
-            ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
-            // Photographer.whoWill(TakePhotosOfInteractions),
-            Photographer.whoWill(TakePhotosOfFailures),
-            SerenityBDDReporter.fromJSON({
-                specDirectory: '.'
-            }),
-            ConsoleReporter.forDarkTerminals(),
+            // [ '@serenity-js/console-reporter', { theme: 'dark' } ],
+            [ '@integration/testing-tools:TestRunnerTagger', 'protractor' ],
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: `${ process.cwd() }/target/site/serenity` } ],
+            [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ],
+            [ '@serenity-js/serenity-bdd', { specDirectory: '.' } ],
         ]
-        .concat(process.env.CI && ConsoleReporter.withDefaultColourSupport())
+        .concat(process.env.CI && [ '@serenity-js/console-reporter', { theme: 'dark' } ])
         .filter(Boolean)
     },
 

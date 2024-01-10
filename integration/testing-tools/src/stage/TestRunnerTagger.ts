@@ -4,6 +4,10 @@ import { ArbitraryTag } from '@serenity-js/core/lib/model';
 
 export class TestRunnerTagger implements StageCrewMember {
 
+    static fromJSON(tagName: string) {
+        return new TestRunnerTagger(tagName);
+    }
+
     constructor(
         private readonly tagName: string,
         private stage?: Stage,
