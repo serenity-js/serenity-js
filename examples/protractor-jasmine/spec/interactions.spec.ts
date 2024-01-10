@@ -6,7 +6,7 @@ import { Navigate, Page } from '@serenity-js/web';
 
 import { Actors } from './support/Actors';
 
-describe('Interaction flow', () => {
+describe('Interactions', () => {
 
     beforeEach(() => engage(new Actors()));
 

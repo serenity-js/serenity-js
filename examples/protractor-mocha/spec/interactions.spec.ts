@@ -11,7 +11,7 @@ import { Actors } from './support/Actors';
  * This example demonstrates retrying a failed scenario,
  * with the number of retries configured in protractor.conf.js.
  */
-describe('Interaction flow', () => {
+describe('Interactions', () => {
 
     beforeEach(() => engage(new Actors()));
 

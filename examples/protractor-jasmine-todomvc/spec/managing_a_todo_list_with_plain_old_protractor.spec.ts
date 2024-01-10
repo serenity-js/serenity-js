@@ -1,6 +1,6 @@
 import { browser, by, element, ExpectedConditions, protractor } from 'protractor';
 
-describe('Todo List App', function () {
+describe('Managing a todo list with plain old Protractor', function () {
 
     // Test script style
     describe('test script', () => {

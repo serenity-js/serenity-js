@@ -1,16 +1,16 @@
 import 'jasmine';
 
-import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver, configure } from '@serenity-js/core';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import * as path from 'path';
+import { configure } from '@serenity-js/core';
 
 // eslint-disable-next-line mocha/no-top-level-hooks
 beforeAll(() => {
     configure({
         crew: [
-            ArtifactArchiver.storingArtifactsAt(__dirname, '../../target/site/serenity'),
-            new SerenityBDDReporter(),
-            ConsoleReporter.forDarkTerminals(),
+            // '@serenity-js/core:StreamReporter',
+            [ '@serenity-js/console-reporter', { theme: 'auto' } ],
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: path.resolve(__dirname, '../../target/site/serenity') } ],
+            '@serenity-js/serenity-bdd',
         ],
     });
 });

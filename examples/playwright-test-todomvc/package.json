@@ -24,7 +24,7 @@
     "clean": "rimraf target",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "playwright test --config playwright.config.ts",
-    "test:report": "serenity-bdd run --shortFilenames=false --log=debug",
+    "test:report": "serenity-bdd run --shortFilenames=false --log=debug --features=spec",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:chromium": "playwright test --config playwright.config.ts --project chromium",
     "test:firefox": "playwright test --config playwright.config.ts --project firefox",
