@@ -5,6 +5,6 @@ import { SerenityBDDReporter } from './stage';
 
 export * from './stage';
 
-export default function create(config?: SerenityBDDReporterConfig): StageCrewMemberBuilder<SerenityBDDReporter> {
-    return SerenityBDDReporter.fromJSON(config || {});
+export default function create(config: SerenityBDDReporterConfig = {}): StageCrewMemberBuilder<SerenityBDDReporter> {
+    return SerenityBDDReporter.fromJSON(config);
 }
