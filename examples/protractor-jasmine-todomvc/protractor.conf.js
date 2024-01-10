@@ -1,10 +1,3 @@
-const
-    path = require('path'),
-    { ConsoleReporter } = require('@serenity-js/console-reporter'),
-    { ArtifactArchiver } = require('@serenity-js/core'),
-    { Photographer, TakePhotosOfInteractions } = require('@serenity-js/web'),
-    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
-
 exports.config = {
     ...require('../../protractor.conf'),
 
@@ -16,17 +9,30 @@ exports.config = {
     serenity: {
         runner: 'jasmine',
         crew: [
-            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            Photographer.whoWill(TakePhotosOfInteractions),
-            new SerenityBDDReporter(),
-            ConsoleReporter.forDarkTerminals(),
+            // '@serenity-js/core:StreamReporter',
+            [ '@serenity-js/console-reporter', { theme: 'auto' } ],
+            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+            [ '@serenity-js/web:Photographer', {
+                strategy: 'TakePhotosOfFailures',
+                // strategy: 'TakePhotosOfInteractions',
+            } ],
+            [ '@serenity-js/serenity-bdd', { specDirectory: 'spec' } ],
         ]
+    },
+
+    onPrepare: function() {
+        require('ts-node/register');
+
+        /**
+         * If you're interacting with a non-Angular application,
+         * uncomment the below onPrepare section,
+         * which disables Angular-specific test synchronisation.
+         */
+        // browser.waitForAngularEnabled(false);
     },
 
     jasmineNodeOpts: {
         requires: [
-            'ts-node/register',
-            path.resolve(__dirname, 'node_modules/@serenity-js/jasmine'),
         ],
         helpers: [
             'spec/config/*.ts'
