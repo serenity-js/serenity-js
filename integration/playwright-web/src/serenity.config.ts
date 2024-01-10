@@ -1,6 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { default as SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import * as playwright from 'playwright-core';
 
 import { Actors } from './Actors';
@@ -24,7 +24,7 @@ export const mochaHooks = {
                 new TestRunnerTagger('playwright'),
                 ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
                 // Photographer.whoWill(TakePhotosOfFailures),
-                SerenityBDDReporter({
+                SerenityBDDReporter.fromJSON({
                     specDirectory: './node_modules/@integration/web-specs/spec'
                 }),
                 // ConsoleReporter.forDarkTerminals(),

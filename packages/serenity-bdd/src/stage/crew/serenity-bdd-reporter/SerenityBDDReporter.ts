@@ -1,12 +1,11 @@
-import type { Stage, StageCrewMember , StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
+import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
 import { ConfigurationError, DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
-import type { FileSystem} from '@serenity-js/core/lib/io';
+import type { FileSystem } from '@serenity-js/core/lib/io';
 import { Path } from '@serenity-js/core/lib/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
-import { isDefined } from 'tiny-types';
-import { ensure } from 'tiny-types';
+import { ensure, isDefined } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
 import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
@@ -24,8 +23,12 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *
  * configure({
  *   crew: [
- *     ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
- *     new SerenityBDDReporter()
+ *     ArtifactArchiver.fromJSON({
+ *       outputDirectory: './target/site/serenity'
+ *     }),
+ *     SerenityBDDReporter.fromJSON({
+ *       specDirectory: './features'            // optional configuration
+ *     })
  *   ],
  * })
  * ```
@@ -56,8 +59,6 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *
  * ```ts
  * // wdio.conf.ts
- * import { ArtifactArchiver } from '@serenity-js/core';
- * import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
  * import { WebdriverIOConfig } from '@serenity-js/webdriverio';
  *
  * export const config: WebdriverIOConfig = {
@@ -79,10 +80,6 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *
  * ```js
  * // protractor.conf.js
- * const
- *   { ArtifactArchiver }    = require('@serenity-js/core'),
- *   { SerenityBDDReporter } = require('@serenity-js/serenity-bdd')
- *
  * exports.config = {
  *   framework:     'custom',
  *   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
@@ -98,6 +95,26 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *   // other Protractor config
  * }
  * ```
+ *
+ * ## Configuring Serenity BDD Reporter
+ *
+ * To override Serenity BDD Reporter default configuration, provide a {@link SerenityBDDReporterConfig} as the second element of the {@link SerenityConfig.crew} array
+ * using your test runner-specific configuration mechanism.
+ *
+ * For example, to change the default location
+ * of the [requirements hierarchy root directory](https://serenity-bdd.github.io/docs/reporting/living_documentation#the-requirements-hierarchy),
+ * specify the `specDirectory` property:
+ *
+ * ```js
+ *     crew: [
+ *       [ '@serenity-js/serenity-bdd', { specDirectory: './features' } ],
+ *       // ...
+ *     ],
+ * ```
+ *
+ * ### Learn more:
+ * - [Serenity BDD Reporter integration documentation](/handbook/reporting/serenity-bdd-reporter/)
+ * - [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples)
  *
  * @group Stage
  */
@@ -118,7 +135,7 @@ export class SerenityBDDReporter implements StageCrewMember {
         private readonly specDirectory: Path,
         private stage?: Stage,
     ) {
-        this.processors = new EventQueueProcessors(this.specDirectory)
+        this.processors = new EventQueueProcessors(ensure('specDirectory', specDirectory, isDefined()));
     }
 
     /**
