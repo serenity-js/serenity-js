@@ -46,7 +46,7 @@ This can be done:
 - via `playwright.config.ts`, if you're using Serenity/JS with [Playwright Test](https://serenity-js.org/api/playwright-test)
 - via `wdio.conf.ts`, if you're using Serenity/JS with [WebdriverIO](https://serenity-js.org/api/playwright-test)
 - via `protractor.conf.js`, if you're using Serenity/JS with [Protractor](https://serenity-js.org/api/protractor)
-- or programmatically.
+- programmatically
 
 #### Usage with Playwright Test
 
@@ -131,10 +131,28 @@ import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
 
 configure({
     crew: [
-        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-        new SerenityBDDReporter()
+        ArtifactArchiver.fromJSON({
+            outputDirectory: './target/site/serenity',
+        }),
+        SerenityBDDReporter.fromJSON({
+            specDirectory: './spec',
+        })
     ],
 })
+```
+
+#### Overriding default configuration
+
+By default, SerenityBDDReporter tries to [automatically detect](https://serenity-js.org/api/serenity-bdd/interface/SerenityBDDReporterConfig/#specDirectory)
+the root directory of your [requirements hierarchy](https://serenity-bdd.github.io/docs/reporting/living_documentation#the-requirements-hierarchy).
+
+If you're using a non-standard directory structure, 
+you can override the defaults in the [`crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew) section of your config as follows:
+
+```ts
+  crew: [
+    [ '@serenity-js/serenity-bdd', { specDirectory: './e2e-specs' } ],    
+  ]
 ```
 
 ### Serenity BDD Living Documentation

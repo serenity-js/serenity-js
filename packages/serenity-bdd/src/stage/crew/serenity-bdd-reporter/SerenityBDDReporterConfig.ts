@@ -10,7 +10,7 @@ export interface SerenityBDDReporterConfig {
      * to determine the [requirements hierarchy](https://serenity-bdd.github.io/docs/reporting/living_documentation#the-requirements-hierarchy),
      * relative to the current working directory.
      *
-     * If not specified, `specDir` defaults to the first one of the following subdirectories that's present in the current working
+     * If not specified, `specDirectory` defaults to the first one of the following subdirectories that's present in the current working
      * directory:
      * - `features` - typically used by [Serenity/JS + Cucumber.js](/handbook/test-runners/cucumber/) projects to store `.feature` files
      * - `spec` - typically used by [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects to store `.spec.js` files
@@ -18,9 +18,9 @@ export interface SerenityBDDReporterConfig {
      * - `test` - typically used by [Serenity/JS + WebdriverIO](/handbook/test-runners/webdriverio/) projects to store `.spec.ts` files
      * - `src` - typically used by [Serenity/JS + Playwright Component Test](/api/playwright-test/#ui-component-testing) projects to store `.spec.ts` files alongside the source code
      *
-     * If not specified and none of the above subdirectories are present, `specDir` defaults to the current working directory.
+     * If not specified and none of the above subdirectories are present, `specDirectory` defaults to the current working directory.
      *
-     * If `specDir` _is_ specified, but the directory doesn't exist, SerenityBDDReporter throws a {@link ConfigurationError}.
+     * If `specDirectory` _is_ specified, but the directory doesn't exist, SerenityBDDReporter throws a {@link ConfigurationError}.
      *
      * **IMPORTANT**: For the Serenity BDD CLI Reporter to correctly parse the requirements hierarchy and recognise your test scenarios,
      * your test scenario files must be named using either:
