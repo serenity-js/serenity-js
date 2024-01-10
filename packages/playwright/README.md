@@ -48,11 +48,9 @@ and review the [Serenity/JS Cucumber and Playwright Project Template](https://gi
 
 ```typescript
 import { Ensure, equals } from '@serenity-js/assertions'
-import { actorCalled, Actor, ArtifactArchiver, Cast, configure, Duration } from '@serenity-js/core'
-import { ConsoleReporter } from '@serenity-js/console-reporter'
+import { actorCalled, Actor, Cast, configure, Duration } from '@serenity-js/core'
 import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
-import { By, Navigate, PageElement, Photographer, TakePhotosOfFailures, Text } from '@serenity-js/web'
+import { By, Navigate, PageElement, TakePhotosOfFailures, Text } from '@serenity-js/web'
 
 import { describe, it, beforeAll, afterAll } from 'mocha'
 import * as playwright from 'playwright'
@@ -101,10 +99,13 @@ describe('Serenity/JS', () => {
                     defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
             }),
             crew: [
-                ArtifactArchiver.storingArtifactsAt(`./target/site/serenity`),
-                Photographer.whoWill(TakePhotosOfFailures),
-                new SerenityBDDReporter(),
-                ConsoleReporter.forDarkTerminals(),
+                [ '@serenity-js/console-reporter', { theme: 'auto' } ],
+                [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                [ '@serenity-js/web:Photographer', {
+                    strategy: 'TakePhotosOfFailures',
+                    // strategy: 'TakePhotosOfInteractions',
+                } ],
+                [ '@serenity-js/serenity-bdd', { specDirectory: 'spec' } ],
             ]
         })
     })

@@ -72,6 +72,19 @@ configure({
 })
 ```
 
+To override the [default configuration](/api/serenity-bdd/interface/SerenityBDDReporterConfig/#Properties) of the reporter, provide a [SerenityBDDReporterConfig](/api/serenity-bdd/interface/SerenityBDDReporterConfig/) as the second element of the array:
+
+```typescript
+import { configure } from '@serenity-js/core'
+
+configure({
+    crew: [
+        [ '@serenity-js/serenity-bdd', { specDirectory: './features' } ],
+        [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+    ]
+})
+```
+
 To learn how to configure Serenity BDD Reporter with your test runner, [follow the API documentation](/api/serenity-bdd).
 
 ### Reporting

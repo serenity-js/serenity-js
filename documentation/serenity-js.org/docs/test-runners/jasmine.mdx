@@ -99,9 +99,7 @@ defined in a Jasmine helper file:
 ```ts title="spec/helpers/serenity.config.ts" tab
 import 'jasmine'
 
-import { ArtifactArchiver, configure } from '@serenity-js/core'
-import { ConsoleReporter } from '@serenity-js/console-reporter'
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
+import { configure } from '@serenity-js/core'
 
 beforeAll(async () => {
     // Configure Serenity/JS
