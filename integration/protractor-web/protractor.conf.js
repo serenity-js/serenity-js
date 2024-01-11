@@ -32,7 +32,7 @@ exports.config = {
             [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ],
             [ '@serenity-js/serenity-bdd', { specDirectory: '.' } ],
         ]
-        .concat(process.env.CI && [ '@serenity-js/console-reporter', { theme: 'dark' } ])
+        .concat(process.env.CI && [ [ '@serenity-js/console-reporter', { theme: 'dark' } ] ])
         .filter(Boolean)
     },
 
