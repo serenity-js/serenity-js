@@ -174,7 +174,23 @@ Learn more about [configuring Serenity/JS programmatically](/api/core/class/Sere
 
 #### Serenity/JS 3 vs Serenity/JS 2 configuration syntax
 
+If your project still uses the Serenity/JS 2 configuration syntax, you should update it to follow the Serenity/JS 3 convention:
 
+```diff
+- import { ArtifactArchiver } from '@serenity-js/core';
+- import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+
+// ...
+    crew: [
+-     new SerenityBDDReporter(),
+-     ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
++     '@serenity-js/serenity-bdd',
++     [ '@serenity-js/core:ArtifactArchiver', {
++       outputDirectory: 'target/site/serenity'
++     } ],
+    ]
+// ...
+```
 
 ### Using Serenity BDD CLI
 
@@ -361,7 +377,7 @@ To learn more about the `run` command and how to change the defaults, run:
 npx serenity-bdd --help run
 ```
 
-## Serenity BDD best practices
+## Serenity BDD Best Practices
 
 While Serenity BDD generates great test reports out of the box,
 by following a few simple best practices you can turn them into proper [living documentation](https://serenity-bdd.github.io/docs/reporting/living_documentation)
@@ -460,6 +476,46 @@ spec
 |     |- monthly_report.spec.ts
 |     |- unexpected_user_activity_alerting.spec.ts
 |     \- README.md
+```
+
+#### Requirements hierarchy for web UI component testing projects
+
+If you're using Serenity/JS to test [web UI components](/handbook/getting-started/project-templates/#web-component-testing), you might be following the popular convention of storing your spec files next to the component they're testing:
+
+```
+src
+\- components
+   |- authentication
+   |  |- input-fields
+   |  |  |- EmailField.ts
+   |  |  |- EmailField.spec.ts
+   |  |  |- PasswordField.ts
+   |  |  |- PasswordField.spec.ts
+   |  |  \- README.md
+   |  |- LoginForm.ts
+   |  |- LoginForm.spec.ts
+   |  \- README.md
+   |
+   \- shopping_cart
+```
+
+If your UI components and their specs are stored in a top-level directory called `src`, Serenity BDD will recognise the `src` directory as the root of your requirements hierarchy and will group the specs accordingly.
+If your top-level directory has a different name, you can configure the `specDirectory` property of the `SerenityBDDReporter` and the `--features` parameter of `serenity-bdd run` command with a different value.
+
+When using the above directory structure, make sure that the outermost `describe` block in your spec files has a name matching the name of the component being tested, for example:
+
+```typescript title="EmailField.spec.ts"
+import { test as componentTest } from '@playwright/experimental-ct-react';
+import { useBase } from '@serenity-js/playwright-test';
+
+const { it, describe } = useBase(componentTest);
+
+describe('EmailField', () => {
+
+    it('allows the user to enter a valid address', async ({ actor }) => {
+        // ...
+    });
+})
 ```
 
 ### File naming conventions
