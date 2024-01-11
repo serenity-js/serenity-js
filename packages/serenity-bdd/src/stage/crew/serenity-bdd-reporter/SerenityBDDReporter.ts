@@ -9,6 +9,7 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
 import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
+import { SpecDirectory } from './SpecDirectory';
 
 /**
  * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
@@ -199,14 +200,6 @@ export class SerenityBDDReporter implements StageCrewMember {
 
 class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDReporter> {
 
-    private readonly specDirectoryCandidates = [
-        `features`,
-        `spec`,
-        `tests`,
-        `test`,
-        `src`,
-    ];
-
     constructor(private readonly config: SerenityBDDReporterConfig) {
     }
 
@@ -234,14 +227,6 @@ class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDRe
     }
 
     private guessedSpecDir(fileSystem: FileSystem): Path {
-        for (const candidate of this.specDirectoryCandidates) {
-            const candidateSpecDirectory = Path.from(candidate);
-            if (fileSystem.exists(Path.from(candidate))) {
-                return fileSystem.resolve(candidateSpecDirectory);
-            }
-        }
-
-        // default to current working directory
-        return fileSystem.resolve(Path.from('.'));
+        return new SpecDirectory(fileSystem).guessLocation();
     }
 }

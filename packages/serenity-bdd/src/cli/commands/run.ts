@@ -1,7 +1,6 @@
 import { actorCalled, configure } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
-import * as path from 'path';   // eslint-disable-line unicorn/import-style
-
+import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import * as path from 'path'; // eslint-disable-line unicorn/import-style
 import type { Argv } from '../Argv';
 import { defaults } from '../defaults';
 import { formatError } from '../io';
@@ -9,8 +8,11 @@ import { GAV } from '../model';
 import { Printer } from '../Printer';
 import { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } from '../screenplay';
 import { NotificationReporter, ProgressReporter, RunCommandActors } from '../stage';
+import { SpecDirectory } from '../../stage/crew/serenity-bdd-reporter/SpecDirectory';
 
 const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
+
+const cwd = new Path(process.cwd());
 
 export = {
     command: 'run',
@@ -25,8 +27,8 @@ export = {
             describe: 'A relative path to the directory where the Serenity BDD report should be produced',
         },
         features: {
-            default:   defaults.featuresDir,
-            describe: 'A relative path to the directory containing the Cucumber.js feature files',
+            default:   cwd.relative(new SpecDirectory(new FileSystem(cwd)).guessLocation()),
+            describe: 'A relative path to the requirements hierarchy root directory, such as "./features" or "./spec"',
         },
         artifact: {
             default:   defaults.artifact,
@@ -46,7 +48,7 @@ export = {
             describe: `Base URL of your JIRA server`,
         },
         project: {
-            default: path.basename(process.cwd()),
+            default: cwd.basename(),
             describe: `Project name to appear in the Serenity reports`,
         },
         shortFilenames: {
@@ -69,7 +71,7 @@ export = {
             moduleRoot = path.resolve(__dirname, '../../../');
 
         configure({
-            actors: new RunCommandActors(new Path(process.cwd())),
+            actors: new RunCommandActors(cwd),
             crew: [
                 new NotificationReporter(printer),
                 new ProgressReporter(printer),

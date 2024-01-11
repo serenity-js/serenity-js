@@ -19,6 +19,5 @@ export const defaults = {
     cacheDir:    'node_modules/@serenity-js/serenity-bdd/cache',
     sourceDir:   'target/site/serenity',
     reportDir:   'target/site/serenity',
-    featuresDir: 'features',
     log:         'warn',
 };
