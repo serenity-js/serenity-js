@@ -1,4 +1,5 @@
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import type { FileSystem} from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/lib/io';
 
 export class SpecDirectory {
 
