@@ -1,0 +1,44 @@
+---
+slug: support-for-serenity-bdd-4
+title: Support for Serenity BDD 4
+authors: [jan-molak]
+tags:
+  - web
+  - rest
+  - reporting
+  - jasmine
+  - mocha
+  - protractor
+  - webdriverio
+  - playwright-test
+  - open-source
+---
+
+
+[**Serenity/JS 3.15.0**](/changelog/3.15.0) introduces support for **Serenity BDD 4** and aggregated test reports for Playwright Test, WebdriverIO, Mocha, Jasmine and Cucumber! 🥳
+
+We've also updated the Serenity/JS Handbook to help you get the most out of the new Serenity/JS and Serenity BDD reporting features - check out:
+- [Reporting > Serenity BDD Reporter](/handbook/reporting/serenity-bdd-reporter/)
+- [Serenity BDD best practices](/handbook/reporting/serenity-bdd-reporter/#serenity-bdd-best-practices) (NEW!)
+
+### Important changes
+
+If you're still using the Serenity/JS 2-style syntax for registering the `SerenityBDDReporter`, you'll need to update your configuration file to use the Serenity/JS 3 convention:
+
+```diff
+- import { ArtifactArchiver } from '@serenity-js/core';
+- import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+
+// ...
+    crew: [
+-     new SerenityBDDReporter(),
+-     ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
++     '@serenity-js/serenity-bdd',
++     [ '@serenity-js/core:ArtifactArchiver', {
++       outputDirectory: 'target/site/serenity'
++     } ],
+    ]
+// ...
+```
+
+Learn more about [Configuring Serenity BDD Reporter](/handbook/reporting/serenity-bdd-reporter/#configuring-the-serenity-bdd-reporter)

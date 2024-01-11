@@ -207,6 +207,7 @@ const config = {
                 additionalLanguages: [
                     'docker',
                     'gherkin',
+                    'properties',
                 ],
             },
             mermaid: {
