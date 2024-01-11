@@ -184,7 +184,7 @@ To produce Serenity BDD reports, your test suite must:
 - produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#configuring-serenityjs)
 - invoke the Serenity BDD CLI when you want to produce the report, by calling `serenity-bdd run`
 
-The pattern used by all the [Serenity/JS Project Templates](/handbook/getting-started#serenityjs-project-templates) relies
+The pattern used by all the [Serenity/JS Project Templates](/handbook/getting-started/project-templates/) relies
 on using:
 - a [`postinstall`](https://docs.npmjs.com/cli/v9/using-npm/scripts#life-cycle-operation-order) NPM script to download the Serenity BDD CLI
 - [`npm-failsafe`](https://www.npmjs.com/package/npm-failsafe) to run the reporting process even if the test suite itself has failed (which is precisely when you need test reports the most...).

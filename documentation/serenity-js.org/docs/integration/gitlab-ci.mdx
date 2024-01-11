@@ -18,7 +18,7 @@ to run automated acceptance tests built using Serenity/JS and publish test execu
 ## Writing tests
 
 To run your automated tests on GitLab CI you first need to write them 😊
-The easiest way to get started with automating tests using Serenity/JS is to use one of the available [**Serenity/JS Project Templates**](/handbook/getting-started#serenityjs-project-templates)
+The easiest way to get started with automating tests using Serenity/JS is to use one of the available [**Serenity/JS Project Templates**](/handbook/getting-started/project-templates/)
 as they come with example scenarios and combine some of the most popular configurations of Serenity/JS modules and test automation tools:
 
 - [REST API testing with Cucumber and Serenity/JS](https://github.com/serenity-js/serenity-js-cucumber-template)
@@ -132,7 +132,7 @@ serenity:
 - In our example, `script` runs:
     - `npm ci`, which installs the Node.js modules that your automation projects depends on
     - `npm test`, which invokes the [`test` script](https://docs.npmjs.com/cli/v8/commands/npm-test) defined in your [`package.json`](https://docs.npmjs.com/cli/v9/configuring-npm/package-json)
-- Since all the [**Serenity/JS Project Templates**](/handbook/getting-started#serenityjs-project-templates) are configured to run tests via `npm test` and produce [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter) under `target/site/serenity`,
+- Since all the [**Serenity/JS Project Templates**](/handbook/getting-started/project-templates/) are configured to run tests via `npm test` and produce [Serenity BDD reports](/handbook/reporting/serenity-bdd-reporter) under `target/site/serenity`,
   we configure GitLab to archive any [`artifacts`](https://docs.gitlab.com/ee/ci/yaml/#artifacts) under `target`. This way you can [inspect them in GitLab UI](https://docs.gitlab.com/ee/ci/jobs/job_artifacts.html) or use them in subsequent stages of your pipeline.
 
 ## Generating Serenity BDD reports

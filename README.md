@@ -24,7 +24,7 @@
 [Serenity/JS](https://serenity-js.org) is an innovative framework designed to make acceptance and regression testing
 of complex software systems faster, more collaborative and easier to scale.
 
-To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates](https://serenity-js.org/handbook/getting-started#serenityjs-project-templates)  on GitHub.
+To get started, check out the comprehensive [Serenity/JS Handbook](https://serenity-js.org/handbook), [API documentation](https://serenity-js.org/api/core), and [Serenity/JS project templates](https://serenity-js.org/handbook/getting-started/project-templates/)  on GitHub.
 
 If you have any questions or just want to say hello, join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im).
 
