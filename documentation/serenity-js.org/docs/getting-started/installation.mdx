@@ -51,7 +51,7 @@ for example:
 
 Serenity/JS delegates the work of generating the illustrated HTML reports to [Serenity BDD](http://serenity-bdd.info/),
 which is a Java library and therefore requires
-a [Java Runtime Environment (JRE)](http://www.oracle.com/technetwork/java/javase/overview/index.html) **version 8** or newer.
+a [Java Runtime Environment (JRE)](http://www.oracle.com/technetwork/java/javase/overview/index.html) **version 11** or newer.
 
 You can download the JRE from [oracle.com](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html),
 [adoptopenjdk.net](https://adoptopenjdk.net/),
@@ -64,9 +64,9 @@ java -version
 ```
 The output should look similar to the following:
 ```shell
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+openjdk 21.0.1 2023-10-17 LTS
+OpenJDK Runtime Environment Temurin-21.0.1+12 (build 21.0.1+12-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.1+12 (build 21.0.1+12-LTS, mixed mode)
 ```
 
 If you're working with several versions of the Java platform simultaneously, please make sure that you point
@@ -76,11 +76,8 @@ On macOS this could be:
 
 ```shell
 echo $JAVA_HOME
-/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
+/Users/jan/.sdkman/candidates/java/21.0.1-tem
 ```
-
-Please consult the [Oracle documentation](https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html)
-for more details.
 
 ## Creating a Node.js project
 
