@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/serenity-js/serenity-js/compare/v3.14.2...v3.15.0) (2024-01-12)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.0.43 ([e1d22e9](https://github.com/serenity-js/serenity-js/commit/e1d22e92e120c7b6205ffe63dc22ebba5844e7ba)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+
+
+### Features
+
+* **serenity-bdd:** auto-detect requirements hierarchy root directory ([e2011b0](https://github.com/serenity-js/serenity-js/commit/e2011b0b95565d67e8ee785f3e197f827703a934)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD 4 ([c15c366](https://github.com/serenity-js/serenity-js/commit/c15c3660f957c21c367f8f27218a05d3fbca78de)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD 4 ([0760417](https://github.com/serenity-js/serenity-js/commit/0760417e2fa3e9fbfc78cd9965052531625bf45e))
+* **serenity-bdd:** support for Serenity BDD CLI v4.0.40 ([271068e](https://github.com/serenity-js/serenity-js/commit/271068e7ff64659138c5662cd3b8ae93bc7a7438)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD v4 CLI ([6988248](https://github.com/serenity-js/serenity-js/commit/69882485ce28bb18e502b3f49740a4f82aedaa1d)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147) [#2042](https://github.com/serenity-js/serenity-js/issues/2042)
+
+
+
+
+
 ## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

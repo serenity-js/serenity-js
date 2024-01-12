@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/serenity-js/serenity-js/compare/v3.14.2...v3.15.0) (2024-01-12)
+
+
+### Bug Fixes
+
+* **cucumber:** upgraded Cucumber to 10.2.1 ([2665c4a](https://github.com/serenity-js/serenity-js/commit/2665c4aa5e9b8e26239c9bdff414fb56779c8b1b))
+* **deps:** update dependency @giscus/react to v2.4.0 ([30681d5](https://github.com/serenity-js/serenity-js/commit/30681d55ef4e688a51846e3c251df8f4f4e95562))
+* **deps:** update dependency moment to v2.30.1 ([42ec5c3](https://github.com/serenity-js/serenity-js/commit/42ec5c3b0052a0f939eec761a06ad83c632c7eb8))
+* **deps:** update dependency typedoc-plugin-mdn-links to v3.1.8 ([7a559d0](https://github.com/serenity-js/serenity-js/commit/7a559d005a212105e729ef8f0c390dbf16b0ba03))
+* **deps:** update dependency typedoc-plugin-mdn-links to v3.1.9 ([f3d660b](https://github.com/serenity-js/serenity-js/commit/f3d660b0ddea84434ea45beffc8ad847da7f9ebc))
+* **deps:** update website dependencies ([a319ffc](https://github.com/serenity-js/serenity-js/commit/a319ffc13cc74a8dfd3fb9fbb121ca8128ae02a9))
+* **deps:** update website dependencies ([ee12098](https://github.com/serenity-js/serenity-js/commit/ee12098c81b1c04aeae381253812229e65f5cbb0))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.0.43 ([e1d22e9](https://github.com/serenity-js/serenity-js/commit/e1d22e92e120c7b6205ffe63dc22ebba5844e7ba)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+
+
+### Features
+
+* **core:** enabled ClassLoader to instantiate StageCrewMembers using their factory functions ([f98bd42](https://github.com/serenity-js/serenity-js/commit/f98bd4206e768d5840d6e7952c61f7a2da1b144e)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **core:** timestamps can be represented as ISO8601-compatible strings ([b19e064](https://github.com/serenity-js/serenity-js/commit/b19e064abdbf5073bc701dd238098aa31ba7fc5a))
+* **serenity-bdd:** auto-detect requirements hierarchy root directory ([e2011b0](https://github.com/serenity-js/serenity-js/commit/e2011b0b95565d67e8ee785f3e197f827703a934)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD 4 ([c15c366](https://github.com/serenity-js/serenity-js/commit/c15c3660f957c21c367f8f27218a05d3fbca78de)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD 4 ([0760417](https://github.com/serenity-js/serenity-js/commit/0760417e2fa3e9fbfc78cd9965052531625bf45e))
+* **serenity-bdd:** support for Serenity BDD CLI v4.0.40 ([271068e](https://github.com/serenity-js/serenity-js/commit/271068e7ff64659138c5662cd3b8ae93bc7a7438)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **serenity-bdd:** support for Serenity BDD v4 CLI ([6988248](https://github.com/serenity-js/serenity-js/commit/69882485ce28bb18e502b3f49740a4f82aedaa1d)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147) [#2042](https://github.com/serenity-js/serenity-js/issues/2042)
+
+
+
+
+
 ## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
 
 
