@@ -89,7 +89,7 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
 
     async allNativeElements(): Promise<Array<WebdriverIO.Element>> {
         const parent = await this.parent.nativeElement();
-        return parent.$$(this.nativeSelector());
+        return parent.$$(this.nativeSelector()) as unknown as Promise<Array<WebdriverIO.Element>>;
     }
 
     of(parent: WebdriverIOLocator): Locator<WebdriverIO.Element, string> {
