@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/serenity-js/serenity-js/compare/v3.14.2...v3.15.0) (2024-01-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency moment to v2.30.1 ([42ec5c3](https://github.com/serenity-js/serenity-js/commit/42ec5c3b0052a0f939eec761a06ad83c632c7eb8))
+
+
+### Features
+
+* **core:** enabled ClassLoader to instantiate StageCrewMembers using their factory functions ([f98bd42](https://github.com/serenity-js/serenity-js/commit/f98bd4206e768d5840d6e7952c61f7a2da1b144e)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+* **core:** timestamps can be represented as ISO8601-compatible strings ([b19e064](https://github.com/serenity-js/serenity-js/commit/b19e064abdbf5073bc701dd238098aa31ba7fc5a))
+* **serenity-bdd:** support for Serenity BDD 4 ([c15c366](https://github.com/serenity-js/serenity-js/commit/c15c3660f957c21c367f8f27218a05d3fbca78de)), closes [#1147](https://github.com/serenity-js/serenity-js/issues/1147)
+
+
+
+
+
 ## [3.14.2](https://github.com/serenity-js/serenity-js/compare/v3.14.1...v3.14.2) (2023-12-12)
 
 **Note:** Version bump only for package @serenity-js/core
