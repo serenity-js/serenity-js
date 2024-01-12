@@ -73,7 +73,7 @@ export class CucumberOptions {
             retryTagFilter: this.config.retryTagFilter,
             strict: this.config.strict,
             tags: this.asArray(this.config.tags).join(' and '),
-            worldParameters: this.config.worldParameters,
+            worldParameters: this.config.worldParameters as any, // Cucumber typings rely on `type-fest` and we don't need another dependency to define one type
 
             // order: PickleOrder
             // parallel: number,  // this only works when Cucumber is the runner, in which scenario CucumberCLIAdapter is not used anyway
