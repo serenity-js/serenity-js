@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
 import { inspect } from 'util';
 
@@ -20,12 +19,12 @@ export class Timestamp extends TinyType {
         return new Timestamp(new Date(ensure(Timestamp.name, v, isSerialisedISO8601Date())));
     }
 
-    static fromTimestampInSeconds(v: number): Timestamp {
-        return Timestamp.fromTimestampInMilliseconds(v * 1000);
+    static fromTimestampInSeconds(value: number): Timestamp {
+        return Timestamp.fromTimestampInMilliseconds(value * 1000);
     }
 
-    static fromTimestampInMilliseconds(v: number): Timestamp {
-        return new Timestamp(moment(v).toDate());
+    static fromTimestampInMilliseconds(value: number): Timestamp {
+        return new Timestamp(new Date(value));
     }
 
     static now(): Timestamp {
@@ -39,17 +38,17 @@ export class Timestamp extends TinyType {
 
     diff(another: Timestamp): Duration {
         ensure('timestamp', another, isDefined());
-        return new Duration(Math.abs(moment(this.value).diff(another.value, 'ms', true)));
+        return new Duration(Math.abs(this.toMilliseconds() - another.toMilliseconds()));
     }
 
     plus(duration: Duration): Timestamp {
         ensure('duration', duration, isDefined());
-        return new Timestamp(moment(this.value).add(duration.inMilliseconds(), 'ms').toDate());
+        return new Timestamp(new Date(this.toMilliseconds() + duration.inMilliseconds()));
     }
 
     less(duration: Duration): Timestamp {
         ensure('duration', duration, isDefined());
-        return new Timestamp(moment(this.value).subtract(duration.inMilliseconds(), 'ms').toDate());
+        return new Timestamp(new Date(this.toMilliseconds() - duration.inMilliseconds()));
     }
 
     isBefore(another: Timestamp): boolean {
@@ -73,11 +72,11 @@ export class Timestamp extends TinyType {
     }
 
     toMilliseconds(): number {
-        return moment(this.value).valueOf();
+        return this.value.getTime();
     }
 
     toSeconds(): number {
-        return moment(this.value).unix();
+        return Math.floor(this.toMilliseconds() / 1_000);
     }
 
     toJSON(): string {
@@ -98,6 +97,19 @@ export class Timestamp extends TinyType {
 }
 
 function isSerialisedISO8601Date(): Predicate<string> {
-    return Predicate.to(`be an ISO-8601-compliant date`, (value: string) =>
-        moment(value, moment.ISO_8601, true).isValid());
+    return Predicate.to(`be an ISO-8601-compliant date`, (value: string) => {
+        // Based on the original moment.js regex
+        // https://github.com/moment/moment/blob/485d9a7d709bd5f3869a7ad24630cf0746d072dc/src/lib/create/from-string.js#L11-L14
+        const extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:([T ])(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+
+        if (! extendedIsoRegex.test(value)) {
+            return false;
+        }
+
+        const date = new Date(value);
+
+        return date instanceof Date
+            && ! Number.isNaN(date.getTime())
+            && date.toISOString() === value;
+    });
 }
