@@ -4,6 +4,7 @@ export * from './Check';
 export * from './Expectation';
 export * from './expectations';
 export * from './List';
+export * from './Masked';
 export * from './MetaQuestion';
 export * from './q';
 export * from './Unanswered';
