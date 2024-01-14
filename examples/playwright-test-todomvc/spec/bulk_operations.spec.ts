@@ -7,7 +7,7 @@ import { clearCompletedButton, persistedItemNames, persistedItems, startWithALis
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted, markAsOutstanding } from './todo-list-app/TodoItem';
 import { itemCalled, itemNames, items, toggleAllItems } from './todo-list-app/TodoList';
 
-describe('Bulk operations', () => {
+describe.only('Bulk operations', () => {
 
     describe('Todo List App', () => {
 
