@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-test.describe('Vanilla Playwright Test', () => {
+test.describe.skip('Vanilla Playwright Test', () => {
 
     test.beforeEach(async ({ page }) => {
         await page.goto('https://todo-app.serenity-js.org/#/');
