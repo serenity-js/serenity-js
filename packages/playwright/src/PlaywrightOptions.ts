@@ -4,8 +4,7 @@ import type * as playwright from 'playwright-core';
  * Playwright-specific options used to configure the ability to {@apilink BrowseTheWebWithPlaywright}
  *
  * ## Learn more
- *
- * - [Playwright `BrowserContextOptions`](https://github.com/microsoft/playwright/blob/bd5eddd62e2009a5fe3e270d8fc30bf29cef1296/packages/playwright-core/types/types.d.ts#L15956)
+ * - [Playwright `Browser.newContext` options](https://playwright.dev/docs/api/class-browser#browser-new-context)
  *
  * @group Configuration
  */
