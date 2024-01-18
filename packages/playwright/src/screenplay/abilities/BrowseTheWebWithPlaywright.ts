@@ -93,7 +93,59 @@ import {
  * })
  * ```
  *
+ * ## Configuring Playwright
+ *
+ * If you're using Serenity/JS with [Playwright Test](/handbook/test-runners/playwright-test/),
+ * Serenity/JS will automatically pick up your configuration from the [`playwright.config.ts`](https://playwright.dev/docs/test-configuration) file.
+ *
+ * With other [test runners](/handbook/test-runners/), you can configure Playwright by:
+ * - providing the browser-level configuration when calling [`BrowserType.launch`](https://playwright.dev/docs/api/class-browsertype#browser-type-launch),
+ * - providing the browser context-level {@link PlaywrightOptions} when initialising the ability to `BrowseTheWebWithPlaywright`.
+ *
+ * The code snippet below demonstrates how to configure the browser and some popular browser context options,
+ * such as
+ * [`viewport` size](https://playwright.dev/docs/api/class-browser#browser-new-context-option-viewport),
+ * [`geolocation`](https://playwright.dev/docs/api/class-browser#browser-new-page-option-geolocation),
+ * and [`permissions`](https://playwright.dev/docs/api/class-browser#browser-new-page-option-permissions),
+ * but you can use it to configure any other option available in Playwright, like
+ * [`userAgent`](https://playwright.dev/docs/api/class-browser#browser-new-context-option-user-agent)
+ * or [`storageState`](https://playwright.dev/docs/api/class-browser#browser-new-context-option-storage-state).
+ *
+ * ```ts
+ * import { actorCalled } from '@serenity-js/core'
+ * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { Navigate } from '@serenity-js/web'
+ * import { Browser, chromium } from 'playwright'
+ *
+ * // specify browser launch options
+ * const browser = await chromium.launch({
+ *   headless: true
+ * });
+ *
+ * await actorCalled('Wendy')
+ *   .whoCan(BrowseTheWebWithPlaywright.using(browser, {
+ *      // specify browser context options
+ *      viewport:    { width: 1600, height: 1200 },
+ *      geolocation: { longitude: 51.50084271042897, latitude: -0.12462540129500639 },
+ *      permissions: [ 'geolocation' ],
+ *
+ *      defaultNavigationTimeout: 30_000,
+ *      defaultTimeout: 10_000
+ *
+ *      // ... and so on
+ *   }))
+ *   .attemptsTo(
+ *     Navigate.to(`https://serenity-js.org`),
+ *     // ...
+ *   )
+ * ```
+ *
+ * Note that in addition to all the standard Playwright BrowserContextOptions, you can also provide several others defined in Serenity/JS {@apilink PlaywrightOptions}, such as:
+ * - `defaultNavigationTimeout`, which changes the default maximum navigation timeout for the browser context,
+ * - `defaultTimeout`, which changes the default maximum time for all Playwright methods accepting the `timeout` option.
+ *
  * ## Learn more
+ * - [Full list of Playwright `BrowserContextOptions`](https://playwright.dev/docs/api/class-browser#browser-new-context)
  * - [Playwright website](https://playwright.dev/)
  * - {@apilink BrowseTheWeb}
  * - {@apilink Ability}
