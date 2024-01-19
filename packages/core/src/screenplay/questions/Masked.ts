@@ -2,10 +2,13 @@ import type { QuestionAdapter } from '..';
 import { type Answerable,Question } from '..';
 
 /**
- * This utility serves to manage sensitive data.
- * If an actor answers to this question, they gain access
- * to the unmasked value during runtime — such as a password or secret token. 
- * Any Serenity/JS reports will mask this value for security reasons.
+ * This question masks sensitive data handled by the actors and prevents 
+ * it from being shown in Serenity/JS reports and console logs. 
+ * You should use it to wrap passwords, secret tokens, phone numbers, 
+ * credit card numbers, or any other personally identifiable information (PII). 
+ * However, even though the wrapped value is masked in the output, 
+ * you can still retrieve the unmasked value by making the actor answer
+ * the question in your custom interactions.
  *
  * @group Questions
  */

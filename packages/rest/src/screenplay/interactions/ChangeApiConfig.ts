@@ -89,7 +89,7 @@ import { CallAnApi } from '../abilities';
  *
  * ## Handle sensitive data
  *
- * By design, all data changed by an actor will appear in 
+ * By design, any data entered by actors into the system will appear in 
  * any Serenity/JS report. To prevent the exposure of sensitive 
  * information, such as passwords or tokens, you can utilize 
  * {@apilink Masked}.
