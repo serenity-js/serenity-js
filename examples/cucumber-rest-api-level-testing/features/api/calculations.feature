@@ -1,4 +1,4 @@
-Feature: Calculations API
+Feature: Calculations
 
   Scenario Outline: Calculates result of basic expressions
 
