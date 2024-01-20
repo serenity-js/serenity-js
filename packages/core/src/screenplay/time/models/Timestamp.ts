@@ -97,19 +97,16 @@ export class Timestamp extends TinyType {
 }
 
 function isSerialisedISO8601Date(): Predicate<string> {
-    return Predicate.to(`be an ISO-8601-compliant date`, (value: string) => {
-        // Based on the original moment.js regex
-        // https://github.com/moment/moment/blob/485d9a7d709bd5f3869a7ad24630cf0746d072dc/src/lib/create/from-string.js#L11-L14
-        const extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:([ T])(\d\d(?::\d\d(?::\d\d(?:[,.]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/;
+    return Predicate.to(`be an ISO8601-compatible string that follows the YYYY-MM-DDTHH:mm:ss.sssZ format`, (value: string) => {
+        const basicIsoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
 
-        if (! extendedIsoRegex.test(value)) {
+        if (! basicIsoRegex.test(value)) {
             return false;
         }
 
         const date = new Date(value);
 
         return date instanceof Date
-            && ! Number.isNaN(date.getTime())
-            && date.toISOString() === value;
+            && ! Number.isNaN(date.getTime());
     });
 }
