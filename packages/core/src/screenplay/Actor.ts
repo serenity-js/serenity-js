@@ -174,10 +174,7 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Announce collection of an {@apilink Artifact} so that it can be picked up by a {@apilink StageCrewMember}.
-     *
-     * @param artifact
-     * @param name
+     * @inheritDoc
      */
     collect(artifact: Artifact, name?: string | Name): void {
         this.stage.announce(new ActivityRelatedArtifactGenerated(
