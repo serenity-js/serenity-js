@@ -1,10 +1,9 @@
-import { expect } from '@integration/testing-tools';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import type { JSONObject } from 'tiny-types';
 
-import { SpecDirectory } from '../../../src/stage/crew/serenity-bdd-reporter/SpecDirectory';
+import { FileSystem, Path, SpecDirectory } from '../../src/io';
+import { expect } from '../expect';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib

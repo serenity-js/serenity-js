@@ -10,4 +10,5 @@ export * from './inspectedObject';
 export * from './loader';
 export * from './Path';
 export * from './reflection';
+export * from './SpecDirectory';
 export * from './trimmed';
