@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { ActivityRelatedArtifactGenerated, InteractionStarts, SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CapabilityTag, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -20,6 +20,7 @@ describe('@serenity-js/playwright-test', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario receives an actor with default abilities')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test configuration')))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'GenericCast'`)))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: 'BrowseTheWebWithPlaywright'`)))
@@ -38,6 +39,7 @@ describe('@serenity-js/playwright-test', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario receives an actor from a custom cast')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test configuration')))
                         .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: a note of contextOptions`)))
                         .next(ActivityRelatedArtifactGenerated,   event => {

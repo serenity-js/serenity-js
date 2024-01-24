@@ -1,19 +1,9 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
-import type {
-    ClassDescription,
-    Serenity,
-    StageCrewMember,
-    StageCrewMemberBuilder,
-    Timestamp
-} from '@serenity-js/core';
-import {
-    LogicError,
-    serenity as reporterSerenityInstance
-} from '@serenity-js/core';
+import type { ClassDescription, Serenity, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import { LogicError, serenity as reporterSerenityInstance } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
 import {
     InteractionFinished,
@@ -24,12 +14,10 @@ import {
     TestRunFinished,
     TestRunFinishes,
     TestRunnerDetected,
-    TestRunStarts
+    TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import type {
-    CorrelationId,
-    Outcome} from '@serenity-js/core/lib/model';
+import type { CorrelationId, Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
@@ -43,6 +31,7 @@ import {
     Name,
     ScenarioDetails,
 } from '@serenity-js/core/lib/model';
+import { CapabilityTag, ThemeTag } from '@serenity-js/core/src/model';
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
 
@@ -90,15 +79,20 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
      * @param serenity
      *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
      *  Note that Playwright runs test workers and reporters in separate processes.
+     * @param specDirectory
+     *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
      */
     constructor(
         config: SerenityReporterForPlaywrightTestConfig,
         private readonly serenity: Serenity = reporterSerenityInstance,
+        private specDirectory: Path = Path.from(process.cwd()),
     ) {
         this.serenity.configure(config);
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
+        this.specDirectory = Path.from(config.rootDir);
+
         this.serenity.announce(new TestRunStarts(this.now()));
     }
 
@@ -112,9 +106,26 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
+            ...this.requirementTagsFrom(scenario.location.path).map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
             new SceneTagged(currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
             new TestRunnerDetected(currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
         );
+    }
+
+    private requirementTagsFrom(scenarioPath: Path): Tag[] {
+        const relativePath = this.specDirectory.relative(scenarioPath).directory();
+        const hierarchyIsFlat = relativePath.equals(Path.from('.'));
+        if (hierarchyIsFlat) {
+            return []
+        }
+
+        return relativePath.split().reduce((tags, directory, index, directories) => {
+            if (index === directories.length - 1) {
+                return tags.concat(new CapabilityTag(directory));
+            }
+
+            return tags.concat(new ThemeTag(directory));
+        }, []);
     }
 
     // TODO might be nice to support that by emitting TestStepStarted / Finished

@@ -10,7 +10,7 @@ import {
     TestRunnerDetected,
     TestRunStarts
 } from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -31,6 +31,7 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A screenplay scenario receives a page object associated with the default actor'));
                     currentSceneId = event.sceneId;
                 })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 
@@ -60,6 +61,7 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A screenplay scenario allows for interactions with the page object to change the state of the page associated with the actor'));
                     currentSceneId = event.sceneId;
                 })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 
@@ -89,6 +91,7 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name(`A screenplay scenario registers the native page with actor's BrowsingSession`));
                     currentSceneId = event.sceneId;
                 })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 
@@ -118,6 +121,7 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name(`A screenplay scenario tracks newly opened pages`));
                     currentSceneId = event.sceneId;
                 })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test integration')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 

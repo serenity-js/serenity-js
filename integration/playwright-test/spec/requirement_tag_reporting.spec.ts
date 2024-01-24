@@ -1,14 +1,14 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
 import { SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunnerDetected, TestRunStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, Name,ThemeTag } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
 
 describe('@serenity-js/playwright-test', function () {
 
-    it('recognises a passing scenario', () => playwrightTest('--project=default', 'passing.spec.ts')
+    it('emits requirement tags so that Serenity BDD can aggregate them correctly', () => playwrightTest('--project=default', 'my_super_theme/my_theme/my_capability/my_feature.spec.ts')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(result => {
 
@@ -22,7 +22,10 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('my_super_theme')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('my_theme')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('my_capability')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 
                 // triggered by requiring actorCalled
