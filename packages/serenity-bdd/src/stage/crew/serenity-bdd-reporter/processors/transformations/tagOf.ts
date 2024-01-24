@@ -24,6 +24,7 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
 
                 const themeTag = {
                     ...tagReportFor(tag),
+                    name: join('/', displayNameOfRecorded(ThemeTag, context.report.tags), tag.name),
                     displayName: tag.name,
                 };
 
@@ -163,7 +164,7 @@ function appendIfNotPresent(commaSeparatedStringOrEmpty: string, item: string): 
 function tagReportFor(tag: Tag): serenitybdd.TagSchema {
     return {
         ...tag.toJSON(),
-        displayName: tag.name.replace(/_+/, ' '),
+        displayName: tag.name.replaceAll(/_+/g, ' '),
     }
 }
 
@@ -175,8 +176,10 @@ function unique(items: string[]) {
     return [...new Set(items)];
 }
 
-function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]) {
+function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]): string {
     const found = (tags || []).find(t => t.type === typeOfTag.Type);
 
-    return found && found.displayName;
+    return found
+        ? found.displayName
+        : '';
 }

@@ -3,13 +3,12 @@ import { ConfigurationError, DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
 import type { FileSystem } from '@serenity-js/core/lib/io';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path, SpecDirectory } from '@serenity-js/core/lib/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
 import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
-import { SpecDirectory } from './SpecDirectory';
 
 /**
  * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
