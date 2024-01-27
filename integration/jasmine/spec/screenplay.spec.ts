@@ -1,7 +1,16 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import {
+    CapabilityTag,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    ProblemIndication
+} from '@serenity-js/core/lib/model';
+import { ThemeTag } from '@serenity-js/core/lib/model/index.js';
 import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
@@ -21,6 +30,8 @@ describe('@serenity-js/Jasmine', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Examples')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine reporting')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
                         .next(SceneFinished,       event => {
@@ -47,6 +58,8 @@ describe('@serenity-js/Jasmine', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Examples')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine reporting')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
                         .next(SceneFinished,       event => {
@@ -71,6 +84,8 @@ describe('@serenity-js/Jasmine', function () {
 
                     PickEvent.from(result.events)
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Examples')))
+                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine reporting')))
                         .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
                         .next(SceneFinished,       event => {

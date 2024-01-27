@@ -1,4 +1,10 @@
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, type Serenity, TestCompromisedError } from '@serenity-js/core';
+import {
+    AssertionError,
+    ErrorSerialiser,
+    ImplementationPendingError,
+    type Serenity,
+    TestCompromisedError
+} from '@serenity-js/core';
 import {
     type DomainEvent,
     SceneFinished,
@@ -14,6 +20,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events/index.js';
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import {
     ActivityDetails,
@@ -24,7 +31,6 @@ import {
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
-    FeatureTag,
     ImplementationPending,
     Name,
     type Outcome,
@@ -56,7 +62,10 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     /**
      * @param {Serenity} serenity
      */
-    constructor(private readonly serenity: Serenity) {
+    constructor(
+        private readonly serenity: Serenity,
+        private readonly requirementsHierachy: RequirementsHierarchy
+    ) {
     }
 
     jasmineStarted(info: JasmineStartedInfo): void {
@@ -82,8 +91,10 @@ export class SerenityReporterForJasmine implements JasmineReporter {
 
         this.emit(
             new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
-            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureNameFor(result)), this.serenity.currentTime()),
-            // todo: emit capabilities and themes
+
+            ...this.requirementsHierachy.requirementTagsFor(details.location.path, this.currentFeatureNameFor(result))
+                .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+
             new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
         );
     }
