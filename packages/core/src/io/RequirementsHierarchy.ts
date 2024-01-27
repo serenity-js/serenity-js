@@ -1,6 +1,6 @@
 import { ConfigurationError } from '../errors';
-import type { Tag } from '../model';
-import type { FileSystem} from './FileSystem';
+import { CapabilityTag, FeatureTag, Tag, ThemeTag } from '../model';
+import type { FileSystem } from './FileSystem';
 import { Path } from './Path';
 
 export class RequirementsHierarchy {
@@ -21,8 +21,20 @@ export class RequirementsHierarchy {
     ) {
     }
 
-    requirementTagsFor(pathToSpec: Path): Tag[] {
-        throw new Error('Not implemented yet');
+    requirementTagsFor(pathToSpec: Path, featureName?: string): Tag[] {
+        const [ fileBasedFeatureName, capabilityName, ...themeNames ] = this.hierarchyFor(pathToSpec).reverse().filter(segment => !['.', '..'].includes(segment));
+
+        const themeTags = themeNames.reverse().map(themeName => Tag.humanReadable(ThemeTag, themeName));
+        const capabilityTag = capabilityName && Tag.humanReadable(CapabilityTag, capabilityName);
+        const featureTag = featureName
+            ? new FeatureTag(featureName)
+            : Tag.humanReadable(FeatureTag, fileBasedFeatureName)
+
+        return [
+            ...themeTags,
+            capabilityTag,
+            featureTag
+        ].filter(Boolean);
     }
 
     hierarchyFor(pathToSpec: Path): string[] {
@@ -43,7 +55,7 @@ export class RequirementsHierarchy {
     }
 
     rootDirectory(): Path {
-        if (! this.root) {
+        if (!this.root) {
             this.root = this.userDefinedSpecDirectory
                 ? this.resolve(this.userDefinedSpecDirectory)
                 : this.guessRootDirectory();
@@ -65,7 +77,7 @@ export class RequirementsHierarchy {
     }
 
     private resolve(userDefinedRootDirectory: Path): Path {
-        if (! this.fileSystem.exists(userDefinedRootDirectory)) {
+        if (!this.fileSystem.exists(userDefinedRootDirectory)) {
             throw new ConfigurationError(`Configured specDirectory \`${ userDefinedRootDirectory }\` does not exist`);
         }
 
