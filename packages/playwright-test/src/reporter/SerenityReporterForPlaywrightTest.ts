@@ -116,7 +116,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         const relativePath = this.specDirectory.relative(scenarioPath).directory();
         const hierarchyIsFlat = relativePath.equals(Path.from('.'));
         if (hierarchyIsFlat) {
-            return []
+            return [];
         }
 
         return relativePath.split().reduce((tags, directory, index, directories) => {
