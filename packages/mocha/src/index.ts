@@ -1,4 +1,5 @@
 import { serenity } from '@serenity-js/core';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { MochaOptions, Runner } from 'mocha';
 
 import { SerenityReporterForMocha } from './SerenityReporterForMocha';
@@ -8,7 +9,8 @@ import { SerenityReporterForMocha } from './SerenityReporterForMocha';
  * and informs Serenity/JS when a test scenario starts, finishes, and with what result.
  */
 function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForMocha {
-    return new SerenityReporterForMocha(serenity, runner, options);
+    const requirementsHierarchy = new RequirementsHierarchy(new FileSystem(Path.from(process.cwd())));
+    return new SerenityReporterForMocha(serenity, requirementsHierarchy, runner, options);
 }
 
 export = bootstrap;
