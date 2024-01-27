@@ -10,7 +10,7 @@ describe('@serenity-js/mocha', function () {
 
     this.timeout(30000);
 
-    it('recognises a passing scenario', () => mocha('examples/passing.spec.js')
+    it('recognises a passing scenario', () => mocha('examples/my_super_theme/my_theme/my_capability/my_feature.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(result => {
 
@@ -24,9 +24,9 @@ describe('@serenity-js/mocha', function () {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('my_super_theme')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('my_theme')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('my_capability')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('My super theme')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('My theme')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('My capability')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Mocha')))
                 .next(SceneFinishes,       event => {
