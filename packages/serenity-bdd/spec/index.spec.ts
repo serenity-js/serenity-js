@@ -13,7 +13,6 @@ const { memfs } = require('memfs'); // Typings incorrectly assume the presence o
 describe('SerenityBDDReporter', () => {
 
     const stage = createStubInstance(Stage);
-    const cwd = Path.from(process.cwd());
 
     describe('factory method', () => {
 
@@ -24,29 +23,6 @@ describe('SerenityBDDReporter', () => {
                 outputStream: undefined,
             });
             expect(reporter.assignedTo).to.be.a('function');
-        });
-
-        it('can be configured to use a custom spec directory, as long as it exists', () => {
-            const specDirectory = 'e2e';
-            const reporter = SerenityBDDReporter.fromJSON({ specDirectory }).build({
-                stage,
-                fileSystem: fileSystem({ '/home/alice/my-project': { [`${ specDirectory }`]: {} } }),
-                outputStream: undefined,
-            });
-
-            expect((reporter as any).specDirectory).to.equal(cwd.resolve(Path.from(`/home/alice/my-project/${ specDirectory }`)));
-        });
-
-        it('complains if the custom spec directory does not exist', () => {
-            const specDirectory = 'e2e';
-
-            expect(() =>
-                SerenityBDDReporter.fromJSON({ specDirectory }).build({
-                    stage,
-                    fileSystem: fileSystem({ '/home/alice/my-project': {} }),
-                    outputStream: undefined,
-                })
-            ).to.throw(`Configured specDirectory \`${ specDirectory }\` does not exist`);
         });
     });
 });

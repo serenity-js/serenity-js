@@ -1,5 +1,5 @@
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Path } from '@serenity-js/core/src/io';
+import { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { LinkedTestStep } from './LinkedTestStep';
@@ -13,7 +13,7 @@ export abstract class SerenityBDDReportContext {
     public readonly steps: Map<string, LinkedTestStep> = new Map();
     public currentActivityId: CorrelationId = undefined;
 
-    constructor(public readonly specDirectory: Path) {
+    constructor(public readonly requirementsHierarchy: RequirementsHierarchy) {
     }
 
     with(fn: (report: this) => this): this {
