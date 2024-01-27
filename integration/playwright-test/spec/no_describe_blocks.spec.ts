@@ -43,7 +43,7 @@ describe('@serenity-js/playwright-test', function () {
                         expect(event.details.name).to.equal(new Name('has no describe blocks'));
                         expect(event.details.category).to.equal(new Category('nested/another-no-describe-blocks.spec.ts'));
                     })
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('nested')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Nested')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('nested/another-no-describe-blocks.spec.ts')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
 

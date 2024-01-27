@@ -19,7 +19,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when an error is thrown')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
@@ -39,7 +39,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
@@ -68,7 +68,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
@@ -92,7 +92,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails when the assertion fails')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
@@ -123,7 +123,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario is compromised')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
@@ -149,7 +149,7 @@ describe('@serenity-js/playwright-test', function () {
 
                 PickEvent.from(result.events)
                     .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario is marked as failing, but passes')))
-                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('failing')))
+                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
                     .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                     .next(SceneFinished,       event => {
