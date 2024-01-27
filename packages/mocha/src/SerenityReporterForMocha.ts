@@ -1,6 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import {
     RetryableSceneDetected,
     SceneFinished,
@@ -14,17 +13,8 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import {
-    ArbitraryTag,
-    CorrelationId,
-    ExecutionFailedWithError,
-    ExecutionRetriedTag,
-    ExecutionSuccessful,
-    FeatureTag,
-    Name,
-    TestSuiteDetails
-} from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
 import { reporters, Runner } from 'mocha';
 
@@ -51,6 +41,7 @@ export class SerenityReporterForMocha extends reporters.Base {
      */
     constructor(
         private readonly serenity: Serenity,
+        private readonly requirementsHierarchy: RequirementsHierarchy,
         runner: Runner,
         options?: MochaOptions,
     ) {
@@ -211,6 +202,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
             new SceneTagged(this.currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
+            // todo: emit capabilities and themes
             new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
         );
     }
