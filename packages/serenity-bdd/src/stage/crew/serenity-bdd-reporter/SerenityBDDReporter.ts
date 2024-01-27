@@ -205,10 +205,10 @@ class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDRe
         ensure('stage', stage, isDefined());
         ensure('fileSystem', fileSystem, isDefined());
 
-        const userDefinedSpecDir: Path | undefined = this.config.specDirectory && Path.from(this.config.specDirectory);
+        const userDefinedSpecDirectory: Path | undefined = this.config.specDirectory && Path.from(this.config.specDirectory);
 
         return new SerenityBDDReporter(
-            new RequirementsHierarchy(fileSystem, userDefinedSpecDir),
+            new RequirementsHierarchy(fileSystem, userDefinedSpecDirectory),
             stage,
         );
     }

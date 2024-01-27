@@ -266,7 +266,7 @@ export class CucumberMessagesParser {
         const [featureName, capabilityName, themeName]: string[] = hierarchy.reverse();
 
         return notEmpty([
-            themeName && Tag.humanReadable(ThemeTag, themeName),
+            themeName && Tag.humanReadable(ThemeTag, themeName),                // todo: add deeper themes
             capabilityName && Tag.humanReadable(CapabilityTag, capabilityName),
             new FeatureTag(featureName),
         ]);

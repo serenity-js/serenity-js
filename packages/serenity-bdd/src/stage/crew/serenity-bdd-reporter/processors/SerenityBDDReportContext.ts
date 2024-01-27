@@ -1,5 +1,5 @@
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { LinkedTestStep } from './LinkedTestStep';
