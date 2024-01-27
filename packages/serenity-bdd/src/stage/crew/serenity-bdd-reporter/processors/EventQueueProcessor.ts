@@ -9,7 +9,7 @@ import type {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { SerenityBDDReportContext } from './SerenityBDDReportContext';

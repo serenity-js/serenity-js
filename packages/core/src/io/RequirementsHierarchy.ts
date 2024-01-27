@@ -1,7 +1,7 @@
-import { FileSystem} from './FileSystem';
-import { Path } from './Path';
-import { Tag } from '../model';
 import { ConfigurationError } from '../errors';
+import type { Tag } from '../model';
+import type { FileSystem} from './FileSystem';
+import { Path } from './Path';
 
 export class RequirementsHierarchy {
 

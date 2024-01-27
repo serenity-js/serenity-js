@@ -13,7 +13,8 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
 import { reporters, Runner } from 'mocha';

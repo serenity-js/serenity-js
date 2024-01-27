@@ -83,6 +83,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
         this.emit(
             new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
             new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureNameFor(result)), this.serenity.currentTime()),
+            // todo: emit capabilities and themes
             new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
         );
     }
