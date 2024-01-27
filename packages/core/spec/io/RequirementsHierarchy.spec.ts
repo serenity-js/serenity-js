@@ -46,7 +46,7 @@ describe('RequirementsHierarchy', () => {
                 specDirectory,
             ).rootDirectory();
 
-            expect(guessedSpecDirectory).to.equal(Path.from(`/home/alice/my-project`).join(specDirectory));
+            expect(guessedSpecDirectory).to.equal(cwd.resolve(Path.from(`/home/alice/my-project`).join(specDirectory)));
         });
 
         it('complains if the custom spec directory does not exist', () => {
