@@ -12,7 +12,7 @@ function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForM
     const cwd = Path.from(process.cwd());
     const requirementsHierarchy = new RequirementsHierarchy(
         new FileSystem(cwd),
-        options?.reporterOptions.specDirectory && cwd.resolve(Path.from(options?.reporterOptions.specDirectory)),
+        options?.reporterOptions?.specDirectory && cwd.resolve(Path.from(options?.reporterOptions?.specDirectory)),
     );
 
     return new SerenityReporterForMocha(serenity, requirementsHierarchy, runner, options);
