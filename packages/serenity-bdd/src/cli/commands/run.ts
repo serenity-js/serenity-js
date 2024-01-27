@@ -1,5 +1,5 @@
 import { actorCalled, configure } from '@serenity-js/core';
-import { FileSystem, Path, SpecDirectory } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 import * as process from 'process';
 
@@ -28,7 +28,7 @@ export = {
             describe: 'A relative path to the directory where the Serenity BDD report should be produced',
         },
         features: {
-            default:   cwd.relative(new SpecDirectory(new FileSystem(cwd)).guessLocation()),
+            default:   cwd.relative(new RequirementsHierarchy(new FileSystem(cwd)).rootDirectory()),
             describe: 'A relative path to the requirements hierarchy root directory, such as "./features" or "./spec"',
         },
         artifact: {
