@@ -1,9 +1,15 @@
 /* eslint-disable unicorn/no-null */
 import { expect, PickEvent } from '@integration/testing-tools';
-import type { Stage, StageCrewMember} from '@serenity-js/core';
-import { AssertionError, Clock, ImplementationPendingError, Serenity, TestCompromisedError,Timestamp } from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { Stage, StageCrewMember } from '@serenity-js/core';
+import {
+    AssertionError,
+    Clock,
+    ImplementationPendingError,
+    Serenity,
+    TestCompromisedError,
+    Timestamp
+} from '@serenity-js/core';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import {
     SceneFinished,
     SceneStarts,
@@ -16,8 +22,15 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events/index.js';
-import { FileSystemLocation, trimmed } from '@serenity-js/core/lib/io/index.js';
 import {
+    FileSystem,
+    FileSystemLocation,
+    Path,
+    RequirementsHierarchy,
+    trimmed
+} from '@serenity-js/core/lib/io/index.js';
+import {
+    CapabilityTag,
     CorrelationId,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -43,7 +56,7 @@ describe('SerenityReporterForJasmine', () => {
 
     beforeEach(() => {
         serenity = new Serenity(new Clock(() => now), '/path/to');
-        reporter = new SerenityReporterForJasmine(serenity);
+        reporter = new SerenityReporterForJasmine(serenity, new RequirementsHierarchy(new FileSystem(Path.from(process.cwd()))));
         listener = new Listener();
 
         serenity.configure({ crew: [ listener ] });
@@ -96,7 +109,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 5,
                         column: 9,
                     },
@@ -127,7 +140,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 1,
                         column: 1,
                     },
@@ -141,7 +154,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: 0,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 1,
                         column: 1,
                     },
@@ -154,7 +167,7 @@ describe('SerenityReporterForJasmine', () => {
                             new TestSuiteDetails(
                                 new Name('Jasmine'),
                                 FileSystemLocation.fromJSON({
-                                    path: '/path/to/spec.js',
+                                    path: '/examples/feature.spec.js',
                                     line: 1,
                                     column: 1,
                                 }),
@@ -178,7 +191,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 9,
                         column: 1,
                     },
@@ -193,7 +206,7 @@ describe('SerenityReporterForJasmine', () => {
                             matcherName: '',
                             message: 'Failed: suite beforeAll',
                             stack:
-                                'Error: Failed: suite beforeAll\n    at <Jasmine>\n    at UserContext.<anonymous> (/path/to/spec.js:11:9)\n    at <Jasmine>',
+                                'Error: Failed: suite beforeAll\n    at <Jasmine>\n    at UserContext.<anonymous> (/examples/feature.spec.js:11:9)\n    at <Jasmine>',
                             passed: false,
                             expected: '',
                             actual: '',
@@ -201,7 +214,7 @@ describe('SerenityReporterForJasmine', () => {
                             matcherName: '',
                             message: 'Failed: suite afterAll',
                             stack:
-                                'Error: Failed: suite afterAll\n    at <Jasmine>\n    at UserContext.<anonymous> (/path/to/spec.js:15:9)\n    at <Jasmine>',
+                                'Error: Failed: suite afterAll\n    at <Jasmine>\n    at UserContext.<anonymous> (/examples/feature.spec.js:15:9)\n    at <Jasmine>',
                             passed: false,
                             expected: '',
                             actual: '',
@@ -211,7 +224,7 @@ describe('SerenityReporterForJasmine', () => {
                     duration: 0,
                     location:
                         {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 9,
                             column: 1,
                         },
@@ -236,7 +249,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 8,
                         column: 5,
                     },
@@ -250,7 +263,7 @@ describe('SerenityReporterForJasmine', () => {
                     deprecationWarnings: [],
                     duration: 0,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 8,
                         column: 5,
                     },
@@ -281,7 +294,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         duration: null,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 1,
                             column: 1,
                         },
@@ -295,7 +308,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         duration: null,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 3,
                             column: 5,
                         },
@@ -311,7 +324,7 @@ describe('SerenityReporterForJasmine', () => {
                         pendingReason: '',
                         duration: null,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 5,
                             column: 9,
                         },
@@ -333,7 +346,7 @@ describe('SerenityReporterForJasmine', () => {
                         pendingReason: '',
                         duration: null,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 5,
                             column: 9,
                         },
@@ -348,7 +361,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         duration: 0,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 3,
                             column: 5,
                         },
@@ -363,7 +376,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         duration: 0,
                         location: {
-                            path: '/path/to/spec.js',
+                            path: '/examples/feature.spec.js',
                             line: 1,
                             column: 1,
                         },
@@ -379,6 +392,7 @@ describe('SerenityReporterForJasmine', () => {
 
                 it('derives the name of the feature from the outer-most `describe` block', () => {
                     PickEvent.from(listener.events)
+                        .next(SceneTagged,      event => expect(event.tag).to.equal(new CapabilityTag('Examples')))
                         .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Jasmine')));
                 });
 
@@ -400,7 +414,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                     });
                 });
 
@@ -414,7 +428,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'excluded',
                     });
 
@@ -432,7 +446,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: 'Temporarily disabled with xit',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'pending',
                     });
 
@@ -452,7 +466,7 @@ describe('SerenityReporterForJasmine', () => {
                         failedExpectations:
                          [ { matcherName: '',
                              message: 'Error: Something happened',
-                             stack: 'Error: Something happened\n    at UserContext.it (/path/to/spec.js:6:19)\n',
+                             stack: 'Error: Something happened\n    at UserContext.it (/examples/feature.spec.js:6:19)\n',
                              passed: false,
                              expected: '',
                              actual: '' } ],
@@ -460,7 +474,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'failed',
                     });
 
@@ -489,7 +503,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'failed',
                     });
 
@@ -518,7 +532,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'failed',
                     });
 
@@ -539,7 +553,7 @@ describe('SerenityReporterForJasmine', () => {
                         failedExpectations:
                             [ { matcherName: 'toEqual',
                                 message: 'Expected false to equal true.',
-                                stack: 'Error: Expected false to equal true.\n    at <Jasmine>\n    at UserContext.it (/path/to/spec.js:6:27)\n    at <Jasmine>',
+                                stack: 'Error: Expected false to equal true.\n    at <Jasmine>\n    at UserContext.it (/examples/feature.spec.js:6:27)\n    at <Jasmine>',
                                 passed: false,
                                 expected: true,
                                 actual: false } ],
@@ -547,7 +561,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'failed',
                     });
 
@@ -577,14 +591,14 @@ describe('SerenityReporterForJasmine', () => {
                         failedExpectations: [ {
                             matcherName: 'toEqual',
                             message: 'Expected false to equal true.',
-                            stack: 'Error: Expected false to equal true.\n    at <Jasmine>\n    at UserContext.it (/path/to/spec.js:6:27)\n    at <Jasmine>',
+                            stack: 'Error: Expected false to equal true.\n    at <Jasmine>\n    at UserContext.it (/examples/feature.spec.js:6:27)\n    at <Jasmine>',
                             passed: false,
                             expected: true,
                             actual: false,
                         },  {
                             matcherName: 'toEqual',
                             message: 'Expected "hello" to equal "hey".',
-                            stack: 'Error: Expected "hello" to equal "hey".\n    at <Jasmine>\n    at UserContext.it (/path/to/spec.js:6:27)\n    at <Jasmine>',
+                            stack: 'Error: Expected "hello" to equal "hey".\n    at <Jasmine>\n    at UserContext.it (/examples/feature.spec.js:6:27)\n    at <Jasmine>',
                             passed: false,
                             expected: 'hey',
                             actual: 'hello',
@@ -593,7 +607,7 @@ describe('SerenityReporterForJasmine', () => {
                         deprecationWarnings: [],
                         pendingReason: '',
                         duration: null,
-                        location: { path: '/path/to/spec.js', line: 5, column: 9 },
+                        location: { path: '/examples/feature.spec.js', line: 5, column: 9 },
                         status: 'failed',
                     });
 
@@ -611,7 +625,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected boolean: true
                                 | Received boolean: false
                                 |
-                                |     at /path/to/spec.js:5:9
+                                |     at /examples/feature.spec.js:5:9
                             `);
                         })
                         .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))
@@ -627,7 +641,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected string: hey
                                 | Received string: hello
                                 |
-                                |     at /path/to/spec.js:5:9
+                                |     at /examples/feature.spec.js:5:9
                             `);
                         })
                         .next(SceneFinished, event => {
@@ -642,7 +656,7 @@ describe('SerenityReporterForJasmine', () => {
                                 | Expected boolean: true
                                 | Received boolean: false
                                 |
-                                |     at /path/to/spec.js:5:9
+                                |     at /examples/feature.spec.js:5:9
                             `);
                         });
                 });
@@ -662,7 +676,7 @@ describe('SerenityReporterForJasmine', () => {
                     pendingReason: '',
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 5,
                         column: 9,
                     },
@@ -684,7 +698,7 @@ describe('SerenityReporterForJasmine', () => {
                     pendingReason: '',
                     duration: null,
                     location: {
-                        path: '/path/to/spec.js',
+                        path: '/examples/feature.spec.js',
                         line: 5,
                         column: 9,
                     },
@@ -694,7 +708,8 @@ describe('SerenityReporterForJasmine', () => {
 
             it('tags the feature using a relative path', () => {
                 PickEvent.from(listener.events)
-                    .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('spec.js')));
+                    .next(SceneTagged,      event => expect(event.tag).to.equal(new CapabilityTag('Examples')))
+                    .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('../../examples/feature.spec.js')));
             });
 
             it('correctly derives the name of the spec', () => {
