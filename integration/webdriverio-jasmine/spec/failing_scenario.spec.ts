@@ -2,6 +2,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } f
 import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import {
     BrowserTag,
+    CapabilityTag,
     ExecutionFailedWithAssertionError,
     FeatureTag,
     Name,
@@ -30,6 +31,7 @@ describe('@serenity-js/webdriverio with @serenity-js/jasmine', function () {
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails')))
                 .next(SceneTagged,         event => expect(event.tag).to.be.instanceOf(BrowserTag))
                 .next(SceneTagged,         event => expect(event.tag).to.be.instanceOf(PlatformTag))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Examples')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Jasmine')))
                 .next(SceneFinished,       event => {
