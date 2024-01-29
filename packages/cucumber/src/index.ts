@@ -1,7 +1,9 @@
 import { serenity } from '@serenity-js/core';
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Path, Version } from '@serenity-js/core/lib/io';
+import * as process from 'process';
 
-const loader = new ModuleLoader(process.cwd());
+const cwd = process.cwd();
+const loader = new ModuleLoader(cwd);
 
 const version = loader.hasAvailable('@cucumber/cucumber')
     ? loader.versionOf('@cucumber/cucumber')
@@ -13,6 +15,6 @@ const version = loader.hasAvailable('@cucumber/cucumber')
  */
 const listener: unknown = version.isAtLeast(new Version('7.0.0'))
     ? require('./listeners/messages').createListener(serenity, loader)  // eslint-disable-line @typescript-eslint/no-var-requires
-    : require('./listeners/legacy').createListener(serenity, loader)    // eslint-disable-line @typescript-eslint/no-var-requires
+    : require('./listeners/legacy').createListener(serenity, loader, Path.from(cwd))    // eslint-disable-line @typescript-eslint/no-var-requires
 
 export = listener;

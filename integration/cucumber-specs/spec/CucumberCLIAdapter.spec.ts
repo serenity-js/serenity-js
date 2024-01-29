@@ -231,11 +231,13 @@ describe('CucumberCLIAdapter', function () {
          */
         delete process.env.FORCE_COLOR;
 
+        const specDirectory = `${ process.cwd() }/node_modules/@integration/cucumber-specs/features`;
+
         const adapter = new CucumberCLIAdapter(
             {
                 ... cucumberVersion().major() >= 2
-                    ? { formatOptions: { colorsEnabled: false } }
-                    : { noColors: true },
+                    ? { formatOptions: { colorsEnabled: false, specDirectory } }
+                    : { noColors: true, specDirectory },
                 require: ['./src/step_definitions/common.steps.ts' ],
                 ... config,
             },
