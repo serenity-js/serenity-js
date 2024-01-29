@@ -74,7 +74,7 @@ export class Notifier {
         this.emit(...notEmpty([
             new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
             feature.description && new FeatureNarrativeDetected(this.currentSceneId, feature.description, this.serenity.currentTime()),
-            new TestRunnerDetected(this.currentSceneId, new Name('Cucumber'), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('JS'), this.serenity.currentTime()),
             ...this.scenarioHierarchyTagsFor(feature).map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
             !! scenario.description && new SceneDescriptionDetected(this.currentSceneId, scenario.description, this.serenity.currentTime()),
             ...scenario.tags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
