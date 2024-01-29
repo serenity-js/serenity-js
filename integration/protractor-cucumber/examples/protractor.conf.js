@@ -1,5 +1,6 @@
 const { NoOpDiffFormatter } = require('@serenity-js/core');
 const { Actors } = require('./Actors');
+const path = require('path');
 
 exports.config = {
     ...require('../../../protractor.conf'),
@@ -20,5 +21,8 @@ exports.config = {
         require: [
             'features/step_definitions/**/*.js',
         ],
+        formatOptions: {
+            specDirectory: path.resolve(__dirname, 'features'),
+        }
     },
 };

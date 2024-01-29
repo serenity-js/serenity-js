@@ -196,7 +196,7 @@ export class CucumberMessagesParser {
             new Name(pickle.name),
             new Category(gherkinDocument.feature.name),
             new FileSystemLocation(
-                Path.from(this.cwd).resolve(Path.from(gherkinDocument.uri)),
+                this.absolutePathFrom(gherkinDocument.uri),
                 location.line,
                 location.column,
             ),
@@ -257,7 +257,7 @@ export class CucumberMessagesParser {
             scenarioDescription:    scenarioDescription && new Description(scenarioDescription),
             rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),
             testRunnerName:         new Name('JS'),
-            tags:                   this.requirementsHierarchy.requirementTagsFor(Path.from(gherkinDocument.uri), gherkinDocument.feature.name).concat(scenarioTags),
+            tags:                   this.requirementsHierarchy.requirementTagsFor(Path.from(this.cwd).resolve(Path.from(gherkinDocument.uri)), gherkinDocument.feature.name).concat(scenarioTags),
         };
     }
 
@@ -294,7 +294,7 @@ export class CucumberMessagesParser {
         return new ActivityDetails(
             new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text || parsedTestStep.name , parsedTestStep.argument)),
             new FileSystemLocation(
-                Path.from(this.cwd).resolve(Path.from(location.uri)),
+                this.absolutePathFrom(location.uri),
                 location.line,
             ),
         );
@@ -368,6 +368,10 @@ export class CucumberMessagesParser {
         }
 
         return { outcome, willBeRetried, tags };
+    }
+
+    private absolutePathFrom(relativePath: string): Path {
+        return Path.from(this.cwd).resolve(Path.from(relativePath));
     }
 }
 
