@@ -429,7 +429,7 @@ describe('SerenityBDDReporter', () => {
 
                 stage.announce(
                     new SceneStarts(aSceneId, simpleCucumberScenario),
-                    new TestRunnerDetected(aSceneId, new Name('Cucumber')),
+                    new TestRunnerDetected(aSceneId, new Name('JS')),
                     new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
@@ -438,7 +438,7 @@ describe('SerenityBDDReporter', () => {
                     .next(ArtifactGenerated, event => {
                         report = event.artifact.map(_ => _);
 
-                        expect(report.testSource).to.equal('Cucumber');
+                        expect(report.testSource).to.equal('JS');
                     })
                 ;
             });
