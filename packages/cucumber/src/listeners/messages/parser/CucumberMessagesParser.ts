@@ -256,7 +256,7 @@ export class CucumberMessagesParser {
             featureDescription:     gherkinDocument.feature.description && new Description(gherkinDocument.feature.description),
             scenarioDescription:    scenarioDescription && new Description(scenarioDescription),
             rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),
-            testRunnerName:         new Name('Cucumber'),
+            testRunnerName:         new Name('JS'),
             tags:                   this.requirementsHierarchy.requirementTagsFor(Path.from(gherkinDocument.uri), gherkinDocument.feature.name).concat(scenarioTags),
         };
     }
