@@ -87,12 +87,10 @@ import { CallAnApi } from '../abilities';
  *   )
  * ```
  *
- * ## Handle sensitive data
+ * ## Handling sensitive information
  *
- * By design, any data entered by actors into the system will appear in 
- * any Serenity/JS report. To prevent the exposure of sensitive 
- * information, such as passwords or tokens, you can utilize 
- * {@apilink Masked}.
+ * By design, any data handled by an actor appears in Serenity/JS reports.
+ * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use {@apilink Masked}.
  * 
  * ```ts
  * import { actorCalled, Masked } from '@serenity-js/core'
