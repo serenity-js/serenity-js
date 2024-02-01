@@ -40,21 +40,21 @@ import { PageElementInteraction } from './PageElementInteraction';
  *   )
  * ```
  *
- * ## Handle sensitive data
+ * ## Handling sensitive information
  *
- * By design, all data entered by an actor into fields will appear in 
- * any Serenity/JS report. To prevent the exposure of sensitive 
- * information, such as passwords or tokens, you can utilize 
- * {@apilink Masked} when entering data into fields
+ * By design, any data handled by an actor appears in Serenity/JS reports.
+ * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use {@apilink Masked}.
  * 
  * ```ts
- * import { actorCalled, Masked } from '@serenity-js/core';
- * import { Enter } from '@serenity-js/web';
+ * import { actorCalled, Masked } from '@serenity-js/core'
+ * import { Enter } from '@serenity-js/web'
  *
  * await actorCalled('Esme')
  *   .attemptsTo(
- *     Enter.theValue(Masked.valueOf('your little secret').into(Form.exampleInput()),
+ *     Enter.theValue(Masked.valueOf('your little secret').into(Form.exampleInputField()),
  *   )
+ *
+ *   // Gets reported as: "Esme enters [a masked value] into the example input field"
  * ```
  * 
  * ## Learn more
