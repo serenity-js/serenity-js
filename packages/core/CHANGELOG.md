@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/serenity-js/serenity-js/compare/v3.15.1...v3.16.0) (2024-02-01)
+
+
+### Bug Fixes
+
+* **core:** introduced RequirementsHierarchy to centralise requirements detection logic ([0a3d6f0](https://github.com/serenity-js/serenity-js/commit/0a3d6f013a3b94ca471edc263e1157b7c41131be))
+* **core:** recognise `specs` as a potential requirements hierarchy root ([d95d850](https://github.com/serenity-js/serenity-js/commit/d95d85058fd5e4e01aec689b7196989ece5e303f))
+* **core:** removed dependency on Moment.js ([edd1d64](https://github.com/serenity-js/serenity-js/commit/edd1d64f30893983b92bd600d102c81577c0ecb1))
+* **core:** simplified the Timestampt validation regex and improved error messages ([b453a23](https://github.com/serenity-js/serenity-js/commit/b453a23de419dbd811927b9447c17678e39f8cc8))
+* **core:** support for timezones and simplified date time strings when creating Timestamps ([754f8e2](https://github.com/serenity-js/serenity-js/commit/754f8e260d2fc5130075a78ec58084eafcf2c83f))
+
+
+### Features
+
+* **core:** added Masked.valueOf() Question ([e9ff5ab](https://github.com/serenity-js/serenity-js/commit/e9ff5ab62e8b305aa7ef2238f482be5369d890c1)), closes [#2165](https://github.com/serenity-js/serenity-js/issues/2165)
+* **mocha:** support for nested requirements reporting ([f8e70ce](https://github.com/serenity-js/serenity-js/commit/f8e70ce8a317ab6e8bdf4d058110f110b4c8deda))
+* **serenity-bdd:** upgraded Serenity BDD to 4.0.44 ([4e2f1e3](https://github.com/serenity-js/serenity-js/commit/4e2f1e3b273712c44a7f749ba9570f121520cdd5))
+
+
+
+
+
 ## [3.15.1](https://github.com/serenity-js/serenity-js/compare/v3.15.0...v3.15.1) (2024-01-19)
 
 **Note:** Version bump only for package @serenity-js/core

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/serenity-js/serenity-js/compare/v3.15.1...v3.16.0) (2024-02-01)
+
+
+### Bug Fixes
+
+* **cucumber:** ensure Cucumber adapter emits events with absolute file paths ([f93d9cc](https://github.com/serenity-js/serenity-js/commit/f93d9cc5c405811e5ed1b7ef31b788f2fa92b329))
+* **cucumber:** support for Cucumber 10.3.1 ([8f41a03](https://github.com/serenity-js/serenity-js/commit/8f41a03cab5a3c1d46ea2037769e01c101a1e762))
+
+
+### Features
+
+* **cucumber:** support for nested requirements reporting ([40f8842](https://github.com/serenity-js/serenity-js/commit/40f884273bfac96bde1b028a819d9641e861dc3b))
+* **cucumber:** support for nested requirements reporting ([2d0b885](https://github.com/serenity-js/serenity-js/commit/2d0b885d61d7e63445a68d4a14c34240ed4c304e))
+
+
+
+
+
 ## [3.15.1](https://github.com/serenity-js/serenity-js/compare/v3.15.0...v3.15.1) (2024-01-19)
 
 **Note:** Version bump only for package @serenity-js/cucumber

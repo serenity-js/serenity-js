@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/serenity-js/serenity-js/compare/v3.15.1...v3.16.0) (2024-02-01)
+
+
+### Bug Fixes
+
+* **core:** introduced RequirementsHierarchy to centralise requirements detection logic ([0a3d6f0](https://github.com/serenity-js/serenity-js/commit/0a3d6f013a3b94ca471edc263e1157b7c41131be))
+* **core:** recognise `specs` as a potential requirements hierarchy root ([d95d850](https://github.com/serenity-js/serenity-js/commit/d95d85058fd5e4e01aec689b7196989ece5e303f))
+* **core:** removed dependency on Moment.js ([edd1d64](https://github.com/serenity-js/serenity-js/commit/edd1d64f30893983b92bd600d102c81577c0ecb1))
+* **core:** simplified the Timestampt validation regex and improved error messages ([b453a23](https://github.com/serenity-js/serenity-js/commit/b453a23de419dbd811927b9447c17678e39f8cc8))
+* **core:** support for timezones and simplified date time strings when creating Timestamps ([754f8e2](https://github.com/serenity-js/serenity-js/commit/754f8e260d2fc5130075a78ec58084eafcf2c83f))
+* **cucumber:** ensure Cucumber adapter emits events with absolute file paths ([f93d9cc](https://github.com/serenity-js/serenity-js/commit/f93d9cc5c405811e5ed1b7ef31b788f2fa92b329))
+* **cucumber:** support for Cucumber 10.3.1 ([8f41a03](https://github.com/serenity-js/serenity-js/commit/8f41a03cab5a3c1d46ea2037769e01c101a1e762))
+* **deps:** update dependency lru-cache to v10.2.0 ([a580d1e](https://github.com/serenity-js/serenity-js/commit/a580d1e301b7901e78ea87b5a273438562880533))
+* **deps:** update dependency typedoc-plugin-mdn-links to v3.1.13 ([92c8652](https://github.com/serenity-js/serenity-js/commit/92c86521ecffc344cd31f70c1583a3807cf5d393))
+* **deps:** update dependency typedoc-plugin-mdn-links to v3.1.14 ([fdb2616](https://github.com/serenity-js/serenity-js/commit/fdb261639bcfcfcb0843b5ad177adfed3833a29b))
+* **deps:** update playwright dependencies to v1.41.1 ([a1a39ee](https://github.com/serenity-js/serenity-js/commit/a1a39ee2e30506849d4589a9588a5ac7dfb0adb8))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.0.46 ([218c08f](https://github.com/serenity-js/serenity-js/commit/218c08ffeef6fc1f51654782d896a03b048dca6d))
+
+
+### Features
+
+* **core:** added Masked.valueOf() Question ([e9ff5ab](https://github.com/serenity-js/serenity-js/commit/e9ff5ab62e8b305aa7ef2238f482be5369d890c1)), closes [#2165](https://github.com/serenity-js/serenity-js/issues/2165)
+* **cucumber:** support for nested requirements reporting ([40f8842](https://github.com/serenity-js/serenity-js/commit/40f884273bfac96bde1b028a819d9641e861dc3b))
+* **cucumber:** support for nested requirements reporting ([2d0b885](https://github.com/serenity-js/serenity-js/commit/2d0b885d61d7e63445a68d4a14c34240ed4c304e))
+* **jasmine:** support for nested requirements reporting ([137fef7](https://github.com/serenity-js/serenity-js/commit/137fef786dfb147576032e171fa0646695b7051e))
+* **jasmine:** support for using specDir to indicate the requirements hierarchy root ([585cb81](https://github.com/serenity-js/serenity-js/commit/585cb810a9b312be080549b823bfc586fbd8b3cc))
+* **mocha:** support for nested requirements reporting ([f8e70ce](https://github.com/serenity-js/serenity-js/commit/f8e70ce8a317ab6e8bdf4d058110f110b4c8deda))
+* **playwright-test:** improved requirements reporting ([3b99112](https://github.com/serenity-js/serenity-js/commit/3b99112b2eb0add2440d88a6485ee23e7acac75e))
+* **playwright-test:** support for nested requirements reporting ([37ef679](https://github.com/serenity-js/serenity-js/commit/37ef679bde723af856d94bc64781f189a59213ed))
+* **serenity-bdd:** upgraded Serenity BDD to 4.0.44 ([4e2f1e3](https://github.com/serenity-js/serenity-js/commit/4e2f1e3b273712c44a7f749ba9570f121520cdd5))
+
+
+
+
+
 ## [3.15.1](https://github.com/serenity-js/serenity-js/compare/v3.15.0...v3.15.1) (2024-01-19)
 
 
