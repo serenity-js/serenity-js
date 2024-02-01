@@ -46,6 +46,21 @@ describe('Timestamp', () => {
             expect(Timestamp.fromJSON(currentTimeIso8601).equals(now)).to.equal(true);
         });
 
+        given([
+            { description: 'Date around year 0', example: '0001-01-01T00:00:00Z', expected: '0001-01-01T00:00:00.000Z' },
+            { description: 'Date in the distant future', example: '9999-01-01T12:30:45Z', expected: '9999-01-01T12:30:45.000Z' },
+            { description: 'Another date in the distant future, with millis', example: '3000-12-31T23:59:59.999Z', expected: '3000-12-31T23:59:59.999Z' },
+            { description: 'Date with positive offset', example: '2024-01-20T12:30:45+03:00', expected: '2024-01-20T09:30:45.000Z' },
+            { description: 'Date time with T separator', example: '2024-01-20T12:30:45', expected: '2024-01-20T12:30:45.000Z' },
+            { description: 'Date time with t separator', example: '2024-01-20t12:30:45', expected: '2024-01-20T12:30:45.000Z' },
+            { description: 'Date time with space separator', example: '2024-01-20 12:30:45', expected: '2024-01-20T12:30:45.000Z' },
+            { description: 'Date with negative offset and milliseconds', example: '2024-01-20T12:30:45.678-05:00', expected: '2024-01-20T17:30:45.678Z' },
+            { description: 'Date with no timestamp', example: '1995-01-01', expected: '1995-01-01T00:00:00.000Z' },
+        ]).
+        it('can be deserialised from other ISO-8601-compliant strings', ({ example, expected }) => {
+            expect(Timestamp.fromJSON(example).toISOString()).to.equal(expected);
+        })
+
         it('can be inspected', () => {
             const result = inspect(Timestamp.fromJSON(currentTimeIso8601));
 
@@ -61,7 +76,7 @@ describe('Timestamp', () => {
             [],
         ).
         it('complains if given an incorrect value to deserialise', (value: any) => {
-            expect(() => Timestamp.fromJSON(value)).to.throw('Timestamp should be an ISO-8601-compliant date');
+            expect(() => Timestamp.fromJSON(value)).to.throw('Timestamp should follow the ISO8601 format: YYYY-MM-DD[Thh:mm[:ss[.sss]]]');
         });
     });
 
