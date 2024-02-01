@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, Masked } from '@serenity-js/core';
 import { By, Enter, Navigate, PageElement, Value } from '@serenity-js/web';
 
 /** @test {Enter} */
@@ -41,12 +41,17 @@ describe('Enter', () => {
             .to.equal(`#actor enters 'Bernie' into the name field`);
     });
 
+    it('provides a sensible and masked description of the interaction being performed', () => {
+        expect(Enter.theValue(Masked.valueOf(actorCalled('Bernie').name)).into(Form.field).toString())
+            .to.equal(`#actor enters '[a masked value]' into the name field`);
+    });
+
     it('correctly detects its invocation location', () => {
         const activity = Enter.theValue(actorCalled('Bernie').name).into(Form.field);
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Enter.spec.ts');
-        expect(location.line).to.equal(45);
+        expect(location.line).to.equal(50);
         expect(location.column).to.equal(69);
     });
 });
