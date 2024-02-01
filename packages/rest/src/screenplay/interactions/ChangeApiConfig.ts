@@ -87,6 +87,27 @@ import { CallAnApi } from '../abilities';
  *   )
  * ```
  *
+ * ## Handling sensitive information
+ *
+ * By design, any data handled by an actor appears in Serenity/JS reports.
+ * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use {@apilink Masked}.
+ * 
+ * ```ts
+ * import { actorCalled, Masked } from '@serenity-js/core'
+ * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { Ensure, equals } from '@serenity-js/assertions'
+ *
+ * await actorCalled('Apisitt')
+ *   .whoCan(
+ *     CallAnApi.at('http://localhost'),
+ *   )
+ *   .attemptsTo(
+ *     ChangeApiConfig.setHeader('Authorization', Masked.valueOf('secret token')),
+ *     Send.a(GetRequest.to('/api')),
+ *     Ensure.that(LastResponse.status(), equals(200)),
+ *   )
+ * ```
+ * 
  * @group Activities
  */
 export class ChangeApiConfig {
