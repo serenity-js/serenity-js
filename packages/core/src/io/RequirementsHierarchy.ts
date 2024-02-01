@@ -9,6 +9,7 @@ export class RequirementsHierarchy {
 
     private static readonly specDirectoryCandidates = [
         `features`,
+        `specs`,
         `spec`,
         `tests`,
         `test`,

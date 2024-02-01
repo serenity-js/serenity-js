@@ -19,6 +19,7 @@ describe('RequirementsHierarchy', () => {
 
         given([
             `features`,
+            `specs`,
             `spec`,
             `tests`,
             `test`,
