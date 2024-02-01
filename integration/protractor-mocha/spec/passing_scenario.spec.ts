@@ -12,7 +12,14 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import {
+    CapabilityTag,
+    CorrelationId,
+    Description,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
@@ -46,6 +53,7 @@ describe('@serenity-js/mocha', function () {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
+                .next(SceneTagged,              event => expect(event.tag).to.equal(new CapabilityTag('Examples')))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Mocha')))
 

@@ -26,6 +26,7 @@ export function mocha(...params: string[]): Promise<SpawnResult> {
         // Normally this will be simply "@serenity-js/mocha" as the Serenity/JS adapter for Jasmine
         // will be installed next to it.
         `--reporter=${ path.resolve(__dirname, '../../../packages/mocha') }`,
+        `--reporter-options="specDirectory=examples"`,
 
         // Same goes for the setup.js, which registers a ChildProcessReporter to enable integration testing
         `--require=${ path.resolve(__dirname, '../../../integration/mocha/examples/setup.js') }`,

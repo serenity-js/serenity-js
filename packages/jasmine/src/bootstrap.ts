@@ -1,4 +1,5 @@
 import { RuntimeError, serenity } from '@serenity-js/core';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
 
 import { monkeyPatched } from './monkeyPatched.js';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
@@ -24,10 +25,12 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
  * @see {@apilink monkeyPatched}
  * @see {@apilink SerenityReporterForJasmine}
  *
+ * @param {SerenityReporterForJasmineConfig} config
  * @param {jasmine} jasmine - the global.jasmine instance
+ *
  * @returns {SerenityReporterForJasmine}
  */
-export function bootstrap(jasmine = (global as any).jasmine): SerenityReporterForJasmine {
+export function bootstrap(config: SerenityReporterForJasmineConfig = {}, jasmine = (global as any).jasmine): SerenityReporterForJasmine {
     const wrappers = {
         expectationResultFactory: originalExpectationResultFactory => ((attributes: { passed: boolean, error: Error }) => {
             const result = originalExpectationResultFactory(attributes);
@@ -43,5 +46,15 @@ export function bootstrap(jasmine = (global as any).jasmine): SerenityReporterFo
     jasmine.Suite = monkeyPatched(jasmine.Suite, wrappers);
     jasmine.Spec = monkeyPatched(jasmine.Spec, wrappers);
 
-    return new SerenityReporterForJasmine(serenity);
+    const cwd = Path.from(process.cwd());
+    const requirementsHierarchy = new RequirementsHierarchy(
+        new FileSystem(cwd),
+        config?.specDirectory && cwd.resolve(Path.from(config?.specDirectory)),
+    );
+
+    return new SerenityReporterForJasmine(serenity, requirementsHierarchy);
+}
+
+export interface SerenityReporterForJasmineConfig {
+    specDirectory?: string;
 }

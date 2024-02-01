@@ -11,6 +11,11 @@ import type { JasmineReporter } from '../jasmine/index.js';
 export interface JasmineConfig {
 
     /**
+     * Spec dir is used as a prefix for all spec files and helpers
+     */
+    specDir?: string;
+
+    /**
      * A list of paths to helper files that should be loaded and executed before the `requires` and the `specs`.
      * Accepts relative and absolute paths as well as glob expressions.
      *

@@ -1,4 +1,3 @@
-import type { Path } from '@serenity-js/core/lib/io';
 import type { ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ensure, isNotBlank } from 'tiny-types';
 
@@ -14,7 +13,8 @@ export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(deta
         const category  = ensure('scenario category', details.category.value, isNotBlank());
         const storyName = escapeHtml(category);
 
-        const requirementsHierarchy = requirementsHierarchyFromPath(context.specDirectory, details.location.path);
+        const requirementsHierarchy = context.requirementsHierarchy.hierarchyFor(details.location.path);
+
         const pathElements = requirementsHierarchy.map(name => ({
             name,
             description: humanReadable(name),
@@ -37,21 +37,6 @@ export function scenarioDetailsOf<Context extends SerenityBDDReportContext>(deta
 
         return context;
     }
-}
-
-function requirementsHierarchyFromPath(specDirectory: Path, path: Path): string[] {
-    const relative = specDirectory.relative(path);
-    return relative.split().map((segment, i, segments) => {
-        if (i < segments.length - 1) {
-            return segment;
-        }
-
-        // If there is a dot in the file name, extract the substring before it; otherwise, use the entire string
-        const firstDotIndex = segment.indexOf('.');
-        return firstDotIndex === -1
-            ? segment
-            : segment.slice(0, firstDotIndex);
-    });
 }
 
 function humanReadable(name: string): string {

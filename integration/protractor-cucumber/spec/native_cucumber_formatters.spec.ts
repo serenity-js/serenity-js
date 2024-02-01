@@ -24,7 +24,7 @@ describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
             PickEvent.from(result.events)
                 .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A passing scenario')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))
                 .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
                 .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))

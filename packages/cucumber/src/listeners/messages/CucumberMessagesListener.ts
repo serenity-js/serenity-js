@@ -1,7 +1,7 @@
-import type { Envelope} from '@cucumber/messages';
+import type { Envelope } from '@cucumber/messages';
 import { IdGenerator } from '@cucumber/messages';
 import type { Serenity } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import type { ModuleLoader } from '@serenity-js/core/lib/io';
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';

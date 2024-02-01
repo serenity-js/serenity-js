@@ -9,7 +9,7 @@ import type {
     SceneTagged,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import type { Path } from '@serenity-js/core/lib/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { SerenityBDDReportContext } from './SerenityBDDReportContext';
@@ -19,7 +19,7 @@ import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf,
  * @package
  */
 export abstract class EventQueueProcessor {
-    constructor(protected readonly specDirectory: Path) {
+    constructor(protected readonly requirementsHierarchy: RequirementsHierarchy) {
     }
 
     abstract supports(queue: DomainEventQueue): boolean;

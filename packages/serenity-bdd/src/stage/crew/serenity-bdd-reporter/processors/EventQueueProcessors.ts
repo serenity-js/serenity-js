@@ -1,6 +1,6 @@
 import type { DomainEventQueues } from '@serenity-js/core';
 import { SceneStarts } from '@serenity-js/core/lib/events';
-import type { Path } from '@serenity-js/core/lib/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { Artifact, CorrelationId } from '@serenity-js/core/lib/model';
 import { Name, TestReport } from '@serenity-js/core/lib/model';
 import type { JSONObject } from 'tiny-types';
@@ -18,9 +18,9 @@ export class EventQueueProcessors {
     private readonly singleSceneProcessor: EventQueueProcessor;
     private readonly sceneSequenceProcessor: EventQueueProcessor;
 
-    constructor(specDirectory: Path) {
-        this.singleSceneProcessor = new SingleSceneEventQueueProcessor(specDirectory);
-        this.sceneSequenceProcessor = new SceneSequenceEventQueueProcessor(specDirectory);
+    constructor(requirementsHierarchy: RequirementsHierarchy) {
+        this.singleSceneProcessor = new SingleSceneEventQueueProcessor(requirementsHierarchy);
+        this.sceneSequenceProcessor = new SceneSequenceEventQueueProcessor(requirementsHierarchy);
     }
 
     // todo: move `name` to Artifact and return Artifact[]... and sceneId?

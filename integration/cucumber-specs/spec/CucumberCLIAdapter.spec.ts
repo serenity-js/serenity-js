@@ -68,7 +68,7 @@ describe('CucumberCLIAdapter', function () {
 
                     currentSceneId = event.sceneId;
                 })
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                 .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                 .next(ActivityFinished, event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -121,7 +121,7 @@ describe('CucumberCLIAdapter', function () {
 
                     currentSceneId = event.sceneId;
                 })
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -156,7 +156,7 @@ describe('CucumberCLIAdapter', function () {
                         expect(event.details.location.column).to.equal(3);
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -189,7 +189,7 @@ describe('CucumberCLIAdapter', function () {
                         expect(event.details.location.column).to.equal(3);
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -231,11 +231,13 @@ describe('CucumberCLIAdapter', function () {
          */
         delete process.env.FORCE_COLOR;
 
+        const specDirectory = `${ process.cwd() }/node_modules/@integration/cucumber-specs/features`;
+
         const adapter = new CucumberCLIAdapter(
             {
                 ... cucumberVersion().major() >= 2
-                    ? { formatOptions: { colorsEnabled: false } }
-                    : { noColors: true },
+                    ? { formatOptions: { colorsEnabled: false, specDirectory } }
+                    : { noColors: true, specDirectory },
                 require: ['./src/step_definitions/common.steps.ts' ],
                 ... config,
             },

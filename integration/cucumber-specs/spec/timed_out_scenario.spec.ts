@@ -21,7 +21,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(new Name('A timed out scenario'));
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a timed out scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that times out')))
                     .next(ActivityFinished,    event => {
