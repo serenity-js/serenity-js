@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/serenity-js/serenity-js/compare/v3.15.1...v3.16.0) (2024-02-01)
+
+
+### Bug Fixes
+
+* **core:** introduced RequirementsHierarchy to centralise requirements detection logic ([0a3d6f0](https://github.com/serenity-js/serenity-js/commit/0a3d6f013a3b94ca471edc263e1157b7c41131be))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.0.46 ([218c08f](https://github.com/serenity-js/serenity-js/commit/218c08ffeef6fc1f51654782d896a03b048dca6d))
+
+
+### Features
+
+* **cucumber:** support for nested requirements reporting ([40f8842](https://github.com/serenity-js/serenity-js/commit/40f884273bfac96bde1b028a819d9641e861dc3b))
+* **serenity-bdd:** upgraded Serenity BDD to 4.0.44 ([4e2f1e3](https://github.com/serenity-js/serenity-js/commit/4e2f1e3b273712c44a7f749ba9570f121520cdd5))
+
+
+
+
+
 ## [3.15.1](https://github.com/serenity-js/serenity-js/compare/v3.15.0...v3.15.1) (2024-01-19)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
