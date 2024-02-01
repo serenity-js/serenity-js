@@ -117,13 +117,12 @@ mocha --reporter=@serenity-js/mocha \
 
 #### Using Mocha configuration file
 
-Please note that you can use [Mocha configuration file](https://mochajs.org/#configuring-mocha-nodejs)
+Please note that you can use `.mocharc.yml` [configuration file](https://mochajs.org/#configuring-mocha-nodejs)
 to simplify your command line execution.
 
 For example:
 
-```yaml
-# .mocharc.yml
+```yaml title=".mocharc.yml"
 reporter: '@serenity-js/mocha'
 require:
   - ts-node/register
@@ -132,6 +131,14 @@ check-leaks: false
 timeout: 5000
 v8-stack-trace-limit: 100
 # ...other config
+```
+
+#### Configuring a custom requirements hierarchy root
+
+```yaml title=".mocharc.yml"
+reporter: '@serenity-js/mocha'
+reporter-options:       # Note: array, not an object
+  - 'specDirectory=e2e' # Configure custom requirements hierarchy root, such as "e2e"
 ```
 
 ### Using Serenity/JS Mocha with Protractor
@@ -154,7 +161,12 @@ exports.config = {
     },
 
     mochaOpts: {
-        // Mocha-specific configuration
+        // Custom requirements hierarchy root, optional 
+        reporterOptions: [
+            'specDirectory=e2e'
+        ],
+        
+        // ... other Mocha-specific configuration
     },
 
     // ... other Protractor-specific configuration   
@@ -184,7 +196,12 @@ export const config = {
     },
 
     mochaOpts: {
-        // Mocha-specific configuration
+        // Custom requirements hierarchy root, optional 
+        reporterOptions: [
+            'specDirectory=e2e'
+        ],
+
+        // ... other Mocha-specific configuration
     },
 
     // ... other Protractor-specific configuration   

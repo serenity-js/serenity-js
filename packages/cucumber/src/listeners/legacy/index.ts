@@ -20,7 +20,7 @@ export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): 
     try {
         const
             cucumber        = moduleLoader.require('cucumber'),
-            notifier        = new Notifier(serenity),
+            notifier         = new Notifier(serenity),
             mapper          = new FeatureFileMapper(),
             resultMapper    = new ResultMapper(serenity),
             cache           = new Cache<Path, FeatureFileMap>(),

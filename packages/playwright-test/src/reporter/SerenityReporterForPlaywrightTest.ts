@@ -1,19 +1,9 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult } from '@playwright/test/reporter';
-import type {
-    ClassDescription,
-    Serenity,
-    StageCrewMember,
-    StageCrewMemberBuilder,
-    Timestamp
-} from '@serenity-js/core';
-import {
-    LogicError,
-    serenity as reporterSerenityInstance
-} from '@serenity-js/core';
+import type { ClassDescription, Serenity, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import { LogicError, serenity as reporterSerenityInstance } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
 import {
     InteractionFinished,
@@ -26,10 +16,8 @@ import {
     TestRunnerDetected,
     TestRunStarts
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import type {
-    CorrelationId,
-    Outcome} from '@serenity-js/core/lib/model';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import type { CorrelationId, Outcome } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
@@ -39,7 +27,6 @@ import {
     ExecutionRetriedTag,
     ExecutionSkipped,
     ExecutionSuccessful,
-    FeatureTag,
     Name,
     ScenarioDetails,
 } from '@serenity-js/core/lib/model';
@@ -90,15 +77,20 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
      * @param serenity
      *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
      *  Note that Playwright runs test workers and reporters in separate processes.
+     * @param requirementsHierarchy
+     *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
      */
     constructor(
         config: SerenityReporterForPlaywrightTestConfig,
         private readonly serenity: Serenity = reporterSerenityInstance,
+        private requirementsHierarchy: RequirementsHierarchy = new RequirementsHierarchy(new FileSystem(Path.from(process.cwd()))),
     ) {
         this.serenity.configure(config);
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
+        this.requirementsHierarchy = new RequirementsHierarchy(new FileSystem(Path.from(config.rootDir)));
+
         this.serenity.announce(new TestRunStarts(this.now()));
     }
 
@@ -112,7 +104,10 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
-            new SceneTagged(currentSceneId, new FeatureTag(scenario.category.value), this.serenity.currentTime()),
+
+            ...this.requirementsHierarchy.requirementTagsFor(scenario.location.path, scenario.category.value)
+                .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
+
             new TestRunnerDetected(currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
         );
     }

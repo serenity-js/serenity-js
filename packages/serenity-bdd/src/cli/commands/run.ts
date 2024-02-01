@@ -1,8 +1,8 @@
 import { actorCalled, configure } from '@serenity-js/core';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
+import * as process from 'process';
 
-import { SpecDirectory } from '../../stage/crew/serenity-bdd-reporter/SpecDirectory';
 import type { Argv } from '../Argv';
 import { defaults } from '../defaults';
 import { formatError } from '../io';
@@ -28,7 +28,7 @@ export = {
             describe: 'A relative path to the directory where the Serenity BDD report should be produced',
         },
         features: {
-            default:   cwd.relative(new SpecDirectory(new FileSystem(cwd)).guessLocation()),
+            default:   cwd.relative(new RequirementsHierarchy(new FileSystem(cwd)).rootDirectory()),
             describe: 'A relative path to the requirements hierarchy root directory, such as "./features" or "./spec"',
         },
         artifact: {
@@ -85,9 +85,12 @@ export = {
             await actor.attemptsTo(
                 InvokeSerenityBDD.at(pathToArtifact)
                     .withProperties(SystemProperties.of({
-                        'serenity.compress.filenames': `${ argv.shortFilenames }`,
                         'LOG_LEVEL': argv.log,
                         'logback.configurationFile': path.resolve(moduleRoot, './resources/logback.config.xml'),
+                        'serenity.compress.filenames': `${ argv.shortFilenames }`,
+                        // Serenity BDD requires both --features and this property for FeatureFilePath to work
+                        // see https://github.com/serenity-bdd/serenity-core/blob/a997617f5a43b5d46a3a81da875b8f850a9c21ab/serenity-model/src/main/java/net/thucydides/model/requirements/FeatureFilePath.java#L10
+                        'serenity.features.directory': argv.features,
                     }))
                     .withArguments(SerenityBDDArguments.from(argv)),
             );

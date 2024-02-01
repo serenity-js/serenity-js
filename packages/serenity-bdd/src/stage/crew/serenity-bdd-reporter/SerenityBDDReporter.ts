@@ -1,15 +1,13 @@
 import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
-import { ConfigurationError, DomainEventQueues } from '@serenity-js/core';
+import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, TestRunFinishes } from '@serenity-js/core/lib/events';
-import type { FileSystem } from '@serenity-js/core/lib/io';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { EventQueueProcessors } from './processors';
 import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
-import { SpecDirectory } from './SpecDirectory';
 
 /**
  * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
@@ -128,15 +126,15 @@ export class SerenityBDDReporter implements StageCrewMember {
     }
 
     /**
-     * @param {Path} specDirectory
+     * @param {Path} requirementsHierarchy
      * @param {Stage} [stage]
      *  The stage this {@apilink StageCrewMember} should be assigned to
      */
     constructor(
-        private readonly specDirectory: Path,
+        private readonly requirementsHierarchy: RequirementsHierarchy,
         private stage?: Stage,
     ) {
-        this.processors = new EventQueueProcessors(ensure('specDirectory', specDirectory, isDefined()));
+        this.processors = new EventQueueProcessors(ensure('requirementsHierarchy', requirementsHierarchy, isDefined()));
     }
 
     /**
@@ -207,26 +205,11 @@ class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDRe
         ensure('stage', stage, isDefined());
         ensure('fileSystem', fileSystem, isDefined());
 
-        return new SerenityBDDReporter(this.specDirectoryFrom(fileSystem), stage);
-    }
+        const userDefinedSpecDirectory: Path | undefined = this.config.specDirectory && Path.from(this.config.specDirectory);
 
-    private specDirectoryFrom(fileSystem: FileSystem): Path {
-        return this.config.specDirectory
-            ? this.userDefinedSpecDir(fileSystem, this.config.specDirectory)
-            : this.guessedSpecDir(fileSystem);
-    }
-
-    private userDefinedSpecDir(fileSystem: FileSystem, configuredSpecDirectory: string): Path {
-        const specDirectory = Path.from(configuredSpecDirectory);
-
-        if (! fileSystem.exists(specDirectory)) {
-            throw new ConfigurationError(`Configured specDirectory \`${ this.config.specDirectory }\` does not exist`);
-        }
-
-        return fileSystem.resolve(specDirectory);
-    }
-
-    private guessedSpecDir(fileSystem: FileSystem): Path {
-        return new SpecDirectory(fileSystem).guessLocation();
+        return new SerenityBDDReporter(
+            new RequirementsHierarchy(fileSystem, userDefinedSpecDirectory),
+            stage,
+        );
     }
 }

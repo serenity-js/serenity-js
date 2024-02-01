@@ -22,7 +22,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(new Name('An assertion failure scenario'));
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with an assertion error')))
                     .next(ActivityFinished,    event => {
@@ -54,7 +54,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(new Name('An assertion failure scenario'));
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a non-Serenity assertion error')))
                     .next(ActivityFinished,    event => {

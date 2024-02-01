@@ -352,7 +352,8 @@ describe('EmailInput', () => {
 To use Serenity/JS reporting capabilities, register the `@serenity-js/playwright-test` reporter in your
 `playwright.config.ts` and define the appropriate reporting services (a.k.a. your "stage crew").
 
-For example, to enable Serenity/JS Console Reporter and Serenity BDD reporter, install the relevant modules:
+For example, to enable [Serenity/JS Console Reporter](https://serenity-js.org/handbook/reporting/console-reporter/)
+and [Serenity BDD Reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/), install the relevant modules:
 
 ```bash
 npm install --save-dev @serenity-js/console-reporter @serenity-js/serenity-bdd
@@ -366,11 +367,13 @@ Next, configure your Playwright project as follows:
 import type { PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
+    testDir: './spec',
+    
     reporter: [
         [ '@serenity-js/playwright-test', {
             crew: [
-                '@serenity-js/serenity-bdd',
                 '@serenity-js/console-reporter',
+                [ '@serenity-js/serenity-bdd', { specDirectory: './spec' } ],
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
                 // '@serenity-js/core:StreamReporter',
             ]

@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { CapabilityTag, CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
@@ -28,6 +28,7 @@ describe('@serenity-js/jasmine', function () {
                         expect(event.details.name).to.equal(new Name('A screenplay scenario passes'));
                         currentSceneId = event.sceneId;
                     })
+                    .next(SceneTagged,              event => expect(event.tag).to.equal(new CapabilityTag('Examples')))
                     .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine disables synchronisation with Angular`)))

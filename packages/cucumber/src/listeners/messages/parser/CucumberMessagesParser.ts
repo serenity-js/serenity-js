@@ -36,15 +36,16 @@ import {
     TaskStarts,
     TestRunnerDetected,
 } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type {
     CorrelationId,
-    Outcome} from '@serenity-js/core/lib/model';
+    Outcome,
+    Tag} from '@serenity-js/core/lib/model';
 import {
     ActivityDetails,
     ArbitraryTag,
     BusinessRule,
-    CapabilityTag,
     Category,
     Description,
     ExecutionCompromised,
@@ -53,14 +54,11 @@ import {
     ExecutionRetriedTag,
     ExecutionSkipped,
     ExecutionSuccessful,
-    FeatureTag,
     ImplementationPending,
     Name,
     ScenarioDetails,
     ScenarioParameters,
-    Tag,
     Tags,
-    ThemeTag,
 } from '@serenity-js/core/lib/model';
 
 import type { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';
@@ -80,6 +78,7 @@ export class CucumberMessagesParser {
     private readonly eventDataCollector: any;
     private readonly snippetBuilder: any;
     private readonly supportCodeLibrary: any;
+    private readonly requirementsHierarchy: RequirementsHierarchy;
 
     constructor(
         private readonly serenity: Serenity,
@@ -89,6 +88,7 @@ export class CucumberMessagesParser {
             eventDataCollector: EventDataCollector,
             snippetBuilder: any,
             supportCodeLibrary: any,
+            parsedArgvOptions: { specDirectory?: string },
         },
         private readonly shouldReportStep: (parsedTestStep: IParsedTestStep) => boolean,
     ) {
@@ -96,6 +96,10 @@ export class CucumberMessagesParser {
         this.eventDataCollector = formatterOptionsAndDependencies.eventDataCollector;
         this.snippetBuilder     = formatterOptionsAndDependencies.snippetBuilder;
         this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;
+        this.requirementsHierarchy = new RequirementsHierarchy(
+            new FileSystem(Path.from(formatterOptionsAndDependencies.cwd)),
+            formatterOptionsAndDependencies.parsedArgvOptions?.specDirectory && Path.from(formatterOptionsAndDependencies.parsedArgvOptions?.specDirectory)
+        );
     }
 
     parseTestCaseStarted(message: TestCaseStarted): DomainEvent[] {
@@ -192,7 +196,7 @@ export class CucumberMessagesParser {
             new Name(pickle.name),
             new Category(gherkinDocument.feature.name),
             new FileSystemLocation(
-                new Path(gherkinDocument.uri),
+                this.absolutePathFrom(gherkinDocument.uri),
                 location.line,
                 location.column,
             ),
@@ -252,24 +256,9 @@ export class CucumberMessagesParser {
             featureDescription:     gherkinDocument.feature.description && new Description(gherkinDocument.feature.description),
             scenarioDescription:    scenarioDescription && new Description(scenarioDescription),
             rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),
-            testRunnerName:         new Name('Cucumber'),
-            tags:                   this.scenarioHierarchyTagsFor(gherkinDocument, pickle).concat(scenarioTags),
+            testRunnerName:         new Name('JS'),
+            tags:                   this.requirementsHierarchy.requirementTagsFor(Path.from(this.cwd).resolve(Path.from(gherkinDocument.uri)), gherkinDocument.feature.name).concat(scenarioTags),
         };
-    }
-
-    private scenarioHierarchyTagsFor(gherkinDocument: GherkinDocument, pickle: Pickle): Tag[] {
-        const
-            directories = new Path(pickle.uri).directory().split(),
-            featuresIndex = directories.indexOf('features'),
-            hierarchy = [...directories.slice(featuresIndex + 1), gherkinDocument.feature.name];
-
-        const [featureName, capabilityName, themeName]: string[] = hierarchy.reverse();
-
-        return notEmpty([
-            themeName && Tag.humanReadable(ThemeTag, themeName),
-            capabilityName && Tag.humanReadable(CapabilityTag, capabilityName),
-            new FeatureTag(featureName),
-        ]);
     }
 
     private stepFrom(message: TestStepStarted | TestStepFinished) {
@@ -305,7 +294,7 @@ export class CucumberMessagesParser {
         return new ActivityDetails(
             new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text || parsedTestStep.name , parsedTestStep.argument)),
             new FileSystemLocation(
-                Path.from(location.uri),
+                this.absolutePathFrom(location.uri),
                 location.line,
             ),
         );
@@ -380,12 +369,12 @@ export class CucumberMessagesParser {
 
         return { outcome, willBeRetried, tags };
     }
+
+    private absolutePathFrom(relativePath: string): Path {
+        return Path.from(this.cwd).resolve(Path.from(relativePath));
+    }
 }
 
 function flatten<T>(listOfLists: T[][]): T[] {
     return listOfLists.reduce((acc, current) => acc.concat(current), []);
-}
-
-function notEmpty<T>(list: T[]) {
-    return list.filter(item => !!item);
 }

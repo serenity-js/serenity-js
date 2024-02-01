@@ -39,7 +39,7 @@ describe('@serenity-js/jasmine', () => {
 
             it('defaults to an unknown location if the real one could not be determined', () => {
                 // detecting the real location is done in Jasmine integration tests
-                serenityReporterForJasmine(jasmine);
+                serenityReporterForJasmine({}, jasmine);
 
                 const spec = new jasmine.Spec(attrs);
 
@@ -52,7 +52,7 @@ describe('@serenity-js/jasmine', () => {
 
                 jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';
 
-                serenityReporterForJasmine(jasmine);
+                serenityReporterForJasmine({}, jasmine);
 
                 expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');
             });
@@ -60,7 +60,7 @@ describe('@serenity-js/jasmine', () => {
             it('correctly reports the stacktrace of an error', () => {
                 const error = new TestCompromisedError('DB is down', new Error('Connection error'));
 
-                serenityReporterForJasmine(jasmine);
+                serenityReporterForJasmine({}, jasmine);
 
                 const spec_ = new jasmine.Spec(attrs);
 
@@ -76,7 +76,7 @@ describe('@serenity-js/jasmine', () => {
 
             it('defaults to an unknown location if the real one could not be determined', () => {
                 // detecting the real location is done in Jasmine integration tests
-                serenityReporterForJasmine(jasmine);
+                serenityReporterForJasmine({}, jasmine);
 
                 const suite = new jasmine.Suite(attrs);
 
@@ -88,7 +88,7 @@ describe('@serenity-js/jasmine', () => {
             it('correctly reports the stacktrace of an error', () => {
                 const error = new TestCompromisedError('DB is down', new Error('Connection error'));
 
-                serenityReporterForJasmine(jasmine);
+                serenityReporterForJasmine({}, jasmine);
 
                 const suite_ = new jasmine.Suite(attrs);
 

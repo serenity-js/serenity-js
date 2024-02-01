@@ -9,7 +9,7 @@ const jasmineExecutable = path.resolve(
     'jasmine.js',
 );
 
-const jasmineSpawner = spawner(
+export const jasmineSpawner = spawner(
     jasmineExecutable,
     { cwd: path.resolve(__dirname, '..') },
 );

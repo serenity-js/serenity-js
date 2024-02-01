@@ -26,7 +26,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet'));
                             currentSceneId = event.sceneId;
                         })
-                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
+                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS suggest implementation snippets')))
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                         .next(ActivityFinished, event => {
