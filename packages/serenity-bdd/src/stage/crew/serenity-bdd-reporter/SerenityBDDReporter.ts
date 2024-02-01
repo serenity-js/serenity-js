@@ -26,7 +26,7 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *       outputDirectory: './target/site/serenity'
  *     }),
  *     SerenityBDDReporter.fromJSON({
- *       requirementsHierarchy: './features'            // optional configuration
+ *       specDirectory: './features'            // optional configuration
  *     })
  *   ],
  * })
@@ -102,11 +102,11 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *
  * For example, to change the default location
  * of the [requirements hierarchy root directory](https://serenity-bdd.github.io/docs/reporting/living_documentation#the-requirements-hierarchy),
- * specify the `requirementsHierarchy` property:
+ * specify the `specDirectory` property:
  *
  * ```js
  *     crew: [
- *       [ '@serenity-js/serenity-bdd', { requirementsHierarchy: './features' } ],
+ *       [ '@serenity-js/serenity-bdd', { specDirectory: './features' } ],
  *       // ...
  *     ],
  * ```

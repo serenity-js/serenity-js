@@ -13,7 +13,8 @@ export interface SerenityBDDReporterConfig {
      * If not specified, `specDirectory` defaults to the first one of the following subdirectories that's present in the current working
      * directory:
      * - `features` - typically used by [Serenity/JS + Cucumber.js](/handbook/test-runners/cucumber/) projects to store `.feature` files
-     * - `spec` - typically used by [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects to store `.spec.js` files
+     * - `specs` - typically used by [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects to store `.spec.js` or `.spec.ts` files
+     * - `spec` - another popular naming convention seen in [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects
      * - `tests` - typically used by [Serenity/JS + Playwright Test](/handbook/test-runners/playwright-test/) projects to store `.spec.ts` files
      * - `test` - typically used by [Serenity/JS + WebdriverIO](/handbook/test-runners/webdriverio/) projects to store `.spec.ts` files
      * - `src` - typically used by [Serenity/JS + Playwright Component Test](/api/playwright-test/#ui-component-testing) projects to store `.spec.ts` files alongside the source code
