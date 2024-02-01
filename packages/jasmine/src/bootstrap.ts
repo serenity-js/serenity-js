@@ -25,12 +25,12 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
  * @see {@apilink monkeyPatched}
  * @see {@apilink SerenityReporterForJasmine}
  *
- * @param {jasmine} jasmine - the global.jasmine instance
  * @param {SerenityReporterForJasmineConfig} config
+ * @param {jasmine} jasmine - the global.jasmine instance
  *
  * @returns {SerenityReporterForJasmine}
  */
-export function bootstrap(jasmine = (global as any).jasmine, config: SerenityReporterForJasmineConfig = {}): SerenityReporterForJasmine {
+export function bootstrap(config: SerenityReporterForJasmineConfig = {}, jasmine = (global as any).jasmine): SerenityReporterForJasmine {
     const wrappers = {
         expectationResultFactory: originalExpectationResultFactory => ((attributes: { passed: boolean, error: Error }) => {
             const result = originalExpectationResultFactory(attributes);
