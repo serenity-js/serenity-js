@@ -3,6 +3,7 @@ import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import type { Outcome } from '@serenity-js/core/lib/model/index.js';
 import { ExecutionIgnored } from '@serenity-js/core/lib/model/index.js';
 
+import type { SerenityReporterForJasmineConfig } from '../bootstrap.js';
 import reporter from '../index.js';
 import type { SpecFilter } from './filters/index.js';
 import { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter } from './filters/index.js';
@@ -74,7 +75,8 @@ export class JasmineAdapter implements TestRunnerAdapter {
             this.config,
         ));
 
-        this.runner.addReporter(reporter(this.runner.jasmine));
+        const reporterConfig: SerenityReporterForJasmineConfig = this.config.specDir ? { specDirectory: this.config.specDir } : {};
+        this.runner.addReporter(reporter(reporterConfig, this.runner.jasmine));
 
         if (this.config.reporters) {
             this.config.reporters.forEach(reporter => {
