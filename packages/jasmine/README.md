@@ -47,7 +47,7 @@ jasmine --reporter=@serenity-js/jasmine
 ```typescript
 import serenityReporterForJasmine = require('@serenity-js/jasmine')
 
-jasmine.getEnv().addReporter(serenityReporterForJasmine)
+jasmine.getEnv().addReporter(serenityReporterForJasmine({ specDirectory: 'e2e' }))
 ```
 
 ## 📣 Stay up to date

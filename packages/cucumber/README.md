@@ -62,6 +62,10 @@ cucumber-js --format @serenity-js/cucumber \
     --require ./features/step_definitions/sample.steps.js 
 ```
 
+```
+'--format-options', `{ "specDirectory": "${ path.resolve(__dirname, '../../cucumber-specs/features') }" }`,
+```
+
 #### Cucumber 3.x to 6.x
 
 ```
