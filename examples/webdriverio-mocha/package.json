@@ -17,7 +17,7 @@
     "clean": "rimraf target",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
     "test:acceptance": "wdio wdio.conf.ts",
-    "test:report": "serenity-bdd run",
+    "test:report": "serenity-bdd run --features=test/spec",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "verify": "npm test"
   },

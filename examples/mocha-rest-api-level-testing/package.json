@@ -18,7 +18,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "mocha 'spec/**.spec.ts'",
+    "test:acceptance": "mocha 'test/**/*.spec.ts'",
     "test:report": "serenity-bdd run --log=debug --features='spec'",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "verify": "npm test"

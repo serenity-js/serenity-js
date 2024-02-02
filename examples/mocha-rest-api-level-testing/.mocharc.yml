@@ -3,8 +3,10 @@ color: true
 diff: true
 full-trace: true
 reporter: '@serenity-js/mocha'
+reporter-options:
+  - 'specDirectory=test/spec'
 require:
   - ts-node/register
-  - spec/support/setup.ts
+  - test/support/setup.ts
 timeout: 5000
 v8-stack-trace-limit: 100
