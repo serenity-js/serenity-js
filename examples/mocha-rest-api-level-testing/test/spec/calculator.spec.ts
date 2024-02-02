@@ -4,7 +4,7 @@ import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/loc
 import { ChangeApiConfig, LastResponse } from '@serenity-js/rest';
 import { after, before, describe, it } from 'mocha';
 
-import { Actors, RequestCalculationOf, VerifyResultAt } from './screenplay';
+import { Actors, RequestCalculationOf, VerifyResultAt } from '../src/screenplay';
 
 describe('Calculator', () => {
 

@@ -3,23 +3,27 @@ import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
+    // rootDir: 'test/spec',
     framework: '@serenity-js/webdriverio',
 
     serenity: {
         crew: [
             '@serenity-js/console-reporter',
-            '@serenity-js/serenity-bdd',
+            [ '@serenity-js/serenity-bdd', { specDirectory: 'test/spec' } ],
             [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
         ]
     },
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000,
+        timeout: 60_000,
+        reporterOptions: {
+            specDirectory: './test/spec'                  // optional, requirements hierarchy root
+        },
     },
 
     specs: [
-        './spec/**/*.spec.ts',
+        'test/spec/**/*.spec.ts',
     ],
 
     // reporters: [

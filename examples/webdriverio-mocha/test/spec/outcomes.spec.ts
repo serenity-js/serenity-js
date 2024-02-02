@@ -2,7 +2,7 @@ import { TestCompromisedError } from '@serenity-js/core';
 import { describe } from 'mocha';
 import assert = require('assert');
 
-describe('@serenity-js/webdriverio', () => {
+describe('outcomes', () => {
 
     describe('correctly reports when the test', () => {
 
