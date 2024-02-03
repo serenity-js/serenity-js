@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.1](https://github.com/serenity-js/serenity-js/compare/v3.16.0...v3.16.1) (2024-02-03)
+
+
+### Bug Fixes
+
+* **core:** build with TypeScript 5.2 ([2f261ee](https://github.com/serenity-js/serenity-js/commit/2f261ee92ae4d75b1d5b576d30083c8ecacbcb95))
+
+
+
+
+
 # [3.16.0](https://github.com/serenity-js/serenity-js/compare/v3.15.1...v3.16.0) (2024-02-01)
 
 **Note:** Version bump only for package @serenity-js/local-server
