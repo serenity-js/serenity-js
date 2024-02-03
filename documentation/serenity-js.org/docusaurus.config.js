@@ -365,6 +365,15 @@ const config = {
             }
         ],
         [
+            require.resolve('./src/plugins/meta/index.js'),
+            {
+                projectRoot: path.join(__dirname, '../../'),
+                include: [
+                    'packages/*'
+                ],
+            }
+        ],
+        [
             require.resolve('./src/plugins/changelog/index.js'),
             {
                 blogTitle: 'Serenity/JS Changelog \uD83C\uDF81',
