@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[13610],{20998:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-changelog","id":"default"}')}}]);

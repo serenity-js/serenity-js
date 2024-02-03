@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[10456],{95224:e=>{e.exports=JSON.parse('{"label":"webdriverio","permalink":"/blog/tags/webdriverio","allTagsPath":"/blog/tags","count":2}')}}]);
