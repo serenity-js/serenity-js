@@ -332,6 +332,15 @@ jobs:
           path: |
             CHANGELOG.md
 
+      - name: Upload package.json files
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
+        with:
+          retention-days: 3
+          name: package-json
+          path: |
+            package.json
+            packages/*/package.json
+
   #
   # Website
   #
@@ -390,6 +399,13 @@ jobs:
         continue-on-error: true
         with:
           name: changelog
+
+      - name: Download package.json files
+        if: github.ref == 'refs/heads/main'
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+        continue-on-error: true
+        with:
+          name: package-json
 
       - name: Build website
         run: make site
