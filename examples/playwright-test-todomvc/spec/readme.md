@@ -1,5 +1,3 @@
-Reporting results
-
 Narrative:
 In order to quickly learn how to use Serenity/JS with Cucumber
 As a busy developer
