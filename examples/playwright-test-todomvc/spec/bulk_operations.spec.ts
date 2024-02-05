@@ -2,10 +2,10 @@ import { contain, containItemsWhereEachItem, Ensure, equals, isPresent, not, pro
 import { afterEach, beforeEach, describe, it } from '@serenity-js/playwright-test';
 import { Click, CssClasses, isSelected, Text } from '@serenity-js/web';
 
-import { TODO_ITEMS } from './test-data';
-import { clearCompletedButton, persistedItemNames, persistedItems, startWithAListContaining, toggleAllButton } from './todo-list-app/TodoApp';
-import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted, markAsOutstanding } from './todo-list-app/TodoItem';
-import { itemCalled, itemNames, items, toggleAllItems } from './todo-list-app/TodoList';
+import { TODO_ITEMS } from '../test-data';
+import { clearCompletedButton, persistedItemNames, persistedItems, startWithAListContaining, toggleAllButton } from '../todo-list-app/TodoApp';
+import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted, markAsOutstanding } from '../todo-list-app/TodoItem';
+import { itemCalled, itemNames, items, toggleAllItems } from '../todo-list-app/TodoList';
 
 describe('Bulk operations', () => {
 
