@@ -16,28 +16,68 @@ async function MetadataPlugin(context, options) {
         path.join(projectRoot, pattern, `package.json`)
     );
 
+    const integrationsOfInterest = [
+        'axios',
+        '@cucumber/cucumber',
+        'cucumber',
+        'jasmine',
+        'mocha',
+        'playwright-core',
+        '@playwright/test',
+        'protractor',
+        '@wdio/cli',
+        'webdriverio',
+    ];
+
     return {
         name: 'docusaurus-plugin-serenity-js-metadata',
 
         async postBuild({ siteConfig, routesPaths, outDir, head }) {
 
+            // add v1
+
             const paths = await glob(input, { onlyFiles: false, globstar: true, absolute: true });
-            const metadata = {
-                packages: {},
-            };
+
+            const packages = {};
+            let integrations = {};
 
             for (const pathToPackageJSON of paths) {
                 const serenityPackage = JSON.parse(fs.readFileSync(pathToPackageJSON).toString('utf8'));
-                metadata.packages[serenityPackage.name] = { version: serenityPackage.version };
+
+                const dependencies = {
+                    ...serenityPackage.dependencies,
+                    ...serenityPackage.peerDependencies,
+                };
+
+                const packageIntegrations = Object.keys(dependencies)
+                    .filter(dependency => integrationsOfInterest.includes(dependency))
+                    .reduce((acc, key) => {
+                        acc[key] = dependencies[key];
+                        return acc;
+                    }, {});
+
+                integrations = {
+                    ...integrations,
+                    ...packageIntegrations,
+                }
+
+                packages[serenityPackage.name] = serenityPackage.version;
             }
 
             try {
-                const content = JSON.stringify(metadata, undefined, 0);
+                const content = JSON.stringify({
+                    packages,
+                    integrations
+                }, undefined, 0);
 
-                const pathToInfoFile = path.join(outDir, 'meta', 'info.json');
+                const pathToInfoFile = path.join(outDir, 'meta', 'v1', 'info.json');
                 await fs.outputFile(pathToInfoFile, content);
-            } catch (err) {
-                logger.error('Writing version.json failed.');
+
+                logger.info`Wrote meta/v1/info.json`;
+            }
+            catch (err) {
+                logger.error`Writing meta/v1/info.json failed: ${ err.message || err }`;
+
                 throw err;
             }
         }
