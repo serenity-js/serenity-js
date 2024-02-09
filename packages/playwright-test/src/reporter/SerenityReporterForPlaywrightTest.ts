@@ -29,6 +29,8 @@ import {
     ExecutionSuccessful,
     Name,
     ScenarioDetails,
+    Tag,
+    Tags,
 } from '@serenity-js/core/lib/model';
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
@@ -101,14 +103,18 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         this.sceneIds.set(test.id, currentSceneId);
 
         const scenario = this.scenarioDetailsFrom(test);
+        
+        const tags: Tag[] = test.title.split(/\s+/)
+            .filter(word => word.startsWith('@'))
+            .flatMap(tag => Tags.from(tag));
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
 
             ...this.requirementsHierarchy.requirementTagsFor(scenario.location.path, scenario.category.value)
                 .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
-
             new TestRunnerDetected(currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
+            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
         );
     }
 
