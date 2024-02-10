@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.17.0](https://github.com/serenity-js/serenity-js/compare/v3.16.2...v3.17.0) (2024-02-10)
+
+
+### Bug Fixes
+
+* **playwright-test:** fix lint issue, refactors and add integration tests to custom tags reporting ([0f055c7](https://github.com/serenity-js/serenity-js/commit/0f055c7f4e0a9f6d29ef20c615c2055baebf85ec))
+
+
+
+
+
 ## [3.16.2](https://github.com/serenity-js/serenity-js/compare/v3.16.1...v3.16.2) (2024-02-05)
 
 **Note:** Version bump only for package @serenity-js/core
