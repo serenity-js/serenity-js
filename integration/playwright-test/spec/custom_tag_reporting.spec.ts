@@ -11,8 +11,6 @@ describe('@serenity-js/playwright-test', function () {
     it('emits custom tags if present on describe or test title so that Serenity BDD can aggregate them correctly', () => playwrightTest('--project=default', 'custom_tags/custom_tag_reporting.spec.ts')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(result => {
-            console.dir(result.events);
-
             expect(result.exitCode).to.equal(0);
 
             let currentSceneId: CorrelationId;
