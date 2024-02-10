@@ -17,7 +17,7 @@ import {
     TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { CorrelationId, Outcome } from '@serenity-js/core/lib/model';
+import type { CorrelationId, Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
@@ -29,7 +29,6 @@ import {
     ExecutionSuccessful,
     Name,
     ScenarioDetails,
-    Tag,
     Tags,
 } from '@serenity-js/core/lib/model';
 
@@ -104,9 +103,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         const scenario = this.scenarioDetailsFrom(test);
         
-        const tags: Tag[] = test.title.split(/\s+/)
-            .filter(word => word.startsWith('@'))
-            .flatMap(tag => Tags.from(tag));
+        const tags: Tag[] = Tags.from(`${scenario.category.toString()} ${scenario.name.toString().replace(')', '')}`);
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
