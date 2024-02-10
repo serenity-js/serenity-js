@@ -17,7 +17,7 @@ import {
     TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { CorrelationId, Outcome } from '@serenity-js/core/lib/model';
+import type { CorrelationId, Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
@@ -29,6 +29,7 @@ import {
     ExecutionSuccessful,
     Name,
     ScenarioDetails,
+    Tags,
 } from '@serenity-js/core/lib/model';
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
@@ -101,14 +102,16 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         this.sceneIds.set(test.id, currentSceneId);
 
         const scenario = this.scenarioDetailsFrom(test);
+        
+        const tags: Tag[] = Tags.from(`${scenario.category.toString()} ${scenario.name.toString().replace(')', '')}`);
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
 
             ...this.requirementsHierarchy.requirementTagsFor(scenario.location.path, scenario.category.value)
                 .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
-
             new TestRunnerDetected(currentSceneId, new Name('Playwright'), this.serenity.currentTime()),
+            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
         );
     }
 
