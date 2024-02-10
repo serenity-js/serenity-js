@@ -25,7 +25,7 @@ export class Masked {
      *
      * await actorCalled('John')
      *   .attemptsTo(
-     *     Enter.theValue(Masked.valueOf('your little secret').into(Form.exampleInput())
+     *     Enter.theValue(Masked.valueOf('your little secret')).into(Form.exampleInput())
      *   );
      * ```
      *
