@@ -54,7 +54,7 @@ import { HTTPRequest } from './HTTPRequest';
  * await actorCalled('Apisitt')
  *   .whoCan(CallAnApi.at('https://api.example.org/'))
  *   .attemptsTo(
- *     Send.a(PostRequest.to('/feedback').with(postData).using({
+ *     Send.a(PostRequest.to('/feedback').with(formData).using({
  *       headers: {
  *         'Content-Type': 'application/x-www-form-urlencoded',
  *         'Content-Length': formData.length
