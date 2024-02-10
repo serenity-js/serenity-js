@@ -2,8 +2,8 @@ import * as fs from 'node:fs';
 import type * as nodeOS from 'node:os';
 import * as path from 'node:path';
 
-import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

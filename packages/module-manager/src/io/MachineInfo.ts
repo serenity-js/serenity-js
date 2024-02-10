@@ -2,6 +2,7 @@ import type * as fs from 'node:fs';
 import * as os from 'node:os';
 
 import * as gracefulFs from 'graceful-fs';
+
 import { MacAddress } from './MacAddress.js';
 
 export class MachineInfo {
@@ -68,7 +69,7 @@ export class MachineInfo {
 
         const externalMacAddresses = new Set<string>();
 
-        for (const [ interfaceName, networkInterfaces ] of Object.entries(this.nodeOs.networkInterfaces())) {
+        for (const [ interfaceName_, networkInterfaces ] of Object.entries(this.nodeOs.networkInterfaces())) {
             for (const networkInterface of networkInterfaces) {
                 if (! networkInterface.internal && new MacAddress(networkInterface.mac).isUnique()) {
                     externalMacAddresses.add(networkInterface.mac);
