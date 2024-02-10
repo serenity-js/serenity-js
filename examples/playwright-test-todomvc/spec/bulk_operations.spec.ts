@@ -24,7 +24,7 @@ describe('Bulk operations', () => {
             );
         });
 
-        it('should allow me to mark all items as completed', async ({ actor }) => {
+        it('should allow me to mark all items as completed @markAllCompleted', async ({ actor }) => {
             await actor.attemptsTo(
                 toggleAllItems(),
 
@@ -47,7 +47,7 @@ describe('Bulk operations', () => {
             );
         });
 
-        it('should allow me to clear the complete state of all items', async ({ actor }) => {
+        it('should allow me to clear the complete state of all items @clearAll', async ({ actor }) => {
             await actor.attemptsTo(
                 toggleAllItems(),
                 toggleAllItems(),
@@ -64,7 +64,7 @@ describe('Bulk operations', () => {
             );
         });
 
-        it('complete all checkbox should update state when items are completed / cleared', async ({ actor }) => {
+        it('complete all checkbox should update state when items are completed / cleared @completeAll', async ({ actor }) => {
             await actor.attemptsTo(
                 toggleAllItems(),
 
@@ -127,5 +127,7 @@ describe('Bulk operations', () => {
                 Ensure.that(clearCompletedButton(), not(isPresent())),
             );
         });
+
+        it.fixme('should mark test as manual @manual', async () => {});
     });
 });
