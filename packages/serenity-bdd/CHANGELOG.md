@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.17.0](https://github.com/serenity-js/serenity-js/compare/v3.16.2...v3.17.0) (2024-02-10)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** removed dependency on https-proxy-agent as it's no longer required ([acad172](https://github.com/serenity-js/serenity-js/commit/acad172c9899f76640203e639540f9312421351d))
+
+
+
+
+
 ## [3.16.2](https://github.com/serenity-js/serenity-js/compare/v3.16.1...v3.16.2) (2024-02-05)
 
 
