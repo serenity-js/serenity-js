@@ -1,4 +1,4 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter,QuestionAdapter, UsesAbilities } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter, Optional, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
 import { d, LogicError, Question } from '@serenity-js/core';
 
 import { PageElement } from '../models';
@@ -97,7 +97,7 @@ import { PageElement } from '../models';
  */
 export class Attribute<Native_Element_Type>
     extends Question<Promise<string>>
-    implements MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<string>>>
+    implements MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<string>>>, Optional
 {
     private subject: string;
 
@@ -155,6 +155,16 @@ export class Attribute<Native_Element_Type>
         const element = await actor.answer(this.element);
 
         return element.attribute(name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    isPresent(): QuestionAdapter<boolean> {
+        return Question.about(this.subject, async actor => {
+            const attribute = await this.answeredBy(actor);
+            return attribute !== null && attribute !== undefined;
+        });
     }
 
     /**
