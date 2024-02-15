@@ -2,7 +2,7 @@
 const Module = require('module'); // No type definitions available
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
-import { Version } from './Version';
+import { Version } from '../Version';
 
 /**
  * Dynamically loads Node modules located relative to `cwd`.

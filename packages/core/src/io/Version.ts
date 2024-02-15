@@ -7,15 +7,14 @@ import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
 export class Version extends TinyType {
 
     /**
-     * @param {string} version
-     * @returns {Version}
+     * @param version
      */
     static fromJSON(version: string): Version {
         return new Version(version);
     }
 
     /**
-     * @param {string} version
+     * @param version
      */
     constructor(private readonly version: string) {
         super();
@@ -23,15 +22,14 @@ export class Version extends TinyType {
     }
 
     /**
-     * @param {Version} other
-     * @returns {boolean}
+     * @param other
      */
     isAtLeast(other: Version): boolean {
         return semver.gte(this.version, other.version);
     }
 
     /**
-     * @returns {number}
+     * @returns
      *  Major version number of a given package version, i.e. `1` in `1.2.3`
      */
     major(): number {
@@ -39,8 +37,12 @@ export class Version extends TinyType {
     }
 
     /**
-     * @returns {string}
+     * @param range
      */
+    satisfies(range: string): boolean {
+        return semver.satisfies(this.version, range);
+    }
+
     toString(): string {
         return `${ this.version }`;
     }
