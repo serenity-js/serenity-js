@@ -7,5 +7,6 @@ reporter-options: 'mocha-multi=.mocha-reporters.json'
 timeout: 10000
 v8-stack-trace-limit: 100
 node-option:
+  - import=tsx/esm
+  - trace-uncaught
   - trace-warnings
-  - loader=ts-node/esm
