@@ -6,26 +6,32 @@ import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
  */
 export class Version extends TinyType {
 
-    /**
-     * @param version
-     */
     static fromJSON(version: string): Version {
         return new Version(version);
     }
 
-    /**
-     * @param version
-     */
     constructor(private readonly version: string) {
         super();
         ensure('version', version, isDefined(), isString(), isValid());
+    }
+
+    isLowerThan(other: Version): boolean {
+        return semver.lt(this.version, other.version, { loose: false });
+    }
+
+    isAtMost(other: Version): boolean {
+        return semver.lte(this.version, other.version, { loose: false });
     }
 
     /**
      * @param other
      */
     isAtLeast(other: Version): boolean {
-        return semver.gte(this.version, other.version);
+        return semver.gte(this.version, other.version, { loose: false });
+    }
+
+    isHigherThan(other: Version): boolean {
+        return semver.gt(this.version, other.version, { loose: false });
     }
 
     /**
@@ -36,11 +42,8 @@ export class Version extends TinyType {
         return Number(this.version.split('.')[0]);
     }
 
-    /**
-     * @param range
-     */
     satisfies(range: string): boolean {
-        return semver.satisfies(this.version, range);
+        return semver.satisfies(this.version, range, { loose: false });
     }
 
     toString(): string {
