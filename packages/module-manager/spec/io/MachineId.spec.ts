@@ -7,16 +7,17 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import { MachineId } from '../../src/io/MachineId.js';
 import { MachineInfo } from '../../src/io/MachineInfo.js';
-import { stub } from './fakes/stub.js';
+import { Stubs } from '../Stubs.js';
 
 describe('MachineId', () => {
 
     const emptyFs = createFsFromVolume(Volume.fromJSON({})) as unknown as typeof nodeFs;
+    const stubs = Stubs.from('io/stubs');
 
     it('creates an anonymous machine id that reasonably distinguishes one machine from another', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
         const id = new MachineId(info).create();

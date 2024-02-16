@@ -6,10 +6,11 @@ import { expect } from '@integration/testing-tools';
 import { createFsFromVolume, Volume } from 'memfs';
 
 import { MachineInfo } from '../../src/io/MachineInfo.js';
-import { stub } from './fakes/stub.js';
+import { Stubs } from '../Stubs.js';
 
 describe('MachineInfo', () => {
 
+    const stubs = Stubs.from('io/stubs');
     const emptyFs = createFsFromVolume(Volume.fromJSON({ })) as unknown as typeof nodeFs;
     const dockerFsWithCGroup = createFsFromVolume(Volume.fromJSON({
         '/proc/1/cgroup': '12:memory:/docker/1234567890abcdef'
@@ -20,8 +21,8 @@ describe('MachineInfo', () => {
 
     it('recognises operating system environment', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
@@ -32,8 +33,8 @@ describe('MachineInfo', () => {
     describe('Docker', () => {
         it(`doesn't check for Docker-specific files when running on Windows`, () => {
             const info = new MachineInfo(
-                stub('os'),
-                stub('process', { platform: 'win32' }),
+                stubs.get('os'),
+                stubs.get('process', { platform: 'win32' }),
                 emptyFs,
             );
 
@@ -42,8 +43,8 @@ describe('MachineInfo', () => {
 
         it('recognises Docker containers based on /proc/self/cgroup', () => {
             const info = new MachineInfo(
-                stub('os'),
-                stub('process'),
+                stubs.get('os'),
+                stubs.get('process'),
                 dockerFsWithCGroup,
             );
 
@@ -53,8 +54,8 @@ describe('MachineInfo', () => {
 
         it('recognises Docker containers based on the presence of /var/run/docker.sock', () => {
             const info = new MachineInfo(
-                stub('os'),
-                stub('process'),
+                stubs.get('os'),
+                stubs.get('process'),
                 dockerFsWithSocket,
             );
 
@@ -66,8 +67,8 @@ describe('MachineInfo', () => {
 
     it('recognises the runtime environment', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
@@ -76,8 +77,8 @@ describe('MachineInfo', () => {
 
     it('recognises the chip', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
@@ -86,8 +87,8 @@ describe('MachineInfo', () => {
 
     it('recognises the amount of memory', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
@@ -96,8 +97,8 @@ describe('MachineInfo', () => {
 
     it('recognises the hostname', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
@@ -106,8 +107,8 @@ describe('MachineInfo', () => {
 
     it('recognises non-internal MAC addresses', () => {
         const info = new MachineInfo(
-            stub('os'),
-            stub('process'),
+            stubs.get('os'),
+            stubs.get('process'),
             emptyFs,
         );
 
