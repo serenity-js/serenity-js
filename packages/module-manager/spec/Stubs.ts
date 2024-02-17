@@ -29,6 +29,6 @@ export class Stubs {
     }
 
     getAsJson(name: string, overrides: Record<string, any> = {}): string {
-        return JSON.stringify(this.get(name, overrides), null, 4);
+        return JSON.stringify(this.get(name, overrides), undefined, 4);
     }
 }

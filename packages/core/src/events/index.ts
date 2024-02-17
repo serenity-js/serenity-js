@@ -24,6 +24,7 @@ export * from './SceneSequenceDetected';
 export * from './SceneStarts';
 export * from './SceneTagged';
 export * from './SceneTemplateDetected';
+export * from './SerenityInstallationDetected';
 export * from './TaskFinished';
 export * from './TaskStarts';
 export * from './TestRunFinished';

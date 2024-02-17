@@ -11,5 +11,6 @@ export * from './loader';
 export * from './Path';
 export * from './reflection';
 export * from './RequirementsHierarchy';
+export * from './SerenityInstallationDetails';
 export * from './trimmed';
 export * from './Version';
