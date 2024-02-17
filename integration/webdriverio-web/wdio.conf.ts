@@ -25,6 +25,7 @@ const options = {
 
     capabilities: [{
         browserName: 'chrome',
+        browserVersion: '122.0.6261.39',
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
@@ -50,7 +51,9 @@ const webdriverProtocol: Partial<WebdriverIOConfig> = {
     automationProtocol: 'webdriver',
     outputDir: 'target/logs',
     services: [
-        [ 'chromedriver', { } ]
+        [ 'chromedriver', {
+            chromedriverCustomPath: require(`chromedriver`).path,
+        } ]
     ],
 };
 

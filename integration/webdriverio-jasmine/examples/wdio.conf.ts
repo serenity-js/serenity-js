@@ -31,6 +31,7 @@ export const config: WebdriverIOConfig = {
     maxInstances: 1,
 
     headless: true,
+    automationProtocol: 'devtools',
 
     capabilities: [{
 
