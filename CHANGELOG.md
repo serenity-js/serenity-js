@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.18.0](https://github.com/serenity-js/serenity-js/compare/v3.17.0...v3.18.0) (2024-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency diff to v5.2.0 ([17f5a2e](https://github.com/serenity-js/serenity-js/commit/17f5a2e61576bae958f1f30490da8b24351d08f8))
+* **deps:** update dependency http-proxy-agent to v7.0.2 ([cd46c66](https://github.com/serenity-js/serenity-js/commit/cd46c66baf22538a0d2d8c30c3569bc9a5a15e53))
+* **deps:** update dependency https-proxy-agent to v7.0.4 ([a9f02f6](https://github.com/serenity-js/serenity-js/commit/a9f02f61186d635821515d756507f0f9f04227f8))
+* **deps:** update dependency typedoc-plugin-mdn-links to v3.1.16 ([0563d11](https://github.com/serenity-js/serenity-js/commit/0563d11850a8d148171128afbda616ec46cebd04))
+
+
+### Features
+
+* **web:** actors can now check if an HTML element attribute is present ([3ce115a](https://github.com/serenity-js/serenity-js/commit/3ce115ab5c27b05b970f529ee0e97c89d46bbde4))
+
+
+
+
+
 # [3.17.0](https://github.com/serenity-js/serenity-js/compare/v3.16.2...v3.17.0) (2024-02-10)
 
 
