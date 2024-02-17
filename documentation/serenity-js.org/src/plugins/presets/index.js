@@ -6,11 +6,12 @@ const path = require('path');
 
 /**
  * @param {import('@docusaurus/types').LoadContext} context
+ * @param options
  * @returns {import('@docusaurus/types').Plugin}
  */
-async function MetadataPlugin(context, options) {
+async function PresetsPlugin(context, options) {
 
-    const { projectRoot, include } = options;
+    const { projectRoot, include, caching, sampling } = options;
 
     const input = include.map(pattern =>
         path.join(projectRoot, pattern, `package.json`)
@@ -34,8 +35,7 @@ async function MetadataPlugin(context, options) {
 
         async postBuild({ siteConfig, routesPaths, outDir, head }) {
 
-            // add v1
-
+            // module-manager preset
             const paths = await glob(input, { onlyFiles: false, globstar: true, absolute: true });
 
             const packages = {};
@@ -67,16 +67,19 @@ async function MetadataPlugin(context, options) {
             try {
                 const content = JSON.stringify({
                     packages,
-                    integrations
+                    integrations,
+                    caching,
+                    sampling,
+                    updatedAt: new Date().toISOString(),
                 }, undefined, 0);
 
-                const pathToInfoFile = path.join(outDir, 'meta', 'v1', 'info.json');
+                const pathToInfoFile = path.join(outDir, 'presets/v1/module-manager.json');
                 await fs.outputFile(pathToInfoFile, content);
 
-                logger.info`Wrote meta/v1/info.json`;
+                logger.info`Wrote presets/v1/module-manager.json`;
             }
             catch (err) {
-                logger.error`Writing meta/v1/info.json failed: ${ err.message || err }`;
+                logger.error`Writing presets/v1/module-manager.json failed: ${ err.message || err }`;
 
                 throw err;
             }
@@ -87,12 +90,20 @@ async function MetadataPlugin(context, options) {
 const pluginOptionsSchema = Joi.object({
     projectRoot: Joi.string().required(),
     include:     Joi.array().items(Joi.string()).default([]),
+    caching:    Joi.object({
+        enabled:  Joi.boolean().default(true),
+        duration: Joi.number().default(60 * 60 * 1000),
+    }).default({}),
+    sampling:  Joi.object({
+        enabled:  Joi.boolean().default(true),
+        rate:     Joi.number().default(1),
+    }).default({}),
 });
 
 function validateOptions({ validate, options }) {
     return validate(pluginOptionsSchema, options);
 }
 
-MetadataPlugin.validateOptions = validateOptions;
+PresetsPlugin.validateOptions = validateOptions;
 
-module.exports = MetadataPlugin;
+module.exports = PresetsPlugin;

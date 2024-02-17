@@ -365,12 +365,20 @@ const config = {
             }
         ],
         [
-            require.resolve('./src/plugins/meta/index.js'),
+            require.resolve('./src/plugins/presets/index.js'),
             {
                 projectRoot: path.join(__dirname, '../../'),
                 include: [
                     'packages/*'
                 ],
+                caching: {
+                    enabled: true,
+                    duration: 24 * 60 * 60 * 1000,
+                },
+                sampling: {
+                    enabled: true,
+                    rate: 0.1,
+                },
             }
         ],
         [
