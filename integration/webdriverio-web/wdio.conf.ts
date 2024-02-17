@@ -25,6 +25,7 @@ const options = {
 
     capabilities: [{
         browserName: 'chrome',
+        // see https://github.com/webdriverio/webdriverio/issues/12251
         browserVersion: '122.0.6261.39',
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
@@ -52,7 +53,7 @@ const webdriverProtocol: Partial<WebdriverIOConfig> = {
     outputDir: 'target/logs',
     services: [
         [ 'chromedriver', {
-            chromedriverCustomPath: require(`chromedriver`).path,
+            chromedriverCustomPath: require(`chromedriver`).path,   // eslint-disable-line @typescript-eslint/no-var-requires
         } ]
     ],
 };
