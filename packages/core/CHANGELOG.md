@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.18.0](https://github.com/serenity-js/serenity-js/compare/v3.17.0...v3.18.0) (2024-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency diff to v5.2.0 ([17f5a2e](https://github.com/serenity-js/serenity-js/commit/17f5a2e61576bae958f1f30490da8b24351d08f8))
+
+
+
+
+
 # [3.17.0](https://github.com/serenity-js/serenity-js/compare/v3.16.2...v3.17.0) (2024-02-10)
 
 
