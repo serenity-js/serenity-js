@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[13680],{91200:e=>{e.exports=JSON.parse('{"label":"local-server","permalink":"/changelog/tags/local-server","allTagsPath":"/changelog/tags","count":3}')}}]);

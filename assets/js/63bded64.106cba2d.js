@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[97256],{33758:e=>{e.exports=JSON.parse('{"banner":"","breadcrumbs":true,"gitRefName":"main","minimal":false,"pluginId":"default","scopes":["serenity-js"]}')}}]);

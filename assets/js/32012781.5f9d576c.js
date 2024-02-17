@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[35029],{18025:t=>{t.exports=JSON.parse('{"label":"playwright-test","permalink":"/blog/tags/playwright-test","allTagsPath":"/blog/tags","count":2}')}}]);
