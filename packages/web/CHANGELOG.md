@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.18.0](https://github.com/serenity-js/serenity-js/compare/v3.17.0...v3.18.0) (2024-02-17)
+
+
+### Features
+
+* **web:** actors can now check if an HTML element attribute is present ([3ce115a](https://github.com/serenity-js/serenity-js/commit/3ce115ab5c27b05b970f529ee0e97c89d46bbde4))
+
+
+
+
+
 # [3.17.0](https://github.com/serenity-js/serenity-js/compare/v3.16.2...v3.17.0) (2024-02-10)
 
 **Note:** Version bump only for package @serenity-js/web

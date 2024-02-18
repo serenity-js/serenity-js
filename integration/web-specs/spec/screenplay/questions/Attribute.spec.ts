@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
@@ -23,6 +23,16 @@ describe('Attribute', () => {
         it('allows the actor to read an attribute of a DOM element matching the locator', () =>
             actorCalled('Wendy').attemptsTo(
                 Ensure.that(Attribute.called('lang').of(dom), equals('en')),
+            ));
+
+        it('allows the actor to check if an attribute of a DOM element is present', () =>
+            actorCalled('Wendy').attemptsTo(
+                Ensure.that(Attribute.called('lang').of(dom), isPresent()),
+            ));
+
+        it('allows the actor to check if an attribute of a DOM element is not present', () =>
+            actorCalled('Wendy').attemptsTo(
+                Ensure.that(Attribute.called('data-invalid').of(dom), not(isPresent())),
             ));
 
         it('produces a sensible description of the question being asked', () => {
