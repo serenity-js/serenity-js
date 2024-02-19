@@ -58,7 +58,8 @@ export class ModuleLoader {
         try {
             return require(this.resolve(moduleId));
         }
-        catch {
+        catch (error) {
+            console.log({ error })
             return require(moduleId);
         }
     }
