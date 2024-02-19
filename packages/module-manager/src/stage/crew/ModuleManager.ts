@@ -96,7 +96,7 @@ export class ModuleManager implements ListensToDomainEvents {
     }
 
     private pathToCached(fileName: string): Path {
-        return Path.from(ModuleManager.defaultCacheDirectory, fileName);
+        return this.fileSystem.resolve(Path.from(ModuleManager.defaultCacheDirectory, fileName));
     }
 
     private serenityInstallationDetails(serenityMetadata: SerenityMetadataPreset): SerenityInstallationDetails {
