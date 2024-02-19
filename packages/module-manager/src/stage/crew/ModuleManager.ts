@@ -41,6 +41,7 @@ export class ModuleManager implements ListensToDomainEvents {
 
             const moduleManagerPreset = await this.moduleManagerPreset();
             console.log({ moduleManagerPreset: moduleManagerPreset.toJSON() });
+            console.log(this.moduleLoader);
             const details = this.serenityInstallationDetails(moduleManagerPreset);
             console.log({ details: details.toJSON() })
 
