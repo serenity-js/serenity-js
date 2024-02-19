@@ -94,7 +94,7 @@ function createTestEnvironment({ config, cwd = Path.from(process.cwd()), project
 
     const volume = Volume.fromNestedJSON(projectDirectory, cwd.value);
 
-    patchRequire(volume);
+    patchRequire(volume, true);
 
     const manager = ModuleManager.fromJSON(config).build({
         stage,
