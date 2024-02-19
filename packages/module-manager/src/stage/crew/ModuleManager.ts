@@ -40,10 +40,7 @@ export class ModuleManager implements ListensToDomainEvents {
             ));
 
             const moduleManagerPreset = await this.moduleManagerPreset();
-            console.log({ moduleManagerPreset: moduleManagerPreset.toJSON() });
-            console.log(this.moduleLoader);
             const details = this.serenityInstallationDetails(moduleManagerPreset);
-            console.log({ details: details.toJSON() })
 
             this.stage.announce(new SerenityInstallationDetected(
                 details,
@@ -238,7 +235,6 @@ class ModuleManagerBuilder implements StageCrewMemberBuilder<ModuleManager> {
 
     build({ stage, fileSystem }: StageCrewMemberBuilderDependencies): ModuleManager {
         const cwd = fileSystem.resolve(Path.from('.'));
-        console.log('ModuleManagerBuilder', { cwd: cwd.value })
         const moduleLoader = new ModuleLoader(cwd.value);
 
         return new ModuleManager(
