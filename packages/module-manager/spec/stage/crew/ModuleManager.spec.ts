@@ -69,7 +69,7 @@ describe('ModuleManager', () => {
     });
 });
 
-function createTestEnvironment({ config, cwd = Path.from('/home/alice/projects/example-project'), projectDirectory } : { config?: ModuleManagerConfig, cwd?: Path, projectDirectory: NestedDirectoryJSON }): {
+function createTestEnvironment({ config, cwd = Path.from(process.cwd()), projectDirectory } : { config?: ModuleManagerConfig, cwd?: Path, projectDirectory: NestedDirectoryJSON }): {
     manager: ModuleManager,
     emitter: EventStreamEmitter,
     recorder: EventRecorder,
