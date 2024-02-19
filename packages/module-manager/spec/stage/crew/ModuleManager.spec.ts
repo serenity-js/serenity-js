@@ -1,7 +1,7 @@
 import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integration/testing-tools';
 import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { SerenityInstallationDetected } from '@serenity-js/core/lib/events/index.js';
-import { FileSystem, Path, Version } from '@serenity-js/core/lib/io/index.js';
+import { FileSystem, ModuleLoader, Path, Version } from '@serenity-js/core/lib/io/index.js';
 import type * as nodeFS from 'fs';
 import { patchRequire } from 'fs-monkey';
 import type { NestedDirectoryJSON } from 'memfs';
@@ -26,17 +26,11 @@ describe('ModuleManager', () => {
 
                     const { emitter, recorder, stage } = createTestEnvironment({
                         projectDirectory: {
-                            [ModuleManager.defaultCacheDirectory]: {
-                                'module-manager.json': stubs.getAsJson('module-manager', { packages: { '@serenity-js/example': '1.0.0' }})
+                            [ ModuleManager.defaultCacheDirectory ]: {
+                                'module-manager.json': stubs.getAsJson('module-manager', { packages: { '@serenity-js-example/framework': '1.0.0' }})
                             },
-                            'node_modules/@serenity-js/example': {
-                                'package.json': '{"name":"@serenity-js/example","version":"1.0.0","main":"index.js","dependencies":{"@example/library":"^2.3.0"}}',
-                                'index.js': 'module.exports = {}'
-                            },
-                            'node_modules/@example/library': {
-                                'package.json': '{"name":"@example/library","version":"2.3.5","main":"index.js"}',
-                                'index.js': 'module.exports = {}'
-                            },
+                            ...fakeNodeModule('@serenity-js-example/framework', '1.0.0', { '@example/library': '^2.3.0' }),
+                            ...fakeNodeModule('@serenity-js-example/third-party-library', '2.3.5'),
                         }
                     });
 
@@ -48,13 +42,36 @@ describe('ModuleManager', () => {
 
                     PickEvent.from(recorder.events)
                         .next(SerenityInstallationDetected, (event: SerenityInstallationDetected) => {
-                            expect(event.details.packages.get('@serenity-js/example')).to.equal(new Version('1.0.0'));
-                            expect(event.details.integrations.get('@example/library')).to.equal(new Version('2.3.5'));
+                            expect(event.details.packages.get('@serenity-js-example/framework')).to.equal(new Version('1.0.0'));
+                            expect(event.details.integrations.get('@serenity-js-example/third-party-library')).to.equal(new Version('2.3.5'));
                             expect(event.details.updates.size).to.equal(0);
-                        })
+                        });
                 });
 
-                it('notifies the developer when updates are available', async () => {
+                it('lists available updates', async () => {
+
+                    const { emitter, recorder, stage } = createTestEnvironment({
+                        projectDirectory: {
+                            [ ModuleManager.defaultCacheDirectory ]: {
+                                'module-manager.json': stubs.getAsJson('module-manager', { packages: { '@serenity-js-example/framework': '1.1.0' }})
+                            },
+                            ...fakeNodeModule('@serenity-js-example/framework', '1.0.0'),
+                        }
+                    });
+
+                    await stage.waitForNextCue();
+
+                    await emitter.emit(`
+                        {"type":"TestRunStarts","event":"2024-02-10T10:47:58.480Z"}
+                    `);
+
+                    PickEvent.from(recorder.events)
+                        .next(SerenityInstallationDetected, (event: SerenityInstallationDetected) => {
+                            expect(event.details.packages.get('@serenity-js-example/framework')).to.equal(new Version('1.0.0'));
+                            expect(event.details.integrations.size).to.equal(0);
+                            expect(event.details.updates.size).to.equal(1);
+                            expect(event.details.updates.get('@serenity-js-example/framework')).to.equal(new Version('1.1.0'));
+                        });
                 });
             });
 
@@ -96,11 +113,15 @@ function createTestEnvironment({ config, cwd = Path.from(process.cwd()), project
 
     patchRequire(volume, true);
 
-    const manager = ModuleManager.fromJSON(config).build({
+    const fileSystem = new FileSystem(cwd, createFsFromVolume(volume) as unknown as typeof nodeFS);
+
+    const moduleLoader = new ModuleLoader(cwd.value, false);
+
+    const manager = new ModuleManager(
+        moduleLoader,
+        fileSystem,
         stage,
-        fileSystem: new FileSystem(cwd, createFsFromVolume(volume) as unknown as typeof nodeFS),
-        outputStream: undefined,    // Module Manager doesn't use the output stream, so we don't need it
-    });
+    );
 
     stage.assign(recorder);
     stage.assign(manager);
@@ -111,4 +132,13 @@ function createTestEnvironment({ config, cwd = Path.from(process.cwd()), project
         recorder,
         stage,
     };
+}
+
+function fakeNodeModule(moduleId: string, version: string, dependencies: Record<string, string> = {}): NestedDirectoryJSON {
+    return {
+        [`node_modules/${ moduleId }`]: {
+            'package.json': `{"name":"${ moduleId }","version":"${ version }","main":"index.js","dependencies":${ JSON.stringify(dependencies, undefined, 0) }}`,
+            'index.js': 'module.exports = {}'
+        }
+    }
 }
