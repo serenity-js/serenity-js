@@ -2,8 +2,8 @@ import { expect } from '@integration/testing-tools';
 import axios from 'axios';
 import { describe, it } from 'mocha';
 
-import { axiosProxyOverridesFor } from '../../../../src/screenplay/abilities/proxy';
-import { ProxyAgent } from '../../../../src/screenplay/abilities/proxy/ProxyAgent';
+import { axiosProxyOverridesFor } from '../../src/io/axiosProxyOverridesFor';
+import { ProxyAgent } from '../../src/io/ProxyAgent';
 
 describe('axiosProxyOverridesFor', () => {
 

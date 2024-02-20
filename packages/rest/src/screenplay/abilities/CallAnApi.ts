@@ -1,16 +1,15 @@
-import { Ability, ConfigurationError, Duration, LogicError, TestCompromisedError } from '@serenity-js/core';
-import axios, {
+import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
+import {
     Axios,
     type AxiosDefaults,
     type AxiosError,
     type AxiosInstance,
     type AxiosRequestConfig,
     type AxiosResponse,
-    type CreateAxiosDefaults,
 } from 'axios';
 
-import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults';
-import { axiosProxyOverridesFor } from './proxy';
+import type { AxiosRequestConfigDefaults} from '../../io';
+import { createAxios } from '../../io';
 
 /**
  * An {@apilink Ability} that wraps [axios client](https://axios-http.com/docs/api_intro) and enables
@@ -150,11 +149,11 @@ import { axiosProxyOverridesFor } from './proxy';
  * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * import axios from 'axios'
+ * import { createAxios } from '@serenity-js/axios'
  * import axiosRetry from 'axios-retry'
  *
- * const instance = axios.create({ baseURL 'https://api.example.org/' })
- * axiosRetry(axios, { retries: 3 })
+ * const instance = createAxios({ baseURL 'https://api.example.org/' })
+ * axiosRetry(instance, { retries: 3 })
  *
  * await actorCalled('Apisitt')
  *   .whoCan(
@@ -177,11 +176,11 @@ import { axiosProxyOverridesFor } from './proxy';
  * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * import axios from 'axios'
+ * import { axiosCreate } from '@serenity-js/rest'
  * import axiosRetry from 'axios-retry'
  *
- * const instance = axios.create({ baseURL 'https://api.example.org/' })
- * axiosRetry(axios, { retries: 3 })
+ * const instance = axiosCreate({ baseURL 'https://api.example.org/' })
+ * axiosRetry(instance, { retries: 3 })
  *
  * await actorCalled('Apisitt')
  *   .whoCan(
@@ -326,10 +325,6 @@ export class CallAnApi extends Ability {
 
     private lastResponse: AxiosResponse;
 
-    private static readonly defaults: CreateAxiosDefaults<any> = {
-        timeout: Duration.ofSeconds(10).inMilliseconds(),
-    };
-
     /**
      * Produces an {@apilink Ability|ability} to call a REST API at a specified `baseURL`;
      *
@@ -363,26 +358,7 @@ export class CallAnApi extends Ability {
      * @param axiosInstanceOrConfig
      */
     static using(axiosInstanceOrConfig: AxiosInstance | AxiosRequestConfigDefaults): CallAnApi {
-
-        const axiosInstanceGiven = isAxiosInstance(axiosInstanceOrConfig);
-
-        const axiosInstance = axiosInstanceGiven
-            ? axiosInstanceOrConfig
-            : axios.create({
-                ...CallAnApi.defaults,
-                ...omit(axiosInstanceOrConfig, 'proxy'),
-            });
-
-        const proxyConfig: AxiosRequestConfigProxyDefaults | false | undefined = axiosInstanceGiven
-            ? axiosInstanceOrConfig.defaults.proxy
-            : axiosInstanceOrConfig.proxy;
-
-        const proxyOverrides = axiosProxyOverridesFor({
-            ...axiosInstance.defaults,
-            proxy: proxyConfig || undefined,
-        });
-
-        return new CallAnApi(withOverrides(axiosInstance, proxyOverrides));
+        return new CallAnApi(createAxios(axiosInstanceOrConfig));
     }
 
     /**
@@ -487,22 +463,4 @@ export class CallAnApi extends Ability {
 
         return mappingFunction(this.lastResponse);
     }
-}
-
-function isAxiosInstance(axiosInstanceOrConfig: any): axiosInstanceOrConfig is AxiosInstance {
-    return axiosInstanceOrConfig
-        && (axiosInstanceOrConfig instanceof Axios || axiosInstanceOrConfig.defaults);
-}
-
-function withOverrides<Data = any>(axiosInstance: AxiosInstance, overrides: AxiosRequestConfig<Data>): AxiosInstance {
-    for (const [key, override] of Object.entries(overrides)) {
-        axiosInstance.defaults[key] = override;
-    }
-
-    return axiosInstance;
-}
-
-function omit<T extends object, K extends keyof T>(record: T, key: K): Omit<T, K> {
-    const { [key]: omitted_, ...rest } = record;
-    return rest;
 }

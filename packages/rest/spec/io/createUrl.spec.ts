@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { createUrl } from '../../../../src/screenplay/abilities/proxy/createUrl';
-import { expect } from '../../../expect';
+import { createUrl } from '../../src/io/createUrl';
+import { expect } from '../expect';
 
 describe('createUrl', () => {
 

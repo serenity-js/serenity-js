@@ -1,7 +1,7 @@
 import type * as http from 'http';
 import { ensure, isDefined } from 'tiny-types';
 
-import type { AxiosRequestConfigDefaults } from '../AxiosRequestConfigDefaults';
+import type { AxiosRequestConfigDefaults } from './AxiosRequestConfigDefaults';
 import { createUrl } from './createUrl';
 import { ProxyAgent } from './ProxyAgent';
 
