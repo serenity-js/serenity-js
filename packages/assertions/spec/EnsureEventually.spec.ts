@@ -141,7 +141,7 @@ describe('EnsureEventually', () => {
                     | Expected number: 200
                     | Received number: 503
                     |
-                    | \\s{4}at.*EnsureEventually.spec.ts:129:28`, 'gm'));
+                    | \\s{4}at.*EnsureEventually.spec.ts:130:28`, 'gm'));
             }),
         );
 
