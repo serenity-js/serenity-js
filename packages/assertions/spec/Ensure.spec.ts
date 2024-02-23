@@ -142,7 +142,7 @@ describe('Ensure', () => {
                     | Expected number: 200
                     | Received number: 503
                     |
-                    | \\s{4}at.*Ensure.spec.ts:130:28`, 'gm'));
+                    | \\s{4}at.*Ensure.spec.ts:131:28`, 'gm'));
             }),
         );
 

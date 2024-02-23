@@ -334,7 +334,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(332);
+            expect(location.line).to.equal(333);
             expect(location.column).to.equal(18);
         });
     });
