@@ -25,8 +25,6 @@ const options = {
 
     capabilities: [{
         browserName: 'chrome',
-        // see https://github.com/webdriverio/webdriverio/issues/12251
-        browserVersion: '122.0.6261.39',
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
