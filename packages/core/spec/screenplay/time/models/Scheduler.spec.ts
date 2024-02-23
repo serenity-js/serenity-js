@@ -16,6 +16,7 @@ describe('Scheduler', () => {
         clock = new Clock(() => new Date());
         scheduler = new Scheduler(clock, defaultTimeout);
     });
+
     afterEach(() => {
         scheduler.stop();
     });
