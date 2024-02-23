@@ -25,6 +25,7 @@ describe('outcomes', () => {
         });
 
         let counter = 2;
+
         it('is retried', function () {
             this.retries(2);
 

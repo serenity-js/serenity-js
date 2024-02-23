@@ -7,6 +7,7 @@ import { TagPrinter } from '../../../src/adapter/reporter/index.js';
 describe('TagPrinter', () => {
 
     let tagPrinter: TagPrinter;
+
     beforeEach(() => {
         tagPrinter = new TagPrinter();
     });
