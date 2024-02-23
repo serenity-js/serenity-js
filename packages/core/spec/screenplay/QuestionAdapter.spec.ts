@@ -16,6 +16,7 @@ describe('Question', () => {
     beforeEach(() => {
         actor = actorCalled('Stella');
     });
+
     afterEach(() => actor.dismiss());
 
     describe('about()', () => {

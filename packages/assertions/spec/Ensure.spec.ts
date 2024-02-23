@@ -112,6 +112,7 @@ describe('Ensure', () => {
 
     describe('when emitting an artifact', () => {
         let recorder;
+
         beforeEach(() => {
 
             recorder = new EventRecorder();
