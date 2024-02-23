@@ -19,6 +19,7 @@ import { expect } from '../../expect';
 describe('List', () => {
 
     let Fiona: Actor;
+
     beforeEach(() => {
         Fiona = actorCalled('Fiona');
     });

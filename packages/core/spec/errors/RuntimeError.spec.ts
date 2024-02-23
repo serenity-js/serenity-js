@@ -14,6 +14,7 @@ describe('RuntimeError', () => {
         }
 
         let error: RuntimeError;
+
         beforeEach(() => {
             error = new CustomError('something happened');
         });

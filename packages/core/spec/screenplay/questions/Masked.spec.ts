@@ -8,6 +8,7 @@ import { expect } from '../../expect';
 describe('Masked', () => {
 
     let Fiona: Actor;
+
     beforeEach(() => {
         Fiona = actorCalled('Fiona');
     });
