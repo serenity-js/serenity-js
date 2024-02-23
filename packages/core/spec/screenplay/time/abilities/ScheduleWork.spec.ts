@@ -8,6 +8,7 @@ describe('ScheduleWork', () => {
     let scheduleWork: ScheduleWork;
 
     let clock: Clock;
+
     beforeEach(() => {
         clock = new Clock();
         const timeout = Duration.ofSeconds(2);
