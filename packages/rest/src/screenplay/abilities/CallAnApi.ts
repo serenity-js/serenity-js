@@ -1,6 +1,5 @@
 import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
 import {
-    Axios,
     type AxiosDefaults,
     type AxiosError,
     type AxiosInstance,

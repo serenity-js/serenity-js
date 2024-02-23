@@ -1,6 +1,5 @@
 import { Duration } from '@serenity-js/core';
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
-import axios, { Axios } from 'axios';
+import axios, { Axios, type AxiosInstance, type AxiosRequestConfig } from 'axios';
 
 import { axiosProxyOverridesFor } from './axiosProxyOverridesFor';
 import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults';
@@ -10,7 +9,7 @@ import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from
  *
  * @param axiosInstanceOrConfig
  */
-export function createAxios(axiosInstanceOrConfig: AxiosInstance | AxiosRequestConfigDefaults): AxiosInstance {
+export function createAxios(axiosInstanceOrConfig: AxiosInstance | AxiosRequestConfigDefaults = {}): AxiosInstance {
     const axiosInstanceGiven = isAxiosInstance(axiosInstanceOrConfig);
 
     const axiosInstance = axiosInstanceGiven
