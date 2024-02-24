@@ -5,6 +5,7 @@ import type {
     DomainEvent} from '@serenity-js/core/lib/events';
 import {
     ActivityRelatedArtifactGenerated,
+    GlobalExceptionEncountered,
     InteractionFinished,
     InteractionStarts,
     SceneFinished,
@@ -265,6 +266,11 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
         if (event instanceof SceneFinished) {
             this.printScene(event.sceneId);
+        }
+
+        if (event instanceof GlobalExceptionEncountered && event.outcome instanceof ProblemIndication) {
+            // this.globalError.recordIfNeeded(event.outcome.error);
+            this.printTestRunErrorOutcome(event.outcome);
         }
 
         if (event instanceof TestRunFinished) {
