@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { CapabilityTag, ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
@@ -160,6 +160,21 @@ describe('@serenity-js/playwright-test', function () {
 
                         expect(error).to.be.instanceof(LogicError);
                         expect(error.message).to.equal(`Scenario expected to fail, but passed`);
+                    })
+                ;
+            }));
+
+        it('fails with unhandled global exception', () => playwrightTest('--project=default', 'failing/global-error-thrown.spec.ts')
+            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
+
+                PickEvent.from(result.events)
+                    .next(TestRunFinished, event => {
+                        const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        expect(outcome.error.name).to.equal('Error');
+                        expect(outcome.error.message).to.equal('Error: Something happened');
                     })
                 ;
             }));

@@ -21,7 +21,6 @@ import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
 import {
-    GlobalExceptionEncountered,
     InteractionFinished,
     RetryableSceneDetected,
     SceneFinished,
@@ -91,6 +90,7 @@ export interface SerenityReporterForPlaywrightTestConfig {
 export class SerenityReporterForPlaywrightTest implements Reporter {
     private errorParser = new PlaywrightErrorParser();
     private sceneIds: Map<string, CorrelationId> = new Map();
+    private unhandledError?: Error;
 
     /**
    * @param config
@@ -209,14 +209,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     onError(error: TestError): void {
-        const parsedError = this.errorParser.errorFrom(error);
-
-        this.serenity.announce(
-            new GlobalExceptionEncountered(
-                new ExecutionFailedWithError(parsedError),
-                this.serenity.currentTime()
-            ),
-        );
+        this.unhandledError = this.errorParser.errorFrom(error);
     }
 
     private determineScenarioOutcome(
@@ -284,9 +277,14 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         try {
             await this.serenity.waitForNextCue();
+
+            const outcome = this.unhandledError?
+                new ExecutionFailedWithError(this.unhandledError)
+                : new ExecutionSuccessful()
+
             this.serenity.announce(
                 new TestRunFinished(
-                    new ExecutionSuccessful(),
+                    outcome,
                     this.serenity.currentTime(),
                 ),
             );
@@ -354,9 +352,16 @@ class PlaywrightErrorParser {
     );
 
     public errorFrom(testError: TestError): Error {
-        const message =
+        let message =
       testError.message &&
       PlaywrightErrorParser.stripAsciiFrom(testError.message);
+
+        const snippet = 
+      testError.snippet &&
+      PlaywrightErrorParser.stripAsciiFrom(testError.snippet);
+
+        message = snippet ? [message, snippet].join('\n') : message;
+
         let stack =
       testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
 
