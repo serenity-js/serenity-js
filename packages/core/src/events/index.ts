@@ -12,7 +12,6 @@ export * from './BusinessRuleDetected';
 export * from './DomainEvent';
 export * from './EmitsDomainEvents';
 export * from './FeatureNarrativeDetected';
-export * from './GlobalExceptionEncountered';
 export * from './InteractionFinished';
 export * from './InteractionStarts';
 export * from './RetryableSceneDetected';
