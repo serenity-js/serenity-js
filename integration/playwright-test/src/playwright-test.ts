@@ -29,17 +29,6 @@ export function playwrightTest(...params: string[]): Promise<SpawnResult> {
         reporters.map(([name, outputPath]) => [ `REPORTER_${ name.toUpperCase() }`, outputPath ])
     );
 
-    const envModifier = params.find(parameter => parameter.startsWith('export '));
-    if (envModifier){
-        try{
-            const [envKey, envValue] = envModifier.replace('export ', '').split('=');
-            env[envKey] = envValue;
-        }
-        catch{
-            throw new Error('Invalid env variable modifier. Use "export KEY=VALUE" format');
-        }
-    }
-
     return spawner(
         playwrightExecutable,
         { cwd: path.resolve(__dirname, '..'), env },
