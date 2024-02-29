@@ -164,7 +164,11 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('fails with unhandled global exception', () => playwrightTest('--project=default', 'failing/global-error-thrown.spec.ts')
+        it('fails with unhandled global exception', () => playwrightTest(
+            'failing/global-error-thrown.spec.ts',
+            '--project=default',
+            '--pass-with-no-tests' // without that outcome changes to no tests found
+        )
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
                 expect(result.exitCode).to.equal(1);
@@ -175,6 +179,31 @@ describe('@serenity-js/playwright-test', function () {
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Error: Something happened');
+                    })
+                ;
+            }));
+
+        it('fails with unhandled global exception with snippet', () => playwrightTest(
+            'failing/global-error-thrown.spec.ts',
+            '--project=default',
+            '--pass-with-no-tests', // without that outcome changes to no tests found
+            'export SHOW_SNIPPETS=true'
+        )
+            .then(ifExitCodeIsOtherThan(1, logOutput))
+            .then(result => {
+                expect(result.exitCode).to.equal(1);
+
+                PickEvent.from(result.events)
+                    .next(TestRunFinished, event => {
+                        const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                        expect(outcome.error.name).to.equal('Error');
+                        expect(outcome.error.message).to.include('Error: Something happened');
+                        expect(outcome.error.message).to.include('at failing/global-error-thrown.spec.ts:5');
+                        expect(outcome.error.message).to.include('describe(\'Playwright Test reporting\', () => {');
+                        expect(outcome.error.message).to.include('> 5 |');
+                        expect(outcome.error.message).to.include('throw new Error(\'Something happened\');');
+                        expect(outcome.error.message).to.include('describe(\'A scenario\', () => {');
                     })
                 ;
             }));

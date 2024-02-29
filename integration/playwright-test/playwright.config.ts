@@ -37,6 +37,7 @@ const config: PlaywrightTestConfig = {
                     '@integration/testing-tools:ChildProcessReporter',
                     '@serenity-js/core:StreamReporter',
                 ],
+                includeSnippetOnError: !!process.env.SHOW_SNIPPETS  
             },
         ],
         ...[
