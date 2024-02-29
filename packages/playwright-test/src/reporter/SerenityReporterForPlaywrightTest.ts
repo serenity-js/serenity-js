@@ -80,13 +80,6 @@ export interface SerenityReporterForPlaywrightTestConfig {
    * - {@apilink SerenityConfig.outputStream}
    */
     outputStream?: OutputStream;
-
-    /**
-   * Flag for including code snippets on error 
-   * 
-   * Defaults to false.
-    */
-    includeSnippetOnError?: boolean;
 }
 
 /**
@@ -98,7 +91,6 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     private errorParser = new PlaywrightErrorParser();
     private sceneIds: Map<string, CorrelationId> = new Map();
     private unhandledError?: Error;
-    private includeSnippetOnError: boolean;
 
     /**
    * @param config
@@ -116,7 +108,6 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         ),
     ) {
         this.serenity.configure(config);
-        this.includeSnippetOnError = config.includeSnippetOnError ?? false;
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
@@ -218,7 +209,9 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     onError(error: TestError): void {
-        this.unhandledError = this.errorParser.errorFrom(error, this.includeSnippetOnError);
+        if (!this.unhandledError) {
+            this.unhandledError = this.errorParser.errorFrom(error);
+        }
     }
 
     private determineScenarioOutcome(
@@ -249,11 +242,11 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         if (['failed', 'interrupted', 'timedOut'].includes(result.status)) {
             if (test.retries > result.retry) {
-                return new ExecutionIgnored(this.errorParser.errorFrom(result.error, this.includeSnippetOnError));
+                return new ExecutionIgnored(this.errorParser.errorFrom(result.error));
             }
 
             return new ExecutionFailedWithError(
-                this.errorParser.errorFrom(result.error, this.includeSnippetOnError),
+                this.errorParser.errorFrom(result.error),
             );
         }
 
@@ -360,18 +353,10 @@ class PlaywrightErrorParser {
         'g',
     );
 
-    public errorFrom(testError: TestError, includeSnippet: boolean): Error {
-        let message =
+    public errorFrom(testError: TestError): Error {
+        const message =
       testError.message &&
       PlaywrightErrorParser.stripAsciiFrom(testError.message);
-
-        if (includeSnippet){
-            const snippet = 
-          testError.snippet &&
-          PlaywrightErrorParser.stripAsciiFrom(testError.snippet);
-    
-            message = snippet ? [message, snippet].join('\n') : message;
-        }
 
         let stack =
       testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
