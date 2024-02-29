@@ -78,7 +78,7 @@ and a web storefront that lets customers find the products they need and make a 
 A test scenario following the Screenplay Pattern has one or multiple [**actors**](/api/core/class/Actor)
 representing people and external systems interacting with the system under test and playing specific roles.
 
-:::info The role of an actor
+:::tip The role of an actor
 Just like the five core elements of the Screenplay Pattern, the term "role" comes from the system metaphor of a **stage performance**.
 It should be interpreted as the role a given actor plays in the performance,
 the role they play in the system. Some good examples of roles include "a doctor", "a trader", or "a writer".
@@ -94,24 +94,106 @@ Our example scenario could have two actors, who we'll call:
 - Apisitt, responsible for setting up test data using the REST API
 - Wendy, representing a customer interacting with the web UI
 
-With Serenity/JS, we can instantiate new actors or retrieve the ones we've already referenced in the given scenario using the function
-[`actorCalled`](/api/core/function/actorCalled) and providing their name:
+#### Instantiating and retrieving actors
 
-```typescript
+With Serenity/JS, you can instantiate new actors or retrieve the ones you've already referenced in the given scenario using the function
+[`actorCalled`](/api/core/function/actorCalled) and providing the name of the actor:
+
+```ts title="spec/screenplay-pattern.ts"
 import { actorCalled } from '@serenity-js/core'
 
-actorCalled('Apisitt')
-actorCalled('Wendy')
+actorCalled('Apisitt')  // returns: Actor(name='Apisitt')
+actorCalled('Wendy')    // returns: Actor(name='Wendy')
 ```
 
-Learn more about:
-- [Actors](/api/core/class/Actor)
-- [`actorCalled`](/api/core/function/actorCalled)
+Note that **every Serenity/JS actor is uniquely identified by their name**.
+The first time you call `actorCalled('Wendy')`, Serenity/JS instantiates a new [`Actor`](/api/core/class/Actor/)
+and stores a reference to it internally under the name you gave it.
+This way, whenever you call `actorCalled('Wendy')` **within the same scenario** again, you'll get the same actor instance back.
+
+```ts title="spec/screenplay-pattern.ts"
+import assert from 'node:assert/strict'
+import { actorCalled } from '@serenity-js/core'
+
+const wendy1 = actorCalled('Wendy') // first invocation of actorCalled
+const wendy2 = actorCalled('Wendy') // second invocation of actorCalled
+
+assert.equal(wendy1, wendy2)        // wendy1 === wendy 2
+```
+
+#### Using actors with test runners
+
+While you could use Serenity/JS and the [`actorCalled`](/api/core/function/actorCalled) function as part of any regular Node.js program,
+you'll typically use it with a test runner such as [Playwright Test](/handbook/test-runners/playwright-test),
+[Cucumber.js](/handbook/test-runners/cucumber), [Mocha](/handbook/test-runners/mocha), or [Jasmine](/handbook/test-runners/jasmine).
+
+To help you ensure no state leakage between test scenarios, [Serenity/JS test runner adapters](/handbook/test-runners)
+will also [automatically dismiss](/api/core/class/Actor/#dismiss) any actors instantiated within the scope of a test scenario and free up the resources
+they were using when the scenario finishes.
+
+Note that since different test runners have different APIs, the way you retrieve actors might vary slightly depending on the test runner you use:
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+    actorCalled('Apisitt')  // returns: Actor(name="Apisitt")
+    actorCalled('Wendy')    // returns: Actor(name="Wendy")
+  })
+})
+```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Mocha"}
+import { actorCalled } from '@serenity-js/core'
+import { describe, it } from 'mocha'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+    actorCalled('Apisitt')  // returns: Actor(name="Apisitt")
+    actorCalled('Wendy')    // returns: Actor(name="Wendy")
+  })
+})
+```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Jasmine"}
+import 'jasmine'
+import { actorCalled } from '@serenity-js/core'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+    actorCalled('Apisitt')  // returns: Actor(name="Apisitt")
+    actorCalled('Wendy')    // returns: Actor(name="Wendy")
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+    actorCalled('Apisitt') // returns: Actor(name="Apisitt")
+    // ...
+})
+```
 
 ### Abilities
 
 Actors have [**abilities**](/api/core/class/Ability) that enable them to interact with the various interfaces
-of the system under test.
+of the system under test and the test execution environment.
+
+From the technical perspective, **abilities** act as **wrappers** around any **integration libraries** required
+to communicate with the external interfaces of system under test,
+such as [web browser drivers](/api/web/class/BrowseTheWeb/) or an [HTTP client](/api/rest/class/CallAnApi/),
+or [hold state](/api/core/class/TakeNotes/) to allow actors to remember retrieved information.
+Abilities also enable [portability](/handbook/design/portable-test-code)
+of your test code across various lower-level integration libraries as they expose a standardised API.
 
 :::info Did you know?
 The word "screen" in "screenplay" has nothing to do with the _computer screen_.
@@ -120,29 +202,243 @@ external interface of your system. In fact, Serenity/JS implementation of the Sc
 break free from UI-only-based testing!
 :::
 
-For example, Apisitt will interact with the [REST API](/api/rest) using an Axios HTTP client:
+To allow Apisitt to interact with a [REST API](/api/rest), we'll give him the ability to [`CallAnApi`](/api/rest/class/CallAnApi),
+wrapping an instance of an [Axios HTTP client](https://axios-http.com/docs/instance):
 
-```typescript
+```ts title="spec/screenplay-pattern.ts"
+import axios from 'axios'
 import { actorCalled } from '@serenity-js/core'
 import { CallAnApi } from '@serenity-js/rest'
 
-actorCalled('Apisitt')
-    .whoCan(CallAnApi.using({ baseURL: 'https://api.example.org' }))
+const axiosInstance = axios.create({ baseURL 'https://api.example.org/' })
+
+const actor = actorCalled('Apisitt')
+    .whoCan(CallAnApi.using(axiosInstance))
+
+// ...
 ```
 
-At the same time, Wendy will interact with the [web UI](/api/web) using Playwright (although she could do so using any other [popular web browser driver supported by Serenity/JS](/handbook/web-testing/)):
+At the same time, to allow Wendy to interact with the [web UI](/api/web) we'll give her an instance of a [Playwright browser](https://playwright.dev/docs/api/class-browser), although she could use any other [popular web browser driver supported by Serenity/JS](/handbook/web-testing/):
 
-```typescript
+```ts title="spec/screenplay-pattern.ts"
 import { actorCalled } from '@serenity-js/core'
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
 
 import { chromium } from 'playwright'
 
-const browser = await chromium.launch({ headless: true })
+async function example() {
+    let browser
 
-actorCalled('Wendy')
-    .whoCan(BrowseTheWebWithPlaywright.using(browser))
+    try {
+        browser = await chromium.launch({ headless: false })
+
+        const actor = actorCalled('Wendy')
+            .whoCan(BrowseTheWebWithPlaywright.using(browser))
+
+        // ...
+    }
+    finally {
+        if (browser) {
+            await browser.close()
+        }
+    }
+}
 ```
+
+Even though the [`actorCalled`](/api/core/function/actorCalled) function makes instantiating and retrieving actors straightforward, setting up browser drivers, HTTP clients, and similar libraries can be more involved.
+Thankfully, Serenity/JS has a mechanism to help you with that, as you'll see in the next section.
+
+#### Using default test runner configuration
+
+Since configuring integration libraries like Axios or Playwright is a common task in test automation,
+Serenity/JS test runner adapters use your test runner's configuration to set up the abilities for you.
+And so, Serenity/JS adapters for the following test runners will automatically give every actor you retrieve via [`actorCalled`](/api/core/function/actorCalled) the below abilities so that you don't have to configure them yourself:
+- [Playwright Test](/handbook/test-runners/playwright-test):
+    - [`BrowseTheWebWithPlaywright`](/api/playwright/class/BrowseTheWebWithPlaywright/),
+    - [`CallAnApi`](/api/rest/class/CallAnApi) at [`baseURL`](/api/playwright/interface/PlaywrightOptions/#baseURL) configured in the [Playwright Test config file](https://playwright.dev/docs/test-configuration),
+    - [`TakeNotes`](/api/core/class/TakeNotes)
+- [WebdriverIO](/handbook/test-runners/webdriverio/) (with [Cucumber](/handbook/test-runners/cucumber), [Jasmine](/handbook/test-runners/jasmine), or [Mocha](/handbook/test-runners/mocha)):
+    - [`BrowseTheWebWithWebdriverIO`](/api/webdriverio/class/BrowseTheWebWithWebdriverIO/),
+    - [`CallAnApi`](/api/rest/class/CallAnApi) at [`baseUrl`](/api/webdriverio/interface/WebdriverIOConfig/#baseUrl) configured in the [WebdriverIO config file](https://webdriver.io/docs/configurationfile/),
+    - [`TakeNotes`](/api/core/class/TakeNotes)
+- [Protractor](/handbook/test-runners/protractor/) (with [Cucumber](/handbook/test-runners/cucumber), [Jasmine](/handbook/test-runners/jasmine), or [Mocha](/handbook/test-runners/mocha)):
+    - [`BrowseTheWebWithProtractor`](/api/protractor/class/BrowseTheWebWithProtractor/),
+    - [`CallAnApi`](/api/rest/class/CallAnApi) at [`baseUrl`](/api/protractor-adapter/interface/Config/#baseUrl) configured in the [Protractor config file](https://github.com/angular/protractor/blob/master/lib/config.ts),
+    - [`TakeNotes`](/api/core/class/TakeNotes)
+
+To retrieve actor's ability to do something, you can use the [`Actor.abilityTo`](/api/core/class/Actor/#whoCan) method,
+which returns an implementation of the ability if the actor has it, or throws a [`ConfigurationError`](/api/core/class/ConfigurationError/) if they don't.
+While you wouldn't retrieve the abilities directly in your test scenarios, you'd use this mechanism in your custom [interactions](/handbook/design/screenplay-pattern/#interactions) and [questions](/handbook/design/screenplay-pattern/#questions).
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+import { BrowseTheWeb } from '@serenity-js/web'
+import { CallAnApi } from '@serenity-js/rest'
+import { TakeNotes } from '@serenity-js/core'
+import assert from 'node:assert/strict'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+    assert.ok(actorCalled('Wendy').abilityTo(BrowseTheWeb))
+    assert.ok(actorCalled('Wendy').abilityTo(CallAnApi))
+    assert.ok(actorCalled('Wendy').abilityTo(TakeNotes))
+
+    // ...
+  })
+})
+```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { BrowseTheWeb } from '@serenity-js/web'
+import { CallAnApi } from '@serenity-js/rest'
+import { actorCalled, TakeNotes } from '@serenity-js/core'
+import assert from 'node:assert/strict'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+    assert.ok(actorCalled('Wendy').abilityTo(BrowseTheWeb))
+    assert.ok(actorCalled('Wendy').abilityTo(CallAnApi))
+    assert.ok(actorCalled('Wendy').abilityTo(TakeNotes))
+
+    // ...
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { BrowseTheWeb } from '@serenity-js/web'
+import { CallAnApi } from '@serenity-js/rest'
+import { actorCalled, TakeNotes } from '@serenity-js/core'
+import assert from 'node:assert/strict'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+    assert.ok(actorCalled('Wendy').abilityTo(BrowseTheWeb))
+    assert.ok(actorCalled('Wendy').abilityTo(CallAnApi))
+    assert.ok(actorCalled('Wendy').abilityTo(TakeNotes))
+    // ...
+})
+```
+
+:::tip Portable test code
+Playwright Test, WebdriverIO and Protractor test runners vary dramatically and have completely different and incompatible APIs.
+This would normally tie your test suite to a specific integration tool and prevent you from being able to run test scenarios written for one test runner using another.
+
+To solve this problem and allow your test suite to be agnostic of the underlying integration tool,
+Serenity/JS test runner adapters configure the default cast of actors with an ability to [`BrowseTheWeb`](/api/web/class/BrowseTheWeb/)
+specific to the given test runner, so: [`BrowseTheWebWithPlaywright`](/api/playwright/class/BrowseTheWebWithPlaywright/),
+[`BrowseTheWebWithWebdriverIO`](/api/webdriverio/class/BrowseTheWebWithWebdriverIO/), or [`BrowseTheWebWithProtractor`](/api/protractor/class/BrowseTheWebWithProtractor/),
+but exposing a consistent  API across all test runners.
+
+This design allows you to write test scenarios that interact with the web UI without having to worry about the underlying integration tool and makes your test code [portable across different test runners](/handbook/design/portable-test-code/).
+:::
+
+#### Using a custom cast of actors
+
+Following the system metaphor of a stage performance, Serenity/JS uses a [cast of actors](/api/core/class/Cast) to configure the default abilities the actors receive upon instantiation.
+
+If you'd like to modify those defaults, or if you use Serenity/JS with [Cucumber](/handbook/test-runners/cucumber), [Jasmine](/handbook/test-runners/jasmine), or [Mocha](/handbook/test-runners/mocha) without a [WebdriverIO](/handbook/test-runners/webdriverio/) or [Protractor](/handbook/test-runners/protractor/) wrapper
+that set up the defaults automatically, you can instruct Serenity/JS to use a custom cast.
+
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+import { describe, it, test } from '@serenity-js/playwright-test'
+import { Cast, TakeNotes, Notepad } from '@serenity-js/core'
+
+test.use({
+    // Replace the entire default cast:
+    actors: async ({ contextOptions, page }, use): Promise<void> => {
+        const cast = Cast.where(actor => actor.whoCan(
+            BrowseTheWebWithPlaywright.usingPage(page, contextOptions),
+            TakeNotes.usingAnEmptyNotepad(),
+            // ... other abilities
+        ))
+
+        await use(cast)
+    },
+
+    // Alternatively, wrap actorCalled to give actors additional abilities
+    // or override the default ones:
+    actorCalled: async ({ actorCalled }, use) => {
+        await use((name: string) => {
+            return actorCalled(name).whoCan(
+                TakeNotes.using(Notepad.with({
+                  firstName: name,
+                  lastName: 'Tester',
+                }))
+                // ... other abilities
+            )
+        })
+    },
+})
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+    actorCalled('Apisitt')  // returns: Actor(name="Apisitt")
+    actorCalled('Wendy')    // returns: Actor(name="Wendy")
+  })
+})
+```
+
+```ts title="wdio.conf.ts" tab={"label":"WebdriverIO"}
+import { BrowseTheWebWithWebdriverIO, WebdriverIOConfig } from '@serenity-js/webdriverio'
+import { Cast, TakeNotes } from '@serenity-js/core'
+import { browser } from '@wdio/globals'
+
+export const config: WebdriverIOConfig = {
+
+    framework: '@serenity-js/webdriverio',
+
+    serenity: {
+        // Replace the entire default cast:
+        actors: Cast.where(actor => actor.whoCan(
+            BrowseTheWebWithWebdriverIO.using(browser),
+            TakeNotes.usingAnEmptyNotepad(),
+            // ... other abilities
+        )),
+
+        // Configure Serenity/JS to use an appropriate test runner adapter
+        runner: 'cucumber', // or: 'mocha', 'jasmine'
+
+        // ... other Serenity/JS configuration
+    },
+}
+```
+
+```ts title="protractor.conf.js" tab={"label":"Protractor"}
+const { BrowseTheWebWithProtractor } = require('@serenity-js/protractor')
+const { Cast, TakeNotes } = require( '@serenity-js/core')
+const protractor = require('protractor')
+
+exports.config = {
+
+    framework:      'custom',
+    frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
+
+    serenity: {
+
+        actors: Cast.where(actor => actor.whoCan(
+            BrowseTheWebWithProtractor.using(protractor.browser),
+            TakeNotes.usingAnEmptyNotepad(),
+            // ... other abilities
+        )),
+
+        // Configure Serenity/JS to use an appropriate test runner adapter
+        runner: 'jasmine', // or 'mocha', 'cucumber'
+
+        // ... other Serenity/JS configuration
+    },
+}
+```
+
+If you're using [Cucumber](/handbook/test-runners/cucumber), [Jasmine](/handbook/test-runners/jasmine), or [Mocha](/handbook/test-runners/mocha) without a [WebdriverIO](/handbook/test-runners/webdriverio/) or [Protractor](/handbook/test-runners/protractor/) wrapper,
+you can configure the default cast of actors using the [`configure`](/api/core/function/configure/) and [`engage`](/api/core/function/engage/) functions, as per the test runner adapter configuration.
 
 Learn more about:
 - [Abilities](/api/core/class/Ability)
@@ -153,44 +449,167 @@ Learn more about:
 ### Interactions
 
 Abilities enable actors to perform [**interactions**](/api/core/class/Interaction) with the system under test.
-Interactions are command objects that instruct an actor how to use their abilities to perform the given activity.
+**Interactions** are **command objects** that instruct an actor how to use their abilities to perform the given activity.
 Most interactions you will need are already provided by [Serenity/JS modules](/handbook/about/architecture),
 and you can easily [create new ones](/api/core/class/Interaction) if you'd like to.
+
+To instruct an actor to attempt to perform a sequence of interactions, use the [`Actor.attemptsTo`](/api/core/class/Actor#attemptsTo) method.
+Note that this method returns a `Promise` that resolves when the actor has completed the interactions, or rejects if any of the interactions fail,
+so you can use it with `await` in an `async` function.
 
 Here, we instruct Apisitt to use the interaction to [`Send.a(HTTPRequest)`](/api/rest/class/Send) from the [Serenity/JS REST](/api/rest) module
 to set up some test data for our test scenario:
 
-```typescript
-// ...
-import { CallAnApi, PostRequest } from '@serenity-js/rest'
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+import { Send, PostRequest } from '@serenity-js/rest'
 
-// ...
+describe('Online shop', () => {
 
-await actorCalled('Apisitt')
-    .whoCan(CallAnApi.using(httpClient))
-    .attemptsTo(                                    // actors attempt to perform interactions
-        Send.a(PostRequest.to('/products').with([   // interactions like `Send` are command objects
-            { name: 'Apples', price: '£2.50' }
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: 'Apples', price: '£2.50' }     //   that instruct actors how to use their abilities
         ])),
     )
+
+    // ...
+  })
+})
 ```
 
-We can also instruct Wendy to use interactions from the [Serenity/JS Web](/api/web) module
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Send, PostRequest } from '@serenity-js/rest'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: 'Apples', price: '£2.50' }     //   that instruct actors how to use their abilities
+        ])),
+    )
+
+    // ...
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+import { Send, PostRequest } from '@serenity-js/rest'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: product, price: `£${price}` }  //   that instruct actors how to use their abilities
+        ])),
+    )
+})
+```
+
+In the same manner, we can instruct Wendy to use interactions from the [Serenity/JS Web](/api/web) module
 to [navigate](/api/web/class/Navigate) to the web interface of our system under test:
 
-```typescript
-// ...
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+import { Send, PostRequest } from '@serenity-js/rest'
 import { Navigate } from '@serenity-js/web'
 
-// ...
+describe('Online shop', () => {
 
-await actorCalled('Wendy')
-    .whoCan(BrowseTheWebWithPlaywright.using(browser))
-    .attemptsTo(
-        Navigate.to('https://example.org'), // all Serenity/JS interactions have a consistent API,
-    )                                       // no matter the interface they're interacting with
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: 'Apples', price: '£2.50' }     //   that instruct actors how to use their abilities
+        ])),
+    )
+
+    await actorCalled('Wendy').attemptsTo(
+        Navigate.to('https://example.org'),        // - all Serenity/JS interactions have a consistent API,
+    )                                              //   no matter the interface they're interacting with
+  })
+})
 ```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Send, PostRequest } from '@serenity-js/rest'
+import { Navigate } from '@serenity-js/web'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: 'Apples', price: '£2.50' }     //   that instruct actors how to use their abilities
+        ])),
+    )
+
+    await actorCalled('Wendy').attemptsTo(
+        Navigate.to('https://example.org'),        // - all Serenity/JS interactions have a consistent API,
+    )                                              //   no matter the interface they're interacting with
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+import { Send, PostRequest } from '@serenity-js/rest'
+import { Navigate } from '@serenity-js/web'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+
+    await actorCalled('Apisitt').attemptsTo(       // - actors attempt to perform interactions
+        Send.a(PostRequest.to('/products').with([  // - interactions like `Send` are command objects,
+            { name: product, price: `£${price}` }  //   that instruct actors how to use their abilities
+        ])),
+    )
+})
+
+// When Wendy looks for "Apples"
+When('{word} looks for {string}', async (actor: string, product: string) => {
+    await actorCalled(actor).attemptsTo(
+        Navigate.to('https://example.org'),        // - all Serenity/JS interactions have a consistent API,
+    )                                              //   no matter the interface they're interacting with
+})
+```
+
+Note how the interaction to [`Navigate.to(url)`](/api/web/class/Navigate) comes from the [`@serenity-js/web`](/api/web) module
+and works regardless of the underlying web browser driver used by the actor, making your test code [portable across different web integration tools](/handbook/design/portable-test-code/).
+Under the hood, the interaction requests the actor's ability to [`BrowseTheWeb`](/api/web/class/BrowseTheWeb/) and Serenity/JS returns the appropriate implementation of the ability.
+
+If you wanted to implement an interaction to `navigateTo(url)` yourself, you might do it like this:
+
+```ts
+import { Interaction } from '@serenity-js/core'
+import { BrowseTheWeb } from '@serenity-js/web'
+
+const navigateTo = (url: string) =>
+    Interaction.where(`#actor navigates to ${ url }`, async actor => {
+        const page = await BrowseTheWeb.as(actor).currentPage()
+
+        return page.navigateTo(url)
+    })
+```
+
+Another thing to note about the code samples in this section is that even though Playwright Test, Mocha, and Cucumber have completely different APIs,
+the way we instruct actors to perform interactions is consistent across all test runners. This design makes it easier for you to migrate your test scenarios
+from one test runner to another if needed. It also enables you to make your test suite use **different test runners** for **different types of test scenarios** while **reusing the same underlying test automation code**.
+
+For example, you might want to use Serenity/JS with Cucumber for business-facing scenarios, Playwright Test for UI component tests, and with Mocha for REST API tests.
 
 Learn more about:
 - [Actors](/api/core/class/Actor)
@@ -200,51 +619,187 @@ Learn more about:
 ### Questions
 
 Apart from enabling interactions, abilities also enable actors to answer [**questions**](/api/core/class/Question)
-about the state of the system under test. Questions provide a way to parameterise activities
-and allow actors to retrieve information when the activity is performed.
+about the state of the system under test and the test execution environment.
+More specifically, **questions** instruct actors how to use their abilities to **retrieve information when the activity is performed** and provide a way to **parameterise activities**.
 
-For example, we could instruct Apisitt to answer the question about the [`LastResponse.status()`](/api/rest/class/LastResponse#status)
-and use it to [`Ensure.that`](/api/assertions/class/Ensure) his last request returned
-an expected status code (note that [Serenity/JS assertions](/handbook/design/assertions) work just like any other interaction):
+When Apisitt uses his ability to [`CallAnApi`](/api/rest/class/CallAnApi) to [`Send`](/api/rest/class/Send) a [`PostRequest`](/api/rest/class/CallAnApi),
+the result of this interaction is stored in the ability. To retrieve its value, we instruct the actor to answer a question about the [`LastResponse`](/api/rest/class/LastResponse), such as [`LastResponse.status()`](/api/rest/class/LastResponse#status).
+This declarative approach to information retrieval not only makes your test scenarios more readable, it provides a consistent API for you to design [assertions](/handbook/design/assertions), [waiting and synchronisation statements](/handbook/design/waiting-and-synchronisation/),
+and perform [data transformations](/handbook/web-testing/page-element-query-language/#transforming-answers-to-questions).
 
-```typescript
-// ...
-import { CallAnApi, PostRequest, Send, LastResponse } from '@serenity-js/rest'
+For example, to instruct Apisitt to assert on the result of the HTTP request, we provide him with an interaction to [`Ensure.that`](/api/assertions/class/Ensure),
+parameterised with a question about the [`LastResponse.status()`](/api/rest/class/LastResponse#status) and an expectation that the status code [equals](/api/assertions/function/equals/) `201`:
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
 import { Ensure, equals } from '@serenity-js/assertions'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
 
-// ...
+describe('Online shop', () => {
 
-await actorCalled('Apisitt')
-    .whoCan(CallAnApi.using(httpClient))
-    .attemptsTo(
-        Send.a(PostRequest.to('/products').with([ { name: 'Apples', price: '£2.50' } ])),
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: 'Apples', price: '£2.50' }
+        ])),
         Ensure.that(
             LastResponse.status(),
             equals(201)
         )
     )
+
+    // ...
+  })
+})
 ```
 
-Even though Wendy uses a web browser and not an API client, the way we instruct her to answer [web questions](/handbook/web-testing/)
-and [perform web assertions](/handbook/design/assertions#web-assertions) is consistent with how you'd interact with any other interface:
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
 
-```typescript
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: 'Apples', price: '£2.50' }
+        ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+
+    // ...
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals } from '@serenity-js/assertions'
+import { Send, PostRequest } from '@serenity-js/rest'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: product, price: `£${price}` }
+        ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+})
+
 // ...
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+```
+
+An excellent proof of the **design consistency** enabled by the Serenity/JS Screenplay Pattern is that
+even though Wendy uses a web browser and not an API client, the way we instruct her to answer [web questions](/handbook/web-testing/)
+and [perform web assertions](/handbook/design/assertions#web-assertions) is identical with how you'd interact with any other interface:
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+import { Ensure, equals, endsWith } from '@serenity-js/assertions'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
 import { Navigate, Page } from '@serenity-js/web'
-import { Ensure, endsWith } from '@serenity-js/assertions'
 
-// ...
+describe('Online shop', () => {
 
-await actorCalled('Wendy')
-    .whoCan(BrowseTheWebWithPlaywright.using(browser))
-    .attemptsTo(
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: 'Apples', price: '£2.50' }
+        ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+
+    await actorCalled('Wendy').attemptsTo(
         Navigate.to('https://example.org'),
         Ensure.that(
             Page.current().title(),
             endsWith('My Example Shop'),
         )
     )
+  })
+})
+```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals, endsWith } from '@serenity-js/assertions'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Navigate, Page } from '@serenity-js/web'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: 'Apples', price: '£2.50' }
+        ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+
+    await actorCalled('Wendy').attemptsTo(
+        Navigate.to('https://example.org'),
+        Ensure.that(
+            Page.current().title(),
+            endsWith('My Example Shop'),
+        )
+    )
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+import { Ensure, equals, endsWith } from '@serenity-js/assertions'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Navigate, Page } from '@serenity-js/web'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        Send.a(PostRequest.to('/products').with([
+            { name: product, price: `£${price}` }
+        ])),
+        Ensure.that(
+            LastResponse.status(),
+            equals(201)
+        )
+    )
+})
+
+// When Wendy looks for "Apples"
+When('{word} looks for {string}', async (actor: string, product: string) => {
+    await actorCalled(actor).attemptsTo(
+        Navigate.to('https://example.org'),
+        Ensure.that(
+            Page.current().title(),
+            endsWith('My Example Shop'),
+        )
+    )
+})
 ```
 
 Learn more about:
@@ -255,27 +810,26 @@ Learn more about:
 
 ### Tasks
 
-The idea that underpins the Screenplay Pattern is to capture your domain language and use your acceptance tests as an opportunity to demonstrate
+The idea that underpins the Screenplay Pattern is to **capture your domain language** and use your acceptance tests as an opportunity to demonstrate
 how actors interacting with your system accomplish their goals.
 
-Conceptually similar to functions, [**tasks**](/api/core/class/Task) offer an easy way to associate business meaning with sequences of activities
-and turn them into reusable building blocks.
+Conceptually similar to standard JavaScript functions, [**tasks**](/api/core/class/Task) offer an easy way to **associate business meaning** with **sequences of activities**
+and turn them into **reusable building blocks** from which your team can assemble test scenarios.
 
-Here, we extract some of the activities performed by Apisitt and turn them into a reusable task to `setupProductCatalogue`:
+For example, we can use Serenity/JS convenient [`Task.where`](/api/core/class/Task/#where) method to define custom tasks that capture how an actor would set up a product catalogue or open an online store:
 
-```typescript
-import { actorCalled, Task } from '@serenity-js/core'
-import { CallAnApi, PostRequest } from '@serenity-js/rest'
-import { Ensure, equals } from '@serenity-js/assertions'
+```ts title="spec/tasks.ts"
+import { Task } from '@serenity-js/core'
+import { Send, PostRequest, LastResponse } from '@serenity-js/rest'
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, equals, endsWith } from '@serenity-js/assertions'
 
-// ...
-
-interface Product {
-    name: string;
+export interface Product {
+    name:  string;
     price: string;
 }
 
-const setupProductCatalogue = (products: Product[]) =>
+export const setupProductCatalogue = (products: Product[]) =>
     Task.where(`#actor sets up the product catalogue`,
         Send.a(PostRequest.to('/products').with(products)),
         Ensure.that(
@@ -284,22 +838,7 @@ const setupProductCatalogue = (products: Product[]) =>
         )
     )
 
-await actorCalled('Apisitt')
-    .whoCan(CallAnApi.using(httpClient))
-    .attemptsTo(
-        setupProductCatalogue([ { name: 'Apples', price: '£2.50' } ])
-    )
-```
-
-In the exact same manner we define a task for Wendy to `openOnlineStore`:
-
-```typescript
-import { actorCalled, Task } from '@serenity-js/core'
-import { Navigate, Page } from '@serenity-js/web'
-import { Ensure, endsWith } from '@serenity-js/assertions'
-// ...
-
-const openOnlineStore = () =>
+export const openOnlineStore = () =>
     Task.where(`#actor opens the online store`,
         Navigate.to('https://example.org'),
         Ensure.that(
@@ -307,12 +846,81 @@ const openOnlineStore = () =>
             endsWith('My Example Shop'),
         )
     )
+```
 
-await actorCalled('Wendy')
-    .whoCan(BrowseTheWebWithPlaywright.using(browser))
-    .attemptsTo(
-        openOnlineStore(),
+As you can see, custom tasks like these are easy to read and understand, and can be parameterised and reused across different test scenarios, test suites, or even across different projects and teams.
+Tasks can help you capture the domain language, provide a consistent way to structure your test scenarios, and make your test code reusable and easier to maintain.
+
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"Playwright Test"}
+import { describe, it } from '@serenity-js/playwright-test'
+
+import { setupProductCatalogue, openOnlineStore } from './tasks'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async ({ actorCalled }) => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        setupProductCatalogue([
+            { name: 'Apples', price: '£2.50' }
+        ])
     )
+
+    await actorCalled('Wendy').attemptsTo(
+        openOnlineStore(),
+        // ... other tasks, like findProductCalled('Apples'),
+    )
+  })
+})
+```
+
+```ts title="spec/online_shop.spec.ts" tab={"label":"WebdriverIO with Mocha"}
+import { describe, it } from 'mocha'
+import { actorCalled } from '@serenity-js/core'
+
+import { setupProductCatalogue, openOnlineStore } from './tasks'
+
+describe('Online shop', () => {
+
+  it('should allow customers to find products of interest', async () => {
+
+    await actorCalled('Apisitt').attemptsTo(
+        setupProductCatalogue([
+            { name: 'Apples', price: '£2.50' }
+        ])
+    )
+
+    await actorCalled('Wendy').attemptsTo(
+        openOnlineStore(),
+        // ... other tasks, like findProductCalled('Apples'),
+    )
+  })
+})
+```
+
+```ts title="features/step_definitions/online_shop.steps.ts" tab={"label":"WebdriverIO with Cucumber"}
+import { Given, When, Then } from '@cucumber/cucumber'
+import { actorCalled } from '@serenity-js/core'
+
+import { setupProductCatalogue, openOnlineStore } from './tasks'
+
+// Given the product catalogue has "Apples" at £2.50
+Given('the product catalogue has {string} at £{float}', async (product: string, price: number) => {
+    await actorCalled('Apisitt').attemptsTo(
+        setupProductCatalogue([
+            { name: 'Apples', price: '£2.50' }
+        ])
+    )
+})
+
+// When Wendy looks for "Apples"
+When('{word} looks for {string}', async (actor: string, product: string) => {
+    await actorCalled(actor).attemptsTo(
+        openOnlineStore(),
+        // ... other tasks, like findProductCalled(product),
+    )
+})
 ```
 
 Learn more about:
@@ -503,85 +1111,6 @@ from [Hierarchical Task Analysis](https://janmolak.com/user-centred-design-how-a
 The fascinating aspect of looking at your test scenarios as sequences of activities made up of activities,
 made up of activities, is that this mental model lends itself perfectly to [functional composition](https://en.wikipedia.org/wiki/Function_composition_(computer_science))
 and making _activities_ the primary component of code reuse in Serenity/JS.
-
-## Screenplay Pattern in test scenarios
-
-Screenplay Pattern helps you to create acceptance tests that demonstrate how actors interacting with your system
-go about accomplishing their goals.
-Serenity/JS Screenplay Pattern APIs make it easy to write single- and multi-actor scenarios that interact
-with any interface of the system under test, help you capture your domain language,
-and produce [test reports and living documentation](/handbook/reporting/) that's accessible to everyone involved in your project.
-
-Serenity/JS also supports a number of [popular test runners](/handbook/test-runners/),
-including [Playwright Test](/handbook/test-runners/playwright-test) where your test scenario could look like this:
-
-```typescript title="spec/online_store.spec.ts"
-import { describe, it } from '@serenity-js/playwright-test'
-// ...
-
-describe('Online Store', () => {
-    // ...
-
-    it('should allow customers to find products of interest', async ({ actorCalled, browser }) => {
-
-        await actorCalled('Apisitt')
-            .whoCan(CallAnApi.using(httpClient))
-            .attemptsTo(
-                setupProductCatalogue([ { name: 'Apples', price: '£2.50' } ]),
-            )
-
-        await actorCalled('Wendy')
-            .whoCan(BrowseTheWebWithPlaywright.using(browser))
-            .attemptsTo(
-                openOnlineStore(),
-                findProductCalled('Apples'),
-                Ensure.that(topSearchResult().name, equals('Apples')),
-                Ensure.that(topSearchResult().price, equals('£2.50')),
-            )
-    })
-})
-```
-
-Another benefit of using Serenity/JS Screenplay Pattern APIs is that they work great not just
-with spec-style test runners like [Jasmine](/handbook/test-runners/jasmine), [Mocha](/handbook/test-runners/mocha), or [Playwright Test](/handbook/test-runners/playwright-test).
-
-The user-centred task-based code reuse model will also feel like a natural fit for teams using [Serenity/JS with Cucumber](/handbook/test-runners/cucumber):
-
-```gherkin title="features/online_store.feature"
-Feature: Online Store
-
-  Scenario: customer finds product by name
-
-    Given Apisitt sets up product catalogue with:
-      | name    | price |
-      | Apples  | £2.50 |
-    When Wendy looks for 'Apples'
-    Then she should see top search result of:
-      | name  | Apples |
-      | price | £2.50  |
-```
-```typescript title="features/online_store.steps.ts"
-import { Given, When, Then, DataTable } from '@cucumber/cucumber'
-import { Actor } from '@serenity-js/core'
-// ...
-
-Given('{actor} sets up product catalogue with:', (actor: Actor, products: DataTable) =>
-    actor.attemptsTo(
-        setupProductCatalogue(products.hashes()),
-    ))
-
-When('{actor} looks for {string}', (actor: Actor, productName: string) =>
-    actor.attemptsTo(
-        openOnlineStore(),
-        findProductCalled(productName),
-    ))
-
-Then('{pronoun} should see top search result of', (actor: Actor, expectedResult: string) =>
-    actor.attemptsTo(
-        Ensure.that(topSearchResult().name, equals(expectedResult.rowsHash().name)),
-        Ensure.that(topSearchResult().price, equals(expectedResult.rowsHash().price)),
-    ))
-```
 
 ## Start with Serenity/JS Screenplay Pattern 🚀
 
