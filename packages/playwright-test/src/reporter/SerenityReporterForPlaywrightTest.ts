@@ -61,24 +61,24 @@ import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightA
  */
 export interface SerenityReporterForPlaywrightTestConfig {
     /**
-   * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
-   * to be instantiated in Playwright Test reporter process and notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
-   * Note that the `crew` can also be configured using {@apilink ClassDescription|ClassDescriptions}.
-   *
-   * #### Learn more
-   * - {@apilink SerenityOptions}
-   * - {@apilink SerenityConfig.crew}
-   */
+     * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
+     * to be instantiated in Playwright Test reporter process and notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
+     * Note that the `crew` can also be configured using {@apilink ClassDescription|ClassDescriptions}.
+     *
+     * #### Learn more
+     * - {@apilink SerenityOptions}
+     * - {@apilink SerenityConfig.crew}
+     */
     crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;
 
     /**
-   * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}
-   *
-   * Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
-   *
-   * #### Learn more
-   * - {@apilink SerenityConfig.outputStream}
-   */
+     * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}
+     *
+     * Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
+     *
+     * #### Learn more
+     * - {@apilink SerenityConfig.outputStream}
+     */
     outputStream?: OutputStream;
 }
 
@@ -93,13 +93,13 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     private unhandledError?: Error;
 
     /**
-   * @param config
-   * @param serenity
-   *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
-   *  Note that Playwright runs test workers and reporters in separate processes.
-   * @param requirementsHierarchy
-   *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
-   */
+     * @param config
+     * @param serenity
+     *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
+     *  Note that Playwright runs test workers and reporters in separate processes.
+     * @param requirementsHierarchy
+     *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
+     */
     constructor(
         config: SerenityReporterForPlaywrightTestConfig,
         private readonly serenity: Serenity = reporterSerenityInstance,
