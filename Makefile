@@ -64,6 +64,9 @@ test:
 test-no-coverage:
 	npm run test:no-coverage
 
+test-no-coverage-node16:
+	npm run test:no-coverage:node16
+
 compile:
 	npm run compile:$(COMPILE_SCOPE)
 
