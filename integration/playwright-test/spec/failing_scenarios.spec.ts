@@ -164,10 +164,7 @@ describe('@serenity-js/playwright-test', function () {
                 ;
             }));
 
-        it('fails with unhandled global exception', () => playwrightTest(
-            'failing/global-error-thrown.spec.ts',
-            '--project=default'
-        )
+        it('fails with unhandled global exception', () => playwrightTest('--project=default', 'failing/global-error-thrown.spec.ts')
             .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
                 expect(result.exitCode).to.equal(1);
