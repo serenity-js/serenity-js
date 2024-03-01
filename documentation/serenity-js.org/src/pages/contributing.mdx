@@ -203,6 +203,12 @@ All lines except first will be wrapped after 100 characters.
 
 Once you're happy with the commit message, push your commit to your forked repository, and [raise a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
 
+:::note Your commit messages will be in the changelog
+Please pay attention to what you write in your commit messages, as they're automatically included in the changelog.
+
+If you'd like your pull request to be squashed before it's merged, make sure the title of your PR reflects the change you're proposing. For example `feat(console-reporter): improved stats aggregation`
+:::
+
 :::tip Did you know?
 [Serenity/JS Continuous Delivery Pipeline](https://github.com/serenity-js/serenity-js/blob/main/.github/workflows/main.yaml) implemented using GitHub Actions recognises changes you've marked as `feat` or `fix` and will release them automatically to npmjs.com when your pull request passes the automated tests and gets merged to the main branch by a Serenity/JS maintainer.
 
