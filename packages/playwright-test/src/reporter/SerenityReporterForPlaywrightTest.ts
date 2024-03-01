@@ -1,11 +1,5 @@
 import type { FullConfig } from '@playwright/test';
-import type {
-    Reporter,
-    Suite,
-    TestCase,
-    TestError,
-    TestResult,
-} from '@playwright/test/reporter';
+import type { Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
 import type {
     ClassDescription,
     Serenity,
@@ -13,10 +7,7 @@ import type {
     StageCrewMemberBuilder,
     Timestamp,
 } from '@serenity-js/core';
-import {
-    LogicError,
-    serenity as reporterSerenityInstance,
-} from '@serenity-js/core';
+import { LogicError, serenity as reporterSerenityInstance, } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
@@ -31,12 +22,7 @@ import {
     TestRunnerDetected,
     TestRunStarts
 } from '@serenity-js/core/lib/events';
-import {
-    FileSystem,
-    FileSystemLocation,
-    Path,
-    RequirementsHierarchy,
-} from '@serenity-js/core/lib/io';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, } from '@serenity-js/core/lib/io';
 import type { CorrelationId, Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
@@ -126,27 +112,23 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         const scenario = this.scenarioDetailsFrom(test);
 
         const tags: Tag[] = Tags.from(
-            `${scenario.category.toString()} ${scenario.name.toString().replace(')', '')}`,
+            `${ scenario.category.toString() } ${ scenario.name.toString().replace(')', '') }`,
         );
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
 
             ...this.requirementsHierarchy
-        .requirementTagsFor(scenario.location.path, scenario.category.value)
-        .map(
-            (tag) =>
-                new SceneTagged(currentSceneId, tag, this.serenity.currentTime()),
-        ),
+                .requirementTagsFor(scenario.location.path, scenario.category.value)
+                .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
+
             new TestRunnerDetected(
                 currentSceneId,
                 new Name('Playwright'),
                 this.serenity.currentTime(),
             ),
-            ...tags.map(
-                (tag) =>
-                    new SceneTagged(currentSceneId, tag, this.serenity.currentTime()),
-            ),
+
+            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
         );
     }
 
@@ -167,12 +149,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
         for (const attachment of result.attachments) {
-            if (
-                !(
-                    attachment.contentType ===
-            SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE && attachment.body
-                )
-            ) {
+            if (! (attachment.contentType === SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE && attachment.body)) {
                 continue;
             }
 
@@ -187,10 +164,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
                 this.serenity.announce(event);
 
-                if (
-                    event instanceof InteractionFinished &&
-          event.outcome.isWorseThan(worstInteractionOutcome)
-                ) {
+                if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
                     worstInteractionOutcome = event.outcome;
                 }
             }
@@ -236,11 +210,11 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         if (outcome === 'unexpected' && result.status === 'passed') {
             return new ExecutionFailedWithError(
-                new LogicError(`Scenario expected to fail, but ${result.status}`),
+                new LogicError(`Scenario expected to fail, but ${ result.status }`),
             );
         }
 
-        if (['failed', 'interrupted', 'timedOut'].includes(result.status)) {
+        if ([ 'failed', 'interrupted', 'timedOut' ].includes(result.status)) {
             if (test.retries > result.retry) {
                 return new ExecutionIgnored(this.errorParser.errorFrom(result.error));
             }
@@ -280,9 +254,9 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         try {
             await this.serenity.waitForNextCue();
 
-            const outcome = this.unhandledError?
+            const outcome = this.unhandledError ?
                 new ExecutionFailedWithError(this.unhandledError)
-                : new ExecutionSuccessful()
+                : new ExecutionSuccessful();
 
             this.serenity.announce(
                 new TestRunFinished(
@@ -354,17 +328,14 @@ class PlaywrightErrorParser {
     );
 
     public errorFrom(testError: TestError): Error {
-        const message =
-      testError.message &&
-      PlaywrightErrorParser.stripAsciiFrom(testError.message);
+        const message = testError.message && PlaywrightErrorParser.stripAsciiFrom(testError.message);
 
-        let stack =
-      testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
+        let stack = testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
 
         // TODO: Do I need to process it?
         // const value     = testError.value;
 
-        const prologue = `Error: ${message}`;
+        const prologue = `Error: ${ message }`;
         if (stack && message && stack.startsWith(prologue)) {
             stack = stack.slice(prologue.length);
         }

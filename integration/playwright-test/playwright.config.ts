@@ -36,7 +36,7 @@ const config: PlaywrightTestConfig = {
                 crew: [
                     '@integration/testing-tools:ChildProcessReporter',
                     '@serenity-js/core:StreamReporter',
-                ]
+                ],
             },
         ],
         ...[
