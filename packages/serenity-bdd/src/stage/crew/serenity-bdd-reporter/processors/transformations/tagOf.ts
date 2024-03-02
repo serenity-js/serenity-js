@@ -48,7 +48,7 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
 
                 const featureTag = {
                     ...tagReportFor(tag),
-                    name: join('/', displayNameOfRecorded(CapabilityTag, context.report.tags), tag.name),
+                    name: join('/', ...displayNamesOfRecorded(ThemeTag, context.report.tags), displayNameOfRecorded(CapabilityTag, context.report.tags), tag.name),
                     displayName: tag.name,
                 };
 
@@ -176,10 +176,12 @@ function unique(items: string[]) {
     return [...new Set(items)];
 }
 
-function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]): string {
-    const found = (tags || []).find(t => t.type === typeOfTag.Type);
+function displayNamesOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]): string[] {
+    const matchingTags = (tags || []).filter(t => t.type === typeOfTag.Type);
 
-    return found
-        ? found.displayName
-        : '';
+    return matchingTags.map(matchingTag => matchingTag.displayName);
+}
+
+function displayNameOfRecorded(typeOfTag: { Type: string }, tags: serenitybdd.TagSchema[]): string {
+    return displayNamesOfRecorded(typeOfTag, tags)[0] || '';
 }
