@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
+
+
+### Bug Fixes
+
+* **console-reporter:** fix comments ([e8b21dd](https://github.com/serenity-js/serenity-js/commit/e8b21ddb40c5addc53bdcfb212770f199f026e11))
+
+
+### Features
+
+* **console-reporter:** global exception handling v1 ([cf117f1](https://github.com/serenity-js/serenity-js/commit/cf117f16ba6623e45b3bcf0d357a91539700f55b))
+* **console-reporter:** revert to only global error handling ([a375788](https://github.com/serenity-js/serenity-js/commit/a3757886275c854c8cc6d55aedbc0d26916cde9f))
+* **console-reporter:** test with reporter developement ([85e2bf1](https://github.com/serenity-js/serenity-js/commit/85e2bf1ad06b00aa7d917e762ce0c2e0cb964533))
+
+
+
+
+
 ## [3.18.1](https://github.com/serenity-js/serenity-js/compare/v3.18.0...v3.18.1) (2024-02-23)
 
 
