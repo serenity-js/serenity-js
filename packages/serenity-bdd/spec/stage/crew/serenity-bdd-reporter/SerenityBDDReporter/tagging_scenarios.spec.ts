@@ -208,13 +208,13 @@ describe('SerenityBDDReporter', () => {
                                 type: 'capability',
                                 displayName: 'E-Commerce',
                             }, {
-                                name: 'E-Commerce/Checkout',
+                                name: 'Digital/E-Commerce/Checkout',
                                 type: 'feature',
                                 displayName: 'Checkout',
                             }]);
 
                             expect(report.featureTag).to.deep.equal({
-                                name: 'E-Commerce/Checkout',
+                                name: 'Digital/E-Commerce/Checkout',
                                 type: 'feature',
                                 displayName: 'Checkout',
                             });
