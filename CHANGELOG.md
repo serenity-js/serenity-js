@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to v1.42.0 ([0058448](https://github.com/serenity-js/serenity-js/commit/0058448c569803b3998bcfa26a787f3894a11d51))
+* **deps:** update playwright dependencies to v1.42.1 ([dc20ed5](https://github.com/serenity-js/serenity-js/commit/dc20ed5eb29d41fdb8d87b375c2c7a90a041bdca))
+* **serenity-bdd:** fixed feature tag links for nested spec structures ([7f596e5](https://github.com/serenity-js/serenity-js/commit/7f596e5eab2ee401e4ba0c5613a2a0d65986cae7)), closes [#2222](https://github.com/serenity-js/serenity-js/issues/2222)
+
+
+### Features
+
+* **core:** simplified reading and writing files in CrewMembers using the FileSystem ([7f0d0cc](https://github.com/serenity-js/serenity-js/commit/7f0d0cc6de675a526a6e9351fe94055501d87e2c)), closes [#2244](https://github.com/serenity-js/serenity-js/issues/2244)
+* **rest:** createAxios function instantiates axios with HTTP proxy support ([c453678](https://github.com/serenity-js/serenity-js/commit/c4536784c0bd9e77826563b944904fb862c43c83))
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 
