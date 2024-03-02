@@ -1,9 +1,8 @@
+import * as nodeOS from 'node:os';
+
 import { createId } from '@paralleldrive/cuid2';
-import type * as nodeFS from 'fs';
-import type { WriteFileOptions } from 'fs';
+import type * as NodeFS from 'fs';
 import * as gracefulFS from 'graceful-fs';
-import * as nodeOS from 'os';
-import { promisify } from 'util';
 
 import { Path } from './Path';
 
@@ -11,7 +10,7 @@ export class FileSystem {
 
     constructor(
         private readonly root: Path,
-        private readonly fs: typeof nodeFS = gracefulFS,
+        private readonly fs: typeof NodeFS = gracefulFS,
         private readonly os: typeof nodeOS = nodeOS,
         private readonly directoryMode = Number.parseInt('0777', 8) & (~process.umask()),
     ) {
@@ -21,108 +20,93 @@ export class FileSystem {
         return this.root.resolve(relativeOrAbsolutePath);
     }
 
-    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {
-        return Promise.resolve()
-            .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
-            .then(() => this.write(this.resolve(relativeOrAbsolutePathToFile), data, encoding));
+    public async store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: NodeFS.WriteFileOptions): Promise<Path> {
+        await this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory());
+        return this.writeFile(relativeOrAbsolutePathToFile, data, encoding);
     }
 
-    public createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {
+    public readFile(relativeOrAbsolutePathToFile: Path, options?: { encoding?: null | undefined; flag?: string | undefined; }): Promise<Buffer>
+    public readFile(relativeOrAbsolutePathToFile: Path, options: { encoding: BufferEncoding; flag?: string | undefined; } | NodeJS.BufferEncoding): Promise<string>
+    public readFile(relativeOrAbsolutePathToFile: Path, options?: (NodeFS.ObjectEncodingOptions & { flag?: string | undefined; }) | NodeJS.BufferEncoding): Promise<string | Buffer> {
+        return this.fs.promises.readFile(this.resolve(relativeOrAbsolutePathToFile).value, options);
+    }
+
+    public readFileSync(relativeOrAbsolutePathToFile: Path, options?: { encoding?: null | undefined; flag?: string | undefined; }): Buffer
+    public readFileSync(relativeOrAbsolutePathToFile: Path, options: { encoding: BufferEncoding; flag?: string | undefined; } | NodeJS.BufferEncoding): string
+    public readFileSync(relativeOrAbsolutePathToFile: Path, options?: (NodeFS.ObjectEncodingOptions & { flag?: string | undefined; }) | NodeJS.BufferEncoding): string | Buffer {
+        return this.fs.readFileSync(this.resolve(relativeOrAbsolutePathToFile).value, options);
+    }
+
+    public async writeFile(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, options?: NodeFS.WriteFileOptions): Promise<Path> {
+        const resolvedPath = this.resolve(relativeOrAbsolutePathToFile);
+        await this.fs.promises.writeFile(resolvedPath.value, data, options);
+
+        return resolvedPath;
+    }
+
+    public writeFileSync(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, options?: NodeFS.WriteFileOptions): Path {
+        const resolvedPath = this.resolve(relativeOrAbsolutePathToFile);
+        this.fs.writeFileSync(resolvedPath.value, data, options);
+
+        return resolvedPath;
+    }
+
+    public createReadStream(relativeOrAbsolutePathToFile: Path): NodeFS.ReadStream {
         return this.fs.createReadStream(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
-    public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {
+    public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): NodeFS.WriteStream {
         return this.fs.createWriteStream(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
-    public stat(relativeOrAbsolutePathToFile: Path): Promise<nodeFS.Stats> {
-        const stat = promisify(this.fs.stat);
-
-        return stat(this.resolve(relativeOrAbsolutePathToFile).value);
+    public stat(relativeOrAbsolutePathToFile: Path): Promise<NodeFS.Stats> {
+        return this.fs.promises.stat(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
     public exists(relativeOrAbsolutePathToFile: Path): boolean {
         return this.fs.existsSync(this.resolve(relativeOrAbsolutePathToFile).value);
     }
 
-    public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {
-        const
-            stat = promisify(this.fs.stat),
-            unlink = promisify(this.fs.unlink),
-            readdir = promisify(this.fs.readdir),
-            rmdir = promisify(this.fs.rmdir);
+    public async remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {
+        try {
+            const absolutePath = this.resolve(relativeOrAbsolutePathToFileOrDirectory);
 
-        const absolutePath = this.resolve(relativeOrAbsolutePathToFileOrDirectory);
+            const stat = await this.stat(relativeOrAbsolutePathToFileOrDirectory);
 
-        return stat(absolutePath.value)
-            .then(result =>
-                result.isFile()
-                    ? unlink(absolutePath.value)
-                    : readdir(absolutePath.value)
-                        .then(entries =>
-                            Promise.all(entries.map(entry =>
-                                this.remove(absolutePath.join(new Path(entry)))),
-                            ).then(() => rmdir(absolutePath.value)),
-                        ),
-            )
-            .then(() => void 0)
-            .catch(error => {
-                if (error?.code === 'ENOENT') {
-                    return void 0;
+            if (stat.isFile()) {
+                await this.fs.promises.unlink(absolutePath.value);
+            }
+            else {
+                const entries = await this.fs.promises.readdir(absolutePath.value);
+                for (const entry of entries) {
+                    await this.remove(absolutePath.join(new Path(entry)));
                 }
-                throw error;
-            });
+
+                await this.fs.promises.rmdir(absolutePath.value);
+            }
+        }
+        catch (error) {
+            if (error?.code === 'ENOENT') {
+                return void 0;
+            }
+            throw error;
+        }
     }
 
-    public ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {
+    public async ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {
 
         const absolutePath = this.resolve(relativeOrAbsolutePathToDirectory);
 
-        return absolutePath.split().reduce((promisedParent, child) => {
-            return promisedParent.then(parent => new Promise((resolve, reject) => {
-                const current = parent.resolve(new Path(child));
+        await this.fs.promises.mkdir(absolutePath.value, { recursive: true, mode: this.directoryMode });
 
-                this.fs.mkdir(current.value, this.directoryMode, error => {
-                    if (! error || error.code === 'EEXIST') {
-                        return resolve(current);
-                    }
-
-                    // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
-                    if (error.code === 'ENOENT') { // Throw the original parentDir error on `current` `ENOENT` failure.
-                        throw new Error(`EACCES: permission denied, mkdir '${ parent.value }'`);
-                    }
-
-                    const caughtError = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);
-                    if (! caughtError || (caughtError && current.equals(relativeOrAbsolutePathToDirectory))) {
-                        throw error; // Throw if it's just the last created dir.
-                    }
-
-                    return resolve(current);
-                });
-            }));
-        }, Promise.resolve(absolutePath.root()));
+        return absolutePath;
     }
 
     public rename(source: Path, destination: Path): Promise<void> {
-        const rename = promisify(this.fs.rename);
-
-        return rename(source.value, destination.value);
+        return this.fs.promises.rename(source.value, destination.value);
     }
 
     public tempFilePath(prefix = '', suffix = '.tmp'): Path {
         return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ createId() }${ suffix }`);
-    }
-
-    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {
-        return new Promise((resolve, reject) => {
-            this.fs.writeFile(
-                path.value,
-                data,
-                encoding,
-                error => error
-                    ? reject(error)
-                    : resolve(path),
-            );
-        });
     }
 }

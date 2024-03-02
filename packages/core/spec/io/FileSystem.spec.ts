@@ -78,8 +78,8 @@ describe ('FileSystem', () => {
         it (`complains when the file can't be written`, () => {
             const fs = FakeFS.with(FakeFS.Empty_Directory);
 
-            (fs as any).writeFile = () => { // memfs doesn't support mocking error conditions or permissions
-                throw new Error('EACCES, permission denied');
+            (fs as any).promises.writeFile = () => { // memfs doesn't support mocking error conditions or permissions
+                return Promise.reject(new Error('EACCES, permission denied'));
             };
 
             const out = new FileSystem(new Path('/'), fs);
@@ -115,6 +115,78 @@ describe ('FileSystem', () => {
             return expect(out.store(destination, imageBuffer)).to.be.fulfilled.then(absolutePath => {
                 const expected = processCWD.join(destination).value;
                 expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
+            });
+        });
+    });
+
+    describe('when reading files', () => {
+
+        describe('synchronously', () => {
+
+            it('returns the contents', async () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                            'file.txt': 'contents'
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                const result = out.readFileSync(new Path('file.txt'), { encoding: 'utf8' });
+
+                expect(result).to.equal('contents');
+            });
+        });
+
+        describe('asynchronously', () => {
+
+            it('returns a Promise of the contents', async () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                            'file.txt': 'contents'
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                const result = await out.readFile(new Path('file.txt'), { encoding: 'utf8' });
+
+                expect(result).to.equal('contents');
+            });
+        });
+    });
+
+    describe('when writing files', () => {
+
+        describe('synchronously', () => {
+
+            it('writes the contents', async () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                const absolutePathToFile = out.writeFileSync(new Path('file.txt'), 'contents', { encoding: 'utf8' });
+
+                expect(absolutePathToFile).to.equal(processCWD.resolve(new Path('file.txt')));
+            });
+        });
+
+        describe('asynchronously', () => {
+
+            it('writes the contents', async () => {
+                const
+                    fs = FakeFS.with({
+                        [processCWD.value]: {
+                        },
+                    }),
+                    out = new FileSystem(processCWD, fs);
+
+                const absolutePathToFile = await out.writeFile(new Path('file.txt'), 'contents', { encoding: 'utf8' });
+
+                expect(absolutePathToFile).to.equal(processCWD.resolve(new Path('file.txt')));
             });
         });
     });
