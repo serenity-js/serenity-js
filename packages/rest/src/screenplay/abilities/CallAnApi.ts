@@ -145,10 +145,9 @@ import { createAxios } from '../../io';
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
- * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { createAxios, CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
- * import { createAxios } from '@serenity-js/axios'
  * import axiosRetry from 'axios-retry'
  *
  * const instance = createAxios({ baseURL 'https://api.example.org/' })
