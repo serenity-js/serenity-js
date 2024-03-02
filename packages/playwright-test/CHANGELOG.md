@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to v1.42.1 ([dc20ed5](https://github.com/serenity-js/serenity-js/commit/dc20ed5eb29d41fdb8d87b375c2c7a90a041bdca))
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 

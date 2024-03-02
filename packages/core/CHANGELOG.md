@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Features
+
+* **core:** simplified reading and writing files in CrewMembers using the FileSystem ([7f0d0cc](https://github.com/serenity-js/serenity-js/commit/7f0d0cc6de675a526a6e9351fe94055501d87e2c)), closes [#2244](https://github.com/serenity-js/serenity-js/issues/2244)
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 **Note:** Version bump only for package @serenity-js/core
