@@ -13,7 +13,7 @@ import { CallAnApi } from '../abilities';
  * ```ts
  * import { actorCalled } from '@serenity-js/core';
  * import { By Navigate, PageElement, Text } from '@serenity-js/web';
- * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ * import { axiosCreate, CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  * import { Ensure, equals } from '@serenity-js/assertions';
  *
  * import * as axios from 'axios';
@@ -29,7 +29,7 @@ import { CallAnApi } from '../abilities';
  *     BrowseTheWeb.using(protractor.browser),
  *
  *     // Note: no default base URL is given when the axios instance is created
- *     CallAnApi.using(axios.create()),
+ *     CallAnApi.using(axiosCreate()),
  *   )
  *   .attemptsTo(
  *     Navigate.to('/profile'),
