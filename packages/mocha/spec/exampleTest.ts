@@ -4,7 +4,7 @@ import type { Test } from 'mocha';
 export const exampleTest = {
     'state': 'passed',
     'type': 'test',
-    'title': 'passes',
+    'title': 'passes @smoke-test',
     'body': '() => {\n\n        }',
     'async': false,
     'sync': true,
@@ -18,7 +18,7 @@ export const exampleTest = {
     isPassed: () => ! exampleTest.pending && exampleTest.state === 'passed',
     isFailed: () => ! exampleTest.pending && exampleTest.state === 'failed',
     isPending: () => exampleTest.pending,
-    'file': '/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js',
+    'file': '/fake/path/serenity-js/integration/mocha/examples/passing.spec.js',
     'parent': {
         'title': 'A scenario',
         'ctx': null,        // circular reference, ignore
@@ -87,8 +87,8 @@ export const exampleTest = {
                 '_onlySuites': [],
                 'delayed': false,
             },
-            'file': '/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js',
+            'file': '/fake/path/serenity-js/integration/mocha/examples/passing.spec.js',
         },
-        'file': '/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js',
+        'file': '/fake/path/serenity-js/integration/mocha/examples/passing.spec.js',
     },
 } as unknown as Test;
