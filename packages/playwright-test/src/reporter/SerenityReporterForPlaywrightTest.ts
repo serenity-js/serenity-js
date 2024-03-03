@@ -111,9 +111,12 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         const scenario = this.scenarioDetailsFrom(test);
 
-        const tags: Tag[] = Tags.from(
-            `${ scenario.category.toString() } ${ scenario.name.toString().replace(')', '') }`,
-        );
+        const tags: Tag[] = [
+            ... Tags.from(
+                `${ scenario.category.toString() } ${ scenario.name.toString().replace(')', '') }`,
+            ),
+            ... test.tags.flatMap(tag => Tags.from(tag)),
+        ];
 
         this.emit(
             new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
@@ -242,8 +245,8 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         const featureName = scenarioName ? describeOrItBlockTitle : fileName;
 
         return new ScenarioDetails(
-            new Name(scenarioName || describeOrItBlockTitle),
-            new Category(featureName),
+            new Name(Tags.stripFrom(scenarioName || describeOrItBlockTitle)),
+            new Category(Tags.stripFrom(featureName)),
             new FileSystemLocation(path, test.location.line, test.location.column),
         );
     }
