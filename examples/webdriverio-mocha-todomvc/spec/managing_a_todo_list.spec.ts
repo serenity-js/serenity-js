@@ -4,7 +4,7 @@ import { describe, it } from 'mocha';
 
 import { ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start, ToggleItem } from '../src';
 
-describe('Managing a Todo List', () => {
+describe('Managing a Todo List @smoke', () => {
 
     afterEach(() =>
         actorInTheSpotlight().attemptsTo(
@@ -13,7 +13,7 @@ describe('Managing a Todo List', () => {
 
     describe('TodoMVC', () => {
 
-        describe('actor', () => {
+        describe('actor @ux', () => {
 
             it('records new items', () =>
                 actorCalled('Wendy').attemptsTo(

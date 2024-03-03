@@ -1,5 +1,5 @@
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { Category, Name, ScenarioDetails, type Tag, Tags } from '@serenity-js/core/lib/model';
 import type { Suite, Test } from 'mocha';
 
 /**
@@ -9,7 +9,7 @@ export class MochaTestMapper {
     constructor(private readonly cwd: Path) {
     }
 
-    public detailsOf(test: Test): ScenarioDetails {
+    public detailsOf(test: Test): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
 
         function fileOf(t) {
             switch (true) {
@@ -28,15 +28,20 @@ export class MochaTestMapper {
         const scenarioName = this.nameOf(test);
         const title = this.fullNameOf(test);
 
+        const name = scenarioName || title;
+
         const featureName = scenarioName
             ? this.featureNameFor(test)
             : this.cwd.relative(path).value;
 
-        return new ScenarioDetails(
-            new Name(scenarioName || title),
-            new Category(featureName),
-            new FileSystemLocation(path),
-        );
+        return {
+            scenarioDetails: new ScenarioDetails(
+                new Name(Tags.stripFrom(name)),
+                new Category(Tags.stripFrom(featureName)),
+                new FileSystemLocation(path),
+            ),
+            scenarioTags: Tags.from(`${ featureName } ${ name }`),
+        };
     }
 
     public featureNameFor(scenario: Test | Suite): string {
