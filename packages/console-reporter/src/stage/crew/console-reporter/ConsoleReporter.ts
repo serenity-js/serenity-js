@@ -30,10 +30,12 @@ import {
     ProblemIndication,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
+import type { FileSystem } from 'packages/core/lib/io';
 import { ensure, isDefined, match } from 'tiny-types';
 
 import type { ConsoleReporterConfig } from './ConsoleReporterConfig';
 import { Printer } from './Printer';
+import SnippetGenerator from './SnippetGenerator';
 import { Summary } from './Summary';
 import { SummaryFormatter } from './SummaryFormatter';
 import type { TerminalTheme} from './themes';
@@ -166,6 +168,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private readonly firstErrors: Map<string, FirstError> = new Map();
     private readonly summaryFormatter: SummaryFormatter;
     private readonly eventQueues = new DomainEventQueues();
+    private snippetGenerator: SnippetGenerator;
 
     static fromJSON(config: ConsoleReporterConfig): StageCrewMemberBuilder<ConsoleReporter> {
         return new ConsoleReporterBuilder(ConsoleReporter.theme(config.theme));
@@ -225,17 +228,20 @@ export class ConsoleReporter implements ListensToDomainEvents {
     /**
      * @param {Printer} printer
      * @param {TerminalTheme} theme
+     * @param {FileSystem} fileSystem
      * @param {Stage} [stage=undefined]
      */
     constructor(
         private readonly printer: Printer,
         private readonly theme: TerminalTheme,
+        fileSystem: FileSystem,
         private readonly stage?: Stage,
     ) {
         ensure('printer', printer, isDefined());
         ensure('theme', theme, isDefined());
 
         this.summaryFormatter = new SummaryFormatter(this.theme);
+        this.snippetGenerator = new SnippetGenerator(fileSystem);
     }
 
     /**
@@ -280,6 +286,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
     private printTestRunErrorOutcome(outcome: ProblemIndication): void {
         this.printer.println(this.theme.outcome(outcome, outcome.error.stack));
+        this.snippetGenerator.createSnippetFor(outcome);
     }
 
     private printScene(sceneId: CorrelationId): void {
@@ -465,8 +472,8 @@ class ConsoleReporterBuilder implements StageCrewMemberBuilder<ConsoleReporter> 
     constructor(private readonly theme: TerminalTheme) {
     }
 
-    build({ stage, outputStream }: { stage: Stage; outputStream: OutputStream; }): ConsoleReporter {
-        return new ConsoleReporter(new Printer(outputStream), this.theme, stage);
+    build({ stage, outputStream, fileSystem }: { stage: Stage; outputStream: OutputStream; fileSystem: FileSystem; }): ConsoleReporter {
+        return new ConsoleReporter(new Printer(outputStream), this.theme, fileSystem, stage);
     }
 }
 
