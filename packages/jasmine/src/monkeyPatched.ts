@@ -1,7 +1,5 @@
 import { ErrorStackParser } from '@serenity-js/core/lib/errors/index.js';
 
-const parser = new ErrorStackParser();
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */
 
 /**
@@ -47,7 +45,7 @@ export function monkeyPatched(
  * @package
  */
 function callerLocation() {
-    const frames = parser.parse(new Error('fake error'));
+    const frames = ErrorStackParser.parse(new Error('fake error')).andGet();
 
     const found = frames
         .filter(frame => ! /(node_modules)/.test(frame.fileName))
