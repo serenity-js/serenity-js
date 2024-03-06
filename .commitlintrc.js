@@ -11,5 +11,6 @@ module.exports = {
         'scope-empty':  [ 2, 'never'                ],
         'scope-case':   [ 2, 'always', 'lower-case' ],
         'scope-enum':   [ 2, 'always', scopes.all() ]        
-    }
+    },
+    helpUrl: 'https://serenity-js.org/contributing/#conventional-commits-and-automated-releases'
 }
