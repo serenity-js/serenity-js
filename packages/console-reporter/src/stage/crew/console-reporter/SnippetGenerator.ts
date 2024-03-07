@@ -21,7 +21,11 @@ export default class SnippetGenerator {
      * code snippet with few code lines surrounding error
      */
     createSnippetFor({error}: ProblemIndication): string {
-        const {path, line} = this.parseToFSLoc(error);
+        const location = this.parseToFSLoc(error);
+        if (!location){
+            return ''; // no need to generate snippet for non-user code
+        }
+        const {path, line} = location;
         const data = this.fileSystem.readFileSync(path, {encoding: 'utf8'}).split('\n');
         const start = Math.max(0, line - 2);
         const end = Math.min(data.length, line+3);
@@ -36,12 +40,15 @@ export default class SnippetGenerator {
         return tokens.join('\n');
     }
 
-    private parseToFSLoc(error: Error): FileSystemLocation {
+    private parseToFSLoc(error: Error): FileSystemLocation | undefined {
         const stackFrames = ErrorStackParser.parse(error)
             .withOnlyUserFrames()
             .andGet();
 
-        const invocationFrame = stackFrames[0] || stackFrames.at(-1);
+        if (stackFrames.length === 0){
+            return undefined;
+        }
+        const invocationFrame = stackFrames[0];
         
         return new FileSystemLocation(
             Path.from(invocationFrame.fileName?.replace(/^file:/, '')),

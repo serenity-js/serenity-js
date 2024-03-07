@@ -14,6 +14,7 @@ import {
     TestRunFinished,
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
+import type { FileSystem } from '@serenity-js/core/lib/io';
 import type {
     CorrelationId,
     Name,
@@ -30,7 +31,6 @@ import {
     ProblemIndication,
 } from '@serenity-js/core/lib/model';
 import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
-import type { FileSystem } from 'packages/core/lib/io';
 import { ensure, isDefined, match } from 'tiny-types';
 
 import type { ConsoleReporterConfig } from './ConsoleReporterConfig';
@@ -171,7 +171,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     private snippetGenerator: SnippetGenerator;
 
     static fromJSON(config: ConsoleReporterConfig): StageCrewMemberBuilder<ConsoleReporter> {
-        return new ConsoleReporterBuilder(ConsoleReporter.theme(config.theme));
+        return new ConsoleReporterBuilder(ConsoleReporter.theme(config.theme), config.showSnippetsOnError ?? false);
     }
 
     /**
@@ -234,6 +234,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
     constructor(
         private readonly printer: Printer,
         private readonly theme: TerminalTheme,
+        private readonly showSnippets: boolean,
         fileSystem: FileSystem,
         private readonly stage?: Stage,
     ) {
@@ -286,7 +287,9 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
     private printTestRunErrorOutcome(outcome: ProblemIndication): void {
         this.printer.println(this.theme.outcome(outcome, outcome.error.stack));
-        this.snippetGenerator.createSnippetFor(outcome);
+        if (this.showSnippets){
+            this.printer.println(this.snippetGenerator.createSnippetFor(outcome));
+        }
     }
 
     private printScene(sceneId: CorrelationId): void {
@@ -469,11 +472,11 @@ export class ConsoleReporter implements ListensToDomainEvents {
 }
 
 class ConsoleReporterBuilder implements StageCrewMemberBuilder<ConsoleReporter> {
-    constructor(private readonly theme: TerminalTheme) {
+    constructor(private readonly theme: TerminalTheme, private readonly showSnippets = false) {
     }
 
     build({ stage, outputStream, fileSystem }: { stage: Stage; outputStream: OutputStream; fileSystem: FileSystem; }): ConsoleReporter {
-        return new ConsoleReporter(new Printer(outputStream), this.theme, fileSystem, stage);
+        return new ConsoleReporter(new Printer(outputStream), this.theme, this.showSnippets, fileSystem, stage);
     }
 }
 
