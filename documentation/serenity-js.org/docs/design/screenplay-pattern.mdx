@@ -127,6 +127,22 @@ const wendy2 = actorCalled('Wendy') // second invocation of actorCalled
 assert.equal(wendy1, wendy2)        // wendy1 === wendy 2
 ```
 
+To avoid typos and repetition when instantiating and retrieving actors in your test scenarios,
+you might want to consider using [string enums](https://www.typescriptlang.org/docs/handbook/enums.html#string-enums)
+or constants to store actor names:
+
+```ts title="spec/screenplay-pattern.ts"
+import { actorCalled } from '@serenity-js/core'
+
+enum Actors {
+    Apisitt = 'Apisitt, the test data manager',
+    Wendy   = 'Wendy, the customer',
+}
+
+actorCalled(Actors.Apisitt)  // returns: Actor(name='Apisitt')
+actorCalled(Actors.Wendy)    // returns: Actor(name='Wendy')
+````
+
 #### Using actors with test runners
 
 While you could use Serenity/JS and the [`actorCalled`](/api/core/function/actorCalled) function as part of any regular Node.js program,
