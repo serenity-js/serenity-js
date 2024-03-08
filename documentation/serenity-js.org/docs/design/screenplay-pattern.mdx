@@ -134,13 +134,13 @@ or constants to store actor names:
 ```ts title="spec/screenplay-pattern.ts"
 import { actorCalled } from '@serenity-js/core'
 
-enum Actors {
+enum ActorNames {
     Apisitt = 'Apisitt, the test data manager',
     Wendy   = 'Wendy, the customer',
 }
 
-actorCalled(Actors.Apisitt)  // returns: Actor(name='Apisitt')
-actorCalled(Actors.Wendy)    // returns: Actor(name='Wendy')
+actorCalled(ActorNames.Apisitt)  // returns: Actor(name='Apisitt')
+actorCalled(ActorNames.Wendy)    // returns: Actor(name='Wendy')
 ````
 
 #### Using actors with test runners
