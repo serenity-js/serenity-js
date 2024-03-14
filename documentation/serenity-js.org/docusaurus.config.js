@@ -126,7 +126,7 @@ const config = {
                         label: 'Sponsors',
                         position: 'left',
                     },
-                    { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
+                    { label: `Changelog`, to: 'changelog',  position: 'left' },
                     {
                         href: 'https://www.youtube.com/@serenity-js',
                         'aria-label': 'Serenity/JS YouTube channel',
