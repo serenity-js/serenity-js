@@ -26,7 +26,7 @@ const remarkOptions = {
     ],
 }
 
-const docsOptions = {
+const commonOptions = {
     editUrl: 'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
 };
 
@@ -69,7 +69,7 @@ const config = {
             /** @type {import('@docusaurus/preset-classic').Options} */
             ({
                 docs: {
-                    ...docsOptions,
+                    ...commonOptions,
                     ...remarkOptions,
                     showLastUpdateAuthor: true,
                     showLastUpdateTime: true,
@@ -77,7 +77,7 @@ const config = {
                     routeBasePath: 'handbook',
                 },
                 blog: {
-                    ...docsOptions,
+                    ...commonOptions,
                     ...remarkOptions,
                     showReadingTime: true,
                     postsPerPage: 3,
@@ -369,7 +369,7 @@ const config = {
                 path: 'community',
                 routeBasePath: '/community',
                 sidebarPath: require.resolve('./sidebarCommunity.js'),
-                ...docsOptions,
+                ...commonOptions,
                 ...remarkOptions,
             }),
         ],
