@@ -25,7 +25,7 @@ The most popular ways to contribute include:
 - creating [community resources](https://serenity-js.org/community/resources/) - blog posts, tutorials, videos are all welcome!
 - [reporting issues](https://serenity-js.org/community/contributing/reporting-issues/) you encounter while using Serenity/JS
 - raising feature requests describing what Serenity/JS should also help you do
-- [contributing code and proposing enhancements](/community/contributing/proposing-enhancements/)
+- [contributing code and proposing enhancements](https://serenity-js.org/community/contributing/proposing-enhancements/)
 - sponsoring our work via the [GitHub Sponsors programme](https://github.com/sponsors/serenity-js)
 
 If you're new to open source and would like to get up to speed with the basic concepts, check out this excellent guide on ["How to make your first open source contribution"](https://egghead.io/talks/git-how-to-make-your-first-open-source-contribution) by Ceora Ford.
