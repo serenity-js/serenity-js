@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[8228],{2518:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"community"}')}}]);

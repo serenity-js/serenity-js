@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[4134],{39573:e=>{e.exports=JSON.parse('{"label":"mocha","permalink":"/blog/tags/mocha","allTagsPath":"/blog/tags","count":2}')}}]);

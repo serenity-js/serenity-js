@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[66366],{18844:e=>{e.exports=JSON.parse('{"label":"protractor","permalink":"/changelog/tags/protractor","allTagsPath":"/changelog/tags","count":12}')}}]);
