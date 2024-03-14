@@ -346,9 +346,9 @@ Given('the product catalogue has {string} at £{float}', async (product: string,
 })
 ```
 
-As the simple test shows, in all these cases the core Abilities `Browse The Web`, `CallAnApi` and `TakeNotes` have all
-been defined _without needing to modify any configuration and without writing any code_. SerenityJS adds them.
-You just need to create/retrieve the Actor using `actorCalled(<name>)`.
+As this simple test scenario shows, Serenity/JS provides your actors with the default abilities to `BrowseTheWeb`, `CallAnApi` and `TakeNotes`
+**without you having to modify any configuration** and **without writing any additional code**.
+All you need to do is to create/retrieve the `Actor` by calling [`actorCalled(<name>)`](api/core/function/actorCalled/).
 
 :::tip Portable test code
 Playwright Test, WebdriverIO and Protractor test runners vary dramatically and have completely different and incompatible APIs.
