@@ -346,6 +346,10 @@ Given('the product catalogue has {string} at £{float}', async (product: string,
 })
 ```
 
+As the simple test shows, in all these cases the core Abilities `Browse The Web`, `CallAnApi` and `TakeNotes` have all
+been defined _without needing to modify any configuration and without writing any code_. SerenityJS adds them.
+You just need to create/retrieve the Actor using `actorCalled(<name>)`.
+
 :::tip Portable test code
 Playwright Test, WebdriverIO and Protractor test runners vary dramatically and have completely different and incompatible APIs.
 This would normally tie your test suite to a specific integration tool and prevent you from being able to run test scenarios written for one test runner using another.
