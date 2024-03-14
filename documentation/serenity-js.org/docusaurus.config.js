@@ -71,8 +71,8 @@ const config = {
                 docs: {
                     ...commonOptions,
                     ...remarkOptions,
-                    showLastUpdateAuthor: true,
-                    showLastUpdateTime: true,
+                    showLastUpdateAuthor: false,
+                    showLastUpdateTime: false,
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: 'handbook',
                 },
@@ -164,9 +164,14 @@ const config = {
                     {
                         title: 'Community',
                         items: [
+                            { label: 'Serenity/JS Community', to: '/community' },
                             { label: 'Blog and announcements', to: '/blog' },
                             {
-                                label: 'Serenity/JS Community Chat',
+                                label: `Forum and Q'n'A`,
+                                href: 'https://github.com/orgs/serenity-js/discussions',
+                            },
+                            {
+                                label: 'Community Chat',
                                 href: 'https://matrix.to/#/#serenity-js:gitter.im',
                             },
                             {
@@ -174,11 +179,15 @@ const config = {
                                 href: 'https://stackoverflow.com/questions/tagged/serenity-js',
                             },
                             {
-                                label: 'Serenity/JS on LinkedIn',
+                                label: 'LinkedIn',
                                 href: 'https://www.linkedin.com/company/serenity-js',
                             },
                             {
-                                label: 'Serenity/JS GitHub Sponsors',
+                                label: 'YouTube',
+                                href: 'https://www.youtube.com/@serenity-js',
+                            },
+                            {
+                                label: 'GitHub Sponsors',
                                 href: 'https://github.com/sponsors/serenity-js',
                             },
                         ],
