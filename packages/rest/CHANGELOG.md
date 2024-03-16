@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Features
+
+* **rest:** createAxios function instantiates axios with HTTP proxy support ([c453678](https://github.com/serenity-js/serenity-js/commit/c4536784c0bd9e77826563b944904fb862c43c83))
+
+
+
+
+
+# [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
 ## [3.18.1](https://github.com/serenity-js/serenity-js/compare/v3.18.0...v3.18.1) (2024-02-23)
 
 **Note:** Version bump only for package @serenity-js/rest

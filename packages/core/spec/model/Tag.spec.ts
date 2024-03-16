@@ -61,4 +61,14 @@ describe('Tag', () => {
     it('can be deserialised from a JSON object', (tag: Tag) => {
         expect(Tag.fromJSON(tag.toJSON())).to.equal(tag);
     });
+
+    given([
+        { title: 'A scenario @scenario @issues:JIRA-1 passes @positive @issues:JIRA-2,JIRA-3', expected: 'A scenario passes' },
+        { title: '@just-tag', expected: '' },
+        { title: 'tag in the @end', expected: 'tag in the' },
+        { title: '@start tag', expected: 'tag' },
+    ]).
+    it('can be stripped from test titles', ({ title, expected }) => {
+        expect(Tags.stripFrom(title)).to.equal(expected);
+    });
 });

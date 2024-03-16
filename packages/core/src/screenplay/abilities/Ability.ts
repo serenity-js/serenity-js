@@ -8,7 +8,7 @@ import type { UsesAbilities } from './UsesAbilities';
  *
  * From the technical perspective, **abilities** act as **wrappers** around any **integration libraries** required
  * to communicate with the external interfaces of system under test,
- * such as {@apilink BrowseTheWeb|web browser drivers} or a {@apilink CallAnApi|HTTP client}.
+ * such as {@apilink BrowseTheWeb|web browser drivers} or an {@apilink CallAnApi|HTTP client}.
  * They also enable [portability](/handbook/design/portable-test-code)
  * of your test code across such integration libraries.
  *

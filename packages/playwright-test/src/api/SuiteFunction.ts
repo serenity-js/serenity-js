@@ -1,4 +1,7 @@
+import type { TestDetails } from '@playwright/test';
+
 // Playwright Test doesn't export all its public APIs, hence the need for this workaround
+
 // See https://github.com/microsoft/playwright/pull/24146
 export interface SuiteFunction {
     /**
@@ -49,4 +52,15 @@ export interface SuiteFunction {
      * callback will belong to the group.
      */
     (callback: () => void): void;
+
+    /**
+     * Declares a group of tests.
+     *
+     * @param title Group title.
+     * @param details Additional details for all tests in the group.
+     * @param callback A callback that is run immediately when calling
+     * [test.describe(title, callback)](https://playwright.dev/docs/api/class-test#test-describe-1). Any tests added in
+     * this callback will belong to the group.
+     */
+    (title: string, details: TestDetails, callback: () => void): void;
 }

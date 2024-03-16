@@ -20,7 +20,8 @@ module.exports = {
             to: '/handbook/design/screenplay-pattern'
         },
 
-        { from: '/contributing.html', to: '/contributing' },
+        { from: '/contributing/', to: '/community/contributing/' },
+        { from: '/contributing.html', to: '/community/contributing/' },
 
         { from: '/handbook/about.html', to: '/handbook/getting-started' },
         { from: '/handbook/demo.html', to: '/handbook/getting-started' },

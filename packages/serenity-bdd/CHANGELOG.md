@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** fixed feature tag links for nested spec structures ([7f596e5](https://github.com/serenity-js/serenity-js/commit/7f596e5eab2ee401e4ba0c5613a2a0d65986cae7)), closes [#2222](https://github.com/serenity-js/serenity-js/issues/2222)
+
+
+
+
+
+# [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
 ## [3.18.1](https://github.com/serenity-js/serenity-js/compare/v3.18.0...v3.18.1) (2024-02-23)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

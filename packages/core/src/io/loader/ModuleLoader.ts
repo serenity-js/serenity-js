@@ -2,7 +2,7 @@
 const Module = require('module'); // No type definitions available
 import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
-import { Version } from './Version';
+import { Version } from '../Version';
 
 /**
  * Dynamically loads Node modules located relative to `cwd`.
@@ -12,8 +12,14 @@ export class ModuleLoader {
     /**
      * @param {string} cwd
      *  Current working directory, relative to which Node modules should be resolved.
+     * @param useRequireCache
+     *  Whether to use Node's `require.cache`. Defaults to `true`.
+     *  Set to `false` to force Node to reload required modules on every call.
      */
-    constructor(public readonly cwd: string) {
+    constructor(
+        public readonly cwd: string,
+        public readonly useRequireCache: boolean = true,
+    ) {
     }
 
     /**
@@ -37,7 +43,7 @@ export class ModuleLoader {
      *  NPM module id, for example `cucumber` or `@serenity-js/core`
      *
      * @returns
-     *  Path a given Node module
+     *  Path to a given Node.js module
      */
     resolve(moduleId: string): string {
         const fromFile = path.join(this.cwd, 'noop.js');
@@ -56,11 +62,19 @@ export class ModuleLoader {
      */
     require(moduleId: string): any {
         try {
-            return require(this.resolve(moduleId));
+            return require(this.cachedIfNeeded(this.resolve(moduleId)));
         }
         catch {
-            return require(moduleId);
+            return require(this.cachedIfNeeded(moduleId));
         }
+    }
+
+    private cachedIfNeeded(moduleId: string): string {
+        if (! this.useRequireCache) {
+            delete require.cache[moduleId];
+        }
+
+        return moduleId;
     }
 
     /**
