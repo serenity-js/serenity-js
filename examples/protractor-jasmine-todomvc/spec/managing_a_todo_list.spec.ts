@@ -3,7 +3,7 @@ import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
 
 import { ClearLocalStorage, RecordedItems, RecordItem, RemoveItem, RenameItem, Start } from './support';
 
-describe('Managing a Todo List', () => {
+describe('Managing a Todo List @smoke', () => {
 
     afterEach(() => actorInTheSpotlight().attemptsTo(
         ClearLocalStorage(),
@@ -11,7 +11,7 @@ describe('Managing a Todo List', () => {
 
     describe('TodoMVC', () => {
 
-        describe('actor', () => {
+        describe('actor @ux', () => {
 
             it('records new items', () => actorCalled('Jasmine').attemptsTo(
                 Start.withAnEmptyList(),

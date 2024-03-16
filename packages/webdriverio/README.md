@@ -72,6 +72,7 @@ You can [configure Serenity/JS](https://serenity-js.org/api/core/class/SerenityC
 
 ```typescript title="wdio.conf.ts"
 // wdio.conf.ts
+import { WebdriverIOConfig } from '@serenity-js/webdriverio'
 
 // Optional, import custom Actors if needed; More on this below.
 import { Actors } from './serenity/Actors.ts'

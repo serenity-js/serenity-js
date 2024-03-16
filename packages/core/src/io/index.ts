@@ -12,3 +12,4 @@ export * from './Path';
 export * from './reflection';
 export * from './RequirementsHierarchy';
 export * from './trimmed';
+export * from './Version';

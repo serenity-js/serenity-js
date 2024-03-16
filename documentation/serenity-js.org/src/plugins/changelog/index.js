@@ -193,7 +193,6 @@ async function ChangelogPlugin(context, options) {
             const sanitised = fileContent
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace('@serenity-js/', '\@serenity-js/')
             ;
 
             const sections = sanitised

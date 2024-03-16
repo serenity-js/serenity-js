@@ -36,6 +36,8 @@ import {
     type Outcome,
     type ProblemIndication,
     ScenarioDetails,
+    type Tag,
+    Tags,
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model/index.js';
 
@@ -87,15 +89,17 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     specStarted(result: SpecResult): void {
         this.currentSceneId = this.serenity.assignNewSceneId();
 
-        const details = this.scenarioDetailsOf(result);
+        const { scenarioDetails, scenarioTags } = this.scenarioDetailsOf(result);
 
         this.emit(
-            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),
+            new SceneStarts(this.currentSceneId, scenarioDetails, this.serenity.currentTime()),
 
-            ...this.requirementsHierachy.requirementTagsFor(details.location.path, this.currentFeatureNameFor(result))
+            ... this.requirementsHierachy.requirementTagsFor(scenarioDetails.location.path, Tags.stripFrom(this.currentFeatureNameFor(result)))
                 .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
 
             new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
+
+            ... scenarioTags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime()))
         );
     }
 
@@ -127,7 +131,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
         }
 
         const
-            scenarioDetails = this.scenarioDetailsOf(result),
+            { scenarioDetails } = this.scenarioDetailsOf(result),
             outcome = this.outcomeFrom(result);
 
         this.emit(new SceneFinishes(
@@ -181,12 +185,18 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @param {SpecResult} spec
      * @returns {ScenarioDetails}
      */
-    private scenarioDetailsOf(spec: SpecResult): ScenarioDetails {
-        return new ScenarioDetails(
-            new Name(this.currentScenarioNameFor(spec.description)),
-            new Category(this.currentFeatureNameFor(spec)),
-            FileSystemLocation.fromJSON(spec.location as any),
-        );
+    private scenarioDetailsOf(spec: SpecResult): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
+        const name = this.currentScenarioNameFor(spec.description);
+        const featureName = this.currentFeatureNameFor(spec);
+
+        return {
+            scenarioDetails: new ScenarioDetails(
+                new Name(Tags.stripFrom(name)),
+                new Category(Tags.stripFrom(featureName)),
+                FileSystemLocation.fromJSON(spec.location as any),
+            ),
+            scenarioTags: Tags.from(`${ featureName } ${ name }`)
+        };
     }
 
     /**

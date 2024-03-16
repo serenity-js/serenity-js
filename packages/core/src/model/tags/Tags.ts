@@ -10,20 +10,30 @@ export class Tags {
     private static Pattern = /^@([\w-]+)[\s:]?(.*)/i;
 
     private static matchTags(tagText: string): Tag[] {
-        if (tagText === '') return [];
-        const [, type, value] = Tags.Pattern.exec(tagText);
+        if (tagText === '') {
+            return [];
+        }
 
-        return match<Tag[]>(type.toLowerCase())
-            .when('manual', _ => [new ManualTag()])
-            // todo: map as arbitrary tag if value === ''; look up ticket id
+        const [ , tagType, value ] = Tags.Pattern.exec(tagText);
+
+        return match<Tag[]>(tagType.toLowerCase())
+            .when('manual', _ => [ new ManualTag() ])
             .when(/^issues?$/, _ => value.split(',').map(value => new IssueTag(value.trim())))
-            .else(value => [new ArbitraryTag(value.trim())])
+            .else(value => [ new ArbitraryTag(value.trim()) ]);
     }
 
     public static from(text: string): Tag[] {
         const tags = text.split(/\s+/)
             .filter(word => word.startsWith('@'))
             .flatMap(tag => Tags.matchTags(tag));
-        return tags ?? Tags.matchTags(text); 
+        return tags ?? Tags.matchTags(text);
+    }
+
+    public static stripFrom(text: string): string {
+        return text.split(/\s+/)
+            .map(word => Tags.Pattern.test(word) ? undefined : word)
+            .filter(Boolean)
+            .join(' ')
+            .trim();
     }
 }

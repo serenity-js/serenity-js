@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+
+### Bug Fixes
+
+* **playwright-test:** support for reporting tags registered using the new Playwright 1.42 tags API ([9d57157](https://github.com/serenity-js/serenity-js/commit/9d571573cd9d8b52ddcb286f1160c7011dea7590))
+
+
+### Features
+
+* **jasmine:** support for custom tags ([47f93d8](https://github.com/serenity-js/serenity-js/commit/47f93d86fecc49a793dc5e8052b82f5115ca5b98))
+* **mocha:** support for custom tags ([b86f2bb](https://github.com/serenity-js/serenity-js/commit/b86f2bb98305ba2491e7a2728aa38431ea8f716c))
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to v1.42.0 ([0058448](https://github.com/serenity-js/serenity-js/commit/0058448c569803b3998bcfa26a787f3894a11d51))
+* **deps:** update playwright dependencies to v1.42.1 ([dc20ed5](https://github.com/serenity-js/serenity-js/commit/dc20ed5eb29d41fdb8d87b375c2c7a90a041bdca))
+* **serenity-bdd:** fixed feature tag links for nested spec structures ([7f596e5](https://github.com/serenity-js/serenity-js/commit/7f596e5eab2ee401e4ba0c5613a2a0d65986cae7)), closes [#2222](https://github.com/serenity-js/serenity-js/issues/2222)
+
+
+### Features
+
+* **core:** simplified reading and writing files in CrewMembers using the FileSystem ([7f0d0cc](https://github.com/serenity-js/serenity-js/commit/7f0d0cc6de675a526a6e9351fe94055501d87e2c)), closes [#2244](https://github.com/serenity-js/serenity-js/issues/2244)
+* **rest:** createAxios function instantiates axios with HTTP proxy support ([c453678](https://github.com/serenity-js/serenity-js/commit/c4536784c0bd9e77826563b944904fb862c43c83))
+
+
+
+
+
+# [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
+
+
+### Bug Fixes
+
+* **console-reporter:** fix comments ([e8b21dd](https://github.com/serenity-js/serenity-js/commit/e8b21ddb40c5addc53bdcfb212770f199f026e11))
+
+
+### Features
+
+* **console-reporter:** global exception handling v1 ([cf117f1](https://github.com/serenity-js/serenity-js/commit/cf117f16ba6623e45b3bcf0d357a91539700f55b))
+* **console-reporter:** revert to only global error handling ([a375788](https://github.com/serenity-js/serenity-js/commit/a3757886275c854c8cc6d55aedbc0d26916cde9f))
+* **console-reporter:** test with reporter developement ([85e2bf1](https://github.com/serenity-js/serenity-js/commit/85e2bf1ad06b00aa7d917e762ce0c2e0cb964533))
+
+
+
+
+
 ## [3.18.1](https://github.com/serenity-js/serenity-js/compare/v3.18.0...v3.18.1) (2024-02-23)
 
 
