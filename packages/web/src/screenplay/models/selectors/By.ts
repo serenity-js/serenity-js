@@ -9,6 +9,51 @@ import { ByTagName } from './ByTagName';
 import { ByXPath } from './ByXPath';
 
 /**
+ * `By` produces a {@apilink Selector} used to locate a {@apilink PageElement} or {@apilink PageElements} on a web page.
+ * Selectors can be defined using a static value or a {@link Question} to be resolved at runtime.
+ *
+ * ### Defining a selector using a static value
+ *
+ * ```typescript
+ * import { PageElement, By } from '@serenity-js/web'
+ *
+ * class LoginForm {
+ *   static usernameField = () =>
+ *     PageElement.located(By.id('username'))              // locate element by its id
+ *       .describedAs('username field')
+ *
+ *   static passwordField = () =>
+ *     PageElement.of(By.css('[data-test="password"]'))    // locate element using a CSS selector
+ *       .describedAs('password field')
+ * }
+ * ```
+ *
+ * ### Defining a selector using a Question
+ *
+ * Each method on this class accepts an {@link Answerable} to allow for dynamic resolution of the selector.
+ * This can be useful when the selector is not known at the time of writing the test, or when the selector
+ * needs to be calculated based on the state of the system under test.
+ *
+ * The example below demonstrates how to use {@link q} to define a selector that includes a dynamic value.
+ *
+ * ```typescript
+ * import { q } from '@serenity-js/core'
+ * import { PageElement, By } from '@serenity-js/web'
+ *
+ * class FormField {
+ *   static withTestId = (id: Answerable<string>) =>
+ *     PageElement.of(By.css(q`input[data-test-id="${ id }"]`))
+ *       .describedAs('form field')
+ * }
+ *
+ * ```
+ *
+ * ### Learn more
+ * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
+ * - {@apilink PageElement}
+ * - {@apilink PageElements}
+ * - {@apilink q}
+ *
  * @group Models
  */
 export class By {
