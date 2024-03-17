@@ -109,17 +109,18 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.sceneIds.set(test.id, currentSceneId);
 
-        const scenario = this.scenarioDetailsFrom(test);
+        const { scenarioDetails, scenarioTags } = this.scenarioDetailsFrom(test);
 
-        const tags: Tag[] = Tags.from(
-            `${ scenario.category.toString() } ${ scenario.name.toString().replace(')', '') }`,
-        );
+        const tags: Tag[] = [
+            ... scenarioTags,
+            ... test.tags.flatMap(tag => Tags.from(tag)),
+        ];
 
         this.emit(
-            new SceneStarts(currentSceneId, scenario, this.serenity.currentTime()),
+            new SceneStarts(currentSceneId, scenarioDetails, this.serenity.currentTime()),
 
             ...this.requirementsHierarchy
-                .requirementTagsFor(scenario.location.path, scenario.category.value)
+                .requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
                 .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
 
             new TestRunnerDetected(
@@ -175,7 +176,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         this.serenity.announce(
             new SceneFinished(
                 currentSceneId,
-                this.scenarioDetailsFrom(test),
+                this.scenarioDetailsFrom(test).scenarioDetails,
                 this.determineScenarioOutcome(worstInteractionOutcome, scenarioOutcome),
                 this.now(),
             ),
@@ -227,7 +228,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         return new ExecutionSuccessful();
     }
 
-    private scenarioDetailsFrom(test: TestCase) {
+    private scenarioDetailsFrom(test: TestCase): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
         const [
             root_,
             browserName_,
@@ -239,13 +240,17 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         const path = new Path(test.location.file);
         const scenarioName = nestedTitles.join(' ').trim();
 
+        const name = scenarioName || describeOrItBlockTitle;
         const featureName = scenarioName ? describeOrItBlockTitle : fileName;
 
-        return new ScenarioDetails(
-            new Name(scenarioName || describeOrItBlockTitle),
-            new Category(featureName),
-            new FileSystemLocation(path, test.location.line, test.location.column),
-        );
+        return {
+            scenarioDetails: new ScenarioDetails(
+                new Name(Tags.stripFrom(name)),
+                new Category(Tags.stripFrom(featureName)),
+                new FileSystemLocation(path, test.location.line, test.location.column),
+            ),
+            scenarioTags: Tags.from(`${ featureName } ${ name }`),
+        };
     }
 
     async onEnd(): Promise<void> {

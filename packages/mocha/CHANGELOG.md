@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.21.1](https://github.com/serenity-js/serenity-js/compare/v3.21.0...v3.21.1) (2024-03-16)
+
+**Note:** Version bump only for package @serenity-js/mocha
+
+
+
+
+
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+
+### Features
+
+* **mocha:** support for custom tags ([b86f2bb](https://github.com/serenity-js/serenity-js/commit/b86f2bb98305ba2491e7a2728aa38431ea8f716c))
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+**Note:** Version bump only for package @serenity-js/mocha
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 **Note:** Version bump only for package @serenity-js/mocha

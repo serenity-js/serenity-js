@@ -1,6 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { ArbitraryTag, Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { MochaTestMapper } from '../../src/mappers';
@@ -17,12 +17,16 @@ describe('MochaTestMapper', () => {
     });
 
     it('maps a Mocha test to Serenity/JS ScenarioDetails', () => {
-        const scenario = mapper.detailsOf(exampleTest)
+        const { scenarioDetails, scenarioTags } = mapper.detailsOf(exampleTest)
 
-        expect(scenario).to.equal(new ScenarioDetails(
+        expect(scenarioDetails).to.equal(new ScenarioDetails(
             new Name('A scenario passes'),
             new Category('Mocha reporting'),
-            new FileSystemLocation(new Path('/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js'))
+            new FileSystemLocation(new Path('/fake/path/serenity-js/integration/mocha/examples/passing.spec.js'))
         ));
+
+        expect(scenarioTags).to.deep.equal([
+            new ArbitraryTag('smoke-test')
+        ]);
     });
 });

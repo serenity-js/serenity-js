@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.21.1](https://github.com/serenity-js/serenity-js/compare/v3.21.0...v3.21.1) (2024-03-16)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+
+### Features
+
+* **jasmine:** support for custom tags ([47f93d8](https://github.com/serenity-js/serenity-js/commit/47f93d86fecc49a793dc5e8052b82f5115ca5b98))
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 **Note:** Version bump only for package @serenity-js/jasmine

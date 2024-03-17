@@ -13,9 +13,16 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/lib/events';
-import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, TestSuiteDetails } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import {
+    ArbitraryTag,
+    CorrelationId,
+    ExecutionFailedWithError,
+    ExecutionRetriedTag,
+    ExecutionSuccessful,
+    Name,
+    TestSuiteDetails
+} from '@serenity-js/core/lib/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
 import { reporters, Runner } from 'mocha';
 
@@ -37,6 +44,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
     /**
      * @param {Serenity} serenity
+     * @param requirementsHierarchy
      * @param {mocha~Runner} runner
      * @param {mocha~MochaOptions} options
      */
@@ -198,19 +206,23 @@ export class SerenityReporterForMocha extends reporters.Base {
     private announceSceneStartsFor(test: Test): void {
         this.currentSceneId = this.serenity.assignNewSceneId()
 
-        const scenario = this.testMapper.detailsOf(test);
+        const { scenarioDetails, scenarioTags } = this.testMapper.detailsOf(test);
 
         this.emit(
-            new SceneStarts(this.currentSceneId, scenario, this.serenity.currentTime()),
-            ...this.requirementsHierarchy.requirementTagsFor(scenario.location.path, scenario.category.value)
+            new SceneStarts(this.currentSceneId, scenarioDetails, this.serenity.currentTime()),
+
+            ... this.requirementsHierarchy.requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
                 .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
+
             new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
+
+            ... scenarioTags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
         );
     }
 
     private announceSceneFinishedFor(test: Test, runnable: Runnable): Promise<void> {
         const
-            scenario    = this.testMapper.detailsOf(test),
+            { scenarioDetails } = this.testMapper.detailsOf(test),
             outcome     = this.recorder.outcomeOf(test) || this.outcomeMapper.outcomeOf(test);
 
         this.emit(
@@ -224,7 +236,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             .then(() => {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
-                    scenario,
+                    scenarioDetails,
                     outcome,
                     this.serenity.currentTime(),
                 ));
@@ -233,7 +245,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             }, error => {
                 this.emit(new SceneFinished(
                     this.currentSceneId,
-                    scenario,
+                    scenarioDetails,
                     new ExecutionFailedWithError(error),
                     this.serenity.currentTime(),
                 ));
@@ -248,7 +260,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
     private announceSceneSkippedFor(test: Test): void {
         const
-            scenario    = this.testMapper.detailsOf(test),
+            { scenarioDetails } = this.testMapper.detailsOf(test),
             outcome     = this.outcomeMapper.outcomeOf(test);
 
         this.announceSceneStartsFor(test);
@@ -260,7 +272,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             ),
             new SceneFinished(
                 this.currentSceneId,
-                scenario,
+                scenarioDetails,
                 outcome,
                 this.serenity.currentTime(),
             )

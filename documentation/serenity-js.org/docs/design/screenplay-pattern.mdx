@@ -127,6 +127,22 @@ const wendy2 = actorCalled('Wendy') // second invocation of actorCalled
 assert.equal(wendy1, wendy2)        // wendy1 === wendy 2
 ```
 
+To avoid typos and repetition when instantiating and retrieving actors in your test scenarios,
+you might want to consider using [string enums](https://www.typescriptlang.org/docs/handbook/enums.html#string-enums)
+or constants to store actor names:
+
+```ts title="spec/screenplay-pattern.ts"
+import { actorCalled } from '@serenity-js/core'
+
+enum ActorNames {
+    Apisitt = 'Apisitt, the test data manager',
+    Wendy   = 'Wendy, the customer',
+}
+
+actorCalled(ActorNames.Apisitt)  // returns: Actor(name='Apisitt')
+actorCalled(ActorNames.Wendy)    // returns: Actor(name='Wendy')
+````
+
 #### Using actors with test runners
 
 While you could use Serenity/JS and the [`actorCalled`](/api/core/function/actorCalled) function as part of any regular Node.js program,
@@ -329,6 +345,10 @@ Given('the product catalogue has {string} at £{float}', async (product: string,
     // ...
 })
 ```
+
+As this simple test scenario shows, Serenity/JS provides your actors with the default abilities to `BrowseTheWeb`, `CallAnApi` and `TakeNotes`
+**without you having to modify any configuration** and **without writing any additional code**.
+All you need to do is to create/retrieve the `Actor` by calling [`actorCalled(<name>)`](api/core/function/actorCalled/).
 
 :::tip Portable test code
 Playwright Test, WebdriverIO and Protractor test runners vary dramatically and have completely different and incompatible APIs.

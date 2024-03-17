@@ -73,5 +73,3 @@ export default function Home(): JSX.Element {
     );
 }
 
-// From 1-man bands and start-ups to large delivery teams at top-tier investment banks, Serenity/JS has you covered.
-// Test any system, any interface, any browser

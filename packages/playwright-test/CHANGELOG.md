@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.21.1](https://github.com/serenity-js/serenity-js/compare/v3.21.0...v3.21.1) (2024-03-16)
+
+
+### Bug Fixes
+
+* **core:** upgraded dependency on tiny-types to 1.22.0 ([2c0bb2a](https://github.com/serenity-js/serenity-js/commit/2c0bb2aeee7df7652853606c1ea10794157eb9fb))
+
+
+
+
+
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+
+### Bug Fixes
+
+* **playwright-test:** support for reporting tags registered using the new Playwright 1.42 tags API ([9d57157](https://github.com/serenity-js/serenity-js/commit/9d571573cd9d8b52ddcb286f1160c7011dea7590))
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to v1.42.1 ([dc20ed5](https://github.com/serenity-js/serenity-js/commit/dc20ed5eb29d41fdb8d87b375c2c7a90a041bdca))
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 

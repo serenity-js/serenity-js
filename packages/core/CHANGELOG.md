@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.21.1](https://github.com/serenity-js/serenity-js/compare/v3.21.0...v3.21.1) (2024-03-16)
+
+
+### Bug Fixes
+
+* **core:** upgraded dependency on tiny-types to 1.22.0 ([2c0bb2a](https://github.com/serenity-js/serenity-js/commit/2c0bb2aeee7df7652853606c1ea10794157eb9fb))
+
+
+
+
+
+# [3.21.0](https://github.com/serenity-js/serenity-js/compare/v3.20.0...v3.21.0) (2024-03-04)
+
+
+### Bug Fixes
+
+* **playwright-test:** support for reporting tags registered using the new Playwright 1.42 tags API ([9d57157](https://github.com/serenity-js/serenity-js/commit/9d571573cd9d8b52ddcb286f1160c7011dea7590))
+
+
+
+
+
+# [3.20.0](https://github.com/serenity-js/serenity-js/compare/v3.19.0...v3.20.0) (2024-03-02)
+
+
+### Features
+
+* **core:** simplified reading and writing files in CrewMembers using the FileSystem ([7f0d0cc](https://github.com/serenity-js/serenity-js/commit/7f0d0cc6de675a526a6e9351fe94055501d87e2c)), closes [#2244](https://github.com/serenity-js/serenity-js/issues/2244)
+
+
+
+
+
 # [3.19.0](https://github.com/serenity-js/serenity-js/compare/v3.18.1...v3.19.0) (2024-03-01)
 
 **Note:** Version bump only for package @serenity-js/core

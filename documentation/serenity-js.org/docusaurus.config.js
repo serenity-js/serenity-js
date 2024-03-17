@@ -9,19 +9,26 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const path = require('path');
 const redirects = require('./redirects.config');
 const pkg = require('./../../package.json');
-const remarkPlugins = [
-    [ require('@docusaurus/remark-plugin-npm2yarn'), { sync: true, converters: [ 'yarn' ] } ],
-    [ require('docusaurus-remark-plugin-tab-blocks'), {
-        sync: true,
-        labels: [
-            ['json', 'JSON'],
-            ['jsx', 'JSX'],
-            ['tsx', 'TSX'],
-            ['js', 'JavaScript'],
-            ['ts', 'TypeScript'],
-        ],
-    } ]
-];
+
+const remarkOptions = {
+    remarkPlugins: [
+        [ require('@docusaurus/remark-plugin-npm2yarn'), { sync: true, converters: [ 'yarn' ] } ],
+        [ require('docusaurus-remark-plugin-tab-blocks'), {
+            sync: true,
+            labels: [
+                ['json', 'JSON'],
+                ['jsx', 'JSX'],
+                ['tsx', 'TSX'],
+                ['js', 'JavaScript'],
+                ['ts', 'TypeScript'],
+            ],
+        } ]
+    ],
+}
+
+const commonOptions = {
+    editUrl: 'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -62,27 +69,29 @@ const config = {
             /** @type {import('@docusaurus/preset-classic').Options} */
             ({
                 docs: {
+                    ...commonOptions,
+                    ...remarkOptions,
+                    showLastUpdateAuthor: false,
+                    showLastUpdateTime: false,
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: 'handbook',
-                    remarkPlugins,
-                    editUrl:
-                        'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
                 },
                 blog: {
+                    ...commonOptions,
+                    ...remarkOptions,
                     showReadingTime: true,
                     postsPerPage: 3,
-                    editUrl:
-                        'https://github.com/serenity-js/serenity-js/tree/main/documentation/serenity-js.org/',
-                    remarkPlugins,
                 },
                 pages: {
-                    remarkPlugins,
+                    ...remarkOptions,
                 },
                 theme: {
-                    customCss: require.resolve('./src/css/custom.css'),
+                    customCss: [
+                        require.resolve('./src/css/custom.scss'),
+                    ],
                 },
             }),
-        ],
+        ]
     ],
 
     themeConfig:
@@ -113,27 +122,26 @@ const config = {
                     { label: 'Handbook', type: 'doc', docId: 'index', position: 'left' },
                     { label: 'API', to: '/api/core', position: 'left' },
                     { to: '/blog', label: 'Blog', position: 'left' },
-                    { to: '/contributing', label: 'Contribute', position: 'left' },
-                    { label: `Changelog \uD83C\uDF81`, to: 'changelog',  position: 'left' },
-                    {
-                        to: 'https://matrix.to/#/#serenity-js:gitter.im',
-                        label: 'Chat',
-                        position: 'right',
-                    },
-                    {
-                        to: 'https://github.com/serenity-js',
-                        label: 'GitHub',
-                        position: 'right',
-                    },
-                    {
-                        to: 'https://www.youtube.com/@serenity-js',
-                        label: 'YouTube',
-                        position: 'right',
-                    },
+                    { to: '/community', label: 'Community', position: 'left' },
                     {
                         to: 'https://github.com/sponsors/serenity-js',
-                        label: 'Sponsors 💛',
+                        label: 'Sponsors',
+                        position: 'left',
+                    },
+                    { label: `Changelog`, to: 'changelog',  position: 'left' },
+                    {
+                        href: 'https://www.youtube.com/@serenity-js',
+                        'aria-label': 'Serenity/JS YouTube channel',
+                        title: 'Serenity/JS YouTube channel',
                         position: 'right',
+                        className: 'navbar-youtube-link',
+                    },
+                    {
+                        href: 'https://github.com/serenity-js',
+                        'aria-label': 'Serenity/JS GitHub repositories',
+                        title: 'Serenity/JS GitHub repositories',
+                        position: 'right',
+                        className: 'navbar-github-link',
                     },
                 ],
             },
@@ -158,9 +166,14 @@ const config = {
                     {
                         title: 'Community',
                         items: [
+                            { label: 'Serenity/JS Community', to: '/community' },
                             { label: 'Blog and announcements', to: '/blog' },
                             {
-                                label: 'Serenity/JS Community Chat',
+                                label: `Forum and Q'n'A`,
+                                href: 'https://github.com/orgs/serenity-js/discussions',
+                            },
+                            {
+                                label: 'Community Chat',
                                 href: 'https://matrix.to/#/#serenity-js:gitter.im',
                             },
                             {
@@ -168,11 +181,15 @@ const config = {
                                 href: 'https://stackoverflow.com/questions/tagged/serenity-js',
                             },
                             {
-                                label: 'Serenity/JS on LinkedIn',
+                                label: 'LinkedIn',
                                 href: 'https://www.linkedin.com/company/serenity-js',
                             },
                             {
-                                label: 'Serenity/JS GitHub Sponsors',
+                                label: 'YouTube',
+                                href: 'https://www.youtube.com/@serenity-js',
+                            },
+                            {
+                                label: 'GitHub Sponsors',
                                 href: 'https://github.com/sponsors/serenity-js',
                             },
                         ],
@@ -226,6 +243,7 @@ const config = {
         }),
 
     plugins: [
+        'docusaurus-plugin-sass',
         [
             'docusaurus-plugin-typedoc-api',
             {
@@ -352,10 +370,20 @@ const config = {
                         protected: true,
                         private: false,
                     },
-                    // todo: remove when merged https://github.com/milesj/docusaurus-plugin-typedoc-api/pull/67
-                    inlineTags: [ '@link', '@inheritDoc', '@label', '@linkcode', '@linkplain', '@apilink', '@doclink' ],
                 }
             },
+        ],
+        [
+            'content-docs',
+            /** @type {import('@docusaurus/plugin-content-docs').Options} */
+            ({
+                id: 'community',
+                path: 'community',
+                routeBasePath: '/community',
+                sidebarPath: require.resolve('./sidebarCommunity.js'),
+                ...commonOptions,
+                ...remarkOptions,
+            }),
         ],
         [
             require.resolve('./src/plugins/piwik/index.js'),
@@ -390,7 +418,7 @@ const config = {
                 blogSidebarTitle: 'Changelog',
                 routeBasePath: '/changelog',
                 showReadingTime: false,
-                postsPerPage: 1,
+                postsPerPage: 10,
                 archiveBasePath: undefined,
                 blogTagsListComponent: '@theme/BlogTagsListPage',
                 blogTagsPostsComponent: '@theme/BlogTagsPostsPage',
