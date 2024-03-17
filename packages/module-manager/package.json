@@ -1,0 +1,82 @@
+{
+  "name": "@serenity-js/module-manager",
+  "version": "3.21.1",
+  "description": "Serenity/JS Module Manager",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./esm/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "serenity-js",
+    "tdd",
+    "bdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config .mocharc.yml 'spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git",
+    "directory": "packages/module-manager"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^16.13 || ^18.12 || ^20"
+  },
+  "dependencies": {
+    "@serenity-js/core": "3.21.1",
+    "@serenity-js/rest": "3.21.1",
+    "axios": "1.6.8",
+    "axios-retry": "4.0.0",
+    "graceful-fs": "4.2.11",
+    "tiny-types": "1.22.0"
+  },
+  "devDependencies": {
+    "@integration/testing-tools": "3.0.0",
+    "@types/chai": "4.3.12",
+    "@types/mocha": "10.0.6",
+    "c8": "9.1.0",
+    "fs-monkey": "1.0.5",
+    "memfs": "4.7.7",
+    "mocha": "10.2.0",
+    "mocha-multi": "1.1.7",
+    "tsx": "4.7.1",
+    "typescript": "5.2.2"
+  }
+}
