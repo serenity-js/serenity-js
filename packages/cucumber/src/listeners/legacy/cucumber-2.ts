@@ -8,7 +8,7 @@ export = function ({ serenity, notifier, resultMapper, loader, cucumber, cache }
         adapter({ serenity, notifier, resultMapper, loader, cucumber, cache }).call(support)
     );
 
-    return function () {
+    return function (): void {
         // no-op
     };
 };
