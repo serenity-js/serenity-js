@@ -1057,7 +1057,7 @@ Given(`{pronoun} chooses the '{flightClass}' flight class`,                     
 ```
 
 From the implementation perspective, functions like `findFlight` or `providePaymentDetails` produce [activities](/api/core/class/Activity),
-which are [command objects](https://en.wikipedia.org/wiki/Command_pattern) that encapsulate information needed for the actor to perform some defined action.
+which are [command objects](https://refactoring.guru/design-patterns/command) that encapsulate information needed for the actor to perform some defined action.
 
 The way you instruct an actor to perform some activities is always exactly the same, no matter the kind of test you write
 or the type of interface the actor interacts with - you pass them to the [`Actor.attemptsTo`](/api/core/class/Actor#attemptsTo) method.
