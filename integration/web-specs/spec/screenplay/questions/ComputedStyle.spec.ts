@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, includes } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
-import { By, ComputedStyle, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
+import { actorCalled, LogicError, Wait } from '@serenity-js/core';
+import { By, Click, ComputedStyle, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 describe('ComputedStyle', () => {
 
@@ -31,6 +31,8 @@ describe('ComputedStyle', () => {
             const elements = {
                 hidden: () => PageElement.located(By.id('hidden')).describedAs('hidden element'),
                 visible: () => PageElement.located(By.id('visible')).describedAs('visible element'),
+                loader: () => PageElement.located(By.id('loader')).describedAs('loader element'),
+                loadButton: () => PageElement.located(By.id('load')).describedAs('load button'),
             };
 
             it('allows the actor to read an in-line style property of a DOM element matching the locator', async () => {
@@ -56,6 +58,15 @@ describe('ComputedStyle', () => {
                     Ensure.that(Text.ofAll(elements), equals([ 'one', 'three' ])),
                 );
             });
+
+            it('allow the actor to wait until the computed style property has an expected value', () =>
+                actorCalled('Wendy').attemptsTo(
+                    Navigate.to('/screenplay/questions/computed-style/loader.html'),
+
+                    Ensure.that(ComputedStyle.called('border-color').of(elements.loader()), equals('rgb(255, 0, 0)')),
+                    Click.on(elements.loadButton()),
+                    Wait.until(ComputedStyle.called('border-color').of(elements.loader()), equals('rgb(0, 255, 0)')),
+                ));
 
             describe('toString', () => {
 
