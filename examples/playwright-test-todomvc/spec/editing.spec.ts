@@ -7,7 +7,7 @@ import { persistedItemNames, persistedItems, startWithAListContaining } from './
 import { edit, editor, label, remove, rename, toggleButton } from './todo-list-app/TodoItem';
 import { itemCalled, itemNames } from './todo-list-app/TodoList';
 
-describe('Editing', () => {
+describe('Editing', { tag: '@screenplay' }, () => {
 
     describe('Todo List App', () => {
 

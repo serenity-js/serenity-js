@@ -7,7 +7,7 @@ import { filterCalled, persistedItemNames, startWithAListContaining } from './to
 import { hasCssClass, markAsCompleted } from './todo-list-app/TodoItem';
 import { enableFilter, itemCalled, itemNames, items } from './todo-list-app/TodoList';
 
-describe('Routing', () => {
+describe('Routing', { tag: '@screenplay' }, () => {
 
     describe('Todo List App', () => {
 
