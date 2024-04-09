@@ -23,4 +23,4 @@ runs:
     - name: Get $CHROMEDRIVER_FILEPATH (Linux & macOS)
       if: runner.os != 'Windows'
       shell: 'bash'
-      run: echo ${{ env.CHROMEDRIVER_FILEPATH }}
+      run: ls -lah ${{ env.CHROMEDRIVER_FILEPATH }}
