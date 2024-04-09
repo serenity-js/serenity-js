@@ -1,4 +1,4 @@
-import type { test as base } from '@playwright/test';
+import type { test as base, TestInfo } from '@playwright/test';
 import type { Activity, PerformsActivities } from '@serenity-js/core';
 import { d, Interaction, PerformActivities } from '@serenity-js/core';
 import type { EmitsDomainEvents } from '@serenity-js/core/lib/events';
@@ -15,19 +15,27 @@ export class PerformActivitiesAsPlaywrightSteps extends PerformActivities {
     }
 
     override async perform(activity: Activity): Promise<void> {
-        const testInfo = this.test.info();
+        const testInfo = this.test.info() as TestInfo & {
+            _addStep: (data: TestStepInternal) => TestStepInternal
+        };
 
-        // see https://github.com/microsoft/playwright/issues/23157
-        const runAsStep = (testInfo['_runAsStep']).bind(testInfo) as <T>(stepInfo: TestStepInternal, callback: (step: TestStepInternal) => Promise<T>) => Promise<T>;
+        // Monkey-patch addStep to allow for passing a pre-computed location
+        // see https://github.com/microsoft/playwright/issues/30160
+        const originalAddStep = testInfo._addStep;
+        testInfo._addStep = (data: TestStepInternal) => {
 
-        return runAsStep({
-            category: 'test.step',
-            title: this.nameOf(activity),
-            location: this.locationOf(activity),
-            params: this.parametersOf(activity),
-        }, async step_ => {
-            await super.perform(activity)
-        })
+            data.location = this.locationOf(activity);
+            data.params = this.parametersOf(activity);
+
+            return originalAddStep.call(testInfo, data);
+        }
+
+        await this.test.step(
+            this.nameOf(activity),
+            () => super.perform(activity),
+        );
+
+        testInfo._addStep = originalAddStep;
     }
 
     private parametersOf(activity: Activity): Record<string, any> {
@@ -50,6 +58,7 @@ export class PerformActivitiesAsPlaywrightSteps extends PerformActivities {
     }
 }
 
+// Partial copy of https://github.com/microsoft/playwright/blob/b5e36583f67745fddf32145fa2355e5f122c2903/packages/playwright/src/worker/testInfo.ts#L32
 interface TestStepInternal {
     title: string;
     category: string;
