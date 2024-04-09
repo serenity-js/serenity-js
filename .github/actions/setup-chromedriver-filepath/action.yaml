@@ -16,7 +16,7 @@ runs:
       shell: 'pwsh'
       run: |
         echo ${{ env.CHROMEDRIVER_FILEPATH }}
-        Test-Path "${{ env.CHROMEDRIVER_FILEPATH }}"
+        ${{ env.CHROMEDRIVER_FILEPATH }} --version
 
     - name: Set CHROMEDRIVER_FILEPATH (Linux & macOS)
       if: runner.os != 'Windows'
@@ -27,4 +27,4 @@ runs:
       shell: 'bash'
       run: |
         echo ${{ env.CHROMEDRIVER_FILEPATH }}
-        ls -lah ${{ env.CHROMEDRIVER_FILEPATH }}
+        ${{ env.CHROMEDRIVER_FILEPATH }} --version

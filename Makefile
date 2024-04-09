@@ -47,6 +47,7 @@ reinstall:
 
 install:
 	npm ci
+	npm run install --prefix ./node_modules/chromedriver
 	npm run lerna:bootstrap:$(BOOTSTRAP_SCOPE)
 
 cc:
