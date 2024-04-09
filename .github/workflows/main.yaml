@@ -76,7 +76,9 @@ jobs:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
-      command: make test
+      command: |
+        ls -lah /home/runner/work/serenity-js/serenity-js/node_modules/chromedriver/lib/chromedriver
+        make test
       upload-artifact-name: 'test-reports'
       upload-artifact-path: 'package.json "packages/*/target/**/*"'
 
