@@ -7,7 +7,7 @@ import { persistedItems, startWithAListContaining } from './todo-list-app/TodoAp
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted } from './todo-list-app/TodoItem';
 import { itemCalled, itemNames, items } from './todo-list-app/TodoList';
 
-describe('Persistence', () => {
+describe('Persistence', { tag: '@screenplay' }, () => {
 
     describe('Todo List App', () => {
 

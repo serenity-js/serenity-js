@@ -17,7 +17,7 @@ import {
 import { recordItem } from './todo-list-app/TodoItem';
 import { itemNames } from './todo-list-app/TodoList';
 
-describe('Recording items', () => {
+describe('Recording items', { tag: '@screenplay' }, () => {
 
     describe('Todo List App', () => {
 
