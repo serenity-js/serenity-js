@@ -1,0 +1,13 @@
+<html lang="en">
+<body>
+<h1 id="loader" style="border: 1px solid red">Status</h1>
+<input id="load" type="button" value="load" onclick="load(2000)" />
+<script>
+    function load(delay) {
+        setTimeout(function () {
+            document.getElementById('loader').style.border = '1px solid lime'
+        }, delay);
+    }
+</script>
+</body>
+</html>
