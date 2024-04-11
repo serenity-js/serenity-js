@@ -1,19 +1,19 @@
-import type { QuestionAdapter } from '..';
-import { type Answerable,Question } from '..';
+import { Question, type QuestionAdapter } from '../Question';
+import { type Answerable } from '../Answerable';
 
 /**
- * This question masks sensitive data handled by the actors and prevents 
- * it from being shown in Serenity/JS reports and console logs. 
- * You should use it to wrap passwords, secret tokens, phone numbers, 
- * credit card numbers, or any other personally identifiable information (PII). 
- * However, even though the wrapped value is masked in the output, 
+ * This question masks sensitive data handled by the actors and prevents
+ * it from being shown in Serenity/JS reports and console logs.
+ * You should use it to wrap passwords, secret tokens, phone numbers,
+ * credit card numbers, or any other personally identifiable information (PII).
+ * However, even though the wrapped value is masked in the output,
  * you can still retrieve the unmasked value by making the actor answer
  * the question in your custom interactions.
  *
  * @group Questions
  */
 export class Masked {
-    
+
     /**
      * Retrieves the value of a sensitive parameter and mask it in any report.
      *
@@ -32,7 +32,7 @@ export class Masked {
      * @param parameter - An {@link Answerable} representing the masked value.
      * @returns A {@link QuestionAdapter} representing the masked value.
      */
-    static valueOf(parameter: Answerable<string>) :  QuestionAdapter<string> {
-        return Question.about('[a masked value]', async actor => actor.answer(parameter))
+    static valueOf(parameter: Answerable<string>): QuestionAdapter<string> {
+        return Question.about('[a masked value]', async actor => actor.answer(parameter));
     }
 }
