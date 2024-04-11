@@ -1,5 +1,5 @@
-import { Question, type QuestionAdapter } from '../Question';
 import { type Answerable } from '../Answerable';
+import { Question, type QuestionAdapter } from '../Question';
 
 /**
  * This question masks sensitive data handled by the actors and prevents
