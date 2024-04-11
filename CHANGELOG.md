@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.22.0](https://github.com/serenity-js/serenity-js/compare/v3.21.2...v3.22.0) (2024-04-11)
+
+
+### Bug Fixes
+
+* **cucumber:** support for Cucumber 10.4.0 ([3aff921](https://github.com/serenity-js/serenity-js/commit/3aff9218a2854bc41f92f509079086e6cdafe5c2))
+* **cucumber:** updated cucumber/messages to 24.1.0 ([1ea098b](https://github.com/serenity-js/serenity-js/commit/1ea098b2f912b4a88afabbd67a86e248fd313266))
+* **deps:** update dependency sass to v1.74.1 ([a9b73e1](https://github.com/serenity-js/serenity-js/commit/a9b73e1f2962628c978a266a94a6ac940a75652a))
+* **deps:** update playwright dependencies to v1.43.0 ([f9a2f9d](https://github.com/serenity-js/serenity-js/commit/f9a2f9d837765843af76ade9a78f92e32e1d884f))
+* **playwright-test:** support for Playwright Test 1.43.0 ([0162b6e](https://github.com/serenity-js/serenity-js/commit/0162b6e0b56e5cbf11ab03326181480b740f24ef))
+
+
+### Features
+
+* **serenity-bdd:** support for Serenity BDD 4.1.6 ([48cbaf6](https://github.com/serenity-js/serenity-js/commit/48cbaf6739730fc72b184b115713585cb22fb513))
+
+
+
+
+
 ## [3.21.2](https://github.com/serenity-js/serenity-js/compare/v3.21.1...v3.21.2) (2024-03-31)
 
 
