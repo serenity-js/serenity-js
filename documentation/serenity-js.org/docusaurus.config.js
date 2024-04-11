@@ -107,6 +107,12 @@ const config = {
                     hideable: true,
                 },
             },
+            announcementBar: {
+                id: 'announcement-bar',
+                content: '👋 Join us for the WebdriverIO x BrowserStack and Serenity/JS meet-up in London on April 16! <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3VIiWH2">Secure your spot now ✅</a>',
+                backgroundColor: '#FFE46E',
+                isCloseable: false,
+            },
             navbar: {
                 // style: 'dark',
                 title: 'Serenity/JS',
