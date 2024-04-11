@@ -1,8 +1,7 @@
 import { beforeEach, describe, it } from 'mocha';
 
-import type { Actor} from '../../../src';
-import { actorCalled } from '../../../src';
-import { Masked } from '../../../src';
+import type { Actor } from '../../../src';
+import { actorCalled, Masked } from '../../../src';
 import { expect } from '../../expect';
 
 describe('Masked', () => {
@@ -28,5 +27,4 @@ describe('Masked', () => {
         const maskedDescription =  Masked.valueOf(sensitiveValue).toString();
         expect(maskedDescription).to.equal('[a masked value]');
     });
-
 });
