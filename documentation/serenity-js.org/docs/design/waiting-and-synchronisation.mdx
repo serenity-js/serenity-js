@@ -58,7 +58,7 @@ import { actorCalled, Duration, Wait } from '@serenity-js/core'
 import { not, isPresent } from '@serenity-js/assertions'
 
 await actorCalled('Edna').attemptsTo(
-    Wait.upDo(Duration.ofSeconds(2))
+    Wait.upTo(Duration.ofSeconds(2))
         .until(spinner(), not(isPresent())),
 )
 ```
