@@ -109,7 +109,7 @@ const config = {
             },
             announcementBar: {
                 id: 'announcement-bar',
-                content: '👋 Join us for the WebdriverIO x BrowserStack and Serenity/JS meet-up in London on April 16! <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3VIiWH2">Secure your spot now ✅</a>',
+                content: 'Get our book - <a target="_blank" rel="noopener noreferrer" href="https://www.manning.com/books/bdd-in-action-second-edition">"BDD in Action, Second Edition"</a> 📚',
                 backgroundColor: '#FFE46E',
                 isCloseable: false,
             },
