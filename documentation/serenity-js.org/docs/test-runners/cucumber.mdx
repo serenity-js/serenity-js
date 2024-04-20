@@ -143,41 +143,30 @@ with feature and scenario descriptions, detailed information about Cucumber step
 ### Configuring Cucumber profile
 
 To make sure Cucumber loads your Serenity/JS configuration file and correctly interprets TypeScript (if you're using it),
-create a [`cucumber.js` profile](https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md):
+create a [`cucumber.yaml` profile](https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md):
 
-```js title="cucumber.js" tab={"label":"TypeScript"}
-/**
- * This is a Cucumber.js profile
- * @see https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
- *
- * @type {{default: string}}
- */
-module.exports = {
-    default: [
-        `--publish-quiet`,
-        `--require-module 'ts-node/register'`,      // use TypeScript in-memory transpiler, ts-node
-        `--format '@serenity-js/cucumber'`,         // attach Serenity/JS Cucumber adapter
-        `--require './features/**/*.steps.ts'`,     // load step definition libraries
-        `--require './features/**/*.config.ts'`     // load configuration files
-    ].join(' ')
-}
+```yaml title="cucumber.yaml" tab={"label":"TypeScript"}
+# This is a Cucumber.js profile
+# See https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
+default:
+  requireModule:
+    - ts-node/register            # use TypeScript in-memory transpiler, ts-node
+  format:
+    - '@serenity-js/cucumber'     # attach Serenity/JS Cucumber adapter
+  require:
+    - ./features/**/*.steps.ts    # load step definition libraries
+    - ./features/**/*.config.ts   # load configuration files
 ```
 
-```javascript title="cucumber.js" tab={"label":"JavaScript"}
-/**
- * This is a Cucumber.js profile
- * @see https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
- *
- * @type {{default: string}}
- */
-module.exports = {
-    default: [
-        `--publish-quiet`,
-        `--format '@serenity-js/cucumber'`,         // attach Serenity/JS Cucumber adapter
-        `--require './features/**/*.steps.js'`,     // load step definition libraries
-        `--require './features/**/*.config.js'`     // load configuration files
-    ].join(' ')
-}
+```yaml title="cucumber.yaml" tab={"label":"JavaScript"}
+# This is a Cucumber.js profile
+# See https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md
+default:
+  format:
+    - '@serenity-js/cucumber'     # attach Serenity/JS Cucumber adapter
+  require:
+    - ./features/**/*.steps.js    # load step definition libraries
+    - ./features/**/*.config.js   # load configuration files
 ```
 
 The above configuration works with the latest version of the `cucumber.Cli` available as part of
