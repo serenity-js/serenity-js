@@ -249,7 +249,7 @@ describe('Scheduler', () => {
 
         it(`stops the work when the timeout expires`, async () => {
 
-            const twoDelays = delay.plus(delay);
+            const delayAndAHalf = delay.plus(new Duration(delay.inMilliseconds() / 2));
 
             let callCount = 0;
 
@@ -259,10 +259,10 @@ describe('Scheduler', () => {
                     {
                         exitCondition: continueIndefinitely,
                         delayBetweenInvocations: () => delay,
-                        timeout: twoDelays,
+                        timeout: delayAndAHalf,
                     }
                 )
-            ).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ twoDelays } has expired`);
+            ).to.be.rejectedWith(TimeoutExpiredError, `Timeout of ${ delayAndAHalf } has expired`);
 
             expect(callCount).to.equal(1);
         });
