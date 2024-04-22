@@ -77,13 +77,13 @@ async function PresetsPlugin(context, options) {
                     updatedAt: new Date().toISOString(),
                 }, undefined, 0);
 
-                const pathToInfoFile = path.join(outDir, 'presets/v1/module-manager.json');
+                const pathToInfoFile = path.join(outDir, 'presets/v3/module-manager.json');
                 await fs.outputFile(pathToInfoFile, content);
 
-                logger.info`Wrote presets/v1/module-manager.json`;
+                logger.info`Wrote presets/v3/module-manager.json`;
             }
             catch (err) {
-                logger.error`Writing presets/v1/module-manager.json failed: ${ err.message || err }`;
+                logger.error`Writing presets/v3/module-manager.json failed: ${ err.message || err }`;
 
                 throw err;
             }
