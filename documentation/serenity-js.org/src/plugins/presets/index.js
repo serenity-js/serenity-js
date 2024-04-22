@@ -13,6 +13,9 @@ async function PresetsPlugin(context, options) {
 
     const { projectRoot, include, caching, sampling } = options;
 
+    const pathToRootPackageJson = path.join(projectRoot, 'package.json');
+    const rootPackageJson = JSON.parse(fs.readFileSync(pathToRootPackageJson).toString('utf8'));
+
     const input = include.map(pattern =>
         path.join(projectRoot, pattern, `package.json`)
     );
@@ -66,6 +69,7 @@ async function PresetsPlugin(context, options) {
 
             try {
                 const content = JSON.stringify({
+                    engines: rootPackageJson.engines,
                     packages,
                     integrations,
                     caching,
