@@ -9,6 +9,9 @@ module.exports = {
         // { from: '/community/sponsors.html',            to: '' },
         // { from: '/support.html', to: '' },
 
+        { from: '/privacy-policy/', to: '/legal/privacy-policy/' },
+        { from: '/license/', to: '/legal/license/' },
+
         { from: '/handbook/about/', to: '/handbook/getting-started/' },
         { from: '/handbook/about/architecture/', to: '/handbook/getting-started/architecture' },
         { from: '/handbook/about/installation/', to: '/handbook/getting-started/installation' },
