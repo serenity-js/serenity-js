@@ -1,8 +1,5 @@
 import Translate from '@docusaurus/Translate';
-import {
-    LeaderRecommendations,
-    RecommendationItem
-} from '@site/src/components/HomepageRecommendations/data/recommendations';
+import { LeaderRecommendations } from '@site/src/components/HomepageRecommendations/data/recommendations';
 import Recommendation from '@site/src/components/Recommendation';
 import Heading from '@theme/Heading';
 import clsx from 'clsx';
@@ -28,7 +25,7 @@ export function LeaderRecommendationsSection({ className }: SectionProps) {
                 </Heading>
                 <div className={ clsx('row', styles.recommendationsRow) }>
                     { columns.map((recommendationItems, i) => (
-                        <div className="col col--6" key={ i }>
+                        <div className="col col--12" key={ i }>
                             { recommendationItems.map((recommendation) => (
                                 <Recommendation { ...recommendation } key={recommendation.author.name} />
                             )) }

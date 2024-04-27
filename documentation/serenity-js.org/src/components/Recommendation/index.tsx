@@ -42,9 +42,10 @@ export default function Recommendation(recommendation: Props): React.JSX.Element
                         { line }
                     </p>
                 )) }
+                <hr />
                 <p className="padding-horiz--md">
                     <Link className={ clsx(styles.recommendationMeta) } to={ recommendation.learnMore.path }>
-                        { recommendation.learnMore.text }
+                        📚 { recommendation.learnMore.text }
                     </Link>
                 </p>
             </div>
