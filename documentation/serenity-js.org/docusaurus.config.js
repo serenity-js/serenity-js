@@ -220,6 +220,10 @@ const config = {
                                 label: 'Privacy policy',
                                 to: '/legal/privacy-policy',
                             },
+                            {
+                                label: 'Trademarks',
+                                to: '/legal/trademarks',
+                            },
                         ],
                     },
                 ],

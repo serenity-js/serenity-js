@@ -30,3 +30,4 @@ For commercial use, please [contact Jan Molak](https://www.linkedin.com/in/janmo
 ## Serenity/JS Logos and Trademarks
 
 Serenity/JS and the Serenity/JS Logo are trademarks or registered trademarks of SmartCode Ltd.
+For more information, please refer to the [SmartCode Ltd Trademarks Policy](/legal/trademarks).
