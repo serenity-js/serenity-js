@@ -1,13 +1,14 @@
-import React from 'react';
-
 import Link from '@docusaurus/Link';
 import Translate, { translate } from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import { LeaderRecommendationsSection } from '@site/src/components/HomepageRecommendations';
 import Layout from '@theme/Layout';
+import React from 'react';
 
 import styles from './index.module.css';
+import clsx from 'clsx';
 
 function HeroBanner() {
     return (
@@ -36,13 +37,16 @@ function HeroBanner() {
                     />
                 </h1>
                 <p>
-                    <strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to help you
-                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any interface of your system</strong> and
-                    produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between delivery teams and the business.
+                    <strong>Serenity/JS</strong> is an innovative <strong>test automation framework</strong> designed to
+                    help you
+                    create <strong>high-quality, business-focused test scenarios</strong> that interact with <strong>any
+                    interface of your system</strong> and
+                    produce <strong>comprehensive test reports</strong> that <strong>build trust</strong> between
+                    delivery teams and the business.
                 </p>
                 <div className={ styles.indexCtas }>
                     <Link id="cta-start-automating" className="button button--primary"
-                        to="/handbook/web-testing/your-first-web-scenario">
+                          to="/handbook/web-testing/your-first-web-scenario">
                         <Translate>Start automating 🚀</Translate>
                     </Link>
                     <span className={ styles.indexCtasGitHubButtonWrapper }>
@@ -60,7 +64,7 @@ function HeroBanner() {
     );
 }
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { description } = siteConfig.customFields as { description: string };
     return (
@@ -68,6 +72,7 @@ export default function Home(): JSX.Element {
             <HeroBanner/>
             <main>
                 <HomepageFeatures/>
+                <LeaderRecommendationsSection className={clsx(styles.section, styles.sectionAlt)}/>
             </main>
         </Layout>
     );
