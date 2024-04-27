@@ -214,11 +214,11 @@ const config = {
                         items: [
                             {
                                 label: 'License',
-                                to: '/license',
+                                to: '/legal/license',
                             },
                             {
                                 label: 'Privacy policy',
-                                to: '/privacy-policy',
+                                to: '/legal/privacy-policy',
                             },
                         ],
                     },
