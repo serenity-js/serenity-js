@@ -1,0 +1,15 @@
+.recommendationsRow > :global(.col) > * {
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 996px) {
+    .recommendationsRow > :global(.col:last-child) > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 997px) {
+    .recommendationsRow > :global(.col) > *:last-child {
+        margin-bottom: 0;
+    }
+}
