@@ -81,12 +81,12 @@ module.exports = {
                 '/handbook/why-serenityjs.html'
             ], to: '/handbook'
         },
-        { from: '/handbook/thinking-in-serenity-js/index.html', to: '/handbook/design' },
-        { from: '/handbook/thinking-in-serenity-js/test-runners.html', to: '/handbook/test-runners' },
-        { from: '/handbook/thinking-in-serenity-js/testing-rest-apis.html', to: '/handbook/api-testing' },
+        { from: '/handbook/thinking-in-serenity-js/index.html', to: '/handbook/design/' },
+        { from: '/handbook/thinking-in-serenity-js/test-runners.html', to: '/handbook/test-runners/' },
+        { from: '/handbook/thinking-in-serenity-js/testing-rest-apis.html', to: '/handbook/api-testing/' },
         { from: '/handbook/thinking-in-serenity-js/testing-web-uis.html', to: '/handbook/web-testing/' },
 
-        { from: '/license.html', to: '/license' },
+        { from: '/license.html', to: '/legal/license/' },
         { from: '/changelog.html', to: '/changelog' },
 
         // Serenity/JS v2 API docs
