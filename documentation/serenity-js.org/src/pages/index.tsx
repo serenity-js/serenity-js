@@ -3,11 +3,11 @@ import Translate, { translate } from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import { LeaderRecommendationsSection } from '@site/src/components/HomepageRecommendations';
 import Layout from '@theme/Layout';
 import React from 'react';
 
 import styles from './index.module.css';
-import { LeaderRecommendationsSection } from '@site/src/components/HomepageRecommendations';
 import clsx from 'clsx';
 
 function HeroBanner() {
