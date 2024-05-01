@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.3](https://github.com/serenity-js/serenity-js/compare/v3.22.2...v3.22.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* **webdriverio:** support switching to parent frame when using Appium ([1faba64](https://github.com/serenity-js/serenity-js/commit/1faba6461a8a5a09f33c398f6f27c67d0c5d617b)), closes [appium/appium#14882](https://github.com/appium/appium/issues/14882)
+
+
+
+
+
 ## [3.22.2](https://github.com/serenity-js/serenity-js/compare/v3.22.1...v3.22.2) (2024-04-20)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
