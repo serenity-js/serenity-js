@@ -5,7 +5,7 @@ import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
-import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Switch, Value } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
@@ -14,6 +14,31 @@ describe('ExecuteSynchronousScript', function () {
     class Sandbox {
         static Input = PageElement.located(By.id('name')).describedAs('input field');
     }
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = ExecuteScript.sync('return navigator.userAgent');
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
+            expect(location.line).to.equal(20);
+            expect(location.column).to.equal(44);
+        });
+
+        it('correctly detects its invocation location when arguments are used', () => {
+            const activity = ExecuteScript.sync(`
+                var name = arguments[0];
+                var field = arguments[1];
+
+                field.value = name;
+            `).withArguments(actorCalled('Joe').name, Sandbox.Input);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
+            expect(location.line).to.equal(34);
+            expect(location.column).to.equal(16);
+        });
+    });
 
     it('allows the actor to execute a synchronous script', () =>
         actorCalled('Joe').attemptsTo(
@@ -24,6 +49,22 @@ describe('ExecuteSynchronousScript', function () {
             `),
 
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
+
+    it('allows the actor to execute a synchronous script inside an iframe', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/page_with_an_iframe.html'),
+
+            ExecuteScript.sync(`return window.exampleMessage;`),
+            Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: Page with an iframe!')),
+
+            Switch.to(PageElement.located(By.css('iframe[name="example-iframe"]'))).and(
+                ExecuteScript.sync(`return window.exampleMessage;`),
+                Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: An iframe!')),
+            ),
+
+            ExecuteScript.sync(`return window.exampleMessage;`),
+            Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: Page with an iframe!')),
         ));
 
     it('allows the actor to retrieve the value returned by the script', () =>
@@ -107,7 +148,7 @@ describe('ExecuteSynchronousScript', function () {
             crew: [ recorder ],
         });
 
-        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario))
+        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario));
 
         await localSerenity.theActorCalled('Ashwin').attemptsTo(
             ExecuteScript.sync(`console.log('hello world');`),
@@ -133,30 +174,5 @@ describe('ExecuteSynchronousScript', function () {
         }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
 
         expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location', () => {
-            const activity = ExecuteScript.sync('return navigator.userAgent');
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(140);
-            expect(location.column).to.equal(44);
-        });
-
-        it('correctly detects its invocation location when arguments are used', () => {
-            const activity = ExecuteScript.sync(`
-                var name = arguments[0];
-                var field = arguments[1];
-
-                field.value = name;
-            `).withArguments(actorCalled('Joe').name, Sandbox.Input);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(154);
-            expect(location.column).to.equal(16);
-        });
     });
 });

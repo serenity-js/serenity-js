@@ -1,0 +1,17 @@
+<html lang="en">
+<head>
+    <title>An iframe</title>
+    <script>
+        function handleOnload() {
+            window.exampleMessage = `Hello from: ${ document.title }!`;
+        }
+    </script>
+</head>
+<body onload="handleOnload()">
+    <h1>An iframe</h1>
+
+    <div id="result">
+        External script hasn't loaded yet.
+    </div>
+</body>
+</html>

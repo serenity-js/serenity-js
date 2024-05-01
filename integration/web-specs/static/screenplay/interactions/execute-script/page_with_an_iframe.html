@@ -1,0 +1,14 @@
+<html lang="en">
+<head>
+    <title>Page with an iframe</title>
+    <script>
+        function handleOnload() {
+            window.exampleMessage = `Hello from: ${ document.title }!`;
+        }
+    </script>
+</head>
+<body onload="handleOnload()">
+    <h1>Page with an iframe</h1>
+    <iframe name="example-iframe" src="iframe.html" />
+</body>
+</html>

@@ -116,11 +116,11 @@ export class PlaywrightPage extends Page<playwright.Locator> {
             ? String(script)
             : String(`function script() { ${ script } }`);
 
-        const result = await this.page.evaluate<Result, typeof nativeArguments>(
+        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof nativeArguments>(
             new Function(`
                 const parameters = arguments[0];
                 return (${ serialisedScript }).apply(null, parameters);
-            `) as Parameters<typeof this.page.evaluate>[1],
+            `) as Parameters<playwright.Frame['evaluate']>[1],
             nativeArguments,
         );
 
@@ -143,7 +143,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
             ? String(script)
             : String(`function script() { ${ script } }`);
 
-        const result = await this.page.evaluate<Result, typeof nativeArguments>(
+        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof nativeArguments>(
             new Function(`
                 const parameters = arguments[0];
                 
@@ -154,7 +154,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
                         return reject(error);
                     }
                 })
-            `) as Parameters<typeof this.page.evaluate>[1],
+            `) as Parameters<playwright.Frame['evaluate']>[1],
             nativeArguments
         );
 
