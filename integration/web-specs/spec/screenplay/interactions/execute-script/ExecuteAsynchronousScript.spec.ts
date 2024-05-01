@@ -2,10 +2,10 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Clock, Question, Serenity,serenity } from '@serenity-js/core';
+import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
-import { By, ExecuteScript, Navigate, PageElement, Value } from '@serenity-js/web';
+import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Switch, Value } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
@@ -14,6 +14,34 @@ describe('ExecuteAsynchronousScript', function () {
     class Sandbox {
         static Input = PageElement.located(By.id('name')).describedAs('input field');
     }
+
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = ExecuteScript.async(`arguments[arguments.length - 1]();`);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
+            expect(location.line).to.equal(20);
+            expect(location.column).to.equal(44);
+        });
+
+        it('correctly detects its invocation location when arguments are used', () => {
+            const activity = ExecuteScript.async(`
+                var name = arguments[0];
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    document.getElementById('name').value = name;
+                    callback();
+                }, 100);
+            `).withArguments(actorCalled('Joe').name);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
+            expect(location.line).to.equal(37);
+            expect(location.column).to.equal(16);
+        });
+    });
 
     it('allows the actor to execute an asynchronous script', () =>
         actorCalled('Joe').attemptsTo(
@@ -29,6 +57,31 @@ describe('ExecuteAsynchronousScript', function () {
             `),
 
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
+
+    it('allows the actor to execute a synchronous script inside an iframe', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/page_with_an_iframe.html'),
+
+            ExecuteScript.async(`
+                var callback = arguments[arguments.length - 1];
+                callback(window.exampleMessage);
+            `),
+            Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: Page with an iframe!')),
+
+            Switch.to(PageElement.located(By.css('iframe[name="example-iframe"]'))).and(
+                ExecuteScript.async(`
+                    var callback = arguments[arguments.length - 1];
+                    callback(window.exampleMessage);
+                `),
+                Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: An iframe!')),
+            ),
+
+            ExecuteScript.async(`
+                var callback = arguments[arguments.length - 1];
+                callback(window.exampleMessage);
+            `),
+            Ensure.that(LastScriptExecution.result<string>(), equals('Hello from: Page with an iframe!')),
         ));
 
     it('allows the actor to execute an asynchronous script with a static argument', () =>
@@ -119,7 +172,7 @@ describe('ExecuteAsynchronousScript', function () {
             crew: [ recorder ],
         });
 
-        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario))
+        localSerenity.announce(new SceneStarts(sceneId, defaultCardScenario));
 
         await localSerenity.theActorCalled('Ashwin').attemptsTo(
             ExecuteScript.async(`arguments[arguments.length - 1]();`),
@@ -146,33 +199,5 @@ describe('ExecuteAsynchronousScript', function () {
         }))).to.equal(true, JSON.stringify(artifactGenerated.artifact.toJSON()));
 
         expect(artifactGenerated.timestamp.equals(frozenClock.now())).to.equal(true, artifactGenerated.timestamp.toString());
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location', () => {
-            const activity = ExecuteScript.async(`arguments[arguments.length - 1]();`);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(153);
-            expect(location.column).to.equal(44);
-        });
-
-        it('correctly detects its invocation location when arguments are used', () => {
-            const activity = ExecuteScript.async(`
-                var name = arguments[0];
-                var callback = arguments[arguments.length - 1];
-    
-                setTimeout(function () {
-                    document.getElementById('name').value = name;
-                    callback();
-                }, 100);
-            `).withArguments(actorCalled('Joe').name);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(170);
-            expect(location.column).to.equal(16);
-        });
     });
 });

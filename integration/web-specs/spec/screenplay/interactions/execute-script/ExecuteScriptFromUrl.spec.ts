@@ -4,6 +4,7 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { By, ExecuteScript, Navigate, PageElement, Text } from '@serenity-js/web';
+import { Switch } from '@serenity-js/web/src';
 
 // todo: introduce question about baseUrl
 const port = process.env.PORT ?? 8080;
@@ -15,6 +16,15 @@ describe('ExecuteScriptFromUrl', function () {
         static Result = PageElement.located(By.id('result')).describedAs('sandbox result');
     }
 
+    it('correctly detects its invocation location', () => {
+        const activity = ExecuteScript.from('https://localhost/script.js');
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('ExecuteScriptFromUrl.spec.ts');
+        expect(location.line).to.equal(20);
+        expect(location.column).to.equal(40);
+    });
+
     it('allows the actor to execute a script stored at a specific location', () =>
         actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/interactions/execute-script/execute_script_sandbox.html'),
@@ -22,6 +32,16 @@ describe('ExecuteScriptFromUrl', function () {
             ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js`),
 
             Ensure.that(Text.of(Sandbox.Result), equals('Script loaded successfully')),
+        ));
+
+    it('allows the actor to execute a script stored at a specific location inside an iframe', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/page_with_an_iframe.html'),
+
+            Switch.to(PageElement.located(By.css('iframe[name="example-iframe"]'))).and(
+                ExecuteScript.from(`${ baseUrl }/screenplay/interactions/execute-script/execute-script-sample.js`),
+                Ensure.that(Text.of(Sandbox.Result), equals('Script loaded successfully')),
+            ),
         ));
 
     it('complains if the script could not be loaded', () =>
@@ -51,14 +71,5 @@ describe('ExecuteScriptFromUrl', function () {
     it('provides a sensible description of the interaction being performed', () => {
         expect(ExecuteScript.from('https://localhost/script.js').toString())
             .to.equal(`#actor executes a script from 'https://localhost/script.js'`);
-    });
-
-    it('correctly detects its invocation location', () => {
-        const activity = ExecuteScript.from('https://localhost/script.js');
-        const location = activity.instantiationLocation();
-
-        expect(location.path.basename()).to.equal('ExecuteScriptFromUrl.spec.ts');
-        expect(location.line).to.equal(57);
-        expect(location.column).to.equal(40);
     });
 });
