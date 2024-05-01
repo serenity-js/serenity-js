@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.3](https://github.com/serenity-js/serenity-js/compare/v3.22.2...v3.22.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* **playwright:** ensure ExecuteScript runs in the context of the currently active iframe ([3592ca0](https://github.com/serenity-js/serenity-js/commit/3592ca067a942e428d337515644233be003e6e36))
+
+
+
+
+
 ## [3.22.2](https://github.com/serenity-js/serenity-js/compare/v3.22.1...v3.22.2) (2024-04-20)
 
 **Note:** Version bump only for package @serenity-js/playwright

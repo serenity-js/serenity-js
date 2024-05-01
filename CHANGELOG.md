@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.3](https://github.com/serenity-js/serenity-js/compare/v3.22.2...v3.22.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cytoscape to v3.29.2 ([de21b6c](https://github.com/serenity-js/serenity-js/commit/de21b6c2e892f7e9e7b8c3fb50c7a2ad69031114))
+* **deps:** update dependency lru-cache to v10.2.2 ([35b9e75](https://github.com/serenity-js/serenity-js/commit/35b9e7583bae52376a1d7071881e3ddda85a36cb))
+* **deps:** update dependency sass to v1.76.0 ([71573d5](https://github.com/serenity-js/serenity-js/commit/71573d5ad5f33379f901432b00ac838a95f71293))
+* **playwright:** ensure ExecuteScript runs in the context of the currently active iframe ([3592ca0](https://github.com/serenity-js/serenity-js/commit/3592ca067a942e428d337515644233be003e6e36))
+* **webdriverio:** support switching to parent frame when using Appium ([1faba64](https://github.com/serenity-js/serenity-js/commit/1faba6461a8a5a09f33c398f6f27c67d0c5d617b)), closes [appium/appium#14882](https://github.com/appium/appium/issues/14882)
+
+
+
+
+
 ## [3.22.2](https://github.com/serenity-js/serenity-js/compare/v3.22.1...v3.22.2) (2024-04-20)
 
 **Note:** Version bump only for package serenity-js-monorepo
