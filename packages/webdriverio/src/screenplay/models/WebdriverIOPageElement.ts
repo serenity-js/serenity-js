@@ -168,7 +168,14 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
                 return {
                     switchBack: async (): Promise<void> => {
-                        await locator.switchToParentFrame();
+                        try {
+                            await locator.switchToParentFrame();
+                        }
+                        catch {
+                            // switchToParentFrame doesn't work on iOS devices, so we need a workaround
+                            // https://github.com/appium/appium/issues/14882#issuecomment-1693326102
+                            await locator.switchToFrame(null);  // eslint-disable-line unicorn/no-null
+                        }
                     }
                 }
             }
