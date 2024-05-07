@@ -74,6 +74,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           install-command: ${{ inputs.npm-install-command }}
+          cache-key-prefix: ${{ runner.os }}-node-${{ inputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Download artifact
         if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
