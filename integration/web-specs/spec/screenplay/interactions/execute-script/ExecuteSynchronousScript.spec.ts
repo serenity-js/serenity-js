@@ -5,7 +5,7 @@ import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
-import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, Switch, Value } from '@serenity-js/web';
+import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, PageElements, Switch, Value } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
@@ -100,19 +100,77 @@ describe('ExecuteSynchronousScript', function () {
             Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
         ));
 
-    it('allows the actor to execute a synchronous script with a Target argument', () =>
-        actorCalled('Joe').attemptsTo(
-            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+    describe('when working with page elements', () => {
+        it('allows the actor to execute a synchronous script with a PageElement argument', () =>
+            actorCalled('Joe').attemptsTo(
+                Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-            ExecuteScript.sync(`
-                var name = arguments[0];
-                var field = arguments[1];
+                ExecuteScript.sync(`
+                    var name = arguments[0];
+                    var field = arguments[1];
+    
+                    field.value = name;
+                `).withArguments(actorCalled('Joe').name, Sandbox.Input),
 
-                field.value = name;
-            `).withArguments(actorCalled('Joe').name, Sandbox.Input),
+                Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+            ));
 
-            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-        ));
+        it('allows the actor to execute a synchronous script with a record of PageElement objects', () =>
+            actorCalled('Joe').attemptsTo(
+                Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+                ExecuteScript.sync(`
+                    var name = arguments[0];
+                    var field = arguments[1].include[0];
+    
+                    field.value = name;
+                `).withArguments(actorCalled('Joe').name, Question.fromObject({ include: [ Sandbox.Input ] })),
+
+                Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+            ));
+
+        it('allows the actor to execute a synchronous script with an array of PageElement objects', () =>
+            actorCalled('Joe').attemptsTo(
+                Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+                ExecuteScript.sync(`
+                    var name = arguments[0];
+                    var field = arguments[1][0];
+    
+                    field.value = name;
+                `).withArguments(actorCalled('Joe').name, Question.fromArray([ Sandbox.Input ])),
+
+                Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+            ));
+
+        it('allows the actor to execute a synchronous script with a PageElements argument', () =>
+            actorCalled('Joe').attemptsTo(
+                Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+                ExecuteScript.sync(`
+                    var name = arguments[0];
+                    var field = arguments[1][0];
+    
+                    field.value = name;
+                `).withArguments(actorCalled('Joe').name, PageElements.located(By.css('input')) ),
+
+                Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+            ));
+
+        it('allows the actor to execute a synchronous script with a PageElement determined by PEQL', () =>
+            actorCalled('Joe').attemptsTo(
+                Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+                ExecuteScript.sync(`
+                    var name = arguments[0];
+                    var field = arguments[1];
+    
+                    field.value = name;
+                `).withArguments(actorCalled('Joe').name, PageElements.located(By.css('input')).first() ),
+
+                Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+            ));
+    });
 
     it('provides a sensible description of the interaction being performed when invoked without arguments', () => {
         expect(ExecuteScript.sync(`
