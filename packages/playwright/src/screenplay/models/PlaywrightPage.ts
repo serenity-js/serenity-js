@@ -1,5 +1,4 @@
 import { List, LogicError, type QuestionAdapter } from '@serenity-js/core';
-import { asyncMap } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import type { Cookie, CookieData, PageElement, PageElements, Selector } from '@serenity-js/web';
 import { BrowserWindowClosedError, ByDeepCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
@@ -106,11 +105,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
     async executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await asyncMap(args, item =>
-            item instanceof PlaywrightPageElement
-                ? item.nativeElement().then(element => element.elementHandle())
-                : item
-        ) as InnerArguments;
+        const nativeArguments = await this.extractNativeElements(args, element => element.elementHandle()) as InnerArguments;
 
         const serialisedScript = typeof script === 'function'
             ? String(script)
@@ -133,11 +128,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
     async executeAsyncScript<Result, InnerArguments extends any[]>(script: string | ((...args: [...parameters: InnerArguments, callback: (result: Result) => void]) => void), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await asyncMap(args, item =>
-            item instanceof PlaywrightPageElement
-                ? item.nativeElement().then(element => element.elementHandle())
-                : item
-        ) as InnerArguments;
+        const nativeArguments = await this.extractNativeElements(args, element => element.elementHandle()) as InnerArguments;
 
         const serialisedScript = typeof script === 'function'
             ? String(script)

@@ -155,14 +155,7 @@ export class ProtractorPage extends Page<ElementFinder> {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const innerArguments = [] as InnerArguments;
-        for (const arg of args) {
-            const innerArgument = arg instanceof ProtractorPageElement
-                ? await arg.nativeElement()
-                : arg;
-
-            innerArguments.push(innerArgument);
-        }
+        const innerArguments = await this.extractNativeElements(args, elementFinder => elementFinder.getWebElement()) as InnerArguments;
 
         const result = await this.inContextOfThisPage<Result>(() => {
             return promised(this.browser.executeScript(script, ...innerArguments));
@@ -177,14 +170,7 @@ export class ProtractorPage extends Page<ElementFinder> {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const parameters = [] as Parameters;
-        for (const arg of args) {
-            const parameter = arg instanceof ProtractorPageElement
-                ? await arg.nativeElement()
-                : arg;
-
-            parameters.push(parameter);
-        }
+        const parameters = await this.extractNativeElements(args, elementFinder => elementFinder.getWebElement()) as Parameters;
 
         const result = await this.inContextOfThisPage<Result>(() => {
             return promised(this.browser.executeAsyncScript(script, ...parameters));

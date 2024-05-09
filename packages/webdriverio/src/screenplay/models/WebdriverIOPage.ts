@@ -93,17 +93,10 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const innerArguments = [] as InnerArguments;
-        for (const arg of args) {
-            const innerArgument = arg instanceof WebdriverIOPageElement
-                ? await arg.nativeElement()
-                : arg;
-
-            innerArguments.push(innerArgument);
-        }
+        const nativeArguments = await this.extractNativeElements(args) as InnerArguments;
 
         const result = await this.inContextOfThisPage<Result>(() => {
-            return this.browser.execute(script, ...innerArguments);
+            return this.browser.execute(script, ...nativeArguments);
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
@@ -115,17 +108,10 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const parameters = [] as Parameters;
-        for (const arg of args) {
-            const parameter = arg instanceof WebdriverIOPageElement
-                ? await arg.nativeElement()
-                : arg;
-
-            parameters.push(parameter);
-        }
+        const nativeArguments = await this.extractNativeElements(args) as Parameters;
 
         const result = await this.inContextOfThisPage<Result>(() => {
-            return this.browser.executeAsync<Result, Parameters>(script, ...parameters);
+            return this.browser.executeAsync<Result, Parameters>(script, ...nativeArguments);
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
