@@ -30,17 +30,20 @@ export const LeaderRecommendations: RecommendationItem[] = [
             text: 'Learn about using Cucumber.js with Serenity/JS'
         }
     },
-    // {
-    //     author: {
-    //         name: 'Christian Bromann',
-    //         title: 'Creator of WebdriverIO, Microsoft MVP',
-    //         avatar: require('@site/static/avatars/christian-bromann.png'),
-    //     },
-    //     lines: [
-    //     ],
-    //     learnMore: {
-    //         path: '/handbook/test-runners/webdriverio/',
-    //         text: 'Learn about using WebdriverIO with Serenity/JS'
-    //     }
-    // },
+    {
+        author: {
+            name: 'Christian Bromann',
+            title: 'Creator of WebdriverIO, Microsoft MVP',
+            avatar: require('@site/static/avatars/christian-bromann.png'),
+        },
+        lines: [
+            `Serenity/JS has a genuinely inspiring mission: to make test automation collaborative, enjoyable, and accessible for everyone, from business to technical audiences.`,
+            `The project's dedication to quality, user experience, and innovation shines through in every aspect of the framework, helping you create maintainable and scalable tst suites while adhering to open standards and leveraging reliable open-source tools.`,
+            `WebdriverIO is proud to be a part of the Serenity/JS ecosystem, and I'm excited to see what the future holds for this fantastic project!`,
+        ],
+        learnMore: {
+            path: '/handbook/test-runners/webdriverio/',
+            text: 'Learn about using WebdriverIO with Serenity/JS'
+        }
+    },
 ]
