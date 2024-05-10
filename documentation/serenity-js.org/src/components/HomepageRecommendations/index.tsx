@@ -25,7 +25,7 @@ export function LeaderRecommendationsSection({ className }: SectionProps) {
                 </Heading>
                 <div className={ clsx('row', styles.recommendationsRow) }>
                     { columns.map((recommendationItems, i) => (
-                        <div className="col col--12" key={ i }>
+                        <div className="col col--6" key={ i }>
                             { recommendationItems.map((recommendation) => (
                                 <Recommendation { ...recommendation } key={recommendation.author.name} />
                             )) }
