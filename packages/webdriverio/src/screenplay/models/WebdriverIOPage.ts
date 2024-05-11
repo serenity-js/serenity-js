@@ -137,7 +137,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
             var callback = arguments[arguments.length - 1];
             var parameters = (${ scripts.rehydrate }).apply(null, args);
             (${ serialisedScript }).apply(null, parameters.concat(callback));
-        `)
+        `);
 
         const result = await this.inContextOfThisPage<Result>(async () => {
 
