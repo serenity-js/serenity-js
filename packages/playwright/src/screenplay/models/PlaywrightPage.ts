@@ -1,7 +1,8 @@
 import { List, LogicError, type QuestionAdapter } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Cookie, CookieData, PageElement, PageElements, Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, ByDeepCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
+import type { Cookie, CookieData, PageElements, Selector } from '@serenity-js/web';
+import { ArgumentDehydrator, BrowserWindowClosedError, ByDeepCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
+import * as scripts from '@serenity-js/web/lib/scripts';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
@@ -20,6 +21,16 @@ import { PlaywrightPageElement } from './PlaywrightPageElement';
 export class PlaywrightPage extends Page<playwright.Locator> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /* eslint-disable unicorn/consistent-function-scoping */
+    private dehydrator: ArgumentDehydrator<PageElement<playwright.Locator>, playwright.ElementHandle> = new ArgumentDehydrator(
+        (item: any): item is PageElement<playwright.Locator> => item instanceof PageElement,
+        async (item: PageElement<playwright.Locator>) => {
+            const nativeElement = await item.nativeElement();
+            return nativeElement.elementHandle();
+        },
+    );
+    /* eslint-enable */
 
     static override current(): QuestionAdapter<PlaywrightPage> {
         return super.current() as QuestionAdapter<PlaywrightPage>;
@@ -103,20 +114,25 @@ export class PlaywrightPage extends Page<playwright.Locator> {
         );
     }
 
-    async executeScript<Result, InnerArguments extends any[]>(script: string | ((...parameters: InnerArguments) => Result), ...args: InnerArguments): Promise<Result> {
-
-        const nativeArguments = await this.extractNativeElements(args, element => element.elementHandle()) as InnerArguments;
+    async executeScript<Result, InnerArguments extends any[]>(
+        script: string | ((...parameters: InnerArguments) => Result),
+        ...args: InnerArguments
+    ): Promise<Result> {
 
         const serialisedScript = typeof script === 'function'
             ? String(script)
             : String(`function script() { ${ script } }`);
 
-        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof nativeArguments>(
-            new Function(`
-                const parameters = arguments[0];
-                return (${ serialisedScript }).apply(null, parameters);
-            `) as Parameters<playwright.Frame['evaluate']>[1],
-            nativeArguments,
+        const executableScript: Parameters<playwright.Frame['evaluate']>[1] = new Function(`
+            const parameters = (${ scripts.rehydrate }).apply(null, arguments[0]);
+            return (${ serialisedScript }).apply(null, parameters);        
+        `);
+
+        const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof dehydratedArguments>(
+            executableScript,
+            dehydratedArguments,
         );
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
@@ -128,25 +144,27 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
     async executeAsyncScript<Result, InnerArguments extends any[]>(script: string | ((...args: [...parameters: InnerArguments, callback: (result: Result) => void]) => void), ...args: InnerArguments): Promise<Result> {
 
-        const nativeArguments = await this.extractNativeElements(args, element => element.elementHandle()) as InnerArguments;
-
         const serialisedScript = typeof script === 'function'
             ? String(script)
             : String(`function script() { ${ script } }`);
 
-        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof nativeArguments>(
-            new Function(`
-                const parameters = arguments[0];
-                
-                return new Promise((resolve, reject) => {
-                    try {
-                        return (${ serialisedScript }).apply(null, parameters.concat(resolve));
-                    } catch (error) {
-                        return reject(error);
-                    }
-                })
-            `) as Parameters<playwright.Frame['evaluate']>[1],
-            nativeArguments
+        const executableScript: Parameters<playwright.Frame['evaluate']>[1] = new Function(`
+            const parameters = (${ scripts.rehydrate }).apply(null, arguments[0]);
+            
+            return new Promise((resolve, reject) => {
+                try {
+                    return (${ serialisedScript }).apply(null, parameters.concat(resolve));
+                } catch (error) {
+                    return reject(error);
+                }
+            })
+        `);
+
+        const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+        const result = await (this.rootLocator as PlaywrightRootLocator).evaluate<Result, typeof dehydratedArguments>(
+            executableScript,
+            dehydratedArguments
         );
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
