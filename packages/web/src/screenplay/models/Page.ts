@@ -10,7 +10,7 @@ import type { Cookie } from './Cookie';
 import type { CookieData } from './CookieData';
 import type { ModalDialogHandler } from './dialogs';
 import type { Key } from './Key';
-import { PageElement } from './PageElement';
+import type { PageElement } from './PageElement';
 import type { PageElements } from './PageElements';
 import type { RootLocator } from './RootLocator';
 import type { Selector } from './selectors';
