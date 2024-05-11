@@ -440,6 +440,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      */
     abstract lastScriptExecutionResult<R = any>(): R;
 
+    // todo: remove
     protected async extractNativeElements<U = Native_Element_Type>(args: unknown[], mapper: (nativeElement: Native_Element_Type) => Promise<U> | U = nativeElement => nativeElement as unknown as U): Promise<unknown[]> {
         return asyncMap(args, async item => {
             if (isPlainObject(item)) {

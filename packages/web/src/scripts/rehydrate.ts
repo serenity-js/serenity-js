@@ -1,8 +1,9 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 // todo: instead of manually including isPlainObject, each script from web/lib/scripts should be pre-built and included in the global browser scope
 export function rehydrate(...result: [ { argsCount: number; refsCount: number }, ...any[] ]): Array<any> {
     function isPlainObject(v: unknown): v is object {   // eslint-disable-line @typescript-eslint/ban-types
         if (typeof v === 'object' && v !== null) {
-           if (typeof Object.getPrototypeOf === 'function') {
+            if (typeof Object.getPrototypeOf === 'function') {
                 const proto = Object.getPrototypeOf(v);
                 return proto === Object.prototype || proto === null;
             }
@@ -22,13 +23,13 @@ export function rehydrate(...result: [ { argsCount: number; refsCount: number },
             );
         }
         if (typeof arg === 'string' && arg.startsWith('$ref')) {
-            return refs[parseInt(arg.replace('$ref', ''), 10)];
+            return refs[Number.parseInt(arg.replace('$ref', ''), 10)];
         }
 
         return arg;
     }
 
-    const [ { argsCount, refsCount }, ...items ] = result;
+    const [ { argsCount }, ...items ] = result;
 
     const args = items.slice(0, argsCount);
     const refs = items.slice(argsCount);

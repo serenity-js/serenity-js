@@ -21,10 +21,13 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /* eslint-disable unicorn/consistent-function-scoping */
     private dehydrator: ArgumentDehydrator<PageElement<WebdriverIO.Element>, WebdriverIO.Element> = new ArgumentDehydrator(
         (item: any): item is PageElement<WebdriverIO.Element> => item instanceof PageElement,
         (item: PageElement<WebdriverIO.Element>) => item.nativeElement(),
     );
+    /* eslint-enable */
 
     constructor(
         session: WebdriverIOBrowsingSession,

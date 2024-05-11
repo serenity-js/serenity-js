@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
 import { expect } from '@integration/testing-tools';
+import { describe, it } from 'mocha';
 
 import { ArgumentDehydrator } from '../../../src';
 import { rehydrate } from '../../../src/scripts';
@@ -47,7 +47,7 @@ describe('ArgumentDehydrator', () => {
 
         expect(result).to.deep.equal([
             { argsCount: inputArgs.length, refsCount: 2 },
-            ...[ false, '$ref0', [], '$ref1', serialisedComplexObject0, serialisedComplexObject1 ],
+            false, '$ref0', [], '$ref1', serialisedComplexObject0, serialisedComplexObject1,
         ]);
     });
 
@@ -58,7 +58,7 @@ describe('ArgumentDehydrator', () => {
 
         expect(result).to.deep.equal([
             { argsCount: inputArgs.length, refsCount: 1 },
-            ...[ [ '$ref0', 1 ], serialisedComplexObject0 ],
+            [ '$ref0', 1 ], serialisedComplexObject0,
         ]);
     });
 
@@ -69,7 +69,7 @@ describe('ArgumentDehydrator', () => {
 
         expect(result).to.deep.equal([
             { argsCount: inputArgs.length, refsCount: 2 },
-            ...[ { exclude: '$ref0', include: '$ref1' }, serialisedComplexObject0, serialisedComplexObject1 ],
+            { exclude: '$ref0', include: '$ref1' }, serialisedComplexObject0, serialisedComplexObject1,
         ]);
     });
 
@@ -80,7 +80,7 @@ describe('ArgumentDehydrator', () => {
 
         expect(result).to.deep.equal([
             { argsCount: inputArgs.length, refsCount: 2 },
-            ...[ { exclude: [ '$ref0' ], include: [ '$ref1' ] }, serialisedComplexObject0, serialisedComplexObject1 ],
+            { exclude: [ '$ref0' ], include: [ '$ref1' ] }, serialisedComplexObject0, serialisedComplexObject1,
         ]);
     });
 
