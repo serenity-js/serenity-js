@@ -3,7 +3,7 @@ import type { CorrelationId } from '@serenity-js/core/lib/model';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
 import { ArgumentDehydrator, BrowserWindowClosedError, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
-import * as protractor from 'protractor';
+import type * as protractor from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
