@@ -1,8 +1,9 @@
 import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
-import type { Cookie, CookieData, ModalDialogHandler, PageElement, PageElements,Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, Key, Page, PageElementsLocator } from '@serenity-js/web';
-import type { ElementFinder, ProtractorBrowser } from 'protractor';
+import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
+import { ArgumentDehydrator, BrowserWindowClosedError, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
+import * as scripts from '@serenity-js/web/lib/scripts';
+import * as protractor from 'protractor';
 import { URL } from 'url';
 
 import { promised } from '../promised';
@@ -18,16 +19,23 @@ import { ProtractorPageElement } from './ProtractorPageElement';
  *
  * @group Models
  */
-export class ProtractorPage extends Page<ElementFinder> {
+export class ProtractorPage extends Page<protractor.ElementFinder> {
 
-    /**
-     * @private
-     */
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /* eslint-disable unicorn/consistent-function-scoping */
+    private dehydrator: ArgumentDehydrator<PageElement<protractor.ElementFinder>, protractor.WebElement> = new ArgumentDehydrator(
+        (item: any): item is PageElement<protractor.ElementFinder> => item instanceof PageElement,
+        async (item: PageElement<protractor.ElementFinder>) => {
+            const nativeElement = await item.nativeElement();
+            return nativeElement.getWebElement();
+        },
+    );
+    /* eslint-enable */
 
     constructor(
         session: ProtractorBrowsingSession,
-        private readonly browser: ProtractorBrowser,
+        private readonly browser: protractor.ProtractorBrowser,
         modalDialogHandler: ModalDialogHandler,
         private readonly errorHandler: ProtractorErrorHandler,
         pageId: CorrelationId
@@ -40,7 +48,7 @@ export class ProtractorPage extends Page<ElementFinder> {
         );
     }
 
-    createPageElement(nativeElement: ElementFinder): PageElement<ElementFinder> {
+    createPageElement(nativeElement: protractor.ElementFinder): PageElement<protractor.ElementFinder> {
         return new ProtractorPageElement(
             new ProtractorExistingElementLocator(
                 this.rootLocator as ProtractorRootLocator,
@@ -51,13 +59,13 @@ export class ProtractorPage extends Page<ElementFinder> {
         )
     }
 
-    locate(selector: Selector): PageElement<ElementFinder> {
+    locate(selector: Selector): PageElement<protractor.ElementFinder> {
         return new ProtractorPageElement(
             new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
         )
     }
 
-    locateAll(selector: Selector): PageElements<ElementFinder> {
+    locateAll(selector: Selector): PageElements<protractor.ElementFinder> {
         return List.of(
             new PageElementsLocator(
                 new ProtractorLocator(this.rootLocator, selector, this.errorHandler)
@@ -155,10 +163,21 @@ export class ProtractorPage extends Page<ElementFinder> {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const innerArguments = await this.extractNativeElements(args, elementFinder => elementFinder.getWebElement()) as InnerArguments;
 
-        const result = await this.inContextOfThisPage<Result>(() => {
-            return promised(this.browser.executeScript(script, ...innerArguments));
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
+
+        const executableScript = new Function(`
+            var parameters = (${ scripts.rehydrate }).apply(null, arguments);
+            return (${ serialisedScript }).apply(null, parameters);
+        `);
+
+        const result = await this.inContextOfThisPage<Result>(async () => {
+
+            const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+            return promised(this.browser.executeScript(executableScript, ...dehydratedArguments));
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
@@ -170,10 +189,22 @@ export class ProtractorPage extends Page<ElementFinder> {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const parameters = await this.extractNativeElements(args, elementFinder => elementFinder.getWebElement()) as Parameters;
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
 
-        const result = await this.inContextOfThisPage<Result>(() => {
-            return promised(this.browser.executeAsyncScript(script, ...parameters));
+        const executableScript = new Function(`
+            var args = Array.prototype.slice.call(arguments, 0, -1);
+            var callback = arguments[arguments.length - 1];
+            var parameters = (${ scripts.rehydrate }).apply(null, args);
+            (${ serialisedScript }).apply(null, parameters.concat(callback));
+        `);
+
+        const result = await this.inContextOfThisPage<Result>(async () => {
+
+            const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+            return promised(this.browser.executeAsyncScript(executableScript, ...dehydratedArguments));
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
