@@ -1,4 +1,4 @@
-import { isPlainObject } from '@serenity-js/core/src/io';
+import { isPlainObject } from '@serenity-js/core/lib/io';
 
 /* eslint-disable @typescript-eslint/indent */
 type TransformedArgument<T, U> =
