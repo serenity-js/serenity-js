@@ -1,9 +1,11 @@
 import { isPlainObject } from '@serenity-js/core/src/io';
 
+/* eslint-disable @typescript-eslint/indent */
 type TransformedArgument<T, U> =
     T extends Array<infer E> ? Array<TransformedArgument<E, U>> :
     T extends object ? { [K in keyof T]: TransformedArgument<T[K], U> }
     : U;
+/* eslint-enable */
 
 type RefId = `$ref${number}`;
 
