@@ -1,6 +1,5 @@
 import type { Expectation, ExpectationOutcome, Optional, QuestionAdapter } from '@serenity-js/core';
 import { ExpectationMet, LogicError, Question } from '@serenity-js/core';
-import { asyncMap, isPlainObject } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
 import type { URL } from 'url';
@@ -439,31 +438,6 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * or {@apilink Page.executeScript}
      */
     abstract lastScriptExecutionResult<R = any>(): R;
-
-    // todo: remove
-    protected async extractNativeElements<U = Native_Element_Type>(args: unknown[], mapper: (nativeElement: Native_Element_Type) => Promise<U> | U = nativeElement => nativeElement as unknown as U): Promise<unknown[]> {
-        return asyncMap(args, async item => {
-            if (isPlainObject(item)) {
-                return this.extractNativeElementsFromObject(item, value => this.extractNativeElements(value, mapper));
-            }
-
-            if (Array.isArray(item)) {
-                return this.extractNativeElements(item, mapper);
-            }
-
-            if (item instanceof PageElement) {
-                const nativeElement = await item.nativeElement();
-                return mapper(nativeElement);
-            }
-
-            return item;
-        });
-    }
-
-    private async extractNativeElementsFromObject<T extends object, K extends keyof T, U>(arg: T, mapper: (value: T[K]) => Promise<U> | U): Promise<Record<K, U>> {
-        return asyncMap(Object.entries(arg), async ([key, value]) => [key, await mapper(value)])
-            .then(entries => Object.fromEntries(entries));
-    }
 
     /**
      * Take a screenshot of the top-level browsing context's viewport.

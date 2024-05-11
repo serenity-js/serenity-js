@@ -24,9 +24,4 @@ export class PageElements<Native_Element_Type = any>
     static located<NET>(selector: Answerable<Selector>): PageElements {
         return new PageElements(PageElementsLocator.fromDocumentRoot<NET>(selector));
     }
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedElements
-    // static assignedTo<NET>(slotElement: Answerable<PageElement<NET>>): PageElements {
-    //     return new PageElements(PageElementsLocator.fromSlot(slotElement));
-    // }
 }
