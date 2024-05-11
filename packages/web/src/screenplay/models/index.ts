@@ -1,3 +1,4 @@
+export * from './ArgumentDehydrator';
 export * from './BrowserCapabilities';
 export * from './BrowsingSession';
 export * from './Cookie';
