@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
+
+
+### Features
+
+* **webdriverio:** support for injecting scripts parameterised with complex data structures ([e920e67](https://github.com/serenity-js/serenity-js/commit/e920e6709262c8249c992ac02a01f49d5789a35d))
+* **web:** scripts injected into the browser accept data structures containing PageElement objects ([2fbddf5](https://github.com/serenity-js/serenity-js/commit/2fbddf5d78d2965aecd6786b020c93ea079bdaf1))
+
+
+
+
+
 ## [3.22.4](https://github.com/serenity-js/serenity-js/compare/v3.22.3...v3.22.4) (2024-05-07)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
