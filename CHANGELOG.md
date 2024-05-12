@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass to v1.77.1 ([a9d7258](https://github.com/serenity-js/serenity-js/commit/a9d7258107d02c2b158cbba5fc727458e405cd63))
+
+
+### Features
+
+* **core:** exported isPlainObject utility function as part of /lib/io ([7f2c5fd](https://github.com/serenity-js/serenity-js/commit/7f2c5fd94cc68ac2249d1e0285933e96794f4493))
+* **core:** new utility method Question.fromArray to complement Question.fromObject ([4007bf1](https://github.com/serenity-js/serenity-js/commit/4007bf1310d0eb0ce2b3e10fe97955f0ad9ef087))
+* **playwright:** standardised ExecuteScript argument transmission across WebdriverIO and Playwright ([adfc171](https://github.com/serenity-js/serenity-js/commit/adfc171aa5073ec57d6896bbd824013e5844eda4))
+* **protractor:** standardised ExecuteScript argument transmission across all web integration tools ([1a08f47](https://github.com/serenity-js/serenity-js/commit/1a08f47c32a01af76cafae55af23582167e2bd88))
+* **webdriverio:** support for injecting scripts parameterised with complex data structures ([e920e67](https://github.com/serenity-js/serenity-js/commit/e920e6709262c8249c992ac02a01f49d5789a35d))
+* **web:** scripts injected into the browser accept data structures containing PageElement objects ([2fbddf5](https://github.com/serenity-js/serenity-js/commit/2fbddf5d78d2965aecd6786b020c93ea079bdaf1))
+
+
+
+
+
 ## [3.22.4](https://github.com/serenity-js/serenity-js/compare/v3.22.3...v3.22.4) (2024-05-07)
 
 

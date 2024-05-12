@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
+
+
+### Features
+
+* **core:** exported isPlainObject utility function as part of /lib/io ([7f2c5fd](https://github.com/serenity-js/serenity-js/commit/7f2c5fd94cc68ac2249d1e0285933e96794f4493))
+* **core:** new utility method Question.fromArray to complement Question.fromObject ([4007bf1](https://github.com/serenity-js/serenity-js/commit/4007bf1310d0eb0ce2b3e10fe97955f0ad9ef087))
+
+
+
+
+
 ## [3.22.4](https://github.com/serenity-js/serenity-js/compare/v3.22.3...v3.22.4) (2024-05-07)
 
 **Note:** Version bump only for package @serenity-js/core

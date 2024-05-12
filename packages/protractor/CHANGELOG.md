@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
+
+
+### Features
+
+* **protractor:** standardised ExecuteScript argument transmission across all web integration tools ([1a08f47](https://github.com/serenity-js/serenity-js/commit/1a08f47c32a01af76cafae55af23582167e2bd88))
+* **web:** scripts injected into the browser accept data structures containing PageElement objects ([2fbddf5](https://github.com/serenity-js/serenity-js/commit/2fbddf5d78d2965aecd6786b020c93ea079bdaf1))
+
+
+
+
+
 ## [3.22.4](https://github.com/serenity-js/serenity-js/compare/v3.22.3...v3.22.4) (2024-05-07)
 
 **Note:** Version bump only for package @serenity-js/protractor
