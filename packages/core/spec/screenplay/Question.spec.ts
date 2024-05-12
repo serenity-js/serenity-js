@@ -541,4 +541,22 @@ describe('Question', () => {
             });
         });
     });
+
+    describe('fromArray()', () => {
+
+        describe('creates a QuestionAdapter which', () => {
+
+            given([
+                { description: 'empty array' ,  input: [ ]         },
+                { description: 'flat array',    input: [ 'value' ] },
+            ]).
+            it('resolves to the value itself for plain JavaScript arrays', async ({ input }) => {
+
+                const question  = Question.fromArray(input);
+                const answer    = await Quentin.answer(question);
+
+                expect(answer).to.deep.equal(input);
+            });
+        });
+    });
 });

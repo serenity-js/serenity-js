@@ -1,10 +1,9 @@
-import type { ArrayChange, Change} from 'diff';
+import type { ArrayChange, Change } from 'diff';
 import { diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
 import { types } from 'util';
 
-import { inspected, isPrimitive, typeOf } from '../io';
-import { isPlainObject } from '../io/stringified';
+import { inspected, isPlainObject, isPrimitive, typeOf } from '../io';
 import { Unanswered } from '../screenplay/questions/Unanswered';
 import type { DiffFormatter } from './diff';
 import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
