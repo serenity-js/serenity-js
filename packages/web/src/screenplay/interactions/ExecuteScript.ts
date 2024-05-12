@@ -7,7 +7,7 @@ import { BrowseTheWeb } from '../abilities';
 
 /**
  * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to execute a script within the context of the current browser tab.
+ * to inject a script into the browser and execute it in the context of the current browser tab.
  *
  * ## Learn more
  *
@@ -72,6 +72,24 @@ export class ExecuteScript {
      * )
      * ```
      *
+     * #### Executing async script as function
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript } from '@serenity-js/web'
+     *
+     * const MyPage = {
+     *   header: () =>
+     *     PageElement.located(By.css('h1')).describedAs('header'),
+     * }
+     *
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(function getText(header, callback) {
+     *     callback(header.innerText)
+     *   }).withArguments(MyPage.header())
+     * )
+     * ```
+     *
      * #### Passing arguments to an async script
      *
      * ```ts
@@ -91,32 +109,58 @@ export class ExecuteScript {
      * )
      * ```
      *
-     * #### Passing Target arguments to an async script
+     * #### Passing PageElement arguments to an async script
+     *
+     * Serenity/JS automatically converts {@link PageElement} objects passed as arguments to the script
+     * into their corresponding DOM elements.
      *
      * ```ts
      * import { actorCalled } from '@serenity-js/core'
-     * import { ExecuteScript } from '@serenity-js/web'
+     * import { ExecuteScript, PageElement } from '@serenity-js/web'
+     *
+     * const MyPage = {
+     *   header: () =>
+     *     PageElement.located(By.css('h1')).describedAs('header'),
+     * }
      *
      * await actorCalled('Esti').attemptsTo(
      *   ExecuteScript.async(`
-     *     var header = arguments[0]        // PageElement object gets converted to a WebElement
+     *     var header = arguments[0]
      *     var callback = arguments[arguments.length - 1]
      *
      *     callback(header.innerText)
-     *   `).withArguments(PageElement.located(By.css('h1')).describedAs('header'))
+     *   `).withArguments(MyPage.header())
      * )
      * ```
      *
-     * #### Executing async script as function
+     * #### Using nested data structures containing PageElement objects
+     *
+     * Serenity/JS automatically converts any {@link PageElement} objects
+     * contained in nested data structures passed to the script
+     * into their corresponding DOM elements.
      *
      * ```ts
      * import { actorCalled } from '@serenity-js/core'
-     * import { ExecuteScript } from '@serenity-js/web'
+     * import { ExecuteScript, PageElement } from '@serenity-js/web'
+     *
+     * const MyPage = {
+     *   header: () =>
+     *     PageElement.located(By.css('h1')).describedAs('header'),
+     *
+     *   article: () =>
+     *     PageElement.located(By.css('article')).describedAs('article'),
+     * }
      *
      * await actorCalled('Esti').attemptsTo(
-     *   ExecuteScript.async(function getText(header, callback) {
-     *     callback(header.innerText)
-     *   }).withArguments(PageElement.located(By.css('h1')).describedAs('header'))
+     *   ExecuteScript.async(`
+     *     var { include, exclude }  = arguments[0]
+     *     var callback = arguments[arguments.length - 1]
+     *
+     *     callback(include[0].innerText)
+     *   `).withArguments({
+     *     include: [ MyPage.article() ],
+     *     exclude: [ MyPage.header() ],
+     *   })
      * )
      * ```
      *
@@ -153,32 +197,83 @@ export class ExecuteScript {
      *   )
      * ```
      *
-     * #### Executing a sync script as function and reading the result
+     * #### Executing a sync script as function and retrieving the result
      *
      * ```ts
      * import { actorCalled } from '@serenity-js/core'
      * import { By, Enter, ExecuteScript, LastScriptExecution, PageElement } from '@serenity-js/web'
      *
-     * const someOfferField = () =>
-     *   PageElement.located(By.id('offer-code'))
-     *     .describedAs('offer code')
+     * const Checkout = {
+     *   someOfferField: () =>
+     *     PageElement.located(By.id('offer-code'))
+     *       .describedAs('offer code')
      *
-     * const applyOfferCodeField = () =>
-     *   PageElement.located(By.id('apply-offer-code'))
-     *     .describedAs('apply offer field')
+     *   applyOfferCodeField = () =>
+     *     PageElement.located(By.id('apply-offer-code'))
+     *       .describedAs('apply offer field')
+     * }
      *
      * await actorCalled('Joseph')
      *   .attemptsTo(
      *     // inject JavaScript to read some property of an element
      *     ExecuteScript.sync(function getValue(element) {
      *         return element.value;
-     *     }).withArguments(someOfferField),
+     *     }).withArguments(Checkout.someOfferField()),
      *
      *     // use LastScriptExecution.result() to read the value
      *     // returned from the injected script
      *     // and pass it to another interaction
-     *     Enter.theValue(LastScriptExecution.result<string>()).into(applyOfferCodeField),
+     *     Enter.theValue(LastScriptExecution.result<string>()).into(Checkout.applyOfferCodeField()),
      *   )
+     * ```
+     *
+     * #### Passing PageElement arguments to a sync script
+     *
+     * Serenity/JS automatically converts {@link PageElement} objects passed as arguments to the script
+     * into their corresponding DOM elements.
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript, PageElement } from '@serenity-js/web'
+     *
+     * const MyPage = {
+     *   header: () =>
+     *     PageElement.located(By.css('h1')).describedAs('header'),
+     * }
+     *
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.sync(function getInnerHtml(element) {
+     *     return element.innerHTML;
+     *   }).withArguments(MyPage.header())
+     * )
+     * ```
+     *
+     * #### Using nested data structures containing PageElement objects
+     *
+     * Serenity/JS automatically converts any {@link PageElement} objects
+     * contained in nested data structures passed to the script
+     * into their corresponding DOM elements.
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { ExecuteScript, PageElement } from '@serenity-js/web'
+     *
+     * const MyPage = {
+     *   header: () =>
+     *     PageElement.located(By.css('h1')).describedAs('header'),
+     *
+     *   article: () =>
+     *     PageElement.located(By.css('article')).describedAs('article'),
+     * }
+     *
+     * await actorCalled('Esti').attemptsTo(
+     *   ExecuteScript.async(function getInnerHtml(scope) {
+     *     return scope.include[0].innerHTML;
+     *   `).withArguments({
+     *     include: [ MyPage.article() ],
+     *     exclude: [ MyPage.header() ],
+     *   })
+     * )
      * ```
      *
      * #### Learn more
