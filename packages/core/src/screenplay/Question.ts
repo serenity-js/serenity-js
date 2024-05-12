@@ -3,7 +3,7 @@ import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
 import type { FileSystemLocation } from '../io';
-import { d, f, inspectedObject } from '../io';
+import { asyncMap, d, f, inspectedObject } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
@@ -232,6 +232,16 @@ export abstract class Question<T> {
             }
 
             return Object.assign({}, ...sources);
+        });
+    }
+
+    /**
+     * Generates a {@apilink QuestionAdapter} that resolves
+     * any {@apilink Answerable} elements of the provided array.
+     */
+    static fromArray<Source_Type>(source: Array<Answerable<Source_Type>>): QuestionAdapter<Source_Type[]> {
+        return Question.about<Source_Type[]>('value', async actor => {
+            return await asyncMap<Answerable<Source_Type>, Source_Type>(source, async item => actor.answer(item));
         });
     }
 

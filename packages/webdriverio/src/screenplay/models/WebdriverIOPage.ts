@@ -2,8 +2,9 @@ import 'webdriverio';
 
 import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import type { Cookie, CookieData, ModalDialogHandler, PageElement, PageElements, Selector } from '@serenity-js/web';
-import { BrowserWindowClosedError, ByCss, Key, Page, PageElementsLocator } from '@serenity-js/web';
+import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
+import { ArgumentDehydrator, BrowserWindowClosedError, ByCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
+import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import { URL } from 'url';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
@@ -20,6 +21,13 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /* eslint-disable unicorn/consistent-function-scoping */
+    private dehydrator: ArgumentDehydrator<PageElement<WebdriverIO.Element>, WebdriverIO.Element> = new ArgumentDehydrator(
+        (item: any): item is PageElement<WebdriverIO.Element> => item instanceof PageElement,
+        (item: PageElement<WebdriverIO.Element>) => item.nativeElement(),
+    );
+    /* eslint-enable */
 
     constructor(
         session: WebdriverIOBrowsingSession,
@@ -93,17 +101,21 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const innerArguments = [] as InnerArguments;
-        for (const arg of args) {
-            const innerArgument = arg instanceof WebdriverIOPageElement
-                ? await arg.nativeElement()
-                : arg;
 
-            innerArguments.push(innerArgument);
-        }
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
 
-        const result = await this.inContextOfThisPage<Result>(() => {
-            return this.browser.execute(script, ...innerArguments);
+        const executableScript = new Function(`
+            var parameters = (${ scripts.rehydrate }).apply(null, arguments);
+            return (${ serialisedScript }).apply(null, parameters);
+        `);
+
+        const result = await this.inContextOfThisPage<Result>(async () => {
+
+            const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+            return await this.browser.execute(executableScript as any, ...dehydratedArguments);
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
@@ -115,17 +127,26 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const parameters = [] as Parameters;
-        for (const arg of args) {
-            const parameter = arg instanceof WebdriverIOPageElement
-                ? await arg.nativeElement()
-                : arg;
 
-            parameters.push(parameter);
-        }
+        const serialisedScript = typeof script === 'function'
+            ? String(script)
+            : String(`function script() { ${ script } }`);
 
-        const result = await this.inContextOfThisPage<Result>(() => {
-            return this.browser.executeAsync<Result, Parameters>(script, ...parameters);
+        const executableScript = new Function(`
+            var args = Array.prototype.slice.call(arguments, 0, -1);
+            var callback = arguments[arguments.length - 1];
+            var parameters = (${ scripts.rehydrate }).apply(null, args);
+            (${ serialisedScript }).apply(null, parameters.concat(callback));
+        `);
+
+        const result = await this.inContextOfThisPage<Result>(async () => {
+
+            const dehydratedArguments = await this.dehydrator.dehydrate(args);
+
+            return this.browser.executeAsync<Result, [ { argsCount: number, refsCount: number }, ...any[] ]>(
+                executableScript as (...args: [ { argsCount: number, refsCount: number }, ...any[], callback: (result: Result) => void ]) => void,
+                ...dehydratedArguments as [ { argsCount: number, refsCount: number }, ...any[] ],
+            );
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
