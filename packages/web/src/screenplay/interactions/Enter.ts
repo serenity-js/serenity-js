@@ -54,7 +54,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  *     Enter.theValue(Masked.valueOf('your little secret').into(Form.exampleInputField()),
  *   )
  *
- *   // Gets reported as: "Esme enters [a masked value] into the example input field"
+ *   // Gets reported as: "Esme enters [MASKED] into the example input field"
  * ```
  * 
  * ## Learn more

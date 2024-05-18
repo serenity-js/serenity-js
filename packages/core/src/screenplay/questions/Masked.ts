@@ -1,5 +1,7 @@
+import type { UsesAbilities } from '../abilities';
 import { type Answerable } from '../Answerable';
-import { Question, type QuestionAdapter } from '../Question';
+import { Question } from '../Question';
+import type { AnswersQuestions } from './AnswersQuestions';
 
 /**
  * This question masks sensitive data handled by the actors and prevents
@@ -12,7 +14,27 @@ import { Question, type QuestionAdapter } from '../Question';
  *
  * @group Questions
  */
-export class Masked {
+export class Masked extends Question<Promise<string>> {
+
+    private subject: string;
+
+    private constructor(private readonly value: Answerable<string>) {
+        super();
+        this.subject = `[MASKED]`;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
+        return actor.answer(this.value);
+    }
 
     /**
      * Retrieves the value of a sensitive parameter and mask it in any report.
@@ -32,7 +54,7 @@ export class Masked {
      * @param parameter - An {@link Answerable} representing the masked value.
      * @returns A {@link QuestionAdapter} representing the masked value.
      */
-    static valueOf(parameter: Answerable<string>): QuestionAdapter<string> {
-        return Question.about('[a masked value]', async actor => actor.answer(parameter));
+    static valueOf(parameter: Answerable<string>): Question<Promise<string>> {
+        return new Masked(parameter);
     }
 }

@@ -43,7 +43,7 @@ describe('Enter', () => {
 
     it('provides a sensible and masked description of the interaction being performed', () => {
         expect(Enter.theValue(Masked.valueOf(actorCalled('Bernie').name)).into(Form.field).toString())
-            .to.equal(`#actor enters '[a masked value]' into the name field`);
+            .to.equal(`#actor enters '[MASKED]' into the name field`);
     });
 
     it('correctly detects its invocation location', () => {
