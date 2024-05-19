@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import { ImplementationPendingError } from '../../src/errors';
 import { CorrelationId } from '../../src/model';
-import { Actor, Interaction, Task } from '../../src/screenplay';
+import { Actor, Interaction, Question, Task, the } from '../../src/screenplay';
 import { Stage } from '../../src/stage';
 import { expect } from '../expect';
 
@@ -35,6 +35,25 @@ describe('Task', () => {
         Loose(),
     );
 
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location when configured with no activities', () => {
+            const activity = () => Task.where(`#actor climbs a mountain`);
+            const location = activity().instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Task.spec.ts');
+            expect(location.line).to.equal(41);
+            expect(location.column).to.equal(30);
+        });
+
+        it('correctly detects its invocation location when configured with custom activities', () => {
+            const location = ShootAnArrow().instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Task.spec.ts');
+            expect(location.line).to.equal(49);
+            expect(location.column).to.equal(30);
+        });
+    });
+
     it('provides a convenient factory method for defining tasks', () => {
 
         const Lara = new Actor('Lara', stage as unknown as Stage);
@@ -46,6 +65,17 @@ describe('Task', () => {
         expect(ShootAnArrow().toString()).to.equal(`#actor shoots an arrow`);
     });
 
+    it('allows for the description to be resolved at runtime', async () => {
+
+        const Lara = new Actor('Lara', stage as unknown as Stage);
+        const item = Question.about('item', actor => 'arrow');
+
+        const task = Task.where(the`#actor shoots an ${ item }`, Nock(), Draw(), Loose());
+
+        expect(await task.describedBy(Lara)).to.equal(`#actor shoots an "arrow"`);
+        expect(task.toString()).to.equal(`#actor shoots an item`);
+    });
+
     it('generates a pending task if no activities are provided', () => {
 
         const Lara = new Actor('Lara', stage as unknown as Stage);
@@ -54,24 +84,5 @@ describe('Task', () => {
 
         return expect(Lara.attemptsTo(ClimbAMountain()))
             .to.be.rejectedWith(ImplementationPendingError, `A task where "#actor climbs a mountain" has not been implemented yet`);
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location when configured with no activities', () => {
-            const activity = () => Task.where(`#actor climbs a mountain`);
-            const location = activity().instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(62);
-            expect(location.column).to.equal(30);
-        });
-
-        it('correctly detects its invocation location when configured with custom activities', () => {
-            const location = ShootAnArrow().instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(70);
-            expect(location.column).to.equal(30);
-        });
     });
 });

@@ -4,6 +4,7 @@ import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { PerformsActivities } from './activities';
+import type { Answerable } from './Answerable';
 import type { AnswersQuestions } from './questions';
 
 /**
@@ -20,11 +21,11 @@ import type { AnswersQuestions } from './questions';
 export abstract class Activity {
 
     private static errorStackParser = new ErrorStackParser();
-    readonly #description: string;
+    readonly #description: Answerable<string>;
     readonly #location: FileSystemLocation;
 
     constructor(
-        description: string,
+        description: Answerable<string>,
         location: FileSystemLocation = Activity.callerLocation(5)
     ) {
         this.#description = description;
@@ -51,6 +52,10 @@ export abstract class Activity {
      */
     abstract performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 
+    describedBy(actor: AnswersQuestions): Promise<string> {
+        return actor.answer(this.#description);
+    }
+
     /**
      * Generates a human-friendly description to be used when reporting this Activity.
      *
@@ -60,7 +65,7 @@ export abstract class Activity {
      * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
      */
     toString(): string {
-        return this.#description;
+        return String(this.#description);
     }
 
     protected static callerLocation(frameOffset: number): FileSystemLocation {

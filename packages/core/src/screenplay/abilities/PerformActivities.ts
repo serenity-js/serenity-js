@@ -1,24 +1,15 @@
 import { match } from 'tiny-types';
 
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
-import type { EmitsDomainEvents} from '../../events';
+import type { EmitsDomainEvents } from '../../events';
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import type {
-    Outcome,
-    ProblemIndication
-} from '../../model';
-import {
-    ActivityDetails,
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Name
-} from '../../model';
+import type { FileSystemLocation } from '../../io';
+import type { Outcome, ProblemIndication } from '../../model';
+import { ActivityDetails, ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, ImplementationPending, Name } from '../../model';
 import type { PerformsActivities } from '../activities/PerformsActivities';
 import type { Activity } from '../Activity';
 import { Interaction } from '../Interaction';
+import type { AnswersQuestions } from '../questions';
 import { Ability } from './index';
 
 /**
@@ -32,15 +23,15 @@ import { Ability } from './index';
  */
 export class PerformActivities extends Ability {
     constructor(
-        protected readonly actor: PerformsActivities & { name: string },
+        protected readonly actor: PerformsActivities & AnswersQuestions & { name: string },
         protected readonly stage: EmitsDomainEvents,
     ) {
         super();
     }
 
     async perform(activity: Activity): Promise<void> {
-        const sceneId = this.stage.currentSceneId();
-        const details = this.detailsOf(activity);
+        const sceneId    = this.stage.currentSceneId();
+        const details    = this.detailsOf(this.nameOf(activity), activity.instantiationLocation());
         const activityId = this.stage.assignNewActivityId(details);
 
         const [ activityStarts, activityFinished ] = activity instanceof Interaction
@@ -48,11 +39,28 @@ export class PerformActivities extends Ability {
             : [ TaskStarts, TaskFinished ];
 
         try {
-            this.stage.announce(new activityStarts(sceneId, activityId, details, this.stage.currentTime()))
+            this.stage.announce(
+                new activityStarts(
+                    sceneId,
+                    activityId,
+                    details,
+                    this.stage.currentTime()
+                )
+            );
 
             await activity.performAs(this.actor);
 
-            this.stage.announce(new activityFinished(sceneId, activityId, details, new ExecutionSuccessful(), this.stage.currentTime()));
+            const name = await this.nameWithParametersOf(activity);
+
+            this.stage.announce(
+                new activityFinished(
+                    sceneId,
+                    activityId,
+                    this.detailsOf(name, activity.instantiationLocation()),
+                    new ExecutionSuccessful(),
+                    this.stage.currentTime()
+                )
+            );
         }
         catch (error) {
             this.stage.announce(new activityFinished(sceneId, activityId, details, this.outcomeFor(error), this.stage.currentTime()));
@@ -74,10 +82,10 @@ export class PerformActivities extends Ability {
             .else(_ => new ExecutionFailedWithError(error));
     }
 
-    private detailsOf(activity: Activity): ActivityDetails {
+    private detailsOf(name: string, instantiationLocation: FileSystemLocation): ActivityDetails {
         return new ActivityDetails(
-            new Name(this.nameOf(activity)),
-            activity.instantiationLocation(),
+            new Name(name),
+            instantiationLocation,
         )
     }
 
@@ -86,6 +94,14 @@ export class PerformActivities extends Ability {
             ? `#actor performs ${ activity.constructor.name }`
             : activity.toString();
 
-        return template.replace('#actor', this.actor.name);
+        return this.withActorName(template);
+    }
+
+    protected async nameWithParametersOf(activity: Activity): Promise<string> {
+        return this.withActorName(await activity.describedBy(this.actor));
+    }
+
+    private withActorName(descriptionTemplate: string): string {
+        return descriptionTemplate.replace('#actor', this.actor.name)
     }
 }
