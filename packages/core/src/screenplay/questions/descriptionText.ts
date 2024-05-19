@@ -1,8 +1,9 @@
 import { ensure, isGreaterThanOrEqualTo } from 'tiny-types';
-import { isPlainObject } from '../../io';
-import { Answerable } from '../Answerable';
-import { Masked } from './Masked';
 import { significantFieldsOf } from 'tiny-types/lib/objects';
+
+import { isPlainObject } from '../../io';
+import type { Answerable } from '../Answerable';
+import { Masked } from './Masked';
 
 /**
  * Configuration options for the [`description`](/api/core/function/description/), [`the`](/api/core/function/the/), and [`descriptionText`](/api/core/function/descriptionText/) functions.

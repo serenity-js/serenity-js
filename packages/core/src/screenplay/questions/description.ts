@@ -2,7 +2,8 @@ import { asyncMap, isPlainObject } from '../../io';
 import type { Answerable } from '../Answerable';
 import type { QuestionAdapter } from '../Question';
 import { Question } from '../Question';
-import { DescriptionOptions, descriptionText } from './descriptionText';
+import type { DescriptionOptions} from './descriptionText';
+import { descriptionText } from './descriptionText';
 
 /**
  * Creates a single-line description of an {@apilink Activity} by transforming a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),

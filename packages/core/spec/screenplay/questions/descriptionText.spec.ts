@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import type { QuestionAdapter} from '../../../src';
-import { Masked, Question, descriptionText } from '../../../src';
+import { descriptionText,Masked, Question } from '../../../src';
 import { expect } from '../../expect';
 
 function p<T>(value: T): Promise<T> {
