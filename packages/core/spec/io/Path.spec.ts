@@ -79,12 +79,31 @@ describe ('Path', () => {
         expect(p1.resolve(p2).value).to.match(/([A-Z]:)?\/home\/jan\/projects$/);
     });
 
-    it('can resolve a relative path based on two absolute paths', () => {
-        const
-            p1 = new Path('/home/jan/documents'),
-            p2 = new Path('/home/jan/documents/projects/serenity-js');
+    describe('relative', () => {
 
-        expect(p1.relative(p2).value).to.match(/projects\/serenity-js$/);
+        it('can resolve a relative path based on two absolute paths', () => {
+            const
+                p1 = new Path('/home/jan/documents'),
+                p2 = new Path('/home/jan/documents/projects/serenity-js');
+
+            expect(p1.relative(p2).value).to.match(/projects\/serenity-js$/);
+        });
+
+        it('can resolve a relative path based on two identical absolute paths', () => {
+            const
+                p1 = new Path('/home/jan/documents'),
+                p2 = new Path('/home/jan/documents');
+
+            expect(p1.relative(p2).value).to.equal('.');
+        });
+
+        it('can resolve an absolute path based on an absolute and relative path', () => {
+            const
+                p1 = new Path('/home/jan/documents'),
+                p2 = new Path('.');
+
+            expect(p1.resolve(p2).value).to.match(/([A-Z]:)?\/home\/jan\/documents$/);
+        });
     });
 
     it('knows the root directory', () => {
