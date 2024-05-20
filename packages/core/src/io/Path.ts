@@ -103,7 +103,7 @@ export class Path extends TinyType {
     }
 
     relative(another: Path): Path {
-        return new Path(path.relative(this.value, another.value));
+        return new Path(path.relative(this.value, another.value) || '.');
     }
 
     directory(): Path {
