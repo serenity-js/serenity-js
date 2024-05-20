@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.23.1](https://github.com/serenity-js/serenity-js/compare/v3.23.0...v3.23.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* **core:** allow relative Path to resolve to '.' ([be527a2](https://github.com/serenity-js/serenity-js/commit/be527a258cd1d6f797ef3ffdcc9a6b0118e8d2fa))
+
+
+
+
+
 # [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
 
 

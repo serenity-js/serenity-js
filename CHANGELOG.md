@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.23.1](https://github.com/serenity-js/serenity-js/compare/v3.23.0...v3.23.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* **core:** allow relative Path to resolve to '.' ([be527a2](https://github.com/serenity-js/serenity-js/commit/be527a258cd1d6f797ef3ffdcc9a6b0118e8d2fa))
+* **deps:** update dependency axios to v1.7.0 ([7baf7c3](https://github.com/serenity-js/serenity-js/commit/7baf7c340f63ab7a7cf661be3a3835087e168c80))
+* **deps:** update dependency sass to v1.77.2 ([c3ad4c0](https://github.com/serenity-js/serenity-js/commit/c3ad4c0c27142fe2202f6c3dcc500dd1e83109f8))
+* **rest:** upgraded Axios to 1.7.1 ([83566b7](https://github.com/serenity-js/serenity-js/commit/83566b73f3ccd4f0db222c841a95fc2f428759b8))
+
+
+
+
+
 # [3.23.0](https://github.com/serenity-js/serenity-js/compare/v3.22.4...v3.23.0) (2024-05-12)
 
 
