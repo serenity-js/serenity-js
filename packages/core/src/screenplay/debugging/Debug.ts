@@ -11,7 +11,7 @@ import type { AnswersQuestions } from '../questions';
 import type { DebuggingResult } from './DebuggingResult';
 
 /**
- * Instructs the {@apilink Actor|actor} to evaluate and {@apilink Log|log} the provided {@apilink Answerable} values.
+ * Instructs the {@apilink Actor|actor} to evaluate and {@apilink Log|log} the provided {@apilink Answerable|answerable} values.
  *
  * Since this interaction **accepts a callback function** that receives the evaluated results,
  * the best way to use it is while **running the test scenario via a Node.js debugger**.
