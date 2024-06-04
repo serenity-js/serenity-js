@@ -6,6 +6,8 @@ export * from './Answerable';
 export * from './Answered';
 export * from './artifacts';    // todo: move artifacts from model package
 export * from './debugging';
+export * from './Describable';
+export * from './Description';
 export * from './Interaction';
 export * from './notes';
 export * from './Optional';

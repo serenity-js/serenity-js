@@ -6,7 +6,7 @@ import type { UsesAbilities } from '../../abilities';
 import type { Answerable } from '../../Answerable';
 import { Interaction } from '../../Interaction';
 import type { AnswersQuestions, Expectation, ExpectationOutcome } from '../../questions';
-import { ExpectationMet } from '../../questions';
+import { ExpectationMet } from '../../questions/expectations';
 import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
 

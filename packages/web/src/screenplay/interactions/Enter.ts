@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
-import { d } from '@serenity-js/core';
+import { the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import type { PageElement } from '../models';
@@ -83,7 +83,11 @@ export class Enter extends PageElementInteraction {
         private readonly values: Array<Answerable<string | number | string[] | number[]>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(d `#actor enters ${ values.join(', ') } into ${ field }`);
+        super(
+            values.length === 1
+                ? the `#actor enters ${ values[0] } into ${ field }`
+                : the `#actor enters ${ values } into ${ field }`
+        );
     }
 
     /**

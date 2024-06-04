@@ -9,33 +9,14 @@ const findJavaHome = promisify(require('find-java-home'));  // eslint-disable-li
  * @package
  */
 export class JavaExecutable extends Question<Promise<Path>> {
-    private subject: string;
-
     constructor() {
-        super();
-        this.subject = `java executable`;
+        super(`java executable`);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Path> {
         return findJavaHome({ allowJre: true })
             .then(pathToJavaHome => path.join(pathToJavaHome, 'bin', this.javaFileName()))
             .then(Path.fromJSON);
-    }
-
-    /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
     }
 
     private javaFileName() {

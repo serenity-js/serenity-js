@@ -1,22 +1,10 @@
 import { ensure, isGreaterThanOrEqualTo } from 'tiny-types';
 import { significantFieldsOf } from 'tiny-types/lib/objects';
 
-import { isPlainObject } from '../../io';
+import { isPlainObject } from '../../io/isPlainObject';
 import type { Answerable } from '../Answerable';
-import { Masked } from './Masked';
-
-/**
- * Configuration options for the [`description`](/api/core/function/description/), [`the`](/api/core/function/the/), and [`descriptionText`](/api/core/function/descriptionText/) functions.
- *
- * @group Questions
- */
-export interface DescriptionOptions {
-    /**
-     * The maximum length of the string representation of the value.
-     * String representations longer than this value will be truncated and appended with an ellipsis.
-     */
-    maxLength: number;
-}
+import type { DescriptionOptions } from './descriptions/DescriptionOptions';
+// import { Masked } from './Masked';
 
 /**
  * Interpolating a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
@@ -36,7 +24,7 @@ export function descriptionText(...args: any[]): any {
         : templateToString(args[0], args.slice(1), parameterDescriptionText({ maxLength: 50 }));
 }
 
-function templateToString(templates: TemplateStringsArray, parameters: Array<Answerable<any>>, describer: (parameter: any) => string): string {
+export function templateToString(templates: TemplateStringsArray, parameters: Array<Answerable<any>>, describer: (parameter: any) => string = _ => _): string {
     return templates.flatMap((template, i) =>
         i < parameters.length
             ? [ template, describer(parameters[i]) ]
@@ -90,9 +78,9 @@ export function parameterDescriptionText(options: DescriptionOptions): (paramete
         if (parameter instanceof RegExp) {
             return `${ parameter }`;
         }
-        if (parameter instanceof Masked) {
-            return `${ parameter }`;
-        }
+        // if (parameter instanceof Masked) {
+        //     return `${ parameter }`;
+        // }
         if (hasItsOwnToString(parameter)) {
             return `${ trim(parameter.toString()) }`;
         }

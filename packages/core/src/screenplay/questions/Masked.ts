@@ -16,21 +16,21 @@ import type { AnswersQuestions } from './AnswersQuestions';
  */
 export class Masked extends Question<Promise<string>> {
 
-    private subject: string;
+    // private subject: string;
 
     private constructor(private readonly value: Answerable<string>) {
-        super();
-        this.subject = `[MASKED]`;
+        super(`[MASKED]`);
+        // this.subject = `[MASKED]`;
     }
 
-    toString(): string {
-        return this.subject;
-    }
+    // toString(): string {
+    //     return this.subject;
+    // }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // describedAs(subject: string): this {
+    //     this.subject = subject;
+    //     return this;
+    // }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         return actor.answer(this.value);

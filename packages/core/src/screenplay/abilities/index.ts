@@ -2,6 +2,7 @@ export * from './Ability';
 export * from './AbilityType';
 export * from './AnswerQuestions';
 export * from './CanHaveAbilities';
+export * from './DescribeActivities';
 export * from './Discardable';
 export * from './Initialisable';
 export * from './PerformActivities';

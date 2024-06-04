@@ -11,15 +11,19 @@ import type {
     Initialisable,
     UsesAbilities
 } from './abilities';
+import { DescribeActivities
+} from './abilities';
 import {
     Ability,
     AnswerQuestions,
     PerformActivities
 } from './abilities';
-import type { PerformsActivities } from './activities';
+import type { DescribesActivities, PerformsActivities } from './activities';
 import type { Activity } from './Activity';
 import type { Answerable } from './Answerable';
 import type { CollectsArtifacts } from './artifacts';
+import type { Describable } from './Describable';
+import type { Description } from './Description';
 import type { AnswersQuestions } from './questions';
 import type { TellsTime, Timestamp } from './time';
 
@@ -85,6 +89,7 @@ import type { TellsTime, Timestamp } from './time';
 export class Actor implements PerformsActivities,
     UsesAbilities,
     CanHaveAbilities<Actor>,
+    DescribesActivities,
     AnswersQuestions,
     CollectsArtifacts,
     TellsTime
@@ -99,6 +104,7 @@ export class Actor implements PerformsActivities,
         [
             new PerformActivities(this, stage),
             new AnswerQuestions(this),
+            new DescribeActivities(this, { maxLength: 150 }),    // todo: make configuration injectable
             ...abilities
         ].forEach(ability => this.acquireAbility(ability));
     }
@@ -171,6 +177,10 @@ export class Actor implements PerformsActivities,
      */
     answer<T>(answerable: Answerable<T>): Promise<T> {
         return AnswerQuestions.as(this).answer(answerable);
+    }
+
+    describe(maybeDescribable: Describable | Answerable<any>): Promise<Description> {
+        return DescribeActivities.as(this).describe(maybeDescribable);
     }
 
     /**

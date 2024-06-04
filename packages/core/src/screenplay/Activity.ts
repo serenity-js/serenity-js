@@ -2,10 +2,11 @@ import path from 'path';
 
 import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
-import type { UsesAbilities } from './abilities';
-import type { PerformsActivities } from './activities';
+import type { UsesAbilities } from './abilities/UsesAbilities';
+import type { PerformsActivities } from './activities/PerformsActivities';
 import type { Answerable } from './Answerable';
-import type { AnswersQuestions } from './questions';
+import { Describable } from './Describable';
+import type { AnswersQuestions } from './questions/AnswersQuestions';
 
 /**
  * **Activities** represents {@apilink Task|tasks} and {@apilink Interaction|interactions} to be performed by an {@apilink Actor|actor}.
@@ -18,17 +19,18 @@ import type { AnswersQuestions } from './questions';
  *
  * @group Screenplay Pattern
  */
-export abstract class Activity {
+export abstract class Activity extends Describable {
 
     private static errorStackParser = new ErrorStackParser();
-    readonly #description: Answerable<string>;
+    // readonly #description: Answerable<string>;
     readonly #location: FileSystemLocation;
 
     constructor(
         description: Answerable<string>,
         location: FileSystemLocation = Activity.callerLocation(5)
     ) {
-        this.#description = description;
+        super(description)
+        // this.#description = description;
         this.#location = location;
     }
 
@@ -52,9 +54,12 @@ export abstract class Activity {
      */
     abstract performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 
-    describedBy(actor: AnswersQuestions): Promise<string> {
-        return actor.answer(this.#description);
-    }
+    // todo: remove
+    // async describedBy(actor: AnswersQuestions & DescribesActivities & UsesAbilities): Promise<Description> {
+    //     const description = await actor.answer(this.#description);
+    //     // todo: Do I need the Description class at all?
+    //     return new Description(description);
+    // }
 
     /**
      * Generates a human-friendly description to be used when reporting this Activity.
@@ -64,9 +69,10 @@ export abstract class Activity {
      *
      * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
      */
-    toString(): string {
-        return String(this.#description);
-    }
+    // todo: remove
+    // toString(): string {
+    //     return String(this.#description);
+    // }
 
     protected static callerLocation(frameOffset: number): FileSystemLocation {
 

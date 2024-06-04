@@ -1,8 +1,8 @@
-import type { UsesAbilities } from './abilities';
+import type { UsesAbilities } from './abilities/UsesAbilities';
 import { Activity } from './Activity';
 import type { Answerable } from './Answerable';
-import type { CollectsArtifacts } from './artifacts';
-import type { AnswersQuestions } from './questions';
+import type { CollectsArtifacts } from './artifacts/CollectsArtifacts';
+import type { AnswersQuestions } from './questions/AnswersQuestions';
 
 /**
  * **Interactions** are low-level {@apilink Activity|activities} that encapsulate

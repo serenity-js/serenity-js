@@ -63,9 +63,9 @@ describe('Actor', () => {
         class DoCoolThings extends Ability {
         }
 
-        expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions])');
+        expect(actor('Chris').toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions, DescribeActivities])');
 
-        expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions, DoCoolThings])');
+        expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions, DescribeActivities, DoCoolThings])');
     });
 
     it('has Abilities allowing them to perform Activities and interact with a given interface of the system under test', () =>
@@ -116,12 +116,12 @@ describe('Actor', () => {
 
             expect(actor('Ben').attemptsTo(
                 PlayAChord.of(Chords.AMajor),
-            )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can PerformActivities, AnswerQuestions. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`));
+            )).to.be.eventually.rejectedWith(ConfigurationError, `Ben can PerformActivities, AnswerQuestions, DescribeActivities. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`));
 
         it('admits if it does not have the Ability necessary to accomplish a given Interaction, but mentions any other abilities they might have', () => {
 
             expect(() => actor('Ben').whoCan(new DoSomethingElse()).abilityTo(PlayAGuitar))
-                .to.throw(ConfigurationError, `Ben can PerformActivities, AnswerQuestions, DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
+                .to.throw(ConfigurationError, `Ben can PerformActivities, AnswerQuestions, DescribeActivities, DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
         });
 
         describe('that are abstract', () => {
@@ -174,7 +174,7 @@ describe('Actor', () => {
                 const ability = MakePhoneCalls.as(ben);
 
                 expect(ability).to.be.instanceOf(UseMobilePhone);
-                expect(ben.toString()).to.equal(`Actor(name=Ben, abilities=[PerformActivities, AnswerQuestions, UseMobilePhone])`)
+                expect(ben.toString()).to.equal(`Actor(name=Ben, abilities=[PerformActivities, AnswerQuestions, DescribeActivities, UseMobilePhone])`)
             })
         });
 
@@ -259,9 +259,11 @@ describe('Actor', () => {
 
         describe('announces events about the activities it performs', () => {
 
-            it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-                PlayAChord.of(Chords.AMajor),
-            ).then(() => {
+            it('notifies when an activity begins and ends', async () => {
+                await Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
+                    PlayAChord.of(Chords.AMajor),
+                )
+
                 expect(stage.announce).to.have.callCount(2);
 
                 const
@@ -276,7 +278,7 @@ describe('Actor', () => {
                 expect(secondEvent).to.have.property('details').property('name').equal(activityName);
                 expect(secondEvent).to.have.property('outcome').equal(new ExecutionSuccessful());
                 expect(secondEvent).to.have.property('timestamp').equal(now);
-            }));
+            });
         });
     });
 });

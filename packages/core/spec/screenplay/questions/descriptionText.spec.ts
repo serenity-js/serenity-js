@@ -114,7 +114,7 @@ describe('descriptionText', () => {
             const examples = [
                 { description: 'plain object',          value: { name: { first: 'Jan', last: 'Molak' } },   expectedValue: `#actor enters { name: { first: "Jan", last: "Molak" } }`,                           },
                 { description: 'Array',                 value: [ 'hello', 123 ],                            expectedValue: `#actor enters [ "hello", 123 ]`,                                                    },
-                { description: 'Date',                  value: new Date(1995, 11, 17, 3, 24, 0),            expectedValue: `#actor enters Date(1995-12-17T03:24:00.000Z)`,                                      },
+                { description: 'Date',                  value: new Date('1995-12-17T03:24:00.000Z'),        expectedValue: `#actor enters Date(1995-12-17T03:24:00.000Z)`,                                      },
                 { description: 'Map',                   value: new Map([['key', 'value']]),                 expectedValue: `#actor enters Map({ key: "value" })`,                                               },
                 { description: 'Set',                   value: new Set([ 1, 2, 3 ]),                        expectedValue: `#actor enters Set([ 1, 2, 3 ])`,                                                    },
                 { description: 'Error',                 value: new Error('example'),                        expectedValue: `#actor enters Error({ message: "example", stack: "Error: example     at ... })`,    },

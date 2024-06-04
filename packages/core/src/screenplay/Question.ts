@@ -3,13 +3,18 @@ import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
 import type { FileSystemLocation } from '../io';
-import { asyncMap, d, f, inspectedObject } from '../io';
-import type { UsesAbilities } from './abilities';
+import { d } from '../io';
+import { asyncMap, f, inspectedObject } from '../io';
+import type { UsesAbilities } from './abilities/UsesAbilities';
 import type { Answerable } from './Answerable';
+import { Describable } from './Describable';
 import { Interaction } from './Interaction';
 import type { Optional } from './Optional';
 import type { AnswersQuestions } from './questions/AnswersQuestions';
+import type { DescriptionOptions } from './questions/descriptions';
 import type { MetaQuestion } from './questions/MetaQuestion';
+import { QuestionAboutDescription } from './questions/QuestionAboutDescription';
+import { QuestionAboutValue } from './questions/QuestionAboutValue';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
 import type { WithAnswerableProperties } from './WithAnswerableProperties';
@@ -109,7 +114,9 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  *
  * @group Screenplay Pattern
  */
-export abstract class Question<T> {
+export abstract class Question<T> extends Describable {
+
+    // #description: Answerable<string>;
 
     /**
      * Factory method that simplifies the process of defining custom questions.
@@ -128,18 +135,18 @@ export abstract class Question<T> {
      * @param [metaQuestionBody]
      */
     static about<Answer_Type, Supported_Context_Type>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => Question<Promise<Answer_Type>> | Question<Answer_Type>,
     ): MetaQuestionAdapter<Supported_Context_Type, Awaited<Answer_Type>>
 
     static about<Answer_Type>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type
     ): QuestionAdapter<Awaited<Answer_Type>>
 
     static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody?: (answerable: Supported_Context_Type) => QuestionAdapter<Answer_Type>,
     ): any
@@ -148,7 +155,7 @@ export abstract class Question<T> {
             ? new MetaQuestionStatement(description, body, metaQuestionBody)
             : new QuestionStatement(description, body);
 
-        return Question.createAdapter(statement);
+        return Question.createAdapter<Promise<Answer_Type>>(statement);
     }
 
     /**
@@ -266,6 +273,31 @@ export abstract class Question<T> {
         return !! maybeMetaQuestion
             && typeof maybeMetaQuestion['of'] === 'function'
             && maybeMetaQuestion['of'].length === 1;            // arity of 1
+    }
+
+    // todo: extract configuration
+    // eslint-disable-next-line unicorn/no-object-as-default-parameter
+    static description(options: DescriptionOptions = { maxLength: 50 }): MetaQuestion<Answerable<any>, QuestionAdapter<string> & MetaQuestion<Answerable<any>, QuestionAdapter<string>>> {
+        return new QuestionAboutDescription(options);
+    }
+
+    // todo: extract and refactor
+    static value<AT>(): MetaQuestion<Answerable<AT>, QuestionAdapter<Awaited<AT>> & MetaQuestion<Answerable<AT>, Question<Promise<Awaited<AT>>>>> {
+        return new QuestionAboutValue<AT>();
+        // return ({
+        //     of: (context: any): any =>
+        //         Question.about(String(context),
+        //             actor => {
+        //                 return actor.answer(context);
+        //             },
+        //             (parentContext: AT) => {
+        //                 return Question.about(String(parentContext),
+        //                     actor => {
+        //                         return actor.answer((context).of(parentContext))
+        //                     });
+        //             }
+        //         ) as unknown as Question<Promise<AT>> & MetaQuestion<AT, Question<Promise<AT>>>,
+        // });
     }
 
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
@@ -398,17 +430,17 @@ export abstract class Question<T> {
         return `${ targetDescription }${ parameterDescriptions }`;
     }
 
-    /**
-     * Returns the description of the subject of this {@apilink Question}.
-     */
-    abstract toString(): string;
+    // /**
+    //  * Returns the description of the subject of this {@apilink Question}.
+    //  */
+    // abstract toString(): string;
 
-    /**
-     * Changes the description of this question's subject.
-     *
-     * @param subject
-     */
-    abstract describedAs(subject: string): this;
+    // /**
+    //  * Changes the description of this question's subject.
+    //  *
+    //  * @param description
+    //  */
+    // abstract describedAs(description: Answerable<string> | MetaQuestion<Awaited<T>, Question<Promise<string>>>): this;
 
     /**
      * Instructs the provided {@apilink Actor} to use their {@apilink Ability|abilities}
@@ -476,7 +508,10 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
 export type QuestionAdapter<Answer_Type> =
     & Question<Promise<Answer_Type>>
     & Interaction
-    & { isPresent(): Question<Promise<boolean>>; }  // more specialised Optional
+    // Specialised Optional:
+    & { isPresent(): Question<Promise<boolean>>; }
+    // Specialised Describable:
+    & { describedAs(description: Answerable<string> | MetaQuestion<Awaited<Answer_Type>, Question<Promise<string>>>): QuestionAdapter<Answer_Type>; }
     & QuestionAdapterFieldDecorator<Answer_Type>;
 
 /**
@@ -492,16 +527,18 @@ export type MetaQuestionAdapter<Context_Type, Answer_Type> =
 /**
  * @package
  */
-class QuestionStatement<Answer_Type> extends Interaction implements Question<Promise<Answer_Type>>, Optional {
-
+class QuestionStatement<Answer_Type>
+    extends Interaction
+    implements Question<Promise<Answer_Type>>, Optional
+{
     private answer: Answer_Type | Unanswered = new Unanswered();
 
     constructor(
-        private subject: string,
+        description: Answerable<string>,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         location: FileSystemLocation = QuestionStatement.callerLocation(4),
     ) {
-        super(subject, location);
+        super(description, location);
     }
 
     /**
@@ -521,18 +558,35 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         await this.body(actor);
     }
 
+    override describedAs(description: Answerable<string> | MetaQuestion<Awaited<Answer_Type>, Question<Promise<string>>>): this {
+        super.describedAs(
+            Question.isAMetaQuestion(description)
+                ? description.of(this as Answerable<Awaited<Answer_Type>>)
+                : description
+        )
+        return this;
+    }
+
     [util.inspect.custom](depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect): string {
         return inspectedObject(this.answer)(depth, options, inspect);
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // todo: remove
+    // describedAs(description: Answerable<string> | MetaQuestion<Answer_Type, Question<Promise<string>>>): this {
+    //     this.description = Question.isAMetaQuestion(description)
+    //         ? description.of(this)
+    //         : description;
+    //
+    //     return this;
+    // }
 
-    override toString(): string {
-        return this.subject;
-    }
+    // async describedBy(actor: AnswersQuestions & DescribesActivities & UsesAbilities): Promise<Description> {
+    //     return new Description(await actor.answer(this.description));
+    // }
+
+    // override toString(): string {
+    //     return String(this.description);
+    // }
 
     as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O> {
         return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
@@ -555,15 +609,16 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
     implements MetaQuestion<Supported_Context_Type, QuestionAdapter<Answer_Type>>
 {
     constructor(
-        subject: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         private readonly metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => QuestionAdapter<Answer_Type>,
     ) {
-        super(subject, body);
+        super(description, body);
     }
 
     of(answerable: Answerable<Supported_Context_Type>): QuestionAdapter<Answer_Type> {
         return Question.about(
+            // the`${ this.toString() } of ${ answerable }`,
             this.toString() + d` of ${ answerable }`,
             actor => actor.answer(this.metaQuestionBody(answerable))
         );
@@ -573,13 +628,14 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
 /**
  * @package
  */
-class IsPresent<T> extends Question<Promise<boolean>> {
+class IsPresent<Answer_Type> extends Question<Promise<boolean>> {
 
-    private subject: string;
+    constructor(private readonly question: Question<Promise<Answer_Type>> | Question<Answer_Type>) {
+        super(f`${question}.isPresent()`);
+        // todo: use this instead:
+        // super(the`presence of ${ question }`);
 
-    constructor(private readonly question: Question<T>) {
-        super();
-        this.subject = f`${question}.isPresent()`;
+        // this.description = f`${question}.isPresent()`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
@@ -605,14 +661,33 @@ class IsPresent<T> extends Question<Promise<boolean>> {
             && Reflect.has(maybeOptional, 'isPresent');
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // describedAs(description: Answerable<string> | MetaQuestion<boolean, Question<Promise<string>>>): this {
+    //     this.description = Question.isAMetaQuestion(description)
+    //         ? description.of(this)
+    //         : description;
+    //
+    //     return this;
+    // }
 
-    toString(): string {
-        return this.subject;
-    }
+    // override describedAs(description: Answerable<string> | MetaQuestion<Awaited<Answer_Type>, Question<Promise<string>>>): this {
+    //     super.describedAs(
+    //         Question.isAMetaQuestion(description)
+    //             ? description.of(this as Answerable<Awaited<Answer_Type>>)
+    //             : description
+    //     )
+    //     return this;
+    // }
+
+    // async describedBy(actor: AnswersQuestions & DescribesActivities & UsesAbilities): Promise<Description> {
+    //     const description = await actor.answer(this.description);
+    //     // todo: Do I need the Description class at all?
+    //     return new Description(description);
+    // }
+
+    // toString(): string {
+    //     // todo: review implementation
+    //     return d`${ this.description }`;
+    // }
 }
 
 /**

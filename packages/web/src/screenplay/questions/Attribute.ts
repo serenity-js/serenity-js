@@ -1,5 +1,13 @@
-import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter, Optional, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
-import { d, LogicError, Question } from '@serenity-js/core';
+import type {
+    Answerable,
+    AnswersQuestions,
+    MetaQuestion,
+    MetaQuestionAdapter,
+    Optional,
+    QuestionAdapter,
+    UsesAbilities
+} from '@serenity-js/core';
+import { d, LogicError, Question, the } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
@@ -115,12 +123,12 @@ export class Attribute<Native_Element_Type>
 
     protected constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: QuestionAdapter<PageElement> | PageElement,
+        private readonly element?: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>,
     ) {
-        super();
-        this.subject = element
-            ? d`${ name } attribute of ${ element }`
-            : d`${ name } attribute`
+        super(element
+            ? the`${name} attribute of ${element}`
+            : the`${name} attribute`
+        );
     }
 
     /**
@@ -132,7 +140,7 @@ export class Attribute<Native_Element_Type>
      * @param pageElement
      */
     of(pageElement: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
-        return Question.createAdapter(
+        return Question.createAdapter<Promise<string>>(
             new Attribute(
                 this.name,
                 this.element
@@ -165,20 +173,5 @@ export class Attribute<Native_Element_Type>
             const attribute = await this.answeredBy(actor);
             return attribute !== null && attribute !== undefined;
         });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
     }
 }

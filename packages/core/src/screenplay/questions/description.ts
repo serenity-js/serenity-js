@@ -1,9 +1,12 @@
 import { asyncMap, isPlainObject } from '../../io';
+import type { UsesAbilities } from '../abilities';
+import type { DescribesActivities } from '../activities';
 import type { Answerable } from '../Answerable';
 import type { QuestionAdapter } from '../Question';
 import { Question } from '../Question';
-import type { DescriptionOptions} from './descriptionText';
-import { descriptionText } from './descriptionText';
+import type { AnswersQuestions } from './AnswersQuestions';
+import type { DescriptionOptions } from './descriptions';
+import { descriptionText, templateToString } from './descriptionText';
 
 /**
  * Creates a single-line description of an {@apilink Activity} by transforming a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
@@ -166,7 +169,7 @@ export function description(...args: any[]): any {
     return isPlainObject(args[0])
         ? (templates: TemplateStringsArray, ...parameters: Array<Answerable<any>>) =>
             templateToQuestion(templates, parameters, args[0])
-        : templateToQuestion(args[0], args.slice(1), { maxLength: 50 });
+        : templateToQuestion(args[0], args.slice(1), { maxLength: 150 });
 }
 
 /**
@@ -196,8 +199,11 @@ export const the = description;
 
 function templateToQuestion(templates: TemplateStringsArray, parameters: Array<Answerable<any>>, options: DescriptionOptions): QuestionAdapter<string> {
     const description = descriptionText(options)(templates, ...parameters);
-    return Question.about(description, async actor => {
-        const answers = await asyncMap(parameters, parameter => actor.answer(parameter));
-        return descriptionText(options)(templates, ...answers);
-    });
+
+    return Question.about<string>(description, async (actor: AnswersQuestions & UsesAbilities & DescribesActivities) => {
+        const descriptions = await asyncMap(parameters, parameter => actor.describe(parameter));
+        const result = templateToString(templates, descriptions);
+
+        return result;
+    }); //.describedAs(Question.value<string>());
 }

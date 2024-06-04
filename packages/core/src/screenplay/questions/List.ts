@@ -5,7 +5,8 @@ import type { Actor } from '../Actor';
 import type { Answerable } from '../Answerable';
 import type { MetaQuestionAdapter, QuestionAdapter } from '../Question';
 import { Question } from '../Question';
-import type { AnswersQuestions, ChainableMetaQuestion, MetaQuestion } from '../questions';
+import type { AnswersQuestions, ChainableMetaQuestion, MetaQuestion} from '../questions';
+import { the } from '../questions';
 import { Task } from '../Task';
 import type { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
@@ -30,7 +31,7 @@ export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     }
 
     constructor(protected readonly collection: Answerable<Array<Item_Type>>) {
-        super();
+        super(the`${ collection }`);
     }
 
     forEach(callback: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void): Task {
@@ -64,14 +65,14 @@ export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         return collection;
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // describedAs(subject: string): this {
+    //     this.subject = subject;
+    //     return this;
+    // }
 
-    toString(): string {
-        return this.subject ?? d`${ this.collection }`;
-    }
+    // toString(): string {
+    //     return this.subject ?? d`${ this.collection }`;
+    // }
 
     /**
      * @param {number} index
@@ -287,7 +288,7 @@ export class MetaList<Supported_Context_Type, Item_Type>
 class Where<Item_Type, Answer_Type>
     extends Question<Promise<Array<Item_Type>>>
 {
-    private subject: string;
+    // private subject: string;
 
     constructor(
         protected readonly collection: Answerable<Array<Item_Type>>,
@@ -295,13 +296,14 @@ class Where<Item_Type, Answer_Type>
         protected readonly expectation: Expectation<Answer_Type>,
         originalSubject: string,
     ) {
-        super();
-
-        const prefix = this.collection instanceof Where
+        const prefix = collection instanceof Where
             ? ' and'
             : ' where';
 
-        this.subject = originalSubject + prefix + d` ${ question } does ${ expectation }`;
+        // todo: use `the` instead of `d`
+        super(originalSubject + prefix + d` ${ question } does ${ expectation }`);
+
+        // this.subject = originalSubject + prefix + d` ${ question } does ${ expectation }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
@@ -324,14 +326,15 @@ class Where<Item_Type, Answer_Type>
         }
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // todo: remove
+    // describedAs(subject: string): this {
+    //     this.subject = subject;
+    //     return this;
+    // }
 
-    toString(): string {
-        return this.subject;
-    }
+    // toString(): string {
+    //     return this.subject;
+    // }
 }
 
 /**
@@ -356,16 +359,17 @@ class MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>
  */
 class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<Mapped_Item_Type>>> {
 
-    private subject: string;
+    // private subject: string;
 
     constructor(
         protected readonly collection: Answerable<Array<Item_Type>>,
         protected readonly mapping: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>,
         originalSubject: string,
     ) {
-        super();
+        // todo: use `the` instead of `d`
+        super(originalSubject + d` mapped to ${ mapping }`);
 
-        this.subject = originalSubject + d` mapped to ${ this.mapping }`;
+        // this.subject = originalSubject + d` mapped to ${ this.mapping }`;
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Mapped_Item_Type>> {
@@ -380,14 +384,15 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
         return mapped;
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    // todo: remove
+    // describedAs(subject: string): this {
+    //     this.subject = subject;
+    //     return this;
+    // }
 
-    toString(): string {
-        return this.subject;
-    }
+    // toString(): string {
+    //     return this.subject;
+    // }
 }
 
 /**

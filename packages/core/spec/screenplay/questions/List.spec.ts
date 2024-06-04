@@ -3,6 +3,7 @@ import { given } from 'mocha-testdata';
 import type { JSONObject } from 'tiny-types';
 
 import type { Actor, Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities } from '../../../src';
+import { the } from '../../../src';
 import {
     actorCalled,
     d,
@@ -41,7 +42,7 @@ describe('List', () => {
         const examples = [ {
             description:            'string[]',
             answerable:             collection,
-            collectionDescription:  `[ 'first', 'second', 'third' ]`,
+            collectionDescription:  `[ "first", "second", "third" ]`,
         }, {
             description:            'Question<string[]>',
             answerable:             q(collection),
@@ -214,7 +215,7 @@ describe('List', () => {
             const result = list
                 .eachMappedTo(AccountName)
 
-            expect(result.toString()).to.equal(`[ {"id":1,"name":"Alice"}, {"id":2,"name":"Arbnor"}, {"id":3,"name":"Bob"} ] mapped to AccountName`);
+            expect(result.toString()).to.equal(`[ { id: 1, name: "Alice" }, { id: 2, name: "Arbnor" }, { id: 3, name: "Bob" } ] mapped to AccountName`);
         });
 
         it('allows for the default description to be overridden', () => {
@@ -249,7 +250,7 @@ describe('List', () => {
                 .toString();
 
             expect(result).to.equal(
-                `the first of [ {"id":1,"name":"Alice"}, {"id":2,"name":"Arbnor"}, {"id":3,"name":"Bob"} ] where AccountName does start with 'A' mapped to AccountName`
+                `the first of [ { id: 1, name: "Alice" }, { id: 2, name: "Arbnor" }, { id: 3, name: "Bob" } ] where AccountName does start with 'A' mapped to AccountName`
             );
         });
     });
@@ -705,7 +706,7 @@ class ObjectKeys
     private subject?: string;
 
     constructor(private readonly jsonObject: Answerable<JSONObject>) {
-        super();
+        super(the`${ jsonObject }`);
     }
 
     of(context: Answerable<string>): Question<Promise<string[]>> & ChainableMetaQuestion<string, Question<Promise<string[]>>> {

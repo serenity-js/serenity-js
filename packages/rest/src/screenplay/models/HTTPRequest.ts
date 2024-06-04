@@ -29,7 +29,8 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
         protected readonly data?: Answerable<any>,
         protected readonly config?: Answerable<WithAnswerableProperties<AxiosRequestConfig>>,
     ) {
-        super();
+        // todo: fix the subject
+        super('');
         this.subject = `${ this.requestDescription() } to ${ d`${ this.resourceUri }` }`;
     }
 

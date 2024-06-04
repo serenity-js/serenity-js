@@ -559,4 +559,22 @@ describe('Question', () => {
             });
         });
     });
+
+    describe('value()', () => {
+
+        describe('creates a meta-question that', () => {
+
+            given([
+                { description: 'string' ,   input: 'value'                                          },
+                { description: 'Promise',   input: Promise.resolve('value')                         },
+                { description: 'Question',  input: Question.about('some value', actor => 'value')   },
+            ]).
+            it('resolves to the value of the given Answerable', async ({ input }) => {
+                const question  = Question.value().of(input);
+                const answer    = await Quentin.answer(question);
+
+                expect(answer).to.equal('value');
+            });
+        });
+    });
 });

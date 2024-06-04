@@ -6,11 +6,13 @@ import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from
 import type { FileSystemLocation } from '../../io';
 import type { Outcome, ProblemIndication } from '../../model';
 import { ActivityDetails, ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, ImplementationPending, Name } from '../../model';
+import type { DescribesActivities } from '../activities';
 import type { PerformsActivities } from '../activities/PerformsActivities';
 import type { Activity } from '../Activity';
 import { Interaction } from '../Interaction';
 import type { AnswersQuestions } from '../questions';
-import { Ability } from './index';
+import { Ability } from './Ability';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * An {@apilink Ability} that enables an {@apilink Actor} to perform a given {@apilink Activity}.
@@ -23,7 +25,7 @@ import { Ability } from './index';
  */
 export class PerformActivities extends Ability {
     constructor(
-        protected readonly actor: PerformsActivities & AnswersQuestions & { name: string },
+        protected readonly actor: AnswersQuestions & DescribesActivities & PerformsActivities & UsesAbilities & { name: string },
         protected readonly stage: EmitsDomainEvents,
     ) {
         super();
@@ -98,7 +100,8 @@ export class PerformActivities extends Ability {
     }
 
     protected async nameWithParametersOf(activity: Activity): Promise<string> {
-        return this.withActorName(await activity.describedBy(this.actor));
+        const description = await activity.describedBy(this.actor);
+        return this.withActorName(description.value);
     }
 
     private withActorName(descriptionTemplate: string): string {

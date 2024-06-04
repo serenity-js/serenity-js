@@ -1,5 +1,11 @@
 import type { test as base, TestInfo } from '@playwright/test';
-import type { Activity, AnswersQuestions, PerformsActivities } from '@serenity-js/core';
+import type {
+    Activity,
+    AnswersQuestions,
+    DescribesActivities,
+    PerformsActivities,
+    UsesAbilities
+} from '@serenity-js/core';
 import { d, Interaction, PerformActivities } from '@serenity-js/core';
 import type { EmitsDomainEvents } from '@serenity-js/core/lib/events';
 import { significantFieldsOf } from 'tiny-types/lib/objects';
@@ -7,7 +13,7 @@ import { significantFieldsOf } from 'tiny-types/lib/objects';
 export class PerformActivitiesAsPlaywrightSteps extends PerformActivities {
 
     constructor(
-        actor: PerformsActivities & AnswersQuestions & { name: string },
+        actor: AnswersQuestions & DescribesActivities & UsesAbilities & PerformsActivities & { name: string },
         stage: EmitsDomainEvents,
         private readonly test: typeof base,
     ) {

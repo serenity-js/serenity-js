@@ -124,13 +124,15 @@ export class ComputedStyle<Native_Element_Type>
         private readonly element?: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>,
         private readonly pseudoElement?: Answerable<string>,
     ) {
-        super();
 
-        this.subject = [
+        // todo: review the implementation; can I use `the` instead?
+        const subject = [
             d`computed style property ${ name }`,
             pseudoElement && d`of pseudo-element ${ pseudoElement }`,
             element && d`of ${ element }`,
         ].filter(Boolean).join(' ');
+
+        super(subject);
     }
 
     /**
