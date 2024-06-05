@@ -7,7 +7,6 @@ export * from './FileSystemLocation';
 export * from './format';
 export * from './inspected';
 export * from './inspectedObject';
-export * from './isPlainObject';
 export * from './loader';
 export * from './Path';
 export * from './reflection';

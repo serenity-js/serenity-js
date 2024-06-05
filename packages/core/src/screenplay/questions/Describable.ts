@@ -1,9 +1,9 @@
+import { ValueInspector } from '../../io/reflection/ValueInspector';
 import type { UsesAbilities } from '../abilities/UsesAbilities';
 import type { Answerable } from '../Answerable';
 import { Question } from '../Question';
 import type { AnswersQuestions } from './AnswersQuestions';
 import type { MetaQuestion } from './MetaQuestion';
-import { TypeInspector } from './TypeInspector';
 
 const descriptionField = Symbol('description');
 
@@ -50,7 +50,7 @@ export abstract class Describable {
      * Returns a human-readable description of this object.
      */
     toString(): string {
-        if (TypeInspector.isPromise(this[descriptionField])) {
+        if (ValueInspector.isPromise(this[descriptionField])) {
             return 'Promise';
         }
 

@@ -1,10 +1,10 @@
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
-import { typeOf } from './reflection';
+import { ValueInspector } from './reflection';
 
 export function inspectedObject<T>(value: T, allowFields?: Array<keyof T>): (depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect) => string {
     return function (depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect = util.inspect): string {
-        const typeName = options.stylize(typeOf(value), 'special');
+        const typeName = options.stylize(ValueInspector.typeOf(value), 'special');
 
         if (depth < 0) {
             return typeName;
