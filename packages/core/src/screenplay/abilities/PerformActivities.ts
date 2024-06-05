@@ -3,7 +3,7 @@ import { match } from 'tiny-types';
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
 import type { EmitsDomainEvents } from '../../events';
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import type { FileSystemLocation } from '../../io';
+import { type FileSystemLocation, ValueInspector } from '../../io';
 import type { Outcome, ProblemIndication } from '../../model';
 import {
     ActivityDetails,
@@ -18,7 +18,6 @@ import type { PerformsActivities } from '../activities/PerformsActivities';
 import type { Activity } from '../Activity';
 import { Interaction } from '../Interaction';
 import type { AnswersQuestions } from '../questions';
-import { TypeInspector } from '../questions/TypeInspector';
 import { Ability } from './Ability';
 import type { UsesAbilities } from './UsesAbilities';
 
@@ -100,7 +99,7 @@ export class PerformActivities extends Ability {
     }
 
     protected nameOf(activity: Activity): string {
-        const template = TypeInspector.hasItsOwnToString(activity)
+        const template = ValueInspector.hasItsOwnToString(activity)
             ? activity.toString()
             : `#actor performs ${ activity.constructor.name }`;
 
