@@ -1,5 +1,6 @@
 import type { UsesAbilities } from './abilities';
 import { Activity } from './Activity';
+import type { Answerable } from './Answerable';
 import type { CollectsArtifacts } from './artifacts';
 import type { AnswersQuestions } from './questions';
 
@@ -76,7 +77,7 @@ export abstract class Interaction extends Activity {
      * @param interaction
      */
     static where(
-        description: string,
+        description: Answerable<string>,
         interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ): Interaction {
         return new DynamicallyGeneratedInteraction(description, interaction);
@@ -101,7 +102,7 @@ export abstract class Interaction extends Activity {
  */
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
-        description: string,
+        description: Answerable<string>,
         private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ) {
         super(description, Interaction.callerLocation(4));
