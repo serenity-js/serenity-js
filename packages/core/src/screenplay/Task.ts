@@ -1,6 +1,7 @@
 import { ImplementationPendingError } from '../errors';
 import type { PerformsActivities } from './activities';
 import { Activity } from './Activity';
+import type { Answerable } from './Answerable';
 
 /**
  * **Tasks** model **{@apilink Activity|sequences of activities}**
@@ -182,7 +183,7 @@ export abstract class Task extends Activity {
      * @param activities
      *  A sequence of lower-level activities that constitute this task
      */
-    static where(description: string, ...activities: Activity[]): Task {
+    static where(description: Answerable<string>, ...activities: Activity[]): Task {
         return activities.length > 0
             ? new DynamicallyGeneratedTask(description, activities)
             : new NotImplementedTask(description);
@@ -205,7 +206,7 @@ export abstract class Task extends Activity {
  * @package
  */
 class DynamicallyGeneratedTask extends Task {
-    constructor(description: string, private activities: Activity[]) {
+    constructor(description: Answerable<string>, private activities: Activity[]) {
         super(description, Task.callerLocation(4));
     }
 
@@ -218,7 +219,7 @@ class DynamicallyGeneratedTask extends Task {
  * @package
  */
 class NotImplementedTask extends Task {
-    constructor(description: string) {
+    constructor(description: Answerable<string>) {
         super(description, Task.callerLocation(4));
     }
 

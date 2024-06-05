@@ -1,6 +1,7 @@
 export * from './AnswersQuestions';
 export * from './ChainableMetaQuestion';
 export * from './Check';
+export * from './Describable';
 export * from './Expectation';
 export * from './expectations';
 export * from './List';

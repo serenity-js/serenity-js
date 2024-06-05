@@ -1,27 +1,39 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { beforeEach, describe, it } from 'mocha';
+import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
-import { ImplementationPendingError } from '../../src/errors';
-import { CorrelationId } from '../../src/model';
-import { Actor, Interaction, Task } from '../../src/screenplay';
-import { Stage } from '../../src/stage';
+import { ErrorFactory, ImplementationPendingError } from '../../src/errors';
+import { Actor, type Answerable, Clock, Duration, Interaction, Question, Task } from '../../src/screenplay';
+import { Stage, StageManager } from '../../src/stage';
+import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
+
+const p = <T>(value: T) =>
+    Promise.resolve(value);
+
+const q = <T>(description: string, value: T) =>
+    Question.about(description, actor => value);
 
 describe('Task', () => {
 
-    let stage: sinon.SinonStubbedInstance<Stage>;
+    const interactionTimeout = Duration.ofSeconds(5);
+
+    let stage: Stage,
+        Lara: Actor,
+        stageManager: sinon.SinonStubbedInstance<StageManager>;
 
     beforeEach(() => {
-        stage = sinon.createStubInstance(Stage);
+        stageManager = sinon.createStubInstance(StageManager);
 
-        const
-            sceneId = new CorrelationId('some-scene-id'),
-            activityId = new CorrelationId('some-activity-id');
-
-        stage.currentSceneId.returns(sceneId);
-        stage.assignNewActivityId.returns(activityId);
-        stage.currentActivityId.returns(activityId);
+        stage = new Stage(
+            new Extras(),
+            stageManager as unknown as StageManager,
+            new ErrorFactory(),
+            new Clock(),
+            interactionTimeout,
+        );
+        Lara = new Actor('Lara', stage);
     });
 
     const
@@ -48,8 +60,6 @@ describe('Task', () => {
 
     it('generates a pending task if no activities are provided', () => {
 
-        const Lara = new Actor('Lara', stage as unknown as Stage);
-
         const ClimbAMountain = () => Task.where(`#actor climbs a mountain`);
 
         return expect(Lara.attemptsTo(ClimbAMountain()))
@@ -62,7 +72,7 @@ describe('Task', () => {
             const location = activity().instantiationLocation();
 
             expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(62);
+            expect(location.line).to.equal(72);
             expect(location.column).to.equal(30);
         });
 
@@ -70,8 +80,94 @@ describe('Task', () => {
             const location = ShootAnArrow().instantiationLocation();
 
             expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(70);
+            expect(location.line).to.equal(80);
             expect(location.column).to.equal(30);
+        });
+    });
+
+    describe('when describing an interaction', () => {
+
+        const description = '#actor interacts with the system';
+
+        describe('toString()', () => {
+
+            given([
+                { description: 'string',                    input: description,                         expected: description      },
+                { description: 'Promise<string>',           input: p(description),                      expected: 'Promise'        },
+                { description: 'Question<string>',          input: q('some question', description),     expected: 'some question'  },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description)),  expected: 'some question'  },
+            ]).
+            it('produces a human-readable static description', ({ input, expected }) => {
+                const task = () =>
+                    Task.where(input);
+
+                expect(task().toString()).to.equal(expected);
+            });
+        });
+
+        describe('describedBy(actor)', () => {
+
+            const expected = 'Lara interacts with the system';
+
+            given([
+                { description: 'string',                    input: description                         },
+                { description: 'Promise<string>',           input: p(description)                      },
+                { description: 'Question<string>',          input: q('some question', description)     },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description))  },
+            ]).
+            it('produces a description resolved in the context of the given actor', async ({ input }) => {
+                const task = () =>
+                    Task.where(input);
+
+                const description = await task().describedBy(Lara);
+
+                expect(description).to.equal(expected);
+            });
+        });
+
+        describe('describedAs()', () => {
+
+            const trim = (maxLength: number) => ({
+                of: (inputDescription: Answerable<string>) =>
+                    Question.about(`trimmed to ${ maxLength } characters value of ${ inputDescription }`, async actor => {
+                        const result = await actor.answer(inputDescription);
+                        return result.slice(0, maxLength);
+                    })
+            });
+
+            const newDescription = '#actor does something new';
+
+            given([
+                { description: 'string',                    input: description,                        replacement: newDescription,                        expectedToString: newDescription  },
+                { description: 'Promise<string>',           input: p(description),                     replacement: p(newDescription),                     expectedToString: 'Promise'       },
+                { description: 'Question<string>',          input: q('some question', description),    replacement: q('some question', newDescription),    expectedToString: 'some question' },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description)), replacement: q('some question', p(newDescription)), expectedToString: 'some question' },
+            ]).
+            it('changes the description of the interaction to a new value', async ({ input, replacement, expectedToString }) => {
+                const task = () =>
+                    Task.where(input);
+
+                const modifiedInteraction = task().describedAs(replacement);
+
+                expect(await modifiedInteraction.describedBy(Lara)).to.equal('Lara does something new');
+                expect(modifiedInteraction.toString()).to.equal(expectedToString);
+            });
+
+            given([
+                { description: 'string',                    input: description,                        expectedToString: 'trimmed to 16 characters value of #actor interacts with the system'   },
+                { description: 'Promise<string>',           input: p(description),                     expectedToString: 'trimmed to 16 characters value of [object Promise]'                   },
+                { description: 'Question<string>',          input: q('some question', description),    expectedToString: 'trimmed to 16 characters value of some question'                      },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description)), expectedToString: 'trimmed to 16 characters value of some question'                      },
+            ]).
+            it('modifies the description of the interaction using a MetaQuestion', async ({ input, expectedToString }) => {
+                const task = () =>
+                    Task.where(input);
+
+                const modifiedInteraction = task().describedAs(trim(16));
+
+                expect(await modifiedInteraction.describedBy(Lara)).to.equal('Lara interacts');
+                expect(modifiedInteraction.toString()).to.equal(expectedToString);
+            });
         });
     });
 });

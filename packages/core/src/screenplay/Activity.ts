@@ -4,7 +4,9 @@ import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { PerformsActivities } from './activities';
-import type { AnswersQuestions } from './questions';
+import type { Answerable } from './Answerable';
+import type { AnswersQuestions } from './questions/AnswersQuestions';
+import { Describable } from './questions/Describable';
 
 /**
  * **Activities** represents {@apilink Task|tasks} and {@apilink Interaction|interactions} to be performed by an {@apilink Actor|actor}.
@@ -17,17 +19,16 @@ import type { AnswersQuestions } from './questions';
  *
  * @group Screenplay Pattern
  */
-export abstract class Activity {
+export abstract class Activity extends Describable {
 
     private static errorStackParser = new ErrorStackParser();
-    readonly #description: string;
     readonly #location: FileSystemLocation;
 
     constructor(
-        description: string,
+        description: Answerable<string>,
         location: FileSystemLocation = Activity.callerLocation(5)
     ) {
-        this.#description = description;
+        super(description);
         this.#location = location;
     }
 
@@ -50,18 +51,6 @@ export abstract class Activity {
      * - {@apilink AnswersQuestions}
      */
     abstract performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
-
-    /**
-     * Generates a human-friendly description to be used when reporting this Activity.
-     *
-     * **Note**: When this activity is reported, token `#actor` in the description
-     * will be replaced with the name of the actor performing this Activity.
-     *
-     * For example, `#actor clicks on a button` becomes `Wendy clicks on a button`.
-     */
-    toString(): string {
-        return this.#description;
-    }
 
     protected static callerLocation(frameOffset: number): FileSystemLocation {
 
