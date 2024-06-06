@@ -6,7 +6,6 @@ import * as sinon from 'sinon';
 import { ErrorFactory } from '../../src/errors';
 import type { ArtifactGenerated } from '../../src/events';
 import { JSONData, Name } from '../../src/model';
-import type { Answerable} from '../../src/screenplay';
 import { Actor, Clock, Duration, Interaction, Question } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
 import { Extras } from '../../src/stage/Extras';
@@ -46,7 +45,7 @@ describe('Interaction', () => {
         const location = activity().instantiationLocation();
 
         expect(location.path.basename()).to.equal('Interaction.spec.ts');
-        expect(location.line).to.equal(46);
+        expect(location.line).to.equal(45);
         expect(location.column).to.equal(26);
     });
 
@@ -120,51 +119,6 @@ describe('Interaction', () => {
                 const description = await interaction().describedBy(Ivonne);
 
                 expect(description).to.equal(expected);
-            });
-        });
-
-        describe('describedAs()', () => {
-
-            const trim = (maxLength: number) => ({
-                of: (inputDescription: Answerable<string>) =>
-                    Question.about(`trimmed to ${ maxLength } characters value of ${ inputDescription }`, async actor => {
-                        const result = await actor.answer(inputDescription);
-                        return result.slice(0, maxLength);
-                    })
-            });
-
-            const newDescription = '#actor does something new';
-
-            given([
-                { description: 'string',                    input: description,                        replacement: newDescription,                        expectedToString: newDescription  },
-                { description: 'Promise<string>',           input: p(description),                     replacement: p(newDescription),                     expectedToString: 'Promise'       },
-                { description: 'Question<string>',          input: q('some question', description),    replacement: q('some question', newDescription),    expectedToString: 'some question' },
-                { description: 'Question<Promise<string>>', input: q('some question', p(description)), replacement: q('some question', p(newDescription)), expectedToString: 'some question' },
-            ]).
-            it('changes the description of the interaction to a new value', async ({ input, replacement, expectedToString }) => {
-                const interaction = () =>
-                    Interaction.where(input, (actor: Actor) => { /* do nothing */ });
-
-                const modifiedInteraction = interaction().describedAs(replacement);
-
-                expect(await modifiedInteraction.describedBy(Ivonne)).to.equal('Ivonne does something new');
-                expect(modifiedInteraction.toString()).to.equal(expectedToString);
-            });
-
-            given([
-                { description: 'string',                    input: description,                        expectedToString: 'trimmed to 16 characters value of #actor interacts with the system'   },
-                { description: 'Promise<string>',           input: p(description),                     expectedToString: 'trimmed to 16 characters value of [object Promise]'                   },
-                { description: 'Question<string>',          input: q('some question', description),    expectedToString: 'trimmed to 16 characters value of some question'                      },
-                { description: 'Question<Promise<string>>', input: q('some question', p(description)), expectedToString: 'trimmed to 16 characters value of some question'                      },
-            ]).
-            it('modifies the description of the interaction using a MetaQuestion', async ({ input, expectedToString }) => {
-                const interaction = () =>
-                    Interaction.where(input, (actor: Actor) => { /* do nothing */ });
-
-                const modifiedInteraction = interaction().describedAs(trim(16));
-
-                expect(await modifiedInteraction.describedBy(Ivonne)).to.equal('Ivonne interacts');
-                expect(modifiedInteraction.toString()).to.equal(expectedToString);
             });
         });
     });

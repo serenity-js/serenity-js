@@ -124,13 +124,11 @@ export class ComputedStyle<Native_Element_Type>
         private readonly element?: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>,
         private readonly pseudoElement?: Answerable<string>,
     ) {
-        super();
-
-        this.subject = [
+        super([
             d`computed style property ${ name }`,
             pseudoElement && d`of pseudo-element ${ pseudoElement }`,
             element && d`of ${ element }`,
-        ].filter(Boolean).join(' ');
+        ].filter(Boolean).join(' '));
     }
 
     /**
@@ -187,20 +185,5 @@ export class ComputedStyle<Native_Element_Type>
         const page = await BrowseTheWeb.as(actor).currentPage();
 
         return page.executeScript('return window.getComputedStyle(arguments[0], arguments[1]).getPropertyValue(arguments[2])', element, pseudoElement, name);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
     }
 }
