@@ -52,9 +52,8 @@ function errorMessageOf(maybeError: any): string {
 
 function errorStackOf(maybeError: any) {
     if (isDefined(maybeError) && isDefined(maybeError.stack)) {
-        const parser = new ErrorStackParser();
 
-        return parser.parse(maybeError).map(frame => ({
+        return ErrorStackParser.parse(maybeError).andGet().map(frame => ({
             declaringClass: '',
             methodName:     frame.functionName ? `${ frame.functionName }(${ (frame.args || []).join(', ') })` : '',
             fileName:       frame.fileName,
