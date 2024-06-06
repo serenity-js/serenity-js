@@ -1,14 +1,16 @@
-import { isRecord } from 'tiny-types/lib/objects';
+import { isRecord, significantFieldsOf } from 'tiny-types/lib/objects';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
-import type { FileSystemLocation } from '../io';
+import type { FileSystemLocation} from '../io';
+import { ValueInspector } from '../io';
 import { asyncMap, d, f, inspectedObject } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
 import type { Optional } from './Optional';
 import type { AnswersQuestions } from './questions/AnswersQuestions';
+import { Describable } from './questions/Describable';
 import type { MetaQuestion } from './questions/MetaQuestion';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
@@ -109,7 +111,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  *
  * @group Screenplay Pattern
  */
-export abstract class Question<T> {
+export abstract class Question<T> extends Describable {
 
     /**
      * Factory method that simplifies the process of defining custom questions.
@@ -268,6 +270,10 @@ export abstract class Question<T> {
             && maybeMetaQuestion['of'].length === 1;            // arity of 1
     }
 
+    static formattedValue(options?: { maxLength: number }): MetaQuestion<any, Question<Promise<string>>> {
+        return FormattedValue.using(options);
+    }
+
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
         function getStatement() {
             return statement;
@@ -399,22 +405,29 @@ export abstract class Question<T> {
     }
 
     /**
-     * Returns the description of the subject of this {@apilink Question}.
-     */
-    abstract toString(): string;
-
-    /**
-     * Changes the description of this question's subject.
-     *
-     * @param subject
-     */
-    abstract describedAs(subject: string): this;
-
-    /**
      * Instructs the provided {@apilink Actor} to use their {@apilink Ability|abilities}
      * to answer this question.
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
+
+    /**
+     * Changes the description of this object, as returned by {@apilink Describable.describedBy}
+     * and {@apilink Describable.toString}.
+     *
+     * @param description
+     *  Replaces the current description according to the following rules:
+     *  - If `description` is an {@apilink Answerable}, it replaces the current description
+     *  - If `description` is a {@apilink MetaQuestion}, the current description is passed as `context` to `description.of(context)`, and the result replaces the current description
+     */
+    describedAs(description: Answerable<string> | MetaQuestion<Awaited<T>, Question<Promise<string>>>): this {
+        super.setDescription(
+            Question.isAMetaQuestion(description)
+                ? description.of(this as Answerable<Awaited<T>>)
+                : description
+        );
+
+        return this;
+    }
 
     /**
      * Maps this question to one of a different type.
@@ -525,13 +538,14 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return inspectedObject(this.answer)(depth, options, inspect);
     }
 
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
+    describedAs(description: Answerable<string> | MetaQuestion<Answer_Type, Question<Promise<string>>>): this {
+        super.setDescription(
+            Question.isAMetaQuestion(description)
+                ? description.of(this)
+                : description
+        );
 
-    override toString(): string {
-        return this.subject;
+        return this;
     }
 
     as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O> {
@@ -575,11 +589,8 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
  */
 class IsPresent<T> extends Question<Promise<boolean>> {
 
-    private subject: string;
-
     constructor(private readonly question: Question<T>) {
-        super();
-        this.subject = f`${question}.isPresent()`;
+        super(f`${question}.isPresent()`);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
@@ -603,15 +614,6 @@ class IsPresent<T> extends Question<Promise<boolean>> {
     private isOptional(maybeOptional: any): maybeOptional is Optional {
         return typeof maybeOptional === 'object'
             && Reflect.has(maybeOptional, 'isPresent');
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
     }
 }
 
@@ -665,4 +667,130 @@ async function recursivelyAnswer<K extends number | string | symbol, V> (
     }
 
     return answer as Record<K, V>;
+}
+
+class FormattedValue<Supported_Context_Type>
+    extends Question<Promise<string>>
+    implements MetaQuestion<any, Question<Promise<string>>>
+{
+    public static readonly defaultOptions = { maxLength: Number.POSITIVE_INFINITY };
+
+    static of(context: Answerable<unknown>): Question<Promise<string>> & MetaQuestion<any, Question<Promise<string>>> {
+        return new FormattedValue(new ValueFormatter(FormattedValue.defaultOptions), context);
+    }
+
+    static using<SCT>(options?: { maxLength: number }): MetaQuestion<SCT, Question<Promise<string>>> {
+        return new FormattedValue(new ValueFormatter({
+            ...FormattedValue.defaultOptions,
+            ...options,
+        }));
+    }
+
+    constructor(
+        private readonly formatter: ValueFormatter,
+        private context?: Answerable<Supported_Context_Type>
+    ) {
+        super(formatter.format(context));
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+        const answer = await actor.answer(this.context);
+
+        return this.formatter.format(answer);
+    }
+
+    override async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+        const answer = await actor.answer(this.context);
+
+        return this.formatter.format(answer);
+    }
+
+    of(context: Answerable<unknown>): Question<Promise<string>> & MetaQuestion<any, Question<Promise<string>>> {
+        return new FormattedValue(
+            this.formatter,
+            Question.isAMetaQuestion(this.context)
+                ? this.context.of(context)
+                : context,
+        );
+    }
+}
+
+class ValueFormatter {
+    constructor(private readonly options: { maxLength: number }) {
+    }
+
+    format(value: unknown): string {
+        if (value === null) {
+            return 'null';
+        }
+
+        if (value === undefined) {
+            return 'undefined';
+        }
+
+        if (typeof value === 'string') {
+            return `"${ this.trim(value) }"`;
+        }
+
+        if (typeof value === 'symbol') {
+            return `Symbol(${ this.trim(value.description) })`;
+        }
+
+        if (typeof value === 'bigint') {
+            return `${ this.trim(value.toString()) }`;
+        }
+
+        if (ValueInspector.isPromise(value)) {
+            return 'Promise';
+        }
+
+        if (Array.isArray(value)) {
+            return `[ ${ this.trim(value.map(item => this.format(item)).join(', ')) } ]`;
+        }
+
+        if (value instanceof Map) {
+            return `Map(${ this.format(Object.fromEntries(value.entries())) })`;
+        }
+
+        if (value instanceof Set) {
+            return `Set(${ this.format(Array.from(value.values())) })`;
+        }
+
+        if (ValueInspector.isDate(value)) {
+            return `Date(${ value.toISOString() })`;
+        }
+
+        if (value instanceof RegExp) {
+            return `${ value }`;
+        }
+
+        if (ValueInspector.hasItsOwnToString(value)) {
+            return `${ this.trim(value.toString()) }`;
+        }
+
+        if (ValueInspector.isPlainObject(value)) {
+            const stringifiedEntries = Object
+                .entries(value)
+                .reduce((acc, [ key, value ]) => acc.concat(`${ key }: ${ this.format(value) }`), [])
+                .join(', ');
+
+            return `{ ${ this.trim(stringifiedEntries) } }`;
+        }
+
+        if (typeof value === 'object') {
+            const entries = significantFieldsOf(value)
+                .map(field => [ field, (value as any)[field] ]);
+            return `${ value.constructor.name }(${ this.format(Object.fromEntries(entries)) })`;
+        }
+
+        return String(value);
+    }
+
+    private trim(value: string): string {
+        const ellipsis = '...';
+        const oneLiner = value.replaceAll(/\n+/g, ' ');
+        return oneLiner.length > this.options.maxLength
+            ? `${ oneLiner.slice(0, Math.max(0, this.options.maxLength) - ellipsis.length) }${ ellipsis }`
+            : oneLiner;
+    }
 }

@@ -20,6 +20,15 @@ describe('Question', () => {
 
     describe('about()', () => {
 
+        it('correctly detects its invocation location', () => {
+            const question = () => Question.about('subject', actor_ => 42);
+            const location = question().instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Question.spec.ts');
+            expect(location.line).to.equal(25);
+            expect(location.column).to.equal(30);
+        });
+
         describe('creates a question which', () => {
 
             describe('body', () => {
@@ -45,6 +54,8 @@ describe('Question', () => {
 
             describe('subject', () => {
 
+                const newDescription = 'a different subject';
+
                 it('can be defined at the same time as the question body', () => {
                     const ExampleQuestion = () =>
                         Question.about('some subject', (actor: Actor) => 'some return value');
@@ -58,6 +69,31 @@ describe('Question', () => {
 
                     expect(ExampleQuestion().describedAs('a different subject').toString())
                         .to.equal('a different subject');
+                });
+
+                given([
+                    { description: 'string',            subject: newDescription,                  expectedToString: newDescription },
+                    { description: 'Promise',           subject: p(newDescription),               expectedToString: 'Promise' },
+                    { description: 'Question',          subject: q('subject', newDescription),    expectedToString: 'subject' },
+                    { description: 'Question<Promise>', subject: q('subject', p(newDescription)), expectedToString: 'subject' },
+                ]).
+                it('can be described using an Answerable', async ({ subject, expectedToString }) => {
+                    const ExampleQuestion = () =>
+                        Question.about(subject, actor_ => 'some return value');
+
+                    expect(ExampleQuestion().toString()).to.equal(expectedToString);
+                    expect(await ExampleQuestion().describedBy(Quentin)).to.equal(newDescription);
+                });
+
+                it('can be described using a MetaQuestion', async () => {
+                    const ExampleQuestion = () =>
+                        Question.about('original subject', actor_ => 'some return value')
+                            .describedAs(Question.formattedValue());
+
+                    expect(ExampleQuestion().toString()).to.equal(`original subject`);
+
+                    const description = await ExampleQuestion().describedBy(Quentin);
+                    expect(description).to.equal('"some return value"');
                 });
 
                 it('is returned when the question is used in a template literal', () => {
@@ -102,7 +138,6 @@ describe('Question', () => {
                     expect(question.toString())
                         .to.equal('<<greeting>>.slice(<<start index>>, <<Promise>>).toLocaleLowerCase(<<locale>>).length');
                 });
-
             });
 
             describe('answer', () => {
@@ -142,15 +177,6 @@ describe('Question', () => {
                     expect(result).to.deep.equal([ 1, 2, 3 ]);
                     expect(subject).to.equal('<<list of strings>>.as(numbers)');
                 });
-            });
-
-            it('correctly detects its invocation location', () => {
-                const question = () => Question.about('subject', actor_ => 42);
-                const location = question().instantiationLocation();
-
-                expect(location.path.basename()).to.equal('Question.spec.ts');
-                expect(location.line).to.equal(149);
-                expect(location.column).to.equal(34);
             });
 
             it('allows for proxying of the underlying methods', async () => {

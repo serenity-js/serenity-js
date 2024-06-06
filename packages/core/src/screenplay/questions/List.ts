@@ -16,7 +16,7 @@ import { ExpectationMet } from './expectations';
  *
  * @group Questions
  */
-export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
+export abstract class List<Item_Type> extends Question<Promise<Array<Item_Type>>> {
     protected subject?: string;
 
     static of<IT, CT, RQT extends (Question<Promise<Array<IT>>> | Question<Array<IT>>)>(collection: Answerable<Array<IT>> & ChainableMetaQuestion<CT, RQT>): MetaList<CT, IT>;
@@ -30,7 +30,7 @@ export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
     }
 
     constructor(protected readonly collection: Answerable<Array<Item_Type>>) {
-        super();
+        super(d`${ collection }`);
     }
 
     forEach(callback: (current: CurrentItem<Item_Type>, index: number, items: Array<Item_Type>) => Promise<void> | void): Task {
@@ -62,15 +62,6 @@ export abstract class List<Item_Type> extends Question<Promise<Item_Type[]>> {
         }
 
         return collection;
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject ?? d`${ this.collection }`;
     }
 
     /**
@@ -287,21 +278,17 @@ export class MetaList<Supported_Context_Type, Item_Type>
 class Where<Item_Type, Answer_Type>
     extends Question<Promise<Array<Item_Type>>>
 {
-    private subject: string;
-
     constructor(
         protected readonly collection: Answerable<Array<Item_Type>>,
         protected readonly question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
         protected readonly expectation: Expectation<Answer_Type>,
         originalSubject: string,
     ) {
-        super();
-
-        const prefix = this.collection instanceof Where
+        const prefix = collection instanceof Where
             ? ' and'
             : ' where';
 
-        this.subject = originalSubject + prefix + d` ${ question } does ${ expectation }`;
+        super(originalSubject + prefix + d` ${ question } does ${ expectation }`);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
@@ -319,18 +306,10 @@ class Where<Item_Type, Answer_Type>
             }
 
             return results;
-        } catch (error) {
+        }
+        catch (error) {
             throw new LogicError(d`Couldn't check if ${ this.question } of an item of ${ this.collection } does ${ this.expectation }: ` + error.message, error);
         }
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
     }
 }
 
@@ -356,16 +335,12 @@ class MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>
  */
 class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<Mapped_Item_Type>>> {
 
-    private subject: string;
-
     constructor(
         protected readonly collection: Answerable<Array<Item_Type>>,
         protected readonly mapping: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>,
         originalSubject: string,
     ) {
-        super();
-
-        this.subject = originalSubject + d` mapped to ${ this.mapping }`;
+        super(originalSubject + d` mapped to ${ mapping }`);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Mapped_Item_Type>> {
@@ -378,15 +353,6 @@ class EachMappedTo<Item_Type, Mapped_Item_Type> extends Question<Promise<Array<M
         }
 
         return mapped;
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
     }
 }
 

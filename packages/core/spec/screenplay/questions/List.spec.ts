@@ -705,7 +705,7 @@ class ObjectKeys
     private subject?: string;
 
     constructor(private readonly jsonObject: Answerable<JSONObject>) {
-        super();
+        super(d`${ jsonObject }`);
     }
 
     of(context: Answerable<string>): Question<Promise<string[]>> & ChainableMetaQuestion<string, Question<Promise<string[]>>> {
@@ -722,15 +722,6 @@ class ObjectKeys
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<any>> {
         const jsonObject = await actor.answer(this.jsonObject);
         return Object.keys(jsonObject);
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject ?? d`${ this.jsonObject }`
     }
 }
 

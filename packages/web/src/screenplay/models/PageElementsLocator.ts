@@ -1,4 +1,4 @@
-import type { Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities  } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities } from '@serenity-js/core';
 import { d, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
@@ -24,10 +24,8 @@ export class PageElementsLocator<Native_Element_Type = any>
         );
     }
 
-    private subject?: string;
-
     constructor(private readonly locator: Answerable<Locator<Native_Element_Type>>) {
-        super();
+        super(d`${ locator }`);
     }
 
     of(parent: Answerable<PageElement<Native_Element_Type>>): Question<Promise<Array<PageElement<Native_Element_Type>>>> & ChainableMetaQuestion<PageElement<Native_Element_Type>, Question<Promise<Array<PageElement<Native_Element_Type>>>>> {
@@ -44,14 +42,5 @@ export class PageElementsLocator<Native_Element_Type = any>
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<PageElement<Native_Element_Type>>> {
         const resolved: Locator<Native_Element_Type> = await actor.answer(this.locator);
         return resolved.allElements();
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject ?? d`${ this.locator }`;
     }
 }

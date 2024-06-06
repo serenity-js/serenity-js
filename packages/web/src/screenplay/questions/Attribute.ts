@@ -99,8 +99,6 @@ export class Attribute<Native_Element_Type>
     extends Question<Promise<string>>
     implements MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<string>>>, Optional
 {
-    private subject: string;
-
     /**
      * Instantiates a {@apilink Question} that uses
      * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
@@ -117,10 +115,10 @@ export class Attribute<Native_Element_Type>
         private readonly name: Answerable<string>,
         private readonly element?: QuestionAdapter<PageElement> | PageElement,
     ) {
-        super();
-        this.subject = element
+        super(element
             ? d`${ name } attribute of ${ element }`
             : d`${ name } attribute`
+        );
     }
 
     /**
@@ -161,24 +159,9 @@ export class Attribute<Native_Element_Type>
      * @inheritDoc
      */
     isPresent(): QuestionAdapter<boolean> {
-        return Question.about(this.subject, async actor => {
+        return Question.about(this.toString(), async actor => {
             const attribute = await this.answeredBy(actor);
             return attribute !== null && attribute !== undefined;
         });
-    }
-
-    /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
     }
 }

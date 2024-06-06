@@ -4,7 +4,7 @@ import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
 import { ErrorFactory, ImplementationPendingError } from '../../src/errors';
-import { Actor, type Answerable, Clock, Duration, Interaction, Question, Task } from '../../src/screenplay';
+import { Actor, Clock, Duration, Interaction, Question, Task } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
 import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
@@ -122,51 +122,6 @@ describe('Task', () => {
                 const description = await task().describedBy(Lara);
 
                 expect(description).to.equal(expected);
-            });
-        });
-
-        describe('describedAs()', () => {
-
-            const trim = (maxLength: number) => ({
-                of: (inputDescription: Answerable<string>) =>
-                    Question.about(`trimmed to ${ maxLength } characters value of ${ inputDescription }`, async actor => {
-                        const result = await actor.answer(inputDescription);
-                        return result.slice(0, maxLength);
-                    })
-            });
-
-            const newDescription = '#actor does something new';
-
-            given([
-                { description: 'string',                    input: description,                        replacement: newDescription,                        expectedToString: newDescription  },
-                { description: 'Promise<string>',           input: p(description),                     replacement: p(newDescription),                     expectedToString: 'Promise'       },
-                { description: 'Question<string>',          input: q('some question', description),    replacement: q('some question', newDescription),    expectedToString: 'some question' },
-                { description: 'Question<Promise<string>>', input: q('some question', p(description)), replacement: q('some question', p(newDescription)), expectedToString: 'some question' },
-            ]).
-            it('changes the description of the interaction to a new value', async ({ input, replacement, expectedToString }) => {
-                const task = () =>
-                    Task.where(input);
-
-                const modifiedInteraction = task().describedAs(replacement);
-
-                expect(await modifiedInteraction.describedBy(Lara)).to.equal('Lara does something new');
-                expect(modifiedInteraction.toString()).to.equal(expectedToString);
-            });
-
-            given([
-                { description: 'string',                    input: description,                        expectedToString: 'trimmed to 16 characters value of #actor interacts with the system'   },
-                { description: 'Promise<string>',           input: p(description),                     expectedToString: 'trimmed to 16 characters value of [object Promise]'                   },
-                { description: 'Question<string>',          input: q('some question', description),    expectedToString: 'trimmed to 16 characters value of some question'                      },
-                { description: 'Question<Promise<string>>', input: q('some question', p(description)), expectedToString: 'trimmed to 16 characters value of some question'                      },
-            ]).
-            it('modifies the description of the interaction using a MetaQuestion', async ({ input, expectedToString }) => {
-                const task = () =>
-                    Task.where(input);
-
-                const modifiedInteraction = task().describedAs(trim(16));
-
-                expect(await modifiedInteraction.describedBy(Lara)).to.equal('Lara interacts');
-                expect(modifiedInteraction.toString()).to.equal(expectedToString);
             });
         });
     });

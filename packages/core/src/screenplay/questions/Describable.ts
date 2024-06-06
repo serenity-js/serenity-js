@@ -1,9 +1,7 @@
 import { ValueInspector } from '../../io/reflection/ValueInspector';
 import type { UsesAbilities } from '../abilities/UsesAbilities';
 import type { Answerable } from '../Answerable';
-import { Question } from '../Question';
 import type { AnswersQuestions } from './AnswersQuestions';
-import type { MetaQuestion } from './MetaQuestion';
 
 const descriptionField = Symbol('description');
 
@@ -29,21 +27,8 @@ export abstract class Describable {
         return description.replaceAll('#actor', actor.name);
     }
 
-    /**
-     * Changes the description of this object, as returned by {@apilink Describable.describedBy}
-     * and {@apilink Describable.toString}.
-     *
-     * @param description
-     *  Replaces the current description according to the following rules:
-     *  - If `description` is an {@apilink Answerable}, it replaces the current description
-     *  - If `description` is a {@apilink MetaQuestion}, the current description is passed as `context` to `description.of(context)`, and the result replaces the current description
-     */
-    describedAs(description: Answerable<string> | MetaQuestion<any, Question<Promise<string>>>): this {
-        this[descriptionField] = Question.isAMetaQuestion(description)
-            ? description.of(this[descriptionField]) // .describedAs(String(this[descriptionField]))
-            : description
-
-        return this;
+    protected setDescription(description: Answerable<string>): void {
+        this[descriptionField] = description;
     }
 
     /**
