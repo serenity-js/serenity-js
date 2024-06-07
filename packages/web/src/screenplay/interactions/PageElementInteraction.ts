@@ -14,7 +14,7 @@ import type { PageElement } from '../models';
  */
 export abstract class PageElementInteraction extends Interaction {
 
-    protected constructor(description: string, location: FileSystemLocation = Interaction.callerLocation(4)) {
+    protected constructor(description: Answerable<string>, location: FileSystemLocation = Interaction.callerLocation(4)) {
         super(description, location);
     }
 
