@@ -208,6 +208,20 @@ describe('List', () => {
             expect(result).to.deep.equal(['Alice', 'Arbnor', 'Bob']);
         });
 
+        it('supports Question.formattedValue()', async () => {
+            const list = List.of(accounts);
+
+            const result = await list
+                .eachMappedTo(Question.formattedValue({ maxLength: 20 }))
+                .answeredBy(Fiona)
+
+            expect(result).to.deep.equal([
+                `{ id: 1, name: "Alice" }`,
+                `{ id: 2, name: "Arb... }`,
+                `{ id: 3, name: "Bob" }`,
+            ]);
+        });
+
         it('describes MetaQuestion used to map the items', () => {
             const list = List.of(accounts);
 
@@ -334,7 +348,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(333);
+            expect(location.line).to.equal(347);
             expect(location.column).to.equal(18);
         });
     });
