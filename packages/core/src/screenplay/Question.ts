@@ -11,6 +11,7 @@ import { Interaction } from './Interaction';
 import type { Optional } from './Optional';
 import type { AnswersQuestions } from './questions/AnswersQuestions';
 import { Describable } from './questions/Describable';
+import type { DescriptionFormattingOptions } from './questions/DescriptionFormattingOptions';
 import type { MetaQuestion } from './questions/MetaQuestion';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
@@ -130,18 +131,18 @@ export abstract class Question<T> extends Describable {
      * @param [metaQuestionBody]
      */
     static about<Answer_Type, Supported_Context_Type>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => Question<Promise<Answer_Type>> | Question<Answer_Type>,
     ): MetaQuestionAdapter<Supported_Context_Type, Awaited<Answer_Type>>
 
     static about<Answer_Type>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type
     ): QuestionAdapter<Awaited<Answer_Type>>
 
     static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
-        description: string,
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody?: (answerable: Supported_Context_Type) => QuestionAdapter<Answer_Type>,
     ): any
@@ -241,9 +242,23 @@ export abstract class Question<T> extends Describable {
      * Generates a {@apilink QuestionAdapter} that resolves
      * any {@apilink Answerable} elements of the provided array.
      */
-    static fromArray<Source_Type>(source: Array<Answerable<Source_Type>>): QuestionAdapter<Source_Type[]> {
-        return Question.about<Source_Type[]>('value', async actor => {
-            return await asyncMap<Answerable<Source_Type>, Source_Type>(source, async item => actor.answer(item));
+    static fromArray<Source_Type>(source: Array<Answerable<Source_Type>>, options?: DescriptionFormattingOptions): QuestionAdapter<Source_Type[]> {
+        const formatter = new ValueFormatter(FormattedValue.defaultOptions);
+
+        const description = source.length === 0
+            ? '[ ]'
+            : Question.about(formatter.format(source), async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {
+                const descriptions = await asyncMap(source, item =>
+                    item instanceof Describable
+                        ? item.describedBy(actor)
+                        : Question.formattedValue(options).of(item).answeredBy(actor)
+                );
+
+                return `[ ${ descriptions.join(', ') } ]`;
+            });
+
+        return Question.about<Source_Type[]>(description, async actor => {
+            return await asyncMap<Answerable<Source_Type>, Source_Type>(source, item => actor.answer(item));
         });
     }
 
@@ -270,7 +285,28 @@ export abstract class Question<T> extends Describable {
             && maybeMetaQuestion['of'].length === 1;            // arity of 1
     }
 
-    static formattedValue(options?: { maxLength: number }): MetaQuestion<any, Question<Promise<string>>> {
+    /**
+     * Generates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
+     * to produce a single-line description of its value.
+     *
+     * ```ts
+     * import { actorCalled, Question } from '@serenity-js/core'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * const accountDetails = () =>
+     *  Question.about('account details', actor => ({ name: 'Alice', age: 28 }))
+     *
+     * await actorCalled('Alice').attemptsTo(
+     *   Ensure.that(
+     *     Question.formattedValue().of(accountDetails()),
+     *     equals('{ name: "Alice", age: 28 }'),
+     *   ),
+     * )
+     * ```
+     *
+     * @param options
+     */
+    static formattedValue(options?: DescriptionFormattingOptions): MetaQuestion<any, Question<Promise<string>>> {
         return FormattedValue.using(options);
     }
 
@@ -510,7 +546,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     private answer: Answer_Type | Unanswered = new Unanswered();
 
     constructor(
-        private subject: string,
+        subject: Answerable<string>,
         private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         location: FileSystemLocation = QuestionStatement.callerLocation(4),
     ) {
@@ -569,7 +605,7 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
     implements MetaQuestion<Supported_Context_Type, QuestionAdapter<Answer_Type>>
 {
     constructor(
-        subject: string,
+        subject: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         private readonly metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => QuestionAdapter<Answer_Type>,
     ) {
@@ -679,7 +715,7 @@ class FormattedValue<Supported_Context_Type>
         return new FormattedValue(new ValueFormatter(FormattedValue.defaultOptions), context);
     }
 
-    static using<SCT>(options?: { maxLength: number }): MetaQuestion<SCT, Question<Promise<string>>> {
+    static using<SCT>(options?: DescriptionFormattingOptions): MetaQuestion<SCT, Question<Promise<string>>> {
         return new FormattedValue(new ValueFormatter({
             ...FormattedValue.defaultOptions,
             ...options,
@@ -716,7 +752,7 @@ class FormattedValue<Supported_Context_Type>
 }
 
 class ValueFormatter {
-    constructor(private readonly options: { maxLength: number }) {
+    constructor(private readonly options: DescriptionFormattingOptions) {
     }
 
     format(value: unknown): string {
@@ -745,7 +781,9 @@ class ValueFormatter {
         }
 
         if (Array.isArray(value)) {
-            return `[ ${ this.trim(value.map(item => this.format(item)).join(', ')) } ]`;
+            return value.length === 0
+                ? '[ ]'
+                : `[ ${ this.trim(value.map(item => this.format(item)).join(', ')) } ]`;
         }
 
         if (value instanceof Map) {
@@ -789,8 +827,11 @@ class ValueFormatter {
     private trim(value: string): string {
         const ellipsis = '...';
         const oneLiner = value.replaceAll(/\n+/g, ' ');
-        return oneLiner.length > this.options.maxLength
-            ? `${ oneLiner.slice(0, Math.max(0, this.options.maxLength) - ellipsis.length) }${ ellipsis }`
+
+        const maxLength = Math.max(ellipsis.length + 1, this.options.maxLength);
+
+        return oneLiner.length > maxLength
+            ? `${ oneLiner.slice(0, Math.max(0, maxLength) - ellipsis.length) }${ ellipsis }`
             : oneLiner;
     }
 }
