@@ -4,7 +4,7 @@ import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
 import { ErrorFactory, ImplementationPendingError } from '../../src/errors';
-import { Actor, Clock, Duration, Interaction, Question, Task } from '../../src/screenplay';
+import { Actor, Answerable, Clock, Duration, Interaction, Masked, Question, Task, the } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
 import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
@@ -122,6 +122,50 @@ describe('Task', () => {
                 const description = await task().describedBy(Lara);
 
                 expect(description).to.equal(expected);
+            });
+
+            it('replaces any placeholders with their descriptions', async () => {
+                const systemUnderTest = (name: Answerable<string>) =>
+                    Question.about('system under test', actor_ => name)
+                        .describedAs(Question.formattedValue());
+
+                const interactWith = (environmentName: Answerable<string>) =>
+                    Task.where(the`#actor interacts with ${ systemUnderTest(environmentName) }`);
+
+                const task = interactWith('prod');
+
+                const description = await task.describedBy(Lara);
+                const toString    = task.toString();
+
+                expect(description).to.equal('Lara interacts with "prod"');
+                expect(toString).to.equal('#actor interacts with system under test');
+            });
+
+            describe('with masked values', () => {
+
+                it('masks the value in the description', async () => {
+                    const task = Task.where(the`#actor enters ${ Masked.valueOf(`password`) }`);
+
+                    const description = await task.describedBy(Lara);
+                    const toString    = task.toString();
+
+                    expect(description).to.equal(`Lara enters [a masked value]`);
+                    expect(toString).to.equal(`#actor enters [a masked value]`);
+                });
+
+                it(`masks the value in the description when it's nested in an object`, async () => {
+                    const taskDescription = the`#actor enters ${ { password: Masked.valueOf(`password`) } }`;
+                    const task = Task.where(taskDescription);
+
+                    expect(task.toString()).to.equal(`#actor enters { password: [a masked value] }`);
+                });
+
+                it(`masks the value in the description when it's nested in an array`, async () => {
+                    const taskDescription = the`#actor enters ${ [ Masked.valueOf(`password`) ] }`;
+                    const task = Task.where(taskDescription);
+
+                    expect(task.toString()).to.equal(`#actor enters [ [a masked value] ]`);
+                });
             });
         });
     });

@@ -31,11 +31,11 @@ import type { Answerable } from './Answerable';
  * ## Defining a task
  *
  * ```ts
- * import { Answerable, Task, d } from '@serenity-js/core'
+ * import { Answerable, Task, the } from '@serenity-js/core'
  * import { By, Click, Enter, PageElement, Press, Key } from '@serenity-js/web'
  *
  * const SignIn = (username: Answerable<string>, password: Answerable<string>) =>
- *   Task.where(d`#actor signs is as ${ username }`,
+ *   Task.where(the`#actor signs is as ${ username }`,
  *     Enter.theValue(username).into(PageElement.located(By.id('username'))),
  *     Enter.theValue(password).into(PageElement.located(By.id('password'))),
  *     Press.the(Key.Enter),
@@ -51,11 +51,11 @@ import type { Answerable } from './Answerable';
  * but you're not yet sure what activities it will involve.
  *
  * ```ts
- * import { Task } from '@serenity-js/core'
+ * import { Task, the } from '@serenity-js/core'
  *
  * const SignUp = () =>
- *     Task.where(`#actor signs up for a newsletter`) // no activities provided
- *                                                    // => task marked as pending
+ *     Task.where(the`#actor signs up for a newsletter`) // no activities provided
+ *                                                       // => task marked as pending
  * ```
  *
  * ## Composing activities into tasks
@@ -75,10 +75,10 @@ import type { Answerable } from './Answerable';
  * The easiest way to implement such task, and any custom Serenity/JS task for this matter, is to use the {@apilink Task.where} method to compose the lower-level activities:
  *
  * ```typescript
- * import { Task } from '@serenity-js/core'
+ * import { Task, the } from '@serenity-js/core'
  *
  * const findFlight = (originCity: string, destinationCity: string) =>
- *     Task.where(`#actors finds a flight from ${ originCity } to ${ destinationCity }`,   // task goal
+ *     Task.where(the`#actor finds a flight from ${ originCity } to ${ destinationCity }`,   // task goal
  *         specifyOriginCity(originCity),                                                  // activities
  *         specifyDestinationCity(originCity),
  *     )
@@ -100,20 +100,20 @@ import type { Answerable } from './Answerable';
  * which we can incorporate into our task definitions just like any other activities:
  *
  * ```typescript
- * import { Task } from '@serenity-js/core'
+ * import { Task, the } from '@serenity-js/core'
  * import { Click, Enter, Key, Press } from '@serenity-js/web'
  *
  * import { FlightFinder } from './ui/flight-finder'
  *
  * const specifyOriginCity = (originCity: string) =>
- *     Task.where(`#actor specifies origin city of ${ originCity }`,
+ *     Task.where(the`#actor specifies origin city of ${ originCity }`,
  *         Click.on(FlightFinder.originAirport),
  *         Enter.theValue(originCity).into(FlightFinder.originAirport),
  *         Press.the(Key.ArrowDown, Key.Enter).into(FlightFinder.originAirport),
  *     )
  *
  * const specifyDestinationCity = (destinationCity: string) =>
- *     Task.where(`#actor specifies destination city of ${ destinationCity }`,
+ *     Task.where(the`#actor specifies destination city of ${ destinationCity }`,
  *         Click.on(FlightFinder.destinationAirport),
  *         Enter.theValue(destinationCity).into(FlightFinder.destinationAirport),
  *         Press.the(Key.ArrowDown, Key.Enter).into(FlightFinder.destinationAirport),
@@ -126,23 +126,23 @@ import type { Answerable } from './Answerable';
  * by **extracting a parameterised task**, in this case called `specifyCity`:
  *
  * ```typescript
- * import { Task } from '@serenity-js/core'
+ * import { Task, the } from '@serenity-js/core'
  * import { Click, Enter, Key, PageElement, Press } from '@serenity-js/web'
  *
  * import { FlightFinder } from './ui/flight-finder'
  *
  * const specifyOriginCity = (originCity: string) =>
- *     Task.where(`#actor specifies origin city of ${ originCity }`,
+ *     Task.where(the`#actor specifies origin city of ${ originCity }`,
  *         specifyCity(originCity, FlightFinder.originAirport)
  *     )
  *
  * const specifyDestinationCity = (destinationCity: string) =>
- *     Task.where(`#actor specifies destination city of ${ destinationCity }`,
+ *     Task.where(the`#actor specifies destination city of ${ destinationCity }`,
  *         specifyCity(destinationCity, FlightFinder.destinationAirport),
  *     )
  *
  * const specifyCity = (cityName: string, widget: PageElement) =>
- *     Task.where(`#actor specifies city of ${ cityName } in ${ widget }`,
+ *     Task.where(the`#actor specifies city of ${ cityName } in ${ widget }`,
  *         Click.on(widget),
  *         Enter.theValue(cityName).into(widget),
  *         Press.the(Key.ArrowDown, Key.Enter).into(widget),
