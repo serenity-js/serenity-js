@@ -583,6 +583,51 @@ describe('Question', () => {
 
                 expect(answer).to.deep.equal(input);
             });
+
+            given([
+                { description: 'empty array' ,  input: [ ],         expectedToString: '[ ]',         expectedDescription: '[ ]'         },
+                { description: 'flat array',    input: [ 'value' ], expectedToString: '[ "value" ]', expectedDescription: '[ "value" ]' },
+            ]).
+            it('is described using array values', async ({ input, expectedToString, expectedDescription }) => {
+
+                const question  = Question.fromArray(input);
+
+                const description = await question.describedBy(Quentin);
+                const toString    = question.toString();
+
+                expect(description).to.equal(expectedDescription);
+                expect(toString).to.equal(expectedToString);
+            });
+
+            given([
+                { description: 'empty array' ,  input: [ ],         expectedToString: '[ ]',         expectedDescription: '[ ]'       },
+                { description: 'flat array',    input: [ 'value' ], expectedToString: '[ "value" ]', expectedDescription: '[ "v..." ]' },
+            ]).
+            it('supports configuring the descriptions of items individually', async ({ input, expectedToString, expectedDescription }) => {
+
+                const question  = Question.fromArray(input, { maxLength: 4 });
+
+                const description = await question.describedBy(Quentin);
+                const toString    = question.toString();
+
+                expect(description).to.equal(expectedDescription);
+                expect(toString).to.equal(expectedToString);
+            });
+
+            given([
+                { description: 'empty array' ,  input: [ ],         expectedToString: '[ ]',         expectedDescription: '[ ]'       },
+                { description: 'flat array',    input: [ 'value' ], expectedToString: '[ "value" ]', expectedDescription: '[ "va... ]' },
+            ]).
+            it('supports configuring the description of the output as a whole', async ({ input, expectedToString, expectedDescription }) => {
+
+                const question  = Question.fromArray(input).describedAs(Question.formattedValue({  maxLength: 6 }));
+
+                const description = await question.describedBy(Quentin);
+                const toString    = question.toString();
+
+                expect(description).to.equal(expectedDescription);
+                expect(toString).to.equal(expectedToString);
+            });
         });
     });
 });

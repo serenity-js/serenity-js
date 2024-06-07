@@ -186,6 +186,23 @@ describe('Question.formattedValue', () => {
             expect(answer).to.equal(expected);
             expect(description).to.equal(expected);
         });
+
+        it('adds ellipsis only when the string is at least 4 characters long', async () => {
+            const value     = 'Mal';
+            const maxLength = 2;
+            const expected  = '"Mal"';
+
+            const question = Question.formattedValue({ maxLength }).of(value);
+
+            const toString      = question.toString();
+
+            const answer        = await question.answeredBy(actor);
+            const description   = await question.describedBy(actor);
+
+            expect(toString).to.equal(expected);
+            expect(answer).to.equal(expected);
+            expect(description).to.equal(expected);
+        });
     });
 });
 
