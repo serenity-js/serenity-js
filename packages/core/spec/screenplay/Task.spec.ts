@@ -4,7 +4,7 @@ import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
 import { ErrorFactory, ImplementationPendingError } from '../../src/errors';
-import { Actor, Answerable, Clock, Duration, Interaction, Masked, Question, Task, the } from '../../src/screenplay';
+import { Actor, type Answerable, Clock, Duration, Interaction, Masked, Question, Task, the } from '../../src/screenplay';
 import { Stage, StageManager } from '../../src/stage';
 import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
