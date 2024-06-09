@@ -2,7 +2,7 @@
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { type Actor, Cast, Question, type QuestionAdapter, Serenity, the } from '../../../src';
+import { type Actor, Cast, Masked, Question, type QuestionAdapter, Serenity, Task, the } from '../../../src';
 import { expect } from '../../expect';
 
 function p<T>(value: T): Promise<T> {
@@ -60,15 +60,15 @@ describe('the', () => {
 
         const examples = [
             // Primitive values
-            { description: 'string',        value: 'string',                    expectedAnswer: `#actor enters "string"`,      expectedDescription: `Tess enters "string"`,      expectedToString: `#actor enters "string"`,     },
-            { description: 'number',        value: 123,                         expectedAnswer: `#actor enters 123`,           expectedDescription: `Tess enters 123`,           expectedToString: `#actor enters 123`,          },
-            { description: 'NaN',           value: Number.NaN,                  expectedAnswer: `#actor enters NaN`,           expectedDescription: `Tess enters NaN`,           expectedToString: `#actor enters NaN`,          },
-            { description: 'Infinity',      value: Number.POSITIVE_INFINITY,    expectedAnswer: `#actor enters Infinity`,      expectedDescription: `Tess enters Infinity`,      expectedToString: `#actor enters Infinity`,     },
-            { description: 'bigint',        value: BigInt(123),                 expectedAnswer: `#actor enters 123`,           expectedDescription: `Tess enters 123`,           expectedToString: `#actor enters 123`,          },
-            { description: 'boolean',       value: false,                       expectedAnswer: `#actor enters false`,         expectedDescription: `Tess enters false`,         expectedToString: `#actor enters false`,        },
-            { description: 'undefined',     value: undefined,                   expectedAnswer: `#actor enters undefined`,     expectedDescription: `Tess enters undefined`,     expectedToString: `#actor enters undefined`,    },
-            { description: 'symbol',        value: Symbol('abc'),               expectedAnswer: `#actor enters Symbol(abc)`,   expectedDescription: `Tess enters Symbol(abc)`,   expectedToString: `#actor enters Symbol(abc)`,  },
-            { description: 'null',          value: null,                        expectedAnswer: `#actor enters null`,          expectedDescription: `Tess enters null`,          expectedToString: `#actor enters null`,         },
+            { description: 'string',        value: 'string',                    expectedAnswer: `#actor enters "string"`,      expectedDescription: `Tess enters "string"`,         expectedToString: `#actor enters "string"`,         },
+            { description: 'number',        value: 123,                         expectedAnswer: `#actor enters 123`,           expectedDescription: `Tess enters 123`,              expectedToString: `#actor enters 123`,              },
+            { description: 'NaN',           value: Number.NaN,                  expectedAnswer: `#actor enters NaN`,           expectedDescription: `Tess enters NaN`,              expectedToString: `#actor enters NaN`,              },
+            { description: 'Infinity',      value: Number.POSITIVE_INFINITY,    expectedAnswer: `#actor enters Infinity`,      expectedDescription: `Tess enters Infinity`,         expectedToString: `#actor enters Infinity`,         },
+            { description: 'bigint',        value: BigInt(123),                 expectedAnswer: `#actor enters 123`,           expectedDescription: `Tess enters 123`,              expectedToString: `#actor enters 123`,              },
+            { description: 'boolean',       value: false,                       expectedAnswer: `#actor enters false`,         expectedDescription: `Tess enters false`,            expectedToString: `#actor enters false`,            },
+            { description: 'undefined',     value: undefined,                   expectedAnswer: `#actor enters undefined`,     expectedDescription: `Tess enters formatted value`,  expectedToString: `#actor enters formatted value`,  },
+            { description: 'symbol',        value: Symbol('abc'),               expectedAnswer: `#actor enters Symbol(abc)`,   expectedDescription: `Tess enters Symbol(abc)`,      expectedToString: `#actor enters Symbol(abc)`,      },
+            { description: 'null',          value: null,                        expectedAnswer: `#actor enters null`,          expectedDescription: `Tess enters null`,             expectedToString: `#actor enters null`,             },
 
             // Promised primitive values
             { description: 'Promise<string>',       value: p('string'),         expectedAnswer: `#actor enters "string"`,      expectedDescription: `Tess enters Promise`,       expectedToString: `#actor enters Promise` },
@@ -143,6 +143,37 @@ describe('the', () => {
         });
     });
 
+    describe('with meta-questions', () => {
+
+        const examplePayload = Question.about('payload', actor_ => {
+            return { name: 'example' }
+        });
+
+        it('passes the context to each meta-question parameter', async () => {
+            const question = the `#actor sends ${ Question.formattedValue() } and ${ Question.value() }`
+                .of(examplePayload);
+
+            const toString      = question.toString();
+            const description   = await question.describedBy(actor);
+            const answer        = await actor.answer(question);
+
+            expect(toString).to.equal(`#actor sends formatted value and value of payload`);
+            expect(description).to.equal(`Tess sends formatted value and value of payload`);
+            expect(answer).to.equal(`#actor sends { name: "example" } and payload`);
+        });
+
+        it('passes the context to each meta-question parameter when used as a description of an activity', async () => {
+            const task = Task.where(the `#actor sends ${ Question.formattedValue() } and ${ Question.value() }`
+                .of(examplePayload))
+
+            const toString      = task.toString();
+            const description   = await task.describedBy(actor);
+
+            expect(toString).to.equal(`#actor sends formatted value and value of payload`);
+            expect(description).to.equal(`Tess sends { name: "example" } and payload`);
+        });
+    });
+
     describe('with objects', () => {
         class Person {
             constructor(
@@ -175,6 +206,22 @@ describe('the', () => {
             expect(description).to.equal(expectedDescription);
             expect(toString).to.equal(expectedToString);
         });
+    });
+
+    describe('with masked values', () => {
+
+        it('does not reveal the masked value in the description', async () => {
+            const question = the`#actor enters ${ Masked.valueOf('SuperSecretP@ssword!') }`;
+
+            const description = await question.describedBy(actor);
+            const answer      = await actor.answer(question);
+            const toString    = question.toString();
+
+            expect(answer).to.equal('#actor enters [a masked value]');
+            expect(description).to.equal('Tess enters [a masked value]');
+            expect(toString).to.equal('#actor enters [a masked value]');
+        });
+
     });
 
     describe('configuration', () => {

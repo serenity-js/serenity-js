@@ -2,9 +2,8 @@ import { isRecord, significantFieldsOf } from 'tiny-types/lib/objects';
 import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
-import type { FileSystemLocation} from '../io';
-import { ValueInspector } from '../io';
-import { asyncMap, d, f, inspectedObject } from '../io';
+import type { FileSystemLocation } from '../io';
+import { asyncMap, f, inspectedObject, ValueInspector } from '../io';
 import type { UsesAbilities } from './abilities';
 import type { Answerable } from './Answerable';
 import { Interaction } from './Interaction';
@@ -13,6 +12,7 @@ import type { AnswersQuestions } from './questions/AnswersQuestions';
 import { Describable } from './questions/Describable';
 import type { DescriptionFormattingOptions } from './questions/DescriptionFormattingOptions';
 import type { MetaQuestion } from './questions/MetaQuestion';
+import { the } from './questions/the';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
 import type { WithAnswerableProperties } from './WithAnswerableProperties';
@@ -82,16 +82,18 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * const RequestWasSuccessful = () =>
- *   Question.about<number>(`the text of the last response status`, actor => {
- *     return LastResponse.status().answeredBy(actor) === 200;
- *   });
+ *   Question.about<number>(`the text of the last response status`, async actor => {
+ *     const status = await actor.answer(LastResponse.status());
+ *
+ *     return status === 200;
+ *   })
  *
  * await actorCalled('Quentin')
  *   .whoCan(CallAnApi.at('https://api.example.org/'));
  *   .attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
  *     Ensure.that(RequestWasSuccessful(), isTrue()),
- *   );
+ *   )
  * ```
  *
  * Note that the above example is for demonstration purposes only, Serenity/JS provides an easier way to
@@ -107,7 +109,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  *   .attemptsTo(
  *     Send.a(GetRequest.to('/books/0-688-00230-7')),
  *     Ensure.that(LastResponse.status(), equals(200)),
- *   );
+ *   )
  * ```
  *
  * @group Screenplay Pattern
@@ -243,7 +245,7 @@ export abstract class Question<T> extends Describable {
      * any {@apilink Answerable} elements of the provided array.
      */
     static fromArray<Source_Type>(source: Array<Answerable<Source_Type>>, options?: DescriptionFormattingOptions): QuestionAdapter<Source_Type[]> {
-        const formatter = new ValueFormatter(FormattedValue.defaultOptions);
+        const formatter = new ValueFormatter(ValueFormatter.defaultOptions);
 
         const description = source.length === 0
             ? '[ ]'
@@ -286,7 +288,7 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Generates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
+     * Creates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
      * to produce a single-line description of its value.
      *
      * ```ts
@@ -294,7 +296,7 @@ export abstract class Question<T> extends Describable {
      * import { Ensure, equals } from '@serenity-js/assertions'
      *
      * const accountDetails = () =>
-     *  Question.about('account details', actor => ({ name: 'Alice', age: 28 }))
+     *   Question.about('account details', actor => ({ name: 'Alice', age: 28 }))
      *
      * await actorCalled('Alice').attemptsTo(
      *   Ensure.that(
@@ -307,7 +309,38 @@ export abstract class Question<T> extends Describable {
      * @param options
      */
     static formattedValue(options?: DescriptionFormattingOptions): MetaQuestion<any, Question<Promise<string>>> {
-        return FormattedValue.using(options);
+        return MetaQuestionAboutFormattedValue.using(options);
+    }
+
+    /**
+     * Creates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
+     * to return its value when the answerable is a {@apilink Question},
+     * or the answerable itself otherwise.
+     *
+     * The description of the resulting question is produced by calling {@apilink Question.description} on the
+     * provided answerable.
+     *
+     * ```ts
+     * import { actorCalled, Question } from '@serenity-js/core'
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     *
+     * const accountDetails = () =>
+     *   Question.about('account details', actor => ({ name: 'Alice', age: 28 }))
+     *
+     * await actorCalled('Alice').attemptsTo(
+     *   Ensure.that(
+     *     Question.description().of(accountDetails()),
+     *     equals('account details'),
+     *   ),
+     *   Ensure.that(
+     *     Question.value().of(accountDetails()),
+     *     equals({ name: 'Alice', age: 28 }),
+     *   ),
+     * )
+     * ```
+     */
+    static value<Answer_Type>(): MetaQuestion<Answer_Type, Question<Promise<Answer_Type>>> {
+        return new MetaQuestionAboutValue<Answer_Type>();
     }
 
     protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
@@ -614,7 +647,7 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
 
     of(answerable: Answerable<Supported_Context_Type>): QuestionAdapter<Answer_Type> {
         return Question.about(
-            this.toString() + d` of ${ answerable }`,
+            the`${ this } of ${ answerable }`,
             actor => actor.answer(this.metaQuestionBody(answerable))
         );
     }
@@ -705,28 +738,68 @@ async function recursivelyAnswer<K extends number | string | symbol, V> (
     return answer as Record<K, V>;
 }
 
-class FormattedValue<Supported_Context_Type>
+class MetaQuestionAboutValue<Answer_Type> implements MetaQuestion<Answer_Type, Question<Promise<Answer_Type>>> {
+    of(answerable: Answerable<Answer_Type>): Question<Promise<Answer_Type>> {
+        return new QuestionAboutValue<Answer_Type>(answerable);
+    }
+
+    toString(): string {
+        return 'value';
+    }
+}
+
+class QuestionAboutValue<Answer_Type>
+    extends Question<Promise<Answer_Type>>
+{
+    constructor(private readonly context: Answerable<Answer_Type>) {
+        super(QuestionAboutFormattedValue.of(context).toString());
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
+        return await actor.answer(this.context);
+    }
+}
+
+class MetaQuestionAboutFormattedValue<Supported_Context_Type> implements MetaQuestion<Supported_Context_Type, Question<Promise<string>>> {
+    static using<SCT>(options?: DescriptionFormattingOptions): MetaQuestion<SCT, Question<Promise<string>>> {
+        return new MetaQuestionAboutFormattedValue(new ValueFormatter({
+            ...ValueFormatter.defaultOptions,
+            ...options,
+        }));
+    }
+
+    constructor(private readonly formatter: ValueFormatter) {
+    }
+
+    of(context: Answerable<Supported_Context_Type>): Question<Promise<string>> & MetaQuestion<any, Question<Promise<string>>> {
+        return new QuestionAboutFormattedValue(
+            this.formatter,
+            context,
+        );
+    }
+
+    toString(): string {
+        return 'formatted value';
+    }
+}
+
+class QuestionAboutFormattedValue<Supported_Context_Type>
     extends Question<Promise<string>>
     implements MetaQuestion<any, Question<Promise<string>>>
 {
-    public static readonly defaultOptions = { maxLength: Number.POSITIVE_INFINITY };
-
     static of(context: Answerable<unknown>): Question<Promise<string>> & MetaQuestion<any, Question<Promise<string>>> {
-        return new FormattedValue(new ValueFormatter(FormattedValue.defaultOptions), context);
-    }
-
-    static using<SCT>(options?: DescriptionFormattingOptions): MetaQuestion<SCT, Question<Promise<string>>> {
-        return new FormattedValue(new ValueFormatter({
-            ...FormattedValue.defaultOptions,
-            ...options,
-        }));
+        return new QuestionAboutFormattedValue(new ValueFormatter(ValueFormatter.defaultOptions), context);
     }
 
     constructor(
         private readonly formatter: ValueFormatter,
         private context?: Answerable<Supported_Context_Type>
     ) {
-        super(formatter.format(context));
+        const description = context === undefined
+            ? 'formatted value'
+            : formatter.format(context);
+
+        super(description);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
@@ -742,7 +815,7 @@ class FormattedValue<Supported_Context_Type>
     }
 
     of(context: Answerable<unknown>): Question<Promise<string>> & MetaQuestion<any, Question<Promise<string>>> {
-        return new FormattedValue(
+        return new QuestionAboutFormattedValue(
             this.formatter,
             Question.isAMetaQuestion(this.context)
                 ? this.context.of(context)
@@ -752,6 +825,8 @@ class FormattedValue<Supported_Context_Type>
 }
 
 class ValueFormatter {
+    public static readonly defaultOptions = { maxLength: Number.POSITIVE_INFINITY };
+
     constructor(private readonly options: DescriptionFormattingOptions) {
     }
 

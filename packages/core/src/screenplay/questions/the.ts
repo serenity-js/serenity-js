@@ -1,10 +1,11 @@
 import { asyncMap, ValueInspector } from '../../io';
 import type { UsesAbilities } from '../abilities';
-import type { QuestionAdapter } from '../Question';
+import type { MetaQuestionAdapter, QuestionAdapter } from '../Question';
 import { Question } from '../Question';
 import type { AnswersQuestions } from './AnswersQuestions';
 import { Describable } from './Describable';
 import type { DescriptionFormattingOptions } from './DescriptionFormattingOptions';
+import type { MetaQuestion } from './MetaQuestion';
 
 /**
  * Creates a single-line description of an {@apilink Activity} by transforming
@@ -164,8 +165,8 @@ import type { DescriptionFormattingOptions } from './DescriptionFormattingOption
  *
  * @group Questions
  */
-export function the(options: DescriptionFormattingOptions): (templates: TemplateStringsArray, ...placeholders: Array<any>) => QuestionAdapter<string>
-export function the(templates: TemplateStringsArray, ...parameters: Array<any>): QuestionAdapter<string>
+export function the(options: DescriptionFormattingOptions): <Supported_Context_Type>(templates: TemplateStringsArray, ...placeholders: Array<MetaQuestion<Supported_Context_Type, any> | any>) => MetaQuestionAdapter<Supported_Context_Type, string>
+export function the<Supported_Context_Type>(templates: TemplateStringsArray, ...parameters: Array<MetaQuestion<Supported_Context_Type, any> | any>): MetaQuestionAdapter<Supported_Context_Type, string>
 export function the(...args: any[]): any {
     return ValueInspector.isPlainObject(args[0])
         ? (templates: TemplateStringsArray, ...parameters: Array<any>) =>
@@ -176,15 +177,27 @@ export function the(...args: any[]): any {
 function templateToQuestion(templates: TemplateStringsArray, parameters: Array<any>, options?: DescriptionFormattingOptions): QuestionAdapter<string> {
     const description = interpolate(templates, parameters.map(parameter => Question.formattedValue(options).of(parameter)));
 
-    return Question.about<string>(description, async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {
-        const descriptions = await asyncMap(parameters, parameter => {
-            return parameter instanceof Describable
-                ? parameter.describedBy(actor)
-                : actor.answer(Question.formattedValue(options).of(parameter))
-        });
+    return Question.about<string, any>(description,
+        async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {
+            const descriptions = await asyncMap(parameters, parameter => {
+                return parameter instanceof Describable
+                    ? parameter.describedBy(actor)
+                    : actor.answer(Question.formattedValue(options).of(parameter))
+            });
 
-        return interpolate(templates, descriptions);
-    });
+            return interpolate(templates, descriptions);
+        },
+        (context: any) =>
+            templateToQuestion(
+                templates,
+                parameters.map(parameter =>
+                    Question.isAMetaQuestion(parameter)
+                        ? parameter.of(context)
+                        : parameter
+                ),
+                options
+            )
+    );
 }
 
 function interpolate(templates: TemplateStringsArray, parameters: Array<any>): string {
