@@ -25,15 +25,15 @@ describe('Question.formattedValue', () => {
 
         const examples = [
             // Primitive values
-            { description: 'string',        value: 'string',                    expectedAnswer: `"string"`,     expectedToString: `"string"`,    },
-            { description: 'number',        value: 123,                         expectedAnswer: `123`,          expectedToString: `123`,         },
-            { description: 'NaN',           value: Number.NaN,                  expectedAnswer: `NaN`,          expectedToString: `NaN`,         },
-            { description: 'Infinity',      value: Number.POSITIVE_INFINITY,    expectedAnswer: `Infinity`,     expectedToString: `Infinity`,    },
-            { description: 'bigint',        value: BigInt(123),                 expectedAnswer: `123`,          expectedToString: `123`,         },
-            { description: 'boolean',       value: false,                       expectedAnswer: `false`,        expectedToString: `false`,       },
-            { description: 'undefined',     value: undefined,                   expectedAnswer: `undefined`,    expectedToString: `undefined`,   },
-            { description: 'symbol',        value: Symbol('abc'),               expectedAnswer: `Symbol(abc)`,  expectedToString: `Symbol(abc)`, },
-            { description: 'null',          value: null,                        expectedAnswer: `null`,         expectedToString: `null`,        },
+            { description: 'string',        value: 'string',                    expectedAnswer: `"string"`,     expectedToString: `"string"`,           },
+            { description: 'number',        value: 123,                         expectedAnswer: `123`,          expectedToString: `123`,                },
+            { description: 'NaN',           value: Number.NaN,                  expectedAnswer: `NaN`,          expectedToString: `NaN`,                },
+            { description: 'Infinity',      value: Number.POSITIVE_INFINITY,    expectedAnswer: `Infinity`,     expectedToString: `Infinity`,           },
+            { description: 'bigint',        value: BigInt(123),                 expectedAnswer: `123`,          expectedToString: `123`,                },
+            { description: 'boolean',       value: false,                       expectedAnswer: `false`,        expectedToString: `false`,              },
+            { description: 'undefined',     value: undefined,                   expectedAnswer: `undefined`,    expectedToString: `formatted value`,    },
+            { description: 'symbol',        value: Symbol('abc'),               expectedAnswer: `Symbol(abc)`,  expectedToString: `Symbol(abc)`,        },
+            { description: 'null',          value: null,                        expectedAnswer: `null`,         expectedToString: `null`,               },
 
             // Promised primitive values
             { description: 'Promise<string>',       value: p('string'),         expectedAnswer: `"string"`,     expectedToString: `Promise` },
