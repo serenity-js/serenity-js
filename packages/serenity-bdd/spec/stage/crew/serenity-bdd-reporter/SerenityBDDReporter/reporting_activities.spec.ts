@@ -110,6 +110,28 @@ describe('SerenityBDDReporter', () => {
                     expect(report.testSteps[0].children[0].result).to.equal('SUCCESS');
                 });
         });
+
+        it('reports the dynamic description of an activity', () => {
+            const pickACardToString = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
+            const pickACardDescription = new ActivityDetails(new Name('Pick the "4111-XXXX-XXXX-1234" card'), fakeLocation);
+
+            stage.announce(
+                new SceneStarts(sceneId, defaultCardScenario),
+                new TaskStarts(sceneId, activityIds[0], pickACardToString),
+                new TaskFinished(sceneId, activityIds[0], pickACardDescription, new ExecutionSuccessful()),
+                new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinishes(),
+            );
+
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
+
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].description).to.equal(pickACardDescription.name.value);
+                    expect(report.testSteps[0].result).to.equal('SUCCESS');
+                });
+        });
     });
 
     describe('order of events', () => {

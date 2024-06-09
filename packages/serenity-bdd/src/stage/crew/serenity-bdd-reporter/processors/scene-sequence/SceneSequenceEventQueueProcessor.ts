@@ -98,13 +98,13 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
     private onActivityFinished<Context extends SerenityBDDReportContext>(context: Context) {
         return (event: ActivityFinished): Context =>
             context
-                .with(activityFinished(event.activityId, event.outcome, event.timestamp))
+                .with(activityFinished(event.activityId, event.details.name, event.outcome, event.timestamp))
     }
 
     private onSceneFinished(context: SceneSequenceReportContext) {
         return (event: SceneFinished): SceneSequenceReportContext =>
             context
-                .with(activityFinished(event.sceneId, event.outcome, event.timestamp))
+                .with(activityFinished(event.sceneId, event.details.name, event.outcome, event.timestamp))
                 .with(scenarioParameterResult(event.details, event.outcome))
                 .with(sceneSequenceOverallResult(event.outcome))
                 .with(executionFinishedAt(event.timestamp))
