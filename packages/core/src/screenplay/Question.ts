@@ -396,7 +396,7 @@ export abstract class Question<T> extends Describable {
                     return;
                 }
 
-                return Question.about(Question.fieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
+                return Question.about(Question.staticFieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
                     const answer = await actor.answer(target as Answerable<AT>);
 
                     if (!isDefined(answer)) {
@@ -408,7 +408,7 @@ export abstract class Question<T> extends Describable {
                     return typeof field === 'function'
                         ? field.bind(answer)
                         : field;
-                });
+                }).describedAs(Question.formattedValue());
             },
 
             set(currentStatement: () => Question<AT>, key: string | symbol, value: any, receiver: any): boolean {
@@ -441,7 +441,7 @@ export abstract class Question<T> extends Describable {
         }) as any;
     }
 
-    private static fieldDescription<AT>(target: Question<AT>, key: string | symbol): string {
+    private static staticFieldDescription<AT>(target: Question<AT>, key: string | symbol): string {
 
         // "of" is characteristic of Serenity/JS MetaQuestion
         if (key === 'of') {
@@ -809,7 +809,13 @@ class QuestionAboutFormattedValue<Supported_Context_Type>
     }
 
     override async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
-        const answer = await actor.answer(this.context);
+        const unanswered = ! this.context
+            || ! this.context['answer']
+            || Unanswered.isUnanswered((this.context as any).answer);
+
+        const answer = unanswered
+            ? await actor.answer(this.context)
+            : (this.context as any).answer;
 
         return this.formatter.format(answer);
     }

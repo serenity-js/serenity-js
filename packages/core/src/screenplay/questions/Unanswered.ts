@@ -14,6 +14,10 @@ import * as util from 'util';   // eslint-disable-line unicorn/import-style
  * @group Questions
  */
 export class Unanswered extends TinyType {
+    static isUnanswered(value: unknown): value is Unanswered {
+        return value instanceof Unanswered;
+    }
+
     [util.inspect.custom](): string {
         return `<<unanswered>>`;
     }
