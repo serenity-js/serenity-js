@@ -94,6 +94,17 @@ describe('Notepad', () => {
                 expect(toString).to.equal('a note of myNote');
             });
 
+            it('allows for overriding the description', async () => {
+
+                const statement = notes<MyNotes>().get('myNote').describedAs(Question.formattedValue({ maxLength: 10 }));
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('"example..."');
+                expect(toString).to.equal('a note of myNote');
+            });
+
             it('provides a human-friendly description of NotepadAdapter.set', async () => {
                 const statement = notes<MyNotes>().set('myNote', 'example note value');
 
