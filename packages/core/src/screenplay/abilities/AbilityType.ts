@@ -7,7 +7,7 @@ import type { Ability } from './Ability';
  * #### Retrieving an ability from an interaction
  *
  * ```ts
- * import { Ability, actorCalled, Interaction } from '@serenity-js/core';
+ * import { Ability, Answerable, actorCalled, Interaction, the } from '@serenity-js/core';
  *
  * class MakePhoneCalls extends Ability {
  *   static using(phone: Phone) {
@@ -23,8 +23,8 @@ import type { Ability } from './Ability';
  *   }
  * }
  *
- * const Call = (phoneNumber: string) =>
- *   Interaction.where(`#actor calls ${ phoneNumber }`, async actor => {
+ * const Call = (phoneNumber: Answerable<string>) =>
+ *   Interaction.where(the`#actor calls ${ phoneNumber }`, async actor => {
  *     await MakePhoneCalls.as(actor).dial(phoneNumber)
  *   });
  *
