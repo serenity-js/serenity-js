@@ -1,8 +1,9 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import type { Ability, Actor} from '../../src';
+import { type Ability, type Actor, Question } from '../../src';
 import { Cast, LogicError, Notepad, notes, Serenity, TakeNotes } from '../../src';
+import { trimmed } from '../../src/io';
 import { expect } from '../expect';
 import { Ensure } from './Ensure';
 
@@ -10,58 +11,185 @@ describe('Notepad', () => {
 
     afterEach(() => dismissAnyActiveActors());
 
+    it('correctly detects its invocation location', () => {
+        const activity = notes()
+            .set('firstNote', 'value');
+        const location = activity.instantiationLocation();
+
+        expect(location.path.basename()).to.equal('notes.spec.ts');
+        expect(location.line).to.equal(16);
+        expect(location.column).to.equal(14);
+    });
+
     describe('when producing a description', () => {
 
-        it('provides a human-friendly description of the NotepadAdapter', async () => {
-            expect(notes().toString()).to.equal('notes');
+        describe('toString()', () => {
+
+            it('provides a human-friendly description of the NotepadAdapter', async () => {
+                expect(notes().toString()).to.equal('notes');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.get', async () => {
+                expect(notes().get('myNote').toString()).to.equal('a note of myNote');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.set', async () => {
+                expect(notes().set('myNote', 'value').toString()).to.equal('#actor takes notes: myNote');
+            });
+
+            it('provides a human-friendly description of chained NotepadAdapter.set', async () => {
+                expect(
+                    notes()
+                        .set('firstNote', 'value')
+                        .set('secondNote', 'value')
+                        .set('thirdNote', 'value')
+                        .toString()
+                ).to.equal('#actor takes notes: firstNote, secondNote, thirdNote');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.has', async () => {
+                expect(notes().has('myNote').toString()).to.equal('a note of myNote exists');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.delete', async () => {
+                expect(notes().delete('myNote').toString()).to.equal('#actor deletes a note of myNote');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.clear', async () => {
+                expect(notes().clear().toString()).to.equal('#actor clears notes from their notepad');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.size', async () => {
+                expect(notes().size().toString()).to.equal('notes');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.toJSON', async () => {
+                expect(notes().toJSON().toString()).to.equal('notepad serialised to JSON');
+            });
         });
 
-        it('provides a human-friendly description of NotepadAdapter.get', async () => {
-            expect(notes().get('myNote').toString()).to.equal('a note of myNote');
-        });
+        describe('describedBy(actor)', () => {
 
-        it('provides a human-friendly description of NotepadAdapter.set', async () => {
-            expect(notes().set('myNote', 'value').toString()).to.equal('#actor takes note of myNote');
-        });
+            interface MyNotes {
+                myNote: string;
+            }
 
-        it('provides a human-friendly description of chained NotepadAdapter.set', async () => {
-            expect(
-                notes()
-                    .set('firstNote', 'value')
-                    .set('secondNote', 'value')
-                    .set('thirdNote', 'value')
-                    .toString()
-            ).to.equal('#actor takes note of firstNote, secondNote and thirdNote');
-        });
+            const myNote = 'example note value';
 
-        it('correctly detects its invocation location', () => {
-            const activity = notes()
-                .set('firstNote', 'value');
-            const location = activity.instantiationLocation();
+            let Leonard: Actor;
 
-            expect(location.path.basename()).to.equal('notes.spec.ts');
-            expect(location.line).to.equal(39);
-            expect(location.column).to.equal(18);
-        });
+            beforeEach(() => {
+                Leonard = actors('Leonard')
+                    .whoCan(TakeNotes.using(Notepad.with<MyNotes>({ myNote })))[0];
+            });
 
-        it('provides a human-friendly description of NotepadAdapter.has', async () => {
-            expect(notes().has('myNote').toString()).to.equal('a note of myNote exists');
-        });
+            it('provides a human-friendly description of NotepadAdapter.get', async () => {
 
-        it('provides a human-friendly description of NotepadAdapter.delete', async () => {
-            expect(notes().delete('myNote').toString()).to.equal('#actor deletes a note of myNote');
-        });
+                const statement = notes<MyNotes>().get('myNote');
 
-        it('provides a human-friendly description of NotepadAdapter.clear', async () => {
-            expect(notes().clear().toString()).to.equal('#actor clears their notepad');
-        });
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
 
-        it('provides a human-friendly description of NotepadAdapter.size', async () => {
-            expect(notes().size().toString()).to.equal('number of notes');
-        });
+                expect(description).to.equal('"example note value"');
+                expect(toString).to.equal('a note of myNote');
+            });
 
-        it('provides a human-friendly description of NotepadAdapter.toJSON', async () => {
-            expect(notes().toJSON().toString()).to.equal('notepad serialised to JSON');
+            it('provides a human-friendly description of NotepadAdapter.set', async () => {
+                const statement = notes<MyNotes>().set('myNote', 'example note value');
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal(trimmed`
+                    | Leonard takes notes:
+                    | - myNote: "example note value"
+                `);
+                expect(toString).to.equal('#actor takes notes: myNote');
+            });
+
+            it('provides a human-friendly description of chained NotepadAdapter.set', async () => {
+                const statement = notes()
+                    .set('firstNote', { first: 'value' })
+                    .set('secondNote', [ 1, 2 ])
+                    .set('thirdNote', 'third');
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal(trimmed`
+                    | Leonard takes notes:
+                    | - firstNote:  { first: "value" }
+                    | - secondNote: [ 1, 2 ]
+                    | - thirdNote:  "third"
+                `);
+                expect(toString).to.equal('#actor takes notes: firstNote, secondNote, thirdNote');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.has', async () => {
+                const statement = notes().has('myNote');
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('a note of myNote exists');
+                expect(toString).to.equal('a note of myNote exists');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.delete', async () => {
+                const statement = notes().delete('myNote');
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('Leonard deletes a note of myNote');
+                expect(toString).to.equal('#actor deletes a note of myNote');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.clear', async () => {
+                const statement = notes().clear();
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('Leonard clears 1 note from their notepad');
+                expect(toString).to.equal('#actor clears notes from their notepad');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.size', async () => {
+                const statement = notes().size();
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('1 note');
+                expect(toString).to.equal('notes');
+            });
+
+            it('provides a human-friendly description of NotepadAdapter.toJSON', async () => {
+                const statement = notes().toJSON();
+
+                const description   = await statement.describedBy(Leonard);
+                const toString      = statement.toString();
+
+                expect(description).to.equal('notepad serialised to JSON');
+                expect(toString).to.equal('notepad serialised to JSON');
+            });
+
+            describe('when used with nested QuestionAdapters', () => {
+
+                it('provides a human-friendly description of a field', async () => {
+
+                    const statement = notes<MyNotes>().get('myNote').length.describedAs(Question.formattedValue());
+
+                    const description   = await statement.describedBy(Leonard);
+                    const answer        = await statement.answeredBy(Leonard);
+                    const toString      = statement.toString();
+
+                    expect(description).to.equal(String(myNote.length));
+                    expect(answer).to.equal(myNote.length);
+                    expect(toString).to.equal('<<a note of myNote>>.length');
+                });
+            });
         });
     });
 
@@ -478,7 +606,7 @@ describe('Notepad', () => {
         });
     });
 
-    describe('when shared across multiple actors', () => {
+    describe('when sharing notes across multiple actors', () => {
 
         it('allows the actors to share notes', async () => {
             interface Notes {
