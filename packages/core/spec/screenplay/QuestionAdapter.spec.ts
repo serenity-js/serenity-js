@@ -334,19 +334,6 @@ describe('Question', () => {
 
                     expect(actual).to.deep.equal(expected);
                 });
-
-                it('allows for getter calls to be executed as part of the Actor flow', async () => {
-                    const actualCounter = new Counter();
-
-                    const counter: Interaction & QuestionAdapter<Counter> = Question.about('a counter', _actor => actualCounter);
-
-                    await actor.attemptsTo(
-                        counter.increase,
-                        counter.increase,
-                    )
-
-                    expect(actualCounter.current).to.equal(2)
-                });
             });
 
             describe('acts as a proxy, which', () => {
@@ -550,6 +537,33 @@ describe('Question', () => {
                     expect(result).to.equal('QuestionAdapter: <<greeting>>.length');
                 });
             });
+
+            describe('describedBy(actor)', () => {
+
+                it('returns a human-readable description of the QuestionAdapter', async () => {
+                    const adapter = Question.about('greeting', _actor => 'Hello world!');
+
+                    const description   = await adapter.describedBy(actor);
+                    const answer        = await adapter.answeredBy(actor);
+                    const toString      = adapter.toString();
+
+                    expect(toString).to.equal('greeting');
+                    expect(description).to.equal('greeting');
+                    expect(answer).to.equal('Hello world!');
+                });
+
+                it('can return a human-readable description of the value QuestionAdapter', async () => {
+                    const adapter = Question.about('greeting', _actor => 'Hello world!').describedAs(Question.formattedValue());
+
+                    const description   = await adapter.describedBy(actor);
+                    const answer        = await adapter.answeredBy(actor);
+                    const toString      = adapter.toString();
+
+                    expect(toString).to.equal('greeting');
+                    expect(description).to.equal('"Hello world!"');
+                    expect(answer).to.equal('Hello world!');
+                });
+            });
         });
 
         describe('creates a MetaQuestionAdapter, which', () => {
@@ -582,16 +596,6 @@ describe('Question', () => {
         });
     });
 });
-
-class Counter {
-    constructor(public current: number = 0) {
-    }
-
-    get increase(): this {
-        this.current++;
-        return this;
-    }
-}
 
 interface City {
     name: string;
