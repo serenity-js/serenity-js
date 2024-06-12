@@ -1,5 +1,5 @@
 import type { Answerable, Interaction, Optional, Question, QuestionAdapter } from '@serenity-js/core';
-import { d } from '@serenity-js/core';
+import { the } from '@serenity-js/core';
 
 import { Page } from '../Page';
 
@@ -140,7 +140,7 @@ export abstract class ModalDialog implements Optional {
      */
     static acceptNextWithValue(value: Answerable<string | number>): Interaction {
         return Page.current().modalDialog().acceptNextWithValue(value)
-            .describedAs(d`#actor accepts next modal dialog window with value ${ value }`);
+            .describedAs(the`#actor accepts next modal dialog window with value ${ value }`);
     }
 
     /**
@@ -148,7 +148,7 @@ export abstract class ModalDialog implements Optional {
      */
     static dismissNext(): Interaction {
         return Page.current().modalDialog().dismissNext()
-            .describedAs(d`#actor dismisses next modal dialog window`);
+            .describedAs(the`#actor dismisses next modal dialog window`);
     }
 
     /**

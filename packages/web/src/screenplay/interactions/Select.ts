@@ -1,10 +1,8 @@
-import type { Answerable} from '@serenity-js/core';
-import { d } from '@serenity-js/core';
+import { type Answerable, Interaction, the, Question } from '@serenity-js/core';
 import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
 import { stringified } from '@serenity-js/core/lib/io/stringified';
-import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import type { PageElement} from '../models';
+import type { PageElement } from '../models';
 import { SelectOption } from '../models';
 
 /**
@@ -33,7 +31,7 @@ export class Select {
      *   <option value='PL'>Poland</option>
      *   <option value='US'>United States</option>
      * </select>
-     * ```
+     * ```C
      *
      * #### Lean Page Object describing the widget
      *
@@ -72,7 +70,7 @@ export class Select {
     static value(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(d`#actor selects value ${ value } from ${ pageElement }`, async actor => {
+                Interaction.where(the`#actor selects value ${ value } from ${ pageElement }`, async actor => {
                     const element       = await actor.answer(pageElement);
                     const desiredValue  = await actor.answer(value);
 
@@ -203,7 +201,7 @@ export class Select {
     static option(value: Answerable<string>): { from: (pageElement: Answerable<PageElement>) => Interaction } {
         return {
             from: (pageElement: Answerable<PageElement>): Interaction =>
-                Interaction.where(d`#actor selects ${ value } from ${ pageElement }`, async actor => {
+                Interaction.where(the`#actor selects ${ value } from ${ pageElement }`, async actor => {
                     const element       = await actor.answer(pageElement);
                     const desiredLabel  = await actor.answer(value);
 

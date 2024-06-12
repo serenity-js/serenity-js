@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
-import { d, LogicError } from '@serenity-js/core';
+import { d, LogicError, the } from '@serenity-js/core';
 
 import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
@@ -70,7 +70,7 @@ export class Clear extends PageElementInteraction {
     }
 
     protected constructor(private readonly field: Answerable<PageElement>) {
-        super(d`#actor clears the value of ${ field }`);
+        super(the`#actor clears the value of ${ field }`);
     }
 
     /**

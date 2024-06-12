@@ -27,7 +27,7 @@ describe('Navigate', () => {
 
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).toString())
-                .to.equal(`#actor navigates to 'https://serenity-js.org'`);
+                .to.equal(`#actor navigates to "https://serenity-js.org"`);
         });
 
         it('correctly detects its invocation location', () => {

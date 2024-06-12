@@ -1,5 +1,5 @@
 import type { Activity, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { d, Interaction, Question } from '@serenity-js/core';
+import { Interaction, Question, the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
@@ -94,7 +94,7 @@ export class Press extends PageElementInteraction {
     protected constructor(
         private readonly keys: Answerable<Array<Key | string>>
     ) {
-        super(d `#actor presses ${ keys }`);
+        super(the `#actor presses ${ keys }`);
     }
 
     /**
@@ -119,7 +119,7 @@ class PressKeyInField extends PageElementInteraction {
         private readonly keys: Answerable<Array<Key | string>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(d `#actor presses ${ keys } in ${ field }`, Interaction.callerLocation(3));
+        super(the`#actor presses ${ keys } in ${ field }`, Interaction.callerLocation(3));
     }
 
     /**

@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
-import { f, Interaction, LogicError } from '@serenity-js/core';
+import { Interaction, LogicError, the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 import { Name, TextData } from '@serenity-js/core/lib/model';
 
@@ -301,7 +301,7 @@ export class ExecuteScript {
 export abstract class ExecuteScriptWithArguments extends Interaction {
 
     constructor(
-        description: string,
+        description: Answerable<string>,
         protected readonly script: string | Function,           // eslint-disable-line @typescript-eslint/ban-types
         protected readonly args: Array<Answerable<any>> = [],
     ) {
@@ -343,7 +343,7 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
     withArguments(...args: Array<Answerable<any>>): Interaction {
         return new ExecuteAsynchronousScript(
             args.length > 0
-                ? f `#actor executes an asynchronous script with arguments: ${ args }`
+                ? the `#actor executes an asynchronous script with arguments: ${ args }`
                 : this.toString(),
             this.script,
             args,
@@ -364,7 +364,7 @@ class ExecuteAsynchronousScript extends ExecuteScriptWithArguments {
  */
 class ExecuteScriptFromUrl extends Interaction {
     constructor(private readonly sourceUrl: Answerable<string>) {
-        super(f`#actor executes a script from ${ sourceUrl }`);
+        super(the`#actor executes a script from ${ sourceUrl }`);
     }
 
     /**
@@ -416,7 +416,7 @@ class ExecuteSynchronousScript extends ExecuteScriptWithArguments {
     withArguments(...args: Array<Answerable<any>>): Interaction {
         return new ExecuteSynchronousScript(
             args.length > 0
-                ? f `#actor executes a synchronous script with arguments: ${ args }`
+                ? the `#actor executes a synchronous script with arguments: ${ args }`
                 : this.toString(),
             this.script,
             args,

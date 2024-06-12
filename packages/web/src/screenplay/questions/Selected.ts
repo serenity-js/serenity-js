@@ -1,5 +1,5 @@
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
-import { d, Question } from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 
 import type { PageElement } from '../models';
 
@@ -67,7 +67,7 @@ export class Selected {
      *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static valueOf(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
-        return Question.about(d`value selected in ${ pageElement }`, async actor => {
+        return Question.about(the`value selected in ${ pageElement }`, async actor => {
             const element = await actor.answer(pageElement);
             const options = await element.selectedOptions();
 
@@ -126,7 +126,7 @@ export class Selected {
      *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static valuesOf(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
-        return Question.about(d`values selected in ${ pageElement }`, async actor => {
+        return Question.about(the`values selected in ${ pageElement }`, async actor => {
             const element = await actor.answer(pageElement);
 
             const options = await element.selectedOptions();
@@ -187,7 +187,7 @@ export class Selected {
      *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static optionIn(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
-        return Question.about(d`option selected in ${ pageElement }`, async actor => {
+        return Question.about(the`option selected in ${ pageElement }`, async actor => {
             const element = await actor.answer(pageElement);
 
             const options = await element.selectedOptions();
@@ -248,7 +248,7 @@ export class Selected {
      *  A {@apilink PageElement} identifying the `<select>` element of interest
      */
     static optionsIn(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
-        return Question.about(d`options selected in ${ pageElement }`, async actor => {
+        return Question.about(the`options selected in ${ pageElement }`, async actor => {
             const element = await actor.answer(pageElement);
 
             const options = await element.selectedOptions();

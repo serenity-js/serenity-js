@@ -43,7 +43,7 @@ describe('TakeScreenshot', () => {
         }));
 
     it('provides a sensible description of the interaction being performed', () => {
-        expect(TakeScreenshot.of('the page').toString()).to.equal(`#actor takes a screenshot of 'the page'`);
+        expect(TakeScreenshot.of('the page').toString()).to.equal(`#actor takes a screenshot of "the page"`);
     });
 
     it('correctly detects its invocation location', () => {
