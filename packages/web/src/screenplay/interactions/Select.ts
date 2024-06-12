@@ -1,4 +1,4 @@
-import { type Answerable, Interaction, the, Question } from '@serenity-js/core';
+import { type Answerable, Interaction,the } from '@serenity-js/core';
 import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
 import { stringified } from '@serenity-js/core/lib/io/stringified';
 
