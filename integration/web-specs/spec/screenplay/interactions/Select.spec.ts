@@ -172,7 +172,7 @@ describe('Select', () => {
 
         it('provides a sensible description of Select.value()', () => {
             expect(Select.value('FR').from(SingleSelectPage.selector).toString())
-                .to.equal(`#actor selects value 'FR' from the country selector`);
+                .to.equal(`#actor selects value "FR" from the country selector`);
         });
 
         it('provides a sensible description of Selected.valueOf', () => {
@@ -182,7 +182,7 @@ describe('Select', () => {
 
         it('provides a sensible description of Select.option()', () => {
             expect(Select.option('France').from(SingleSelectPage.selector).toString())
-                .to.equal(`#actor selects 'France' from the country selector`);
+                .to.equal(`#actor selects "France" from the country selector`);
         });
 
         it('provides a sensible description of Selected.optionIn()', () => {

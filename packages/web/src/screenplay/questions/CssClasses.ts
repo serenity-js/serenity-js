@@ -1,5 +1,5 @@
-import type { Answerable,MetaQuestionAdapter, QuestionAdapter } from '@serenity-js/core';
-import { d, Question } from '@serenity-js/core';
+import type { Answerable, MetaQuestionAdapter, QuestionAdapter } from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
@@ -110,7 +110,7 @@ export class CssClasses {
      * @param pageElement
      */
     static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string[]> {
-        return Question.about(d`CSS classes of ${ pageElement }`,
+        return Question.about(the`CSS classes of ${ pageElement }`,
             async actor => {
                 const element = await actor.answer(pageElement);
 

@@ -1,5 +1,5 @@
 import type { Activity, Actor, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { Interaction, Task } from '@serenity-js/core';
+import { Interaction, Task, the } from '@serenity-js/core';
 
 import type { Switchable } from '../models';
 
@@ -117,7 +117,7 @@ export class Switch extends Interaction {
     }
 
     protected constructor(private readonly switchable: Answerable<Switchable>) {
-        super(`#actor switches to ${ switchable }`);
+        super(the`#actor switches to ${ switchable }`);
     }
 
     /**
@@ -151,7 +151,7 @@ class SwitchAndPerformActivities extends Task {
         private readonly switchable: Answerable<Switchable>,
         private readonly activities: Activity[]
     ) {
-        super(`#actor switches to ${ switchable }`);
+        super(the `#actor switches to ${ switchable }`);
     }
 
     /**

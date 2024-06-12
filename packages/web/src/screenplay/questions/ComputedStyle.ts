@@ -105,8 +105,6 @@ export class ComputedStyle<Native_Element_Type>
     extends Question<Promise<string>>
     implements MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<string>>>
 {
-    private subject: string;
-
     /**
      * Instantiates a {@apilink Question} that uses
      * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve

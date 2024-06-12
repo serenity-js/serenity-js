@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, MetaQuestion, MetaQuestionAdapter, Optional, QuestionAdapter, UsesAbilities } from '@serenity-js/core';
-import { d, LogicError, Question } from '@serenity-js/core';
+import { d, LogicError, Question, the } from '@serenity-js/core';
 
 import { PageElement } from '../models';
 
@@ -116,8 +116,8 @@ export class Attribute<Native_Element_Type>
         private readonly element?: QuestionAdapter<PageElement> | PageElement,
     ) {
         super(element
-            ? d`${ name } attribute of ${ element }`
-            : d`${ name } attribute`
+            ? the`${ name } attribute of ${ element }`
+            : the`${ name } attribute`
         );
     }
 

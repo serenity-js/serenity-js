@@ -1,5 +1,5 @@
 import type { Answerable, MetaQuestionAdapter, Optional } from '@serenity-js/core';
-import { d, Question } from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
@@ -31,7 +31,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     }
 
     static located<NET>(selector: Answerable<Selector>): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
-        return Question.about(d`page element located ${ selector }`, async actor => {
+        return Question.about(the`page element located ${ selector }`, async actor => {
             const bySelector  = await actor.answer(selector);
             const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
 
@@ -43,7 +43,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         childElement: MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> | PageElement<NET>,
         parentElement: Answerable<PageElement<NET>>
     ): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
-        return Question.about(d`${ childElement } of ${ parentElement }`, async actor => {
+        return Question.about(the`${ childElement } of ${ parentElement }`, async actor => {
             const parent = await actor.answer(parentElement);
             const child = childElement.of(parent)
 

@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { d, Interaction } from '@serenity-js/core';
+import { Interaction, the } from '@serenity-js/core';
 
 import type { PageElement } from '../models';
 
@@ -63,14 +63,14 @@ export class Scroll extends Interaction {
     }
 
     protected constructor(private readonly element: Answerable<PageElement>) {
-        super(d`#actor scrolls to ${ element }`);
+        super(the`#actor scrolls to ${ element }`);
     }
 
     /**
      * @inheritDoc
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const target = await actor.answer(this.element);
-        await target.scrollIntoView();
+        const pageElement = await actor.answer(this.element);
+        await pageElement.scrollIntoView();
     }
 }

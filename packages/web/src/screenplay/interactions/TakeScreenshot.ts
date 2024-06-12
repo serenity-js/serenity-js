@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
-import { d, Interaction } from '@serenity-js/core';
+import { Interaction, the } from '@serenity-js/core';
 import { Name, Photo } from '@serenity-js/core/lib/model';
 
 import { BrowseTheWeb } from '../abilities';
@@ -45,7 +45,7 @@ export class TakeScreenshot extends Interaction {
     }
 
     protected constructor(private readonly name: Answerable<string>) {
-        super(d`#actor takes a screenshot of ${ name }`);
+        super(the`#actor takes a screenshot of ${ name }`);
     }
 
     /**

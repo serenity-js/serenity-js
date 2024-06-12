@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { d, Interaction, TestCompromisedError } from '@serenity-js/core';
+import { Interaction, TestCompromisedError, the } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
@@ -167,7 +167,7 @@ export class Navigate {
  */
 class NavigateToUrl extends Interaction {
     constructor(private readonly url: Answerable<string>) {
-        super(d`#actor navigates to ${ url }`);
+        super(the`#actor navigates to ${ url }`);
     }
 
     /**
