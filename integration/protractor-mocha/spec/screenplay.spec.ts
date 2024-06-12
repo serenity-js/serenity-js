@@ -48,9 +48,9 @@ describe('@serenity-js/mocha', function () {
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Mocha')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Mocha')))
                 .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha disables synchronisation with Angular`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://version/'`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://accessibility/'`)))
-                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to 'chrome://chrome-urls/'`)))
+                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to "chrome://version/"`)))
+                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to "chrome://accessibility/"`)))
+                .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Mocha navigates to "chrome://chrome-urls/"`)))
 
                 .next(SceneFinishes,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
