@@ -114,7 +114,7 @@ describe('Page', () => {
             it('complains if the page the actor wants to switch to does not exist', async () =>
                 expect(actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.whichName(startsWith('invalid')).title(), equals(`this won't pass`)),
-                )).to.be.rejectedWith(LogicError, `Couldn't find a page which name does start with 'invalid'`),
+                )).to.be.rejectedWith(LogicError, `Couldn't find a page which name does start with "invalid"`),
             );
         });
 
@@ -303,7 +303,7 @@ describe('Page', () => {
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichName(equals('pop-up')).toString();
 
-                expect(description).to.equal(`page which name does equal 'pop-up'`);
+                expect(description).to.equal(`page which name does equal "pop-up"`);
             });
         });
 
@@ -314,7 +314,7 @@ describe('Page', () => {
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichTitle(equals('Serenity/JS Website')).toString();
 
-                expect(description).to.equal(`page which title does equal 'Serenity/JS Website'`);
+                expect(description).to.equal(`page which title does equal "Serenity/JS Website"`);
             });
         });
 
@@ -325,7 +325,7 @@ describe('Page', () => {
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichUrl(endsWith('/articles/example.html')).toString();
 
-                expect(description).to.equal(`page which URL does end with '/articles/example.html'`);
+                expect(description).to.equal(`page which URL does end with "/articles/example.html"`);
             });
         });
     });

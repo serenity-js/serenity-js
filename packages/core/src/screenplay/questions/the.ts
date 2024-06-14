@@ -175,7 +175,11 @@ export function the(...args: any[]): any {
 }
 
 function templateToQuestion(templates: TemplateStringsArray, parameters: Array<any>, options?: DescriptionFormattingOptions): QuestionAdapter<string> {
-    const description = interpolate(templates, parameters.map(parameter => Question.formattedValue(options).of(parameter)));
+    const description = interpolate(templates, parameters.map(parameter => {
+        return parameter === undefined
+            ? 'undefined'
+            : Question.formattedValue(options).of(parameter).toString()
+    }));
 
     return Question.about<string, any>(description,
         async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {

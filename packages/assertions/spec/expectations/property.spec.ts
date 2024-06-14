@@ -31,7 +31,7 @@ describe('property', () => {
                 Ensure.that(Alice, property('name', equals('Bob'))),
             )
         ).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected {"name":"Alice","age":27} to have property name that does equal 'Bob'
+            | Expected { name: "Alice", age: 27 } to have property name that does equal "Bob"
             |
             | Expectation: property('name', equals('Bob'))
             |
@@ -42,6 +42,6 @@ describe('property', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that(Alice, property('name', equals('Alice'))).toString())
-            .to.equal(`#actor ensures that {"name":"Alice","age":27} does have property name that does equal 'Alice'`);
+            .to.equal(`#actor ensures that { name: "Alice", age: 27 } does have property name that does equal "Alice"`);
     });
 });
