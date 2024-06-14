@@ -31,6 +31,10 @@ export abstract class Describable {
         this[descriptionField] = description;
     }
 
+    protected getDescription(): Answerable<string> {
+        return this[descriptionField];
+    }
+
     /**
      * Returns a human-readable description of this object.
      */

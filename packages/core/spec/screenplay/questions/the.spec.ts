@@ -66,7 +66,7 @@ describe('the', () => {
             { description: 'Infinity',      value: Number.POSITIVE_INFINITY,    expectedAnswer: `#actor enters Infinity`,      expectedDescription: `Tess enters Infinity`,         expectedToString: `#actor enters Infinity`,         },
             { description: 'bigint',        value: BigInt(123),                 expectedAnswer: `#actor enters 123`,           expectedDescription: `Tess enters 123`,              expectedToString: `#actor enters 123`,              },
             { description: 'boolean',       value: false,                       expectedAnswer: `#actor enters false`,         expectedDescription: `Tess enters false`,            expectedToString: `#actor enters false`,            },
-            { description: 'undefined',     value: undefined,                   expectedAnswer: `#actor enters undefined`,     expectedDescription: `Tess enters formatted value`,  expectedToString: `#actor enters formatted value`,  },
+            { description: 'undefined',     value: undefined,                   expectedAnswer: `#actor enters undefined`,     expectedDescription: `Tess enters undefined`,        expectedToString: `#actor enters undefined`,        },
             { description: 'symbol',        value: Symbol('abc'),               expectedAnswer: `#actor enters Symbol(abc)`,   expectedDescription: `Tess enters Symbol(abc)`,      expectedToString: `#actor enters Symbol(abc)`,      },
             { description: 'null',          value: null,                        expectedAnswer: `#actor enters null`,          expectedDescription: `Tess enters null`,             expectedToString: `#actor enters null`,             },
 

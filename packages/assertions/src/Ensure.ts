@@ -4,17 +4,19 @@ import type {
     CollectsArtifacts,
     Expectation,
     RuntimeError,
-    UsesAbilities} from '@serenity-js/core';
+    UsesAbilities
+} from '@serenity-js/core';
 import {
     Activity,
     AssertionError,
-    d,
     ExpectationMet,
     ExpectationNotMet,
     f,
     Interaction,
     LogicError,
-    RaiseErrors
+    Question,
+    RaiseErrors,
+    the
 } from '@serenity-js/core';
 import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
@@ -118,7 +120,7 @@ export class Ensure<Actual> extends Interaction {
         protected readonly expectation: Expectation<Actual>,
         location: FileSystemLocation,
     ) {
-        super(d`#actor ensures that ${ actual } does ${ expectation }`, location);
+        super(the`#actor ensures that ${ actual } does ${ expectation }`, location);
     }
 
     /**
@@ -128,7 +130,10 @@ export class Ensure<Actual> extends Interaction {
         const outcome = await actor.answer(this.expectation.isMetFor(this.actual));
 
         if (outcome instanceof ExpectationNotMet) {
-            const actualDescription = d`${ this.actual }`;
+            const actualDescription = this.actual === undefined
+                ? 'undefined'
+                : Question.formattedValue().of(this.actual);
+
             const message = `Expected ${ actualDescription } to ${ outcome.message }`;
 
             throw RaiseErrors.as(actor).create(AssertionError, {

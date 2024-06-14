@@ -115,7 +115,7 @@ describe('Attribute', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where "role" attribute does equal 'navigation'`)
+            expect(description).to.equal(`sections where "role" attribute does equal "navigation"`)
         });
 
         it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -124,7 +124,7 @@ describe('Attribute', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where "role" attribute of the heading does equal 'navigation'`)
+            expect(description).to.equal(`sections where "role" attribute of the heading does equal "navigation"`)
         });
     });
 });

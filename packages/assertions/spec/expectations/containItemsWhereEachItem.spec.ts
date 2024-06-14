@@ -81,7 +81,7 @@ describe('containItemsWhereEachItem', () => {
                 )
             ),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected nested arrays to contain items where each item does have property name that does start with 'A'
+            | Expected nested arrays to contain items where each item does have property name that does start with "A"
             |
             | Expectation: containItemsWhereEachItem(property('name', startsWith('A')))
             |

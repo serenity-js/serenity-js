@@ -99,7 +99,7 @@ describe('Value', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where Value does equal 'example'`)
+            expect(description).to.equal(`sections where Value does equal "example"`)
         });
 
         it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -108,7 +108,7 @@ describe('Value', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where the value of input field does equal 'example'`)
+            expect(description).to.equal(`sections where the value of input field does equal "example"`)
         });
     });
 });

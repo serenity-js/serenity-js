@@ -49,7 +49,7 @@ describe('Text', () => {
 
                 const description = found.toString();
 
-                expect(description).to.equal(`sections where Text does include '5 things every tester should know'`)
+                expect(description).to.equal(`sections where Text does include "5 things every tester should know"`)
             });
 
             it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -58,7 +58,7 @@ describe('Text', () => {
 
                 const description = found.toString();
 
-                expect(description).to.equal(`sections where the text of the heading does include '5 things every tester should know'`)
+                expect(description).to.equal(`sections where the text of the heading does include "5 things every tester should know"`)
             });
         });
 
@@ -143,7 +143,7 @@ describe('Text', () => {
 
                 const description = found.toString();
 
-                expect(description).to.equal(`the shopping list items where Text does include 'coconut oil'`)
+                expect(description).to.equal(`the shopping list items where Text does include "coconut oil"`)
             });
 
             it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -152,7 +152,7 @@ describe('Text', () => {
 
                 const description = found.toString();
 
-                expect(description).to.equal(`the shopping list items where the text of reviews does contain 'great purchase'`)
+                expect(description).to.equal(`the shopping list items where the text of reviews does contain "great purchase"`)
             });
         });
 

@@ -1,8 +1,11 @@
 import type { JSONValue } from 'tiny-types';
 
 import { asyncMap, d } from '../../io';
-import type { Answerable, AnswersQuestions, QuestionAdapter } from '../';
-import { ExpectationDetails, ExpectationMet, ExpectationNotMet, Question } from '../';
+import { ExpectationDetails, ExpectationMet, ExpectationNotMet } from '../';
+import type { Answerable, AnswersQuestions, QuestionAdapter} from '../index';
+import { the } from '../index';
+import { Question } from '../Question';
+import { Describable } from '../questions';
 import type { ExpectationOutcome } from './expectations';
 
 /**
@@ -19,7 +22,7 @@ type AnswerableArguments<Arguments extends Array<unknown>> = { [Index in keyof A
  *
  * @group Expectations
  */
-export class Expectation<Actual> {
+export class Expectation<Actual> extends Describable {
 
     /**
      * A factory method to that makes defining custom {@apilink Expectation|expectations} easier
@@ -108,13 +111,13 @@ export class Expectation<Actual> {
      */
     static define<Actual_Type, PredicateArguments extends Array<unknown>>(
         functionName: string,
-        relationship: ((...answerableArguments: AnswerableArguments<PredicateArguments>) => string) | string,
+        relationship: ((...answerableArguments: AnswerableArguments<PredicateArguments>) => Answerable<string>) | Answerable<string>,
         predicate: (actual: Actual_Type, ...predicateArguments: PredicateArguments) => Promise<boolean> | boolean,
     ): (...answerableArguments: AnswerableArguments<PredicateArguments>) => Expectation<Actual_Type>
     {
         return Object.defineProperty(function(...answerableArguments: AnswerableArguments<PredicateArguments>): Expectation<Actual_Type> {
-            const description = typeof relationship === 'function' ? relationship(...answerableArguments)
-                : (answerableArguments.length === 1 ? relationship.trim() + d` ${answerableArguments[0]}`
+            const description: Answerable<string> = typeof relationship === 'function' ? relationship(...answerableArguments)
+                : (answerableArguments.length === 1 ? the`${ { toString: () => relationship } } ${ answerableArguments[0] }`
                     : relationship);
 
             return new Expectation<Actual_Type>(
@@ -129,6 +132,8 @@ export class Expectation<Actual> {
 
                     const result    = await predicate(actual, ...predicateArguments as PredicateArguments);
 
+                    const descriptionText = await actor.answer(description);
+
                     const expectationDetails = ExpectationDetails.of(functionName, ...predicateArguments);
 
                     const expected = predicateArguments.length > 0
@@ -136,8 +141,8 @@ export class Expectation<Actual> {
                         : true;     // the only parameter-less expectations are boolean ones like `isPresent`, `isActive`, etc.
 
                     return result
-                        ? new ExpectationMet(description, expectationDetails, expected, actual)
-                        : new ExpectationNotMet(description, expectationDetails, expected, actual);
+                        ? new ExpectationMet(descriptionText, expectationDetails, expected, actual)
+                        : new ExpectationNotMet(descriptionText, expectationDetails, expected, actual);
                 }
             )
         }, 'name', {value: functionName, writable: false});
@@ -243,9 +248,10 @@ export class Expectation<Actual> {
 
     protected constructor(
         private readonly functionName: string,
-        private description: string,
+        description: Answerable<string>,
         private readonly predicate: Predicate<Actual>
     ) {
+        super(description);
     }
 
     /**
@@ -256,21 +262,15 @@ export class Expectation<Actual> {
      * @param actual
      */
     isMetFor(actual: Answerable<Actual>): QuestionAdapter<ExpectationOutcome> {
-        return Question.about(this.description, actor => this.predicate(actor, actual));
+        return Question.about(this.getDescription(), actor => this.predicate(actor, actual));
     }
 
     /**
      * @inheritDoc
      */
-    describedAs(subject: string): this {
-        this.description = subject;
+    describedAs(description: Answerable<string>): this {
+        super.setDescription(description);
+
         return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.description;
     }
 }

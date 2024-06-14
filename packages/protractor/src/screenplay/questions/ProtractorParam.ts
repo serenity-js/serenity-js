@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
-import { d, Question } from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
 
@@ -74,7 +74,7 @@ export class ProtractorParam
      * @param name
      */
     static called<Return_Type>(name: Answerable<string>): QuestionAdapter<Return_Type> {
-        return Question.about<Return_Type>(d`the ${ name } param specified in Protractor config`, async actor => {
+        return Question.about<Return_Type>(the`the ${ name } param specified in Protractor config`, async actor => {
             const paramName = await actor.answer(name);
             const browseTheWeb = BrowseTheWebWithProtractor.as(actor) as BrowseTheWebWithProtractor;
 

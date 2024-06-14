@@ -47,6 +47,6 @@ describe('ProtractorParam', () => {
 
     it('contributes to a human-readable description of an activity', () => {
         expect(Ensure.that(ProtractorParam.called<string>('user.firstName'), equals('Jan')).toString())
-            .to.equal(`#actor ensures that the 'user.firstName' param specified in Protractor config does equal 'Jan'`)
+            .to.equal(`#actor ensures that the "user.firstName" param specified in Protractor config does equal "Jan"`)
     });
 });

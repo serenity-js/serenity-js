@@ -88,7 +88,7 @@ describe('EnsureEventually', () => {
             person: {
                 name: 'Jan',
             },
-        })).toString()).to.equal(`#actor ensures that {"person":{"name":"Jan"}} does eventually equal {"person":{"name":"Jan"}}`);
+        })).toString()).to.equal(`#actor ensures that { person: { name: "Jan" } } does eventually equal { person: { name: "Jan" } }`);
     });
 
     given<Answerable<number>>(
