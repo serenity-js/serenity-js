@@ -2,7 +2,7 @@ import { contain, containItemsWhereEachItem, Ensure, equals, isPresent, not, pro
 import { afterEach, beforeEach, describe, it } from '@serenity-js/playwright-test';
 import { Click, CssClasses, isSelected, Text } from '@serenity-js/web';
 
-import { TODO_ITEMS } from './test-data';
+import { testData } from './test-data';
 import { clearCompletedButton, persistedItemNames, persistedItems, startWithAListContaining, toggleAllButton } from './todo-list-app/TodoApp';
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted, markAsOutstanding } from './todo-list-app/TodoItem';
 import { itemCalled, itemNames, items, toggleAllItems } from './todo-list-app/TodoList';
@@ -13,14 +13,14 @@ describe('Bulk operations', { tag: '@screenplay' }, () => {
 
         beforeEach(async ({ actor }) => {
             await actor.attemptsTo(
-                startWithAListContaining(...TODO_ITEMS),
-                Ensure.that(persistedItems().length, equals(TODO_ITEMS.length)),
+                startWithAListContaining(...testData.items),
+                Ensure.that(persistedItems().length, equals(testData.items.length)),
             );
         });
 
         afterEach(async ({ actor }) => {
             await actor.attemptsTo(
-                Ensure.that(persistedItems().length, equals(TODO_ITEMS.length)),
+                Ensure.that(persistedItems().length, equals(testData.items.length)),
             );
         });
 
@@ -73,14 +73,14 @@ describe('Bulk operations', { tag: '@screenplay' }, () => {
                     isSelected(),
                 ),
 
-                markAsOutstanding(itemCalled(TODO_ITEMS[0])),
+                markAsOutstanding(itemCalled(testData.items[0])),
 
                 Ensure.that(
                     toggleAllButton(),
                     not(isSelected()),
                 ),
 
-                markAsCompleted(itemCalled(TODO_ITEMS[0])),
+                markAsCompleted(itemCalled(testData.items[0])),
 
                 Ensure.that(
                     toggleAllButton(),
@@ -93,34 +93,34 @@ describe('Bulk operations', { tag: '@screenplay' }, () => {
     describe('Clear completed button', () => {
         beforeEach(async ({ actor }) => {
             await actor.attemptsTo(
-                startWithAListContaining(...TODO_ITEMS),
-                Ensure.that(persistedItemNames(), equals(TODO_ITEMS)),
+                startWithAListContaining(...testData.items),
+                Ensure.that(persistedItemNames(), equals(testData.items)),
             );
         });
 
         it('should display the correct text', async ({ actor }) => {
             await actor.attemptsTo(
-                markAsCompleted(itemCalled(TODO_ITEMS[0])),
+                markAsCompleted(itemCalled(testData.items[0])),
                 Ensure.that(Text.of(clearCompletedButton()), equals('Clear completed')),
             );
         });
 
         it('should remove completed items when clicked', async ({ actor }) => {
             await actor.attemptsTo(
-                markAsCompleted(itemCalled(TODO_ITEMS[1])),
+                markAsCompleted(itemCalled(testData.items[1])),
                 Click.on(clearCompletedButton()),
 
                 Ensure.that(items().count(), equals(2)),
                 Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
-                    TODO_ITEMS[2],
+                    testData.items[0],
+                    testData.items[2],
                 ])),
             );
         });
 
         it('should be hidden when there are no items that are completed', async ({ actor }) => {
             await actor.attemptsTo(
-                markAsCompleted(itemCalled(TODO_ITEMS[1])),
+                markAsCompleted(itemCalled(testData.items[1])),
 
                 Click.on(clearCompletedButton()),
 
