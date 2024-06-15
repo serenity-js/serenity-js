@@ -2,7 +2,7 @@ import { Ensure, equals, property } from '@serenity-js/assertions';
 import { describe, it } from '@serenity-js/playwright-test';
 import { Page } from '@serenity-js/web';
 
-import { TODO_ITEMS } from './test-data';
+import { testData } from './test-data';
 import { persistedItems, startWithAListContaining } from './todo-list-app/TodoApp';
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding, markAsCompleted } from './todo-list-app/TodoItem';
 import { itemCalled, itemNames, items } from './todo-list-app/TodoList';
@@ -13,13 +13,13 @@ describe('Persistence', { tag: '@screenplay' }, () => {
 
         it('should persist its data', async ({ actor }) => {
             await actor.attemptsTo(
-                startWithAListContaining(TODO_ITEMS[0], TODO_ITEMS[1]),
+                startWithAListContaining(testData.items[0], testData.items[1]),
 
-                markAsCompleted(itemCalled(TODO_ITEMS[0])),
+                markAsCompleted(itemCalled(testData.items[0])),
 
                 Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
-                    TODO_ITEMS[1],
+                    testData.items[0],
+                    testData.items[1],
                 ])),
 
                 Ensure.that(items().nth(0), isDisplayedAsCompleted()),

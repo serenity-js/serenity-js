@@ -2,7 +2,7 @@ import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { describe, it } from '@serenity-js/playwright-test';
 import { isVisible, Value } from '@serenity-js/web';
 
-import { TODO_ITEMS } from './test-data';
+import { testData } from './test-data';
 import {
     footerSection,
     mainSection,
@@ -25,17 +25,17 @@ describe('Recording items', { tag: '@screenplay' }, () => {
             await actor.attemptsTo(
                 startWithAnEmptyList(),
 
-                recordItem(TODO_ITEMS[0]),
+                recordItem(testData.items[0]),
 
                 Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
+                    testData.items[0],
                 ])),
 
-                recordItem(TODO_ITEMS[1]),
+                recordItem(testData.items[1]),
 
                 Ensure.that(itemNames(), equals([
-                    TODO_ITEMS[0],
-                    TODO_ITEMS[1],
+                    testData.items[0],
+                    testData.items[1],
                 ])),
 
                 // note that `equals` and all the other expectations accept
@@ -48,21 +48,21 @@ describe('Recording items', { tag: '@screenplay' }, () => {
             await actor.attemptsTo(
                 startWithAnEmptyList(),
 
-                recordItem(TODO_ITEMS[0]),
+                recordItem(testData.items[0]),
 
                 Ensure.that(Value.of(newTodoInput()), equals('')),
 
-                Ensure.that(persistedItemCalled(TODO_ITEMS[0]).name, equals(TODO_ITEMS[0])),
-                Ensure.that(persistedItemCalled(TODO_ITEMS[0]).completed, equals(false)),
+                Ensure.that(persistedItemCalled(testData.items[0]).name, equals(testData.items[0])),
+                Ensure.that(persistedItemCalled(testData.items[0]).completed, equals(false)),
             );
         });
 
         it('should reflect the number of items left in the counter', async ({ actor }) => {
             await actor.attemptsTo(
-                startWithAListContaining(...TODO_ITEMS),
+                startWithAListContaining(...testData.items),
 
-                Ensure.that(outstandingItemsCount(), equals(TODO_ITEMS.length)),
-                Ensure.that(persistedItems().length, equals(TODO_ITEMS.length)),
+                Ensure.that(outstandingItemsCount(), equals(testData.items.length)),
+                Ensure.that(persistedItems().length, equals(testData.items.length)),
             );
         });
 
@@ -73,7 +73,7 @@ describe('Recording items', { tag: '@screenplay' }, () => {
                 Ensure.that(mainSection(), not(isPresent())),
                 Ensure.that(footerSection(), not(isPresent())),
 
-                recordItem(TODO_ITEMS[0]),
+                recordItem(testData.items[0]),
 
                 Ensure.that(mainSection(), isVisible()),
                 Ensure.that(footerSection(), isVisible()),

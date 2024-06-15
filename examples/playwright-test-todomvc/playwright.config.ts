@@ -12,6 +12,10 @@ import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
  */
 const config: PlaywrightTestConfig = {
     testDir: './spec',
+    // testMatch: [
+    //     /notes\.spec\.ts/,
+    // ],
+
     /* Maximum time one test can run for. */
     timeout: 30 * 1000,
     expect: {
