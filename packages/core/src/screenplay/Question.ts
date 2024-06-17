@@ -12,7 +12,7 @@ import type { AnswersQuestions } from './questions/AnswersQuestions';
 import { Describable } from './questions/Describable';
 import type { DescriptionFormattingOptions } from './questions/DescriptionFormattingOptions';
 import type { MetaQuestion } from './questions/MetaQuestion';
-import { the } from './questions/the';
+import { the } from './questions/tag-functions';
 import { Unanswered } from './questions/Unanswered';
 import type { RecursivelyAnswered } from './RecursivelyAnswered';
 import type { WithAnswerableProperties } from './WithAnswerableProperties';
