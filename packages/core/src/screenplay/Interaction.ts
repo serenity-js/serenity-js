@@ -1,5 +1,6 @@
 import type { UsesAbilities } from './abilities';
 import { Activity } from './Activity';
+import type { Answerable } from './Answerable';
 import type { CollectsArtifacts } from './artifacts';
 import type { AnswersQuestions } from './questions';
 
@@ -34,11 +35,11 @@ import type { AnswersQuestions } from './questions';
  * you can easily create your own implementations using the {@apilink Interaction.where} factory method.
  *
  * ```ts
- * import { Actor, Interaction } from '@serenity-js/core'
+ * import { Actor, Interaction, the } from '@serenity-js/core'
  * import { BrowseTheWeb, Page } from '@serenity-js/web'
  *
  * export const ClearLocalStorage = () =>
- *   Interaction.where(`#actor clears local storage`, async (actor: Actor) => {
+ *   Interaction.where(the`#actor clears local storage`, async (actor: Actor) => {
  *     // Interaction to ClearLocalStorage directly uses Actor's ability to BrowseTheWeb
  *     const page: Page = await BrowseTheWeb.as(actor).currentPage()
  *     await page.executeScript(() => window.localStorage.clear())
@@ -76,7 +77,7 @@ export abstract class Interaction extends Activity {
      * @param interaction
      */
     static where(
-        description: string,
+        description: Answerable<string>,
         interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ): Interaction {
         return new DynamicallyGeneratedInteraction(description, interaction);
@@ -101,7 +102,7 @@ export abstract class Interaction extends Activity {
  */
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
-        description: string,
+        description: Answerable<string>,
         private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
     ) {
         super(description, Interaction.callerLocation(4));

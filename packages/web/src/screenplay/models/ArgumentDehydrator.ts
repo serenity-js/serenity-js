@@ -1,4 +1,4 @@
-import { isPlainObject } from '@serenity-js/core/lib/io';
+import { ValueInspector } from '@serenity-js/core/lib/io';
 
 /* eslint-disable @typescript-eslint/indent */
 type TransformedArgument<T, U> =
@@ -43,7 +43,7 @@ export class ArgumentDehydrator<T, U> {
                 };
             }
 
-            if (isPlainObject(arg)) {
+            if (ValueInspector.isPlainObject(arg)) {
                 const { args: nestedArgs, refs: nestedRefs, refsCount: currentRefsCount } = await this.dehydrateRecursively(Object.values(arg), refsCount);
                 return {
                     args: [ ...args, Object.fromEntries(Object.keys(arg).map((key, i) => [ key, nestedArgs[i] ])) ],

@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, MetaQuestionAdapter, QuestionAdapter } from '@serenity-js/core';
-import { d, Question } from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import type { PageElements } from '../models';
@@ -105,7 +105,7 @@ export class Text {
      * @param pageElement
      */
     static of(pageElement: QuestionAdapter<PageElement> | PageElement): MetaQuestionAdapter<PageElement, string> {
-        return Question.about(d`the text of ${ pageElement }`,
+        return Question.about(the`the text of ${ pageElement }`,
             async actor => {
                 const element = await actor.answer(pageElement);
 
@@ -130,14 +130,14 @@ export class Text {
     static ofAll(pageElements: Answerable<PageElement[]>): QuestionAdapter<string[]>
     static ofAll(pageElements: PageElements | Answerable<PageElement[]>): QuestionAdapter<string[]> {
         if (Question.isAMetaQuestion(pageElements)) {
-            return Question.about(d`the text of ${ pageElements }`,
+            return Question.about(the`the text of ${ pageElements }`,
                 textOfMultiple(pageElements),
                 (parent: Answerable<PageElement>) =>
                     Text.ofAll(pageElements.of(parent))
             );
         }
 
-        return Question.about(d`the text of ${ pageElements }`, textOfMultiple(pageElements));
+        return Question.about(the`the text of ${ pageElements }`, textOfMultiple(pageElements));
     }
 }
 

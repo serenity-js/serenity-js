@@ -1,5 +1,5 @@
 import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
-import { d } from '@serenity-js/core';
+import { the } from '@serenity-js/core';
 
 import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
@@ -80,7 +80,7 @@ export class RightClick extends PageElementInteraction {
     }
 
     protected constructor(private readonly pageElement: Answerable<PageElement>) {
-        super(d `#actor right-clicks on ${ pageElement }`);
+        super(the `#actor right-clicks on ${ pageElement }`);
     }
 
     /**

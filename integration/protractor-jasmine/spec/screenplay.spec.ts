@@ -32,9 +32,9 @@ describe('@serenity-js/jasmine', function () {
                     .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Jasmine')))
                     .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Jasmine')))
                     .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine disables synchronisation with Angular`)))
-                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://version/'`)))
-                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://accessibility/'`)))
-                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to 'chrome://chrome-urls/'`)))
+                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to "chrome://version/"`)))
+                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to "chrome://accessibility/"`)))
+                    .next(InteractionStarts,        event => expect(event.details.name).to.equal(new Name(`Jasmine navigates to "chrome://chrome-urls/"`)))
 
                     .next(SceneFinishes,            event => {
                         expect(event.sceneId).to.equal(currentSceneId);

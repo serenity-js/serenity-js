@@ -1,12 +1,13 @@
 import type { JSONObject } from 'tiny-types';
 
-import { commaSeparated } from '../../io';
+import { asyncMap } from '../../io';
 import type { UsesAbilities } from '../abilities';
 import type { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import type { QuestionAdapter } from '../Question';
 import { Question } from '../Question';
-import type { AnswersQuestions } from '../questions';
+import type { AnswersQuestions, DescriptionFormattingOptions} from '../questions';
+import { the } from '../questions';
 import type { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
@@ -57,7 +58,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     get<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<Notes[Subject]> {
         return Question.about(`a note of ${ String(subject) }`, actor => {
             return TakeNotes.as(actor).notepad.get(subject);
-        });
+        }).describedAs(Question.formattedValue());
     }
 
     /**
@@ -207,7 +208,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * - {@apilink Notepad.clear}
      */
     clear(): Interaction {
-        return Interaction.where('#actor clears their notepad', actor => {
+        return Interaction.where(the`#actor clears ${ new NumberOfNotes() } from their notepad`, actor => {
             return TakeNotes.as(actor).notepad.clear();
         });
     }
@@ -236,7 +237,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * - {@apilink Notepad.size}
      */
     size(): QuestionAdapter<number> {
-        return Question.about('number of notes', async actor => {
+        return Question.about(the`${ new NumberOfNotes() }`, async actor => {
             return TakeNotes.as(actor).notepad.size();
         });
     }
@@ -296,7 +297,7 @@ type NotesToSet<Notes extends Record<any, any>> = {
 class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction implements ChainableSetter<Notes> {
 
     constructor(private readonly notes: NotesToSet<Notes>) {
-        super(`#actor takes note of ${ commaSeparated(Object.keys(notes)) }`);
+        super(new DescriptionOfNotes(notes));
     }
 
     set<K extends keyof Notes>(subject: K, value: Answerable<Notes[K]>): ChainableSetter<Notes> & Interaction {
@@ -314,5 +315,55 @@ class ChainableNoteSetter<Notes extends Record<any, any>> extends Interaction im
             const answer = await actor.answer(value);
             notepad.set(subject, answer);
         }
+    }
+}
+
+class DescriptionOfNotes<Notes extends Record<any, any>>
+    extends Question<Promise<string>>
+{
+    constructor(
+        private readonly notes: NotesToSet<Notes>,
+        private readonly options?: DescriptionFormattingOptions,
+    ) {
+        super(`#actor takes notes: ${ Object.keys(notes).join(', ') }`);
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+        const noteNames = Object.keys(this.notes);
+        const maxWidth  = noteNames.reduce((max, name) => Math.max(max, name.length), 0);
+
+        const list = await asyncMap(noteNames, async noteName => {
+            const label = `${ noteName }:`.padEnd(maxWidth + 1);
+            const noteDescription = await actor.answer(Question.formattedValue(this.options).of(this.notes[noteName]));
+
+            return `- ${ label } ${ noteDescription }`
+        })
+
+        return [
+            `#actor takes notes:`,
+            ...list,
+        ].join('\n');
+    }
+
+    async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+        return this.answeredBy(actor);
+    }
+}
+
+class NumberOfNotes extends Question<Promise<number>> {
+    constructor() {
+        super('notes');
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<number> {
+        return TakeNotes.as(actor).notepad.size();
+    }
+
+    async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+        const count = await this.answeredBy(actor);
+
+        return count === 1
+            ? '1 note'
+            : `${ count } notes`;
     }
 }

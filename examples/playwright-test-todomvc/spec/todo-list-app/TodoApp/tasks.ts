@@ -1,5 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
+import { Answerable } from '@serenity-js/core';
 import { HeadRequest, LastResponse,Send } from '@serenity-js/rest';
 import { Navigate, Page } from '@serenity-js/web';
 
@@ -18,7 +19,7 @@ export const startWithAnEmptyList = () =>
         ),
     );
 
-export const startWithAListContaining = (...items: string[]) =>
+export const startWithAListContaining = (...items: Array<Answerable<string>>) =>
     Task.where(`#actor starts with a list containing ${ items.length } items`,
         startWithAnEmptyList(),
         ...items.map(recordItem),

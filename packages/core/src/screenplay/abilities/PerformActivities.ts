@@ -1,12 +1,10 @@
 import { match } from 'tiny-types';
 
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
-import type { EmitsDomainEvents} from '../../events';
+import type { EmitsDomainEvents } from '../../events';
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import type {
-    Outcome,
-    ProblemIndication
-} from '../../model';
+import { type FileSystemLocation, ValueInspector } from '../../io';
+import type { Outcome, ProblemIndication } from '../../model';
 import {
     ActivityDetails,
     ExecutionCompromised,
@@ -19,7 +17,9 @@ import {
 import type { PerformsActivities } from '../activities/PerformsActivities';
 import type { Activity } from '../Activity';
 import { Interaction } from '../Interaction';
-import { Ability } from './index';
+import type { AnswersQuestions } from '../questions';
+import { Ability } from './Ability';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * An {@apilink Ability} that enables an {@apilink Actor} to perform a given {@apilink Activity}.
@@ -32,15 +32,15 @@ import { Ability } from './index';
  */
 export class PerformActivities extends Ability {
     constructor(
-        protected readonly actor: PerformsActivities & { name: string },
+        protected readonly actor: AnswersQuestions & UsesAbilities & PerformsActivities & { name: string },
         protected readonly stage: EmitsDomainEvents,
     ) {
         super();
     }
 
     async perform(activity: Activity): Promise<void> {
-        const sceneId = this.stage.currentSceneId();
-        const details = this.detailsOf(activity);
+        const sceneId    = this.stage.currentSceneId();
+        const details    = this.detailsOf(this.nameOf(activity), activity.instantiationLocation());
         const activityId = this.stage.assignNewActivityId(details);
 
         const [ activityStarts, activityFinished ] = activity instanceof Interaction
@@ -48,11 +48,28 @@ export class PerformActivities extends Ability {
             : [ TaskStarts, TaskFinished ];
 
         try {
-            this.stage.announce(new activityStarts(sceneId, activityId, details, this.stage.currentTime()))
+            this.stage.announce(
+                new activityStarts(
+                    sceneId,
+                    activityId,
+                    details,
+                    this.stage.currentTime()
+                )
+            );
 
             await activity.performAs(this.actor);
 
-            this.stage.announce(new activityFinished(sceneId, activityId, details, new ExecutionSuccessful(), this.stage.currentTime()));
+            const name = await activity.describedBy(this.actor);
+
+            this.stage.announce(
+                new activityFinished(
+                    sceneId,
+                    activityId,
+                    this.detailsOf(name, activity.instantiationLocation()),
+                    new ExecutionSuccessful(),
+                    this.stage.currentTime()
+                )
+            );
         }
         catch (error) {
             this.stage.announce(new activityFinished(sceneId, activityId, details, this.outcomeFor(error), this.stage.currentTime()));
@@ -74,18 +91,18 @@ export class PerformActivities extends Ability {
             .else(_ => new ExecutionFailedWithError(error));
     }
 
-    private detailsOf(activity: Activity): ActivityDetails {
+    private detailsOf(name: string, instantiationLocation: FileSystemLocation): ActivityDetails {
         return new ActivityDetails(
-            new Name(this.nameOf(activity)),
-            activity.instantiationLocation(),
+            new Name(name),
+            instantiationLocation,
         )
     }
 
     protected nameOf(activity: Activity): string {
-        const template = activity.toString() === ({}).toString()
-            ? `#actor performs ${ activity.constructor.name }`
-            : activity.toString();
+        const template = ValueInspector.hasItsOwnToString(activity)
+            ? activity.toString()
+            : `#actor performs ${ activity.constructor.name }`;
 
-        return template.replace('#actor', this.actor.name);
+        return template.replaceAll('#actor', this.actor.name);
     }
 }

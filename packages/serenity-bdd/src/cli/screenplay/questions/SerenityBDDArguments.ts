@@ -24,29 +24,12 @@ export class SerenityBDDArguments extends Question<string[]> {
     }
 
     constructor(private readonly argv: Argv) {
-        super();
-        this.subject = 'Serenity BDD arguments';
+        super('Serenity BDD arguments');
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): string[] {
         return Object.keys(this.argv)
             .filter(key => !! ~ SerenityBDDArguments.Allowed.indexOf(key) && !! this.argv[key])
             .flatMap(arg => [`--${ arg }`, this.argv[arg]]);
-    }
-
-    /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
     }
 }

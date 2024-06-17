@@ -17,7 +17,7 @@ describe('endsWith', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', endsWith('Mundo!')),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to end with 'Mundo!'
+            | Expected "Hello World!" to end with "Mundo!"
             |
             | Expectation: endsWith('Mundo!')
             |
@@ -28,6 +28,6 @@ describe('endsWith', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello', endsWith('o')).toString())
-            .to.equal(`#actor ensures that 'Hello' does end with 'o'`);
+            .to.equal(`#actor ensures that "Hello" does end with "o"`);
     });
 });

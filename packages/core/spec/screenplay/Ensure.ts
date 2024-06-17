@@ -1,9 +1,6 @@
 import { equal } from 'tiny-types/lib/objects/equal';
 
-import { AssertionError } from '../../src/errors';
-import { d } from '../../src/io';
-import type { Answerable} from '../../src/screenplay';
-import { Interaction } from '../../src/screenplay';
+import { type Answerable, AssertionError, Interaction, the } from '../../src';
 
 export const Ensure = {
     same: <T>(actual: Answerable<T>, expected: T): Interaction =>
@@ -27,7 +24,7 @@ export const Ensure = {
         }),
 
     greaterThanOrEqual: <T extends number>(actual: Answerable<T>, expected: Answerable<T>): Interaction =>
-        Interaction.where(d`#actor ensures that ${actual} >= ${ expected }`, async actor => {
+        Interaction.where(the`#actor ensures that ${actual} >= ${ expected }`, async actor => {
             const actualValue   = await actor.answer(actual);
             const expectedValue = await actor.answer(expected);
 
@@ -37,7 +34,7 @@ export const Ensure = {
         }),
 
     lessThan: <T extends number>(actual: Answerable<T>, expected: Answerable<T>): Interaction =>
-        Interaction.where(d`#actor ensures that ${actual} < ${ expected }`, async actor => {
+        Interaction.where(the`#actor ensures that ${actual} < ${ expected }`, async actor => {
             const actualValue   = await actor.answer(actual);
             const expectedValue = await actor.answer(expected);
 
@@ -47,7 +44,7 @@ export const Ensure = {
         }),
 
     closeTo: <T extends number>(actual: Answerable<T>, expected: Answerable<T>, tolerance: Answerable<T>): Interaction =>
-        Interaction.where(d`#actor ensures that ${actual} is close to ${ expected } ±${ tolerance }`, async actor => {
+        Interaction.where(the`#actor ensures that ${actual} is close to ${ expected } ±${ tolerance }`, async actor => {
             const actualValue       = await actor.answer(actual);
             const expectedValue     = await actor.answer(expected);
             const toleranceValue    = await actor.answer(tolerance);

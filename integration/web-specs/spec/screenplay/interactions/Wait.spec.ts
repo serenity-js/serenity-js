@@ -99,7 +99,7 @@ describe('Wait', () => {
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Timeout of 2s has expired while waiting for the text of the header to equal 'Ready!'
+                    | Timeout of 2s has expired while waiting for the text of the header to equal "Ready!"
                     |
                     | Expectation: equals\\('Ready!'\\)
                     |
@@ -111,7 +111,7 @@ describe('Wait', () => {
 
         it('provides a sensible description of the interaction being performed', () => {
             expect(Wait.upTo(Duration.ofSeconds(1)).until(Text.of(status()), equals('Ready!')).toString())
-                .to.equal(`#actor waits until the text of the header does equal 'Ready!'`);
+                .to.equal(`#actor waits until the text of the header does equal "Ready!"`);
         });
     });
 });

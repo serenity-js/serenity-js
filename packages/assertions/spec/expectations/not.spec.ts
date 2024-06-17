@@ -17,7 +17,7 @@ describe('not', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', not(startsWith('Hello'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to not start with 'Hello'
+            | Expected "Hello World!" to not start with "Hello"
             |
             | Expectation: not(startsWith('Hello'))
             |
@@ -28,7 +28,7 @@ describe('not', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello', not(startsWith('o'))).toString())
-            .to.equal(`#actor ensures that 'Hello' does not start with 'o'`);
+            .to.equal(`#actor ensures that "Hello" does not start with "o"`);
     });
 
     it('flips the outcome of an assertion, but doesn\'t hide any errors that might have happened while making it', () => {
@@ -46,7 +46,7 @@ describe('not', () => {
     describe('double negative', () => {
         it('contributes to a human-readable description', () => {
             expect(Ensure.that('Hello', not(not(startsWith('o')))).toString())
-                .to.equal(`#actor ensures that 'Hello' does start with 'o'`);
+                .to.equal(`#actor ensures that "Hello" does start with "o"`);
         });
     });
 
@@ -95,7 +95,7 @@ describe('not', () => {
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(contain('o'))).toString())
-                    .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain 'o'`);
+                    .to.equal(`#actor ensures that [ "H", "e", "l", "l", "o" ] does not contain "o"`);
             });
         });
 
@@ -122,7 +122,7 @@ describe('not', () => {
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that([ 'H', 'e', 'l', 'l', 'o' ], not(containAtLeastOneItemThat(equals('o')))).toString())
-                    .to.equal(`#actor ensures that [ 'H', 'e', 'l', 'l', 'o' ] does not contain at least one item that does equal 'o'`);
+                    .to.equal(`#actor ensures that [ "H", "e", "l", "l", "o" ] does not contain at least one item that does equal "o"`);
             });
         });
 
@@ -132,7 +132,7 @@ describe('not', () => {
                 expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(endsWith('o'))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
-                    | Expected 'Hello' to not end with 'o'
+                    | Expected "Hello" to not end with "o"
                     |
                     | Expectation: not(endsWith('o'))
                     |
@@ -143,7 +143,7 @@ describe('not', () => {
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(endsWith('o'))).toString())
-                    .to.equal(`#actor ensures that 'Hello' does not end with 'o'`);
+                    .to.equal(`#actor ensures that "Hello" does not end with "o"`);
             });
         });
 
@@ -216,7 +216,7 @@ describe('not', () => {
                 expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(includes('Hello'))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
-                    | Expected 'Hello' to not include 'Hello'
+                    | Expected "Hello" to not include "Hello"
                     |
                     | Expectation: not(includes('Hello'))
                     |
@@ -227,7 +227,7 @@ describe('not', () => {
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(includes('Hello'))).toString())
-                    .to.equal(`#actor ensures that 'Hello' does not include 'Hello'`);
+                    .to.equal(`#actor ensures that "Hello" does not include "Hello"`);
             });
         });
 
@@ -299,7 +299,7 @@ describe('not', () => {
                 expect(actorCalled('Astrid').attemptsTo(
                     Ensure.that('Hello', not(startsWith('H'))),
                 )).to.be.rejectedWith(AssertionError, trimmed`
-                    | Expected 'Hello' to not start with 'H'
+                    | Expected "Hello" to not start with "H"
                     |
                     | Expectation: not(startsWith('H'))
                     |
@@ -309,7 +309,7 @@ describe('not', () => {
 
             it('contributes to a human-readable description', () => {
                 expect(Ensure.that('Hello', not(startsWith('H'))).toString())
-                    .to.equal(`#actor ensures that 'Hello' does not start with 'H'`);
+                    .to.equal(`#actor ensures that "Hello" does not start with "H"`);
             });
         });
     });

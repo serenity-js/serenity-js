@@ -17,7 +17,7 @@ describe('startsWith', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', startsWith('¡Hola')),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to start with '¡Hola'
+            | Expected "Hello World!" to start with "¡Hola"
             |
             | Expectation: startsWith('¡Hola')
             |
@@ -28,6 +28,6 @@ describe('startsWith', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello', startsWith('H')).toString())
-            .to.equal(`#actor ensures that 'Hello' does start with 'H'`);
+            .to.equal(`#actor ensures that "Hello" does start with "H"`);
     });
 });

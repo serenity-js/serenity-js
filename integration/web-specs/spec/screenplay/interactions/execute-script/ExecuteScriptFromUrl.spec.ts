@@ -70,6 +70,6 @@ describe('ExecuteScriptFromUrl', function () {
 
     it('provides a sensible description of the interaction being performed', () => {
         expect(ExecuteScript.from('https://localhost/script.js').toString())
-            .to.equal(`#actor executes a script from 'https://localhost/script.js'`);
+            .to.equal(`#actor executes a script from "https://localhost/script.js"`);
     });
 });

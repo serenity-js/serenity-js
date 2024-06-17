@@ -17,12 +17,12 @@ import type { RuntimeError } from './model/RuntimeError';
  * ## Raising an error
  *
  * ```typescript
- * import { Interaction, LogicError, RaiseErrors } from '@serenity-js/core'
+ * import { Interaction, LogicError, RaiseErrors, the } from '@serenity-js/core'
  * import isPathInside from 'is-path-inside'
  * import { unlink } from 'fs/promises'
  *
  * const RemoveFile = (pathToFile: string) =>
- *   Interaction.where(`#actor removes a file at ${ pathToFile }`, async actor => {
+ *   Interaction.where(the`#actor removes a file at ${ pathToFile }`, async actor => {
  *
  *     if (! isPathInside(pathToFile, process.cwd())) {
  *

@@ -17,7 +17,7 @@ describe('includes', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', includes('Mundo')),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to include 'Mundo'
+            | Expected "Hello World!" to include "Mundo"
             |
             | Expectation: includes('Mundo')
             |
@@ -28,6 +28,6 @@ describe('includes', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello beautiful world', includes('beautiful')).toString())
-            .to.equal(`#actor ensures that 'Hello beautiful world' does include 'beautiful'`);
+            .to.equal(`#actor ensures that "Hello beautiful world" does include "beautiful"`);
     });
 });

@@ -208,6 +208,20 @@ describe('List', () => {
             expect(result).to.deep.equal(['Alice', 'Arbnor', 'Bob']);
         });
 
+        it('supports Question.formattedValue()', async () => {
+            const list = List.of(accounts);
+
+            const result = await list
+                .eachMappedTo(Question.formattedValue({ maxLength: 20 }))
+                .answeredBy(Fiona)
+
+            expect(result).to.deep.equal([
+                `{ id: 1, name: "Alice" }`,
+                `{ id: 2, name: "Arb... }`,
+                `{ id: 3, name: "Bob" }`,
+            ]);
+        });
+
         it('describes MetaQuestion used to map the items', () => {
             const list = List.of(accounts);
 
@@ -334,7 +348,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(333);
+            expect(location.line).to.equal(347);
             expect(location.column).to.equal(18);
         });
     });
@@ -705,7 +719,7 @@ class ObjectKeys
     private subject?: string;
 
     constructor(private readonly jsonObject: Answerable<JSONObject>) {
-        super();
+        super(d`${ jsonObject }`);
     }
 
     of(context: Answerable<string>): Question<Promise<string[]>> & ChainableMetaQuestion<string, Question<Promise<string[]>>> {
@@ -722,15 +736,6 @@ class ObjectKeys
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<any>> {
         const jsonObject = await actor.answer(this.jsonObject);
         return Object.keys(jsonObject);
-    }
-
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject ?? d`${ this.jsonObject }`
     }
 }
 

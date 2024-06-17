@@ -130,7 +130,7 @@ describe('CssClasses', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where CssClasses does equal [ 'important' ]`)
+            expect(description).to.equal(`sections where CssClasses does equal [ "important" ]`)
         });
 
         it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -139,7 +139,7 @@ describe('CssClasses', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where CSS classes of the heading does equal [ 'important' ]`)
+            expect(description).to.equal(`sections where CSS classes of the heading does equal [ "important" ]`)
         });
     });
 });

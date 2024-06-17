@@ -352,7 +352,7 @@ describe('PageElements', () => {
                 ).toString();
 
                 expect(description).to.equal(
-                    `the text of heading of the last of containers of filter pattern with mapping section where the text of list items does contain 'coffee'`
+                    `the text of heading of the last of containers of filter pattern with mapping section where the text of list items does contain "coffee"`
                 );
             });
         });

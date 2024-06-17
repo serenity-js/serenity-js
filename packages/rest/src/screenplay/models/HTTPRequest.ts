@@ -11,8 +11,6 @@ import type { AxiosRequestConfig } from 'axios';
  */
 export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {
 
-    private subject: string;
-
     /**
      * @param [resourceUri]
      *  URL to which the request should be sent
@@ -29,8 +27,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
         protected readonly data?: Answerable<any>,
         protected readonly config?: Answerable<WithAnswerableProperties<AxiosRequestConfig>>,
     ) {
-        super();
-        this.subject = `${ this.requestDescription() } to ${ d`${ this.resourceUri }` }`;
+        super(`${ HTTPRequest.requestDescription(new.target.name) } to ${ d`${ resourceUri }` }`);
     }
 
     /**
@@ -48,7 +45,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
                 {},
                 { url, data },
                 config,
-                { method: this.httpMethodName() },
+                { method: HTTPRequest.httpMethodName(this.constructor.name) },
             ),
         ).
         then(config =>
@@ -63,35 +60,20 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
     }
 
     /**
-     * @inheritDoc
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
-    }
-
-    /**
      * Determines the request method based on the name of the request class.
      * For example: GetRequest => GET, PostRequest => POST, etc.
      */
-    private httpMethodName(): string {
-        return this.constructor.name.replace(/Request/, '').toUpperCase();
+    private static httpMethodName(className: string): string {
+        return className.replace(/Request/, '').toUpperCase();
     }
 
     /**
      * A human-readable description of the request, such as "a GET request", "an OPTIONS request", etc.
      */
-    private requestDescription(): string {
+    private static requestDescription(className: string): string {
         const
             vowels = [ 'A', 'E', 'I', 'O', 'U' ],
-            method = this.httpMethodName();
+            method = HTTPRequest.httpMethodName(className);
 
         return `${ ~vowels.indexOf(method[0]) ? 'an' : 'a' } ${ method } request`;
     }

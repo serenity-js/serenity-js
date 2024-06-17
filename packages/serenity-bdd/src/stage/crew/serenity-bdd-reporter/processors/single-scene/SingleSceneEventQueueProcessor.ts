@@ -70,7 +70,7 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
     private onActivityFinished(report: SerenityBDDReportContext) {
         return (event: ActivityFinished) =>
             report
-                .with(activityFinished(event.activityId, event.outcome, event.timestamp))
+                .with(activityFinished(event.activityId, event.details.name, event.outcome, event.timestamp))
     }
 
     private onSceneFinished(report: SerenityBDDReportContext) {

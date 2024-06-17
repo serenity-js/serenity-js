@@ -23,7 +23,7 @@ describe('isAfter', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that(new Date('1985-01-01'), isAfter(new Date('1995-01-01'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 1985-01-01T00:00:00.000Z to have value that is after 1995-01-01T00:00:00.000Z
+            | Expected Date(1985-01-01T00:00:00.000Z) to have value that is after Date(1995-01-01T00:00:00.000Z)
             |
             | Expectation: isAfter(1995-01-01T00:00:00.000Z)
             |
@@ -50,6 +50,6 @@ describe('isAfter', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that(new Date('1995-01-01'), isAfter(new Date('1985-01-01'))).toString())
-            .to.equal(`#actor ensures that 1995-01-01T00:00:00.000Z does have value that is after 1985-01-01T00:00:00.000Z`);
+            .to.equal(`#actor ensures that Date(1995-01-01T00:00:00.000Z) does have value that is after Date(1985-01-01T00:00:00.000Z)`);
     });
 });

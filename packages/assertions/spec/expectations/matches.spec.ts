@@ -17,7 +17,7 @@ describe('matches', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', matches(/mundo$/gi)),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to match /mundo$/gi
+            | Expected "Hello World!" to match /mundo$/gi
             |
             | Expectation: matches(/mundo$/gi)
             |
@@ -27,6 +27,6 @@ describe('matches', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello World!', matches(/^[Hh]ello [Ww]orld!?$/g)).toString())
-            .to.equal(`#actor ensures that 'Hello World!' does match /^[Hh]ello [Ww]orld!?$/g`);
+            .to.equal(`#actor ensures that "Hello World!" does match /^[Hh]ello [Ww]orld!?$/g`);
     });
 });

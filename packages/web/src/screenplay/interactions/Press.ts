@@ -1,5 +1,5 @@
 import type { Activity, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
-import { d, Interaction, Question } from '@serenity-js/core';
+import { Interaction, Question, the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWeb } from '../abilities';
@@ -94,7 +94,7 @@ export class Press extends PageElementInteraction {
     protected constructor(
         private readonly keys: Answerable<Array<Key | string>>
     ) {
-        super(d `#actor presses ${ keys }`);
+        super(the `#actor presses ${ keys }`);
     }
 
     /**
@@ -119,7 +119,7 @@ class PressKeyInField extends PageElementInteraction {
         private readonly keys: Answerable<Array<Key | string>>,
         private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
-        super(d `#actor presses ${ keys } in ${ field }`, Interaction.callerLocation(3));
+        super(the`#actor presses ${ keys } in ${ field }`, Interaction.callerLocation(3));
     }
 
     /**
@@ -147,15 +147,12 @@ class PressKeyInField extends PageElementInteraction {
  * @package
  */
 class KeySequence extends Question<Promise<Array<Key | string>>> {
-    private subject: string;
-
     static of(keys: Array<Answerable<Key | string | Key[] | string[]>>) {
         return new KeySequence(keys);
     }
 
     constructor(private readonly keys: Array<Answerable<Key | string | Key[] | string[]>>) {
-        super();
-        this.subject = KeySequence.describe(keys);
+        super(KeySequence.describe(keys));
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<string | Key>> {
@@ -164,23 +161,6 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
         return keys
             .flat()
             .filter(key => !! key);
-    }
-
-    /**
-     * Changes the description of this question's subject.
-     *
-     * @param subject
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    toString(): string {
-        return this.subject;
     }
 
     private static describe(keys: Array<Answerable<Key | string | Key[] | string[]>>): string {

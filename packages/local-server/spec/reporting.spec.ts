@@ -58,10 +58,10 @@ describe('@serenity-js/local-server', () => {
             PickEvent.from(recorder.events)
                 .next(ActivityStarts,   hasName(`Nadia starts local server on a random port`))
                 .next(ActivityFinished, hasName(`Nadia starts local server on a random port`))
-                .next(ActivityFinished, hasName(`Nadia ensures that the URL of the local server does start with 'http://127.0.0.1'`))
+                .next(ActivityFinished, hasName(`Nadia ensures that the URL of the local server does start with "http://127.0.0.1"`))
                 .next(ActivityFinished, hasName(`Nadia sends a GET request to the URL of the local server`))
                 .next(ActivityFinished, hasName(`Nadia ensures that the status of the last response does equal 200`))
-                .next(ActivityFinished, hasName(`Nadia ensures that the body of the last response does equal 'Hello World!'`))
+                .next(ActivityFinished, hasName(`Nadia ensures that the body of the last response does equal "Hello World!"`))
                 .next(ActivityStarts,   hasName(`Nadia stops the local server`))
                 .next(ActivityFinished, hasName(`Nadia stops the local server`))
             ;

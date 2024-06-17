@@ -3,7 +3,7 @@ import { diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
 import { types } from 'util';
 
-import { inspected, isPlainObject, isPrimitive, typeOf } from '../io';
+import { inspected, ValueInspector } from '../io';
 import { Unanswered } from '../screenplay/questions/Unanswered';
 import type { DiffFormatter } from './diff';
 import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
@@ -121,7 +121,7 @@ class DiffValue {
         name: string,
         public readonly value: unknown,
     ) {
-        this.nameAndType            = `${ name } ${ typeOf(value) }`;
+        this.nameAndType            = `${ name } ${ ValueInspector.typeOf(value) }`;
         this.desiredNameFieldLength = this.nameAndType.length;
         this.summary                = this.summaryOf(value);
     }
@@ -136,7 +136,7 @@ class DiffValue {
     }
 
     type(): string {
-        return typeOf(this.value);
+        return ValueInspector.typeOf(this.value);
     }
 
     isComplex(): boolean {
@@ -154,7 +154,7 @@ class DiffValue {
             return false;
         }
 
-        return isPlainObject(this.value)
+        return ValueInspector.isPlainObject(this.value)
             || this.value['toJSON'];
     }
 
@@ -178,7 +178,7 @@ class DiffValue {
 
         const isDefined = value !== undefined && value !== null;
 
-        if (isDefined && (isPrimitive(value) || value instanceof RegExp)) {
+        if (isDefined && (ValueInspector.isPrimitive(value) || value instanceof RegExp)) {
             return String(value);
         }
 
