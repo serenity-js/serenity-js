@@ -58,20 +58,24 @@ describe('q', () => {
         return expect(Quentin.answer(question)).to.eventually.equal('The answer is: 42!')
     });
 
-    it(`should inject answers to multiple Answerables into the template`, () => {
+    it(`should inject answers to multiple Answerables into the template`, async () => {
         const
             baseUrl = Question.about('url', actor => 'http://127.0.0.1:8000'),
             itemId  = Question.about('itemId', actor => 5);
 
         const question = q `${ baseUrl }/api/items/${ itemId }`;
 
-        return expect(Quentin.answer(question)).to.eventually.equal('http://127.0.0.1:8000/api/items/5');
+        const answer    = await Quentin.answer(question);
+        const toString  = question.toString();
+
+        expect(answer).to.equal('http://127.0.0.1:8000/api/items/5');
+        expect(toString).to.equal('{url}/api/items/{itemId}');
     });
 
     it('provides a sensible description of the question being asked', () => {
         const question = q `/products/${ 1 }/attributes/${ Promise.resolve(2) }`;
 
-        return expect(question.toString()).to.equal('/products/{}/attributes/{}')
+        return expect(question.toString()).to.equal('/products/1/attributes/{Promise}')
     });
 
     it('can have the default description overridden', () => {
