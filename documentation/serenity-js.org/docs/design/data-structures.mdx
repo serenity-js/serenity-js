@@ -4,17 +4,17 @@ sidebar_position: 7
 
 # Data structures
 
-```mdx-code-block
-import ArticleComingSoon from '@site/src/components/ArticleComingSoon'
-```
-
 All the [activities](/api/core/class/Activity) performed by Serenity/JS actors are asynchronous,
 and so are the data structures that support them.
-Serenity/JS introduces several async-first data structures to support writing test scenarios that follow th [Screenplay Pattern](/handbook/design/screenplay-pattern).
+Serenity/JS introduces several **async-first, dynamic abstractions** around the native JavaScript
+[data structures and data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) to support writing
+test scenarios following the [Screenplay Pattern](/handbook/design/screenplay-pattern).
 
-In this article, I'll show you how the following idiomatic Serenity/JS data structures work and how to use them in your scenarios:
+In this article, I'll show you how the below idiomatic Serenity/JS data structures work and how to use them in your scenarios:
 - [`Question`](/api/core/class/Question)
 - [`QuestionAdapter`](/api/core#QuestionAdapter)
+- [`Answerable`](/api/core/#Answerable)
+- [`MetaQuestion`](/api/core/interface/MetaQuestion/)
 - [`List`](/api/core/class/List)
 - [`Notes`](/api/core/function/notes)
 
