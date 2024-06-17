@@ -37,7 +37,7 @@ describe('Attribute', () => {
 
         it('produces a sensible description of the question being asked', () => {
             expect(Attribute.called('lang').of(dom).toString())
-                .to.equal(`'lang' attribute of DOM`);
+                .to.equal(`"lang" attribute of DOM`);
         });
 
         it('complains if the target is not specified', () =>
@@ -95,7 +95,7 @@ describe('Attribute', () => {
         it('provides a human-readable description of a regular question', () => {
             const description = Attribute.called('role').of(heading).toString();
 
-            expect(description).to.equal(`'role' attribute of the heading`)
+            expect(description).to.equal(`"role" attribute of the heading`)
         });
 
         it('allows for the description to be altered', () => {
@@ -107,7 +107,7 @@ describe('Attribute', () => {
         it('provides a human-readable description of the meta-question', () => {
             const description = Attribute.called('role').of(heading).of(section).toString();
 
-            expect(description).to.equal(`'role' attribute of the heading of a section`)
+            expect(description).to.equal(`"role" attribute of the heading of a section`)
         });
 
         it('provides a human-readable description of a reqular question used in a filter', () => {
@@ -115,7 +115,7 @@ describe('Attribute', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where 'role' attribute does equal 'navigation'`)
+            expect(description).to.equal(`sections where "role" attribute does equal "navigation"`)
         });
 
         it('provides a human-readable description of a meta-question used in a filter', () => {
@@ -124,7 +124,7 @@ describe('Attribute', () => {
 
             const description = found.toString();
 
-            expect(description).to.equal(`sections where 'role' attribute of the heading does equal 'navigation'`)
+            expect(description).to.equal(`sections where "role" attribute of the heading does equal "navigation"`)
         });
     });
 });

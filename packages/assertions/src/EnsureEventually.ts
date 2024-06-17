@@ -5,7 +5,8 @@ import type {
     Expectation,
     ExpectationOutcome,
     RuntimeError,
-    UsesAbilities} from '@serenity-js/core';
+    UsesAbilities
+} from '@serenity-js/core';
 import {
     AssertionError,
     d,
@@ -15,6 +16,7 @@ import {
     ListItemNotFoundError,
     RaiseErrors,
     ScheduleWork,
+    the,
     TimeoutExpiredError
 } from '@serenity-js/core';
 import type { FileSystemLocation } from '@serenity-js/core/lib/io';
@@ -93,7 +95,7 @@ export class EnsureEventually<Actual> extends Interaction {
         location: FileSystemLocation,
         protected readonly timeout?: Duration,
     ) {
-        super(d`#actor ensures that ${ actual } does eventually ${ expectation }`, location);
+        super(the`#actor ensures that ${ actual } does eventually ${ expectation }`, location);
     }
 
     /**

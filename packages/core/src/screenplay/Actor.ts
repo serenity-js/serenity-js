@@ -1,6 +1,6 @@
 import { ConfigurationError, TestCompromisedError } from '../errors';
 import { ActivityRelatedArtifactGenerated } from '../events';
-import { typeOf } from '../io';
+import { ValueInspector } from '../io';
 import type { Artifact} from '../model';
 import { Name, } from '../model';
 import type { Stage } from '../stage';
@@ -250,7 +250,7 @@ export class Actor implements PerformsActivities,
 
     private acquireAbility(ability: Ability): void {
         if (!(ability instanceof Ability)) {
-            throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ typeOf(ability) }`);
+            throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ ValueInspector.typeOf(ability) }`);
         }
 
         const abilityType = this.mostGenericTypeOf(ability.constructor as AbilityType<Ability>);

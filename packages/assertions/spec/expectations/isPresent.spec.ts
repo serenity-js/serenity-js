@@ -94,6 +94,6 @@ describe('isPresent', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('example', isPresent()).toString())
-            .to.equal(`#actor ensures that 'example' does become present`);
+            .to.equal(`#actor ensures that "example" does become present`);
     });
 });

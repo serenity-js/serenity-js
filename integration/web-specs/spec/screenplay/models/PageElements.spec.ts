@@ -292,19 +292,19 @@ describe('PageElements', () => {
 
                 it('returns the number of items', () =>
                     expect(list.count().toString())
-                        .to.equal(`the number of shopping list items where CssClasses does contain 'buy'`));
+                        .to.equal(`the number of shopping list items where CssClasses does contain "buy"`));
 
                 it('picks all the items', () =>
                     expect(list.toString())
-                        .to.equal(`shopping list items where CssClasses does contain 'buy'`));
+                        .to.equal(`shopping list items where CssClasses does contain "buy"`));
 
                 it('picks the first item', () =>
                     expect(list.first().toString())
-                        .to.equal(`the first of shopping list items where CssClasses does contain 'buy'`));
+                        .to.equal(`the first of shopping list items where CssClasses does contain "buy"`));
 
                 it('picks the last item', () =>
                     expect(list.last().toString())
-                        .to.equal(`the last of shopping list items where CssClasses does contain 'buy'`));
+                        .to.equal(`the last of shopping list items where CssClasses does contain "buy"`));
 
                 given([
                     { description: '1st', index: 0 },
@@ -319,7 +319,7 @@ describe('PageElements', () => {
                     { description: '115th', index: 114 },
                     { description: '1522nd', index: 1521 },
                 ]).it('picks the nth item', ({ description, index }) => {
-                    expect(list.nth(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy'`);
+                    expect(list.nth(index).toString()).to.equal(`the ${ description } of shopping list items where CssClasses does contain "buy"`);
                 });
             });
         });
@@ -372,19 +372,19 @@ describe('PageElements', () => {
 
                 it('returns the number of answers', () =>
                     expect(list.count().toString())
-                        .to.equal(`the number of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+                        .to.equal(`the number of shopping list items where CssClasses does contain "buy" and Text does start with "coconut"`));
 
                 it('picks all the items', () =>
                     expect(list.toString())
-                        .to.equal(`shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+                        .to.equal(`shopping list items where CssClasses does contain "buy" and Text does start with "coconut"`));
 
                 it('picks the first item', () =>
                     expect(list.first().toString())
-                        .to.equal(`the first of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+                        .to.equal(`the first of shopping list items where CssClasses does contain "buy" and Text does start with "coconut"`));
 
                 it('picks the last item', () =>
                     expect(list.last().toString())
-                        .to.equal(`the last of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`));
+                        .to.equal(`the last of shopping list items where CssClasses does contain "buy" and Text does start with "coconut"`));
 
                 given([
                     { description: '1st', index: 0 },
@@ -401,7 +401,7 @@ describe('PageElements', () => {
                 ]).
                 it('picks the nth item', ({ description, index }) => {
                     expect(list.nth(index).toString())
-                        .to.equal(`the ${ description } of shopping list items where CssClasses does contain 'buy' and Text does start with 'coconut'`);
+                        .to.equal(`the ${ description } of shopping list items where CssClasses does contain "buy" and Text does start with "coconut"`);
                 });
             });
         });
@@ -474,7 +474,7 @@ describe('PageElements', () => {
                 expect(elapsedWallClockTime.inMilliseconds()).to.be.greaterThanOrEqual(timeout.inMilliseconds());
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.match(new RegExp(trimmed`
-                    | Timeout of 1s has expired while waiting for the text of the first of items of shopping list app to equal 'coffee'
+                    | Timeout of 1s has expired while waiting for the text of the first of items of shopping list app to equal "coffee"
                     | \\s{4}at .*screenplay/models/PageElements.spec.ts:458:26`));
             }
         });

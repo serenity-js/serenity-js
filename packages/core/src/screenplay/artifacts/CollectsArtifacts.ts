@@ -19,7 +19,7 @@ export interface CollectsArtifacts {
      *
      * ```ts
      * import * as fs from 'node:fs'
-     * import { Answerable, Interaction } from '@serenity-js/core'
+     * import { Answerable, Interaction, the } from '@serenity-js/core'
      * import { Path } from '@serenity-js/core/lib/io'
      * import { Name, TextData } from '@serenity-js/core/lib/model'
      *
@@ -36,7 +36,7 @@ export interface CollectsArtifacts {
      *     })
      *
      *   static textData = (contents: Answerable<string>, name?: string): Interaction =>
-     *     Interaction.where(`#actor attaches text data`, async actor => {
+     *     Interaction.where(the`#actor attaches text data`, async actor => {
      *       const data = await actor.answer(contents);
      *
      *       actor.collect(

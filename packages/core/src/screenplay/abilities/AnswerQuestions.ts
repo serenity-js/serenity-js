@@ -1,3 +1,4 @@
+import { ValueInspector } from '../../io';
 import type { Answerable } from '../Answerable';
 import { Question } from '../Question';
 import type { AnswersQuestions } from '../questions';
@@ -20,7 +21,7 @@ export class AnswerQuestions extends Ability {
 
     answer<T>(answerable: Answerable<T>): Promise<T> {
 
-        if (AnswerQuestions.isDefined(answerable) && AnswerQuestions.isAPromise(answerable)) {
+        if (AnswerQuestions.isDefined(answerable) && ValueInspector.isPromise(answerable)) {
             return answerable;
         }
 
@@ -29,10 +30,6 @@ export class AnswerQuestions extends Ability {
         }
 
         return Promise.resolve(answerable as T);
-    }
-
-    private static isAPromise<V>(v: Answerable<V>): v is Promise<V> {
-        return Object.prototype.hasOwnProperty.call(v, 'then');
     }
 
     private static isDefined<V>(v: Answerable<V>) {

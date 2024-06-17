@@ -426,9 +426,13 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     private formattedOutcome(event: IdentifiableEvent & { outcome: Outcome }, description: string = event.details.name.value) {
-        const
-            icon = `${ this.iconFrom(event.outcome) }`,
-            message = `${ description } (${ this.startTimes.eventDurationOf(event) })`;
+        const duration  = this.startTimes.eventDurationOf(event);
+        const icon      = this.iconFrom(event.outcome);
+        const message   = description.split('\n').map((line, index) =>
+            index === 0
+                ? `${ line } (${ duration })`
+                : `${ ' '.repeat(icon.length) }${ line }`
+        ).join('\n');
 
         return (event.outcome instanceof ProblemIndication)
             ? this.theme.outcome(event.outcome, `${icon}${message}`)
@@ -471,6 +475,8 @@ class ConsoleReporterBuilder implements StageCrewMemberBuilder<ConsoleReporter> 
 }
 
 interface IdentifiableEvent {
+    sceneId: CorrelationId;
+    activityId?: CorrelationId;
     details: { name: Name, toString(): string };
     timestamp: Timestamp;
 }
@@ -491,7 +497,7 @@ class StartTimes {
     }
 
     private keyFor(event: IdentifiableEvent): string {
-        return event.details.toString();
+        return `${ event.sceneId.toString() }:${ event.activityId?.toString() }`;
     }
 }
 

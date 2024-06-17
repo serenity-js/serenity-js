@@ -5,7 +5,8 @@ import { d } from '../../../io';
 import type { UsesAbilities } from '../../abilities';
 import type { Answerable } from '../../Answerable';
 import { Interaction } from '../../Interaction';
-import type { AnswersQuestions, Expectation, ExpectationOutcome } from '../../questions';
+import type { AnswersQuestions, Expectation, ExpectationOutcome} from '../../questions';
+import { the } from '../../questions';
 import { ExpectationMet } from '../../questions';
 import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
@@ -202,7 +203,7 @@ export class Wait {
  */
 class WaitFor extends Interaction {
     constructor(private readonly duration: Answerable<Duration>) {
-        super(d`#actor waits for ${ duration }`);
+        super(the`#actor waits for ${ duration }`);
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
@@ -231,7 +232,7 @@ export class WaitUntil<Actual> extends Interaction {
         private readonly pollingInterval: Duration,
         private readonly timeout?: Duration,
     ) {
-        super(d`#actor waits until ${ actual } does ${ expectation }`);
+        super(the`#actor waits until ${ actual } does ${ expectation }`);
 
         if (timeout) {
             ensure('Timeout', timeout.inMilliseconds(), isGreaterThanOrEqualTo(Wait.minimumTimeout.inMilliseconds()));

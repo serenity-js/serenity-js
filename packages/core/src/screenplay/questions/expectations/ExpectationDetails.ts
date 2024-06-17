@@ -1,7 +1,7 @@
 import type { JSONObject, JSONValue} from 'tiny-types';
 import { ensure, isArray, isDefined, TinyType } from 'tiny-types';
 
-import { inspected, typeOf } from '../../../io';
+import { inspected, ValueInspector } from '../../../io';
 import { Name } from '../../../model';
 import { Unanswered } from '../Unanswered';
 
@@ -55,7 +55,7 @@ export class ExpectationDetails extends TinyType {
         return {
             name: this.name.value,
             args: this.args.map(arg => ({
-                type: typeOf(arg),
+                type: ValueInspector.typeOf(arg),
                 value: arg['toJSON']
                     ? (arg as any).toJSON()
                     : arg,

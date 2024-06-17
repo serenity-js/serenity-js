@@ -54,7 +54,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * Note how {@apilink BrowseTheWebWithPlaywright}, {@apilink BrowseTheWebWithWebdriverIO}, and {@apilink BrowseTheWebWithProtractor}
  * all **extend** the base ability to {@apilink BrowseTheWeb}.
  *
- * #### Playwright Test
+ * #### Playwright
  *
  * ```typescript
  * import { actorCalled } from '@serenity-js/core'
@@ -63,7 +63,7 @@ import type { UsesAbilities } from './UsesAbilities';
  *
  * const browser = await chromium.launch({ headless: true })              // integration library
  *
- * actorCalled('Trevor')                                                  // generic actor
+ * await actorCalled('Trevor')                                            // generic actor
  *   .whoCan(BrowseTheWebWithPlaywright.using(browser))                   // tool-specific ability
  * ```
  *
@@ -73,7 +73,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * import { actorCalled } from '@serenity-js/core'
  * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio' // Serenity/JS integration module
  *
- * actorCalled('Trevor')                                                  // generic actor
+ * await actorCalled('Trevor')                                            // generic actor
  *   .whoCan(BrowseTheWebWithWebdriverIO.using(browser))                  // tool-specific ability
  * ```
  *
@@ -84,7 +84,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * import { BrowseTheWebWithProtractor } from '@serenity-js/protractor'   // Serenity/JS integration module
  * import { protractor } from 'protractor'                                // integration library
  *
- * actorCalled('Trevor')                                                  // generic actor
+ * await actorCalled('Trevor')                                            // generic actor
  *   .whoCan(BrowseTheWebWithProtractor.using(protractor.browser))        // tool-specific ability
  * ```
  *
@@ -242,9 +242,11 @@ import type { UsesAbilities } from './UsesAbilities';
  * ### Defining a custom interaction using the custom ability
  *
  * ```ts
+ * import { Answerable, Interaction, the } from '@serenity-js/core'
+ *
  * // A custom interaction using the actor's ability:
- * const Call = (phoneNumber: string) =>
- *   Interaction.where(`#actor calls ${ phoneNumber }`, async actor => {
+ * const Call = (phoneNumber: Answerable<string>) =>
+ *   Interaction.where(the`#actor calls ${ phoneNumber }`, async actor => {
  *     await MakePhoneCalls.as(actor).dial(phoneNumber)
  *   })
  * ```

@@ -103,7 +103,7 @@ describe('@serenity-js/playwright-test', function () {
 
                         expect(error.name).to.equal('AssertionError');
                         expect(outcome.error.message).to.match(new RegExp(trimmed`
-                            | Expected 'Hello' to equal 'Hola'
+                            | Expected "Hello" to equal "Hola"
                             |
                             | Expectation: equals\\('Hola'\\)
                             |

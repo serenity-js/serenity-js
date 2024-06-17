@@ -26,7 +26,7 @@ describe('or', () => {
         return expect(actorCalled('Astrid').attemptsTo(
             Ensure.that('Hello World!', or(startsWith('¡Hola'), endsWith('Mundo!'))),
         )).to.be.rejectedWith(AssertionError, trimmed`
-            | Expected 'Hello World!' to start with '¡Hola' or end with 'Mundo!'
+            | Expected "Hello World!" to start with "¡Hola" or end with "Mundo!"
             |
             | Expectation: endsWith('Mundo!')
             |
@@ -36,6 +36,6 @@ describe('or', () => {
 
     it('contributes to a human-readable description', () => {
         expect(Ensure.that('Hello', or(startsWith('H'), endsWith('o'))).toString())
-            .to.equal(`#actor ensures that 'Hello' does start with 'H' or end with 'o'`);
+            .to.equal(`#actor ensures that "Hello" does start with "H" or end with "o"`);
     });
 });

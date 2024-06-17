@@ -1,27 +1,39 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { beforeEach, describe, it } from 'mocha';
+import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
-import { ImplementationPendingError } from '../../src/errors';
-import { CorrelationId } from '../../src/model';
-import { Actor, Interaction, Task } from '../../src/screenplay';
-import { Stage } from '../../src/stage';
+import { ErrorFactory, ImplementationPendingError } from '../../src/errors';
+import { Actor, type Answerable, Clock, Duration, Interaction, Masked, Question, Task, the } from '../../src/screenplay';
+import { Stage, StageManager } from '../../src/stage';
+import { Extras } from '../../src/stage/Extras';
 import { expect } from '../expect';
+
+const p = <T>(value: T) =>
+    Promise.resolve(value);
+
+const q = <T>(description: string, value: T) =>
+    Question.about(description, actor => value);
 
 describe('Task', () => {
 
-    let stage: sinon.SinonStubbedInstance<Stage>;
+    const interactionTimeout = Duration.ofSeconds(5);
+
+    let stage: Stage,
+        Lara: Actor,
+        stageManager: sinon.SinonStubbedInstance<StageManager>;
 
     beforeEach(() => {
-        stage = sinon.createStubInstance(Stage);
+        stageManager = sinon.createStubInstance(StageManager);
 
-        const
-            sceneId = new CorrelationId('some-scene-id'),
-            activityId = new CorrelationId('some-activity-id');
-
-        stage.currentSceneId.returns(sceneId);
-        stage.assignNewActivityId.returns(activityId);
-        stage.currentActivityId.returns(activityId);
+        stage = new Stage(
+            new Extras(),
+            stageManager as unknown as StageManager,
+            new ErrorFactory(),
+            new Clock(),
+            interactionTimeout,
+        );
+        Lara = new Actor('Lara', stage);
     });
 
     const
@@ -48,8 +60,6 @@ describe('Task', () => {
 
     it('generates a pending task if no activities are provided', () => {
 
-        const Lara = new Actor('Lara', stage as unknown as Stage);
-
         const ClimbAMountain = () => Task.where(`#actor climbs a mountain`);
 
         return expect(Lara.attemptsTo(ClimbAMountain()))
@@ -62,7 +72,7 @@ describe('Task', () => {
             const location = activity().instantiationLocation();
 
             expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(62);
+            expect(location.line).to.equal(72);
             expect(location.column).to.equal(30);
         });
 
@@ -70,8 +80,93 @@ describe('Task', () => {
             const location = ShootAnArrow().instantiationLocation();
 
             expect(location.path.basename()).to.equal('Task.spec.ts');
-            expect(location.line).to.equal(70);
+            expect(location.line).to.equal(80);
             expect(location.column).to.equal(30);
+        });
+    });
+
+    describe('when describing an interaction', () => {
+
+        const description = '#actor interacts with the system';
+
+        describe('toString()', () => {
+
+            given([
+                { description: 'string',                    input: description,                         expected: description      },
+                { description: 'Promise<string>',           input: p(description),                      expected: 'Promise'        },
+                { description: 'Question<string>',          input: q('some question', description),     expected: 'some question'  },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description)),  expected: 'some question'  },
+            ]).
+            it('produces a human-readable static description', ({ input, expected }) => {
+                const task = () =>
+                    Task.where(input);
+
+                expect(task().toString()).to.equal(expected);
+            });
+        });
+
+        describe('describedBy(actor)', () => {
+
+            const expected = 'Lara interacts with the system';
+
+            given([
+                { description: 'string',                    input: description                         },
+                { description: 'Promise<string>',           input: p(description)                      },
+                { description: 'Question<string>',          input: q('some question', description)     },
+                { description: 'Question<Promise<string>>', input: q('some question', p(description))  },
+            ]).
+            it('produces a description resolved in the context of the given actor', async ({ input }) => {
+                const task = () =>
+                    Task.where(input);
+
+                const description = await task().describedBy(Lara);
+
+                expect(description).to.equal(expected);
+            });
+
+            it('replaces any placeholders with their descriptions', async () => {
+                const systemUnderTest = (name: Answerable<string>) =>
+                    Question.about('system under test', actor_ => name)
+                        .describedAs(Question.formattedValue());
+
+                const interactWith = (environmentName: Answerable<string>) =>
+                    Task.where(the`#actor interacts with ${ systemUnderTest(environmentName) }`);
+
+                const task = interactWith('prod');
+
+                const description = await task.describedBy(Lara);
+                const toString    = task.toString();
+
+                expect(description).to.equal('Lara interacts with "prod"');
+                expect(toString).to.equal('#actor interacts with system under test');
+            });
+
+            describe('with masked values', () => {
+
+                it('masks the value in the description', async () => {
+                    const task = Task.where(the`#actor enters ${ Masked.valueOf(`password`) }`);
+
+                    const description = await task.describedBy(Lara);
+                    const toString    = task.toString();
+
+                    expect(description).to.equal(`Lara enters [a masked value]`);
+                    expect(toString).to.equal(`#actor enters [a masked value]`);
+                });
+
+                it(`masks the value in the description when it's nested in an object`, async () => {
+                    const taskDescription = the`#actor enters ${ { password: Masked.valueOf(`password`) } }`;
+                    const task = Task.where(taskDescription);
+
+                    expect(task.toString()).to.equal(`#actor enters { password: [a masked value] }`);
+                });
+
+                it(`masks the value in the description when it's nested in an array`, async () => {
+                    const taskDescription = the`#actor enters ${ [ Masked.valueOf(`password`) ] }`;
+                    const task = Task.where(taskDescription);
+
+                    expect(task.toString()).to.equal(`#actor enters [ [a masked value] ]`);
+                });
+            });
         });
     });
 });
