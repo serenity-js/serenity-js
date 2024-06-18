@@ -143,6 +143,20 @@ export const recordItem = (name: Answerable<string>): Task => // factory functio
   )
 ```
 
+Replacing `d` with `the` in your custom tasks and interactions will make your Serenity reports more developer-friendly,
+especially if you're using [`notes`](/api/core/function/notes/) or other dynamic data structures in your test scenarios:
+
+```
+Alice starts with an empty list
+Alice takes notes:
+- items: [ 'read a book' ]
+Alice records an item called "read a book"
+    Alice enters "read a book" into "What needs to be done?" input box
+    Alice presses key Enter in "What needs to be done?" input box
+    Alice waits until displayed items contain "read a book"
+Alice ensures that displayed items contain "read a book"
+```
+
 `the` works in a similar way to `d`, with two significant differences:
 - it gives you more flexibility over how the output is formatted
 - it queries the parameters to determine their description instead of inspecting them
