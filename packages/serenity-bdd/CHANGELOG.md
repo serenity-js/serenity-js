@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
+
+
+### Features
+
+* **core:** support for dynamic descriptions for Questions ([aac9a8f](https://github.com/serenity-js/serenity-js/commit/aac9a8f5dbc5b6f4664373f5462aa171baecdcf8)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **serenity-bdd:** support for reporting dynamic descriptions of Tasks and Interactions ([8737f55](https://github.com/serenity-js/serenity-js/commit/8737f55c804ae5cc02366b287de36d17c0bff133)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+
+
+
+
+
 ## [3.23.2](https://github.com/serenity-js/serenity-js/compare/v3.23.1...v3.23.2) (2024-05-24)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

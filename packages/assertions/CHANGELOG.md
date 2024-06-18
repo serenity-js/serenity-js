@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
+
+
+### Features
+
+* **assertions:** dynamic descriptions for assertions and expectations ([3fdc7c8](https://github.com/serenity-js/serenity-js/commit/3fdc7c83880d58f509c8b9e9e2494167a99444f0)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+
+
+
+
+
 ## [3.23.2](https://github.com/serenity-js/serenity-js/compare/v3.23.1...v3.23.2) (2024-05-24)
 
 **Note:** Version bump only for package @serenity-js/assertions
