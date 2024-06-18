@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[9004],{50685:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/open-source","page":1,"postsPerPage":3,"totalPages":2,"totalCount":5,"nextPage":"/blog/tags/open-source/page/2","blogDescription":"Blog","blogTitle":"Blog"}')}}]);
