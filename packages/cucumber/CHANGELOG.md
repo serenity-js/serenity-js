@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
+
+
+### Bug Fixes
+
+* **cucumber:** support for Cucumber 10.8.0 ([689f4c8](https://github.com/serenity-js/serenity-js/commit/689f4c8e3b2dc0d846a8c75ad22b58592d7a282f)), closes [#2140](https://github.com/serenity-js/serenity-js/issues/2140)
+
+
+
+
+
 ## [3.23.2](https://github.com/serenity-js/serenity-js/compare/v3.23.1...v3.23.2) (2024-05-24)
 
 **Note:** Version bump only for package @serenity-js/cucumber

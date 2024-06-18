@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
+
+
+### Bug Fixes
+
+* **core:** aggregated the various internal reflection functions under ValueInspector ([4c9ce32](https://github.com/serenity-js/serenity-js/commit/4c9ce329bd82970a9166844286571e0fab58b7b5)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **cucumber:** support for Cucumber 10.8.0 ([689f4c8](https://github.com/serenity-js/serenity-js/commit/689f4c8e3b2dc0d846a8c75ad22b58592d7a282f)), closes [#2140](https://github.com/serenity-js/serenity-js/issues/2140)
+* **deps:** update dependency sass to v1.77.4 ([df5955a](https://github.com/serenity-js/serenity-js/commit/df5955a66ff99630dacc98628e35ad6f1ce43c04))
+* **deps:** update dependency sass to v1.77.6 ([860ebbb](https://github.com/serenity-js/serenity-js/commit/860ebbbf0d825cad9a7e081a2f11558a7b2db71a))
+
+
+### Features
+
+* **assertions:** dynamic descriptions for assertions and expectations ([3fdc7c8](https://github.com/serenity-js/serenity-js/commit/3fdc7c83880d58f509c8b9e9e2494167a99444f0)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **console-reporter:** support for repording dynamic interaction descriptions ([bbe5e5e](https://github.com/serenity-js/serenity-js/commit/bbe5e5e78065a827fcbebfd594aa9f5a0e481391)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** dynamic descriptions for Wait.for and Wait.until ([d000f46](https://github.com/serenity-js/serenity-js/commit/d000f4664b5528352a6c7abd770831da34f90f00)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** initial description of a Question can now be dynamic ([7c428cc](https://github.com/serenity-js/serenity-js/commit/7c428cc4ef0668f71399028a1998d15bd18f576b)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** nested properties returned by QuestionAdapters are now reported as their formatted value ([35f2e3e](https://github.com/serenity-js/serenity-js/commit/35f2e3e217e94e771c85cb49d1afa81bfc0873b3)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** notes are now reported using their actual value rather than their description ([584373a](https://github.com/serenity-js/serenity-js/commit/584373ac5b3fceb54320891b93c981a4c671b93e)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** support for dynamic descriptions for Questions ([aac9a8f](https://github.com/serenity-js/serenity-js/commit/aac9a8f5dbc5b6f4664373f5462aa171baecdcf8)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** support for dynamic descriptions for Tasks and Interactions ([c1516f2](https://github.com/serenity-js/serenity-js/commit/c1516f2b1acb5937ad22012914ce38e15abe1276)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** the - new tag template function to help you create dynamic descriptions of activities ([98288dd](https://github.com/serenity-js/serenity-js/commit/98288dd5ef2a9af570b20d373cf46198665dc473)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **core:** the - tag literal function now accepts meta-questions as parameters ([a7b58b6](https://github.com/serenity-js/serenity-js/commit/a7b58b6f145aa0a708e329497d24aef004d46bed)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **serenity-bdd:** support for reporting dynamic descriptions of Tasks and Interactions ([8737f55](https://github.com/serenity-js/serenity-js/commit/8737f55c804ae5cc02366b287de36d17c0bff133)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **web:** all Serenity/JS Web interaction and questions use dynamic descriptions ([1deca07](https://github.com/serenity-js/serenity-js/commit/1deca07feadcd4cf3cbfc3d220f7895b829c3deb)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **web:** dynamic description of the interaction to Enter.theValue(..) ([fc92409](https://github.com/serenity-js/serenity-js/commit/fc9240926f1c2a61d52adaf4daa5f52f8b1b7087)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+
+
+
+
+
 ## [3.23.2](https://github.com/serenity-js/serenity-js/compare/v3.23.1...v3.23.2) (2024-05-24)
 
 

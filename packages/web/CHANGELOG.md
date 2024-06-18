@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
+
+
+### Bug Fixes
+
+* **core:** aggregated the various internal reflection functions under ValueInspector ([4c9ce32](https://github.com/serenity-js/serenity-js/commit/4c9ce329bd82970a9166844286571e0fab58b7b5)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+
+
+### Features
+
+* **core:** support for dynamic descriptions for Questions ([aac9a8f](https://github.com/serenity-js/serenity-js/commit/aac9a8f5dbc5b6f4664373f5462aa171baecdcf8)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **web:** all Serenity/JS Web interaction and questions use dynamic descriptions ([1deca07](https://github.com/serenity-js/serenity-js/commit/1deca07feadcd4cf3cbfc3d220f7895b829c3deb)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+* **web:** dynamic description of the interaction to Enter.theValue(..) ([fc92409](https://github.com/serenity-js/serenity-js/commit/fc9240926f1c2a61d52adaf4daa5f52f8b1b7087)), closes [#2223](https://github.com/serenity-js/serenity-js/issues/2223)
+
+
+
+
+
 ## [3.23.2](https://github.com/serenity-js/serenity-js/compare/v3.23.1...v3.23.2) (2024-05-24)
 
 **Note:** Version bump only for package @serenity-js/web
