@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.24.1](https://github.com/serenity-js/serenity-js/compare/v3.24.0...v3.24.1) (2024-06-26)
+
+**Note:** Version bump only for package @serenity-js/serenity-bdd
+
+
+
+
+
 # [3.24.0](https://github.com/serenity-js/serenity-js/compare/v3.23.2...v3.24.0) (2024-06-18)
 
 
