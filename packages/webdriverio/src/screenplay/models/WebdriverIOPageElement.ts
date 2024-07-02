@@ -264,6 +264,11 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
         }
     }
 
+    async outerHtml(): Promise<string> {
+        const element = await this.nativeElement();
+        return await element.getHTML(true);
+    }
+
     // based on https://github.com/webdriverio/webdriverio/blob/dec6da76b0e218af935dbf39735ae3491d5edd8c/packages/webdriverio/src/utils/index.ts#L98
 
     private async browserFor(nativeElement: WebdriverIO.Element | WebdriverIO.Browser): Promise<WebdriverIO.Browser> {

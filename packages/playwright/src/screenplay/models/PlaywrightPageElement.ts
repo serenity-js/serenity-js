@@ -211,6 +211,11 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
             return false;
         }
     }
+
+    async outerHtml(): Promise<string> {
+        const element = await this.nativeElement();
+        return element.evaluate(nativeElement => nativeElement.outerHTML);
+    }
 }
 
 /**

@@ -1,5 +1,5 @@
 import type { Answerable, MetaQuestionAdapter, Optional } from '@serenity-js/core';
-import { Question, the } from '@serenity-js/core';
+import { MetaQuestion, Question, QuestionAdapter, the } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
@@ -49,6 +49,16 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
 
             return actor.answer(child);
         });
+    }
+
+    static outerHtml<NET>(): MetaQuestion<PageElement<NET>, QuestionAdapter<string>> {
+        return {
+            of: (pageElement: Answerable<PageElement<NET>>) =>
+                Question.about(`outer HTML of ${pageElement}`, async actor => {
+                    const element = await actor.answer(pageElement);
+                    return element.outerHtml();
+                })
+        }
     }
 
     constructor(public readonly locator: Locator<Native_Element_Type>) {
@@ -205,4 +215,10 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * Otherwise, resolves to `false`.
      */
     abstract isVisible(): Promise<boolean>;
+
+    /**
+     * Resolves to the value of the [`outerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML) property
+     * of the underlying element.
+     */
+    abstract outerHtml(): Promise<string>;
 }
