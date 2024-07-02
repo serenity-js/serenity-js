@@ -3,6 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
+import { trimmed } from '@serenity-js/core/lib/io';
 import {
     By,
     isActive,
@@ -17,7 +18,6 @@ import {
     Text,
     Value
 } from '@serenity-js/web';
-import { trimmed } from '@serenity-js/core/lib/io';
 
 /** @test {PageElement} */
 describe('PageElement', () => {
