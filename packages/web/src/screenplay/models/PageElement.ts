@@ -1,5 +1,5 @@
-import type { Answerable, MetaQuestionAdapter, Optional } from '@serenity-js/core';
-import { MetaQuestion, Question, QuestionAdapter, the } from '@serenity-js/core';
+import type { Answerable, MetaQuestion, MetaQuestionAdapter, Optional , QuestionAdapter} from '@serenity-js/core';
+import { Question, the } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities';
