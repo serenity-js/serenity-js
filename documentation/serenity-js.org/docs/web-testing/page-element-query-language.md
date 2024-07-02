@@ -16,7 +16,9 @@ that help you identify and interact with web elements of interest:
 - **[`PageElements`](/api/web/class/PageElements)** - models a **collection of web elements**,
 - **[`By`](/api/web/class/By)** - represents **portable locators** used by your browser to identify web elements of interest.
 
-In this section, you'll learn how to use them together to find the exact elements your tests need to interact with. 
+In this section, you'll learn how to use them together to find the exact elements your tests need to interact with.
+
+For information on how to debug PEQL expressions, see the [debugging guide](/handbook/design/debugging/#inspecting-page-element-html).
 
 ## Working with individual page elements
 

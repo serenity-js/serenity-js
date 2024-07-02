@@ -3,7 +3,21 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { By, isActive, Key, Navigate, Page, PageElement, Press, Switch, TakeScreenshot, Text, Value } from '@serenity-js/web';
+import {
+    By,
+    isActive,
+    Key,
+    Navigate,
+    Page,
+    PageElement,
+    PageElements,
+    Press,
+    Switch,
+    TakeScreenshot,
+    Text,
+    Value
+} from '@serenity-js/web';
+import { trimmed } from '@serenity-js/core/lib/io';
 
 /** @test {PageElement} */
 describe('PageElement', () => {
@@ -50,6 +64,37 @@ describe('PageElement', () => {
             ));
     });
 
+    describe('outerHtml()', () => {
+
+        it('should return the outer HTML of the element', () =>
+            actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/outer_html.html'),
+                Ensure.that(
+                    PageElement.located(By.id('container')).outerHtml(),
+                    equals(trimmed`
+                        | <div id="container">
+                        |     <h1>Title</h1>
+                        | </div>                    
+                    `)
+                ),
+            ));
+
+        it('should return the outer HTML of all elements', () =>
+            actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/outer_html.html'),
+                Ensure.that(
+                    PageElements.located(By.css('ul#list li'))
+                        .eachMappedTo(PageElement.outerHtml()),
+
+                    equals([
+                        '<li>Item 1</li>',
+                        '<li>Item 2</li>',
+                        '<li>Item 3</li>',
+                    ])
+                ),
+            ));
+    });
+
     /** @test {PageElement#switchTo} */
     describe('switchTo()', () => {
 
@@ -83,7 +128,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(82);
+                expect(location.line).to.equal(127);
                 expect(location.column).to.equal(72);
             });
 
@@ -124,7 +169,7 @@ describe('PageElement', () => {
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(123);
+                    expect(location.line).to.equal(168);
                     expect(location.column).to.equal(87);
                 });
 
@@ -208,7 +253,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(207);
+                expect(location.line).to.equal(252);
                 expect(location.column).to.equal(41);
             });
 

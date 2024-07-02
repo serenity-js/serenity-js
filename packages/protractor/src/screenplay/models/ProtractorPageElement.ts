@@ -280,4 +280,13 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
             throw error;
         }
     }
+
+    async outerHtml(): Promise<string> {
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
+
+        return await promised(
+            webElement.getDriver().executeScript('arguments[0].outerHTML;', webElement),
+        );
+    }
 }
