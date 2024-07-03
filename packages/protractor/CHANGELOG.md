@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.25.0](https://github.com/serenity-js/serenity-js/compare/v3.24.1...v3.25.0) (2024-07-03)
+
+
+### Bug Fixes
+
+* **web:** renamed PageElement.outerHtml to PageElement.html for consistency with other methods ([9df6e0f](https://github.com/serenity-js/serenity-js/commit/9df6e0f2eece966d50ddac92e7550baa72bcb5f1))
+
+
+### Features
+
+* **web:** outerHtml lets you retrieve the HTML content of the given PageElement ([1bb6c6a](https://github.com/serenity-js/serenity-js/commit/1bb6c6afbfea3fb0c8883f9fe4aec385aa12ac27))
+
+
+
+
+
 ## [3.24.1](https://github.com/serenity-js/serenity-js/compare/v3.24.0...v3.24.1) (2024-06-26)
 
 **Note:** Version bump only for package @serenity-js/protractor

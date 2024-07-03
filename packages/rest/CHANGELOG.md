@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.25.0](https://github.com/serenity-js/serenity-js/compare/v3.24.1...v3.25.0) (2024-07-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency https-proxy-agent to v7.0.5 ([d4d618b](https://github.com/serenity-js/serenity-js/commit/d4d618bb950ee3726535df7987ed2c3f57d3a452))
+* **deps:** update dependency lru-cache to v10.3.0 ([52ceee3](https://github.com/serenity-js/serenity-js/commit/52ceee3c934fc9db634f6d69fe6cdebf7831a70e))
+
+
+
+
+
 ## [3.24.1](https://github.com/serenity-js/serenity-js/compare/v3.24.0...v3.24.1) (2024-06-26)
 
 **Note:** Version bump only for package @serenity-js/rest
