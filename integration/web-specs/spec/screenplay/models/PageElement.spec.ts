@@ -64,13 +64,13 @@ describe('PageElement', () => {
             ));
     });
 
-    describe('outerHtml()', () => {
+    describe('html()', () => {
 
         it('should return the outer HTML of the element', () =>
             actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/outer_html.html'),
                 Ensure.that(
-                    PageElement.located(By.id('container')).outerHtml(),
+                    PageElement.located(By.id('container')).html(),
                     equals(trimmed`
                         | <div id="container">
                         |     <h1>Title</h1>
@@ -84,7 +84,7 @@ describe('PageElement', () => {
                 Navigate.to('/screenplay/models/page-element/outer_html.html'),
                 Ensure.that(
                     PageElements.located(By.css('ul#list li'))
-                        .eachMappedTo(PageElement.outerHtml()),
+                        .eachMappedTo(PageElement.html()),
 
                     equals([
                         '<li>Item 1</li>',

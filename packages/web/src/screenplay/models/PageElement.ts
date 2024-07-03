@@ -51,12 +51,34 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         });
     }
 
-    static outerHtml<NET>(): MetaQuestion<PageElement<NET>, QuestionAdapter<string>> {
+    /**
+     * A static method producing a {@apilink MetaQuestion} that can be used with {@apilink PageElements.eachMappedTo} method
+     * to extract the HTML of each element in a collection.
+     *
+     * #### Example
+     *
+     * ```typescript
+     * import { actorCalled, Log } from '@serenity-js/core'
+     * import { Navigate, PageElement, By, Text } from '@serenity-js/web'
+     * import { includes } from '@serenity-js/assertions'
+     *
+     * await actorCalled('Debbie').attemptsTo(
+     *   Navigate.to('https://serenity-js.org'),
+     *
+     *   Log.the(
+     *     PageElements.located(By.css('a'))
+     *       .where(Text, includes('modular'))
+     *       .eachMappedTo(PageElement.html())
+     *   ),
+     * )
+     * ```
+     */
+    static html<NET>(): MetaQuestion<PageElement<NET>, QuestionAdapter<string>> {
         return {
             of: (pageElement: Answerable<PageElement<NET>>) =>
                 Question.about(`outer HTML of ${pageElement}`, async actor => {
                     const element = await actor.answer(pageElement);
-                    return element.outerHtml();
+                    return element.html();
                 })
         }
     }
@@ -150,6 +172,27 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract value(): Promise<string>;
 
     /**
+     * An instance method that resolves to the value of the [`outerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML) property
+     * of the underlying element.
+     *
+     * #### Example
+     *
+     * ```typescript
+     * import { actorCalled, Log } from '@serenity-js/core'
+     * import { Navigate, PageElement, By } from '@serenity-js/web'
+     *
+     * await actorCalled('Debbie').attemptsTo(
+     *   Navigate.to('https://serenity-js.org'),
+     *
+     *   Log.the(
+     *     PageElement.located(By.css('h1')).html()
+     *   ),
+     * )
+     * ```
+     */
+    abstract html(): Promise<string>;
+
+    /**
      * When the element represents an [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
      * calling this method switches the current browsing context to the given `iframe` context.
      *
@@ -215,10 +258,4 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * Otherwise, resolves to `false`.
      */
     abstract isVisible(): Promise<boolean>;
-
-    /**
-     * Resolves to the value of the [`outerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML) property
-     * of the underlying element.
-     */
-    abstract outerHtml(): Promise<string>;
 }

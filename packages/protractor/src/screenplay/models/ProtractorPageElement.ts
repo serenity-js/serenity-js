@@ -188,6 +188,15 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         ));
     }
 
+    async html(): Promise<string> {
+        const element: ElementFinder = await this.nativeElement();
+        const webElement: WebElement = await element.getWebElement();
+
+        return await promised(
+            webElement.getDriver().executeScript('return arguments[0].outerHTML;', webElement),
+        );
+    }
+
     async switchTo(): Promise<SwitchableOrigin> {
         const element: ElementFinder = await this.locator.nativeElement();
 
@@ -279,14 +288,5 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
             throw error;
         }
-    }
-
-    async outerHtml(): Promise<string> {
-        const element: ElementFinder = await this.nativeElement();
-        const webElement: WebElement = await element.getWebElement();
-
-        return await promised(
-            webElement.getDriver().executeScript('return arguments[0].outerHTML;', webElement),
-        );
     }
 }

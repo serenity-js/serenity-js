@@ -113,6 +113,11 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
         return element.inputValue();
     }
 
+    async html(): Promise<string> {
+        const element = await this.nativeElement();
+        return element.evaluate(nativeElement => nativeElement.outerHTML);
+    }
+
     async switchTo(): Promise<SwitchableOrigin> {
         try {
             const nativeLocator = await this.nativeElement();
@@ -210,11 +215,6 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
         } catch {
             return false;
         }
-    }
-
-    async outerHtml(): Promise<string> {
-        const element = await this.nativeElement();
-        return element.evaluate(nativeElement => nativeElement.outerHTML);
     }
 }
 
