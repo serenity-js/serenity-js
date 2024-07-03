@@ -286,7 +286,7 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         const webElement: WebElement = await element.getWebElement();
 
         return await promised(
-            webElement.getDriver().executeScript('arguments[0].outerHTML;', webElement),
+            webElement.getDriver().executeScript('return arguments[0].outerHTML;', webElement),
         );
     }
 }
