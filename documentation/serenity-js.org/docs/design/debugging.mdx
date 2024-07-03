@@ -126,7 +126,7 @@ await actorCalled('Debbie').attemptsTo(
 When debugging [Page Element Query Language](/handbook/web-testing/page-element-query-language/) expressions
 it can be helpful to inspect the HTML of the elements that match the query.
 
-To inspect the HTML of a single `PageElement`, use its [`outerHtml()`](/api/web/class/PageElement/#outerHtml) instance method:
+To inspect the HTML of a single `PageElement`, use its [`html()`](/api/web/class/PageElement/#html) instance method:
 
 ```typescript
 import { actorCalled, Log } from '@serenity-js/core'
@@ -137,20 +137,20 @@ await actorCalled('Debbie').attemptsTo(
     Navigate.to('https://serenity-js.org'),
 
     Log.the(
-        PageElement.located(By.css('h1')).outerHtml()
+        PageElement.located(By.css('h1')).html()
     ),
 
     Log.the(
         PageElements.located(By.css('a'))
             .where(Text, includes('modular'))
             .first()
-            .outerHtml()
+            .html()
     ),
 );
 ```
 
 To inspect the HTML of multiple matching `PageElements`, use [`PageElements#eachMappedTo`](/api/web/class/PageElements/#eachMappedTo)
-instance method, combined with the meta-question produced by the [`PageElement.outerHtml()`](/api/web/class/PageElement/#outerHtml) static method:
+instance method, combined with the meta-question produced by the [`PageElement.html()`](/api/web/class/PageElement/#html) static method:
 
 ```typescript
 import { actorCalled, Log } from '@serenity-js/core'
@@ -162,13 +162,13 @@ await actorCalled('Debbie').attemptsTo(
 
     Log.the(
         PageElements.located(By.css('a'))
-            .eachMappedTo(PageElement.outerHtml())
+            .eachMappedTo(PageElement.html())
     ),
 
     Log.the(
         PageElements.located(By.css('a'))
             .where(Text, includes('modular'))
-            .eachMappedTo(PageElement.outerHtml())
+            .eachMappedTo(PageElement.html())
     ),
 );
 ```
