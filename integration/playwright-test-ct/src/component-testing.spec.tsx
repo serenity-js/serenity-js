@@ -1,4 +1,4 @@
-import { test as componentTest } from '@playwright/experimental-ct-react17';
+import { test as componentTest } from '@playwright/experimental-ct-react';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { expect, useBase } from '@serenity-js/playwright-test';
 import { Attribute, By, ByDeepCss, Click, Enter, PageElement, Text, Value } from '@serenity-js/web';
