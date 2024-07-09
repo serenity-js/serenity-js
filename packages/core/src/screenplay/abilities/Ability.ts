@@ -33,7 +33,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * be it a [web UI](https://serenity-js.org/handbook/web-testing/), a [mobile app](https://serenity-js.org/handbook/mobile-testing/), a [web service](https://serenity-js.org/handbook/api-testing/),
  * or [anything else](https://serenity-js.org/api/core/class/Ability/) that a Node.js program can talk to.
  * This flexibility is enabled by a mechanism called _**abilities**_
- * and achieved without introducing any unnecessary dependencies to your code base thanks to the [modular architecture](handbook/getting-started/architecture/) of Serenity/JS.
+ * and achieved without introducing any unnecessary dependencies to your code base thanks to the [modular architecture](https://serenity-js.org/handbook/getting-started/architecture) of Serenity/JS.
  *
  * :::tip Remember
  * **Actors** have **abilities** that enable them to **perform interactions** and **answer questions**.
