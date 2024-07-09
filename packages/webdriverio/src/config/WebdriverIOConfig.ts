@@ -3,7 +3,7 @@ import type { Options } from '@wdio/types';
 
 /**
  * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/),
- * with Serenity/JS-specific [`SerenityConfig.additions`](https://serenity-js.org/api/core/class/SerenityConfig/#additions).
+ * with [Serenity/JS-specific additions](https://serenity-js.orgapi/core/class/SerenityConfig/).
  *
  * ## Integrating WebdriverIO with Serenity/JS
  *

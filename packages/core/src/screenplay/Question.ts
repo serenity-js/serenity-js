@@ -320,7 +320,7 @@ export abstract class Question<T> extends Describable {
      * to return its value when the answerable is a [`Question`](https://serenity-js.org/api/core/class/Question/),
      * or the answerable itself otherwise.
      *
-     * The description of the resulting question is produced by calling [`Question.description`](https://serenity-js.org/api/core/class/Question/#description) on the
+     * The description of the resulting question is produced by calling [`Question.describedBy`](https://serenity-js.org/api/core/class/Question/#describedBy) on the
      * provided answerable.
      *
      * ```ts

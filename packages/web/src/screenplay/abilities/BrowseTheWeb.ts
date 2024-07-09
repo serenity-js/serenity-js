@@ -45,7 +45,7 @@ import type { BrowserCapabilities, BrowsingSession, Page } from '../models';
  *
  * ## Using the ability to `BrowseTheWeb`
  *
- * To use the ability to `BrowseTheWeb` in a custom [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) or [`Question`](https://serenity-js.org/api/core/class/Question/), use the **generic** method [`BrowseTheWeb.as`](https://serenity-js.org/api/web/class/BrowseTheWeb/as)
+ * To use the ability to `BrowseTheWeb` in a custom [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) or [`Question`](https://serenity-js.org/api/core/class/Question/), use the **generic** method [`BrowseTheWeb.as`](https://serenity-js.org/api/web/class/BrowseTheWeb/#as)
  * to retrieve it.
  *
  * This generic method retrieves the integration tool-specific implementation of [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) present on the [`Actor`](https://serenity-js.org/api/core/class/Actor/),
