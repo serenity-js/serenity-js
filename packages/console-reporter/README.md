@@ -148,7 +148,7 @@ configure({
 
 #### Colour Themes
 
-Consult the API docs of the [`ConsoleReporter`](/api/console-reporter/class/ConsoleReporter) class
+Consult the API docs of the [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter) class
 to learn more about the supported colour themes.
 
 ## 📣 Stay up to date

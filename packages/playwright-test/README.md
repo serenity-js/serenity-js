@@ -163,7 +163,7 @@ describe('Serenity Screenplay with Playwright', () => {
 #### Customising Actors
 
 The default [cast](https://serenity-js.org/api/core/class/Cast) of actors is limited to using a single ability
-to [`BrowseTheWebWithPlaywright`](/api/playwright/class/BrowseTheWebWithPlaywright).
+to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright).
 
 If you'd like to give your actors additional abilities, like to [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes),
 [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi),
