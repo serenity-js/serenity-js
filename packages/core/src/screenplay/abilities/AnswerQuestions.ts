@@ -10,7 +10,7 @@ import type { UsesAbilities } from './UsesAbilities';
  *
  * `AnswerQuestions` is used internally by [`Actor.answer`](https://serenity-js.org/api/core/class/Actor/#answer), and it is unlikely you'll ever need to use it directly in your code.
  * That is, unless you're building a custom Serenity/JS extension and want to override the default behaviour of the framework,
- * in which case you should check out the [Contributor's Guide](https://serenity-js.org/contributing).
+ * in which case you should check out the [Contributor's Guide](https://serenity-js.org/community/contributing/).
  *
  * @group Abilities
  */
