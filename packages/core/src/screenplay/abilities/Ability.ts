@@ -209,7 +209,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * but to be **accessible** and act as a **reference implementation for you** to create your own integrations.
  *
  * If you believe that the custom integration you've developed could benefit the wider Serenity/JS community,
- * please consider open-sourcing it yourself, or [contributing it](https://serenity-js.org/contributing) to the main framework.
+ * please consider open-sourcing it yourself, or [contributing it](https://serenity-js.org/community/contributing/) to the main framework.
  *
  * [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
  *

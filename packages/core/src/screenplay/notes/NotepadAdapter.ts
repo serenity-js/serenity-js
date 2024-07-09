@@ -25,7 +25,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Checks if a note identified by `subject` exists in the notepad.
      *
      * #### Learn more
-     * - [`TakeNotes.has`](https://serenity-js.org/api/core/class/TakeNotes/#has)}
+     * - [`Notepad.has`](https://serenity-js.org/api/core/class/Notepad/#has)}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -43,7 +43,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Retrieves a note, identified by `subject`, from the notepad.
      *
      * #### Learn more
-     * - [`TakeNotes.get`](https://serenity-js.org/api/core/class/TakeNotes/#get)}
+     * - [`Notepad.get`](https://serenity-js.org/api/core/class/Notepad/#get)}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note

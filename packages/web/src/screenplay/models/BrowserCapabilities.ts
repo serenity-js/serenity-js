@@ -3,7 +3,7 @@
  *
  * ## Learn more
  *
- * - [`BrowseTheWeb.browserCapabilities`](https://serenity-js.org/api/web/class/BrowseTheWeb/browserCapabilities)
+ * - [`BrowseTheWeb.browserCapabilities`](https://serenity-js.org/api/web/class/BrowseTheWeb/#browserCapabilities)
  *
  * @group Models
  */

@@ -81,7 +81,7 @@ import type { PlaywrightOptions } from '@serenity-js/playwright';
 export interface SerenityOptions {
 
     /**
-     * Configures the [`Cast`](https://serenity-js.org/api/core/class/Cast/) of [`SerenityConfig.actors|actors`](https://serenity-js.org/api/core/class/SerenityConfig/#actors|actors) to be used when injecting an [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
+     * Configures the [`Cast`](https://serenity-js.org/api/core/class/Cast/) of [`SerenityConfig.actors|actors`](https://serenity-js.org/api/core/class/SerenityConfig/#actors) to be used when injecting an [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
      * or invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled) in a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
      * :::info Did you know?
@@ -189,7 +189,7 @@ export interface SerenityOptions {
     crew: Array<ClassDescription | StageCrewMember | StageCrewMemberBuilder>;
 
     /**
-     * Sets the [`SerenityConfig.cueTimeout|cueTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#cueTimeout|cueTimeout) to a given [duration](https://serenity-js.org/api/core/class/Duration/) or a numeric value in milliseconds.
+     * Sets the [`SerenityConfig.cueTimeout|cueTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#cueTimeout) to a given [duration](https://serenity-js.org/api/core/class/Duration/) or a numeric value in milliseconds.
      * Defaults to **5 seconds**.
      *
      * #### Learn more
