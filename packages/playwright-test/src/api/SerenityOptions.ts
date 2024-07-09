@@ -74,23 +74,25 @@ import type { PlaywrightOptions } from '@serenity-js/playwright';
  * ```
  *
  * ## Learn more
- * - {@apilink PlaywrightTestConfig}
- * - {@apilink Cast}
- * - {@apilink SerenityFixtures}
+ * - [`PlaywrightTestConfig`](https://serenity-js.org/api/playwright-test/#PlaywrightTestConfig)
+ * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
+ * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
  */
 export interface SerenityOptions {
 
     /**
-     * Configures the {@apilink Cast} of {@apilink SerenityConfig.actors|actors} to be used when injecting an {@apilink SerenityFixtures.actor|actor}
-     * or invoking {@apilink SerenityFixtures.actorCalled|actorCalled} in a {@apilink it|test scenario}.
+     * Configures the [`Cast`](https://serenity-js.org/api/core/class/Cast/) of [`SerenityConfig.actors|actors`](https://serenity-js.org/api/core/class/SerenityConfig/#actors|actors) to be used when injecting an [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
+     * or invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled) in a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
      * :::info Did you know?
-     * When you use `@serenity-js/playwright-test` {@apilink it|test APIs}, Serenity/JS already provides a default cast of actors for you.
-     * Each one of the default actors receives {@apilink Ability|abilities} to {@apilink BrowseTheWebWithPlaywright} and {@apilink TakeNotes.usingAnEmptyNotepad}.
+     * When you use `@serenity-js/playwright-test` [test APIs](https://serenity-js.org/api/playwright-test/function/it/), Serenity/JS already provides a default cast of actors for you.
+     * Each one of the default actors receives [abilities](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/) and [`TakeNotes.usingAnEmptyNotepad`](https://serenity-js.org/api/core/class/TakeNotes/#usingAnEmptyNotepad).
      *
      * The default abilities should be sufficient in most web testing scenarios. However, you might want to override this default configuration
-     * when you need your actors to {@apilink CallAnApi|interact with REST APIs}, {@apilink ManageALocalServer|manage local servers},
-     * start with a notepad that has some {@apilink TakeNotes.using|initial state}, or receive {@apilink Ability|custom abilities}.
+     * when you need your actors to [interact with REST APIs](https://serenity-js.org/api/rest/class/CallAnApi/),
+     * [manage local servers](https://serenity-js.org/api/local-server/class/ManageALocalServer/),
+     * start with a notepad that has some [initial state](https://serenity-js.org/api/core/class/TakeNotes/#using),
+     * or receive [custom abilities](https://serenity-js.org/api/core/class/Ability/).
      * :::
      *
      * #### Using a custom crew of Serenity/JS actors
@@ -138,31 +140,31 @@ export interface SerenityOptions {
      * ```
      *
      * #### Learn more
-     * - Declaring a Serenity/JS {@apilink it|test scenario}
-     * - {@apilink SerenityFixtures}
+     * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
+     * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
      */
     actors: TestFixture<Cast, PlaywrightTestOptions & PlaywrightWorkerArgs>
 
     /**
-     * Configures the name given to the default Serenity/JS {@apilink SerenityFixtures.actor|actor}
-     * injected into a {@apilink it|test scenario}.
+     * Configures the name given to the default Serenity/JS [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
+     * injected into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
      * #### Learn more
-     * - Declaring a Serenity/JS {@apilink it|test scenario}
-     * - {@apilink SerenityFixtures}
+     * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
+     * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
      */
     defaultActorName: string;
 
     /**
-     * Configures the {@apilink SerenityConfig.crew|stage crew members}
+     * Configures the [`SerenityConfig.crew|stage crew members`](https://serenity-js.org/api/core/class/SerenityConfig/#crew|stage crew members)
      * to be instantiated in Playwright Test worker processes.
      *
      * :::info Did you know?
-     * By default, Serenity/JS registers a {@apilink Photographer}.whoWill({@apilink TakePhotosOfFailures}),
+     * By default, Serenity/JS registers a [`Photographer`](https://serenity-js.org/api/web/class/Photographer/).whoWill([`TakePhotosOfFailures`](https://serenity-js.org/api/web/class/TakePhotosOfFailures/)),
      * so that any test failures are automatically accompanied by a screenshot.
      *
      * If you prefer a different behaviour, you can configure the `crew` with an empty array to disable taking screenshots altogether (`crew: []`),
-     * or with a {@apilink Photographer} who uses a different {@apilink PhotoTakingStrategy}, like to {@apilink TakePhotosOfInteractions}.
+     * or with a [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) who uses a different [`PhotoTakingStrategy`](https://serenity-js.org/api/web/class/PhotoTakingStrategy/), like to [`TakePhotosOfInteractions`](https://serenity-js.org/api/web/class/TakePhotosOfInteractions/).
      * :::
      *
      * #### Example
@@ -182,40 +184,41 @@ export interface SerenityOptions {
      * ```
      *
      * #### Learn more
-     * - {@apilink SerenityConfig.crew}
+     * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
      */
     crew: Array<ClassDescription | StageCrewMember | StageCrewMemberBuilder>;
 
     /**
-     * Sets the {@apilink SerenityConfig.cueTimeout|cueTimeout} to a given {@apilink Duration|duration} or a numeric value in milliseconds.
+     * Sets the [`SerenityConfig.cueTimeout|cueTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#cueTimeout|cueTimeout) to a given [duration](https://serenity-js.org/api/core/class/Duration/) or a numeric value in milliseconds.
      * Defaults to **5 seconds**.
      *
      * #### Learn more
-     * - {@apilink SerenityConfig.cueTimeout}
-     * - {@apilink Discardable}
-     * - {@apilink Ability}
+     * - [`SerenityConfig.cueTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#cueTimeout)
+     * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
+     * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
      */
     cueTimeout: number | Duration;
 
     /**
-     * The maximum default amount of time allowed for interactions such as {@apilink Wait.until}
+     * The maximum default amount of time allowed for interactions such as [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
      * to complete.
      *
      * Defaults to **5 seconds**, can be overridden per interaction.
      *
      * #### Learn more
-     * - {@apilink Wait.until}
+     * - [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
      */
     interactionTimeout?: Duration;
 
     /**
      * Playwright [BrowserContextOptions](https://playwright.dev/docs/api/class-testoptions#test-options-context-options),
-     * augmented with several convenience properties to be used with the {@apilink Ability|ability} to {@apilink BrowseTheWebWithPlaywright}.
+     * augmented with several convenience properties to be used with the [ability](https://serenity-js.org/api/core/class/Ability/)
+     * to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/).
      *
      * Additional convenience properties include:
-     * - {@apilink PlaywrightOptions.defaultNavigationTimeout}
-     * - {@apilink PlaywrightOptions.defaultNavigationWaitUntil}
-     * - {@apilink PlaywrightOptions.defaultTimeout}
+     * - [`PlaywrightOptions.defaultNavigationTimeout`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/#defaultNavigationTimeout)
+     * - [`PlaywrightOptions.defaultNavigationWaitUntil`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/#defaultNavigationWaitUntil)
+     * - [`PlaywrightOptions.defaultTimeout`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/#defaultTimeout)
      *
      * #### Using `contextOptions` with the default cast of Serenity/JS actors
      *
@@ -266,7 +269,7 @@ export interface SerenityOptions {
      * ```
      *
      * #### Learn more
-     * - {@apilink SerenityFixtures}
+     * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
      * - [Playwright Browser Context options](https://playwright.dev/docs/api/class-testoptions#test-options-context-options)
      * - [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
      */

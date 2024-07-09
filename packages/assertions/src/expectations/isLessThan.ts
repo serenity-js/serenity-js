@@ -1,7 +1,7 @@
 import { Expectation } from '@serenity-js/core';
 
 /**
- * Creates an {@apilink Expectation|expectation} that is met when the actual value of type `number`
+ * Creates an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual value of type `number`
  * is less than the expected `number`.
  *
  * ## Ensuring that a given number is less than the expected number

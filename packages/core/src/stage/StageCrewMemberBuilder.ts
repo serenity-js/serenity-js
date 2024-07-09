@@ -2,23 +2,23 @@ import type { ListensToDomainEvents } from './ListensToDomainEvents';
 import type { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies';
 
 /**
- * Use a {@apilink StageCrewMemberBuilder} to configure complex {@apilink StageCrewMember} objects.
+ * Use a [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/) to configure complex [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) objects.
  *
  * Useful when you're interested in implementing custom reporters with multiple configuration options.
- * See {@apilink ConsoleReporter} for an example.
+ * See [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/) for an example.
  *
  * ## Learn more
- * - {@apilink StageCrewMember}
- * - {@apilink StageCrewMemberBuilderDependencies}
- * - {@apilink SerenityConfig.crew}
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
+ * - [`StageCrewMemberBuilderDependencies`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilderDependencies/)
+ * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
  *
  * @group Stage
  */
 export interface StageCrewMemberBuilder<T extends ListensToDomainEvents = ListensToDomainEvents> {
 
     /**
-     * Instantiates a {@apilink StageCrewMember}, giving it access to shared dependencies
-     * such as {@apilink Stage} or {@apilink OutputStream}
+     * Instantiates a [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/), giving it access to shared dependencies
+     * such as [`Stage`](https://serenity-js.org/api/core/class/Stage/) or [`OutputStream`](https://serenity-js.org/api/core-adapter/interface/OutputStream/)
      */
     build(dependencies: StageCrewMemberBuilderDependencies): T;
 }

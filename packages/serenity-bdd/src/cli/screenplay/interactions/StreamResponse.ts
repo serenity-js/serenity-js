@@ -27,17 +27,8 @@ export class StreamResponse extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@apilink @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * Makes the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * perform this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
         return actor.answer(this.request)

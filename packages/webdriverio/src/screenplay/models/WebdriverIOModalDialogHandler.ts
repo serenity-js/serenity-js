@@ -7,11 +7,8 @@ import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
- * WebdriverIO-specific implementation of {@apilink ModalDialogHandler},
+ * WebdriverIO-specific implementation of [`ModalDialogHandler`](https://serenity-js.org/api/web/class/ModalDialogHandler/),
  * used with the [WebDriver protocol](https://webdriver.io/docs/api/webdriver).
- *
- * ## Learn more
- * - {@apilink WebdriverIOPuppeteerModalDialogHandler}
  *
  * @group Models
  */

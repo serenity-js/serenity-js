@@ -5,8 +5,8 @@ import { URL } from 'url';
 import { CallAnApi } from '../abilities';
 
 /**
- * Changes configuration of the {@apilink Ability|ability} to {@apilink CallAnApi}
- * that the {@apilink Actor|actor} executing this {@apilink Interaction|interaction} has been configured with.
+ * Changes configuration of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+ * that the [actor](https://serenity-js.org/api/core/class/Actor/) executing this [interaction](https://serenity-js.org/api/core/class/Interaction/) has been configured with.
  *
  * ## Changing API URL for all subsequent requests
  *
@@ -90,7 +90,7 @@ import { CallAnApi } from '../abilities';
  * ## Handling sensitive information
  *
  * By design, any data handled by an actor appears in Serenity/JS reports.
- * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use {@apilink Masked}.
+ * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use [`Masked`](https://serenity-js.org/api/core/class/Masked/).
  * 
  * ```ts
  * import { actorCalled, Masked } from '@serenity-js/core'
@@ -113,8 +113,8 @@ import { CallAnApi } from '../abilities';
 export class ChangeApiConfig {
 
     /**
-     * Instructs the {@apilink Actor|actor} to change the base URL
-     * of their {@apilink Ability|ability} to {@apilink CallAnApi}
+     * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to change the base URL
+     * of their [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
      *
      * @param newApiUrl
      */
@@ -123,8 +123,8 @@ export class ChangeApiConfig {
     }
 
     /**
-     * Instructs the {@apilink Actor|actor} to change the port configured in the base URL
-     * of their {@apilink Ability|ability} to {@apilink CallAnApi}
+     * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to change the port configured in the base URL
+     * of their [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
      *
      * @param newApiPort
      */
@@ -133,10 +133,10 @@ export class ChangeApiConfig {
     }
 
     /**
-     * Instructs the {@apilink Actor|actor} to change the configuration of the {@apilink AxiosInstance}
-     * used by their {@apilink Ability|ability} to {@apilink CallAnApi}
-     * and set an HTTP request header for any subsequent {@apilink HTTPRequest|HTTPRequests}
-     * issued via {@apilink Send}.
+     * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to change the configuration of the [`AxiosInstance`](https://axios-http.com/docs/instance)
+     * used by their [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+     * and set an HTTP request header for any subsequent [HTTP requests](https://serenity-js.org/api/rest/class/HTTPRequest/)
+     * issued via [`Send`](https://serenity-js.org/api/rest/class/Send/).
      *
      * @param name
      * @param value

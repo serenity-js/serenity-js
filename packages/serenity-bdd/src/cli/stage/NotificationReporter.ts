@@ -6,8 +6,7 @@ import { Complaint, Notification } from '../model';
 import type { Printer } from '../Printer';
 
 /**
- * @desc
- *  Notifies the user of any {@apilink Notification} or {@apilink Complaint} type artifacts being reported.
+ * Notifies the user of any `Notification` or `Complaint` type artifacts being reported.
  *
  * @package
  */

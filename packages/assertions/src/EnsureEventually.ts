@@ -22,16 +22,16 @@ import {
 import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
 /**
- * The {@apilink Interaction|interaction} to `EnsureEventually`
- * verifies if the resolved value of the provided {@apilink Answerable}
- * meets the specified {@apilink Expectation} within the expected timeframe.
+ * The [interaction](https://serenity-js.org/api/core/class/Interaction/) to `EnsureEventually`
+ * verifies if the resolved value of the provided [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+ * meets the specified [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) within the expected timeframe.
  *
- * If the expectation is not met by the time the timeout expires, the interaction throws an {@apilink AssertionError}.
- * `EnsureEventually` retries the evaluation if resolving the `actual` results in an {@apilink ListItemNotFoundError},
+ * If the expectation is not met by the time the timeout expires, the interaction throws an [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/).
+ * `EnsureEventually` retries the evaluation if resolving the `actual` results in an [`ListItemNotFoundError`](https://serenity-js.org/api/core/class/ListItemNotFoundError/),
  * but rethrows any other errors.
  *
  * :::tip Use the factory method
- * Use the factory method {@apilink Ensure.eventually} to instantiate this interaction.
+ * Use the factory method [`Ensure.eventually`](https://serenity-js.org/api/assertions/class/Ensure/#eventually] to instantiate this interaction.
  * :::
  *
  * ## Basic usage with dynamic values
@@ -99,7 +99,7 @@ export class EnsureEventually<Actual> extends Interaction {
     }
 
     /**
-     * Override the default timeout set via {@apilink SerenityConfig.interactionTimeout}.
+     * Override the default timeout set via [`SerenityConfig.interactionTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#interactionTimeout).
      *
      * @param timeout
      */
@@ -149,11 +149,11 @@ export class EnsureEventually<Actual> extends Interaction {
     }
 
     /**
-     * Overrides the default {@apilink AssertionError} thrown when
+     * Overrides the default [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/) thrown when
      * the actual value does not meet the expectation.
      *
      * @param typeOfRuntimeError
-     *  A constructor function producing a subtype of {@apilink RuntimeError} to throw, e.g. {@apilink TestCompromisedError}
+     *  A constructor function producing a subtype of [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/) to throw, e.g. [`TestCompromisedError`](https://serenity-js.org/api/core/class/TestCompromisedError/)
      *
      * @param message
      *  The message explaining the failure

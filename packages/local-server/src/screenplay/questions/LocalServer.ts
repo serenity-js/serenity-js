@@ -12,7 +12,7 @@ export class LocalServer {
 
     /**
      * Retrieves the URL of the local server started
-     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
+     * using the [`StartLocalServer`](https://serenity-js.org/api/local-server/class/StartLocalServer/) [interaction](https://serenity-js.org/api/core/class/Interaction/).
      */
     static url(): QuestionAdapter<string> {
         return Question.about<string>('the URL of the local server', actor => {
@@ -40,7 +40,7 @@ export class LocalServer {
 
     /**
      * Retrieves the port number of the local server started
-     * using the {@apilink StartLocalServer} {@apilink Interaction|interaction}.
+     * using the [`StartLocalServer`](https://serenity-js.org/api/local-server/class/StartLocalServer/) [interaction](https://serenity-js.org/api/core/class/Interaction/).
      */
     static port(): QuestionAdapter<number> {
         return Question.about(`local server port number`, async actor => {

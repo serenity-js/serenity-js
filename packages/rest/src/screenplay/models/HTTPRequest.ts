@@ -4,8 +4,8 @@ import { d } from '@serenity-js/core/lib/io';
 import type { AxiosRequestConfig } from 'axios';
 
 /**
- * HTTP Request sent by the {@apilink Actor}
- * using the {@apilink Interaction|interaction} to {@apilink Send}
+ * HTTP Request sent by the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * using the [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`Send`](https://serenity-js.org/api/rest/class/Send/)
  *
  * @group Models
  */
@@ -20,7 +20,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
      *
      * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} [config]
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@apilink Ability|ability} to {@apilink CallAnApi} is instantiated
+     *  provided when the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) is instantiated
      */
     protected constructor(
         protected readonly resourceUri?: Answerable<string>,

@@ -1,10 +1,7 @@
 import { JSONData } from '@serenity-js/core/lib/model';
 
 /**
- * @desc
- *  An update on the progress of the Serenity BDD jar download.
- *
- * @package
+ * An update on the progress of the Serenity BDD jar download.
  */
 export class DownloadProgressReport extends JSONData {
     static fromJSON(value: { downloadedBytes: number, totalDownloadedBytes: number, totalBytes: number }): DownloadProgressReport {

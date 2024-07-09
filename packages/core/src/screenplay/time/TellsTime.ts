@@ -1,13 +1,13 @@
 import type { Timestamp } from './models';
 
 /**
- * Describes an {@apilink Actor} or a supporting class capable of telling
+ * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) or a supporting class capable of telling
  * the current wall clock time.
  *
  * ## Learn more
- * - {@apilink Actor}
- * - {@apilink Serenity}
- * - {@apilink Stage}
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * - [`Serenity`](https://serenity-js.org/api/core/class/Serenity/)
+ * - [`Stage`](https://serenity-js.org/api/core/class/Stage/)
  *
  * @group Time
  */

@@ -38,7 +38,7 @@ export class TestCompromisedError extends RuntimeError {
 
     /**
      * @param message - Human-readable description of the error
-     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
+     * @param [cause] - The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     constructor(message: string, cause?: Error) {
         super(TestCompromisedError, message, cause);

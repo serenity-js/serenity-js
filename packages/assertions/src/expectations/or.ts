@@ -2,7 +2,7 @@ import type { Answerable, AnswersQuestions, ExpectationOutcome} from '@serenity-
 import { Expectation, ExpectationMet, ExpectationNotMet, LogicError } from '@serenity-js/core';
 
 /**
- * Creates an {@apilink Expectation|expectation} that is met when at least one of the `expectations` is met for the given actual value.
+ * Creates an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when at least one of the `expectations` is met for the given actual value.
  *
  * Use `or` to combine several expectations using logical "or",
  *

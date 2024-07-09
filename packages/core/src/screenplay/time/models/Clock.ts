@@ -4,7 +4,7 @@ import { Duration } from './Duration';
 import { Timestamp } from './Timestamp';
 
 /**
- * A {@apilink Clock} tells the time. This abstraction allows Serenity/JS to have a single place
+ * A [`Clock`](https://serenity-js.org/api/core/class/Clock/) tells the time. This abstraction allows Serenity/JS to have a single place
  * in the framework responsible for telling the time, and one that can be easily mocked for internal testing.
  *
  * ```ts
@@ -12,8 +12,8 @@ import { Timestamp } from './Timestamp';
  * ```
  *
  * ## Learn more
- * - {@apilink Timestamp}
- * - {@apilink Duration}
+ * - [`Timestamp`](https://serenity-js.org/api/core/class/Timestamp/)
+ * - [`Duration`](https://serenity-js.org/api/core/class/Duration/)
  *
  * @group Time
  */
@@ -26,7 +26,7 @@ export class Clock {
 
     /**
      * Sets the clock ahead to force early resolution of promises
-     * returned by {@apilink Clock.waitFor};
+     * returned by [`Clock.waitFor`](https://serenity-js.org/api/core/class/Clock/#waitFor).
      *
      * Useful for test purposes to avoid unnecessary delays.
      *

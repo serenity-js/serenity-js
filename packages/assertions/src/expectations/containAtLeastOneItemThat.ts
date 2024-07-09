@@ -2,7 +2,7 @@ import type { Answerable, AnswersQuestions, ExpectationOutcome} from '@serenity-
 import { d, Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet, Unanswered } from '@serenity-js/core';
 
 /**
- * Produces an {@apilink Expectation|expectation} that is met when the actual array of `Item[]` contains
+ * Produces an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual array of `Item[]` contains
  * at least one `Item` for which the `expectation` is met.
  *
  * ## Ensuring that at least one item in an array meets the expectation

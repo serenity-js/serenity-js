@@ -91,17 +91,17 @@ export class ErrorSerialiser {
 interface SerialisedError extends JSONObject {
     /**
      *  Name of the constructor function used to instantiate
-     *  the original {@apilink Error} object.
+     *  the original [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object.
      */
     name:    string;
 
     /**
-     *  Message of the original {@apilink Error} object
+     *  Message of the original [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object
      */
     message: string;
 
     /**
-     *  Stack trace of the original {@apilink Error} object
+     *  Stack trace of the original [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object
      */
     stack:   string;
 }

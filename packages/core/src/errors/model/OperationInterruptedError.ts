@@ -4,7 +4,7 @@ import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that a {@apilink Scheduler|scheduled operation}
+ * Thrown to indicate that a [scheduled operation](https://serenity-js.org/api/core/class/Scheduler/)
  * has been stopped before it was completed.
  *
  * @group Errors
@@ -27,7 +27,7 @@ export class OperationInterruptedError extends RuntimeError {
      *  Human-readable description of the error
      *
      * @param [cause]
-     *  The root cause of this {@apilink RuntimeError}, if any
+     *  The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     constructor(
         message: string,

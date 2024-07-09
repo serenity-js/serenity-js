@@ -3,14 +3,14 @@ import { inspectedObject } from '@serenity-js/core/lib/io';
 import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
- * {@apilink RootLocator} represents the context in which {@apilink Locator} looks for {@apilink PageElement} or {@apilink PageElements}.
+ * [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/) represents the context in which [`Locator`](https://serenity-js.org/api/web/class/Locator/) looks for [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/).
  * This context is either a parent element, or some representation of the top-level browsing context.
  *
  * ## Learn more
- * - {@apilink Locator}
- * - {@apilink Page.locate}
- * - {@apilink PageElement}
- * - {@apilink PageElements}
+ * - [`Locator`](https://serenity-js.org/api/web/class/Locator/)
+ * - [`Page.locate`](https://serenity-js.org/api/web/class/Page/#locate)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
  *
  * @group Models
  */

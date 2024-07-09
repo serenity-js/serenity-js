@@ -22,17 +22,17 @@ import type { Cast } from './Cast';
 import type { StageManager } from './StageManager';
 
 /**
- * Stage is the place where {@apilink Actor|actors} perform.
+ * Stage is the place where [actors](https://serenity-js.org/api/core/class/Actor/) perform.
  *
- * In more technical terms, the Stage is the main event bus propagating {@apilink DomainEvent|DomainEvents}
- * to {@apilink Actor|Actors} it instantiates and {@apilink StageCrewMember|StageCrewMembers} that have been registered with it.
+ * In more technical terms, the Stage is the main event bus propagating [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
+ * to [actors](https://serenity-js.org/api/core/class/Actor/) it instantiates and [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/) that have been registered with it.
  *
  * It is unlikely that you'll ever need to interact with the `Stage` directly in your tests. Instead, you'll use functions like
- * {@apilink actorCalled} and {@apilink actorInTheSpotlight}.
+ * [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/) and [`actorInTheSpotlight`](https://serenity-js.org/api/core/function/actorInTheSpotlight/).
  *
  * ## Learn more
- * - {@apilink configure}
- * - {@apilink engage}
+ * - [`configure`](https://serenity-js.org/api/core/function/configure/)
+ * - [`engage`](https://serenity-js.org/api/core/function/engage/)
  *
  * @group Stage
  */
@@ -55,7 +55,7 @@ export class Stage implements EmitsDomainEvents {
     private actorsOnStage: Map<string, Actor> = this.actorsOnBackstage;
 
     /**
-     * The most recent actor referenced via the {@apilink actor} method
+     * The most recent actor referenced via the [`Actor`](https://serenity-js.org/api/core/class/Actor/) method
      */
     private actorInTheSpotlight: Actor = undefined;
 
@@ -85,7 +85,7 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * An alias for {@apilink Stage.actor}
+     * An alias for [`Stage.actor`](https://serenity-js.org/api/core/class/Stage/#actor)
      *
      * @param name
      */
@@ -94,7 +94,7 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Instantiates a new {@apilink Actor} or fetches an existing one
+     * Instantiates a new [`Actor`](https://serenity-js.org/api/core/class/Actor/) or fetches an existing one
      * identified by their name if they've already been instantiated.
      *
      * @param name
@@ -131,11 +131,11 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Returns the last {@apilink Actor} instantiated via {@apilink Stage.actor}.
+     * Returns the last [`Actor`](https://serenity-js.org/api/core/class/Actor/) instantiated via [`Stage.actor`](https://serenity-js.org/api/core/class/Stage/#actor).
      * Useful when you don't can't or choose not to reference the actor by their name.
      *
-     * @throws {LogicError}
-     *  If no {@apilink Actor} has been activated yet
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
+     *  If no [`Actor`](https://serenity-js.org/api/core/class/Actor/) has been activated yet
      */
     theActorInTheSpotlight(): Actor {
         if (! this.actorInTheSpotlight) {
@@ -146,15 +146,15 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Returns `true` if there is an {@apilink Actor} in the spotlight, `false` otherwise.
+     * Returns `true` if there is an [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the spotlight, `false` otherwise.
      */
     theShowHasStarted(): boolean {
         return !! this.actorInTheSpotlight;
     }
 
     /**
-     * Configures the Stage to prepare {@apilink Actor|Actors}
-     * instantiated via {@apilink Stage.actor} using the provided {@apilink Cast}.
+     * Configures the Stage to prepare [actors](https://serenity-js.org/api/core/class/Actor/)
+     * instantiated via [`Stage.actor`](https://serenity-js.org/api/core/class/Stage/#actor) using the provided [cast](https://serenity-js.org/api/core/class/Cast/).
      *
      * @param actors
      */
@@ -165,8 +165,8 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Assigns listeners to be notified of {@apilink DomainEvent|DomainEvents}
-     * emitted via {@apilink Stage.announce}.s
+     * Assigns listeners to be notified of [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
+     * emitted via [`Stage.announce`](https://serenity-js.org/api/core/class/Stage/#announce).s
      *
      * @param listeners
      */
@@ -206,22 +206,21 @@ export class Stage implements EmitsDomainEvents {
 
     /**
      * Returns current time. This method should be used whenever
-     * {@apilink DomainEvent} objects are instantiated by you programmatically.
+     * [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects are instantiated by you programmatically.
      */
     currentTime(): Timestamp {
         return this.manager.currentTime();
     }
 
     /**
-     * Generates and remembers a {@apilink CorrelationId}
+     * Generates and remembers a `CorrelationId`
      * for the current scene.
      *
      * This method should be used in custom test runner adapters
-     * when instantiating a {@apilink SceneStarts} event.
+     * when instantiating a [SceneStarts](https://serenity-js.org/api/core-events/class/SceneStarts/) event.
      *
      * #### Learn more
-     * - {@apilink Stage.currentSceneId}
-     * - {@apilink CorrelationId}
+     * - [`Stage.currentSceneId`](https://serenity-js.org/api/core/class/Stage/#currentSceneId)
      */
     assignNewSceneId(): CorrelationId {
         // todo: inject an id factory to make it easier to test
@@ -231,24 +230,24 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Returns the {@apilink CorrelationId} for the current scene.
+     * Returns the `CorrelationId` for the current scene.
      *
      * #### Learn more
-     * - {@apilink Stage.assignNewSceneId}
+     * - [`Stage.assignNewSceneId`](https://serenity-js.org/api/core/class/Stage/#assignNewSceneId)
      */
     currentSceneId(): CorrelationId {
         return this.currentScene;
     }
 
     /**
-     * Generates and remembers a {@apilink CorrelationId}
-     * for the current {@apilink Activity}.
+     * Generates and remembers a `CorrelationId`
+     * for the current [`Activity`](https://serenity-js.org/api/core/class/Activity/).
      *
      * This method should be used in custom test runner adapters
-     * when instantiating the {@apilink ActivityStarts} event.
+     * when instantiating the [ActivityStarts](https://serenity-js.org/api/core-events/class/ActivityStarts/) event.
      *
      * #### Learn more
-     * - {@apilink Stage.currentActivityId}
+     * - [`Stage.currentActivityId`](https://serenity-js.org/api/core/class/Stage/#currentActivityId)
      */
     assignNewActivityId(activityDetails: ActivityDetails): CorrelationId {
         this.currentActivity = {
@@ -260,10 +259,10 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
-     * Returns the {@apilink CorrelationId} for the current {@apilink Activity}.
+     * Returns the `CorrelationId` for the current [`Activity`](https://serenity-js.org/api/core/class/Activity/).
      *
      * #### Learn more
-     * - {@apilink Stage.assignNewSceneId}
+     * - [`Stage.assignNewSceneId`](https://serenity-js.org/api/core/class/Stage/#assignNewSceneId)
      */
     currentActivityId(): CorrelationId {
         if (! this.currentActivity) {

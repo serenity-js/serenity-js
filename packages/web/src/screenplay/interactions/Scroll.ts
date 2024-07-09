@@ -4,8 +4,8 @@ import { Interaction, the } from '@serenity-js/core';
 import type { PageElement } from '../models';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to scroll until a given {@apilink PageElement} comes into view.
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * to scroll until a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) comes into view.
  *
  * ## Example widget
  *
@@ -45,15 +45,15 @@ import type { PageElement } from '../models';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Scroll extends Interaction {
 
     /**
-     * Instantiates this {@apilink Interaction}.
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      *
      * @param pageElement
      *  The element to scroll to

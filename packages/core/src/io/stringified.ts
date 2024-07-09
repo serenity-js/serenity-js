@@ -13,7 +13,7 @@ interface StringifyConfig {
 }
 
 /**
- * Provides a human-readable description of the {@apilink Answerable<T>}.
+ * Provides a human-readable description of the [`Answerable<T>`](https://serenity-js.org/api/core/#Answerable).
  * Similar to [Node util~inspect](https://nodejs.org/api/util.html#utilinspectobject-options).
  *
  * @param value

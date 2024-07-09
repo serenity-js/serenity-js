@@ -43,35 +43,35 @@ import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightA
 /**
  * Configuration object accepted by `@serenity-js/playwright-test` reporter.
  *
- * See {@apilink SerenityOptions} for usage examples.
+ * See [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/) for usage examples.
  */
 export interface SerenityReporterForPlaywrightTestConfig {
     /**
-     * A list of {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} or {@apilink StageCrewMember|StageCrewMembers}
-     * to be instantiated in Playwright Test reporter process and notified of {@apilink DomainEvent|DomainEvents} that occur during the scenario execution.
-     * Note that the `crew` can also be configured using {@apilink ClassDescription|ClassDescriptions}.
+     * A list of [stage crew member builders](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/) or [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/)
+     * to be instantiated in Playwright Test reporter process and notified of [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/) that occur during the scenario execution.
+     * Note that the `crew` can also be configured using [class descriptions](https://serenity-js.org/api/core/#ClassDescription).
      *
      * #### Learn more
-     * - {@apilink SerenityOptions}
-     * - {@apilink SerenityConfig.crew}
+     * - [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/)
+     * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
      */
     crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;
 
     /**
-     * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders}
+     * An output stream to be injected into [stage crew member builders](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
      *
      * Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
      *
      * #### Learn more
-     * - {@apilink SerenityConfig.outputStream}
+     * - [`SerenityConfig.outputStream`](https://serenity-js.org/api/core/class/SerenityConfig/#outputStream)
      */
     outputStream?: OutputStream;
 }
 
 /**
  * Serenity/JS reporter that receives notifications from Playwright Test and emits them as
- * Serenity/JS {@apilink DomainEvent|domain events} which can be used by
- * Serenity/JS {@apilink StageCrewMember|stage crew members}.
+ * Serenity/JS [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/) which can be used by
+ * Serenity/JS [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/).
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
     private errorParser = new PlaywrightErrorParser();
@@ -81,7 +81,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     /**
      * @param config
      * @param serenity
-     *  Instance of {@apilink Serenity}, specific to the Node process running this Serenity reporter.
+     *  Instance of [`Serenity`](https://serenity-js.org/api/core/class/Serenity/), specific to the Node process running this Serenity reporter.
      *  Note that Playwright runs test workers and reporters in separate processes.
      * @param requirementsHierarchy
      *  Root directory of the requirements hierarchy, used to determine capabilities and themes.

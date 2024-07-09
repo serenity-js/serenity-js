@@ -26,7 +26,7 @@ import * as sinon from 'sinon';
 import { ProtractorReporter } from '../../../src/adapter/reporter';
 
 /**
- * See the {@apilink ProtractorFrameworkAdapter} specs to see how the {@apilink ProtractorReporter} is used in the context
+ * See the ProtractorFrameworkAdapter specs to see how the ProtractorReporter
  */
 describe('ProtractorReporter', () => {
 

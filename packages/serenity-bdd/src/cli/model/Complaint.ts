@@ -1,9 +1,6 @@
 import { JSONData } from '@serenity-js/core/lib/model';
 
 /**
- * @desc
- *  An issue to be reported to the user.
- *
  * @package
  */
 export class Complaint extends JSONData {

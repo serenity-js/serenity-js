@@ -7,7 +7,7 @@ import { promised } from '../promised';
 import type { ProtractorErrorHandler } from './ProtractorErrorHandler';
 
 /**
- * Protractor-specific implementation of {@apilink ModalDialogHandler}.
+ * Protractor-specific implementation of [`ModalDialogHandler`](https://serenity-js.org/api/web/class/ModalDialogHandler/).
  *
  * @group Models
  */

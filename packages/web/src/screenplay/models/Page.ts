@@ -123,17 +123,17 @@ import type { SwitchableOrigin } from './SwitchableOrigin';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
- * - {@apilink Optional}
- * - {@apilink Switchable}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
+ * - [`Optional`](https://serenity-js.org/api/core/interface/Optional/)
+ * - [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/)
  *
  * @group Models
  */
 export abstract class Page<Native_Element_Type = any> implements Optional, Switchable {
 
     /**
-     * Creates a {@apilink QuestionAdapter} representing the currently active {@apilink Page}.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) representing the currently active [`Page`](https://serenity-js.org/api/web/class/Page/).
      */
     static current(): QuestionAdapter<Page> {
         return Question.about<Page>('current page', actor => {
@@ -142,8 +142,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.name}
-     * meets the {@apilink Expectation|`expectation`}.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to a [`Page`](https://serenity-js.org/api/web/class/Page/) which [`Page.name`](https://serenity-js.org/api/web/class/Page/#name)
+     * meets the [expectation](https://serenity-js.org/api/core/class/Expectation/).
      *
      * #### Switching to a page with the desired name
      *
@@ -172,8 +172,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.title}
-     * meets the {@apilink Expectation|`expectation`}.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to a [`Page`](https://serenity-js.org/api/web/class/Page/) which [`Page.title`](https://serenity-js.org/api/web/class/Page/#title)
+     * meets the [expectation](https://serenity-js.org/api/core/class/Expectation/).
      *
      * #### Switching to a page with the desired title
      *
@@ -202,8 +202,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@apilink QuestionAdapter} that resolves to a {@apilink Page} which {@apilink Page.url}
-     * meets the {@apilink Expectation|`expectation`}.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to a [`Page`](https://serenity-js.org/api/web/class/Page/) which [`Page.url`](https://serenity-js.org/api/web/class/Page/#url)
+     * meets the [expectation](https://serenity-js.org/api/core/class/Expectation/).
      *
      * #### Switching to a page with the desired URL
      *
@@ -258,21 +258,21 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     }
 
     /**
-     * Creates a {@apilink PageElement} wrapping a native element.
+     * Creates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) wrapping a native element.
      *
      * @param nativeElement
      */
     abstract createPageElement(nativeElement: Native_Element_Type): PageElement<Native_Element_Type>;
 
     /**
-     * Creates a {@apilink PageElement}, retrieving an element located by {@apilink Selector}.
+     * Creates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/), retrieving an element located by [`Selector`](https://serenity-js.org/api/web/class/Selector/).
      *
      * @param selector
      */
     abstract locate(selector: Selector): PageElement<Native_Element_Type>;
 
     /**
-     * Creates {@apilink PageElements}, retrieving a collection of elements located by {@apilink Selector}.
+     * Creates [`PageElement`](https://serenity-js.org/api/web/class/PageElements/), retrieving a collection of elements located by [`Selector`](https://serenity-js.org/api/web/class/Selector/).
      *
      * @param selector
      */
@@ -296,7 +296,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * Causes the browser to traverse one step backward in the joint session history
-     * of the current {@apilink Page} (the current top-level browsing context).
+     * of the current [`Page`](https://serenity-js.org/api/web/class/Page/) (the current top-level browsing context).
      *
      * This is equivalent to pressing the back button in the browser UI,
      * or calling [`window.history.back`](https://developer.mozilla.org/en-US/docs/Web/API/History/back).
@@ -305,7 +305,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * Causes the browser to traverse one step forward in the joint session history
-     * of the current {@apilink Page} (the current top-level browsing context).
+     * of the current [`Page`](https://serenity-js.org/api/web/class/Page/) (the current top-level browsing context).
      *
      * This is equivalent to pressing the back button in the browser UI,
      * or calling [`window.history.forward`](https://developer.mozilla.org/en-US/docs/Web/API/History/forward).
@@ -313,12 +313,12 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract navigateForward(): Promise<void>;
 
     /**
-     * Causes the browser to reload the {@apilink Page} in the current top-level browsing context.
+     * Causes the browser to reload the [`Page`](https://serenity-js.org/api/web/class/Page/) in the current top-level browsing context.
      */
     abstract reload(): Promise<void>;
 
     /**
-     * Send a sequence of {@apilink Key} strokes to the active element.
+     * Send a sequence of [`Key`](https://serenity-js.org/api/web/class/Key/) strokes to the active element.
      *
      * @param keys
      *  Keys to enter
@@ -345,7 +345,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * If the script has a return value (i.e. if the script contains a `return` statement),
      * then the following steps will be taken for resolving this functions return value:
      *
-     * - For a {@apilink PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - For a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/), the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
      * - `null` and `undefined` return values will resolve to `null`
      * - `boolean`, `number`, and `string` values will resolve as is
      * - Functions will resolve to their string representation
@@ -363,7 +363,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * #### Learn more
      * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
-     * - {@apilink Page.lastScriptExecutionResult}
+     * - [`Page.lastScriptExecutionResult`](https://serenity-js.org/api/web/class/Page/#lastScriptExecutionResult)
      *
      * @param script
      * @param args
@@ -385,7 +385,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
-     * Unlike executing synchronous JavaScript with {@apilink Page.executeScript},
+     * Unlike executing synchronous JavaScript with [`Page.executeScript`](https://serenity-js.org/api/web/class/Page/#executeScript),
      * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      * This callback will always be injected into the executed function as the last argument,
@@ -394,7 +394,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * The following steps will be taken for resolving this functions return value against
      * the first argument to the script's callback function:
      *
-     * - For a {@apilink PageElement}, the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
+     * - For a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/), the value will resolve to a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)
      * - `null` and `undefined` return values will resolve to `null`
      * - `boolean`, `number`, and `string` values will resolve as is
      * - Functions will resolve to their string representation
@@ -423,7 +423,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      *
      * #### Learn more
      * - [Selenium WebDriver: JavaScript Executor](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-)
-     * - {@apilink Page.lastScriptExecutionResult}
+     * - [`Page.lastScriptExecutionResult`](https://serenity-js.org/api/web/class/Page/#lastScriptExecutionResult)
      *
      * @param script
      * @param args
@@ -434,15 +434,15 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     ): Promise<Result>;
 
     /**
-     * Returns the last result of calling {@apilink Page.executeAsyncScript}
-     * or {@apilink Page.executeScript}
+     * Returns the last result of calling [`Page.executeAsyncScript`](https://serenity-js.org/api/web/class/Page/#executeAsyncScript)
+     * or [`Page.executeScript`](https://serenity-js.org/api/web/class/Page/#executeScript)
      */
     abstract lastScriptExecutionResult<R = any>(): R;
 
     /**
      * Take a screenshot of the top-level browsing context's viewport.
      *
-     * @throws {@apilink BrowserWindowClosedError}
+     * @throws [`BrowserWindowClosedError`](https://serenity-js.org/api/web/class/BrowserWindowClosedError/)
      *  When the page you're trying to take the screenshot of has already been closed
      *
      * @return
@@ -451,15 +451,15 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract takeScreenshot(): Promise<string>;
 
     /**
-     * Retrieves a cookie identified by `name` and visible to this {@apilink Page}.
+     * Retrieves a cookie identified by `name` and visible to this [`Page`](https://serenity-js.org/api/web/class/Page/).
      *
      * @param name
      */
     abstract cookie(name: string): Promise<Cookie>;
 
     /**
-     * Adds a single cookie with {@apilink CookieData} to the cookie store associated
-     * with the active {@apilink Page}'s address.
+     * Adds a single cookie with [`CookieData`](https://serenity-js.org/api/web/interface/CookieData/) to the cookie store associated
+     * with the active [`Page`](https://serenity-js.org/api/web/class/Page/)'s address.
      *
      * @param cookieData
      */
@@ -512,8 +512,8 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * to the previous context when needed.
      *
      * ## Learn more
-     * - {@apilink Switch}
-     * - {@apilink Switchable}
+     * - [`Switch`](https://serenity-js.org/api/web/class/Switch/)
+     * - [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/)
      */
     async switchTo(): Promise<SwitchableOrigin> {
 
@@ -539,7 +539,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
     abstract closeOthers(): Promise<void>;
 
     /**
-     * Returns the {@apilink ModalDialogHandler} for the current {@apilink Page}.
+     * Returns the [`ModalDialogHandler`](https://serenity-js.org/api/web/class/ModalDialogHandler/) for the current [`Page`](https://serenity-js.org/api/web/class/Page/).
      */
     modalDialog(): ModalDialogHandler {
         return this.modalDialogHandler;

@@ -11,7 +11,7 @@ export class ValueInspector {
     }
 
     /**
-     * Checks if the value is a named {@apilink Function}
+     * Checks if the value is a named [`Function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
      *
      * @param value
      */
@@ -115,8 +115,8 @@ export class ValueInspector {
     static isNative(value: unknown): value is Function {  // eslint-disable-line @typescript-eslint/ban-types
 
         const
-            toString = Object.prototype.toString,    // Used to resolve the internal `{@apilink Class}` of values
-            fnToString = Function.prototype.toString,  // Used to resolve the decompiled source of functions
+            toString = Object.prototype.toString,           // Used to resolve the internal `Class` of values
+            fnToString = Function.prototype.toString,       // Used to resolve the decompiled source of functions
             hostConstructor = /^\[object .+?Constructor]$/; // Used to detect host constructors (Safari > 4; really typed array specific)
 
         // Compile a regexp using a common native method as a template.

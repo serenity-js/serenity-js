@@ -4,7 +4,7 @@ import type { Config as ProtractorConfig } from 'protractor';
 import type { TestRunnerLoader } from './TestRunnerLoader';
 
 /**
- * Detects the {@apilink TestRunnerAdapter} to use,
+ * Detects the [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/) to use,
  * based on Protractor configuration.
  *
  * @group Integration

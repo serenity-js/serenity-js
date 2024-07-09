@@ -4,17 +4,17 @@ import { Interaction, Task, the } from '@serenity-js/core';
 import type { Switchable } from '../models';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to switch the context for future activities to a {@apilink Switchable}, such as a {@apilink Page} or a {@apilink PageElement}.
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * to switch the context for future activities to a [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/), such as a [`Page`](https://serenity-js.org/api/web/class/Page/) or a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
- * Please note that when the {@apilink PageElement} implementing {@apilink Switchable} represents an {@apilink iframe},
- * using {@apilink Switch} will result in switching the top-level browsing context to that {@apilink iframe}.
+ * Please note that when the [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) implementing [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/) represents an [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
+ * using [`Switch`](https://serenity-js.org/api/web/class/Switch/) will result in switching the top-level browsing context to that [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe).
  *
- * When the {@apilink PageElement} represents any other [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement),
- * using {@apilink Switch} sets [`HTMLElement#focus`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus)
+ * When the [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) represents any other [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement),
+ * using [`Switch`](https://serenity-js.org/api/web/class/Switch/) sets [`HTMLElement#focus`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus)
  * on the specified element. Assuming it can be focused.
  *
- * **Note:** The focused element is the element which will receive keyboard {@apilink Press} events by default.
+ * **Note:** The focused element is the element which will receive keyboard [press](https://serenity-js.org/api/web/class/Press/) events by default.
  *
  * ## Perform activities in the context of an iframe
  *
@@ -97,18 +97,18 @@ import type { Switchable } from '../models';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink Switchable}
- * - {@apilink SwitchableOrigin}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/)
+ * - [`SwitchableOrigin`](https://serenity-js.org/api/web/interface/SwitchableOrigin/)
  *
  * @group Activities
  */
 export class Switch extends Interaction {
 
     /**
-     * Instructs the {@apilink Actor}
-     * to switch the context for future activities to a {@apilink Switchable},
-     * such as a {@apilink Page} or a {@apilink PageElement}.
+     * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * to switch the context for future activities to a [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/),
+     * such as a [`Page`](https://serenity-js.org/api/web/class/Page/) or a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
      *
      * @param switchable
      */
@@ -121,9 +121,9 @@ export class Switch extends Interaction {
     }
 
     /**
-     * Instructs the {@apilink Actor}
-     * to switch the context for future activities to a {@apilink Switchable},
-     * such as a {@apilink Page} or a {@apilink PageElement},
+     * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * to switch the context for future activities to a [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/),
+     * such as a [`Page`](https://serenity-js.org/api/web/class/Page/) or a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/),
      * perform a sequence of `activities`, and then switch the context back.
      *
      * @param activities

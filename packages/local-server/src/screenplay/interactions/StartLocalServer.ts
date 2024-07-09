@@ -18,7 +18,7 @@ export class StartLocalServer {
     }
 
     /**
-     * Instructs the {@apilink Actor} to start a local test server on a `preferredPort`,
+     * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to start a local test server on a `preferredPort`,
      * or a random one if that's not available.
      *
      * @param preferredPort
@@ -28,7 +28,7 @@ export class StartLocalServer {
     }
 
     /**
-     * Instructs the {@apilink Actor} to start a local test server on a random port
+     * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to start a local test server on a random port
      * between `lowestPort` and `highestPort`, inclusive.
      *
      * @param {Answerable<number>} lowestPort

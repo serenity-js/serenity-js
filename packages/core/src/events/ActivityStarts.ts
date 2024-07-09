@@ -5,7 +5,7 @@ import type { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * Emitted when an {@apilink Activity} starts.
+ * Emitted when an [`Activity`](https://serenity-js.org/api/core/class/Activity/) starts.
  *
  * @group Events
  */

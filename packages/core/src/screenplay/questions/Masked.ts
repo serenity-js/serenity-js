@@ -29,8 +29,10 @@ export class Masked {
      *   );
      * ```
      *
-     * @param parameter - An {@link Answerable} representing the masked value.
-     * @returns A {@link QuestionAdapter} representing the masked value.
+     * @param parameter
+     *  An [`Answerable`](https://serenity-js.org/api/core/#Answerable) representing the masked value.
+     * @returns
+     *  A [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) representing the masked value.
      */
     static valueOf(parameter: Answerable<string>): QuestionAdapter<string> {
         return Question.about('[a masked value]', async actor => actor.answer(parameter));

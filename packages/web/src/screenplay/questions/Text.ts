@@ -6,10 +6,10 @@ import type { PageElements } from '../models';
 import { PageElement } from '../models';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
  * the visible (i.e. not hidden by CSS) [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of:
- * - a given {@apilink PageElement}
- * - a group of {@apilink PageElements}
+ * - a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
+ * - a group of [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
  *
  * The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
@@ -24,7 +24,7 @@ import { PageElement } from '../models';
  * </ul>
  * ```
  *
- * ## Retrieve text of a single {@apilink PageElement}
+ * ## Retrieve text of a single [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -42,7 +42,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Retrieve text of multiple {@apilink PageElements}
+ * ## Retrieve text of multiple [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -62,7 +62,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Using as filter in {@apilink PageElements|Page Element Query Language}
+ * ## Using as filter in [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language/)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -85,22 +85,22 @@ import { PageElement } from '../models';
  * ```
  *
  * ## Learn more
- * - {@apilink BrowseTheWeb}
- * - {@apilink MetaQuestion}
- * - {@apilink QuestionAdapter}
- * - {@apilink Question}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
  *
  * @group Questions
  */
 export class Text {
 
     /**
-     * Instantiates a {@apilink Question} that uses
-     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
-     * the text of a single {@apilink PageElement}.
+     * Instantiates a [`Question`](https://serenity-js.org/api/core/class/Question/) that uses
+     * the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
+     * the text of a single [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
      *
      * #### Learn more
-     * - {@apilink MetaQuestion}
+     * - [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/)
      *
      * @param pageElement
      */
@@ -117,12 +117,12 @@ export class Text {
     }
 
     /**
-     * Instantiates a {@apilink Question} that uses
-     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
-     * the text of a group of {@apilink PageElements}.
+     * Instantiates a [`Question`](https://serenity-js.org/api/core/class/Question/) that uses
+     * the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
+     * the text of a group of [`PageElement`](https://serenity-js.org/api/web/class/PageElements/).
      *
      * #### Learn more
-     * - {@apilink MetaQuestion}
+     * - [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/)
      *
      * @param pageElements
      */

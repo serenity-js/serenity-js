@@ -1,7 +1,7 @@
 import { d, Expectation } from '@serenity-js/core';
 
 /**
- * Produces an {@apilink Expectation|expectation} that is met when the actual value
+ * Produces an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual value
  * is within a given ± `absoluteTolerance` range of the `expected` value.
  *
  * ## Ensuring that a given floating point number is close to the expected number

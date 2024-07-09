@@ -7,8 +7,8 @@ import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/m
 import { BrowseTheWeb } from '../../../../screenplay';
 
 /**
- * Configures the {@apilink Photographer} to take {@apilink Photo|photos}, a.k.a. screenshots,
- * of the {@apilink Activity} performed by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
+ * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos, a.k.a. screenshots,
+ * of the [`Activity`](https://serenity-js.org/api/core/class/Activity/) performed by the [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the [spotlight](https://serenity-js.org/api/core/function/actorInTheSpotlight/)
  * when desired conditions are met.
  *
  * @group Stage
@@ -16,12 +16,12 @@ import { BrowseTheWeb } from '../../../../screenplay';
 export abstract class PhotoTakingStrategy {
 
     /**
-     * Takes a photo of the web browser used by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}.
+     * Takes a photo of the web browser used by the [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the [spotlight](https://serenity-js.org/api/core/function/actorInTheSpotlight/).
      *
      * #### Learn more
-     * - {@apilink ActivityStarts}
-     * - {@apilink ActivityFinished}
-     * - {@apilink Stage}
+     * - [ActivityStarts](https://serenity-js.org/api/core-events/class/ActivityStarts/)
+     * - [ActivityFinished](https://serenity-js.org/api/core-events/class/ActivityFinished/)
+     * - [`Stage`](https://serenity-js.org/api/core/class/Stage/)
      *
      * @param event
      * @param stage

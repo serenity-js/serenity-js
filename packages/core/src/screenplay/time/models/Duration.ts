@@ -2,7 +2,7 @@ import type { JSONObject} from 'tiny-types';
 import { ensure, isGreaterThanOrEqualTo, isInteger, TinyType } from 'tiny-types';
 
 /**
- * Represents a duration in milliseconds between two {@apilink Timestamp|timestamps}.
+ * Represents a duration in milliseconds between two [timestamps](https://serenity-js.org/api/core/class/Timestamp/).
  *
  * @group Time
  */
