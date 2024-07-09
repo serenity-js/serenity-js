@@ -8,7 +8,7 @@ import { ensure, isDefined } from 'tiny-types';
 import type { PlaywrightLocator } from './locators';
 
 /**
- * Playwright-specific implementation of {@apilink PageElement}.
+ * Playwright-specific implementation of [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * @group Models
  */

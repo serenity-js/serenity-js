@@ -2,7 +2,7 @@ import { Expectation } from '@serenity-js/core';
 import { equal } from 'tiny-types/lib/objects';
 
 /**
- * Produces an {@apilink Expectation|expectation} that is met when the actual array of `Item[]` contains
+ * Produces an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual array of `Item[]` contains
  * at least one `Item` that is equal to the resolved value of `expected`.
  *
  * Note that the equality check performs comparison **by value**

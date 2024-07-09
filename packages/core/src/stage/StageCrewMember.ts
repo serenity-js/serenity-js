@@ -2,12 +2,12 @@ import type { ListensToDomainEvents } from './ListensToDomainEvents';
 import type { Stage } from './Stage';
 
 /**
- * You can think of the {@apilink StageCrewMember} as an in-memory microservice that reacts to {@apilink DomainEvent|domain events},
- * published by the {@apilink StageManager}, and originally emitted by {@apilink Actor|actors} performing activities and Serenity/JS
- * test runner adapters notifying the framework about test scenario-specific events like {@apilink SceneStarts} or {@apilink SceneFinishes}.
+ * You can think of the [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) as an in-memory microservice that reacts to [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/),
+ * published by the [`StageManager`](https://serenity-js.org/api/core/class/StageManager/), and originally emitted by [actors](https://serenity-js.org/api/core/class/Actor/) performing activities and Serenity/JS
+ * test runner adapters notifying the framework about test scenario-specific events like [SceneStarts](https://serenity-js.org/api/core-events/class/SceneStarts/) or [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/).
  *
- * Every {@apilink StageCrewMember} receives a reference to the {@apilink Stage},
- * and therefore {@apilink StageManager} as well, which enables them to emit {@apilink DomainEvent}s back.
+ * Every [stage crew member](https://serenity-js.org/api/core/interface/StageCrewMember/) receives a reference to the [stage](https://serenity-js.org/api/core/class/Stage/),
+ * and therefore the [stage manager](https://serenity-js.org/api/core/class/StageManager/), which enables them to emit [domain events](https://serenity-js.org/api/core-events/class/DomainEvent/) back.
  *
  * This interface is useful when you're interested in implementing custom Serenity/JS reporters or supporting services.
  *
@@ -62,18 +62,18 @@ import type { Stage } from './Stage';
  * ```
  *
  * ## Learn more
- * - {@apilink SerenityConfig.crew}
- * - {@apilink configure}
- * - {@apilink StageCrewMemberBuilder}
- * - {@apilink ListensToDomainEvents}
- * - {@apilink DomainEvent}
+ * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
+ * - [`configure`](https://serenity-js.org/api/core/function/configure/)
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
+ * - [`ListensToDomainEvents`](https://serenity-js.org/api/core/interface/ListensToDomainEvents/)
+ * - [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/)
  *
  * @group Stage
  */
 export interface StageCrewMember extends ListensToDomainEvents {
 
     /**
-     * Assigns a {@apilink Stage} to this {@apilink StageCrewMember}
+     * Assigns a [`Stage`](https://serenity-js.org/api/core/class/Stage/) to this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
      */
     assignedTo(stage: Stage): StageCrewMember;
 }

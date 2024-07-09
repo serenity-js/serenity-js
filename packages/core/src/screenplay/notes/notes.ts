@@ -2,10 +2,10 @@ import { Notepad } from './Notepad';
 import type { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * Alias for {@apilink Notepad.notes}.
+ * Alias for [`Notepad.notes`](https://serenity-js.org/api/core/class/Notepad/#notes).
  *
- * **Pro tip:** `notes<T>().get(subject)` returns a {@apilink NotepadAdapter} to make accessing the APIs
- * of the underlying type easier. Check {@apilink NotepadAdapter} for more examples.
+ * **Pro tip:** `notes<T>().get(subject)` returns a [`NotepadAdapter`](https://serenity-js.org/api/core/class/NotepadAdapter/) to make accessing the APIs
+ * of the underlying type easier. Check [`NotepadAdapter`](https://serenity-js.org/api/core/class/NotepadAdapter/) for more examples.
  *
  * ## Working with untyped notes
  *
@@ -109,9 +109,9 @@ import type { NotepadAdapter } from './NotepadAdapter';
  *
  * ## Learn more
  *
- * - {@apilink NotepadAdapter}
- * - {@apilink Notepad.notes}
- * - {@apilink QuestionAdapter}
+ * - [`NotepadAdapter`](https://serenity-js.org/api/core/class/NotepadAdapter/)
+ * - [`Notepad.notes`](https://serenity-js.org/api/core/class/Notepad/#notes)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * @group Notes
  */

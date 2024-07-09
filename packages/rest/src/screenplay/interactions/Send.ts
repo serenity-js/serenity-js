@@ -8,9 +8,9 @@ import { AxiosHeaders } from 'axios';
 import { CallAnApi } from '../abilities';
 
 /**
- * Sends a {@apilink HTTPRequest} to a specified URL.
+ * Sends a [`HTTPRequest`](https://serenity-js.org/api/rest/class/HTTPRequest/) to a specified URL.
  *
- * The response to the request is made available via {@apilink LastResponse}.
+ * The response to the request is made available via [`LastResponse`](https://serenity-js.org/api/rest/class/LastResponse/).
  *
  * ## Send a GET request
  *
@@ -32,7 +32,7 @@ import { CallAnApi } from '../abilities';
 export class Send extends Interaction {
 
     /**
-     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Send}.
+     * Instantiates a new [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`Send`](https://serenity-js.org/api/rest/class/Send/).
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)

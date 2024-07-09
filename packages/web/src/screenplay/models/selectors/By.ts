@@ -9,8 +9,8 @@ import { ByTagName } from './ByTagName';
 import { ByXPath } from './ByXPath';
 
 /**
- * `By` produces a {@apilink Selector} used to locate a {@apilink PageElement} or {@apilink PageElements} on a web page.
- * Selectors can be defined using a static value or a {@link Question} to be resolved at runtime.
+ * `By` produces a [`Selector`](https://serenity-js.org/api/web/class/Selector/) used to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/) on a web page.
+ * Selectors can be defined using a static value or a [`Question`](https://serenity-js.org/api/core/class/Question/) to be resolved at runtime.
  *
  * ### Defining a selector using a static value
  *
@@ -30,11 +30,11 @@ import { ByXPath } from './ByXPath';
  *
  * ### Defining a selector using a Question
  *
- * Each method on this class accepts an {@link Answerable} to allow for dynamic resolution of the selector.
+ * Each method on this class accepts an [`Answerable`](https://serenity-js.org/api/core/#Answerable) to allow for dynamic resolution of the selector.
  * This can be useful when the selector is not known at the time of writing the test, or when the selector
  * needs to be calculated based on the state of the system under test.
  *
- * The example below demonstrates how to use {@link q} to define a selector that includes a dynamic value.
+ * The example below demonstrates how to use [`q`](https://serenity-js.org/api/core/function/q/) to define a selector that includes a dynamic value.
  *
  * ```typescript
  * import { q } from '@serenity-js/core'
@@ -49,17 +49,17 @@ import { ByXPath } from './ByXPath';
  * ```
  *
  * ### Learn more
- * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
- * - {@apilink PageElement}
- * - {@apilink PageElements}
- * - {@apilink q}
+ * - [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
+ * - [`q`](https://serenity-js.org/api/core/function/q/)
  *
  * @group Models
  */
 export class By {
 
     /**
-     * Locates a {@apilink PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
      *
      * @param selector
      */
@@ -71,7 +71,7 @@ export class By {
     }
 
     /**
-     * Locates a {@apilink PageElement} with a given [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) with a given [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
      * using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
      *
      * @param selector
@@ -86,7 +86,7 @@ export class By {
     }
 
     /**
-     * Locates a {@apilink PageElement} using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using a [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors)
      * capable of piercing [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)-piercing
      *
      * @param selector
@@ -99,7 +99,7 @@ export class By {
     }
 
     /**
-     * Locates a {@apilink PageElement} using its [id](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors).
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using its [id](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors).
      *
      * @param selector
      */
@@ -111,7 +111,7 @@ export class By {
     }
 
     /**
-     * Locates a {@apilink PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
      *
      * @param selector
      */
@@ -123,7 +123,7 @@ export class By {
     }
 
     /**
-     * Locates a {@apilink PageElement} using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using an [XPath selector](https://developer.mozilla.org/en-US/docs/Web/XPath).
      *
      * @param selector
      */

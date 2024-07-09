@@ -7,8 +7,7 @@ import { DownloadProgressReport } from '../model';
 import type { Printer } from '../Printer';
 
 /**
- * @desc
- *  Notifies the user of the progress of the Serenity BDD CLI jar download.
+ * Notifies the user of the progress of the Serenity BDD CLI jar download.
  *
  * @package
  */

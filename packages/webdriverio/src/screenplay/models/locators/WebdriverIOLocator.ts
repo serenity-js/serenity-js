@@ -9,7 +9,7 @@ import { WebdriverIOPageElement } from '../WebdriverIOPageElement.js';
 import type { WebdriverIORootLocator } from './WebdriverIORootLocator.js';
 
 /**
- * WebdriverIO-specific implementation of {@apilink Locator}.
+ * WebdriverIO-specific implementation of [`Locator`](https://serenity-js.org/api/web/class/Locator/).
  *
  * @group Models
  */

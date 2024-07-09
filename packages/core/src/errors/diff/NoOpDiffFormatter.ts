@@ -1,7 +1,7 @@
 import type { DiffFormatter } from './DiffFormatter';
 
 /**
- * A no-op {@apilink DiffFormatter} that produces output identical to input.
+ * A no-op [`DiffFormatter`](https://serenity-js.org/api/core/interface/DiffFormatter/) that produces output identical to input.
  *
  * @group Errors
  */

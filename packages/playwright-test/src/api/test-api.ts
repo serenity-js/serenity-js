@@ -1,4 +1,5 @@
 import type {
+    Expect,
     Fixtures,
     PlaywrightTestArgs,
     PlaywrightTestOptions,
@@ -162,7 +163,7 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
 };
 
 /**
- * Serenity/JS BDD-style test API created by {@apilink useBase}.
+ * Serenity/JS BDD-style test API created by [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/).
  */
 export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any>> =
     Pick<TestType<TestArgs, WorkerArgs>, 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
@@ -189,7 +190,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
          * })
          * ```
          *
-         * Shorthand for [`useBase`](/api/playwright-test/function/useBase/)
+         * Shorthand for [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/)
          */
         useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
         it: TestType<TestArgs, WorkerArgs>,
@@ -267,15 +268,15 @@ const api = createTestApi(playwrightBaseTest).useFixtures(fixtures);
  * ```
  *
  * ## Learn more
- * - [Grouping test scenarios](/api/playwright-test/function/describe/)
- * - {@apilink SerenityFixtures}
+ * - [Grouping test scenarios](https://serenity-js.org/api/playwright-test/function/describe/)
+ * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
  * - [Playwright Test `test` function](https://playwright.dev/docs/api/class-test#test-call)
  * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
  */
 export const it = api.it;
 
 /**
- * Declares a single test scenario. Alias for [`it`](/api/playwright-test/function/it/).
+ * Declares a single test scenario. Alias for [`it`](https://serenity-js.org/api/playwright-test/function/it/).
  */
 export const test = api.test;
 
@@ -323,7 +324,7 @@ export const test = api.test;
  * ```
  *
  * ## Learn more
- * - Declaring a Serenity/JS [test scenario](/api/playwright-test/function/it/)
+ * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
  * - [Playwright Test `describe` function](https://playwright.dev/docs/api/class-test#test-describe-1)
  * - [Serenity/JS + Playwright Test project template](https://github.com/serenity-js/serenity-js-playwright-test-template/)
  */
@@ -337,7 +338,7 @@ export const afterEach = api.afterEach;
 
 export const afterAll = api.afterAll;
 
-export const expect = api.expect;
+export const expect: Expect = api.expect;
 
 export const useFixtures = api.useFixtures;
 
@@ -348,7 +349,7 @@ export const useFixtures = api.useFixtures;
  *
  * When your test scenario doesn't require [custom test fixtures](https://playwright.dev/docs/test-fixtures),
  * and you're happy with the default [base test](https://playwright.dev/docs/api/class-test#test-call) offered by Playwright,
- * you can import test API functions such as [`describe`](/api/playwright-test/function/describe/) and [`it`](/api/playwright-test/function/describe/) directly from `@serenity-js/playwright-test`.
+ * you can import test API functions such as [`describe`](https://serenity-js.org/api/playwright-test/function/describe/) and [`it`](https://serenity-js.org/api/playwright-test/function/describe/) directly from `@serenity-js/playwright-test`.
  *
  * ```typescript
  * import { describe, it, test } from '@serenity-js/playwright-test'
@@ -382,8 +383,8 @@ export const useFixtures = api.useFixtures;
  *
  * When your test scenario requires [custom test fixtures](https://playwright.dev/docs/test-fixtures),
  * but you're still happy with the default [base test](https://playwright.dev/docs/api/class-test#test-call) offered by Playwright,
- * you can create fixture-aware test API functions such as [`describe`](/api/playwright-test/function/describe/) and [`it`](/api/playwright-test/function/describe/)
- * by calling [`useFixtures`](/api/playwright-test/function/useFixtures/).
+ * you can create fixture-aware test API functions such as [`describe`](https://serenity-js.org/api/playwright-test/function/describe/) and [`it`](https://serenity-js.org/api/playwright-test/function/describe/)
+ * by calling [`useFixtures`](https://serenity-js.org/api/playwright-test/function/useFixtures/).
  *
  * For example, you can create a test scenario using a static `message` fixture as follows:
  *

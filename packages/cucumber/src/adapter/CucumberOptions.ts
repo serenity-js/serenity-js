@@ -126,13 +126,7 @@ export class CucumberOptions {
     }
 
     /**
-     * @desc
-     *  Converts camelCase option names to kebab-case.
-     *
-     * @param {string} option
-     * @returns {string}
-     *
-     * @private
+     * Converts camelCase option names to kebab-case.
      */
     private asCliOptionName(option: string): string {
         return option

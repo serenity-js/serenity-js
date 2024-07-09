@@ -1,19 +1,18 @@
 import type { Artifact, Name } from '../../model';
 
 /**
- * Describes an {@apilink Actor} who can collect {@apilink Artifact|Artifacts}, such as {@apilink Photo|Photos} or {@apilink JSONData},
+ * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can collect artifacts, such as photos or `JSON` data.,
  * while the scenario is being executed
  *
  * ## Learn more
- * - {@apilink Artifact}
- * - {@apilink Actor}
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Actors
  */
 export interface CollectsArtifacts {
 
     /**
-     * Makes the {@apilink Actor} collect an {@apilink Artifact} so that it can be included in the test report.
+     * Makes the [`Actor`](https://serenity-js.org/api/core/class/Actor/) collect an artifact so that it can be included in the test report.
      *
      * #### Implementing a custom interaction to attach artifacts
      *
@@ -70,7 +69,7 @@ export interface CollectsArtifacts {
      * ```
      *
      * @param artifact
-     *  The artifact to be collected, such as {@apilink JSONData}
+     *  The artifact to be collected, such as `JSON` data.
      *
      * @param name
      *  The name of the artifact to make it easy to recognise in the test report

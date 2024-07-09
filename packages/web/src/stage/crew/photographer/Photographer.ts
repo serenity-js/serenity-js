@@ -6,8 +6,9 @@ import type { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
 import * as strategies from './strategies';
 
 /**
- * The Photographer is a {@apilink StageCrewMember} who takes screenshots
- * using the web browser associated with the {@apilink Actor} that is currently {@apilink actorInTheSpotlight|in the spotlight}.
+ * The Photographer is a [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) who takes screenshots
+ * using the web browser associated with the [actor](https://serenity-js.org/api/core/class/Actor/) that is
+ * currently [in the spotlight](https://serenity-js.org/api/core/function/actorInTheSpotlight/).
  *
  * ## Registering Photographer programmatically
  *
@@ -53,7 +54,7 @@ import * as strategies from './strategies';
  * ```
  *
  * #### Learn more
- * - {@apilink SerenityOptions}
+ * - [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/)
  *
  * ## Using Photographer with WebdriverIO
  *
@@ -144,30 +145,30 @@ import * as strategies from './strategies';
  * ```
  *
  * ## Learn more
- * - {@apilink Stage}
- * - {@apilink StageCrewMember}
- * - {@apilink TakePhotosBeforeAndAfterInteractions}
- * - {@apilink TakePhotosOfFailures}
- * - {@apilink TakePhotosOfInteractions}
+ * - [`Stage`](https://serenity-js.org/api/core/class/Stage/)
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
+ * - [`TakePhotosBeforeAndAfterInteractions`](https://serenity-js.org/api/web/class/TakePhotosBeforeAndAfterInteractions/)
+ * - [`TakePhotosOfFailures`](https://serenity-js.org/api/web/class/TakePhotosOfFailures/)
+ * - [`TakePhotosOfInteractions`](https://serenity-js.org/api/web/class/TakePhotosOfInteractions/)
  *
  * @group Stage
  */
 export class Photographer implements StageCrewMember {
 
     /**
-     * Instantiates a new {@apilink Photographer} configured to take photos (screenshots)
-     * as per the specified {@apilink PhotoTakingStrategy}.
+     * Instantiates a new [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) configured to take photos (screenshots)
+     * as per the specified [`PhotoTakingStrategy`](https://serenity-js.org/api/web/class/PhotoTakingStrategy/).
      *
      * @param strategy
-     *  A no-arg constructor function that instantiates a {@apilink PhotoTakingStrategy}
+     *  A no-arg constructor function that instantiates a [`PhotoTakingStrategy`](https://serenity-js.org/api/web/class/PhotoTakingStrategy/)
      */
     static whoWill(strategy: new () => strategies.PhotoTakingStrategy): StageCrewMember {
         return new Photographer(new strategy());
     }
 
     /**
-     * Instantiates a new {@apilink Photographer} configured to take photos (screenshots)
-     * as per the specified {@apilink PhotoTakingStrategy}.
+     * Instantiates a new [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) configured to take photos (screenshots)
+     * as per the specified [`PhotoTakingStrategy`](https://serenity-js.org/api/web/class/PhotoTakingStrategy/).
      *
      * @param config
      */
@@ -195,10 +196,10 @@ export class Photographer implements StageCrewMember {
     }
 
     /**
-     * Assigns this {@apilink StageCrewMember} to a given {@apilink Stage}.
+     * Assigns this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) to a given [`Stage`](https://serenity-js.org/api/core/class/Stage/).
      *
      * @param stage
-     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
+     *  An instance of a [`Stage`](https://serenity-js.org/api/core/class/Stage/) this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) will be assigned to
      */
     assignedTo(stage: Stage): StageCrewMember {
         this.stage = stage;
@@ -206,8 +207,8 @@ export class Photographer implements StageCrewMember {
     }
 
     /**
-     * Handles {@apilink DomainEvent} objects emitted by the {@apilink Stage}
-     * this {@apilink StageCrewMember} is assigned to.
+     * Handles [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects emitted by the [`Stage`](https://serenity-js.org/api/core/class/Stage/)
+     * this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) is assigned to.
      *
      * @param event
      */

@@ -4,15 +4,15 @@ import { Question, the } from '@serenity-js/core';
 import { PageElement } from '../models';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
- * the `value` attribute of a given {@apilink PageElement}.
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
+ * the `value` attribute of a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * ## Example widget
  * ```html
  * <input type="text" id="username" value="Alice" />
  * ```
  *
- * ## Retrieve the `value` of a given {@apilink PageElement}
+ * ## Retrieve the `value` of a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -29,7 +29,7 @@ import { PageElement } from '../models';
  *   )
  * ```
  *
- * ## Using Value as {@apilink QuestionAdapter}
+ * ## Using Value as [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -50,22 +50,22 @@ import { PageElement } from '../models';
  * ```
  *
  * ## Learn more
- * - {@apilink BrowseTheWeb}
- * - {@apilink MetaQuestion}
- * - {@apilink QuestionAdapter}
- * - {@apilink Question}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
  *
  * @group Questions
  */
 export class Value {
 
     /**
-     * Instantiates a {@apilink Question} that uses
-     * the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
-     * the `value` attribute of a given {@apilink PageElement}.
+     * Instantiates a [`Question`](https://serenity-js.org/api/core/class/Question/) that uses
+     * the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
+     * the `value` attribute of a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
      *
      * #### Learn more
-     * - {@apilink MetaQuestion}
+     * - [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/)
      *
      * @param pageElement
      */

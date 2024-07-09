@@ -3,23 +3,15 @@ import type { Outcome } from '@serenity-js/core/lib/model';
 import { TerminalTheme } from './TerminalTheme';
 
 /**
- * @desc
- *  A simple colour theme for terminals with no colour support.
- *
- * @extends {TerminalTheme}
- *
- * @public
+ * A simple colour theme for terminals with no colour support.
  */
 export class ThemeForMonochromaticTerminals extends TerminalTheme {
 
     /**
-     * @desc
-     *  Formats the heading
+     * Formats the heading
      *
-     * @param {...any[]} parts
+     * @param parts
      *  `parts` to be converted to string, joined together, and formatted as a heading
-     *
-     * @returns {string}
      */
     heading(...parts: any[]): string {
         return this.joined(parts);
@@ -31,38 +23,30 @@ export class ThemeForMonochromaticTerminals extends TerminalTheme {
      * no decoration of the text is performed.
      *
      * @param outcome
-     *  an instance of an {@apilink Outcome}
+     *  an instance of an `Outcome`
      *  or a string class name of one of its implementations.
      *
      * @param parts
      *  the parts of the message
-     *
-     * @returns {string}
      */
     outcome(outcome: Outcome, ...parts: any[]): string {
         return this.joined(parts);
     }
 
     /**
-     * @desc
-     *  Decorates the heading with theme colours.
+     * Decorates the heading with theme colours.
      *
-     * @param {string} pattern
+     * @param pattern
      *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.
-     *
-     * @returns {string}
      */
     separator(pattern: string): string {
         return this.repeat(pattern);
     }
 
     /**
-     * @desc
-     *  Decorates the log entries that the developer wanted to have captured in the output.
+     * Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * @param {...any[]} parts
-     *
-     * @returns {string}
+     * @param parts
      */
     log(...parts: any[]): string {
         return this.joined(parts);

@@ -5,8 +5,8 @@ import { LogicError } from '@serenity-js/core';
  * that's already been closed.
  *
  * ## Learn more
- * - {@apilink TakeScreenshot}
- * - {@apilink Page.takeScreenshot}
+ * - [`TakeScreenshot`](https://serenity-js.org/api/web/class/TakeScreenshot/)
+ * - [`Page.takeScreenshot`](https://serenity-js.org/api/web/class/Page/#takeScreenshot)
  *
  * @group Errors
  */

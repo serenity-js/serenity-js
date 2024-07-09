@@ -6,7 +6,7 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
 
 /**
  * Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information,
- * and returns a bootstrapped instance of the {@apilink SerenityReporterForJasmine} to be registered with Jasmine.
+ * and returns a bootstrapped instance of the [`SerenityReporterForJasmine`](https://serenity-js.org/api/jasmine/function/default/) to be registered with Jasmine.
  *
  * ## Registering the reporter from the command line
  *
@@ -22,13 +22,9 @@ import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
  * jasmine.getEnv().addReporter(serenityReporterForJasmine);
  * ```
  *
- * @see {@apilink monkeyPatched}
- * @see {@apilink SerenityReporterForJasmine}
- *
- * @param {SerenityReporterForJasmineConfig} config
- * @param {jasmine} jasmine - the global.jasmine instance
- *
- * @returns {SerenityReporterForJasmine}
+ * @param config
+ * @param jasmine
+ *  the global.jasmine instance
  */
 export function bootstrap(config: SerenityReporterForJasmineConfig = {}, jasmine = (global as any).jasmine): SerenityReporterForJasmine {
     const wrappers = {

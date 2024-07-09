@@ -2,11 +2,11 @@ import type { Expectation } from './Expectation.js';
 import type { Order } from './Order.js';
 
 /**
- * @desc
- *  Information passed to the Reporter#jasmineDone event.
+ * Information passed to the Reporter#jasmineDone event.
+ *
+ * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo
  *
  * @package
- * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo
  */
 export interface JasmineDoneInfo {
 

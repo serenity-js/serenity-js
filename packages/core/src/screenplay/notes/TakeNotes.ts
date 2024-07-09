@@ -2,21 +2,21 @@ import { Ability } from '../abilities';
 import { Notepad } from './Notepad';
 
 /**
- * An {@apilink Ability} that enables an {@apilink Actor} to remember information
+ * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to remember information
  * to be recalled during a test scenario.
  *
- * Under the hood, {@apilink TakeNotes} uses a {@apilink Notepad}, which state
+ * Under the hood, [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/) uses a [`Notepad`](https://serenity-js.org/api/core/class/Notepad/), which state
  * can be populated both during initialisation or while the test scenario is executed.
  * Populating the notepad when it's initialised can be useful to associate authentication credentials
  * or personal details with a given actor, while dynamic recording of notes during a test scenario
  * can be useful when the data to be recorded is not known upfront - for example when we want
  * the actor to remember a JWT stored in the browser and then use it when sending API requests.
  *
- * **Pro tip:** {@apilink TakeNotes}, {@apilink Notepad} and {@apilink notes} can be typed
+ * **Pro tip:** [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/), [`Notepad`](https://serenity-js.org/api/core/class/Notepad/) and [`notes`](https://serenity-js.org/api/core/function/notes/) can be typed
  * using [TypeScript generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
  * to help you avoid typos when specifying note names.
  *
- * See [notes](/api/core/function/notes) and {@apilink Notepad} for more usage examples.
+ * See [notes](https://serenity-js.org/api/core/function/notes) and [`Notepad`](https://serenity-js.org/api/core/class/Notepad/) for more usage examples.
  *
  * ## Remembering and retrieving a value
  *
@@ -224,23 +224,23 @@ import { Notepad } from './Notepad';
  *
  * ## Learn more
  *
- * - [notes](/api/core/function/notes)
- * - {@apilink Notepad}
+ * - [notes](https://serenity-js.org/api/core/function/notes)
+ * - [`Notepad`](https://serenity-js.org/api/core/class/Notepad/)
  *
  * @group Notes
  */
 export class TakeNotes<Notes_Type extends Record<any, any>> extends Ability {
 
     /**
-     * Initialises an {@apilink Ability} to {@apilink TakeNotes} with {@apilink Notepad.empty}.
+     * Initialises an [`Ability`](https://serenity-js.org/api/core/class/Ability/) to [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/) with [`Notepad.empty`](https://serenity-js.org/api/core/class/Notepad/#empty).
      */
     static usingAnEmptyNotepad<N extends Record<any, any>>(): TakeNotes<N> {
         return TakeNotes.using<N>(Notepad.empty<N>());
     }
 
     /**
-     * Initialises an {@apilink Ability} to {@apilink TakeNotes} using
-     * a {@apilink Notepad.with} some initial state.
+     * Initialises an [`Ability`](https://serenity-js.org/api/core/class/Ability/) to [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/) using
+     * a [`Notepad.with`](https://serenity-js.org/api/core/class/Notepad/#with) some initial state.
      *
      * @param notepad
      */

@@ -3,11 +3,11 @@ import { ensure, isDefined } from 'tiny-types';
 import { ModalDialog } from './ModalDialog';
 
 /**
- * `AcceptedModalDialog` represents a {@apilink ModalDialog} that has been accepted
- * via {@apilink ModalDialog.acceptNext}.
+ * `AcceptedModalDialog` represents a [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) that has been accepted
+ * via [`ModalDialog.acceptNext`](https://serenity-js.org/api/web/class/ModalDialog/#acceptNext).
  *
  * ## Learn more
- * - {@apilink ModalDialog}
+ * - [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/)
  *
  * @group Models
  */

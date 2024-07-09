@@ -3,8 +3,8 @@ import { TinyType } from 'tiny-types';
 import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
- * A placeholder value signifying that a {@apilink Question}
- * has not been answered by an {@apilink Actor} when producing an {@apilink ExpectationOutcome}.
+ * A placeholder value signifying that a [`Question`](https://serenity-js.org/api/core/class/Question/)
+ * has not been answered by an [`Actor`](https://serenity-js.org/api/core/class/Actor/) when producing an [`ExpectationOutcome`](https://serenity-js.org/api/core/class/ExpectationOutcome/).
  * This happens when Serenity/JS decides that answering a given question
  * won't affect the outcome.
  *

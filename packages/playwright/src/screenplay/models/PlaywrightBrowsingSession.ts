@@ -8,7 +8,7 @@ import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
 /**
- * Playwright-specific implementation of {@apilink BrowsingSession}.
+ * Playwright-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).
  *
  * @group Models
  */
@@ -25,7 +25,7 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
     }
 
     /**
-     * Returns {@apilink BrowserCapabilities|basic meta-data} about the browser associated with this ability.
+     * Returns [basic meta-data](https://serenity-js.org/api/web/interface/BrowserCapabilities/) about the browser associated with this ability.
      *
      * **Please note** that since Playwright does not expose information about the operating system
      * the tests are running on, **Serenity/JS assumes that the tests are running locally**

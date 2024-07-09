@@ -45,7 +45,7 @@ export interface MochaConfig {
     /**
      * Only run tests containing this string.
      *
-     * **Note:** {@apilink MochaConfig.fgrep} and {@apilink MochaConfig.grep} are mutually exclusive.
+     * **Note:** [`MochaConfig.fgrep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#fgrep) and [`MochaConfig.grep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#grep) are mutually exclusive.
      */
     fgrep?: string;
 
@@ -72,7 +72,7 @@ export interface MochaConfig {
     /**
      * Only run tests matching this string or regexp.
      *
-     * **Note:** {@apilink MochaConfig.grep} and {@apilink MochaConfig.fgrep} are mutually exclusive.
+     * **Note:** [`MochaConfig.grep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#grep) and [`MochaConfig.fgrep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#fgrep) are mutually exclusive.
      */
     grep?: string | RegExp;
 
@@ -82,7 +82,7 @@ export interface MochaConfig {
     growl?: boolean;
 
     /**
-     * Inverts {@apilink MochaConfig.grep} and {@apilink MochaConfig.fgrep} matches.
+     * Inverts [`MochaConfig.grep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#grep) and [`MochaConfig.fgrep`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/#fgrep) matches.
      */
     invert?: boolean;
 

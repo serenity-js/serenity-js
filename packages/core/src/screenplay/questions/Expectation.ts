@@ -17,15 +17,18 @@ export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Act
 type AnswerableArguments<Arguments extends Array<unknown>> = { [Index in keyof Arguments]: Answerable<Arguments[Index]> };
 
 /**
- * Defines an expectation to be used with {@apilink @apilink Wait.until}, {@apilink Check.whether}, {@apilink Ensure.that}
- * and as part of the Page Element Query Language with {@apilink PageElements.where} and {@apilink List.where}.
+ * Defines an expectation to be used with [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until),
+ * [`Check.whether`](https://serenity-js.org/api/core/class/Check/#whether),
+ * [`Ensure.that`](https://serenity-js.org/api/assertions/class/Ensure/#that)
+ * and as part of the Page Element Query Language with [`PageElements.where`](https://serenity-js.org/api/web/class/PageElements/#where)
+ * and [`List.where`](https://serenity-js.org/api/core/class/List/#where).
  *
  * @group Expectations
  */
 export class Expectation<Actual> extends Describable {
 
     /**
-     * A factory method to that makes defining custom {@apilink Expectation|expectations} easier
+     * A factory method to that makes defining custom [expectations](https://serenity-js.org/api/core/class/Expectation/) easier
      *
      * #### Defining a custom expectation
      *
@@ -96,16 +99,16 @@ export class Expectation<Actual> extends Describable {
      * ```
      *
      * #### Learn more
-     * - {@apilink Ensure}
-     * - {@apilink Check}
-     * - {@apilink Wait}
+     * - [`Ensure`](https://serenity-js.org/api/assertions/class/Ensure/)
+     * - [`Check`](https://serenity-js.org/api/core/class/Check/)
+     * - [`Wait`](https://serenity-js.org/api/core/class/Wait/)
      *
      * @param functionName
-     *  Name of the expectation function to be used when producing an {@apilink AssertionError}
+     *  Name of the expectation function to be used when producing an [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/)
      *
      * @param relationship
      *  Human-readable description of the relationship between the `expected` and the `actual` values.
-     *  Used when reporting {@apilink Activity|activities} performed by an {@apilink Actor|actor}
+     *  Used when reporting [activities](https://serenity-js.org/api/core/class/Activity/) performed by an [actor](https://serenity-js.org/api/core/class/Actor/)
      *
      * @param predicate
      */
@@ -149,7 +152,7 @@ export class Expectation<Actual> extends Describable {
     }
 
     /**
-     * Used to define a simple {@apilink Expectation}
+     * Used to define a simple [`Expectation`](https://serenity-js.org/api/core/class/Expectation/)
      *
      * #### Simple parameterised expectation
      *
@@ -201,9 +204,9 @@ export class Expectation<Actual> extends Describable {
     }
 
     /**
-     * Used to compose {@apilink Expectation|expectations}.
+     * Used to compose [expectations](https://serenity-js.org/api/core/class/Expectation/).
      *
-     * #### Composing {@apilink Expectation|expectations}
+     * #### Composing [expectations](https://serenity-js.org/api/core/class/Expectation/)
      *
      * ```ts
      * import { actorCalled, Expectation } from '@serenity-js/core'
@@ -255,9 +258,9 @@ export class Expectation<Actual> extends Describable {
     }
 
     /**
-     * Returns a {@apilink QuestionAdapter} that resolves to {@apilink ExpectationOutcome}
-     * indicating that the {@apilink ExpectationMet|expectation was met}
-     * or that the {@apilink ExpectationNotMet|expectation was not met}
+     * Returns a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to [`ExpectationOutcome`](https://serenity-js.org/api/core/class/ExpectationOutcome/)
+     * indicating that the [expectation was met](https://serenity-js.org/api/core/class/ExpectationMet/)
+     * or that the [expectation was not met](https://serenity-js.org/api/core/class/ExpectationNotMet/)
      *
      * @param actual
      */

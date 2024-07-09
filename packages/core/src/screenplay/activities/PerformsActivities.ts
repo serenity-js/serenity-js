@@ -1,21 +1,21 @@
 import type { Activity } from '../Activity';
 
 /**
- * Describes an {@apilink Actor} who can perform a sequence of {@apilink Activity|Activities},
- * such as {@apilink Task|tasks} or {@apilink Interaction|interactions}.
+ * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can perform a sequence of [activities](https://serenity-js.org/api/core/class/Activity/),
+ * such as [tasks](https://serenity-js.org/api/core/class/Task/) or [interactions](https://serenity-js.org/api/core/class/Interaction/).
  *
  * ## Learn more
- * - {@apilink Activity}
- * - {@apilink Interaction}
- * - {@apilink Task}
- * - {@apilink Actor}
+ * - [`Activity`](https://serenity-js.org/api/core/class/Activity/)
+ * - [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
+ * - [`Task`](https://serenity-js.org/api/core/class/Task/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Actors
  */
 export interface PerformsActivities {
 
     /**
-     * Makes the {@apilink Actor} attempt to perform a sequence of {@apilink Activity|Activities}.
+     * Makes the [`Actor`](https://serenity-js.org/api/core/class/Actor/) attempt to perform a sequence of [activities](https://serenity-js.org/api/core/class/Activity/).
      */
     attemptsTo: (...activities: Activity[]) => Promise<void>;
 }

@@ -5,7 +5,7 @@ import type * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 
 /**
- * Playwright-specific implementation of {@apilink Cookie}.
+ * Playwright-specific implementation of [`Cookie`](https://serenity-js.org/api/web/class/Cookie/).
  *
  * @group Models
  */

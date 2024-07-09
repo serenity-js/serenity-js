@@ -5,8 +5,8 @@ import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to perform a right click on a given {@apilink PageElement}.
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * to perform a right click on a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
  * on a given Web element, since it's not possible to interact with the standard context menu offered by your browser.
@@ -63,14 +63,14 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class RightClick extends PageElementInteraction {
     /**
-     * Instantiates this {@apilink Interaction}.
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      *
      * @param pageElement
      *  The element to be right-clicked on

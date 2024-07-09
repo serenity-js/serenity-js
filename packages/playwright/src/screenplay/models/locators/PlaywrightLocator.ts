@@ -9,7 +9,7 @@ import { PlaywrightPageElement } from '../PlaywrightPageElement';
 import type { PlaywrightRootLocator } from './PlaywrightRootLocator';
 
 /**
- * Playwright-specific implementation of {@apilink Locator}.
+ * Playwright-specific implementation of [`Locator`](https://serenity-js.org/api/web/class/Locator/).
  *
  * @group Models
  */

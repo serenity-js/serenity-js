@@ -3,7 +3,7 @@ import 'webdriverio';
 import { RootLocator } from '@serenity-js/web';
 
 /**
- * WebdriverIO-specific implementation of {@apilink RootLocator}.
+ * WebdriverIO-specific implementation of [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/).
  *
  * @group Models
  */

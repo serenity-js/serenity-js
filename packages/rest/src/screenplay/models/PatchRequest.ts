@@ -38,11 +38,11 @@ export class PatchRequest extends HTTPRequest {
      *
      * When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      * it gets concatenated with the URL provided to the Axios instance
-     * when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
+     * when the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) was instantiated.
      *
      * @param resourceUri
-     *  The URI where the {@apilink Actor}
-     *  should send the {@apilink HTTPRequest}
+     *  The URI where the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     *  should send the [`HTTPRequest`](https://serenity-js.org/api/rest/class/HTTPRequest/)
      */
     static to(resourceUri: Answerable<string>): PatchRequest {
         return new PatchRequest(resourceUri);
@@ -60,11 +60,11 @@ export class PatchRequest extends HTTPRequest {
 
     /**
      * Overrides the default Axios request configuration provided
-     * when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
+     * when the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) was instantiated.
      *
      * #### Learn more
-     * - {@apilink Answerable}
-     * - {@apilink WithAnswerableProperties}
+     * - [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+     * - [`WithAnswerableProperties`](https://serenity-js.org/api/core/#WithAnswerableProperties)
      * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)
      *
      * @param {Answerable<WithAnswerableProperties<AxiosRequestConfig>>} config

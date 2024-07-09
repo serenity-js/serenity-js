@@ -10,7 +10,7 @@ import type { ProtractorRootLocator } from './ProtractorRootLocator';
 import { ProtractorSelectors } from './ProtractorSelectors';
 
 /**
- * Protractor-specific implementation of {@apilink Locator}.
+ * Protractor-specific implementation of [`Locator`](https://serenity-js.org/api/web/class/Locator/).
  *
  * @group Models
  */

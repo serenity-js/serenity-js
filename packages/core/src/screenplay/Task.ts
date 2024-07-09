@@ -4,8 +4,8 @@ import { Activity } from './Activity';
 import type { Answerable } from './Answerable';
 
 /**
- * **Tasks** model **{@apilink Activity|sequences of activities}**
- * and help you capture meaningful steps of an {@apilink Actor|actor} workflow
+ * **Tasks** model **[sequences of activities](https://serenity-js.org/api/core/class/Activity/)**
+ * and help you capture meaningful steps of an [actor](https://serenity-js.org/api/core/class/Actor/) workflow
  * in your domain.
  *
  * Typically, tasks correspond to higher-level, business domain-specific activities
@@ -13,20 +13,20 @@ import type { Answerable } from './Answerable';
  * However, higher-level tasks can and should be composed of lower-level tasks.
  * For example, a task to `SignUp` could be composed of tasks to `ProvideUsername` and `ProvidePassword`.
  *
- * The lowest-level tasks in your abstraction hierarchy should be composed of {@apilink Interaction|interactions}.
- * For example, a low-level task to `ProvideUsername` could be composed of an interaction to {@apilink Enter} the value
- * into a form field and {@apilink Press} the {@apilink Key.Enter}.
+ * The lowest-level tasks in your abstraction hierarchy should be composed of [interactions](https://serenity-js.org/api/core/class/Interaction/).
+ * For example, a low-level task to `ProvideUsername` could be composed of an interaction to [enter](https://serenity-js.org/api/web/class/Enter/) the value
+ * into a form field and [press](https://serenity-js.org/api/web/class/Press/) the [`Key.Enter`](https://serenity-js.org/api/web/class/Key/#Enter).
  *
- * Tasks are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
- * along with {@apilink Actor|Actors}, {@apilink Ability|Abilities}, {@apilink Interaction|Interactions}, and {@apilink Question|Questions}.
+ * Tasks are the core building block of the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern),
+ * along with [actors](https://serenity-js.org/api/core/class/Actor/), [abilities](https://serenity-js.org/api/core/class/Ability/), [interactions](https://serenity-js.org/api/core/class/Interaction/), and [questions](https://serenity-js.org/api/core/class/Question/).
  *
- * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ * ![Screenplay Pattern](https://serenity-js.org/images/design/serenity-js-screenplay-pattern.png)
  *
  * Learn more about:
  * - [User-Centred Design: How a 50 year old technique became the key to scalable test automation](https://janmolak.com/user-centred-design-how-a-50-year-old-technique-became-the-key-to-scalable-test-automation-66a658a36555)
- * - {@apilink Actor|Actors}
- * - {@apilink Activity|Activities}
- * - {@apilink Interaction|Interactions}
+ * - [Actors](https://serenity-js.org/api/core/class/Actor/)
+ * - [Activities](https://serenity-js.org/api/core/class/Activity/)
+ * - [Interactions](https://serenity-js.org/api/core/class/Interaction/)
  *
  * ## Defining a task
  *
@@ -44,7 +44,7 @@ import type { Answerable } from './Answerable';
  *
  * ## Defining a not implemented task
  *
- * Note that calling {@apilink Task.where} method without providing the sequence of {@apilink Activity|activities}
+ * Note that calling [`Task.where`](https://serenity-js.org/api/core/class/Task/#where) method without providing the sequence of [activities](https://serenity-js.org/api/core/class/Activity/)
  * produces a Task that's marked as "pending" in the test report.
  *
  * This feature is useful when you want to quickly write down a task that will be needed in the scenario,
@@ -72,7 +72,7 @@ import type { Answerable } from './Answerable';
  * - specify origin city of "London"
  * - specify destination city of "New York"
  *
- * The easiest way to implement such task, and any custom Serenity/JS task for this matter, is to use the {@apilink Task.where} method to compose the lower-level activities:
+ * The easiest way to implement such task, and any custom Serenity/JS task for this matter, is to use the [`Task.where`](https://serenity-js.org/api/core/class/Task/#where) method to compose the lower-level activities:
  *
  * ```typescript
  * import { Task, the } from '@serenity-js/core'
@@ -94,9 +94,9 @@ import type { Answerable } from './Answerable';
  * - enter city name of `New York`
  * - pick the first suggested airport from the list
  *
- * Conveniently, [Serenity/JS modules](/handbook/about/architecture) provide low-level activities that
+ * Conveniently, [Serenity/JS modules](https://serenity-js.org/handbook/getting-started/architecture) provide low-level activities that
  * allow actors to interact with the various interfaces of the system under test.
- * For example, [Serenity/JS Web module](/api/web) ships with activities such as {@apilink Click} or {@apilink Enter},
+ * For example, [Serenity/JS Web module](https://serenity-js.org/api/web) ships with activities such as [`Click`](https://serenity-js.org/api/web/class/Click/) or [`Enter`](https://serenity-js.org/api/web/class/Enter/),
  * which we can incorporate into our task definitions just like any other activities:
  *
  * ```typescript
@@ -190,14 +190,14 @@ export abstract class Task extends Activity {
     }
 
     /**
-     * Instructs the provided {@apilink Actor} to perform this {@apilink Task}.
+     * Instructs the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/) to perform this [`Task`](https://serenity-js.org/api/core/class/Task/).
      *
      * @param {PerformsActivities} actor
      *
      * #### Learn more
-     * - {@apilink Actor}
-     * - {@apilink PerformsActivities}
-     * - {@apilink Activity}
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`PerformsActivities`](https://serenity-js.org/api/core/interface/PerformsActivities/)
+     * - [`Activity`](https://serenity-js.org/api/core/class/Activity/)
      */
     abstract performAs(actor: PerformsActivities): Promise<void>;
 }

@@ -12,13 +12,13 @@ import { ScheduleWork } from '../abilities';
 import { Duration } from '../models';
 
 /**
- * `Wait` is a synchronisation statement that instructs the {@apilink Actor|actor}
- * to wait before proceeding with their next {@apilink Activity|activity},
- * either for a set {@apilink Duration|duration}, or until a given {@apilink Expectation|expectation} is met.
+ * `Wait` is a synchronisation statement that instructs the [actor](https://serenity-js.org/api/core/class/Actor/)
+ * to wait before proceeding with their next [activity](https://serenity-js.org/api/core/class/Activity/),
+ * either for a set [duration](https://serenity-js.org/api/core/class/Duration/), or until a given [expectation](https://serenity-js.org/api/core/class/Expectation/) is met.
  *
- * You can configure the timeout of the interaction to {@apilink Wait.until}:
- * - globally, using {@apilink SerenityConfig.interactionTimeout}
- * - locally, on a per-interaction basis using {@apilink Wait.upTo}
+ * You can configure the timeout of the interaction to [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until):
+ * - globally, using [`SerenityConfig.interactionTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#interactionTimeout)
+ * - locally, on a per-interaction basis using [`Wait.upTo`](https://serenity-js.org/api/core/class/Wait/#upTo)
  *
  * :::tip Portable waiting
  * Serenity/JS implements `Wait` from scratch, so that the behaviour is consistent no matter the integration tool you use (Playwright, WebdriverIO, Selenium, etc.)
@@ -98,7 +98,8 @@ import { Duration } from '../models';
  *     );
  * ```
  *
- * `Wait.until` makes the {@apilink Actor} keep asking the {@apilink Question},
+ * `Wait.until` makes the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * keep asking the [`Question`](https://serenity-js.org/api/core/class/Question/),
  * in this case `Text.of(App.status)`, until the answer meets
  * the expectation, or a timeout expires (default: 5s).
  *
@@ -125,53 +126,53 @@ import { Duration } from '../models';
  * ```
  *
  * ## Learn more
- * - {@apilink SerenityConfig.interactionTimeout}
- * - {@apilink Duration}
- * - {@apilink Expectation}
+ * - [`SerenityConfig.interactionTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#interactionTimeout)
+ * - [`Duration`](https://serenity-js.org/api/core/class/Duration/)
+ * - [`Expectation`](https://serenity-js.org/api/core/class/Expectation/)
  *
  * @group Time
  */
 export class Wait {
 
     /**
-     * Minimum timeout that can be used with {@apilink Wait.until},
+     * Minimum timeout that can be used with [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until),
      * defaults to 250 milliseconds,
      */
     static readonly minimumTimeout = Duration.ofMilliseconds(250);
 
     /**
-     * The amount of time {@apilink Wait.until} should wait between condition checks,
+     * The amount of time [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until) should wait between condition checks,
      * defaults to 500ms.
      *
-     * Use {@apilink WaitUntil.pollingEvery} to override it for a given interaction.
+     * Use [`WaitUntil.pollingEvery`](https://serenity-js.org/api/core/class/WaitUntil/#pollingEvery) to override it for a given interaction.
      *
      * @type {Duration}
      */
     static readonly defaultPollingInterval = Duration.ofMilliseconds(500);
 
     /**
-     * Minimum polling interval of 50ms between condition checks, used with {@apilink Wait.until}.
+     * Minimum polling interval of 50ms between condition checks, used with [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until).
      */
     static readonly minimumPollingInterval = Duration.ofMilliseconds(50);
 
     /**
-     * Instantiates a version of this {@apilink Interaction}
+     * Instantiates a version of this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
      * configured to wait for a set duration.
      *
      * @param duration
-     *  A set duration the {@apilink Actor} should wait for before proceeding.
+     *  A set duration the [`Actor`](https://serenity-js.org/api/core/class/Actor/) should wait for before proceeding.
      */
     static for(duration: Answerable<Duration>): Interaction {
         return new WaitFor(duration);
     }
 
     /**
-     * Instantiates a version of this {@apilink Interaction}
+     * Instantiates a version of this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
      * configured to wait until the answer to the question `actual` meets the `expectation`,
      * or the `timeout` expires.
      *
      * @param timeout
-     *  Custom timeout to override {@apilink SerenityConfig.interactionTimeout}
+     *  Custom timeout to override [`SerenityConfig.interactionTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#interactionTimeout)
      */
     static upTo(timeout: Duration): { until: <Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>) => WaitUntil<Actual> } {
         return {
@@ -181,17 +182,17 @@ export class Wait {
     }
 
     /**
-     * Instantiates a version of this {@apilink Interaction} configured to
-     * poll every {@apilink Wait.defaultPollingInterval} for the result of the provided
+     * Instantiates a version of this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) configured to
+     * poll every [`Wait.defaultPollingInterval`](https://serenity-js.org/api/core/class/Wait/#defaultPollingInterval) for the result of the provided
      * question (`actual`) until it meets the `expectation`,
      * or the timeout expires.
      *
      * @param actual
-     *  An {@apilink Answerable} that the {@apilink Actor} will keep answering
-     *  until the answer meets the {@apilink Expectation} provided, or the timeout expires.
+     *  An [`Answerable`](https://serenity-js.org/api/core/#Answerable) that the [`Actor`](https://serenity-js.org/api/core/class/Actor/) will keep answering
+     *  until the answer meets the [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) provided, or the timeout expires.
      *
      * @param expectation
-     *  An {@apilink Expectation} to be met before proceeding
+     *  An [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) to be met before proceeding
      */
     static until<Actual>(actual: Answerable<Actual>, expectation: Expectation<Actual>): WaitUntil<Actual> {
         return new WaitUntil(actual, expectation, Wait.defaultPollingInterval);
@@ -214,14 +215,15 @@ class WaitFor extends Interaction {
 }
 
 /**
- * Synchronisation statement that instructs the {@apilink Actor} to wait before proceeding until a given {@apilink Expectation} is met.
+ * Synchronisation statement that instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to wait before proceeding until a given [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) is met.
  *
  * :::tip
- * To instantiate {@apilink Interaction|interaction} to {@apilink WaitUntil}, use the factory method {@apilink Wait.until}.
+ * To instantiate the [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`WaitUntil`](https://serenity-js.org/api/core/class/WaitUntil/),
+ * use the factory method [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until).
  * :::
  *
  * ## Learn more
- * * {@apilink Wait.until}
+ * * [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
  *
  * @group Time
  */
@@ -243,7 +245,7 @@ export class WaitUntil<Actual> extends Interaction {
     }
 
     /**
-     * Configure how frequently the {@apilink Actor} should check if the answer meets the expectation.
+     * Configure how frequently the [`Actor`](https://serenity-js.org/api/core/class/Actor/) should check if the answer meets the expectation.
      *
      * Note that the polling interval defines the delay between subsequent attempts
      * to evaluate the expected value, and doesn't include the amount of time

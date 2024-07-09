@@ -25,26 +25,26 @@ import type { TellsTime, Timestamp } from './time';
 
 /**
  * **Actors** represent **people** and **external systems** interacting with the system under test.
- * Their role is to perform {@apilink Activity|activities} that demonstrate how to accomplish a given goal.
+ * Their role is to perform [activities](https://serenity-js.org/api/core/class/Activity/) that demonstrate how to accomplish a given goal.
  *
- * Actors are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
- * along with {@apilink Ability|Abilities}, {@apilink Interaction|Interactions}, {@apilink Task|Tasks}, and {@apilink Question|Questions}.
+ * Actors are the core building block of the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern),
+ * along with [abilities](https://serenity-js.org/api/core/class/Ability/), [interactions](https://serenity-js.org/api/core/class/Interaction/), [tasks](https://serenity-js.org/api/core/class/Task/), and [questions](https://serenity-js.org/api/core/class/Question/).
  * Actors are also the first thing you see in a typical Serenity/JS test scenario.
  *
- * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ * ![Screenplay Pattern](https://serenity-js.org/images/design/serenity-js-screenplay-pattern.png)
  *
  * Learn more about:
- * - {@apilink Cast}
- * - {@apilink Stage}
- * - {@apilink Ability|Abilities}
- * - {@apilink Activity|Activities}
- * - {@apilink Interaction|Interactions}
- * - {@apilink Task|Tasks}
- * - {@apilink Question|Questions}
+ * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
+ * - [`Stage`](https://serenity-js.org/api/core/class/Stage/)
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Activity`](https://serenity-js.org/api/core/class/Activity/)
+ * - [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
+ * - [`Task`](https://serenity-js.org/api/core/class/Task/)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
  *
  * ## Representing people and systems as actors
  *
- * To use a Serenity/JS {@apilink Actor}, all you need is to say their name:
+ * To use a Serenity/JS [`Actor`](https://serenity-js.org/api/core/class/Actor/), all you need is to say their name:
  *
  * ```typescript
  * import { actorCalled } from '@serenity-js/core'
@@ -53,8 +53,8 @@ import type { TellsTime, Timestamp } from './time';
  * // returns: Actor
  * ```
  *
- * Serenity/JS actors perform within the scope of a test scenario, so the first time you invoke {@apilink actorCalled},
- * Serenity/JS instantiates a new actor from the default {@apilink Cast} of actors (or any custom cast you might have {@apilink configured|configured}).
+ * Serenity/JS actors perform within the scope of a test scenario, so the first time you invoke [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/),
+ * Serenity/JS instantiates a new actor from the default [cast](https://serenity-js.org/api/core/class/Cast/) of actors (or any custom cast you might have [configured](https://serenity-js.org/api/core/function/configure/)).
  * Any subsequent invocations of this function within the scope of the same test scenario retrieve the already instantiated actor, identified by their name.
  *
  * ```typescript
@@ -104,12 +104,12 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Retrieves actor's {@apilink Ability} of `abilityType`, or one that extends `abilityType`.
+     * Retrieves actor's [`Ability`](https://serenity-js.org/api/core/class/Ability/) of `abilityType`, or one that extends `abilityType`.
      *
-     * Please note that this method performs an {@apilink instanceof} check against abilities
-     * given to this actor via {@apilink Actor.whoCan}.
+     * Please note that this method performs an [`instanceof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof) check against abilities
+     * given to this actor via [`Actor.whoCan`](https://serenity-js.org/api/core/class/Actor/#whoCan).
      *
-     * Please also note that {@apilink Actor.whoCan} performs the same check when abilities are assigned to the actor
+     * Please also note that [`Actor.whoCan`](https://serenity-js.org/api/core/class/Actor/#whoCan) performs the same check when abilities are assigned to the actor
      * to ensure the actor has at most one instance of a given ability type.
      *
      * @param abilityType
@@ -129,8 +129,8 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Instructs the actor to attempt to perform a number of {@apilink Activity|activities},
-     * so either {@apilink Task|Tasks} or {@apilink Interaction|Interactions}),
+     * Instructs the actor to attempt to perform a number of [activities](https://serenity-js.org/api/core/class/Activity/),
+     * so either [tasks](https://serenity-js.org/api/core/class/Task/) or [interactions](https://serenity-js.org/api/core/class/Interaction/)),
      * one by one.
      *
      * @param {...activities: Activity[]} activities
@@ -144,7 +144,7 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Gives this Actor a list of {@apilink Ability|abilities} they can use
+     * Gives this Actor a list of [abilities](https://serenity-js.org/api/core/class/Ability/) they can use
      * to interact with the system under test or the test environment.
      *
      * @param abilities
@@ -153,7 +153,7 @@ export class Actor implements PerformsActivities,
      * @returns
      *  The actor with newly gained abilities
      *
-     * @throws {@apilink ConfigurationError}
+     * @throws [`ConfigurationError`](https://serenity-js.org/api/core/class/ConfigurationError/)
      *  Throws a ConfigurationError if the actor already has an ability of this type.
      */
     whoCan(...abilities: Ability[]): Actor {
@@ -164,7 +164,7 @@ export class Actor implements PerformsActivities,
 
     /**
      * @param answerable -
-     *  An {@apilink Answerable} to answer (resolve the value of).
+     *  An [`Answerable`](https://serenity-js.org/api/core/#Answerable) to answer (resolve the value of).
      *
      * @returns
      *  The answer to the Answerable
@@ -194,8 +194,8 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Instructs the actor to invoke {@apilink Discardable.discard} method on any
-     * {@apilink Discardable} {@apilink Ability} it's been configured with.
+     * Instructs the actor to invoke [`Discardable.discard`](https://serenity-js.org/api/core/interface/Discardable/#discard) method on any
+     * [discardable](https://serenity-js.org/api/core/interface/Discardable/) [ability](https://serenity-js.org/api/core/class/Ability/) it's been configured with.
      */
     dismiss(): Promise<void> {
         return this.findAbilitiesOfType<Discardable>('discard')
@@ -209,7 +209,7 @@ export class Actor implements PerformsActivities,
     /**
      * Returns a human-readable, string representation of this actor and their abilities.
      *
-     * **PRO TIP:** To get the name of the actor, use {@apilink Actor.name}
+     * **PRO TIP:** To get the name of the actor, use [`Actor.name`](https://serenity-js.org/api/core/class/Actor/#name)
      */
     toString(): string {
         const abilities = Array.from(this.abilities.values()).map(ability => ability.constructor.name);
@@ -268,8 +268,8 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Instantiates a {@apilink Name} based on the string value of the parameter,
-     * or returns the argument if it's already an instance of {@apilink Name}.
+     * Instantiates a `Name` based on the string value of the parameter,
+     * or returns the argument if it's already an instance of `Name`.
      *
      * @param maybeName
      */

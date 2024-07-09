@@ -8,7 +8,7 @@ import { BrowseTheWeb } from '../abilities';
 import type { CookieData } from './CookieData';
 
 /**
- * A Screenplay Pattern-style model responsible for managing cookies available to the current {@apilink Page}.
+ * A Screenplay Pattern-style model responsible for managing cookies available to the current [`Page`](https://serenity-js.org/api/web/class/Page/).
  *
  * ## Checking if a cookie exists
  *
@@ -69,15 +69,15 @@ import type { CookieData } from './CookieData';
  * ```
  *
  * ## Learn more
- * - {@apilink CookieData}
- * - {@apilink Page.cookie}
+ * - [`CookieData`](https://serenity-js.org/api/web/interface/CookieData/)
+ * - [`Page.cookie`](https://serenity-js.org/api/web/class/Page/#cookie)
  *
  * @group Models
  */
 export abstract class Cookie implements Optional {
 
     /**
-     * Creates a {@apilink QuestionAdapter} that resolves to {@apilink Cookie} identified by `name`.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to [`Cookie`](https://serenity-js.org/api/web/class/Cookie/) identified by `name`.
      *
      * @param name
      */
@@ -90,7 +90,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * Sets a cookie for the current {@apilink Page}. Note that {@apilink CookieData} can be either a plain-old JavaScript object, or an {@apilink Answerable} {@apilink WithAnswerableProperties}.
+     * Sets a cookie for the current [`Page`](https://serenity-js.org/api/web/class/Page/). Note that [`CookieData`](https://serenity-js.org/api/web/interface/CookieData/) can be either a plain-old JavaScript object, or an [`Answerable`](https://serenity-js.org/api/core/#Answerable) [`WithAnswerableProperties`](https://serenity-js.org/api/core/#WithAnswerableProperties).
      *
      * :::info
      * Make sure that the actor performing this interaction is on the page that should receive the cookie.
@@ -122,7 +122,7 @@ export abstract class Cookie implements Optional {
     }
 
     /**
-     * Creates an {@apilink Interaction|interaction} to delete all cookies available to the current {@apilink Page}..
+     * Creates an [interaction](https://serenity-js.org/api/core/class/Interaction/) to delete all cookies available to the current [`Page`](https://serenity-js.org/api/web/class/Page/)..
      */
     static deleteAll(): Interaction {
         return Interaction.where(`#actor deletes all cookies`, async actor => {
@@ -148,7 +148,7 @@ export abstract class Cookie implements Optional {
      * Checks if a given cookie is set.
      *
      * #### Learn more
-     * - {@apilink Optional}
+     * - [`Optional`](https://serenity-js.org/api/core/interface/Optional/)
      */
     async isPresent(): Promise<boolean> {
         try {
@@ -214,7 +214,7 @@ export abstract class Cookie implements Optional {
      * Returns the expiry date of a given cookie
      *
      * #### Learn more
-     * - {@apilink Timestamp}
+     * - [`Timestamp`](https://serenity-js.org/api/core/class/Timestamp/)
      */
     async expiry(): Promise<Timestamp> {
         const cookie = await this.lazyLoadCookie();
@@ -232,12 +232,12 @@ export abstract class Cookie implements Optional {
      * This method is to be implemented by test integration tool-specific adapters.
      *
      * **Please note**: you don't need to implement any response caching here
-     * since it is covered by {@apilink Cookie.lazyLoadCookie} method.
+     * since it is covered by [`Cookie`](https://serenity-js.org/api/web/class/Cookie/).lazyLoadCookie} method.
      */
     protected abstract read(): Promise<CookieData>;
 
     /**
-     * Invokes {@apilink Cookie.read} and caches the result in memory.
+     * Invokes `Cookie.read` and caches the result in memory.
      */
     private async lazyLoadCookie(): Promise<CookieData> {
         if (! this.cookie) {

@@ -12,7 +12,7 @@ import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.j
 import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler.js';
 
 /**
- * WebdriverIO-specific implementation of {@apilink BrowsingSession}.
+ * WebdriverIO-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).
  *
  * @group Models
  */

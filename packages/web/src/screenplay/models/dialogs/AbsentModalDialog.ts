@@ -4,10 +4,10 @@ import { ModalDialog } from './ModalDialog';
 
 /**
  * `AbsentModalDialog` is a [null object](https://en.wikipedia.org/wiki/Null_object_pattern)
- * representing a {@apilink ModalDialog} that hasn't appeared yet.
+ * representing a [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) that hasn't appeared yet.
  *
  * ## Learn more
- * - {@apilink ModalDialog}
+ * - [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/)
  *
  * @group Models
  */

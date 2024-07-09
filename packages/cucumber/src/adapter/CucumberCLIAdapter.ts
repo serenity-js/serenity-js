@@ -13,7 +13,7 @@ import type { OutputDescriptor, SerenityFormatterOutput } from './output';
  * Allows for programmatic execution of Cucumber test scenarios.
  *
  * ## Learn more
- * - {@apilink TestRunnerAdapter}
+ * - [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/)
  *
  * @group Integration
  */
@@ -33,7 +33,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     }
 
     /**
-     * Scenario success threshold for this test runner, calculated based on {@apilink CucumberConfig}
+     * Scenario success threshold for this test runner, calculated based on [`CucumberConfig`](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
      */
     successThreshold(): Outcome | { Code: number } {
         return this.options.isStrict()
@@ -62,7 +62,7 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     /**
      * Returns the number of loaded scenarios
      *
-     * @throws {@apilink LogicError}
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  If called before `load`
      */
     scenarioCount(): number {

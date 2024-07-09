@@ -61,7 +61,7 @@ import { BrowseTheWebWithProtractor } from '../abilities';
  * ```
  *
  * ## Learn more
- * - {@apilink BrowseTheWebWithProtractor.param}
+ * - [`BrowseTheWebWithProtractor.param`](https://serenity-js.org/api/protractor/class/BrowseTheWebWithProtractor/#param)
  *
  * @group Questions
  */

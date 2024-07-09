@@ -1,7 +1,7 @@
 import type * as playwright from 'playwright-core';
 
 /**
- * Playwright-specific options used to configure the ability to {@apilink BrowseTheWebWithPlaywright}
+ * Playwright-specific options used to configure the ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/)
  *
  * ## Learn more
  * - [Playwright `Browser.newContext` options](https://playwright.dev/docs/api/class-browser#browser-new-context)
@@ -11,7 +11,7 @@ import type * as playwright from 'playwright-core';
 export interface PlaywrightOptions extends playwright.BrowserContextOptions {
 
     /**
-     * Changes the default maximum navigation time for the browser context used by {@apilink BrowseTheWebWithPlaywright}
+     * Changes the default maximum navigation time for the browser context used by [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/)
      *
      * #### Learn more
      * - [Playwright `browserContext.setDefaultNavigationTimeout(timeout)`](https://playwright.dev/docs/api/class-browsercontext#browser-context-set-default-navigation-timeout)

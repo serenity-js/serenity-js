@@ -7,14 +7,14 @@ import type { Config as ProtractorConfig } from 'protractor';
  *
  * ## Learn more
  * - [Protractor config](https://github.com/angular/protractor/blob/master/lib/config.ts)
- * - {@apilink SerenityConfig}
- * - {@apilink configure}
+ * - [`SerenityConfig`](https://serenity-js.org/api/core/class/SerenityConfig/)
+ * - [`configure`](https://serenity-js.org/api/core/function/configure/)
  *
  * @group Configuration
  */
 export interface Config extends ProtractorConfig {
     /**
-     * See {@apilink SerenityConfig}
+     * See [`SerenityConfig`](https://serenity-js.org/api/core/class/SerenityConfig/)
      */
     serenity: SerenityConfig & { runner?: string };
 }

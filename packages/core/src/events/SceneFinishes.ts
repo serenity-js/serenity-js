@@ -7,7 +7,8 @@ import { DomainEvent } from './DomainEvent';
 
 /**
  * Emitted by a Serenity/JS test runner adapter, right before a test and all its associated test hooks finish.
- * Triggers any clean-up operations that might be required, such as discarding of the {@apilink Discardable} abilities.
+ * Triggers any clean-up operations that might be required, such as discarding of
+ * the [discardable](https://serenity-js.org/api/core/interface/Discardable/) abilities.
  *
  * @group Events
  */

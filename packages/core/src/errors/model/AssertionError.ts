@@ -23,7 +23,7 @@ export class AssertionError extends RuntimeError {
 
     /**
      * @param message - Human-readable description of the error and the difference between the expected and actual values
-     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
+     * @param [cause] - The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     constructor(message: string, cause?: Error) {
         super(AssertionError, message, cause);

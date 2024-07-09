@@ -17,7 +17,7 @@ of complex software systems faster, more collaborative and easier to scale.
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
 - Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/contributing),
+- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
 - Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
 
 ## Serenity/JS Playwright Test
@@ -163,7 +163,7 @@ describe('Serenity Screenplay with Playwright', () => {
 #### Customising Actors
 
 The default [cast](https://serenity-js.org/api/core/class/Cast) of actors is limited to using a single ability
-to [`BrowseTheWebWithPlaywright`](/api/playwright/class/BrowseTheWebWithPlaywright).
+to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright).
 
 If you'd like to give your actors additional abilities, like to [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes),
 [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi),

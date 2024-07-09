@@ -3,11 +3,11 @@ import { ensure, isDefined } from 'tiny-types';
 import { ModalDialog } from './ModalDialog';
 
 /**
- * `DismissedModalDialog` represents a {@apilink ModalDialog} that has been dismissed
- * via {@apilink ModalDialog.dismissNext}.
+ * `DismissedModalDialog` represents a [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) that has been dismissed
+ * via [`ModalDialog.dismissNext`](https://serenity-js.org/api/web/class/ModalDialog/#dismissNext).
  *
  * ## Learn more
- * - {@apilink ModalDialog}
+ * - [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/)
  *
  * @group Models
  */

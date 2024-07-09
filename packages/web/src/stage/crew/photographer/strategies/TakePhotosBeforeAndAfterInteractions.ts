@@ -4,9 +4,9 @@ import { InteractionFinished, InteractionStarts } from '@serenity-js/core/lib/ev
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots) **both before and after**
- * every single {@apilink Interaction} performed
- * by the {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}.
+ * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos (a.k.a. screenshots) **both before and after**
+ * every single [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) performed
+ * by the [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the [spotlight](https://serenity-js.org/api/core/function/actorInTheSpotlight/).
  *
  * **Please note** that this strategy will result in _a lot_ of screenshots being taken,
  * which will seriously affect the performance of your tests.

@@ -2,8 +2,8 @@ import type { Answerable } from './Answerable';
 import type { Question } from './Question';
 
 /**
- * Describes a plain JavaScript object with {@apilink Answerable} properties.
- * Typically, used in conjunction with {@apilink RecursivelyAnswered} and {@apilink Question.fromObject}.
+ * Describes a plain JavaScript object with [`Answerable`](https://serenity-js.org/api/core/#Answerable) properties.
+ * Typically, used in conjunction with [`RecursivelyAnswered`](https://serenity-js.org/api/core/#RecursivelyAnswered) and [`Question.fromObject`](https://serenity-js.org/api/core/class/Question/#fromObject).
  *
  * ```ts
  * import {

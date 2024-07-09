@@ -14,7 +14,7 @@ import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**
- * WebdriverIO-specific implementation of {@apilink Page}.
+ * WebdriverIO-specific implementation of [`Page`](https://serenity-js.org/api/web/class/Page/).
  *
  * @group Models
  */

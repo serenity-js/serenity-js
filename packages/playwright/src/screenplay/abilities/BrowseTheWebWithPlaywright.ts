@@ -9,18 +9,18 @@ import {
 } from '../models';
 
 /**
- * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * enables the {@apilink Actor} to interact with web front-ends using [Playwright](https://playwright.dev/).
+ * This implementation of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * enables the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to interact with web front-ends using [Playwright](https://playwright.dev/).
  *
  * ## Using Playwright to `BrowseTheWeb`
  *
- * In the example below, we configure the ability to {@apilink BrowseTheWebWithPlaywright} with a Playwright
- * [`Browser`](https://playwright.dev/docs/api/class-browser) so that Serenity/JS {@apilink Actor|actors}
+ * In the example below, we configure the ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/) with a Playwright
+ * [`Browser`](https://playwright.dev/docs/api/class-browser) so that Serenity/JS [actors](https://serenity-js.org/api/core/class/Actor/)
  * can create a new [`BrowserContext`](https://playwright.dev/docs/api/class-browsercontext) and
  * instantiate Playwright [`page`s](https://playwright.dev/docs/api/class-page) as and when needed.
  *
  * This configuration allows Serenity/JS to control the process of launching and shutting down browser instances
- * and is useful when your test runner, e.g. [Cucumber.js](/api/cucumber), doesn't offer this functionality.
+ * and is useful when your test runner, e.g. [Cucumber.js](https://serenity-js.org/api/cucumber), doesn't offer this functionality.
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -46,17 +46,17 @@ import {
  *
  * ## Using `BrowseTheWeb` with an existing Playwright `page`
  *
- * Test runners like [Playwright Test](/api/playwright-test/) manage Playwright browsers for you
+ * Test runners like [Playwright Test](https://serenity-js.org/api/playwright-test/) manage Playwright browsers for you
  * and offer a [`page`](https://playwright.dev/docs/api/class-page) instance you can
- * inject into the ability to {@apilink BrowseTheWebWithPlaywright}.
+ * inject into the ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/).
  *
- * Note that [Serenity/JS Playwright Test module](/api/playwright-test/)
- * automatically configures all your {@apilink Actor|actors}
- * with an ability to {@apilink BrowseTheWebWithPlaywright},
- * so you don't need to do it by hand unless you want to override the {@apilink SerenityOptions|default configuration}.
+ * Note that [Serenity/JS Playwright Test module](https://serenity-js.org/api/playwright-test/)
+ * automatically configures all your [actors](https://serenity-js.org/api/core/class/Actor/)
+ * with an ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/),
+ * so you don't need to do it by hand unless you want to override the [default configuration](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/).
  *
- * The example below demonstrates how to use the {@apilink BrowseTheWebWithPlaywright.usingPage} API and
- * override the default {@apilink Cast} of actors.
+ * The example below demonstrates how to use the [`BrowseTheWebWithPlaywright.usingPage`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/#usingPage) API and
+ * override the default [cast](https://serenity-js.org/api/core/class/Cast/) of actors.
  *
  * ```ts title="specs/example.spec.ts"
  * import { describe, it, test } from '@playwright/playwright-test'
@@ -95,12 +95,13 @@ import {
  *
  * ## Configuring Playwright
  *
- * If you're using Serenity/JS with [Playwright Test](/handbook/test-runners/playwright-test/),
+ * If you're using Serenity/JS with [Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/),
  * Serenity/JS will automatically pick up your configuration from the [`playwright.config.ts`](https://playwright.dev/docs/test-configuration) file.
  *
- * With other [test runners](/handbook/test-runners/), you can configure Playwright by:
+ * With other [test runners](https://serenity-js.org/handbook/test-runners/), you can configure Playwright by:
  * - providing the browser-level configuration when calling [`BrowserType.launch`](https://playwright.dev/docs/api/class-browsertype#browser-type-launch),
- * - providing the browser context-level {@link PlaywrightOptions} when initialising the ability to `BrowseTheWebWithPlaywright`.
+ * - providing the browser context-level [`PlaywrightOptions`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/)
+ * when initialising the ability to `BrowseTheWebWithPlaywright`.
  *
  * The code snippet below demonstrates how to configure the browser and some popular browser context options,
  * such as
@@ -140,16 +141,16 @@ import {
  *   )
  * ```
  *
- * Note that in addition to all the standard Playwright BrowserContextOptions, you can also provide several others defined in Serenity/JS {@apilink PlaywrightOptions}, such as:
+ * Note that in addition to all the standard Playwright BrowserContextOptions, you can also provide several others defined in Serenity/JS [`PlaywrightOptions`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/), such as:
  * - `defaultNavigationTimeout`, which changes the default maximum navigation timeout for the browser context,
  * - `defaultTimeout`, which changes the default maximum time for all Playwright methods accepting the `timeout` option.
  *
  * ## Learn more
  * - [Full list of Playwright `BrowserContextOptions`](https://playwright.dev/docs/api/class-browser#browser-new-context)
  * - [Playwright website](https://playwright.dev/)
- * - {@apilink BrowseTheWeb}
- * - {@apilink Ability}
- * - {@apilink Actor}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Abilities
  */
@@ -164,11 +165,11 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
     }
 
     /**
-     * Automatically closes any open {@apilink Page|Pages} when the {@apilink SceneFinishes}
+     * Automatically closes any open [pages](https://serenity-js.org/api/web/class/Page/) when the [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/)
      *
      * #### Learn more
-     * - {@apilink PlaywrightBrowsingSession.closeAllPages}
-     * - {@apilink Discardable}
+     * - [`PlaywrightBrowsingSession.closeAllPages`](https://serenity-js.org/api/playwright/class/PlaywrightBrowsingSession/#closeAllPages)
+     * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
      */
     async discard(): Promise<void> {
         await this.session.closeAllPages();

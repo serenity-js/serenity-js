@@ -4,12 +4,12 @@ import { AbsentModalDialog } from './AbsentModalDialog';
 import type { ModalDialog } from './ModalDialog';
 
 /**
- * Represent the strategy to use with any upcoming {@apilink ModalDialog} windows.
+ * Represent the strategy to use with any upcoming [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) windows.
  *
  * ## Learn more
  *
- * - {@apilink ModalDialog}
- * - {@apilink Page.modalDialog}
+ * - [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/)
+ * - [`Page.modalDialog`](https://serenity-js.org/api/web/class/Page/#modalDialog)
  *
  * @group Models
  */
@@ -41,8 +41,8 @@ export abstract class ModalDialogHandler {
     abstract reset(): Promise<void>;
 
     /**
-     * Returns the most recently handled {@apilink ModalDialog},
-     * or {@apilink AbsentModalDialog} when no dialogs have been handled yet.
+     * Returns the most recently handled [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/),
+     * or [`AbsentModalDialog`](https://serenity-js.org/api/web/class/AbsentModalDialog/) when no dialogs have been handled yet.
      */
     async last(): Promise<ModalDialog> {
         return this.modalDialog;

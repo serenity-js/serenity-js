@@ -2,10 +2,11 @@ import type { Answerable, AnswersQuestions, Optional } from '@serenity-js/core';
 import { Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
- * Creates an {@apilink Expectation|expectation} that is met when the `actual` value is not undefined or null.
+ * Creates an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the `actual` value is not undefined or null.
  *
- * Also, when the `actual` implements {@apilink Optional}, the expectation is met when calling {@apilink Optional.isPresent()}
- * returns an {@apilink Answerable} that resolves to `true`
+ * Also, when the `actual` implements [`Optional`](https://serenity-js.org/api/core/interface/Optional/),
+ * the expectation is met when calling [`Optional.isPresent`](https://serenity-js.org/api/core/interface/Optional/#isPresent)
+ * returns an [`Answerable`](https://serenity-js.org/api/core/#Answerable) that resolves to `true`
  *
  * ## Ensuring that a value is defined
  *

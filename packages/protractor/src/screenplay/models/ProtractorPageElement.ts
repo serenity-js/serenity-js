@@ -9,7 +9,7 @@ import { promised } from '../promised';
 import type { ProtractorLocator } from './locators';
 
 /**
- * Protractor-specific implementation of {@apilink PageElement}.
+ * Protractor-specific implementation of [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * @group Models
  */

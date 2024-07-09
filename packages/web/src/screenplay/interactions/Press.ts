@@ -8,16 +8,16 @@ import { Key } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
  * to send a key press or a sequence of keys to a Web element.
  *
  * **Note:** On macOS, some keyboard shortcuts might not work
  * with the [`devtools` protocol](https://webdriver.io/docs/automationProtocols/#devtools-protocol).
  *
  *  For example:
- *  - to *copy*, instead of {@apilink Key.Meta}+`C`, use {@apilink Key.Control}+{@apilink Key.Insert}
- *  - to *cut*, instead of {@apilink Key.Meta}+`X`, use {@apilink Key.Control}+{@apilink Key.Delete}
- *  - to *paste*, instead of {@apilink Key.Meta}+`V`, use {@apilink Key.Shift}+{@apilink Key.Insert}
+ *  - to *copy*, instead of [`Key.Meta`](https://serenity-js.org/api/web/class/Key/#Meta)+`C`, use [`Key.Control`](https://serenity-js.org/api/web/class/Key/#Control)+[`Key.Insert`](https://serenity-js.org/api/web/class/Key/#Insert)
+ *  - to *cut*, instead of [`Key.Meta`](https://serenity-js.org/api/web/class/Key/#Meta)+`X`, use [`Key.Control`](https://serenity-js.org/api/web/class/Key/#Control)+[`Key.Delete`](https://serenity-js.org/api/web/class/Key/#Delete)
+ *  - to *paste*, instead of [`Key.Meta`](https://serenity-js.org/api/web/class/Key/#Meta)+`V`, use [`Key.Shift`](https://serenity-js.org/api/web/class/Key/#Shift)+[`Key.Insert`](https://serenity-js.org/api/web/class/Key/#Insert)
  *
  * ## Example widget
  *
@@ -55,18 +55,18 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@apilink Key}
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`Key`](https://serenity-js.org/api/web/class/Key/)
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Press extends PageElementInteraction {
 
     /**
-     * Instantiates an {@apilink Interaction|interaction}
-     * that instructs the {@apilink Actor|actor}
-     * to press a sequence of {@apilink Key|keys},
+     * Instantiates an [interaction](https://serenity-js.org/api/core/class/Interaction/)
+     * that instructs the [actor](https://serenity-js.org/api/core/class/Actor/)
+     * to press a sequence of [keys](https://serenity-js.org/api/web/class/Key/),
      *
      * When no `field` is specified, the key sequence will be sent to the currently focused element,
      * and if no element is focused - to the `document.body` to handle.

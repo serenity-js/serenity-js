@@ -1,8 +1,8 @@
 import type { Question } from './Question';
 
 /**
- * Describes the type of answer a given {@apilink Answerable} would
- * resolve to when given to {@apilink Actor.answer}.
+ * Describes the type of answer a given [`Answerable`](https://serenity-js.org/api/core/#Answerable) would
+ * resolve to when given to [`Actor.answer`](https://serenity-js.org/api/core/class/Actor/#answer).
  *
  * ```ts
  * Answered<Answerable<T>> === T
