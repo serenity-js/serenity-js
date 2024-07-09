@@ -15,7 +15,7 @@ export interface TestRunnerAdapter {
     /**
      * Returns the number of loaded scenarios
      *
-     * @throws {@apilink LogicError}
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  If called before `load`
      */
     scenarioCount(): number;
@@ -23,7 +23,7 @@ export interface TestRunnerAdapter {
     /**
      * Runs loaded test scenarios.
      *
-     * @throws {@apilink LogicError}
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  If called before `load`
      */
     run(): Promise<void>;

@@ -3,18 +3,11 @@ import type { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
 import { ThemeForColourTerminals } from './ThemeForColourTerminals';
 
 /**
- * @desc
- *  A simple colour theme for terminals with light backgrounds.
- *
- * @extends {ThemeForColourTerminals}
- *
- * @public
+ * A simple colour theme for terminals with light backgrounds.
  */
 export class ThemeForLightTerminals extends ThemeForColourTerminals {
 
     /**
-     * @param {chalk~Chalk} chalk
-     *
      * @see https://www.npmjs.com/package/chalk
      */
     constructor(chalk: Chalk) {
@@ -22,38 +15,29 @@ export class ThemeForLightTerminals extends ThemeForColourTerminals {
     }
 
     /**
-     * @desc
-     *  Decorates the heading with theme colours.
+     * Decorates the heading with theme colours.
      *
-     * @param {...any[]} parts
+     * @param parts
      *  `parts` to be converted to string, joined together, and formatted as a heading
-     *
-     * @returns {string}
      */
     heading(...parts: any[]): string {
         return this.chalk.bold.black(this.joined(parts));
     }
 
     /**
-     * @desc
-     *  Decorates the heading with theme colours.
+     * Decorates the heading with theme colours.
      *
-     * @param {string} pattern
+     * @param pattern
      *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.
-     *
-     * @returns {string}
      */
     separator(pattern: string): string {
         return this.repeat(pattern);
     }
 
     /**
-     * @desc
-     *  Decorates the log entries that the developer wanted to have captured in the output.
+     * Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * @param {...any[]} parts
-     *
-     * @returns {string}
+     * @param parts
      */
     log(...parts: any[]): string {
         return this.joined(parts);

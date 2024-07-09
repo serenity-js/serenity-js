@@ -2,7 +2,7 @@ import type { Answerable, AnswersQuestions} from '@serenity-js/core';
 import { Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
- * Creates an {@apilink Expectation|expectation} that is met when the value of
+ * Creates an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the value of
  * the `actual[propertyName]` meets the `expectation`.
  *
  * ## Ensuring that an array has an item

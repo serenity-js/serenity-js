@@ -1,9 +1,9 @@
 import { Selector } from './Selector';
 
 /**
- * Locates a {@apilink PageElement} using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+ * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
  *
- * **Pro tip:** Instantiate using {@apilink By.tagName}
+ * **Pro tip:** Instantiate using [`By.tagName`](https://serenity-js.org/api/web/class/By/#tagName)
  *
  * @group Models
  */

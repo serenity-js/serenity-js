@@ -1,11 +1,11 @@
 import type { Order } from './Order.js';
 
 /**
- * @desc
- *  Information passed to the Reporter#jasmineStarted event.
+ * Information passed to the Reporter#jasmineStarted event.
+ *
+ * @see https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
  *
  * @package
- * @see https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
  */
 export interface JasmineStartedInfo {
 

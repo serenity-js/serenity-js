@@ -4,9 +4,9 @@ import { InteractionFinished } from '@serenity-js/core/lib/events';
 import { PhotoTakingStrategy } from './PhotoTakingStrategy';
 
 /**
- * Configures the {@apilink Photographer} to take photos (a.k.a. screenshots)
- * when then {@apilink Actor} in the {@apilink actorInTheSpotlight|spotlight}
- * performs any {@apilink Interaction}.
+ * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos (a.k.a. screenshots)
+ * when then [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the [spotlight](https://serenity-js.org/api/core/function/actorInTheSpotlight/)
+ * performs any [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
  *
  * This strategy works best when you want the results of your automated tests
  * to become comprehensive living documentation of your system.

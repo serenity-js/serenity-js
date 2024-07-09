@@ -4,8 +4,8 @@ import { Question } from '@serenity-js/core';
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
- * a returns the result of the last script executed via {@apilink ExecuteScript}.
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
+ * a returns the result of the last script executed via [`ExecuteScript`](https://serenity-js.org/api/web/class/ExecuteScript/).
  *
  * ## Executing a script and reading the result
  *
@@ -21,7 +21,7 @@ import { BrowseTheWeb } from '../abilities';
  *   )
  * ```
  *
- * ## Using LastScriptExecution as {@apilink QuestionAdapter}
+ * ## Using LastScriptExecution as [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -39,16 +39,16 @@ import { BrowseTheWeb } from '../abilities';
  * ```
  *
  * ## Learn more
- * - {@apilink ExecuteScript}
- * - {@apilink BrowseTheWeb}
- * - {@apilink QuestionAdapter}
+ * - [`ExecuteScript`](https://serenity-js.org/api/web/class/ExecuteScript/)
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * @group Questions
  */
 export class LastScriptExecution {
 
     /**
-     * Enables asserting on the result of a function executed via {@apilink ExecuteScript}.
+     * Enables asserting on the result of a function executed via [`ExecuteScript`](https://serenity-js.org/api/web/class/ExecuteScript/).
      */
     static result<R>(): QuestionAdapter<R> {
         return Question.about(`last script execution result`, async actor => {

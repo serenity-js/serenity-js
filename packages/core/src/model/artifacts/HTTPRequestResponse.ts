@@ -3,7 +3,7 @@ import type { JSONObject } from 'tiny-types';
 import { JSONData } from './JSONData';
 
 /**
- * The value of the {@apilink HTTPRequestResponse} {@apilink Artifact} describing an HTTP request/response pair.
+ * The value of the `HTTPRequestResponse` artifact describing an HTTP request/response pair.
  */
 export interface RequestAndResponse extends JSONObject {
     request: {
@@ -22,7 +22,7 @@ export interface RequestAndResponse extends JSONObject {
 }
 
 /**
- * An {@apilink Artifact} describing a HTTP request/response pair.
+ * An artifact describing a HTTP request/response pair.
  */
 export class HTTPRequestResponse extends JSONData {
     static fromJSON(value: RequestAndResponse): HTTPRequestResponse {

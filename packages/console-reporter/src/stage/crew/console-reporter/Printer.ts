@@ -1,11 +1,8 @@
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
 
 /**
- * @desc
- *  A simple abstraction around the standard output stream
- *  with support for indenting the printed text.
- *
- * @public
+ * A simple abstraction around the standard output stream
+ * with support for indenting the printed text.
  */
 export class Printer {
     private indentation = new Indentation(2);
@@ -14,28 +11,19 @@ export class Printer {
     }
 
     /**
-     * @desc
-     *  Prints the `args` to the `stdout`, followed by a new line character (`\n`).
+     * Prints the `args` to the `stdout`, followed by a new line character (`\n`).
      *
-     *  Please note that this method bypasses any indentation as it's intended
-     *  to be used to print separator lines, etc.
+     * Please note that this method bypasses any indentation as it's intended
+     * to be used to print separator lines, etc.
      *
-     * @param {...any[]} args
-     *
-     * @returns {void}
      */
     println(...args: any[]): void {
         return this.print(...args, '\n');
     }
 
     /**
-     * @desc
-     *  Prints the `args` to the `stdout`, indenting the output according to
-     *  the current indentation level.
-     *
-     * @param {...any[]} args
-     *
-     * @returns {void}
+     * Prints the `args` to the `stdout`, indenting the output according to
+     * the current indentation level.
      */
     print(...args: any[]): void {
         this.stdout.write(
@@ -44,20 +32,14 @@ export class Printer {
     }
 
     /**
-     * @desc
-     *  Increases the current indentation by 2 spaces.
-     *
-     * @returns {void}
+     * Increases the current indentation by 2 spaces.
      */
     indent(): void {
         this.indentation.increase();
     }
 
     /**
-     * @desc
-     *  Reduces the current indentation by 2 spaces.
-     *
-     * @returns {void}
+     * Reduces the current indentation by 2 spaces.
      */
     outdent(): void {
         this.indentation.decrease();

@@ -15,7 +15,7 @@ import type { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorPageElement } from './ProtractorPageElement';
 
 /**
- * Protractor-specific implementation of {@apilink Page}.
+ * Protractor-specific implementation of [`Page`](https://serenity-js.org/api/web/class/Page/).
  *
  * @group Models
  */

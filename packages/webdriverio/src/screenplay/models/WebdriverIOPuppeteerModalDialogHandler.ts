@@ -9,7 +9,7 @@ import {
 import type { Dialog, Page } from 'puppeteer-core';
 
 /**
- * WebdriverIO-specific implementation of {@apilink {ModalDialogHandler}, applicable when WebdriverIO
+ * WebdriverIO-specific implementation of [`ModalDialogHandler`](https://serenity-js.org/api/web/class/ModalDialogHandler/), applicable when WebdriverIO
  * uses [Puppeteer](https://developer.chrome.com/docs/puppeteer/).
  *
  * Automatically handles any simple JavaScript modal dialog windows, such as
@@ -19,9 +19,6 @@ import type { Dialog, Page } from 'puppeteer-core';
  *
  * This helps to avoid Puppeteer hanging when there's an interaction pending
  * and a dialog is already open, see https://github.com/puppeteer/puppeteer/issues/2481
- *
- * ## Learn more
- * - {@apilink WebdriverIOModalDialogHandler}
  */
 export class WebdriverIOPuppeteerModalDialogHandler extends ModalDialogHandler {
 

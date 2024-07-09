@@ -7,7 +7,7 @@ import type { Stage } from '../../Stage';
 import type { StageCrewMember } from '../../StageCrewMember';
 
 /**
- * Serialises all the {@apilink DomainEvent} objects it receives and streams
+ * Serialises all the [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects it receives and streams
  * them as [ndjson](http://ndjson.org/) to the output stream or file.
  *
  * Useful when debugging issues related to custom Serenity/JS test runner adapters.
@@ -101,7 +101,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
 export class StreamReporter implements StageCrewMember {
 
     /**
-     * Instantiates a `StreamReporter` outputting a stream of {@apilink DomainEvent|domain events}
+     * Instantiates a `StreamReporter` outputting a stream of [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
      * to an `outputFile` at the given location.
      *
      * @param config
@@ -120,7 +120,7 @@ export class StreamReporter implements StageCrewMember {
      *  A Writable stream that should receive the output
      *
      * @param {Stage} [stage]
-     *  The stage this {@apilink StageCrewMember} should be assigned to
+     *  The stage this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) should be assigned to
      */
     constructor(
         private readonly output: Writable = process.stdout,
@@ -129,20 +129,20 @@ export class StreamReporter implements StageCrewMember {
     }
 
     /**
-     * Creates a new instance of this {@apilink StageCrewMember} and assigns it to a given {@apilink Stage}.
+     * Creates a new instance of this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) and assigns it to a given [`Stage`](https://serenity-js.org/api/core/class/Stage/).
      *
      * @param stage
-     *  An instance of a {@apilink Stage} this {@apilink StageCrewMember} will be assigned to
+     *  An instance of a [`Stage`](https://serenity-js.org/api/core/class/Stage/) this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) will be assigned to
      *
      * @returns {StageCrewMember}
-     *  A new instance of this {@apilink StageCrewMember}
+     *  A new instance of this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
      */
     assignedTo(stage: Stage): StageCrewMember {
         return new StreamReporter(this.output, stage);
     }
 
     /**
-     * Handles {@apilink DomainEvent} objects emitted by the {@apilink StageManager}.
+     * Handles [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects emitted by the [`StageManager`](https://serenity-js.org/api/core/class/StageManager/).
      *
      * @listens {DomainEvent}
      *

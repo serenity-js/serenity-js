@@ -1,27 +1,27 @@
 
 /**
- * Configuration options for the {@link SerenityBDDReporter}.
+ * Configuration options for the [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/).
  *
  * @group Stage
  */
 export interface SerenityBDDReporterConfig {
     /**
-     * The root directory that {@link SerenityBDDReporter} should recursively scan for test scenario files
+     * The root directory that [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/) should recursively scan for test scenario files
      * to determine the [requirements hierarchy](https://serenity-bdd.github.io/docs/reporting/living_documentation#the-requirements-hierarchy),
      * relative to the current working directory.
      *
      * If not specified, `specDirectory` defaults to the first one of the following subdirectories that's present in the current working
      * directory:
-     * - `features` - typically used by [Serenity/JS + Cucumber.js](/handbook/test-runners/cucumber/) projects to store `.feature` files
-     * - `specs` - typically used by [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects to store `.spec.js` or `.spec.ts` files
-     * - `spec` - another popular naming convention seen in [Serenity/JS + Jasmine](/handbook/test-runners/jasmine/) and [Mocha](/handbook/test-runners/mocha/) projects
-     * - `tests` - typically used by [Serenity/JS + Playwright Test](/handbook/test-runners/playwright-test/) projects to store `.spec.ts` files
-     * - `test` - typically used by [Serenity/JS + WebdriverIO](/handbook/test-runners/webdriverio/) projects to store `.spec.ts` files
-     * - `src` - typically used by [Serenity/JS + Playwright Component Test](/api/playwright-test/#ui-component-testing) projects to store `.spec.ts` files alongside the source code
+     * - `features` - typically used by [Serenity/JS + Cucumber.js](https://serenity-js.org/handbook/test-runners/cucumber/) projects to store `.feature` files
+     * - `specs` - typically used by [Serenity/JS + Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/) and [Mocha](https://serenity-js.org/handbook/test-runners/mocha/) projects to store `.spec.js` or `.spec.ts` files
+     * - `spec` - another popular naming convention seen in [Serenity/JS + Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/) and [Mocha](https://serenity-js.org/handbook/test-runners/mocha/) projects
+     * - `tests` - typically used by [Serenity/JS + Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/) projects to store `.spec.ts` files
+     * - `test` - typically used by [Serenity/JS + WebdriverIO](https://serenity-js.org/handbook/test-runners/webdriverio/) projects to store `.spec.ts` files
+     * - `src` - typically used by [Serenity/JS + Playwright Component Test](https://serenity-js.org/api/playwright-test/#ui-component-testing) projects to store `.spec.ts` files alongside the source code
      *
      * If not specified and none of the above subdirectories are present, `specDirectory` defaults to the current working directory.
      *
-     * If `specDirectory` _is_ specified, but the directory doesn't exist, SerenityBDDReporter throws a {@link ConfigurationError}.
+     * If `specDirectory` _is_ specified, but the directory doesn't exist, SerenityBDDReporter throws a [`ConfigurationError`](https://serenity-js.org/api/core/class/ConfigurationError/).
      *
      * **IMPORTANT**: For the Serenity BDD CLI Reporter to correctly parse the requirements hierarchy and recognise your test scenarios,
      * your test scenario files must be named using either:

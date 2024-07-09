@@ -1,8 +1,7 @@
 import { JSONData } from '@serenity-js/core/lib/model';
 
 /**
- * @desc
- *  An information that the user should be notified about.
+ * An information that the user should be notified about.
  *
  * @package
  */

@@ -6,15 +6,15 @@ import { PageElementsLocator } from './PageElementsLocator';
 import type { Selector } from './selectors';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify
- * a group of Web elements located by {@apilink Selector}.
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to identify
+ * a group of Web elements located by [`Selector`](https://serenity-js.org/api/web/class/Selector/).
  *
  * ## Learn more
  *
- * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
- * - {@apilink MetaList}
- * - {@apilink List}
- * - {@apilink ChainableMetaQuestion}
+ * - [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)}
+ * - [`List`](https://serenity-js.org/api/core/class/List/)
+ * - [`ChainableMetaQuestion`](https://serenity-js.org/api/core/interface/ChainableMetaQuestion/)
  *
  * @group Models
  */

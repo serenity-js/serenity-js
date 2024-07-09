@@ -7,14 +7,14 @@ import { RootLocator } from './RootLocator';
 import { ByCss, ById, ByTagName, type Selector } from './selectors';
 
 /**
- * {@apilink Locator} uses a {@apilink Selector} to locate a {@apilink PageElement} or {@apilink PageElements}
- * within the {@apilink Page}.
+ * [`Locator`](https://serenity-js.org/api/web/class/Locator/) uses a [`Selector`](https://serenity-js.org/api/web/class/Selector/) to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
+ * within the [`Page`](https://serenity-js.org/api/web/class/Page/).
  *
  * ## Learn more
- * - {@apilink RootLocator}
- * - {@apilink Page.locate}
- * - {@apilink PageElement}
- * - {@apilink PageElements}
+ * - [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/)
+ * - [`Page.locate`](https://serenity-js.org/api/web/class/Page/#locate)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
  *
  * @group Models
  */
@@ -50,10 +50,10 @@ export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
     abstract locate(child: Locator<Native_Element_Type>): Locator<Native_Element_Type>;
 
     /**
-     * Expresses {@apilink ByCss}, {@apilink ById}, or {@apilink ByTagName} as a {@apilink ByCss} selector.
+     * Expresses [`ByCss`](https://serenity-js.org/api/web/class/ByCss/), [`ById`](https://serenity-js.org/api/web/class/ById/), or [`ByTagName`](https://serenity-js.org/api/web/class/ByTagName/) as a [`ByCss`](https://serenity-js.org/api/web/class/ByCss/) selector.
      *
      * @throws LogicError
-     *  if the `selector` can't be expressed as {@apilink ByCss}
+     *  if the `selector` can't be expressed as [`ByCss`](https://serenity-js.org/api/web/class/ByCss/)
      *
      * @param selector
      * @protected

@@ -9,7 +9,7 @@ import { ProtractorErrorHandler } from './ProtractorErrorHandler';
 import { ProtractorModalDialogHandler } from './ProtractorModalDialogHandler';
 
 /**
- * Protractor-specific implementation of {@apilink BrowsingSession}.
+ * Protractor-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).
  *
  * @group Models
  */

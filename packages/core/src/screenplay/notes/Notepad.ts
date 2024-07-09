@@ -5,9 +5,9 @@ import { d } from '../../io';
 import { NotepadAdapter } from './NotepadAdapter';
 
 /**
- * Stores notes recorded by an {@apilink Actor}.
+ * Stores notes recorded by an [`Actor`](https://serenity-js.org/api/core/class/Actor/).
  *
- * See {@apilink TakeNotes} and [notes](/api/core/function/notes) for more usage examples.
+ * See [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/) and [notes](https://serenity-js.org/api/core/function/notes) for more usage examples.
  *
  * ## Sharing a notepad between actors
  *
@@ -47,9 +47,9 @@ import { NotepadAdapter } from './NotepadAdapter';
  *
  * ## Learn more
  *
- * - {@apilink TakeNotes}
- * - [notes](/api/core/function/notes)
- * - {@apilink Cast}
+ * - [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/)
+ * - [notes](https://serenity-js.org/api/core/function/notes)
+ * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
  *
  * @group Notes
  */
@@ -102,20 +102,20 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
     }
 
     /**
-     * Creates a {@apilink QuestionAdapter} that simplifies access to the notes
-     * stored in this notepad. Allows the {@apilink Actor} to record, read, and remove notes.
+     * Creates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that simplifies access to the notes
+     * stored in this notepad. Allows the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to record, read, and remove notes.
      *
      * #### Learn more
-     * - [notes](/api/core/function/notes)
-     * - {@apilink TakeNotes}
-     * - {@apilink Notepad}
+     * - [notes](https://serenity-js.org/api/core/function/notes)
+     * - [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/)
+     * - [`Notepad`](https://serenity-js.org/api/core/class/Notepad/)
      */
     static notes<N extends Record<any, any>>(): NotepadAdapter<N> {
         return new NotepadAdapter<N>();
     }
 
     /**
-     * Instantiates a {@apilink Notepad} with an initial state.
+     * Instantiates a [`Notepad`](https://serenity-js.org/api/core/class/Notepad/) with an initial state.
      *
      * @param recordedNotes
      *  Initial state of the notepad
@@ -146,8 +146,8 @@ export class Notepad<Notes extends Record<any, any>> extends TinyType {
      * @returns
      *  The value of the previously recorded note.
      *
-     * @throws {@apilink LogicError}
-     *  Throws a {@apilink LogicError} if the note with a given `subject`
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
+     *  Throws a [`LogicError`](https://serenity-js.org/api/core/class/LogicError/) if the note with a given `subject`
      *  has never been recorded.
      */
     get<Subject extends keyof Notes>(subject: Subject): Notes[Subject] {

@@ -9,7 +9,7 @@ import { ExpectationMet } from './expectations';
 
 /**
  * A [flow control statement](https://en.wikipedia.org/wiki/Control_flow)
- * that enables an {@apilink Actor} to decide between two alternate series of {@apilink Activity|activities}.
+ * that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to decide between two alternate series of [activities](https://serenity-js.org/api/core/class/Activity/).
  *
  * Think of it as a Screenplay Pattern equivalent of the traditional `if` statement.
  *
@@ -66,7 +66,7 @@ export class Check<Actual> extends Task {
 
     /**
      * @param alternativeActivities
-     *  A sequence of {@apilink Activity|activities} to perform when the {@apilink Expectation} is not met.
+     *  A sequence of [activities](https://serenity-js.org/api/core/class/Activity/) to perform when the [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) is not met.
      */
     otherwise(...alternativeActivities: Activity[]): Task {
         return new Check<Actual>(this.actual, this.expectation, this.activities, alternativeActivities);

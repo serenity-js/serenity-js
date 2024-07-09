@@ -1,13 +1,13 @@
 /**
- * Represents keyboard keys that aren't text, and that can be used with the {@apilink Interaction|interaction} to {@apilink Press}.
+ * Represents keyboard keys that aren't text, and that can be used with the [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`Press`](https://serenity-js.org/api/web/class/Press/).
  *
- * **Note:** Modifier keys like {@apilink Key.Shift}, {@apilink Key.Alt} and {@apilink Key.Meta} (a.k.a. "Command" on Mac) will stay pressed,
+ * **Note:** Modifier keys like [`Key.Shift`](https://serenity-js.org/api/web/class/Key/#Shift), [`Key.Alt`](https://serenity-js.org/api/web/class/Key/#Alt) and [`Key.Meta`](https://serenity-js.org/api/web/class/Key/#Meta) (a.k.a. "Command" on Mac) will stay pressed,
  * so there's no need to depress them.
  *
  * ## Learn more
  *
- * - {@apilink Press}
- * - {@apilink Page.sendKeys}
+ * - [`Press`](https://serenity-js.org/api/web/class/Press/)
+ * - [`Page.sendKeys`](https://serenity-js.org/api/web/class/Page/#sendKeys)
  * - [W3C WebDriver Spec: Keyboard Actions](https://w3c.github.io/webdriver/webdriver-spec.html#keyboard-actions)
  * - [Selenium WebDriver: Inputs](https://github.com/SeleniumHQ/selenium/blob/trunk/javascript/node/selenium-webdriver/lib/input.js#L46)
  * - [WebdriverIO: Constants](https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-utils/src/constants.ts#L5)

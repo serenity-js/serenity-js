@@ -5,8 +5,8 @@ import type * as protractor from 'protractor';
 import { ProtractorBrowsingSession } from '../models';
 
 /**
- * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * enables the {@apilink Actor} to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
+ * This implementation of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * enables the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to interact with web front-ends using [Protractor](http://www.protractortest.org/#/).
  *
  * ## Using Protractor to `BrowseTheWeb`
  *
@@ -32,9 +32,9 @@ import { ProtractorBrowsingSession } from '../models';
  *
  * ## Learn more
  * - [Protractor website](https://www.protractortest.org/)
- * - {@apilink BrowseTheWeb}
- * - {@apilink Ability}
- * - {@apilink Actor}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Abilities
  */
@@ -93,7 +93,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb<protractor.ElementF
      * @param path
      *  Either a name or a dot-delimited path to the param.
      *
-     * @throws {@apilink ConfigurationError}
+     * @throws [`ConfigurationError`](https://serenity-js.org/api/core/class/ConfigurationError/)
      *  Throws a `ConfigurationError` if the parameter is `undefined`
      */
     param<T = any>(path: string): T {

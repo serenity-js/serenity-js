@@ -2,19 +2,19 @@ import type { Ability } from './Ability';
 import type { UsesAbilities } from './UsesAbilities';
 
 /**
- * Describes an {@apilink Actor} who can have an {@apilink Ability} to perform some {@apilink Activity}.
+ * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can have an [`Ability`](https://serenity-js.org/api/core/class/Ability/) to perform some [`Activity`](https://serenity-js.org/api/core/class/Activity/).
  *
  * ## Learn more
  *
- * - {@apilink Ability}
- * - {@apilink Actor}
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Actors
  */
 export interface CanHaveAbilities<Returned_Type = UsesAbilities> {
 
     /**
-     * Assigns an {@apilink Ability} or several abilities to the {@apilink Actor}
+     * Assigns an [`Ability`](https://serenity-js.org/api/core/class/Ability/) or several abilities to the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
      */
     whoCan(...abilities: Ability[]): Returned_Type;
 }

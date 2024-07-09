@@ -11,10 +11,10 @@ import type { JasmineConfig } from './JasmineConfig.js';
 
 /**
  * Allows for programmatic execution of Jasmine test scenarios,
- * using {@apilink SerenityReporterForJasmine} to report progress.
+ * using [`SerenityReporterForJasmine`](https://serenity-js.org/api/jasmine/function/default/) to report progress.
  *
  * ## Learn more
- * - {@apilink TestRunnerAdapter}
+ * - [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/)
  *
  * @group Integration
  */

@@ -5,8 +5,8 @@ import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to hover the mouse pointer over a given {@apilink PageElement}.
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * to hover the mouse pointer over a given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * ## Example widget
  * ```html
@@ -48,15 +48,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Hover extends PageElementInteraction {
 
     /**
-     * Instantiates this {@apilink Interaction}
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
      *
      * @param pageElement
      *  The element to be hovered over

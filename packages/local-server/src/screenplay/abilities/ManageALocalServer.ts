@@ -6,7 +6,7 @@ import type * as net from 'net';
 import { getPortPromise } from 'portfinder';
 
 /**
- * An {@apilink Ability} that enables an {@apilink Actor}
+ * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  * to manage a local [Node.js](https://nodejs.org/) server.
  *
  * ## Managing a raw Node.js server
@@ -50,7 +50,7 @@ export class ManageALocalServer extends Ability {
     private readonly server: ServerWithShutdown;
 
     /**
-     * An {@apilink Ability} to manage a Node.js HTTP server using the provided `requestListener`.
+     * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) to manage a Node.js HTTP server using the provided `requestListener`.
      *
      * @param listener
      */
@@ -63,7 +63,7 @@ export class ManageALocalServer extends Ability {
     }
 
     /**
-     * An {@apilink Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
+     * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
      * @param listener
      * @param options
@@ -141,7 +141,7 @@ export class ManageALocalServer extends Ability {
 export type RequestListener = (request: http.IncomingMessage, response: http.ServerResponse) => void;
 
 /**
- * A {@apilink net.Server} with an added shutdown method.
+ * A [`net.Server`](https://nodejs.org/api/net.html#class-netserver) with an added shutdown method.
  *
  * @see https://www.npmjs.com/package/http-shutdown
  */
@@ -151,8 +151,9 @@ export type ServerWithShutdown = net.Server & {
 };
 
 /**
- * The protocol supported by the instance of the {@apilink ServerWithShutdown},
- * wrapped by the {@apilink Ability|ability} to {@apilink ManageALocalServer}.
+ * The protocol supported by the instance of the [`ServerWithShutdown`](https://serenity-js.org/api/local-server/#ServerWithShutdown),
+ * wrapped by the [ability](https://serenity-js.org/api/core/class/Ability/)
+ * to [`ManageALocalServer`](https://serenity-js.org/api/local-server/class/ManageALocalServer/).
  *
  * @group Models
  */

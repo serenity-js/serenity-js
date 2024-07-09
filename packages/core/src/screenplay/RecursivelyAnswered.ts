@@ -1,9 +1,9 @@
 import type { Question } from './Question';
 
 /**
- * Describes a recursively resolved plain JavaScript {@apilink WithAnswerableProperties}.
+ * Describes a recursively resolved plain JavaScript object with [answerable properties](https://serenity-js.org/api/core/#WithAnswerableProperties).
  *
- * Typically, used in conjunction with {@apilink Question.fromObject}.
+ * Typically, used in conjunction with [`Question.fromObject`](https://serenity-js.org/api/core/class/Question/#fromObject).
  *
  * ## Using `RecursivelyAnswered`
  *

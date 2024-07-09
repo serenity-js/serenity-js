@@ -1,5 +1,5 @@
 /**
- * Used to configure the {@apilink ConsoleReporter}.
+ * Used to configure the [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/).
  *
  * @group Stage
  */

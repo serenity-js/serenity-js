@@ -6,10 +6,10 @@ import { TinyType } from 'tiny-types';
  *
  * ## Learn more
  *
- * - {@apilink Select}
- * - {@apilink Selected}
- * - {@apilink PageElement.selectOptions}
- * - {@apilink PageElement.selectedOptions}
+ * - [`Select`](https://serenity-js.org/api/web/class/Select/)
+ * - [`Selected`](https://serenity-js.org/api/web/class/Selected/)
+ * - [`PageElement.selectOptions`](https://serenity-js.org/api/web/class/PageElement/#selectOptions)
+ * - [`PageElement.selectedOptions`](https://serenity-js.org/api/web/class/PageElement/#selectedOptions)
  *
  * @group Models
  */

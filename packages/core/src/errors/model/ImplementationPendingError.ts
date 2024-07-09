@@ -4,8 +4,8 @@ import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that the {@apilink Actor} attempted to perform
- * a {@apilink Task} or {@apilink Interaction} that hasn't been implemented yet.
+ * Thrown to indicate that the [`Actor`](https://serenity-js.org/api/core/class/Actor/) attempted to perform
+ * a [`Task`](https://serenity-js.org/api/core/class/Task/) or [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) that hasn't been implemented yet.
  *
  * ## A pending Task
  *
@@ -44,7 +44,7 @@ export class ImplementationPendingError extends RuntimeError {
 
     /**
      * @param {string} message - Human-readable description of the error
-     * @param {Error} [cause] - The root cause of this {@apilink RuntimeError}, if any
+     * @param {Error} [cause] - The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     constructor(message: string, cause?: Error) {
         super(ImplementationPendingError, message, cause);

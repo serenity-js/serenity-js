@@ -11,8 +11,8 @@ import type { Expectation } from './Expectation';
 import { ExpectationMet } from './expectations';
 
 /**
- * Serenity/JS Screenplay Pattern-style wrapper around {@apilink Array}
- * and array-like structures - see {@apilink PageElements}.
+ * Serenity/JS Screenplay Pattern-style wrapper around [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+ * and array-like structures - see [`PageElement`](https://serenity-js.org/api/web/class/PageElements/).
  *
  * @group Questions
  */
@@ -153,10 +153,10 @@ class ArrayList<Item_Type> extends List<Item_Type> {
 
 /**
  * Serenity/JS Screenplay Pattern-style wrapper around
- * a {@apilink ChainableMetaQuestion} representing a collection
- * that can be resolved in `Supported_Context_Type` of another {@apilink Question}.
+ * a [`ChainableMetaQuestion`](https://serenity-js.org/api/core/interface/ChainableMetaQuestion/) representing a collection
+ * that can be resolved in `Supported_Context_Type` of another [`Question`](https://serenity-js.org/api/core/class/Question/).
  *
- * For example, {@apilink PageElements.located} returns `MetaList<PageElement>`,
+ * For example, [`PageElements.located`](https://serenity-js.org/api/web/class/PageElements/#located) returns `MetaList<PageElement>`,
  * which allows for the collection of page elements to be resolved in the context
  * of dynamically-provided root element.
  *

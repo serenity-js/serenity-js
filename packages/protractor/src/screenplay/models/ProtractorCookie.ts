@@ -7,7 +7,7 @@ import { ensure, isDefined } from 'tiny-types';
 import { promised } from '../promised';
 
 /**
- * Protractor-specific implementation of {@apilink Cookie}.
+ * Protractor-specific implementation of [`Cookie`](https://serenity-js.org/api/web/class/Cookie/).
  *
  * @group Models
  */

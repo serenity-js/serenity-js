@@ -23,10 +23,10 @@ import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 import { EnsureEventually } from './EnsureEventually';
 
 /**
- * The {@apilink Interaction|interaction} to `Ensure`
- * verifies if the resolved value of the provided {@apilink Answerable}
- * meets the specified {@apilink Expectation}.
- * If not, it throws an {@apilink AssertionError}.
+ * The [interaction](https://serenity-js.org/api/core/class/Interaction/) to `Ensure`
+ * verifies if the resolved value of the provided [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+ * meets the specified [`Expectation`](https://serenity-js.org/api/core/class/Expectation/).
+ * If not, it throws an [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/).
  *
  * Use `Ensure` to verify the state of the system under test.
  *
@@ -72,16 +72,16 @@ import { EnsureEventually } from './EnsureEventually';
 export class Ensure<Actual> extends Interaction {
 
     /**
-     * Creates an {@apilink Interaction|interaction} to `Ensure`, which
-     * verifies if the resolved value of the provided {@apilink Answerable}
-     * meets the specified {@apilink Expectation}.
-     * If not, it immediately throws an {@apilink AssertionError}.
+     * Creates an [interaction](https://serenity-js.org/api/core/class/Interaction/) to `Ensure`, which
+     * verifies if the resolved value of the provided [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+     * meets the specified [`Expectation`](https://serenity-js.org/api/core/class/Expectation/).
+     * If not, it immediately throws an [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/).
      *
      * @param {Answerable<Actual_Type>} actual
-     *  An {@apilink Answerable} describing the actual state of the system.
+     *  An [`Answerable`](https://serenity-js.org/api/core/#Answerable) describing the actual state of the system.
      *
      * @param {Expectation<Actual_Type>} expectation
-     *  An {@apilink Expectation} you expect the `actual` value to meet
+     *  An [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) you expect the `actual` value to meet
      *
      * @returns {Ensure<Actual_Type>}
      */
@@ -90,19 +90,17 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * Creates an {@apilink Interaction|interaction} to {@apilink EnsureEventually}, which
-     * verifies if the resolved value of the provided {@apilink Answerable}
-     * meets the specified {@apilink Expectation} within the expected timeframe.
+     * Creates an [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`EnsureEventually`](https://serenity-js.org/api/assertions/class/EnsureEventually/),
+     * which verifies if the resolved value of the provided [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+     * meets the specified [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) within the expected timeframe.
      *
-     * If the expectation is not met by the time the timeout expires, the interaction throws an {@apilink AssertionError}.
-     * `EnsureEventually` ignores retries the evaluation if resolving the `actual` results in an {@apilink OptionalNotPresentError},
-     * but rethrows any other errors.
+     * If the expectation is not met by the time the timeout expires, the interaction throws an [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/).
      *
      * @param {Answerable<Actual_Type>} actual
-     *  An {@apilink Answerable} describing the actual state of the system.
+     *  An [`Answerable`](https://serenity-js.org/api/core/#Answerable) describing the actual state of the system.
      *
      * @param {Expectation<Actual_Type>} expectation
-     *  An {@apilink Expectation} you expect the `actual` value to meet
+     *  An [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) you expect the `actual` value to meet
      *
      * @returns {Ensure<Actual_Type>}
      */
@@ -150,11 +148,11 @@ export class Ensure<Actual> extends Interaction {
     }
 
     /**
-     * Overrides the default {@apilink AssertionError} thrown when
+     * Overrides the default [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/) thrown when
      * the actual value does not meet the expectation.
      *
      * @param typeOfRuntimeError
-     *  A constructor function producing a subtype of {@apilink RuntimeError} to throw, e.g. {@apilink TestCompromisedError}
+     *  A constructor function producing a subtype of [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/) to throw, e.g. [`TestCompromisedError`](https://serenity-js.org/api/core/class/TestCompromisedError/)
      *
      * @param message
      *  The message explaining the failure

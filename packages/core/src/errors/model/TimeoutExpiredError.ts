@@ -4,7 +4,7 @@ import { ErrorSerialiser } from '../ErrorSerialiser';
 import { RuntimeError } from './RuntimeError';
 
 /**
- * Thrown to indicate that an {@apilink Interaction}, a {@apilink Task} or a test scenario
+ * Thrown to indicate that an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/), a [`Task`](https://serenity-js.org/api/core/class/Task/) or a test scenario
  * took longer to execute than the expected timeout.
  *
  * @group Errors
@@ -27,7 +27,7 @@ export class TimeoutExpiredError extends RuntimeError {
      *  Human-readable description of the error
      *
      * @param [cause]
-     *  The root cause of this {@apilink RuntimeError}, if any
+     *  The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     constructor(
         message: string,

@@ -10,7 +10,7 @@ import { EventQueueProcessors } from './processors';
 import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
 
 /**
- * A {@apilink StageCrewMember} that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
+ * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
  * to be parsed by [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)
  * to produce HTML reports and living documentation.
  *
@@ -97,7 +97,8 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  *
  * ## Configuring Serenity BDD Reporter
  *
- * To override Serenity BDD Reporter default configuration, provide a {@link SerenityBDDReporterConfig} as the second element of the {@link SerenityConfig.crew} array
+ * To override Serenity BDD Reporter default configuration, provide a [`SerenityBDDReporterConfig`](https://serenity-js.org/api/serenity-bdd/interface/SerenityBDDReporterConfig/)
+ * as the second element of the [`SerenityBDDReporterConfig`](https://serenity-js.org/api/serenity-bdd/interface/SerenityBDDReporterConfig/) array
  * using your test runner-specific configuration mechanism.
  *
  * For example, to change the default location
@@ -112,7 +113,7 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  * ```
  *
  * ### Learn more:
- * - [Serenity BDD Reporter integration documentation](/handbook/reporting/serenity-bdd-reporter/)
+ * - [Serenity BDD Reporter integration documentation](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/)
  * - [Serenity/JS examples on GitHub](https://github.com/serenity-js/serenity-js/tree/main/examples)
  *
  * @group Stage
@@ -128,7 +129,7 @@ export class SerenityBDDReporter implements StageCrewMember {
     /**
      * @param {Path} requirementsHierarchy
      * @param {Stage} [stage]
-     *  The stage this {@apilink StageCrewMember} should be assigned to
+     *  The stage this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) should be assigned to
      */
     constructor(
         private readonly requirementsHierarchy: RequirementsHierarchy,

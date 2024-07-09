@@ -3,7 +3,7 @@ import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDial
 import type * as playwright from 'playwright-core';
 
 /**
- * Playwright-specific implementation of {@apilink ModalDialogHandler}.
+ * Playwright-specific implementation of [`ModalDialogHandler`](https://serenity-js.org/api/web/class/ModalDialogHandler/).
  *
  * @group Models
  */

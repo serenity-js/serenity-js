@@ -4,8 +4,8 @@ import type { ErrorOptions } from './ErrorOptions';
 import type { RuntimeError } from './model/RuntimeError';
 
 /**
- * An {@apilink Ability} that enables an {@apilink Actor} to create a Serenity/JS {@apilink RuntimeError}
- * from within a custom {@apilink Interaction}.
+ * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to create a Serenity/JS [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/)
+ * from within a custom [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
  *
  * The stack trace of an error created this way includes the filesystem location pointing to where the interaction was invoked,
  * which makes debugging any failures easier.
@@ -40,13 +40,13 @@ import type { RuntimeError } from './model/RuntimeError';
  * ```
  *
  * ## Learn more
- * - {@apilink ErrorOptions}
- * - {@apilink ErrorFactory}
- * - {@apilink AssertionError}
- * - {@apilink ConfigurationError}
- * - {@apilink LogicError}
- * - {@apilink RuntimeError}
- * - {@apilink TestCompromisedError}
+ * - [`ErrorOptions`](https://serenity-js.org/api/core/interface/ErrorOptions/)
+ * - [`ErrorFactory`](https://serenity-js.org/api/core/class/ErrorFactory/)
+ * - [`AssertionError`](https://serenity-js.org/api/core/class/AssertionError/)
+ * - [`ConfigurationError`](https://serenity-js.org/api/core/class/ConfigurationError/)
+ * - [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
+ * - [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/)
+ * - [`TestCompromisedError`](https://serenity-js.org/api/core/class/TestCompromisedError/)
  *
  * @group Errors
  */

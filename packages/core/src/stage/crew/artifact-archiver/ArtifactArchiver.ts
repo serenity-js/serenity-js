@@ -20,7 +20,7 @@ import type { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
 
 /**
- * Stores any {@apilink Artifact|artifacts} emitted via {@apilink ArtifactGenerated} events on the {@apilink FileSystem}.
+ * Stores any artifacts emitted via [`ArtifactGenerated`](https://serenity-js.org/api/core-events/class/ArtifactGenerated/) events on the file system.
  *
  * ## Registering Artifact Archiver programmatically
  *
@@ -130,7 +130,7 @@ export class ArtifactArchiver implements StageCrewMember {
     /**
      * @param {FileSystem} fileSystem
      * @param {Stage} [stage]
-     *  The stage this {@apilink StageCrewMember} should be assigned to
+     *  The stage this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) should be assigned to
      */
     constructor(
         private readonly fileSystem: FileSystem,
@@ -144,9 +144,9 @@ export class ArtifactArchiver implements StageCrewMember {
     }
 
     /**
-     * Handles {@apilink DomainEvent} objects emitted by the {@apilink StageManager}.
+     * Handles [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects emitted by the [`StageManager`](https://serenity-js.org/api/core/class/StageManager/).
      *
-     * @see {@apilink StageCrewMember}
+     * @see [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
      *
      * @listens {ArtifactGenerated}
      * @emits {ArtifactArchived}

@@ -5,10 +5,10 @@ import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 import type { PageElement } from '../models';
 
 /**
- * A base class for interactions with {@apilink PageElement} objects.
+ * A base class for interactions with [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects.
  *
  * **Note:** The recommended way to implement custom interactions
- * in your code is to use the {@apilink Interaction.where} factory method.
+ * in your code is to use the [`Interaction.where`](https://serenity-js.org/api/core/class/Interaction/#where) factory method.
  *
  * @group Activities
  */
@@ -19,7 +19,7 @@ export abstract class PageElementInteraction extends Interaction {
     }
 
     /**
-     * Returns the resolved {@apilink PageElement}, or throws a {@apilink LogicError}
+     * Returns the resolved [`PageElement`](https://serenity-js.org/api/web/class/PageElement/), or throws a [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      * if the element is `undefined`.
      *
      * @param actor

@@ -1,8 +1,8 @@
 import type { Ability } from './Ability';
 
 /**
- * An interface describing the static access method that every {@apilink Ability} class
- * needs to provide in order to be accessible from within the {@apilink Interaction|interactions}.
+ * An interface describing the static access method that every [`Ability`](https://serenity-js.org/api/core/class/Ability/) class
+ * needs to provide in order to be accessible from within the [interactions](https://serenity-js.org/api/core/class/Interaction/).
  *
  * #### Retrieving an ability from an interaction
  *
@@ -36,9 +36,9 @@ import type { Ability } from './Ability';
  * ```
  *
  * ## Learn more
- * - {@apilink Ability}
- * - {@apilink Actor}
- * - {@apilink Interaction}
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * - [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
  *
  * @group Abilities
  */

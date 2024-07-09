@@ -30,17 +30,8 @@ export class DownloadArtifact extends Task {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@apilink @serenity-js/core/lib/screenplay~Task}.
-     *
-     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~PerformsActivities}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * Makes the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * perform this [`Task`](https://serenity-js.org/api/core/class/Task/).
      */
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): Promise<void> | Promise<any> {
         const

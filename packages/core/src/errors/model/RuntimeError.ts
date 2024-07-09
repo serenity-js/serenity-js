@@ -36,7 +36,7 @@ import { TinyType } from 'tiny-types';
  *   })
  * ```
  *
- * ## Registering a custom error with {@apilink ErrorSerialiser}
+ * ## Registering a custom error with [`ErrorSerialiser`](https://serenity-js.org/api/core/class/ErrorSerialiser/)
  *
  * ```ts
  * import { RuntimeError } from '@serenity-js/core'
@@ -70,7 +70,7 @@ export abstract class RuntimeError extends Error {
     /**
      * @param type - Constructor function used to instantiate a subclass of a RuntimeError
      * @param message - Human-readable description of the error
-     * @param [cause] - The root cause of this {@apilink RuntimeError}, if any
+     * @param [cause] - The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
      */
     protected constructor(
         type: new (...args: any[]) => RuntimeError,

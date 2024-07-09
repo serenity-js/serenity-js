@@ -4,7 +4,7 @@ import type * as protractor from 'protractor';
 import { promised } from '../../promised';
 
 /**
- * Protractor-specific implementation of {@apilink RootLocator}.
+ * Protractor-specific implementation of [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/).
  *
  * @group Models
  */

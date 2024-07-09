@@ -1,7 +1,7 @@
 import { ExpectationOutcome } from './ExpectationOutcome';
 
 /**
- * Indicates that an {@apilink Expectation} was not met.
+ * Indicates that an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) was not met.
  *
  * @group Expectations
  */

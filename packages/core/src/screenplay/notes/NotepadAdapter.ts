@@ -12,10 +12,10 @@ import type { ChainableSetter } from './ChainableSetter';
 import { TakeNotes } from './TakeNotes';
 
 /**
- * Serenity/JS Screenplay Pattern-style adapter for the {@apilink Notepad},
- * that makes it easier for the {@apilink Actor|actors} to access its APIs.
+ * Serenity/JS Screenplay Pattern-style adapter for the [`Notepad`](https://serenity-js.org/api/core/class/Notepad/),
+ * that makes it easier for the [actors](https://serenity-js.org/api/core/class/Actor/) to access its APIs.
  *
- * See {@apilink TakeNotes}, {@apilink Notepad} and {@apilink notes} for more examples.
+ * See [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/), [`Notepad`](https://serenity-js.org/api/core/class/Notepad/) and [`notes`](https://serenity-js.org/api/core/function/notes/) for more examples.
  *
  * @group Notes
  */
@@ -25,7 +25,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Checks if a note identified by `subject` exists in the notepad.
      *
      * #### Learn more
-     * - {@apilink Notepad.has}
+     * - [`TakeNotes.has`](https://serenity-js.org/api/core/class/TakeNotes/#has)}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -43,7 +43,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * Retrieves a note, identified by `subject`, from the notepad.
      *
      * #### Learn more
-     * - {@apilink Notepad.get}
+     * - [`TakeNotes.get`](https://serenity-js.org/api/core/class/TakeNotes/#get)}
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -51,8 +51,8 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * @returns
      *  The value of the previously recorded note.
      *
-     * @throws {LogicError}
-     *  Throws a {@apilink LogicError} if the note with a given `subject`
+     * @throws
+     *  Throws a [`LogicError`](https://serenity-js.org/api/core/class/LogicError/) if the note with a given `subject`
      *  has never been recorded.
      */
     get<Subject extends keyof Notes>(subject: Subject): QuestionAdapter<Notes[Subject]> {
@@ -66,9 +66,9 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * uniquely identified by its `subject`.
      *
      * **Pro tip:** calls to `set` can be chained and result in an accumulation
-     * of values to be recorded in the {@apilink Notepad}.
-     * Those values are resolved and recorded when the {@apilink Interaction}
-     * returned by this method is performed by an {@apilink Actor}.
+     * of values to be recorded in the [`Notepad`](https://serenity-js.org/api/core/class/Notepad/).
+     * Those values are resolved and recorded when the [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
+     * returned by this method is performed by an [`Actor`](https://serenity-js.org/api/core/class/Actor/).
      *
      * If a note identified by a given `subject` is set multiple times,
      * the last call wins.
@@ -99,7 +99,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad.set}
+     * - [`Notepad.set`](https://serenity-js.org/api/core/class/Notepad/#set)
      *
      * @param subject
      *   A subject (name) that uniquely identifies a given note
@@ -169,7 +169,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad.delete}
+     * - [`Notepad.delete`](https://serenity-js.org/api/core/class/Notepad/#delete)
      *
      * @param subject
      *
@@ -205,7 +205,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad.clear}
+     * - [`Notepad.clear`](https://serenity-js.org/api/core/class/Notepad/#clear)
      */
     clear(): Interaction {
         return Interaction.where(the`#actor clears ${ new NumberOfNotes() } from their notepad`, actor => {
@@ -234,7 +234,7 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
      * ```
      *
      * #### Learn more
-     * - {@apilink Notepad.size}
+     * - [`Notepad.size`](https://serenity-js.org/api/core/class/Notepad/#size)
      */
     size(): QuestionAdapter<number> {
         return Question.about(the`${ new NumberOfNotes() }`, async actor => {
@@ -243,12 +243,12 @@ export class NotepadAdapter<Notes extends Record<any, any>> implements Chainable
     }
 
     /**
-     * Produces a {@apilink QuestionAdapter} that resolves to a `JSONObject`
+     * Produces a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to a `JSONObject`
      * representing the resolved notes stored in the notepad.
      *
      * Note that serialisation to JSON will simplify some data types that might not be serialisable by default,
      * but are commonly used in data structures representing actor's notes.
-     * For example a {@apilink Map} will be serialised as a regular JSON object, a {@apilink Set} will be serialised as {@apilink Array}.
+     * For example a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) will be serialised as a regular JSON object, a [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) will be serialised as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
      *
      * Additionally, notepad assumes that the data structure you use it with does not contain cyclic references.
      *

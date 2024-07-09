@@ -3,24 +3,18 @@ const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var
 const pkg = require('../../package.json');  // eslint-disable-line @typescript-eslint/no-var-requires
 
 /**
- * @desc
- *  Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.
- *
- * @typedef {function(error: Error, parsed: object, output: string): void} Interceptor
+ * Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.
  *
  * @package
  */
 export type Interceptor = (error: Error, parsed: { [key: string]: string | number }, output: string) => void;
 
 /**
- * @desc
- *  Invokes the serenity-bdd command line interface, responsible for downloading and running
- *  the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)
+ * Invokes the serenity-bdd command line interface, responsible for downloading and running
+ * the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)
  *
- * @param {string[]} argv
- * @param {Interceptor} interceptor
- *
- * @package
+ * @param argv
+ * @param interceptor
  */
 export function bootstrap(argv: string[], interceptor?: Interceptor): void {
     yargs()

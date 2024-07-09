@@ -6,7 +6,7 @@ import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
  * to enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.
  *
  * ## Example widget
@@ -43,7 +43,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  * ## Handling sensitive information
  *
  * By design, any data handled by an actor appears in Serenity/JS reports.
- * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use {@apilink Masked}.
+ * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use [`Masked`](https://serenity-js.org/api/core/class/Masked/).
  * 
  * ```ts
  * import { actorCalled, Masked } from '@serenity-js/core'
@@ -59,15 +59,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  * 
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Enter extends PageElementInteraction {
 
     /**
-     * Instantiates this {@apilink Interaction}.
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      *
      * @param values
      *  The text value to be entered

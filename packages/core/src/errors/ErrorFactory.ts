@@ -11,7 +11,8 @@ import type { ErrorOptions } from './ErrorOptions';
 import type { RuntimeError } from './model';
 
 /**
- * Generates Serenity/JS {@apilink RuntimeError} objects based on provided {@apilink ErrorOptions|configuration}.
+ * Generates Serenity/JS [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/) objects based
+ * on the provided [configuration](https://serenity-js.org/api/core/interface/ErrorOptions/).
  *
  * @group Errors
  */

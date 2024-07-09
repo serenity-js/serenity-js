@@ -1,7 +1,8 @@
 import type { SpecResult } from 'protractor/built/plugins';
 
 /**
- * A JSON object which needs to be returned to Protractor when {@apilink ProtractorFrameworkAdapter}
+ * A JSON object which needs to be returned to Protractor
+ * when [`ProtractorFrameworkAdapter`](https://serenity-js.org/api/protractor-adapter/function/run/)
  * is done with executing the test scenarios.
  *
  * ## Learn more

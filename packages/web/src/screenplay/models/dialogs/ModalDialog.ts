@@ -14,7 +14,10 @@ import { Page } from '../Page';
  * consistent across the various Web integration tools (such as Playwright, Puppeteer,
  * WebdriverIO or Selenium), Serenity/JS works as follows:
  * - Serenity/JS dismisses any modal dialogs by default and stores their message so that it can be asserted on.
- * - This behaviour can be changed by invoking {@apilink ModalDialog.acceptNext}, {@apilink ModalDialog.acceptNextWithValue]], or [[ModalDialog.dismissNext} before the dialog is triggered, as per the below examples.
+ * - This behaviour can be changed by invoking [`ModalDialog.acceptNext`](https://serenity-js.org/api/web/class/ModalDialog/#acceptNext),
+ *   [`ModalDialog.acceptNextWithValue`](https://serenity-js.org/api/web/class/ModalDialog/#acceptNextWithValue),
+ *   or [`ModalDialog.dismissNext`](https://serenity-js.org/api/web/class/ModalDialog/#dismissNext)
+ *   before the dialog is triggered, as per the below examples.
  * - Serenity/JS also allows you to `Wait.until(ModalDialog, isPresent())` so that you can synchronise your tests
  *   with modal dialogs that appear after a delay.
  *
@@ -93,7 +96,7 @@ import { Page } from '../Page';
  * ```
  *
  * ## Learn more
- * - {@apilink Optional}
+ * - [`Optional`](https://serenity-js.org/api/core/interface/Optional/)
  *
  * @group Models
  */
@@ -126,7 +129,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNext}.
+     * Produces an [interaction](https://serenity-js.org/api/core/class/Interaction/) that invokes [`ModalDialog.acceptNext`](https://serenity-js.org/api/web/class/ModalDialog/#acceptNext).
      */
     static acceptNext(): Interaction {
         return Page.current().modalDialog().acceptNext()
@@ -134,7 +137,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.acceptNextWithValue}.
+     * Produces an [interaction](https://serenity-js.org/api/core/class/Interaction/) that invokes [`ModalDialog.acceptNextWithValue`](https://serenity-js.org/api/web/class/ModalDialog/#acceptNextWithValue).
      *
      * @param value
      */
@@ -144,7 +147,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * Produces an {@apilink Interaction|interaction} that invokes {@apilink ModalDialog.dismissNext}.
+     * Produces an [interaction](https://serenity-js.org/api/core/class/Interaction/) that invokes [`ModalDialog.dismissNext`](https://serenity-js.org/api/web/class/ModalDialog/#dismissNext).
      */
     static dismissNext(): Interaction {
         return Page.current().modalDialog().dismissNext()
@@ -152,7 +155,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.message} for the current {@apilink Page}.
+     * [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to [`ModalDialog.message`](https://serenity-js.org/api/web/class/ModalDialog/#message) for the current [`Page`](https://serenity-js.org/api/web/class/Page/).
      */
     static lastDialogMessage(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().message()
@@ -160,7 +163,7 @@ export abstract class ModalDialog implements Optional {
     }
 
     /**
-     * {@apilink QuestionAdapter} that resolves to {@apilink ModalDialog.state} for the current {@apilink Page}.
+     * [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves to [`ModalDialog.state`](https://serenity-js.org/api/web/class/ModalDialog/#state) for the current [`Page`](https://serenity-js.org/api/web/class/Page/).
      */
     static lastDialogState(): QuestionAdapter<string> {
         return Page.current().modalDialog().last().state()
@@ -169,12 +172,12 @@ export abstract class ModalDialog implements Optional {
 
     /**
      * Returns the message of the last modal dialog handled,
-     * or rejects the promise with a {@apilink LogicError}
+     * or rejects the promise with a [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      * when no modal dialogs have been observed yet.
      *
      * @returns
      *  Message of the last handled dialog, or a `Promise`
-     *  rejected with a {@apilink LogicError}
+     *  rejected with a [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  when no dialog has been handled yet.
      */
     abstract message(): Promise<string>;
