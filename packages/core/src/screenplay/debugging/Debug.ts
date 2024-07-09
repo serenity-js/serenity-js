@@ -44,7 +44,7 @@ import type { DebuggingResult } from './DebuggingResult';
  * while the test is paused at breakpoint.
  *
  * Since this functionality is specific to [Playwright](https://serenity-js.org/api/playwright),
- * you can use it by passing [`PlaywrightPage.current().nativePage()`](/api/playwright/class/PlaywrightPage/#current)
+ * you can use it by passing [`PlaywrightPage.current().nativePage()`](https://serenity-js.org/api/playwright/class/PlaywrightPage/#current)
  * to Serenity/JS [`Debug.values`](https://serenity-js.org/api/core/class/Debug/#values). Also make sure to name the evaluated value `page`, as this is the variable name that the Playwright VSCode extension expects.
  *
  * ```typescript
