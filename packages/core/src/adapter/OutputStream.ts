@@ -1,10 +1,11 @@
 /**
- * An output stream to be injected into {@apilink StageCrewMemberBuilder|StageCrewMemberBuilders} configured via {@apilink SerenityConfig.crew}.
+ * An output stream to be injected into [stage crew member builders](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
+ * configured via [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew).
  *
  * ## Learn more
- * - {@apilink StageCrewMemberBuilder}
- * - {@apilink Serenity.configure}
- * - {@apilink SerenityConfig.crew}
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
+ * - [`Serenity.configure`](https://serenity-js.org/api/core/class/Serenity/#configure)
+ * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
  *
  * @group Integration
  */

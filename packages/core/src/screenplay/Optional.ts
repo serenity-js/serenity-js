@@ -19,7 +19,7 @@ import type { Answerable } from './Answerable';
  */
 export interface Optional {
     /**
-     * Returns an {@apilink Answerable} that resolves to `true` when the optional value
+     * Returns an [`Answerable`](https://serenity-js.org/api/core/#Answerable) that resolves to `true` when the optional value
      * is present, `false` otherwise.
      */
     isPresent(): Answerable<boolean>;

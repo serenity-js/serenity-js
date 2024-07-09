@@ -4,10 +4,10 @@ import type { Clock, DelayedCallback, Duration, RepeatUntilLimits} from '../mode
 import { Scheduler } from '../models';
 
 /**
- * An {@apilink Ability} that enables an {@apilink Actor} to schedule a callback function
+ * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to schedule a callback function
  * to be executed with a delay, or until some condition is met.
  *
- * Used internally by the {@apilink Interaction|interaction} to {@apilink Wait}.
+ * Used internally by the [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`Wait`](https://serenity-js.org/api/core/class/Wait/).
  *
  * @experimental
  *

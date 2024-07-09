@@ -3,10 +3,10 @@ import type { FileSystem } from '../io';
 import type { Stage } from './Stage';
 
 /**
- * Dependencies injected by {@apilink Serenity.configure} into {@apilink StageCrewMemberBuilder.build}
+ * Dependencies injected by [`Serenity.configure`](https://serenity-js.org/api/core/class/Serenity/#configure) into [`StageCrewMemberBuilder.build`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/#build)
  *
  * ## Learn more
- * - {@apilink StageCrewMemberBuilder}
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
  *
  * @group Stage
  */

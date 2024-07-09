@@ -6,7 +6,7 @@ import { Cookie, CookieMissingError } from '@serenity-js/web';
 import { ensure, isDefined } from 'tiny-types';
 
 /**
- * WebdriverIO-specific implementation of {@apilink Cookie}.
+ * WebdriverIO-specific implementation of [`Cookie`](https://serenity-js.org/api/web/class/Cookie/).
  *
  * @group Models
  */

@@ -3,8 +3,8 @@ import { TinyType } from 'tiny-types';
 import type { ExpectationDetails } from './ExpectationDetails';
 
 /**
- * An outcome of an {@apilink Expectation},
- * which could be either {@apilink ExpectationMet|met} or {@apilink ExpectationNotMet|not met}.
+ * An outcome of an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/),
+ * which could be either [met](https://serenity-js.org/api/core/class/ExpectationMet/) or [not met](https://serenity-js.org/api/core/class/ExpectationNotMet/).
  *
  * @group Expectations
  */

@@ -3,7 +3,7 @@ import type { Options } from '@wdio/types';
 
 /**
  * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/),
- * with Serenity/JS-specific {@apilink SerenityConfig|additions}.
+ * with [Serenity/JS-specific additions](https://serenity-js.orgapi/core/class/SerenityConfig/).
  *
  * ## Integrating WebdriverIO with Serenity/JS
  *
@@ -71,9 +71,9 @@ import type { Options } from '@wdio/types';
  * ## Learn more
  *
  * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
- * - {@apilink CucumberConfig}
- * - {@apilink JasmineConfig}
- * - {@apilink MochaConfig}
+ * - [`CucumberConfig`](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
+ * - [`JasmineConfig`](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
+ * - [`MochaConfig`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
  *
  * @group Configuration
  */
@@ -86,9 +86,9 @@ export interface WebdriverIOConfig extends Options.Testrunner {
      * #### Learn more
      *
      * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
-     * - {@apilink CucumberConfig}
-     * - {@apilink JasmineConfig}
-     * - {@apilink MochaConfig}
+     * - [`CucumberConfig`](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
+     * - [`JasmineConfig`](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
+     * - [`MochaConfig`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
      */
     serenity?: SerenityConfig & { runner?: string };
 }

@@ -3,7 +3,7 @@
  * - a named export that you want to import
  * - a parameter that should be passed to the static `fromJSON` method if the imported type provides it.
  *
- * `ClassDescription` is used to describe the {@apilink StageCrewMember|StageCrewMembers} passed to {@apilink SerenityConfig}.
+ * `ClassDescription` is used to describe the [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/) passed to [`SerenityConfig`](https://serenity-js.org/api/core/class/SerenityConfig/).
  *
  * The most basic class description is the name of a Node module that must provide a `default` export.
  * For example, below definition would be interpreted as a request to import the `default` export from the `@serenity-js/serenity-bdd` module and instantiate it using its no-arg constructor:

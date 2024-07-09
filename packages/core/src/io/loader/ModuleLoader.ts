@@ -78,7 +78,7 @@ export class ModuleLoader {
     }
 
     /**
-     * Returns {@apilink Version} of module specified by `moduleId`, based on its `package.json`.
+     * Returns `Version` of module specified by `moduleId`, based on its `package.json`.
      *
      * @param moduleId
      */

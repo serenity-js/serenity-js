@@ -9,7 +9,7 @@ import type { WebdriverIOLocator } from './locators/index.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
- * WebdriverIO-specific implementation of {@apilink PageElement}.
+ * WebdriverIO-specific implementation of [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
  *
  * @group Models
  */

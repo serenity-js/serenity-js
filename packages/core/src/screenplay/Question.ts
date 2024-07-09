@@ -18,18 +18,20 @@ import type { RecursivelyAnswered } from './RecursivelyAnswered';
 import type { WithAnswerableProperties } from './WithAnswerableProperties';
 
 /**
- * **Questions** describe how {@apilink Actor|actors} should query the system under test or the test environment to retrieve some information.
+ * **Questions** describe how [actors](https://serenity-js.org/api/core/class/Actor/) should query the system under test or the test environment to retrieve some information.
  *
- * Questions are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
- * along with {@apilink Actor|Actors}, {@apilink Ability|Abilities}, {@apilink Interaction|Interactions}, and {@apilink Task|Tasks}.
+ * Questions are the core building block of the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern),
+ * along with [actors](https://serenity-js.org/api/core/class/Actor/), [abilities](https://serenity-js.org/api/core/class/Ability/),
+ * [interactions](https://serenity-js.org/api/core/class/Interaction/),
+ * and [tasks](https://serenity-js.org/api/core/class/Task/).
  *
- * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ * ![Screenplay Pattern](https://serenity-js.org/images/design/serenity-js-screenplay-pattern.png)
  *
  * Learn more about:
- * - {@apilink Actor}
- * - {@apilink Ability|Abilities}
- * - {@apilink Interaction}
- * - {@apilink QuestionAdapter}
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * ## Implementing a basic custom Question
  *
@@ -49,10 +51,10 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  *
  * ## Implementing a Question that uses an Ability
  *
- * Just like the {@apilink Interaction|interactions}, a {@apilink Question}
- * also can use {@apilink Actor|actor's} {@apilink Ability|abilities}.
+ * Just like the [interactions](https://serenity-js.org/api/core/class/Interaction/), a [`Question`](https://serenity-js.org/api/core/class/Question/)
+ * also can use [actor's](https://serenity-js.org/api/core/class/Actor/) [abilities](https://serenity-js.org/api/core/class/Ability/).
  *
- * Here, we use the ability to {@apilink CallAnApi} to retrieve a property of
+ * Here, we use the ability to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) to retrieve a property of
  * an HTTP response.
  *
  * ```ts
@@ -66,15 +68,15 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  * ```
  *
  * #### Learn more
- * - {@apilink CallAnApi}
- * - {@apilink LastResponse}
+ * - [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+ * - [`LastResponse`](https://serenity-js.org/api/rest/class/LastResponse/)
  *
  * ## Mapping answers to other questions
  *
- * Apart from retrieving information, {@apilink Question|questions} can be used to transform information retrieved by other questions.
+ * Apart from retrieving information, [questions](https://serenity-js.org/api/core/class/Question/) can be used to transform information retrieved by other questions.
  *
- * Here, we use the factory method {@apilink Question.about} to produce a question that makes the received {@apilink Actor|actor}
- * answer {@apilink LastResponse.status} and then compare it against some expected value.
+ * Here, we use the factory method [`Question.about`](https://serenity-js.org/api/core/class/Question/#about) to produce a question that makes the received [actor](https://serenity-js.org/api/core/class/Actor/)
+ * answer [`LastResponse.status`](https://serenity-js.org/api/rest/class/LastResponse/#status) and then compare it against some expected value.
  *
  * ```ts
  * import { actorCalled, AnswersQuestions, UsesAbilities, Question } from '@serenity-js/core'
@@ -97,7 +99,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  * ```
  *
  * Note that the above example is for demonstration purposes only, Serenity/JS provides an easier way to
- * verify the response status of the {@apilink LastResponse}:
+ * verify the response status of the [`LastResponse`](https://serenity-js.org/api/rest/class/LastResponse/):
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -157,9 +159,10 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Generates a {@apilink QuestionAdapter} that recursively resolves
-     * any {@apilink Answerable} fields of the provided object,
-     * including {@apilink Answerable} fields of {@apilink WithAnswerableProperties|nested objects}.
+     * Generates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that recursively resolves
+     * any [`Answerable`](https://serenity-js.org/api/core/#Answerable) fields of the provided object,
+     * including [`Answerable`](https://serenity-js.org/api/core/#Answerable) fields
+     * of [nested objects](https://serenity-js.org/api/core/#WithAnswerableProperties).
      *
      * Optionally, the method accepts `overrides` to be shallow-merged with the fields of the original `source`,
      * producing a new merged object.
@@ -212,9 +215,9 @@ export abstract class Question<T> extends Describable {
      * ```
      *
      * #### Learn more
-     * - {@apilink WithAnswerableProperties}
-     * - {@apilink RecursivelyAnswered}
-     * - {@apilink Answerable}
+     * - [`WithAnswerableProperties`](https://serenity-js.org/api/core/#WithAnswerableProperties)
+     * - [`RecursivelyAnswered`](https://serenity-js.org/api/core/#RecursivelyAnswered)
+     * - [`Answerable`](https://serenity-js.org/api/core/#Answerable)
      *
      * @param source
      * @param overrides
@@ -241,8 +244,8 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Generates a {@apilink QuestionAdapter} that resolves
-     * any {@apilink Answerable} elements of the provided array.
+     * Generates a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) that resolves
+     * any [`Answerable`](https://serenity-js.org/api/core/#Answerable) elements of the provided array.
      */
     static fromArray<Source_Type>(source: Array<Answerable<Source_Type>>, options?: DescriptionFormattingOptions): QuestionAdapter<Source_Type[]> {
         const formatter = new ValueFormatter(ValueFormatter.defaultOptions);
@@ -265,7 +268,7 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Checks if the value is a {@apilink Question}.
+     * Checks if the value is a [`Question`](https://serenity-js.org/api/core/class/Question/).
      *
      * @param maybeQuestion
      *  The value to check
@@ -276,7 +279,7 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Checks if the value is a {@apilink MetaQuestion}.
+     * Checks if the value is a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/).
      *
      * @param maybeMetaQuestion
      *  The value to check
@@ -288,7 +291,7 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Creates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
+     * Creates a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/) that can be composed with any [`Answerable`](https://serenity-js.org/api/core/#Answerable)
      * to produce a single-line description of its value.
      *
      * ```ts
@@ -313,11 +316,11 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Creates a {@apilink MetaQuestion} that can be composed with any {@apilink Answerable}
-     * to return its value when the answerable is a {@apilink Question},
+     * Creates a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/) that can be composed with any [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+     * to return its value when the answerable is a [`Question`](https://serenity-js.org/api/core/class/Question/),
      * or the answerable itself otherwise.
      *
-     * The description of the resulting question is produced by calling {@apilink Question.description} on the
+     * The description of the resulting question is produced by calling [`Question.describedBy`](https://serenity-js.org/api/core/class/Question/#describedBy) on the
      * provided answerable.
      *
      * ```ts
@@ -474,19 +477,19 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Instructs the provided {@apilink Actor} to use their {@apilink Ability|abilities}
+     * Instructs the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/) to use their [abilities](https://serenity-js.org/api/core/class/Ability/)
      * to answer this question.
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
     /**
-     * Changes the description of this object, as returned by {@apilink Describable.describedBy}
-     * and {@apilink Describable.toString}.
+     * Changes the description of this object, as returned by [`Describable.describedBy`](https://serenity-js.org/api/core/class/Describable/#describedBy)
+     * and [`Describable.toString`](https://serenity-js.org/api/core/class/Describable/#toString).
      *
      * @param description
      *  Replaces the current description according to the following rules:
-     *  - If `description` is an {@apilink Answerable}, it replaces the current description
-     *  - If `description` is a {@apilink MetaQuestion}, the current description is passed as `context` to `description.of(context)`, and the result replaces the current description
+     *  - If `description` is an [`Answerable`](https://serenity-js.org/api/core/#Answerable), it replaces the current description
+     *  - If `description` is a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/), the current description is passed as `context` to `description.of(context)`, and the result replaces the current description
      */
     describedAs(description: Answerable<string> | MetaQuestion<Awaited<T>, Question<Promise<string>>>): this {
         super.setDescription(
@@ -525,9 +528,9 @@ declare global {
 /* eslint-disable @typescript-eslint/indent */
 
 /**
- * Describes an object recursively wrapped in {@apilink QuestionAdapter} proxies, so that:
- * - both methods and fields of the wrapped object can be used as {@apilink Question|questions} or {@apilink Interactions|interactions}
- * - method parameters of the wrapped object will accept {@apilink Answerable|Answerable<T>}
+ * Describes an object recursively wrapped in [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) proxies, so that:
+ * - both methods and fields of the wrapped object can be used as [questions](https://serenity-js.org/api/core/class/Question/) or [interactions](https://serenity-js.org/api/core/class/Interaction/)
+ * - method parameters of the wrapped object will accept [`Answerable<T>`](https://serenity-js.org/api/core/#Answerable)
  *
  * @group Questions
  */
@@ -548,10 +551,10 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
 /* eslint-enable @typescript-eslint/indent */
 
 /**
- * A union type representing a proxy object returned by {@apilink Question.about}.
+ * A union type representing a proxy object returned by [`Question.about`](https://serenity-js.org/api/core/class/Question/#about).
  *
- * {@apilink QuestionAdapter} proxies the methods and fields of the wrapped object recursively,
- * allowing them to be used as either a {@apilink Question} or an {@apilink Interaction}.
+ * [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) proxies the methods and fields of the wrapped object recursively,
+ * allowing them to be used as either a [`Question`](https://serenity-js.org/api/core/class/Question/) or an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
  *
  * @group Questions
  */
@@ -562,8 +565,8 @@ export type QuestionAdapter<Answer_Type> =
     & QuestionAdapterFieldDecorator<Answer_Type>;
 
 /**
- * An extension of {@apilink QuestionAdapter}, that in addition to proxying methods and fields
- * of the wrapped object can also act as a {@apilink MetaQuestion}.
+ * An extension of [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter), that in addition to proxying methods and fields
+ * of the wrapped object can also act as a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/).
  *
  * @group Questions
  */
@@ -587,7 +590,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
     }
 
     /**
-     * Returns a Question that resolves to `true` if resolving the {@apilink QuestionStatement}
+     * Returns a Question that resolves to `true` if resolving the `QuestionStatement`
      * returns a value other than `null` or `undefined`, and doesn't throw errors.
      */
     isPresent(): Question<Promise<boolean>> {

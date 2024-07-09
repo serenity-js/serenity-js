@@ -10,13 +10,13 @@ import type { Switchable } from './Switchable';
 import type { SwitchableOrigin } from './SwitchableOrigin';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to identify
- * a single Web element located by {@apilink Selector}.
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to identify
+ * a single Web element located by [`Selector`](https://serenity-js.org/api/web/class/Selector/).
  *
  * ## Learn more
- * - [Page Element Query Language](/handbook/web-testing/page-element-query-language)
- * - {@apilink Optional}
- * - {@apilink Switchable}
+ * - [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language)
+ * - [`Optional`](https://serenity-js.org/api/core/interface/Optional/)
+ * - [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/)
  *
  * @group Models
  */
@@ -52,7 +52,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     }
 
     /**
-     * A static method producing a {@apilink MetaQuestion} that can be used with {@apilink PageElements.eachMappedTo} method
+     * A static method producing a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/) that can be used with [`PageElements.eachMappedTo`](https://serenity-js.org/api/web/class/PageElements/#eachMappedTo) method
      * to extract the HTML of each element in a collection.
      *
      * #### Example
@@ -98,7 +98,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
 
     /**
      * Traverses the element and its parents, heading toward the document root,
-     * until it finds a parent {@apilink PageElement} that matches its associated CSS selector.
+     * until it finds a parent [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) that matches its associated CSS selector.
      *
      * #### Example
      *
@@ -133,9 +133,9 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * :::info
      * This method relies on [Element: closest() API](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest),
      * and so is only compatible with locating parent elements specified using the following CSS selectors:
-     * - {@apilink ByCss}
-     * - {@apilink ById}
-     * - {@apilink ByTagName}
+     * - [`ByCss`](https://serenity-js.org/api/web/class/ByCss/)
+     * - [`ById`](https://serenity-js.org/api/web/class/ById/)
+     * - [`ByTagName`](https://serenity-js.org/api/web/class/ByTagName/)
      * :::
      *
      * @param childElement
@@ -204,8 +204,8 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      *  to the previous context if needed.
      *
      * #### Learn more
-     * - {@apilink Switch}
-     * - {@apilink Switchable}
+     * - [`Switch`](https://serenity-js.org/api/web/class/Switch/)
+     * - [`Switchable`](https://serenity-js.org/api/web/interface/Switchable/)
      */
     abstract switchTo(): Promise<SwitchableOrigin>;
 
@@ -232,7 +232,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract isEnabled(): Promise<boolean>;
 
     /**
-     * Returns a {@apilink Promise} that resolves to `true` when the element
+     * Returns a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to `true` when the element
      * is present in the [Document Object Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model),
      * `false` otherwise.
      */

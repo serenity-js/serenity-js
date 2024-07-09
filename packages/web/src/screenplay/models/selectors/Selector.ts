@@ -2,7 +2,7 @@ import { f } from '@serenity-js/core';
 import { TinyType } from 'tiny-types';
 
 /**
- * Describes a selector you use to identify a {@apilink PageElement} or a group of {@apilink PageElements}.
+ * Describes a selector you use to identify a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or a group of [`PageElement`](https://serenity-js.org/api/web/class/PageElements/).
  *
  * @group Models
  */

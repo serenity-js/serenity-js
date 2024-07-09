@@ -1,6 +1,6 @@
 /**
- * Configuration options for {@apilink Question.formattedValue} and
- * the [`the`](/api/core/function/the/) function.
+ * Configuration options for [`Question.formattedValue`](https://serenity-js.org/api/core/class/Question/#formattedValue) and
+ * the [`the`](https://serenity-js.org/api/core/function/the/) function.
  *
  * @group Questions
  */

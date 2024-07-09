@@ -6,7 +6,7 @@ import type { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
 import type { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
 /**
- * Loads a {@apilink TestRunnerAdapter} needed to invoke
+ * Loads a [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/) needed to invoke
  * the chosen test runner programmatically.
  *
  * @group Integration
@@ -21,9 +21,9 @@ export class TestRunnerLoader {
      * @param cwd
      *  Current working directory; used to resolve glob paths to files for Cucumber.js to `require`,
      *  and instructing Serenity/JS where to look for this module's optional
-     *  dependencies, like [`@serenity-js/cucumber`](/api/cucumber),
-     *  [`@serenity-js/mocha`](/api/mocha),
-     *  [`@serenity-js/jasmine`](/api/jasmine), etc.
+     *  dependencies, like [`@serenity-js/cucumber`](https://serenity-js.org/api/cucumber),
+     *  [`@serenity-js/mocha`](https://serenity-js.org/api/mocha),
+     *  [`@serenity-js/jasmine`](https://serenity-js.org/api/jasmine), etc.
      *
      * @param runnerId
      *  Unique identifier used to differentiate output files produced by native Cucumber.js formatters.
@@ -36,7 +36,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@apilink JasmineConfig}
+     * See [`JasmineConfig`](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
      *
      * @param jasmineNodeOpts
      */
@@ -46,7 +46,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@apilink MochaConfig}
+     * See [`MochaConfig`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
      *
      * @param mochaOpts
      */
@@ -56,7 +56,7 @@ export class TestRunnerLoader {
     }
 
     /**
-     * See {@apilink CucumberConfig}
+     * See [`CucumberConfig`](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
      *
      * @param cucumberOpts
      * @param adapterConfig

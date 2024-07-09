@@ -121,20 +121,20 @@ export class Serenity implements EmitsDomainEvents {
     }
 
     /**
-     * Re-configures Serenity/JS with a new {@apilink Cast} of {@apilink Actor|actors}
-     * you want to use in any subsequent calls to {@apilink actorCalled}.
+     * Re-configures Serenity/JS with a new [cast](https://serenity-js.org/api/core/class/Cast/) of [actors](https://serenity-js.org/api/core/class/Actor/)
+     * you want to use in any subsequent calls to [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/).
      *
-     * For your convenience, use {@apilink engage} function instead,
-     * which provides an alternative to calling {@apilink Actor.whoCan} directly in your tests
+     * For your convenience, use [`engage`](https://serenity-js.org/api/core/function/engage/) function instead,
+     * which provides an alternative to calling [`Actor.whoCan`](https://serenity-js.org/api/core/class/Actor/#whoCan) directly in your tests
      * and is typically invoked in a "before all" or "before each" hook of your test runner of choice.
      *
-     * If your implementation of the {@apilink Cast} interface is stateless,
+     * If your implementation of the [cast](https://serenity-js.org/api/core/class/Cast/) interface is stateless,
      * you can invoke this function just once before your entire test suite is executed, see
      * - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
      * - [`before`](https://mochajs.org/#hooks) in Mocha,
      * - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
      *
-     * However, if your {@apilink Cast} holds state that you want to reset before each scenario,
+     * However, if your [cast](https://serenity-js.org/api/core/class/Cast/) holds state that you want to reset before each scenario,
      * it's better to invoke `engage` before each test using:
      * - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
      * - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
@@ -181,9 +181,9 @@ export class Serenity implements EmitsDomainEvents {
      * ```
      *
      * ## Learn more
-     * - {@apilink Actor}
-     * - {@apilink Cast}
-     * - {@apilink engage}
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
+     * - [`engage`](https://serenity-js.org/api/core/function/engage/)
      *
      * @param actors
      */
@@ -194,10 +194,10 @@ export class Serenity implements EmitsDomainEvents {
     }
 
     /**
-     * Instantiates or retrieves an {@apilink Actor}
+     * Instantiates or retrieves an [`Actor`](https://serenity-js.org/api/core/class/Actor/)
      * called `name` if one has already been instantiated.
      *
-     * For your convenience, use {@apilink actorCalled} function instead.
+     * For your convenience, use [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/) function instead.
      *
      * ## Usage with Mocha
      *
@@ -243,10 +243,10 @@ export class Serenity implements EmitsDomainEvents {
      *
      * ## Learn more
      *
-     * - {@apilink engage}
-     * - {@apilink Actor}
-     * - {@apilink Cast}
-     * - {@apilink actorCalled}
+     * - [`engage`](https://serenity-js.org/api/core/function/engage/)
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
+     * - [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/)
      *
      * @param name
      *  The name of the actor to instantiate or retrieve
@@ -257,11 +257,11 @@ export class Serenity implements EmitsDomainEvents {
 
     /**
      * Retrieves an actor who was last instantiated or retrieved
-     * using {@apilink Serenity.theActorCalled}.
+     * using [`Serenity.theActorCalled`](https://serenity-js.org/api/core/class/Serenity/#theActorCalled).
      *
      * This function is particularly useful when automating Cucumber scenarios.
      *
-     * For your convenience, use {@apilink actorInTheSpotlight} function instead.
+     * For your convenience, use [`actorInTheSpotlight`](https://serenity-js.org/api/core/function/actorInTheSpotlight/) function instead.
      *
      * ## Usage with Cucumber
      *
@@ -282,11 +282,11 @@ export class Serenity implements EmitsDomainEvents {
      *
      * ## Learn more
      *
-     * - {@apilink engage}
-     * - {@apilink actorCalled}
-     * - {@apilink actorInTheSpotlight}
-     * - {@apilink Actor}
-     * - {@apilink Cast}
+     * - [`engage`](https://serenity-js.org/api/core/function/engage/)
+     * - [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/)
+     * - [`actorInTheSpotlight`](https://serenity-js.org/api/core/function/actorInTheSpotlight/)
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
      */
     theActorInTheSpotlight(): Actor {
         return this.stage.theActorInTheSpotlight();

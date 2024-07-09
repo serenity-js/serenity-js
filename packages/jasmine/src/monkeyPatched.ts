@@ -5,11 +5,10 @@ const parser = new ErrorStackParser();
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */
 
 /**
- * @desc
- *  Monkey-patches Jasmine domain model constructors so that they
- *  record information about the file system location of the caller function.
+ * Monkey-patches Jasmine domain model constructors so that they
+ * record information about the file system location of the caller function.
  *
- *  This helps to make reporting more accurate.
+ * This helps to make reporting more accurate.
  *
  * @param jasmineConstructor - A Jasmine constructor function to be patched
  * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
@@ -41,8 +40,7 @@ export function monkeyPatched(
 // eslint-enable
 
 /**
- * @desc
- *  Retrieves the file system location of the caller function.
+ * Retrieves the file system location of the caller function.
  *
  * @package
  */
@@ -63,10 +61,7 @@ function callerLocation() {
 }
 
 /**
- * @desc
- *  Checks if a given property is likely to be a static method or a static field on the constructor function.
- *
- * @param {string} property - name of the property to be checked
+ * Checks if a given property is likely to be a static method or a static field on the constructor function.
  *
  * @package
  */

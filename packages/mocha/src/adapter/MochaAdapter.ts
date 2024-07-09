@@ -11,10 +11,10 @@ import type Mocha = require('mocha');
 
 /**
  * Allows for programmatic execution of Mocha test scenarios,
- * using {@apilink SerenityReporterForMocha} to report progress.
+ * using [`SerenityReporterForMocha`](https://serenity-js.org/api/mocha/function/export=/) to report progress.
  *
  * ## Learn more
- * - {@apilink TestRunnerAdapter}
+ * - [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/)
  *
  * @group Integration
  */
@@ -75,7 +75,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     /**
      * Returns the number of loaded scenarios
      *
-     * @throws {@apilink LogicError}
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  If called before `load`
      */
     scenarioCount(): number {
@@ -89,7 +89,7 @@ export class MochaAdapter implements TestRunnerAdapter {
     /**
      * Runs loaded test scenarios.
      *
-     * @throws {@apilink LogicError}
+     * @throws [`LogicError`](https://serenity-js.org/api/core/class/LogicError/)
      *  If called before `load`
      */
     run(): Promise<void> {

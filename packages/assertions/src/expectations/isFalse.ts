@@ -3,7 +3,7 @@ import { Expectation } from '@serenity-js/core';
 import { equals } from './equals';
 
 /**
- * Creates an {@apilink Expectation|expectation} that is met when the actual `boolean` value
+ * Creates an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual `boolean` value
  * is `false`.
  *
  * ## Ensuring that a given value is false

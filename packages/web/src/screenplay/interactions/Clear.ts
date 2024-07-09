@@ -5,7 +5,7 @@ import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
  * to clear the `value` of a [form `input` field](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
  *
  * ## Example widget
@@ -48,18 +48,18 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink Enter}
- * - {@apilink Value}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`Enter`](https://serenity-js.org/api/web/class/Enter/)
+ * - [`Value`](https://serenity-js.org/api/web/class/Value/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Clear extends PageElementInteraction {
 
     /**
-     * Instantiates an {@apilink Interaction|interaction}
-     * that instructs the {@apilink Actor|actor}
+     * Instantiates an [interaction](https://serenity-js.org/api/core/class/Interaction/)
+     * that instructs the [actor](https://serenity-js.org/api/core/class/Actor/)
      * to clear the value of an input `field`,
      *
      * @param field

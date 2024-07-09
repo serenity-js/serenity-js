@@ -6,20 +6,20 @@ import { Name, TextData } from '@serenity-js/core/lib/model';
 import { BrowseTheWeb } from '../abilities';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
  * to inject a script into the browser and execute it in the context of the current browser tab.
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink LastScriptExecution.result}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`LastScriptExecution.result`](https://serenity-js.org/api/web/class/LastScriptExecution/#result)
  *
  * @group Activities
  */
 export class ExecuteScript {
 
     /**
-     * Instantiates a version of this {@apilink Interaction}
+     * Instantiates a version of this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
      * configured to load a script from `sourceUrl`.
      *
      * @param sourceUrl
@@ -30,7 +30,7 @@ export class ExecuteScript {
     }
 
     /**
-     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+     * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
      * to execute an asynchronous script within the context of the current browser tab.
      *
      * The script fragment will be executed as the body of an anonymous function.
@@ -39,20 +39,20 @@ export class ExecuteScript {
      *
      * Any arguments provided in addition to the script will be included as script arguments and may be referenced
      * using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
-     * or {@apilink PageElement}.
+     * or [`PageElement`](https://serenity-js.org/api/web/class/PageElement/).
      * Arrays and objects may also be used as script arguments as long as each item adheres
      * to the types previously mentioned.
      *
-     * Unlike executing synchronous JavaScript with {@apilink ExecuteScript.sync},
+     * Unlike executing synchronous JavaScript with [`ExecuteScript.sync`](https://serenity-js.org/api/web/class/ExecuteScript/#sync),
      * scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      * This callback will always be injected into the executed function as the last argument,
      * and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      * If the script invokes the `callback` with a return value, this will be made available
-     * via the {@apilink LastScriptExecution.result}.
+     * via the [`LastScriptExecution.result`](https://serenity-js.org/api/web/class/LastScriptExecution/#result).
      *
-     * **Please note** that in order to signal an error in the `script` you need to throw an {@apilink Error}
+     * **Please note** that in order to signal an error in the `script` you need to throw an [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
      * instead of passing it to the callback function.
      *
      * #### Executing an async script
@@ -111,7 +111,7 @@ export class ExecuteScript {
      *
      * #### Passing PageElement arguments to an async script
      *
-     * Serenity/JS automatically converts {@link PageElement} objects passed as arguments to the script
+     * Serenity/JS automatically converts [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects passed as arguments to the script
      * into their corresponding DOM elements.
      *
      * ```ts
@@ -135,7 +135,7 @@ export class ExecuteScript {
      *
      * #### Using nested data structures containing PageElement objects
      *
-     * Serenity/JS automatically converts any {@link PageElement} objects
+     * Serenity/JS automatically converts any [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects
      * contained in nested data structures passed to the script
      * into their corresponding DOM elements.
      *
@@ -165,7 +165,7 @@ export class ExecuteScript {
      * ```
      *
      * #### Learn more
-     * - {@apilink LastScriptExecution.result}
+     * - [`LastScriptExecution.result`](https://serenity-js.org/api/web/class/LastScriptExecution/#result)
      *
      * @param script
      *  The script to be executed
@@ -178,10 +178,10 @@ export class ExecuteScript {
     }
 
     /**
-     * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
+     * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
      * to execute a synchronous script within the context of the current browser tab.
      *
-     * If the script returns a value, it will be made available via {@apilink LastScriptExecution.result}.
+     * If the script returns a value, it will be made available via [`LastScriptExecution.result`](https://serenity-js.org/api/web/class/LastScriptExecution/#result).
      *
      * #### Executing a sync script as string and reading the result
      *
@@ -229,7 +229,7 @@ export class ExecuteScript {
      *
      * #### Passing PageElement arguments to a sync script
      *
-     * Serenity/JS automatically converts {@link PageElement} objects passed as arguments to the script
+     * Serenity/JS automatically converts [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects passed as arguments to the script
      * into their corresponding DOM elements.
      *
      * ```ts
@@ -250,7 +250,7 @@ export class ExecuteScript {
      *
      * #### Using nested data structures containing PageElement objects
      *
-     * Serenity/JS automatically converts any {@link PageElement} objects
+     * Serenity/JS automatically converts any [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects
      * contained in nested data structures passed to the script
      * into their corresponding DOM elements.
      *
@@ -277,7 +277,7 @@ export class ExecuteScript {
      * ```
      *
      * #### Learn more
-     * - {@apilink LastScriptExecution.result}
+     * - [`LastScriptExecution.result`](https://serenity-js.org/api/web/class/LastScriptExecution/#result)
      *
      * @param script
      *  The script to be executed
@@ -294,7 +294,7 @@ export class ExecuteScript {
  * Allows for a script to be executed to be parametrised.
  *
  * ## Learn more
- * -  {@apilink ExecuteScript}
+ * -  [`ExecuteScript`](https://serenity-js.org/api/web/class/ExecuteScript/)
  *
  * @group Activities
  */
@@ -309,7 +309,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
     }
 
     /**
-     * Instantiates this {@apilink Interaction}
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
      *
      * @param args
      *  Arguments to parametrise the script with

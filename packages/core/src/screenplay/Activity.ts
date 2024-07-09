@@ -9,12 +9,12 @@ import type { AnswersQuestions } from './questions/AnswersQuestions';
 import { Describable } from './questions/Describable';
 
 /**
- * **Activities** represents {@apilink Task|tasks} and {@apilink Interaction|interactions} to be performed by an {@apilink Actor|actor}.
+ * **Activities** represents [tasks](https://serenity-js.org/api/core/class/Task/) and [interactions](https://serenity-js.org/api/core/class/Interaction/) to be performed by an [actor](https://serenity-js.org/api/core/class/Actor/).
  *
  * Learn more about:
- * - [Performing activities at multiple levels](/handbook/design/screenplay-pattern#performing-activities-at-multiple-levels)
- * - {@apilink Actor}
- * - {@apilink PerformsActivities}
+ * - [Performing activities at multiple levels](https://serenity-js.org/handbook/design/screenplay-pattern#performing-activities-at-multiple-levels)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * - [`PerformsActivities`](https://serenity-js.org/api/core/interface/PerformsActivities/)
  * - [Command design pattern on Wikipedia](https://en.wikipedia.org/wiki/Command_pattern)
  *
  * @group Screenplay Pattern
@@ -33,22 +33,22 @@ export abstract class Activity extends Describable {
     }
 
     /**
-     * Returns the location where this {@apilink Activity} was instantiated.
+     * Returns the location where this [`Activity`](https://serenity-js.org/api/core/class/Activity/) was instantiated.
      */
     instantiationLocation(): FileSystemLocation {
         return this.#location;
     }
 
     /**
-     * Instructs the provided {@apilink Actor} to perform this {@apilink Activity}.
+     * Instructs the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/) to perform this [`Activity`](https://serenity-js.org/api/core/class/Activity/).
      *
      * @param actor
      *
      * #### Learn more
-     * - {@apilink Actor}
-     * - {@apilink PerformsActivities}
-     * - {@apilink UsesAbilities}
-     * - {@apilink AnswersQuestions}
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`PerformsActivities`](https://serenity-js.org/api/core/interface/PerformsActivities/)
+     * - [`UsesAbilities`](https://serenity-js.org/api/core/interface/UsesAbilities/)
+     * - [`AnswersQuestions`](https://serenity-js.org/api/core/interface/AnswersQuestions/)
      */
     abstract performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): Promise<any>;
 

@@ -6,7 +6,7 @@ import { ensure, isDefined } from 'tiny-types';
 import { promised } from '../../promised';
 
 /**
- * Playwright-specific implementation of {@apilink RootLocator}.
+ * Playwright-specific implementation of [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/).
  *
  * @group Models
  */

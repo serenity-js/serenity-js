@@ -6,11 +6,11 @@ import { Ability } from './Ability';
 import type { UsesAbilities } from './UsesAbilities';
 
 /**
- * This {@apilink Ability} enables an {@apilink Actor} to resolve the value of a given {@apilink Answerable}.
+ * This [`Ability`](https://serenity-js.org/api/core/class/Ability/) enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to resolve the value of a given [`Answerable`](https://serenity-js.org/api/core/#Answerable).
  *
- * {@apilink AnswerQuestions} is used internally by {@apilink Actor.answer}, and it is unlikely you'll ever need to use it directly in your code.
+ * `AnswerQuestions` is used internally by [`Actor.answer`](https://serenity-js.org/api/core/class/Actor/#answer), and it is unlikely you'll ever need to use it directly in your code.
  * That is, unless you're building a custom Serenity/JS extension and want to override the default behaviour of the framework,
- * in which case you should check out the [Contributor's Guide](/contributing).
+ * in which case you should check out the [Contributor's Guide](https://serenity-js.org/community/contributing/).
  *
  * @group Abilities
  */

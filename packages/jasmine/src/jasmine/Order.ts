@@ -1,6 +1,5 @@
 /**
- * @desc
- *  Information about the ordering (random or not) of this execution of the suite.
+ * Information about the ordering (random or not) of this execution of the suite.
  *
  * @package
  */

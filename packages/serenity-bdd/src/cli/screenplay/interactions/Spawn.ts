@@ -22,17 +22,8 @@ export class Spawn extends Interaction {
     }
 
     /**
-     * @desc
-     *  Makes the provided {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     *  perform this {@apilink @serenity-js/core/lib/screenplay~Interaction}.
-     *
-     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@apilink @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * Makes the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * perform this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      */
     performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
         return actor.answer(this.pathToExecutable)

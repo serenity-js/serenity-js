@@ -22,11 +22,11 @@ import { Ability } from './Ability';
 import type { UsesAbilities } from './UsesAbilities';
 
 /**
- * An {@apilink Ability} that enables an {@apilink Actor} to perform a given {@apilink Activity}.
+ * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to perform a given [`Activity`](https://serenity-js.org/api/core/class/Activity/).
  *
- * {@apilink PerformActivities} is used internally by {@apilink Actor.perform}, and it is unlikely you'll ever need to use it directly in your code.
+ * [`PerformActivities`](https://serenity-js.org/api/core/class/PerformActivities/) is used internally by [`Actor.attemptsTo`](https://serenity-js.org/api/core/class/Actor/#attemptsTo), and it is unlikely you'll ever need to use it directly in your code.
  * That is, unless you're building a custom Serenity/JS extension and want to override the default behaviour of the framework,
- * in which case you should check out the [Contributor's Guide](/contributing).
+ * in which case you should check out the [Contributor's Guide](https://serenity-js.org/community/contributing).
  *
  * @group Abilities
  */

@@ -11,8 +11,9 @@ import type { AxiosRequestConfigDefaults} from '../../io';
 import { createAxios } from '../../io';
 
 /**
- * An {@apilink Ability} that wraps [axios client](https://axios-http.com/docs/api_intro) and enables
- * the {@apilink Actor} to {@apilink Send} {@apilink HTTPRequest|HTTP requests} to HTTP APIs.
+ * An [ability](https://serenity-js.org/api/core/class/Ability/) that wraps [axios client](https://axios-http.com/docs/api_intro) and enables
+ * the [actor](https://serenity-js.org/api/core/class/Actor/) to [send](https://serenity-js.org/api/rest/class/Send/)
+ * [HTTP requests](https://serenity-js.org/api/rest/class/HTTPRequest/) to HTTP APIs.
  *
  * `CallAnApi` uses [`proxy-from-env`](https://www.npmjs.com/package/proxy-from-env) and an approach
  * described in ["Node.js Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d)
@@ -191,7 +192,7 @@ import { createAxios } from '../../io';
  *
  * ### Serenity/JS defaults
  *
- * When using {@apilink CallAnApi.at} or {@apilink CallAnApi.using} with a configuration object, Serenity/JS
+ * When using [`CallAnApi.at`](https://serenity-js.org/api/rest/class/CallAnApi/#at) or [`CallAnApi.using`](https://serenity-js.org/api/rest/class/CallAnApi/#using) with a configuration object, Serenity/JS
  * merges your [Axios request configuration](https://axios-http.com/docs/req_config) with the following defaults:
  * - `timeout`: 10 seconds
  *
@@ -228,7 +229,7 @@ import { createAxios } from '../../io';
  *
  * ### Using API-specific actors
  *
- * To create API-specific actors, configure your [test runner](/handbook/test-runners/) with a {@apilink Cast}
+ * To create API-specific actors, configure your [test runner](https://serenity-js.org/handbook/test-runners/) with a [cast](https://serenity-js.org/api/core/class/Cast/)
  * that gives your actors appropriate abilities based, for example, on their name:
  *
  * ```ts
@@ -252,7 +253,7 @@ import { createAxios } from '../../io';
  * beforeEach(() => engage(new MyActors()))
  * ```
  *
- * Next, retrieve the appropriate actor in your test scenario using {@apilink actorCalled}, for example:
+ * Next, retrieve the appropriate actor in your test scenario using [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/), for example:
  *
  * ```ts
  * import { describe, it, beforeEach } from 'mocha'
@@ -324,7 +325,7 @@ export class CallAnApi extends Ability {
     private lastResponse: AxiosResponse;
 
     /**
-     * Produces an {@apilink Ability|ability} to call a REST API at a specified `baseURL`;
+     * Produces an [ability](https://serenity-js.org/api/core/class/Ability/) to call a REST API at a specified `baseURL`;
      *
      * This is the same as invoking `CallAnApi.using({ baseURL: 'https://example.org' })`
      *
@@ -339,7 +340,7 @@ export class CallAnApi extends Ability {
     }
 
     /**
-     * Produces an {@apilink Ability|ability} to call an HTTP API using the given Axios instance,
+     * Produces an [ability](https://serenity-js.org/api/core/class/Ability/) to call an HTTP API using the given Axios instance,
      * or an Axios request configuration object.
      *
      * When you provide an [Axios configuration object](https://axios-http.com/docs/req_config),
@@ -351,7 +352,7 @@ export class CallAnApi extends Ability {
      * When you provide an Axios instance, it's enhanced with proxy support and no other modifications are made.
      *
      * If you don't want Serenity/JS to augment or modify your Axios instance in any way,
-     * please use the {@apilink CallAnApi.constructor} directly.
+     * please use the [`CallAnApi.constructor`](https://serenity-js.org/api/rest/class/CallAnApi/#constructor) directly.
      *
      * @param axiosInstanceOrConfig
      */
@@ -372,8 +373,8 @@ export class CallAnApi extends Ability {
 
     /**
      * Allows for the original Axios config to be changed after
-     * the {@apilink Ability|ability} to {@apilink CallAnApi}
-     * has been instantiated and given to the {@apilink Actor}.
+     * the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+     * has been instantiated and given to the [`Actor`](https://serenity-js.org/api/core/class/Actor/).
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)
@@ -386,7 +387,7 @@ export class CallAnApi extends Ability {
 
     /**
      * Sends an HTTP request to a specified url.
-     * Response will be cached and available via {@apilink mapLastResponse}
+     * Response will be cached and available via [`CallAnApi.mapLastResponse`](https://serenity-js.org/api/rest/class/CallAnApi/#mapLastResponse).
      *
      * #### Learn more
      * - [AxiosRequestConfig](https://axios-http.com/docs/req_config)
@@ -394,7 +395,8 @@ export class CallAnApi extends Ability {
      *
      * @param config
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {@apilink Ability|ability} to {@apilink CallAnApi} was instantiated.
+     *  provided when the [ability](https://serenity-js.org/api/core/class/Ability/)
+     *  to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) was instantiated.
      */
     async request(config: AxiosRequestConfig): Promise<AxiosResponse> {
         let url: string;
@@ -429,8 +431,8 @@ export class CallAnApi extends Ability {
     }
 
     /**
-     * Resolves the final URL, based on the {@apilink AxiosRequestConfig} provided
-     * and any defaults that the {@apilink AxiosInstance} has been configured with.
+     * Resolves the final URL, based on the [`AxiosRequestConfig`](https://axios-http.com/docs/req_config) provided
+     * and any defaults that the [`AxiosInstance`](https://axios-http.com/docs/instance) has been configured with.
      *
      * Note that unlike Axios, this method uses the Node.js [WHATWG URL API](https://nodejs.org/api/url.html#new-urlinput-base)
      * to ensure URLs are correctly resolved.
@@ -447,7 +449,7 @@ export class CallAnApi extends Ability {
 
     /**
      * Maps the last cached response to another type.
-     * Useful when you need to extract a portion of the {@apilink AxiosResponse} object.
+     * Useful when you need to extract a portion of the [`AxiosResponse`](https://axios-http.com/docs/res_schema) object.
      *
      * #### Learn more
      * - [AxiosResponse](https://axios-http.com/docs/res_schema)

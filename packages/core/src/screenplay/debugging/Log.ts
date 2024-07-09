@@ -8,10 +8,12 @@ import { Interaction } from '../Interaction';
 import type { AnswersQuestions } from '../questions';
 
 /**
- * Instructs the {@apilink Actor} to {@apilink CollectsArtifacts|collect} arbitrary static values and answers to {@apilink Answerable|Answerables},
- * so that they can be sent to the {@apilink StageCrewMember|StageCrewMembers}
- * and printed to the terminal by the {@apilink ConsoleReporter}
- * or attached to the HTML report by the {@apilink SerenityBDDReporter}.
+ * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * to [collect](https://serenity-js.org/api/core/interface/CollectsArtifacts/) arbitrary static values
+ * and answers to [answerables](https://serenity-js.org/api/core/#Answerable),
+ * so that they can be sent to the [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/)
+ * and printed to the terminal by the [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/)
+ * or attached to the HTML report by the [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/).
  *
  * ## Logging static and `Answerable` values
  *
@@ -29,7 +31,7 @@ import type { AnswersQuestions } from '../questions';
 export class Log extends Interaction {
 
     /**
-     * Instantiates a new {@apilink Interaction|interaction} to {@apilink Log}
+     * Instantiates a new [interaction](https://serenity-js.org/api/core/class/Interaction/) to [`Log`](https://serenity-js.org/api/core/class/Log/)
      *
      * Note that this method accepts [variable number of arguments](https://www.typescriptlang.org/docs/handbook/functions.html#rest-parameters),
      * so that you can easily log several values at the same time.

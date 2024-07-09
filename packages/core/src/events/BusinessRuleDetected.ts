@@ -6,7 +6,7 @@ import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
- * Emitted by [@serenity-js/cucumber](/api/cucumber)
+ * Emitted by [@serenity-js/cucumber](https://serenity-js.org/api/cucumber)
  * when a [business rule](https://cucumber.io/docs/gherkin/reference/#rule) is detected.
  *
  * @group Events

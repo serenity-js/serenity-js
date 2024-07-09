@@ -5,8 +5,8 @@ import type { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 
 /**
- * Instructs an {@apilink Actor|actor} who has the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * to scroll the given {@apilink PageElement} into view and then [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on it.
+ * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * to scroll the given [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) into view and then [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on it.
  *
  * ## Example widget
  *
@@ -44,15 +44,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * ## Learn more
  *
- * - {@apilink BrowseTheWeb}
- * - {@apilink PageElement}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  *
  * @group Activities
  */
 export class Click extends PageElementInteraction {
 
     /**
-     * Instantiates this {@apilink Interaction}.
+     * Instantiates this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      *
      * @param pageElement
      *  The element to be clicked on

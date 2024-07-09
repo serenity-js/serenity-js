@@ -1,6 +1,6 @@
 /**
  * Formats text representing expected, received, and unchanged lines of a diff
- * produced by the {@apilink ErrorFactory}, so that they can be presented to a developer
+ * produced by the [`ErrorFactory`](https://serenity-js.org/api/core/class/ErrorFactory/), so that they can be presented to a developer
  * in a visually distinctive way.
  *
  * @group Errors

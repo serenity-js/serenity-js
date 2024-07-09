@@ -11,7 +11,7 @@ import type { AnswersQuestions } from '../questions';
 import type { DebuggingResult } from './DebuggingResult';
 
 /**
- * Instructs the {@apilink Actor|actor} to evaluate and {@apilink Log|log} the provided {@apilink Answerable|answerable} values.
+ * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to evaluate and [log](https://serenity-js.org/api/core/class/Log/) the provided [answerable](https://serenity-js.org/api/core/#Answerable) values.
  *
  * Since this interaction **accepts a callback function** that receives the evaluated results,
  * the best way to use it is while **running the test scenario via a Node.js debugger**.
@@ -19,8 +19,8 @@ import type { DebuggingResult } from './DebuggingResult';
  *
  * ## Debugging Answerable values
  *
- * {@apilink Debug.values} accepts a callback function that receives an array of {@apilink DebuggingResult} objects,
- * as well as the result of evaluating each provided {@apilink Answerable|answerable} with {@apilink Actor.answer}.
+ * [`Debug.values`](https://serenity-js.org/api/core/class/Debug/#values) accepts a callback function that receives an array of [`DebuggingResult`](https://serenity-js.org/api/core/interface/DebuggingResult/) objects,
+ * as well as the result of evaluating each provided [answerable](https://serenity-js.org/api/core/#Answerable) with [`Actor.answer`](https://serenity-js.org/api/core/class/Actor/#answer).
  *
  * ```typescript
  * import { actorCalled, Debug } from '@serenity-js/core'
@@ -43,8 +43,9 @@ import type { DebuggingResult } from './DebuggingResult';
  * provides features that allow for [experimenting with web UI locators](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright#tune-locators)
  * while the test is paused at breakpoint.
  *
- * Since this functionality is specific to [Playwright](/api/playwright), you can use it by passing {@apilink PlaywrightPage.current|`PlaywrightPage.current().nativePage()`}
- * to Serenity/JS {@apilink Debug.values}. Also make sure to name the evaluated value `page`, as this is the variable name that the Playwright VSCode extension expects.
+ * Since this functionality is specific to [Playwright](https://serenity-js.org/api/playwright),
+ * you can use it by passing [`PlaywrightPage.current().nativePage()`](https://serenity-js.org/api/playwright/class/PlaywrightPage/#current)
+ * to Serenity/JS [`Debug.values`](https://serenity-js.org/api/core/class/Debug/#values). Also make sure to name the evaluated value `page`, as this is the variable name that the Playwright VSCode extension expects.
  *
  * ```typescript
  * import { actorCalled, Debug } from '@serenity-js/core'
@@ -74,7 +75,7 @@ import type { DebuggingResult } from './DebuggingResult';
 export class Debug<Values extends Array<Answerable<unknown>>> extends Interaction {
 
     /**
-     * Instructs the {@apilink Actor|actor} to evaluate the provided `values`,
+     * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to evaluate the provided `values`,
      * log the results, and then pass them to your `debuggerFunction`.
      *
      * To use this interaction, run your test scenario in the Node.js debugger

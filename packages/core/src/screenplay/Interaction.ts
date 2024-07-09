@@ -5,34 +5,34 @@ import type { CollectsArtifacts } from './artifacts';
 import type { AnswersQuestions } from './questions';
 
 /**
- * **Interactions** are low-level {@apilink Activity|activities} that encapsulate
- * a handful of instructions for an {@apilink Actor|actor} on how to use their {@apilink Ability|abilities}
+ * **Interactions** are low-level [activities](https://serenity-js.org/api/core/class/Activity/) that encapsulate
+ * a handful of instructions for an [actor](https://serenity-js.org/api/core/class/Actor/) on how to use their [abilities](https://serenity-js.org/api/core/class/Ability/)
  * to perform an individual interaction with the given interface of the system under test.
  *
  * :::tip Tasks or interactions?
  * Because of their low-level nature, interactions are named using the vocabulary of the [solution domain](https://blog.mattwynne.net/2013/01/17/the-problem-with-solutions/),
- * and represent an individual interaction with the given interface, e.g. {@apilink Click}, {@apilink Enter}, or {@apilink Send}.
+ * and represent an individual interaction with the given interface, e.g. [`Click`](https://serenity-js.org/api/web/class/Click/), [`Enter`](https://serenity-js.org/api/web/class/Enter/), or [`Send`](https://serenity-js.org/api/rest/class/Send/).
  *
  * Interactions follow the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) which means that they do _one thing and one thing only_.
  * If you're considering implementing an "interaction" that performs more than one logical activity, e.g. checks if the button is visible and then clicks on it if is,
- * consider using separate interactions for separate responsibilities and then composing them using a {@apilink Task|task}.
+ * consider using separate interactions for separate responsibilities and then composing them using a [task](https://serenity-js.org/api/core/class/Task/).
  * :::
  *
- * Interactions are the core building block of the [Screenplay Pattern](/handbook/design/screenplay-pattern),
- * along with {@apilink Actor|Actors}, {@apilink Ability|Abilities}, {@apilink Question|Questions}, and {@apilink Task|Tasks}.
+ * Interactions are the core building block of the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern),
+ * along with [actors](https://serenity-js.org/api/core/class/Actor/), [abilities](https://serenity-js.org/api/core/class/Ability/), [questions](https://serenity-js.org/api/core/class/Question/), and [tasks](https://serenity-js.org/api/core/class/Task/).
  *
- * ![Screenplay Pattern](/images/design/serenity-js-screenplay-pattern.png)
+ * ![Screenplay Pattern](https://serenity-js.org/images/design/serenity-js-screenplay-pattern.png)
  *
  * Learn more about:
- * - {@apilink Actor|Actor}
- * - {@apilink Ability|Abilities}
- * - {@apilink Activity|Activities}
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+ * - [Abilities](https://serenity-js.org/api/core/class/Ability/)
+ * - [Activities](https://serenity-js.org/api/core/class/Activity/)
  *
  * ## Writing a custom interaction
  *
- * [Serenity/JS modules](/handbook/about/architecture) ship with dozens of interactions to help you compose your test scenarios.
+ * [Serenity/JS modules](https://serenity-js.org/handbook/getting-started/architecture) ship with dozens of interactions to help you compose your test scenarios.
  * However, if you need to interact with a non-standard interface, or want to create a flavour of a given interaction that behaves slightly differently than the built-in version,
- * you can easily create your own implementations using the {@apilink Interaction.where} factory method.
+ * you can easily create your own implementations using the [`Interaction.where`](https://serenity-js.org/api/core/class/Interaction/#where) factory method.
  *
  * ```ts
  * import { Actor, Interaction, the } from '@serenity-js/core'
@@ -84,13 +84,13 @@ export abstract class Interaction extends Activity {
     }
 
     /**
-     * Instructs the provided {@apilink Actor} to perform this {@apilink Interaction}.
+     * Instructs the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/) to perform this [`Interaction`](https://serenity-js.org/api/core/class/Interaction/).
      *
      * #### Learn more
-     * - {@apilink Actor}
-     * - {@apilink PerformsActivities}
-     * - {@apilink UsesAbilities}
-     * - {@apilink AnswersQuestions}
+     * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
+     * - [`PerformsActivities`](https://serenity-js.org/api/core/interface/PerformsActivities/)
+     * - [`UsesAbilities`](https://serenity-js.org/api/core/interface/UsesAbilities/)
+     * - [`AnswersQuestions`](https://serenity-js.org/api/core/interface/AnswersQuestions/)
      *
      * @param actor
      */

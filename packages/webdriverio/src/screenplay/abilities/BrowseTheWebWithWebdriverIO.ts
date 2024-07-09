@@ -5,8 +5,8 @@ import { BrowseTheWeb } from '@serenity-js/web';
 import { WebdriverIOBrowsingSession } from '../models/index.js';
 
 /**
- * This implementation of the {@apilink Ability|ability} to {@apilink BrowseTheWeb}
- * enables the {@apilink Actor} to interact with web front-ends using [WebdriverIO](https://webdriver.io/).
+ * This implementation of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * enables the [`Actor`](https://serenity-js.org/api/core/class/Actor/) to interact with web front-ends using [WebdriverIO](https://webdriver.io/).
  *
  * ## Using WebdriverIO to `BrowseTheWeb`
  *
@@ -32,9 +32,9 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  *
  * ## Learn more
  * - [WebdriverIO website](https://webdriver.io/)
- * - {@apilink BrowseTheWeb}
- * - {@apilink Ability}
- * - {@apilink Actor}
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ * - [`Actor`](https://serenity-js.org/api/core/class/Actor/)
  *
  * @group Abilities
  */

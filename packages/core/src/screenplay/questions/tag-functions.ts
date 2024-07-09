@@ -9,12 +9,13 @@ import type { DescriptionFormattingOptions } from './DescriptionFormattingOption
 import type { MetaQuestion } from './MetaQuestion';
 
 /**
- * Creates a single-line description of an {@apilink Activity} by transforming
+ * Creates a single-line description of an [`Activity`](https://serenity-js.org/api/core/class/Activity/) by transforming
  * a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
  * parameterised with [primitive data types](https://developer.mozilla.org/en-US/docs/Glossary/Primitive),
  * [complex data structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects),
- * or any other {@apilink Answerable|Answerables}, into a {@link QuestionAdapter|`QuestionAdapter<string>`}
- * that can be used with {@apilink Task.where} and {@apilink Interaction.where} methods.
+ * or any other [answerables](https://serenity-js.org/api/core/#Answerable),
+ * into a [`QuestionAdapter<string>`](https://serenity-js.org/api/core/#QuestionAdapter)
+ * that can be used with [`Task.where`](https://serenity-js.org/api/core/class/Task/#where) and [`Interaction.where`](https://serenity-js.org/api/core/class/Interaction/#where) methods.
  *
  * ```ts
  * const dial = (phoneNumber: Answerable<string>) =>
@@ -28,7 +29,8 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * ## Trimming the output
  *
- * Use {@apilink DescriptionFormattingOptions} to trim the descriptions of template parameters.
+ * Use [`DescriptionFormattingOptions`](http://serenity-js.org/api/core/interface/DescriptionFormattingOptions/)
+ * to trim the descriptions of template parameters.
  * By default, the output is displayed in full.
  *
  * ```ts
@@ -45,9 +47,9 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * ## Using with Questions
  *
- * When `the` is parameterised with {@apilink Question|Questions},
- * it retrieves their description by calling {@apilink Question.describedBy}
- * in the context of the {@apilink Actor} performing the {@apilink Activity}.
+ * When `the` is parameterised with [questions](https://serenity-js.org/api/core/class/Question/),
+ * it retrieves their description by calling [`Question.describedBy`](https://serenity-js.org/api/core/class/Question/#describedBy)
+ * in the context of the [`Actor`](https://serenity-js.org/api/core/class/Actor/) performing the [`Activity`](https://serenity-js.org/api/core/class/Activity/).
  * 
  * ```ts
  * import { actorCalled, Question, Task, the } from '@serenity-js/core'
@@ -66,7 +68,7 @@ import type { MetaQuestion } from './MetaQuestion';
  * )
  * ```
  * 
- * If you'd like the question to be described using its formatted value instead of its description, use {@apilink Question.formattedValue}.
+ * If you'd like the question to be described using its formatted value instead of its description, use [`Question.formattedValue`](https://serenity-js.org/api/core/class/Question/#formattedValue).
  *
  * ```ts
  * import { actorCalled, Question, Task, the } from '@serenity-js/core'
@@ -89,7 +91,7 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * When `the` is parameterised with objects that have
  * a custom [`toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString) method,
- * or {@link Answerable|Answerables} resolving to such objects, the `toString()` method is called to produce the resulting description.
+ * or [answerables](https://serenity-js.org/api/core/#Answerable) resolving to such objects, the `toString()` method is called to produce the resulting description.
  *
  * ```ts
  * import { actorCalled, description, Task } from '@serenity-js/core'
@@ -118,7 +120,7 @@ import type { MetaQuestion } from './MetaQuestion';
  * ## Using with objects without a custom `toString` method
  *
  * When `the` is parameterised with complex objects that don't have a custom `toString()` method,
- * or {@link Answerable}s resolving to such objects,
+ * or [`Answerable`](https://serenity-js.org/api/core/#Answerable)s resolving to such objects,
  * the resulting description will contain a JSON-like string representation of the object.
  *
  * ```ts
@@ -141,7 +143,7 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * ## Using with masked values
  *
- * When `the` is parameterised with {@apilink Masked} values,
+ * When `the` is parameterised with [masked values](https://serenity-js.org/api/core/class/Masked/),
  * the resulting description will contain a masked representation of the values.
  *
  * ```ts
@@ -158,11 +160,11 @@ import type { MetaQuestion } from './MetaQuestion';
  *
  * ## Learn more
  *
- * - {@apilink Answerable}
- * - {@apilink Question}
- * - {@apilink Question.describedAs}
- * - {@apilink QuestionAdapter}
- * - {@apilink Masked}
+ * - [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
+ * - [`Question.describedAs`](https://serenity-js.org/api/core/class/Question/#describedAs)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
+ * - [`Masked`](https://serenity-js.org/api/core/class/Masked/)
  *
  * @group Questions
  */
@@ -216,7 +218,7 @@ export function the(...args: any[]): any {
  *
  * ## Transforming the interpolated string
  *
- * The mechanism presented below relies on {@apilink QuestionAdapter}.
+ * The mechanism presented below relies on [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter).
  *
  * ```ts
  * import { q, actorCalled } from '@serenity-js/core'
@@ -231,10 +233,10 @@ export function the(...args: any[]): any {
  *
  * ## Learn more
  *
- * - {@apilink Answerable}
- * - {@apilink Question}
- * - {@apilink Question.describedAs}
- * - {@apilink QuestionAdapter}
+ * - [`Answerable`](https://serenity-js.org/api/core/#Answerable)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
+ * - [`Question.describedAs`](https://serenity-js.org/api/core/class/Question/#describedAs)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
  *
  * @group Questions
  *

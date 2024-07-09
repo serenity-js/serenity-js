@@ -6,7 +6,7 @@ import { Name } from '../../../model';
 import { Unanswered } from '../Unanswered';
 
 /**
- * Used with {@apilink ExpectationOutcome} to describe an {@apilink Expectation} and the arguments it's been executed with.
+ * Used with [`ExpectationOutcome`](https://serenity-js.org/api/core/class/ExpectationOutcome/) to describe an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) and the arguments it's been executed with.
  *
  * @group Expectations
  */

@@ -1,9 +1,7 @@
 import type { SpecFilter } from './SpecFilter.js';
 
 /**
- * @desc
- *  https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js
- *
+ * @see https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js
  * @package
  */
 export class GrepSpecFilter implements SpecFilter {

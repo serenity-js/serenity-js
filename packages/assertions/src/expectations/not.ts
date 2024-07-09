@@ -2,7 +2,7 @@ import type { Answerable, AnswersQuestions} from '@serenity-js/core';
 import { Expectation, ExpectationDetails, ExpectationMet, ExpectationNotMet } from '@serenity-js/core';
 
 /**
- * Produces an {@apilink Expectation|expectation} that negates the provided `expectation`.
+ * Produces an [expectation](https://serenity-js.org/api/core/class/Expectation/) that negates the provided `expectation`.
  *
  * ## Ensuring that the actual value does not equal the expected value
  *

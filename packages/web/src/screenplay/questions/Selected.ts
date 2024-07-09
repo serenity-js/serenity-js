@@ -4,22 +4,22 @@ import { Question, the } from '@serenity-js/core';
 import type { PageElement } from '../models';
 
 /**
- * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+ * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
  * options and values selected in a
  * [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
  *
  * ## Learn more
- * - {@apilink Select}
- * - {@apilink BrowseTheWeb}
- * - {@apilink QuestionAdapter}
- * - {@apilink Question}
+ * - [`Select`](https://serenity-js.org/api/web/class/Select/)
+ * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
+ * - [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter)
+ * - [`Question`](https://serenity-js.org/api/core/class/Question/)
  *
  * @group Questions
  */
 export class Selected {
 
     /**
-     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
      * a single [option](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select).
      *
@@ -61,10 +61,10 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - {@apilink Select.value}
+     * - [`Select.value`](https://serenity-js.org/api/web/class/Select/#value)
      *
      * @param pageElement
-     *  A {@apilink PageElement} identifying the `<select>` element of interest
+     *  A [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) identifying the `<select>` element of interest
      */
     static valueOf(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
         return Question.about(the`value selected in ${ pageElement }`, async actor => {
@@ -78,7 +78,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
      * values of [options](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      * selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
@@ -120,10 +120,10 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - {@apilink Select.values}
+     * - [`Select.values`](https://serenity-js.org/api/web/class/Select/#values)
      *
      * @param pageElement
-     *  A {@apilink PageElement} identifying the `<select>` element of interest
+     *  A [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) identifying the `<select>` element of interest
      */
     static valuesOf(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
         return Question.about(the`values selected in ${ pageElement }`, async actor => {
@@ -138,7 +138,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
      * a single option selected in an [HTML `<select>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
@@ -181,10 +181,10 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - {@apilink Select.option}
+     * - [`Select.option`](https://serenity-js.org/api/web/class/Select/#option)
      *
      * @param pageElement
-     *  A {@apilink PageElement} identifying the `<select>` element of interest
+     *  A [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) identifying the `<select>` element of interest
      */
     static optionIn(pageElement: Answerable<PageElement>): QuestionAdapter<string> {
         return Question.about(the`option selected in ${ pageElement }`, async actor => {
@@ -199,7 +199,7 @@ export class Selected {
     }
 
     /**
-     * Uses the {@apilink Actor|actor's} {@apilink Ability|ability} to {@apilink BrowseTheWeb} to retrieve
+     * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve
      * options selected in an [HTML `<select multiple>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple)
      *
      * #### Example widget
@@ -242,10 +242,10 @@ export class Selected {
      * ```
      *
      * #### Learn more
-     * - {@apilink Select.options}
+     * - [`Select.options`](https://serenity-js.org/api/web/class/Select/#options)
      *
      * @param pageElement
-     *  A {@apilink PageElement} identifying the `<select>` element of interest
+     *  A [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) identifying the `<select>` element of interest
      */
     static optionsIn(pageElement: Answerable<PageElement>): QuestionAdapter<Array<string>> {
         return Question.about(the`options selected in ${ pageElement }`, async actor => {

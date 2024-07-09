@@ -1,11 +1,11 @@
 import type { Actor } from '../screenplay';
 
 /**
- * Serenity/JS uses the concept of a _**cast of actors**_ to centralise the process of configuring the {@apilink Actor|actors} and assigning their {@apilink Ability|abilities}.
+ * Serenity/JS uses the concept of a _**cast of actors**_ to centralise the process of configuring the [actors](https://serenity-js.org/api/core/class/Actor/) and assigning their [abilities](https://serenity-js.org/api/core/class/Ability/).
  *
- * When you invoke {@apilink actorCalled} for the first time in a test scenario,
- * Serenity/JS {@apilink Actor|instantiates a new actor}
- * and passes it through the {@apilink Cast.prepare} method.
+ * When you invoke [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/) for the first time in a test scenario,
+ * Serenity/JS [instantiates a new actor](https://serenity-js.org/api/core/class/Actor/)
+ * and passes it through the [`Cast.prepare`](https://serenity-js.org/api/core/class/Cast/#prepare) method.
  * Specifying a **custom cast** gives you an opportunity to configure the actor with the abilities
  * they need before it's returned to the caller,
  * or configure the actors differently **depending on their name**.
@@ -18,7 +18,7 @@ import type { Actor } from '../screenplay';
  * ## Configuring a cast of actors for the entire test suite
  *
  * When working with relatively **simple scenarios** where all the actors should always receive the same set of abilities,
- * you can {@apilink configure} Serenity/JS to use a generic {@apilink Cast.where}:
+ * you can [`engage`](https://serenity-js.org/api/core/function/engage/) Serenity/JS to use a generic [`Cast.where`](https://serenity-js.org/api/core/class/Cast/#where):
  *
  * ```typescript
  * import { Cast, configure } from '@serenity-js/core'
@@ -32,28 +32,28 @@ import type { Actor } from '../screenplay';
  * })
  * ```
  *
- * If you're using Serenity/JS with one of the [supported test runners](/handbook/test-runners/),
+ * If you're using Serenity/JS with one of the [supported test runners](https://serenity-js.org/handbook/test-runners/),
  * you might prefer to use your test runner's native configuration mechanism
- * instead of invoking {@apilink configure} explicitly.
+ * instead of invoking [`engage`](https://serenity-js.org/api/core/function/engage/) explicitly.
  *
  * :::tip configure vs engage
- * Calling {@apilink configure} resets the entire Serenity/JS configuration
+ * Calling [`configure`](https://serenity-js.org/api/core/function/configure/) resets the entire Serenity/JS configuration
  * and should be done exactly once in your entire test suite.
- * If you want to retain the configuration but reset the cast, use {@apilink engage} instead.
+ * If you want to retain the configuration but reset the cast, use [`engage`](https://serenity-js.org/api/core/function/engage/) instead.
  * :::
  *
  * Learn more about configuring Serenity/JS with:
- * - [Cucumber.js](/handbook/test-runners/cucumber)
- * - [Jasmine](/handbook/test-runners/jasmine)
- * - [Mocha](/handbook/test-runners/mocha)
- * - [Playwright Test](/handbook/test-runners/playwright-test)
- * - [Protractor](/handbook/test-runners/protractor)
- * - [WebdriverIO](/handbook/test-runners/webdriverio)
+ * - [Cucumber.js](https://serenity-js.org/handbook/test-runners/cucumber)
+ * - [Jasmine](https://serenity-js.org/handbook/test-runners/jasmine)
+ * - [Mocha](https://serenity-js.org/handbook/test-runners/mocha)
+ * - [Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test)
+ * - [Protractor](https://serenity-js.org/handbook/test-runners/protractor)
+ * - [WebdriverIO](https://serenity-js.org/handbook/test-runners/webdriverio)
  *
  * ## Engaging a cast of actors for the specific scenario
  *
- * If you want to retain Serenity/JS configuration, but set a different {@apilink Cast}
- * for the given test scenario you should use {@apilink engage} instead of {@apilink configure}.
+ * If you want to retain Serenity/JS configuration, but set a different [cast](https://serenity-js.org/api/core/class/Cast/)
+ * for the given test scenario you should use [`engage`](https://serenity-js.org/api/core/function/engage/) instead of [`configure`](https://serenity-js.org/api/core/function/configure/).
  *
  * This approach is useful for example when your entire test suite is dedicated to interacting with the system
  * under test via its REST APIs, and you have a handful of scenarios that need a web browser.
@@ -77,10 +77,10 @@ import type { Actor } from '../screenplay';
  * ## Writing custom casts for complex scenarios
  *
  * In **complex scenarios** that involve multiple **actors with different abilities**,
- * you should create a custom implementation of the {@apilink Cast}.
+ * you should create a custom implementation of the [cast](https://serenity-js.org/api/core/class/Cast/).
  *
  * Examples of such scenarios include those where actors use separate browser instances, interact with different REST APIs,
- * or start with different data in their {@apilink Notepad|notepads}.
+ * or start with different data in their [notepads](https://serenity-js.org/api/core/class/Notepad/).
  *
  * ### Defining a custom cast of actors interacting with a Web UI
  *
@@ -164,12 +164,12 @@ export abstract class Cast {
     }
 
     /**
-     * Configures an {@apilink Actor} instantiated when {@apilink Stage.actor} is invoked.
+     * Configures an [`Actor`](https://serenity-js.org/api/core/class/Actor/) instantiated when [`Stage.actor`](https://serenity-js.org/api/core/class/Stage/#actor) is invoked.
      *
      * @param actor
      *
      * #### Learn more
-     * - {@apilink engage}
+     * - [`engage`](https://serenity-js.org/api/core/function/engage/)
      */
     abstract prepare(actor: Actor): Actor;
 }
