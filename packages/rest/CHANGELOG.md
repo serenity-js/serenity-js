@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.1](https://github.com/serenity-js/serenity-js/compare/v3.25.0...v3.25.1) (2024-07-10)
+
+
+### Bug Fixes
+
+* **core:** all the API docs now link to the online Serenity/JS API documentation ([f8f451d](https://github.com/serenity-js/serenity-js/commit/f8f451dffdb4caaa2e31a860f59d59470f4856ad))
+
+
+
+
+
 # [3.25.0](https://github.com/serenity-js/serenity-js/compare/v3.24.1...v3.25.0) (2024-07-03)
 
 
