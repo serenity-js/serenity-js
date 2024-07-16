@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_documentation_serenity_js_org=self.webpackChunk_documentation_serenity_js_org||[]).push([[1373],{81373:(e,s,a)=>{a.r(s),a.d(s,{DocSearchModal:()=>n.a1});var n=a(54353)}}]);
