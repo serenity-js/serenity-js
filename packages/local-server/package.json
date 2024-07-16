@@ -1,7 +1,7 @@
 {
   "name": "@serenity-js/local-server",
   "version": "3.25.1",
-  "description": "Enables Serenity/JS Actors to manage local Node.js test servers, such as Express, Koa or Restify",
+  "description": "Serenity/JS Screenplay Pattern library for managing local Node.js test servers, including Express, Koa, Hapi, and Restify, to support comprehensive integration testing",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -53,6 +53,23 @@
     "@serenity-js/core": "3.25.1",
     "http-shutdown": "1.2.2",
     "portfinder": "1.0.32"
+  },
+  "peerDependencies": {
+    "@hapi/hapi": "^21.3.10",
+    "express": "^4.19.2",
+    "koa": "^2.15.3",
+    "restify": "^11.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@hapi/hapi": {
+      "optional": true
+    },
+    "koa": {
+      "optional": true
+    },
+    "restify": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@hapi/hapi": "21.3.10",
