@@ -33,6 +33,7 @@ import type { StageManager } from './StageManager';
  * ## Learn more
  * - [`configure`](https://serenity-js.org/api/core/function/configure/)
  * - [`engage`](https://serenity-js.org/api/core/function/engage/)
+ * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)
  *
  * @group Stage
  */
