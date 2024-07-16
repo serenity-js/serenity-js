@@ -414,7 +414,7 @@ jobs:
         run: tree
 
       - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@5c6e9e9f3672ce8fd37b9856193d2a537941e66c # v4.6.1
+        uses: JamesIves/github-pages-deploy-action@94f3c658273cf92fb48ef99e5fbc02bd2dc642b2 # v4.6.3
         if: github.ref == 'refs/heads/main'
         with:
           BRANCH: gh-pages
