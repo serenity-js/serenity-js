@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.2](https://github.com/serenity-js/serenity-js/compare/v3.25.1...v3.25.2) (2024-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lru-cache to v10.4.3 ([966a17c](https://github.com/serenity-js/serenity-js/commit/966a17c1df5d92508642aa5b34b6a4d1a1a4eafc))
+
+
+
+
+
 ## [3.25.1](https://github.com/serenity-js/serenity-js/compare/v3.25.0...v3.25.1) (2024-07-10)
 
 
