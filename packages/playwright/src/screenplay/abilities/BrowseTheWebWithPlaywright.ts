@@ -58,7 +58,7 @@ import {
  * The example below demonstrates how to use the [`BrowseTheWebWithPlaywright.usingPage`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/#usingPage) API and
  * override the default [cast](https://serenity-js.org/api/core/class/Cast/) of actors.
  *
- * ```ts title="specs/example.spec.ts"
+ * ```ts
  * import { describe, it, test } from '@playwright/playwright-test'
  * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
  * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
