@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.25.3](https://github.com/serenity-js/serenity-js/compare/v3.25.2...v3.25.3) (2024-07-25)
+
+
+### Bug Fixes
+
+* **local-server:** marked dependency on express as optional ([ea43a9a](https://github.com/serenity-js/serenity-js/commit/ea43a9a5a886062368bd81d349d58f00ae4be63c))
+
+
+
+
+
 ## [3.25.2](https://github.com/serenity-js/serenity-js/compare/v3.25.1...v3.25.2) (2024-07-17)
 
 **Note:** Version bump only for package @serenity-js/local-server
