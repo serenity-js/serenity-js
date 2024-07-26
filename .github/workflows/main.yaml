@@ -12,36 +12,6 @@ permissions:
 
 jobs:
 
-  detect-website-changes:
-    name: 'Detect website changes'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
-    with:
-      files: |
-        documentation/**
-
-  detect-source-code-changes:
-    name: 'Detect source code and configuration changes'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-detect-changes.yaml@main'
-    with:
-      files: |
-        .github/actions/**
-        .github/workflows/main*.yaml
-        bin/**
-        packages/**
-        integration/**
-        *
-      files-ignore: |
-        .github/workflows/chore-*.yaml
-        .github/workflows/pr-*.yaml
-        .gitpod/**
-        .gitpod.yml
-        .husky/**
-        .vscode/**
-        documentation/**
-        *.md
-        .commitlintrc.js
-        .cz-*.js
-
   lint:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
@@ -67,10 +37,8 @@ jobs:
   test-linux-node-lts-active:
     name: 'Test: Linux, LTS'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 18.x
@@ -83,10 +51,8 @@ jobs:
   test-linux-node-lts-previous:
     name: 'Test: Linux, LTS-1'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 16.x
@@ -97,10 +63,8 @@ jobs:
   test-linux-node-lts-next:
     name: 'Test: Linux, LTS+1'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 20.x
@@ -111,10 +75,8 @@ jobs:
   test-windows-node-lts-active:
     name: 'Test: Windows, LTS'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
@@ -130,10 +92,8 @@ jobs:
   test-integration-playwright:
     name: 'Integration: Playwright'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
@@ -156,10 +116,8 @@ jobs:
   test-integration-protractor:
     name: 'Integration: Protractor'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
@@ -178,10 +136,8 @@ jobs:
   test-integration:
     name: 'Integration'
     needs:
-      - detect-source-code-changes
       - lint
       - compile
-    if: needs.detect-source-code-changes.outputs.has_changes == 'true'
     uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
@@ -323,100 +279,3 @@ jobs:
 
       - name: Print versions
         run: npm run version:print >> $GITHUB_STEP_SUMMARY
-
-      - name: Upload changelog
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
-        with:
-          retention-days: 3
-          name: changelog
-          path: |
-            CHANGELOG.md
-
-      - name: Upload package.json files
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
-        with:
-          retention-days: 3
-          name: package-json
-          path: |
-            package.json
-            packages/*/package.json
-
-  #
-  # Website
-  #
-  website:
-    name: 'Website'
-    needs:
-      - detect-website-changes
-      - detect-source-code-changes
-      - lint
-      - compile
-      - artifacts-publish
-    if: |
-      always() &&
-      (
-        (
-          needs.detect-website-changes.result == 'success' &&
-          needs.detect-website-changes.outputs.has_changes == 'true'
-        ) ||
-        (
-          needs.detect-source-code-changes.result == 'success' &&
-          needs.detect-source-code-changes.outputs.has_changes == 'true' &&
-          needs.artifacts-publish.result == 'success'
-        )
-      )
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup Node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4
-        with:
-          node-version: 18.x
-
-      - name: Install Node Modules
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP_SCOPE=site install
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
-        with:
-          name: 'compiled-libs'
-
-      - name: Decompress compiled libs
-        run:  7z x -aoa compiled-libs.zip
-
-      # We generate an updated changelog only when there are artifacts to be published
-      - name: Download changelog
-        if: github.ref == 'refs/heads/main'
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
-        continue-on-error: true
-        with:
-          name: changelog
-
-      - name: Download package.json files
-        if: github.ref == 'refs/heads/main'
-        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
-        continue-on-error: true
-        with:
-          name: package-json
-
-      - name: Build website
-        run: make site
-
-      - name: List all (debug)
-        run: tree
-
-      - name: Publish website
-        uses: JamesIves/github-pages-deploy-action@94f3c658273cf92fb48ef99e5fbc02bd2dc642b2 # v4.6.3
-        if: github.ref == 'refs/heads/main'
-        with:
-          BRANCH: gh-pages
-          FOLDER: documentation/serenity-js.org/build
-          CLEAN: true
