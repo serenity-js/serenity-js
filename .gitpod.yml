@@ -1,11 +1,6 @@
 image:
   file: .gitpod/.gitpod.Dockerfile
 
-ports:
-  - port: 3000
-    onOpen: notify
-    visibility: public
-
 tasks:
   - name: 'Install Node modules and compile Serenity/JS'
     init: |
@@ -21,19 +16,12 @@ tasks:
       echo "Installing Cucumber extension..."
       code --install-extension /vscode-extensions/cucumber-official.vsix
 
-  - name: 'Serenity/JS website'
-    init: gp sync-await installation
-    command: >
-      cd documentation/serenity-js.org &&
-      npm start
-
   - name: 'Welcome'
     init: |
       echo "Hello! We're getting your workspace ready, just one moment..."
       gp sync-await installation
     command: |
-      echo "And we're done! To view the website, go to:"
-      gp url 3000
+      echo "And we're done!"
 
 vscode:
   extensions:
@@ -43,13 +31,3 @@ vscode:
     - EditorConfig.EditorConfig
     - Gruntfuggly.todo-tree
     - streetsidesoftware.code-spell-checker
-
-github:
-  prebuilds:
-    master: true
-    branches: false
-    pullRequests: true
-    pullRequestsFromForks: false
-    addCheck: true
-    addComment: false
-    addBadge: true
