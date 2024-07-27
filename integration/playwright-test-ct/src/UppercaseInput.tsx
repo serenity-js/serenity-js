@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
-const UppercaseInput = () => {
+const UppercaseInput = (): React.JSX.Element => {
     const [inputText, setInputText] = useState('');
 
-    const handleChange = (e) => {
-        setInputText(e.target.value);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputText(event.target.value);
     };
 
     return (
