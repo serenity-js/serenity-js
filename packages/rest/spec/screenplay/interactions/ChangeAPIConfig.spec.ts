@@ -1,7 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-import type { Actor} from '@serenity-js/core';
+import type { Actor } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { AxiosRequestHeaders } from 'axios';
 import type MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
@@ -53,7 +52,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(52);
+            expect(location.line).to.equal(51);
             expect(location.column).to.equal(46);
         });
     });
@@ -94,7 +93,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(93);
+            expect(location.line).to.equal(92);
             expect(location.column).to.equal(46);
         });
     });
@@ -104,11 +103,11 @@ describe('ChangeApiConfig', () => {
         beforeEach(() => {
             const dataMatcher = undefined;
             mock.onGet(originalUrl, dataMatcher).replyOnce(401);
-            mock.onGet(originalUrl, dataMatcher, {
-                asymmetricMatch: function (actual: AxiosRequestHeaders) {
-                    return actual['Accept'] === 'application/json, text/plain, */*'
-                        && actual['Authorization'] === 'my-token'
-                }
+            mock.onGet(originalUrl, {
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    Authorization: 'my-token',
+                },
             }).replyOnce(200);
         });
 
@@ -139,7 +138,7 @@ describe('ChangeApiConfig', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ChangeAPIConfig.spec.ts');
-            expect(location.line).to.equal(138);
+            expect(location.line).to.equal(137);
             expect(location.column).to.equal(46);
         });
     });
