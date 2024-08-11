@@ -404,4 +404,68 @@ export abstract class Ability {
     ): A {
         return actor.abilityTo(this) as A;
     }
+
+    /**
+     * Returns a JSON representation of the ability and its current state, if available.
+     * The purpose of this method is to enable reporting the state of the ability in a human-readable format,
+     * rather than to serialise and deserialise the ability itself.
+     */
+    toJSON(): { class: string, type: string } {
+        return {
+            class: this.constructor.name,
+            type: this.abilityType().name,
+        };
+    }
+
+    /**
+     * Returns the most abstract type of this Ability class,
+     * specifically the first class in the inheritance hierarchy that directly extends the `Ability` class.
+     *
+     * ```ts
+     * import { Ability } from '@serenity-js/core';
+     *
+     * class MyAbility extends Ability {}
+     * class MySpecialisedAbility extends MyAbility {}
+     *
+     * MyAbility.abilityType();            // returns MyAbility
+     * MySpecialisedAbility.abilityType(); // returns MyAbility
+     * ```
+     */
+    static abilityType(): AbilityType<Ability> {
+        return Ability.abilityTypeOf(this);
+    }
+
+    /**
+     * Returns the most abstract type of this Ability instance,
+     * specifically the first class in the inheritance hierarchy that directly extends the `Ability` class.
+     *
+     * ```ts
+     * import { Ability } from '@serenity-js/core';
+     *
+     * class MyAbility extends Ability {}
+     * class MySpecialisedAbility extends MyAbility {}
+     *
+     * new MyAbility().abilityType();            // returns MyAbility
+     * new MySpecialisedAbility().abilityType(); // returns MyAbility
+     * ```
+     */
+    abilityType(): AbilityType<Ability> {
+        return Ability.abilityTypeOf(this.constructor as AbilityType<Ability>);
+    }
+
+    private static abilityTypeOf(abilityType: AbilityType<Ability>): AbilityType<Ability> {
+        const abilityTypes = Ability.ancestorTypes(abilityType);
+        return [
+            ...abilityTypes,
+            abilityType
+        ][0];
+    }
+
+    private static ancestorTypes(abilityType: AbilityType<Ability>, ancestors: Array<AbilityType<Ability>> = []): Array<AbilityType<Ability>> {
+        const parentType = Object.getPrototypeOf(abilityType);
+
+        return ! parentType || parentType === Ability
+            ? ancestors
+            : this.ancestorTypes(parentType, [ parentType, ...ancestors ]);
+    }
 }

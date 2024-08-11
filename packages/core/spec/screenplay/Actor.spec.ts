@@ -68,6 +68,39 @@ describe('Actor', () => {
         expect(actor('Chris').whoCan(new DoCoolThings()).toString()).to.equal('Actor(name=Chris, abilities=[PerformActivities, AnswerQuestions, DoCoolThings])');
     });
 
+    it('provides a developer-friendly toJSON, describing the actor with its associated abilities', () => {
+        class DoCoolThings extends Ability {
+        }
+
+        class DoSpecialisedCoolThings extends DoCoolThings {
+        }
+
+        expect(actor('Chris').toJSON()).to.deep.equal({
+            name: 'Chris',
+            abilities: [{
+                class: 'PerformActivities',
+                type: 'PerformActivities'
+            }, {
+                class: 'AnswerQuestions',
+                type: 'AnswerQuestions',
+            }],
+        });
+
+        expect(actor('Chris').whoCan(new DoSpecialisedCoolThings()).toJSON()).to.deep.equal({
+            name: 'Chris',
+            abilities: [{
+                class: 'PerformActivities',
+                type: 'PerformActivities'
+            }, {
+                class: 'AnswerQuestions',
+                type: 'AnswerQuestions',
+            }, {
+                class: 'DoSpecialisedCoolThings',
+                type: 'DoCoolThings',
+            }],
+        });
+    });
+
     it('has Abilities allowing them to perform Activities and interact with a given interface of the system under test', () =>
 
         actor('Chris').whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(

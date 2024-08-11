@@ -1,4 +1,5 @@
 import type { Ability } from './Ability';
+import type { UsesAbilities } from './UsesAbilities';
 
 /**
  * An interface describing the static access method that every [`Ability`](https://serenity-js.org/api/core/class/Ability/) class
@@ -43,4 +44,10 @@ import type { Ability } from './Ability';
  * @group Abilities
  */
 export type AbilityType<A extends Ability> =
-    (abstract new (... args: any[]) => A);
+    (abstract new (... args: any[]) => A) & {
+        as<S extends Ability>(
+            this: AbilityType<S>,
+            actor: UsesAbilities
+        ): S;
+        abilityType(): AbilityType<Ability>
+    };

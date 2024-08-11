@@ -217,6 +217,19 @@ export class Actor implements PerformsActivities,
         return `Actor(name=${ this.name }, abilities=[${ abilities.join(', ') }])`;
     }
 
+    /**
+     * Returns a JSON representation of the actor and its current state.
+     *
+     * The purpose of this method is to enable reporting the state of the actor in a human-readable format,
+     * rather than to serialise and deserialise the actor itself.
+     */
+    toJSON(): { name: string, abilities: Array<ReturnType<Ability['toJSON']>>} {
+        return {
+            name: this.name,
+            abilities: Array.from(this.abilities.values()).map(ability => ability.toJSON())
+        }
+    }
+
     private initialiseAbilities(): Promise<void> {
         return this.findAbilitiesOfType<Initialisable>('initialise', 'isInitialised')
             .filter(ability => !ability.isInitialised())
@@ -243,9 +256,7 @@ export class Actor implements PerformsActivities,
     }
 
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
-        const abilityType = this.mostGenericTypeOf(doSomething);
-
-        return this.abilities.get(abilityType) as T;
+        return this.abilities.get(doSomething.abilityType()) as T;
     }
 
     private acquireAbility(ability: Ability): void {
@@ -253,18 +264,7 @@ export class Actor implements PerformsActivities,
             throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ ValueInspector.typeOf(ability) }`);
         }
 
-        const abilityType = this.mostGenericTypeOf(ability.constructor as AbilityType<Ability>);
-
-        this.abilities.set(abilityType, ability);
-    }
-
-    private mostGenericTypeOf<Generic_Ability extends Ability, Specific_Ability extends Generic_Ability>(
-        abilityType: AbilityType<Specific_Ability>
-    ): AbilityType<Generic_Ability> {
-        const parentType = Object.getPrototypeOf(abilityType);
-        return !parentType || parentType === Ability
-            ? abilityType
-            : this.mostGenericTypeOf(parentType)
+        this.abilities.set(ability.abilityType(), ability);
     }
 
     /**
