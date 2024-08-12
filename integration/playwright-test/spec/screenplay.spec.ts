@@ -1,7 +1,26 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished, InteractionStarts, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import {
+    ActorStageExitAttempted,
+    ActorStageExitCompleted,
+    InteractionFinished,
+    InteractionStarts,
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunnerDetected
+} from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { CapabilityTag, CorrelationId, Description, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import {
+    CapabilityTag,
+    CorrelationId,
+    Description,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    ProblemIndication
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -38,13 +57,13 @@ describe('@serenity-js/playwright-test', function () {
                             expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
                             expect(event.sceneId).to.equal(currentSceneId);
                         })
-                        .next(AsyncOperationAttempted,   event => {
+                        .next(ActorStageExitAttempted,   event => {
                             expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+                            expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
 
                             asyncOperationIdAlice = event.correlationId;
                         })
-                        .next(AsyncOperationCompleted,   event => {
+                        .next(ActorStageExitCompleted,   event => {
                             expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
                             expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
@@ -73,33 +92,33 @@ describe('@serenity-js/playwright-test', function () {
 
                     // we already know reporting interactions work, so let's focus on dismissing the actors
 
-                        .next(AsyncOperationAttempted,   event => {
+                        .next(ActorStageExitAttempted,   event => {
                             expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Dismissing Charlie...`));
+                            expect(event.description).to.equal(new Description(`Actor Charlie exits the stage`));
 
                             asyncOperationIdCharlie = event.correlationId;
                         })
-                        .next(AsyncOperationAttempted,   event => {
+                        .next(ActorStageExitAttempted,   event => {
                             expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Dismissing Alice...`));
+                            expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
 
                             asyncOperationIdAlice = event.correlationId;
                         })
-                        .next(AsyncOperationAttempted,   event => {
+                        .next(ActorStageExitAttempted,   event => {
                             expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Dismissing Bob...`));
+                            expect(event.description).to.equal(new Description(`Actor Bob exits the stage`));
 
                             asyncOperationIdBob = event.correlationId;
                         })
-                        .next(AsyncOperationCompleted,   event => {
+                        .next(ActorStageExitCompleted,   event => {
                             expect(asyncOperationIdCharlie).to.be.instanceOf(CorrelationId);
                             expect(event.correlationId).to.equal(asyncOperationIdCharlie);
                         })
-                        .next(AsyncOperationCompleted,   event => {
+                        .next(ActorStageExitCompleted,   event => {
                             expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
                             expect(event.correlationId).to.equal(asyncOperationIdAlice);
                         })
-                        .next(AsyncOperationCompleted,   event => {
+                        .next(ActorStageExitCompleted,   event => {
                             expect(asyncOperationIdBob).to.be.instanceOf(CorrelationId);
                             expect(event.correlationId).to.equal(asyncOperationIdBob);
                         })
@@ -157,7 +176,7 @@ describe('@serenity-js/playwright-test', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                     ;
                 }));
@@ -182,7 +201,7 @@ describe('@serenity-js/playwright-test', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('Error: 1 async operation has failed to complete within a 50ms cue timeout:');
-                            expect(message[1]).to.match(/\d+ms - \[Stage] Dismissing Donald\.\.\./);
+                            expect(message[1]).to.match(/\d+ms - \[Stage] Actor Donald exits the stage/);
                         })
                     ;
                 }));
@@ -204,7 +223,7 @@ describe('@serenity-js/playwright-test', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario succeeds when ability is discarded successfully')))
                         .next(SceneFinished,       event => {
@@ -220,7 +239,7 @@ describe('@serenity-js/playwright-test', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                     ;
                 }));

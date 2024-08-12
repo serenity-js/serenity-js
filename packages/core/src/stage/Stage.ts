@@ -4,21 +4,18 @@ import type { ErrorFactory, ErrorOptions, RuntimeError } from '../errors';
 import { ConfigurationError, LogicError, RaiseErrors } from '../errors';
 import type {
     DomainEvent,
-    EmitsDomainEvents
-} from '../events';
+    EmitsDomainEvents} from '../events';
 import {
-    ActorEntersStage
-} from '../events';
-import {
-    AsyncOperationAttempted,
-    AsyncOperationCompleted,
-    AsyncOperationFailed,
+    ActorEntersStage,
+    ActorStageExitAttempted,
+    ActorStageExitCompleted,
+    ActorStageExitFailed,
     SceneFinishes,
     SceneStarts,
     TestRunFinishes
 } from '../events';
-import type { ActivityDetails} from '../model';
-import { CorrelationId, Description, Name } from '../model';
+import type { ActivityDetails } from '../model';
+import { CorrelationId, Name } from '../model';
 import type { Clock, Duration, Timestamp } from '../screenplay';
 import { Actor, ScheduleWork } from '../screenplay';
 import type { ListensToDomainEvents } from '../stage';
@@ -319,10 +316,9 @@ export class Stage implements EmitsDomainEvents {
         const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [actor, CorrelationId.create()]));
 
         for (const [ actor, correlationId ] of actorsToDismiss) {
-            // todo: DismissActorAttempted
-            this.announce(new AsyncOperationAttempted(
+            this.announce(new ActorStageExitAttempted(
                 new Name(this.constructor.name),
-                new Description(`Dismissing ${ actor.name }...`),
+                actor.toJSON(),
                 correlationId,
                 this.currentTime(),
             ));
@@ -333,16 +329,14 @@ export class Stage implements EmitsDomainEvents {
             try {
                 await actor.dismiss();
 
-                this.announce(
-                    new AsyncOperationCompleted(correlationId, this.currentTime())
-                );
-
-                // todo: DismissActorCompleted; ... could it extend AsyncOperationCompleted ?
+                this.announce(new ActorStageExitCompleted(correlationId, this.currentTime()));
             }
             catch (error) {
-                this.announce(new AsyncOperationFailed(error, correlationId, this.currentTime()));     // todo: serialise the error!
-
-                // todo: DismissActorFailed; ... could it extend AsyncOperationCompleted ?
+                this.announce(new ActorStageExitFailed(
+                    error,
+                    correlationId,
+                    this.currentTime()
+                ));
             }
         }
 

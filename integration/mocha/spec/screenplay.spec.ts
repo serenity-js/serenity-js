@@ -70,7 +70,7 @@ describe('@serenity-js/mocha', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                     ;
                 }));
@@ -95,7 +95,7 @@ describe('@serenity-js/mocha', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('1 async operation has failed to complete within a 50ms cue timeout:');
-                            expect(message[1]).to.match(/\d+ms - \[Stage] Dismissing Donald\.\.\./);
+                            expect(message[1]).to.match(/\d+ms - \[Stage] Actor Donald exits the stage/);
                         })
                     ;
                 }));
@@ -117,7 +117,7 @@ describe('@serenity-js/mocha', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario succeeds when ability is discarded successfully')))
                         .next(SceneFinished,       event => {
@@ -133,7 +133,7 @@ describe('@serenity-js/mocha', function () {
                             const message = outcome.error.message.split('\n');
 
                             expect(message[0]).to.equal('1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Dismissing Donald... - TypeError: Some internal error in ability');
+                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
                         })
                     ;
                 }));
