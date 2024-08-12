@@ -2,7 +2,13 @@ import 'mocha';
 
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Cast, Duration } from '@serenity-js/core';
-import { InteractionFinished, InteractionStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import {
+    ActorEntersStage,
+    InteractionFinished,
+    InteractionStarts,
+    SceneFinishes,
+    SceneStarts
+} from '@serenity-js/core/lib/events';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
@@ -39,10 +45,11 @@ describe('Photographer', () => {
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
-                expect(recorder.events.length).to.equal(3);
+                expect(recorder.events.length).to.equal(4);
                 expect(recorder.events[0]).to.be.instanceOf(SceneStarts);
-                expect(recorder.events[1]).to.be.instanceOf(InteractionStarts);
-                expect(recorder.events[2]).to.be.instanceOf(InteractionFinished);
+                expect(recorder.events[1]).to.be.instanceOf(ActorEntersStage);
+                expect(recorder.events[2]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[3]).to.be.instanceOf(InteractionFinished);
 
                 // no artifacts generated for an actor with no ability to BrowseTheWeb
             })));

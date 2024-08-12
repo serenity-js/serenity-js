@@ -1,8 +1,15 @@
 import { EventRecorder } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import type { Actor} from '@serenity-js/core';
+import type { Actor } from '@serenity-js/core';
 import { Clock, Serenity } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import {
+    ActivityFinished,
+    ActivityRelatedArtifactGenerated,
+    ActivityStarts,
+    ActorEntersStage,
+    SceneFinishes,
+    SceneStarts
+} from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { Category, CorrelationId, HTTPRequestResponse, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import axios from 'axios';
@@ -37,7 +44,7 @@ describe('Send', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Send.spec.ts');
-        expect(location.line).to.equal(36);
+        expect(location.line).to.equal(43);
         expect(location.column).to.equal(31);
     });
 
@@ -111,13 +118,14 @@ describe('Send', () => {
 
         const events = recorder.events;
 
-        expect(events).to.have.length.greaterThan(4);
+        expect(events).to.have.length.greaterThan(5);
         expect(events[ 0 ]).to.be.instanceOf(SceneStarts);
-        expect(events[ 1 ]).to.be.instanceOf(ActivityStarts);
-        expect(events[ 2 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
-        expect(events[ 3 ]).to.be.instanceOf(ActivityFinished);
+        expect(events[ 1 ]).to.be.instanceOf(ActorEntersStage);
+        expect(events[ 2 ]).to.be.instanceOf(ActivityStarts);
+        expect(events[ 3 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
+        expect(events[ 4 ]).to.be.instanceOf(ActivityFinished);
 
-        const artifactGenerated = events[ 2 ] as ActivityRelatedArtifactGenerated;
+        const artifactGenerated = events[ 3 ] as ActivityRelatedArtifactGenerated;
 
         expect(artifactGenerated.name.value).to.equal(`GET https://myapp.com/api/products/2`);
         expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({
