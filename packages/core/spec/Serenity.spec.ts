@@ -3,10 +3,10 @@ import { describe, it } from 'mocha';
 
 import { ConfigurationError } from '../src';
 import type { OutputStream } from '../src/adapter';
-import type { DomainEvent} from '../src/events';
-import { ActivityFinished, ActivityStarts, TestRunnerDetected } from '../src/events';
+import type { DomainEvent } from '../src/events';
+import { ActivityFinished, ActivityStarts, ActorEntersStage, TestRunnerDetected } from '../src/events';
 import { CorrelationId, Name } from '../src/model';
-import type { Actor} from '../src/screenplay';
+import type { Actor } from '../src/screenplay';
 import { Clock, Interaction } from '../src/screenplay';
 import { Serenity } from '../src/Serenity';
 import type { Cast, ListensToDomainEvents, StageCrewMember, StageCrewMemberBuilder } from '../src/stage';
@@ -133,7 +133,7 @@ describe('Serenity', () => {
 
         const frozenClock = new Clock(() => new Date('1983-07-03'));
         const serenity = new Serenity(frozenClock);
-        const listener = new Listener<ActivityStarts | ActivityFinished>();
+        const listener = new Listener<ActorEntersStage | ActivityStarts | ActivityFinished>();
 
         serenity.configure({
             actors: new Extras(),
@@ -150,13 +150,31 @@ describe('Serenity', () => {
 
         await serenity.waitForNextCue();
 
-        expect(listener.events).to.have.lengthOf(2);
+        expect(listener.events).to.have.lengthOf(3);
 
-        expect(listener.events[0]).to.be.instanceOf(ActivityStarts);
-        expect(listener.events[0].details.name.value).to.equal(`Joe performs some interaction`);
+        const actorInitiliased = listener.events[0] as ActorEntersStage;
 
-        expect(listener.events[1]).to.be.instanceOf(ActivityFinished);
-        expect(listener.events[1].details.name.value).to.equal(`Joe performs some interaction`);
+        expect(actorInitiliased).to.be.instanceOf(ActorEntersStage);
+        expect(actorInitiliased.sceneId).to.equal(new CorrelationId('unknown'));  // Since no scene was started, the sceneId is unknown
+        expect(actorInitiliased.actor).to.deep.equal({
+            name: 'Joe',
+            abilities: [
+                { type: 'PerformActivities' },
+                { type: 'AnswerQuestions' },
+                { type: 'RaiseErrors' },
+                { type: 'ScheduleWork' },
+            ],
+        });
+
+        const activityStarts = listener.events[1] as ActivityStarts;
+
+        expect(activityStarts).to.be.instanceOf(ActivityStarts);
+        expect(activityStarts.details.name.value).to.equal(`Joe performs some interaction`);
+
+        const activityFinished = listener.events[2] as ActivityFinished;
+
+        expect(activityFinished).to.be.instanceOf(ActivityFinished);
+        expect(activityFinished.details.name.value).to.equal(`Joe performs some interaction`);
     });
 
     it('allows for external parties, such as test runner adapters, to announce DomainEvents', () => {

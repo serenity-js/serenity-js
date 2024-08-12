@@ -77,27 +77,19 @@ describe('Actor', () => {
 
         expect(actor('Chris').toJSON()).to.deep.equal({
             name: 'Chris',
-            abilities: [{
-                class: 'PerformActivities',
-                type: 'PerformActivities'
-            }, {
-                class: 'AnswerQuestions',
-                type: 'AnswerQuestions',
-            }],
+            abilities: [
+                { type: 'PerformActivities' },
+                { type: 'AnswerQuestions' }
+            ],
         });
 
         expect(actor('Chris').whoCan(new DoSpecialisedCoolThings()).toJSON()).to.deep.equal({
             name: 'Chris',
-            abilities: [{
-                class: 'PerformActivities',
-                type: 'PerformActivities'
-            }, {
-                class: 'AnswerQuestions',
-                type: 'AnswerQuestions',
-            }, {
-                class: 'DoSpecialisedCoolThings',
-                type: 'DoCoolThings',
-            }],
+            abilities: [
+                { type: 'PerformActivities' },
+                { type: 'AnswerQuestions' },
+                { class: 'DoSpecialisedCoolThings', type: 'DoCoolThings' }
+            ],
         });
     });
 

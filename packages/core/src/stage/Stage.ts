@@ -4,7 +4,11 @@ import type { ErrorFactory, ErrorOptions, RuntimeError } from '../errors';
 import { ConfigurationError, LogicError, RaiseErrors } from '../errors';
 import type {
     DomainEvent,
-    EmitsDomainEvents} from '../events';
+    EmitsDomainEvents
+} from '../events';
+import {
+    ActorEntersStage
+} from '../events';
 import {
     AsyncOperationAttempted,
     AsyncOperationCompleted,
@@ -111,9 +115,6 @@ export class Stage implements EmitsDomainEvents {
                 ]);
 
                 actor = this.cast.prepare(newActor);
-
-                // todo this.manager.notifyOf(ActorStarts)
-                // todo: map this in Serenity BDD Reporter so that the "cast" is recorded
             }
             catch (error) {
                 throw new ConfigurationError(`${ this.typeOf(this.cast) } encountered a problem when preparing actor "${ name }" for stage`, error);
@@ -123,7 +124,14 @@ export class Stage implements EmitsDomainEvents {
                 throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.cast) } returned ${ actor }`);
             }
 
-            this.actorsOnStage.set(name, actor)
+            this.actorsOnStage.set(name, actor);
+
+            this.announce(
+                new ActorEntersStage(
+                    this.currentScene,
+                    actor.toJSON(),
+                )
+            )
         }
 
         this.actorInTheSpotlight = this.instantiatedActorCalled(name);
@@ -311,6 +319,7 @@ export class Stage implements EmitsDomainEvents {
         const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [actor, CorrelationId.create()]));
 
         for (const [ actor, correlationId ] of actorsToDismiss) {
+            // todo: DismissActorAttempted
             this.announce(new AsyncOperationAttempted(
                 new Name(this.constructor.name),
                 new Description(`Dismissing ${ actor.name }...`),
@@ -324,13 +333,16 @@ export class Stage implements EmitsDomainEvents {
             try {
                 await actor.dismiss();
 
-                this.announce(new AsyncOperationCompleted(
-                    correlationId,
-                    this.currentTime(),
-                ));
+                this.announce(
+                    new AsyncOperationCompleted(correlationId, this.currentTime())
+                );
+
+                // todo: DismissActorCompleted; ... could it extend AsyncOperationCompleted ?
             }
             catch (error) {
                 this.announce(new AsyncOperationFailed(error, correlationId, this.currentTime()));     // todo: serialise the error!
+
+                // todo: DismissActorFailed; ... could it extend AsyncOperationCompleted ?
             }
         }
 
