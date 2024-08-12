@@ -1,6 +1,24 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { CapabilityTag, CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import {
+    ActorStageExitAttempted,
+    ActorStageExitCompleted,
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    InteractionStarts,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    SceneTagged,
+    TestRunnerDetected
+} from '@serenity-js/core/lib/events';
+import {
+    CapabilityTag,
+    CorrelationId,
+    Description,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
@@ -45,12 +63,12 @@ describe('@serenity-js/jasmine', function () {
                         asyncHooksId = event.correlationId;
                     })
                     .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
-                    .next(AsyncOperationAttempted,  event => {
+                    .next(ActorStageExitAttempted,  event => {
                         expect(event.name).to.equal(new Name('Stage'))
-                        expect(event.description).to.equal(new Description('Dismissing Jasmine...'))
+                        expect(event.description).to.equal(new Description('Actor Jasmine exits the stage'))
                         asyncDismissActorId = event.correlationId;
                     })
-                    .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
+                    .next(ActorStageExitCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
                     .next(SceneFinished,            event => {
                         expect(event.sceneId).to.equal(currentSceneId);
                         expect(event.outcome).to.equal(new ExecutionSuccessful());

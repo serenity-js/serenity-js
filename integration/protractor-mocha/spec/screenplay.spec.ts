@@ -1,5 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import {
+    ActorStageExitAttempted,
+    ActorStageExitCompleted,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     InteractionStarts,
@@ -61,12 +63,12 @@ describe('@serenity-js/mocha', function () {
                     asyncHooksId = event.correlationId;
                 })
                 .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
-                .next(AsyncOperationAttempted,  event => {
+                .next(ActorStageExitAttempted,  event => {
                     expect(event.name).to.equal(new Name('Stage'))
-                    expect(event.description).to.equal(new Description('Dismissing Mocha...'))
+                    expect(event.description).to.equal(new Description('Actor Mocha exits the stage'))
                     asyncDismissActorId = event.correlationId;
                 })
-                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
+                .next(ActorStageExitCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
                     expect(event.outcome).to.equal(new ExecutionSuccessful());

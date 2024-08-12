@@ -2,7 +2,7 @@ export * from './ActivityFinished';
 export * from './ActivityRelatedArtifactArchived';
 export * from './ActivityRelatedArtifactGenerated';
 export * from './ActivityStarts';
-export * from './ActorEntersStage';
+export * from './actor';
 export * from './ArtifactArchived';
 export * from './ArtifactGenerated';
 export * from './AsyncOperationAborted';
