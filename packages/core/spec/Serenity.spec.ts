@@ -163,7 +163,7 @@ describe('Serenity', () => {
                 { type: 'PerformActivities' },
                 { type: 'AnswerQuestions' },
                 { type: 'RaiseErrors' },
-                { type: 'ScheduleWork', scheduler: { clock: { timeAdjustment: { milliseconds: 0 } }, interactionTimeout: { milliseconds: 5000 } } }
+                { type: 'ScheduleWork', options: { scheduler: { clock: { timeAdjustment: { milliseconds: 0 } }, interactionTimeout: { milliseconds: 5000 } } } }
             ],
         });
 
