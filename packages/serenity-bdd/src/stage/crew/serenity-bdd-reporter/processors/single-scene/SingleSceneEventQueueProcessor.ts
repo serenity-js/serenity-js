@@ -1,11 +1,12 @@
 import type { DomainEventQueue } from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
+    ActorEntersStage,
+    ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -20,7 +21,15 @@ import { match } from 'tiny-types';
 import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
-import { activityFinished, activityStarted, executionFinishedAt, executionFinishedWith, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
+import {
+    activityFinished,
+    activityStarted,
+    executionFinishedAt,
+    executionFinishedWith,
+    executionStartedAt,
+    reportIdIncluding,
+    scenarioDetailsOf
+} from '../transformations';
 import { SingleSceneReportContext } from './SingleSceneReportContext';
 
 /**
@@ -37,6 +46,8 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
         return queue.reduce((context, event) =>
             match<DomainEvent, SingleSceneReportContext>(event)
                 .when(SceneStarts,                      this.onSceneStarts(context))
+                .when(ActorEntersStage,                 this.onActorEntersStage(context))
+                .when(ActorStageExitStarts,             this.onActorStageExitStarts(context))
                 .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(context))
                 .when(SceneBackgroundDetected,          this.onSceneBackgroundDetected(context))
                 .when(SceneDescriptionDetected,         this.onSceneDescriptionDetected(context))

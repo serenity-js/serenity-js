@@ -1,11 +1,12 @@
 import type { DomainEventQueue } from '@serenity-js/core';
-import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
+    ActorEntersStage,
+    ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -23,7 +24,14 @@ import { match } from 'tiny-types';
 import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { EventQueueProcessor } from '../EventQueueProcessor';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
-import { activityFinished, activityStarted, executionFinishedAt, executionStartedAt, reportIdIncluding, scenarioDetailsOf } from '../transformations';
+import {
+    activityFinished,
+    activityStarted,
+    executionFinishedAt,
+    executionStartedAt,
+    reportIdIncluding,
+    scenarioDetailsOf
+} from '../transformations';
 import { SceneSequenceReportContext } from './SceneSequenceReportContext';
 import { scenarioOutlineOf, sceneSequenceOverallResult } from './transformations';
 import { scenarioParameterResult } from './transformations/scenarioParameterResult';
@@ -45,6 +53,8 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
             match<DomainEvent, SceneSequenceReportContext>(event)
                 .when(SceneSequenceDetected,            this.onSceneSequenceDetected(context))
                 .when(SceneStarts,                      this.onSceneStarts(context))
+                .when(ActorEntersStage,                 this.onActorEntersStage(context))
+                .when(ActorStageExitStarts,             this.onActorStageExitStarts(context))
                 .when(SceneTemplateDetected,            this.onSceneTemplateDetected(context))
                 .when(SceneParametersDetected,          this.onSceneParametersDetected(context))
                 .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(context))
