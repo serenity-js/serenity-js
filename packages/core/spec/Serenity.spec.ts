@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 
 import { ConfigurationError } from '../src';
 import type { OutputStream } from '../src/adapter';
-import type { DomainEvent } from '../src/events';
+import type { DomainEvent} from '../src/events';
 import { ActivityFinished, ActivityStarts, ActorEntersStage, TestRunnerDetected } from '../src/events';
 import { CorrelationId, Name } from '../src/model';
 import type { Actor } from '../src/screenplay';
@@ -150,10 +150,11 @@ describe('Serenity', () => {
 
         await serenity.waitForNextCue();
 
-        expect(listener.events).to.have.lengthOf(3);
+        expect(listener.events).to.have.lengthOf(4);
 
         const actorInitiliased = listener.events[0] as ActorEntersStage;
 
+        // backstage actor gets initialised
         expect(actorInitiliased).to.be.instanceOf(ActorEntersStage);
         expect(actorInitiliased.sceneId).to.equal(new CorrelationId('unknown'));  // Since no scene was started, the sceneId is unknown
         expect(actorInitiliased.actor).to.deep.equal({
@@ -162,16 +163,19 @@ describe('Serenity', () => {
                 { type: 'PerformActivities' },
                 { type: 'AnswerQuestions' },
                 { type: 'RaiseErrors' },
-                { type: 'ScheduleWork' },
+                { type: 'ScheduleWork', scheduler: { clock: { timeAdjustment: { milliseconds: 0 } }, interactionTimeout: { milliseconds: 5000 } } }
             ],
         });
 
-        const activityStarts = listener.events[1] as ActivityStarts;
+        // backstage actor is retrieved within the scenario scope
+        expect(listener.events[1]).to.be.instanceOf(ActorEntersStage);
+
+        const activityStarts = listener.events[2] as ActivityStarts;
 
         expect(activityStarts).to.be.instanceOf(ActivityStarts);
         expect(activityStarts.details.name.value).to.equal(`Joe performs some interaction`);
 
-        const activityFinished = listener.events[2] as ActivityFinished;
+        const activityFinished = listener.events[3] as ActivityFinished;
 
         expect(activityFinished).to.be.instanceOf(ActivityFinished);
         expect(activityFinished.details.name.value).to.equal(`Joe performs some interaction`);

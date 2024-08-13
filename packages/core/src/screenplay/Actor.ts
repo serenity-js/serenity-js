@@ -1,26 +1,17 @@
 import { ConfigurationError, TestCompromisedError } from '../errors';
 import { ActivityRelatedArtifactGenerated } from '../events';
 import { ValueInspector } from '../io';
-import type { Artifact} from '../model';
+import type { Artifact } from '../model';
 import { Name, } from '../model';
 import type { Stage } from '../stage';
-import type {
-    AbilityType,
-    CanHaveAbilities,
-    Discardable,
-    Initialisable,
-    UsesAbilities
-} from './abilities';
-import {
-    Ability,
-    AnswerQuestions,
-    PerformActivities
-} from './abilities';
+import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities';
+import { Ability, AnswerQuestions, PerformActivities } from './abilities';
 import type { PerformsActivities } from './activities';
 import type { Activity } from './Activity';
 import type { Answerable } from './Answerable';
 import type { CollectsArtifacts } from './artifacts';
 import type { AnswersQuestions } from './questions';
+import type { SerialisedActor } from './SerialisedActor';
 import type { TellsTime, Timestamp } from './time';
 
 /**
@@ -223,7 +214,7 @@ export class Actor implements PerformsActivities,
      * The purpose of this method is to enable reporting the state of the actor in a human-readable format,
      * rather than to serialise and deserialise the actor itself.
      */
-    toJSON(): { name: string, abilities: Array<ReturnType<Ability['toJSON']>>} {
+    toJSON(): SerialisedActor {
         return {
             name: this.name,
             abilities: Array.from(this.abilities.values()).map(ability => ability.toJSON())

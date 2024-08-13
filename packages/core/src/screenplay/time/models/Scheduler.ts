@@ -1,3 +1,5 @@
+import type { JSONObject } from 'tiny-types';
+
 import { OperationInterruptedError, TimeoutExpiredError } from '../../../errors';
 import type { Clock } from './Clock';
 import type { DelayedCallback } from './DelayedCallback';
@@ -21,6 +23,13 @@ export class Scheduler {
         private readonly clock: Clock,
         private readonly interactionTimeout: Duration,
     ) {
+    }
+
+    toJSON(): JSONObject {
+        return {
+            clock: this.clock.toJSON(),
+            interactionTimeout: this.interactionTimeout.toJSON(),
+        }
     }
 
     /**

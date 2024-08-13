@@ -1,23 +1,20 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import type { ErrorFactory, ErrorOptions, RuntimeError } from '../errors';
-import { ConfigurationError, LogicError, RaiseErrors } from '../errors';
-import type {
-    DomainEvent,
-    EmitsDomainEvents} from '../events';
+import { ConfigurationError, type ErrorFactory, type ErrorOptions, LogicError, RaiseErrors,type RuntimeError } from '../errors';
 import {
     ActorEntersStage,
     ActorStageExitAttempted,
     ActorStageExitCompleted,
     ActorStageExitFailed,
+    ActorStageExitStarts,
+    type DomainEvent,
+    type EmitsDomainEvents,
     SceneFinishes,
     SceneStarts,
     TestRunFinishes
 } from '../events';
-import type { ActivityDetails } from '../model';
-import { CorrelationId, Name } from '../model';
-import type { Clock, Duration, Timestamp } from '../screenplay';
-import { Actor, ScheduleWork } from '../screenplay';
+import { type ActivityDetails, CorrelationId, Name } from '../model';
+import { Actor, type Clock, type Duration, ScheduleWork, type Timestamp } from '../screenplay';
 import type { ListensToDomainEvents } from '../stage';
 import type { Cast } from './Cast';
 import type { StageManager } from './StageManager';
@@ -40,7 +37,7 @@ import type { StageManager } from './StageManager';
  */
 export class Stage implements EmitsDomainEvents {
 
-    private static readonly unknownSceneId = new CorrelationId('unknown')
+    public static readonly unknownSceneId = new CorrelationId('unknown')
 
     /**
      * Actors instantiated after the scene has started,
@@ -131,6 +128,15 @@ export class Stage implements EmitsDomainEvents {
             )
         }
 
+        if (this.actorsOnBackstage.has(name)) {
+            this.announce(
+                new ActorEntersStage(
+                    this.currentScene,
+                    this.actorsOnBackstage.get(name).toJSON(),
+                )
+            )
+        }
+
         this.actorInTheSpotlight = this.instantiatedActorCalled(name);
 
         return this.actorInTheSpotlight;
@@ -195,6 +201,10 @@ export class Stage implements EmitsDomainEvents {
     private announceSingle(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
             this.actorsOnStage = this.actorsOnFrontStage;
+        }
+
+        if (event instanceof SceneFinishes || event instanceof TestRunFinishes) {
+            this.notifyOfStageExit(this.currentSceneId());
         }
 
         this.manager.notifyOf(event);
@@ -303,6 +313,16 @@ export class Stage implements EmitsDomainEvents {
             : this.actorsOnFrontStage.get(name)
     }
 
+    private notifyOfStageExit(sceneId: CorrelationId): void {
+        for (const actor of this.actorsOnStage.values()) {
+            this.announce(new ActorStageExitStarts(
+                sceneId,
+                actor.toJSON(),
+                this.currentTime(),
+            ));
+        }
+    }
+
     private async dismiss(activeActors: Map<string, Actor>): Promise<void> {
         const actors = Array.from(activeActors.values());
 
@@ -317,9 +337,8 @@ export class Stage implements EmitsDomainEvents {
 
         for (const [ actor, correlationId ] of actorsToDismiss) {
             this.announce(new ActorStageExitAttempted(
-                new Name(this.constructor.name),
-                actor.toJSON(),
                 correlationId,
+                new Name(actor.name),
                 this.currentTime(),
             ));
         }
@@ -329,7 +348,7 @@ export class Stage implements EmitsDomainEvents {
             try {
                 await actor.dismiss();
 
-                this.announce(new ActorStageExitCompleted(correlationId, this.currentTime()));
+                this.announce(new ActorStageExitCompleted(correlationId, new Name(actor.name), this.currentTime()));
             }
             catch (error) {
                 this.announce(new ActorStageExitFailed(

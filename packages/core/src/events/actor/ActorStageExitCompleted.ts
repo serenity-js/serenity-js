@@ -1,6 +1,6 @@
-import type { JSONObject } from 'tiny-types';
+import { ensure, isDefined, type JSONObject } from 'tiny-types';
 
-import { CorrelationId } from '../../model';
+import { CorrelationId, Name } from '../../model';
 import { Timestamp } from '../../screenplay';
 import { AsyncOperationCompleted } from '../AsyncOperationCompleted';
 
@@ -18,7 +18,17 @@ export class ActorStageExitCompleted extends AsyncOperationCompleted {
     static fromJSON(o: JSONObject): ActorStageExitCompleted {
         return new ActorStageExitCompleted(
             CorrelationId.fromJSON(o.correlationId as string),
+            Name.fromJSON(o.actor as string),
             Timestamp.fromJSON(o.timestamp as string),
         );
+    }
+
+    constructor(
+        correlationId: CorrelationId,
+        public readonly actor: Name,
+        timestamp?: Timestamp,
+    ) {
+        super(correlationId, timestamp);
+        ensure('actor', actor, isDefined());
     }
 }

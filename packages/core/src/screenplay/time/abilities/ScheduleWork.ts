@@ -1,6 +1,6 @@
-import type { Discardable } from '../../abilities';
+import type { Discardable, SerialisedAbility } from '../../abilities';
 import { Ability } from '../../abilities';
-import type { Clock, DelayedCallback, Duration, RepeatUntilLimits} from '../models';
+import type { Clock, DelayedCallback, Duration, RepeatUntilLimits } from '../models';
 import { Scheduler } from '../models';
 
 /**
@@ -39,5 +39,14 @@ export class ScheduleWork extends Ability implements Discardable {
 
     discard(): void {
         this.scheduler.stop();
+    }
+
+    override toJSON(): SerialisedAbility {
+        return {
+            ...super.toJSON(),
+            options: {
+                scheduler: this.scheduler.toJSON(),
+            },
+        };
     }
 }

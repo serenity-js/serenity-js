@@ -12,6 +12,7 @@ export * from './Optional';
 export * from './Question';
 export * from './questions';
 export * from './RecursivelyAnswered';
+export * from './SerialisedActor';
 export * from './Task';
 export * from './time';
 export * from './WithAnswerableProperties';
