@@ -55,4 +55,20 @@ describe('ScheduleWork', () => {
         expect(actualError).to.be.instanceof(OperationInterruptedError)
         expect(actualError.message).to.equal('Scheduler stopped before executing callback')
     });
+
+    describe('serialisation', () => {
+        it('can be serialised to JSON', () => {
+            expect(scheduleWork.toJSON()).to.deep.equal({
+                type: 'ScheduleWork',
+                options: {
+                    scheduler: {
+                        clock: {
+                            timeAdjustment: { milliseconds: 0 },
+                        },
+                        interactionTimeout: { milliseconds: 2_000 },
+                    },
+                },
+            });
+        });
+    });
 });

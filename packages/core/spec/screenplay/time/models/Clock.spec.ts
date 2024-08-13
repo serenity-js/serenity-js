@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 
-import { Clock, Timestamp } from '../../../../src';
+import { Clock, Duration, Timestamp } from '../../../../src';
 import { expect } from '../../../expect';
 
 describe('Clock', () => {
@@ -22,6 +22,25 @@ describe('Clock', () => {
             const timestamp = clock.now();
 
             expect(timestamp).equals(new Timestamp(now));
+        });
+    });
+
+    describe('serialisation', () => {
+        it('can be serialised to JSON', () => {
+            const clock = new Clock();
+
+            expect(clock.toJSON()).to.deep.equal({
+                timeAdjustment: { milliseconds: 0 },
+            });
+        });
+
+        it('includes any custom time adjustment', () => {
+            const clock = new Clock();
+            clock.setAhead(Duration.ofSeconds(2))
+
+            expect(clock.toJSON()).to.deep.equal({
+                timeAdjustment: { milliseconds: 2_000 },
+            });
         });
     });
 });

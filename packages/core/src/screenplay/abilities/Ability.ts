@@ -1,4 +1,5 @@
 import type { AbilityType } from './AbilityType';
+import type { SerialisedAbility } from './SerialisedAbility';
 import type { UsesAbilities } from './UsesAbilities';
 
 /**
@@ -410,7 +411,7 @@ export abstract class Ability {
      * The purpose of this method is to enable reporting the state of the ability in a human-readable format,
      * rather than to serialise and deserialise the ability itself.
      */
-    toJSON(): { class?: string, type: string } {
+    toJSON(): SerialisedAbility {
         const abilityClass = this.constructor.name;
         const abilityType = this.abilityType().name;
 

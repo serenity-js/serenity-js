@@ -1,4 +1,4 @@
-import { ensure, isDefined } from 'tiny-types';
+import { ensure, isDefined, type JSONObject } from 'tiny-types';
 
 import { Duration } from './Duration';
 import { Timestamp } from './Timestamp';
@@ -22,6 +22,12 @@ export class Clock {
     private timeAdjustment: Duration = Duration.ofMilliseconds(0);
 
     constructor(private readonly checkTime: () => Date = () => new Date()) {
+    }
+
+    toJSON(): JSONObject {
+        return {
+            timeAdjustment: this.timeAdjustment.toJSON(),
+        };
     }
 
     /**
