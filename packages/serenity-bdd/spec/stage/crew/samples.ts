@@ -17,4 +17,12 @@ export const voucherScenario = new ScenarioDetails(
     ),
 );
 
+export const authenticationScenario = new ScenarioDetails(
+    new Name('Authenticating with social media'),
+    new Category('Authentication'),
+    new FileSystemLocation(
+        new Path(`authentication/social_media.feature`),
+    ),
+);
+
 export const photo = new Photo('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==');

@@ -1,3 +1,4 @@
+import type { SerialisedActor } from '@serenity-js/core';
 import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 
@@ -11,6 +12,7 @@ export abstract class SerenityBDDReportContext {
 
     public readonly report: Partial<SerenityBDD4ReportSchema> = {};
     public readonly steps: Map<string, LinkedTestStep> = new Map();
+    public readonly actors: Map<string, SerialisedActor> = new Map();   // sceneId -> actor
     public currentActivityId: CorrelationId = undefined;
 
     constructor(public readonly requirementsHierarchy: RequirementsHierarchy) {

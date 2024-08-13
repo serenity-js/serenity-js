@@ -1,6 +1,7 @@
 export * from './activityFinished';
 export * from './activityRelatedArtifact';
 export * from './activityStarted';
+export * from './actorDetailsOf';
 export * from './archivedActivityRelatedArtifact';
 export * from './backgroundOf';
 export * from './businessRuleOf';

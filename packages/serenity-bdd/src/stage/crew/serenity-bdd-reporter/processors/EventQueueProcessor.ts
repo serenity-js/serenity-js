@@ -2,6 +2,7 @@ import type { DomainEventQueue } from '@serenity-js/core';
 import type {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
+    ActorEntersStage, ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -13,7 +14,17 @@ import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { SerenityBDDReportContext } from './SerenityBDDReportContext';
-import { activityRelatedArtifact, archivedActivityRelatedArtifact, backgroundOf, businessRuleOf, descriptionOf, featureNarrativeOf, tagOf, testRunnerCalled } from './transformations';
+import {
+    activityRelatedArtifact,
+    actorDetailsOf,
+    archivedActivityRelatedArtifact,
+    backgroundOf,
+    businessRuleOf,
+    descriptionOf,
+    featureNarrativeOf,
+    tagOf,
+    testRunnerCalled
+} from './transformations';
 
 /**
  * @package
@@ -24,6 +35,18 @@ export abstract class EventQueueProcessor {
 
     abstract supports(queue: DomainEventQueue): boolean;
     abstract process(queue: DomainEventQueue): SerenityBDD4ReportSchema;  // todo: return Artifact with a name instead
+
+    protected onActorEntersStage<Context extends SerenityBDDReportContext>(report: Context) {
+        return (event: ActorEntersStage): Context =>
+            report
+                .with(actorDetailsOf(event.sceneId, event.actor));
+    }
+
+    protected onActorStageExitStarts<Context extends SerenityBDDReportContext>(report: Context) {
+        return (event: ActorStageExitStarts): Context =>
+            report
+                .with(actorDetailsOf(event.sceneId, event.actor));
+    }
 
     protected onFeatureNarrativeDetected<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: FeatureNarrativeDetected): Context =>

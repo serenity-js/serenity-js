@@ -54,6 +54,7 @@ export interface PathElementSchema /* extends JSONObject */ {
 export interface ActorSchema /* extends JSONObject */ {
     name: string;
     can?: string[];
+    has?: string[];
 }
 
 export interface TagSchema /* extends JSONObject */ {
