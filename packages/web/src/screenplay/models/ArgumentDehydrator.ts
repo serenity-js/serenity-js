@@ -9,6 +9,9 @@ type TransformedArgument<T, U> =
 
 type RefId = `$ref${number}`;
 
+/**
+ * @group Models
+ */
 export class ArgumentDehydrator<T, U> {
     constructor(
         private readonly shouldReference: (item: any) => item is T,
