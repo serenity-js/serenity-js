@@ -49,7 +49,7 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
     }
 
     override async browserCapabilities(): Promise<BrowserCapabilities> {
-        const browser = await this.page.context().browser();
+        const browser = this.page.context().browser();
         return {
             browserName: (browser as any)._initializer.name,   // todo: raise a PR to Playwright to expose this information
             platformName: process.platform,                    // todo: get the actual platform from Playwright
