@@ -17,7 +17,7 @@ export function axiosProxyOverridesFor<Data = any>(options: AxiosRequestConfigDe
             password: options.proxy?.auth?.password,
             protocol: options.proxy?.protocol,
             hostname: ensure('proxy.host', options.proxy?.host, isDefined()),
-            port: options.proxy?.port
+            port: options.proxy?.port ? Number(options.proxy?.port) : undefined,
         }).toString();
 
     const agent = new ProxyAgent({

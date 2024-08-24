@@ -1,4 +1,11 @@
-import { Ability, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
+import {
+    Ability,
+    ConfigurationError,
+    LogicError,
+    type SerialisedAbility,
+    TestCompromisedError
+} from '@serenity-js/core';
+import { Agent } from 'agent-base';
 import {
     type AxiosDefaults,
     type AxiosError,
@@ -6,8 +13,11 @@ import {
     type AxiosRequestConfig,
     type AxiosResponse,
 } from 'axios';
+import { type JSONObject } from 'tiny-types';
+import { isObject } from 'tiny-types/lib/objects';
+import { URL } from 'url';
 
-import type { AxiosRequestConfigDefaults} from '../../io';
+import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from '../../io';
 import { createAxios } from '../../io';
 
 /**
@@ -409,19 +419,18 @@ export class CallAnApi extends Ability {
             });
 
             return this.lastResponse;
-        }
-        catch (error) {
-            const description = `${ config.method.toUpperCase() } ${ url || config.url }`;
+        } catch (error) {
+            const description = `${config.method.toUpperCase()} ${url || config.url}`;
 
             switch (true) {
                 case /timeout.*exceeded/.test(error.message):
-                    throw new TestCompromisedError(`The request has timed out: ${ description }`, error);
+                    throw new TestCompromisedError(`The request has timed out: ${description}`, error);
                 case /Network Error/.test(error.message):
-                    throw new TestCompromisedError(`A network error has occurred: ${ description }`, error);
+                    throw new TestCompromisedError(`A network error has occurred: ${description}`, error);
                 case error instanceof TypeError:
                     throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
                 case !(error as AxiosError).response:
-                    throw new TestCompromisedError(`The API call has failed: ${ description }`, error);
+                    throw new TestCompromisedError(`The API call has failed: ${description}`, error);
                 default:
                     this.lastResponse = error.response;
 
@@ -463,4 +472,82 @@ export class CallAnApi extends Ability {
 
         return mappingFunction(this.lastResponse);
     }
+
+    toJSON(): SerialisedAbility {
+        const simplifiedConfig: JSONObject = {
+            baseURL: this.axiosInstance.defaults.baseURL,
+            headers: this.axiosInstance.defaults.headers,
+            timeout: this.axiosInstance.defaults.timeout,
+            proxy:   proxyConfigFrom(this.axiosInstance.defaults),
+        };
+
+        return {
+            ...super.toJSON(),
+            options: {
+                ...recursivelyRemove(
+                    [isUndefined, isEmptyObject],
+                    simplifiedConfig
+                ),
+            }
+        }
+    }
+}
+
+function proxyConfigFrom(defaults: AxiosDefaults): AxiosRequestConfigProxyDefaults | undefined {
+    if (defaults.proxy === undefined) {
+        return undefined;
+    }
+
+    if (! (defaults.proxy === false && defaults.httpAgent instanceof Agent)) {
+        return undefined;
+    }
+
+    const proxyUrl = (defaults.httpAgent as any).getProxyForUrl(defaults.baseURL);
+
+    if (! proxyUrl) {
+        return undefined;
+    }
+
+    const url = new URL(proxyUrl);
+
+    return {
+        protocol: url.protocol?.replace(/:$/, ''),
+        host:     url.hostname,
+        port:     url.port ? Number(url.port) : undefined,
+        auth:     url.username
+            ? {
+                username: url.username || undefined,
+                password: url.password || undefined,
+            }
+            : undefined,
+    };
+}
+
+function isUndefined(value: any): value is undefined {
+    return value === undefined;
+}
+
+function isEmptyObject(value: any): value is object {
+    return isObject(value) && Object.keys(value).length === 0;
+}
+
+function recursivelyRemove(matchers: Array<(value: any) => boolean>, value: any): any {
+    if (Array.isArray(value)) {
+        return value.map(item => recursivelyRemove(matchers, item));
+    }
+
+    if (typeof value === 'object' && value !== null) {
+        return Object.keys(value).reduce((acc, key) => {
+            if (matchers.some(matcher => matcher(value[key]))) {
+                return acc;
+            }
+
+            return {
+                ...acc,
+                [key]: recursivelyRemove(matchers, value[key]),
+            };
+        }, {});
+    }
+
+    return value;
 }

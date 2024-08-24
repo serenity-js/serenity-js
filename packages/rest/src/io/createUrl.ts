@@ -15,7 +15,7 @@ export function createUrl(options: CreateUrlOptions): URL {
         : (options?.protocol ? undefined : ':80');
 
     return new URL([
-        options?.protocol && protocolFrom(options?.protocol),
+        options?.protocol ? protocolFrom(options?.protocol) : 'http://',
         (options?.username || options?.password) && credentialsFrom(options.username, options.password),
         hostname,
         port,

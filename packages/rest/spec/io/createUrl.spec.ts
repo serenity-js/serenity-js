@@ -53,18 +53,18 @@ describe('createUrl', () => {
 
     describe('when the protocol is undefined', () => {
 
-        it('adds the port number', () => {
+        it('defaults to HTTP', () => {
 
             const url = createUrl({ protocol: undefined, hostname: 'example.org', port: 80 });
 
-            expect(url.toString()).equals('example.org:80');
+            expect(url.toString()).equals('http://example.org/');
         });
 
-        it(`defaults to port 80 when port is not specified`, () => {
+        it(`defaults to HTTP when port is not specified`, () => {
 
             const url = createUrl({ protocol: undefined, hostname: 'example.org', port: undefined });
 
-            expect(url.toString()).equals('example.org:80');
+            expect(url.toString()).equals('http://example.org/');
         });
     });
 
@@ -89,7 +89,7 @@ describe('createUrl', () => {
         it('adds the url-encoded username to the resulting url', () => {
             const url = createUrl({
                 protocol: 'https',
-                hostname: `example.org`,
+                hostname: 'example.org',
                 username: 'alice.jones@example.org'
             });
 
