@@ -82,19 +82,102 @@ describe('CallAnApi', () => {
     });
 
     it('provides a way to determine the actual target URL the request will be sent to', () => {
-        const callaAnApi = CallAnApi.at('https://example.org/api/v4/');
+        const callAnApi = CallAnApi.at('https://example.org/api/v4/');
 
-        const actualUrl = callaAnApi.resolveUrl({ url: 'products/3' });
+        const actualUrl = callAnApi.resolveUrl({ url: 'products/3' });
 
         expect(actualUrl).to.equal('https://example.org/api/v4/products/3')
     });
 
     it('correctly resolves absolute URL paths', () => {
-        const callaAnApi = CallAnApi.at('https://example.org/api/v4/');
+        const callAnApi = CallAnApi.at('https://example.org/api/v4/');
 
-        const actualUrl = callaAnApi.resolveUrl({ url: '/api/v5/products/3' });
+        const actualUrl = callAnApi.resolveUrl({ url: '/api/v5/products/3' });
 
         expect(actualUrl).to.equal('https://example.org/api/v5/products/3')
+    });
+
+    describe('when serialising', () => {
+
+        const baseURL = 'https://example.org/api/v4/';
+
+        it('returns only non-empty values', () => {
+            const callAnApi = CallAnApi.at(baseURL);
+
+            const result = callAnApi.toJSON();
+
+            expect(result).to.deep.equal({
+                options: {
+                    baseURL,
+                    headers: {
+                        common: {
+                            Accept: 'application/json, text/plain, */*'
+                        },
+                    },
+                    timeout: 10_000,
+                },
+                type: 'CallAnApi',
+            });
+        });
+
+        it('includes custom headers', () => {
+            const callAnApi = CallAnApi.using(axios.create({
+                baseURL,
+                headers: {
+                    post: {
+                        'X-Custom-Header': 'custom value',
+                    }
+                }
+            }));
+
+            const result = callAnApi.toJSON();
+
+            expect(result).to.deep.equal({
+                options: {
+                    baseURL,
+                    headers: {
+                        common: {
+                            Accept: 'application/json, text/plain, */*'
+                        },
+                        post: {
+                            'X-Custom-Header': 'custom value',
+                        },
+                    },
+                    timeout: 0,     // we don't override the timeout when axios instance is injected by the user
+                },
+                type: 'CallAnApi',
+            });
+        });
+
+        it('includes custom proxy settings', () => {
+            const callAnApi = CallAnApi.using({
+                baseURL,
+                proxy: {
+                    host: 'proxy.example.org',
+                    port: 8080,
+                }
+            });
+
+            const result = callAnApi.toJSON();
+
+            expect(result).to.deep.equal({
+                options: {
+                    baseURL,
+                    headers: {
+                        common: {
+                            Accept: 'application/json, text/plain, */*'
+                        },
+                    },
+                    proxy: {
+                        protocol: 'http',
+                        host: 'proxy.example.org',
+                        port: 8080,
+                    },
+                    timeout: 10_000,
+                },
+                type: 'CallAnApi',
+            });
+        });
     });
 
     describe('when dealing with errors', () => {
