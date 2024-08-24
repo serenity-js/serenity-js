@@ -1,4 +1,4 @@
-import { Ability } from '../abilities';
+import { Ability, type SerialisedAbility } from '../abilities';
 import { Notepad } from './Notepad';
 
 /**
@@ -253,5 +253,14 @@ export class TakeNotes<Notes_Type extends Record<any, any>> extends Ability {
      */
     constructor(public readonly notepad: Notepad<Notes_Type>) {
         super();
+    }
+
+    toJSON(): SerialisedAbility {
+        return {
+            ...super.toJSON(),
+            options: {
+                notepad: this.notepad.toJSON(),
+            }
+        };
     }
 }
