@@ -6,6 +6,7 @@ import { Name, TestReport } from '@serenity-js/core/lib/model';
 import type { JSONObject } from 'tiny-types';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
+import type { SerenityBDDReporterConfig } from '../SerenityBDDReporterConfig';
 import type { EventQueueProcessor } from './EventQueueProcessor';
 import { SceneSequenceEventQueueProcessor } from './scene-sequence';
 import { SingleSceneEventQueueProcessor } from './single-scene';
@@ -18,9 +19,9 @@ export class EventQueueProcessors {
     private readonly singleSceneProcessor: EventQueueProcessor;
     private readonly sceneSequenceProcessor: EventQueueProcessor;
 
-    constructor(requirementsHierarchy: RequirementsHierarchy) {
-        this.singleSceneProcessor = new SingleSceneEventQueueProcessor(requirementsHierarchy);
-        this.sceneSequenceProcessor = new SceneSequenceEventQueueProcessor(requirementsHierarchy);
+    constructor(requirementsHierarchy: RequirementsHierarchy, reporterConfig: Required<SerenityBDDReporterConfig['reporter']>) {
+        this.singleSceneProcessor = new SingleSceneEventQueueProcessor(requirementsHierarchy, reporterConfig);
+        this.sceneSequenceProcessor = new SceneSequenceEventQueueProcessor(requirementsHierarchy, reporterConfig);
     }
 
     // todo: move `name` to Artifact and return Artifact[]... and sceneId?

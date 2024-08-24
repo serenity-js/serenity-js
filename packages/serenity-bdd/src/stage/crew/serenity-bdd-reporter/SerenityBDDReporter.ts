@@ -120,22 +120,21 @@ import type { SerenityBDDReporterConfig } from './SerenityBDDReporterConfig';
  */
 export class SerenityBDDReporter implements StageCrewMember {
     private readonly eventQueues = new DomainEventQueues();
-    private readonly processors: EventQueueProcessors;
 
     static fromJSON(config: SerenityBDDReporterConfig): StageCrewMemberBuilder<SerenityBDDReporter> {
         return new SerenityBDDReporterBuilder(config);
     }
 
     /**
-     * @param {Path} requirementsHierarchy
+     * @param {EventQueueProcessors} processors
      * @param {Stage} [stage]
      *  The stage this [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) should be assigned to
      */
     constructor(
-        private readonly requirementsHierarchy: RequirementsHierarchy,
+        private readonly processors: EventQueueProcessors,
         private stage?: Stage,
     ) {
-        this.processors = new EventQueueProcessors(ensure('requirementsHierarchy', requirementsHierarchy, isDefined()));
+        ensure('processors', processors, isDefined());
     }
 
     /**
@@ -207,10 +206,14 @@ class SerenityBDDReporterBuilder implements StageCrewMemberBuilder<SerenityBDDRe
         ensure('fileSystem', fileSystem, isDefined());
 
         const userDefinedSpecDirectory: Path | undefined = this.config.specDirectory && Path.from(this.config.specDirectory);
+        const reporterConfig: Required<SerenityBDDReporterConfig['reporter']> = {
+            includeAbilityDetails: this.config?.reporter?.includeAbilityDetails ?? true,
+            ... this.config?.reporter,
+        };
 
-        return new SerenityBDDReporter(
-            new RequirementsHierarchy(fileSystem, userDefinedSpecDirectory),
-            stage,
-        );
+        const requirementsHierarchy = new RequirementsHierarchy(fileSystem, userDefinedSpecDirectory);
+        const processors = new EventQueueProcessors(requirementsHierarchy, reporterConfig);
+
+        return new SerenityBDDReporter(processors, stage);
     }
 }

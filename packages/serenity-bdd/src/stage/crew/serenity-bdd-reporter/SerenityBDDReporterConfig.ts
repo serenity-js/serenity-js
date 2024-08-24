@@ -38,4 +38,12 @@ export interface SerenityBDDReporterConfig {
      * class.
      */
     specDirectory?: string;
+
+    reporter?: {
+        /**
+         * Whether to include the details of final state and configuration details of actors' abilities in Serenity BDD reports.
+         * Defaults to `true`.
+         */
+        includeAbilityDetails?: boolean;
+    };
 }

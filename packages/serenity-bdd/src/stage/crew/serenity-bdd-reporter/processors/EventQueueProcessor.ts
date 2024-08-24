@@ -13,6 +13,7 @@ import type {
 import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
+import type { SerenityBDDReporterConfig } from '../SerenityBDDReporterConfig';
 import type { SerenityBDDReportContext } from './SerenityBDDReportContext';
 import {
     activityRelatedArtifact,
@@ -30,7 +31,10 @@ import {
  * @package
  */
 export abstract class EventQueueProcessor {
-    constructor(protected readonly requirementsHierarchy: RequirementsHierarchy) {
+    constructor(
+        protected readonly requirementsHierarchy: RequirementsHierarchy,
+        protected readonly reporterConfig: Required<SerenityBDDReporterConfig['reporter']>,
+    ) {
     }
 
     abstract supports(queue: DomainEventQueue): boolean;
@@ -39,13 +43,13 @@ export abstract class EventQueueProcessor {
     protected onActorEntersStage<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: ActorEntersStage): Context =>
             report
-                .with(actorDetailsOf(event.sceneId, event.actor));
+                .with(actorDetailsOf(event.actor, this.reporterConfig));
     }
 
     protected onActorStageExitStarts<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: ActorStageExitStarts): Context =>
             report
-                .with(actorDetailsOf(event.sceneId, event.actor));
+                .with(actorDetailsOf(event.actor, this.reporterConfig));
     }
 
     protected onFeatureNarrativeDetected<Context extends SerenityBDDReportContext>(report: Context) {
