@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.26.0](https://github.com/serenity-js/serenity-js/compare/v3.25.5...v3.26.0) (2024-08-27)
+
+
+### Features
+
+* **core:** new event ActorEntersStage is emitted upon invoking actorCalled for the first time ([1498c21](https://github.com/serenity-js/serenity-js/commit/1498c2103e5ab4dc3958a4236a8e26ff2848e6c0))
+* **rest:** final state of the actor's ability to CallAnApi is included in Serenity BDD report ([e000a16](https://github.com/serenity-js/serenity-js/commit/e000a1687780b0789728e0e0ef11864d1c14e532))
+
+
+
+
+
 ## [3.25.5](https://github.com/serenity-js/serenity-js/compare/v3.25.4...v3.25.5) (2024-08-18)
 
 

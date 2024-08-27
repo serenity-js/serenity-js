@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.26.0](https://github.com/serenity-js/serenity-js/compare/v3.25.5...v3.26.0) (2024-08-27)
+
+
+### Features
+
+* **serenity-bdd:** include details of actors and their abilities in Serenity BDD reports ([df38495](https://github.com/serenity-js/serenity-js/commit/df384952345ff3e8614b8fe8c36cb0be21dc6a80))
+* **serenity-bdd:** reporting actors' abilities can be toggled ([5bea8ff](https://github.com/serenity-js/serenity-js/commit/5bea8ffa8870a4a1128403e65b79ce852ca79abe))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.1.20 ([2cf3d53](https://github.com/serenity-js/serenity-js/commit/2cf3d53bced9052b8670a9cef4967ff53eb86e8f))
+
+
+
+
+
 ## [3.25.5](https://github.com/serenity-js/serenity-js/compare/v3.25.4...v3.25.5) (2024-08-18)
 
 
