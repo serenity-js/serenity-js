@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.26.0](https://github.com/serenity-js/serenity-js/compare/v3.25.5...v3.26.0) (2024-08-27)
+
+
+### Features
+
+* **core:** final state of the actor's notepad is included in Serenity BDD report ([56c9fb8](https://github.com/serenity-js/serenity-js/commit/56c9fb88514657df51c82fd8ab642514ed8e3416))
+* **core:** introduced specialised events to mark actors' exit from the stage ([b0b3f0c](https://github.com/serenity-js/serenity-js/commit/b0b3f0cb85790cd83b170271a15b91029c7b43a3))
+* **core:** new event ActorEntersStage and associated models ([11702b6](https://github.com/serenity-js/serenity-js/commit/11702b6fc21fa00f1ff8dcc0f1169090b1a97f72))
+* **core:** new event ActorEntersStage is emitted upon invoking actorCalled for the first time ([1498c21](https://github.com/serenity-js/serenity-js/commit/1498c2103e5ab4dc3958a4236a8e26ff2848e6c0))
+* **core:** new method actor.toJSON lets you inspect the actor and its abilities ([ace3323](https://github.com/serenity-js/serenity-js/commit/ace3323ea5db8771734259db450e65cb58275794))
+
+
+
+
+
 ## [3.25.5](https://github.com/serenity-js/serenity-js/compare/v3.25.4...v3.25.5) (2024-08-18)
 
 
