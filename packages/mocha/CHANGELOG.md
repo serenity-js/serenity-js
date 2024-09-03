@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.26.1](https://github.com/serenity-js/serenity-js/compare/v3.26.0...v3.26.1) (2024-09-03)
+
+**Note:** Version bump only for package @serenity-js/mocha
+
+
+
+
+
 # [3.26.0](https://github.com/serenity-js/serenity-js/compare/v3.25.5...v3.26.0) (2024-08-27)
 
 **Note:** Version bump only for package @serenity-js/mocha

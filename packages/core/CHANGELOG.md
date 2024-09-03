@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.26.1](https://github.com/serenity-js/serenity-js/compare/v3.26.0...v3.26.1) (2024-09-03)
+
+
+### Bug Fixes
+
+* **core:** updated diff to 6.0.0 ([d7718e1](https://github.com/serenity-js/serenity-js/commit/d7718e150ec2a81aa1ebe5e8dd3b89cda476306b))
+
+
+
+
+
 # [3.26.0](https://github.com/serenity-js/serenity-js/compare/v3.25.5...v3.26.0) (2024-08-27)
 
 
