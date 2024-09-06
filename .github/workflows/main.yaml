@@ -16,7 +16,7 @@ jobs:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: npm ci
       command: make lint
 
@@ -24,7 +24,7 @@ jobs:
     name: 'Compile'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
       command: make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
@@ -41,7 +41,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
@@ -55,7 +55,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 16.x
+      node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage-node16
@@ -67,7 +67,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 20.x
+      node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage
@@ -80,7 +80,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage
@@ -103,7 +103,7 @@ jobs:
           "playwright-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: |
@@ -126,7 +126,7 @@ jobs:
           "protractor-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
@@ -160,7 +160,7 @@ jobs:
           "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 18.x
+      node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
@@ -188,7 +188,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       - name: Install Node Modules
         uses: bahmutov/npm-install@v1
@@ -264,7 +264,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
