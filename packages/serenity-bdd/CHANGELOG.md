@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.27.0](https://github.com/serenity-js/serenity-js/compare/v3.26.1...v3.27.0) (2024-09-06)
+
+
+### Bug Fixes
+
+* **core:** updated npm tags to improve discoverability ([432d331](https://github.com/serenity-js/serenity-js/commit/432d331aedb7b46fdd5291394521923ce66c1a2b))
+
+
+### Features
+
+* **core:** added support for Node 22, dropped support for Node 16 ([d5dea01](https://github.com/serenity-js/serenity-js/commit/d5dea013ed5d87f2e0cda8fa83da9fd021e4638d)), closes [#2518](https://github.com/serenity-js/serenity-js/issues/2518)
+
+
+
+
+
 ## [3.26.1](https://github.com/serenity-js/serenity-js/compare/v3.26.0...v3.26.1) (2024-09-03)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
