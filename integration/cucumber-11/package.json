@@ -1,0 +1,44 @@
+{
+  "name": "@integration/cucumber-11",
+  "version": "3.0.0",
+  "description": "Specs verifying integration between Serenity/JS and Cucumber.js",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "c8 mocha --parallel --config .mocharc.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^18.12 || ^20 || ^22"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "11.0.0",
+    "@integration/testing-tools": "3.0.0",
+    "@integration/cucumber-specs": "3.0.0",
+    "@serenity-js/core": "^3.0.0",
+    "@serenity-js/cucumber": "^3.0.0",
+    "@types/mocha": "10.0.7",
+    "@types/chai": "4.3.19",
+    "c8": "10.1.2",
+    "mocha": "10.7.3",
+    "mocha-multi": "1.1.7",
+    "ts-node": "10.9.2",
+    "typescript": "5.5.4"
+  }
+}
