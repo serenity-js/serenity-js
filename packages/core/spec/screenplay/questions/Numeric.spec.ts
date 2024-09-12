@@ -2,6 +2,7 @@ import { describe, it } from 'mocha';
 
 import { actorCalled, List, Numeric } from '../../../src';
 import { expect } from '../../expect';
+import { given } from 'mocha-testdata';
 
 describe('Numeric', () => {
 
@@ -273,6 +274,158 @@ describe('Numeric', () => {
             expect(min.toString()).to.equal('the min of [ 1, [ "2" ], 3 ]');
 
             await expect(min.answeredBy(Sigma)).to.be.rejectedWith('"2" should be a number');
+        });
+    });
+
+    describe('intValue()', () => {
+
+        given([
+            { description: 'default base (assumed to be 10)', base: undefined, value: '10', expected: 10 },
+            { description: 'padded', base: undefined, value: '  10  ', expected: 10 },
+            { description: 'base 0 (assumed to be 10)', base: 0, value: '10', expected: 10 },
+            { description: 'default base (assumed to be 16)', base: undefined, value: '0x10', expected: 16 },
+            { description: 'base 0 (assumed to be 16)', base: 0, value: '0x10', expected: 16 },
+            { description: 'base 2', base: 2, value: '10', expected: 2 },
+            { description: 'base 8', base: 8, value: '10', expected: 8 },
+            { description: 'base 10', base: 10, value: '10', expected: 10 },
+            { description: 'base 36', base: 36, value: '10', expected: 36 },
+        ]).
+        it('parses a string value and returns an integer of the specified base', async ({ base, value, expected }) => {
+            const intValue = Numeric.intValue(base).of(value);
+
+            expect(intValue.toString()).to.equal(`the integer value of "${ value }"`);
+
+            const result = await intValue.answeredBy(Sigma);
+
+            expect(result).to.equal(expected);
+        });
+
+        given([
+            { description: 'extra leading characters', value: '$3.14' },
+            { description: 'non-numeric string',       value: 'hello' },
+        ]).
+        it('fails when the parsed string is not a number', async ({ value }) => {
+
+            const floatValue = Numeric.intValue().of(value);
+
+            expect(floatValue.toString()).to.equal(`the integer value of "${ value }"`);
+
+            await expect(floatValue.answeredBy(Sigma))
+                .to.be.rejectedWith(TypeError, `Parsing "${ value }" as an integer value returned a NaN`);
+        });
+
+        it('fails when a value is not a string', async () => {
+            const intValue = Numeric.intValue().of(new Date('2024-09-12T00:00:00.000Z') as any);
+
+            expect(intValue.toString()).to.equal('the integer value of Date(2024-09-12T00:00:00.000Z)');
+
+            await expect(intValue.answeredBy(Sigma)).to.be.rejectedWith('Date(2024-09-12T00:00:00.000Z) should be a string');
+        });
+
+        it('fails when the base is not a number', async () => {
+            const intValue = Numeric.intValue('10' as any).of('100');
+
+            expect(intValue.toString()).to.equal('the integer value of "100"');
+
+            await expect(intValue.answeredBy(Sigma)).to.be.rejectedWith('base "10" should be a number');
+        });
+    });
+
+    describe('bigIntValue()', () => {
+
+        /*
+         * Examples inspired by MDN BigInt documentation
+         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#description
+         */
+        const hugeNumber = BigInt(Number.MAX_SAFE_INTEGER) + 1n;
+        const hugeString = BigInt(`9007199254740991`);
+        const hugeHex    = BigInt(`0x1fffffffffffff`);
+        const hugeOctal  = BigInt(`0o377777777777777777`);
+        const hugeBinary = BigInt(`0b11111111111111111111111111111111111111111111111111111`);
+
+        given([
+            { description: 'decimal',       value: '10',                expected: BigInt('10') },
+            { description: 'padded',        value: '  10  ',            expected: BigInt('10') },
+            { description: 'hugeNumber',    value: `${ hugeNumber }`,   expected: hugeNumber },
+            { description: 'hugeString',    value: `${ hugeString }`,   expected: hugeString },
+            { description: 'hugeHex',       value: `${ hugeHex }`,      expected: hugeHex },
+            { description: 'hugeOctal',     value: `${ hugeOctal }`,    expected: hugeOctal },
+            { description: 'hugeBin',       value: `${ hugeBinary }`,   expected: hugeBinary },
+        ]).
+        it('parses a string value and returns a bigint', async ({ value, expected }) => {
+
+            const bigIntValue = Numeric.bigIntValue().of(value);
+
+            expect(bigIntValue.toString()).to.equal(`the bigint value of "${ value }"`);
+
+            const result = await bigIntValue.answeredBy(Sigma);
+
+            expect(result).to.equal(expected);
+        });
+
+        it('fails when a value is not a string', async () => {
+            const intValue = Numeric.bigIntValue().of(new Date('2024-09-12T00:00:00.000Z') as any);
+
+            expect(intValue.toString()).to.equal('the bigint value of Date(2024-09-12T00:00:00.000Z)');
+
+            await expect(intValue.answeredBy(Sigma)).to.be.rejectedWith('Date(2024-09-12T00:00:00.000Z) should be a string');
+        });
+
+        given([
+            { description: 'extra leading characters', value: '$3.14' },
+            { description: 'non-numeric string',       value: 'hello' },
+        ]).
+        it('fails when the parsed string is not a bigint', async ({ value }) => {
+
+            const floatValue = Numeric.bigIntValue().of(value);
+
+            expect(floatValue.toString()).to.equal(`the bigint value of "${ value }"`);
+
+            await expect(floatValue.answeredBy(Sigma))
+                .to.be.rejectedWith(TypeError, `Parsing "${ value }" as a bigint value returned an error: Cannot convert ${ value } to a BigInt`);
+        });
+    });
+
+    describe('floatValue()', () => {
+
+        given([
+            { description: 'decimal',                    value: '3.14',      expected: 3.14 },
+            { description: 'padded',                     value: '  3.14  ',  expected: 3.14 },
+            { description: 'scientific (e-2)',           value: '314e-2"',   expected: 3.14 },
+            { description: 'scientific (e+2)',           value: '0.0314E+2', expected: 3.14 },
+            { description: 'extra trailing characters',  value: '3.14',     expected: 3.14 },
+        ]).
+        it('parses a string value and returns a float', async ({ value, expected }) => {
+
+            const floatValue = Numeric.floatValue().of(value);
+
+            expect(floatValue.toString()).to.equal(`the float value of "${ value }"`);
+
+            const result = await floatValue.answeredBy(Sigma);
+
+            expect(result).to.equal(expected);
+        });
+
+        it('fails when a value is not a string', async () => {
+            const floatValue = Numeric.floatValue().of(new Date('2024-09-12T00:00:00.000Z') as any);
+
+            expect(floatValue.toString()).to.equal('the float value of Date(2024-09-12T00:00:00.000Z)');
+
+            await expect(floatValue.answeredBy(Sigma)).to.be.rejectedWith('Date(2024-09-12T00:00:00.000Z) should be a string');
+        });
+
+        given([
+            { description: 'extra leading characters', value: '$3.14' },
+            { description: 'non-numeric string',       value: 'hello' },
+        ]).
+        it('fails when the parsed string is not a float', async ({ value }) => {
+
+            const floatValue = Numeric.floatValue().of(value);
+
+            expect(floatValue.toString()).to.equal(`the float value of "${ value }"`);
+
+            await expect(floatValue.answeredBy(Sigma))
+                .to.be.rejectedWith(TypeError, `Parsing "${ value }" as a float value returned a NaN`);
         });
     });
 });

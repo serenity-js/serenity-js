@@ -1,9 +1,9 @@
-import { Predicate } from 'tiny-types';
-import { ensure, isNumber } from 'tiny-types';
+import { ensure, isDefined, isNumber, isString, type Predicate } from 'tiny-types';
 
 import type { Answerable } from '../Answerable';
 import type { QuestionAdapter } from '../Question';
 import { Question } from '../Question';
+import type { MetaQuestion } from './MetaQuestion';
 import { the } from './tag-functions';
 
 export class Numeric {
@@ -89,6 +89,89 @@ export class Numeric {
 
             return numbers.sort().shift();
         });
+    }
+
+    /**
+     * Returns a MetaQuestion that parses a string `value` and returns an integer of the specified `base`.
+     *
+     * @param base
+     *  An integer between 2 and 36 that represents the base in mathematical numeral systems of the string.
+     *  If base is undefined or 0, it is assumed to be 10 except when the number begins with the code unit pairs 0x or 0X, in which case a radix of 16 is assumed.
+     */
+    static intValue(base?: Answerable<number>): MetaQuestion<string, QuestionAdapter<number>> {
+        return {
+            /**
+             * @param value
+             *  The value to parse, coerced to a string. Leading whitespace in this argument is ignored.
+             */
+            of: (value: Answerable<string>) =>
+                Question.about<Promise<number>>(the`the integer value of ${ value }`, async actor => {
+                    const description = this.descriptionOf(value);
+                    const stringValue = ensure(description, await actor.answer(value), isString());
+                    const maybeBase = await actor.answer(base)
+
+                    const radix = maybeBase !== undefined && maybeBase !== null
+                        ? ensure(`base ${ this.descriptionOf(base) }`, maybeBase, isNumber())
+                        : undefined;
+
+                    const parsed = Number.parseInt(stringValue, radix);
+
+                    if (Number.isNaN(parsed)) {
+                        throw new TypeError(`Parsing ${ description } as an integer value returned a NaN`);
+                    }
+
+                    return parsed;
+                }),
+        }
+    }
+
+    /**
+     * Returns a MetaQuestion that parses a string `value` and returns a BigInt.
+     */
+    static bigIntValue(): MetaQuestion<string, QuestionAdapter<bigint>> {
+        return {
+            /**
+             * @param value
+             *  The value to parse, coerced to a string. Leading whitespace in this argument is ignored.
+             */
+            of: (value: Answerable<string>) =>
+                Question.about<Promise<bigint>>(the`the bigint value of ${ value }`, async actor => {
+                    const description = this.descriptionOf(value);
+                    const stringValue = ensure(description, await actor.answer(value), isString());
+
+                    try {
+                        return BigInt(stringValue);
+                    }
+                    catch(error) {
+                        throw new TypeError(`Parsing ${ description } as a bigint value returned an error: ${ error.message || error }`);
+                    }
+                }),
+        }
+    }
+
+    /**
+     * Returns a MetaQuestion that parses a string `value` and returns a floating-point number.
+     */
+    static floatValue(): MetaQuestion<string, QuestionAdapter<number>> {
+        return {
+            /**
+             * @param value
+             *  The value to parse, coerced to a string. Leading whitespace in this argument is ignored.
+             */
+            of: (value: Answerable<string>) =>
+                Question.about<Promise<number>>(the`the float value of ${ value }`, async actor => {
+                    const description = this.descriptionOf(value);
+                    const maybeNumber = ensure(description, await actor.answer(value), isString());
+
+                    const parsed = Number.parseFloat(maybeNumber);
+
+                    if (Number.isNaN(parsed)) {
+                        throw new TypeError(`Parsing ${ description } as a float value returned a NaN`);
+                    }
+
+                    return parsed;
+                }),
+        }
     }
 
     private static flatten<T>(items: Array<Answerable<T | T[]>>, ...predicates: Array<Predicate<T>>): QuestionAdapter<T[]> {
