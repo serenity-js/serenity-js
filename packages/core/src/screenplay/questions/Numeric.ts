@@ -13,27 +13,27 @@ export class Numeric {
      * @param values
      */
     static sum(...values: Array<Answerable<number | number[]>>): QuestionAdapter<number> {
-        // eslint-disable-next-line unicorn/consistent-function-scoping
-        function sum(numbers: number[] | number): number {
-            return (Array.isArray(numbers) ? numbers : [ numbers ])
-                .reduce((acc, current) => {
-
-                    const description = current === undefined
-                        ? 'undefined'
-                        : Question.formattedValue().of(current).toString();
-
-                    return acc + ensure(description, current, isNumber())
-                }, 0);
-        }
-
         return Question.about<number>(the`the sum of ${ values }`, async actor => {
-            return values.reduce<Promise<number>>(
-                (acc, current) => acc.then(async total => {
-                    const valueOrValues = await actor.answer(current);
-                    return total + sum(valueOrValues)
-                }),
-                Promise.resolve(0)
-            );
+
+            const numbers = [];
+
+            for (const value of values) {
+                const numberOrNumbersToAdd = await actor.answer(value);
+                const numbersToAdd = Array.isArray(numberOrNumbersToAdd)
+                    ? numberOrNumbersToAdd
+                    : [ numberOrNumbersToAdd ];
+
+                numbers.push(...numbersToAdd);
+            }
+
+            return numbers.sort().reduce((acc, current) => {
+
+                const description = current === undefined
+                    ? 'undefined'
+                    : Question.formattedValue().of(current).toString();
+
+                return acc + ensure(description, current, isNumber())
+            }, 0);
         });
     }
 }

@@ -108,5 +108,18 @@ describe('Numeric', () => {
                 await expect(sum.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
             });
         });
+
+        describe('precision', () => {
+
+            it('avoids rounding errors', async () => {
+                const sum = Numeric.sum(1_000, 0.1, 0.00000001);
+
+                expect(sum.toString()).to.equal('the sum of [ 1000, 0.1, 1e-8 ]');
+
+                const result = await sum.answeredBy(Sigma);
+
+                expect(result).to.equal(1_000.100_000_01);
+            });
+        });
     });
 });
