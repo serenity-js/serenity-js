@@ -209,4 +209,70 @@ describe('Numeric', () => {
             await expect(floor.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
         });
     });
+
+    describe('max()', () => {
+
+        it('calculates the maximum value in a list of numbers', async () => {
+
+            const max = Numeric.max(1, 2, 3);
+
+            expect(max.toString()).to.equal('the max of [ 1, 2, 3 ]');
+
+            const result = await max.answeredBy(Sigma);
+
+            expect(result).to.equal(3);
+        });
+
+        it('calculates the maximum value in a list of numbers and arrays of numbers', async () => {
+
+            const max = Numeric.max(1, [ 2, 3 ], 4);
+
+            expect(max.toString()).to.equal('the max of [ 1, [ 2, 3 ], 4 ]');
+
+            const result = await max.answeredBy(Sigma);
+
+            expect(result).to.equal(4);
+        });
+
+        it('fails when a value is not a number', async () => {
+            const max = Numeric.max(1, [ '2' as any ], 3);
+
+            expect(max.toString()).to.equal('the max of [ 1, [ "2" ], 3 ]');
+
+            await expect(max.answeredBy(Sigma)).to.be.rejectedWith('"2" should be a number');
+        });
+    });
+
+    describe('min()', () => {
+
+        it('calculates the minimum value in a list of numbers', async () => {
+
+            const min = Numeric.min(3, 1, 2);
+
+            expect(min.toString()).to.equal('the min of [ 3, 1, 2 ]');
+
+            const result = await min.answeredBy(Sigma);
+
+            expect(result).to.equal(1);
+        });
+
+        it('calculates the minimum value in a list of numbers and arrays of numbers', async () => {
+
+            const min = Numeric.min(1, [ 2, 3 ], 4, [ 0 ]);
+
+            expect(min.toString()).to.equal('the min of [ 1, [ 2, 3 ], 4, [ 0 ] ]');
+
+            const result = await min.answeredBy(Sigma);
+
+            expect(result).to.equal(0);
+        });
+
+        it('fails when a value is not a number', async () => {
+            const min = Numeric.min(1, [ '2' as any ], 3);
+
+            expect(min.toString()).to.equal('the min of [ 1, [ "2" ], 3 ]');
+
+            await expect(min.answeredBy(Sigma)).to.be.rejectedWith('"2" should be a number');
+        });
+    });
 });
