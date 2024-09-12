@@ -27,13 +27,32 @@ export class Numeric {
             }
 
             return numbers.sort().reduce((acc, current) => {
-
-                const description = current === undefined
-                    ? 'undefined'
-                    : Question.formattedValue().of(current).toString();
-
-                return acc + ensure(description, current, isNumber())
+                return acc + ensure(this.descriptionOf(current), current, isNumber());
             }, 0);
         });
+    }
+
+    /**
+     * Returns a Question that calculates the difference between two numbers and throws if any of the values is not a `number`.
+     *
+     * @param minuend
+     * @param subtrahend
+     */
+    static difference(minuend: Answerable<number>, subtrahend: Answerable<number>): QuestionAdapter<number> {
+        return Question.about<number>(the`the difference between ${ minuend } and ${ subtrahend }`, async actor => {
+            const minuendValue = await actor.answer(minuend);
+            const subtrahendValue = await actor.answer(subtrahend);
+
+            return ensure(this.descriptionOf(minuendValue), minuendValue, isNumber())
+                - ensure(this.descriptionOf(subtrahendValue), subtrahendValue, isNumber());
+        });
+    }
+
+    private static descriptionOf(value: unknown): string {
+        if (value === undefined) {
+            return 'undefined';
+        }
+
+        return Question.formattedValue().of(value).toString();
     }
 }

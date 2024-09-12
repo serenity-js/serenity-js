@@ -122,4 +122,33 @@ describe('Numeric', () => {
             });
         });
     });
+
+    describe('difference()', () => {
+
+        it('calculates the difference between two numbers', async () => {
+            const difference = Numeric.difference(5, 2);
+
+            expect(difference.toString()).to.equal('the difference between 5 and 2');
+
+            const result = await difference.answeredBy(Sigma);
+
+            expect(result).to.equal(3);
+        });
+
+        it('fails when a value is not a number', async () => {
+            const difference = Numeric.difference(5, '2' as any);
+
+            expect(difference.toString()).to.equal('the difference between 5 and "2"');
+
+            await expect(difference.answeredBy(Sigma)).to.be.rejectedWith('"2" should be a number');
+        });
+
+        it('fails when a value is undefined', async () => {
+            const difference = Numeric.difference(5, undefined as any);
+
+            expect(difference.toString()).to.equal('the difference between 5 and undefined');
+
+            await expect(difference.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
+        });
+    });
 });
