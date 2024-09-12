@@ -48,6 +48,32 @@ export class Numeric {
         });
     }
 
+    /**
+     * Returns a Question that calculates the ceiling of a number and throws if the value is not a `number`.
+     *
+     * @param value
+     */
+    static ceiling(value: Answerable<number>): QuestionAdapter<number> {
+        return Question.about<number>(the`the ceiling of ${ value }`, async actor => {
+            const answer = await actor.answer(value);
+
+            return Math.ceil(ensure(this.descriptionOf(answer), answer, isNumber()));
+        });
+    }
+
+    /**
+     * Returns a Question that calculates the floor of a number and throws if the value is not a `number`.
+     *
+     * @param value
+     */
+    static floor(value: Answerable<number>): QuestionAdapter<number> {
+        return Question.about<number>(the`the floor of ${ value }`, async actor => {
+            const answer = await actor.answer(value);
+
+            return Math.floor(ensure(this.descriptionOf(answer), answer, isNumber()));
+        });
+    }
+
     private static descriptionOf(value: unknown): string {
         if (value === undefined) {
             return 'undefined';

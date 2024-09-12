@@ -151,4 +151,62 @@ describe('Numeric', () => {
             await expect(difference.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
         });
     });
+
+    describe('ceiling()', () => {
+
+        it('calculates the ceiling of a number', async () => {
+            const ceiling = Numeric.ceiling(3.14);
+
+            expect(ceiling.toString()).to.equal('the ceiling of 3.14');
+
+            const result = await ceiling.answeredBy(Sigma);
+
+            expect(result).to.equal(4);
+        });
+
+        it('fails when a value is not a number', async () => {
+            const ceiling = Numeric.ceiling('3.14' as any);
+
+            expect(ceiling.toString()).to.equal('the ceiling of "3.14"');
+
+            await expect(ceiling.answeredBy(Sigma)).to.be.rejectedWith('"3.14" should be a number');
+        });
+
+        it('fails when a value is undefined', async () => {
+            const ceiling = Numeric.ceiling(undefined as any);
+
+            expect(ceiling.toString()).to.equal('the ceiling of undefined');
+
+            await expect(ceiling.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
+        });
+    });
+
+    describe('floor()', () => {
+
+        it('calculates the floor of a number', async () => {
+            const floor = Numeric.floor(3.14);
+
+            expect(floor.toString()).to.equal('the floor of 3.14');
+
+            const result = await floor.answeredBy(Sigma);
+
+            expect(result).to.equal(3);
+        });
+
+        it('fails when a value is not a number', async () => {
+            const floor = Numeric.floor('3.14' as any);
+
+            expect(floor.toString()).to.equal('the floor of "3.14"');
+
+            await expect(floor.answeredBy(Sigma)).to.be.rejectedWith('"3.14" should be a number');
+        });
+
+        it('fails when a value is undefined', async () => {
+            const floor = Numeric.floor(undefined as any);
+
+            expect(floor.toString()).to.equal('the floor of undefined');
+
+            await expect(floor.answeredBy(Sigma)).to.be.rejectedWith('undefined should be a number');
+        });
+    });
 });
