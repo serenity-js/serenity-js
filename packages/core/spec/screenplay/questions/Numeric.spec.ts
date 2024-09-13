@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha';
+import { given } from 'mocha-testdata';
 
 import { actorCalled, List, Numeric } from '../../../src';
 import { expect } from '../../expect';
-import { given } from 'mocha-testdata';
 
 describe('Numeric', () => {
 
