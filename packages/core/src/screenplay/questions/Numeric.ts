@@ -1,4 +1,4 @@
-import { ensure, isDefined, isNumber, isString, type Predicate } from 'tiny-types';
+import { ensure, isNumber, isString, type Predicate } from 'tiny-types';
 
 import type { Answerable } from '../Answerable';
 import type { QuestionAdapter } from '../Question';
@@ -105,23 +105,24 @@ export class Numeric {
              *  The value to parse, coerced to a string. Leading whitespace in this argument is ignored.
              */
             of: (value: Answerable<string>) =>
-                Question.about<Promise<number>>(the`the integer value of ${ value }`, async actor => {
-                    const description = this.descriptionOf(value);
-                    const stringValue = ensure(description, await actor.answer(value), isString());
-                    const maybeBase = await actor.answer(base)
+                Question.about<Promise<number>>(the`the integer value of ${ value }`,
+                    async actor => {
+                        const description = this.descriptionOf(value);
+                        const stringValue = ensure(description, await actor.answer(value), isString());
+                        const maybeBase = await actor.answer(base)
 
-                    const radix = maybeBase !== undefined && maybeBase !== null
-                        ? ensure(`base ${ this.descriptionOf(base) }`, maybeBase, isNumber())
-                        : undefined;
+                        const radix = maybeBase !== undefined && maybeBase !== null
+                            ? ensure(`base ${ this.descriptionOf(base) }`, maybeBase, isNumber())
+                            : undefined;
 
-                    const parsed = Number.parseInt(stringValue, radix);
+                        const parsed = Number.parseInt(stringValue, radix);
 
-                    if (Number.isNaN(parsed)) {
-                        throw new TypeError(`Parsing ${ description } as an integer value returned a NaN`);
-                    }
+                        if (Number.isNaN(parsed)) {
+                            throw new TypeError(`Parsing ${ description } as an integer value returned a NaN`);
+                        }
 
-                    return parsed;
-                }),
+                        return parsed;
+                    }),
         }
     }
 
