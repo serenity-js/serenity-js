@@ -156,7 +156,7 @@ describe('Numeric', () => {
     describe('ceiling()', () => {
 
         it('calculates the ceiling of a number', async () => {
-            const ceiling = Numeric.ceiling(3.14);
+            const ceiling = Numeric.ceiling().of(3.14);
 
             expect(ceiling.toString()).to.equal('the ceiling of 3.14');
 
@@ -166,7 +166,7 @@ describe('Numeric', () => {
         });
 
         it('fails when a value is not a number', async () => {
-            const ceiling = Numeric.ceiling('3.14' as any);
+            const ceiling = Numeric.ceiling().of('3.14' as any);
 
             expect(ceiling.toString()).to.equal('the ceiling of "3.14"');
 
@@ -174,7 +174,7 @@ describe('Numeric', () => {
         });
 
         it('fails when a value is undefined', async () => {
-            const ceiling = Numeric.ceiling(undefined as any);
+            const ceiling = Numeric.ceiling().of(undefined as any);
 
             expect(ceiling.toString()).to.equal('the ceiling of undefined');
 
@@ -185,7 +185,7 @@ describe('Numeric', () => {
     describe('floor()', () => {
 
         it('calculates the floor of a number', async () => {
-            const floor = Numeric.floor(3.14);
+            const floor = Numeric.floor().of(3.14);
 
             expect(floor.toString()).to.equal('the floor of 3.14');
 
@@ -195,7 +195,7 @@ describe('Numeric', () => {
         });
 
         it('fails when a value is not a number', async () => {
-            const floor = Numeric.floor('3.14' as any);
+            const floor = Numeric.floor().of('3.14' as any);
 
             expect(floor.toString()).to.equal('the floor of "3.14"');
 
@@ -203,7 +203,7 @@ describe('Numeric', () => {
         });
 
         it('fails when a value is undefined', async () => {
-            const floor = Numeric.floor(undefined as any);
+            const floor = Numeric.floor().of(undefined as any);
 
             expect(floor.toString()).to.equal('the floor of undefined');
 

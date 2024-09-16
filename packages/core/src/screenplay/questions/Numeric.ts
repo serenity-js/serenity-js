@@ -1,8 +1,10 @@
 import { ensure, isNumber, isString, type Predicate } from 'tiny-types';
 
+import type { UsesAbilities } from '../abilities';
 import type { Answerable } from '../Answerable';
 import type { QuestionAdapter } from '../Question';
 import { Question } from '../Question';
+import type { AnswersQuestions } from './AnswersQuestions';
 import type { MetaQuestion } from './MetaQuestion';
 import { the } from './tag-functions';
 
@@ -41,28 +43,30 @@ export class Numeric {
 
     /**
      * Returns a Question that calculates the ceiling of a number and throws if the value is not a `number`.
-     *
-     * @param value
      */
-    static ceiling(value: Answerable<number>): QuestionAdapter<number> {
-        return Question.about<number>(the`the ceiling of ${ value }`, async actor => {
-            const answer = await actor.answer(value);
+    static ceiling(): MetaQuestion<number, QuestionAdapter<number>> {
+        return {
+            of: (value: Answerable<number>) =>
+                Question.about(the`the ceiling of ${ value }`, async (actor: AnswersQuestions & UsesAbilities) => {
+                    const answer = await actor.answer(value);
 
-            return Math.ceil(ensure(this.descriptionOf(answer), answer, isNumber()));
-        });
+                    return Math.ceil(ensure(this.descriptionOf(answer), answer, isNumber()));
+                }),
+        };
     }
 
     /**
      * Returns a Question that calculates the floor of a number and throws if the value is not a `number`.
-     *
-     * @param value
      */
-    static floor(value: Answerable<number>): QuestionAdapter<number> {
-        return Question.about<number>(the`the floor of ${ value }`, async actor => {
-            const answer = await actor.answer(value);
+    static floor(): MetaQuestion<number, QuestionAdapter<number>> {
+        return {
+            of: (value: Answerable<number>) =>
+                Question.about(the`the floor of ${ value }`, async (actor: AnswersQuestions & UsesAbilities) => {
+                    const answer = await actor.answer(value);
 
-            return Math.floor(ensure(this.descriptionOf(answer), answer, isNumber()));
-        });
+                    return Math.floor(ensure(this.descriptionOf(answer), answer, isNumber()));
+                }),
+        }
     }
 
     /**
@@ -92,7 +96,8 @@ export class Numeric {
     }
 
     /**
-     * Returns a MetaQuestion that parses a string `value` and returns an integer of the specified `base`.
+     * Returns a MetaQuestionAdapter that parses a string `value` and returns an integer of the specified `base`.
+     * Leading whitespace in the value to parse argument is ignored.
      *
      * @param base
      *  An integer between 2 and 36 that represents the base in mathematical numeral systems of the string.
@@ -128,6 +133,7 @@ export class Numeric {
 
     /**
      * Returns a MetaQuestion that parses a string `value` and returns a BigInt.
+     * Leading whitespace in the value to parse argument is ignored.
      */
     static bigIntValue(): MetaQuestion<string, QuestionAdapter<bigint>> {
         return {
@@ -152,6 +158,7 @@ export class Numeric {
 
     /**
      * Returns a MetaQuestion that parses a string `value` and returns a floating-point number.
+     * /Users/jan/Projects/serenity-js/serenity-js/packages/core/src/screenplay/questions/Numeric.ts
      */
     static floatValue(): MetaQuestion<string, QuestionAdapter<number>> {
         return {
