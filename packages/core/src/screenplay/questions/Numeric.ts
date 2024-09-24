@@ -22,7 +22,6 @@ export class Numeric {
      */
     static sum(...values: Array<Answerable<number | number[]>>): QuestionAdapter<number> {
         return Question.about<number>(the`the sum of ${ values }`, async actor => {
-
             const numbers = await actor.answer(this.flatten(values, isNumber()));
 
             return numbers.sort()
