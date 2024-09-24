@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.29.0](https://github.com/serenity-js/serenity-js/compare/v3.28.0...v3.29.0) (2024-09-24)
+
+
+### Bug Fixes
+
+* **core:** improved precision of results calculated by Numeric.sum() ([d82a23d](https://github.com/serenity-js/serenity-js/commit/d82a23d95572fedcca297bd79d555325f96ea460)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+
+
+### Features
+
+* **core:** added Numeric.sum() arithmetic function ([5ed15ec](https://github.com/serenity-js/serenity-js/commit/5ed15ec2ea90655fc45aa54a0b30c2e089265d18)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+* **core:** introduced Numeric.difference() ([97e7f5e](https://github.com/serenity-js/serenity-js/commit/97e7f5e396787b8eb9a51983b60aa191f5bfb8f8)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+* **core:** introduced Numeric.floor() and Numeric.ceiling() functions ([dbe892b](https://github.com/serenity-js/serenity-js/commit/dbe892b8f064a84f907d60bb5594ad900645a631)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+* **core:** introduced Numeric.intValue(), .bigIntValue() and floatValue() meta-questions ([bab710e](https://github.com/serenity-js/serenity-js/commit/bab710e1e6c92045561159a6a89462f6a3b6ee67)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+* **core:** introduced Numeric.max() and Numeric.min() ([f310bb0](https://github.com/serenity-js/serenity-js/commit/f310bb002ca30abb163bdeeff5764b0f4971ad03)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+* **core:** standardised arithmetic function APIs so that they can be used to map collection items ([8817ad4](https://github.com/serenity-js/serenity-js/commit/8817ad4ecfdef411eee0f5af8f1ccd73d6eb0806)), closes [#2420](https://github.com/serenity-js/serenity-js/issues/2420)
+
+
+
+
+
 # [3.28.0](https://github.com/serenity-js/serenity-js/compare/v3.27.0...v3.28.0) (2024-09-11)
 
 **Note:** Version bump only for package @serenity-js/core
