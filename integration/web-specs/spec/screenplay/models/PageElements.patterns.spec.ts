@@ -3,7 +3,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, ListItemNotFoundError, LogicError, MetaQuestion, Question } from '@serenity-js/core';
+import { actorCalled, ListItemNotFoundError, LogicError, MetaQuestion, Numeric, Question } from '@serenity-js/core';
 import { Attribute, By, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 
 import { ExportedPageElements } from './fixtures/ExportedPageElements';
@@ -398,6 +398,39 @@ describe('PageElements', () => {
                             { name: 'apples',  price: 2.25 },
                             { name: 'bananas', price: 1.5  },
                         ])
+                    ),
+                ));
+        });
+
+        describe('to extract numeric values', () => {
+
+            const numericExtractionSection = () =>
+                PageElement.located(By.css('[data-test-id="adding-numeric-values-across-table-cells"]'))
+                    .describedAs('number extraction pattern');
+
+            const container = () =>
+                PageElement.located(By.css('.container'))
+                    .describedAs('container')
+                    .of(numericExtractionSection());
+
+            const items = () =>
+                PageElements.located(By.css('.item'))
+                    .of(container())
+                    .describedAs('items');
+
+            const quantity = () =>
+                PageElement.located(By.css('.quantity'))
+                    .describedAs('quantity');
+
+            it('supports combining with Numeric meta questions', () =>
+                actorCalled('Peggy').attemptsTo(
+                    Ensure.that(
+                        Numeric.sum(
+                            items()
+                                .eachMappedTo(Text.of(quantity()))
+                                .eachMappedTo(Numeric.intValue())
+                        ),
+                        equals(5)
                     ),
                 ));
         });
