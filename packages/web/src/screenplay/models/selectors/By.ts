@@ -23,7 +23,7 @@ import { ByXPath } from './ByXPath';
  *       .describedAs('username field')
  *
  *   static passwordField = () =>
- *     PageElement.of(By.css('[data-test="password"]'))    // locate element using a CSS selector
+ *     PageElement.located(By.css('[data-test="password"]'))    // locate element using a CSS selector
  *       .describedAs('password field')
  * }
  * ```
@@ -42,7 +42,7 @@ import { ByXPath } from './ByXPath';
  *
  * class FormField {
  *   static withTestId = (id: Answerable<string>) =>
- *     PageElement.of(By.css(q`input[data-test-id="${ id }"]`))
+ *     PageElement.located(By.css(q`input[data-test-id="${ id }"]`))
  *       .describedAs('form field')
  * }
  *

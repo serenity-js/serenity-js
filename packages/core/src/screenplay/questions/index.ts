@@ -8,5 +8,6 @@ export * from './expectations';
 export * from './List';
 export * from './Masked';
 export * from './MetaQuestion';
+export * from './Numeric';
 export * from './tag-functions';
 export * from './Unanswered';
