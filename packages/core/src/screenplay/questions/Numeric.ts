@@ -8,6 +8,11 @@ import type { AnswersQuestions } from './AnswersQuestions';
 import type { MetaQuestion } from './MetaQuestion';
 import { the } from './tag-functions';
 
+/**
+ * Provides methods to perform calculations on numbers returned by other Questions.
+ *
+ * @group Questions
+ */
 export class Numeric {
 
     /**
