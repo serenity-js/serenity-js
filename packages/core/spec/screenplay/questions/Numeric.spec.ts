@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, List, Numeric } from '../../../src';
+import { actorCalled, List, Numeric, Question } from '../../../src';
 import { expect } from '../../expect';
 
 describe('Numeric', () => {
@@ -84,6 +84,19 @@ describe('Numeric', () => {
                 const sum = Numeric.sum(List.of([ 1, 2, 3 ]).describedAs('numbers'));
 
                 expect(sum.toString()).to.equal('the sum of [ numbers ]');
+
+                const result = await sum.answeredBy(Sigma);
+
+                expect(result).to.equal(6);
+            });
+
+            it('adds values returned from a mapped question', async () => {
+
+                const myObjectWithNumbers = Question.about('my object with numbers', actor => ({ a: 1, b: 2, c: 3 }));
+
+                const sum = Numeric.sum(myObjectWithNumbers.as(Object.values));
+
+                expect(sum.toString()).to.equal('the sum of [ <<my object with numbers>>.as(values) ]');
 
                 const result = await sum.answeredBy(Sigma);
 
