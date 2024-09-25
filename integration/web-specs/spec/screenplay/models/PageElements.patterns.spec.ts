@@ -408,31 +408,79 @@ describe('PageElements', () => {
                 PageElement.located(By.css('[data-test-id="adding-numeric-values-across-table-cells"]'))
                     .describedAs('number extraction pattern');
 
-            const container = () =>
-                PageElement.located(By.css('.container'))
-                    .describedAs('container')
-                    .of(numericExtractionSection());
+            class PriceList {
+                static container = () =>
+                    PageElement.located(By.id('price-list'))
+                        .of(numericExtractionSection())
+                        .describedAs('price list')
 
-            const items = () =>
-                PageElements.located(By.css('.item'))
-                    .of(container())
-                    .describedAs('items');
+                static items = () =>
+                    PageElements.located(PriceListItem.containerSelector())
+                        .of(this.container())
+                        .describedAs('items')
+            }
 
-            const quantity = () =>
-                PageElement.located(By.css('.quantity'))
-                    .describedAs('quantity');
+            class PriceListItem {
+                static containerSelector = () =>
+                    By.css('.item')
+
+                static container = () =>
+                    PageElement.located(this.containerSelector())
+                        .describedAs('item')
+
+                static name = () =>
+                    PageElement.located(By.css('.name'))
+                        .of(this.container())
+                        .describedAs('name')
+
+                static quantity = () =>
+                    PageElement.located(By.css('.quantity'))
+                        .of(this.container())
+                        .describedAs('quantity')
+
+                static price = () =>
+                    PageElement.located(By.css('.price'))
+                        .of(this.container())
+                        .describedAs('price')
+            }
 
             it('supports combining with Numeric meta questions', () =>
                 actorCalled('Peggy').attemptsTo(
                     Ensure.that(
                         Numeric.sum(
-                            items()
-                                .eachMappedTo(Text.of(quantity()))
+                            PriceList.items()
+                                .eachMappedTo(Text.of(PriceListItem.quantity()))
                                 .eachMappedTo(Numeric.intValue())
                         ),
-                        equals(5)
+                        equals(11)
                     ),
                 ));
+
+            it('supports parsing text as bigint', () =>
+
+                actorCalled('Peggy').attemptsTo(
+                    Ensure.that(
+                        Numeric.bigIntValue().of(
+                            Text.of(PriceListItem.quantity().of(PriceList.items().first())) // '5' (apples)
+                        ),
+                        equals(BigInt('5')),
+                    ),
+                )
+            );
+
+            it('supports parsing text as float', () =>
+
+                actorCalled('Peggy').attemptsTo(
+                    Ensure.that(
+                        Numeric.floatValue().of(
+                            Text.of(                                                  // '£2.25'
+                                PriceListItem.price().of(PriceList.items().first())
+                            ).replace('£', '')                                        // '2.25'
+                        ),
+                        equals(2.25),
+                    ),
+                )
+            );
         });
     });
 });
