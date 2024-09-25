@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.2](https://github.com/serenity-js/serenity-js/compare/v3.29.1...v3.29.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* **core:** added implementation examples to Numeric API docs ([5365ec4](https://github.com/serenity-js/serenity-js/commit/5365ec4f92f17a9b835e8a5de0880c38558de520))
+
+
+
+
+
 ## [3.29.1](https://github.com/serenity-js/serenity-js/compare/v3.29.0...v3.29.1) (2024-09-24)
 
 
