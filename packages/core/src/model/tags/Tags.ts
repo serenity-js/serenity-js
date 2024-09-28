@@ -1,12 +1,38 @@
-import { match } from 'tiny-types';
+import type { JSONObject} from 'tiny-types';
+import { ensure, isDefined, isString, match } from 'tiny-types';
 
-import type { Tag } from './';
-import { ArbitraryTag, IssueTag, ManualTag } from './';
+import type { Deserialiser } from '../../io';
+import { ArbitraryTag } from './ArbitraryTag';
+import { BrowserTag } from './BrowserTag';
+import { CapabilityTag } from './CapabilityTag';
+import { ExecutionRetriedTag } from './ExecutionRetriedTag';
+import { FeatureTag } from './FeatureTag';
+import { IssueTag } from './IssueTag';
+import { ManualTag } from './ManualTag';
+import { PlatformTag } from './PlatformTag';
+import type { Tag } from './Tag';
+import { ThemeTag } from './ThemeTag';
+
+function hasFromJSON(tagType: any): tagType is Deserialiser<Tag> {
+    return Object.prototype.hasOwnProperty.call(tagType, 'fromJSON');
+}
 
 /**
  * @package
  */
 export class Tags {
+    private static readonly supportedTypes: Map<string, Deserialiser<Tag> | { new (name: string): Tag }> = new Map([
+        ArbitraryTag,
+        BrowserTag,
+        CapabilityTag,
+        ExecutionRetriedTag,
+        FeatureTag,
+        IssueTag,
+        ManualTag,
+        PlatformTag,
+        ThemeTag,
+    ].map(tagType => [ tagType.Type, tagType ]))
+
     private static Pattern = /^@([\w-]+)[\s:]?(.*)/i;
 
     private static matchTags(tagText: string): Tag[] {
@@ -20,6 +46,22 @@ export class Tags {
             .when('manual', _ => [ new ManualTag() ])
             .when(/^issues?$/, _ => value.split(',').map(value => new IssueTag(value.trim())))
             .else(value => [ new ArbitraryTag(value.trim()) ]);
+    }
+
+    static fromJSON(o: JSONObject): Tag {
+        const type: string = ensure('serialised tag type', o.type, isDefined(), isString()) as string;
+
+        if (! this.supportedTypes.has(type)) {
+            return new ArbitraryTag(o.name as string);
+        }
+
+        const found = this.supportedTypes.get(type);
+
+        if (hasFromJSON(found)) {
+            return found.fromJSON(o);
+        }
+
+        return new found(o.name as string);
     }
 
     public static from(text: string): Tag[] {

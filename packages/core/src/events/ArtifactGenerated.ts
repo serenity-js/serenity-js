@@ -1,8 +1,8 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import type { SerialisedArtifact } from '../model';
-import { Artifact, CorrelationId, Name } from '../model';
+import type { Artifact, SerialisedArtifact } from '../model';
+import { ArtifactDeserialiser, CorrelationId, Name } from '../model';
 import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
@@ -14,7 +14,7 @@ export class ArtifactGenerated extends DomainEvent {
         return new ArtifactGenerated(
             CorrelationId.fromJSON(o.sceneId as string),
             Name.fromJSON(o.name as string),
-            Artifact.fromJSON(o.artifact as SerialisedArtifact),
+            ArtifactDeserialiser.fromJSON(o.artifact as SerialisedArtifact),
             Timestamp.fromJSON(o.timestamp as string),
         );
     }

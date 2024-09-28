@@ -2,8 +2,8 @@ import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
 import { Path } from '../io';
-import type { ArtifactType} from '../model';
-import { Artifact, CorrelationId, Name } from '../model';
+import type { ArtifactType } from '../model';
+import { ArtifactDeserialiser, CorrelationId, Name } from '../model';
 import { Timestamp } from '../screenplay';
 import { ArtifactArchived } from './ArtifactArchived';
 
@@ -20,7 +20,7 @@ export class ActivityRelatedArtifactArchived extends ArtifactArchived {
             CorrelationId.fromJSON(o.sceneId as string),
             CorrelationId.fromJSON(o.activityId as string),
             Name.fromJSON(o.name as string),
-            Artifact.ofType(o.type as string),
+            ArtifactDeserialiser.ofType(o.type as string),
             Path.fromJSON(o.path as string),
             Timestamp.fromJSON(o.artifactTimestamp as string),
             Timestamp.fromJSON(o.timestamp as string),

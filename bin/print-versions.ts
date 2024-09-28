@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env tsx
 
 import { sync as glob } from 'fast-glob';
 import { readFileSync } from 'fs';
