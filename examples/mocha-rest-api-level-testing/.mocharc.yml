@@ -6,7 +6,9 @@ reporter: '@serenity-js/mocha'
 reporter-options:
   - 'specDirectory=test/spec'
 require:
-  - ts-node/register
   - test/support/setup.ts
 timeout: 5000
 v8-stack-trace-limit: 100
+node-option:
+  - trace-warnings
+  - import=tsx

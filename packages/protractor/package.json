@@ -43,7 +43,7 @@
     "clean": "rimraf target",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "protractor ./spec/protractor.conf.js",
+    "test:no-coverage": "tsx ./node_modules/.bin/protractor ./spec/protractor.conf.js",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {
@@ -105,7 +105,6 @@
     "mocha-multi": "1.1.7",
     "protractor": "7.0.0",
     "start-server-and-test": "2.0.8",
-    "ts-node": "10.9.2",
     "typescript": "5.6.2"
   }
 }

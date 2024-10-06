@@ -24,6 +24,6 @@ exports.config = {
             'features/step_definitions/**/*.ts',
             'features/support/setup.ts',
         ],
-        requireModule: ['ts-node/register'],
+        requireModule: ['tsx/cjs'],
     },
 };

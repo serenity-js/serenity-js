@@ -1,8 +1,9 @@
 /* eslint-disable simple-import-sort/exports */
 
 export * from './ActivityDetails';
-export * from './artifacts';
+export * from './ArtifactDeserialiser';
 export * from './Artifact';
+export * from './artifacts';
 export * from './BusinessRule';
 export * from './Category';
 export * from './CorrelationId';

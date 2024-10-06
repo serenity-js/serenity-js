@@ -73,10 +73,10 @@ mocha --reporter=@serenity-js/mocha \
 
 #### TypeScript
 
-If you're writing your tests in TypeScript, you might want to run them via [`ts-node`](https://www.npmjs.com/package/ts-node), which transpiles TypeScript in memory without you having to do it before every test run.
+If you're writing your tests in TypeScript, you might want to run them via [`tsx`](https://www.npmjs.com/package/tsx), which transpiles TypeScript in memory without you having to do it before every test run.
 
 ```
-npm install --save-dev typescript ts-node
+npm install --save-dev typescript tsx
 ```
 
 If you haven't done so already, configure your TypeScript transpiler via [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html):
@@ -109,8 +109,7 @@ configure({
 Next, run Mocha as follows: 
 
 ```
-mocha --reporter=@serenity-js/mocha \
-      --require=ts-node/register \
+npx mocha --reporter=@serenity-js/mocha \
       --require=spec/support/setup.ts \
       'spec/**/*.spec.ts'
 ```
@@ -125,11 +124,13 @@ For example:
 ```yaml title=".mocharc.yml"
 reporter: '@serenity-js/mocha'
 require:
-  - ts-node/register
   - spec/support/setup.ts
 check-leaks: false
 timeout: 5000
 v8-stack-trace-limit: 100
+node-option:
+  - trace-warnings
+  - import=tsx
 # ...other config
 ```
 

@@ -21,7 +21,7 @@ exports.config = {
     },
 
     onPrepare: function() {
-        require('ts-node/register');
+        require('tsx/cjs');
 
         /**
          * If you're interacting with a non-Angular application,

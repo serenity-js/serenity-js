@@ -43,7 +43,7 @@ module.exports = {
     mochaOpts: {
         timeout: 60_000,
         require: [
-            'ts-node/register',
+            'tsx/cjs',
         ],
         reporter: 'spec',
     },

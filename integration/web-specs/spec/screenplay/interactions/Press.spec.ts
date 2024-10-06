@@ -8,6 +8,26 @@ import { given } from 'mocha-testdata';
 
 describe('Press', () => {
 
+    describe('detecting invocation location', () => {
+        it('correctly detects its invocation location', () => {
+            const activity = Press.the('a');
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Press.spec.ts');
+            expect(location.line).to.equal(13);
+            expect(location.column).to.equal(36);
+        });
+
+        it('correctly detects its invocation location when custom errors are used', () => {
+            const activity = Press.the('a').in(InputBoxForm.textField);
+            const location = activity.instantiationLocation();
+
+            expect(location.path.basename()).to.equal('Press.spec.ts');
+            expect(location.line).to.equal(22);
+            expect(location.column).to.equal(47);
+        });
+    });
+
     const InputBoxForm = {
         textField: PageElement.located(By.id('input-box')).describedAs('the text field'),
     };
@@ -114,26 +134,6 @@ describe('Press', () => {
     ]).
     it('provides a sensible description of the interaction being performed', ({ interaction, expected }) => {
         expect(interaction.toString()).to.equal(expected);
-    });
-
-    describe('detecting invocation location', () => {
-        it('correctly detects its invocation location', () => {
-            const activity = Press.the('a');
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(121);
-            expect(location.column).to.equal(36);
-        });
-
-        it('correctly detects its invocation location when custom errors are used', () => {
-            const activity = Press.the('a').in(InputBoxForm.textField);
-            const location = activity.instantiationLocation();
-
-            expect(location.path.basename()).to.equal('Press.spec.ts');
-            expect(location.line).to.equal(130);
-            expect(location.column).to.equal(47);
-        });
     });
 });
 

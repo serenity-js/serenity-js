@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env tsx
 
 /*
  * Implemented after cz-customizable standalone.js, with an override to avoid the problem with "prepared commits"
