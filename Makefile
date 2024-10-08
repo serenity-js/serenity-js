@@ -19,7 +19,7 @@ COMPILE_SCOPE=all
 # cucumber-all
 # playwright-all
 # protractor-all
-# webdriverio-all
+# webdriverio-8-all
 # jasmine
 # mocha
 # playwright-test
@@ -29,13 +29,13 @@ COMPILE_SCOPE=all
 # protractor-jasmine
 # protractor-mocha
 # protractor-web
-# webdriverio-test-runners
-# webdriverio-cucumber
-# webdriverio-jasmine
-# webdriverio-mocha
-# webdriverio-web
-# webdriverio-web-devtools
-# webdriverio-web-webdriver
+# webdriverio-8-test-runners
+# webdriverio-8-cucumber
+# webdriverio-8-jasmine
+# webdriverio-8-mocha
+# webdriverio-8-web
+# webdriverio-8-web-devtools
+# webdriverio-8-web-webdriver
 INTEGRATION_SCOPE=all
 
 .PHONY: all install clean lint test compile integration-test verify report site
