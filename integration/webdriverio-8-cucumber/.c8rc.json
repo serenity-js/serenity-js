@@ -1,0 +1,19 @@
+{
+  "extends": "../../.c8rc.json",
+  "reportDir": "./target/coverage",
+  "tempDir": "../target/c8_output",
+  "allowExternal": true,
+  "include": [
+    "**/packages/core/lib/**/*.js",
+    "**/packages/cucumber/lib/**/*.js",
+    "**/packages/web/lib/**/*.js",
+    "**/packages/webdriverio-8/lib/**/*.js",
+    "**/packages/webdriverio-8/esm/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ]
+}
