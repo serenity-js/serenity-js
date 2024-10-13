@@ -1,7 +1,7 @@
 {
-  "name": "@examples/webdriverio-mocha-todomvc",
+  "name": "@integration/webdriverio-8-web",
   "version": "3.0.0",
-  "description": "Example implementation of a test suite using WebdriverIO and Mocha to exercise a Web interface",
+  "description": "Internal module to help test integration of Serenity/JS with WebdriverIO",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,13 +13,20 @@
   "config": {
     "access": "private"
   },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
   "scripts": {
     "clean": "rimraf target",
-    "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "wdio wdio.conf.ts",
-    "test:report": "serenity-bdd run",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
-    "verify": "npm test"
+    "test:devtools": "cross-env PROTOCOL=devtools npm test",
+    "test:webdriver": "cross-env PROTOCOL=webdriver npm test",
+    "pretest": "serenity-bdd update --ignoreSSL",
+    "test": "cross-env PORT=8080 failsafe clean test:acceptance test:report",
+    "test:acceptance": "start-server-and-test start 'http://localhost:8080' test:acceptance:run",
+    "start": "npx web-specs-start",
+    "test:acceptance:run": "cross-env-shell c8 --reports-dir=\"./target/coverage/$PROTOCOL\" wdio wdio.conf.ts",
+    "test:report": "serenity-bdd run"
   },
   "repository": {
     "type": "git",
@@ -32,21 +39,28 @@
     "node": "^18.12 || ^20 || ^22"
   },
   "devDependencies": {
+    "@integration/testing-tools": "3.0.0",
+    "@integration/web-specs": "3.0.0",
     "@serenity-js/assertions": "^3.0.0",
     "@serenity-js/console-reporter": "^3.0.0",
     "@serenity-js/core": "^3.0.0",
     "@serenity-js/mocha": "^3.0.0",
-    "@serenity-js/webdriverio-8": "^3.0.0",
     "@serenity-js/serenity-bdd": "^3.0.0",
+    "@serenity-js/webdriverio-8": "^3.0.0",
     "@serenity-js/web": "^3.0.0",
+    "@types/mocha": "10.0.9",
     "@wdio/cli": "8.40.6",
     "@wdio/globals": "8.40.6",
     "@wdio/local-runner": "8.40.6",
     "@wdio/spec-reporter": "8.40.6",
-    "@wdio/reporter": "8.40.6",
-    "@types/mocha": "10.0.9",
+    "c8": "10.1.2",
+    "chromedriver": "128.0.3",
+    "ci-info": "4.0.0",
+    "cross-env": "7.0.3",
+    "devtools": "8.40.2",
     "mocha": "10.7.3",
     "npm-failsafe": "1.3.0",
+    "wdio-chromedriver-service": "8.1.1",
     "webdriverio": "8.40.6",
     "ts-node": "10.9.2",
     "typescript": "5.6.2"
