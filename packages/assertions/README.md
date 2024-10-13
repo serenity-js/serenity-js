@@ -22,7 +22,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ## Serenity/JS Assertions
 
-[`@serenity-js/assertions`](https://serenity-js.org/api/rest/) is an assertions library implementing the [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html).
+[`@serenity-js/assertions`](https://serenity-js.org/api/rest/) is an assertions library implementing the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/).
 
 ### Installation
 
