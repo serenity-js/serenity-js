@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
+import { endsWith, Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Expectation, LogicError } from '@serenity-js/core';
 import {
     By,
@@ -198,14 +198,19 @@ describe('PageElement', () => {
                 it('allows for properties of the current frame to be retrieved without affecting the browsing context', () =>
                     actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
+
                         Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
+                        Ensure.that(Page.current().url().pathname, endsWith('/page_with_a_nested_iframe.html')),
 
                         Switch.to(PageElement.located(By.css('iframe'))).and(
                             Ensure.that(Page.current().title(), equals('Page with an iframe')),
                             Ensure.that(Page.current().name(), equals('example-nested-iframe')),
+                            Ensure.that(Page.current().url().pathname, endsWith('/page_with_an_iframe.html')),
 
                             Switch.to(PageElement.located(By.css('iframe'))).and(
+                                Ensure.that(Page.current().title(), equals('An iframe')),
                                 Ensure.that(Page.current().name(), equals('example-iframe')),
+                                Ensure.that(Page.current().url().pathname, endsWith('/iframe.html')),
                             ),
                         ),
 
@@ -253,7 +258,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(252);
+                expect(location.line).to.equal(257);
                 expect(location.column).to.equal(41);
             });
 

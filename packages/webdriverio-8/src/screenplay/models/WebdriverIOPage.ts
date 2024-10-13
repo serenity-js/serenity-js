@@ -213,7 +213,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
     }
 
     async title(): Promise<string> {
-        return await this.inContextOfThisPage(() => this.browser.getTitle());
+        return await this.inContextOfThisPage(() => this.browser.execute(`return document.title`));
     }
 
     async name(): Promise<string> {
@@ -222,7 +222,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     async url(): Promise<URL> {
         return await this.inContextOfThisPage(async () => {
-            return new URL(await this.browser.getUrl());
+            return new URL(await this.browser.execute(`return window.location.href`));
         });
     }
 
