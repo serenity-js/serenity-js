@@ -6,7 +6,9 @@ import { actorCalled, LogicError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import {
     By,
+    Drag,
     isActive,
+    isVisible,
     Key,
     Navigate,
     Page,
@@ -311,6 +313,18 @@ describe('PageElement', () => {
         const description = PageElement.located(By.css('iframe')).toString();
 
         expect(description).to.equal(`page element located by css ('iframe')`);
+    });
+
+    const draggable = () => PageElement.located(By.id('source'));
+    const dropzone = () => PageElement.located(By.id('target'));
+
+    describe('dragTo()', () => {
+        it('should successfully drag an element to the specified dropzone', () => 
+            actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/drag_and_drop.html'),
+                Drag.the(draggable()).to(dropzone()),
+                Ensure.that(draggable().of(dropzone()), isVisible()) // dragging doesn't necessarily change the location of the HTML element to be inside the dropzone, but our example does
+            ));
     });
 });
 
