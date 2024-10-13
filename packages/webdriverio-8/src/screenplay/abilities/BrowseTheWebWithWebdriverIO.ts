@@ -12,7 +12,7 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
- * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio-8-8'
+ * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio-8'
  * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
  * import { Ensure, equals } from '@serenity-js/assertions'
  * import { browser } from '@wdio/globals'
