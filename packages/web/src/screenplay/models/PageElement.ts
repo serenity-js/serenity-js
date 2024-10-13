@@ -166,6 +166,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract rightClick(): Promise<void>;
     abstract selectOptions(...options: Array<SelectOption>): Promise<void>;
     abstract selectedOptions(): Promise<Array<SelectOption>>;
+    abstract dragTo(destination: PageElement<Native_Element_Type>): Promise<void>
 
     abstract attribute(name: string): Promise<string>;
     abstract text(): Promise<string>;
