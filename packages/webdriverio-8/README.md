@@ -22,7 +22,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ## Serenity/JS WebdriverIO 8
 
-[`@serenity-js/webdriverio`](https://serenity-js.org/api/webdriverio/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
+[`@serenity-js/webdriverio-8`](https://serenity-js.org/api/webdriverio-8/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
 for [WebdriverIO 8](https://v8.webdriver.io/) that will help you with testing Web and mobile apps.
 
 ### Installation
@@ -36,7 +36,7 @@ npm init wdio .
 Install the below Serenity/JS modules in your WebdriverIO project directory:
 
 ```sh
-npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/webdriverio
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/webdriverio-8
 ```
 
 To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide fpr WebdriverIO](https://serenity-js.org/handbook/getting-started/serenity-js-with-webdriverio/).
@@ -67,12 +67,12 @@ npm install --save-dev @serenity-js/mocha
 ### Configuring WebdriverIO
 
 To integrate Serenity/JS with WebdriverIO, 
-configure your `wdio.conf.ts` to specify `framework: '@serenity-js/webdriverio'`.
+configure your `wdio.conf.ts` to specify `framework: '@serenity-js/webdriverio-8'`.
 You can [configure Serenity/JS](https://serenity-js.org/api/core/class/SerenityConfig) in the same file.
 
 ```typescript title="wdio.conf.ts"
 // wdio.conf.ts
-import { WebdriverIOConfig } from '@serenity-js/webdriverio'
+import { WebdriverIOConfig } from '@serenity-js/webdriverio-8'
 
 // Optional, import custom Actors if needed; More on this below.
 import { Actors } from './serenity/Actors.ts'
@@ -80,7 +80,7 @@ import { Actors } from './serenity/Actors.ts'
 export const config: WebdriverIOConfig = {
     
     // Tell WebdriverIO to use Serenity/JS framework
-    framework: '@serenity-js/webdriverio',
+    framework: '@serenity-js/webdriverio-8',
 
     // Serenity/JS configuration
     serenity: {
@@ -143,7 +143,7 @@ Learn more about:
 #### Using custom Serenity/JS Actors
 
 By default, Serenity/JS uses a default [cast of actors](https://serenity-js.org/api/core/class/Cast) where every actor can:
-- [`BrowseTheWebWithWebdriverIO`](https://serenity-js.org/api/webdriverio/class/BrowseTheWebWithWebdriverIO)
+- [`BrowseTheWebWithWebdriverIO`](https://serenity-js.org/api/webdriverio-8/class/BrowseTheWebWithWebdriverIO)
 - [`TakeNotes.usingAnEmptyNotepad()`](https://serenity-js.org/api/core/class/TakeNotes)
 
 If you're planning to implement scenarios where [actors](https://serenity-js.org/api/core/class/Actor) have
@@ -154,7 +154,7 @@ with a custom [`Cast`](https://serenity-js.org/api/core/class/Cast), like this o
 // serenity/Actors.ts
 import { Actor, Cast, TakeNotes } from '@serenity-js/core'
 import { CallAnApi } from '@serenity-js/rest'
-import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio-8'
 import type { Browser } from 'webdriverio'
 
 export class Actors implements Cast {
@@ -190,7 +190,7 @@ export class Actors implements Cast {
 import { actorCalled } from '@serenity-js/core'
 import { Ensure, equals } from '@serenity-js/assertions'
 import { By, Navigate, PageElement, Text } from '@serenity-js/web'
-import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
+import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio-8'
 
 // example Lean Page Object describing a widget we interact with in the test
 class SerenityJSWebsite {
