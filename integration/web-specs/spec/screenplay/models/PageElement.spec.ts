@@ -314,12 +314,12 @@ describe('PageElement', () => {
     });
 });
 
-function noWhitespace(snippet: string) {
+function ignoreWhitespace(snippet: string) {
     return snippet
         .split('\n')
         .map(line => line.trim())
         .filter(Boolean)
-        .map(line => line.replace(/^\s*(.*)$/, '\\s*$1'))
+        .map(line => line.replaceAll(/(\s+)/gm, ' '))
         .join('\n');
 }
 
@@ -327,8 +327,9 @@ const matchesSnippet = Expectation.define(
     'matches snippet',
     'match snippet',
     (actualSnippet: string, expectedSnippet: string) => {
-        const actual   = noWhitespace(actualSnippet);
-        const expected = noWhitespace(expectedSnippet);
-        return new RegExp(expected).test(actual);
+        const actual   = ignoreWhitespace(actualSnippet);
+        const expected = ignoreWhitespace(expectedSnippet);
+
+        return expected === actual;
     }
 );
