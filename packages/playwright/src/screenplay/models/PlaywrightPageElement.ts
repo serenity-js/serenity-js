@@ -98,6 +98,14 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
         );
     }
 
+    async dragTo(destination: PageElement<playwright.Locator>): Promise<void> {
+        const elementBeingDragged = await this.nativeElement();
+        const destinationElement = await destination.nativeElement();
+
+        await elementBeingDragged.dragTo(destinationElement);
+        //TODO: see if other implementations support options like Playwright does, so we can expose the common ones.
+    }
+
     async attribute(name: string): Promise<string> {
         const element = await this.nativeElement();
         return element.getAttribute(name);

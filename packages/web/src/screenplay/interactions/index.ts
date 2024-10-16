@@ -1,6 +1,7 @@
 export * from './Clear';
 export * from './Click';
 export * from './DoubleClick';
+export * from './Drag';
 export * from './Enter';
 export * from './ExecuteScript';
 export * from './Hover';
