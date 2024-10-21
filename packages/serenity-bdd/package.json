@@ -38,7 +38,8 @@
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "compile": "rimraf lib cache && tsc --project tsconfig.build.json && npm run populate-cache",
+    "populate-cache": "./bin/serenity-bdd update --cacheDir './cache'"
   },
   "repository": {
     "type": "git",
