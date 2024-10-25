@@ -271,7 +271,7 @@ export class ProtractorPage extends Page<protractor.ElementFinder> {
 
     async title(): Promise<string> {
         return await this.inContextOfThisPage(() => {
-            return promised(this.browser.getTitle());
+            return promised(this.browser.executeScript('return document.title'));
         });
     }
 
@@ -283,7 +283,7 @@ export class ProtractorPage extends Page<protractor.ElementFinder> {
 
     async url(): Promise<URL> {
         return await this.inContextOfThisPage(async () => {
-            return new URL(await promised(this.browser.getCurrentUrl()));
+            return new URL(await promised(this.browser.executeScript('return window.location.href')));
         });
     }
 

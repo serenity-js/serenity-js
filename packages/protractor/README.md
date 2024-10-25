@@ -22,7 +22,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ## Serenity/JS Protractor
 
-[`@serenity-js/protractor`](https://serenity-js.org/api/protractor/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
+[`@serenity-js/protractor`](https://serenity-js.org/api/protractor/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
 for [Protractor framework](https://www.protractortest.org/), that helps with testing Angular, React, Vue
 and other frontend web apps.
 

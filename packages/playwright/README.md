@@ -22,7 +22,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ## Serenity/JS Playwright
 
-[`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/thinking-in-serenity-js/screenplay-pattern.html)-style adapter
+[`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
 for [Playwright](https://playwright.dev/), that helps with testing Web-based apps.
 
 ### Installation

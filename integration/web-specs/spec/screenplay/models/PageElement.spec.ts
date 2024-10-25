@@ -1,9 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { endsWith, Ensure, equals, isPresent, not } from '@serenity-js/assertions';
+import { actorCalled, Expectation, LogicError } from '@serenity-js/core';
 import {
     By,
     isActive,
@@ -71,10 +70,10 @@ describe('PageElement', () => {
                 Navigate.to('/screenplay/models/page-element/outer_html.html'),
                 Ensure.that(
                     PageElement.located(By.id('container')).html(),
-                    equals(trimmed`
-                        | <div id="container">
-                        |     <h1>Title</h1>
-                        | </div>                    
+                    matchesSnippet(`
+                        <div id="container">
+                            <h1>Title</h1>
+                        </div>
                     `)
                 ),
             ));
@@ -128,7 +127,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(127);
+                expect(location.line).to.equal(126);
                 expect(location.column).to.equal(72);
             });
 
@@ -169,7 +168,7 @@ describe('PageElement', () => {
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(168);
+                    expect(location.line).to.equal(167);
                     expect(location.column).to.equal(87);
                 });
 
@@ -199,13 +198,19 @@ describe('PageElement', () => {
                 it('allows for properties of the current frame to be retrieved without affecting the browsing context', () =>
                     actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
+
                         Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
+                        Ensure.that(Page.current().url().pathname, endsWith('/page_with_a_nested_iframe.html')),
 
                         Switch.to(PageElement.located(By.css('iframe'))).and(
+                            Ensure.that(Page.current().title(), equals('Page with an iframe')),
                             Ensure.that(Page.current().name(), equals('example-nested-iframe')),
+                            Ensure.that(Page.current().url().pathname, endsWith('/page_with_an_iframe.html')),
 
                             Switch.to(PageElement.located(By.css('iframe'))).and(
+                                Ensure.that(Page.current().title(), equals('An iframe')),
                                 Ensure.that(Page.current().name(), equals('example-iframe')),
+                                Ensure.that(Page.current().url().pathname, endsWith('/iframe.html')),
                             ),
                         ),
 
@@ -253,7 +258,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(252);
+                expect(location.line).to.equal(257);
                 expect(location.column).to.equal(41);
             });
 
@@ -314,3 +319,22 @@ describe('PageElement', () => {
     });
 });
 
+function ignoreWhitespace(snippet: string) {
+    return snippet
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => line.replaceAll(/(\s+)/gm, ' '))
+        .join('\n');
+}
+
+const matchesSnippet = Expectation.define(
+    'matches snippet',
+    'match snippet',
+    (actualSnippet: string, expectedSnippet: string) => {
+        const actual   = ignoreWhitespace(actualSnippet);
+        const expected = ignoreWhitespace(expectedSnippet);
+
+        return expected === actual;
+    }
+);
