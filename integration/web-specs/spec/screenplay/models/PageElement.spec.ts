@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, LogicError } from '@serenity-js/core';
+import { and, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { actorCalled, LogicError, Wait } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import {
     By,
@@ -315,15 +315,17 @@ describe('PageElement', () => {
         expect(description).to.equal(`page element located by css ('iframe')`);
     });
 
-    const draggable = () => PageElement.located(By.id('source'));
-    const dropzone = () => PageElement.located(By.id('target'));
+    const draggable = () => PageElement.located(By.id('source')).describedAs("draggable");
+    const dropzone = () => PageElement.located(By.id('target')).describedAs("drop zone");
+    const dragEventOutput = () => PageElement.located(By.id('output')).describedAs("drag event output box");
 
     describe('dragTo()', () => {
         it('should successfully drag an element to the specified dropzone', () => 
             actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/drag_and_drop.html'),
                 Drag.the(draggable()).to(dropzone()),
-                Ensure.that(draggable().of(dropzone()), isVisible()) // dragging doesn't necessarily change the location of the HTML element to be inside the dropzone, but our example does
+                Wait.until(draggable().of(dropzone()), isVisible()), // dragging doesn't necessarily change the location of the HTML element to be inside the dropzone, but our example does
+                Wait.until(Text.of(dragEventOutput()), and(includes('dragstart:'), includes('dragover:') ,includes('drop:')))
             ));
     });
 });
