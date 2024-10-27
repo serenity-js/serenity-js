@@ -35,7 +35,7 @@ import type { PageElement } from '../models';
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
  * import { Drag, Navigate, Text } from '@serenity-js/web'
- * import { Ensure, equals } from '@serenity-js/assertions';
+ * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * await actorCalled('Doug')
  *   .attemptsTo(
