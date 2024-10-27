@@ -315,9 +315,9 @@ describe('PageElement', () => {
         expect(description).to.equal(`page element located by css ('iframe')`);
     });
 
-    const draggable = () => PageElement.located(By.id('source')).describedAs("draggable");
-    const dropzone = () => PageElement.located(By.id('target')).describedAs("drop zone");
-    const dragEventOutput = () => PageElement.located(By.id('output')).describedAs("drag event output box");
+    const draggable = () => PageElement.located(By.id('source')).describedAs('draggable');
+    const dropzone = () => PageElement.located(By.id('target')).describedAs('drop zone');
+    const dragEventOutput = () => PageElement.located(By.id('output')).describedAs('drag event output box');
 
     describe('dragTo()', () => {
         it('should successfully drag an element to the specified dropzone', () => 
