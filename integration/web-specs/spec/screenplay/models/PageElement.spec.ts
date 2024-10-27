@@ -130,7 +130,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(127);
+                expect(location.line).to.equal(129);
                 expect(location.column).to.equal(72);
             });
 
@@ -171,7 +171,7 @@ describe('PageElement', () => {
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(168);
+                    expect(location.line).to.equal(170);
                     expect(location.column).to.equal(87);
                 });
 
@@ -255,7 +255,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(252);
+                expect(location.line).to.equal(254);
                 expect(location.column).to.equal(41);
             });
 
