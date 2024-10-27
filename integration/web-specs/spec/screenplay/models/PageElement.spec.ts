@@ -324,8 +324,8 @@ describe('PageElement', () => {
             actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/drag_and_drop.html'),
                 Drag.the(draggable()).to(dropzone()),
+                Wait.until(Text.of(dragEventOutput()), and(includes('dragstart:'), includes('dragover:'), includes('drop:'))),
                 Wait.until(draggable().of(dropzone()), isVisible()), // dragging doesn't necessarily change the location of the HTML element to be inside the dropzone, but our example does
-                Wait.until(Text.of(dragEventOutput()), and(includes('dragstart:'), includes('dragover:'), includes('drop:')))
             ));
     });
 });
