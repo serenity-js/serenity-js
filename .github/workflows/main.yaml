@@ -10,13 +10,18 @@ on:
 permissions:
   contents: read
 
+env:
+  NODE_VERSION_ACTIVE: 22.x
+  NODE_VERSION_MAINTENANCE: 20.x
+  NODE_VERSION_MAINTENANCE_PREVIOUS: 18.x
+
 jobs:
 
   lint:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: npm ci
       command: make lint
 
@@ -24,7 +29,7 @@ jobs:
     name: 'Compile'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
       command: make COMPILE_SCOPE=libs compile
       upload-artifact-name: 'compiled-libs'
@@ -41,33 +46,33 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test
       upload-artifact-name: 'test-reports'
       upload-artifact-path: 'package.json "packages/*/target/**/*"'
 
-  test-linux-node-lts-previous:
+  test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
     needs:
       - lint
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 18.x
+      node-version: ${{ env.NODE_VERSION_MAINTENANCE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage
 
-  test-linux-node-lts-next:
-    name: 'Test: Linux, LTS+1'
+  test-linux-node-lts-maintenance-previous:
+    name: 'Test: Linux, LTS-2'
     needs:
       - lint
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
-      node-version: 22.x
+      node-version: ${{ env.NODE_VERSION_MAINTENANCE_PREVIOUS }}
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage
@@ -80,7 +85,7 @@ jobs:
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
       command: make test-no-coverage
@@ -103,7 +108,7 @@ jobs:
           "playwright-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: |
@@ -126,7 +131,7 @@ jobs:
           "protractor-web"
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
@@ -161,7 +166,7 @@ jobs:
           "webdriverio-web-webdriver",
         ]
       runs-on: 'ubuntu-latest'
-      node-version: 20.x
+      node-version: ${{ env.NODE_VERSION_ACTIVE }}
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
@@ -189,7 +194,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
-          node-version: 20.x
+          node-version: ${{ env.NODE_VERSION_ACTIVE }}
 
       - name: Install Node Modules
         uses: bahmutov/npm-install@v1
@@ -239,7 +244,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - test-linux-node-lts-active
-      - test-linux-node-lts-previous
       - test-windows-node-lts-active
       - test-integration
       - test-integration-playwright
@@ -265,7 +269,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
-          node-version: 20.x
+          node-version: ${{ env.NODE_VERSION_ACTIVE }}
 
       - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
