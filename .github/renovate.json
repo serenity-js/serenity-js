@@ -2,13 +2,11 @@
   "extends": [
     ":dependencyDashboard",
     ":semanticPrefixFixDepsChoreOthers",
-    ":autodetectPinVersions",
     ":prHourlyLimit2",
     ":prConcurrentLimit20",
     "group:monorepos",
     "group:recommended",
     "workarounds:typesNodeVersioning",
-    "workarounds:reduceRepologyServerLoad",
     "helpers:disableTypesNodeMajor",
     "helpers:pinGitHubActionDigests"
   ],
@@ -22,20 +20,20 @@
       "labels": [
         "@serenity-js/core"
       ],
-      "packagePatterns": [
-        "@paralleldrive/cuid2",
-        "@types/diff",
-        "@types/filenamify",
-        "@types/validate-npm-package-name",
-        "assertion-error-formatter",
-        "diff",
-        "error-stack-parser",
-        "fast-glob",
-        "filenamify",
-        "graceful-fs",
-        "moment",
-        "upath",
-        "validate-npm-package-name"
+      "matchPackageNames": [
+        "/@paralleldrive/cuid2/",
+        "/@types/diff/",
+        "/@types/filenamify/",
+        "/@types/validate-npm-package-name/",
+        "/assertion-error-formatter/",
+        "/diff/",
+        "/error-stack-parser/",
+        "/fast-glob/",
+        "/filenamify/",
+        "/graceful-fs/",
+        "/moment/",
+        "/upath/",
+        "/validate-npm-package-name/"
       ]
     },
     {
@@ -43,10 +41,10 @@
       "labels": [
         "@serenity-js/cucumber"
       ],
-      "packagePatterns": [
-        "^@cucumber",
-        "cli-table3",
-        "gherkin"
+      "matchPackageNames": [
+        "/^@cucumber/",
+        "/cli-table3/",
+        "/gherkin/"
       ]
     },
     {
@@ -54,14 +52,14 @@
       "labels": [
         "@serenity-js/local-server"
       ],
-      "packagePatterns": [
-        "http-shutdown",
-        "portfinder",
-        "@hapi/hapi",
-        "@types/hapi",
-        "@types/restify",
-        "koa",
-        "restify"
+      "matchPackageNames": [
+        "/http-shutdown/",
+        "/portfinder/",
+        "/@hapi/hapi/",
+        "/@types/hapi/",
+        "/@types/restify/",
+        "/koa/",
+        "/restify/"
       ]
     },
     {
@@ -70,10 +68,10 @@
         "@serenity-js/playwright",
         "@serenity-js/web"
       ],
-      "packagePatterns": [
-        "playwright",
-        "playwright-core",
-        "^@playwright"
+      "matchPackageNames": [
+        "/playwright/",
+        "/playwright-core/",
+        "/^@playwright/"
       ]
     },
     {
@@ -82,14 +80,14 @@
         "@serenity-js/protractor",
         "@serenity-js/web"
       ],
-      "packagePatterns": [
-        "@types/html-minifier",
-        "@types/selenium-webdriver",
-        "body-parser",
-        "html-minifier",
-        "protractor",
-        "query-selector-shadow-dom",
-        "selenium-webdriver"
+      "matchPackageNames": [
+        "/@types/html-minifier/",
+        "/@types/selenium-webdriver/",
+        "/body-parser/",
+        "/html-minifier/",
+        "/protractor/",
+        "/query-selector-shadow-dom/",
+        "/selenium-webdriver/"
       ]
     },
     {
@@ -97,13 +95,13 @@
       "labels": [
         "@serenity-js/rest"
       ],
-      "packagePatterns": [
-        "agent-base",
-        "axios",
-        "http-proxy-agent",
-        "https-proxy-agent",
-        "lru-cache",
-        "proxy-from-env"
+      "matchPackageNames": [
+        "/agent-base/",
+        "/axios/",
+        "/http-proxy-agent/",
+        "/https-proxy-agent/",
+        "/lru-cache/",
+        "/proxy-from-env/"
       ]
     },
     {
@@ -112,11 +110,11 @@
         "@serenity-js/webdriverio",
         "@serenity-js/web"
       ],
-      "packagePatterns": [
-        "^@wdio",
-        "^webdriverio",
-        "devtools",
-        "puppeteer-core"
+      "matchPackageNames": [
+        "/^@wdio/",
+        "/^webdriverio/",
+        "/devtools/",
+        "/puppeteer-core/"
       ]
     },
     {
@@ -124,70 +122,70 @@
       "labels": [
         "@serenity-js/serenity-bdd"
       ],
-      "packagePatterns": [
-        "@types/progress",
-        "find-java-home",
-        "https-proxy-agent",
-        "if-env",
-        "progress",
-        "which",
-        "yargs"
+      "matchPackageNames": [
+        "/@types/progress/",
+        "/find-java-home/",
+        "/https-proxy-agent/",
+        "/if-env/",
+        "/progress/",
+        "/which/",
+        "/yargs/"
       ]
     },
     {
       "groupName": "TypeScript dependencies",
-      "packagePatterns": [
-        "^ts-node$",
-        "^typescript$"
+      "matchPackageNames": [
+        "/^ts-node$/",
+        "/^typescript$/"
       ]
     },
     {
       "groupName": "ESLint dependencies",
-      "packagePatterns": [
-        "^eslint$",
-        "^eslint-plugin",
-        "^@typescript-eslint"
+      "matchPackageNames": [
+        "/^eslint$/",
+        "/^eslint-plugin/",
+        "/^@typescript-eslint/"
       ]
     },
     {
       "groupName": "Common development tools",
-      "packagePatterns": [
-        "@commitlint/cli",
-        "@commitlint/config-conventional",
-        "@types/chai-as-promised",
-        "@types/istanbul-lib-coverage",
-        "@types/sinon",
-        "@types/sinon-chai",
-        "chai-as-promised",
-        "^chromedriver$",
-        "coveralls",
-        "cz-conventional-changelog",
-        "cz-customizable",
-        "husky",
-        "istanbul-lib-coverage",
-        "mocha-testdata",
-        "rimraf",
-        "sinon",
-        "sinon-chai"
+      "matchPackageNames": [
+        "/@commitlint/cli/",
+        "/@commitlint/config-conventional/",
+        "/@types/chai-as-promised/",
+        "/@types/istanbul-lib-coverage/",
+        "/@types/sinon/",
+        "/@types/sinon-chai/",
+        "/chai-as-promised/",
+        "/^chromedriver$/",
+        "/coveralls/",
+        "/cz-conventional-changelog/",
+        "/cz-customizable/",
+        "/husky/",
+        "/istanbul-lib-coverage/",
+        "/mocha-testdata/",
+        "/rimraf/",
+        "/sinon/",
+        "/sinon-chai/"
       ]
     },
     {
       "groupName": "Internal dependencies (ignored)",
-      "packagePatterns": [
-        "^@examples/",
-        "^@integration/",
-        "^@serenity-js/"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/^@examples//",
+        "/^@integration//",
+        "/^@serenity-js//"
+      ]
     },
     {
       "groupName": "GitHub Actions",
-      "packagePatterns": [
-        "^actions/",
-        "^tj-actions/",
-        "^github/codeql-action$",
-        "^mattraks/delete-workflow-runs$",
-        "^paambaati/codeclimate-action$"
+      "matchPackageNames": [
+        "/^actions//",
+        "/^tj-actions//",
+        "/^github/codeql-action$/",
+        "/^mattraks/delete-workflow-runs$/",
+        "/^paambaati/codeclimate-action$/"
       ]
     }
   ],

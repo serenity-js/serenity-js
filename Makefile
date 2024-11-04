@@ -3,7 +3,6 @@
 # site
 # @serenity-js
 # @integration
-# @documentation
 # @examples
 BOOTSTRAP_SCOPE=all
 
@@ -11,7 +10,6 @@ BOOTSTRAP_SCOPE=all
 # libs
 # @serenity-js
 # @integration
-# @documentation
 # @examples
 COMPILE_SCOPE=all
 
@@ -38,7 +36,7 @@ COMPILE_SCOPE=all
 # webdriverio-8-web-webdriver
 INTEGRATION_SCOPE=all
 
-.PHONY: all install clean lint test compile integration-test verify report site
+.PHONY: all install clean lint test compile integration-test verify report
 all: install clean compile
 
 reinstall:
@@ -74,6 +72,3 @@ verify: lint compile test integration-test
 
 report:
 	npm run report
-
-site:
-	npm run site
