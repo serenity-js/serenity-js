@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.options.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "types": [
+      "node",
+      "@wdio/globals/types"
+    ]
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "node_modules/@integration/web-specs/**/*.ts"
+  ]
+}

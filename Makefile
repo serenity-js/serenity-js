@@ -34,6 +34,8 @@ COMPILE_SCOPE=all
 # webdriverio-8-web
 # webdriverio-8-web-devtools
 # webdriverio-8-web-webdriver
+# webdriverio-test-runners
+# webdriverio-web
 INTEGRATION_SCOPE=all
 
 .PHONY: all install clean lint test compile integration-test verify report
