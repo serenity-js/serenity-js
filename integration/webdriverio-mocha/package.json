@@ -1,0 +1,47 @@
+{
+  "name": "@integration/webdriverio-mocha",
+  "version": "3.0.0",
+  "description": "WebdriverIO integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "c8 mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^18.12 || ^20 || ^22"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "3.0.0",
+    "@serenity-js/core": "^3.0.0",
+    "@serenity-js/mocha": "^3.0.0",
+    "@serenity-js/webdriverio": "^3.0.0",
+    "@wdio/cli": "9.2.8",
+    "@wdio/globals": "9.2.1",
+    "@wdio/local-runner": "9.2.8",
+    "@wdio/spec-reporter": "9.2.8",
+    "webdriverio": "9.2.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "10.0.9",
+    "c8": "10.1.2",
+    "mocha": "10.7.3",
+    "mocha-multi": "1.1.7"
+  }
+}
