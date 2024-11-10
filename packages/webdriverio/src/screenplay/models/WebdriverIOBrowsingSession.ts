@@ -71,7 +71,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         }
 
         // the page seems to be legit, switch to it
-        await this.browser.switchWindow(page.id.value);
+        await this.browser.switchToWindow(page.id.value);
 
         // and update the cached reference
         await super.changeCurrentPageTo(page);
@@ -87,7 +87,7 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
                 const allHandles = await this.browser.getWindowHandles();
                 if (allHandles.length > 0) {
                     const handle = allHandles.at(-1);
-                    await this.browser.switchWindow(handle);
+                    await this.browser.switchToWindow(handle);
 
                     return handle;
                 }
