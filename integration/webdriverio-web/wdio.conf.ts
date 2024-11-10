@@ -50,8 +50,6 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     specs: [
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-        // './node_modules/@integration/web-specs/spec/**/ModalDialog.spec.ts',
-        // './node_modules/@integration/web-specs/spec/**/PageElement.spec.ts',
         './spec/**/*.spec.ts',
     ],
 
@@ -66,9 +64,6 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     capabilities: [{
         browserName: 'chrome',
-        // browserVersion: '129.0.6668.103',
-        browserVersion: '129.0.6668',
-        unhandledPromptBehavior: 'ignore',
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
