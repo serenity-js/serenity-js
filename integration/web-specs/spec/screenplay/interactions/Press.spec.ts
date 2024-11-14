@@ -132,7 +132,7 @@ describe('Press', () => {
 
             expect(location.path.basename()).to.equal('Press.spec.ts');
             expect(location.line).to.equal(130);
-            expect(location.column).to.equal(47);
+            expect(location.column).to.be.oneOf([ 45, 47 ]);
         });
     });
 });

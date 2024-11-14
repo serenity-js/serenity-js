@@ -50,8 +50,6 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     specs: [
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-        // './node_modules/@integration/web-specs/spec/**/ModalDialog.spec.ts',
-        // './node_modules/@integration/web-specs/spec/**/PageElement.spec.ts',
         './spec/**/*.spec.ts',
     ],
 

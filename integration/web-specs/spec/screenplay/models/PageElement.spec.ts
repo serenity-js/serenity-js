@@ -18,68 +18,68 @@ import {
     Value
 } from '@serenity-js/web';
 
-/** @test {PageElement} */
 describe('PageElement', () => {
 
     const heading = PageElement.located(By.css('h1')).describedAs('heading');
 
     describe('when handling errors', () => {
 
-        beforeEach(() =>
-            actorCalled('Francesca').attemptsTo(
-                Navigate.to('/screenplay/models/page-element/page_with_no_iframes.html'),
-            ),
-        );
-
         describe('should complain when trying to switch to an element that', () => {
 
-            it(`doesn't exist`, () =>
-                expect(actorCalled('Francesca').attemptsTo(
+            it(`doesn't exist`, async () => {
+
+                const promise = actorCalled('Francesca').attemptsTo(
+                    Navigate.to('/screenplay/models/page-element/page_with_no_iframes.html'),
                     PageElement.located(By.css('#invalid')).switchTo(),
-                )).to.be.rejectedWith(LogicError, `Couldn't switch to page element located by css ('#invalid')`),
-            );
+                );
+
+                await expect(promise).to.be.rejectedWith(LogicError, `Couldn't switch to page element located by css ('#invalid')`);
+            });
         });
     });
 
-    /** @test {PageElement#isPresent} */
     describe('isPresent()', () => {
 
-        it('resolves to true when the regular element is present', () =>
-            actorCalled('Francesca').attemptsTo(
+        it('resolves to true when the regular element is present', async () => {
+            await actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/page_with_an_iframe.html'),
                 Ensure.that(PageElement.located(By.css('h1')), isPresent()),
-            ));
+            )
+        });
 
-        it('resolves to true when the iframe element is present', () =>
-            actorCalled('Francesca').attemptsTo(
+        it('resolves to true when the iframe element is present', async () => {
+            await actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/page_with_an_iframe.html'),
                 Ensure.that(PageElement.located(By.css('iframe')), isPresent()),
-            ));
+            )
+        });
 
-        it('resolves to false when the element is not present', () =>
-            actorCalled('Francesca').attemptsTo(
+        it('resolves to false when the element is not present', async () => {
+            await actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/page_with_no_iframes.html'),
                 Ensure.that(PageElement.located(By.css('#invalid')), not(isPresent())),
-            ));
+            )
+        });
     });
 
     describe('html()', () => {
 
-        it('should return the outer HTML of the element', () =>
-            actorCalled('Francesca').attemptsTo(
+        it('should return the outer HTML of the element', async () => {
+            await actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/outer_html.html'),
                 Ensure.that(
                     PageElement.located(By.id('container')).html(),
                     matchesSnippet(`
-                        <div id="container">
-                            <h1>Title</h1>
-                        </div>
+                         <div id="container">
+                             <h1>Title</h1>
+                         </div>
                     `)
                 ),
-            ));
+            );
+        });
 
-        it('should return the outer HTML of all elements', () =>
-            actorCalled('Francesca').attemptsTo(
+        it('should return the outer HTML of all elements', async () => {
+            await actorCalled('Francesca').attemptsTo(
                 Navigate.to('/screenplay/models/page-element/outer_html.html'),
                 Ensure.that(
                     PageElements.located(By.css('ul#list li'))
@@ -91,26 +91,32 @@ describe('PageElement', () => {
                         '<li>Item 3</li>',
                     ])
                 ),
-            ));
+            );
+        });
     });
 
-    /** @test {PageElement#switchTo} */
     describe('switchTo()', () => {
 
         describe('when working with iframes', () => {
 
-            it('should switch context to the iframe of interest', () =>
-                actorCalled('Francesca').attemptsTo(
+            afterEach(async () => {
+                await actorCalled('Francesca').attemptsTo(
+                    Navigate.reloadPage(),
+                );
+            })
+
+            it('should switch context to the iframe of interest', async () => {
+                await actorCalled('Francesca').attemptsTo(
                     Navigate.to('/screenplay/models/page-element/page_with_an_iframe.html'),
                     Ensure.that(Text.of(heading), equals('Page with an iframe')),
 
                     PageElement.located(By.css('iframe')).switchTo(),
                     Ensure.that(Text.of(heading), equals('An iframe')),
-                ),
-            );
+                );
+            });
 
-            it('should switch to a nested iframe', () =>
-                actorCalled('Francesca').attemptsTo(
+            it('should switch to a nested iframe', async () => {
+                await actorCalled('Francesca').attemptsTo(
                     Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
                     Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
 
@@ -119,22 +125,22 @@ describe('PageElement', () => {
 
                     PageElement.located(By.css('iframe')).switchTo(),
                     Ensure.that(Text.of(heading), equals('An iframe')),
-                ),
-            );
+                );
+            });
 
             it('correctly detects its invocation location', () => {
                 const activity = PageElement.located(By.css('iframe')).switchTo();
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(126);
+                expect(location.line).to.equal(132);
                 expect(location.column).to.equal(72);
             });
 
             describe('and performing activities in the context of an iframe', () => {
 
-                it('should automatically switch back to a parent frame from an iframe', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('should automatically switch back to a parent frame from an iframe', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_an_iframe.html'),
                         Ensure.that(Text.of(heading), equals('Page with an iframe')),
 
@@ -143,11 +149,11 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Text.of(heading), equals('Page with an iframe')),
-                    ),
-                );
+                    );
+                });
 
-                it('should automatically switch back to a parent frame from a nested iframe', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('should automatically switch back to a parent frame from a nested iframe', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
 
@@ -160,20 +166,20 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
-                    ),
-                );
+                    );
+                });
 
                 it('correctly detects its invocation location', () => {
                     const activity = Switch.to(PageElement.located(By.css('iframe'))).and(/* do nothing */);
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(167);
+                    expect(location.line).to.equal(173);
                     expect(location.column).to.equal(87);
                 });
 
-                it('allows for a screenshot to be taken without affecting the browsing context', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('allows for a screenshot to be taken without affecting the browsing context', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
 
@@ -192,11 +198,11 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Text.of(heading), equals('Page with a nested iframe')),
-                    ),
-                );
+                    );
+                });
 
-                it('allows for properties of the current frame to be retrieved without affecting the browsing context', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('allows for properties of the current frame to be retrieved without affecting the browsing context', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/page_with_a_nested_iframe.html'),
 
                         Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
@@ -215,8 +221,8 @@ describe('PageElement', () => {
                         ),
 
                         Ensure.that(Page.current().title(), equals('Page with a nested iframe')),
-                    ),
-                );
+                    );
+                });
             });
         });
 
@@ -226,17 +232,17 @@ describe('PageElement', () => {
             const submitButton = PageElement.located(By.id('submit'));
             const result = PageElement.located(By.id('result'));
 
-            it('should set focus on the element of interest', () =>
-                actorCalled('Francesca').attemptsTo(
+            it('should set focus on the element of interest', async () => {
+                await actorCalled('Francesca').attemptsTo(
                     Navigate.to('/screenplay/models/page-element/form.html'),
 
                     Switch.to(inputField),
                     Ensure.that(inputField, isActive()),
-                ),
-            );
+                );
+            });
 
-            it('should switch focus from one element to another', () =>
-                actorCalled('Francesca').attemptsTo(
+            it('should switch focus from one element to another', async () => {
+                await actorCalled('Francesca').attemptsTo(
                     Navigate.to('/screenplay/models/page-element/form.html'),
 
                     Switch.to(inputField),
@@ -250,22 +256,22 @@ describe('PageElement', () => {
                     Press.the(Key.Enter),
 
                     Ensure.that(Value.of(result), equals('y')),
-                ),
-            );
+                );
+            });
 
             it('correctly detects its invocation location', () => {
                 const activity = Switch.to(inputField);
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(257);
+                expect(location.line).to.equal(263);
                 expect(location.column).to.equal(41);
             });
 
             describe('and performing activities in the context of an Web element', () => {
 
-                it('should automatically switch back to the previously focused element when the sequence is complete', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('should automatically switch back to the previously focused element when the sequence is complete', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/form.html'),
 
                         Switch.to(submitButton),
@@ -281,11 +287,11 @@ describe('PageElement', () => {
                         Press.the(Key.Enter),
 
                         Ensure.that(Value.of(result), equals('y')),
-                    ),
-                );
+                    );
+                });
 
-                it('should automatically switch back to previously-focused element in nested sequences', () =>
-                    actorCalled('Francesca').attemptsTo(
+                it('should automatically switch back to previously-focused element in nested sequences', async () => {
+                    await actorCalled('Francesca').attemptsTo(
                         Navigate.to('/screenplay/models/page-element/form.html'),
 
                         Switch.to(result).and(
@@ -306,8 +312,8 @@ describe('PageElement', () => {
                             Ensure.that(result, isActive()),
                             Ensure.that(Value.of(result), equals('y')),
                         ),
-                    ),
-                );
+                    );
+                });
             });
         });
     });
