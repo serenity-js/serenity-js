@@ -1,6 +1,6 @@
 import 'webdriverio';
 
-import { LogicError } from '@serenity-js/core';
+import { type Discardable, LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession } from '@serenity-js/web';
@@ -14,7 +14,7 @@ import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.j
  *
  * @group Models
  */
-export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
+export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> implements Discardable {
 
     constructor(protected readonly browser: WebdriverIO.Browser) {
         super();
@@ -162,5 +162,11 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
 
     override browserCapabilities(): Promise<BrowserCapabilities> {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
+    }
+
+    async discard(): Promise<void> {
+        for (const page of await this.allPages()) {
+            await (page as WebdriverIOPage).discard();
+        }
     }
 }

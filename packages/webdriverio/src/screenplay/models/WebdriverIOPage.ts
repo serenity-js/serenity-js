@@ -1,9 +1,17 @@
 import 'webdriverio';
 
-import { List, LogicError } from '@serenity-js/core';
+import { type Discardable, List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
-import { ArgumentDehydrator, BrowserWindowClosedError, ByCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
+import {
+    ArgumentDehydrator,
+    BrowserWindowClosedError,
+    ByCss,
+    Key,
+    Page,
+    PageElement,
+    PageElementsLocator
+} from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import { URL } from 'url';
 
@@ -11,6 +19,7 @@ import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootL
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
 import { WebdriverIOCookie } from './WebdriverIOCookie.js';
 import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import type { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**
@@ -18,7 +27,7 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<WebdriverIO.Element> {
+export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discardable {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
@@ -71,18 +80,22 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     async navigateTo(destination: string): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.url(destination));
+        await this.resetState();
     }
 
     async navigateBack(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.back());
+        await this.resetState();
     }
 
     async navigateForward(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.forward());
+        await this.resetState();
     }
 
     async reload(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.refresh());
+        await this.resetState();
     }
 
     async sendKeys(keys: Array<Key | string>): Promise<void> {
@@ -264,6 +277,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
     }
 
     async close(): Promise<void> {
+        await this.resetState();
         await this.inContextOfThisPage(() => this.browser.closeWindow());
     }
 
@@ -279,6 +293,16 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
             }
         }
         return false;
+    }
+
+    private async resetState() {
+        this.lastScriptExecutionSummary = undefined;
+        await this.rootLocator.switchToMainFrame()
+        await this.modalDialogHandler.reset();
+    }
+
+    async discard(): Promise<void> {
+        await (this.modalDialogHandler as WebdriverIOModalDialogHandler).discard();
     }
 
     private async inContextOfThisPage<T>(action: () => Promise<T> | T): Promise<T> {
