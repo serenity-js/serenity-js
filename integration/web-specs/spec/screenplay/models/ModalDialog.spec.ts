@@ -29,26 +29,27 @@ describe('ModalDialog', () => {
 
     describe('when working with alert(),', () => {
 
-        beforeEach(() =>
-            actorCalled('Nick').attemptsTo(
+        beforeEach(async () => {
+            await actorCalled('Nick').attemptsTo(
                 Navigate.to('/screenplay/models/modal-dialog/alert.html'),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('absent')),
-            ));
+            );
+        });
 
-        it('dismisses the alert by default', () =>
-            actorCalled('Nick').attemptsTo(
+        it('dismisses the alert by default', async () => {
+            await actorCalled('Nick').attemptsTo(
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('accepted')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to accept an alert', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to accept an alert', async () => {
+            await actorCalled('Nick').attemptsTo(
 
                 ModalDialog.acceptNext(),
 
@@ -57,11 +58,11 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
 
                 Ensure.that(Text.of(Example.result), equals('accepted')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to dismiss an alert', () =>
-            actorCalled('Nick').attemptsTo(
+        it(`allows the actor to dismiss an alert`, async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
@@ -69,51 +70,52 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('accepted')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message of an accepted alert', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message of an accepted alert', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Hello!')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message of a dismissed alert', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message of a dismissed alert', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Hello!')),
-            ),
-        );
+            );
+        });
     });
 
     describe('when working with confirm(),', () => {
 
-        beforeEach(() =>
-            actorCalled('Nick').attemptsTo(
+        beforeEach(async () => {
+            await actorCalled('Nick').attemptsTo(
                 Navigate.to('/screenplay/models/modal-dialog/confirm.html'),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('absent')),
-            ));
+            );
+        });
 
-        it('dismisses the confirmation dialog by default', () =>
-            actorCalled('Nick').attemptsTo(
+        it('dismisses the confirmation dialog by default', async () => {
+            await actorCalled('Nick').attemptsTo(
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('dismissed')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to accept a confirmation dialog', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to accept a confirmation dialog', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNext(),
 
                 Click.on(Example.trigger),
@@ -121,11 +123,11 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
 
                 Ensure.that(Text.of(Example.result), equals('accepted')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to dismiss a confirmation dialog', () =>
-            actorCalled('Nick').attemptsTo(
+        it(`allows the actor to dismiss a confirmation dialog`, async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
@@ -133,51 +135,52 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('dismissed')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message of an accepted confirmation dialog', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message of an accepted confirmation dialog', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Continue?')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message of a dismissed confirmation dialog', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message of a dismissed confirmation dialog', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Continue?')),
-            ),
-        );
+            );
+        });
     });
 
     describe('when working with prompt(),', () => {
 
-        beforeEach(() =>
-            actorCalled('Nick').attemptsTo(
+        beforeEach(async () => {
+            await actorCalled('Nick').attemptsTo(
                 Navigate.to('/screenplay/models/modal-dialog/prompt.html'),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('absent')),
-            ));
+            );
+        });
 
-        it('dismisses the prompt by default', () =>
-            actorCalled('Nick').attemptsTo(
+        it('dismisses the prompt by default', async () => {
+            await actorCalled('Nick').attemptsTo(
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('dismissed')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to accept a prompt with the default value', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to accept a prompt with the default value', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNext(),
 
                 Click.on(Example.trigger),
@@ -185,11 +188,11 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
 
                 Ensure.that(Text.of(Example.result), equals('default value')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to dismiss a prompt', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to dismiss a prompt', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
@@ -197,52 +200,53 @@ describe('ModalDialog', () => {
                 Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
 
                 Ensure.that(Text.of(Example.result), equals('dismissed')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message on an accepted prompt', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message on an accepted prompt', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Your answer?')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to read the message on a dismissed prompt', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to read the message on a dismissed prompt', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.dismissNext(),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogMessage(), equals('Your answer?')),
-            ),
-        );
+            );
+        });
 
-        it('allows the actor to enter value into a prompt', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to enter value into a prompt', async () => {
+            await actorCalled('Nick').attemptsTo(
                 ModalDialog.acceptNextWithValue('certainly'),
 
                 Click.on(Example.trigger),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
                 Ensure.that(Text.of(Example.result), equals('certainly')),
-            )
-        );
+            );
+        });
     });
 
     describe('when waiting', () => {
 
-        beforeEach(() =>
-            actorCalled('Nick').attemptsTo(
+        beforeEach(async () => {
+            await actorCalled('Nick').attemptsTo(
                 Navigate.to('/screenplay/models/modal-dialog/delayed-alert.html'),
 
                 Ensure.that(ModalDialog.lastDialogState(), equals('absent')),
-            ));
+            );
+        });
 
-        it('allows the actor to wait until a modal dialog is present', () =>
-            actorCalled('Nick').attemptsTo(
+        it('allows the actor to wait until a modal dialog is present', async () => {
+            await actorCalled('Nick').attemptsTo(
                 Ensure.that(ModalDialog, not(isPresent())),
                 ModalDialog.acceptNext(),
 
@@ -250,8 +254,8 @@ describe('ModalDialog', () => {
 
                 Wait.until(ModalDialog, isPresent()),
                 Ensure.that(Text.of(Example.result), equals('And the wait is over :-)')),
-            ),
-        );
+            );
+        });
     });
 
     describe('error handling ', () => {

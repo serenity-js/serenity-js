@@ -63,7 +63,6 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     async click(): Promise<void> {
         const element = await this.nativeElement();
-        console.log('>>  element.click()')
         await element.click();
     }
 
