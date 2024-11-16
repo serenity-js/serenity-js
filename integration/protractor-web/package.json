@@ -18,6 +18,9 @@
     "internal"
   ],
   "scripts": {
+    "postinstall": "failsafe postintall:legacy-chrome postintall:legacy-chromedriver",
+    "postintall:legacy-chrome": "npx @puppeteer/browsers install chrome@129",
+    "postintall:legacy-chromedriver": "npx @puppeteer/browsers install chromedriver@129",
     "clean": "rimraf target",
     "test": "failsafe clean test:update-serenity test:acceptance test:report",
     "test:update-serenity": "serenity-bdd update --ignoreSSL",
@@ -39,6 +42,7 @@
   "devDependencies": {
     "@integration/testing-tools": "3.0.0",
     "@integration/web-specs": "3.0.0",
+    "@puppeteer/browsers": "2.4.1",
     "@serenity-js/assertions": "^3.0.0",
     "@serenity-js/core": "^3.0.0",
     "@serenity-js/console-reporter": "^3.0.0",
@@ -48,7 +52,6 @@
     "@serenity-js/web": "^3.0.0",
     "@types/mocha": "10.0.9",
     "c8": "10.1.2",
-    "chromedriver": "130.0.4",
     "cross-env": "7.0.3",
     "mocha": "10.8.2",
     "mocha-multi": "1.1.7",
