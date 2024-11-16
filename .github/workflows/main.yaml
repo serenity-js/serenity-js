@@ -14,7 +14,7 @@ jobs:
 
   lint:
     name: 'Lint'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 22.x
       npm-install-command: npm ci
@@ -22,7 +22,7 @@ jobs:
 
   compile:
     name: 'Compile'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
@@ -39,7 +39,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -53,7 +53,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -65,7 +65,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
@@ -77,7 +77,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
       runs-on: 'windows-latest'
       node-version: 22.x
@@ -94,7 +94,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
         [
@@ -118,7 +118,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
         [
@@ -138,7 +138,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@fix/protractor-chrome-130'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
     with:
       modules: |
         [
