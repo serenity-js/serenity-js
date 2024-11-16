@@ -24,6 +24,10 @@
     "testing"
   ],
   "scripts": {
+    "postinstall": "npm run postinstall:protractor && npm run postinstall:playwright && npm run postinstall:webdriverio",
+    "postinstall:playwright": "npx --no playwright install --with-deps",
+    "postinstall:protractor": "npx ts-node bin/install-browsers.ts chrome@129 chromedriver@129",
+    "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@stable chromedriver@stable",
     "clean": "rimraf target && lerna run clean",
     "cc": "nx reset",
     "lint": "eslint --ext ts --config .eslintrc.yml .",
@@ -91,6 +95,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
     "@commitlint/config-conventional": "19.5.0",
+    "@puppeteer/browsers": "2.4.1",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",
     "@types/istanbul-lib-coverage": "2.0.6",
@@ -102,7 +107,6 @@
     "c8": "10.1.2",
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
-    "chromedriver": "130.0.2",
     "coveralls": "3.1.1",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
