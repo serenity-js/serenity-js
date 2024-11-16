@@ -1,13 +1,26 @@
+import { cpus } from 'node:os';
+import { resolve } from 'node:path';
+
 import { TestRunnerTagger } from '@integration/testing-tools';
+import { Browser, computeExecutablePath } from '@puppeteer/browsers';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
-import { cpus } from 'os';
 
 const protocol = process.env.PROTOCOL === 'devtools'
     ? 'devtools'
     : 'webdriver';
+
+const defaults = {
+    buildId: 'stable',
+    cacheDir: resolve(__dirname, '../../browsers'),
+};
+
+const binaries = {
+    chromedriver: computeExecutablePath({ browser: 'chromedriver' as Browser, ...defaults }),
+    chrome: computeExecutablePath({ browser: 'chrome' as Browser, ...defaults }),
+}
 
 const options = {
     specs: [
@@ -26,6 +39,7 @@ const options = {
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
+            binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
@@ -50,7 +64,9 @@ const webdriverProtocol: Partial<WebdriverIOConfig> = {
     automationProtocol: 'webdriver',
     outputDir: 'target/logs',
     services: [
-        'chromedriver'
+        [ 'chromedriver', {
+            chromedriverCustomPath: binaries.chromedriver,   // eslint-disable-line @typescript-eslint/no-var-requires
+        } ]
     ],
 };
 
