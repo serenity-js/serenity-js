@@ -91,17 +91,15 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
                 '--disable-popup-blocking',
                 '--window-size=1024x768',
             ],
+        },
+        'wdio:chromedriverOptions': {
+            binary: binaries.chromedriver
         }
     }],
 
     maxInstances: workers(process.env),
 
     // outputDir: 'target/logs',
-    services: [
-        [ 'chromedriver', {
-            chromedriverCustomPath: require(`chromedriver`).path,   // eslint-disable-line @typescript-eslint/no-var-requires
-        } ]
-    ],
 
     logLevel: 'debug',
     // logLevel: 'error',
