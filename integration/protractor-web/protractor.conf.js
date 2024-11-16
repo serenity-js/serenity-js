@@ -1,4 +1,17 @@
 const { NoOpDiffFormatter } = require('@serenity-js/core');
+const { computeExecutablePath } = require('@puppeteer/browsers')
+
+// Chrome 129 is the last version that correctly supports Selenium 3
+// Chrome 130 and later require Selenium 4 for browser.executeScript to correctly resolve WebElement arguments
+const defaults = {
+    buildId: '129',
+    cacheDir: '.',
+};
+
+const binaries = {
+    chromedriver: computeExecutablePath({ browser: 'chromedriver', ...defaults }),
+    chrome: computeExecutablePath({ browser: 'chrome', ...defaults }),
+}
 
 const port = process.env.PORT || 8080;
 
@@ -47,7 +60,7 @@ exports.config = {
         reporter: 'spec',
     },
 
-    chromeDriver: require(`chromedriver`).path,
+    chromeDriver: binaries.chromedriver,
     directConnect: true,
 
     capabilities: {
@@ -61,6 +74,7 @@ exports.config = {
         'goog:chromeOptions': {
             // As of version 75, ChromeDriver is W3C by default, which Protractor does not fully support.
             w3c: false,
+            binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
