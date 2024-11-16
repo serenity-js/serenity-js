@@ -14,7 +14,7 @@ jobs:
 
   lint:
     name: 'Lint'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
     with:
       node-version: 22.x
       npm-install-command: npm ci
@@ -22,7 +22,7 @@ jobs:
 
   compile:
     name: 'Compile'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
     with:
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
@@ -39,7 +39,7 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
+    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@fix/protractor-chrome-130'
     with:
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
