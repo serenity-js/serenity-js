@@ -104,7 +104,7 @@ jobs:
         ]
       runs-on: 'ubuntu-latest'
       node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration-playwright install
       download-artifact-name: 'compiled-libs'
       command: |
         mkdir target && \
@@ -127,7 +127,7 @@ jobs:
         ]
       runs-on: 'ubuntu-latest'
       node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration-protractor install
       download-artifact-name: 'compiled-libs'
       command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
       upload-artifact-name: 'test-integration-coverage-reports-protractor'
