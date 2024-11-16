@@ -1,11 +1,12 @@
 const { NoOpDiffFormatter } = require('@serenity-js/core');
 const { computeExecutablePath } = require('@puppeteer/browsers')
+const { resolve } = require('path')
 
 // Chrome 129 is the last version that correctly supports Selenium 3
 // Chrome 130 and later require Selenium 4 for browser.executeScript to correctly resolve WebElement arguments
 const defaults = {
     buildId: '129',
-    cacheDir: '.',
+    cacheDir: resolve(__dirname, '../../browsers'),
 };
 
 const binaries = {
