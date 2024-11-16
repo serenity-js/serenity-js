@@ -3,8 +3,6 @@
 # site
 # @serenity-js
 # @integration
-# @integration-protractor
-# @integration-playwright
 # @examples
 BOOTSTRAP_SCOPE=all
 

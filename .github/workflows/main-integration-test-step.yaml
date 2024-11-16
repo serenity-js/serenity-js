@@ -78,9 +78,6 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
 
-      - name: Setup ChromeDriver filepath
-        uses: ./.github/actions/setup-chromedriver-filepath
-
       - name: Install Node Modules (${{ inputs.npm-install-command }})
         uses: bahmutov/npm-install@v1
         with:
