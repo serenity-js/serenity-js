@@ -24,10 +24,10 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "npm run postinstall:protractor && npm run postinstall:playwright",
+    "postinstall": "npm run postinstall:protractor && npm run postinstall:playwright && npm run postinstall:webdriverio",
+    "postinstall:playwright": "npx --no playwright install --with-deps",
     "postinstall:protractor": "npx ts-node bin/install-browsers.ts chrome@129 chromedriver@129",
     "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@stable chromedriver@stable",
-    "postinstall:playwright": "npx --no playwright install --with-deps",
     "clean": "rimraf target && lerna run clean",
     "cc": "nx reset",
     "lint": "eslint --ext ts --config .eslintrc.yml .",

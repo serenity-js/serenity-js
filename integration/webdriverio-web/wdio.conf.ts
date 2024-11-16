@@ -39,7 +39,7 @@ const options = {
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
-            // binary: binaries.chrome,
+            binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
                 '--disable-web-security',
