@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "postinstall": "npm run postinstall:protractor && npm run postinstall:playwright && npm run postinstall:webdriverio",
-    "postinstall:playwright": "npx --no playwright install --with-deps",
+    "postinstall:playwright": "npx playwright install --with-deps",
     "postinstall:protractor": "npx ts-node bin/install-browsers.ts chrome@129 chromedriver@129",
     "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@stable chromedriver@stable",
     "clean": "rimraf target && lerna run clean",
