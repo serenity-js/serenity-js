@@ -19,8 +19,7 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
-    "test:update-serenity": "serenity-bdd update --ignoreSSL",
+    "test": "failsafe clean test:acceptance test:report",
     "test:acceptance": "cross-env PORT=8081 start-server-and-test start http://localhost:8081 test:acceptance:run",
     "start": "npx web-specs-start",
     "test:acceptance:run": "c8 protractor protractor.conf.js",
