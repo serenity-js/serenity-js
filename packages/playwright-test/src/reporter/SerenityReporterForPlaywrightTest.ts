@@ -345,6 +345,10 @@ class PlaywrightErrorParser {
             stack = stack.slice(prologue.length);
         }
 
+        if (testError.cause) {
+            stack += `\nCaused by: ${ this.errorFrom(testError.cause).stack }`;
+        }
+
         const error = new Error(message);
         error.stack = stack;
 

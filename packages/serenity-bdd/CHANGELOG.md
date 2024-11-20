@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.30.0](https://github.com/serenity-js/serenity-js/compare/v3.29.5...v3.30.0) (2024-11-19)
+
+
+### Features
+
+* **serenity-bdd:** vend Serenity BDD CLI jar file as part of @serenity-js/serenity-bdd package ([ef95d2a](https://github.com/serenity-js/serenity-js/commit/ef95d2a9b37ba5eeae1abed8a0994a18c172debc)), closes [#2560](https://github.com/serenity-js/serenity-js/issues/2560)
+
+
+
+
+
 ## [3.29.5](https://github.com/serenity-js/serenity-js/compare/v3.29.4...v3.29.5) (2024-11-03)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

@@ -1,8 +1,22 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AssertionError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { AssertionError, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
+import {
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunnerDetected
+} from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
-import { CapabilityTag, ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import {
+    CapabilityTag,
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    FeatureTag,
+    Name,
+    ProblemIndication
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -175,6 +189,33 @@ describe('@serenity-js/playwright-test', function () {
                         expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
                         expect(outcome.error.name).to.equal('Error');
                         expect(outcome.error.message).to.equal('Error: Something happened');
+                    })
+                ;
+            }));
+
+        it('fails with a Serenity/JS ConfigurationError', () => playwrightTest('--project=default', 'failing/failing-serenity-js-configuration-error.spec.ts')
+            .then(ifExitCodeIsOtherThan(10, logOutput))
+            .then(result => {
+
+                expect(result.exitCode).to.equal(1);
+
+                PickEvent.from(result.events)
+                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario fails with a Serenity/JS ConfigurationError')))
+                    .next(SceneFinished,       event => {
+                        const outcome = event.outcome as ProblemIndication;
+                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                        const error = outcome.error as ConfigurationError;
+
+                        expect(error.name).to.equal('Error');
+                        expect(error.message).to.equal('ConfigurationError: Example configuration error; Example nested error');
+
+                        const stack = error.stack.split('\n');
+
+                        expect(stack).to.include.members([
+                            'ConfigurationError: Example configuration error; Example nested error',
+                            'Caused by: Error: Example nested error',
+                        ]);
                     })
                 ;
             }));
