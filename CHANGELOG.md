@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.30.0](https://github.com/serenity-js/serenity-js/compare/v3.29.5...v3.30.0) (2024-11-19)
+
+
+### Bug Fixes
+
+* **core:** updated dependency on validate-npm-package-name ([1ef87d9](https://github.com/serenity-js/serenity-js/commit/1ef87d994608ad09dd856d9d102c70acee5fc4f5))
+* **deps:** update playwright dependencies to v1.49.0 ([9d98f8e](https://github.com/serenity-js/serenity-js/commit/9d98f8e0d46004f8b3fa7e2f32ee0a03ce88558f))
+* **playwright-test:** correctly report nested error cause ([1eab582](https://github.com/serenity-js/serenity-js/commit/1eab5828932934effe40716525a76e471119d836)), closes [microsoft/playwright#26848](https://github.com/microsoft/playwright/issues/26848) [#1823](https://github.com/serenity-js/serenity-js/issues/1823)
+
+
+### Features
+
+* **serenity-bdd:** vend Serenity BDD CLI jar file as part of @serenity-js/serenity-bdd package ([ef95d2a](https://github.com/serenity-js/serenity-js/commit/ef95d2a9b37ba5eeae1abed8a0994a18c172debc)), closes [#2560](https://github.com/serenity-js/serenity-js/issues/2560)
+
+
+
+
+
 ## [3.29.5](https://github.com/serenity-js/serenity-js/compare/v3.29.4...v3.29.5) (2024-11-03)
 
 

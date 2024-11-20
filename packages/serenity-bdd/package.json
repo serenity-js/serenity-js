@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/serenity-bdd",
-  "version": "3.29.5",
+  "version": "3.30.0",
   "description": "Serenity/JS reporting module that produces detailed Serenity BDD test reports and living documentation, enhancing transparency and traceability of test results",
   "author": {
     "name": "Jan Molak",
@@ -38,7 +38,9 @@
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "compile": "rimraf lib && tsc --project tsconfig.build.json",
+    "postcompile": "npm run populate-cache",
+    "populate-cache": "node ./bin/serenity-bdd update --ignoreSSL --cacheDir './cache'"
   },
   "repository": {
     "type": "git",
@@ -52,9 +54,9 @@
     "node": "^18.12 || ^20 || ^22"
   },
   "dependencies": {
-    "@serenity-js/assertions": "3.29.5",
-    "@serenity-js/core": "3.29.5",
-    "@serenity-js/rest": "3.29.5",
+    "@serenity-js/assertions": "3.30.0",
+    "@serenity-js/core": "3.30.0",
+    "@serenity-js/rest": "3.30.0",
     "ansi-regex": "5.0.1",
     "axios": "1.7.7",
     "chalk": "4.1.2",
