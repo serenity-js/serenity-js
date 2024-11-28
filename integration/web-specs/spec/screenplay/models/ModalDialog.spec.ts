@@ -5,27 +5,16 @@ import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, Clock, LogicError, Serenity, serenity, Wait } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, InteractionFinished, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
 import { CorrelationId, Name } from '@serenity-js/core/lib/model';
-import { By, Click, ModalDialog, Navigate, Page, PageElement, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
+import { By, Click, ModalDialog, Navigate, PageElement, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
 
-/** @test {ModalDialog} */
 describe('ModalDialog', () => {
 
     const Example = {
         trigger:    PageElement.located(By.id('trigger')).describedAs('the modal dialog trigger'),
         result:     PageElement.located(By.id('result')).describedAs('result'),
     }
-
-    afterEach(async () => {
-        // Needed because IntelliJ ignores the `reporter` entry from .mocharc.yml
-        // in favour of its own, built-in reporter. Because of that, @serenity-js/mocha is not loaded,
-        // and can't emit the SceneFinishes events, which then prevents Serenity from dismissing the actors,
-        // clearing their abilities, and resetting the modal.
-        await actorCalled('Nick').attemptsTo(
-            Page.current().modalDialog().reset(),
-        )
-    })
 
     describe('when working with alert(),', () => {
 
@@ -270,8 +259,7 @@ describe('ModalDialog', () => {
 
     describe('when interacting with the Photographer,', () => {
 
-        /** @test {Photographer} */
-        it('is dismisses dialogs by default, therefore allowing for screenshots to be taken', async () => {
+        it('dismisses dialogs by default, therefore allowing for screenshots to be taken', async () => {
 
             const clock = new Clock();
             const actors = (serenity as any).stage.cast

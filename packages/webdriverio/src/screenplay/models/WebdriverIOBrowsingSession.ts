@@ -8,6 +8,7 @@ import { BrowsingSession } from '@serenity-js/web';
 import { WebdriverIOPage } from '../models/index.js';
 import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).
@@ -39,12 +40,15 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         const newlyOpenedWindowHandles  = windowHandles.filter(windowHandle => ! registeredWindowHandles.has(windowHandle));
 
         for (const newlyOpenedWindowHandle of newlyOpenedWindowHandles) {
+            const modalDialogHandler = new WebdriverIOModalDialogHandler(this.browser);
             const errorHandler = new WebdriverIOErrorHandler();
+            errorHandler.setHandlerFor(WebdriverProtocolErrorCode.UnexpectedAlertOpenError, error => modalDialogHandler.dismiss());
+
             this.register(
                 new WebdriverIOPage(
                     this,
                     this.browser,
-                    new WebdriverIOModalDialogHandler(this.browser),
+                    modalDialogHandler,
                     errorHandler,
                     new CorrelationId(newlyOpenedWindowHandle)
                 )
@@ -123,12 +127,14 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
     protected override async registerCurrentPage(): Promise<WebdriverIOPage> {
         const pageId = await this.assignPageId();
 
+        const modalDialogHandler = new WebdriverIOModalDialogHandler(this.browser);
         const errorHandler = new WebdriverIOErrorHandler();
+        errorHandler.setHandlerFor(WebdriverProtocolErrorCode.UnexpectedAlertOpenError, error => modalDialogHandler.dismiss());
 
         const page = new WebdriverIOPage(
             this,
             this.browser,
-            new WebdriverIOModalDialogHandler(this.browser),
+            modalDialogHandler,
             errorHandler,
             pageId,
         );
