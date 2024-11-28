@@ -101,8 +101,8 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     // outputDir: 'target/logs',
 
-    logLevel: 'debug',
-    // logLevel: 'error',
+    // logLevel: 'debug',
+    logLevel: 'error',
 
     connectionRetryCount: 5,
 
