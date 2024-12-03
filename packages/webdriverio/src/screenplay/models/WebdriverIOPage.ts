@@ -262,21 +262,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discar
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
         return await this.inContextOfThisPage(async () => {
-            if (this.browser.isBidi) {
-                return this.browser.setViewport(size);
-            }
-
-            const desiredWindowSize: { width: number; height: number } = await this.browser.execute(`
-                var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-                var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-                
-                return {
-                    width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
-                    height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
-                };
-            `);
-
-            return this.browser.setWindowSize(desiredWindowSize.width, desiredWindowSize.height);
+            await this.browser.setViewport(size);
         });
     }
 

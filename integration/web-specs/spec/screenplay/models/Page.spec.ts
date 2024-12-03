@@ -2,11 +2,10 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Duration, LogicError, Wait } from '@serenity-js/core';
+import { actorCalled, Duration, LogicError, Question, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
 import { URL } from 'url';
 
-/** @test {Page} */
 describe('Page', () => {
 
     const heading = Text.of(PageElement.located(By.css('h1')).describedAs('heading'));
@@ -40,12 +39,10 @@ describe('Page', () => {
                 Page.current().closeOthers()
             ));
 
-        /** @test {Page.current()} */
         describe('current()', () => {
 
             describe('title()', () => {
 
-                /** @test {Page#title()} */
                 it('returns the value of the <title /> tag of the current page', async () => {
                     const page  = await Page.current().answeredBy(actorCalled('Bernie'));
                     const title = await page.title();
@@ -53,7 +50,6 @@ describe('Page', () => {
                     expect(title).to.equal('Main page title');
                 });
 
-                /** @test {Page#title()} */
                 it('is accessible via an Adapter', async () =>
                     actorCalled('Bernie').attemptsTo(
                         Ensure.that(Page.current().title(), equals(`Main page title`)),
@@ -62,7 +58,6 @@ describe('Page', () => {
 
             describe('url()', () => {
 
-                /** @test {Page#title()} */
                 it('returns the URL of the current page', async () => {
                     const page      = await Page.current().answeredBy(actorCalled('Bernie'));
                     const url: URL  = await page.url();
@@ -70,14 +65,12 @@ describe('Page', () => {
                     expect(url.pathname).to.equal('/screenplay/models/page/main_page.html');
                 });
 
-                /** @test {Page#url()} */
                 it('is accessible via an Adapter', async () =>
                     actorCalled('Bernie').attemptsTo(
                         Ensure.that(Page.current().url().pathname, equals(`/screenplay/models/page/main_page.html`)),
                     ));
 
                 /**
-                 * @test {Page#url()}
                  * @see https://github.com/serenity-js/serenity-js/issues/273
                  */
                 it(`correctly represents URLs containing special characters`, () =>
@@ -183,10 +176,19 @@ describe('Page', () => {
 
             describe('viewport', () => {
 
-                const RenderedViewportSize = {
-                    width:  Text.of(PageElement.located(By.id('viewport-width')).describedAs('viewport width')).as(Number),
-                    height: Text.of(PageElement.located(By.id('viewport-height')).describedAs('viewport height')).as(Number),
-                };
+                class Viewport {
+                    static width = () =>
+                        Text.of(PageElement.located(By.id('viewport-width'))).as(Number);
+
+                    static height = () =>
+                        Text.of(PageElement.located(By.id('viewport-height'))).as(Number);
+
+                    static size = () =>
+                        Question.fromObject({
+                            width: Viewport.width(),
+                            height: Viewport.height(),
+                        }).describedAs('viewport size');
+                }
 
                 const viewportSize = {
                     startingPoint: { width: 1024, height: 768 },
@@ -205,63 +207,52 @@ describe('Page', () => {
                     beforeEach(() =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.startingPoint),
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.startingPoint.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.startingPoint.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.startingPoint)),
                         ));
 
                     after(() =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.startingPoint),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.startingPoint)),
+                            Ensure.eventually(Viewport.size(), equals(viewportSize.startingPoint))
                         ));
 
-                    /** @test {Page.current()} */
-                    /** @test {Page#viewportSize()} */
-                    /** @test {Page#setViewportSize()} */
                     it('allows the actor to set the size of the viewport', () =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.small)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.small.width}x${viewportSize.small.height}`),
 
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.small.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.small)),
                         )
                     );
 
-                    /** @test {Page.current()} */
-                    /** @test {Page#viewportSize()} */
-                    /** @test {Page#setViewportSize()} */
                     it('allows the actor to increase the size of the viewport', () =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.small)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.small.width}x${viewportSize.small.height}`),
 
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.small.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.small)),
+                            Ensure.eventually(Viewport.size(), equals(viewportSize.small)),
 
                             Page.current().setViewportSize(viewportSize.medium)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.medium.width}x${viewportSize.medium.height}`),
 
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.medium.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.medium)),
                         )
                     );
 
-                    /** @test {Page.current()} */
-                    /** @test {Page#viewportSize()} */
-                    /** @test {Page#setViewportSize()} */
                     it('allows the actor to decrease the size of the viewport', () =>
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.large)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.large.width }x${ viewportSize.large.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.large.width}x${viewportSize.large.height}`),
 
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.large.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.large.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.large)),
 
                             Page.current().setViewportSize(viewportSize.medium)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.medium.width}x${viewportSize.medium.height}`),
 
-                            Ensure.eventually(RenderedViewportSize.height, equals(viewportSize.medium.height)),
-                            Ensure.eventually(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                            Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.medium)),
+                            Ensure.eventually(Viewport.size(), equals(viewportSize.medium)),
                         )
                     );
                 });
@@ -273,7 +264,7 @@ describe('Page', () => {
                             Ensure.that(Page.current().viewportSize(), not(equals(viewportSize.medium))),
 
                             Page.current().setViewportSize(viewportSize.medium)
-                                .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+                                .describedAs(`#actor resizes viewport to ${viewportSize.medium.width}x${viewportSize.medium.height}`),
 
                             Ensure.that(Page.current().viewportSize(), equals(viewportSize.medium)),
                         )
@@ -287,8 +278,6 @@ describe('Page', () => {
 
         describe('current().toString()', () => {
 
-            /** @test {Page.current()} */
-            /** @test {Page#toString()} */
             it('returns a human-readable description of the page', () => {
                 const description = Page.current().toString();
 
@@ -298,8 +287,6 @@ describe('Page', () => {
 
         describe('whichName(expectation).toString()', () => {
 
-            /** @test {Page.whichName()} */
-            /** @test {Page#toString()} */
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichName(equals('pop-up')).toString();
 
@@ -309,8 +296,6 @@ describe('Page', () => {
 
         describe('whichTitle(expectation).toString()', () => {
 
-            /** @test {Page.whichTitle()} */
-            /** @test {Page#toString()} */
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichTitle(equals('Serenity/JS Website')).toString();
 
@@ -320,8 +305,6 @@ describe('Page', () => {
 
         describe('whichUrl(expectation).toString()', () => {
 
-            /** @test {Page.whichUrl()} */
-            /** @test {Page#toString()} */
             it('returns a human-readable description of the page', () => {
                 const description = Page.whichUrl(endsWith('/articles/example.html')).toString();
 
