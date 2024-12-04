@@ -27,13 +27,10 @@ function workers(env: Record<string, string>) {
         return Number.parseInt(env.WORKERS, 10);
     }
 
-    if (env.CI) {
-        // This number seems to be optimal, based on trial and error
-        // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-        return 6;
-    }
-
-    return cpus().length - 1;
+    return Math.min(
+        cpus().length - 1,
+        6
+    );
 }
 
 export const config: WebdriverIO.Config & WithSerenityConfig = {
@@ -104,7 +101,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     // logLevel: 'debug',
     logLevel: 'error',
 
-    connectionRetryCount: 5,
+    // connectionRetryCount: 5,
 
     tsConfigPath: 'tsconfig.json',
 
