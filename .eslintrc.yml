@@ -12,10 +12,12 @@ plugins:
   - mocha
   - simple-import-sort
   - unused-imports
+  - depend
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:depend/recommended
   - plugin:mocha/recommended
   - plugin:unicorn/recommended
 ignorePatterns:
