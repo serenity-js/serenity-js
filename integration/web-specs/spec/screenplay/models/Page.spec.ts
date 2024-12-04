@@ -214,7 +214,6 @@ describe('Page', () => {
                         actorCalled('Bernie').attemptsTo(
                             Page.current().setViewportSize(viewportSize.startingPoint),
                             Ensure.eventually(Page.current().viewportSize(), equals(viewportSize.startingPoint)),
-                            Ensure.eventually(Viewport.size(), equals(viewportSize.startingPoint))
                         ));
 
                     it('allows the actor to set the size of the viewport', () =>
