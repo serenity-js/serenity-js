@@ -133,6 +133,29 @@ jobs:
       upload-artifact-name: 'test-integration-coverage-reports-protractor'
       upload-artifact-path: 'package.json "integration/*/target/**/*"'
 
+  test-integration-webdriverio:
+    name: 'Integration: WebdriverIO'
+    needs:
+      - lint
+      - compile
+    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
+    with:
+      modules: |
+        [
+          "webdriverio-8-test-runners",
+          "webdriverio-8-web-devtools",
+          "webdriverio-8-web-webdriver",
+          "webdriverio-test-runners",
+          "webdriverio-web",
+        ]
+      runs-on: 'ubuntu-latest'
+      node-version: 22.x
+      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      download-artifact-name: 'compiled-libs'
+      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
+      upload-artifact-name: 'test-integration-coverage-reports-webdriverio'
+      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+
   test-integration:
     name: 'Integration'
     needs:
@@ -142,15 +165,20 @@ jobs:
     with:
       modules: |
         [
-          "cucumber-all",
+          "cucumber-1",
+          "cucumber-2",
+          "cucumber-3",
+          "cucumber-4",
+          "cucumber-5",
+          "cucumber-6",
+          "cucumber-7",
+          "cucumber-8",
+          "cucumber-9",
+          "cucumber-10",
+          "cucumber-11",
           "jasmine",
           "mocha",
-          "rest",
-          "webdriverio-8-test-runners",
-          "webdriverio-8-web-devtools",
-          "webdriverio-8-web-webdriver",
-          "webdriverio-test-runners",
-          "webdriverio-web",
+          "rest"
         ]
       runs-on: 'ubuntu-latest'
       node-version: 22.x
@@ -171,6 +199,7 @@ jobs:
       - test-integration
       - test-integration-playwright
       - test-integration-protractor
+      - test-integration-webdriverio
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -237,6 +266,7 @@ jobs:
       - test-integration
       - test-integration-playwright
       - test-integration-protractor
+      - test-integration-webdriverio
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
