@@ -34,28 +34,7 @@ export const config: WebdriverIOConfig = {
     //     'spec',
     // ],
 
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: resolve(__dirname, './tsconfig.json'),
-        },
-    },
-
-    // headless: true,
-    automationProtocol: 'devtools',
-
-    /*
-     * To use the 'webdriver' protocol,
-     * use the wdio-chromedriver-service:
-     *
-     *  https://www.npmjs.com/package/wdio-chromedriver-service
-     *
-     * or start chromedriver manually first:
-     *
-     *  npx chromedriver --port=4444
-    */
-    // automationProtocol: 'webdriver',
+    tsConfigPath: 'tsconfig.json',
 
     runner: 'local',
 
