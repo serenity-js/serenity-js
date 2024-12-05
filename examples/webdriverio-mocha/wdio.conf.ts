@@ -1,5 +1,4 @@
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
-import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
