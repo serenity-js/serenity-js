@@ -3,7 +3,7 @@ import 'jasmine';
 import { TestCompromisedError } from '@serenity-js/core';
 import assert = require('assert');
 
-describe('@serenity-js/webdriverio', () => {
+describe('outcomes', () => {
 
     describe('correctly reports when the test', () => {
 
