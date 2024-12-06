@@ -11,7 +11,7 @@ import {
     SceneStarts
 } from '@serenity-js/core/lib/events';
 import { CorrelationId, Name } from '@serenity-js/core/lib/model';
-import { Click, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions, Text } from '@serenity-js/web';
+import { Click, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
 import { ModalDialogInspector } from './fixtures/ModalDialogInspector';
@@ -36,7 +36,7 @@ describe('ModalDialog', () => {
                 Click.on(ModalDialogInspector.trigger()),
 
                 Wait.until(ModalDialog, isPresent()),
-                Ensure.that(Text.of(ModalDialogInspector.result()), equals('And the wait is over :-)')),
+                Ensure.eventually(ModalDialogInspector.result(), equals('And the wait is over :-)')),
             );
         });
     });
