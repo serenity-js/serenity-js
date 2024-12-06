@@ -37,7 +37,7 @@ import {
 
 describe('WebdriverIONotifier', () => {
 
-    const capabilities: Capabilities.RemoteCapability = {
+    const capabilities: Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedStandaloneCapabilities[] | Capabilities.RequestedMultiremoteCapabilities | Capabilities.RequestedMultiremoteCapabilities[] = {
         browserName: 'chrome',
     };
 

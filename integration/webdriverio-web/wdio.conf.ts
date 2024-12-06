@@ -6,11 +6,11 @@ import { Browser, computeExecutablePath } from '@puppeteer/browsers';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WithSerenityConfig } from '@serenity-js/webdriverio';
 
-const protocol = process.env.PROTOCOL === 'devtools'
-    ? 'devtools'
-    : 'webdriver';
+const port = process.env.PORT
+    ? Number.parseInt(process.env.PORT, 10)
+    : 8080;
 
 const defaults = {
     buildId: 'stable',
@@ -22,73 +22,22 @@ const binaries = {
     chrome: computeExecutablePath({ browser: 'chrome' as Browser, ...defaults }),
 }
 
-const options = {
-    specs: [
-        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
-        './spec/**/*.spec.ts',
-    ],
-
-    port: process.env.PORT
-        ? Number.parseInt(process.env.PORT, 10)
-        : 8080,
-
-    protocol,
-
-    workers: workers(process.env),
-
-    capabilities: [{
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            binary: binaries.chrome,
-            excludeSwitches: [ 'enable-automation' ],
-            args: [
-                '--disable-web-security',
-                '--allow-file-access-from-files',
-                '--allow-file-access',
-                '--ignore-certificate-errors',
-                '--headless',
-                '--disable-gpu',
-                '--window-size=1024x768',
-            ],
-        }
-    }]
-}
-
-const devtoolsProtocol: Partial<WebdriverIOConfig> = {
-    headless: true,
-    automationProtocol: 'devtools',
-};
-
-const webdriverProtocol: Partial<WebdriverIOConfig> = {
-    headless: true,
-    automationProtocol: 'webdriver',
-    outputDir: 'target/logs',
-    services: [
-        [ 'chromedriver', {
-            chromedriverCustomPath: binaries.chromedriver,   // eslint-disable-line @typescript-eslint/no-var-requires
-        } ]
-    ],
-};
-
 function workers(env: Record<string, string>) {
     if (env.WORKERS) {
         return Number.parseInt(env.WORKERS, 10);
     }
 
-    if (env.CI) {
-        // This number seems to be optimal, based on trial and error
-        // - https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-        return 6;
-    }
-
-    return cpus().length - 1;
+    return Math.min(
+        cpus().length - 1,
+        6
+    );
 }
 
-export const config: WebdriverIOConfig = {
+export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     framework: '@serenity-js/webdriverio',
 
-    baseUrl: `http://localhost:${ options.port }`,
+    baseUrl: `http://localhost:${ port }`,
 
     serenity: {
         runner: 'mocha',
@@ -109,7 +58,10 @@ export const config: WebdriverIOConfig = {
         timeout: 300_000,
     },
 
-    specs: options.specs,
+    specs: [
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
+        './spec/**/*.spec.ts',
+    ],
 
     reporters: [
         'spec',
@@ -120,30 +72,46 @@ export const config: WebdriverIOConfig = {
     waitforTimeout: 10_000,
     connectionRetryTimeout: 30_000,
 
-    capabilities: options.capabilities,
-    maxInstances: options.workers,
-    ...(options.protocol === 'webdriver' ? webdriverProtocol : devtoolsProtocol),
+    capabilities: [{
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            binary: binaries.chrome,
+            excludeSwitches: [ 'enable-automation' ],
+            args: [
+                '--disable-web-security',
+                '--allow-file-access-from-files',
+                '--allow-file-access',
+                '--ignore-certificate-errors',
+                '--headless',
+                '--no-sandbox',
+                '--disable-gpu',
+                '--disable-popup-blocking',
+                '--window-size=1024x768',
+            ],
+        },
+        'wdio:chromedriverOptions': {
+            binary: binaries.chromedriver
+        }
+    }],
+
+    maxInstances: workers(process.env),
+
+    // outputDir: 'target/logs',
 
     // logLevel: 'debug',
     logLevel: 'error',
 
-    connectionRetryCount: 5,
+    // connectionRetryCount: 5,
 
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: 'tsconfig.json'
-        }
-    },
+    tsConfigPath: 'tsconfig.json',
 
     onPrepare: function (config) {
         console.log(
             '[configuration]',
-            'integration:', options.protocol,
-            'protocol:', config.automationProtocol,
-            'port:', options.port,
-            'browser workers:', options.workers
+            'integration:', 'webdriver',
+            'protocol:', 'webdriver',
+            'port:', port,
+            'browser workers:', config.maxInstances
         );
     },
 };
