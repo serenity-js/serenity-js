@@ -12,7 +12,7 @@ of complex software systems faster, more collaborative and easier to scale.
 - [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
 - [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
 - [API documentation](https://serenity-js.org/api/)
-- [Serenity/JS Project Templates on GitHub](https://serenity-js.org/handbook/getting-started/project-templates/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/getting-started/project-templates/)
 
 👋 Join the Serenity/JS Community!
 - Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
@@ -24,6 +24,8 @@ of complex software systems faster, more collaborative and easier to scale.
 
 [`@serenity-js/webdriverio-8`](https://serenity-js.org/api/webdriverio-8/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
 for [WebdriverIO 8](https://v8.webdriver.io/) that will help you with testing Web and mobile apps.
+
+To integrate Serenity/JS with the latest WebdriverIO v9, check out the [`@serenity-js/webdriverio`](https://serenity-js.org/api/webdriverio/) module instead.
 
 ### Installation
 
@@ -224,7 +226,7 @@ The easiest way for you to start writing web-based acceptance tests using Sereni
 
 - [Serenity/JS, Mocha, and WebdriverIO template](https://github.com/serenity-js/serenity-js-mocha-webdriverio-template)
 - [Serenity/JS, Cucumber, and WebdriverIO template](https://github.com/serenity-js/serenity-js-cucumber-webdriverio-template)
-- Serenity/JS, Jasmine, and WebdriverIO template (coming soon!)
+- [Serenity/JS, Jasmine, and WebdriverIO template](https://github.com/serenity-js/serenity-js-jasmine-webdriverio-template)
 
 ## 📣 Stay up to date 
 
