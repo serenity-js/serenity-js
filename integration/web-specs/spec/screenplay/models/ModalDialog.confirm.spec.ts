@@ -2,7 +2,7 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { Click, ModalDialog, Navigate, Text } from '@serenity-js/web';
+import { Click, ModalDialog, Navigate } from '@serenity-js/web';
 
 import { ModalDialogInspector } from './fixtures/ModalDialogInspector';
 
@@ -14,7 +14,7 @@ describe('ModalDialog', () => {
             await actorCalled('Nick').attemptsTo(
                 Navigate.to('/screenplay/models/modal-dialog/confirm.html'),
 
-                Ensure.that(ModalDialog.lastDialogState(), equals('absent')),
+                Ensure.eventually(ModalDialog.lastDialogState(), equals('absent')),
             );
         });
 
@@ -22,9 +22,8 @@ describe('ModalDialog', () => {
             await actorCalled('Nick').attemptsTo(
                 Click.on(ModalDialogInspector.trigger()),
 
-                Ensure.eventually(Text.of(ModalDialogInspector.result()), equals('dismissed')),
-
-                Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
+                Ensure.eventually(ModalDialog.lastDialogState(), equals('dismissed')),
+                Ensure.eventually(ModalDialogInspector.result(), equals('dismissed')),
             );
         });
 
@@ -34,9 +33,8 @@ describe('ModalDialog', () => {
 
                 Click.on(ModalDialogInspector.trigger()),
 
-                Ensure.eventually(Text.of(ModalDialogInspector.result()), equals('accepted')),
-
-                Ensure.that(ModalDialog.lastDialogState(), equals('accepted')),
+                Ensure.eventually(ModalDialog.lastDialogState(), equals('accepted')),
+                Ensure.eventually(ModalDialogInspector.result(), equals('accepted')),
             );
         });
 
@@ -46,9 +44,8 @@ describe('ModalDialog', () => {
 
                 Click.on(ModalDialogInspector.trigger()),
 
-                Ensure.eventually(Text.of(ModalDialogInspector.result()), equals('dismissed')),
-
-                Ensure.that(ModalDialog.lastDialogState(), equals('dismissed')),
+                Ensure.eventually(ModalDialog.lastDialogState(), equals('dismissed')),
+                Ensure.eventually(ModalDialogInspector.result(), equals('dismissed')),
             );
         });
 
