@@ -35,7 +35,7 @@ To use the WebdriverIO wizard to create a new project, run the following command
 npm init wdio ./my-project
 ```
 
-To create a Serenity/JS project, select the following options:
+To create a Serenity/JS, WebdriverIO and Mocha project, select the following options:
 
 - Type of testing: **E2E Testing**
 - Automation backend: **any** - Serenity/JS supports both local and remote WebdriverIO test runners; select **local** to keep it simple
@@ -47,6 +47,10 @@ To create a Serenity/JS project, select the following options:
 - Test file location: **accept the defaults** unless you'd like to store your code in a different directory
 - Test reporter: **any**, Serenity/JS configures the project to use [Serenity/JS reporting services](https://serenity-js.org/handbook/reporting/), and you can add native WebdriverIO reporters too if needed
 - Plugins/add-ons/services: **none**; Serenity/JS doesn't require any additional plugins to work with WebdriverIO
+
+To create a Serenity/JS, WebdriverIO and Cucumber, watch the tutorial:
+
+[![Watch the video](https://img.youtube.com/vi/8mMY6Of4nCw/mqdefault.jpg)](https://youtu.be/8mMY6Of4nCw)
 
 ### 2. Writing a test scenario
 
