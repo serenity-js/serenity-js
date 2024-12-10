@@ -78,7 +78,7 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
             throw parent.error;
         }
 
-        const element = await parent.$(this.nativeSelector());
+        const element = await parent.$(this.nativeSelector()).getElement();
 
         if (element.error) {
             throw element.error;
@@ -89,7 +89,7 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
 
     async allNativeElements(): Promise<Array<WebdriverIO.Element>> {
         const parent = await this.parent.nativeElement();
-        return parent.$$(this.nativeSelector()) as unknown as Promise<Array<WebdriverIO.Element>>;
+        return parent.$$(this.nativeSelector()).getElements() as unknown as Promise<Array<WebdriverIO.Element>>;
     }
 
     of(parent: WebdriverIOLocator): Locator<WebdriverIO.Element, string> {
@@ -167,7 +167,7 @@ class WebdriverIOParentElementLocator extends WebdriverIOLocator {
         return child.$(
             /* c8 ignore next */
             new Function(`return this.closest(\`${ cssSelector.value }\`)`) as () => HTMLElement
-        );
+        ).getElement();
     }
 
     override async allNativeElements(): Promise<Array<WebdriverIO.Element>> {

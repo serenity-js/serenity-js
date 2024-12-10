@@ -1,5 +1,4 @@
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
-import { resolve } from 'path';
 
 export const config: WebdriverIOConfig = {
 
@@ -29,16 +28,7 @@ export const config: WebdriverIOConfig = {
         // Inspector,
     ],
 
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: resolve(__dirname, './tsconfig.json'),
-        },
-    },
-
-    headless: true,
-    automationProtocol: 'devtools',
+    tsConfigPath: 'tsconfig.json',
 
     runner: 'local',
 

@@ -151,16 +151,12 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     async html(): Promise<string> {
         const element = await this.nativeElement();
-        return await element.getHTML(true);
+        return await element.getHTML({ includeSelectorTag: true });
     }
 
     async switchTo(): Promise<SwitchableOrigin> {
         try {
-            const element: WebdriverIO.Element = await this.locator.nativeElement()
-
-            if (element.error) {
-                throw element.error;
-            }
+            const element: WebdriverIO.Element = await this.locator.nativeElement();
 
             const tagName = await element.getTagName();
 
@@ -243,11 +239,7 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
         try {
             const element = await this.nativeElement();
 
-            if (! await element.isDisplayed()) {
-                return false;
-            }
-
-            if (! await element.isDisplayedInViewport()) {
+            if (! await element.isDisplayed({ withinViewport: true })) {
                 return false;
             }
 

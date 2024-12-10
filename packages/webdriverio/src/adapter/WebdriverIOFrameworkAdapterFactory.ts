@@ -22,7 +22,7 @@ export class WebdriverIOFrameworkAdapterFactory {
         cid: string,
         config: WebdriverIOConfig,
         specs: string[],
-        capabilities: Capabilities.RemoteCapability,
+        capabilities: Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedStandaloneCapabilities[] | Capabilities.RequestedMultiremoteCapabilities | Capabilities.RequestedMultiremoteCapabilities[],
         reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
     ): Promise<WebdriverIOFrameworkAdapter> {
         return new WebdriverIOFrameworkAdapter(

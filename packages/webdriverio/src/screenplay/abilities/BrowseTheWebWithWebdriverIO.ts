@@ -1,5 +1,6 @@
 import 'webdriverio';
 
+import { type Discardable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 
 import { WebdriverIOBrowsingSession } from '../models/index.js';
@@ -12,7 +13,7 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
- * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio'
+ * import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio-8-8'
  * import { By, Navigate, PageElement, Text } from '@serenity-js/web'
  * import { Ensure, equals } from '@serenity-js/assertions'
  * import { browser } from '@wdio/globals'
@@ -38,9 +39,12 @@ import { WebdriverIOBrowsingSession } from '../models/index.js';
  *
  * @group Abilities
  */
-export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<WebdriverIO.Element> {
-
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb<WebdriverIO.Element> implements Discardable {
     static using(browserInstance: WebdriverIO.Browser): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(new WebdriverIOBrowsingSession(browserInstance));
+    }
+
+    async discard(): Promise<void> {
+        await (this.session as WebdriverIOBrowsingSession).discard();
     }
 }

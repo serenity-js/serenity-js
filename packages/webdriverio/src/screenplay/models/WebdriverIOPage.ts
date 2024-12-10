@@ -1,9 +1,17 @@
 import 'webdriverio';
 
-import { List, LogicError } from '@serenity-js/core';
+import { type Discardable, List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
-import { ArgumentDehydrator, BrowserWindowClosedError, ByCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
+import {
+    ArgumentDehydrator,
+    BrowserWindowClosedError,
+    ByCss,
+    Key,
+    Page,
+    PageElement,
+    PageElementsLocator
+} from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import { URL } from 'url';
 
@@ -11,6 +19,7 @@ import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootL
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
 import { WebdriverIOCookie } from './WebdriverIOCookie.js';
 import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
+import type { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
 import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
 
 /**
@@ -18,7 +27,7 @@ import { WebdriverIOPageElement } from './WebdriverIOPageElement.js';
  *
  * @group Models
  */
-export class WebdriverIOPage extends Page<WebdriverIO.Element> {
+export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discardable {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
@@ -71,18 +80,22 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     async navigateTo(destination: string): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.url(destination));
+        await this.resetState();
     }
 
     async navigateBack(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.back());
+        await this.resetState();
     }
 
     async navigateForward(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.forward());
+        await this.resetState();
     }
 
     async reload(): Promise<void> {
         await this.inContextOfThisPage(() => this.browser.refresh());
+        await this.resetState();
     }
 
     async sendKeys(keys: Array<Key | string>): Promise<void> {
@@ -201,7 +214,8 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
                 expiry:     cookieData.expiry
                     ? cookieData.expiry.toSeconds()
                     : undefined,
-                sameSite:   cookieData.sameSite,
+                // see https://w3c.github.io/webdriver-bidi/#type-network-Cookie
+                sameSite:   cookieData?.sameSite?.toLowerCase() as 'lax' | 'strict' | 'none',
             });
         });
     }
@@ -213,33 +227,33 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
     }
 
     async title(): Promise<string> {
-        return await this.inContextOfThisPage(() => this.browser.getTitle());
+        return await this.inContextOfThisPage(() => this.browser.execute(() => document.title));
     }
 
     async name(): Promise<string> {
-        return await this.inContextOfThisPage(() => this.browser.execute(`return window.name`));
+        return await this.inContextOfThisPage(() => {
+            return this.browser.execute(() => window.name);
+        });
     }
 
     async url(): Promise<URL> {
         return await this.inContextOfThisPage(async () => {
-            return new URL(await this.browser.getUrl());
+            return new URL(await this.browser.execute(() => window.location.href));
         });
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {
         return await this.inContextOfThisPage(async () => {
-            if (! this.browser.isDevTools) {
-                const calculatedViewportSize = await this.browser.execute(`
-                    return {
-                        width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0),
-                        height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
-                    }
-                `) as { width: number, height: number };
-
-                // Chrome headless hard-codes window.innerWidth and window.innerHeight to 0
-                if (calculatedViewportSize.width > 0 && calculatedViewportSize.height > 0) {
-                    return calculatedViewportSize;
+            const calculatedViewportSize = await this.browser.execute(`
+                return {
+                    width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0),
+                    height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
                 }
+            `) as { width: number, height: number };
+
+            // Chrome headless hard-codes window.innerWidth and window.innerHeight to 0
+            if (calculatedViewportSize.width > 0 && calculatedViewportSize.height > 0) {
+                return calculatedViewportSize;
             }
 
             return this.browser.getWindowSize();
@@ -248,25 +262,12 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
         return await this.inContextOfThisPage(async () => {
-            let desiredWindowSize = size;
-
-            if (! this.browser.isDevTools) {
-                desiredWindowSize = await this.browser.execute(`
-                    var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-                    var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-                    
-                    return {
-                        width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
-                        height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
-                    };
-                `);
-            }
-
-            return this.browser.setWindowSize(desiredWindowSize.width, desiredWindowSize.height);
+            await this.browser.setViewport(size);
         });
     }
 
     async close(): Promise<void> {
+        await this.resetState();
         await this.inContextOfThisPage(() => this.browser.closeWindow());
     }
 
@@ -282,6 +283,16 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
             }
         }
         return false;
+    }
+
+    private async resetState() {
+        this.lastScriptExecutionSummary = undefined;
+        await this.rootLocator.switchToMainFrame()
+        await this.modalDialogHandler.reset();
+    }
+
+    async discard(): Promise<void> {
+        await (this.modalDialogHandler as WebdriverIOModalDialogHandler).discard();
     }
 
     private async inContextOfThisPage<T>(action: () => Promise<T> | T): Promise<T> {

@@ -7,7 +7,7 @@ import { RootLocator } from '@serenity-js/web';
  *
  * @group Models
  */
-export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Browser> {
+export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Element> {
     constructor(private readonly browser: WebdriverIO.Browser) {
         super();
     }
@@ -20,8 +20,8 @@ export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Browser> {
         return this.browser;
     }
 
-    async switchToFrame(frame: Element | object): Promise<void> {
-        await this.browser.switchToFrame(frame);
+    async switchToFrame(frame: WebdriverIO.Element): Promise<void> {
+        await this.browser.switchFrame(frame);
     }
 
     async switchToParentFrame(): Promise<void> {
@@ -29,6 +29,6 @@ export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Browser> {
     }
 
     async switchToMainFrame(): Promise<void> {
-        await this.browser.switchToFrame(null); // eslint-disable-line unicorn/no-null
+        await this.browser.switchFrame(null); // eslint-disable-line unicorn/no-null
     }
 }

@@ -1,11 +1,11 @@
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WithSerenityConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
-export const config: WebdriverIOConfig = {
+
+export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     framework: '@serenity-js/webdriverio',
-    // framework: 'cucumber',
 
     serenity: {
         runner: 'cucumber',
@@ -29,13 +29,7 @@ export const config: WebdriverIOConfig = {
         // specified directly in tests
     ],
 
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: resolve(__dirname, '../tsconfig.json'),
-        },
-    },
+    tsConfigPath: resolve(__dirname, '../tsconfig.json'),
 
     reporters: [
         'spec',
@@ -44,9 +38,6 @@ export const config: WebdriverIOConfig = {
     runner: 'local',
 
     maxInstances: 1,
-
-    headless: true,
-    automationProtocol: 'devtools',
 
     capabilities: [{
 
