@@ -27,13 +27,13 @@ export class BrowserCapabilitiesReporter extends Reporter {
 
     private recordBrowserAndPlatformTags(event: Options.RunnerStart) {
         const tags = event.isMultiremote
-            ? this.tagsForAll(event.capabilities as unknown as Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>)  // fixme: WDIO MultiremoteCapabilities seem to have incorrect definition?
+            ? this.tagsForAll(event.capabilities as unknown as Record<string, Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedMultiremoteCapabilities>)  // fixme: WDIO MultiremoteCapabilities seem to have incorrect definition?
             : this.tagPrinter.tagsFor(event.capabilities)
 
         this.tags.push(...tags);
     }
 
-    private tagsForAll(capabilities: Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>): Tag[] {
+    private tagsForAll(capabilities: Record<string, Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedMultiremoteCapabilities>): Tag[] {
         return Object.keys(capabilities)
             .reduce((existingTags, entryName) => {
 

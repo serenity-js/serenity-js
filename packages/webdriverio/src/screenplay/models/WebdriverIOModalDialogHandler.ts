@@ -1,9 +1,8 @@
 import 'webdriverio';
 
-import type { ModalDialog} from '@serenity-js/web';
-import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, ModalDialogHandler } from '@serenity-js/web';
+import { type Discardable } from '@serenity-js/core';
+import { AbsentModalDialog, AcceptedModalDialog, DismissedModalDialog, type ModalDialog, ModalDialogHandler } from '@serenity-js/web';
 
-import type { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
@@ -12,46 +11,52 @@ import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
  *
  * @group Models
  */
-export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
+export class WebdriverIOModalDialogHandler extends ModalDialogHandler implements Discardable {
 
-    private readonly defaultHandler: () => Promise<void> =
-        async () => {
-            const message = await this.browser.getAlertText();
+    private readonly defaultHandler: (dialog: WebdriverIO.Dialog) => Promise<void> =
+        async (dialog: WebdriverIO.Dialog) => {
+            const message = dialog.message();
 
-            await this.browser.dismissAlert();
+            await dialog.dismiss();
 
             this.modalDialog = new DismissedModalDialog(message);
         }
 
-    private currentHandler: () => Promise<void>;
+    private currentHandler: (dialog: WebdriverIO.Dialog) => Promise<void>;
+    private dialog?: WebdriverIO.Dialog;
 
-    constructor(
-        private readonly browser: WebdriverIO.Browser,
-        private readonly errorHandler: WebdriverIOErrorHandler,
-    ) {
+    constructor(private readonly browser: WebdriverIO.Browser) {
         super();
 
         this.currentHandler = this.defaultHandler;
 
-        this.errorHandler.setHandlerFor(WebdriverProtocolErrorCode.UnexpectedAlertOpenError, error_ => this.tryToHandleDialog());
+        this.browser.on('dialog', this.onDialog);
     }
 
-    async tryToHandleDialog(): Promise<void> {
+    private onDialog = this.tryToHandleDialog.bind(this);
+
+    private async tryToHandleDialog(dialog: WebdriverIO.Dialog): Promise<void> {
         try {
-            await this.currentHandler()
+            await this.currentHandler(dialog);
         }
-        catch (error) {
-            if (error.name === WebdriverProtocolErrorCode.NoSuchAlertError) {
+        catch(error) {
+            if (error.name === WebdriverProtocolErrorCode.UnexpectedAlertOpenError) {
+                await dialog.dismiss();
+                return;
+            }
+
+            if (error.message.includes(WebdriverProtocolErrorCode.NoSuchAlertError)) {
                 this.modalDialog = new AbsentModalDialog();
                 return;
             }
+
             throw error;
         }
     }
 
     async acceptNext(): Promise<void> {
-        this.currentHandler = async () => {
-            const message = await this.browser.getAlertText();
+        this.currentHandler = async (dialog: WebdriverIO.Dialog) => {
+            const message = dialog.message();
 
             await this.browser.acceptAlert();
 
@@ -60,24 +65,32 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
     }
 
     async acceptNextWithValue(text: string | number): Promise<void> {
-        this.currentHandler = async () => {
-            await this.browser.sendAlertText(String(text));
-            const message = await this.browser.getAlertText();
-
-            await this.browser.acceptAlert();
+        this.currentHandler = async (dialog: WebdriverIO.Dialog) => {
+            const message = dialog.message();
+            await dialog.accept(String(text))
 
             this.modalDialog = new AcceptedModalDialog(message);
         };
     }
 
     async dismissNext(): Promise<void> {
-        this.currentHandler = async () => {
-            const message = await this.browser.getAlertText();
+        this.currentHandler = async (dialog: WebdriverIO.Dialog) => {
+            const message = dialog.message();
 
-            await this.browser.dismissAlert();
+            await dialog.dismiss();
 
             this.modalDialog = new DismissedModalDialog(message);
         }
+    }
+
+    async dismiss(): Promise<void> {
+        if (! this.dialog) {
+            return;
+        }
+
+        const message = this.dialog.message();
+        await this.dialog.dismiss();
+        this.modalDialog = new DismissedModalDialog(message);
     }
 
     async reset(): Promise<void> {
@@ -89,11 +102,10 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler {
      * @override
      */
     async last(): Promise<ModalDialog> {
-
-        if (this.modalDialog instanceof AbsentModalDialog) {
-            await this.tryToHandleDialog();
-        }
-
         return this.modalDialog;
+    }
+
+    async discard(): Promise<void> {
+        this.browser.off('dialog', this.onDialog);
     }
 }

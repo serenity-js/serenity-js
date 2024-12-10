@@ -1,8 +1,8 @@
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WithSerenityConfig } from '@serenity-js/webdriverio';
 
-export const config: WebdriverIOConfig = {
+export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     framework: '@serenity-js/webdriverio',
 
@@ -29,9 +29,6 @@ export const config: WebdriverIOConfig = {
     runner: 'local',
 
     maxInstances: 1,
-
-    headless: true,
-    automationProtocol: 'devtools',
 
     capabilities: [{
 

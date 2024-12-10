@@ -31,7 +31,7 @@ export class WebdriverIOFrameworkAdapter {
         private readonly cid: string,
         webdriverIOConfig: WebdriverIOConfig,
         private readonly specs: string[],
-        private readonly capabilities: Capabilities.RemoteCapability,
+        private readonly capabilities: Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedStandaloneCapabilities[] | Capabilities.RequestedMultiremoteCapabilities | Capabilities.RequestedMultiremoteCapabilities[],
         private readonly reporter: EventEmitter & ProvidesWriteStream & InitialisesReporters
     ) {
         const config = deepmerge.default<WebdriverIOConfig>(this.defaultConfig(), webdriverIOConfig, {
@@ -62,7 +62,7 @@ export class WebdriverIOFrameworkAdapter {
 
         const outputStreamBufferPrinter = new OutputStreamBufferPrinter(
             outputStreamBuffer,
-            reporter.getWriteStreamObject('@serenity-js/webdriverio')
+            reporter.getWriteStreamObject('@serenity-js/webdriverio-8')
         );
 
         this.serenity.configure({
@@ -89,6 +89,8 @@ export class WebdriverIOFrameworkAdapter {
     }
 
     async init(): Promise<WebdriverIOFrameworkAdapter> {
+
+        // todo: review if there's a better way to do this
 
         // This is the only (hacky) way to register a fake reporter programmatically (as of @wdio/reporter 7.4.2)
         //  - https://github.com/webdriverio/webdriverio/blob/365fb0ad79fcf4471f21f23e18afa6818986dbdb/packages/wdio-runner/src/index.ts#L147-L181
@@ -124,7 +126,7 @@ export class WebdriverIOFrameworkAdapter {
                 crew: [
                     ArtifactArchiver.storingArtifactsAt(this.cwd.value, 'target/site/serenity'),
                 ]
-            }
+            },
         }
     }
 }

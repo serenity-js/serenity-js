@@ -68,7 +68,7 @@ describe('Wait', () => {
 
             expect(location.path.basename()).to.equal('Wait.spec.ts');
             expect(location.line).to.equal(66);
-            expect(location.column).to.equal(38);
+            expect(location.column).to.be.oneOf([ 35, 38 ]);
         });
     });
 

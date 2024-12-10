@@ -20,7 +20,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
         cid     = '0-0',
         specURIs   = [ 'file:///users/jan/project/spec/example.spec.ts' ],
         specs      = [ '/users/jan/project/spec/example.spec.ts' ],
-        capabilities: Capabilities.RemoteCapability = { browserName: 'chrome' };
+        capabilities: Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedMultiremoteCapabilities = { browserName: 'chrome' };
 
     let serenity:       Serenity,
         loader:         sinon.SinonStubbedInstance<ModuleLoader>,

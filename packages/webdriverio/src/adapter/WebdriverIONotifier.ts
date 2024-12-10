@@ -1,10 +1,16 @@
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events/index.js';
-import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
-import type {
-    Outcome,
-    TestSuiteDetails} from '@serenity-js/core/lib/model/index.js';
+import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
+import {
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    SceneFinished,
+    SceneStarts,
+    TestRunFinishes,
+    TestSuiteFinished,
+    TestSuiteStarts
+} from '@serenity-js/core/lib/events/index.js';
+import type { Outcome, TestSuiteDetails } from '@serenity-js/core/lib/model/index.js';
 import {
     CorrelationId,
     Description,
@@ -13,7 +19,8 @@ import {
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ImplementationPending, Name,
+    ImplementationPending,
+    Name,
     ProblemIndication
 } from '@serenity-js/core/lib/model/index.js';
 import type { Test as testStats } from '@wdio/reporter';
@@ -67,7 +74,7 @@ export class WebdriverIONotifier implements StageCrewMember {
 
     constructor(
         private readonly config: WebdriverIOConfig,
-        private readonly capabilities: Capabilities.RemoteCapability,
+        private readonly capabilities: Capabilities.RequestedStandaloneCapabilities | Capabilities.RequestedStandaloneCapabilities[] | Capabilities.RequestedMultiremoteCapabilities | Capabilities.RequestedMultiremoteCapabilities[],
         private readonly reporter: EventEmitter,
         private readonly successThreshold: Outcome | { Code: number },
         private readonly cid: string,

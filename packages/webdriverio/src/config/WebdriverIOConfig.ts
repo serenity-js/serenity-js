@@ -1,5 +1,4 @@
-import type { SerenityConfig } from '@serenity-js/core';
-import type { Options } from '@wdio/types';
+import { type WithSerenityConfig } from './WithSerenityConfig.js';
 
 /**
  * [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/),
@@ -77,18 +76,4 @@ import type { Options } from '@wdio/types';
  *
  * @group Configuration
  */
-export interface WebdriverIOConfig extends Options.Testrunner {
-
-    /**
-     * Serenity/JS configuration with an additional `runner` entry
-     * allowing to specify the test runner, such as `cucumber`, `mocha`, or `jasmine`.
-     *
-     * #### Learn more
-     *
-     * - [WebdriverIO configuration file](https://webdriver.io/docs/configurationfile/)
-     * - [`CucumberConfig`](https://serenity-js.org/api/cucumber-adapter/interface/CucumberConfig/)
-     * - [`JasmineConfig`](https://serenity-js.org/api/jasmine-adapter/interface/JasmineConfig/)
-     * - [`MochaConfig`](https://serenity-js.org/api/mocha-adapter/interface/MochaConfig/)
-     */
-    serenity?: SerenityConfig & { runner?: string };
-}
+export type WebdriverIOConfig = WebdriverIO.Config & WithSerenityConfig;

@@ -1,17 +1,14 @@
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
-import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { WithSerenityConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 
-import { Actors } from './src';
-
-export const config: WebdriverIOConfig = {
+export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     framework: '@serenity-js/webdriverio',
 
     serenity: {
         runner: 'mocha',
-        actors: new Actors(),
         diffFormatter: new NoOpDiffFormatter(),
         crew: [
             new StdOutReporter(),
@@ -30,19 +27,13 @@ export const config: WebdriverIOConfig = {
         'spec',
     ],
 
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: resolve(__dirname, './tsconfig.json'),
-        },
-    },
+    tsConfigPath: resolve(__dirname, './tsconfig.json'),
+
     runner: 'local',
 
     maxInstances: 1,
 
     headless: true,
-    automationProtocol: 'devtools',
 
     capabilities: [{
 

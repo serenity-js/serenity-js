@@ -1,22 +1,21 @@
 import 'webdriverio';
 
-import { LogicError } from '@serenity-js/core';
+import { type Discardable, LogicError } from '@serenity-js/core';
 import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
-import type { BrowserCapabilities, ModalDialogHandler } from '@serenity-js/web';
+import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession } from '@serenity-js/web';
-import type { Page } from 'puppeteer-core';
 
 import { WebdriverIOPage } from '../models/index.js';
 import { WebdriverIOErrorHandler } from './WebdriverIOErrorHandler.js';
 import { WebdriverIOModalDialogHandler } from './WebdriverIOModalDialogHandler.js';
-import { WebdriverIOPuppeteerModalDialogHandler } from './WebdriverIOPuppeteerModalDialogHandler.js';
+import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
 
 /**
  * WebdriverIO-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).
  *
  * @group Models
  */
-export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> {
+export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage> implements Discardable {
 
     constructor(protected readonly browser: WebdriverIO.Browser) {
         super();
@@ -41,12 +40,15 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         const newlyOpenedWindowHandles  = windowHandles.filter(windowHandle => ! registeredWindowHandles.has(windowHandle));
 
         for (const newlyOpenedWindowHandle of newlyOpenedWindowHandles) {
+            const modalDialogHandler = new WebdriverIOModalDialogHandler(this.browser);
             const errorHandler = new WebdriverIOErrorHandler();
+            errorHandler.setHandlerFor(WebdriverProtocolErrorCode.UnexpectedAlertOpenError, error => modalDialogHandler.dismiss());
+
             this.register(
                 new WebdriverIOPage(
                     this,
                     this.browser,
-                    await this.modalDialogHandlerFor(newlyOpenedWindowHandle, errorHandler),
+                    modalDialogHandler,
                     errorHandler,
                     new CorrelationId(newlyOpenedWindowHandle)
                 )
@@ -123,16 +125,18 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
     }
 
     protected override async registerCurrentPage(): Promise<WebdriverIOPage> {
-        const windowHandle = await this.browser.getWindowHandle();
+        const pageId = await this.assignPageId();
 
+        const modalDialogHandler = new WebdriverIOModalDialogHandler(this.browser);
         const errorHandler = new WebdriverIOErrorHandler();
+        errorHandler.setHandlerFor(WebdriverProtocolErrorCode.UnexpectedAlertOpenError, error => modalDialogHandler.dismiss());
 
         const page = new WebdriverIOPage(
             this,
             this.browser,
-            await this.modalDialogHandlerFor(windowHandle, errorHandler),
+            modalDialogHandler,
             errorHandler,
-            new CorrelationId(windowHandle)
+            pageId,
         );
 
         this.register(page)
@@ -140,37 +144,35 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
         return page;
     }
 
-    private async modalDialogHandlerFor(windowHandle: string, errorHandler: WebdriverIOErrorHandler): Promise<ModalDialogHandler> {
-        return this.browser.isDevTools
-            ? new WebdriverIOPuppeteerModalDialogHandler(await this.puppeteerPageFor(windowHandle))
-            : new WebdriverIOModalDialogHandler(this.browser, errorHandler);
-    }
+    private async assignPageId(): Promise<CorrelationId> {
+        if (this.browser.isMobile) {
+            const context = await this.browser.getContext();
 
-    private async puppeteerPageFor(windowHandle: string): Promise<Page>  {
-        const puppeteer = await this.browser.getPuppeteer();
-        const pages = await puppeteer.pages();
+            if (typeof context === 'string') {
+                return new CorrelationId(context);
+            }
 
-        const handles = await this.browser.getWindowHandles();
-
-        if (handles.length !== pages.length) {
-            throw new LogicError(`The number of registered Puppeteer pages doesn't match WebdriverIO window handles`)
+            if (context.id) {
+                return new CorrelationId(context.id);
+            }
         }
 
-        const index = handles.indexOf(windowHandle);
+        if (this.browser['getWindowHandle']) {
+            const handle = await this.browser.getWindowHandle();
 
-        // We cast to `unknown` first because the version of Page in Puppeteer-core
-        // might be slightly out-of-sync with what the WebdriverIO uses.
-        // This doesn't really matter since we're only using it to work with Dialogs.
-        const page = pages[index] as unknown as Page;
-
-        if (! page) {
-            throw new LogicError(`Couldn't find Puppeteer page for WebdriverIO window handle ${ windowHandle }`)
+            return new CorrelationId(handle);
         }
 
-        return page;
+        return CorrelationId.create();
     }
 
     override browserCapabilities(): Promise<BrowserCapabilities> {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
+    }
+
+    async discard(): Promise<void> {
+        for (const page of await this.allPages()) {
+            await (page as WebdriverIOPage).discard();
+        }
     }
 }
