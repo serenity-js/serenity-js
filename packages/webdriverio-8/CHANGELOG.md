@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.31.0](https://github.com/serenity-js/serenity-js/compare/v3.30.0...v3.31.0) (2024-12-12)
+
+
+### Bug Fixes
+
+* **web:** aligned the behaviour of Page.current() methods when switching to frames and iframes ([01d9db6](https://github.com/serenity-js/serenity-js/commit/01d9db68550506c0815fc211e9454b6a4bbc2299)), closes [#2575](https://github.com/serenity-js/serenity-js/issues/2575)
+
+
+### Features
+
+* **webdriverio-8:** introduced @serenity-js/webdriverio-8 module to continue supporting WDIO 8 ([8a010b1](https://github.com/serenity-js/serenity-js/commit/8a010b1fd8b2422a9f76f5ad38e37cabadc33abe)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+
+
+
+
+
 ## [3.29.5](https://github.com/serenity-js/serenity-js/compare/v3.29.4...v3.29.5) (2024-11-03)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

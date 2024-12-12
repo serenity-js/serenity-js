@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.31.0](https://github.com/serenity-js/serenity-js/compare/v3.30.0...v3.31.0) (2024-12-12)
+
+
+### Features
+
+* **mocha:** support for Mocha 11 ([82b831c](https://github.com/serenity-js/serenity-js/commit/82b831cef1ed7c3b8c8d62026af3e69aecc45461))
+
+
+
+
+
 # [3.30.0](https://github.com/serenity-js/serenity-js/compare/v3.29.5...v3.30.0) (2024-11-19)
 
 **Note:** Version bump only for package @serenity-js/mocha

@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.31.0](https://github.com/serenity-js/serenity-js/compare/v3.30.0...v3.31.0) (2024-12-12)
+
+
+### Bug Fixes
+
+* **web:** aligned the behaviour of Page.current() methods when switching to frames and iframes ([01d9db6](https://github.com/serenity-js/serenity-js/commit/01d9db68550506c0815fc211e9454b6a4bbc2299)), closes [#2575](https://github.com/serenity-js/serenity-js/issues/2575)
+* **webdriverio:** corrected handling of browser windows closed by test script ([c604baa](https://github.com/serenity-js/serenity-js/commit/c604baa104d128ea00e85f88ad7d20ae0d5b4607))
+* **webdriverio:** corrected unexpected open alert error handling ([f78b97b](https://github.com/serenity-js/serenity-js/commit/f78b97b6f8c4de443edce615986d91240715fcd5)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** simplified the implementation of page.setViewportSize ([e8551d3](https://github.com/serenity-js/serenity-js/commit/e8551d3c91d7cebf0fc04feba4fbe7faef7bd2df)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** support for WebdriverIO 9.4.1 ([bd9128c](https://github.com/serenity-js/serenity-js/commit/bd9128cbe06c148220ba553db494bbedb40bf408)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** support ModalDialog handling with WebdriverIO 9 ([6640136](https://github.com/serenity-js/serenity-js/commit/6640136b38b060983bf23c9f869a90223b8e90de)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** upgraded to WDIO 9.2.12 to incorporate the frame handling fix ([f908a3e](https://github.com/serenity-js/serenity-js/commit/f908a3ec8bf3b6b4168d08c0e349de903f3ffcaa)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** upgraded WebdriverIO deps to 9.3.0 ([deedf71](https://github.com/serenity-js/serenity-js/commit/deedf7151c6c9eee4ae36112214e32de269b70ba)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** upgraded WebdriverIO to 9.2.11 ([07f26f6](https://github.com/serenity-js/serenity-js/commit/07f26f61425c3b59812b67b39bd5142b9490bc57)), closes [webdriverio/webdriverio#13857](https://github.com/webdriverio/webdriverio/issues/13857)
+* **webdriverio:** use BiDi command to set viewport size if available ([f351f10](https://github.com/serenity-js/serenity-js/commit/f351f10c40680edae3deba3b78bc78f7947c7d4d)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** use webdriver protocol switchToFrame instead of webdriverio switchFrame ([30debe8](https://github.com/serenity-js/serenity-js/commit/30debe8cc070af8ac88b0eeb8833fd6fc279f15f)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+
+
+### Features
+
+* **mocha:** support for Mocha 11 ([82b831c](https://github.com/serenity-js/serenity-js/commit/82b831cef1ed7c3b8c8d62026af3e69aecc45461))
+* **webdriverio-8:** introduced @serenity-js/webdriverio-8 module to continue supporting WDIO 8 ([8a010b1](https://github.com/serenity-js/serenity-js/commit/8a010b1fd8b2422a9f76f5ad38e37cabadc33abe)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572)
+* **webdriverio:** introduced support for WebdriverIO 9 ([88fae7b](https://github.com/serenity-js/serenity-js/commit/88fae7bc5472f585293194706f846cdd4c6e4c58)), closes [#2572](https://github.com/serenity-js/serenity-js/issues/2572) [#1279](https://github.com/serenity-js/serenity-js/issues/1279) [webdriverio/webdriverio#13610](https://github.com/webdriverio/webdriverio/issues/13610)
+
+
+
+
+
 # [3.30.0](https://github.com/serenity-js/serenity-js/compare/v3.29.5...v3.30.0) (2024-11-19)
 
 
