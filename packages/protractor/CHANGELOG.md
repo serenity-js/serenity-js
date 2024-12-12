@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.31.0](https://github.com/serenity-js/serenity-js/compare/v3.30.0...v3.31.0) (2024-12-12)
+
+
+### Bug Fixes
+
+* **web:** aligned the behaviour of Page.current() methods when switching to frames and iframes ([01d9db6](https://github.com/serenity-js/serenity-js/commit/01d9db68550506c0815fc211e9454b6a4bbc2299)), closes [#2575](https://github.com/serenity-js/serenity-js/issues/2575)
+
+
+
+
+
 # [3.30.0](https://github.com/serenity-js/serenity-js/compare/v3.29.5...v3.30.0) (2024-11-19)
 
 **Note:** Version bump only for package @serenity-js/protractor
