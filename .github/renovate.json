@@ -105,17 +105,52 @@
       ]
     },
     {
+      "groupName": "WebdriverIO 8 dependencies",
+      "labels": [
+        "@serenity-js/webdriverio",
+        "@serenity-js/web"
+      ],
+      "matchFileNames": [
+        "packages/webdriverio-8/**",
+        "integration/webdriverio-8-*/**"
+      ],
+      "matchPackageNames": [
+        "/^@wdio/",
+        "/^webdriverio/"
+      ],
+      "allowedVersions": "< 9"
+    },
+    {
+      "groupName": "WebdriverIO 8 Devtools dependencies",
+      "labels": [
+        "@serenity-js/webdriverio",
+        "@serenity-js/web"
+      ],
+      "matchFileNames": [
+        "packages/webdriverio-8/**",
+        "integration/webdriverio-8-*/**"
+      ],
+      "matchPackageNames": [
+        "/devtools/",
+        "/puppeteer-core/"
+      ]
+    },
+    {
       "groupName": "WebdriverIO dependencies",
       "labels": [
         "@serenity-js/webdriverio",
         "@serenity-js/web"
       ],
+      "matchFileNames": [
+        "packages/webdriverio/**",
+        "integration/webdriverio-*/**",
+        "examples/webdriverio-*/**"
+      ],
       "matchPackageNames": [
         "/^@wdio/",
-        "/^webdriverio/",
-        "/devtools/",
-        "/puppeteer-core/"
-      ]
+        "/^webdriverio/"
+      ],
+      "allowedVersions": "^9"
     },
     {
       "groupName": "Serenity BDD dependencies",
