@@ -57,7 +57,7 @@ module.exports = {
                 '--disable-web-security',
                 '--allow-file-access-from-files',
                 '--allow-file-access',
-                '--headless',
+                '--headless=new',
                 '--disable-gpu',
                 '--window-size=1024x768',
             ]
