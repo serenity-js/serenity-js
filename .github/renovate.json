@@ -41,11 +41,39 @@
       "labels": [
         "@serenity-js/cucumber"
       ],
+      "matchFileNames": [
+        "examples/cucumber-*/**",
+        "integration/cucumber-11/**",
+        "packages/cucumber/**"
+      ],
       "matchPackageNames": [
         "/^@cucumber/",
         "/cli-table3/",
         "/gherkin/"
       ]
+    },
+    {
+      "groupName": "Cucumber legacy (ignored)",
+      "labels": [
+        "@serenity-js/cucumber"
+      ],
+      "matchFileNames": [
+        "integration/cucumber-1/**",
+        "integration/cucumber-2/**",
+        "integration/cucumber-3/**",
+        "integration/cucumber-4/**",
+        "integration/cucumber-5/**",
+        "integration/cucumber-6/**",
+        "integration/cucumber-7/**",
+        "integration/cucumber-8/**",
+        "integration/cucumber-9/**",
+        "integration/cucumber-10/**"
+      ],
+      "matchPackageNames": [
+        "/^@cucumber/",
+        "/^cucumber"
+      ],
+      "enabled": false
     },
     {
       "groupName": "Local Server dependencies",
