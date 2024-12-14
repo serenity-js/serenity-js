@@ -125,7 +125,7 @@ jobs:
           "protractor-test-runners",
           "protractor-web"
         ]
-      runs-on: 'ubuntu-latest'
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
@@ -148,7 +148,7 @@ jobs:
           "webdriverio-test-runners",
           "webdriverio-web",
         ]
-      runs-on: 'ubuntu-latest'
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
@@ -180,7 +180,7 @@ jobs:
           "mocha",
           "rest"
         ]
-      runs-on: 'ubuntu-latest'
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
@@ -200,7 +200,7 @@ jobs:
       - test-integration-playwright
       - test-integration-protractor
       - test-integration-webdriverio
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -257,7 +257,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - test-linux-node-lts-active
       - test-linux-node-lts-maintenance
