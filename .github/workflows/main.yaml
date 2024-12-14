@@ -16,6 +16,7 @@ jobs:
     name: 'Lint'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: npm ci
       command: make lint
@@ -24,6 +25,7 @@ jobs:
     name: 'Compile'
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=libs install
       command: make COMPILE_SCOPE=libs compile
@@ -41,6 +43,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
@@ -55,6 +58,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
+      runs-on: 'ubuntu-22.04'
       node-version: 20.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
@@ -67,6 +71,7 @@ jobs:
       - compile
     uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
     with:
+      runs-on: 'ubuntu-22.04'
       node-version: 18.x
       npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       download-artifact-name: 'compiled-libs'
@@ -102,7 +107,7 @@ jobs:
           "playwright-test-ct",
           "playwright-web"
         ]
-      runs-on: 'ubuntu-latest'
+      runs-on: 'ubuntu-22.04'
       node-version: 22.x
       npm-install-command: make BOOTSTRAP_SCOPE=@integration install
       download-artifact-name: 'compiled-libs'
