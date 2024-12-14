@@ -4,7 +4,7 @@ const { resolve } = require('path')
 // Chrome 129 is the last version that correctly supports Selenium 3
 // Chrome 130 and later require Selenium 4 for browser.executeScript to correctly resolve WebElement arguments
 const defaults = {
-    buildId: '131',
+    buildId: '129',
     cacheDir: resolve(__dirname, './browsers'),
 };
 
