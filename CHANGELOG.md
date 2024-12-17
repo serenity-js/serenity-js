@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.1](https://github.com/serenity-js/serenity-js/compare/v3.31.0...v3.31.1) (2024-12-17)
+
+
+### Bug Fixes
+
+* **deps:** update cucumber ([9b10345](https://github.com/serenity-js/serenity-js/commit/9b1034569659d065d86f6e6f2ea2bf1cb2b206c4))
+* **deps:** update cucumber ([515f93a](https://github.com/serenity-js/serenity-js/commit/515f93a8e012fae435ae0f3ddbfae0370b29d9a7))
+* **deps:** update dependency agent-base to v7.1.3 ([d43bf84](https://github.com/serenity-js/serenity-js/commit/d43bf84d6202c5df5871fdfab25e834c14b315ff))
+* **deps:** update dependency express to v4.21.2 ([50cded9](https://github.com/serenity-js/serenity-js/commit/50cded9ecb7d25e66c656994f6360dd3af2bd545))
+* **deps:** update dependency https-proxy-agent to v7.0.6 ([e235e40](https://github.com/serenity-js/serenity-js/commit/e235e404eaee60431fd0474b02b3343bd9477272))
+* **deps:** update playwright dependencies to v1.49.1 ([7f576dd](https://github.com/serenity-js/serenity-js/commit/7f576ddf31363968da5b8dacd013803f4cde7a2b))
+* **deps:** update webdriverio dependencies to ^9.4.2 ([9a9249a](https://github.com/serenity-js/serenity-js/commit/9a9249a25076ab87622d6ac9126768764be5cc82))
+* **playwright:** support playwright ~1.49.0 ([d2e3bae](https://github.com/serenity-js/serenity-js/commit/d2e3bae8148adcb59661f94eb175bce4d76217f7))
+
+
+
+
+
 # [3.31.0](https://github.com/serenity-js/serenity-js/compare/v3.30.0...v3.31.0) (2024-12-12)
 
 
