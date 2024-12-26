@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.2](https://github.com/serenity-js/serenity-js/compare/v3.31.1...v3.31.2) (2024-12-26)
+
+
+### Bug Fixes
+
+* **deps:** update webdriverio 8 dependencies to ^8.41.0 ([aa2892a](https://github.com/serenity-js/serenity-js/commit/aa2892acb182e1b1aa8493dc128cf77043503205))
+* **deps:** update webdriverio dependencies ([a3b0048](https://github.com/serenity-js/serenity-js/commit/a3b0048a67921171e16183216502e39d717dc98a))
+
+
+
+
+
 ## [3.31.1](https://github.com/serenity-js/serenity-js/compare/v3.31.0...v3.31.1) (2024-12-17)
 
 
