@@ -25,11 +25,11 @@ export function spawner(pathToScript: string, options?: childProcess.ForkOptions
             });
 
             spawned.stdout.on('data', buffer => {
-                result.stdout += buffer;
+                result.stdout += String(buffer);
             });
 
             spawned.stderr.on('data', buffer => {
-                result.stderr += buffer;
+                result.stderr += String(buffer);
             });
 
             spawned.on('close', exitCode => {
