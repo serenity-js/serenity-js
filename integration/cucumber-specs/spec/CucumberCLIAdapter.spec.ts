@@ -96,8 +96,8 @@ describe('CucumberCLIAdapter', function () {
         }, {
             description: 'custom formats => custom output',
             config: {
-                format: cucumberVersion().major() > 2 ?
-                    [ 'usage' ]
+                format: cucumberVersion().major() > 2
+                    ? [ 'usage' ]
                     : [ 'pretty' ],
             },
             expectedOutput: cucumberVersion().major() > 2
@@ -209,11 +209,26 @@ describe('CucumberCLIAdapter', function () {
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     function clearRequireCache(patterns: string[]) {
-        Object.keys(require.cache)
-            .filter(key => patterns.some((pattern: string) => key.includes(pattern)))
-            .forEach(function (key) {
-                delete require.cache[key];
-            });
+        const cachedImports = Object.keys(require.cache);
+        const importsToClear = cachedImports.filter(key => patterns.some((pattern: string) => key.includes(pattern)));
+
+        importsToClear.forEach(function (key) {
+            delete require.cache[key];
+        });
+    }
+
+    function configDefaults(): CucumberConfig & Record<any, any> {
+        const specDirectory = `${ process.cwd() }/node_modules/@integration/cucumber-specs/features`;
+
+        if (cucumberVersion().major() > 2) {
+            return { formatOptions: { colorsEnabled: false, specDirectory } }
+        }
+
+        if (cucumberVersion().major() === 2) {
+            return { formatOptions: { colorsEnabled: false, specDirectory }, backtrace: true }
+        }
+
+        return { noColors: true, specDirectory };
     }
 
     async function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
@@ -231,13 +246,9 @@ describe('CucumberCLIAdapter', function () {
          */
         delete process.env.FORCE_COLOR;
 
-        const specDirectory = `${ process.cwd() }/node_modules/@integration/cucumber-specs/features`;
-
         const adapter = new CucumberCLIAdapter(
             {
-                ... cucumberVersion().major() >= 2
-                    ? { formatOptions: { colorsEnabled: false, specDirectory } }
-                    : { noColors: true, specDirectory },
+                ... configDefaults(),
                 require: ['./src/step_definitions/common.steps.ts' ],
                 ... config,
             },
@@ -250,15 +261,13 @@ describe('CucumberCLIAdapter', function () {
 
         await adapter.load([ './node_modules/@integration/cucumber-specs/features/passing_scenario.feature' ])
 
-        return adapter
-            .run()
-            .then(() => {
-                inspect.restore();
-                return inspect.output.join('');
-            }, error => {
-                inspect.restore();
-                throw error;
-            });
+        try {
+            await adapter.run();
+            return inspect.output.join('');
+        }
+        finally {
+            inspect.restore();
+        }
     }
 
     interface Example {
