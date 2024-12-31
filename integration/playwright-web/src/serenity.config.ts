@@ -1,7 +1,7 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import * as playwright from 'playwright-core';
+import * as playwright from 'playwright';
 
 import { Actors } from './Actors';
 
