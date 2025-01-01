@@ -1,0 +1,79 @@
+name: 'Node step'
+description: 'Runs a Node.js command and propagates resulting artifacts'
+
+inputs:
+  node-version:
+    description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
+    type: string
+    required: true
+  npm-install-command:
+    description: 'Custom npm install command to use'
+    type: string
+    required: false
+    default: 'npm ci'
+
+  download-artifact-name:
+    description: 'The name of the artifact to download before invoking the command'
+    type: string
+    required: false
+  download-artifact-path:
+    description: 'Destination path for the downloaded artifact'
+    type: string
+    required: false
+
+  command:
+    type: string
+    description: 'The command to run'
+    required: true
+
+  upload-artifact-name:
+    description: 'The name of the artifact to upload after invoking the command'
+    type: string
+    required: false
+  upload-artifact-path:
+    description: 'The paths to include in the uploaded artifact'
+    type: string
+    required: false
+
+runs:
+  using: 'composite'
+  env:
+    SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install Node Modules (${{ inputs.npm-install-command }})
+      uses: bahmutov/npm-install@v1
+      with:
+        install-command: ${{ inputs.npm-install-command }}
+
+    - name: Download artifact
+      if: ${{ inputs.download-artifact-name || inputs.download-artifact-path }}
+      uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+      with:
+        name: ${{ inputs.download-artifact-name }}
+        path: ${{ inputs.download-artifact-path }}
+
+    - name: Decompress artifact
+      if: ${{ inputs.download-artifact-name }}
+      working-directory: ${{ inputs.download-artifact-path }}
+      run:  ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
+
+    - name: Execute command
+      run: ${{ inputs.command }}
+
+    - name: Compress artifact
+      if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+      run: ${{ env.SEVEN_ZIP }} a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+
+    - name: Upload artifact
+      if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+      uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3
+      with:
+        retention-days: 3
+        name: ${{ inputs.upload-artifact-name }}
+        path: |
+          ${{ inputs.upload-artifact-name }}.zip
