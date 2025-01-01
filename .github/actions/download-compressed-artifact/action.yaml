@@ -15,15 +15,13 @@ runs:
   using: 'composite'
   steps:
     - name: Download artifact
-      if: ${{ inputs.artifact-name || inputs.artifact-name }}
       uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
       with:
         name: ${{ inputs.artifact-name }}
-        path: ${{ inputs.artifact-name }}
+        path: ${{ inputs.artifact-path }}
 
     - name: Decompress artifact
-      if: ${{ inputs.artifact-name }}
-      working-directory: ${{ inputs.artifact-name }}
+      working-directory: ${{ inputs.artifact-path }}
       shell: 'bash'
       env:
         SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}

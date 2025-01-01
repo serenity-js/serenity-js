@@ -84,15 +84,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Download compiled libs
-        uses: ./.github/actions/download-compressed-artifact
-        with:
-          artifact-name: 'compiled-libs'
       - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 20.x
           npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
       - name: Test
         run: make test-no-coverage
 
