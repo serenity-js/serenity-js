@@ -1,13 +1,5 @@
 # all
 # libs
-# site
-# @serenity-js
-# @integration
-# @examples
-BOOTSTRAP_SCOPE=all
-
-# all
-# libs
 # @serenity-js
 # @integration
 # @examples
@@ -41,36 +33,32 @@ INTEGRATION_SCOPE=all
 .PHONY: all install clean lint test compile integration-test verify report
 all: install clean compile
 
-reinstall:
-	npm install
-	npm run lerna:bootstrap:all
-
 install:
-	npm ci
-	npm run lerna:bootstrap:$(BOOTSTRAP_SCOPE)
+	corepack enable
+	pnpm install
 
 cc:
-	npm run cc
+	pnpm cc
 
 clean:
-	npm run clean
+	pnpm clean
 
 lint:
-	npm run lint
+	pnpm lint
 
 test:
-	npm test
+	pnpm test
 
 test-no-coverage:
-	npm run test:no-coverage
+	pnpm test:no-coverage
 
 compile:
-	npm run compile:$(COMPILE_SCOPE)
+	pnpm compile:$(COMPILE_SCOPE)
 
 integration-test:
-	npm run integration-test:$(INTEGRATION_SCOPE)
+	pnpm integration-test:$(INTEGRATION_SCOPE)
 
 verify: lint compile test integration-test
 
 report:
-	npm run report
+	pnpm report

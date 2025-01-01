@@ -1,45 +1,11 @@
 {
-  "lerna": "3.22.1",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "loglevel": "verbose",
-  "hoist": true,
   "strict": true,
-  "useWorkspaces": false,
-  "nohoist": [
-    "@types/jasmine",
-    "@types/mocha",
-    "@types/cucumber",
-    "@cucumber/create-meta",
-    "@cucumber/cucumber",
-    "@cucumber/messages",
-    "@wdio/cli",
-    "@wdio/dot-reporter",
-    "@wdio/globals",
-    "@wdio/local-runner",
-    "@wdio/reporter",
-    "@wdio/spec-reporter",
-    "@wdio/types",
-    "cucumber",
-    "colors",
-    "express",
-    "jasmine",
-    "mocha",
-    "mocha-multi",
-    "protractor",
-    "webdriverio",
-    "selenium-webdriver"
-  ],
-  "packages": [
-    "examples/*",
-    "integration/*",
-    "packages/*"
-  ],
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
   "version": "3.31.2",
   "command": {
-    "bootstrap": {
-      "npmClientArgs": [
-        "--legacy-peer-deps"
-      ]
-    },
     "create": {
       "homepage": "https://serenity-js.org",
       "license": "Apache-2.0"

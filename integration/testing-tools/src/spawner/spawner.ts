@@ -28,7 +28,7 @@ export function spawner(pathToScript: string, options?: childProcess.ForkOptions
                 result.stdout += String(buffer);
             });
 
-            spawned.stderr.on('data', buffer => {
+            spawned.stderr.on   ('data', buffer => {
                 result.stderr += String(buffer);
             });
 
