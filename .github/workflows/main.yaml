@@ -165,7 +165,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/coverage-final.json"'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration-protractor:
     name: 'Integration: Protractor'
@@ -202,7 +202,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/coverage-final.json"'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
@@ -242,7 +242,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/coverage-final.json"'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration:
     name: 'Integration'
@@ -285,7 +285,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/coverage-final.json"'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   #
   # Reporting
