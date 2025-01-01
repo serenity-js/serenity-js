@@ -147,99 +147,156 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "playwright-test",
-          "playwright-test-ct",
-          "playwright-web"
-        ]
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: |
-        mkdir target && \
-        npx --no playwright install --with-deps && \
-        make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test
-      upload-artifact-name: 'test-integration-coverage-reports-playwright'
-      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        module:
+          - playwright-test
+          - playwright-test-ct
+          - playwright-web
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: |
+          mkdir target && \
+          npx --no playwright install --with-deps && \
+          make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload test reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-playwright'
+          artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration-protractor:
     name: 'Integration: Protractor'
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "protractor-test-runners",
-          "protractor-web"
-        ]
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
-      upload-artifact-name: 'test-integration-coverage-reports-protractor'
-      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        module:
+          - protractor-test-runners
+          - protractor-web
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: |
+          mkdir target && \
+          npx --no playwright install --with-deps && \
+          make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload test reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-protractor'
+          artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "webdriverio-8-test-runners",
-          "webdriverio-8-web-devtools",
-          "webdriverio-8-web-webdriver",
-          "webdriverio-test-runners",
-          "webdriverio-web",
-        ]
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
-      upload-artifact-name: 'test-integration-coverage-reports-webdriverio'
-      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        module:
+          - webdriverio-8-test-runners
+          - webdriverio-8-web-devtools
+          - webdriverio-8-web-webdriver
+          - webdriverio-test-runners
+          - webdriverio-web
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: |
+          mkdir target && \
+          npx --no playwright install --with-deps && \
+          make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload test reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-webdriverio'
+          artifact-path: 'package.json "integration/*/target/**/*"'
 
   test-integration:
     name: 'Integration'
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-integration-test-step.yaml@main'
-    with:
-      modules: |
-        [
-          "cucumber-1",
-          "cucumber-2",
-          "cucumber-3",
-          "cucumber-4",
-          "cucumber-5",
-          "cucumber-6",
-          "cucumber-7",
-          "cucumber-8",
-          "cucumber-9",
-          "cucumber-10",
-          "cucumber-11",
-          "jasmine",
-          "mocha",
-          "rest"
-        ]
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@integration install
-      download-artifact-name: 'compiled-libs'
-      command: 'make INTEGRATION_SCOPE=$INTEGRATION_MODULE integration-test'
-      upload-artifact-name: 'test-integration-coverage-reports'
-      upload-artifact-path: 'package.json "integration/*/target/**/*"'
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        module:
+          - cucumber-1
+          - cucumber-2
+          - cucumber-3
+          - cucumber-4
+          - cucumber-5
+          - cucumber-6
+          - cucumber-7
+          - cucumber-8
+          - cucumber-9
+          - cucumber-10
+          - cucumber-11
+          - jasmine
+          - mocha
+          - rest
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@integration install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: |
+          mkdir target && \
+          npx --no playwright install --with-deps && \
+          make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload test reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports'
+          artifact-path: 'package.json "integration/*/target/**/*"'
 
   #
   # Reporting
@@ -261,14 +318,10 @@ jobs:
           fetch-depth: 2
 
       - name: Setup Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+        uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
-
-      - name: Install Node Modules
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: npm ci
+          npm-install-command: npm ci
 
       - name: Download all artifacts
         uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
