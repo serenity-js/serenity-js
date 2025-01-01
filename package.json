@@ -24,7 +24,7 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "npm run postinstall:protractor && npm run postinstall:playwright && npm run postinstall:webdriverio",
+    "postinstall": "pnpm postinstall:protractor && pnpm postinstall:playwright && pnpm postinstall:webdriverio",
     "postinstall:playwright": "npx playwright install --with-deps",
     "postinstall:protractor": "npx ts-node bin/install-browsers.ts chrome@129 chromedriver@129",
     "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@stable chromedriver@stable",
@@ -75,7 +75,7 @@
     "integration-test:webdriverio-8-web-webdriver": "lerna run test:webdriver --stream --scope '@integration/webdriverio-8-web'",
     "integration-test:webdriverio-web": "lerna run test --scope '@integration/webdriverio-web'",
     "integration-test:webdriverio-test-runners": "lerna run test --concurrency 1 --scope '@integration/webdriverio-cucumber' --scope '@integration/webdriverio-jasmine' --scope '@integration/webdriverio-mocha'",
-    "report": "npm run coverage:merge && npm run coverage:report",
+    "report": "pnpm coverage:merge && pnpm coverage:report",
     "coverage:merge": "bin/coverage-merge.ts",
     "coverage:report": "c8 report --merge-async --reporter=html --reporter=lcov --reporter=text-summary --temp-directory=./target/coverage/tmp --report-dir=./target/coverage",
     "coverage:publish": "cat ./target/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",

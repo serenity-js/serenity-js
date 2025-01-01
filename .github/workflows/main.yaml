@@ -366,10 +366,10 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Publish artifacts
-        run: npm run lerna:publish
+        run: pnpm lerna:publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print versions
-        run: npm run version:print >> $GITHUB_STEP_SUMMARY
+        run: pnpm version:print >> $GITHUB_STEP_SUMMARY
