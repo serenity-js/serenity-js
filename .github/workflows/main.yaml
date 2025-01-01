@@ -42,8 +42,8 @@ jobs:
       - name: Upload compiled libs
         uses: ./.github/actions/upload-compressed-artifact
         with:
-          upload-artifact-name: 'compiled-libs'
-          upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
+          artifact-name: 'compiled-libs'
+          artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
 
   #
   # Test
@@ -54,15 +54,26 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-      download-artifact-name: 'compiled-libs'
-      command: make test
-      upload-artifact-name: 'test-reports'
-      upload-artifact-path: 'package.json "packages/*/target/**/*"'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: make test
+      - name: Upload test reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-reports'
+          artifact-path: 'package.json "packages/*/target/**/*"'
 
   test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
