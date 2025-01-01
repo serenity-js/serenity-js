@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -84,15 +84,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
-        uses: ./.github/actions/setup-node
-        with:
-          node-version: 20.x
-          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
+      - name: Set up Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 20.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
       - name: Test
         run: make test-no-coverage
 
@@ -105,7 +105,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 18.x
@@ -126,7 +126,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -158,7 +158,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -193,7 +193,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -231,7 +231,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -278,7 +278,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -317,7 +317,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Setup Node
+      - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
@@ -391,7 +391,7 @@ jobs:
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
 
-      - name: Setup Node
+      - name: Set up Node
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: 22.x
