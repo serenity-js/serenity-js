@@ -60,11 +60,11 @@ jobs:
           artifact-name: 'compiled-libs'
       - name: Test
         run: make test
-      - name: Upload test reports
+      - name: Upload coverage reports
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-reports'
-          artifact-path: 'package.json "packages/*/target/**/*"'
+          artifact-path: 'package.json "packages/*/target/coverage/coverage-final.json"'
 
   test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
@@ -156,10 +156,16 @@ jobs:
           npx --no playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Upload test reports
+        if: failure()
         uses: ./.github/actions/upload-compressed-artifact
         with:
-          artifact-name: 'test-integration-coverage-reports-playwright'
-          artifact-path: 'package.json "integration/*/target/**/*"'
+          artifact-name: 'test-integration-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/site/serenity"'
+      - name: Upload coverage reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration-protractor:
     name: 'Integration: Protractor'
@@ -185,13 +191,18 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          npx --no playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Upload test reports
+        if: failure()
         uses: ./.github/actions/upload-compressed-artifact
         with:
-          artifact-name: 'test-integration-coverage-reports-protractor'
-          artifact-path: 'package.json "integration/*/target/**/*"'
+          artifact-name: 'test-integration-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/site/serenity"'
+      - name: Upload coverage reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
@@ -220,13 +231,18 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          npx --no playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Upload test reports
+        if: failure()
         uses: ./.github/actions/upload-compressed-artifact
         with:
-          artifact-name: 'test-integration-coverage-reports-webdriverio'
-          artifact-path: 'package.json "integration/*/target/**/*"'
+          artifact-name: 'test-integration-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/site/serenity"'
+      - name: Upload coverage reports
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   test-integration:
     name: 'Integration'
@@ -264,13 +280,12 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          npx --no playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
-      - name: Upload test reports
+      - name: Upload coverage reports
         uses: ./.github/actions/upload-compressed-artifact
         with:
-          artifact-name: 'test-integration-coverage-reports'
-          artifact-path: 'package.json "integration/*/target/**/*"'
+          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
+          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
 
   #
   # Reporting
