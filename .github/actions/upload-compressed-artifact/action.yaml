@@ -1,0 +1,27 @@
+name: 'Upload Compressed Artifact'
+description: 'Compresses and uploads an artifact'
+
+inputs:
+  upload-artifact-name:
+    description: 'The name of the artifact to upload after invoking the command'
+    type: string
+    required: true
+  upload-artifact-path:
+    description: 'The paths to include in the uploaded artifact'
+    type: string
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Compress artifact
+      shell: bash
+      run: 7z a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3
+      with:
+        retention-days: 3
+        name: ${{ inputs.upload-artifact-name }}
+        path: |
+          ${{ inputs.upload-artifact-name }}.zip

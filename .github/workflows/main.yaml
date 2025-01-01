@@ -28,14 +28,22 @@ jobs:
 
   compile:
     name: 'Compile'
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      runs-on: 'ubuntu-22.04'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=libs install
-      command: make COMPILE_SCOPE=libs compile
-      upload-artifact-name: 'compiled-libs'
-      upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=libs install
+      - name: Compile
+        run: make COMPILE_SCOPE=libs compile
+      - name: Upload compiled libs
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          upload-artifact-name: 'compiled-libs'
+          upload-artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
 
   #
   # Test
