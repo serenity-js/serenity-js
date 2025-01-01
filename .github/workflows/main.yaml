@@ -80,39 +80,63 @@ jobs:
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      runs-on: 'ubuntu-22.04'
-      node-version: 20.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-      download-artifact-name: 'compiled-libs'
-      command: make test-no-coverage
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 20.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: make test-no-coverage
 
   test-linux-node-lts-maintenance-previous:
     name: 'Test: Linux, LTS-2'
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      runs-on: 'ubuntu-22.04'
-      node-version: 18.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-      download-artifact-name: 'compiled-libs'
-      command: make test-no-coverage
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 18.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: make test-no-coverage
 
   test-windows-node-lts-active:
     name: 'Test: Windows, LTS'
     needs:
       - lint
       - compile
-    uses: 'serenity-js/serenity-js/.github/workflows/main-node-step.yaml@main'
-    with:
-      runs-on: 'windows-latest'
-      node-version: 22.x
-      npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
-      download-artifact-name: 'compiled-libs'
-      command: make test-no-coverage
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: 22.x
+          npm-install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Test
+        run: make test-no-coverage
 
   #
   # Integration
