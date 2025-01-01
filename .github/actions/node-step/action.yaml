@@ -37,8 +37,6 @@ inputs:
 
 runs:
   using: 'composite'
-  env:
-    SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}
   steps:
     - name: Setup Node
       uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
@@ -60,6 +58,8 @@ runs:
     - name: Decompress artifact
       if: ${{ inputs.download-artifact-name }}
       working-directory: ${{ inputs.download-artifact-path }}
+      env:
+        SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}
       run:  ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.download-artifact-name }}.zip
 
     - name: Execute command
@@ -67,6 +67,8 @@ runs:
 
     - name: Compress artifact
       if: ${{ inputs.upload-artifact-name && inputs.upload-artifact-path }}
+      env:
+        SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}
       run: ${{ env.SEVEN_ZIP }} a ${{ inputs.upload-artifact-name }}.zip ${{ inputs.upload-artifact-path }}
 
     - name: Upload artifact
