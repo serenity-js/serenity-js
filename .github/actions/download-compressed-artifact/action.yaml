@@ -1,0 +1,30 @@
+name: 'Download compressed artifact'
+description: 'Downloads a compressed artifact and decompresses it'
+
+inputs:
+  artifact-name:
+    description: 'The name of the artifact to download before invoking the command'
+    type: string
+    required: true
+  artifact-path:
+    description: 'Destination path for the downloaded artifact'
+    type: string
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download artifact
+      if: ${{ inputs.artifact-name || inputs.artifact-name }}
+      uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.artifact-name }}
+
+    - name: Decompress artifact
+      if: ${{ inputs.artifact-name }}
+      working-directory: ${{ inputs.artifact-name }}
+      shell: 'bash'
+      env:
+        SEVEN_ZIP: ${{ runner.os == 'Windows' && '7z.exe' || '7z'  }}
+      run: ${{ env.SEVEN_ZIP }} x -aoa ${{ inputs.artifact-name }}.zip
