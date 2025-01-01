@@ -1,0 +1,26 @@
+name: 'Setup Node'
+description: 'Sets up Node.js'
+
+inputs:
+  node-version:
+    description: 'Version spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
+    type: string
+    required: true
+  npm-install-command:
+    description: 'Custom npm install command to use'
+    type: string
+    required: false
+    default: 'npm ci'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install Node Modules (${{ inputs.npm-install-command }})
+      uses: bahmutov/npm-install@v1
+      with:
+        install-command: ${{ inputs.npm-install-command }}
