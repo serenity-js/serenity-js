@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.3](https://github.com/serenity-js/serenity-js/compare/v3.31.2...v3.31.3) (2025-01-01)
+
+
+### Bug Fixes
+
+* **core:** migrated to PNPM ([43dbe6f](https://github.com/serenity-js/serenity-js/commit/43dbe6f440d8dd81811da303e542381a17d06b4d)), closes [#2664](https://github.com/serenity-js/serenity-js/issues/2664)
+
+
+
+
+
 ## [3.31.2](https://github.com/serenity-js/serenity-js/compare/v3.31.1...v3.31.2) (2024-12-26)
 
 **Note:** Version bump only for package @serenity-js/cucumber
