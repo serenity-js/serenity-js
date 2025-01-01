@@ -81,11 +81,6 @@
     "coverage:publish": "cat ./target/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "commit": "bin/commit.ts",
     "lerna": "lerna",
-    "lerna:bootstrap:all": "lerna bootstrap",
-    "lerna:bootstrap:libs": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/testing-tools' --scope '@integration/cucumber-specs' --ignore '@examples/*' --include-dependencies",
-    "lerna:bootstrap:@serenity-js": "lerna bootstrap --scope '@serenity-js/*' --ignore '@examples/*' --ignore '@integration/*' --include-dependencies",
-    "lerna:bootstrap:@integration": "lerna bootstrap --scope '@serenity-js/*' --scope '@integration/*' --ignore '@examples/*' --include-dependencies",
-    "lerna:bootstrap:@examples": "lerna bootstrap --scope '@serenity-js/*' --scope '@examples/*' --ignore '@integration/*' --include-dependencies",
     "lerna:publish": "lerna publish --yes",
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
     "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
@@ -119,8 +114,11 @@
     "eslint-plugin-unused-imports": "3.2.0",
     "fast-glob": "3.3.2",
     "husky": "9.1.7",
+    "inquirer": "6.5.2",
     "istanbul-lib-coverage": "3.2.2",
     "lerna": "6.6.2",
+    "mocha": "11.0.1",
+    "mocha-multi": "1.1.7",
     "mocha-testdata": "1.2.0",
     "playwright": "1.49.1",
     "rimraf": "6.0.1",
@@ -141,5 +139,6 @@
   },
   "engines": {
     "node": "^18.12 || ^20 || ^22"
-  }
+  },
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
 }
