@@ -1,15 +1,4 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "compile",
-          "test"
-        ]
-      }
-    }
-  },
   "targetDefaults": {
     "compile": {
       "dependsOn": [
@@ -20,6 +9,7 @@
         "{projectRoot}/packages/console-reporter/lib",
         "{projectRoot}/packages/core/lib",
         "{projectRoot}/packages/cucumber/lib",
+        "{projectRoot}/packages/jasmine/esm",
         "{projectRoot}/packages/jasmine/lib",
         "{projectRoot}/packages/local-server/lib",
         "{projectRoot}/packages/mocha/lib",
@@ -28,13 +18,18 @@
         "{projectRoot}/packages/protractor/lib",
         "{projectRoot}/packages/rest/lib",
         "{projectRoot}/packages/serenity-bdd/lib",
+        "{projectRoot}/packages/serenity-bdd/cache",
         "{projectRoot}/packages/web/lib",
+        "{projectRoot}/packages/webdriverio/esm",
         "{projectRoot}/packages/webdriverio/lib",
+        "{projectRoot}/packages/webdriverio-8/esm",
+        "{projectRoot}/packages/webdriverio-8/lib",
         "{projectRoot}/integration/cucumber-specs/lib",
         "{projectRoot}/integration/testing-tools/lib",
         "{projectRoot}/integration/web-specs/lib",
         "{projectRoot}/examples/calculator-app/lib"
-      ]
+      ],
+      "cache": true
     },
     "test": {
       "dependsOn": [
@@ -55,6 +50,7 @@
         "{projectRoot}/packages/serenity-bdd/target",
         "{projectRoot}/packages/web/target",
         "{projectRoot}/packages/webdriverio/target",
+        "{projectRoot}/packages/webdriverio-8/target",
         "{projectRoot}/integration/cucumber-1/target",
         "{projectRoot}/integration/cucumber-2/target",
         "{projectRoot}/integration/cucumber-3/target",
@@ -64,22 +60,30 @@
         "{projectRoot}/integration/cucumber-7/target",
         "{projectRoot}/integration/cucumber-8-javascript-api/target",
         "{projectRoot}/integration/cucumber-8-legacy-api/target",
-        "{projectRoot}/integration/cucumber-specs/target",
+        "{projectRoot}/integration/cucumber-9/target",
+        "{projectRoot}/integration/cucumber-10/target",
+        "{projectRoot}/integration/cucumber-11/target",
         "{projectRoot}/integration/jasmine/target",
         "{projectRoot}/integration/mocha/target",
         "{projectRoot}/integration/playwright-test/target",
+        "{projectRoot}/integration/playwright-test-ct/playwright-report",
+        "{projectRoot}/integration/playwright-test-ct/test-results",
         "{projectRoot}/integration/playwright-web/target",
         "{projectRoot}/integration/protractor-cucumber/target",
         "{projectRoot}/integration/protractor-jasmine/target",
         "{projectRoot}/integration/protractor-mocha/target",
         "{projectRoot}/integration/protractor-web/target",
-        "{projectRoot}/integration/testing-tools/target",
-        "{projectRoot}/integration/web-specs/target",
+        "{projectRoot}/integration/rest/target",
+        "{projectRoot}/integration/webdriverio-8-cucumber/target",
+        "{projectRoot}/integration/webdriverio-8-jasmine/target",
+        "{projectRoot}/integration/webdriverio-8-mocha/target",
+        "{projectRoot}/integration/webdriverio-8-web/target",
         "{projectRoot}/integration/webdriverio-cucumber/target",
         "{projectRoot}/integration/webdriverio-jasmine/target",
         "{projectRoot}/integration/webdriverio-mocha/target",
         "{projectRoot}/integration/webdriverio-web/target"
-      ]
+      ],
+      "cache": true
     }
   }
 }
