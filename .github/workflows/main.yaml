@@ -146,6 +146,8 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
+      - name: Set up Java
+        uses: ./.github/actions/setup-java
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
@@ -184,6 +186,8 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
+      - name: Set up Java
+        uses: ./.github/actions/setup-java
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
@@ -224,6 +228,8 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
+      - name: Set up Java
+        uses: ./.github/actions/setup-java
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
