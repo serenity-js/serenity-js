@@ -41,11 +41,13 @@ export class ArtifactArchived extends DomainEvent {
 
     toJSON(): JSONObject {
         return {
+            sceneId: this.sceneId.toJSON(),
             name: this.name.toJSON(),
             type: this.type.name,
             path: this.path.toJSON(),
             createdAt: this.artifactTimestamp.toJSON(),
             timestamp: this.timestamp.toJSON(),
+            artifactTimestamp: this.artifactTimestamp.toJSON(),
         };
     }
 }

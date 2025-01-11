@@ -1,0 +1,153 @@
+{
+  "id": "retry;passes-upon-retry;1st-retry",
+  "name": "Passes upon retry",
+  "title": "Passes upon retry",
+  "manual": false,
+  "testSteps": [
+    {
+      "number": 1,
+      "description": "Passes upon retry #1 - initial_result: fail",
+      "startTime": "2025-01-10T23:43:14.104Z",
+      "children": [
+        {
+          "number": 2,
+          "description": "Given a step that should fail the first time",
+          "startTime": "2025-01-10T23:43:14.106Z",
+          "children": [],
+          "reportData": [],
+          "screenshots": [],
+          "duration": 2,
+          "result": "ERROR",
+          "exception": {
+            "errorType": "Error",
+            "message": "This step failed",
+            "stackTrace": [
+              {
+                "declaringClass": "",
+                "methodName": "World.<anonymous>()",
+                "fileName": "/home/alice/my-project/features/step-definitions/retry.steps.ts",
+                "lineNumber": 8
+              }
+            ]
+          }
+        }
+      ],
+      "reportData": [],
+      "screenshots": [],
+      "duration": 15,
+      "result": "ERROR"
+    },
+    {
+      "number": 3,
+      "description": "Passes upon retry #2 - initial_result: fail",
+      "startTime": "2025-01-10T23:43:14.121Z",
+      "children": [
+        {
+          "number": 4,
+          "description": "Given a step that should fail the first time",
+          "startTime": "2025-01-10T23:43:14.122Z",
+          "children": [],
+          "reportData": [],
+          "screenshots": [],
+          "duration": 0,
+          "result": "SUCCESS"
+        }
+      ],
+      "reportData": [],
+      "screenshots": [],
+      "duration": 13,
+      "result": "SUCCESS"
+    }
+  ],
+  "userStory": {
+    "id": "retry",
+    "storyName": "Retry",
+    "displayName": "Retry",
+    "path": "authentication/retry",
+    "type": "feature",
+    "narrative": "",
+    "pathElements": [
+      {
+        "name": "authentication",
+        "description": "Authentication"
+      },
+      {
+        "name": "retry",
+        "description": "Retry"
+      }
+    ]
+  },
+  "dataTable": {
+    "scenarioOutline": "Given a step that should <initial_result> the first time",
+    "dataSetDescriptors": [
+      {
+        "name": "",
+        "description": "",
+        "startRow": 0,
+        "rowCount": 2
+      }
+    ],
+    "headers": [
+      "initial_result"
+    ],
+    "rows": [
+      {
+        "values": [
+          "fail"
+        ],
+        "result": "ERROR"
+      },
+      {
+        "values": [
+          "fail"
+        ],
+        "result": "SUCCESS"
+      }
+    ],
+    "predefinedRows": true
+  },
+  "startTime": "2025-01-10T23:43:14.104Z",
+  "testSource": "JS",
+  "tags": [
+    {
+      "name": "Authentication",
+      "type": "capability",
+      "displayName": "Authentication"
+    },
+    {
+      "name": "Authentication/Retry",
+      "type": "feature",
+      "displayName": "Retry"
+    },
+    {
+      "name": "retried",
+      "type": "tag",
+      "displayName": "retried"
+    },
+    {
+      "name": "1st retry",
+      "retry": 1,
+      "type": "retry",
+      "displayName": "1st retry"
+    }
+  ],
+  "featureTag": {
+    "name": "Authentication/Retry",
+    "type": "feature",
+    "displayName": "Retry"
+  },
+  "result": "ERROR",
+  "testFailureCause": {
+    "errorType": "Error",
+    "message": "This step failed",
+    "stackTrace": [
+      {
+        "declaringClass": "",
+        "methodName": "World.<anonymous>()",
+        "fileName": "/home/alice/my-project/features/step-definitions/retry.steps.ts",
+        "lineNumber": 8
+      }
+    ]
+  },
+  "duration": 30
+}

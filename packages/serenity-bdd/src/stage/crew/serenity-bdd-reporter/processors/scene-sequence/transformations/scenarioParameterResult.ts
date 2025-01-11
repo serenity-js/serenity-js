@@ -5,8 +5,7 @@ import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioParameterResult(scenario: ScenarioDetails, outcome: Outcome) {
     return (context: SceneSequenceReportContext): SceneSequenceReportContext => {
-
-        const index = context.parameters.findIndex(p => p.line === scenario.location.line);
+        const index = context.parameters.findLastIndex(p => p.line === scenario.location.line);
 
         if (index > -1) {
             const outcomeReport = outcomeReportFrom(outcome);
