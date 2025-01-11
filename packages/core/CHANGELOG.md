@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.5](https://github.com/serenity-js/serenity-js/compare/v3.31.4...v3.31.5) (2025-01-11)
+
+
+### Bug Fixes
+
+* **core:** added more context to the ArtifactArchived event ([9f10867](https://github.com/serenity-js/serenity-js/commit/9f108678e5b356e98dd4b2c672364b6c378f2af8))
+* **deps:** update dependency fast-glob to v3.3.3 ([93cf07e](https://github.com/serenity-js/serenity-js/commit/93cf07ec7e3cab9d682ef657a4cb4c56c50024bb))
+* **deps:** update dependency typescript to v5.7.3 ([cd87dd8](https://github.com/serenity-js/serenity-js/commit/cd87dd80ea55e73bac48afd9c670191a10dc97c4))
+
+
+
+
+
 ## [3.31.4](https://github.com/serenity-js/serenity-js/compare/v3.31.3...v3.31.4) (2025-01-01)
 
 **Note:** Version bump only for package @serenity-js/core
