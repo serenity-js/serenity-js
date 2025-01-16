@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.6](https://github.com/serenity-js/serenity-js/compare/v3.31.5...v3.31.6) (2025-01-16)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19 ([#2631](https://github.com/serenity-js/serenity-js/issues/2631)) ([0f3b9bf](https://github.com/serenity-js/serenity-js/commit/0f3b9bf2a4901df5e14eb3e64033e02583a33bf9))
+* **deps:** update webdriverio dependencies to ^9.5.7 ([2aff990](https://github.com/serenity-js/serenity-js/commit/2aff9906e0a83f72fe84082d18a01b0a858ed89e))
+* **serenity-bdd:** correctly escape HTML entities in activity descriptions ([386c8ae](https://github.com/serenity-js/serenity-js/commit/386c8aef1805d795c4bf2771f49c40c4c2e0c705)), closes [#2695](https://github.com/serenity-js/serenity-js/issues/2695)
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.2.12 ([243729d](https://github.com/serenity-js/serenity-js/commit/243729d8b2eb03f24827a88818044efde58b43c8))
+
+
+
+
+
 ## [3.31.5](https://github.com/serenity-js/serenity-js/compare/v3.31.4...v3.31.5) (2025-01-11)
 
 
