@@ -2,6 +2,7 @@ import type { Timestamp } from '@serenity-js/core';
 import type { CorrelationId, Name } from '@serenity-js/core/lib/model';
 
 import type { TestStepSchema } from '../../serenity-bdd-report-schema';
+import { escapeHtml } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
@@ -18,7 +19,7 @@ export function activityStarted<Context extends SerenityBDDReportContext>(activi
              */
             // level: 0,
             // precondition: false,
-            description: name.value,
+            description: escapeHtml(name.value),
             startTime: startedAt.toISOString(),
             children: [],
             reportData: [],

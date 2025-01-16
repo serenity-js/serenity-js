@@ -220,7 +220,7 @@ describe('SerenityBDDReporter', () => {
                 'children': [
                     {
                         'number': 2,
-                        'description': "Adam navigates to '/'",
+                        'description': 'Adam navigates to &apos;/&apos;',
                         'startTime': '2020-10-08T16:15:40.665Z',
                         'children': [],
                         'reportData': [],

@@ -113,12 +113,13 @@ describe('SerenityBDDReporter', () => {
 
         it('reports the dynamic description of an activity', () => {
             const pickACardToString = new ActivityDetails(new Name('Pick the default credit card'), fakeLocation);
-            const pickACardDescription = new ActivityDetails(new Name('Pick the "4111-XXXX-XXXX-1234" card'), fakeLocation);
+            const pickACardDynamicDescription = new ActivityDetails(new Name('Pick the "4111-XXXX-XXXX-1234" card'), fakeLocation);
+            const expectedDescription = 'Pick the &quot;4111-XXXX-XXXX-1234&quot; card'
 
             stage.announce(
                 new SceneStarts(sceneId, defaultCardScenario),
                 new TaskStarts(sceneId, activityIds[0], pickACardToString),
-                new TaskFinished(sceneId, activityIds[0], pickACardDescription, new ExecutionSuccessful()),
+                new TaskFinished(sceneId, activityIds[0], pickACardDynamicDescription, new ExecutionSuccessful()),
                 new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
                 new TestRunFinishes(),
             );
@@ -128,7 +129,34 @@ describe('SerenityBDDReporter', () => {
                     const report = event.artifact.map(_ => _);
 
                     expect(report.testSteps).to.have.lengthOf(1);
-                    expect(report.testSteps[0].description).to.equal(pickACardDescription.name.value);
+                    expect(report.testSteps[0].description).to.equal(expectedDescription);
+                    expect(report.testSteps[0].result).to.equal('SUCCESS');
+                });
+        });
+
+        // see https://github.com/serenity-js/serenity-js/issues/2695
+        it('escapes HTML entities in activity descriptions', () => {
+            const scenarioWithSpecialCharactersInDescription = new ActivityDetails(
+                new Name(`Ensures that <<title>>.attribute('id') does equal <<expected title>>.attribute('id')`),
+                fakeLocation
+            );
+
+            const descriptionWithSpecialCharactersEscaped = `Ensures that &lt;&lt;title&gt;&gt;.attribute(&apos;id&apos;) does equal &lt;&lt;expected title&gt;&gt;.attribute(&apos;id&apos;)`
+
+            stage.announce(
+                new SceneStarts(sceneId, defaultCardScenario),
+                new TaskStarts(sceneId, activityIds[0], scenarioWithSpecialCharactersInDescription),
+                new TaskFinished(sceneId, activityIds[0], scenarioWithSpecialCharactersInDescription, new ExecutionSuccessful()),
+                new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+                new TestRunFinishes(),
+            );
+
+            PickEvent.from(recorder.events)
+                .next(ArtifactGenerated, event => {
+                    const report = event.artifact.map(_ => _);
+
+                    expect(report.testSteps).to.have.lengthOf(1);
+                    expect(report.testSteps[0].description).to.equal(descriptionWithSpecialCharactersEscaped);
                     expect(report.testSteps[0].result).to.equal('SUCCESS');
                 });
         });
