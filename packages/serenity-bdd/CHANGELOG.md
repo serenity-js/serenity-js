@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.5](https://github.com/serenity-js/serenity-js/compare/v3.31.4...v3.31.5) (2025-01-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.7.3 ([cd87dd8](https://github.com/serenity-js/serenity-js/commit/cd87dd80ea55e73bac48afd9c670191a10dc97c4))
+* **serenity-bdd:** corrected reporting of retried examples in Cucumber scenario outlines ([30c7f77](https://github.com/serenity-js/serenity-js/commit/30c7f772256b9a6bf764331ae03c0ac4b8a25c77)), closes [#2448](https://github.com/serenity-js/serenity-js/issues/2448) [#2676](https://github.com/serenity-js/serenity-js/issues/2676)
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.2.11 ([30cd640](https://github.com/serenity-js/serenity-js/commit/30cd640d3e1ac8af41eee614a1eaf1abf7d5bd7b))
+
+
+
+
+
 ## [3.31.4](https://github.com/serenity-js/serenity-js/compare/v3.31.3...v3.31.4) (2025-01-01)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
