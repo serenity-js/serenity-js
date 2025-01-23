@@ -1511,11 +1511,11 @@ importers:
         version: 5.7.3
     devDependencies:
       '@types/react':
-        specifier: 19.0.7
-        version: 19.0.7
+        specifier: 19.0.8
+        version: 19.0.8
       '@types/react-dom':
         specifier: 19.0.3
-        version: 19.0.3(@types/react@19.0.7)
+        version: 19.0.3(@types/react@19.0.8)
 
   integration/playwright-web:
     devDependencies:
@@ -4429,6 +4429,10 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
+  '@serenity-js/core@3.31.5':
+    resolution: {integrity: sha512-kXuDdQIw9N10kEIyKK6a/v4zS4Bk+OGEDiaDEMWOqVgh3P8FZKlQskUdoRfpcmKUu7VO12M5XmU5uRScuPMyKw==}
+    engines: {node: ^18.12 || ^20 || ^22}
+
   '@serenity-js/cucumber@3.31.5':
     resolution: {integrity: sha512-deil3ihgCe45dFFCeytquDemIXIFhFa/jW9fKLksMrB+zgN2KD595d/wvRzpAACK9h9mqPIv84+biJ47VqAirw==}
     engines: {node: ^18.12 || ^20 || ^22}
@@ -4711,8 +4715,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@19.0.7':
-    resolution: {integrity: sha512-MoFsEJKkAtZCrC1r6CM8U22GzhG7u2Wir8ons/aCKH6MBdD1ibV24zOSSkdZVUKqN5i396zG5VKLYZ3yaUZdLA==}
+  '@types/react@19.0.8':
+    resolution: {integrity: sha512-9P/o1IGdfmQxrujGbIMDyYaaCykhLKc0NGCtYcECNUr9UAaDe4gwvV9bR6tvd5Br1SG0j+PBpbKr2UYY8CwqSw==}
 
   '@types/relateurl@0.2.33':
     resolution: {integrity: sha512-bTQCKsVbIdzLqZhLkF5fcJQreE4y1ro4DIyVrlDNSCJRRwHhB8Z+4zXXa8jN6eDvc2HbRsEYgbvrnGvi54EpSw==}
@@ -12767,10 +12771,24 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
+  '@serenity-js/core@3.31.5':
+    dependencies:
+      '@paralleldrive/cuid2': 2.2.2
+      chalk: 4.1.2
+      diff: 6.0.0
+      error-stack-parser: 2.1.4
+      fast-glob: 3.3.3
+      filenamify: 4.3.0
+      graceful-fs: 4.2.11
+      semver: 7.6.3
+      tiny-types: 1.23.0
+      upath: 2.0.1
+      validate-npm-package-name: 6.0.0
+
   '@serenity-js/cucumber@3.31.5(@cucumber/cucumber@11.2.0)(cucumber@6.0.7)':
     dependencies:
       '@cucumber/messages': 26.0.1
-      '@serenity-js/core': link:packages/core
+      '@serenity-js/core': 3.31.5
       cli-table3: 0.6.5
       gherkin: 5.1.0
       tiny-types: 1.23.0
@@ -12780,12 +12798,12 @@ snapshots:
 
   '@serenity-js/jasmine@3.31.5(jasmine@5.5.0)':
     dependencies:
-      '@serenity-js/core': link:packages/core
+      '@serenity-js/core': 3.31.5
       jasmine: 5.5.0
 
   '@serenity-js/mocha@3.31.5(mocha@11.0.1)':
     dependencies:
-      '@serenity-js/core': link:packages/core
+      '@serenity-js/core': 3.31.5
       mocha: 11.0.1
 
   '@sideway/address@4.1.5':
@@ -13061,11 +13079,11 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@19.0.3(@types/react@19.0.7)':
+  '@types/react-dom@19.0.3(@types/react@19.0.8)':
     dependencies:
-      '@types/react': 19.0.7
+      '@types/react': 19.0.8
 
-  '@types/react@19.0.7':
+  '@types/react@19.0.8':
     dependencies:
       csstype: 3.1.3
 
