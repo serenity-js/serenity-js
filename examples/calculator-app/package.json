@@ -17,7 +17,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "test": "mocha --config ../../.mocharc.yml spec/**/*.spec.*",
     "compile": "rimraf lib && tsc --project tsconfig.json",
     "verify": "npm test",
     "start": "node index.js",
