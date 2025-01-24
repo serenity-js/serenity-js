@@ -35,7 +35,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --timeout 30000 spec/**/*.spec.*",
+    "test:no-coverage": "mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "repository": {

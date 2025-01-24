@@ -55,7 +55,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config .mocharc.yml spec/**/*.spec.*",
+    "test:no-coverage": "mocha --config .mocharc.yml 'spec/**/*.spec.*'",
     "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
