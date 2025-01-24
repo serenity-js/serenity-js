@@ -2,9 +2,10 @@ import { SpawnResult } from './SpawnResult';
 
 export function ifExitCodeIsOtherThan(expectedExitCode: number, fn: (result: SpawnResult) => SpawnResult) {
     return (result: SpawnResult): SpawnResult => {
-        return result.exitCode === expectedExitCode
-            ? result
-            : fn(result);
+        return fn(result)
+        // return result.exitCode === expectedExitCode
+        //     ? result
+        //     : fn(result);
     };
 }
 
