@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.7](https://github.com/serenity-js/serenity-js/compare/v3.31.6...v3.31.7) (2025-01-24)
+
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to v1.50.0 ([30ca259](https://github.com/serenity-js/serenity-js/commit/30ca2599ead451d190b780bff858f801077b26b7))
+* **deps:** update webdriverio dependencies to ^9.6.2 ([1a2786d](https://github.com/serenity-js/serenity-js/commit/1a2786d1b3963d291067ce10680f14a4bbb31bdf))
+* **deps:** update webdriverio dependencies to ^9.6.3 ([f8ac41f](https://github.com/serenity-js/serenity-js/commit/f8ac41f57c0a92ec97312b0086b750dea7f6682f))
+* **deps:** update webdriverio dependencies to ^9.6.4 ([18ec054](https://github.com/serenity-js/serenity-js/commit/18ec05451070f65a15fa1059b24e3873dcb11a3a))
+* **deps:** update webdriverio dependencies to ^9.7.0 ([b25f161](https://github.com/serenity-js/serenity-js/commit/b25f161b6894dc3c3b0817db93815eab75b6c079))
+
+
+
+
+
 ## [3.31.6](https://github.com/serenity-js/serenity-js/compare/v3.31.5...v3.31.6) (2025-01-16)
 
 
