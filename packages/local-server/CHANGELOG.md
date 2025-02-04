@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.8](https://github.com/serenity-js/serenity-js/compare/v3.31.7...v3.31.8) (2025-02-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semver to v7.7.1 ([640931b](https://github.com/serenity-js/serenity-js/commit/640931bc7a4886ae10497480744004710cd45549))
+
+
+
+
+
 ## [3.31.7](https://github.com/serenity-js/serenity-js/compare/v3.31.6...v3.31.7) (2025-01-24)
 
 **Note:** Version bump only for package @serenity-js/local-server
