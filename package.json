@@ -27,7 +27,7 @@
     "postinstall": "pnpm postinstall:protractor && pnpm postinstall:playwright && pnpm postinstall:webdriverio",
     "postinstall:playwright": "npx playwright install --with-deps",
     "postinstall:protractor": "npx ts-node bin/install-browsers.ts chrome@129 chromedriver@129",
-    "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@stable chromedriver@stable",
+    "postinstall:webdriverio": "npx ts-node bin/install-browsers.ts chrome@132 chromedriver@132",
     "clean": "rimraf target && lerna run clean",
     "cc": "nx reset",
     "lint": "eslint --ext ts --config .eslintrc.yml .",
