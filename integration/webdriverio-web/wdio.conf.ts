@@ -13,7 +13,8 @@ const port = process.env.PORT
     : 8080;
 
 const defaults = {
-    buildId: 'stable',
+    // buildId: 'stable',
+    buildId: '132',
     cacheDir: resolve(__dirname, '../../browsers'),
 };
 
@@ -98,8 +99,8 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
 
     // outputDir: 'target/logs',
 
-    // logLevel: 'debug',
-    logLevel: 'error',
+    logLevel: 'debug',
+    // logLevel: 'error',
 
     // connectionRetryCount: 5,
 
