@@ -13,8 +13,7 @@ const port = process.env.PORT
     : 8080;
 
 const defaults = {
-    // buildId: 'stable',
-    buildId: '132',
+    buildId: 'stable',
     cacheDir: resolve(__dirname, '../../browsers'),
 };
 
