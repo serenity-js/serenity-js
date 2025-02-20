@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.9](https://github.com/serenity-js/serenity-js/compare/v3.31.8...v3.31.9) (2025-02-20)
+
+
+### Bug Fixes
+
+* **webdriverio-8:** handle windows and tabs closed by JavaScript ([#2745](https://github.com/serenity-js/serenity-js/issues/2745)) ([a8c50c7](https://github.com/serenity-js/serenity-js/commit/a8c50c74a273ed31a0b0bd7794450813fd3a683c))
+
+
+
+
+
 ## [3.31.8](https://github.com/serenity-js/serenity-js/compare/v3.31.7...v3.31.8) (2025-02-04)
 
 **Note:** Version bump only for package @serenity-js/webdriverio-8

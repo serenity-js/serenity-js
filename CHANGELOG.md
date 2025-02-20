@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.9](https://github.com/serenity-js/serenity-js/compare/v3.31.8...v3.31.9) (2025-02-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jasmine to ^5.6.0 ([27933a3](https://github.com/serenity-js/serenity-js/commit/27933a345a0bb148f98e73a83e3715adb93761cd))
+* **deps:** update webdriverio dependencies ([b49e006](https://github.com/serenity-js/serenity-js/commit/b49e006223b96b7ae2a69e304965b0e7ef4d3e19))
+* **webdriverio-8:** handle windows and tabs closed by JavaScript ([#2745](https://github.com/serenity-js/serenity-js/issues/2745)) ([a8c50c7](https://github.com/serenity-js/serenity-js/commit/a8c50c74a273ed31a0b0bd7794450813fd3a683c))
+
+
+
+
+
 ## [3.31.8](https://github.com/serenity-js/serenity-js/compare/v3.31.7...v3.31.8) (2025-02-04)
 
 
