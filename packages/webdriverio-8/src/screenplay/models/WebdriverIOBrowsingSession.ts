@@ -80,22 +80,40 @@ export class WebdriverIOBrowsingSession extends BrowsingSession<WebdriverIOPage>
     }
 
     private async activeWindowHandle(): Promise<string> {
+        let thrown: Error;
+        let handle: string;
+        let windowAlreadyClosed = false;
+
         try {
-            return await this.browser.getWindowHandle();
+            handle = await this.browser.getWindowHandle();
         }
         catch (error) {
-            // If the window is closed by user action Webdriver will still hold the reference to the closed window.
-            if (['NoSuchWindowError', 'no such window'].includes(error.name)) {
-                const allHandles = await this.browser.getWindowHandles();
-                if (allHandles.length > 0) {
-                    const handle = allHandles.at(-1);
-                    await this.browser.switchToWindow(handle);
+            thrown = error;
 
-                    return handle;
-                }
-            }
-            throw error;
+            // If the window is closed by user action Webdriver will still hold the reference to the closed window.
+            windowAlreadyClosed = ['NoSuchWindowError', 'no such window'].includes(error.name);
         }
+
+        // Handle can be `null` for windows closed by JavaScript
+        if (handle) {
+            return handle;
+        }
+
+        if (! handle || windowAlreadyClosed) {
+            const allHandles = await this.browser.getWindowHandles();
+            if (allHandles.length > 0) {
+                const fallbackHandle = allHandles.at(-1);
+                await this.browser.switchToWindow(fallbackHandle);
+
+                return fallbackHandle;
+            }
+        }
+
+        if (thrown) {
+            throw thrown;
+        }
+
+        throw new LogicError(`Couldn't find the active window handle`);
     }
 
     override async currentPage(): Promise<WebdriverIOPage> {
