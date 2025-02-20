@@ -6,6 +6,11 @@ import { Timestamp } from '../screenplay';
 import { ActivityFinished } from './ActivityFinished';
 
 /**
+ * Emitted when an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) is finished.
+ * [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) instances listen
+ * to this event to report on the outcome of the interaction, or perform any additional follow-up activities,
+ * such as taking a screenshot.
+ *
  * @group Events
  */
 export class InteractionFinished extends ActivityFinished {

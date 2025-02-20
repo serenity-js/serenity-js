@@ -5,6 +5,8 @@ import { Timestamp } from '../screenplay';
 import { ActivityStarts } from './ActivityStarts';
 
 /**
+ * Emitted when an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) starts.
+ *
  * @group Events
  */
 export class InteractionStarts extends ActivityStarts {
