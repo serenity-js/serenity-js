@@ -316,7 +316,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Download all artifacts
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4
 
       - name: Decompress all artifacts to current directory
         run: ls **/*.zip | xargs -n1 7z x -aoa
@@ -377,7 +377,7 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4
         with:
           name: compiled-libs
       - name: Decompress Libs
