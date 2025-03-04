@@ -23,7 +23,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * class Form {
  *   static exampleInput = () =>
- *     PageElement.located(by.id('example'))
+ *     PageElement.located(By.id('example'))
  *       .describedAs('example input')
  * }
  * ```

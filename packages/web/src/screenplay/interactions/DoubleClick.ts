@@ -33,15 +33,15 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * class UserProfile {
  *   static displayName = () =>
- *     PageElement.located(by.id('display-name'))
+ *     PageElement.located(By.id('display-name'))
  *       .describedAs('display name')
  *
  *   static emailAddress = () =>
- *     PageElement.located(by.id('email-address'))
+ *     PageElement.located(By.id('email-address'))
  *       .describedAs('email address')
  *
  *   static editor = () =>
- *     PageElement.located(by.id('editor'))
+ *     PageElement.located(By.id('editor'))
  *       .describedAs('editor')
  * }
  * ```
