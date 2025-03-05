@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.10](https://github.com/serenity-js/serenity-js/compare/v3.31.9...v3.31.10) (2025-03-05)
+
+**Note:** Version bump only for package @serenity-js/jasmine
+
+
+
+
+
 ## [3.31.9](https://github.com/serenity-js/serenity-js/compare/v3.31.8...v3.31.9) (2025-02-20)
 
 
