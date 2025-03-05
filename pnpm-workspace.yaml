@@ -1,4 +1,16 @@
 packages:
-- 'examples/*'
-- 'integration/*'
-- 'packages/*'
+  - examples/*
+  - integration/*
+  - packages/*
+onlyBuiltDependencies:
+  - chromedriver
+  - cucumber-expressions
+  - nx
+ignoredBuiltDependencies:
+  - core-js
+  - core-js-pure
+  - dtrace-provider
+  - edgedriver
+  - es5-ext
+  - esbuild
+  - geckodriver
