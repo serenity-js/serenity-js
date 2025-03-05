@@ -3106,8 +3106,8 @@ importers:
         specifier: workspace:*
         version: link:../web
       '@wdio/reporter':
-        specifier: 8.41.0
-        version: 8.41.0
+        specifier: 8.43.0
+        version: 8.43.0
       deepmerge:
         specifier: 4.3.1
         version: 4.3.1
@@ -3122,20 +3122,20 @@ importers:
         specifier: 10.0.10
         version: 10.0.10
       '@wdio/cli':
-        specifier: 8.42.0
-        version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+        specifier: 8.43.0
+        version: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       '@wdio/devtools-service':
         specifier: 8.42.0
         version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       '@wdio/dot-reporter':
-        specifier: 8.41.0
-        version: 8.41.0
+        specifier: 8.43.0
+        version: 8.43.0
       '@wdio/local-runner':
-        specifier: 8.42.0
-        version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+        specifier: 8.43.0
+        version: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       '@wdio/spec-reporter':
-        specifier: 8.41.0
-        version: 8.41.0
+        specifier: 8.43.0
+        version: 8.43.0
       '@wdio/types':
         specifier: 8.41.0
         version: 8.41.0
@@ -3164,8 +3164,8 @@ importers:
         specifier: 2.0.10
         version: 2.0.10
       webdriverio:
-        specifier: 8.42.0
-        version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+        specifier: 8.43.0
+        version: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
 
 packages:
 
@@ -4850,6 +4850,11 @@ packages:
     engines: {node: ^16.13 || >=18}
     hasBin: true
 
+  '@wdio/cli@8.43.0':
+    resolution: {integrity: sha512-EkoP9kqhWVGuT3vJTuDkcT1TBHPI0C22d8y2GW46/fNCqrBcg2mbzsGonf7ucIxO+KEUghBoNjIFqI/gh/pT3g==}
+    engines: {node: ^16.13 || >=18}
+    hasBin: true
+
   '@wdio/cli@9.10.1':
     resolution: {integrity: sha512-XThlHLiHI8/mnzoo+U+U1SMFhr8LKb+W7qDeAE1yNJg9cFCejk/edV3TLbpnbppsiTtiZDH2JYrVS3imJa0mIA==}
     engines: {node: '>=18.20.0'}
@@ -4857,6 +4862,10 @@ packages:
 
   '@wdio/config@8.41.0':
     resolution: {integrity: sha512-/6Z3sfSyhX5oVde0l01fyHimbqRYIVUDBnhDG2EMSCoC2lsaJX3Bm3IYpYHYHHFsgoDCi3B3Gv++t9dn2eSZZw==}
+    engines: {node: ^16.13 || >=18}
+
+  '@wdio/config@8.43.0':
+    resolution: {integrity: sha512-mptlO5Lt8hV/8T9vRkp24G4o/kpI4qa9k4bRlOsI777MgeOlCEu2xLdRvVNGcg7RigDkx4jdYXX1pIHFg7gpSA==}
     engines: {node: ^16.13 || >=18}
 
   '@wdio/config@9.10.1':
@@ -4867,8 +4876,8 @@ packages:
     resolution: {integrity: sha512-UV14oQZOvQixRuOhuEXNO7nhZKP31qOpk+z3q1DUdGXZLHzIhnqspFCzSwhWQFIF2GXDzzB0vBHrLLm0pER3Rg==}
     engines: {node: ^16.13 || >=18}
 
-  '@wdio/dot-reporter@8.41.0':
-    resolution: {integrity: sha512-vbicv3JIaoj+Hv1fomVLmA1kg8RSv+nJ5EKtPst5JS9Kjhe6Cgu7yC0qnqVoDEI+Y/fxzRpDEurwRf2Rub9O5g==}
+  '@wdio/dot-reporter@8.43.0':
+    resolution: {integrity: sha512-fr12IM2rbnW1CPG9fbod7ftXtMApsr7p/Z2DI/dVn//LQJymc5h5xHNiEw1uTtYiaybY3pgzui40IjjtotVTIw==}
     engines: {node: ^16.13 || >=18}
 
   '@wdio/dot-reporter@9.10.1':
@@ -4879,12 +4888,20 @@ packages:
     resolution: {integrity: sha512-aXuHFZL9q4mrRrK6lrovcc+8K2K5wfhCu41xmh7fLksGAwHzEPkjD7Y3W3+8JJS97ftyZsIO+KroagCH6bPGQg==}
     engines: {node: ^16.13 || >=18}
 
+  '@wdio/globals@8.43.0':
+    resolution: {integrity: sha512-RCkldSApdoCAMsQhU7Qy9uXlFoPy8OFWOxbiE8O2WcRpTpSwAwWksN9tOLmevCTn1Ovj+onnxkiZQ0spnAUDbw==}
+    engines: {node: ^16.13 || >=18}
+
   '@wdio/globals@9.10.1':
     resolution: {integrity: sha512-GpF1NbjgJ98GQEa9cSGUAmxDI7xW0ne0UPuIig3bT83D/Fhap908io3tJg1JR6VZOk6iVj7TNdmTQguwMemhXQ==}
     engines: {node: '>=18.20.0'}
 
   '@wdio/local-runner@8.42.0':
     resolution: {integrity: sha512-4GAmi8HzkDNEgqjWKhNb9jEfxQbkueaDemiyA9ad3igRUeVKrT1ZzMyV7zm0rGngeovLZHtQ+bofbUBVuF/kPg==}
+    engines: {node: ^16.13 || >=18}
+
+  '@wdio/local-runner@8.43.0':
+    resolution: {integrity: sha512-FEIl0wvKkn2rfTE+HT0t1O/aOUrIMHjf8zgz4N0m8PFwWEyi/WmM+jkAzruXDM9RJOT57Awv1gTdjQipbVw1Qg==}
     engines: {node: ^16.13 || >=18}
 
   '@wdio/local-runner@9.10.1':
@@ -4917,6 +4934,10 @@ packages:
     resolution: {integrity: sha512-LmQ6tnZA3fxctBjJiMzQHDMx7+EbsYojTR2ZFiy5eOYr/pbieQiMl8OHv7xq4ketmBJIKOYBsG4stirbGf6RYg==}
     engines: {node: ^16.13 || >=18}
 
+  '@wdio/reporter@8.43.0':
+    resolution: {integrity: sha512-0ph8SabdMrgDmuLUEwA7yvkrvlCw4/EXttb3CGucjSkuiSbZNLhdTMXpyPoewh2soa253fIpnx79HztOsOzn5Q==}
+    engines: {node: ^16.13 || >=18}
+
   '@wdio/reporter@9.10.1':
     resolution: {integrity: sha512-zd13cGUQxE3sNmxbFL2KlU+MelUpEbIj2kaQM6feEqUw8nVcQUa8J9qv8iupC414D065oBk66EzgysKbfH/5gQ==}
     engines: {node: '>=18.20.0'}
@@ -4925,12 +4946,20 @@ packages:
     resolution: {integrity: sha512-Zouh5HwxsGrDnaYym5OCP5HFPkr/ZGIM9kecC1i0RZoOBMSCXQG6Q1nChHKP02Y+eWyFQ9StF7ZP0vzhnQcHdg==}
     engines: {node: ^16.13 || >=18}
 
+  '@wdio/runner@8.43.0':
+    resolution: {integrity: sha512-tL6v7hFBQNUy23douH1kvtg+kNdhtgh6qGX2PxTpr2d1ucu4p92umEkkJaFnsRjy2SQmDiV5oAvk/kPphWOHqw==}
+    engines: {node: ^16.13 || >=18}
+
   '@wdio/runner@9.10.1':
     resolution: {integrity: sha512-eWcLY2dvyuK2J7KysdmXmLhNYVR6FFqU7SyFrQrwkSNKggS0Jb+JNAYZIvbXV30dvdR+V7u8sEtr9OWo7KbfgA==}
     engines: {node: '>=18.20.0'}
 
   '@wdio/spec-reporter@8.41.0':
     resolution: {integrity: sha512-JrIp6Chc6e0athApSoMJFLVnIqrNRUcVjhg93BbesaDDq6yuB0vJ+rHSHKlUqCPpVYO7YJLmLP4kKPDcVf+4ow==}
+    engines: {node: ^16.13 || >=18}
+
+  '@wdio/spec-reporter@8.43.0':
+    resolution: {integrity: sha512-Qy5LsGrGHbXJdj2PveNV7CD5g1XpLPvd7wH8bAd9OtuZRTPknyZqYSvB8TlZIV/SfiNlWEJ/05mI/FcixNJ6Xg==}
     engines: {node: ^16.13 || >=18}
 
   '@wdio/spec-reporter@9.10.1':
@@ -10683,12 +10712,25 @@ packages:
     resolution: {integrity: sha512-lPF8kkjGE9jkR8V9N9OuGdWTJEbxGbCwSQ+ym54O1MtGOALsS7is5WPRvneC4lsm57e8K6QM6bCKtaqbAnokXg==}
     engines: {node: ^16.13 || >=18}
 
+  webdriver@8.43.0:
+    resolution: {integrity: sha512-cfyqymgFae4gtxuvp/nz7Yat3qqlEyxopQL7H6MSSOey+mXq3kYZZ0auyuhGaaPvDidOY3Oh597cEB2ft8pW3A==}
+    engines: {node: ^16.13 || >=18}
+
   webdriver@9.10.1:
     resolution: {integrity: sha512-KZBCetzXJYrtjHh0M7nhjxqtMNI1+8YfJd7+tT5e5MWHTM3lgmhhWLBUywSCZtCaIRwpCVsTC/0JzM1CFM1usQ==}
     engines: {node: '>=18.20.0'}
 
   webdriverio@8.42.0:
     resolution: {integrity: sha512-C1dp1RioeNOUWuZTne7ZXy+hcqpdaKWSctdqpcoxEBF3+EkrU4PII0RRM8MbY8HPAongV+/66HoiJgmNOOy2/w==}
+    engines: {node: ^16.13 || >=18}
+    peerDependencies:
+      devtools: ^8.14.0
+    peerDependenciesMeta:
+      devtools:
+        optional: true
+
+  webdriverio@8.43.0:
+    resolution: {integrity: sha512-aBwK25CmBQZ98MMlLteMiDiqpuQUsd1RcK6OU2eS921SM1JX4WJGCo27FAgcweb1ehX7rECL1qai1WFCrGfWIA==}
     engines: {node: ^16.13 || >=18}
     peerDependencies:
       devtools: ^8.14.0
@@ -13251,6 +13293,40 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  '@wdio/cli@8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)':
+    dependencies:
+      '@types/node': 22.13.9
+      '@vitest/snapshot': 2.1.8
+      '@wdio/config': 8.43.0
+      '@wdio/globals': 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      '@wdio/logger': 8.38.0
+      '@wdio/protocols': 8.40.3
+      '@wdio/types': 8.41.0
+      '@wdio/utils': 8.41.0
+      async-exit-hook: 2.0.1
+      chalk: 5.4.1
+      chokidar: 4.0.3
+      cli-spinners: 2.9.2
+      dotenv: 16.4.7
+      ejs: 3.1.10
+      execa: 8.0.1
+      import-meta-resolve: 4.1.0
+      inquirer: 9.2.12
+      lodash.flattendeep: 4.4.0
+      lodash.pickby: 4.6.0
+      lodash.union: 4.6.0
+      read-pkg-up: 10.0.0
+      recursive-readdir: 2.2.3
+      webdriverio: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - devtools
+      - encoding
+      - supports-color
+      - utf-8-validate
+
   '@wdio/cli@9.10.1':
     dependencies:
       '@types/node': 20.17.16
@@ -13285,6 +13361,19 @@ snapshots:
       - utf-8-validate
 
   '@wdio/config@8.41.0':
+    dependencies:
+      '@wdio/logger': 8.38.0
+      '@wdio/types': 8.41.0
+      '@wdio/utils': 8.41.0
+      decamelize: 6.0.0
+      deepmerge-ts: 5.1.0
+      glob: 10.4.5
+      import-meta-resolve: 4.1.0
+    transitivePeerDependencies:
+      - bare-buffer
+      - supports-color
+
+  '@wdio/config@8.43.0':
     dependencies:
       '@wdio/logger': 8.38.0
       '@wdio/types': 8.41.0
@@ -13332,9 +13421,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@wdio/dot-reporter@8.41.0':
+  '@wdio/dot-reporter@8.43.0':
     dependencies:
-      '@wdio/reporter': 8.41.0
+      '@wdio/reporter': 8.43.0
       '@wdio/types': 8.41.0
       chalk: 5.4.1
 
@@ -13348,6 +13437,18 @@ snapshots:
     optionalDependencies:
       expect-webdriverio: 4.15.4(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - devtools
+      - encoding
+      - supports-color
+      - utf-8-validate
+
+  '@wdio/globals@8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)':
+    optionalDependencies:
+      expect-webdriverio: 4.15.4(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      webdriverio: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     transitivePeerDependencies:
       - bare-buffer
       - bufferutil
@@ -13374,6 +13475,24 @@ snapshots:
       '@wdio/logger': 8.38.0
       '@wdio/repl': 8.40.3
       '@wdio/runner': 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      '@wdio/types': 8.41.0
+      async-exit-hook: 2.0.1
+      split2: 4.2.0
+      stream-buffers: 3.0.3
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - devtools
+      - encoding
+      - supports-color
+      - utf-8-validate
+
+  '@wdio/local-runner@8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)':
+    dependencies:
+      '@types/node': 22.13.9
+      '@wdio/logger': 8.38.0
+      '@wdio/repl': 8.40.3
+      '@wdio/runner': 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       '@wdio/types': 8.41.0
       async-exit-hook: 2.0.1
       split2: 4.2.0
@@ -13437,6 +13556,14 @@ snapshots:
       diff: 7.0.0
       object-inspect: 1.13.3
 
+  '@wdio/reporter@8.43.0':
+    dependencies:
+      '@types/node': 22.13.9
+      '@wdio/logger': 8.38.0
+      '@wdio/types': 8.41.0
+      diff: 7.0.0
+      object-inspect: 1.13.3
+
   '@wdio/reporter@9.10.1':
     dependencies:
       '@types/node': 20.17.16
@@ -13458,6 +13585,27 @@ snapshots:
       gaze: 1.1.3
       webdriver: 8.42.0
       webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - devtools
+      - encoding
+      - supports-color
+      - utf-8-validate
+
+  '@wdio/runner@8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)':
+    dependencies:
+      '@types/node': 22.13.9
+      '@wdio/config': 8.43.0
+      '@wdio/globals': 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      '@wdio/logger': 8.38.0
+      '@wdio/types': 8.41.0
+      '@wdio/utils': 8.41.0
+      deepmerge-ts: 5.1.0
+      expect-webdriverio: 4.15.4(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      gaze: 1.1.3
+      webdriver: 8.43.0
+      webdriverio: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     transitivePeerDependencies:
       - bare-buffer
       - bufferutil
@@ -13489,6 +13637,14 @@ snapshots:
   '@wdio/spec-reporter@8.41.0':
     dependencies:
       '@wdio/reporter': 8.41.0
+      '@wdio/types': 8.41.0
+      chalk: 5.4.1
+      easy-table: 1.2.0
+      pretty-ms: 7.0.1
+
+  '@wdio/spec-reporter@8.43.0':
+    dependencies:
+      '@wdio/reporter': 8.43.0
       '@wdio/types': 8.41.0
       chalk: 5.4.1
       easy-table: 1.2.0
@@ -15695,7 +15851,7 @@ snapshots:
     optionalDependencies:
       '@wdio/globals': 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
       '@wdio/logger': 8.38.0
-      webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
+      webdriverio: 8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     transitivePeerDependencies:
       - bare-buffer
       - bufferutil
@@ -20196,6 +20352,25 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  webdriver@8.43.0:
+    dependencies:
+      '@types/node': 22.13.9
+      '@types/ws': 8.5.14
+      '@wdio/config': 8.43.0
+      '@wdio/logger': 8.38.0
+      '@wdio/protocols': 8.40.3
+      '@wdio/types': 8.41.0
+      '@wdio/utils': 8.41.0
+      deepmerge-ts: 5.1.0
+      got: 12.6.1
+      ky: 0.33.3
+      ws: 8.18.1
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   webdriver@9.10.1:
     dependencies:
       '@types/node': 20.17.16
@@ -20241,6 +20416,42 @@ snapshots:
       rgb2hex: 0.2.5
       serialize-error: 11.0.3
       webdriver: 8.42.0
+    optionalDependencies:
+      devtools: 8.42.0(encoding@0.1.13)
+    transitivePeerDependencies:
+      - bare-buffer
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+
+  webdriverio@8.43.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13):
+    dependencies:
+      '@types/node': 22.13.9
+      '@wdio/config': 8.43.0
+      '@wdio/logger': 8.38.0
+      '@wdio/protocols': 8.40.3
+      '@wdio/repl': 8.40.3
+      '@wdio/types': 8.41.0
+      '@wdio/utils': 8.41.0
+      archiver: 7.0.1
+      aria-query: 5.3.2
+      css-shorthand-properties: 1.1.2
+      css-value: 0.0.1
+      devtools-protocol: 0.0.1400418
+      grapheme-splitter: 1.0.4
+      import-meta-resolve: 4.1.0
+      is-plain-obj: 4.1.0
+      jszip: 3.10.1
+      lodash.clonedeep: 4.5.0
+      lodash.zip: 4.2.0
+      minimatch: 9.0.5
+      puppeteer-core: 21.11.0(encoding@0.1.13)
+      query-selector-shadow-dom: 1.0.1
+      resq: 1.11.0
+      rgb2hex: 0.2.5
+      serialize-error: 11.0.3
+      webdriver: 8.43.0
     optionalDependencies:
       devtools: 8.42.0(encoding@0.1.13)
     transitivePeerDependencies:
