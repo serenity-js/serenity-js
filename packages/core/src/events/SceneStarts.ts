@@ -6,6 +6,8 @@ import { Timestamp } from '../screenplay';
 import { DomainEvent } from './DomainEvent';
 
 /**
+ * Emitted by a Serenity/JS test runner adapter when a test scenario and its associated test hooks are about to start.
+ *
  * @group Events
  */
 export class SceneStarts extends DomainEvent {
