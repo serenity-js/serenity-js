@@ -31,7 +31,7 @@ import type { FileSystemLocation } from '@serenity-js/core/lib/io';
  * but rethrows any other errors.
  *
  * :::tip Use the factory method
- * Use the factory method [`Ensure.eventually`](https://serenity-js.org/api/assertions/class/Ensure/#eventually] to instantiate this interaction.
+ * Use the factory method [`Ensure.eventually`](https://serenity-js.org/api/assertions/class/Ensure/#eventually) to instantiate this interaction.
  * :::
  *
  * ## Basic usage with dynamic values
