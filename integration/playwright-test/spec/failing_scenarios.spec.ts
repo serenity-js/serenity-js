@@ -194,7 +194,7 @@ describe('@serenity-js/playwright-test', function () {
             }));
 
         it('fails with a Serenity/JS ConfigurationError', () => playwrightTest('--project=default', 'failing/failing-serenity-js-configuration-error.spec.ts')
-            .then(ifExitCodeIsOtherThan(10, logOutput))
+            .then(ifExitCodeIsOtherThan(1, logOutput))
             .then(result => {
 
                 expect(result.exitCode).to.equal(1);

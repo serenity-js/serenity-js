@@ -24,7 +24,6 @@ import {
     PlaywrightStepReporter,
     SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
 } from '../reporter';
-import type { DescribeFunction } from './DescribeFunction';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import type { SerenityFixtures } from './SerenityFixtures';
 import type { SerenityOptions } from './SerenityOptions';
@@ -166,7 +165,7 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
  * Serenity/JS BDD-style test API created by [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/).
  */
 export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any>> =
-    Pick<TestType<TestArgs, WorkerArgs>, 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
+    Pick<TestType<TestArgs, WorkerArgs>, 'describe' | 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
     {
         /**
          * Creates a Serenity/JS BDD-style test API around the default Playwright [base test](https://playwright.dev/docs/test-fixtures)
@@ -195,7 +194,6 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
         useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
         it: TestType<TestArgs, WorkerArgs>,
         test: TestType<TestArgs, WorkerArgs>,
-        describe: DescribeFunction,
     }
 
 function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(baseTest: TestType<TestArgs, WorkerArgs>): TestApi<TestArgs, WorkerArgs> {
