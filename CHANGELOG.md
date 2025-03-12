@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.12](https://github.com/serenity-js/serenity-js/compare/v3.31.11...v3.31.12) (2025-03-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.8.2 [security] ([2653f35](https://github.com/serenity-js/serenity-js/commit/2653f352166bca4e46572a1b2d26ee1ae197a038))
+* **deps:** update local server dependencies ([a4086ac](https://github.com/serenity-js/serenity-js/commit/a4086ac9bdd5b34740e91d56e33343edee8fe5b6))
+* **deps:** update playwright dependencies to v1.51.0 ([81dfdd4](https://github.com/serenity-js/serenity-js/commit/81dfdd4a4514d3f5b90a6c2cda7b54330f4e1d61))
+* **deps:** update webdriverio 8 dependencies to ^8.43.0 ([b783c5c](https://github.com/serenity-js/serenity-js/commit/b783c5c6b83adfde3a0417d93d6ed42f5037e122))
+* **deps:** update webdriverio dependencies ([843e78a](https://github.com/serenity-js/serenity-js/commit/843e78a4d8781aad32c25c6c22b101ec524720a4))
+* **playwright-test:** removed stop-gap type defs since Playwright now provides them correctly ([91d2484](https://github.com/serenity-js/serenity-js/commit/91d2484de8b508f672ac637b3bad121bd0d9487a)), closes [microsoft/playwright#24146](https://github.com/microsoft/playwright/issues/24146)
+
+
+
+
+
 ## [3.31.11](https://github.com/serenity-js/serenity-js/compare/v3.31.10...v3.31.11) (2025-03-12)
 
 **Note:** Version bump only for package serenity-js-monorepo
