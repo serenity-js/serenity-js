@@ -30,7 +30,7 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
         return playwrightPage;
     }
 
-    protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
+    protected override async createBrowserContext(): Promise<playwright.BrowserContext> {
         return this.page.context();
     }
 
