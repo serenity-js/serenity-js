@@ -34,7 +34,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * be it a [web UI](https://serenity-js.org/handbook/web-testing/), a [mobile app](https://serenity-js.org/handbook/mobile-testing/), a [web service](https://serenity-js.org/handbook/api-testing/),
  * or [anything else](https://serenity-js.org/api/core/class/Ability/) that a Node.js program can talk to.
  * This flexibility is enabled by a mechanism called _**abilities**_
- * and achieved without introducing any unnecessary dependencies to your code base thanks to the [modular architecture](https://serenity-js.org/handbook/getting-started/architecture) of Serenity/JS.
+ * and achieved without introducing any unnecessary dependencies to your code base thanks to the [modular architecture](https://serenity-js.org/handbook/architecture/) of Serenity/JS.
  *
  * :::tip Remember
  * **Actors** have **abilities** that enable them to **perform interactions** and **answer questions**.
@@ -205,7 +205,7 @@ import type { UsesAbilities } from './UsesAbilities';
  *
  * The best way to start with that is for you to review the examples in the [Screenplay Pattern API docs](https://serenity-js.org/api/core/class/Ability/),
  * as well as the [Serenity/JS code base on GitHub](https://github.com/serenity-js/serenity-js/tree/main/packages).
- * Also note that all the [Serenity/JS modules](https://serenity-js.org/handbook/getting-started/architecture)
+ * Also note that all the [Serenity/JS modules](https://serenity-js.org/handbook/architecture/)
  * have their automated tests written in such a way to not only provide an **extremely high test coverage** for the framework itself,
  * but to be **accessible** and act as a **reference implementation for you** to create your own integrations.
  *

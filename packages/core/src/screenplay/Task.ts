@@ -94,7 +94,7 @@ import type { Answerable } from './Answerable';
  * - enter city name of `New York`
  * - pick the first suggested airport from the list
  *
- * Conveniently, [Serenity/JS modules](https://serenity-js.org/handbook/getting-started/architecture) provide low-level activities that
+ * Conveniently, [Serenity/JS modules](https://serenity-js.org/handbook/architecture/) provide low-level activities that
  * allow actors to interact with the various interfaces of the system under test.
  * For example, [Serenity/JS Web module](https://serenity-js.org/api/web) ships with activities such as [`Click`](https://serenity-js.org/api/web/class/Click/) or [`Enter`](https://serenity-js.org/api/web/class/Enter/),
  * which we can incorporate into our task definitions just like any other activities:
