@@ -43,7 +43,7 @@ Learn more about Serenity/JS modules:
 - [`@serenity-js/console-reporter`](/api/console-reporter/)
 - [`@serenity-js/serenity-bdd`](/api/serenity-bdd/)
 
-If you prefer to review a reference implementation first, clone a [Serenity/JS Project Template](https://serenity-js.org/handbook/getting-started/project-templates/) for your preferred test runner.
+If you prefer to review a reference implementation first, clone a [Serenity/JS Project Template](https://serenity-js.org/handbook/project-templates/) for your preferred test runner.
 
 ### 2. Configuring Serenity/JS
 
@@ -137,7 +137,7 @@ To produce Serenity BDD reports, your test suite must:
 - produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#configuring-serenityjs)
 - invoke the Serenity BDD CLI when you want to produce the report, by calling `serenity-bdd run`
 
-The pattern used by all the [Serenity/JS Project Templates](/handbook/getting-started/project-templates/) relies
+The pattern used by all the [Serenity/JS Project Templates](/handbook/project-templates/) relies
 on using the following Node modules:
 - [`npm-failsafe`](https://www.npmjs.com/package/npm-failsafe) to run the reporting process even if the test suite itself has failed (which is precisely when you need test reports the most...).
 - [`rimraf`](https://www.npmjs.com/package/rimraf) as a convenience method to remove any test reports left over from the previous run
@@ -213,7 +213,7 @@ To view them, open the `index.html` file in your preferred web browser.
 - [Serenity/JS WebdriverIO integration guide](https://serenity-js.org/handbook/test-runners/webdriverio/) - Integrate Serenity/JS with your WebdriverIO test suite, enable Serenity BDD reports, and start using the Screenplay Pattern
 - [Serenity/JS Handbook](https://serenity-js.org/handbook/) - Write high-quality automated acceptance tests with Serenity/JS
 - [Serenity/JS API documentation](https://serenity-js.org/api/) - Explore Serenity/JS modules and features
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/getting-started/project-templates/) - Kickstart your projects with best practices built right in
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/) - Kickstart your projects with best practices built right in
 
 ## 👋 Join the Serenity/JS Community
 

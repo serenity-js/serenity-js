@@ -30,7 +30,7 @@ import type { AnswersQuestions } from './questions';
  *
  * ## Writing a custom interaction
  *
- * [Serenity/JS modules](https://serenity-js.org/handbook/getting-started/architecture) ship with dozens of interactions to help you compose your test scenarios.
+ * [Serenity/JS modules](https://serenity-js.org/handbook/architecture/) ship with dozens of interactions to help you compose your test scenarios.
  * However, if you need to interact with a non-standard interface, or want to create a flavour of a given interaction that behaves slightly differently than the built-in version,
  * you can easily create your own implementations using the [`Interaction.where`](https://serenity-js.org/api/core/class/Interaction/#where) factory method.
  *
