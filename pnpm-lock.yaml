@@ -1511,11 +1511,11 @@ importers:
         version: 5.8.2
     devDependencies:
       '@types/react':
-        specifier: 19.0.10
-        version: 19.0.10
+        specifier: 19.0.12
+        version: 19.0.12
       '@types/react-dom':
         specifier: 19.0.4
-        version: 19.0.4(@types/react@19.0.10)
+        version: 19.0.4(@types/react@19.0.12)
 
   integration/playwright-web:
     devDependencies:
@@ -4714,8 +4714,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@19.0.10':
-    resolution: {integrity: sha512-JuRQ9KXLEjaUNjTWpzuR231Z2WpIwczOkBEIvbHNCzQefFIT0L8IqE6NV6ULLyC1SI/i234JnDoMkfg+RjQj2g==}
+  '@types/react@19.0.12':
+    resolution: {integrity: sha512-V6Ar115dBDrjbtXSrS+/Oruobc+qVbbUxDFC1RSbRqLt5SYvxxyIDrSC85RWml54g+jfNeEMZhEj7wW07ONQhA==}
 
   '@types/relateurl@0.2.33':
     resolution: {integrity: sha512-bTQCKsVbIdzLqZhLkF5fcJQreE4y1ro4DIyVrlDNSCJRRwHhB8Z+4zXXa8jN6eDvc2HbRsEYgbvrnGvi54EpSw==}
@@ -9309,6 +9309,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.13.0:
@@ -13128,11 +13129,11 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@19.0.4(@types/react@19.0.10)':
+  '@types/react-dom@19.0.4(@types/react@19.0.12)':
     dependencies:
-      '@types/react': 19.0.10
+      '@types/react': 19.0.12
 
-  '@types/react@19.0.10':
+  '@types/react@19.0.12':
     dependencies:
       csstype: 3.1.3
 
