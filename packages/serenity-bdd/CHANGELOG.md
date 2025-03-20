@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.13](https://github.com/serenity-js/serenity-js/compare/v3.31.12...v3.31.13) (2025-03-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.8.4 ([3f94d9a](https://github.com/serenity-js/serenity-js/commit/3f94d9a30305dabdd855f549a4518784b8377e0f))
+
+
+
+
+
 ## [3.31.12](https://github.com/serenity-js/serenity-js/compare/v3.31.11...v3.31.12) (2025-03-12)
 
 
