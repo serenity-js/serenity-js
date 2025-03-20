@@ -11,7 +11,7 @@ of complex software systems faster, more collaborative and easier to scale.
 ⭐️ Get started with Serenity/JS!
 - [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
 - [Serenity/JS + Playwright Test deep dive](https://serenity-js.org/handbook/test-runners/playwright-test/)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook)
 - [API documentation](https://serenity-js.org/api/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
 
@@ -26,6 +26,8 @@ of complex software systems faster, more collaborative and easier to scale.
 [`@serenity-js/playwright-test`](https://serenity-js.org/api/playwright-test/) module offers a Serenity/JS reporter
 and fixtures that integrate [Playwright Test](https://playwright.dev/docs/intro) with Serenity/JS Screenplay Pattern APIs.
 
+Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/)
+
 ### Installation
 
 To install this module, use an existing [Playwright Test project](https://playwright.dev/docs/intro) or generate a new one by running:
@@ -39,8 +41,6 @@ Install the below Serenity/JS modules in your Playwright Test project directory:
 ```sh
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test
 ```
-
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
 
 ### Serenity/JS Playwright Fixtures
 

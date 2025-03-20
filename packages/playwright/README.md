@@ -11,7 +11,7 @@ of complex software systems faster, more collaborative and easier to scale.
 ⭐️ Get started with Serenity/JS!
 - [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
 - [Serenity/JS + Playwright Test deep dive](https://serenity-js.org/handbook/test-runners/playwright-test/)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook)
 - [API documentation](https://serenity-js.org/api/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
 
@@ -24,7 +24,7 @@ of complex software systems faster, more collaborative and easier to scale.
 ## Serenity/JS Playwright
 
 [`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
-for [Playwright](https://playwright.dev/), that helps with testing Web-based apps.
+for [Playwright](https://playwright.dev/), that helps with testing web-based apps.
 
 ### Installation
 
@@ -34,11 +34,9 @@ To install this module, run the following command in your [Playwright project di
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
 ```
 
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
-
 ## Usage with `@playwright/test`
 
-Follow the [Serenity/JS Getting Started guide for Playwright Test](https://serenity-js.org/handbook/getting-started/serenity-js-with-playwright-test/).
+Follow the [Using Serenity/JS with Playwright Test guide](https://serenity-js.org/handbook/test-runners/playwright-test/)
 
 ## Usage with Cucumber
 
