@@ -10,7 +10,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
 - [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook)
 - [API documentation](https://serenity-js.org/api/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
 
@@ -38,7 +38,6 @@ Install the `@serenity-js/mocha` adapter, as well as `@serenity-js/core` and any
 npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity-js/mocha
 ```
 
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Usage with standalone Mocha
 

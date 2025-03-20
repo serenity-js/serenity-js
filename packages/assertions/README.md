@@ -10,7 +10,7 @@ of complex software systems faster, more collaborative and easier to scale.
 
 ⭐️ Get started with Serenity/JS!
 - [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook) and [Getting Started guides](https://serenity-js.org/handbook/getting-started/)
+- [Serenity/JS Handbook](https://serenity-js.org/handbook)
 - [API documentation](https://serenity-js.org/api/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
 
@@ -32,7 +32,6 @@ To install this module, run the following command in your computer terminal:
 npm install --save-dev @serenity-js/core @serenity-js/assertions
 ```
 
-To learn more about Serenity/JS and how to use it on your project, follow the [Serenity/JS Getting Started guide](https://serenity-js.org/handbook/getting-started/).
 
 ### Performing verifications using `Ensure`
 
