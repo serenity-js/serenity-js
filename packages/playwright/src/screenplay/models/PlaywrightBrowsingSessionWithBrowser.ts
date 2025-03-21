@@ -18,7 +18,7 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
         super(browserContextOptions, selectors);
     }
 
-    protected override async createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext> {
+    protected override async createBrowserContext(): Promise<playwright.BrowserContext> {
         return this.browser.newContext(this.browserContextOptions);
     }
 

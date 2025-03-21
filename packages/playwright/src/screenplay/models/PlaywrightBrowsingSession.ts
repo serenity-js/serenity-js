@@ -52,7 +52,7 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
     protected async browserContext(): Promise<playwright.BrowserContext> {
         if (! this.currentPlaywrightBrowserContext) {
             await this.serenitySelectorEngines.ensureRegisteredWith(this.selectors);
-            this.currentPlaywrightBrowserContext = await this.createBrowserContext(this.browserContextOptions);
+            this.currentPlaywrightBrowserContext = await this.createBrowserContext();
 
             this.currentPlaywrightBrowserContext.on('page', async page => {
                 this.register(
@@ -72,5 +72,5 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
         return this.currentPlaywrightBrowserContext;
     }
 
-    protected abstract createBrowserContext(options: PlaywrightOptions): Promise<playwright.BrowserContext>;
+    protected abstract createBrowserContext(): Promise<playwright.BrowserContext>;
 }
