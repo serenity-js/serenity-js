@@ -122,7 +122,7 @@ import type { Actor } from '../screenplay';
  * class Actors implements Cast {
  *   constructor(
  *     private readonly browser: Browser,
- *     private readonly contextOptions: contextOptions,
+ *     private readonly contextOptions: BrowserContextOptions,
  *     private readonly extraContextOptions: ExtraBrowserContextOptions,
  *   ) {
  *   }

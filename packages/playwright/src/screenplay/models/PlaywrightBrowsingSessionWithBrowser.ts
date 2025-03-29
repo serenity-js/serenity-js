@@ -13,7 +13,7 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
     constructor(
         protected readonly browser: playwright.Browser,
         protected readonly browserContextOptions: playwright.BrowserContextOptions,
-        extraBrowserContextOptions: Partial<ExtraBrowserContextOptions>,
+        extraBrowserContextOptions: ExtraBrowserContextOptions,
         selectors: playwright.Selectors,
     ) {
         super(extraBrowserContextOptions, selectors);

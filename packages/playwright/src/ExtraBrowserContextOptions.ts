@@ -14,7 +14,7 @@ export interface ExtraBrowserContextOptions {
      * #### Learn more
      * - [Playwright `browserContext.setDefaultNavigationTimeout(timeout)`](https://playwright.dev/docs/api/class-browsercontext#browser-context-set-default-navigation-timeout)
      */
-    defaultNavigationTimeout: number;
+    defaultNavigationTimeout?: number;
 
     /**
      * When to consider navigation operation succeeded, defaults to `load`. Events can be either:
@@ -26,7 +26,7 @@ export interface ExtraBrowserContextOptions {
      * #### Learn more
      * - [Playwright `page.goto(url[, options])`](https://playwright.dev/docs/api/class-page#page-goto-option-wait-until)
      */
-    defaultNavigationWaitUntil: 'load' | 'domcontentloaded' | 'networkidle' | 'commit';
+    defaultNavigationWaitUntil?: 'load' | 'domcontentloaded' | 'networkidle' | 'commit';
 
     /**
      * This setting will change the default maximum time for all Playwright methods accepting `timeout` option.
@@ -34,5 +34,5 @@ export interface ExtraBrowserContextOptions {
      * #### Learn more
      * - [Playwright `page.setDefaultTimeout(timeout)`](https://playwright.dev/docs/api/class-page#page-set-default-timeout)
      */
-    defaultTimeout: number;
+    defaultTimeout?: number;
 }
