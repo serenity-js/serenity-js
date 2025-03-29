@@ -25,17 +25,24 @@ import {
     SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
 } from '../reporter';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
-import type { SerenityFixtures } from './SerenityFixtures';
-import type { SerenityOptions } from './SerenityOptions';
+import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
 
 const serenitySelectorEngines = new SerenitySelectorEngines();
 
-export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
+export const fixtures: Fixtures<SerenityFixtures, SerenityWorkerFixtures, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
+
+    extraContextOptions: [
+        {
+            defaultNavigationWaitUntil: 'load',
+        },
+        { option: true }
+    ],
+
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ contextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
+        async ({ extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
             await use(Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithPlaywright.usingPage(page, contextOptions),
+                BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
                 TakeNotes.usingAnEmptyNotepad(),
                 CallAnApi.using({
                     baseURL: baseURL,
@@ -49,10 +56,13 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
         { option: true },
     ],
 
-    playwright: async ({ playwright }, use) => {
+    // https://github.com/microsoft/playwright/blob/b3d19e2f80e0adcafc0cb4bd4790c2b228ef2de3/packages/playwright/src/index.ts#L69C1-L71C38
+
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    playwright: [ async ({ playwright }, use) => {
         await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
         await use(playwright);
-    },
+    }, { scope: 'worker', box: true } ],
 
     defaultActorName: [
         'Serena',
@@ -76,8 +86,8 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
         { option: true },
     ],
 
-    // eslint-disable-next-line no-empty-pattern
-    platform: async ({}, use) => {
+    // eslint-disable-next-line no-empty-pattern,@typescript-eslint/explicit-module-boundary-types
+    platform: [ async ({}, use) => {
         const platform = os.platform();
 
         // https://nodejs.org/api/process.html#process_process_platform
@@ -86,7 +96,7 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
             : (platform === 'darwin' ? 'macOS' : 'Linux');
 
         await use({ name, version: os.release() });
-    },
+    }, { scope: 'worker' } ],
 
     serenity: async ({ crew, cueTimeout, interactionTimeout, platform }, use, info: TestInfo) => {
 
@@ -191,14 +201,17 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
          *
          * Shorthand for [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/)
          */
-        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
+        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(
+            customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>
+        ) => TestApi<TestArgs & T, WorkerArgs & W>,
+
         it: TestType<TestArgs, WorkerArgs>,
         test: TestType<TestArgs, WorkerArgs>,
     }
 
-function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(baseTest: TestType<TestArgs, WorkerArgs>): TestApi<TestArgs, WorkerArgs> {
+function createTestApi<BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions), BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
     return {
-        useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>): TestApi<TestArgs & T, WorkerArgs & W> {
+        useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & T, BaseWorkerFixtures & W> {
             return createTestApi(baseTest.extend(customFixtures));
         },
         beforeAll: baseTest.beforeAll,
@@ -478,11 +491,13 @@ export const useFixtures = api.useFixtures;
  *
  * @param baseTest
  */
-export function useBase<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(
-    baseTest: TestType<TestArgs, WorkerArgs>
-): TestApi<Omit<SerenityOptions, 'actors'> & SerenityFixtures & TestArgs, WorkerArgs> {
-    return createTestApi(baseTest)
-        .useFixtures<TestArgs & Omit<SerenityOptions, 'actors'> & SerenityFixtures, WorkerArgs>(fixtures);
+export function useBase<
+    BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions),
+    BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)
+> (baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & SerenityFixtures, BaseWorkerFixtures & SerenityWorkerFixtures> {
+    return createTestApi<BaseTestFixtures, BaseWorkerFixtures>(baseTest).useFixtures(
+        fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, BaseTestFixtures, BaseWorkerFixtures>
+    );
 }
 
 /**
