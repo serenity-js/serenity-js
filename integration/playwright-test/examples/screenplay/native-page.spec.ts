@@ -10,8 +10,11 @@ import { ActorsWithLocalServer } from './actors/ActorsWithLocalServer';
 describe('Playwright Test integration', () => {
 
     test.use({
-        actors: ({ page, contextOptions }, use) => {
-            use(new ActorsWithLocalServer(page, contextOptions));
+        userAgent: async ({ defaultActorName }, use) => {
+            await use(defaultActorName)
+        },
+        actors: async ({ page, extraContextOptions }, use) => {
+            await use(new ActorsWithLocalServer(page, extraContextOptions));
         },
     });
 

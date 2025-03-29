@@ -1,6 +1,6 @@
 import type { PlaywrightTestConfig as BasePlaywrightTestConfig } from '@playwright/test';
 
-import type { SerenityOptions } from './SerenityOptions';
+import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
 
 /**
  * Convenience alias for [PlaywrightTestConfig](https://playwright.dev/docs/test-configuration) object
@@ -39,4 +39,4 @@ import type { SerenityOptions } from './SerenityOptions';
  * - [`SerenityReporterForPlaywrightTestConfig`](https://serenity-js.org/api/playwright-test/interface/SerenityReporterForPlaywrightTestConfig/)
  * - [Playwright Test configuration](https://playwright.dev/docs/test-configuration)
  */
-export type PlaywrightTestConfig<TestArgs = object, WorkerArgs = object> = BasePlaywrightTestConfig<SerenityOptions & TestArgs, WorkerArgs>;
+export type PlaywrightTestConfig<TestArgs = object, WorkerArgs = object> = BasePlaywrightTestConfig<SerenityFixtures & TestArgs, SerenityWorkerFixtures & WorkerArgs>;

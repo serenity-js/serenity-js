@@ -87,13 +87,13 @@ import type { Actor } from '../screenplay';
  * ```ts
  * import { beforeEach } from 'mocha'
  * import { engage, Actor, Cast } from '@serenity-js/core'
- * import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
+ * import { BrowseTheWebWithPlaywright, ExtraBrowserContextOptions } from '@serenity-js/playwright'
  * import { Browser, chromium } from 'playwright'
  *
  * export class UIActors implements Cast {
  *   constructor(
  *     private readonly browser: Browser,
- *     private readonly options?: PlaywrightOptions,
+ *     private readonly options?: ExtraBrowserContextOptions,
  *   ) {
  *   }
  *
@@ -115,23 +115,28 @@ import type { Actor } from '../screenplay';
  * ```ts
  * import { beforeEach } from 'mocha'
  * import { actorCalled, engage, Cast } from '@serenity-js/core'
- * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+ * import { BrowseTheWebWithPlaywright, ExtraBrowserContextOptions } from '@serenity-js/playwright'
  * import { CallAnApi } from '@serenity-js/rest'
- * import { Browser, chromium } from 'playwright'
+ * import { Browser, BrowserContextOptions, chromium } from 'playwright'
  *
  * class Actors implements Cast {
  *   constructor(
  *     private readonly browser: Browser,
- *     private readonly options: PlaywrightOptions,
+ *     private readonly contextOptions: contextOptions,
+ *     private readonly extraContextOptions: ExtraBrowserContextOptions,
  *   ) {
  *   }
  *
  *   prepare(actor: Actor) {
  *     switch (actor.name) {
  *       case 'James':
- *         return actor.whoCan(BrowseTheWebWithPlaywright.using(this.browser, this.options));
+ *         return actor.whoCan(BrowseTheWebWithPlaywright.using(
+ *           this.browser,
+ *           this.contextOptions,
+ *           this.extraContextOptions
+ *         ));
  *       default:
- *         return actor.whoCan(CallAnApi.at(this.options.baseURL));
+ *         return actor.whoCan(CallAnApi.at(this.contextOptions.baseURL));
  *     }
  *   }
  * }

@@ -198,24 +198,25 @@ For scenarios where different actors need to be configured differently, you can 
 // example.spec.ts
 
 import { Cast } from '@serenity-js/core'
-import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
+import { BrowseTheWebWithPlaywright, ExtraBrowserContextOptions } from '@serenity-js/playwright'
 import { test } from '@serenity-js/playwright-test'
 import { CallAnApi } from '@serenity-js/rest'
-import { Browser } from 'playwright'
+import { Browser, BrowserContextOptions } from 'playwright'
 
 class Actors implements Cast {
     constructor(
         private readonly browser: Browser,
-        private readonly options: PlaywrightOptions,
+        private readonly contextOptions: BrowserContextOptions,
+        private readonly extraContextOptions: ExtraBrowserContextOptions,
     ) {
     }
 
     prepare(actor: Actor) {
         switch (actor.name) {
             case 'James':
-                return actor.whoCan(BrowseTheWebWithPlaywright.using(this.browser, this.options))
+                return actor.whoCan(BrowseTheWebWithPlaywright.using(this.browser, this.contextOptions, this.extraContextOptions))
             default:
-                return actor.whoCan(CallAnApi.at(this.options.baseURL))
+                return actor.whoCan(CallAnApi.at(this.contextOptions.baseURL))
         }
     }
 }

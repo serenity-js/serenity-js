@@ -1,5 +1,6 @@
 import { devices } from '@playwright/test';
-import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+import { defineConfig } from '@playwright/test';
+import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
 /**
  * Read environment variables from file.
@@ -10,7 +11,7 @@ import type { PlaywrightTestConfig } from '@serenity-js/playwright-test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
+export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './spec',
     // testMatch: [
     //     /notes\.spec\.ts/,
@@ -40,7 +41,7 @@ const config: PlaywrightTestConfig = {
         [ '@serenity-js/playwright-test', {
             crew: [
                 [ '@serenity-js/serenity-bdd', { reporter: { includeAbilityDetails: true } } ],
-                '@serenity-js/console-reporter',
+                // '@serenity-js/console-reporter',
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
                 // [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
             ]
@@ -127,6 +128,4 @@ const config: PlaywrightTestConfig = {
     //   command: 'npm run start',
     //   port: 3000,
     // },
-};
-
-export default config;
+});

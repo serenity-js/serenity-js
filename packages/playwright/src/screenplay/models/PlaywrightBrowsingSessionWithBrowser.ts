@@ -1,7 +1,7 @@
 import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import type { PlaywrightPage } from './PlaywrightPage';
 
@@ -12,10 +12,11 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
 
     constructor(
         protected readonly browser: playwright.Browser,
-        browserContextOptions: PlaywrightOptions,
+        protected readonly browserContextOptions: playwright.BrowserContextOptions,
+        extraBrowserContextOptions: Partial<ExtraBrowserContextOptions>,
         selectors: playwright.Selectors,
     ) {
-        super(browserContextOptions, selectors);
+        super(extraBrowserContextOptions, selectors);
     }
 
     protected override async createBrowserContext(): Promise<playwright.BrowserContext> {
