@@ -67,10 +67,6 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
             if (this.extraBrowserContextOptions?.defaultTimeout) {
                 this.currentPlaywrightBrowserContext.setDefaultTimeout(this.extraBrowserContextOptions?.defaultTimeout);
             }
-
-            if (this.extraBrowserContextOptions?.defaultNavigationWaitUntil) {
-
-            }
         }
 
         return this.currentPlaywrightBrowserContext;
