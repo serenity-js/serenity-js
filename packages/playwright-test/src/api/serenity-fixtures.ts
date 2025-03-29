@@ -178,14 +178,13 @@ export interface SerenityFixtures {
     interactionTimeout: number | Duration;
 
     /**
-     * Playwright [BrowserContextOptions](https://playwright.dev/docs/api/class-testoptions#test-options-context-options),
-     * augmented with several convenience properties to be used with the [ability](https://serenity-js.org/api/core/class/Ability/)
-     * to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/).
+     * Convenience properties to be used with the [ability](https://serenity-js.org/api/core/class/Ability/)
+     * to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/),
+     * in addition to Playwright [BrowserContextOptions](https://playwright.dev/docs/api/class-testoptions#test-options-context-options):
      *
-     * Additional convenience properties include:
-     * - [`ExtraBrowserContextOptions.defaultNavigationTimeout`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultNavigationTimeout)
-     * - [`ExtraBrowserContextOptions.defaultNavigationWaitUntil`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultNavigationWaitUntil)
-     * - [`ExtraBrowserContextOptions.defaultTimeout`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultTimeout)
+     * - [`defaultNavigationTimeout`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultNavigationTimeout)
+     * - [`defaultNavigationWaitUntil`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultNavigationWaitUntil)
+     * - [`defaultTimeout`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultTimeout)
      *
      * #### Using `contextOptions` with the default cast of Serenity/JS actors
      *
@@ -195,7 +194,7 @@ export interface SerenityFixtures {
      *
      * const config: PlaywrightTestConfig = {
      *     use: {
-     *         contextOptions: {
+     *         extraContextOptions: {
      *             defaultNavigationTimeout: 30_000,
      *         }
      *
@@ -208,7 +207,7 @@ export interface SerenityFixtures {
      * export default config;
      * ```
      *
-     * #### Using `contextOptions` with a custom cast of Serenity/JS actors
+     * #### Using `extraContextOptions` with a custom cast of Serenity/JS actors
      *
      * ```typescript
      * // playwright.config.ts
@@ -216,15 +215,15 @@ export interface SerenityFixtures {
      *
      * const config: PlaywrightTestConfig = {
      *     use: {
-     *         contextOptions: {
+     *         extraContextOptions: {
      *             defaultNavigationTimeout: 30_000,
      *         }
      *
      *         // Custom cast of actors receives `contextOptions` with the
      *         // additional Serenity/JS properties.
-     *         actors: ({ browser, contextOptions }, use) => {
+     *         actors: ({ browser, contextOptions, extraContextOptions }, use) => {
      *             const cast = Cast.where(actor => actor.whoCan(
-     *                 BrowseTheWebWithPlaywright.using(browser, contextOptions),
+     *                 BrowseTheWebWithPlaywright.using(browser, contextOptions, extraContextOptions),
      *                 TakeNotes.usingAnEmptyNotepad(),
      *             ))
      *
