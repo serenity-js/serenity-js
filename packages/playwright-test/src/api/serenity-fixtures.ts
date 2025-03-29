@@ -66,7 +66,7 @@ import type { ExtraBrowserContextOptions } from '@serenity-js/playwright';
  * import { defineConfig } from '@playwright/test'
  * import type { Cast, TakeNotes } from '@serenity-js/core'
  * import type { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
- * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
  * import type { CallAnApi } from '@serenity-js/rest'
  *
  * export default defineConfig<SerenityFixtures & MyCustomOptions, SerenityWorkerFixtures> = {
@@ -138,16 +138,16 @@ export interface SerenityFixtures {
      *
      * ```typescript
      * // playwright.config.ts
-     * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+     * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
+     * import { defineConfig } from '@playwright/test'
      *
-     * const config: PlaywrightTestConfig = {
+     * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
      *     use: {
      *         crew: [
      *             [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ]
      *         ],
      *     },
-     * };
-     * export default config
+     * });
      * ```
      *
      * #### Learn more
@@ -186,52 +186,52 @@ export interface SerenityFixtures {
      * - [`defaultNavigationWaitUntil`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultNavigationWaitUntil)
      * - [`defaultTimeout`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/#defaultTimeout)
      *
-     * #### Using `contextOptions` with the default cast of Serenity/JS actors
+     * #### Using `extraContextOptions` with the default cast of Serenity/JS actors
      *
      * ```typescript
      * // playwright.config.ts
-     * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+     * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
+     * import { defineConfig } from '@playwright/test'
      *
-     * const config: PlaywrightTestConfig = {
+     * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
      *     use: {
      *         extraContextOptions: {
      *             defaultNavigationTimeout: 30_000,
      *         }
      *
      *         // Since `actors` property is not defined,
-     *         // `contextOptions` will be passed to the default cast of Serenity/JS actors
+     *         // `extraContextOptions` will be passed to the default cast of Serenity/JS actors
      *         // and injected into the ability to `BrowseTheWebWithPlaywright`
      *         // that each actor receives.
      *     },
-     * };
-     * export default config;
+     * })
      * ```
      *
      * #### Using `extraContextOptions` with a custom cast of Serenity/JS actors
      *
      * ```typescript
      * // playwright.config.ts
-     * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+     * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
+     * import { defineConfig } from '@playwright/test'
      *
-     * const config: PlaywrightTestConfig = {
+     * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
      *     use: {
      *         extraContextOptions: {
      *             defaultNavigationTimeout: 30_000,
      *         }
      *
-     *         // Custom cast of actors receives `contextOptions` with the
-     *         // additional Serenity/JS properties.
-     *         actors: ({ browser, contextOptions, extraContextOptions }, use) => {
+     *         // Custom cast of actors receives the default `contextOptions` and
+     *         // the `extraContextOptions` with the additional Serenity/JS properties.
+     *         actors: async ({ browser, contextOptions, extraContextOptions }, use) => {
      *             const cast = Cast.where(actor => actor.whoCan(
      *                 BrowseTheWebWithPlaywright.using(browser, contextOptions, extraContextOptions),
      *                 TakeNotes.usingAnEmptyNotepad(),
      *             ))
      *
-     *             use(cast)
+     *             await use(cast)
      *         },
      *     },
-     * };
-     * export default config;
+     * })
      * ```
      *
      * #### Learn more
@@ -239,6 +239,7 @@ export interface SerenityFixtures {
      * - [Playwright Browser Context options](https://playwright.dev/docs/api/class-testoptions#test-options-context-options)
      * - [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
      */
+
     extraContextOptions: Partial<ExtraBrowserContextOptions>;
 
     /**
@@ -388,6 +389,5 @@ export interface SerenityWorkerFixtures {
      * Name and version of the operating system that Playwright Test worker process runs on.
      */
     platform: { name: string, version: string };
-
 }
 
