@@ -6,7 +6,7 @@ import * as scripts from '@serenity-js/web/lib/scripts';
 import type * as playwright from 'playwright-core';
 import { URL } from 'url';
 
-import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import { promised } from '../promised';
 import { PlaywrightExistingElementLocator, PlaywrightLocator, PlaywrightRootLocator } from './locators';
 import type { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
@@ -39,7 +39,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
     constructor(
         session: PlaywrightBrowsingSession,
         private readonly page: playwright.Page,
-        private readonly options: PlaywrightOptions,
+        private readonly options: Partial<Pick<ExtraBrowserContextOptions, 'defaultNavigationWaitUntil'>>,
         pageId: CorrelationId,
     ) {
         super(

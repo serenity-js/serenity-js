@@ -13,8 +13,11 @@ const openWebsiteAt = (url: Answerable<string>) =>
 describe('Playwright Test reporting', () => {
 
     test.use({
-        actors: ({ page, contextOptions }, use) => {
-            use(new ActorsWithLocalServer(page, contextOptions));
+        userAgent: async ({ defaultActorName }, use) => {
+            await use(defaultActorName)
+        },
+        actors: async ({ page, extraContextOptions }, use) => {
+            await use(new ActorsWithLocalServer(page, extraContextOptions));
         },
     });
 

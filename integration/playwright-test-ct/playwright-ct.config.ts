@@ -1,9 +1,10 @@
 import { defineConfig, devices } from '@playwright/experimental-ct-react';
+import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
+export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './',
     /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
     snapshotDir: './__snapshots__',
@@ -27,7 +28,7 @@ export default defineConfig({
         /* Port to use for Playwright component endpoint. */
         ctPort: 3100,
 
-        headless: true
+        headless: true,
     },
 
     /* Configure projects for major browsers */

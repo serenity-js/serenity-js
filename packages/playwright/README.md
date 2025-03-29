@@ -48,7 +48,7 @@ and review the [Serenity/JS Cucumber and Playwright Project Template](https://gi
 ```typescript
 import { Ensure, equals } from '@serenity-js/assertions'
 import { actorCalled, Actor, Cast, configure, Duration } from '@serenity-js/core'
-import { BrowseTheWebWithPlaywright, PlaywrightOptions } from '@serenity-js/playwright'
+import { BrowseTheWebWithPlaywright, ExtraBrowserContextOptions } from '@serenity-js/playwright'
 import { By, Navigate, PageElement, TakePhotosOfFailures, Text } from '@serenity-js/web'
 
 import { describe, it, beforeAll, afterAll } from 'mocha'
@@ -65,13 +65,18 @@ class SerenityJSWebsite {
 class Actors implements Cast {              
     constructor(                            
         private readonly browser: playwright.Browser,
-        private readonly options: PlaywrightOptions,
+        private readonly contextOptions: playwright.BrowserContextOptions,
+        private readonly extraContextOptions: ExtraBrowserContextOptions,
     ) {
     }
 
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            BrowseTheWebWithPlaywright.using(this.browser, this.options),
+            BrowseTheWebWithPlaywright.using(
+                this.browser,
+                this.contextOptions,
+                this.extraContextOptions
+            ),
             // ... add other abilities as needed, like CallAnApi or TakeNotes
         )
     }

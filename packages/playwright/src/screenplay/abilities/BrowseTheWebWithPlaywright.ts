@@ -2,7 +2,7 @@ import type { Discardable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
-import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import {
     PlaywrightBrowsingSessionWithBrowser,
     PlaywrightBrowsingSessionWithPage
@@ -100,7 +100,7 @@ import {
  *
  * With other [test runners](https://serenity-js.org/handbook/test-runners/), you can configure Playwright by:
  * - providing the browser-level configuration when calling [`BrowserType.launch`](https://playwright.dev/docs/api/class-browsertype#browser-type-launch),
- * - providing the browser context-level [`PlaywrightOptions`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/)
+ * - providing the browser context-level [`ExtraBrowserContextOptions`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/)
  * when initialising the ability to `BrowseTheWebWithPlaywright`.
  *
  * The code snippet below demonstrates how to configure the browser and some popular browser context options,
@@ -129,11 +129,9 @@ import {
  *      viewport:    { width: 1600, height: 1200 },
  *      geolocation: { longitude: 51.50084271042897, latitude: -0.12462540129500639 },
  *      permissions: [ 'geolocation' ],
- *
+ *   }, {
  *      defaultNavigationTimeout: 30_000,
  *      defaultTimeout: 10_000
- *
- *      // ... and so on
  *   }))
  *   .attemptsTo(
  *     Navigate.to(`https://serenity-js.org`),
@@ -141,7 +139,9 @@ import {
  *   )
  * ```
  *
- * Note that in addition to all the standard Playwright BrowserContextOptions, you can also provide several others defined in Serenity/JS [`PlaywrightOptions`](https://serenity-js.org/api/playwright/interface/PlaywrightOptions/), such as:
+ * Note that in addition to all the standard Playwright BrowserContextOptions,
+ * you can also provide several others defined in Serenity/JS [`ExtraBrowserContextOptions`](https://serenity-js.org/api/playwright/interface/ExtraBrowserContextOptions/),
+ * such as:
  * - `defaultNavigationTimeout`, which changes the default maximum navigation timeout for the browser context,
  * - `defaultTimeout`, which changes the default maximum time for all Playwright methods accepting the `timeout` option.
  *
@@ -156,12 +156,12 @@ import {
  */
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
-    static using(browser: playwright.Browser, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, options, playwright.selectors));
+    static using(browser: playwright.Browser, browserContextOptions?: playwright.BrowserContextOptions, extraBrowserContextOptions?: Partial<ExtraBrowserContextOptions>): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, browserContextOptions, extraBrowserContextOptions, playwright.selectors));
     }
 
-    static usingPage(page: playwright.Page, options?: PlaywrightOptions): BrowseTheWebWithPlaywright {
-        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, options, playwright.selectors));
+    static usingPage(page: playwright.Page, extraBrowserContextOptions?: Partial<ExtraBrowserContextOptions>): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, extraBrowserContextOptions, playwright.selectors));
     }
 
     /**

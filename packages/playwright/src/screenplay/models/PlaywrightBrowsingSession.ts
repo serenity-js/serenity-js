@@ -3,7 +3,7 @@ import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession, type Cookie, type CookieData } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import { type PlaywrightOptions } from '../../PlaywrightOptions';
+import { type ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import { SerenitySelectorEngines } from '../../selector-engines';
 import { PlaywrightCookie, PlaywrightPage } from '../models';
 
@@ -18,7 +18,7 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
     private currentPlaywrightBrowserContext: playwright.BrowserContext;
 
     protected constructor(
-        protected readonly browserContextOptions: PlaywrightOptions,
+        protected readonly extraBrowserContextOptions: Partial<ExtraBrowserContextOptions>,
         protected readonly selectors: playwright.Selectors
     ) {
         super();
@@ -56,16 +56,20 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
 
             this.currentPlaywrightBrowserContext.on('page', async page => {
                 this.register(
-                    new PlaywrightPage(this, page, this.browserContextOptions, CorrelationId.create())
+                    new PlaywrightPage(this, page, this.extraBrowserContextOptions, CorrelationId.create())
                 );
             });
 
-            if (this.browserContextOptions?.defaultNavigationTimeout) {
-                this.currentPlaywrightBrowserContext.setDefaultNavigationTimeout(this.browserContextOptions?.defaultNavigationTimeout);
+            if (this.extraBrowserContextOptions?.defaultNavigationTimeout) {
+                this.currentPlaywrightBrowserContext.setDefaultNavigationTimeout(this.extraBrowserContextOptions?.defaultNavigationTimeout);
             }
 
-            if (this.browserContextOptions?.defaultTimeout) {
-                this.currentPlaywrightBrowserContext.setDefaultTimeout(this.browserContextOptions?.defaultTimeout);
+            if (this.extraBrowserContextOptions?.defaultTimeout) {
+                this.currentPlaywrightBrowserContext.setDefaultTimeout(this.extraBrowserContextOptions?.defaultTimeout);
+            }
+
+            if (this.extraBrowserContextOptions?.defaultNavigationWaitUntil) {
+
             }
         }
 

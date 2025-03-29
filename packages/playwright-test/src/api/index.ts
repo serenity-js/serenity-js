@@ -1,4 +1,3 @@
 export * from './PlaywrightTestConfig';
-export * from './SerenityFixtures';
-export * from './SerenityOptions';
+export * from './serenity-fixtures';
 export * from './test-api';

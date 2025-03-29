@@ -2,7 +2,7 @@ import { CorrelationId } from '@serenity-js/core/lib/model';
 import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import type { PlaywrightOptions } from '../../PlaywrightOptions';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
 import { PlaywrightPage } from './PlaywrightPage';
 
@@ -14,7 +14,7 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
 
     constructor(
         protected readonly page: playwright.Page,
-        browserContextOptions: PlaywrightOptions,
+        browserContextOptions: Partial<ExtraBrowserContextOptions>,
         selectors: playwright.Selectors,
     ) {
         super(browserContextOptions, selectors);
@@ -23,7 +23,7 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
     protected override async registerCurrentPage(): Promise<PlaywrightPage> {
         await this.browserContext();
 
-        const playwrightPage = new PlaywrightPage(this, this.page, this.browserContextOptions, this.playwrightManagedPageId);
+        const playwrightPage = new PlaywrightPage(this, this.page, this.extraBrowserContextOptions, this.playwrightManagedPageId);
 
         this.register(playwrightPage);
 

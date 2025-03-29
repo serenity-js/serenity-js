@@ -1,5 +1,3 @@
-import type * as playwright from 'playwright-core';
-
 /**
  * Playwright-specific options used to configure the ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/)
  *
@@ -8,7 +6,7 @@ import type * as playwright from 'playwright-core';
  *
  * @group Configuration
  */
-export interface PlaywrightOptions extends playwright.BrowserContextOptions {
+export interface ExtraBrowserContextOptions {
 
     /**
      * Changes the default maximum navigation time for the browser context used by [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/)
@@ -16,7 +14,7 @@ export interface PlaywrightOptions extends playwright.BrowserContextOptions {
      * #### Learn more
      * - [Playwright `browserContext.setDefaultNavigationTimeout(timeout)`](https://playwright.dev/docs/api/class-browsercontext#browser-context-set-default-navigation-timeout)
      */
-    defaultNavigationTimeout?: number;
+    defaultNavigationTimeout: number;
 
     /**
      * When to consider navigation operation succeeded, defaults to `load`. Events can be either:
@@ -28,7 +26,7 @@ export interface PlaywrightOptions extends playwright.BrowserContextOptions {
      * #### Learn more
      * - [Playwright `page.goto(url[, options])`](https://playwright.dev/docs/api/class-page#page-goto-option-wait-until)
      */
-    defaultNavigationWaitUntil?: 'load'|'domcontentloaded'|'networkidle'|'commit';
+    defaultNavigationWaitUntil: 'load' | 'domcontentloaded' | 'networkidle' | 'commit';
 
     /**
      * This setting will change the default maximum time for all Playwright methods accepting `timeout` option.
@@ -36,5 +34,5 @@ export interface PlaywrightOptions extends playwright.BrowserContextOptions {
      * #### Learn more
      * - [Playwright `page.setDefaultTimeout(timeout)`](https://playwright.dev/docs/api/class-page#page-set-default-timeout)
      */
-    defaultTimeout?: number;
+    defaultTimeout: number;
 }
