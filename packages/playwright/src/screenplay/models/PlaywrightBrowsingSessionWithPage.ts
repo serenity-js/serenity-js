@@ -14,7 +14,7 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
 
     constructor(
         protected readonly page: playwright.Page,
-        browserContextOptions: Partial<ExtraBrowserContextOptions>,
+        browserContextOptions: ExtraBrowserContextOptions,
         selectors: playwright.Selectors,
     ) {
         super(browserContextOptions, selectors);

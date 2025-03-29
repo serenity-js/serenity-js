@@ -156,11 +156,11 @@ import {
  */
 export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
 
-    static using(browser: playwright.Browser, browserContextOptions?: playwright.BrowserContextOptions, extraBrowserContextOptions?: Partial<ExtraBrowserContextOptions>): BrowseTheWebWithPlaywright {
+    static using(browser: playwright.Browser, browserContextOptions?: playwright.BrowserContextOptions, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, browserContextOptions, extraBrowserContextOptions, playwright.selectors));
     }
 
-    static usingPage(page: playwright.Page, extraBrowserContextOptions?: Partial<ExtraBrowserContextOptions>): BrowseTheWebWithPlaywright {
+    static usingPage(page: playwright.Page, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, extraBrowserContextOptions, playwright.selectors));
     }
 
