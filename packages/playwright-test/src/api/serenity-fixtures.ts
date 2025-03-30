@@ -239,13 +239,7 @@ export interface SerenityFixtures {
      * - [Playwright Browser Context options](https://playwright.dev/docs/api/class-testoptions#test-options-context-options)
      * - [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
      */
-
     extraContextOptions: Partial<ExtraBrowserContextOptions>;
-
-    /**
-     * Retrieves the root object of the Serenity/JS framework.
-     */
-    serenity: Serenity;
 
     /**
      * A cast of Serenity/JS actors to be used instead of the default cast
@@ -389,5 +383,10 @@ export interface SerenityWorkerFixtures {
      * Name and version of the operating system that Playwright Test worker process runs on.
      */
     platform: { name: string, version: string };
+
+    /**
+     * Retrieves the root object of the Serenity/JS framework.
+     */
+    serenity: Serenity;
 }
 
