@@ -137,11 +137,14 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     // onStepBegin(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepBegin');
     // }
+    // todo: add stdout -> Log https://github.com/microsoft/playwright/blob/main/packages/playwright/src/reporters/list.ts#L67
 
     // onStepEnd(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepEnd');
     // }
 
+    // todo:
+    //  - this catches events from afterAll hooks
     onTestEnd(test: TestCase, result: TestResult): void {
         this.announceRetryIfNeeded(test, result);
 

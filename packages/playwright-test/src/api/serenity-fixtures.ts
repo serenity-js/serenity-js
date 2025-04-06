@@ -269,15 +269,15 @@ export interface SerenityFixtures {
      * describe(`Recording items`, () => {
      *
      *     test.use({
-     *         contextOptions: {
+     *         extraContextOptions: {
      *             defaultNavigationTimeout: 30_000,
      *         },
      *
      *         defaultActorName: 'Serena',
-     *         actors: async ({ browser, contextOptions }, use) => {
+     *         actors: async ({ browser, contextOptions, extraContextOptions }, use) => {
      *             const cast = Cast.where(actor =>
      *                 actor.whoCan(
-     *                     BrowseTheWebWithPlaywright.using(browser, contextOptions),
+     *                     BrowseTheWebWithPlaywright.using(browser, contextOptions, extraContextOptions),
      *                     TakeNotes.usingAnEmptyNotepad(),
      *                 )
      *             )
@@ -309,21 +309,6 @@ export interface SerenityFixtures {
      * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
      */
     actors: Cast;
-
-    /**
-     * Uses the provided [cast](https://serenity-js.org/api/core/class/Cast/) of [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) to instantiate an [`Actor`](https://serenity-js.org/api/core/class/Actor/) called `name`
-     * and inject it into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
-     *
-     * Retrieves an existing actor if one has already been instantiated.
-     *
-     * #### Learn more
-     * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
-     * - [`SerenityOptions.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/#actors)
-     * - [`SerenityFixtures.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors)
-     *
-     * @param name
-     */
-    actorCalled: (name: string) => Actor;
 
     /**
      * Default [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor) injected into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
@@ -388,5 +373,20 @@ export interface SerenityWorkerFixtures {
      * Retrieves the root object of the Serenity/JS framework.
      */
     serenity: Serenity;
+
+    /**
+     * Uses the provided [cast](https://serenity-js.org/api/core/class/Cast/) of [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) to instantiate an [`Actor`](https://serenity-js.org/api/core/class/Actor/) called `name`
+     * and inject it into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
+     *
+     * Retrieves an existing actor if one has already been instantiated.
+     *
+     * #### Learn more
+     * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
+     * - [`SerenityOptions.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/#actors)
+     * - [`SerenityFixtures.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors)
+     *
+     * @param name
+     */
+    actorCalled: (name: string) => Actor;
 }
 
