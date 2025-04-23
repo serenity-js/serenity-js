@@ -15,8 +15,8 @@ importers:
         specifier: 19.8.0
         version: 19.8.0
       '@puppeteer/browsers':
-        specifier: 2.8.0
-        version: 2.8.0
+        specifier: 2.10.2
+        version: 2.10.2
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
@@ -4344,6 +4344,11 @@ packages:
     engines: {node: '>=16.3.0'}
     hasBin: true
 
+  '@puppeteer/browsers@2.10.2':
+    resolution: {integrity: sha512-i4Ez+s9oRWQbNjtI/3+jxr7OH508mjAKvza0ekPJem0ZtmsYHP3B5dq62+IaBHKaGCOuqJxXzvFLUhJvQ6jtsQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   '@puppeteer/browsers@2.8.0':
     resolution: {integrity: sha512-yTwt2KWRmCQAfhvbCRjebaSX8pV1//I0Y3g+A7f/eS7gf0l4eRJoUCvcYdVtboeU4CTOZQuqYbZNS8aBYb8ROQ==}
     engines: {node: '>=18'}
@@ -8624,6 +8629,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -12777,6 +12783,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@puppeteer/browsers@2.10.2':
+    dependencies:
+      debug: 4.4.0(supports-color@5.5.0)
+      extract-zip: 2.0.1
+      progress: 2.0.3
+      proxy-agent: 6.5.0
+      semver: 7.7.1
+      tar-fs: 3.0.8
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bare-buffer
+      - supports-color
+
   '@puppeteer/browsers@2.8.0':
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
@@ -13756,7 +13775,7 @@ snapshots:
 
   '@wdio/utils@9.11.0':
     dependencies:
-      '@puppeteer/browsers': 2.8.0
+      '@puppeteer/browsers': 2.10.2
       '@wdio/logger': 9.4.4
       '@wdio/types': 9.10.1
       decamelize: 6.0.0
