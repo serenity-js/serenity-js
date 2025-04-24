@@ -1799,8 +1799,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/rest
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       proxy:
         specifier: 2.2.0
         version: 2.2.0
@@ -2606,8 +2606,8 @@ importers:
         specifier: 8.5.12
         version: 8.5.12
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -2808,8 +2808,8 @@ importers:
         specifier: 10.0.10
         version: 10.0.10
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       body-parser:
         specifier: 1.20.3
         version: 1.20.3
@@ -2853,8 +2853,8 @@ importers:
         specifier: 7.1.3
         version: 7.1.3
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       http-proxy-agent:
         specifier: 7.0.2
         version: 7.0.2
@@ -2862,8 +2862,8 @@ importers:
         specifier: 7.0.6
         version: 7.0.6
       lru-cache:
-        specifier: 11.0.2
-        version: 11.0.2
+        specifier: 11.1.0
+        version: 11.1.0
       proxy-from-env:
         specifier: 1.1.0
         version: 1.1.0
@@ -2885,7 +2885,7 @@ importers:
         version: 10.0.10
       axios-mock-adapter:
         specifier: 2.1.0
-        version: 2.1.0(axios@1.8.4)
+        version: 2.1.0(axios@1.9.0)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -2917,8 +2917,8 @@ importers:
         specifier: 5.0.1
         version: 5.0.1
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -3061,8 +3061,8 @@ importers:
         specifier: 9.10.1
         version: 9.10.1
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -3140,8 +3140,8 @@ importers:
         specifier: 8.41.0
         version: 8.41.0
       axios:
-        specifier: 1.8.4
-        version: 1.8.4(debug@4.4.0)
+        specifier: 1.9.0
+        version: 1.9.0(debug@4.4.0)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -5283,8 +5283,8 @@ packages:
     peerDependencies:
       axios: '>= 0.17.0'
 
-  axios@1.8.4:
-    resolution: {integrity: sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==}
+  axios@1.9.0:
+    resolution: {integrity: sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==}
 
   b4a@1.6.7:
     resolution: {integrity: sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==}
@@ -8266,8 +8266,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  lru-cache@11.0.2:
-    resolution: {integrity: sha512-123qHRfJBmo2jXDbo/a5YOQrJoHF/GNQTLzQ5+IdK5pWpceK17yRc6ozlWd25FxvGKQbIUs91fDFkXmDHTKcyA==}
+  lru-cache@11.1.0:
+    resolution: {integrity: sha512-QIXZUBJUx+2zHUdQujWejBkcD9+cs94tLn0+YL8UrCh+D5sCXZ4c7LaEH48pNwRY3MLDgqUFyhlCyjJPf1WP0A==}
     engines: {node: 20 || >=22}
 
   lru-cache@5.1.1:
@@ -8624,6 +8624,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -14036,13 +14037,13 @@ snapshots:
 
   axe-core@4.2.3: {}
 
-  axios-mock-adapter@2.1.0(axios@1.8.4):
+  axios-mock-adapter@2.1.0(axios@1.9.0):
     dependencies:
-      axios: 1.8.4(debug@4.4.0)
+      axios: 1.9.0(debug@4.4.0)
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
-  axios@1.8.4(debug@4.4.0):
+  axios@1.9.0(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.1
@@ -14460,7 +14461,7 @@ snapshots:
   chromedriver@134.0.5:
     dependencies:
       '@testim/chrome-version': 1.1.4
-      axios: 1.8.4(debug@4.4.0)
+      axios: 1.9.0(debug@4.4.0)
       compare-versions: 6.1.1
       extract-zip: 2.0.1
       proxy-agent: 6.5.0
@@ -17718,7 +17719,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lru-cache@11.0.2: {}
+  lru-cache@11.1.0: {}
 
   lru-cache@5.1.1:
     dependencies:
@@ -18219,7 +18220,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.8.4(debug@4.4.0)
+      axios: 1.9.0(debug@4.4.0)
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -18601,7 +18602,7 @@ snapshots:
 
   path-scurry@2.0.0:
     dependencies:
-      lru-cache: 11.0.2
+      lru-cache: 11.1.0
       minipass: 7.1.2
 
   path-to-regexp@0.1.12: {}
@@ -20341,7 +20342,7 @@ snapshots:
 
   wait-on@8.0.3(debug@4.4.0):
     dependencies:
-      axios: 1.8.4(debug@4.4.0)
+      axios: 1.9.0(debug@4.4.0)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
