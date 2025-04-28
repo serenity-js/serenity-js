@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.14](https://github.com/serenity-js/serenity-js/compare/v3.31.13...v3.31.14) (2025-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jasmine to v5.7.0 ([1857fd6](https://github.com/serenity-js/serenity-js/commit/1857fd6b842b237ab5f08e64f6b2f412d399a825))
+
+
+
+
+
 ## [3.31.13](https://github.com/serenity-js/serenity-js/compare/v3.31.12...v3.31.13) (2025-03-20)
 
 **Note:** Version bump only for package @serenity-js/jasmine

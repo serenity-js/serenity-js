@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.14](https://github.com/serenity-js/serenity-js/compare/v3.31.13...v3.31.14) (2025-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.8.3 ([b19c09b](https://github.com/serenity-js/serenity-js/commit/b19c09b5e5e7d05e744bc0c8b0b49cd3af89483c))
+* **deps:** update rest dependencies ([6331afb](https://github.com/serenity-js/serenity-js/commit/6331afbe32c439808b317d497043dd6deb513801))
+
+
+
+
+
 ## [3.31.13](https://github.com/serenity-js/serenity-js/compare/v3.31.12...v3.31.13) (2025-03-20)
 
 
