@@ -2575,8 +2575,8 @@ importers:
         specifier: 1.2.2
         version: 1.2.2
       portfinder:
-        specifier: 1.0.35
-        version: 1.0.35
+        specifier: 1.0.37
+        version: 1.0.37
     devDependencies:
       '@hapi/hapi':
         specifier: 21.4.0
@@ -8624,6 +8624,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -9158,8 +9159,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  portfinder@1.0.35:
-    resolution: {integrity: sha512-73JaFg4NwYNAufDtS5FsFu/PdM49ahJrO1i44aCRsDWju1z5wuGDaqyFUQWR6aJoK2JPDWlaYYAGFNIGTSUHSw==}
+  portfinder@1.0.37:
+    resolution: {integrity: sha512-yuGIEjDAYnnOex9ddMnKZEMFE0CcGo6zbfzDklkmT1m5z734ss6JMzN9rNB3+RR7iS+F10D4/BVIaXOyh8PQKw==}
     engines: {node: '>= 10.12'}
 
   possible-typed-array-names@1.0.0:
@@ -18683,7 +18684,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  portfinder@1.0.35:
+  portfinder@1.0.37:
     dependencies:
       async: 3.2.6
       debug: 4.4.0(supports-color@5.5.0)
