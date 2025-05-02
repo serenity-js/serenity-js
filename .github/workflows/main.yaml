@@ -155,7 +155,7 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          npx --no playwright install --with-deps && \
+          pnpm dlx playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Upload test reports
         if: failure()
