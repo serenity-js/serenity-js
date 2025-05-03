@@ -6,7 +6,7 @@ import type { ErrorOptions, RuntimeError } from './errors';
 import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors';
 import type { DomainEvent, EmitsDomainEvents } from './events';
 import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, Path } from './io';
-import type { ActivityDetails, CorrelationId } from './model';
+import { type ActivityDetails, CorrelationId, type CorrelationIdFactory } from './model';
 import type { Actor, Timestamp } from './screenplay';
 import { Clock, Duration } from './screenplay';
 import type { StageCrewMember, StageCrewMemberBuilder } from './stage';
@@ -33,10 +33,12 @@ export class Serenity implements EmitsDomainEvents {
     /**
      * @param clock
      * @param cwd
+     * @param sceneIdFactory
      */
     constructor(
         private readonly clock: Clock = new Clock(),
         cwd: string = process.cwd(),
+        private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         this.stage = new Stage(
             Serenity.defaultActors,
@@ -44,6 +46,7 @@ export class Serenity implements EmitsDomainEvents {
             new ErrorFactory(),
             clock,
             Serenity.defaultInteractionTimeout,
+            sceneIdFactory,
         );
 
         this.classLoader = new ClassLoader(
@@ -86,6 +89,7 @@ export class Serenity implements EmitsDomainEvents {
             new ErrorFactory(config.diffFormatter ?? new NoOpDiffFormatter()),
             this.clock,
             interactionTimeout,
+            this.sceneIdFactory,
         );
 
         if (config.actors) {
