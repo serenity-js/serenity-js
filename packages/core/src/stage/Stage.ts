@@ -1,6 +1,13 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { ConfigurationError, type ErrorFactory, type ErrorOptions, LogicError, RaiseErrors,type RuntimeError } from '../errors';
+import {
+    ConfigurationError,
+    type ErrorFactory,
+    type ErrorOptions,
+    LogicError,
+    RaiseErrors,
+    type RuntimeError
+} from '../errors';
 import {
     ActorEntersStage,
     ActorStageExitAttempted,
@@ -13,7 +20,7 @@ import {
     SceneStarts,
     TestRunFinishes
 } from '../events';
-import { type ActivityDetails, CorrelationId, Name } from '../model';
+import { type ActivityDetails, CorrelationId, type CorrelationIdFactory, Name } from '../model';
 import { Actor, type Clock, type Duration, ScheduleWork, type Timestamp } from '../screenplay';
 import type { ListensToDomainEvents } from '../stage';
 import type { Cast } from './Cast';
@@ -68,6 +75,7 @@ export class Stage implements EmitsDomainEvents {
      * @param errors
      * @param clock
      * @param interactionTimeout
+     * @param sceneIdFactory
      */
     constructor(
         private cast: Cast,
@@ -75,12 +83,14 @@ export class Stage implements EmitsDomainEvents {
         private errors: ErrorFactory,
         private readonly clock: Clock,
         private readonly interactionTimeout: Duration,
+        private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
         ensure('ErrorFactory', errors, isDefined());
         ensure('Clock', clock, isDefined());
         ensure('interactionTimeout', interactionTimeout, isDefined());
+        ensure('sceneIdFactory', sceneIdFactory, isDefined());
     }
 
     /**
@@ -239,8 +249,7 @@ export class Stage implements EmitsDomainEvents {
      * - [`Stage.currentSceneId`](https://serenity-js.org/api/core/class/Stage/#currentSceneId)
      */
     assignNewSceneId(): CorrelationId {
-        // todo: inject an id factory to make it easier to test
-        this.currentScene = CorrelationId.create();
+        this.currentScene = this.sceneIdFactory.create();
 
         return this.currentScene;
     }
