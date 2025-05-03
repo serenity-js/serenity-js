@@ -32,9 +32,8 @@ describe('Passing', () => {
             const result = await playwrightTest(
                 '--project=default',
                 '--reporter=json:output/native/outcomes/passing.json',
-                '--grep=Test scenario passes',
                 'native/outcomes/passing.spec.ts',
-            ).then(ifExitCodeIsOtherThan(0, logOutput))
+            ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
