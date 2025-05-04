@@ -21,7 +21,6 @@ import type { Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
-    CorrelationId,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionIgnored,
@@ -302,15 +301,15 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
         this.emit(
             new RetryableSceneDetected(currentSceneId, this.now()),
-            new SceneTagged(
-                currentSceneId,
-                new ArbitraryTag('retried'), // todo: replace with a dedicated tag
-                this.now(),
-            ),
         );
 
-        if (result.retry > 0) {
+        if (result.retry > 0 || result.status !== 'passed') {
             this.emit(
+                new SceneTagged(
+                    currentSceneId,
+                    new ArbitraryTag('retried'), // todo: replace with a dedicated tag
+                    this.now(),
+                ),
                 new SceneTagged(
                     currentSceneId,
                     new ExecutionRetriedTag(result.retry),
