@@ -12,32 +12,25 @@ import {
     TestRunnerDetected,
     TestRunStarts
 } from '@serenity-js/core/lib/events';
-import {
-    CapabilityTag,
-    CorrelationId,
-    ExecutionSuccessful,
-    FeatureTag,
-    Name,
-    ThemeTag
-} from '@serenity-js/core/lib/model';
+import { CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { playwrightTest } from '../../../src/playwright-test';
+import { playwrightTest } from '../../src/playwright-test';
 
 describe('Passing', () => {
 
     describe('Test scenario', () => {
 
-        it('is recognised as successful and associated with Playwright Test ID', async () => {
+        it('is reported as successful and associated with Playwright Test ID', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                '--reporter=json:output/native/outcomes/passing.json',
-                'native/outcomes/passing.spec.ts',
+                '--reporter=json:output/outcomes/passing.json',
+                'outcomes/passing.spec.ts',
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
-            const report = jsonFrom('output/native/outcomes/passing.json');
+            const report = jsonFrom('output/outcomes/passing.json');
             const testId = report.suites[0].suites[0].suites[0].specs[0].id;
 
             const expectedTestId = new CorrelationId(testId);
@@ -47,10 +40,6 @@ describe('Passing', () => {
                 .next(SceneStarts, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.details.name).to.equal(new Name('Test scenario passes'));
-                })
-                .next(SceneTagged, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
-                    expect(event.tag).to.equal(new ThemeTag('Native'))
                 })
                 .next(SceneTagged, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
@@ -76,5 +65,5 @@ describe('Passing', () => {
 });
 
 function jsonFrom(pathToFile: string): Record<string, any> {
-    return JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', pathToFile), { encoding: 'utf8' }));
+    return JSON.parse(fs.readFileSync(path.join(__dirname, '../../', pathToFile), { encoding: 'utf8' }));
 }

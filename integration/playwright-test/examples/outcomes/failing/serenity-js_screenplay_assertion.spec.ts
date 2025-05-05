@@ -1,12 +1,12 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { describe, it } from '@serenity-js/playwright-test';
 
-describe('Playwright Test reporting', () => {
+describe('Serenity/JS assertion', () => {
 
-    describe('A scenario', () => {
+    describe('Test scenario', () => {
 
-        it('fails when the assertion fails', async ({ actorCalled }) => {
-            await actorCalled('Alice').attemptsTo(
+        it('fails when the Serenity/JS Screenplay assertion fails', async ({ actor }) => {
+            await actor.attemptsTo(
                 Ensure.that('Hello', equals('Hola')),
             );
         });
