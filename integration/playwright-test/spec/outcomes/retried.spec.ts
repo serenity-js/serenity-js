@@ -28,16 +28,16 @@ import {
 } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { playwrightTest } from '../../../src/playwright-test';
+import { playwrightTest } from '../../src/playwright-test';
 
 describe('Retried', () => {
 
     describe('Test scenario', () => {
 
-        it('is not marked as retried when it passed the first time', async () => {
+        it('is not reported as retried when it passed the first time', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/passing.spec.ts',
+                'outcomes/passing.spec.ts',
                 '--retries=3'
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
@@ -45,7 +45,6 @@ describe('Retried', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario passes')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Passing')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
@@ -54,10 +53,10 @@ describe('Retried', () => {
             expect(arbitraryTagsFrom(result.events)).to.deep.equal([]);
         });
 
-        it('is not marked as retried when retries are disabled', async () => {
+        it('is not reported as retried when retries are disabled', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/passing.spec.ts',
+                'outcomes/passing.spec.ts',
                 '--retries=0'
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
@@ -65,7 +64,6 @@ describe('Retried', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario passes')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Passing')))
                 .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
@@ -77,14 +75,14 @@ describe('Retried', () => {
         it('has each retry reported individually and associated with the same scene ID', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                '--reporter=json:output/native/outcomes/retried.json',
-                'native/outcomes/retried.spec.ts',
+                '--reporter=json:output/outcomes/retried.json',
+                'outcomes/retried.spec.ts',
                 '--retries=3'
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
-            const report = jsonFrom('output/native/outcomes/retried.json');
+            const report = jsonFrom('output/outcomes/retried.json');
             const testId = report.suites[0].suites[0].suites[0].specs[0].id;
             const expectedSceneId = new CorrelationId(testId);
 
@@ -95,7 +93,6 @@ describe('Retried', () => {
                     expect(event.sceneId).to.equal(expectedSceneId);
                     expect(event.details.name).to.equal(new Name('Test scenario passes the third time'));
                 })
-                .next(SceneTagged,              event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Retried')))
                 .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Playwright')))
@@ -149,5 +146,5 @@ function arbitraryTagsFrom(events: DomainEvent[]): string[] {
 }
 
 function jsonFrom(pathToFile: string): Record<string, any> {
-    return JSON.parse(fs.readFileSync(path.join(__dirname, '../../../', pathToFile), { encoding: 'utf8' }));
+    return JSON.parse(fs.readFileSync(path.join(__dirname, '../../', pathToFile), { encoding: 'utf8' }));
 }

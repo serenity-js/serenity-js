@@ -3,23 +3,22 @@ import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@se
 import { CapabilityTag, ExecutionSkipped, FeatureTag, Name, ThemeTag } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { playwrightTest } from '../../../src/playwright-test';
+import { playwrightTest } from '../../src/playwright-test';
 
 describe('Skipped', () => {
 
-    describe('Test scenario is considered skipped when', () => {
+    describe('Test scenario is reported as skipped when', () => {
 
         it('is explicitly marked as skipped', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/skipped/skip.spec.ts',
+                'outcomes/skipped/skip.spec.ts',
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip')))
@@ -38,7 +37,6 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as fixme')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Fixme')))
@@ -50,14 +48,13 @@ describe('Skipped', () => {
         it('is skipped conditionally', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/skipped/skip_conditional.spec.ts',
+                'outcomes/skipped/skip_conditional.spec.ts',
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped conditionally')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip conditional')))
@@ -69,14 +66,13 @@ describe('Skipped', () => {
         it('is skipped at the describe level', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/skipped/skip_describe.spec.ts',
+                'outcomes/skipped/skip_describe.spec.ts',
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped at the describe level')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip describe')))
@@ -88,14 +84,13 @@ describe('Skipped', () => {
         it('is skipped conditionally at the describe level', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'native/outcomes/skipped/skip_describe_conditional.spec.ts',
+                'outcomes/skipped/skip_describe_conditional.spec.ts',
             ).then(ifExitCodeIsOtherThan(0, logOutput));
 
             expect(result.exitCode).to.equal(0);
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped conditionally at the describe level')))
-                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Native')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip describe conditional')))
