@@ -1,17 +1,19 @@
 import 'mocha';
-import express = require('express');
-import bodyParser = require('body-parser');
+
+import bodyParser from 'body-parser';
+import type { Express } from 'express';
+import express from 'express';
 
 const pages = new Map<string, string>();
 
-export const app = express()
+export const app: Express = express()
     .use(bodyParser.text())
     .post('/pages/:id', (request: express.Request, response: express.Response) => {
         pages.set(request.params.id, request.body);
-        return response.sendStatus(201);
+        response.sendStatus(201);
     })
     .get('/pages/:id', (request: express.Request, response: express.Response) => {
-        return pages.has(request.params.id)
+        pages.has(request.params.id)
             ? response.send(pages.get(request.params.id))
             : response.sendStatus(404);
     })
