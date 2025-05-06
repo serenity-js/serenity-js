@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.14](https://github.com/serenity-js/serenity-js/compare/v3.31.13...v3.31.14) (2025-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency body-parser to v2 ([e358f2f](https://github.com/serenity-js/serenity-js/commit/e358f2f413c8c34524dd5ad718db25b364c0747f))
+* **deps:** update dependency jasmine to v5.7.0 ([1857fd6](https://github.com/serenity-js/serenity-js/commit/1857fd6b842b237ab5f08e64f6b2f412d399a825))
+* **deps:** update dependency portfinder to v1.0.37 ([ab24ac2](https://github.com/serenity-js/serenity-js/commit/ab24ac2009ff2fcfe8834fe8a3c73c1696d182f4))
+* **deps:** update dependency typescript to v5.8.3 ([b19c09b](https://github.com/serenity-js/serenity-js/commit/b19c09b5e5e7d05e744bc0c8b0b49cd3af89483c))
+* **deps:** update playwright dependencies to v1.52.0 ([fc5faed](https://github.com/serenity-js/serenity-js/commit/fc5faed239ea7af4f7c90f2345e8ff42257bd3ef))
+* **deps:** update react monorepo to v19.1.0 ([#2802](https://github.com/serenity-js/serenity-js/issues/2802)) ([7174bc1](https://github.com/serenity-js/serenity-js/commit/7174bc18c99a0330c90da3d5f9250d960a90dbfb))
+* **deps:** update rest dependencies ([6331afb](https://github.com/serenity-js/serenity-js/commit/6331afbe32c439808b317d497043dd6deb513801))
+* **deps:** update webdriverio dependencies ([4df3ff2](https://github.com/serenity-js/serenity-js/commit/4df3ff222a113618d990ffb08f609a895c56de57))
+
+
+
+
+
 ## [3.31.13](https://github.com/serenity-js/serenity-js/compare/v3.31.12...v3.31.13) (2025-03-20)
 
 
