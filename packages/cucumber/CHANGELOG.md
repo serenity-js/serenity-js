@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.31.15](https://github.com/serenity-js/serenity-js/compare/v3.31.14...v3.31.15) (2025-05-06)
+
+**Note:** Version bump only for package @serenity-js/cucumber
+
+
+
+
+
 ## [3.31.14](https://github.com/serenity-js/serenity-js/compare/v3.31.13...v3.31.14) (2025-04-28)
 
 
