@@ -1,13 +1,7 @@
 import type { FullConfig } from '@playwright/test';
 import type { Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
-import type {
-    ClassDescription,
-    Serenity,
-    StageCrewMember,
-    StageCrewMemberBuilder,
-    Timestamp,
-} from '@serenity-js/core';
-import { LogicError, serenity as reporterSerenityInstance, } from '@serenity-js/core';
+import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
+import { Clock, LogicError, Serenity } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
@@ -23,7 +17,7 @@ import {
     TestRunStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, } from '@serenity-js/core/lib/io';
-import type { CorrelationId, Outcome, Tag } from '@serenity-js/core/lib/model';
+import type { Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
     Category,
@@ -39,6 +33,7 @@ import {
 } from '@serenity-js/core/lib/model';
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
+import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory';
 
 /**
  * Configuration object accepted by `@serenity-js/playwright-test` reporter.
@@ -74,25 +69,30 @@ export interface SerenityReporterForPlaywrightTestConfig {
  * Serenity/JS [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/).
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
-    private errorParser = new PlaywrightErrorParser();
-    private sceneIds: Map<string, CorrelationId> = new Map();
+    private readonly errorParser = new PlaywrightErrorParser();
+    private readonly sceneIdFactory: PlaywrightTestSceneIdFactory;
+    private readonly serenity: Serenity;
     private unhandledError?: Error;
 
     /**
      * @param config
-     * @param serenity
-     *  Instance of [`Serenity`](https://serenity-js.org/api/core/class/Serenity/), specific to the Node process running this Serenity reporter.
-     *  Note that Playwright runs test workers and reporters in separate processes.
      * @param requirementsHierarchy
      *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
      */
     constructor(
         config: SerenityReporterForPlaywrightTestConfig,
-        private readonly serenity: Serenity = reporterSerenityInstance,
         private requirementsHierarchy: RequirementsHierarchy = new RequirementsHierarchy(
             new FileSystem(Path.from(process.cwd())),
         ),
     ) {
+        this.sceneIdFactory = new PlaywrightTestSceneIdFactory();
+
+        // todo: consider using the constructor to provide the initial config
+        this.serenity = new Serenity(
+            new Clock(),
+            process.cwd(),
+            this.sceneIdFactory,
+        )
         this.serenity.configure(config);
     }
 
@@ -105,9 +105,8 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     onTestBegin(test: TestCase): void {
+        this.sceneIdFactory.setTestId(test.id);
         const currentSceneId = this.serenity.assignNewSceneId();
-
-        this.sceneIds.set(test.id, currentSceneId);
 
         const { scenarioDetails, scenarioTags } = this.scenarioDetailsFrom(test);
 
@@ -137,15 +136,18 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     // onStepBegin(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepBegin');
     // }
+    // todo: add stdout -> Log https://github.com/microsoft/playwright/blob/main/packages/playwright/src/reporters/list.ts#L67
 
     // onStepEnd(test: TestCase, _result: TestResult, step: TestStep): void {
     //     // console.log('>> onStepEnd');
     // }
 
+    // todo:
+    //  - this catches events from afterAll hooks
     onTestEnd(test: TestCase, result: TestResult): void {
         this.announceRetryIfNeeded(test, result);
 
-        const currentSceneId = this.sceneIds.get(test.id);
+        const currentSceneId = this.serenity.currentSceneId();
 
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
@@ -295,19 +297,19 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             return;
         }
 
-        const currentSceneId = this.sceneIds.get(test.id);
+        const currentSceneId = this.serenity.currentSceneId();
 
         this.emit(
             new RetryableSceneDetected(currentSceneId, this.now()),
-            new SceneTagged(
-                currentSceneId,
-                new ArbitraryTag('retried'), // todo: replace with a dedicated tag
-                this.now(),
-            ),
         );
 
-        if (result.retry > 0) {
+        if (result.retry > 0 || result.status !== 'passed') {
             this.emit(
+                new SceneTagged(
+                    currentSceneId,
+                    new ArbitraryTag('retried'), // todo: replace with a dedicated tag
+                    this.now(),
+                ),
                 new SceneTagged(
                     currentSceneId,
                     new ExecutionRetriedTag(result.retry),
