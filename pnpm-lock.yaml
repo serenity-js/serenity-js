@@ -2615,8 +2615,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       koa:
-        specifier: 2.16.1
-        version: 2.16.1
+        specifier: 3.0.0
+        version: 3.0.0
       mocha:
         specifier: 11.2.2
         version: 11.2.2
@@ -7934,13 +7934,9 @@ packages:
   koa-compose@4.1.0:
     resolution: {integrity: sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==}
 
-  koa-convert@2.0.0:
-    resolution: {integrity: sha512-asOvN6bFlSnxewce2e/DK3p4tltyfC4VM7ZwuTuepI7dEQVcvpyFuBcEARu1+Hxg8DIwytce2n7jrZtRlPrARA==}
-    engines: {node: '>= 10'}
-
-  koa@2.16.1:
-    resolution: {integrity: sha512-umfX9d3iuSxTQP4pnzLOz0HKnPg0FaUUIKcye2lOiz3KPu1Y3M3xlz76dISdFPQs37P9eJz1wUpcTS6KDPn9fA==}
-    engines: {node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4}
+  koa@3.0.0:
+    resolution: {integrity: sha512-Usyqf1o+XN618R3Jzq4S4YWbKsRtPcGpgyHXD4APdGYQQyqQ59X+Oyc7fXHS2429stzLsBiDjj6zqqYe8kknfw==}
+    engines: {node: '>= 18'}
 
   ky@0.33.3:
     resolution: {integrity: sha512-CasD9OCEQSFIam2U8efFK81Yeg8vNMTBUqtMOHlrcWQHqUX3HeCl9Dr31u4toV7emlH8Mymk5+9p0lL6mKb/Xw==}
@@ -8723,9 +8719,6 @@ packages:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
     engines: {node: '>=12'}
 
-  only@0.0.2:
-    resolution: {integrity: sha512-Fvw+Jemq5fjjyWz6CpKx6w9s7xxqo3+JCyM0WXWeCSOboZ8ABkyvP8ID4CZuChA/wxSx+XSJmdOm8rGVyJ1hdQ==}
-
   open@6.4.0:
     resolution: {integrity: sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==}
     engines: {node: '>=8'}
@@ -9213,6 +9206,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
@@ -17221,12 +17215,7 @@ snapshots:
 
   koa-compose@4.1.0: {}
 
-  koa-convert@2.0.0:
-    dependencies:
-      co: 4.6.0
-      koa-compose: 4.1.0
-
-  koa@2.16.1:
+  koa@3.0.0:
     dependencies:
       accepts: 1.3.8
       cache-content-type: 1.0.1
@@ -17235,21 +17224,17 @@ snapshots:
       cookies: 0.9.1
       debug: 4.4.0(supports-color@5.5.0)
       delegates: 1.0.0
-      depd: 2.0.0
       destroy: 1.2.0
-      encodeurl: 1.0.2
+      encodeurl: 2.0.0
       escape-html: 1.0.3
       fresh: 0.5.2
       http-assert: 1.5.0
-      http-errors: 1.8.1
-      is-generator-function: 1.1.0
+      http-errors: 2.0.0
       koa-compose: 4.1.0
-      koa-convert: 2.0.0
       on-finished: 2.4.1
-      only: 0.0.2
       parseurl: 1.3.3
-      statuses: 1.5.0
-      type-is: 1.6.18
+      statuses: 2.0.1
+      type-is: 2.0.1
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
@@ -18184,8 +18169,6 @@ snapshots:
   onetime@6.0.0:
     dependencies:
       mimic-fn: 4.0.0
-
-  only@0.0.2: {}
 
   open@6.4.0:
     dependencies:
