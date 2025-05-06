@@ -23,8 +23,7 @@ import {
     ExecutionSuccessful,
     FeatureTag,
     Name,
-    ProblemIndication,
-    ThemeTag
+    ProblemIndication
 } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
