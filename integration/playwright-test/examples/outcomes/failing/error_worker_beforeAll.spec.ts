@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 
-test.describe('Error worker', () => {
+test.describe('Error worker beforeAll', () => {
 
     test.describe('Test scenario', () => {
 

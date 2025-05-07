@@ -2,11 +2,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AssertionError, ConfigurationError, LogicError, TestCompromisedError } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { AssertionError, ConfigurationError, LogicError, TestCompromisedError, Timestamp } from '@serenity-js/core';
+import {
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunFinished,
+    TestRunFinishes,
+    TestRunnerDetected,
+    TestRunStarts
+} from '@serenity-js/core/lib/events';
 import { trimmed } from '@serenity-js/core/lib/io';
 import {
     CapabilityTag,
+    CorrelationId,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -229,21 +238,32 @@ describe('Failing', () => {
             ;
         });
 
-        it('fails with a global, worker-level error', async () => {
+        it('fails with a global, worker-level beforeAll error', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'outcomes/failing/error_worker.spec.ts',
+                '--reporter=json:output/failing/error_worker_beforeAll.json',
+                'outcomes/failing/error_worker_beforeAll.spec.ts',
             ).then(ifExitCodeIsOtherThan(1, logOutput));
 
             expect(result.exitCode).to.equal(1);
 
+            const report = jsonFrom('output/failing/error_worker_beforeAll.json');
+            const testId = report.suites[0].suites[0].suites[0].specs[0].id;
+
+            const expectedTestId = new CorrelationId(testId);
+
             PickEvent.from(result.events)
-                .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error')))
+                .next(SceneStarts, event => {
+                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
+                })
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
-                .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker beforeAll')))
                 .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
+                    expect(event.sceneId).to.equal(expectedTestId);
+
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
 
@@ -251,6 +271,83 @@ describe('Failing', () => {
 
                     expect(error).to.be.instanceof(Error);
                     expect(error.message).to.equal(`Error: Example worker-level error`);
+                })
+            ;
+        });
+
+        it('fails with a global, worker-level afterAll error', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                '--reporter=json:output/failing/error_worker_afterAll.json',
+                'outcomes/failing/error_worker_afterAll.spec.ts',
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
+
+            expect(result.exitCode).to.equal(1);
+
+            const report = jsonFrom('output/failing/error_worker_afterAll.json');
+            const testId = report.suites[0].suites[0].suites[0].specs[0].id;
+
+            const expectedTestId = new CorrelationId(testId);
+
+            PickEvent.from(result.events)
+                .next(SceneStarts, event => {
+                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
+                })
+                .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker afterAll')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneFinished, event => {
+                    expect(event.sceneId).to.equal(expectedTestId);
+
+                    const outcome = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                    const error = outcome.error as Error;
+
+                    expect(error).to.be.instanceof(Error);
+                    expect(error.message).to.equal(`Error: Example worker-level error`);
+                })
+            ;
+        });
+
+        it('fails with a global, worker-level error preventing tests from being generated', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                '--reporter=json:output/failing/error_worker_generator.json',
+                'outcomes/failing/error_worker_generator.spec.ts',
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
+
+            expect(result.exitCode).to.equal(1);
+
+            const report = jsonFrom('output/failing/error_worker_generator.json');
+            expect(report.suites).to.have.lengthOf(0);
+            expect(report.errors).to.have.lengthOf(2);
+            // there should be no tests reported since the generator failed
+            expect(result.events).to.have.lengthOf(3);
+
+            const errorMessages = report.errors
+                .map((error: { message: string, stack: string }) => error.message)
+                .map((message: string) => /^(.*?)(\.|$)/.exec(message)?.[1]);
+
+            expect(errorMessages).to.deep.equal([
+                'Error: Worker-level error preventing test generation',
+                'Error: No tests found'
+            ]);
+
+            PickEvent.from(result.events)
+                .next(TestRunStarts, event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(TestRunFinishes, event => expect(event.timestamp).to.be.instanceof(Timestamp))
+                .next(TestRunFinished, event => {
+                    const outcome = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+
+                    const error = outcome.error as Error;
+
+                    expect(error).to.be.instanceof(Error);
+                    expect(error.message).to.equal('Error: Worker-level error preventing test generation');
+                    expect(error.stack).to.equal(report.errors[0].stack);
                 })
             ;
         });
