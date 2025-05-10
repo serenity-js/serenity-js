@@ -1,38 +1,16 @@
 import type { FullConfig } from '@playwright/test';
-import type { Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
-import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
-import { Clock, LogicError, Serenity } from '@serenity-js/core';
+import type { FullResult, Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
+import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
+import { Clock, Duration, Serenity, Timestamp } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
 import * as events from '@serenity-js/core/lib/events';
-import {
-    InteractionFinished,
-    RetryableSceneDetected,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged,
-    TestRunFinished,
-    TestRunFinishes,
-    TestRunnerDetected,
-    TestRunStarts
-} from '@serenity-js/core/lib/events';
-import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, } from '@serenity-js/core/lib/io';
-import type { Outcome, Tag } from '@serenity-js/core/lib/model';
-import {
-    ArbitraryTag,
-    Category,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionRetriedTag,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    Name,
-    ScenarioDetails,
-    Tags,
-} from '@serenity-js/core/lib/model';
+import { InteractionFinished, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import type { Outcome } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
 
 import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
+import { PlaywrightErrorParser } from './PlaywrightErrorParser';
+import { PlaywrightEventBuffer } from './PlaywrightEventBuffer';
 import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory';
 
 /**
@@ -74,17 +52,14 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     private readonly serenity: Serenity;
     private unhandledError?: Error;
 
+    private readonly eventBuffer: PlaywrightEventBuffer = new PlaywrightEventBuffer();
+
     /**
      * @param config
      * @param requirementsHierarchy
      *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
      */
-    constructor(
-        config: SerenityReporterForPlaywrightTestConfig,
-        private requirementsHierarchy: RequirementsHierarchy = new RequirementsHierarchy(
-            new FileSystem(Path.from(process.cwd())),
-        ),
-    ) {
+    constructor(config: SerenityReporterForPlaywrightTestConfig) {
         this.sceneIdFactory = new PlaywrightTestSceneIdFactory();
 
         // todo: consider using the constructor to provide the initial config
@@ -97,39 +72,13 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
-        this.requirementsHierarchy = new RequirementsHierarchy(
-            new FileSystem(Path.from(config.rootDir)),
-        );
+        this.eventBuffer.configure(config);
 
-        this.serenity.announce(new TestRunStarts(this.now()));
+        this.serenity.announce(new TestRunStarts(this.serenity.currentTime()));
     }
 
-    onTestBegin(test: TestCase): void {
-        this.sceneIdFactory.setTestId(test.id);
-        const currentSceneId = this.serenity.assignNewSceneId();
-
-        const { scenarioDetails, scenarioTags } = this.scenarioDetailsFrom(test);
-
-        const tags: Tag[] = [
-            ... scenarioTags,
-            ... test.tags.flatMap(tag => Tags.from(tag)),
-        ];
-
-        this.emit(
-            new SceneStarts(currentSceneId, scenarioDetails, this.serenity.currentTime()),
-
-            ...this.requirementsHierarchy
-                .requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
-                .map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
-
-            new TestRunnerDetected(
-                currentSceneId,
-                new Name('Playwright'),
-                this.serenity.currentTime(),
-            ),
-
-            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
-        );
+    onTestBegin(test: TestCase, result: TestResult): void {
+        this.eventBuffer.recordTestStart(test, result);
     }
 
     // TODO might be nice to support that by emitting TestStepStarted / Finished
@@ -145,10 +94,12 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     // todo:
     //  - this catches events from afterAll hooks
     onTestEnd(test: TestCase, result: TestResult): void {
-        this.announceRetryIfNeeded(test, result);
+        // todo: read file
+        // ...
 
-        const currentSceneId = this.serenity.currentSceneId();
+        const currentSceneId = new CorrelationId(test.id);
 
+        // TODO: read events from the file instead of the attachment
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
 
         for (const attachment of result.attachments) {
@@ -165,7 +116,7 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
                 const event = events[message.type].fromJSON(message.value);
 
-                this.serenity.announce(event);
+                this.eventBuffer.push(currentSceneId, event);
 
                 if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
                     worstInteractionOutcome = event.outcome;
@@ -173,15 +124,11 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             }
         }
 
-        const scenarioOutcome = this.outcomeFrom(test, result);
+        // todo: if no file, emit the buffered events
+        this.eventBuffer.recordTestEnd(test, result, worstInteractionOutcome);
 
         this.serenity.announce(
-            new SceneFinished(
-                currentSceneId,
-                this.scenarioDetailsFrom(test).scenarioDetails,
-                this.determineScenarioOutcome(worstInteractionOutcome, scenarioOutcome),
-                this.now(),
-            ),
+            ...this.eventBuffer.flush(test.id)
         );
     }
 
@@ -191,72 +138,10 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         }
     }
 
-    private determineScenarioOutcome(
-        worstInteractionOutcome: Outcome,
-        scenarioOutcome: Outcome,
-    ): Outcome {
-        if (worstInteractionOutcome instanceof ExecutionFailedWithAssertionError) {
-            return worstInteractionOutcome;
-        }
+    async onEnd(fullResult: FullResult): Promise<void> {
 
-        return worstInteractionOutcome.isWorseThan(scenarioOutcome)
-            ? worstInteractionOutcome
-            : scenarioOutcome;
-    }
-
-    private outcomeFrom(test: TestCase, result: TestResult): Outcome {
-        const outcome = test.outcome();
-
-        if (outcome === 'skipped') {
-            return new ExecutionSkipped();
-        }
-
-        if (outcome === 'unexpected' && result.status === 'passed') {
-            return new ExecutionFailedWithError(
-                new LogicError(`Scenario expected to fail, but ${ result.status }`),
-            );
-        }
-
-        if ([ 'failed', 'interrupted', 'timedOut' ].includes(result.status)) {
-            if (test.retries > result.retry) {
-                return new ExecutionIgnored(this.errorParser.errorFrom(result.error));
-            }
-
-            return new ExecutionFailedWithError(
-                this.errorParser.errorFrom(result.error),
-            );
-        }
-
-        return new ExecutionSuccessful();
-    }
-
-    private scenarioDetailsFrom(test: TestCase): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
-        const [
-            root_,
-            browserName_,
-            fileName,
-            describeOrItBlockTitle,
-            ...nestedTitles
-        ] = test.titlePath();
-
-        const path = new Path(test.location.file);
-        const scenarioName = nestedTitles.join(' ').trim();
-
-        const name = scenarioName || describeOrItBlockTitle;
-        const featureName = scenarioName ? describeOrItBlockTitle : fileName;
-
-        return {
-            scenarioDetails: new ScenarioDetails(
-                new Name(Tags.stripFrom(name)),
-                new Category(Tags.stripFrom(featureName)),
-                new FileSystemLocation(path, test.location.line, test.location.column),
-            ),
-            scenarioTags: Tags.from(`${ featureName } ${ name }`),
-        };
-    }
-
-    async onEnd(): Promise<void> {
-        this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()));
+        const endTime = new Timestamp(fullResult.startTime).plus(Duration.ofMilliseconds(Math.round(fullResult.duration)));
+        this.serenity.announce(new TestRunFinishes(endTime));
 
         try {
             await this.serenity.waitForNextCue();
@@ -268,96 +153,26 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             this.serenity.announce(
                 new TestRunFinished(
                     outcome,
-                    this.serenity.currentTime(),
+                    endTime,
                 ),
             );
         } catch (error) {
             this.serenity.announce(
                 new TestRunFinished(
                     new ExecutionFailedWithError(error),
-                    this.serenity.currentTime(),
+                    endTime,
                 ),
             );
+
             throw error;
         }
     }
 
-    // TODO emit a text artifact with stdout?
+    // TODO emit a text artifact with stdout
     // reporter.onStdErr(chunk, test, result)
     // reporter.onStdOut(chunk, test, result)
 
-    private emit(...events: DomainEvent[]): void {
-        events.forEach((event) => {
-            this.serenity.announce(event);
-        });
-    }
-
-    private announceRetryIfNeeded(test: TestCase, result: TestResult): void {
-        if (test.retries === 0) {
-            return;
-        }
-
-        const currentSceneId = this.serenity.currentSceneId();
-
-        this.emit(
-            new RetryableSceneDetected(currentSceneId, this.now()),
-        );
-
-        if (result.retry > 0 || result.status !== 'passed') {
-            this.emit(
-                new SceneTagged(
-                    currentSceneId,
-                    new ArbitraryTag('retried'), // todo: replace with a dedicated tag
-                    this.now(),
-                ),
-                new SceneTagged(
-                    currentSceneId,
-                    new ExecutionRetriedTag(result.retry),
-                    this.serenity.currentTime(),
-                ),
-            );
-        }
-    }
-
-    private now(): Timestamp {
-        return this.serenity.currentTime();
-    }
-
     printsToStdio(): boolean {
         return true;
-    }
-}
-
-class PlaywrightErrorParser {
-    private static ascii = new RegExp(
-        '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))', // eslint-disable-line no-control-regex
-        'g',
-    );
-
-    public errorFrom(testError: TestError): Error {
-        const message = testError.message && PlaywrightErrorParser.stripAsciiFrom(testError.message);
-
-        let stack = testError.stack && PlaywrightErrorParser.stripAsciiFrom(testError.stack);
-
-        // TODO: Do I need to process it?
-        // const value     = testError.value;
-
-        const prologue = `Error: ${ message }`;
-        if (stack && message && stack.startsWith(prologue)) {
-            stack = stack.slice(prologue.length);
-        }
-
-        if (testError.cause) {
-            stack += `\nCaused by: ${ this.errorFrom(testError.cause).stack }`;
-        }
-
-        const error = new Error(message);
-        error.stack = stack;
-
-        return error;
-    }
-
-    private static stripAsciiFrom(text: string): string {
-        return text.replace(this.ascii, '');
     }
 }
