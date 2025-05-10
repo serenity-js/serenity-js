@@ -31,217 +31,217 @@ describe('@serenity-js/playwright-test', function () {
 
     describe('reports events that occur when a Screenplay Pattern scenario', () => {
 
-        it('passes with a single actor', () =>
-            playwrightTest('--project=default', 'screenplay/passing-single-actor.spec.ts')
-                .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(result => {
+        it('passes with a single actor', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                'screenplay/passing-single-actor.spec.ts'
+            ).then(ifExitCodeIsOtherThan(0, logOutput));
 
-                    expect(result.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-                    let currentSceneId: CorrelationId,
-                        asyncOperationIdAlice: CorrelationId;
+            let currentSceneId: CorrelationId,
+                asyncOperationIdAlice: CorrelationId;
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => {
-                            expect(event.details.name).to.equal(new Name('A screenplay scenario propagates events to Serenity reporter'));
-                            currentSceneId = event.sceneId
-                        })
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        .next(InteractionStarts,   event => {
-                            expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
-                            expect(event.sceneId).to.equal(currentSceneId);
-                        })
-                        .next(InteractionFinished,   event => {
-                            expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
-                            expect(event.sceneId).to.equal(currentSceneId);
-                        })
-                        .next(ActorStageExitAttempted,   event => {
-                            expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('A screenplay scenario propagates events to Serenity reporter'));
+                    currentSceneId = event.sceneId
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(InteractionStarts,   event => {
+                    expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(InteractionFinished,   event => {
+                    expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
+                    expect(event.sceneId).to.equal(currentSceneId);
+                })
+                .next(ActorStageExitAttempted,   event => {
+                    expect(event.name).to.equal(new Name(`Stage`));
+                    expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
 
-                            asyncOperationIdAlice = event.correlationId;
-                        })
-                        .next(ActorStageExitCompleted,   event => {
-                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
-                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
-                        })
-                        .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
-                    ;
-                }));
+                    asyncOperationIdAlice = event.correlationId;
+                })
+                .next(ActorStageExitCompleted,   event => {
+                    expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                    expect(event.correlationId).to.equal(asyncOperationIdAlice);
+                })
+                .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+            ;
+        });
 
-        it('passes with multiple actors', () =>
-            playwrightTest('--project=default', 'screenplay/passing-multiple-actors.spec.ts')
-                .then(ifExitCodeIsOtherThan(0, logOutput))
-                .then(result => {
+        it('passes with multiple actors', async () => {
+            const result = await playwrightTest('--project=default', 'screenplay/passing-multiple-actors.spec.ts')
+                .then(ifExitCodeIsOtherThan(0, logOutput));
 
-                    expect(result.exitCode).to.equal(0);
+            expect(result.exitCode).to.equal(0);
 
-                    let asyncOperationIdAlice: CorrelationId,
-                        asyncOperationIdBob: CorrelationId,
-                        asyncOperationIdCharlie: CorrelationId;
+            let asyncOperationIdAlice: CorrelationId,
+                asyncOperationIdBob: CorrelationId,
+                asyncOperationIdCharlie: CorrelationId;
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => {
-                            expect(event.details.name).to.equal(new Name('A screenplay scenario supports multiple actors'))
-                        })
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+            PickEvent.from(result.events)
+                .next(SceneStarts, event => {
+                    expect(event.details.name).to.equal(new Name('A screenplay scenario supports multiple actors'))
+                })
+                .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
 
-                    // we already know reporting interactions work, so let's focus on dismissing the actors
+                // we already know reporting interactions work, so let's focus on dismissing the actors
+                .next(ActorStageExitAttempted, event => {
+                    expect(event.name).to.equal(new Name(`Stage`));
+                    expect(event.description).to.equal(new Description(`Actor Charlie exits the stage`));
 
-                        .next(ActorStageExitAttempted,   event => {
-                            expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Actor Charlie exits the stage`));
+                    asyncOperationIdCharlie = event.correlationId;
+                })
+                .next(ActorStageExitAttempted, event => {
+                    expect(event.name).to.equal(new Name(`Stage`));
+                    expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
 
-                            asyncOperationIdCharlie = event.correlationId;
-                        })
-                        .next(ActorStageExitAttempted,   event => {
-                            expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Actor Alice exits the stage`));
+                    asyncOperationIdAlice = event.correlationId;
+                })
+                .next(ActorStageExitAttempted, event => {
+                    expect(event.name).to.equal(new Name(`Stage`));
+                    expect(event.description).to.equal(new Description(`Actor Bob exits the stage`));
 
-                            asyncOperationIdAlice = event.correlationId;
-                        })
-                        .next(ActorStageExitAttempted,   event => {
-                            expect(event.name).to.equal(new Name(`Stage`));
-                            expect(event.description).to.equal(new Description(`Actor Bob exits the stage`));
+                    asyncOperationIdBob = event.correlationId;
+                })
+                .next(ActorStageExitCompleted, event => {
+                    expect(asyncOperationIdCharlie).to.be.instanceOf(CorrelationId);
+                    expect(event.correlationId).to.equal(asyncOperationIdCharlie);
+                })
+                .next(ActorStageExitCompleted, event => {
+                    expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
+                    expect(event.correlationId).to.equal(asyncOperationIdAlice);
+                })
+                .next(ActorStageExitCompleted, event => {
+                    expect(asyncOperationIdBob).to.be.instanceOf(CorrelationId);
+                    expect(event.correlationId).to.equal(asyncOperationIdBob);
+                })
+                .next(SceneFinished, event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
+            ;
+        });
 
-                            asyncOperationIdBob = event.correlationId;
-                        })
-                        .next(ActorStageExitCompleted,   event => {
-                            expect(asyncOperationIdCharlie).to.be.instanceOf(CorrelationId);
-                            expect(event.correlationId).to.equal(asyncOperationIdCharlie);
-                        })
-                        .next(ActorStageExitCompleted,   event => {
-                            expect(asyncOperationIdAlice).to.be.instanceOf(CorrelationId);
-                            expect(event.correlationId).to.equal(asyncOperationIdAlice);
-                        })
-                        .next(ActorStageExitCompleted,   event => {
-                            expect(asyncOperationIdBob).to.be.instanceOf(CorrelationId);
-                            expect(event.correlationId).to.equal(asyncOperationIdBob);
-                        })
-                        .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
-                    ;
-                }));
+        it('fails because of a failing Screenplay expectation', async () => {
+            const result = await playwrightTest('--project=default', 'screenplay/assertion-error.spec.ts')
+                .then(ifExitCodeIsOtherThan(1, logOutput));
 
-        it('fails because of a failing Screenplay expectation', () =>
-            playwrightTest('--project=default', 'screenplay/assertion-error.spec.ts')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
-                .then(result => {
+            expect(result.exitCode).to.equal(1);
 
-                    expect(result.exitCode).to.equal(1);
+            PickEvent.from(result.events)
+                .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
+                .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneFinished, event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        .next(SceneFinished,       event => {
-                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(outcome.error.name).to.equal('AssertionError');
+                    expect(outcome.error.message).to.match(new RegExp(trimmed`
+                        | Expected false to equal true
+                        |
+                        | Expectation: equals\\(true\\)
+                        |
+                        | \\[32mExpected boolean: true\\[39m
+                        | \\[31mReceived boolean: false\\[39m
+                        |
+                        | \\s{4}at .*screenplay/assertion-error.spec.ts:10:24`));
+                })
+            ;
+        });
 
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
-                            expect(outcome.error.name).to.equal('AssertionError');
-                            expect(outcome.error.message).to.match(new RegExp(trimmed`
-                                | Expected false to equal true
-                                |
-                                | Expectation: equals\\(true\\)
-                                |
-                                | \\[32mExpected boolean: true\\[39m
-                                | \\[31mReceived boolean: false\\[39m
-                                |
-                                | \\s{4}at .*screenplay/assertion-error.spec.ts:10:24`));
-                        })
-                    ;
-                }));
+        it('fails when discarding of an ability results in Error', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                'screenplay/ability-discard-error.spec.ts'
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
 
-        it('fails when discarding of an ability results in Error', () =>
-            playwrightTest('--project=default', 'screenplay/ability-discard-error.spec.ts')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
-                .then(result => {
-                    expect(result.exitCode).to.equal(1);
+            expect(result.exitCode).to.equal(1);
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        .next(SceneFinished,       event => {
-                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneFinished,       event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error.name).to.equal('Error');
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect(outcome.error.name).to.equal('Error');
 
-                            const message = outcome.error.message.split('\n');
+                    const message = outcome.error.message.split('\n');
 
-                            expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
-                        })
-                    ;
-                }));
+                    expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
+                    expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
+                })
+            ;
+        });
 
-        it(`fails when discarding of an ability doesn't complete within a timeout`, () =>
-            playwrightTest('--project=default', 'screenplay/ability-discard-timeout.spec.ts')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
-                .then(result => {
-                    expect(result.exitCode).to.equal(1);
+        it(`fails when discarding of an ability doesn't complete within a timeout`, async () => {
+            const result = await playwrightTest('--project=default', 'screenplay/ability-discard-timeout.spec.ts')
+                .then(ifExitCodeIsOtherThan(1, logOutput));
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
-                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
-                        .next(SceneFinished,       event => {
-                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+            expect(result.exitCode).to.equal(1);
 
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error.name).to.equal('Error');
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneFinished,       event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
-                            const message = outcome.error.message.split('\n');
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect(outcome.error.name).to.equal('Error');
 
-                            expect(message[0]).to.equal('Error: 1 async operation has failed to complete within a 50ms cue timeout:');
-                            expect(message[1]).to.match(/\d+ms - \[Stage] Actor Donald exits the stage/);
-                        })
-                    ;
-                }));
+                    const message = outcome.error.message.split('\n');
 
-        it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
-            playwrightTest('--project=default', 'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
-                .then(ifExitCodeIsOtherThan(1, logOutput))
-                .then(result => {
-                    expect(result.exitCode).to.equal(1);
+                    expect(message[0]).to.equal('Error: 1 async operation has failed to complete within a 50ms cue timeout:');
+                    expect(message[1]).to.match(/\d+ms - \[Stage] Actor Donald exits the stage/);
+                })
+            ;
+        });
 
-                    PickEvent.from(result.events)
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
-                        .next(SceneFinished,       event => {
-                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+        it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, async () => {
+            const result = await playwrightTest('--project=default', '--reporter=json:output/screenplay/ability_error.json', 'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
+                .then(ifExitCodeIsOtherThan(1, logOutput));
 
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error.name).to.equal('Error');
+            expect(result.exitCode).to.equal(1);
 
-                            const message = outcome.error.message.split('\n');
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                .next(SceneFinished,       event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
-                            expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
-                        })
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario succeeds when ability is discarded successfully')))
-                        .next(SceneFinished,       event => {
-                            expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
-                        })
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
-                        .next(SceneFinished,       event => {
-                            const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect(outcome.error.name).to.equal('Error');
 
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error.name).to.equal('Error');
+                    const message = outcome.error.message.split('\n');
 
-                            const message = outcome.error.message.split('\n');
+                    expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
+                    expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
+                })
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario succeeds when ability is discarded successfully')))
+                .next(SceneFinished,       event => {
+                    expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
+                })
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
+                .next(SceneFinished,       event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
-                            expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
-                            expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
-                        })
-                    ;
-                }));
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
+                    expect(outcome.error.name).to.equal('Error');
+
+                    const message = outcome.error.message.split('\n');
+
+                    expect(message[0]).to.equal('Error: 1 async operation has failed to complete:');
+                    expect(message[1]).to.equal('[Stage] Actor Donald exits the stage - TypeError: Some internal error in ability');
+                })
+            ;
+        });
     });
 });
