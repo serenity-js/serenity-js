@@ -6,6 +6,7 @@ export * from './Artifact';
 export * from './BusinessRule';
 export * from './Category';
 export * from './CorrelationId';
+export * from './CorrelationIdFactory';
 export * from './Description';
 export * from './Name';
 export * from './outcomes';

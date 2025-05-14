@@ -1,11 +1,11 @@
+import { test } from '@playwright/test';
 import { ConfigurationError } from '@serenity-js/core';
-import { describe, it } from '@serenity-js/playwright-test';
 
-describe('Playwright Test reporting', () => {
+test.describe('Error configuration', () => {
 
-    describe('A scenario', () => {
+    test.describe('Test scenario', () => {
 
-        it('fails with a Serenity/JS ConfigurationError', () => {
+        test('fails with a Serenity/JS ConfigurationError', () => {
             try {
                 throw new Error('Example nested error');
             }

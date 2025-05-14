@@ -41,7 +41,7 @@ describe('@serenity-js/playwright-test', function () {
                         .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario receives an actor from a custom cast')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test configuration')))
-                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: a note of contextOptions`)))
+                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name(`Alice logs: a note of extraContextOptions`)))
                         .next(ActivityRelatedArtifactGenerated,   event => {
                             expect(event.artifact.map(value => JSON.parse(value.data))).to.deep.equal({
                                 defaultNavigationTimeout: 30000,
