@@ -1,4 +1,4 @@
-import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
+import { ensure, isInstanceOf } from 'tiny-types';
 
 import type { OutputStream } from './adapter';
 import type { SerenityConfig } from './config';
@@ -83,18 +83,12 @@ export class Serenity implements EmitsDomainEvents {
             this.outputStream = config.outputStream;
         }
 
-        this.stage = new Stage(
-            Serenity.defaultActors,
-            new StageManager(cueTimeout, this.clock),
-            new ErrorFactory(config.diffFormatter ?? new NoOpDiffFormatter()),
-            this.clock,
+        this.stage.configure({
+            actors: config.actors ?? Serenity.defaultActors,
+            cueTimeout,
             interactionTimeout,
-            this.sceneIdFactory,
-        );
-
-        if (config.actors) {
-            this.engage(config.actors);
-        }
+            diffFormatter: config.diffFormatter ?? new NoOpDiffFormatter(),
+        });
 
         if (Array.isArray(config.crew)) {
             this.stage.assign(
@@ -192,9 +186,7 @@ export class Serenity implements EmitsDomainEvents {
      * @param actors
      */
     engage(actors: Cast): void {
-        this.stage.engage(
-            ensure('actors', actors, property('prepare', isDefined())),
-        );
+        this.stage.engage(actors);
     }
 
     /**
