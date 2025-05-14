@@ -1,7 +1,6 @@
 import { EventRecorder } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import type { Actor } from '@serenity-js/core';
-import { Clock, Serenity } from '@serenity-js/core';
+import { actorCalled, Cast, Clock, engage, Serenity } from '@serenity-js/core';
 import {
     ActivityFinished,
     ActivityRelatedArtifactGenerated,
@@ -16,8 +15,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
-import { GetRequest, LastResponse, Send } from '../../../src';
-import { actorUsingAMockedAxiosInstance, APIActors } from '../../actors';
+import { CallAnApi, GetRequest, LastResponse, Send } from '../../../src';
+import { actors } from '../../actors';
 import { expect } from '../../expect';
 
 describe('Send', () => {
@@ -26,46 +25,45 @@ describe('Send', () => {
         id: number;
     }
 
-    let actor: Actor,
-        mock: MockAdapter;
+    let mock: MockAdapter;
 
     beforeEach(() => {
-        const fixtures = actorUsingAMockedAxiosInstance();
-        actor = fixtures.actor;
-        mock = fixtures.mock;
+        const context = actors();
+
+        engage(context.actors);
+
+        mock = context.mock;
     });
 
-    afterEach(async () => {
-        await actor.dismiss();
-    });
+    afterEach(() =>  mock.reset());
 
     it('correctly detects its invocation location', () => {
         const activity = Send.a(GetRequest.to('products/2'));
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Send.spec.ts');
-        expect(location.line).to.equal(43);
+        expect(location.line).to.equal(41);
         expect(location.column).to.equal(31);
     });
 
-    it('enables the actor to send a HTTPRequest', () => {
+    it('enables the actor to send a HTTPRequest', async () => {
         mock.onGet('/products/2').reply(200, {
             id: 2,
         });
 
-        return actor.attemptsTo(
+        await actorCalled('Apisitt').attemptsTo(
             Send.a(GetRequest.to('/products/2')),
             Ensure.that(LastResponse.status(), equals(200)),
             Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),
         );
     });
 
-    it('enables the actor to send an Axios Request', () => {
+    it('enables the actor to send an Axios Request', async () => {
         mock.onGet('/products/2').reply(200, {
             id: 2,
         });
 
-        return actor.attemptsTo(
+        await actorCalled('Apisitt').attemptsTo(
             Send.a({
                 method: 'get',
                 url: '/products/2',
@@ -85,7 +83,7 @@ describe('Send', () => {
         const recorder = new EventRecorder();
 
         serenity.configure({
-            actors: new APIActors(axiosInstance),
+            actors: Cast.where(actor => actor.whoCan(CallAnApi.using(axiosInstance))),
             crew: [ recorder ],
         });
 
