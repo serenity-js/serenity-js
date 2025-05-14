@@ -1,8 +1,9 @@
-import { ensure, isDefined } from 'tiny-types';
+import { ensure, isDefined, property } from 'tiny-types';
 
+import type { SerenityConfig } from '../config';
 import {
     ConfigurationError,
-    type ErrorFactory,
+    ErrorFactory,
     type ErrorOptions,
     LogicError,
     RaiseErrors,
@@ -79,10 +80,10 @@ export class Stage implements EmitsDomainEvents {
      */
     constructor(
         private cast: Cast,
-        private readonly manager: StageManager,
+        private manager: StageManager,
         private errors: ErrorFactory,
         private readonly clock: Clock,
-        private readonly interactionTimeout: Duration,
+        private interactionTimeout: Duration,
         private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         ensure('Cast', cast, isDefined());
@@ -91,6 +92,22 @@ export class Stage implements EmitsDomainEvents {
         ensure('Clock', clock, isDefined());
         ensure('interactionTimeout', interactionTimeout, isDefined());
         ensure('sceneIdFactory', sceneIdFactory, isDefined());
+    }
+
+    configure(options: Pick<SerenityConfig, 'actors' | 'cueTimeout' | 'interactionTimeout' | 'diffFormatter'>): void {
+        this.interactionTimeout = options.interactionTimeout || this.interactionTimeout;
+
+        if (options.actors) {
+            this.engage(options.actors);
+        }
+
+        if (options.cueTimeout) {
+            this.manager.configure({ cueTimeout: options.cueTimeout })
+        }
+
+        if (options.diffFormatter) {
+            this.errors = new ErrorFactory(options.diffFormatter);
+        }
     }
 
     /**
@@ -181,9 +198,7 @@ export class Stage implements EmitsDomainEvents {
      * @param actors
      */
     engage(actors: Cast): void {
-        ensure('Cast', actors, isDefined());
-
-        this.cast = actors;
+        this.cast = ensure('actors', actors, isDefined(), property('prepare', isDefined()));
     }
 
     /**
