@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import { execSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import * as process from 'node:process';

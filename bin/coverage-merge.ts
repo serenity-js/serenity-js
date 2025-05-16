@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import { sync as glob } from 'fast-glob';
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createCoverageMap } from 'istanbul-lib-coverage';
