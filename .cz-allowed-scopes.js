@@ -13,7 +13,6 @@ module.exports.scopes = {
     documentation() {
         return [
             'examples',
-            'website',
         ];
     },
     dependencies() {
