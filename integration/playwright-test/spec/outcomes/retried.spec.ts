@@ -44,9 +44,9 @@ describe('Retried', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario passes')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Passing')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
 
             expect(arbitraryTagsFrom(result.events)).to.deep.equal([]);
@@ -63,9 +63,9 @@ describe('Retried', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario passes')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Passing')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
 
             expect(arbitraryTagsFrom(result.events)).to.deep.equal([]);
@@ -92,9 +92,9 @@ describe('Retried', () => {
                     expect(event.sceneId).to.equal(expectedSceneId);
                     expect(event.details.name).to.equal(new Name('Test scenario passes the third time'));
                 })
+                .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new CapabilityTag('Outcomes')))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new FeatureTag('Retried')))
-                .next(TestRunnerDetected,       event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(RetryableSceneDetected,   event => expect(event.sceneId).to.equal(expectedSceneId))
                 .next(SceneTagged,              event => expect(event.tag).to.equal(new ArbitraryTag('retried')))
                 .next(SceneFinished,            event => {

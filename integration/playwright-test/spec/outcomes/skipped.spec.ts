@@ -19,10 +19,10 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
             ;
         });
@@ -37,10 +37,10 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as fixme')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Fixme')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
             ;
         });
@@ -55,10 +55,10 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped conditionally')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip conditional')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
             ;
         });
@@ -73,10 +73,10 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped at the describe level')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip describe')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
             ;
         });
@@ -91,10 +91,10 @@ describe('Skipped', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is marked as skipped conditionally at the describe level')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip describe conditional')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
             ;
         });

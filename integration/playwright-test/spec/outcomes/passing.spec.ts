@@ -41,6 +41,10 @@ describe('Passing', () => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.details.name).to.equal(new Name('Test scenario passes'));
                 })
+                .next(TestRunnerDetected, event => {
+                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.name).to.equal(new Name('Playwright'))
+                })
                 .next(SceneTagged, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.tag).to.equal(new CapabilityTag('Outcomes'))
@@ -48,10 +52,6 @@ describe('Passing', () => {
                 .next(SceneTagged, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.tag).to.equal(new FeatureTag('Passing'))
-                })
-                .next(TestRunnerDetected, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
-                    expect(event.name).to.equal(new Name('Playwright'))
                 })
                 .next(SceneFinished, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
