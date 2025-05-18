@@ -248,7 +248,7 @@ export class Serenity implements EmitsDomainEvents {
      *  The name of the actor to instantiate or retrieve
      */
     theActorCalled(name: string): Actor {
-        return this.stage.theActorCalled(name);
+        return this.stage.actor(name);
     }
 
     /**
