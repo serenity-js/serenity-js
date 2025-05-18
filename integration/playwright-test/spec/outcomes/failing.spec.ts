@@ -47,10 +47,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails because of an error')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome: ProblemIndication = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -73,10 +73,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails when the assertion fails')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Playwright assertion')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -105,10 +105,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails when the Serenity/JS assertion fails')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS assertion error')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -132,10 +132,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails when the Serenity/JS Screenplay assertion fails')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS assertion')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
@@ -166,10 +166,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario is compromised')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS assertion')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionCompromised);
@@ -195,10 +195,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario is marked as failing but passes')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Unexpected pass')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -222,10 +222,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails as expected')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Expected failure')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -257,10 +257,10 @@ describe('Failing', () => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
                 })
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker beforeAll')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
 
@@ -294,10 +294,10 @@ describe('Failing', () => {
                     expect(event.sceneId).to.equal(expectedTestId);
                     expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
                 })
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker afterAll')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     expect(event.sceneId).to.equal(expectedTestId);
 
@@ -362,10 +362,10 @@ describe('Failing', () => {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('Test scenario fails with a Serenity/JS ConfigurationError')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error configuration')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);

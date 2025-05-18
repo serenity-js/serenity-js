@@ -1,14 +1,15 @@
+import * as path from 'node:path';
+
 import type { FullConfig } from '@playwright/test';
 import type { FullResult, Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
 import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
 import { Clock, Duration, Serenity, Timestamp } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import * as events from '@serenity-js/core/lib/events';
 import { InteractionFinished, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import { CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
 
-import { SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE } from './PlaywrightAttachments';
+import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 import { PlaywrightEventBuffer } from './PlaywrightEventBuffer';
 import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory';
@@ -48,6 +49,8 @@ export interface SerenityReporterForPlaywrightTestConfig {
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
     private readonly errorParser = new PlaywrightErrorParser();
+    private readonly eventStreamReader = new WorkerEventStreamReader();
+
     private readonly sceneIdFactory: PlaywrightTestSceneIdFactory;
     private readonly serenity: Serenity;
     private unhandledError?: Error;
@@ -56,8 +59,6 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     /**
      * @param config
-     * @param requirementsHierarchy
-     *  Root directory of the requirements hierarchy, used to determine capabilities and themes.
      */
     constructor(config: SerenityReporterForPlaywrightTestConfig) {
         this.sceneIdFactory = new PlaywrightTestSceneIdFactory();
@@ -91,40 +92,31 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     //     // console.log('>> onStepEnd');
     // }
 
-    // todo:
-    //  - this catches events from afterAll hooks
     onTestEnd(test: TestCase, result: TestResult): void {
-        // todo: read file
-        // ...
 
         const currentSceneId = new CorrelationId(test.id);
+        const pathToEventStreamFile = path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson');
 
-        // TODO: read events from the file instead of the attachment
         let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
+        if (this.eventStreamReader.hasStream(pathToEventStreamFile)) {
+            const scenarioEvents = this.eventStreamReader.read(pathToEventStreamFile);
 
-        for (const attachment of result.attachments) {
-            if (! (attachment.contentType === SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE && attachment.body)) {
-                continue;
-            }
+            for (const scenarioEvent of scenarioEvents) {
 
-            const messages = JSON.parse(attachment.body.toString());
-
-            for (const message of messages) {
-                if (message.value.sceneId === 'unknown') {
-                    message.value.sceneId = currentSceneId.value;
+                if (scenarioEvent instanceof InteractionFinished && scenarioEvent.outcome.isWorseThan(worstInteractionOutcome)) {
+                    worstInteractionOutcome = scenarioEvent.outcome;
                 }
 
-                const event = events[message.type].fromJSON(message.value);
+                // todo: remove, already done in PlaywrightStepReporter
+                // if (scenarioEvent instanceof SceneTagged) {
+                //     // todo: test if this works
+                //     test.annotations.push({ type: scenarioEvent.tag.type, description: scenarioEvent.tag.name });
+                // }
 
-                this.eventBuffer.push(currentSceneId, event);
-
-                if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
-                    worstInteractionOutcome = event.outcome;
-                }
+                this.eventBuffer.push(currentSceneId, scenarioEvent);
             }
         }
 
-        // todo: if no file, emit the buffered events
         this.eventBuffer.recordTestEnd(test, result, worstInteractionOutcome);
 
         this.serenity.announce(
@@ -156,7 +148,8 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
                     endTime,
                 ),
             );
-        } catch (error) {
+        }
+        catch (error) {
             this.serenity.announce(
                 new TestRunFinished(
                     new ExecutionFailedWithError(error),

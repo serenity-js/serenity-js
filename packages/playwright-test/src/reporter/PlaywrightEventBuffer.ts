@@ -2,14 +2,8 @@ import { type FullConfig } from '@playwright/test';
 import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, LogicError, Timestamp } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
-import {
-    RetryableSceneDetected,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged,
-    TestRunnerDetected
-} from '@serenity-js/core/lib/events';
-import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { RetryableSceneDetected, SceneFinished, SceneTagged } from '@serenity-js/core/lib/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import type { Outcome, Tag } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
@@ -26,51 +20,26 @@ import {
     Tags
 } from '@serenity-js/core/lib/model';
 
+import { EventFactory } from '../events';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 
 export class PlaywrightEventBuffer {
     private readonly errorParser = new PlaywrightErrorParser();
-    private requirementsHierarchy: RequirementsHierarchy;
 
+    private eventFactory: EventFactory;
     private readonly events = new Map<string, DomainEvent[]>();
 
-    constructor() {
-    }
-
     configure(config: Pick<FullConfig, 'rootDir'>): void {
-        this.requirementsHierarchy = new RequirementsHierarchy(
-            new FileSystem(Path.from(config.rootDir)),
-        );
+        this.eventFactory = new EventFactory(Path.from(config.rootDir));
     }
 
     recordTestStart(test: TestCase, result: TestResult): void {
-        const sceneId = new CorrelationId(test.id);
-        const sceneStartTime = new Timestamp(result.startTime);
-
-        const { scenarioDetails, scenarioTags } = this.scenarioDetailsFrom(test);
-
-        const tags: Tag[] = [
-            ... scenarioTags,
-            ... test.tags.flatMap(tag => Tags.from(tag)),
-        ];
-
-        this.events.set(sceneId.value, [
-            new SceneStarts(sceneId, scenarioDetails, sceneStartTime),
-            ...this.requirementsHierarchy
-                .requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
-                .map(tag => new SceneTagged(sceneId, tag, sceneStartTime)),
-
-            new TestRunnerDetected(
-                sceneId,
-                new Name('Playwright'),
-                sceneStartTime,
-            ),
-
-            ...tags.map(tag => new SceneTagged(sceneId, tag, sceneStartTime)),
-        ]);
+        this.events.set(
+            test.id,
+            this.eventFactory.createSceneStartEvents(test, new Timestamp(result.startTime))
+        );
     }
 
-    // todo: remove worstInteractionOutcome when screenplay and non-screenplay reporting is separated
     recordTestEnd(test: TestCase, result: TestResult, worstInteractionOutcome: Outcome): void {
         const sceneId = new CorrelationId(test.id);
         const sceneEndTime = new Timestamp(result.startTime).plus(Duration.ofMilliseconds(result.duration));
@@ -109,7 +78,6 @@ export class PlaywrightEventBuffer {
         );
     }
 
-    // todo: remove when Test API exports events to the file system
     private determineScenarioOutcome(
         worstInteractionOutcome: Outcome,
         scenarioOutcome: Outcome,
@@ -123,8 +91,7 @@ export class PlaywrightEventBuffer {
             : scenarioOutcome;
     }
 
-    // todo: remove when Test API exports events to the file system
-    push(sceneId: CorrelationId, event: DomainEvent): void {
+    push(sceneId: CorrelationId, ...events: DomainEvent[]): void {
 
         const testId = sceneId.value;
 
@@ -132,7 +99,7 @@ export class PlaywrightEventBuffer {
             throw new LogicError(`No event buffer found for test ID: ${ testId }`);
         }
 
-        this.events.get(testId).push(event);
+        this.events.get(testId).push(...events);
     }
 
     flush(testId: TestCase['id']): DomainEvent[] {

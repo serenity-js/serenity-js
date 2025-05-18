@@ -47,9 +47,9 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A screenplay scenario propagates events to Serenity reporter'));
                     currentSceneId = event.sceneId
                 })
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(InteractionStarts,   event => {
                     expect(event.details.name).to.equal(new Name(`Alice logs: 'Hello world'`));
                     expect(event.sceneId).to.equal(currentSceneId);
@@ -86,9 +86,9 @@ describe('@serenity-js/playwright-test', function () {
                 .next(SceneStarts, event => {
                     expect(event.details.name).to.equal(new Name('A screenplay scenario supports multiple actors'))
                 })
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
 
                 // we already know reporting interactions work, so let's focus on dismissing the actors
                 .next(ActorStageExitAttempted, event => {
@@ -133,9 +133,9 @@ describe('@serenity-js/playwright-test', function () {
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A screenplay scenario correctly reports assertion errors')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished, event => {
                     const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
@@ -164,9 +164,9 @@ describe('@serenity-js/playwright-test', function () {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => {
                     const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
@@ -189,9 +189,9 @@ describe('@serenity-js/playwright-test', function () {
 
             PickEvent.from(result.events)
                 .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails when discarding an ability fails')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Screenplay')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Playwright Test reporting')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneFinished,       event => {
                     const outcome: ProblemIndication = event.outcome as ProblemIndication;
 
@@ -207,8 +207,11 @@ describe('@serenity-js/playwright-test', function () {
         });
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, async () => {
-            const result = await playwrightTest('--project=default', '--reporter=json:output/screenplay/ability_error.json', 'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts')
-                .then(ifExitCodeIsOtherThan(1, logOutput));
+            const result = await playwrightTest(
+                '--project=default',
+                '--reporter=json:output/screenplay/ability_error.json',
+                'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts'
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
 
             expect(result.exitCode).to.equal(1);
 

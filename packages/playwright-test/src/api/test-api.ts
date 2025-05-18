@@ -1,4 +1,5 @@
 import * as os from 'node:os';
+import * as path from 'node:path';
 import * as process from 'node:process';
 
 import type {
@@ -13,32 +14,30 @@ import type {
     WorkerInfo,
 } from '@playwright/test';
 import { test as playwrightBaseTest } from '@playwright/test';
-import type { DiffFormatter} from '@serenity-js/core';
+import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
-import type { JSONValue } from 'tiny-types';
 import { ensure, isFunction, property } from 'tiny-types';
 
-import {
-    DomainEventBuffer,
-    PlaywrightStepReporter,
-    SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
-} from '../reporter';
+import { PlaywrightStepReporter, } from '../reporter';
+import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
 import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
+import { WorkerEventStreamWriter } from './WorkerEventStreamWriter';
 
 interface SerenityInternalFixtures {
-    configureSerenityScenario: void;
+    configureScenarioInternal: void;
 }
 
 interface SerenityInternalWorkerFixtures {
-    configureSerenityWorker: void;
-    eventBuffer: DomainEventBuffer;
-    diffFormatter: DiffFormatter;
+    configureWorkerInternal: void;
+    sceneIdFactoryInternal: PlaywrightTestSceneIdFactory;
+    diffFormatterInternal: DiffFormatter;
+    eventStreamWriterInternal: WorkerEventStreamWriter;
 }
 
 export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, SerenityWorkerFixtures & SerenityInternalWorkerFixtures, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
@@ -98,7 +97,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         await use({ name, version: os.release() });
     }, { scope: 'worker' } ],
 
-    diffFormatter: [
+    diffFormatterInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
         async ({}, use) => {
             const diffFormatter = new AnsiDiffFormatter();
@@ -107,12 +106,20 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { scope: 'worker', box: true }
     ],
 
+    sceneIdFactoryInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        async ({ }, use) => {
+            await use(new PlaywrightTestSceneIdFactory());
+        },
+        { scope: 'worker', box: true },
+    ],
+
     serenity: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ playwright }, use, workerInfo) => {
+        async ({ playwright, sceneIdFactoryInternal }, use, workerInfo) => {
             const clock = new Clock();
             const cwd = process.cwd();
-            const serenity = new Serenity(clock, cwd);
+            const serenity = new Serenity(clock, cwd, sceneIdFactoryInternal);
 
             const serenitySelectorEngines = new SerenitySelectorEngines();
             await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
@@ -122,17 +129,21 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { scope: 'worker', box: true }
     ],
 
-    eventBuffer: [
+    eventStreamWriterInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
-        async ({ }, use) => {
-            await use(new DomainEventBuffer());
+        async ({ }, use, workerInfo) => {
+
+            const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');
+            const eventStreamWriter = new WorkerEventStreamWriter(serenityOutputDirectory);
+
+            await use(eventStreamWriter);
         },
         { scope: 'worker', box: true },
     ],
 
-    configureSerenityWorker: [
+    configureWorkerInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ diffFormatter, eventBuffer, serenity, browser }, use, info: WorkerInfo) => {
+        async ({ diffFormatterInternal, eventStreamWriterInternal, serenity, browser }, use, info: WorkerInfo) => {
 
             serenity.configure({
                 actors: Cast.where(actor => actor.whoCan(
@@ -141,39 +152,39 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                     // todo: consider making `axios` a fixture and injecting an ability to CallAnApi
                 )),
                 crew: [
-                    eventBuffer,
+                    eventStreamWriterInternal,
                 ],
-                diffFormatter,
+                diffFormatter: diffFormatterInternal,
             });
 
             await use(void 0);
+
+            await eventStreamWriterInternal.persistAll();
         },
         { scope: 'worker', auto: true, box: true },
     ],
 
-    configureSerenityScenario: [
+    configureScenarioInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ actors, browser, browserName, crew, cueTimeout, diffFormatter, eventBuffer, interactionTimeout, platform, serenity }, use, info: TestInfo) => {
+        async ({ actors, browser, browserName, crew, cueTimeout, diffFormatterInternal, eventStreamWriterInternal, interactionTimeout, platform, sceneIdFactoryInternal, serenity }, use, info: TestInfo) => {
 
             serenity.configure({
                 actors: asCast(actors),
-                diffFormatter,
+                diffFormatter: diffFormatterInternal,
                 cueTimeout: asDuration(cueTimeout),
                 interactionTimeout: asDuration(interactionTimeout),
                 crew: [
                     ...crew,
-                    eventBuffer,
                     new PlaywrightStepReporter(info),
                 ],
             });
 
-            // todo: use test.id as the scene correlation id instead
-            //  this will be attached to all befereAll events anyway.
-            const sceneId = serenity.currentSceneId();
+            sceneIdFactoryInternal.setTestId(info.testId);
+            const sceneId = serenity.assignNewSceneId();
 
             serenity.announce(
                 new SceneTagged(
-                    serenity.currentSceneId(),
+                    sceneId,
                     new PlatformTag(platform.name, platform.version),
                     serenity.currentTime(),
                 ),
@@ -186,29 +197,16 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
             await use(void 0);
 
-            serenity.announce(
-                new SceneFinishes(sceneId, serenity.currentTime()),
-            );
+            try {
+                serenity.announce(
+                    new SceneFinishes(sceneId, serenity.currentTime()),
+                );
 
-            await serenity.waitForNextCue();
-
-            const serialisedEvents: Array<{ type: string, value: JSONValue }> = [];
-
-            for (const event of eventBuffer.flush()) {
-                serialisedEvents.push({
-                    type: event.constructor.name,
-                    value: event.toJSON(),
-                });
-
-                if (event instanceof SceneTagged) {
-                    test.info().annotations.push({ type: event.tag.type, description: event.tag.name });
-                }
+                await serenity.waitForNextCue();
             }
-
-            await info.attach('serenity-js-events.json', {
-                contentType: SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE,
-                body: Buffer.from(JSON.stringify(serialisedEvents), 'utf8'),
-            });
+            finally {
+                await eventStreamWriterInternal.persist(info.testId);
+            }
         },
         { auto: true, box: true, }
     ],
