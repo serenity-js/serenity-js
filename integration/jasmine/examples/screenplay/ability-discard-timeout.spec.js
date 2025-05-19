@@ -1,6 +1,4 @@
-const
-    { ChildProcessReporter } = require('@integration/testing-tools'),
-    { Ability, actorCalled, configure, Duration, Interaction, StreamReporter } = require('@serenity-js/core');
+const { Ability, actorCalled, configure, Duration, Interaction } = require('@serenity-js/core');
 
 describe('Jasmine reporting', () => {
 
@@ -8,14 +6,11 @@ describe('Jasmine reporting', () => {
         notEnough = Duration.ofMilliseconds(50),
         tooLong = Duration.ofMilliseconds(250);
 
-    beforeAll(() =>
+    beforeAll(() => {
         configure({
             cueTimeout: notEnough,
-            crew: [
-                new ChildProcessReporter(),
-                new StreamReporter(),
-            ]
-        }));
+        })
+    });
 
     describe('A screenplay scenario', function () {
 
