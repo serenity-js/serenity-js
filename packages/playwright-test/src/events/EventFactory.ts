@@ -1,8 +1,14 @@
-import { type Location, type TestCase } from '@playwright/test/reporter';
-import type { Timestamp } from '@serenity-js/core';
-import { type DomainEvent, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { type Location, type TestCase, type TestResult } from '@playwright/test/reporter';
+import { Duration, Timestamp } from '@serenity-js/core';
+import {
+    type DomainEvent,
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunnerDetected
+} from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { Tag } from '@serenity-js/core/lib/model';
+import type { Outcome, Tag } from '@serenity-js/core/lib/model';
 import { Category, CorrelationId, Name, ScenarioDetails, Tags } from '@serenity-js/core/lib/model';
 
 export class EventFactory {
@@ -38,6 +44,21 @@ export class EventFactory {
             new TestRunnerDetected(sceneId, new Name('Playwright'), startTime),
             ...sceneTaggedEvents,
         ];
+    }
+
+    createSceneFinishedEvent(test: TestCase, result: TestResult, scenarioOutcome: Outcome): SceneFinished {
+        const sceneId = new CorrelationId(test.id);
+        const sceneEndTime = new Timestamp(result.startTime).plus(Duration.ofMilliseconds(result.duration));
+
+        const { featureName, name } = this.scenarioMetadataFrom(test);
+        const scenarioDetails       = this.scenarioDetailsFrom(featureName, name, test.location);
+
+        return new SceneFinished(
+            sceneId,
+            scenarioDetails,
+            scenarioOutcome,
+            sceneEndTime,
+        );
     }
 
     private uniqueTags(...tags: Tag[]) {

@@ -1,18 +1,16 @@
-import * as path from 'node:path';
-
 import type { FullConfig } from '@playwright/test';
 import type { FullResult, Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
 import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
 import { Clock, Duration, Serenity, Timestamp } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import { InteractionFinished, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import type { Outcome } from '@serenity-js/core/lib/model';
-import { CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
+import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
+import { ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
 
-import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 import { PlaywrightEventBuffer } from './PlaywrightEventBuffer';
 import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory';
+
+type HookType = 'beforeAll' | 'afterAll' | 'beforeEach' | 'afterEach';
 
 /**
  * Configuration object accepted by `@serenity-js/playwright-test` reporter.
@@ -49,13 +47,13 @@ export interface SerenityReporterForPlaywrightTestConfig {
  */
 export class SerenityReporterForPlaywrightTest implements Reporter {
     private readonly errorParser = new PlaywrightErrorParser();
-    private readonly eventStreamReader = new WorkerEventStreamReader();
 
     private readonly sceneIdFactory: PlaywrightTestSceneIdFactory;
     private readonly serenity: Serenity;
     private unhandledError?: Error;
 
     private readonly eventBuffer: PlaywrightEventBuffer = new PlaywrightEventBuffer();
+    private readonly suiteTestCounts = new Map<Suite, number>();
 
     /**
      * @param config
@@ -74,12 +72,25 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     onBegin(config: FullConfig, suite: Suite): void {
         this.eventBuffer.configure(config);
-
         this.serenity.announce(new TestRunStarts(this.serenity.currentTime()));
+
+        this.countTestsPerSuite(suite);
+    }
+
+    private countTestsPerSuite(suite: Suite): void {
+        suite.allTests().forEach(test => {
+            let currentSuite: Suite | undefined = test.parent;
+            while (currentSuite) {
+                const count = this.suiteTestCounts.get(currentSuite) ?? 0;
+                this.suiteTestCounts.set(currentSuite, count + 1);
+
+                currentSuite = currentSuite.parent;
+            }
+        });
     }
 
     onTestBegin(test: TestCase, result: TestResult): void {
-        this.eventBuffer.recordTestStart(test, result);
+        this.eventBuffer.appendTestStart(test, result);
     }
 
     // TODO might be nice to support that by emitting TestStepStarted / Finished
@@ -94,34 +105,41 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     onTestEnd(test: TestCase, result: TestResult): void {
 
-        const currentSceneId = new CorrelationId(test.id);
-        const pathToEventStreamFile = path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson');
+        const pendingAfterAllHooks = this.countPendingAfterAllHooks(test);
 
-        let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
-        if (this.eventStreamReader.hasStream(pathToEventStreamFile)) {
-            const scenarioEvents = this.eventStreamReader.read(pathToEventStreamFile);
-
-            for (const scenarioEvent of scenarioEvents) {
-
-                if (scenarioEvent instanceof InteractionFinished && scenarioEvent.outcome.isWorseThan(worstInteractionOutcome)) {
-                    worstInteractionOutcome = scenarioEvent.outcome;
-                }
-
-                // todo: remove, already done in PlaywrightStepReporter
-                // if (scenarioEvent instanceof SceneTagged) {
-                //     // todo: test if this works
-                //     test.annotations.push({ type: scenarioEvent.tag.type, description: scenarioEvent.tag.name });
-                // }
-
-                this.eventBuffer.push(currentSceneId, scenarioEvent);
-            }
+        if (test.retries > 0) {
+            this.eventBuffer.appendTestRetries(test, result);
         }
 
-        this.eventBuffer.recordTestEnd(test, result, worstInteractionOutcome);
+        if (pendingAfterAllHooks === 0) {
+            this.eventBuffer.appendSceneEvents(test);
+            this.eventBuffer.appendSceneFinishedEvent(test, result)
 
-        this.serenity.announce(
-            ...this.eventBuffer.flush(test.id)
-        );
+            const events = this.eventBuffer.flush(test.id);
+
+            this.serenity.announce(...events);
+        }
+        else {
+            this.eventBuffer.deferAppendingSceneFinishedEvent(test, result);
+        }
+    }
+
+    private countPendingAfterAllHooks(test: TestCase): number {
+        let currentSuite: Suite | undefined = test.parent;
+        const pendingAfterAllHooks: Suite[] = [];
+
+        while (currentSuite) {
+            const remainingSuites = (this.suiteTestCounts.get(currentSuite) || 0) - 1;
+            this.suiteTestCounts.set(currentSuite, remainingSuites);
+
+            if (remainingSuites === 0 && currentSuite['_hooks'].some((hook: { type: HookType }) => hook.type === 'afterAll')) {
+                pendingAfterAllHooks.push(currentSuite);
+            }
+
+            currentSuite = currentSuite.parent;
+        }
+
+        return pendingAfterAllHooks.length;
     }
 
     onError(error: TestError): void {
@@ -132,14 +150,20 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     async onEnd(fullResult: FullResult): Promise<void> {
 
-        const endTime = new Timestamp(fullResult.startTime).plus(Duration.ofMilliseconds(Math.round(fullResult.duration)));
+        this.serenity.announce(
+            ...this.eventBuffer.flushAllDeferred(),
+        );
+
+        const fullDuration = Duration.ofMilliseconds(Math.round(fullResult.duration));
+        const endTime = new Timestamp(fullResult.startTime).plus(fullDuration);
+
         this.serenity.announce(new TestRunFinishes(endTime));
 
         try {
             await this.serenity.waitForNextCue();
 
-            const outcome = this.unhandledError ?
-                new ExecutionFailedWithError(this.unhandledError)
+            const outcome = this.unhandledError
+                ? new ExecutionFailedWithError(this.unhandledError)
                 : new ExecutionSuccessful();
 
             this.serenity.announce(
