@@ -1,81 +1,78 @@
+import path from 'node:path';
+
 import { type FullConfig } from '@playwright/test';
 import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, LogicError, Timestamp } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { RetryableSceneDetected, SceneFinished, SceneTagged } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import type { Outcome, Tag } from '@serenity-js/core/lib/model';
+import { InteractionFinished, RetryableSceneDetected, SceneFinished, SceneTagged } from '@serenity-js/core/lib/events';
+import { Path } from '@serenity-js/core/lib/io';
+import type { Outcome } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
-    Category,
     CorrelationId,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionRetriedTag,
     ExecutionSkipped,
-    ExecutionSuccessful,
-    Name,
-    ScenarioDetails,
-    Tags
+    ExecutionSuccessful
 } from '@serenity-js/core/lib/model';
 
+import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
 import { EventFactory } from '../events';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 
 export class PlaywrightEventBuffer {
     private readonly errorParser = new PlaywrightErrorParser();
+    private readonly eventStreamReader = new WorkerEventStreamReader();
 
     private eventFactory: EventFactory;
     private readonly events = new Map<string, DomainEvent[]>();
+    private readonly deferredSceneFinishedEvents = new Map<string, { event: SceneFinished, pathToStream: string }>();
 
     configure(config: Pick<FullConfig, 'rootDir'>): void {
         this.eventFactory = new EventFactory(Path.from(config.rootDir));
     }
 
-    recordTestStart(test: TestCase, result: TestResult): void {
+    appendTestStart(test: TestCase, result: TestResult): void {
         this.events.set(
             test.id,
             this.eventFactory.createSceneStartEvents(test, new Timestamp(result.startTime))
         );
     }
 
-    recordTestEnd(test: TestCase, result: TestResult, worstInteractionOutcome: Outcome): void {
+    appendTestRetries(test: TestCase, result: TestResult): void {
         const sceneId = new CorrelationId(test.id);
         const sceneEndTime = new Timestamp(result.startTime).plus(Duration.ofMilliseconds(result.duration));
+
+        this.events.get(sceneId.value).push(
+            new RetryableSceneDetected(sceneId, sceneEndTime),
+        );
+
+        if (result.retry > 0 || result.status !== 'passed') {
+            this.events.get(sceneId.value).push(
+                new SceneTagged(
+                    sceneId,
+                    new ArbitraryTag('retried'), // todo: replace with a dedicated tag
+                    sceneEndTime,
+                ),
+                new SceneTagged(
+                    sceneId,
+                    new ExecutionRetriedTag(result.retry),
+                    sceneEndTime,
+                ),
+            );
+        }
+    }
+
+    deferAppendingSceneFinishedEvent(test: TestCase, result: TestResult): void {
+        const sceneId = new CorrelationId(test.id);
         const scenarioOutcome = this.outcomeFrom(test, result);
 
-        if (test.retries > 0) {
-
-            this.events.get(sceneId.value).push(
-                new RetryableSceneDetected(sceneId, sceneEndTime),
-            );
-
-            if (result.retry > 0 || result.status !== 'passed') {
-                this.events.get(sceneId.value).push(
-                    new SceneTagged(
-                        sceneId,
-                        new ArbitraryTag('retried'), // todo: replace with a dedicated tag
-                        sceneEndTime,
-                    ),
-                    new SceneTagged(
-                        sceneId,
-                        new ExecutionRetriedTag(result.retry),
-                        sceneEndTime,
-                    ),
-                );
-            }
-        }
-
-        // Emit SceneFinished event with the sceneId, outcome, and sceneEndTime
-        this.events.get(sceneId.value).push(
-            new SceneFinished(
-                sceneId,
-                this.scenarioDetailsFrom(test).scenarioDetails,
-                this.determineScenarioOutcome(worstInteractionOutcome, scenarioOutcome),
-                sceneEndTime,
-            ),
-        );
+        this.deferredSceneFinishedEvents.set(sceneId.value, {
+            event: this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome),
+            pathToStream: path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson'),
+        });
     }
 
     private determineScenarioOutcome(
@@ -91,15 +88,31 @@ export class PlaywrightEventBuffer {
             : scenarioOutcome;
     }
 
-    push(sceneId: CorrelationId, ...events: DomainEvent[]): void {
+    appendSceneEvents(test: TestCase): void {
+        const pathToEventStreamFile = path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson');
 
-        const testId = sceneId.value;
+        this.events.get(test.id).push(
+            ...this.readSceneEvents(pathToEventStreamFile),
+        );
+    }
 
-        if (! this.events.has(testId)) {
-            throw new LogicError(`No event buffer found for test ID: ${ testId }`);
-        }
+    private readSceneEvents(pathToEventStreamFile: string): DomainEvent[] {
+        return this.eventStreamReader.hasStream(pathToEventStreamFile)
+            ? this.eventStreamReader.read(pathToEventStreamFile)
+            : [];
+    }
 
-        this.events.get(testId).push(...events);
+    appendSceneFinishedEvent(test: TestCase, result: TestResult): void {
+
+        const worstInteractionOutcome = this.determineWorstInteractionOutcome(this.events.get(test.id));
+        const scenarioOutcome = this.determineScenarioOutcome(
+            worstInteractionOutcome,
+            this.outcomeFrom(test, result),
+        );
+
+        this.events.get(test.id).push(
+            this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome)
+        );
     }
 
     flush(testId: TestCase['id']): DomainEvent[] {
@@ -114,29 +127,43 @@ export class PlaywrightEventBuffer {
         return events;
     }
 
-    private scenarioDetailsFrom(test: TestCase): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
-        const [
-            root_,
-            browserName_,
-            fileName,
-            describeOrItBlockTitle,
-            ...nestedTitles
-        ] = test.titlePath();
+    flushAllDeferred(): DomainEvent[] {
+        const allEvents = [];
 
-        const path = new Path(test.location.file);
-        const scenarioName = nestedTitles.join(' ').trim();
+        for (const [ testId, events ] of this.events.entries()) {
+            const scenarioEvents = events;
 
-        const name = scenarioName || describeOrItBlockTitle;
-        const featureName = scenarioName ? describeOrItBlockTitle : fileName;
+            if (this.deferredSceneFinishedEvents.has(testId)) {
+                const deferredSceneFinished = this.deferredSceneFinishedEvents.get(testId);
+                scenarioEvents.push(...this.readSceneEvents(deferredSceneFinished.pathToStream));
 
-        return {
-            scenarioDetails: new ScenarioDetails(
-                new Name(Tags.stripFrom(name)),
-                new Category(Tags.stripFrom(featureName)),
-                new FileSystemLocation(path, test.location.line, test.location.column),
-            ),
-            scenarioTags: Tags.from(`${ featureName } ${ name }`),
-        };
+                const worstInteractionOutcome = this.determineWorstInteractionOutcome(scenarioEvents);
+                const sceneFinishedEvent = new SceneFinished(
+                    deferredSceneFinished.event.sceneId,
+                    deferredSceneFinished.event.details,
+                    this.determineScenarioOutcome(worstInteractionOutcome, deferredSceneFinished.event.outcome),
+                    deferredSceneFinished.event.timestamp,
+                )
+                scenarioEvents.push(sceneFinishedEvent);
+            }
+
+            allEvents.push(...scenarioEvents);
+        }
+
+        this.events.clear();
+        this.deferredSceneFinishedEvents.clear();
+
+        return allEvents;
+    }
+
+    private determineWorstInteractionOutcome(events: DomainEvent[]): Outcome {
+        let worstInteractionOutcome: Outcome = new ExecutionSuccessful();
+        for (const event of events) {
+            if (event instanceof InteractionFinished && event.outcome.isWorseThan(worstInteractionOutcome)) {
+                worstInteractionOutcome = event.outcome;
+            }
+        }
+        return worstInteractionOutcome;
     }
 
     private outcomeFrom(test: TestCase, result: TestResult): Outcome {
