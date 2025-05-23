@@ -14,11 +14,14 @@ export const mochaHooks = {
         });
 
         configure({
-            actors: new Actors(browser, {
-                baseURL: `http://localhost:${ process.env.PORT || '8080' }`,
-                defaultNavigationTimeout:   Duration.ofSeconds(1).inMilliseconds(),
-                defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
-            }),
+            actors: new Actors(
+                browser,
+                { baseURL: `http://localhost:${process.env.PORT || '8080'}` },
+                {
+                    defaultNavigationTimeout:   Duration.ofSeconds(1).inMilliseconds(),
+                    defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
+                }
+            ),
             diffFormatter: new NoOpDiffFormatter(),
             crew: [
                 new TestRunnerTagger('playwright'),

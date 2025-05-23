@@ -21,16 +21,16 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Custom tags')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('feature')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('scenario')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-1')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('positive')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-2')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-3')))
-            
+
                 // triggered by requiring actorCalled
                 .next(SceneFinishes,       event => {
                     expect(event.sceneId).to.equal(currentSceneId);
@@ -43,9 +43,9 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A scenario manual test'));
                     currentSceneId = event.sceneId;
                 })
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Custom tags')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('feature')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('scenario')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-1')))
@@ -73,9 +73,9 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A scenario passes'));
                     currentSceneId = event.sceneId;
                 })
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Custom tags')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('feature')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('scenario')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-1')))
@@ -95,9 +95,9 @@ describe('@serenity-js/playwright-test', function () {
                     expect(event.details.name).to.equal(new Name('A scenario manual test'));
                     currentSceneId = event.sceneId;
                 })
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Custom tags')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('My feature')))
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('feature')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('scenario')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new IssueTag('JIRA-1')))
