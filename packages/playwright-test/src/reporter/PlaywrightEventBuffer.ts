@@ -3,8 +3,13 @@ import path from 'node:path';
 import { type FullConfig } from '@playwright/test';
 import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, LogicError, Timestamp } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { InteractionFinished, RetryableSceneDetected, SceneFinished, SceneTagged } from '@serenity-js/core/lib/events';
+import {
+    type DomainEvent,
+    InteractionFinished,
+    RetryableSceneDetected,
+    SceneFinished,
+    SceneTagged
+} from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import {
@@ -17,8 +22,10 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful
 } from '@serenity-js/core/lib/model';
+import { type JSONObject } from 'tiny-types';
 
 import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
+import { WorkerEventStreamWriter } from '../api/WorkerEventStreamWriter';
 import { EventFactory } from '../events';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 
@@ -28,7 +35,12 @@ export class PlaywrightEventBuffer {
 
     private eventFactory: EventFactory;
     private readonly events = new Map<string, DomainEvent[]>();
-    private readonly deferredSceneFinishedEvents = new Map<string, { event: SceneFinished, pathToStream: string }>();
+    private readonly deferredSceneFinishedEvents = new Map<string, {
+        event: SceneFinished;
+        outputDirectory: string;
+        workerIndex: number;
+        testId: string;
+    }>();
 
     configure(config: Pick<FullConfig, 'rootDir'>): void {
         this.eventFactory = new EventFactory(Path.from(config.rootDir));
@@ -71,7 +83,9 @@ export class PlaywrightEventBuffer {
 
         this.deferredSceneFinishedEvents.set(sceneId.value, {
             event: this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome),
-            pathToStream: path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson'),
+            outputDirectory: test.parent.project().outputDir,
+            workerIndex: result.workerIndex,
+            testId: test.id
         });
     }
 
@@ -88,18 +102,47 @@ export class PlaywrightEventBuffer {
             : scenarioOutcome;
     }
 
-    appendSceneEvents(test: TestCase): void {
-        const pathToEventStreamFile = path.join(test.parent.project().outputDir, 'serenity', test.id, 'events.ndjson');
+    appendCrashedWorkerEvents(test: TestCase, result: TestResult): void {
+        const workerStreamId = WorkerEventStreamWriter.workerStreamIdFor(result.workerIndex).value;
 
         this.events.get(test.id).push(
-            ...this.readSceneEvents(pathToEventStreamFile),
+            ...this.readEventStream(
+                test.parent.project().outputDir,
+                workerStreamId,
+                test.id,
+            ),
         );
     }
 
-    private readSceneEvents(pathToEventStreamFile: string): DomainEvent[] {
-        return this.eventStreamReader.hasStream(pathToEventStreamFile)
-            ? this.eventStreamReader.read(pathToEventStreamFile)
-            : [];
+    appendSceneEvents(test: TestCase): void {
+        this.events.get(test.id).push(
+            ...this.readEventStream(test.parent.project().outputDir, test.id),
+        );
+    }
+
+    private readEventStream(
+        outputDirectory: string,
+        streamId: string,
+        expectedSceneId: string = streamId,
+    ): DomainEvent[] {
+        const pathToEventStreamFile = path.join(outputDirectory, 'serenity', streamId, 'events.ndjson');
+
+        if (this.eventStreamReader.hasStream(pathToEventStreamFile)) {
+            return this.eventStreamReader.read(
+                pathToEventStreamFile,
+                (event: { type: string, value: JSONObject }) => {
+                    // re-attach events from orphaned beforeAll to the test case
+                    const hasSceneId = event.value['sceneId'] !== undefined;
+                    const isAttachedToScene = event.value['sceneId'] === expectedSceneId
+                    if(hasSceneId && ! isAttachedToScene) {
+                        event.value['sceneId'] = expectedSceneId;
+                    }
+                    return event;
+                }
+            );
+        }
+
+        return [];
     }
 
     appendSceneFinishedEvent(test: TestCase, result: TestResult): void {
@@ -131,19 +174,35 @@ export class PlaywrightEventBuffer {
         const allEvents = [];
 
         for (const [ testId, events ] of this.events.entries()) {
-            const scenarioEvents = events;
+            const scenarioEvents = [];
+
+            scenarioEvents.push(...events);
 
             if (this.deferredSceneFinishedEvents.has(testId)) {
+                const lastRecordedEvent = scenarioEvents.at(-1);
                 const deferredSceneFinished = this.deferredSceneFinishedEvents.get(testId);
-                scenarioEvents.push(...this.readSceneEvents(deferredSceneFinished.pathToStream));
+
+                const eventStream = this.readEventStream(
+                    deferredSceneFinished.outputDirectory,
+                    deferredSceneFinished.testId,
+                );
+
+                const firstEventSinceLastIndex = eventStream.findIndex(event => lastRecordedEvent.equals(event));
+                const eventsSinceLast = firstEventSinceLastIndex === -1
+                    ? eventStream
+                    : eventStream.slice(firstEventSinceLastIndex);
+
+                scenarioEvents.push(...eventsSinceLast);
 
                 const worstInteractionOutcome = this.determineWorstInteractionOutcome(scenarioEvents);
+
                 const sceneFinishedEvent = new SceneFinished(
                     deferredSceneFinished.event.sceneId,
                     deferredSceneFinished.event.details,
                     this.determineScenarioOutcome(worstInteractionOutcome, deferredSceneFinished.event.outcome),
                     deferredSceneFinished.event.timestamp,
                 )
+
                 scenarioEvents.push(sceneFinishedEvent);
             }
 

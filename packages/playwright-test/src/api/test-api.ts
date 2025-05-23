@@ -134,7 +134,11 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         async ({ }, use, workerInfo) => {
 
             const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');
-            const eventStreamWriter = new WorkerEventStreamWriter(serenityOutputDirectory);
+
+            const eventStreamWriter = new WorkerEventStreamWriter(
+                serenityOutputDirectory,
+                workerInfo,
+            );
 
             await use(eventStreamWriter);
         },
@@ -143,7 +147,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     configureWorkerInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ diffFormatterInternal, eventStreamWriterInternal, serenity, browser }, use, info: WorkerInfo) => {
+        async ({ diffFormatterInternal, eventStreamWriterInternal, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
 
             serenity.configure({
                 actors: Cast.where(actor => actor.whoCan(
@@ -157,9 +161,12 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                 diffFormatter: diffFormatterInternal,
             });
 
+            sceneIdFactoryInternal.setTestId(`worker-${ info.workerIndex }`);
+            const workerBeforeAllSceneId = serenity.assignNewSceneId();
+
             await use(void 0);
 
-            await eventStreamWriterInternal.persistAll();
+            await eventStreamWriterInternal.persistAll(workerBeforeAllSceneId);
         },
         { scope: 'worker', auto: true, box: true },
     ],
@@ -213,7 +220,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     actorCalled: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ serenity }, use, workerInfo) => {
+        async ({ serenity }, use) => {
 
             const actorCalled = (name: string) => {
                 const actor = serenity.theActorCalled(name);

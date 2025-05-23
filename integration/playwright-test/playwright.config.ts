@@ -60,6 +60,9 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
             name: 'default',
             use: {
                 ...devices['Desktop Chrome'],
+                crew: [
+                    // disable Photographer
+                ],
             },
         },
         {

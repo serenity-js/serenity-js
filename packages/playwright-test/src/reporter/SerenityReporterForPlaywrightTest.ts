@@ -111,8 +111,10 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             this.eventBuffer.appendTestRetries(test, result);
         }
 
+        this.eventBuffer.appendCrashedWorkerEvents(test, result);
+        this.eventBuffer.appendSceneEvents(test);
+
         if (pendingAfterAllHooks === 0) {
-            this.eventBuffer.appendSceneEvents(test);
             this.eventBuffer.appendSceneFinishedEvent(test, result)
 
             const events = this.eventBuffer.flush(test.id);
@@ -150,8 +152,10 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     async onEnd(fullResult: FullResult): Promise<void> {
 
+        const deferredEvents = this.eventBuffer.flushAllDeferred();
+
         this.serenity.announce(
-            ...this.eventBuffer.flushAllDeferred(),
+            ...deferredEvents,
         );
 
         const fullDuration = Duration.ofMilliseconds(Math.round(fullResult.duration));

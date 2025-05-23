@@ -1,20 +1,34 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
 import {
+    InteractionFinished,
     InteractionStarts,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
     SceneTagged
 } from '@serenity-js/core/lib/events';
-import { CapabilityTag, ExecutionSuccessful, FeatureTag, Name, ThemeTag } from '@serenity-js/core/lib/model';
+import {
+    CapabilityTag,
+    CorrelationId,
+    ExecutionFailedWithAssertionError,
+    ExecutionSkipped,
+    ExecutionSuccessful,
+    FeatureTag,
+    Name,
+    ProblemIndication,
+    ThemeTag
+} from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
 
 describe('Hooks', function () {
 
-    describe('Events log for a test scenario', () => {
+    describe('Event log for a test scenario', () => {
 
         it('includes events that occurred in beforeEach and afterEach hooks', async () => {
             const result = await playwrightTest(
@@ -85,5 +99,122 @@ describe('Hooks', function () {
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))
             ;
         });
+
+        /**
+         * Errors thrown in a beforeAll hook prevent the test scenario from executing.
+         */
+        it('includes errors thrown in a beforeAll hook', async () => {
+            const result = await playwrightTest(
+                `--project=default`,
+                '--reporter=json:output/screenplay/hooks/beforeAll_failure.json',
+                'screenplay/hooks/beforeAll_failure.spec.ts'
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
+
+            expect(result.exitCode).to.equal(1);
+
+            const report = jsonFrom('output/screenplay/hooks/beforeAll_failure.json');
+
+            const testId1 = report.suites[0].suites[0].suites[0].specs[0].id;
+            const expectedSceneId1 = new CorrelationId(testId1);
+
+            const testId2 = report.suites[0].suites[0].suites[0].specs[1].id;
+            const expectedSceneId2 = new CorrelationId(testId2);
+
+            PickEvent.from(result.events)
+
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('Test scenario is never executed #1'));
+                    expect(event.sceneId).to.equal(expectedSceneId1);
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Hooks')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('BeforeAll failure')))
+                .next(InteractionStarts,   event => {
+                    expect(event.details.name).to.equal(new Name(`Alice ensures that true does equal false`))
+                    expect(event.sceneId).to.equal(expectedSceneId1);
+                })
+                .next(InteractionFinished, event => {
+                    expect(event.details.name).to.equal(new Name(`Alice ensures that true does equal false`));
+                    expect(event.sceneId).to.equal(expectedSceneId1);
+
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(outcome.error.name).to.equal('AssertionError');
+                    expect(outcome.error.message).to.match(/Expected true to equal false/);
+                })
+                .next(SceneFinished, event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(outcome.error.name).to.equal('AssertionError');
+                    expect(outcome.error.message).to.match(/Expected true to equal false/);
+                })
+
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('Test scenario is never executed #2'));
+                    expect(event.sceneId).to.equal(expectedSceneId2);
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Hooks')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('BeforeAll failure')))
+                .next(SceneFinished, event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionSkipped);
+                })
+            ;
+        });
+
+        it('includes errors thrown in an afterAll hook', async () => {
+            const result = await playwrightTest(
+                `--project=default`,
+                '--reporter=json:output/screenplay/hooks/afterAll_failure.json',
+                'screenplay/hooks/afterAll_failure.spec.ts'
+            ).then(ifExitCodeIsOtherThan(1, logOutput));
+
+            expect(result.exitCode).to.equal(1);
+
+            const report = jsonFrom('output/screenplay/hooks/afterAll_failure.json');
+
+            const testId = report.suites[0].suites[0].suites[0].specs[0].id;
+            const expectedSceneId = new CorrelationId(testId);
+
+            PickEvent.from(result.events)
+
+                .next(SceneStarts,         event => {
+                    expect(event.details.name).to.equal(new Name('Test scenario is executed'));
+                    expect(event.sceneId).to.equal(expectedSceneId);
+                })
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Screenplay')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Hooks')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('BeforeAll failure')))
+                .next(InteractionFinished, event => {
+                    expect(event.details.name).to.equal(new Name(`Betty logs: 'BrowseTheWebWithPlaywright'`))
+                    expect(event.sceneId).to.equal(expectedSceneId);
+                })
+                .next(InteractionFinished, event => {
+                    expect(event.details.name).to.equal(new Name(`Chloe ensures that true does equal false`));
+                    expect(event.sceneId).to.equal(expectedSceneId);
+
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(outcome.error.name).to.equal('AssertionError');
+                    expect(outcome.error.message).to.match(/Expected true to equal false/);
+                })
+                .next(InteractionFinished, event => {
+                    expect(event.details.name).to.equal(new Name(`Cindy logs: 'BrowseTheWebWithPlaywright'`));
+                    expect(event.sceneId).to.equal(expectedSceneId);
+                    expect(event.outcome).to.be.instanceOf(ExecutionSuccessful)
+                })
+                .next(SceneFinished, event => {
+                    const outcome: ProblemIndication = event.outcome as ProblemIndication;
+                    expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    expect(outcome.error.name).to.equal('AssertionError');
+                    expect(outcome.error.message).to.match(/Expected true to equal false/);
+                })
+            ;
+        }).timeout(60_000);
     });
 });
+
+function jsonFrom(pathToFile: string): Record<string, any> {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, '../', pathToFile), { encoding: 'utf8' }));
+}
