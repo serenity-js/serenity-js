@@ -1,25 +1,34 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { type WorkerInfo } from '@playwright/test';
 import type { TestCase } from '@playwright/test/reporter';
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { JSONObject } from 'tiny-types';
 
 export class WorkerEventStreamWriter implements StageCrewMember {
 
-    private static beforeTest = new CorrelationId('unknown');
-    private activeSceneId: CorrelationId = WorkerEventStreamWriter.beforeTest;
+    private readonly beforeAllId: CorrelationId; //  = new CorrelationId('unknown');
+    private activeSceneId: CorrelationId; // = WorkerEventStreamWriter.beforeTest;
 
-    private events: Map<TestCase['id'], DomainEvent[]> = new Map([
-        [ WorkerEventStreamWriter.beforeTest.value, [] ],
-    ]);
+    private events: Map<TestCase['id'], DomainEvent[]> = new Map();
+
+    static workerStreamIdFor(workerIndex: number): CorrelationId {
+        return new CorrelationId(`worker-${ workerIndex }`);
+    }
 
     constructor(
         private readonly outputDirectory: string,
+        private readonly workerInfo: WorkerInfo,
         private stage?: Stage,
     ) {
+
+        this.beforeAllId = WorkerEventStreamWriter.workerStreamIdFor(this.workerInfo.workerIndex);
+        this.activeSceneId = this.beforeAllId;
+        this.events.set(this.beforeAllId.value, []);
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -55,19 +64,19 @@ export class WorkerEventStreamWriter implements StageCrewMember {
         }
 
         this.events.get(testId).push(
-            ...this.events.get(WorkerEventStreamWriter.beforeTest.value),
+            ...this.events.get(this.beforeAllId.value),
         );
 
-        this.events.set(WorkerEventStreamWriter.beforeTest.value, []);
+        this.events.set(this.beforeAllId.value, []);
     }
 
-    async persistAll(): Promise<void> {
+    async persistAll(workerBeforeAllSceneId: CorrelationId): Promise<void> {
         const testIds = [...this.events.keys()];
 
-        await Promise.all(testIds.map(testId => this.persist(testId)));
+        await Promise.all(testIds.map(testId => this.persist(testId, workerBeforeAllSceneId)));
     }
 
-    async persist(testId: TestCase['id']): Promise<void> {
+    async persist(testId: TestCase['id'], workerBeforeAllSceneId?: CorrelationId): Promise<void> {
         const testOutputDirectory = path.join(this.outputDirectory, testId);
         await fs.promises.mkdir(testOutputDirectory, { recursive: true })
 
@@ -76,10 +85,15 @@ export class WorkerEventStreamWriter implements StageCrewMember {
         const events = this.flush(testId);
 
         for (const event of events) {
-            const serialisedEvent = JSON.stringify({
-                type: event.constructor.name,
-                value: event.toJSON(),
-            }, undefined, 0);
+            const shouldReattachToScene = event['sceneId'] && event['sceneId'].equals(workerBeforeAllSceneId);
+
+            const type = event.constructor.name;
+
+            const value = shouldReattachToScene
+                ? ({ ...(event.toJSON() as JSONObject), sceneId: testId })
+                : event.toJSON();
+
+            const serialisedEvent = JSON.stringify({ type, value }, undefined, 0);
 
             await fs.promises.appendFile(filePath, serialisedEvent + '\n');
         }
