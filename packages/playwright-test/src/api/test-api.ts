@@ -1,3 +1,7 @@
+import os from 'node:os';
+import path from 'node:path';
+import process from 'node:process';
+
 import type {
     Expect,
     Fixtures,
@@ -7,52 +11,41 @@ import type {
     PlaywrightWorkerOptions,
     TestInfo,
     TestType,
+    WorkerInfo,
 } from '@playwright/test';
 import { test as playwrightBaseTest } from '@playwright/test';
-import { AnsiDiffFormatter, Cast, Duration, serenity as serenityInstance, TakeNotes } from '@serenity-js/core';
+import type { DiffFormatter } from '@serenity-js/core';
+import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
-import * as os from 'os';
-import type { JSONValue } from 'tiny-types';
 import { ensure, isFunction, property } from 'tiny-types';
 
-import {
-    DomainEventBuffer,
-    PlaywrightStepReporter,
-    SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE
-} from '../reporter';
+import { PlaywrightStepReporter, } from '../reporter';
+import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
-import type { SerenityFixtures } from './SerenityFixtures';
-import type { SerenityOptions } from './SerenityOptions';
+import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
+import { WorkerEventStreamWriter } from './WorkerEventStreamWriter';
 
-const serenitySelectorEngines = new SerenitySelectorEngines();
+interface SerenityInternalFixtures {
+    configureScenarioInternal: void;
+}
 
-export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtures, object, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
-    actors: [
-        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ contextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
-            await use(Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithPlaywright.usingPage(page, contextOptions),
-                TakeNotes.usingAnEmptyNotepad(),
-                CallAnApi.using({
-                    baseURL: baseURL,
-                    headers: extraHTTPHeaders,
-                    proxy: proxy && proxy?.server
-                        ? asProxyConfig(proxy)
-                        : undefined,
-                }),
-            )));
-        },
-        { option: true },
+interface SerenityInternalWorkerFixtures {
+    configureWorkerInternal: void;
+    sceneIdFactoryInternal: PlaywrightTestSceneIdFactory;
+    diffFormatterInternal: DiffFormatter;
+    eventStreamWriterInternal: WorkerEventStreamWriter;
+}
+
+export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, SerenityWorkerFixtures & SerenityInternalWorkerFixtures, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
+
+    extraContextOptions: [
+        { defaultNavigationWaitUntil: 'load' },
+        { option: true }
     ],
-
-    playwright: async ({ playwright }, use) => {
-        await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
-        await use(playwright);
-    },
 
     defaultActorName: [
         'Serena',
@@ -70,14 +63,30 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
     ],
 
     crew: [
-        [
-            Photographer.whoWill(TakePhotosOfFailures)
-        ],
+        [ Photographer.whoWill(TakePhotosOfFailures) ],
         { option: true },
     ],
 
-    // eslint-disable-next-line no-empty-pattern
-    platform: async ({}, use) => {
+    actors: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
+            await use(Cast.where(actor => actor.whoCan(
+                BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
+                TakeNotes.usingAnEmptyNotepad(),
+                CallAnApi.using({
+                    baseURL: baseURL,
+                    headers: extraHTTPHeaders,
+                    proxy: proxy && proxy?.server
+                        ? asProxyConfig(proxy)
+                        : undefined,
+                }),
+            )));
+        },
+        { option: true },
+    ],
+
+    // eslint-disable-next-line no-empty-pattern,@typescript-eslint/explicit-module-boundary-types
+    platform: [ async ({}, use) => {
         const platform = os.platform();
 
         // https://nodejs.org/api/process.html#process_process_platform
@@ -86,75 +95,142 @@ export const fixtures: Fixtures<Omit<SerenityOptions, 'actors'> & SerenityFixtur
             : (platform === 'darwin' ? 'macOS' : 'Linux');
 
         await use({ name, version: os.release() });
-    },
+    }, { scope: 'worker' } ],
 
-    serenity: async ({ crew, cueTimeout, interactionTimeout, platform }, use, info: TestInfo) => {
+    diffFormatterInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        async ({}, use) => {
+            const diffFormatter = new AnsiDiffFormatter();
+            await use(diffFormatter);
+        },
+        { scope: 'worker', box: true }
+    ],
 
-        const domainEventBuffer = new DomainEventBuffer();
+    sceneIdFactoryInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        async ({ }, use) => {
+            await use(new PlaywrightTestSceneIdFactory());
+        },
+        { scope: 'worker', box: true },
+    ],
 
-        serenityInstance.configure({
-            diffFormatter: new AnsiDiffFormatter(),
-            cueTimeout: asDuration(cueTimeout),
-            interactionTimeout: asDuration(interactionTimeout),
-            crew: [
-                ...crew,
-                domainEventBuffer,
-                new PlaywrightStepReporter(info),
-            ],
-        });
+    serenity: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ playwright, sceneIdFactoryInternal }, use, workerInfo) => {
+            const clock = new Clock();
+            const cwd = process.cwd();
+            const serenity = new Serenity(clock, cwd, sceneIdFactoryInternal);
 
-        serenityInstance.announce(new SceneTagged(
-            serenityInstance.currentSceneId(),
-            new PlatformTag(platform.name, platform.version),
-            serenityInstance.currentTime(),
-        ));
+            const serenitySelectorEngines = new SerenitySelectorEngines();
+            await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
 
-        await use(serenityInstance);
+            await use(serenity);
+        },
+        { scope: 'worker', box: true }
+    ],
 
-        const serialisedEvents: Array<{ type: string, value: JSONValue }> = [];
+    eventStreamWriterInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        async ({ }, use, workerInfo) => {
 
-        for (const event of domainEventBuffer.flush()) {
-            serialisedEvents.push({
-                type: event.constructor.name,
-                value: event.toJSON(),
+            const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');
+
+            const eventStreamWriter = new WorkerEventStreamWriter(
+                serenityOutputDirectory,
+                workerInfo,
+            );
+
+            await use(eventStreamWriter);
+        },
+        { scope: 'worker', box: true },
+    ],
+
+    configureWorkerInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ diffFormatterInternal, eventStreamWriterInternal, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
+
+            serenity.configure({
+                actors: Cast.where(actor => actor.whoCan(
+                    BrowseTheWebWithPlaywright.using(browser),
+                    TakeNotes.usingAnEmptyNotepad(),
+                    // todo: consider making `axios` a fixture and injecting an ability to CallAnApi
+                )),
+                crew: [
+                    eventStreamWriterInternal,
+                ],
+                diffFormatter: diffFormatterInternal,
             });
 
-            if (event instanceof SceneTagged) {
-                test.info().annotations.push({ type: event.tag.type, description: event.tag.name });
+            sceneIdFactoryInternal.setTestId(`worker-${ info.workerIndex }`);
+            const workerBeforeAllSceneId = serenity.assignNewSceneId();
+
+            await use(void 0);
+
+            await eventStreamWriterInternal.persistAll(workerBeforeAllSceneId);
+        },
+        { scope: 'worker', auto: true, box: true },
+    ],
+
+    configureScenarioInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ actors, browser, browserName, crew, cueTimeout, diffFormatterInternal, eventStreamWriterInternal, interactionTimeout, platform, sceneIdFactoryInternal, serenity }, use, info: TestInfo) => {
+
+            serenity.configure({
+                actors: asCast(actors),
+                diffFormatter: diffFormatterInternal,
+                cueTimeout: asDuration(cueTimeout),
+                interactionTimeout: asDuration(interactionTimeout),
+                crew: [
+                    ...crew,
+                    new PlaywrightStepReporter(info),
+                ],
+            });
+
+            sceneIdFactoryInternal.setTestId(info.testId);
+            const sceneId = serenity.assignNewSceneId();
+
+            serenity.announce(
+                new SceneTagged(
+                    sceneId,
+                    new PlatformTag(platform.name, platform.version),
+                    serenity.currentTime(),
+                ),
+                new SceneTagged(
+                    sceneId,
+                    new BrowserTag(browserName, browser.version()),
+                    serenity.currentTime(),
+                )
+            );
+
+            await use(void 0);
+
+            try {
+                serenity.announce(
+                    new SceneFinishes(sceneId, serenity.currentTime()),
+                );
+
+                await serenity.waitForNextCue();
             }
-        }
+            finally {
+                await eventStreamWriterInternal.persist(info.testId);
+            }
+        },
+        { auto: true, box: true, }
+    ],
 
-        info.attach('serenity-js-events.json', {
-            contentType: SERENITY_JS_DOMAIN_EVENTS_ATTACHMENT_CONTENT_TYPE,
-            body: Buffer.from(JSON.stringify(serialisedEvents), 'utf8'),
-        });
-    },
+    actorCalled: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ serenity }, use) => {
 
-    actorCalled: async ({ serenity, actors, browser, browserName, contextOptions }, use) => {
+            const actorCalled = (name: string) => {
+                const actor = serenity.theActorCalled(name);
+                return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
+            };
 
-        const sceneId = serenity.currentSceneId();
-
-        serenity.engage(asCast(actors));
-
-        const actorCalled = (name: string) => {
-            const actor = serenity.theActorCalled(name);
-            return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
-        };
-
-        serenity.announce(new SceneTagged(
-            sceneId,
-            new BrowserTag(browserName, browser.version()),
-            serenity.currentTime(),
-        ));
-
-        await use(actorCalled);
-
-        serenity.announce(
-            new SceneFinishes(sceneId, serenity.currentTime()),
-        );
-
-        await serenityInstance.waitForNextCue();
-    },
+            await use(actorCalled);
+        },
+        { scope: 'worker' },
+    ],
 
     actor: async ({ actorCalled, defaultActorName }, use) => {
         await use(actorCalled(defaultActorName));
@@ -191,14 +267,17 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
          *
          * Shorthand for [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/)
          */
-        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>) => TestApi<TestArgs & T, WorkerArgs & W>,
+        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(
+            customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>
+        ) => TestApi<TestArgs & T, WorkerArgs & W>,
+
         it: TestType<TestArgs, WorkerArgs>,
         test: TestType<TestArgs, WorkerArgs>,
     }
 
-function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(baseTest: TestType<TestArgs, WorkerArgs>): TestApi<TestArgs, WorkerArgs> {
+function createTestApi<BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions), BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
     return {
-        useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>): TestApi<TestArgs & T, WorkerArgs & W> {
+        useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & T, BaseWorkerFixtures & W> {
             return createTestApi(baseTest.extend(customFixtures));
         },
         beforeAll: baseTest.beforeAll,
@@ -212,7 +291,7 @@ function createTestApi<TestArgs extends Record<string, any>, WorkerArgs extends 
     };
 }
 
-const api = createTestApi(playwrightBaseTest).useFixtures(fixtures);
+const api = createTestApi(playwrightBaseTest).useFixtures<SerenityFixtures, SerenityWorkerFixtures>(fixtures);
 
 /**
  * Declares a single test scenario.
@@ -478,11 +557,13 @@ export const useFixtures = api.useFixtures;
  *
  * @param baseTest
  */
-export function useBase<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any> = object>(
-    baseTest: TestType<TestArgs, WorkerArgs>
-): TestApi<Omit<SerenityOptions, 'actors'> & SerenityFixtures & TestArgs, WorkerArgs> {
-    return createTestApi(baseTest)
-        .useFixtures<TestArgs & Omit<SerenityOptions, 'actors'> & SerenityFixtures, WorkerArgs>(fixtures);
+export function useBase<
+    BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions),
+    BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)
+> (baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & SerenityFixtures, BaseWorkerFixtures & SerenityWorkerFixtures> {
+    return createTestApi<BaseTestFixtures, BaseWorkerFixtures>(baseTest).useFixtures(
+        fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, BaseTestFixtures, BaseWorkerFixtures>
+    );
 }
 
 /**
