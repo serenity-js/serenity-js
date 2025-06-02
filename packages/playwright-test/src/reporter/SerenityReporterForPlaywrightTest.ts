@@ -61,7 +61,6 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     constructor(config: SerenityReporterForPlaywrightTestConfig) {
         this.sceneIdFactory = new PlaywrightTestSceneIdFactory();
 
-        // todo: consider using the constructor to provide the initial config
         this.serenity = new Serenity(
             new Clock(),
             process.cwd(),
@@ -108,16 +107,16 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
         const pendingAfterAllHooks = this.countPendingAfterAllHooks(test);
 
         if (test.retries > 0) {
-            this.eventBuffer.appendTestRetries(test, result);
+            this.eventBuffer.appendRetryableSceneEvents(test, result);
         }
 
         this.eventBuffer.appendCrashedWorkerEvents(test, result);
-        this.eventBuffer.appendSceneEvents(test);
+        this.eventBuffer.appendSceneEvents(test, result);
 
         if (pendingAfterAllHooks === 0) {
             this.eventBuffer.appendSceneFinishedEvent(test, result)
 
-            const events = this.eventBuffer.flush(test.id);
+            const events = this.eventBuffer.flush(test, result);
 
             this.serenity.announce(...events);
         }

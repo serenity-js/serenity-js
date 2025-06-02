@@ -13,7 +13,6 @@ import {
 } from '@serenity-js/core/lib/events';
 import {
     CapabilityTag,
-    CorrelationId,
     ExecutionFailedWithAssertionError,
     ExecutionSkipped,
     ExecutionSuccessful,
@@ -22,6 +21,7 @@ import {
     ProblemIndication,
     ThemeTag
 } from '@serenity-js/core/lib/model';
+import { PlaywrightSceneId } from '@serenity-js/playwright-test/lib/events';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
@@ -115,10 +115,10 @@ describe('Hooks', function () {
             const report = jsonFrom('output/screenplay/hooks/beforeAll_failure.json');
 
             const testId1 = report.suites[0].suites[0].suites[0].specs[0].id;
-            const expectedSceneId1 = new CorrelationId(testId1);
+            const expectedSceneId1 = PlaywrightSceneId.from('default', { id: testId1, repeatEachIndex: 0 }, { retry: 0 });
 
             const testId2 = report.suites[0].suites[0].suites[0].specs[1].id;
-            const expectedSceneId2 = new CorrelationId(testId2);
+            const expectedSceneId2 = PlaywrightSceneId.from('default', { id: testId2, repeatEachIndex: 0 }, { retry: 0 });
 
             PickEvent.from(result.events)
 
@@ -175,7 +175,7 @@ describe('Hooks', function () {
             const report = jsonFrom('output/screenplay/hooks/afterAll_failure.json');
 
             const testId = report.suites[0].suites[0].suites[0].specs[0].id;
-            const expectedSceneId = new CorrelationId(testId);
+            const expectedSceneId = PlaywrightSceneId.from('default', { id: testId, repeatEachIndex: 0 }, { retry: 0 });
 
             PickEvent.from(result.events)
 
