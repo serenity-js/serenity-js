@@ -1,15 +1,22 @@
-import { type Location, type TestCase, type TestResult } from '@playwright/test/reporter';
+import type { FullProject } from '@playwright/test/reporter';
+import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, Timestamp } from '@serenity-js/core';
 import {
     type DomainEvent,
     SceneFinished,
+    SceneParametersDetected,
+    SceneSequenceDetected,
     SceneStarts,
     SceneTagged,
+    SceneTemplateDetected,
     TestRunnerDetected
 } from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { Outcome, Tag } from '@serenity-js/core/lib/model';
-import { Category, CorrelationId, Name, ScenarioDetails, Tags } from '@serenity-js/core/lib/model';
+import { Category, Description, Name, ScenarioDetails, ScenarioParameters, Tags } from '@serenity-js/core/lib/model';
+import { ProjectTag } from '@serenity-js/core/src/model';
+
+import { PlaywrightSceneId } from './PlaywrightSceneId';
 
 export class EventFactory {
     private requirementsHierarchy: RequirementsHierarchy;
@@ -20,38 +27,96 @@ export class EventFactory {
         );
     }
 
-    createSceneStartEvents(test: Pick<TestCase, 'id' | 'titlePath' | 'location' | 'tags'>, startTime: Timestamp): DomainEvent[] {
-        const sceneId = new CorrelationId(test.id);
+    createSceneStartEvents(test: TestCase, result: TestResult): DomainEvent[] {
+        const sceneId = PlaywrightSceneId.from(test.parent.project()?.name, test, result);
+        const startTime = new Timestamp(result.startTime);
 
-        const { featureName, name } = this.scenarioMetadataFrom(test);
-        const scenarioDetails       = this.scenarioDetailsFrom(featureName, name, test.location);
-        const tagsFromTitle         = this.tagsFromText(featureName, name);
-        const arbitraryTags         = test.tags.flatMap(tag => Tags.from(tag));
-        const hierarchyTags         = this.requirementsHierarchy.requirementTagsFor(
-            scenarioDetails.location.path,
-            scenarioDetails.category.value,
+        const project: FullProject | undefined = test.parent.project();
+        const projectName = project?.name ?? '';
+
+        const scenarioDetails = this.scenarioDetailsFrom(test);
+
+        const allTags = this.tagsFrom(
+            scenarioDetails,
+            test.tags,
+        );
+
+        if (projectName) {
+            allTags.push(new ProjectTag(projectName));
+        }
+
+        const events: DomainEvent[] = [];
+
+        if (test.retries > 0) {
+            events.push(
+                ...this.createSceneSequenceEvents(
+                    sceneId,
+                    startTime,
+                    projectName,
+                    scenarioDetails,
+                    test,
+                    result
+                )
+            );
+        }
+
+        events.push(
+            new SceneStarts(sceneId,
+                scenarioDetails,
+                startTime
+            ),
+            new TestRunnerDetected(sceneId, new Name('Playwright'), startTime),
+            ...allTags.map(tag => new SceneTagged(sceneId, tag, startTime))
         )
 
-        const allTags = [
-            ...hierarchyTags,
-            ...this.uniqueTags(...tagsFromTitle, ...arbitraryTags),
-        ];
+        return events;
+    }
 
-        const sceneTaggedEvents = allTags.map(tag => new SceneTagged(sceneId, tag, startTime))
+    private createSceneSequenceEvents(
+        sceneId: PlaywrightSceneId,
+        startTime: Timestamp,
+        projectName: string,
+        scenarioDetails: ScenarioDetails,
+        test: TestCase,
+        result: TestResult
+    ): DomainEvent[] {
+
+        const attempt = result.retry + 1;
+        const parameters = {
+            Retries: `Attempt #${ attempt }`
+        };
+
+        const sceneSequenceDetails = new ScenarioDetails(
+            new Name(`${ scenarioDetails.name.value }${ projectName ? ' (' + projectName + ')' : '' }`),
+            scenarioDetails.category,
+            scenarioDetails.location,
+        )
 
         return [
-            new SceneStarts(sceneId, scenarioDetails, startTime),
-            new TestRunnerDetected(sceneId, new Name('Playwright'), startTime),
-            ...sceneTaggedEvents,
+            new SceneSequenceDetected(sceneId, sceneSequenceDetails, startTime),
+            new SceneTemplateDetected(
+                sceneId,
+                new Description(''),
+                startTime,
+            ),
+            new SceneParametersDetected(
+                sceneId,
+                sceneSequenceDetails,
+                new ScenarioParameters(
+                    new Name(''),
+                    new Description(`Max retries: ${ test.retries }`),
+                    parameters,
+                )
+            ),
         ];
     }
 
     createSceneFinishedEvent(test: TestCase, result: TestResult, scenarioOutcome: Outcome): SceneFinished {
-        const sceneId = new CorrelationId(test.id);
-        const sceneEndTime = new Timestamp(result.startTime).plus(Duration.ofMilliseconds(result.duration));
+        const sceneId = PlaywrightSceneId.from(test.parent.project()?.name, test, result);
+        const duration = Duration.ofMilliseconds(result.duration);
+        const sceneEndTime = new Timestamp(result.startTime).plus(duration);
 
-        const { featureName, name } = this.scenarioMetadataFrom(test);
-        const scenarioDetails       = this.scenarioDetailsFrom(featureName, name, test.location);
+        const scenarioDetails = this.scenarioDetailsFrom(test);
 
         return new SceneFinished(
             sceneId,
@@ -71,6 +136,18 @@ export class EventFactory {
         }
 
         return Object.values(uniqueTags);
+    }
+
+    private scenarioDetailsFrom(test: Pick<TestCase, 'titlePath' | 'location'>): ScenarioDetails {
+
+        const { featureName, name } = this.scenarioMetadataFrom(test);
+        const { file, line, column } = test.location;
+
+        return new ScenarioDetails(
+            new Name(Tags.stripFrom(name)),
+            new Category(Tags.stripFrom(featureName)),
+            new FileSystemLocation(Path.from(file), line, column),
+        );
     }
 
     private scenarioMetadataFrom(test: Pick<TestCase, 'titlePath' | 'location'>): { featureName: string, name: string } {
@@ -93,15 +170,28 @@ export class EventFactory {
         };
     }
 
-    private scenarioDetailsFrom(featureName: string, name: string, location: Location): ScenarioDetails {
-        return new ScenarioDetails(
-            new Name(Tags.stripFrom(name)),
-            new Category(Tags.stripFrom(featureName)),
-            new FileSystemLocation(Path.from(location.file), location.line, location.column),
-        );
-    }
+    private tagsFrom(scenarioDetails: ScenarioDetails, extraTagValues: string[]): Tag[] {
 
-    private tagsFromText(...chunks: string[]): Tag[] {
-        return Tags.from(chunks.join(' '));
+        const tagsFromRequirementsHierarchy  = this.requirementsHierarchy.requirementTagsFor(
+            scenarioDetails.location.path,
+            scenarioDetails.category.value,
+        );
+
+        const tagsFromTitle = Tags.from([
+            scenarioDetails.category.value,
+            scenarioDetails.name.value,
+        ].join(' '));
+
+        const extraTags = extraTagValues
+            .filter(Boolean)
+            .flatMap(tagValue => Tags.from(tagValue));
+
+        return [
+            ...tagsFromRequirementsHierarchy,
+            ...this.uniqueTags(
+                ...tagsFromTitle,
+                ...extraTags,
+            )
+        ]
     }
 }

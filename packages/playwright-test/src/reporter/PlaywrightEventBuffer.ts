@@ -11,14 +11,12 @@ import {
     SceneTagged
 } from '@serenity-js/core/lib/events';
 import { Path } from '@serenity-js/core/lib/io';
-import type { Outcome } from '@serenity-js/core/lib/model';
+import type {     CorrelationId,Outcome } from '@serenity-js/core/lib/model';
 import {
     ArbitraryTag,
-    CorrelationId,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionIgnored,
-    ExecutionRetriedTag,
     ExecutionSkipped,
     ExecutionSuccessful
 } from '@serenity-js/core/lib/model';
@@ -26,7 +24,7 @@ import { type JSONObject } from 'tiny-types';
 
 import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
 import { WorkerEventStreamWriter } from '../api/WorkerEventStreamWriter';
-import { EventFactory } from '../events';
+import { EventFactory, PlaywrightSceneId } from '../events';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser';
 
 export class PlaywrightEventBuffer {
@@ -39,7 +37,6 @@ export class PlaywrightEventBuffer {
         event: SceneFinished;
         outputDirectory: string;
         workerIndex: number;
-        testId: string;
     }>();
 
     configure(config: Pick<FullConfig, 'rootDir'>): void {
@@ -48,13 +45,13 @@ export class PlaywrightEventBuffer {
 
     appendTestStart(test: TestCase, result: TestResult): void {
         this.events.set(
-            test.id,
-            this.eventFactory.createSceneStartEvents(test, new Timestamp(result.startTime))
+            this.sceneId(test, result).value,
+            this.eventFactory.createSceneStartEvents(test, result),
         );
     }
 
-    appendTestRetries(test: TestCase, result: TestResult): void {
-        const sceneId = new CorrelationId(test.id);
+    appendRetryableSceneEvents(test: TestCase, result: TestResult): void {
+        const sceneId = this.sceneId(test, result);
         const sceneEndTime = new Timestamp(result.startTime).plus(Duration.ofMilliseconds(result.duration));
 
         this.events.get(sceneId.value).push(
@@ -68,24 +65,18 @@ export class PlaywrightEventBuffer {
                     new ArbitraryTag('retried'), // todo: replace with a dedicated tag
                     sceneEndTime,
                 ),
-                new SceneTagged(
-                    sceneId,
-                    new ExecutionRetriedTag(result.retry),
-                    sceneEndTime,
-                ),
             );
         }
     }
 
     deferAppendingSceneFinishedEvent(test: TestCase, result: TestResult): void {
-        const sceneId = new CorrelationId(test.id);
+        const sceneId = this.sceneId(test, result);
         const scenarioOutcome = this.outcomeFrom(test, result);
 
         this.deferredSceneFinishedEvents.set(sceneId.value, {
             event: this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome),
             outputDirectory: test.parent.project().outputDir,
             workerIndex: result.workerIndex,
-            testId: test.id
         });
     }
 
@@ -104,19 +95,21 @@ export class PlaywrightEventBuffer {
 
     appendCrashedWorkerEvents(test: TestCase, result: TestResult): void {
         const workerStreamId = WorkerEventStreamWriter.workerStreamIdFor(result.workerIndex).value;
+        const sceneId = this.sceneId(test, result);
 
-        this.events.get(test.id).push(
+        this.events.get(sceneId.value).push(
             ...this.readEventStream(
                 test.parent.project().outputDir,
                 workerStreamId,
-                test.id,
+                sceneId.value,
             ),
         );
     }
 
-    appendSceneEvents(test: TestCase): void {
-        this.events.get(test.id).push(
-            ...this.readEventStream(test.parent.project().outputDir, test.id),
+    appendSceneEvents(test: TestCase, result: TestResult): void {
+        const sceneId = this.sceneId(test, result);
+        this.events.get(sceneId.value).push(
+            ...this.readEventStream(test.parent.project().outputDir, sceneId.value),
         );
     }
 
@@ -146,26 +139,27 @@ export class PlaywrightEventBuffer {
     }
 
     appendSceneFinishedEvent(test: TestCase, result: TestResult): void {
-
-        const worstInteractionOutcome = this.determineWorstInteractionOutcome(this.events.get(test.id));
+        const sceneId = this.sceneId(test, result);
+        const worstInteractionOutcome = this.determineWorstInteractionOutcome(this.events.get(sceneId.value));
         const scenarioOutcome = this.determineScenarioOutcome(
             worstInteractionOutcome,
             this.outcomeFrom(test, result),
         );
 
-        this.events.get(test.id).push(
+        this.events.get(sceneId.value).push(
             this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome)
         );
     }
 
-    flush(testId: TestCase['id']): DomainEvent[] {
-        const events = this.events.get(testId);
+    flush(test: TestCase, result: TestResult): DomainEvent[] {
+        const sceneId = this.sceneId(test, result);
+        const events = this.events.get(sceneId.value);
 
         if (! events) {
-            throw new LogicError(`No events found for test ID: ${ testId }`);
+            throw new LogicError(`No events found for test: ${ sceneId.value }`);
         }
 
-        this.events.delete(testId);
+        this.events.delete(sceneId.value);
 
         return events;
     }
@@ -184,7 +178,7 @@ export class PlaywrightEventBuffer {
 
                 const eventStream = this.readEventStream(
                     deferredSceneFinished.outputDirectory,
-                    deferredSceneFinished.testId,
+                    deferredSceneFinished.event.sceneId.value,
                 );
 
                 const firstEventSinceLastIndex = eventStream.findIndex(event => lastRecordedEvent.equals(event));
@@ -249,5 +243,9 @@ export class PlaywrightEventBuffer {
         }
 
         return new ExecutionSuccessful();
+    }
+
+    private sceneId(test: TestCase, result: TestResult): CorrelationId {
+        return PlaywrightSceneId.from(test.parent.project()?.name, test, result);
     }
 }

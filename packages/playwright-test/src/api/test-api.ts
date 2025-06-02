@@ -23,6 +23,7 @@ import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { ensure, isFunction, property } from 'tiny-types';
 
+import { PlaywrightSceneId } from '../events';
 import { PlaywrightStepReporter, } from '../reporter';
 import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
@@ -186,7 +187,13 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                 ],
             });
 
-            sceneIdFactoryInternal.setTestId(info.testId);
+            const playwrightSceneId = PlaywrightSceneId.from(
+                info.project.name,
+                { id: info.testId, repeatEachIndex: info.repeatEachIndex },
+                { retry: info.retry }
+            );
+
+            sceneIdFactoryInternal.setTestId(playwrightSceneId.value);
             const sceneId = serenity.assignNewSceneId();
 
             serenity.announce(
@@ -212,7 +219,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                 await serenity.waitForNextCue();
             }
             finally {
-                await eventStreamWriterInternal.persist(info.testId);
+                await eventStreamWriterInternal.persist(playwrightSceneId.value);
             }
         },
         { auto: true, box: true, }

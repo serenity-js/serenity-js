@@ -15,7 +15,6 @@ import {
 import { trimmed } from '@serenity-js/core/lib/io';
 import {
     CapabilityTag,
-    CorrelationId,
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
@@ -24,6 +23,7 @@ import {
     ProblemIndication,
     ThemeTag
 } from '@serenity-js/core/lib/model';
+import { PlaywrightSceneId } from '@serenity-js/playwright-test/lib/events';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../../src/playwright-test';
@@ -250,11 +250,11 @@ describe('Failing', () => {
             const report = jsonFrom('output/failing/error_worker_beforeAll.json');
             const testId = report.suites[0].suites[0].suites[0].specs[0].id;
 
-            const expectedTestId = new CorrelationId(testId);
+            const expectedSceneId = PlaywrightSceneId.from('default', { id: testId, repeatEachIndex: 0 }, { retry: 0 });
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.sceneId).to.equal(expectedSceneId);
                     expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
                 })
                 .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
@@ -262,7 +262,7 @@ describe('Failing', () => {
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker beforeAll')))
                 .next(SceneFinished, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.sceneId).to.equal(expectedSceneId);
 
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
@@ -287,11 +287,11 @@ describe('Failing', () => {
             const report = jsonFrom('output/failing/error_worker_afterAll.json');
             const testId = report.suites[0].suites[0].suites[0].specs[0].id;
 
-            const expectedTestId = new CorrelationId(testId);
+            const expectedSceneId = PlaywrightSceneId.from('default', { id: testId, repeatEachIndex: 0 }, { retry: 0 });
 
             PickEvent.from(result.events)
                 .next(SceneStarts, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.sceneId).to.equal(expectedSceneId);
                     expect(event.details.name).to.equal(new Name('Test scenario fails because of a global, worker-level error'));
                 })
                 .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Playwright')))
@@ -299,7 +299,7 @@ describe('Failing', () => {
                 .next(SceneTagged, event => expect(event.tag).to.equal(new CapabilityTag('Failing')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Error worker afterAll')))
                 .next(SceneFinished, event => {
-                    expect(event.sceneId).to.equal(expectedTestId);
+                    expect(event.sceneId).to.equal(expectedSceneId);
 
                     const outcome = event.outcome as ProblemIndication;
                     expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
