@@ -201,8 +201,6 @@ describe('Retried', () => {
                 .next(TestRunFinishes,  event => expect(event.timestamp).to.be.instanceof(Timestamp))
                 .next(TestRunFinished,  event => expect(event.timestamp).to.be.instanceof(Timestamp));
         });
-
-        // todo: add a test for repeated tests and repeated tests with retries(?)
     });
 });
 
