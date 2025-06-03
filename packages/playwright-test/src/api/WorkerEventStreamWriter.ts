@@ -78,11 +78,16 @@ export class WorkerEventStreamWriter implements StageCrewMember {
 
     async persist(testId: TestCase['id'], workerBeforeAllSceneId?: CorrelationId): Promise<void> {
         const testOutputDirectory = path.join(this.outputDirectory, testId);
-        await fs.promises.mkdir(testOutputDirectory, { recursive: true })
 
         const filePath = path.join(testOutputDirectory, 'events.ndjson');
 
         const events = this.flush(testId);
+
+        if (events.length === 0) {
+            return;
+        }
+
+        await fs.promises.mkdir(testOutputDirectory, { recursive: true })
 
         for (const event of events) {
             const shouldReattachToScene = event['sceneId'] && event['sceneId'].equals(workerBeforeAllSceneId);
