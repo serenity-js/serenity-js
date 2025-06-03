@@ -9,6 +9,7 @@ import {
     ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
+    RetryableSceneDetected,
     SceneBackgroundDetected,
     SceneDescriptionDetected,
     SceneFinished,
@@ -33,9 +34,12 @@ import {
     scenarioDetailsOf
 } from '../transformations';
 import { SceneSequenceReportContext } from './SceneSequenceReportContext';
-import { scenarioOutlineOf, sceneSequenceOverallResult } from './transformations';
-import { scenarioParameterResult } from './transformations/scenarioParameterResult';
-import { scenarioParametersOf } from './transformations/scenarioParametersOf';
+import {
+    scenarioOutlineOf,
+    scenarioParameterResult,
+    scenarioParametersOf,
+    sceneSequenceOverallResult,
+} from './transformations';
 
 /**
  * @package
@@ -52,6 +56,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
             // eslint-disable-next-line @typescript-eslint/indent
             match<DomainEvent, SceneSequenceReportContext>(event)
                 .when(SceneSequenceDetected,            this.onSceneSequenceDetected(context))
+                .when(RetryableSceneDetected,           this.onRetryableSceneDetected(context))
                 .when(SceneStarts,                      this.onSceneStarts(context))
                 .when(ActorEntersStage,                 this.onActorEntersStage(context))
                 .when(ActorStageExitStarts,             this.onActorStageExitStarts(context))
@@ -78,6 +83,11 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
             context
                 .with(reportIdIncluding(event.details.category.value, event.details.name.value))
                 .with(scenarioDetailsOf(event.details));
+    }
+
+    private onRetryableSceneDetected(context: SceneSequenceReportContext) {
+        return (event: SceneSequenceDetected): SceneSequenceReportContext =>
+            context.usingRetryModeOutcomeReporting();
     }
 
     private onSceneStarts<Context extends SerenityBDDReportContext>(context: Context) {
