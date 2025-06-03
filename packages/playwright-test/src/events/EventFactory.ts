@@ -138,13 +138,18 @@ export class EventFactory {
         return Object.values(uniqueTags);
     }
 
-    private scenarioDetailsFrom(test: Pick<TestCase, 'titlePath' | 'location'>): ScenarioDetails {
+    private scenarioDetailsFrom(test: Pick<TestCase, 'titlePath' | 'location' | 'repeatEachIndex'>): ScenarioDetails {
 
         const { featureName, name } = this.scenarioMetadataFrom(test);
         const { file, line, column } = test.location;
 
+        const nameWithoutTags = Tags.stripFrom(name);
+        const scenarioName = test.repeatEachIndex
+            ? `${ nameWithoutTags } - Repetition ${ test.repeatEachIndex }`
+            : nameWithoutTags;
+
         return new ScenarioDetails(
-            new Name(Tags.stripFrom(name)),
+            new Name(scenarioName),
             new Category(Tags.stripFrom(featureName)),
             new FileSystemLocation(Path.from(file), line, column),
         );
