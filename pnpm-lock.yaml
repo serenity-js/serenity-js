@@ -181,8 +181,8 @@ importers:
   examples/cucumber-domain-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -220,8 +220,8 @@ importers:
   examples/cucumber-reporting:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -256,8 +256,8 @@ importers:
   examples/cucumber-rest-api-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -937,8 +937,8 @@ importers:
   integration/cucumber-11:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@integration/cucumber-specs':
         specifier: workspace:*
         version: link:../cucumber-specs
@@ -2135,8 +2135,8 @@ importers:
   integration/webdriverio-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2511,8 +2511,8 @@ importers:
         version: 1.23.0
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 11.3.0
+        version: 11.3.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -8206,8 +8206,8 @@ packages:
     resolution: {integrity: sha512-QrwPArQCNLAKGO/C+ZIilgIuDnEnKx5QYODdDtbFaxzsbZcc/a7WFq7MhsVYgRlwawLtvOUESTlfJ+hc/USqPg==}
     engines: {node: '>=12'}
 
-  luxon@3.5.0:
-    resolution: {integrity: sha512-rh+Zjr6DNfUYR3bPwJEnuwDdqMbxZW7LOQfUN4B54+Cl+0o5zaU9RJ6bcidfDtC1cWCZXQ+nvX8bf6bAji37QQ==}
+  luxon@3.6.1:
+    resolution: {integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==}
     engines: {node: '>=12'}
 
   luxon@3.6.1:
@@ -11779,7 +11779,15 @@ snapshots:
       '@cucumber/messages': 27.0.2
       '@cucumber/query': 13.1.0(@cucumber/messages@27.0.2)
       '@teppeis/multimaps': 3.0.0
-      luxon: 3.5.0
+      luxon: 3.6.1
+      xmlbuilder: 15.1.1
+
+  '@cucumber/junit-xml-formatter@0.7.1(@cucumber/messages@27.2.0)':
+    dependencies:
+      '@cucumber/messages': 27.2.0
+      '@cucumber/query': 13.1.0(@cucumber/messages@27.2.0)
+      '@teppeis/multimaps': 3.0.0
+      luxon: 3.6.1
       xmlbuilder: 15.1.1
 
   '@cucumber/junit-xml-formatter@0.7.1(@cucumber/messages@27.2.0)':
@@ -17724,7 +17732,7 @@ snapshots:
 
   luxon@3.2.1: {}
 
-  luxon@3.5.0: {}
+  luxon@3.6.1: {}
 
   luxon@3.6.1: {}
 
@@ -18543,7 +18551,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.26.2
       index-to-position: 0.1.2
-      type-fest: 4.33.0
+      type-fest: 4.41.0
 
   parse-ms@2.1.0: {}
 
@@ -18934,7 +18942,7 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.33.0
+      type-fest: 4.41.0
 
   read-pkg-up@10.0.0:
     dependencies:
@@ -18984,7 +18992,7 @@ snapshots:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.2
       parse-json: 8.1.0
-      type-fest: 4.33.0
+      type-fest: 4.41.0
       unicorn-magic: 0.1.0
 
   read@3.0.1:
