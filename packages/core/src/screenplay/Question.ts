@@ -45,7 +45,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties';
  *    });
  *
  *  await actorCalled('Quentin').attemptsTo(
- *    Ensure.that(LastItemFrom([1,2,3]), equals(3)),
+ *    Ensure.that(LastItemOf([1,2,3]), equals(3)),
  *  )
  * ```
  *
