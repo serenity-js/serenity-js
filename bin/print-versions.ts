@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import { sync as glob } from 'fast-glob';
 import { readFileSync } from 'fs';
 import * as path from 'path';
