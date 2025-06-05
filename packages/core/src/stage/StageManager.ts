@@ -11,8 +11,13 @@ export class StageManager implements TellsTime {
     private readonly subscribers: ListensToDomainEvents[] = [];
     private readonly wip: WIP;
 
-    constructor(private readonly cueTimeout: Duration, private readonly clock: Clock) {
+    constructor(private cueTimeout: Duration, private readonly clock: Clock) {
         this.wip = new WIP(cueTimeout, clock);
+    }
+
+    configure(options: { cueTimeout: Duration }): void {
+        this.cueTimeout = options.cueTimeout;
+        this.wip.configure(options);
     }
 
     register(...subscribers: ListensToDomainEvents[]): void {
@@ -79,9 +84,13 @@ class WIP {
     private readonly failedOperations: FailedAsyncOperationDetails[] = [];
 
     constructor(
-        private readonly cueTimeout: Duration,
+        private cueTimeout: Duration,
         private readonly clock: Clock,
     ) {
+    }
+
+    configure(options: { cueTimeout: Duration }) {
+        this.cueTimeout = options.cueTimeout;
     }
 
     recordIfAsync(event: DomainEvent): void {
@@ -151,7 +160,7 @@ class WIP {
         return Array.from(this.wip.values());
     }
 
-    private header(numberOfFailures): string {
+    private header(numberOfFailures: number): string {
         return numberOfFailures === 1
             ? `1 async operation has failed to complete`
             : `${ numberOfFailures } async operations have failed to complete`;

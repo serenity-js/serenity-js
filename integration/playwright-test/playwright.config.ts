@@ -1,8 +1,6 @@
-import { devices, ReporterDescription } from '@playwright/test';
-import { PlaywrightTestConfig } from '@serenity-js/playwright-test';
+import { defineConfig, devices, ReporterDescription } from '@playwright/test';
+import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 import * as path from 'path';
-
-import { CustomCast } from './examples/screenplay/actors/CustomCast';
 
 /**
  * Read environment variables from file.
@@ -13,7 +11,7 @@ import { CustomCast } from './examples/screenplay/actors/CustomCast';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
+export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './examples',
     /* Maximum time one test can run for. */
     timeout: 30_000,
@@ -42,7 +40,7 @@ const config: PlaywrightTestConfig = {
         ...[
             process.env.REPORTER_JSON && [ 'json', { outputFile: process.env.REPORTER_JSON } ],
             process.env.REPORTER_HTML && [ 'html', { outputFolder: process.env.REPORTER_HTML, open: 'never' } ],
-        ].filter(Boolean) as Array<ReporterDescription>,
+        ].filter(Boolean) as unknown as Array<ReporterDescription>,
     ],
 
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -50,7 +48,7 @@ const config: PlaywrightTestConfig = {
         cueTimeout: 5_000,
         actionTimeout: 0,
         /* Base URL to use in actions like `await page.goto('/')`. */
-        // baseURL: 'http://localhost:3000',
+        baseURL: 'http://localhost:3000',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
@@ -62,6 +60,9 @@ const config: PlaywrightTestConfig = {
             name: 'default',
             use: {
                 ...devices['Desktop Chrome'],
+                crew: [
+                    // disable Photographer
+                ],
             },
         },
         {
@@ -75,16 +76,9 @@ const config: PlaywrightTestConfig = {
             name: 'screenplay-custom-cast',
             use: {
                 ...devices['Desktop Chrome'],
-                contextOptions: {
+                extraContextOptions: {
                     defaultNavigationTimeout: 30_000,
                     defaultNavigationWaitUntil: 'networkidle'
-                },
-                actors: ({ browser, contextOptions }, use) => {
-                    use(CustomCast({
-                        contextOptions, options: {
-                            apiUrl: 'https://api.example.org',
-                        },
-                    }));
                 },
             },
         },
@@ -102,13 +96,11 @@ const config: PlaywrightTestConfig = {
                 crew: [
                     [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ]
                 ],
-                defaultActorName: 'Phoebe'
+                defaultActorName: 'Phoebe',
             },
         },
     ],
 
     /* Folder for test artifacts such as screenshots, videos, traces, etc. */
     // outputDir: 'test-results/',
-};
-
-export default config;
+});

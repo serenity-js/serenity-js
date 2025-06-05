@@ -1,53 +1,66 @@
-import { q, Question } from '@serenity-js/core';
-import { describe, it } from 'mocha';
+import { actorCalled, engage, q, Question } from '@serenity-js/core';
+import { beforeEach, describe, it } from 'mocha';
 
 import { DeleteRequest } from '../../../src';
-import { actorUsingAMockedAxiosInstance } from '../../actors';
+import { actors } from '../../actors';
 import { expect } from '../../expect';
 
 describe('DeleteRequest', () => {
 
-    const { actor } = actorUsingAMockedAxiosInstance();
+    beforeEach(() => {
+        const context = actors();
 
-    it('represents an Axios request', () =>
-        expect(actor.answer(DeleteRequest.to('/products/2')))
-            .to.eventually.deep.equal({
-                method: 'DELETE',
-                url: '/products/2',
-            }));
+        engage(context.actors);
+    });
 
-    it('allows for additional request properties to be specified', () =>
-        expect(actor.answer(DeleteRequest.to('/products/2').using({
-            headers: {
-                Authorization: 'token',
-            },
-        }))).
-        to.eventually.deep.equal({
+    it('represents an Axios request', async () => {
+        const result = await actorCalled('Apisitt').answer(
+            DeleteRequest.to('/products/2')
+        );
+
+        expect(result).to.deep.equal({
+            method: 'DELETE',
+            url: '/products/2',
+        });
+    });
+
+    it('allows for additional request properties to be specified', async () => {
+        const result = await actorCalled('Apisitt').answer(
+            DeleteRequest.to('/products/2')
+                .using({
+                    headers: {
+                        Authorization: 'token',
+                    },
+                })
+        );
+
+        expect(result).to.deep.equal({
             method: 'DELETE',
             url: '/products/2',
             headers: {
                 Authorization: 'token',
             },
-        }));
+        })
+    });
 
-    it('accepts dynamic records', () =>
-        expect(
-            actor.answer(DeleteRequest.to('/products/2')
+    it('accepts dynamic records', async () => {
+        const result = await actorCalled('Apisitt').answer(
+            DeleteRequest.to('/products/2')
                 .using({
                     headers: {
-                        Authorization: q`Bearer ${ Question.about('token', actor => 'some-token') }`,
+                        Authorization: q`Bearer ${Question.about('token', actor => 'some-token')}`,
                     },
                 })
-            )
-        ).
-        to.eventually.deep.equal({
+        );
+
+        expect(result).to.deep.equal({
             method: 'DELETE',
             url: '/products/2',
             headers: {
                 Authorization: 'Bearer some-token',
             },
-        })
-    );
+        });
+    });
 
     it('provides a sensible description of the interaction being performed', () => {
         expect(DeleteRequest.to('/products/2').toString())

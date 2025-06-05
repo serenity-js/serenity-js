@@ -6,7 +6,7 @@ import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 export function sceneSequenceOverallResult(outcome: Outcome) {
     return (context: SceneSequenceReportContext): SceneSequenceReportContext => {
 
-        if (outcome.isWorseThan(context.worstOutcomeSoFar)) {
+        if (context.shouldUpdateOverallResult(outcome)) {
             const outcomeReport = outcomeReportFrom(outcome);
 
             context.report.result = outcomeReport.result;

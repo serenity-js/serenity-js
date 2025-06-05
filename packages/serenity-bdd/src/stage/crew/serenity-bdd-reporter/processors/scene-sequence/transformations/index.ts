@@ -1,3 +1,4 @@
 export * from './scenarioOutlineOf';
-export * from './sceneSequenceOverallResult';
+export * from './scenarioParameterResult';
+export * from './scenarioParametersOf';
 export * from './sceneSequenceOverallResult';
