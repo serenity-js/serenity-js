@@ -126,8 +126,8 @@ importers:
         specifier: 10.9.2
         version: 10.9.2(@types/node@22.15.31)(typescript@5.8.3)
       tsx:
-        specifier: 4.20.2
-        version: 4.20.2
+        specifier: 4.20.3
+        version: 4.20.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -1484,7 +1484,7 @@ importers:
         version: link:../testing-tools
       '@playwright/experimental-ct-react':
         specifier: 1.52.0
-        version: 1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0))(yaml@2.7.0)
+        version: 1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0))(yaml@2.7.0)
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -10294,8 +10294,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  tsx@4.20.2:
-    resolution: {integrity: sha512-He0ZWr41gLa4vD30Au3yuwpe0HXaCZbclvl8RBieUiJ9aFnPMWUPIyvw3RU8+1Crjfcrauvitae2a4tUzRAGsw==}
+  tsx@4.20.3:
+    resolution: {integrity: sha512-qjbnuR9Tr+FJOMBqJCW5ehvIo/buZq7vH7qD7JziU98h6l3qGy0a/yPFjwO+y0/T7GFpNgNAvEcPPVfyT8rrPQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -12622,11 +12622,11 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@playwright/experimental-ct-core@1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0)':
+  '@playwright/experimental-ct-core@1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0)':
     dependencies:
       playwright: 1.52.0
       playwright-core: 1.52.0
-      vite: 6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0)
+      vite: 6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -12640,10 +12640,10 @@ snapshots:
       - tsx
       - yaml
 
-  '@playwright/experimental-ct-react@1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0))(yaml@2.7.0)':
+  '@playwright/experimental-ct-react@1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0))(yaml@2.7.0)':
     dependencies:
-      '@playwright/experimental-ct-core': 1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0)
-      '@vitejs/plugin-react': 4.3.4(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0))
+      '@playwright/experimental-ct-core': 1.52.0(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0)
+      '@vitejs/plugin-react': 4.3.4(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0))
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -13203,14 +13203,14 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-react@4.3.4(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0))':
+  '@vitejs/plugin-react@4.3.4(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0)
+      vite: 6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -19968,7 +19968,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  tsx@4.20.2:
+  tsx@4.20.3:
     dependencies:
       esbuild: 0.25.0
       get-tsconfig: 4.10.0
@@ -20234,7 +20234,7 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.4.1
 
-  vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.2)(yaml@2.7.0):
+  vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.7.0):
     dependencies:
       esbuild: 0.25.0
       fdir: 6.4.4(picomatch@4.0.2)
@@ -20246,7 +20246,7 @@ snapshots:
       '@types/node': 22.15.31
       fsevents: 2.3.3
       jiti: 2.4.2
-      tsx: 4.20.2
+      tsx: 4.20.3
       yaml: 2.7.0
 
   wait-on@8.0.3(debug@4.4.1):
