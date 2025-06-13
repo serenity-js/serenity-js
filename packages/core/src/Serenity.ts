@@ -1,4 +1,4 @@
-import { ensure, isDefined, isInstanceOf, property } from 'tiny-types';
+import { ensure, isInstanceOf } from 'tiny-types';
 
 import type { OutputStream } from './adapter';
 import type { SerenityConfig } from './config';
@@ -6,7 +6,7 @@ import type { ErrorOptions, RuntimeError } from './errors';
 import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors';
 import type { DomainEvent, EmitsDomainEvents } from './events';
 import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, Path } from './io';
-import type { ActivityDetails, CorrelationId } from './model';
+import { type ActivityDetails, CorrelationId, type CorrelationIdFactory } from './model';
 import type { Actor, Timestamp } from './screenplay';
 import { Clock, Duration } from './screenplay';
 import type { StageCrewMember, StageCrewMemberBuilder } from './stage';
@@ -33,10 +33,12 @@ export class Serenity implements EmitsDomainEvents {
     /**
      * @param clock
      * @param cwd
+     * @param sceneIdFactory
      */
     constructor(
         private readonly clock: Clock = new Clock(),
         cwd: string = process.cwd(),
+        private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         this.stage = new Stage(
             Serenity.defaultActors,
@@ -44,6 +46,7 @@ export class Serenity implements EmitsDomainEvents {
             new ErrorFactory(),
             clock,
             Serenity.defaultInteractionTimeout,
+            sceneIdFactory,
         );
 
         this.classLoader = new ClassLoader(
@@ -80,17 +83,12 @@ export class Serenity implements EmitsDomainEvents {
             this.outputStream = config.outputStream;
         }
 
-        this.stage = new Stage(
-            Serenity.defaultActors,
-            new StageManager(cueTimeout, this.clock),
-            new ErrorFactory(config.diffFormatter ?? new NoOpDiffFormatter()),
-            this.clock,
+        this.stage.configure({
+            actors: config.actors ?? Serenity.defaultActors,
+            cueTimeout,
             interactionTimeout,
-        );
-
-        if (config.actors) {
-            this.engage(config.actors);
-        }
+            diffFormatter: config.diffFormatter ?? new NoOpDiffFormatter(),
+        });
 
         if (Array.isArray(config.crew)) {
             this.stage.assign(
@@ -188,9 +186,7 @@ export class Serenity implements EmitsDomainEvents {
      * @param actors
      */
     engage(actors: Cast): void {
-        this.stage.engage(
-            ensure('actors', actors, property('prepare', isDefined())),
-        );
+        this.stage.engage(actors);
     }
 
     /**
@@ -252,7 +248,7 @@ export class Serenity implements EmitsDomainEvents {
      *  The name of the actor to instantiate or retrieve
      */
     theActorCalled(name: string): Actor {
-        return this.stage.theActorCalled(name);
+        return this.stage.actor(name);
     }
 
     /**
