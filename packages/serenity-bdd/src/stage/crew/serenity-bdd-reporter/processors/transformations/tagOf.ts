@@ -1,9 +1,20 @@
-import type { Tag} from '@serenity-js/core/lib/model';
-import { BrowserTag, CapabilityTag, ExecutionRetriedTag, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/lib/model';
+import type { Tag } from '@serenity-js/core/lib/model';
+import {
+    BrowserTag,
+    CapabilityTag,
+    ExecutionRetriedTag,
+    FeatureTag,
+    IssueTag,
+    ManualTag,
+    PlatformTag,
+    ProjectTag,
+    ThemeTag
+} from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/lib/objects';
 
 import type * as serenitybdd from '../../serenity-bdd-report-schema';
+import { escapeHtml } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 import { reportIdIncluding } from './reportIdIncluding';
 
@@ -96,6 +107,14 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
                 reportIdIncluding(tag.name)(context);
 
                 context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(tag));
+
+                return context;
+            })
+            .when(ProjectTag, (projectTag: ProjectTag) => {
+                reportIdIncluding(projectTag.name)(context);
+
+                context.report.title = `${ context.report.name } - ${ escapeHtml(projectTag.name) }`;
+                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(projectTag));
 
                 return context;
             })
