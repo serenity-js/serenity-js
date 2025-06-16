@@ -95,7 +95,7 @@ describe('Retried', () => {
             const expectedSceneIdAttempt3 = PlaywrightSceneId.from('default', { id: testId, repeatEachIndex: 0 }, { retry: 2 });
 
             const expectedScenarioName = new Name('Test scenario passes the third time');
-            const expectedSequenceName = new Name('Test scenario passes the third time (default)');
+            const expectedSequenceName = new Name('Test scenario passes the third time');
             const expectedScenarioDescription = new Description('');
             const expectedCategoryName = new Category('Retried');
             const expectedParametersName = new Name('');

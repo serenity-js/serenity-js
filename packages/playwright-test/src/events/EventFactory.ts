@@ -13,8 +13,15 @@ import {
 } from '@serenity-js/core/lib/events';
 import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
 import type { Outcome, Tag } from '@serenity-js/core/lib/model';
-import { Category, Description, Name, ScenarioDetails, ScenarioParameters, Tags } from '@serenity-js/core/lib/model';
-import { ProjectTag } from '@serenity-js/core/src/model';
+import {
+    Category,
+    Description,
+    Name,
+    ProjectTag,
+    ScenarioDetails,
+    ScenarioParameters,
+    Tags
+} from '@serenity-js/core/lib/model';
 
 import { PlaywrightSceneId } from './PlaywrightSceneId';
 
@@ -52,7 +59,6 @@ export class EventFactory {
                 ...this.createSceneSequenceEvents(
                     sceneId,
                     startTime,
-                    projectName,
                     scenarioDetails,
                     test,
                     result
@@ -75,7 +81,6 @@ export class EventFactory {
     private createSceneSequenceEvents(
         sceneId: PlaywrightSceneId,
         startTime: Timestamp,
-        projectName: string,
         scenarioDetails: ScenarioDetails,
         test: TestCase,
         result: TestResult
@@ -86,14 +91,8 @@ export class EventFactory {
             Retries: `Attempt #${ attempt }`
         };
 
-        const sceneSequenceDetails = new ScenarioDetails(
-            new Name(`${ scenarioDetails.name.value }${ projectName ? ' (' + projectName + ')' : '' }`),
-            scenarioDetails.category,
-            scenarioDetails.location,
-        )
-
         return [
-            new SceneSequenceDetected(sceneId, sceneSequenceDetails, startTime),
+            new SceneSequenceDetected(sceneId, scenarioDetails, startTime),
             new SceneTemplateDetected(
                 sceneId,
                 new Description(''),
@@ -101,7 +100,7 @@ export class EventFactory {
             ),
             new SceneParametersDetected(
                 sceneId,
-                sceneSequenceDetails,
+                scenarioDetails,
                 new ScenarioParameters(
                     new Name(''),
                     new Description(`Max retries: ${ test.retries }`),
@@ -138,15 +137,18 @@ export class EventFactory {
         return Object.values(uniqueTags);
     }
 
-    private scenarioDetailsFrom(test: Pick<TestCase, 'titlePath' | 'location' | 'repeatEachIndex'>): ScenarioDetails {
+    private scenarioDetailsFrom(test: Pick<TestCase, 'titlePath' | 'location' | 'parent' | 'repeatEachIndex'>): ScenarioDetails {
 
         const { featureName, name } = this.scenarioMetadataFrom(test);
         const { file, line, column } = test.location;
 
         const nameWithoutTags = Tags.stripFrom(name);
-        const scenarioName = test.repeatEachIndex
-            ? `${ nameWithoutTags } - Repetition ${ test.repeatEachIndex }`
-            : nameWithoutTags;
+
+        const repetitionSuffix = test.repeatEachIndex
+            ? ` - Repetition ${ test.repeatEachIndex }`
+            : '';
+
+        const scenarioName = `${ nameWithoutTags }${ repetitionSuffix }`;
 
         return new ScenarioDetails(
             new Name(scenarioName),
