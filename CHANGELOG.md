@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.32.0](https://github.com/serenity-js/serenity-js/compare/v3.31.17...v3.32.0) (2025-06-20)
+
+
+### Bug Fixes
+
+* **core:** retain the Stage when Serenity is re-configured ([03f74bf](https://github.com/serenity-js/serenity-js/commit/03f74bfe33349f2fa5b32e0a10ceb1f57047dc3b))
+* **deps:** update playwright dependencies to v1.53.1 ([6ea14ce](https://github.com/serenity-js/serenity-js/commit/6ea14ce83f307ff8e3e2cd48d5a3f532efb123c3))
+* **playwright-test:** create an output directory for the event stream only when necessary ([33c2c60](https://github.com/serenity-js/serenity-js/commit/33c2c60d9ca6610e4211865e3a97f6d094854faa))
+* **playwright-test:** retryable tests are no longer marked as "retried" if they pass upon first try ([e027284](https://github.com/serenity-js/serenity-js/commit/e027284f6994f1a46a800ca0990aa901a222210c))
+* **playwright:** marked all properties of ExtraBrowserContextOptions as optional ([3ee0145](https://github.com/serenity-js/serenity-js/commit/3ee0145890d0619cc0f4786b9addad429a41f278))
+* **serenity-bdd:** append ProjectTag to test name, if available ([f9174f0](https://github.com/serenity-js/serenity-js/commit/f9174f08661e9d45373cd0eee06382edb463bde0))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.2.30 ([e93cfb7](https://github.com/serenity-js/serenity-js/commit/e93cfb7646912070ceb9be9cd86322889972eab2))
+
+
+### Features
+
+* **playwright-test:** actorCalled fixture available in beforeAll and afterAll hooks ([e3b2be5](https://github.com/serenity-js/serenity-js/commit/e3b2be5d173c93dd9955f6a4af41bef09d6e6e6c))
+* **playwright-test:** aggregate retried test reports, filter tests by project ([6cc46db](https://github.com/serenity-js/serenity-js/commit/6cc46dbc073134dd6956fff04208c1e574f38b05))
+* **playwright-test:** improved error handling of actor interactions in beforeAll and afterAll hooks ([2987bee](https://github.com/serenity-js/serenity-js/commit/2987beea84fc2db653054ab09ac71d922ee2352b))
+* **playwright-test:** new internal Serenity/JS event reporting mechanism ([42ba5ad](https://github.com/serenity-js/serenity-js/commit/42ba5ad70f1bf99aad8bc5d57de462cac7c7da6c))
+* **playwright-test:** report a test as passing if it passed upon a retry ([47e84fe](https://github.com/serenity-js/serenity-js/commit/47e84feec894497bd88211726389bdd38cc9edd9))
+* **playwright-test:** serenity fixture is now available in the worker scope ([9f3a8be](https://github.com/serenity-js/serenity-js/commit/9f3a8bea93a4d7f45872a8b320d88cf4a1a11d40))
+* **playwright-test:** support for reporting repeated tests ([47b864d](https://github.com/serenity-js/serenity-js/commit/47b864d79aee9b374bb6b6a86b2a313b6c22f584))
+* **playwright-test:** support reporting actor interactions from beforeAll and afterAll hooks ([3909545](https://github.com/serenity-js/serenity-js/commit/3909545feba931f77bd846645cecc3c8f575208e))
+* **playwright:** refactored SerenityFixtures, corrected BrowseTheWebWithPlaywright parameters ([9c62723](https://github.com/serenity-js/serenity-js/commit/9c627233bc93e38a8ae6e9ba531c31ba05ab707f))
+
+
+
+
+
 ## [3.31.17](https://github.com/serenity-js/serenity-js/compare/v3.31.16...v3.31.17) (2025-06-16)
 
 

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.32.0](https://github.com/serenity-js/serenity-js/compare/v3.31.17...v3.32.0) (2025-06-20)
+
+
+### Bug Fixes
+
+* **serenity-bdd:** append ProjectTag to test name, if available ([f9174f0](https://github.com/serenity-js/serenity-js/commit/f9174f08661e9d45373cd0eee06382edb463bde0))
+* **serenity-bdd:** upgraded Serenity BDD CLI to 4.2.30 ([e93cfb7](https://github.com/serenity-js/serenity-js/commit/e93cfb7646912070ceb9be9cd86322889972eab2))
+
+
+### Features
+
+* **playwright-test:** report a test as passing if it passed upon a retry ([47e84fe](https://github.com/serenity-js/serenity-js/commit/47e84feec894497bd88211726389bdd38cc9edd9))
+
+
+
+
+
 ## [3.31.17](https://github.com/serenity-js/serenity-js/compare/v3.31.16...v3.31.17) (2025-06-16)
 
 
