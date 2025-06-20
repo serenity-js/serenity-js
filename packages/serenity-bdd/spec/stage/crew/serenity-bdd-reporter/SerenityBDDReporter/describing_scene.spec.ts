@@ -56,6 +56,23 @@ describe('SerenityBDDReporter', () => {
             });
     });
 
+    it('escapes HTML entities in background title and description', () => {
+        stage.announce(
+            new SceneStarts(sceneId, defaultCardScenario),
+            new SceneBackgroundDetected(sceneId, new Name(`Background title <script>alert('xss')</script>`), new Description(`Background description <script>alert('xss')</script>`)),
+            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+            new TestRunFinishes(),
+        );
+
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
+
+                expect(report.backgroundTitle).to.equal('Background title &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt;');
+                expect(report.backgroundDescription).to.equal('Background description &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt;');
+            });
+    });
+
     it('captures the description of the scenario', () => {
         stage.announce(
             new SceneStarts(sceneId, defaultCardScenario),
@@ -85,6 +102,22 @@ describe('SerenityBDDReporter', () => {
                 const report = event.artifact.map(_ => _);
 
                 expect(report.userStory.narrative).to.equal('Feature narrative');
+            });
+    });
+
+    it('escapes HTML entities in narrative description', () => {
+        stage.announce(
+            new SceneStarts(sceneId, defaultCardScenario),
+            new FeatureNarrativeDetected(sceneId, new Description(`Feature narrative <script>alert('xss')</script>`)),
+            new SceneFinished(sceneId, defaultCardScenario, new ExecutionSuccessful()),
+            new TestRunFinishes(),
+        );
+
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
+
+                expect(report.userStory.narrative).to.equal('Feature narrative &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt;');
             });
     });
 

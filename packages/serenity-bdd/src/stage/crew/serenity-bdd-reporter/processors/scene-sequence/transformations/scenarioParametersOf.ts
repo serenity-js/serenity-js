@@ -1,6 +1,7 @@
 import type { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
 
 import type { DataTableDataSetDescriptorSchema, DataTableSchema } from '../../../serenity-bdd-report-schema';
+import { escapeHtml } from '../../mappers';
 import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 
 export function scenarioParametersOf(scenario: ScenarioDetails, parameters: ScenarioParameters): (context: SceneSequenceReportContext) => SceneSequenceReportContext {
@@ -16,8 +17,8 @@ export function scenarioParametersOf(scenario: ScenarioDetails, parameters: Scen
         }
 
         const newDescriptor = {
-            name:           parameters.name.value,
-            description:    parameters.description && parameters.description.value,
+            name:           escapeHtml(parameters.name.value),
+            description:    escapeHtml(parameters.description && parameters.description.value),
             startRow:       dataTable.dataSetDescriptors.reduce((acc, current) => acc + current.rowCount, 0),
             rowCount:       0,
         };
