@@ -15,7 +15,9 @@ type HookType = 'beforeAll' | 'afterAll' | 'beforeEach' | 'afterEach';
 /**
  * Configuration object accepted by `@serenity-js/playwright-test` reporter.
  *
- * See [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/) for usage examples.
+ * For usage examples, see:
+ * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
+ * - [`SerenityWorkerFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
  */
 export interface SerenityReporterForPlaywrightTestConfig {
     /**
@@ -24,7 +26,7 @@ export interface SerenityReporterForPlaywrightTestConfig {
      * Note that the `crew` can also be configured using [class descriptions](https://serenity-js.org/api/core/#ClassDescription).
      *
      * #### Learn more
-     * - [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/)
+     * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
      * - [`SerenityConfig.crew`](https://serenity-js.org/api/core/class/SerenityConfig/#crew)
      */
     crew?: Array<StageCrewMember | StageCrewMemberBuilder | ClassDescription>;

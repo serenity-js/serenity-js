@@ -34,7 +34,6 @@ To install this module, run the following command in your computer terminal:
 npm install --save-dev @serenity-js/core
 ```
 
-
 ## 📣 Stay up to date
 
 New features, tutorials, and demos are coming soon!

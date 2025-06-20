@@ -4,7 +4,8 @@ import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtur
 
 /**
  * Convenience alias for [PlaywrightTestConfig](https://playwright.dev/docs/test-configuration) object
- * that includes [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/) and allows for any other custom options when needed.
+ * that includes [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/) and
+ * [`SerenityWorkerFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/) and allows for any other custom options when needed.
  *
  * #### Example
  * Configuring Playwright Test using the standard `PlaywrightTestConfig` from `@playwright/test`:
@@ -12,9 +13,9 @@ import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtur
  * ```typescript
  * // playwright.config.ts
  * import type { PlaywrightTestConfig } from '@playwright/test'
- * import type { SerenityOptions } from '@serenity-js/playwright-test'
+ * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
  *
- * const config: PlaywrightTestConfig<SerenityOptions & MyCustomOptions> = {
+ * const config: PlaywrightTestConfig<SerenityFixtures & MyCustomOptions, SerenityWorkerFixtures> = {
  *     // ...
  * }
  *
@@ -34,8 +35,8 @@ import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtur
  * ```
  *
  * #### Learn more
- * - [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/)
  * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
+ * - [`SerenityWorkerFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/)
  * - [`SerenityReporterForPlaywrightTestConfig`](https://serenity-js.org/api/playwright-test/interface/SerenityReporterForPlaywrightTestConfig/)
  * - [Playwright Test configuration](https://playwright.dev/docs/test-configuration)
  */

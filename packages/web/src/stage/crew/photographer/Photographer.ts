@@ -28,9 +28,10 @@ import * as strategies from './strategies';
  *
  * ```ts
  * // playwright.config.ts
- * import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+ * import { defineConfig } from '@playwright/test'
+ * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
  *
- * const config: PlaywrightTestConfig = {
+ * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
  *   reporter: [
  *       [ '@serenity-js/playwright-test', {
  *           crew: [
@@ -49,12 +50,12 @@ import * as strategies from './strategies';
  *       } ]
  *     ],
  *   },
- * };
- * export default config;
+ * })
  * ```
  *
  * #### Learn more
- * - [`SerenityOptions`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/)
+ * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
+ * - [`SerenityWorkerFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/)
  *
  * ## Using Photographer with WebdriverIO
  *
