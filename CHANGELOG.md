@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.1](https://github.com/serenity-js/serenity-js/compare/v3.32.0...v3.32.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* **playwright-test:** added SerenityFixtures and SerenityWorkerFixtures to API docs ([887a7cf](https://github.com/serenity-js/serenity-js/commit/887a7cfb2d5505cd566cc26defdf6d1aaa145e40))
+
+
+
+
+
 # [3.32.0](https://github.com/serenity-js/serenity-js/compare/v3.31.17...v3.32.0) (2025-06-20)
 
 
