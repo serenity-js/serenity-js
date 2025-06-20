@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.32.0](https://github.com/serenity-js/serenity-js/compare/v3.31.17...v3.32.0) (2025-06-20)
+
+
+### Bug Fixes
+
+* **core:** retain the Stage when Serenity is re-configured ([03f74bf](https://github.com/serenity-js/serenity-js/commit/03f74bfe33349f2fa5b32e0a10ceb1f57047dc3b))
+* **playwright:** marked all properties of ExtraBrowserContextOptions as optional ([3ee0145](https://github.com/serenity-js/serenity-js/commit/3ee0145890d0619cc0f4786b9addad429a41f278))
+
+
+### Features
+
+* **playwright-test:** aggregate retried test reports, filter tests by project ([6cc46db](https://github.com/serenity-js/serenity-js/commit/6cc46dbc073134dd6956fff04208c1e574f38b05))
+* **playwright:** refactored SerenityFixtures, corrected BrowseTheWebWithPlaywright parameters ([9c62723](https://github.com/serenity-js/serenity-js/commit/9c627233bc93e38a8ae6e9ba531c31ba05ab707f))
+
+
+
+
+
 ## [3.31.17](https://github.com/serenity-js/serenity-js/compare/v3.31.16...v3.31.17) (2025-06-16)
 
 **Note:** Version bump only for package @serenity-js/core
