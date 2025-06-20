@@ -313,11 +313,12 @@ export interface SerenityFixtures {
     /**
      * Default [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor) injected into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
-     * Using `actor` fixture is equivalent to invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled) with [`defaultActorName`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/#defaultActorName).
+     * Using `actor` fixture is equivalent to invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled)
+     * with [`defaultActorName`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#defaultActorName).
      *
      * #### Learn more
-     * - [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled)
-     * - [`SerenityOptions.defaultActorName`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/#defaultActorName)
+     * - [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled)
+     * - [`defaultActorName`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#defaultActorName)
      * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
      */
     actor: Actor;
@@ -382,7 +383,6 @@ export interface SerenityWorkerFixtures {
      *
      * #### Learn more
      * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
-     * - [`SerenityOptions.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/#actors)
      * - [`SerenityFixtures.actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors)
      *
      * @param name

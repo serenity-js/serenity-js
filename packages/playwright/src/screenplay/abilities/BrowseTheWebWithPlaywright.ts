@@ -53,7 +53,7 @@ import {
  * Note that [Serenity/JS Playwright Test module](https://serenity-js.org/api/playwright-test/)
  * automatically configures all your [actors](https://serenity-js.org/api/core/class/Actor/)
  * with an ability to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/),
- * so you don't need to do it by hand unless you want to override the [default configuration](https://serenity-js.org/api/playwright-test/interface/SerenityOptions/).
+ * so you don't need to do it by hand unless you want to override the [default configuration](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/).
  *
  * The example below demonstrates how to use the [`BrowseTheWebWithPlaywright.usingPage`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/#usingPage) API and
  * override the default [cast](https://serenity-js.org/api/core/class/Cast/) of actors.
