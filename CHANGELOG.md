@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.2](https://github.com/serenity-js/serenity-js/compare/v3.32.1...v3.32.2) (2025-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update webdriverio dependencies to ^9.15.0 ([48c5ed5](https://github.com/serenity-js/serenity-js/commit/48c5ed52269fc75c6a99318d1dab854961dd3709))
+* **serenity-bdd:** correctly escape HTML entities in scenario parameter descriptions ([708942e](https://github.com/serenity-js/serenity-js/commit/708942e98d7c165bb3c2f74e829015f7a2d26d3c)), closes [#2879](https://github.com/serenity-js/serenity-js/issues/2879)
+* **serenity-bdd:** upgraded Serenity BDD CLI jar to 4.2.34 ([fadf10a](https://github.com/serenity-js/serenity-js/commit/fadf10a9174b6466da2adbd60d658bc67eb7bbaf))
+* **webdriverio:** support for WebdriverIO 9.15 ([133d35e](https://github.com/serenity-js/serenity-js/commit/133d35e3423b612a6001b3beabf35105b39b0b8c))
+
+
+
+
+
 ## [3.32.1](https://github.com/serenity-js/serenity-js/compare/v3.32.0...v3.32.1) (2025-06-20)
 
 
