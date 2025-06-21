@@ -15,9 +15,13 @@ license: https://creativecommons.org/licenses/by-sa/2.5/
 <h1>Pop-up info widget - web components</h1>
 
 <form>
-    <div>
-        <label for="cvc">Enter your CVC <popup-info img="/scripts/img/alt.png" data-text="Your card validation code (CVC) is an extra security feature — it is the last 3 or 4 numbers on the back of your card."></popup-info></label>
+    <div data-test-id="cvc">
+        <label for="cvc">CVC <popup-info img="/scripts/img/alt.png" data-text="Your card validation code (CVC) is an extra security feature — it is the last 3 or 4 numbers on the back of your card."></popup-info></label>
         <input type="text" id="cvc">
+    </div>
+    <div data-test-id="expiry-date">
+        <label for="expiry-date">Expiry date <popup-info img="/scripts/img/alt.png" data-text="Your card expiry date"></popup-info></label>
+        <input type="text" id="expiry-date">
     </div>
 </form>
 

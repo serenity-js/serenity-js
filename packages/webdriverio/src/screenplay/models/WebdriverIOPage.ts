@@ -14,6 +14,7 @@ import {
 } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
 import { URL } from 'url';
+import type { TransformElement } from 'webdriverio';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';
@@ -128,7 +129,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discar
 
             const dehydratedArguments = await this.dehydrator.dehydrate(args);
 
-            return await this.browser.execute(executableScript as any, ...dehydratedArguments);
+            return await this.browser.execute(executableScript as any, ...dehydratedArguments) as Promise<Result>;
         });
 
         this.lastScriptExecutionSummary = new LastScriptExecutionSummary(result);
@@ -157,7 +158,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discar
             const dehydratedArguments = await this.dehydrator.dehydrate(args);
 
             return this.browser.executeAsync<Result, [ { argsCount: number, refsCount: number }, ...any[] ]>(
-                executableScript as (...args: [ { argsCount: number, refsCount: number }, ...any[], callback: (result: Result) => void ]) => void,
+                executableScript as (...args: [ { argsCount: number, refsCount: number }, ...any[], callback: (result: TransformElement<Result>) => void ]) => void,
                 ...dehydratedArguments as [ { argsCount: number, refsCount: number }, ...any[] ],
             );
         });

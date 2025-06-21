@@ -113,7 +113,7 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
         const options = await browser.execute(
             /* c8 ignore start */
             (select: HTMLSelectElement) => {
-                const options = [];
+                const options: Array<Pick<HTMLOptionElement, 'selected' | 'disabled' | 'label' | 'value'>> = [];
                 select.querySelectorAll('option').forEach((option: HTMLOptionElement) => {
                     options.push({
                         selected:   option.selected,
@@ -151,7 +151,7 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     async html(): Promise<string> {
         const element = await this.nativeElement();
-        return await element.getHTML({ includeSelectorTag: true });
+        return await element.getHTML({ includeSelectorTag: true, pierceShadowRoot: false });
     }
 
     async switchTo(): Promise<SwitchableOrigin> {

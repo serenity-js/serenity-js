@@ -93,6 +93,30 @@ describe('PageElement', () => {
                 ),
             );
         });
+
+        it('should pierce shadow DOM', async () => {
+            const cvcField = PageElement.located(By.css('[data-test-id="cvc"]')).describedAs('CVC field');
+            const expiryDateField = PageElement.located(By.css('[data-test-id="expiry-date"]')).describedAs('expiry date field');
+            const infoText = PageElement.located(By.deepCss('popup-info span.info')).describedAs('popup text');
+
+            await actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/outer_html_shadow_dom.html'),
+
+                Ensure.that(
+                    infoText.of(cvcField).html(),
+                    equals(
+                        `<span class="info">Your card validation code (CVC) is an extra security feature — it is the last 3 or 4 numbers on the back of your card.</span>`,
+                    )
+                ),
+
+                Ensure.that(
+                    infoText.of(expiryDateField).html(),
+                    equals(
+                        `<span class="info">Your card expiry date</span>`,
+                    )
+                ),
+            );
+        });
     });
 
     describe('switchTo()', () => {
@@ -133,7 +157,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(132);
+                expect(location.line).to.equal(156);
                 expect(location.column).to.equal(72);
             });
 
@@ -174,7 +198,7 @@ describe('PageElement', () => {
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(173);
+                    expect(location.line).to.equal(197);
                     expect(location.column).to.equal(87);
                 });
 
@@ -264,7 +288,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(263);
+                expect(location.line).to.equal(287);
                 expect(location.column).to.equal(41);
             });
 
