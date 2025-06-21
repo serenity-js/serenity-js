@@ -1,5 +1,6 @@
 import type { BusinessRule } from '@serenity-js/core/lib/model';
 
+import { escapeHtml } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';
 
 /**
@@ -9,8 +10,8 @@ export function businessRuleOf<Context extends SerenityBDDReportContext>(rule: B
     return (context: Context): Context => {
 
         context.report.rule = {
-            name: rule.name.value,
-            description: rule.description.value,
+            name: escapeHtml(rule.name.value),
+            description: escapeHtml(rule.description.value),
         };
 
         return context;
