@@ -23,7 +23,7 @@ export class Serenity implements EmitsDomainEvents {
     private static defaultInteractionTimeout    = Duration.ofSeconds(5);
     private static defaultActors                = new Extras();
 
-    private stage: Stage;
+    private readonly stage: Stage;
     private readonly fileSystem: FileSystem;
     private outputStream: OutputStream  = process.stdout;
 
