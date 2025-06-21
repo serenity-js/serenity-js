@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import type { EventRecorder} from '@integration/testing-tools';
+import type { EventRecorder } from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage } from '@serenity-js/core';
 import {
@@ -13,7 +13,16 @@ import {
     TestRunFinishes,
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { BusinessRule, Category, CorrelationId, Description, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import {
+    BusinessRule,
+    Category,
+    CorrelationId,
+    Description,
+    ExecutionSuccessful,
+    Name,
+    ScenarioDetails,
+    ScenarioParameters
+} from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { create } from '../create';
@@ -68,6 +77,23 @@ describe('SerenityBDDReporter', () => {
 
                 expect(report.rule.name).to.equal('my rule name');
                 expect(report.rule.description).to.equal('my rule description');
+            });
+    });
+
+    it('escapes HTML entities in business rule name and description', () => {
+        stage.announce(
+            new SceneStarts(sceneIds[0], scenarios[0]),
+            new BusinessRuleDetected(sceneIds[0], scenarios[0], new BusinessRule(new Name(`my <script>alert('xss')</script> rule name`), new Description(`my <script>alert('xss')</script> rule description`))),
+            new SceneFinished(sceneIds[0], scenarios[0], new ExecutionSuccessful()),
+            new TestRunFinishes(),
+        );
+
+        PickEvent.from(recorder.events)
+            .last(ArtifactGenerated, event => {
+                const report = event.artifact.map(_ => _);
+
+                expect(report.rule.name).to.equal('my &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt; rule name');
+                expect(report.rule.description).to.equal('my &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt; rule description');
             });
     });
 
