@@ -244,7 +244,7 @@ export interface SerenityFixtures {
     /**
      * A cast of Serenity/JS actors to be used instead of the default cast
      * when instantiating [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
-     * and invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled).
+     * and invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled).
      *
      * :::info Did you know?
      * When you use `@serenity-js/playwright-test` [test APIs](https://serenity-js.org/api/playwright-test/function/it/), Serenity/JS already provides a default cast of actors for you.
@@ -313,7 +313,7 @@ export interface SerenityFixtures {
     /**
      * Default [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor) injected into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
-     * Using `actor` fixture is equivalent to invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled)
+     * Using `actor` fixture is equivalent to invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled)
      * with [`defaultActorName`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#defaultActorName).
      *
      * #### Learn more
@@ -325,40 +325,34 @@ export interface SerenityFixtures {
 }
 
 /**
- * Serenity/JS-specific [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
+ * Serenity/JS-specific worker-scope [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
  * injected into your [test scenarios](https://serenity-js.org/api/playwright-test/function/it/).
  *
  * ## Example test scenario
  *
  * ```typescript
  * import { Ensure, equals } from '@serenity-js/assertions'
- * import { describe, it, test } from '@serenity-js/playwright-test'
- * import { Photographer, TakePhotosOfFailures } from '@serenity-js/web'
+ * import { beforeAll, describe, it } from '@serenity-js/playwright-test'
+ * import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
  *
- * describe(`Recording items`, () => {
+ * describe('GitHub', () => {
  *
- *     test.use({
- *         defaultActorName: 'Serena',
- *         crew: [
- *             Photographer.whoWill(TakePhotosOfFailures),
- *         ],
- *     })
- *
- *     describe(`Todo List App`, () => {
- *
- *         it(`should allow me to add a todo item`, async ({ actor }) => {
- *             await actor.attemptsTo(
- *                 startWithAnEmptyList(),
- *
- *                 recordItem('Buy some milk'),
- *
- *                 Ensure.that(itemNames(), equals([
- *                     'Buy some milk',
- *                 ])),
- *             )
- *         })
- *     })
- * })
+ *     beforeAll('Ensure system is ready to test', async ({ actorCalled }) => {
+ *         await actorCalled('Stagehand')
+ *             .whoCan(CallAnApi.at('https://www.githubstatus.com/api/v2/'))
+ *             .attemptsTo(
+ *                 Send.a(GetRequest.to('status.json')),
+ *                 Ensure.that(
+ *                     LastResponse.status(),
+ *                     equals(200)
+ *                 ),
+ *                 Ensure.that(
+ *                     LastResponse.body().status.description,
+ *                     equals('All Systems Operational')
+ *                 ),
+ *             );
+ *     });
+ * });
  * ```
  *
  * ## Learn more
