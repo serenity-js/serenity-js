@@ -36,9 +36,9 @@ export class Serenity implements EmitsDomainEvents {
      * @param sceneIdFactory
      */
     constructor(
-        private readonly clock: Clock = new Clock(),
+        clock: Clock = new Clock(),
         cwd: string = process.cwd(),
-        private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
+        sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         this.stage = new Stage(
             Serenity.defaultActors,
