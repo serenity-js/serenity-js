@@ -23,7 +23,7 @@ export class Serenity implements EmitsDomainEvents {
     private static defaultInteractionTimeout    = Duration.ofSeconds(5);
     private static defaultActors                = new Extras();
 
-    private stage: Stage;
+    private readonly stage: Stage;
     private readonly fileSystem: FileSystem;
     private outputStream: OutputStream  = process.stdout;
 
@@ -36,9 +36,9 @@ export class Serenity implements EmitsDomainEvents {
      * @param sceneIdFactory
      */
     constructor(
-        private readonly clock: Clock = new Clock(),
+        clock: Clock = new Clock(),
         cwd: string = process.cwd(),
-        private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
+        sceneIdFactory: CorrelationIdFactory = CorrelationId,
     ) {
         this.stage = new Stage(
             Serenity.defaultActors,
