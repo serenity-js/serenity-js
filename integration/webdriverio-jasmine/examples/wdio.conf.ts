@@ -36,10 +36,10 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
-                '--headless',
-                '--no-sandbox',
-                '--disable-gpu',
-                '--window-size=1024x768',
+                'headless',
+                'no-sandbox',
+                'disable-gpu',
+                'window-size=1024x768',
             ],
         }
     }],
