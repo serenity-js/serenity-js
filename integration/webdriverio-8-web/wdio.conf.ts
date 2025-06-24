@@ -28,13 +28,14 @@ const options = {
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
-                '--disable-web-security',
-                '--allow-file-access-from-files',
-                '--allow-file-access',
-                '--ignore-certificate-errors',
-                '--headless',
-                '--disable-gpu',
-                '--window-size=1024x768',
+                'no-sandbox',
+                'disable-web-security',
+                'allow-file-access-from-files',
+                'allow-file-access',
+                'ignore-certificate-errors',
+                'headless',
+                'disable-gpu',
+                'window-size=1024x768',
             ],
         }
     }]
