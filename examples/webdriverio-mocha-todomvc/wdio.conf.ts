@@ -45,14 +45,15 @@ export const config: WebdriverIOConfig = {
         'goog:chromeOptions': {
             excludeSwitches: [ 'enable-automation' ],
             args: [
-                // '--headless',
-                '--disable-web-security',
-                '--allow-file-access-from-files',
-                '--allow-file-access',
-                '--ignore-certificate-errors',
-                '--disable-gpu',
-                '--disable-gpu',
-                '--window-size=1024x768',
+                // 'headless',
+                'no-sandbox',
+                'disable-web-security',
+                'allow-file-access-from-files',
+                'allow-file-access',
+                'ignore-certificate-errors',
+                'disable-gpu',
+                'disable-gpu',
+                'window-size=1024x768',
             ],
         }
     }],
