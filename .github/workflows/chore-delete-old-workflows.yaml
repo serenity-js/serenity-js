@@ -1,4 +1,7 @@
 name: "Chore: Delete old workflows"
+permissions:
+  contents: read
+  actions: write
 on:
   schedule:
     # Run daily, at 19:14
