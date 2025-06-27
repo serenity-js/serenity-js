@@ -1,4 +1,4 @@
-import * as util from 'node:util'; // eslint-disable-line unicorn/import-style
+import util from 'node:util';
 
 import { LogicError } from '@serenity-js/core';
 import { inspectedObject } from '@serenity-js/core/lib/io';

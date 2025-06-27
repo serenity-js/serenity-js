@@ -1,5 +1,5 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path'; // eslint-disable-line unicorn/import-style
+import fs from 'node:fs';
+import path from 'node:path'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '@serenity-js/core';
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';

@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import path from 'node:path';
 
 import { configure } from '@serenity-js/core';
 

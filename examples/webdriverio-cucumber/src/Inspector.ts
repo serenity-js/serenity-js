@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import fs from 'node:fs';
 
 import Reporter from '@wdio/reporter';
 import { Reporters } from '@wdio/types';

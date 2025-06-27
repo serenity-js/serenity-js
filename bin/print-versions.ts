@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import * as path from 'node:path';
+import path from 'node:path';
 
 import { sync as glob } from 'fast-glob';
 
