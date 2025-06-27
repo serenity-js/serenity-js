@@ -1,5 +1,5 @@
-import type { InspectOptions } from 'util';
-import { inspect } from 'util';
+import type { InspectOptions } from 'node:util';
+import { inspect } from 'node:util';
 
 export function inspected(value: unknown, options: InspectOptions = {}): string {
     return inspect(value, {

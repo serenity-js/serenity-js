@@ -1,5 +1,6 @@
+import * as path from 'node:path'; // eslint-disable-line unicorn/import-style
+
 import { registerRunner } from '@integration/cucumber-specs';
-import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 const pathToCucumberExecutable = path.resolve(
     require.resolve('@cucumber/cucumber/package.json'),

@@ -1,7 +1,7 @@
+import type * as NodeFS from 'node:fs';
 import * as nodeOS from 'node:os';
 
 import { createId } from '@paralleldrive/cuid2';
-import type * as NodeFS from 'fs';
 import * as gracefulFS from 'graceful-fs';
 
 import { Path } from './Path';

@@ -1,7 +1,8 @@
 import 'jasmine';
 
+import * as path from 'node:path';
+
 import { configure } from '@serenity-js/core';
-import * as path from 'path';
 
 // eslint-disable-next-line mocha/no-top-level-hooks
 beforeAll(() => {

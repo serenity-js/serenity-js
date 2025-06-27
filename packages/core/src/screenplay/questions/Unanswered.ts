@@ -1,6 +1,7 @@
+import * as util from 'node:util';   // eslint-disable-line unicorn/import-style
+
 import type { JSONValue} from 'tiny-types';
 import { TinyType } from 'tiny-types';
-import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
  * A placeholder value signifying that a [`Question`](https://serenity-js.org/api/core/class/Question/)

@@ -1,10 +1,11 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path'; // eslint-disable-line unicorn/import-style
+
 import { LogicError } from '@serenity-js/core';
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import type { ModuleLoader } from '@serenity-js/core/lib/io';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
-import * as fs from 'fs';
-import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 import type { MochaConfig } from './MochaConfig';
 import type Mocha = require('mocha');
