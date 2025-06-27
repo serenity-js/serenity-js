@@ -1,8 +1,9 @@
+import { URL } from 'node:url';
+
 import { isTrue } from '@serenity-js/assertions';
 import { actorCalled, Check, configure } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io';
 import * as https from 'https';
-import { URL } from 'url';
 
 import type { Argv } from '../Argv';
 import { defaults } from '../defaults';

@@ -1,6 +1,7 @@
+import { readFileSync } from 'node:fs';
+import * as path from 'node:path';
+
 import { sync as glob } from 'fast-glob';
-import { readFileSync } from 'fs';
-import * as path from 'path';
 
 const input = [
     path.join(path.resolve(__dirname, `../packages/`),  `*/package.json`),

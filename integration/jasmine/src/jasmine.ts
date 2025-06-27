@@ -1,5 +1,6 @@
+import * as path from 'node:path';
+
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import * as path from 'path';
 
 const jasmineExecutable = path.resolve(
     require.resolve('jasmine'), // resolves to jasmine/lib/jasmine.js

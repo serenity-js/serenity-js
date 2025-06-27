@@ -1,9 +1,10 @@
+import { cpus } from 'node:os';
+
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio-8';
-import { cpus } from 'os';
 
 const protocol = process.env.PROTOCOL === 'devtools'
     ? 'devtools'

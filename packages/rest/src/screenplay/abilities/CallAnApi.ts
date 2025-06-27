@@ -1,3 +1,5 @@
+import { URL } from 'node:url';
+
 import {
     Ability,
     ConfigurationError,
@@ -15,7 +17,6 @@ import {
 } from 'axios';
 import { type JSONObject } from 'tiny-types';
 import { isObject } from 'tiny-types/lib/objects';
-import { URL } from 'url';
 
 import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from '../../io';
 import { createAxios } from '../../io';

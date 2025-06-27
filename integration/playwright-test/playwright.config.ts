@@ -1,6 +1,7 @@
+import * as path from 'node:path';
+
 import { defineConfig, devices, ReporterDescription } from '@playwright/test';
 import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
-import * as path from 'path';
 
 /**
  * Read environment variables from file.
