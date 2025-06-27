@@ -1,4 +1,4 @@
-import * as path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path'; // eslint-disable-line unicorn/import-style
 
 import { actorCalled, configure } from '@serenity-js/core';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';

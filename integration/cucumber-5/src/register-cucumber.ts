@@ -1,4 +1,4 @@
-import * as path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path'; // eslint-disable-line unicorn/import-style
 
 import { registerRunner } from '@integration/cucumber-specs';
 

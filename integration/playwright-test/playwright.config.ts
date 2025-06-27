@@ -1,4 +1,4 @@
-import * as path from 'node:path';
+import path from 'node:path';
 
 import { defineConfig, devices, ReporterDescription } from '@playwright/test';
 import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
