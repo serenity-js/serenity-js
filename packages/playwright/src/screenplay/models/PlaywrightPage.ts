@@ -1,10 +1,11 @@
+import { URL } from 'node:url';
+
 import { List, LogicError, type QuestionAdapter } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import type { Cookie, CookieData, PageElements, Selector } from '@serenity-js/web';
 import { ArgumentDehydrator, BrowserWindowClosedError, ByDeepCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts';
 import type * as playwright from 'playwright-core';
-import { URL } from 'url';
 
 import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
 import { promised } from '../promised';

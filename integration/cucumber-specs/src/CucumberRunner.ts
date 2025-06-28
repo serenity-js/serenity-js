@@ -1,5 +1,6 @@
+import path from 'node:path';
+
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import * as path from 'path';
 
 export class CucumberRunner {
     constructor(

@@ -1,7 +1,6 @@
+import type * as NodeFS from 'node:fs';
 import * as nodeOS from 'node:os';
 
-import { createId } from '@paralleldrive/cuid2';
-import type * as NodeFS from 'fs';
 import * as gracefulFS from 'graceful-fs';
 
 import { Path } from './Path';
@@ -106,7 +105,15 @@ export class FileSystem {
         return this.fs.promises.rename(source.value, destination.value);
     }
 
-    public tempFilePath(prefix = '', suffix = '.tmp'): Path {
-        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ createId() }${ suffix }`);
+    public temporaryDirectory(prefix?: string): Path {
+        const osTemporaryDirectory = Path.from(this.os.tmpdir());
+        const subDirectory = Path.from(prefix || '/');
+
+        const desiredPath = osTemporaryDirectory.join(subDirectory);
+        const customTemporaryDirectory = this.fs.realpathSync(
+            this.fs.mkdtempSync(desiredPath.value, { encoding: 'utf8' })
+        );
+
+        return Path.from(customTemporaryDirectory);
     }
 }
