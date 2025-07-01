@@ -1,6 +1,7 @@
+import { URL } from 'node:url';
+
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { d, Interaction, LogicError } from '@serenity-js/core';
-import { URL } from 'url';
 
 import { CallAnApi } from '../abilities';
 
@@ -91,7 +92,7 @@ import { CallAnApi } from '../abilities';
  *
  * By design, any data handled by an actor appears in Serenity/JS reports.
  * To prevent the exposure of any sensitive information, such as passwords or tokens, you should use [`Masked`](https://serenity-js.org/api/core/class/Masked/).
- * 
+ *
  * ```ts
  * import { actorCalled, Masked } from '@serenity-js/core'
  * import { CallAnApi, ChangeApiConfig, GetRequest, LastResponse, Send } from '@serenity-js/rest'
@@ -107,7 +108,7 @@ import { CallAnApi } from '../abilities';
  *     Ensure.that(LastResponse.status(), equals(200)),
  *   )
  * ```
- * 
+ *
  * @group Activities
  */
 export class ChangeApiConfig {

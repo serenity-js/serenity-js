@@ -1,9 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
 import { TestRunFinished, TestRunStarts } from '@serenity-js/core/lib/events';
-import * as fs from 'fs';
 import { describe, it } from 'mocha';
-import * as path from 'path';
 
 import { playwrightTest } from '../src/playwright-test';
 

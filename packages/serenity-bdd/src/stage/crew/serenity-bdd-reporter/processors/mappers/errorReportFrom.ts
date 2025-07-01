@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { inspect } from 'node:util';
+
 import { ErrorStackParser, RuntimeError } from '@serenity-js/core';
 import ansiRegex from 'ansi-regex';
-import { inspect } from 'util';
 
 import type { ErrorDetailsSchema } from '../../serenity-bdd-report-schema';
 

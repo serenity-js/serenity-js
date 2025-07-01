@@ -1,4 +1,4 @@
-import { inspect } from 'util';
+import { inspect } from 'node:util';
 
 import type { Answerable } from '../screenplay/Answerable';
 import { Question } from '../screenplay/Question';
