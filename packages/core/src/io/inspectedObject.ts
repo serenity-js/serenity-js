@@ -1,4 +1,4 @@
-import * as util from 'util'; // eslint-disable-line unicorn/import-style
+import util from 'node:util';
 
 import { ValueInspector } from './reflection';
 

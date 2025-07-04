@@ -1,6 +1,7 @@
+import util from 'node:util';
+
 import { LogicError } from '@serenity-js/core';
 import { inspectedObject } from '@serenity-js/core/lib/io';
-import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import type { PageElement } from './PageElement';
 import { RootLocator } from './RootLocator';

@@ -1,5 +1,6 @@
+import path from 'node:path';
+
 import { spawner, SpawnResult } from '@integration/testing-tools';
-import * as path from 'path';
 
 const wdioExecutable = path.resolve(
     require.resolve('@wdio/cli'),

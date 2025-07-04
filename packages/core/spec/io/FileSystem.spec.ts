@@ -6,43 +6,39 @@ import { FakeFS } from '../FakeFS';
 
 describe ('FileSystem', () => {
 
-    const
-        image        = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=',
-        imageBuffer  = Buffer.from(image, 'base64'),
-        originalJSON = { name: 'jan' },
-        processCWD   = new Path('/Users/jan/projects/serenityjs');
+    const image        = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=';
+    const imageBuffer  = Buffer.from(image, 'base64');
+    const originalJSON = { name: 'jan' };
+    const processCWD   = new Path('/Users/jan/projects/serenityjs');
 
     describe('when checking if a file exists', () => {
         it('returns false when no file exists at path', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
-                }),
-                out = new FileSystem(processCWD, fs);
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
+            });
+            const out = new FileSystem(processCWD, fs);
 
             expect(out.exists(new Path('outlet/some.json'))).to.equal(false);
         });
 
         it('returns true when a file exists at path', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: {
-                        'file.txt': 'content'
-                    },
-                }),
-                out = new FileSystem(processCWD, fs);
+            const fs = FakeFS.with({
+                [ processCWD.value ]: {
+                    'file.txt': 'content'
+                },
+            });
+            const out = new FileSystem(processCWD, fs);
 
             expect(out.exists(new Path('file.txt'))).to.equal(true);
         });
 
         it('returns true when a directory exists at path', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: {
-                        'mydir': FakeFS.Empty_Directory
-                    },
-                }),
-                out = new FileSystem(processCWD, fs);
+            const fs = FakeFS.with({
+                [ processCWD.value ]: {
+                    'mydir': FakeFS.Empty_Directory
+                },
+            });
+            const out = new FileSystem(processCWD, fs);
 
             expect(out.exists(new Path('mydir'))).to.equal(true);
         });
@@ -50,32 +46,31 @@ describe ('FileSystem', () => {
 
     describe ('when storing JSON files', () => {
 
-        it ('stores a JSON file in a desired location', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
-                }),
-                out = new FileSystem(processCWD, fs);
-
-            return expect(out.store(new Path('outlet/some.json'), JSON.stringify(originalJSON))).to.be.fulfilled.then(absolutePath => {
-                expect(fs.existsSync(absolutePath.value)).to.equal(true);
-                expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
+        it ('stores a JSON file in a desired location', async () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
             });
+            const out = new FileSystem(processCWD, fs);
+
+            const absolutePath = await out.store(new Path('outlet/some.json'), JSON.stringify(originalJSON));
+
+            expect(fs.existsSync(absolutePath.value)).to.equal(true);
+            expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
         });
 
-        it ('tells the absolute path to a JSON file once it is saved', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
-                }),
-                out = new FileSystem(processCWD, fs),
-                destination = new Path('outlet/some.json');
+        it ('tells the absolute path to a JSON file once it is saved', async () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
+            });
+            const out = new FileSystem(processCWD, fs);
+            const destination = new Path('outlet/some.json');
 
-            return expect(out.store(destination, JSON.stringify(originalJSON))).to.be.fulfilled.
-                then(result => expect(result.equals(processCWD.resolve(destination))));
+            const result = await out.store(destination, JSON.stringify(originalJSON))
+
+            expect(result.equals(processCWD.resolve(destination)));
         });
 
-        it (`complains when the file can't be written`, () => {
+        it (`complains when the file can't be written`, async () => {
             const fs = FakeFS.with(FakeFS.Empty_Directory);
 
             (fs as any).promises.writeFile = () => { // memfs doesn't support mocking error conditions or permissions
@@ -84,38 +79,36 @@ describe ('FileSystem', () => {
 
             const out = new FileSystem(new Path('/'), fs);
 
-            return expect(out.store(new Path('dir/file.json'), JSON.stringify(originalJSON)))
+            await expect(out.store(new Path('dir/file.json'), JSON.stringify(originalJSON)))
                 .to.be.eventually.rejectedWith('EACCES, permission denied');
         });
     });
 
     describe ('when storing pictures', () => {
 
-        it ('stores a base64-encoded picture at a desired location', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
-                }),
-                out = new FileSystem(processCWD, fs);
-
-            return expect(out.store(new Path('outlet/some.png'), imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                expect(fs.existsSync(absolutePath.value)).to.equal(true);
-                expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
+        it ('stores a base64-encoded picture at a desired location', async () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
             });
+            const out = new FileSystem(processCWD, fs);
+
+            const absolutePath = await out.store(new Path('outlet/some.png'), imageBuffer);
+
+            expect(fs.existsSync(absolutePath.value)).to.equal(true);
+            expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
         });
 
-        it ('tells the absolute path to a JSON file once it is saved', () => {
-            const
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
-                }),
-                out = new FileSystem(processCWD, fs),
-                destination = new Path('outlet/some.png');
-
-            return expect(out.store(destination, imageBuffer)).to.be.fulfilled.then(absolutePath => {
-                const expected = processCWD.join(destination).value;
-                expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
+        it ('tells the absolute path to a JSON file once it is saved', async () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
             });
+            const out = new FileSystem(processCWD, fs);
+            const destination = new Path('outlet/some.png');
+
+            const absolutePath = await out.store(destination, imageBuffer);
+
+            const expected = processCWD.join(destination).value;
+            expect(absolutePath.value).to.match(new RegExp('([A-Z]:)?' + expected + '$'));
         });
     });
 
@@ -124,13 +117,12 @@ describe ('FileSystem', () => {
         describe('synchronously', () => {
 
             it('returns the contents', async () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                            'file.txt': 'contents'
-                        },
-                    }),
-                    out = new FileSystem(processCWD, fs);
+                const fs = FakeFS.with({
+                    [processCWD.value]: {
+                        'file.txt': 'contents'
+                    },
+                });
+                const out = new FileSystem(processCWD, fs);
 
                 const result = out.readFileSync(new Path('file.txt'), { encoding: 'utf8' });
 
@@ -141,13 +133,12 @@ describe ('FileSystem', () => {
         describe('asynchronously', () => {
 
             it('returns a Promise of the contents', async () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                            'file.txt': 'contents'
-                        },
-                    }),
-                    out = new FileSystem(processCWD, fs);
+                const fs = FakeFS.with({
+                    [processCWD.value]: {
+                        'file.txt': 'contents'
+                    },
+                });
+                const out = new FileSystem(processCWD, fs);
 
                 const result = await out.readFile(new Path('file.txt'), { encoding: 'utf8' });
 
@@ -161,12 +152,11 @@ describe ('FileSystem', () => {
         describe('synchronously', () => {
 
             it('writes the contents', async () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                        },
-                    }),
-                    out = new FileSystem(processCWD, fs);
+
+                const fs = FakeFS.with({
+                    [processCWD.value]: { },
+                });
+                const out = new FileSystem(processCWD, fs);
 
                 const absolutePathToFile = out.writeFileSync(new Path('file.txt'), 'contents', { encoding: 'utf8' });
 
@@ -177,12 +167,10 @@ describe ('FileSystem', () => {
         describe('asynchronously', () => {
 
             it('writes the contents', async () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                        },
-                    }),
-                    out = new FileSystem(processCWD, fs);
+                const fs = FakeFS.with({
+                    [processCWD.value]: { },
+                });
+                const out = new FileSystem(processCWD, fs);
 
                 const absolutePathToFile = await out.writeFile(new Path('file.txt'), 'contents', { encoding: 'utf8' });
 
@@ -195,89 +183,96 @@ describe ('FileSystem', () => {
 
         describe('individual files', () => {
 
-            it('removes the file', () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                            outlet: {
-                                subdir: {
-                                    'file-to-be-deleted.json': '{}',
-                                    'file-not-to-be-deleted.json': '{}',
-                                },
+            it('removes the file', async () => {
+                const fs = FakeFS.with({
+                    [processCWD.value]: {
+                        outlet: {
+                            subdir: {
+                                'file-to-be-deleted.json': '{}',
+                                'file-not-to-be-deleted.json': '{}',
                             },
                         },
-                    }),
-                    out = new FileSystem(processCWD, fs);
-
-                return expect(out.remove(new Path('outlet/subdir/file-to-be-deleted.json'))).to.be.fulfilled.then(() => {
-
-                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
-                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-not-to-be-deleted.json')).value)).to.equal(true);
+                    },
                 });
+                const out = new FileSystem(processCWD, fs);
+
+                await out.remove(new Path('outlet/subdir/file-to-be-deleted.json'));
+
+                expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
+                expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-not-to-be-deleted.json')).value)).to.equal(true);
             });
 
-            it(`doesn't complain if the file doesn't exist anymore`, () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                        },
-                    }),
-                    out = new FileSystem(processCWD, fs);
+            it(`doesn't complain if the file doesn't exist anymore`, async () => {
+                const fs = FakeFS.with({
+                    [processCWD.value]: { },
+                });
+                const out = new FileSystem(processCWD, fs);
 
-                return expect(out.remove(new Path('non-existent.tmp'))).to.be.fulfilled;
+                await expect(out.remove(new Path('non-existent.tmp'))).to.be.fulfilled;
             });
         });
 
         describe('directories', () => {
 
-            it('removes the directory recursively', () => {
-                const
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
-                            outlet: {
-                                subdir: {
-                                    'file-to-be-deleted.json': '{}',
-                                },
-                                another: {
-                                    'file-not-to-be-deleted.json': '{}',
-                                },
+            it('removes the directory recursively', async () => {
+                const fs = FakeFS.with({
+                    [processCWD.value]: {
+                        outlet: {
+                            subdir: {
+                                'file-to-be-deleted.json': '{}',
+                            },
+                            another: {
+                                'file-not-to-be-deleted.json': '{}',
                             },
                         },
-                    }),
-                    out = new FileSystem(processCWD, fs);
-
-                return expect(out.remove(new Path('outlet/subdir'))).to.be.fulfilled.then(() => {
-
-                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
-                    expect(fs.existsSync(processCWD.join(new Path('outlet/subdir')).value)).to.equal(false);
-                    expect(fs.existsSync(processCWD.join(new Path('outlet/another/file-not-to-be-deleted.json')).value)).to.equal(true);
+                    },
                 });
+                const out = new FileSystem(processCWD, fs);
+
+                await out.remove(new Path('outlet/subdir'))
+
+                expect(fs.existsSync(processCWD.join(new Path('outlet/subdir/file-to-be-deleted.json')).value)).to.equal(false);
+                expect(fs.existsSync(processCWD.join(new Path('outlet/subdir')).value)).to.equal(false);
+                expect(fs.existsSync(processCWD.join(new Path('outlet/another/file-not-to-be-deleted.json')).value)).to.equal(true);
             });
         });
     });
 
-    describe('when generating temp file paths', () => {
+    describe('when generating temporary directory', () => {
 
-        const
-            fs = FakeFS.with({
-                '/var/tmp': { },
-            }),
-            os = { tmpdir: () => '/var/tmp' },
-            out = new FileSystem(processCWD, fs, os as any);
+        const fs = FakeFS.with({
+            '/var/tmp': { },
+        });
+        const os = { tmpdir: () => '/var/tmp' };
+        const out = new FileSystem(processCWD, fs, os as any);
 
-        it('uses a randomly generated file name and .tmp suffix', () => {
+        it('creates a randomly-named sub-directory under OS tmp when no prefix is provided', () => {
 
-            expect(out.tempFilePath().value).to.match(/\/var\/tmp\/[\da-z]+\.tmp/);
+            const result = out.temporaryDirectory().value;
+
+            expect(result).to.match(/\/var\/tmp\/[\da-z]+/);
         });
 
-        it('allows for the prefix to be overridden', () => {
+        it('creates a randomly-named sub-directory under OS tmp when the prefix is empty', () => {
 
-            expect(out.tempFilePath('serenity-').value).to.match(/\/var\/tmp\/serenity-[\da-z]+\.tmp/);
+            const result = out.temporaryDirectory('').value;
+
+            expect(result).to.match(/\/var\/tmp\/[\da-z]+/);
         });
 
-        it('allows for the suffix to be overridden', () => {
+        it('creates a prefixed randomly-named sub-directory under OS tmp when a prefix is provided', () => {
 
-            expect(out.tempFilePath('serenity-', '.out').value).to.match(/\/var\/tmp\/serenity-[\da-z]+\.out/);
+            const result = out.temporaryDirectory('serenity-').value;
+
+            expect(result).to.match(/\/var\/tmp\/serenity-[\da-z]+/);
+        });
+
+        it('allows for the filename to be appended to the result', () => {
+
+            const outputFile = Path.from('output.tmp');
+            const result = out.temporaryDirectory('serenity-').join(outputFile).value;
+
+            expect(result).to.match(/\/var\/tmp\/serenity-[\da-z]+\/output\.tmp/);
         });
     });
 });

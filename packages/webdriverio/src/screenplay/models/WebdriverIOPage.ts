@@ -1,5 +1,7 @@
 import 'webdriverio';
 
+import { URL } from 'node:url';
+
 import { type Discardable, List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
@@ -13,7 +15,6 @@ import {
     PageElementsLocator
 } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
-import { URL } from 'url';
 import type { TransformElement } from 'webdriverio';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';

@@ -1,7 +1,8 @@
+import { strictEqual } from 'node:assert';
+
 import { DataTable, Given, Then, When } from '@cucumber/cucumber';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, TestCompromisedError } from '@serenity-js/core';
-import { strictEqual } from 'assert';
 
 Given(/^.*step.*passes$/, function () {
     return Promise.resolve();
