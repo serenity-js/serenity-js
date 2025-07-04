@@ -17,7 +17,7 @@ export interface CollectsArtifacts {
      * #### Implementing a custom interaction to attach artifacts
      *
      * ```ts
-     * import * as fs from 'node:fs'
+     * import fs from 'node:fs';
      * import { Answerable, Interaction, the } from '@serenity-js/core'
      * import { Path } from '@serenity-js/core/lib/io'
      * import { Name, TextData } from '@serenity-js/core/lib/model'

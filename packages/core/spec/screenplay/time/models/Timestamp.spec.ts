@@ -1,6 +1,7 @@
+import { inspect } from 'node:util';
+
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
-import { inspect } from 'util';
 
 import { Duration, Timestamp } from '../../../../src';
 import { expect } from '../../../expect';

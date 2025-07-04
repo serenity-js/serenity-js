@@ -1,8 +1,9 @@
+import type { URL } from 'node:url';
+
 import type { Expectation, ExpectationOutcome, Optional, QuestionAdapter } from '@serenity-js/core';
 import { ExpectationMet, LogicError, Question } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model';
 import { ensure, isDefined } from 'tiny-types';
-import type { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 import type { BrowsingSession } from './BrowsingSession';

@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import type { FileSystem, Path } from '@serenity-js/core/lib/io';
+import { type FileSystem, Path } from '@serenity-js/core/lib/io';
 
 import type { OutputDescriptor } from './OutputDescriptor';
 
@@ -14,7 +14,8 @@ export class TempFileOutputDescriptor implements OutputDescriptor {  // eslint-d
     private readonly path: Path;
 
     constructor(private readonly fileSystem: FileSystem) {
-        this.path = this.fileSystem.tempFilePath('serenity-');
+
+        this.path = this.fileSystem.temporaryDirectory('serenity-').join(Path.from('output.tmp'));
     }
 
     value(): string {

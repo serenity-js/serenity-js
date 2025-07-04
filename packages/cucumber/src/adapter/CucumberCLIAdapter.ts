@@ -1,9 +1,10 @@
+import path from 'node:path'; // eslint-disable-line unicorn/import-style
+
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import type { FileSystem, ModuleLoader } from '@serenity-js/core/lib/io';
 import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
 import type { Outcome } from '@serenity-js/core/lib/model';
 import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
-import * as path from 'path'; // eslint-disable-line unicorn/import-style
 
 import type { CucumberConfig } from './CucumberConfig';
 import { CucumberOptions } from './CucumberOptions';

@@ -1,11 +1,12 @@
 import 'webdriverio';
 
+import { URL } from 'node:url';
+
 import { List, LogicError } from '@serenity-js/core';
 import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
 import { ArgumentDehydrator, BrowserWindowClosedError, ByCss, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/lib/scripts/index.js';
-import { URL } from 'url';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
 import type { WebdriverIOBrowsingSession } from './WebdriverIOBrowsingSession.js';

@@ -1,6 +1,7 @@
+import util from 'node:util';
+
 import type { Optional } from '@serenity-js/core';
 import { inspectedObject } from '@serenity-js/core/lib/io';
-import * as util from 'util';   // eslint-disable-line unicorn/import-style
 
 /**
  * [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/) represents the context in which [`Locator`](https://serenity-js.org/api/web/class/Locator/) looks for [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/).

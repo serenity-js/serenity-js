@@ -1,7 +1,8 @@
+import { resolve } from 'node:path';
+
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { WithSerenityConfig } from '@serenity-js/webdriverio';
-import { resolve } from 'path';
 
 export const config: WebdriverIO.Config & WithSerenityConfig = {
 
