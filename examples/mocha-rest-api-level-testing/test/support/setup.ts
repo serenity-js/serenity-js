@@ -1,5 +1,6 @@
+import path from 'node:path';
+
 import { configure } from '@serenity-js/core';
-import * as path from 'path';
 
 configure({
     crew: [

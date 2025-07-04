@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import { ErrorStackParser } from '../errors';
 import { FileSystemLocation, Path } from '../io';

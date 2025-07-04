@@ -1,8 +1,9 @@
+import { inspect } from 'node:util';
+
 import { expect } from '@integration/testing-tools';
 import { AssertionError, ConfigurationError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
-import { inspect } from 'util';
 
 import { errorReportFrom } from '../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers';
 

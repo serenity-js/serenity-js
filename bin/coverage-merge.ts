@@ -1,7 +1,8 @@
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+
 import { sync as glob } from 'fast-glob';
-import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createCoverageMap } from 'istanbul-lib-coverage';
-import * as path from 'path';
 
 const coverageMap = createCoverageMap({ });
 
