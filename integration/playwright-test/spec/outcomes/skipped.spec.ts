@@ -1,5 +1,11 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import {
+    InteractionFinished,
+    SceneFinished,
+    SceneStarts,
+    SceneTagged,
+    TestRunnerDetected
+} from '@serenity-js/core/lib/events';
 import { CapabilityTag, ExecutionSkipped, FeatureTag, Name, ThemeTag } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
@@ -96,6 +102,77 @@ describe('Skipped', () => {
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip describe conditional')))
                 .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSkipped))
+            ;
+        });
+
+        it('is skipped programmatically at the top level', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                'outcomes/skipped/skip_programmatic.spec.ts',
+            ).then(ifExitCodeIsOtherThan(0, logOutput));
+
+            expect(result.exitCode).to.equal(0);
+
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is skipped programmatically')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip')))
+                .next(SceneFinished,       event => {
+                    const outcome = event.outcome as ExecutionSkipped;
+                    expect(outcome).to.be.instanceOf(ExecutionSkipped);
+                    expect(outcome?.error).to.be.undefined;
+                })
+            ;
+        });
+
+        it('is skipped programmatically inside an with no message', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                'outcomes/skipped/skip_programmatic_screenplay.spec.ts',
+            ).then(ifExitCodeIsOtherThan(0, logOutput));
+
+            expect(result.exitCode).to.equal(0);
+
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is skipped programmatically')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip')))
+                .next(SceneFinished,       event => {
+                    const outcome = event.outcome as ExecutionSkipped;
+                    expect(outcome).to.be.instanceOf(ExecutionSkipped);
+                    expect(outcome?.error.message).to.equal('Test is skipped: ');
+                })
+            ;
+        });
+
+        it('is skipped programmatically inside an interaction and with a message', async () => {
+            const result = await playwrightTest(
+                '--project=default',
+                'outcomes/skipped/skip_programmatic_screenplay_message.spec.ts',
+            ).then(ifExitCodeIsOtherThan(0, logOutput));
+
+            expect(result.exitCode).to.equal(0);
+
+            PickEvent.from(result.events)
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Test scenario is skipped programmatically')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Playwright')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new ThemeTag('Outcomes')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('Skipped')))
+                .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Skip')))
+                .next(InteractionFinished, event => {
+                    const outcome = event.outcome as ExecutionSkipped;
+                    expect(outcome).to.be.instanceOf(ExecutionSkipped);
+                    expect(outcome?.error.message).to.equal('Test is skipped: This test is skipped programmatically');
+                })
+                .next(SceneFinished,       event => {
+                    const outcome = event.outcome as ExecutionSkipped;
+                    expect(outcome).to.be.instanceOf(ExecutionSkipped);
+                    expect(outcome?.error.message).to.equal('Test is skipped: This test is skipped programmatically');
+                })
             ;
         });
     });

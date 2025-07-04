@@ -4,7 +4,7 @@ import { AssertionError, ImplementationPendingError, TestCompromisedError } from
 import type { EmitsDomainEvents } from '../../events';
 import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
 import { type FileSystemLocation, ValueInspector } from '../../io';
-import type { Outcome, ProblemIndication } from '../../model';
+import { ExecutionSkipped, type Outcome } from '../../model';
 import {
     ActivityDetails,
     ExecutionCompromised,
@@ -80,14 +80,24 @@ export class PerformActivities extends Ability {
         }
     }
     protected outcomeFor(error: Error | any): Outcome {
-        return match<Error, ProblemIndication>(error)
+        return match<Error, Outcome>(error)
             .when(ImplementationPendingError, _ => new ImplementationPending(error))
             .when(TestCompromisedError, _ => new ExecutionCompromised(error))
             .when(AssertionError, _ => new ExecutionFailedWithAssertionError(error))
-            .when(Error, _ =>
-                /AssertionError/.test(error.constructor.name) // mocha
-                    ? new ExecutionFailedWithAssertionError(error)
-                    : new ExecutionFailedWithError(error))
+            .when(Error, _ => {
+
+                // Mocha
+                if (/AssertionError/.test(error.constructor.name)) {
+                    return new ExecutionFailedWithAssertionError(error)
+                }
+
+                // Playwright Test
+                if (/TestSkipError/.test(error.constructor.name)) {
+                    return new ExecutionSkipped(error);
+                }
+
+                return new ExecutionFailedWithError(error);
+            })
             .else(_ => new ExecutionFailedWithError(error));
     }
 
