@@ -65,7 +65,7 @@ import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTer
  * ```ts
  *  import { configure } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
- *  import { createWriteStream } from 'fs';
+ *  import { createWriteStream } from 'node:fs';
  *
  *  configure({
  *    outputStream: createWriteStream('./output.log'),

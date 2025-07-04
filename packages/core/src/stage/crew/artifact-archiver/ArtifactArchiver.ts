@@ -1,8 +1,8 @@
-import type { WriteFileOptions } from 'fs';
+import type { WriteFileOptions } from 'node:fs';
+
 import { ensure, isDefined, isGreaterThan, isString, property } from 'tiny-types';
 
-import type {
-    DomainEvent} from '../../../events';
+import type { DomainEvent} from '../../../events';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,

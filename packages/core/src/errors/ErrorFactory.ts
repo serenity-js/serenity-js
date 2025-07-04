@@ -1,7 +1,8 @@
+import { types } from 'node:util';
+
 import type { ArrayChange, Change } from 'diff';
 import { diffArrays, diffJson } from 'diff';
 import { equal } from 'tiny-types/lib/objects';
-import { types } from 'util';
 
 import { inspected, ValueInspector } from '../io';
 import { Unanswered } from '../screenplay/questions/Unanswered';
