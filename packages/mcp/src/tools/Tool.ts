@@ -4,33 +4,32 @@ import type { z } from 'zod';
 import type { McpSessionContext } from '../server/McpSessionContext.js';
 
 export type InputSchema = z.Schema;
+export type OutputSchema = z.Schema;
 
-// todo: review
-// export type ToolCapability = 'web' | 'core' | 'rest';
-
-export interface ToolSchema<Input extends InputSchema> {
+export interface ToolSchema<Input extends InputSchema, Output extends OutputSchema> {
     name: string;
     title: string;
     description: string;
-    inputSchema: Input;
-    // outputSchema: Output;
+    inputSchema?: Input;
+    outputSchema?: Output;
     type: 'readonly' | 'destructive';
 }
 
 export type ToolActionResult = { content?: Array<ImageContent | TextContent> } | undefined | void;
 
 export interface ToolResult {
-    imports: Record<string, string[]>;
-    activities: string[];
+    actor?: string;
+    imports?: Record<string, string[]>;
+    activities?: string[];
     action?: () => Promise<ToolActionResult>;
     // waitForNetwork: boolean;
-    resultOverride?: { content: Array<ImageContent | TextContent> }
+    resultOverride?: { content: Array<ImageContent | TextContent>, structuredContent?: Record<string, unknown> };
 }
 
-export interface Tool<Input extends InputSchema = InputSchema> {
+export interface Tool<Input extends InputSchema = InputSchema, Output extends OutputSchema = OutputSchema> {
     // capability: ToolCapability;
     //
-    schema: ToolSchema<Input>;
+    schema: ToolSchema<Input, Output>;
     handler: (context: McpSessionContext, params: z.output<Input>) => Promise<ToolResult>;
 }
 

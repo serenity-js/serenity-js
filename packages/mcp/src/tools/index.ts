@@ -1,7 +1,7 @@
-import hello from './hello.js';
+import listCapabilities from './listCapabilities.js';
 import navigate from './navigate.js';
 
 export default [
-    ...hello,
+    ...listCapabilities,
     ...navigate,
 ];

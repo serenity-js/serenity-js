@@ -4,12 +4,14 @@ import type { ImageContent, TextContent } from '@modelcontextprotocol/sdk/types.
 import type { Actor } from '@serenity-js/core';
 import { Cast, Clock, Serenity, TakeNotes } from '@serenity-js/core';
 import { TestRunFinished, TestRunFinishes } from '@serenity-js/core/lib/events/index.js';
+import { trimmed } from '@serenity-js/core/lib/io/index.js';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model/index.js';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import * as playwright from 'playwright';
+import type { z } from 'zod';
 
 import type { Config } from '../config/Config.js';
-import type { Tool } from '../tools/Tool.js';
+import type { InputSchema, OutputSchema, Tool } from '../tools/Tool.js';
 import type { BrowserConnection } from './BrowserConnection.js';
 
 export class McpSessionContext {
@@ -24,39 +26,56 @@ export class McpSessionContext {
         return this.serenity.theActorCalled(actorName);
     }
 
-    async run(tool: Tool, params: Record<string, unknown> | undefined): Promise<{
-        content: Array<ImageContent | TextContent>
+    async run<Input extends InputSchema, Output extends OutputSchema>(tool: Tool<Input, Output>, params: Record<string, unknown> | undefined): Promise<{
+        content: Array<ImageContent | TextContent>,
+        structuredContent?: z.output<Output>,
     }> {
         if (! this.serenity) {
             this.serenity = await this.initialiseSerenity();
         }
 
         // todo: handler should receive a subset of this class as context; or maybe just the actor?
-        const handler = await tool.handler(this, tool.schema.inputSchema.parse(params || {}));
+        const handler = await tool.handler(this, tool.schema.inputSchema?.parse(params || {}));
 
-        const { imports, activities, resultOverride, action } = handler;
-
-        if (resultOverride) {
-            return resultOverride;
+        if (handler.resultOverride) {
+            return handler.resultOverride;
         }
 
-        const output: string[] = [];
+        const requiredDependencies = Object.keys(handler.imports);
+        const requiredDependenciesMarkdown = requiredDependencies.map(dependency => `- \`${dependency}\``).join('\n');
 
-        output.push(
-            '- Ran Serenity/JS activities:',
+        const requiredImportsMarkdown = Object.entries(handler.imports)
+                .map(([ moduleName, moduleImports ]) => {
+                    return `import { ${ moduleImports.sort().join(', ')} } from '${ moduleName }';`
+                }).join('\n');
+
+        const actorCode = trimmed`
+            | await actorCalled('${ handler.actor }').attemptsTo(
+            | ${ handler.activities.map(activity => `    ${ activity },\n`).join('') }
+            | );`
+
+        const markdownOutput: string[] = [
+            `# Serenity/JS Code for ${ tool.schema.name }`,
             '```ts',
-            ... activities.map(activity => `${activity},`),
+            actorCode,
             '```',
             '',
-            '### Required imports',
+            '## Required dependencies',
+            requiredDependenciesMarkdown,
+            '',
+            '## Required imports',
             '```ts',
-            ... Object.entries(imports)
-                .map(([ moduleName, moduleImports ]) => `import { ${ moduleImports.sort().join(', ')} } from '${ moduleName }';`),
+            requiredImportsMarkdown,
             '```',
             '',
-        )
+        ];
 
-        const result = action ? await action() : undefined;
+        const structuredContent = {
+            imports: handler.imports,
+            code: actorCode,
+        }
+
+        const result = handler.action ? await handler.action() : undefined;
         // todo: finish
 
         const content = result?.['content'] ?? [];
@@ -66,9 +85,10 @@ export class McpSessionContext {
                 ...content,
                 {
                     type: 'text',
-                    text: output.join('\n'),
+                    text: markdownOutput.join('\n'),
                 }
             ],
+            structuredContent: structuredContent,
         };
     }
 
