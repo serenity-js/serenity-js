@@ -114,12 +114,13 @@ export class McpSessionContext {
     }
 
     async close(): Promise<void> {
-        this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()))
-        await this.serenity.waitForNextCue();
-        this.serenity.announce(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()))
+        if (this.serenity) {
+            this.serenity.announce(new TestRunFinishes(this.serenity.currentTime()))
+            await this.serenity.waitForNextCue();
+            this.serenity.announce(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+            this.serenity = undefined;
+        }
 
         await this.browserConnection.close();
-
-        this.serenity = undefined;
     }
 }
