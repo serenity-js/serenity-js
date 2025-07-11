@@ -35,7 +35,7 @@ export class McpSessionContext {
         }
 
         // todo: handler should receive a subset of this class as context; or maybe just the actor?
-        const handler = await tool.handler(this, tool.schema.inputSchema?.parse(params || {}));
+        const handler = await tool.handler(this, tool.schema.inputSchema.parse(params || {}));
 
         if (handler.resultOverride) {
             return handler.resultOverride;

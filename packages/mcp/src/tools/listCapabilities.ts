@@ -8,6 +8,7 @@ export const listCapabilities = defineTool({
         name: 'serenity_list_capabilities',
         title: 'List Serenity/JS Capabilities',
         description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest)',
+        inputSchema: z.object({}).describe('No input parameters required'),
         outputSchema: z.record(z.record(z.record(z.record(z.string())))),
         type: 'readonly',
     },
