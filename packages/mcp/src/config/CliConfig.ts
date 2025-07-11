@@ -1,0 +1,21 @@
+export type CLIOptions = {
+    allowedOrigins?: string[];
+    blockedOrigins?: string[];
+    blockServiceWorkers?: boolean;
+    browser?: string;
+    // caps?: string;
+    config?: string;
+    device?: string;
+    executablePath?: string;
+    headless?: boolean;
+    ignoreHttpsErrors?: boolean;
+    isolated?: boolean;
+    sandbox: boolean;
+    outputDir?: string;
+    proxyBypass?: string;
+    proxyServer?: string;
+    storageState?: string;
+    userAgent?: string;
+    userDataDir?: string;
+    viewportSize?: string;
+};
