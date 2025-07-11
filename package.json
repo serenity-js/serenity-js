@@ -29,7 +29,7 @@
     "postinstall:protractor": "npx tsx bin/install-browsers.ts chrome@129 chromedriver@129",
     "postinstall:webdriverio": "npx tsx bin/install-browsers.ts chrome@stable chromedriver@stable",
     "clean": "rimraf target && lerna run clean",
-    "cc": "npx nx reset",
+    "cc": "pnpx nx reset",
     "lint": "eslint --ext ts --config .eslintrc.yml .",
     "lint:fix": "eslint --ext ts --config .eslintrc.yml --fix .",
     "compile:all": "lerna run compile",
