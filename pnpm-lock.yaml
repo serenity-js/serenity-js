@@ -1403,8 +1403,8 @@ importers:
         specifier: 1.15.0
         version: 1.15.0
       '@playwright/test':
-        specifier: 1.53.2
-        version: 1.53.2
+        specifier: 1.54.1
+        version: 1.54.1
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -4500,11 +4500,6 @@ packages:
 
   '@playwright/experimental-ct-react@1.54.1':
     resolution: {integrity: sha512-hqa/JhMK3qUqwqx8jm0/RJ3lbpGojA3f7UBhp3clFy8hnzMVu0SDba3JemWikS+JhiqYHjxL6Bn6dGxyikCImA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  '@playwright/test@1.53.2':
-    resolution: {integrity: sha512-tEB2U5z74ebBeyfGNZ3Jfg29AnW+5HlWhvHtb/Mqco9pFdZU1ZLNdVb2UtB5CvmiilNr2ZfVH/qMmAROG/XTzw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10025,18 +10020,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.53.2:
-    resolution: {integrity: sha512-ox/OytMy+2w1jcYEYlOo1Hhp8hZkLCximMTUTMBXjGUA1KoFfiSZ+DU+3a739jsPY0yoKH2TFy9S2fsJas8yAw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.54.1:
     resolution: {integrity: sha512-Nbjs2zjj0htNhzgiy5wu+3w09YetDx5pkrpI/kZotDlDUaYk0HVA5xrBVPdow4SAUIlhgKcJeJg4GRKW6xHusA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.53.2:
-    resolution: {integrity: sha512-6K/qQxVFuVQhRQhFsVZ9fGeatxirtrpPgxzBYWyZLEXJzqYwuL4fuNmfOfD5et1tJE4GScKyPNeLhZeRwuTU3A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -14107,10 +14092,6 @@ snapshots:
       - tsx
       - vite
       - yaml
-
-  '@playwright/test@1.53.2':
-    dependencies:
-      playwright: 1.53.2
 
   '@playwright/test@1.54.1':
     dependencies:
@@ -20813,15 +20794,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.53.2: {}
-
   playwright-core@1.54.1: {}
-
-  playwright@1.53.2:
-    dependencies:
-      playwright-core: 1.53.2
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.54.1:
     dependencies:
