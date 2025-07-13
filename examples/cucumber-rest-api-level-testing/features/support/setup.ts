@@ -1,6 +1,7 @@
+import path from 'node:path';
+
 import { setDefaultTimeout } from '@cucumber/cucumber';
 import { configure } from '@serenity-js/core';
-import path from 'path';
 
 import { Actors } from './screenplay';
 

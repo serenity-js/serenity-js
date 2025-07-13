@@ -1,5 +1,6 @@
+import util from 'node:util';
+
 import { isRecord, significantFieldsOf } from 'tiny-types/lib/objects';
-import * as util from 'util'; // eslint-disable-line unicorn/import-style
 
 import { LogicError } from '../errors';
 import type { FileSystemLocation } from '../io';

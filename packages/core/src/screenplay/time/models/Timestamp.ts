@@ -1,5 +1,6 @@
+import { inspect } from 'node:util';
+
 import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
-import { inspect } from 'util';
 
 import { Duration } from './Duration';
 

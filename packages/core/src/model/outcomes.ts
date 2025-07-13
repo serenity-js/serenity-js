@@ -129,10 +129,18 @@ export class ExecutionIgnored extends ProblemIndication {
 export class ExecutionSkipped extends Outcome {
     static Code = 1 << 5;
 
-    static fromJSON = (o: SerialisedOutcome) => new ExecutionSkipped();
+    static fromJSON = (o: SerialisedOutcome) =>
+        new ExecutionSkipped(o.error && ErrorSerialiser.deserialise(o.error));
 
-    constructor() {
+    constructor(public readonly error?: Error) {
         super(ExecutionSkipped.Code);
+    }
+
+    toJSON(): SerialisedOutcome {
+        return {
+            code: this.code,
+            error: this.error && ErrorSerialiser.serialise(this.error),
+        };
     }
 }
 

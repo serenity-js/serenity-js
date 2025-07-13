@@ -1,5 +1,6 @@
+import fs from 'node:fs';
+
 import Reporter from '@wdio/reporter';
-import * as fs from 'fs';
 
 export default class Inspector extends Reporter {
     constructor (options: object) {
