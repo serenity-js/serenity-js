@@ -88,6 +88,10 @@ export class PlaywrightEventBuffer {
             return worstInteractionOutcome;
         }
 
+        if (worstInteractionOutcome instanceof ExecutionSkipped) {
+            return worstInteractionOutcome;
+        }
+
         return worstInteractionOutcome.isWorseThan(scenarioOutcome)
             ? worstInteractionOutcome
             : scenarioOutcome;

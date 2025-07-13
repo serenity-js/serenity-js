@@ -1,5 +1,4 @@
-import type {
-    Outcome} from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/lib/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -27,8 +26,8 @@ export function outcomeReportFrom(outcome: Outcome): { result: string, error?: E
         when(ExecutionFailedWithAssertionError, ({ error }: ExecutionFailedWithAssertionError) =>
             ({ result: 'FAILURE', error: errorReportFrom(error) })
         ).
-        when(ExecutionSkipped,      _ =>
-            ({ result: 'SKIPPED' })
+        when(ExecutionSkipped, ({ error }: ExecutionSkipped) =>
+            ({ result: 'SKIPPED', error: error && errorReportFrom(error) }) // error might be undefined if the test was skipped without providing a reason
         ).
         when(ExecutionIgnored,      _ =>
             ({ result: 'IGNORED' })

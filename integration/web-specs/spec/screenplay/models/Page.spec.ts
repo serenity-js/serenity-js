@@ -1,10 +1,11 @@
 import 'mocha';
 
+import { URL } from 'node:url';
+
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Duration, LogicError, Question, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
-import { URL } from 'url';
 
 describe('Page', () => {
 
