@@ -90,8 +90,6 @@ export function configure(config: SerenityConfig): void {
  *
  * describe('My feature', () => {
  *   beforeEach(() => engage(new Actors()))
- *
- *
  * })
  * ```
  *
