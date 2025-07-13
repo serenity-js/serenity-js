@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.4](https://github.com/serenity-js/serenity-js/compare/v3.32.3...v3.32.4) (2025-07-13)
+
+
+### Bug Fixes
+
+* **core:** removed unnecessary tsconfig files from build artifacts ([6e4d4fa](https://github.com/serenity-js/serenity-js/commit/6e4d4fabed5d0bc2847bbf7cbc4ead10710ec32b))
+* **deps:** update dependency agent-base to v7.1.4 ([658ec4d](https://github.com/serenity-js/serenity-js/commit/658ec4d494916a02a15ff68a566b15e3672bba00))
+* **deps:** update playwright dependencies to v1.54.1 ([d7fda0e](https://github.com/serenity-js/serenity-js/commit/d7fda0e24bf93f880a988b6772d0f562f7900af2))
+* **deps:** update webdriverio dependencies ([47a9611](https://github.com/serenity-js/serenity-js/commit/47a9611701112921731e03055ca646b4c2183c23))
+
+
+
+
+
 ## [3.32.3](https://github.com/serenity-js/serenity-js/compare/v3.32.2...v3.32.3) (2025-07-07)
 
 
