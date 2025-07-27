@@ -1950,8 +1950,8 @@ importers:
         specifier: 10.1.3
         version: 10.1.3
       chromedriver:
-        specifier: 138.0.2
-        version: 138.0.2
+        specifier: 138.0.4
+        version: 138.0.4
       mocha:
         specifier: 11.7.1
         version: 11.7.1
@@ -2099,8 +2099,8 @@ importers:
         specifier: 10.1.3
         version: 10.1.3
       chromedriver:
-        specifier: 138.0.2
-        version: 138.0.2
+        specifier: 138.0.4
+        version: 138.0.4
       ci-info:
         specifier: 4.3.0
         version: 4.3.0
@@ -2127,7 +2127,7 @@ importers:
         version: 5.8.3
       wdio-chromedriver-service:
         specifier: 8.1.1
-        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@138.0.2)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
+        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@138.0.4)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
       webdriverio:
         specifier: 8.42.0
         version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
@@ -5701,8 +5701,8 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
 
-  chromedriver@138.0.2:
-    resolution: {integrity: sha512-mmAtTCK0GHum+zbgcv3PYDX7tqNdTXDsd2t6WWI/Tm/Ts2xCGlc5XUcL3oxw1Dn/kmPJOurwrYJKO7vV4xkisA==}
+  chromedriver@138.0.4:
+    resolution: {integrity: sha512-bz67FCiCTCdzUil2DdNVUhLdrOJ7Xws5z0dlSXKTPiLPpVJVWsQR0NXnsZcMX3FPRpmr1qP18hLp+hyeVUJgjw==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -14981,7 +14981,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  chromedriver@138.0.2:
+  chromedriver@138.0.4:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.10.0(debug@4.4.1)
@@ -21157,7 +21157,7 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@138.0.2)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
+  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@138.0.4)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
     dependencies:
       '@wdio/logger': 8.38.0
       fs-extra: 11.3.0
@@ -21166,7 +21166,7 @@ snapshots:
       webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     optionalDependencies:
       '@wdio/types': 8.41.0
-      chromedriver: 138.0.2
+      chromedriver: 138.0.4
     transitivePeerDependencies:
       - supports-color
 
