@@ -306,6 +306,9 @@ jobs:
       - test-integration-protractor
       - test-integration-webdriverio
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -330,22 +333,13 @@ jobs:
           github-token: ${{ github.token }}
           path-to-lcov: 'target/coverage/lcov.info'
 
-      # https://github.com/actions/runner/issues/520
-      - name: Get CodeClimate reporter ID
-        id: secrets
-        run: echo "CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }}" >> $GITHUB_OUTPUT
-
-      - name: CodeClimate
-        if: steps.secrets.outputs.CC_TEST_REPORTER_ID
-        uses: paambaati/codeclimate-action@f429536ee076d758a24705203199548125a28ca7 # v9.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ steps.secrets.outputs.CC_TEST_REPORTER_ID }}
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1
         with:
-          coverageLocations: |
-            ${{github.workspace}}/target/coverage/lcov.info:lcov
-          debug: false
+          oidc: true
+          files: target/coverage/lcov.info
 
-  #
+    #
   # NPM artifact publishing
   #
 
