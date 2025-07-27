@@ -1,0 +1,17 @@
+config_version = "0"
+
+exclude_patterns = [
+    "**/node_modules/**",
+    "integration/**",
+    "examples/**",
+    "**/spec/**",
+    "**/*.d.ts",
+]
+test_patterns = [
+    "integration/**/spec/**",
+    "packages/**/spec/**"
+]
+
+[[source]]
+name = "default"
+default = true

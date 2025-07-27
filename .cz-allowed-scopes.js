@@ -30,7 +30,7 @@ module.exports.scopes = {
             'gitpod',
             'lerna',
             'renovate',
-            'codeclimate',
+            'qlty',
             'codefactor',
             'eslint',
         ];
