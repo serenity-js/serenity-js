@@ -343,13 +343,48 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Qlty
-        uses: qltysh/qlty-action/coverage@v1.1.1
-        with:
-          oidc: true
-          command: complete
 
-    #
+      # TODO: use the official action when the issue is resolved https://github.com/qltysh/qlty-action/issues/119
+#      - name: Qlty
+#        uses: qltysh/qlty-action/coverage@v1.1.1
+#        with:
+#          oidc: true
+#          command: complete
+
+      # TODO: Qlty issue workaround
+      - name: Install Qlty CLI
+        run: curl https://qlty.sh | sh
+      - name: Qlty Complete
+        uses: actions/github-script@v7
+        id: qlty
+        with:
+          script: |
+            const core = require('@actions/core');
+            const actionsGithub = require("@actions/github");
+            
+            const OIDC_AUDIENCE = "https://qlty.sh";
+            const id_token = await core.getIDToken(OIDC_AUDIENCE);
+            core.setOutput('id_token', id_token);
+            
+            const payload = actionsGithub.context.payload;
+            
+            const completeArgs = [ "coverage", "complete" ];
+            
+            if (payload.pull_request) {
+                completeArgs.push("--override-commit-sha", payload.pull_request["head"].sha);
+                completeArgs.push("--override-branch", payload.pull_request["head"].ref);
+            }
+
+            core.setOutput('complete_args', JSON.stringify(completeArgs));
+      - name: Qlty Execute
+#        run: qlty ${{ fromJson(steps.qlty.outputs.complete_args) }}
+        run: echo ${{ fromJson(steps.qlty.outputs.complete_args) }}
+#        env:
+#          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action",
+#          QLTY_CI_UPLOADER_VERSION: "1.1.1"
+#          QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}"
+
+  #
   # NPM artifact publishing
   #
 
