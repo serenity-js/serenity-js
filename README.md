@@ -7,7 +7,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
-[![Coverage Status](https://coveralls.io/repos/github/serenity-js/serenity-js/badge.svg?branch=main)](https://coveralls.io/github/serenity-js/serenity-js?branch=main)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
 [![Known Vulnerabilities](https://snyk.io/test/github/serenity-js/serenity-js/badge.svg)](https://snyk.io/test/github/serenity-js/serenity-js)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 

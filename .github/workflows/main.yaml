@@ -60,11 +60,14 @@ jobs:
           artifact-name: 'compiled-libs'
       - name: Test
         run: make test
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
-          artifact-name: 'test-reports'
-          artifact-path: 'package.json "packages/*/target/coverage/coverage-final.json"'
+          oidc: true
+          command: publish
+          files: packages/*/target/coverage/lcov.info
+          incomplete: true
 
   test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
@@ -163,11 +166,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration-protractor:
     name: 'Integration: Protractor'
@@ -202,11 +207,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
@@ -244,11 +251,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration:
     name: 'Integration'
@@ -270,7 +279,6 @@ jobs:
           - cucumber-9
           - cucumber-10
           - cucumber-11
-          - cucumber-12
           - jasmine
           - mocha
           - rest
@@ -288,11 +296,13 @@ jobs:
         run: |
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   #
   # Reporting
@@ -312,34 +322,11 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          fetch-depth: 2
-
-      - name: Set up Node
-        uses: ./.github/actions/setup-node
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-
-      - name: Decompress all artifacts to current directory
-        run: ls **/*.zip | xargs -n1 7z x -aoa
-
-      - name: Report coverage
-        run: make report
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
-        with:
-          github-token: ${{ github.token }}
-          path-to-lcov: 'target/coverage/lcov.info'
-
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@f13b3559771beedd11e68b03d49512f3c21a75ba # v1
+        uses: qltysh/qlty-action/coverage@v1.1.1
         with:
           oidc: true
-          files: target/coverage/lcov.info
+          command: complete
 
     #
   # NPM artifact publishing
