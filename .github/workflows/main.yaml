@@ -361,6 +361,7 @@ jobs:
           script: |
             const OIDC_AUDIENCE = "https://qlty.sh";
             const idToken = await core.getIDToken(OIDC_AUDIENCE);
+            core.setSecret(idToken);
             core.setOutput('id_token', idToken);
             
             const payload = context.payload;
@@ -374,12 +375,11 @@ jobs:
 
             core.setOutput('complete_args', completeArgs.join(' '));
       - name: Qlty Execute
-#        run: qlty ${{ fromJson(steps.qlty.outputs.complete_args) }}
-        run: echo ${{ steps.qlty.outputs.complete_args }}
-#        env:
-#          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action",
-#          QLTY_CI_UPLOADER_VERSION: "1.1.1"
-#          QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}"
+        run: qlty ${{ steps.qlty.outputs.complete_args }}
+        env:
+          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action",
+          QLTY_CI_UPLOADER_VERSION: "1.1.1"
+          QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}
 
   #
   # NPM artifact publishing
