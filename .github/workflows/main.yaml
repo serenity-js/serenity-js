@@ -308,6 +308,7 @@ jobs:
       - test-integration-webdriverio
     runs-on: ubuntu-24.04
     permissions:
+      checks: write
       contents: read
       id-token: write
     steps:
