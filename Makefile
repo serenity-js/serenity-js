@@ -30,7 +30,7 @@ COMPILE_SCOPE=all
 # webdriverio-web
 INTEGRATION_SCOPE=all
 
-.PHONY: all install clean lint test compile integration-test verify report
+.PHONY: all install clean lint test compile integration-test verify
 all: install clean compile
 
 install:
@@ -59,6 +59,3 @@ integration-test:
 	pnpm integration-test:$(INTEGRATION_SCOPE)
 
 verify: lint compile test integration-test
-
-report:
-	pnpm report

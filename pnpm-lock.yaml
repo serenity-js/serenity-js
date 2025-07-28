@@ -23,9 +23,6 @@ importers:
       '@types/chai-as-promised':
         specifier: 7.1.8
         version: 7.1.8
-      '@types/istanbul-lib-coverage':
-        specifier: 2.0.6
-        version: 2.0.6
       '@types/node':
         specifier: 22.16.5
         version: 22.16.5
@@ -50,9 +47,6 @@ importers:
       chai-as-promised:
         specifier: 7.1.2
         version: 7.1.2(chai@4.5.0)
-      coveralls:
-        specifier: 3.1.1
-        version: 3.1.1
       cross-env:
         specifier: 10.0.0
         version: 10.0.0
@@ -89,9 +83,6 @@ importers:
       inquirer:
         specifier: 6.5.2
         version: 6.5.2
-      istanbul-lib-coverage:
-        specifier: 3.2.2
-        version: 3.2.2
       lerna:
         specifier: 8.2.3
         version: 8.2.3(encoding@0.1.13)
@@ -6031,11 +6022,6 @@ packages:
       typescript:
         optional: true
 
-  coveralls@3.1.1:
-    resolution: {integrity: sha512-+dxnG2NHncSD1NrqbSM3dn/lE57O6Qf/koe9+I7c+wzkqRmEvcp0kgJdxKInzYzkICKkFMZsX3Vct3++tsF9ww==}
-    engines: {node: '>=6'}
-    hasBin: true
-
   crc-32@1.2.2:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
     engines: {node: '>=0.8'}
@@ -8262,10 +8248,6 @@ packages:
     resolution: {integrity: sha512-b94GiNHQNy6JNTrt5w6zNyffMrNkXZb3KTkCZJb2V1xaEGCk093vkZ2jk3tpaeP33/OiXC+WvK9AxUebnf5nbw==}
     engines: {node: '>= 0.6.3'}
 
-  lcov-parse@1.0.0:
-    resolution: {integrity: sha512-aprLII/vPzuQvYZnDRU78Fns9I2Ag3gi4Ipga/hxnVMCZC8DnR2nI7XBqrPoywGfxqIx/DgarGvDJZAD3YBTgQ==}
-    hasBin: true
-
   lerna@8.2.3:
     resolution: {integrity: sha512-rmuDU+92eWUnnyaPg3Ise339pTxF+r2hu8ky/soCfbGpUoW4kCwsDza3P/LtQJWrKwZWHcosEitfYvxGUWZ16A==}
     engines: {node: '>=18.0.0'}
@@ -8412,10 +8394,6 @@ packages:
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-
-  log-driver@1.2.7:
-    resolution: {integrity: sha512-U7KCmLdqsGHBLeWqYlFA0V0Sl6P08EE1ZrmA9cxjUE0WVqT9qnyVDPz1kzpFEP0jdJuFnasWIfSd7fsaNXkpbg==}
-    engines: {node: '>=0.8.6'}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -15222,14 +15200,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
 
-  coveralls@3.1.1:
-    dependencies:
-      js-yaml: 3.14.1
-      lcov-parse: 1.0.0
-      log-driver: 1.2.7
-      minimist: 1.2.8
-      request: 2.88.2
-
   crc-32@1.2.2: {}
 
   crc32-stream@6.0.0:
@@ -17966,8 +17936,6 @@ snapshots:
     dependencies:
       readable-stream: 2.3.8
 
-  lcov-parse@1.0.0: {}
-
   lerna@8.2.3(encoding@0.1.13):
     dependencies:
       '@lerna/create': 8.2.3(encoding@0.1.13)(typescript@5.8.3)
@@ -18231,8 +18199,6 @@ snapshots:
   lodash.zip@4.2.0: {}
 
   lodash@4.17.21: {}
-
-  log-driver@1.2.7: {}
 
   log-symbols@4.1.0:
     dependencies:
