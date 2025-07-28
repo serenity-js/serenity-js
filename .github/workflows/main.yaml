@@ -334,7 +334,7 @@ jobs:
           path-to-lcov: 'target/coverage/lcov.info'
 
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@v1
+        uses: qltysh/qlty-action/coverage@f13b3559771beedd11e68b03d49512f3c21a75ba # v1
         with:
           oidc: true
           files: target/coverage/lcov.info
