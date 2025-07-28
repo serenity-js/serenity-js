@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.32.5](https://github.com/serenity-js/serenity-js/compare/v3.32.4...v3.32.5) (2025-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency validate-npm-package-name to v6.0.2 ([280c3ac](https://github.com/serenity-js/serenity-js/commit/280c3acd410e46c87150d5804952479433ba7d3f))
+
+
+
+
+
 ## [3.32.4](https://github.com/serenity-js/serenity-js/compare/v3.32.3...v3.32.4) (2025-07-13)
 
 
