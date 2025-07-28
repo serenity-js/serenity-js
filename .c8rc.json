@@ -17,10 +17,13 @@
     ".js"
   ],
   "reporter": [
-    "lcov",
+    "lcovonly",
     "text-summary"
   ],
   "reporterOptions": {
+    "lcov": {
+      "projectRoot": "../../"
+    },
     "lcovonly": {
       "projectRoot": "../../"
     }
