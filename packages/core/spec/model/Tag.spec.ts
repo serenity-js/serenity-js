@@ -59,7 +59,7 @@ describe('Tag', () => {
         new ThemeTag('sales'),
     ]).
     it('can be deserialised from a JSON object', (tag: Tag) => {
-        expect(Tag.fromJSON(tag.toJSON())).to.equal(tag);
+        expect(Tags.fromJSON(tag.toJSON())).to.equal(tag);
     });
 
     given([
