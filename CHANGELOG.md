@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.1](https://github.com/serenity-js/serenity-js/compare/v3.33.0...v3.33.1) (2025-07-28)
+
+
+### Bug Fixes
+
+* **core:** refactored Tag deserialiser to simplify the import graph ([ec2c333](https://github.com/serenity-js/serenity-js/commit/ec2c333ed4127d898319d0d9932d09cf545e4508))
+* **core:** support for deserialising ProjectTags ([47f650a](https://github.com/serenity-js/serenity-js/commit/47f650a026bbe812eff98dbe89658baa99371d0d))
+
+
+
+
+
 # [3.33.0](https://github.com/serenity-js/serenity-js/compare/v3.32.5...v3.33.0) (2025-07-28)
 
 
