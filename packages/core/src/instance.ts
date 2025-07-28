@@ -14,10 +14,8 @@ const clock = new Clock();
 export const serenity = new Serenity(clock);
 
 /**
- * Configures Serenity/JS. Every call to this function
- * replaces the previous configuration provided,
- * so this function should be called exactly once
- * in your test suite.
+ * Configures Serenity/JS. Every call to this function replaces the previous configuration provided,
+ * so this function should be called exactly once in your test suite.
  *
  * This function is an alias for [`Serenity.configure`](https://serenity-js.org/api/core/class/Serenity/#configure).
  *
