@@ -20,18 +20,6 @@ export abstract class Tag extends TinyType {
         return new tagConstructor(name.charAt(0).toUpperCase() + name.slice(1));
     }
 
-    static fromJSON(o: JSONObject): Tag {
-        const type: string = ensure('serialised tag type', o.type, isDefined(), isString()) as string;
-
-        const found = Object.keys(TagTypes).find(t => TagTypes[t].Type === type) || TagTypes.ArbitraryTag.name;
-
-        if (Object.prototype.hasOwnProperty.call(TagTypes[found], 'fromJSON')) {
-            return TagTypes[found].fromJSON(o);
-        }
-
-        return new TagTypes[found](o.name);
-    }
-
     protected constructor(public readonly name: string, public readonly type: string) {
         super();
 
