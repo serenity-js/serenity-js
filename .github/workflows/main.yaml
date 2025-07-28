@@ -377,7 +377,7 @@ jobs:
       - name: Qlty Execute
         run: qlty ${{ steps.qlty.outputs.complete_args }}
         env:
-          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action",
+          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action"
           QLTY_CI_UPLOADER_VERSION: "1.1.1"
           QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}
 
