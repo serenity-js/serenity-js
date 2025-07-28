@@ -1,7 +1,4 @@
-import type { JSONObject} from 'tiny-types';
-import { ensure, isDefined, isGreaterThan, isString, property, TinyType } from 'tiny-types';
-
-import * as TagTypes from './index';
+import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
 
 /**
  * @access public
