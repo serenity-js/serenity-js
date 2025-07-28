@@ -359,14 +359,11 @@ jobs:
         id: qlty
         with:
           script: |
-            const core = require('@actions/core');
-            const actionsGithub = require("@actions/github");
-            
             const OIDC_AUDIENCE = "https://qlty.sh";
-            const id_token = await core.getIDToken(OIDC_AUDIENCE);
-            core.setOutput('id_token', id_token);
+            const idToken = await core.getIDToken(OIDC_AUDIENCE);
+            core.setOutput('id_token', idToken);
             
-            const payload = actionsGithub.context.payload;
+            const payload = context.payload;
             
             const completeArgs = [ "coverage", "complete" ];
             
@@ -375,10 +372,10 @@ jobs:
                 completeArgs.push("--override-branch", payload.pull_request["head"].ref);
             }
 
-            core.setOutput('complete_args', JSON.stringify(completeArgs));
+            core.setOutput('complete_args', completeArgs.join(' '));
       - name: Qlty Execute
 #        run: qlty ${{ fromJson(steps.qlty.outputs.complete_args) }}
-        run: echo ${{ fromJson(steps.qlty.outputs.complete_args) }}
+        run: echo ${{ steps.qlty.outputs.complete_args }}
 #        env:
 #          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action",
 #          QLTY_CI_UPLOADER_VERSION: "1.1.1"
