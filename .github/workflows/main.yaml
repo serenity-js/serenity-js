@@ -49,6 +49,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -60,7 +64,6 @@ jobs:
           artifact-name: 'compiled-libs'
       - name: Test
         run: make test
-
       - name: Qlty
         uses: qltysh/qlty-action/coverage@v1.1.1
         with:
@@ -137,6 +140,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -180,6 +187,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -221,6 +232,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -265,6 +280,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
