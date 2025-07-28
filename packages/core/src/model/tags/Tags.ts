@@ -9,6 +9,7 @@ import { FeatureTag } from './FeatureTag';
 import { IssueTag } from './IssueTag';
 import { ManualTag } from './ManualTag';
 import { PlatformTag } from './PlatformTag';
+import { ProjectTag } from './ProjectTag';
 import type { Tag } from './Tag';
 import { ThemeTag } from './ThemeTag';
 
@@ -33,6 +34,7 @@ export class Tags {
         IssueTag,
         ManualTag,
         PlatformTag,
+        ProjectTag,
         ThemeTag,
     ].map(tagType => [ tagType.Type, tagType ]))
 
