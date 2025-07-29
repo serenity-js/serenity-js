@@ -366,7 +366,7 @@ jobs:
           (${qlty_path} version >/dev/null 2>&1) || echo "::warning::${qlty_path} does not exist!"
 
       - name: Qlty Complete
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         id: qlty
         with:
           script: |
