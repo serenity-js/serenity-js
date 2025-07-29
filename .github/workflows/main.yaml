@@ -49,6 +49,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -60,11 +64,13 @@ jobs:
           artifact-name: 'compiled-libs'
       - name: Test
         run: make test
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
         with:
-          artifact-name: 'test-reports'
-          artifact-path: 'package.json "packages/*/target/coverage/coverage-final.json"'
+          oidc: true
+          command: publish
+          files: packages/*/target/coverage/lcov.info
+          incomplete: true
 
   test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
@@ -134,6 +140,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -164,11 +174,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration-protractor:
     name: 'Integration: Protractor'
@@ -176,6 +188,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -203,11 +219,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
@@ -215,6 +233,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -245,11 +267,13 @@ jobs:
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   test-integration:
     name: 'Integration'
@@ -257,6 +281,10 @@ jobs:
       - lint
       - compile
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     strategy:
       matrix:
         module:
@@ -288,11 +316,13 @@ jobs:
         run: |
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
-      - name: Upload coverage reports
-        uses: ./.github/actions/upload-compressed-artifact
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
         with:
-          artifact-name: 'test-integration-coverage-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/coverage/**/*"'
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
 
   #
   # Reporting
@@ -307,44 +337,61 @@ jobs:
       - test-integration-protractor
       - test-integration-webdriverio
     runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      # TODO: use the official action when the issue is resolved https://github.com/qltysh/qlty-action/issues/119
+#      - name: Qlty
+#        uses: qltysh/qlty-action/coverage@v1.1.1
+#        with:
+#          oidc: true
+#          command: complete
+
+      # TODO: Qlty issue workaround
+
+      # Based on https://github.com/qltysh/qlty-action/blob/325e718842513d9e19baf91280cab9bc6db6e17b/install/install_qlty.sh
+      - name: Install Qlty CLI
+        run: |
+          curl -fsSL https://qlty.sh | bash
+  
+          qlty_bin_dir="$HOME/.qlty/bin"
+          qlty_path="$qlty_bin_dir/qlty"
+          
+          echo "${qlty_bin_dir}" >>"${GITHUB_PATH}"
+          
+          (${qlty_path} version >/dev/null 2>&1) || echo "::warning::${qlty_path} does not exist!"
+
+      - name: Qlty Complete
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        id: qlty
         with:
-          fetch-depth: 2
+          script: |
+            const OIDC_AUDIENCE = "https://qlty.sh";
+            const idToken = await core.getIDToken(OIDC_AUDIENCE);
+            core.setSecret(idToken);
+            core.setOutput('id_token', idToken);
+            
+            const payload = context.payload;
+            
+            const completeArgs = [ "coverage", "complete" ];
+            
+            if (payload.pull_request) {
+                completeArgs.push("--override-commit-sha", payload.pull_request["head"].sha);
+                completeArgs.push("--override-branch", payload.pull_request["head"].ref);
+            }
 
-      - name: Set up Node
-        uses: ./.github/actions/setup-node
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-
-      - name: Decompress all artifacts to current directory
-        run: ls **/*.zip | xargs -n1 7z x -aoa
-
-      - name: Report coverage
-        run: make report
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
-        with:
-          github-token: ${{ github.token }}
-          path-to-lcov: 'target/coverage/lcov.info'
-
-      # https://github.com/actions/runner/issues/520
-      - name: Get CodeClimate reporter ID
-        id: secrets
-        run: echo "CC_TEST_REPORTER_ID=${{ secrets.CC_TEST_REPORTER_ID }}" >> $GITHUB_OUTPUT
-
-      - name: CodeClimate
-        if: steps.secrets.outputs.CC_TEST_REPORTER_ID
-        uses: paambaati/codeclimate-action@f429536ee076d758a24705203199548125a28ca7 # v9.0.0
+            core.setOutput('complete_args', completeArgs.join(' '));
+      - name: Qlty Execute
+        run: qlty ${{ steps.qlty.outputs.complete_args }}
         env:
-          CC_TEST_REPORTER_ID: ${{ steps.secrets.outputs.CC_TEST_REPORTER_ID }}
-        with:
-          coverageLocations: |
-            ${{github.workspace}}/target/coverage/lcov.info:lcov
-          debug: false
+          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action"
+          QLTY_CI_UPLOADER_VERSION: "1.1.1"
+          QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}
 
   #
   # NPM artifact publishing

@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.33.1](https://github.com/serenity-js/serenity-js/compare/v3.33.0...v3.33.1) (2025-07-28)
+
+
+### Bug Fixes
+
+* **core:** refactored Tag deserialiser to simplify the import graph ([ec2c333](https://github.com/serenity-js/serenity-js/commit/ec2c333ed4127d898319d0d9932d09cf545e4508))
+* **core:** support for deserialising ProjectTags ([47f650a](https://github.com/serenity-js/serenity-js/commit/47f650a026bbe812eff98dbe89658baa99371d0d))
+
+
+
+
+
+# [3.33.0](https://github.com/serenity-js/serenity-js/compare/v3.32.5...v3.33.0) (2025-07-28)
+
+
+### Features
+
+* **cucumber:** support for Cucumber 12 ([61c84a6](https://github.com/serenity-js/serenity-js/commit/61c84a6c3279a97d13f38687800f2eaee676f33b))
+
+
+
+
+
+## [3.32.5](https://github.com/serenity-js/serenity-js/compare/v3.32.4...v3.32.5) (2025-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.11.0 ([62df65c](https://github.com/serenity-js/serenity-js/commit/62df65c932e69dcc307033f0f2a1f66a6d80d08e))
+* **deps:** update dependency jasmine to v5.9.0 ([c3dfa4b](https://github.com/serenity-js/serenity-js/commit/c3dfa4b77ad2058aaf8132174378bcc27fe50928))
+* **deps:** update dependency morgan to v1.10.1 ([d38f692](https://github.com/serenity-js/serenity-js/commit/d38f692d7f04c2322a8574d08fe506075c0788f1))
+* **deps:** update dependency validate-npm-package-name to v6.0.2 ([280c3ac](https://github.com/serenity-js/serenity-js/commit/280c3acd410e46c87150d5804952479433ba7d3f))
+* **deps:** update webdriverio dependencies ([fa9b857](https://github.com/serenity-js/serenity-js/commit/fa9b8576a42d5cb24f60480bdd7c74dc340a02aa))
+
+
+
+
+
 ## [3.32.4](https://github.com/serenity-js/serenity-js/compare/v3.32.3...v3.32.4) (2025-07-13)
 
 

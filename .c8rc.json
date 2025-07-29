@@ -17,7 +17,15 @@
     ".js"
   ],
   "reporter": [
-    "json",
+    "lcovonly",
     "text-summary"
-  ]
+  ],
+  "reporterOptions": {
+    "lcov": {
+      "projectRoot": "../../"
+    },
+    "lcovonly": {
+      "projectRoot": "../../"
+    }
+  }
 }
