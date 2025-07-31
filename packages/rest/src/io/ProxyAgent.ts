@@ -6,7 +6,6 @@ import { HttpProxyAgent, type HttpProxyAgentOptions } from 'http-proxy-agent';
 import * as https from 'https';
 import { HttpsProxyAgent, type HttpsProxyAgentOptions } from 'https-proxy-agent';
 import { LRUCache } from 'lru-cache';
-import { getProxyForUrl as envGetProxyForUrl } from 'proxy-from-env';
 
 const protocols = [
     ...HttpProxyAgent.protocols,
@@ -34,9 +33,7 @@ export type ProxyAgentOptions =
          */
         httpsAgent?: http.Agent;
         /**
-         * A callback for dynamic provision of proxy for url.
-         * Defaults to standard proxy environment variables,
-         * see https://www.npmjs.com/package/proxy-from-env for details
+         * A callback to dynamically determine the proxy to use for the given URL.
          */
         getProxyForUrl?: GetProxyForUrlCallback;
     };
@@ -74,7 +71,7 @@ export class ProxyAgent extends Agent {
         super(agentOptions);
         this.httpAgent      = agentOptions?.httpAgent       || new http.Agent(agentOptions);
         this.httpsAgent     = agentOptions?.httpsAgent      || new https.Agent(agentOptions as https.AgentOptions);
-        this.getProxyForUrl = agentOptions?.getProxyForUrl  || envGetProxyForUrl;
+        this.getProxyForUrl = agentOptions?.getProxyForUrl;
     }
 
     override async connect(request: http.ClientRequest, options: AgentConnectOpts): Promise<http.Agent> {
