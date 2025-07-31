@@ -26,12 +26,6 @@ import { createAxios } from '../../io';
  * the [actor](https://serenity-js.org/api/core/class/Actor/) to [send](https://serenity-js.org/api/rest/class/Send/)
  * [HTTP requests](https://serenity-js.org/api/rest/class/HTTPRequest/) to HTTP APIs.
  *
- * `CallAnApi` uses [`proxy-from-env`](https://www.npmjs.com/package/proxy-from-env) and an approach
- * described in ["Node.js Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d)
- * to automatically detect proxy server configuration based
- * on your [environment variables](https://www.npmjs.com/package/proxy-from-env#environment-variables).
- * You can override this configuration if needed.
- *
  * ## Configuring the ability to call an API
  *
  * The easiest way to configure the ability to `CallAnApi` is to provide the `baseURL` of your HTTP API,
@@ -110,12 +104,34 @@ import { createAxios } from '../../io';
  *   )
  * ```
  *
- * ### Working with proxy servers
+ * ## Working with proxy servers
  *
- * `CallAnApi` uses [`proxy-from-env`](https://www.npmjs.com/package/proxy-from-env) to automatically
- * detect proxy server configuration based on your [environment variables](https://www.npmjs.com/package/proxy-from-env#environment-variables).
+ * `CallAnApi` uses an approach described in ["Node.js Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d)
+ * to automatically detect proxy server configuration based on your environment variables.
  *
- * This default behaviour can be overridden by providing explicit proxy configuration:
+ * You can override this default proxy detection mechanism by providing your own proxy configuration object.
+ *
+ * ### Automatic proxy support
+ *
+ * When the URL you're sending the request to uses the HTTP protocol, Serenity/JS will automatically detect your proxy configuration based on the following environment variables:
+ * - `npm_config_http_proxy`
+ * - `http_proxy` and `HTTP_PROXY`
+ * - `npm_config_proxy`
+ * - `all_proxy`
+ *
+ * Similarly, when the request target URL uses the HTTPS protocol, the following environment variables are used instead:
+ * - `npm_config_https_proxy`
+ * - `https_proxy` and `HTTPS_PROXY`
+ * - `npm_config_proxy`
+ * - `all_proxy`
+ *
+ * Proxy configuration is ignored for both HTTP and HTTPS target URLs matching the proxy bypass rules defined in the following environment variables:
+ * - `npm_config_no_proxy`
+ * - `no_proxy` and `NO_PROXY`
+ *
+ * ### Custom proxy configuration
+ *
+ * To override the automatic proxy detection based on the environment variables, provide a proxy configuration object:
  *
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
@@ -130,10 +146,11 @@ import { createAxios } from '../../io';
  *         protocol: 'http',
  *         host: 'proxy.example.org',
  *         port: 9000,
- *         auth: {                          // `auth` is optional
+ *         auth: {                          // optional
  *           username: 'proxy-username',
  *           password: 'proxy-password',
- *         }
+ *         },
+ *         bypass: 'status.example.org, internal.example.org'   // optional
  *       }
  *       // ... other configuration options
  *     })
@@ -144,9 +161,26 @@ import { createAxios } from '../../io';
  *   )
  * ```
  *
- * Please note that Serenity/JS uses [proxy-agents](https://github.com/TooTallNate/proxy-agents)
+ * Note that Serenity/JS uses [proxy-agents](https://github.com/TooTallNate/proxy-agents)
  * and the approach described in ["Node.js Axios behind corporate proxies"](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d)
  * to work around [limited proxy support capabilities](https://github.com/axios/axios/issues?q=is%3Aissue+is%3Aopen+proxy) in Axios itself.
+ *
+ * ### Bypassing proxy configuration
+ *
+ * To bypass the proxy configuration for specific hostnames and IP addresses, you can either:
+ * - provide the `bypass` property in the proxy configuration object, or
+ * - use the `no_proxy` environment variable.
+ *
+ * The value of the `bypass` property or the `no_proxy` environment variable should be a comma-separated list of hostnames and IP addresses
+ * that should not be routed through the proxy server, for example: `.com, .serenity-js.org, .domain.com`.
+ *
+ * Note that `bypass` setting of `example.org` matches `api.example.org`, `sub.sub.example.org`, and `example.org`. It also matches `my-example.org`.
+ *
+ * :::info
+ * Serenity/JS doesn't currently support `bypass` rules expressed using CIDR notation, like `192.168.17.0/24`.
+ * Instead, it uses a simple comma-separated list of hostnames and IP addresses.
+ * If you need support for CIDR notation, please [raise an issue](https://github.com/serenity-js/serenity-js/issues).
+ * :::
  *
  * ### Using Axios instance with proxy support
  *
@@ -162,7 +196,7 @@ import { createAxios } from '../../io';
  *
  * import axiosRetry from 'axios-retry'
  *
- * const instance = createAxios({ baseURL 'https://api.example.org/' })
+ * const instance = createAxios({ baseURL: 'https://api.example.org/' })
  * axiosRetry(instance, { retries: 3 })
  *
  * await actorCalled('Apisitt')
@@ -189,7 +223,7 @@ import { createAxios } from '../../io';
  * import { axiosCreate } from '@serenity-js/rest'
  * import axiosRetry from 'axios-retry'
  *
- * const instance = axiosCreate({ baseURL 'https://api.example.org/' })
+ * const instance = axiosCreate({ baseURL: 'https://api.example.org/' })
  * axiosRetry(instance, { retries: 3 })
  *
  * await actorCalled('Apisitt')
@@ -505,23 +539,23 @@ function proxyConfigFrom(defaults: AxiosDefaults): AxiosRequestConfigProxyDefaul
 
     const proxyUrl = (defaults.httpAgent as any).getProxyForUrl(defaults.baseURL);
 
-    if (! proxyUrl) {
+    try {
+        const url = new URL(proxyUrl);
+        return {
+            protocol: url.protocol?.replace(/:$/, ''),
+            host:     url.hostname,
+            port:     url.port ? Number(url.port) : undefined,
+            auth:     url.username
+                ? {
+                    username: url.username || undefined,
+                    password: url.password || undefined,
+                }
+                : undefined,
+        };
+    }
+    catch {
         return undefined;
     }
-
-    const url = new URL(proxyUrl);
-
-    return {
-        protocol: url.protocol?.replace(/:$/, ''),
-        host:     url.hostname,
-        port:     url.port ? Number(url.port) : undefined,
-        auth:     url.username
-            ? {
-                username: url.username || undefined,
-                password: url.password || undefined,
-            }
-            : undefined,
-    };
 }
 
 function isUndefined(value: any): value is undefined {
