@@ -56,7 +56,8 @@ describe('@serenity-js/rest', function () {
     describe('CallAnApi', () => {
 
         let proxy: ProxyServer;
-        let envProxy: string;
+        let originalHttpProxy: string | undefined;
+        let originalNoProxy: string | undefined;
 
         before(async () => {
             configure({
@@ -67,7 +68,8 @@ describe('@serenity-js/rest', function () {
         });
 
         beforeEach(async () => {
-            envProxy = process.env.HTTP_PROXY;
+            originalHttpProxy = process.env.HTTP_PROXY
+            originalNoProxy = process.env.no_proxy;
 
             notepad = Notepad.empty();
 
@@ -98,52 +100,104 @@ describe('@serenity-js/rest', function () {
         });
 
         afterEach(async () => {
-            process.env.HTTP_PROXY = envProxy;
+            process.env.HTTP_PROXY = originalHttpProxy;
+            process.env.no_proxy = originalNoProxy;
 
             await actorCalled('Serverin').attemptsTo(StopLocalServer.ifRunning());
             await actorCalled('Proxima').attemptsTo(StopLocalServer.ifRunning());
         });
 
-        it('supports proxy configuration overriding', async () => {
+        describe('explicit configuration', () => {
+            it('supports proxy configuration overriding', async () => {
 
-            const proxyPort: number = await actorCalled('Proxima').answer(
-                notes<LocalServers>().get('proxyPort')
-            );
+                const proxyPort: number = await actorCalled('Proxima').answer(
+                    notes<LocalServers>().get('proxyPort')
+                );
 
-            await actorCalled('Apisitt').whoCan(
-                CallAnApi.using({
-                    proxy: {
-                        protocol: 'http',
-                        host: '127.0.0.1',
-                        port: proxyPort,
-                    }
-                })
-            ).
-            attemptsTo(
-                Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
-                Ensure.that(LastResponse.body(), equals({
-                    headersReceived: ['proxy-connection']
-                }))
-            );
+                await actorCalled('Apisitt').whoCan(
+                    CallAnApi.using({
+                        proxy: {
+                            protocol: 'http',
+                            host: '127.0.0.1',
+                            port: proxyPort,
+                        }
+                    })
+                ).
+                attemptsTo(
+                    Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
+                    Ensure.that(LastResponse.body(), equals({
+                        headersReceived: ['proxy-connection']
+                    }))
+                );
+            });
+
+            it('supports bypassing proxy configuration overriding', async () => {
+
+                const proxyPort: number = await actorCalled('Proxima').answer(
+                    notes<LocalServers>().get('proxyPort')
+                );
+
+                await actorCalled('Apisitt').whoCan(
+                    CallAnApi.using({
+                        proxy: {
+                            protocol: 'http',
+                            host: '127.0.0.1',
+                            port: proxyPort,
+                            bypass: '127.0.0.1'
+                        }
+                    })
+                ).
+                attemptsTo(
+                    Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
+                    Ensure.that(LastResponse.body(), equals({
+                        // connection is not proxied
+                        headersReceived: []
+                    }))
+                );
+            });
         });
 
-        it('supports proxy environment variables', async () => {
+        describe('implicit configuration', () => {
 
-            const proxyPort: number = await actorCalled('Proxima').answer(
-                notes<LocalServers>().get('proxyPort')
-            );
+            it('supports proxy environment variables', async () => {
 
-            process.env.HTTP_PROXY = `http://127.0.0.1:${ proxyPort }`;
+                const proxyPort: number = await actorCalled('Proxima').answer(
+                    notes<LocalServers>().get('proxyPort')
+                );
 
-            await actorCalled('Apisitt').whoCan(
-                CallAnApi.at('http://127.0.0.1')    // dummy URL as it must be set synchronously
-            ).
-            attemptsTo(
-                Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
-                Ensure.that(LastResponse.body(), equals({
-                    headersReceived: ['proxy-connection']
-                }))
-            );
+                process.env.HTTP_PROXY = `http://127.0.0.1:${ proxyPort }`;
+
+                await actorCalled('Apisitt').whoCan(
+                    CallAnApi.at('http://127.0.0.1')    // dummy URL as it must be set synchronously
+                ).
+                attemptsTo(
+                    Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
+                    Ensure.that(LastResponse.body(), equals({
+                        headersReceived: ['proxy-connection']
+                    }))
+                );
+            });
+
+            it('supports no_proxy environment variable for bypassing the proxy', async () => {
+
+                const proxyPort: number = await actorCalled('Proxima').answer(
+                    notes<LocalServers>().get('proxyPort')
+                );
+
+                process.env.HTTP_PROXY = `http://127.0.0.1:${ proxyPort }`;
+                process.env.no_proxy = '127.0.0.1';
+
+                await actorCalled('Apisitt').whoCan(
+                    CallAnApi.at('http://127.0.0.1')    // dummy URL as it must be set synchronously
+                ).
+                attemptsTo(
+                    Send.a(GetRequest.to(notes<LocalServers>().get('serverUrl'))),
+                    Ensure.that(LastResponse.body(), equals({
+                        // connection is not proxied
+                        headersReceived: []
+                    }))
+                );
+            });
         });
 
         describe('authentication', () => {
