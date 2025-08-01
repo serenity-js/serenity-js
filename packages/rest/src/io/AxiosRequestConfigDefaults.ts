@@ -8,6 +8,7 @@ export type AxiosRequestConfigProxyDefaults = {
         password: string;
     };
     protocol?: string;
+    bypass?: string;
 }
 
 export type AxiosRequestConfigDefaults<Data = any> = Omit<CreateAxiosDefaults<Data>, 'proxy'> & {

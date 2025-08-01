@@ -60,7 +60,7 @@ describe('createUrl', () => {
             expect(url.toString()).equals('http://example.org/');
         });
 
-        it(`defaults to HTTP when port is not specified`, () => {
+        it(`defaults to port 80 when port is not specified`, () => {
 
             const url = createUrl({ protocol: undefined, hostname: 'example.org', port: undefined });
 

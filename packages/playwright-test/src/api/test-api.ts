@@ -600,6 +600,7 @@ function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
     host: string,
     port?: number,
     auth?: { username: string, password: string }
+    bypass?: string;
 } {
 
     // Playwright defaults to http when proxy.server does not define the protocol
@@ -616,11 +617,13 @@ function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
     const auth = proxy.username
         ? { username: proxy.username, password: proxy.password || '' }
         : undefined;
+    const bypass = proxy.bypass;
 
     return {
         protocol: proxyUrl.protocol,
         host,
         port,
-        auth
+        auth,
+        bypass,
     };
 }
