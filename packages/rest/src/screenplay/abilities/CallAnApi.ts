@@ -46,6 +46,12 @@ import { createAxios } from '../../io';
  *   )
  * ```
  *
+ * Please note that the following Serenity/JS test runner adapters already provide the ability to `CallAnApi` as part of their default configuration,
+ * so you don't need to configure it yourself:
+ * - [Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/)
+ * - [WebdriverIO](https://serenity-js.org/handbook/test-runners/webdriverio/)
+ * - [Protractor](https://serenity-js.org/handbook/test-runners/protractor/)
+ *
  * ### Resolving relative URLs
  *
  * Serenity/JS resolves request URLs using Node.js [WHATWG URL API](https://nodejs.org/api/url.html#new-urlinput-base).
@@ -174,7 +180,11 @@ import { createAxios } from '../../io';
  * The value of the `bypass` property or the `no_proxy` environment variable should be a comma-separated list of hostnames and IP addresses
  * that should not be routed through the proxy server, for example: `.com, .serenity-js.org, .domain.com`.
  *
- * Note that `bypass` setting of `example.org` matches `api.example.org`, `sub.sub.example.org`, and `example.org`. It also matches `my-example.org`.
+ * Note that setting the `bypass` property to `example.org` makes the requests to following URLs bypass the proxy server:
+ * - `api.example.org`
+ * - `sub.sub.example.org`
+ * - `example.org`
+ * - `my-example.org`
  *
  * :::info
  * Serenity/JS doesn't currently support `bypass` rules expressed using CIDR notation, like `192.168.17.0/24`.
