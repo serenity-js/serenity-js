@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.34.0](https://github.com/serenity-js/serenity-js/compare/v3.33.1...v3.34.0) (2025-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.9.2 ([8a40483](https://github.com/serenity-js/serenity-js/commit/8a40483203534445d93c5be6f4d8a747055fd79e))
+* **deps:** update playwright dependencies to v1.54.2 ([b6b9413](https://github.com/serenity-js/serenity-js/commit/b6b9413ae87d1247a23f93dc26285eb6836b98ec))
+* **deps:** update react monorepo ([#2934](https://github.com/serenity-js/serenity-js/issues/2934)) ([b713b52](https://github.com/serenity-js/serenity-js/commit/b713b524ac4ae391e505b903eb5e69c5406d8807))
+
+
+### Features
+
+* **rest:** support for bypassing proxy for selected urls ([ab1f41a](https://github.com/serenity-js/serenity-js/commit/ab1f41a98f121b4fc95e7a0fbea2c2393bba032d))
+
+
+
+
+
 ## [3.33.1](https://github.com/serenity-js/serenity-js/compare/v3.33.0...v3.33.1) (2025-07-28)
 
 
