@@ -2609,8 +2609,8 @@ importers:
         version: 1.0.37
     devDependencies:
       '@hapi/hapi':
-        specifier: 21.4.0
-        version: 21.4.0
+        specifier: 21.4.2
+        version: 21.4.2
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -3835,8 +3835,8 @@ packages:
   '@hapi/file@3.0.0':
     resolution: {integrity: sha512-w+lKW+yRrLhJu620jT3y+5g2mHqnKfepreykvdOcl9/6up8GrQQn+l3FRTsjHTKbkbfQFkuksHpdv2EcpKcJ4Q==}
 
-  '@hapi/hapi@21.4.0':
-    resolution: {integrity: sha512-kqiRWbYYLSSt2rYbxyNj8svPsXP715p4W/K3OXpXeiiVLNSdBX4f+zfmC+dY6eyb6rqTqTAbx6x8b5HpJTkviQ==}
+  '@hapi/hapi@21.4.2':
+    resolution: {integrity: sha512-wkjpjc80Hnl0cBfDAG+EtX876AGtpg9fpt6q9GXTnGyoW5C4+hBCem8MmBPuwlhlfJ9U9FYGm3Yf7nWp9+/NDQ==}
     engines: {node: '>=14.15.0'}
 
   '@hapi/heavy@8.0.1':
@@ -8541,10 +8541,6 @@ packages:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
 
-  mime-db@1.53.0:
-    resolution: {integrity: sha512-oHlN/w+3MQ3rba9rqFr6V/ypF10LSkdwUysQL7GkXoTgIWeV+tcXGA852TBxH+gsh8UWoyhR1hKcoMJTuWflpg==}
-    engines: {node: '>= 0.6'}
-
   mime-db@1.54.0:
     resolution: {integrity: sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==}
     engines: {node: '>= 0.6'}
@@ -12352,7 +12348,7 @@ snapshots:
 
   '@hapi/file@3.0.0': {}
 
-  '@hapi/hapi@21.4.0':
+  '@hapi/hapi@21.4.2':
     dependencies:
       '@hapi/accept': 6.0.3
       '@hapi/ammo': 6.0.1
@@ -12394,7 +12390,7 @@ snapshots:
   '@hapi/mimos@7.0.1':
     dependencies:
       '@hapi/hoek': 11.0.7
-      mime-db: 1.53.0
+      mime-db: 1.54.0
 
   '@hapi/nigel@5.0.1':
     dependencies:
@@ -18338,8 +18334,6 @@ snapshots:
       picomatch: 2.3.1
 
   mime-db@1.52.0: {}
-
-  mime-db@1.53.0: {}
 
   mime-db@1.54.0: {}
 
