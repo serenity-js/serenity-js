@@ -59,7 +59,7 @@ export const {
     createMcpTransport: async ({ env }, use) => {
 
         await use((args: string[]) => {
-            const command = '/Users/jan/.nvm/versions/node/v22.11.0/bin/node';
+            const command = process.execPath;   // path to Node.js executable
             const __filename = url.fileURLToPath(import.meta.url);
             const moduleRootDirectory = path.resolve(path.dirname(__filename), '..');
             const pathToMcpServer = path.resolve(moduleRootDirectory, './node_modules/@serenity-js/mcp/esm/cli.js')
