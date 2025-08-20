@@ -65,7 +65,7 @@ jobs:
       - name: Test
         run: make test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -174,7 +174,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -219,7 +219,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -267,7 +267,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -317,7 +317,7 @@ jobs:
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
