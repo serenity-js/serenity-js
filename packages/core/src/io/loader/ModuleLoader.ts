@@ -49,7 +49,9 @@ export class ModuleLoader {
      *  Path to a given Node.js module
      */
     resolve(moduleId: string): string {
-        const relativeRequire = createRequire(this.cwd);
+        const fromFile = path.join(this.cwd, 'noop.js');
+
+        const relativeRequire = createRequire(fromFile);
 
         try {
             return relativeRequire.resolve(moduleId);
