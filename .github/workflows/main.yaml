@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Lint
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Compile
@@ -55,7 +55,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Download compiled libs
@@ -65,7 +65,7 @@ jobs:
       - name: Test
         run: make test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
@@ -120,7 +120,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Download compiled libs
@@ -154,7 +154,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Set up Java
@@ -175,7 +175,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -200,7 +200,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Set up Java
@@ -220,7 +220,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -248,7 +248,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Set up Java
@@ -268,7 +268,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -306,7 +306,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Download compiled libs
@@ -318,7 +318,7 @@ jobs:
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@b9133a486505563742d768da29f7951271678c87 # v1.1.1
+        uses: qltysh/qlty-action/coverage@aa71fdc25d7065721efb27bf42c839a8cbb2b8e5 # v1.2.0
         with:
           oidc: true
           command: publish
@@ -344,7 +344,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
 
       # TODO: use the official action when the issue is resolved https://github.com/qltysh/qlty-action/issues/119
 #      - name: Qlty
@@ -415,7 +415,7 @@ jobs:
       - test-integration-protractor
       - test-integration-webdriverio
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup-lerna
