@@ -12,10 +12,10 @@ describe('List Capabilities', () => {
             'web': {
                 'activities': {
                     'navigate': {
-                        'to': 'Navigate.to(url) - Navigate to a specific URL',
+                        'to': 'Navigate.to($url) - Navigate to a specific URL in the browser',
                         'back': 'Navigate.back() - Navigate back in the browser history',
                         'forward': 'Navigate.forward() - Navigate forward in the browser history',
-                        'reloadPage': 'Navigate.reloadPage() - Reload the current page'
+                        'reload page': 'Navigate.reloadPage() - Reload the current page in the browser',
                     }
                 }
             }

@@ -1,25 +1,49 @@
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
+import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 
-import type { Config } from '../config/Config.js';
-import { BrowserConnection } from './BrowserConnection.js';
-import { McpServerConnection } from './McpServerConnection.js';
+import type { ScreenplaySchematic } from './context/index.js';
+import { ScreenplayExecutionContext } from './context/index.js';
+import { ListCapabilitiesController, ScreenplayActivityController } from './controllers/index.js';
+import type { PlaywrightBrowserConnection } from './integration/PlaywrightBrowserConnection.js';
+import { McpDispatcher } from './McpDispatcher.js';
 
 export class SerenityMcpServer {
 
-    private readonly connections: McpServerConnection[] = [];
-    private readonly browserConnection: BrowserConnection;
+    private readonly dispatchers: McpDispatcher[] = [];
 
-    // todo: `config` might require the `FullConfig` trick to ensure all the fields are provided
-    constructor(private readonly config: Config) {
-        this.browserConnection = new BrowserConnection(config.browser);
+    constructor(
+        private readonly schematics: Array<ScreenplaySchematic>,
+        private readonly moduleLoader: ModuleLoader,
+        private readonly browserConnection: PlaywrightBrowserConnection,
+    ) {
     }
 
-    async connect(transport: Transport): Promise<McpServerConnection> {
-        const connection = McpServerConnection.create(this.config, this.browserConnection);
-        this.connections.push(connection);
-        await connection.server.connect(transport);
+    async connect(transport: Transport): Promise<McpDispatcher> {
+        const dispatcher = this.createDispatcher();
 
-        return connection;
+        this.dispatchers.push(dispatcher);
+
+        await dispatcher.server.connect(transport);
+
+        return dispatcher;
+    }
+
+    private createDispatcher(): McpDispatcher {
+
+        const context = new ScreenplayExecutionContext(
+            this.browserConnection,
+            this.moduleLoader,
+        );
+
+        const controllers = [
+            ... this.schematics.map(schematic => new ScreenplayActivityController(schematic)),
+            new ListCapabilitiesController(this.schematics)
+        ];
+
+        return new McpDispatcher(
+            controllers,
+            context,
+        );
     }
 
     registerProcessExitHandler(): void {
@@ -32,7 +56,7 @@ export class SerenityMcpServer {
 
             isExiting = true;
             setTimeout(() => process.exit(0), 15_000);
-            await Promise.all(this.connections.map(connection => connection.close()));
+            await Promise.all(this.dispatchers.map(dispatcher => dispatcher.close()));
 
             process.exit(0);
         };

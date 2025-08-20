@@ -1,8 +1,8 @@
 import * as playwright from 'playwright';
 
-import type { Config } from '../config/Config.js';
+import type { Config } from '../Config.js';
 
-export class BrowserConnection {
+export class PlaywrightBrowserConnection {
 
     private browserInstance: playwright.Browser;
 
@@ -18,7 +18,7 @@ export class BrowserConnection {
     }
 
     async browser(): Promise<playwright.Browser> {
-        if (! this.browserInstance) {
+        if (! this.isConnected()) {
             const browser = await this.launch();
             browser.on('disconnected', () => {
                 this.browserInstance = undefined;
@@ -30,12 +30,17 @@ export class BrowserConnection {
     }
 
     async close(): Promise<void> {
-        if (this.browserInstance) {
+        if (this.isConnected()) {
             for (const context of this.browserInstance.contexts()) {
                 await context.close();
             }
             await this.browserInstance.close();
             this.browserInstance = undefined;
         }
+    }
+
+    private isConnected(): boolean {
+        return this.browserInstance
+            && this.browserInstance.isConnected();
     }
 }

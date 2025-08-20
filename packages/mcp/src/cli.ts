@@ -1,12 +1,38 @@
+import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { program } from 'commander';
 
-import type { CLIOptions } from './config/CliConfig.js';
-import type { Config } from './config/Config.js';
 import { packageJSON } from './package.js';
+import schematics from './schematics/index.js';
+import type { Config } from './server/Config.js';
 import { SerenityMcpServer } from './server/index.js';
+import { PlaywrightBrowserConnection } from './server/integration/PlaywrightBrowserConnection.js';
+
+type CliOptions = {
+    allowedOrigins?: string[];
+    blockedOrigins?: string[];
+    blockServiceWorkers?: boolean;
+    browser?: string;
+    // caps?: string;
+    config?: string;
+    device?: string;
+    executablePath?: string;
+    headless?: boolean;
+    ignoreHttpsErrors?: boolean;
+    isolated?: boolean;
+    sandbox: boolean;
+    outputDir?: string;
+    proxyBypass?: string;
+    proxyServer?: string;
+    storageState?: string;
+    userAgent?: string;
+    userDataDir?: string;
+    viewportSize?: string;
+};
 
 function semicolonSeparatedList(value: string): string[] {
     return value.split(';').map(v => v.trim());
@@ -34,7 +60,7 @@ program
     .option('--user-agent <ua string>', 'specify user agent string')
     .option('--user-data-dir <path>', 'path to the user data directory. If not specified, a temporary directory will be created.')
     .option('--viewport-size <size>', 'specify browser viewport size in pixels, for example "1280, 720"')
-    .action(async (options: CLIOptions) => {
+    .action(async (options: CliOptions) => {
 
         // todo: load the config and merge with CLI options
         const config: Config = {
@@ -50,7 +76,20 @@ program
             }
         };
 
-        const server = new SerenityMcpServer(config);
+        const browserConnection = new PlaywrightBrowserConnection({
+            ...config.browser,
+        });
+
+        // Get the full path of the current file
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        const moduleLoader = new ModuleLoader(__dirname);
+
+        const server = new SerenityMcpServer(
+            schematics,
+            moduleLoader,
+            browserConnection,
+        );
         server.registerProcessExitHandler();
 
         await server.connect(new StdioServerTransport());

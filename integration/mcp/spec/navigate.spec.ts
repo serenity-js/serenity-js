@@ -1,47 +1,50 @@
-import { trimmed } from '@serenity-js/core/lib/io/index.js';
-
 import { describe, expect, it } from '../src/mcp-api.js';
 
 describe('Navigate', () => {
 
     describe('to', () => {
 
-        it('navigates to a url', async ({ client }) => {
+        it('navigates to a url', async ({ client, testServerUrl }) => {
             const response = await client.callTool({
                 name: 'serenity_web_navigate_to',
                 arguments: {
                     actorName: 'Alice',
-                    url: 'https://serenity-js.org',
+                    url: testServerUrl,
                 },
             });
 
-            expect(response.content[0].text).toEqual(trimmed`
-                | # Serenity/JS Code for serenity_web_navigate_to
-                | \`\`\`ts
-                | await actorCalled('Alice').attemptsTo(
-                |     Navigate.to(https://serenity-js.org),
-                | );
-                | \`\`\`
-                | 
-                | ## Required dependencies
-                | - \`@serenity-js/web\`
-                | 
-                | ## Required imports
-                | \`\`\`ts
-                | import { Navigate } from '@serenity-js/web';
-                | \`\`\`
-                |`
-            );
-
             expect(response.structuredContent).toEqual({
-                code: trimmed`
-                    | await actorCalled('Alice').attemptsTo(
-                    |     Navigate.to(https://serenity-js.org),
-                    | );`,
+                dependencies: [
+                    '@serenity-js/web'
+                ],
                 imports: {
-                    '@serenity-js/web': [ 'Navigate' ],
-                }
+                    '@serenity-js/web': [
+                        'Navigate'
+                    ]
+                },
+                actorName: 'Alice',
+                activities: [
+                    `Navigate.to('${ testServerUrl }')`
+                ]
             });
+
+            // expect(response.content[0].text).toEqual(trimmed`
+            //     | # Serenity/JS Code for serenity_web_navigate_to
+            //     | \`\`\`ts
+            //     | await actorCalled('Alice').attemptsTo(
+            //     |     Navigate.to(https://serenity-js.org),
+            //     | );
+            //     | \`\`\`
+            //     |
+            //     | ## Required dependencies
+            //     | - \`@serenity-js/web\`
+            //     |
+            //     | ## Required imports
+            //     | \`\`\`ts
+            //     | import { Navigate } from '@serenity-js/web';
+            //     | \`\`\`
+            //     |`
+            // );
         });
     });
 
@@ -54,33 +57,38 @@ describe('Navigate', () => {
                 },
             });
 
-            expect(response.content[0].text).toEqual(trimmed`
-                | # Serenity/JS Code for serenity_web_navigate_back
-                | \`\`\`ts
-                | await actorCalled('Alice').attemptsTo(
-                |     Navigate.back(),
-                | );
-                | \`\`\`
-                | 
-                | ## Required dependencies
-                | - \`@serenity-js/web\`
-                | 
-                | ## Required imports
-                | \`\`\`ts
-                | import { Navigate } from '@serenity-js/web';
-                | \`\`\`
-                |`
-            );
-
             expect(response.structuredContent).toEqual({
-                code: trimmed`
-                    | await actorCalled('Alice').attemptsTo(
-                    |     Navigate.back(),
-                    | );`,
+                dependencies: [
+                    '@serenity-js/web'
+                ],
                 imports: {
-                    '@serenity-js/web': [ 'Navigate' ],
-                }
+                    '@serenity-js/web': [
+                        'Navigate'
+                    ]
+                },
+                actorName: 'Alice',
+                activities: [
+                    `Navigate.back()`
+                ]
             });
+
+            // expect(response.content[0].text).toEqual(trimmed`
+            //     | # Serenity/JS Code for serenity_web_navigate_back
+            //     | \`\`\`ts
+            //     | await actorCalled('Alice').attemptsTo(
+            //     |     Navigate.back(),
+            //     | );
+            //     | \`\`\`
+            //     |
+            //     | ## Required dependencies
+            //     | - \`@serenity-js/web\`
+            //     |
+            //     | ## Required imports
+            //     | \`\`\`ts
+            //     | import { Navigate } from '@serenity-js/web';
+            //     | \`\`\`
+            //     |`
+            // );
         });
     });
 
@@ -93,33 +101,38 @@ describe('Navigate', () => {
                 },
             });
 
-            expect(response.content[0].text).toEqual(trimmed`
-                | # Serenity/JS Code for serenity_web_navigate_forward
-                | \`\`\`ts
-                | await actorCalled('Alice').attemptsTo(
-                |     Navigate.forward(),
-                | );
-                | \`\`\`
-                | 
-                | ## Required dependencies
-                | - \`@serenity-js/web\`
-                | 
-                | ## Required imports
-                | \`\`\`ts
-                | import { Navigate } from '@serenity-js/web';
-                | \`\`\`
-                |`
-            );
-
             expect(response.structuredContent).toEqual({
-                code: trimmed`
-                    | await actorCalled('Alice').attemptsTo(
-                    |     Navigate.forward(),
-                    | );`,
+                dependencies: [
+                    '@serenity-js/web'
+                ],
                 imports: {
-                    '@serenity-js/web': [ 'Navigate' ],
-                }
+                    '@serenity-js/web': [
+                        'Navigate'
+                    ]
+                },
+                actorName: 'Alice',
+                activities: [
+                    `Navigate.forward()`
+                ]
             });
+
+            // expect(response.content[0].text).toEqual(trimmed`
+            //     | # Serenity/JS Code for serenity_web_navigate_forward
+            //     | \`\`\`ts
+            //     | await actorCalled('Alice').attemptsTo(
+            //     |     Navigate.forward(),
+            //     | );
+            //     | \`\`\`
+            //     |
+            //     | ## Required dependencies
+            //     | - \`@serenity-js/web\`
+            //     |
+            //     | ## Required imports
+            //     | \`\`\`ts
+            //     | import { Navigate } from '@serenity-js/web';
+            //     | \`\`\`
+            //     |`
+            // );
         });
     });
 
@@ -132,33 +145,38 @@ describe('Navigate', () => {
                 },
             });
 
-            expect(response.content[0].text).toEqual(trimmed`
-                | # Serenity/JS Code for serenity_web_navigate_reload_page
-                | \`\`\`ts
-                | await actorCalled('Alice').attemptsTo(
-                |     Navigate.reloadPage(),
-                | );
-                | \`\`\`
-                | 
-                | ## Required dependencies
-                | - \`@serenity-js/web\`
-                | 
-                | ## Required imports
-                | \`\`\`ts
-                | import { Navigate } from '@serenity-js/web';
-                | \`\`\`
-                |`
-            );
-
             expect(response.structuredContent).toEqual({
-                code: trimmed`
-                    | await actorCalled('Alice').attemptsTo(
-                    |     Navigate.reloadPage(),
-                    | );`,
+                dependencies: [
+                    '@serenity-js/web'
+                ],
                 imports: {
-                    '@serenity-js/web': [ 'Navigate' ],
-                }
+                    '@serenity-js/web': [
+                        'Navigate'
+                    ]
+                },
+                actorName: 'Alice',
+                activities: [
+                    `Navigate.reloadPage()`
+                ]
             });
+
+            // expect(response.content[0].text).toEqual(trimmed`
+            //     | # Serenity/JS Code for serenity_web_navigate_reload_page
+            //     | \`\`\`ts
+            //     | await actorCalled('Alice').attemptsTo(
+            //     |     Navigate.reloadPage(),
+            //     | );
+            //     | \`\`\`
+            //     |
+            //     | ## Required dependencies
+            //     | - \`@serenity-js/web\`
+            //     |
+            //     | ## Required imports
+            //     | \`\`\`ts
+            //     | import { Navigate } from '@serenity-js/web';
+            //     | \`\`\`
+            //     |`
+            // );
         });
     });
 });

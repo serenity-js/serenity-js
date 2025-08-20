@@ -1433,8 +1433,8 @@ importers:
         specifier: 1.15.0
         version: 1.15.0
       '@playwright/test':
-        specifier: 1.54.1
-        version: 1.54.1
+        specifier: 1.54.2
+        version: 1.54.2
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -2713,15 +2713,15 @@ importers:
       '@serenity-js/playwright':
         specifier: workspace:*
         version: link:../playwright
-      '@serenity-js/web':
-        specifier: workspace:*
-        version: link:../web
       commander:
         specifier: 14.0.0
         version: 14.0.0
       playwright:
-        specifier: 1.54.1
-        version: 1.54.1
+        specifier: 1.54.2
+        version: 1.54.2
+      tiny-types:
+        specifier: 1.23.0
+        version: 1.23.0
       zod:
         specifier: 3.25.76
         version: 3.25.76
@@ -2729,6 +2729,21 @@ importers:
         specifier: 3.24.6
         version: 3.24.6(zod@3.25.76)
     devDependencies:
+      '@integration/testing-tools':
+        specifier: workspace:*
+        version: link:../../integration/testing-tools
+      '@serenity-js/assertions':
+        specifier: workspace:*
+        version: link:../assertions
+      '@serenity-js/web':
+        specifier: workspace:*
+        version: link:../web
+      mocha:
+        specifier: 11.7.1
+        version: 11.7.1
+      mocha-multi:
+        specifier: 1.1.7
+        version: 1.1.7(mocha@11.7.1)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -4490,11 +4505,6 @@ packages:
 
   '@playwright/experimental-ct-react@1.54.2':
     resolution: {integrity: sha512-W12fcW0jB2DgMkuZqQNazuWRPCX9ySsGzvEUeBpxpv2kora2f1bD0Lm1mRM7tXD9l7TeclAAsP59aamDKITe6w==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  '@playwright/test@1.54.1':
-    resolution: {integrity: sha512-FS8hQ12acieG2dYSksmLOF7BNxnVf2afRJdCuM1eMSxj6QTSE6G4InGF7oApGgDb65MX7AwMVlIkpru0yZA4Xw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -9972,18 +9982,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.54.1:
-    resolution: {integrity: sha512-Nbjs2zjj0htNhzgiy5wu+3w09YetDx5pkrpI/kZotDlDUaYk0HVA5xrBVPdow4SAUIlhgKcJeJg4GRKW6xHusA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.54.2:
     resolution: {integrity: sha512-n5r4HFbMmWsB4twG7tJLDN9gmBUeSPcsBZiWSE4DnYz9mJMAFqr2ID7+eGC9kpEnxExJ1epttwR59LEWCk8mtA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.54.1:
-    resolution: {integrity: sha512-peWpSwIBmSLi6aW2auvrUtf2DqY16YYcCMO8rTVx486jKmDTJg7UAhyrraP98GB8BoPURZP8+nxO7TSd4cPr5g==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -14030,10 +14030,6 @@ snapshots:
       - tsx
       - vite
       - yaml
-
-  '@playwright/test@1.54.1':
-    dependencies:
-      playwright: 1.54.1
 
   '@playwright/test@1.54.2':
     dependencies:
@@ -20622,15 +20618,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.54.1: {}
-
   playwright-core@1.54.2: {}
-
-  playwright@1.54.1:
-    dependencies:
-      playwright-core: 1.54.1
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.54.2:
     dependencies:

@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
+import http from 'node:http';
+import { AddressInfo } from 'node:net';
 import path from 'node:path';
 import process from 'node:process';
 import url from 'node:url';
 
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
-import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { Config } from '@serenity-js/mcp';
 import { useFixtures } from '@serenity-js/playwright-test';
 
@@ -23,8 +24,12 @@ export interface TestFixtures {
     client: Client;
     startClient: (options?: StartClientOptions) => Promise<{ client: Client, stderr: () => string }>;
     mcpHeadless: boolean;
-    createMcpTransport: (args: string[]) => Transport;
+    createMcpTransport: (args: string[]) => StdioClientTransport;
     env: typeof process['env'];
+}
+
+export interface WorkerFixtures {
+    testServerUrl: string;
 }
 
 function getArgs(condition: unknown, ...args: string[]): string[] {
@@ -38,7 +43,7 @@ export const {
     it,
     test,
     expect,
-} = useFixtures<TestFixtures & TestOptions>({
+} = useFixtures<TestFixtures & TestOptions, WorkerFixtures>({
 
     // eslint-disable-next-line no-empty-pattern
     env: async ({}, use) => {
@@ -125,4 +130,26 @@ export const {
 
         console.log({ stderr: stderr() })
     },
+
+    // eslint-disable-next-line no-empty-pattern
+    testServerUrl: [ async ({ }, use) => {
+        const server = http.createServer((request, response) => {
+            response.writeHead(200, { 'Content-Type': 'text/plain' });
+            response.end('Hello World\n');
+        });
+
+        await new Promise<void>((resolve) => {
+            server.listen(0, () => {
+                resolve();
+            });
+        });
+
+        await use(`http://localhost:${ (server.address() as AddressInfo).port }`);
+
+        await new Promise<void>((resolve) => {
+            server.close(() => {
+                resolve();
+            });
+        });
+    }, { scope: 'worker' } ],
 })

@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/mcp",
-  "version": "3.33.1",
+  "version": "3.34.0",
   "description": "Serenity/JS Model Context Protocol server",
   "author": {
     "name": "Jan Molak",
@@ -43,21 +43,26 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "~test": "c8 npm run test:no-coverage",
-    "~test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.15.0",
     "@serenity-js/core": "workspace:*",
     "@serenity-js/playwright": "workspace:*",
-    "@serenity-js/web": "workspace:*",
     "commander": "14.0.0",
-    "playwright": "1.54.1",
+    "playwright": "1.54.2",
+    "tiny-types": "1.23.0",
     "zod": "3.25.76",
     "zod-to-json-schema": "3.24.6"
   },
   "devDependencies": {
+    "@serenity-js/assertions": "workspace:*",
+    "@serenity-js/web": "workspace:*",
+    "@integration/testing-tools": "workspace:*",
+    "mocha": "11.7.1",
+    "mocha-multi": "1.1.7",
     "typescript": "5.8.3"
   },
   "repository": {
