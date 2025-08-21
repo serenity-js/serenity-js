@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
 
-import { Imports } from '../../src/server/context/index.js';
+import { Imports } from '../../../src/server/context/index.js';
 
 describe('Imports', () => {
 

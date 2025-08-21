@@ -2,8 +2,8 @@ import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { ScreenplayTemplate } from '../../src/server/context/index.js';
-import type { ImportManifest } from '../../src/server/schema.js';
+import { ScreenplayTemplate } from '../../../src/server/context/index.js';
+import type { ImportManifest } from '../../../src/server/schema.js';
 
 describe('ScreenplayTemplate', () => {
 

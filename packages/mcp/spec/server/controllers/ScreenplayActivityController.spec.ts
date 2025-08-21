@@ -7,10 +7,10 @@ import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 import { z } from 'zod';
 
-import { ScreenplayExecutionContext, ScreenplaySchematics } from '../../src/server/context/index.js';
-import { ScreenplayActivityController } from '../../src/server/controllers/index.js';
-import { PlaywrightBrowserConnection } from '../../src/server/integration/PlaywrightBrowserConnection.js';
-import { answerableParameterSchema } from '../../src/server/schema.js';
+import { ScreenplayExecutionContext, ScreenplaySchematics } from '../../../src/server/context/index.js';
+import { ScreenplayActivityController } from '../../../src/server/controllers/index.js';
+import { PlaywrightBrowserConnection } from '../../../src/server/integration/PlaywrightBrowserConnection.js';
+import { answerableParameterSchema } from '../../../src/server/schema.js';
 
 function createController(): ScreenplayActivityController {
     const navigateSchematics = new ScreenplaySchematics({
