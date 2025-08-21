@@ -13,34 +13,9 @@ export class ListCapabilitiesController implements Controller<typeof ListCapabil
     }
 
     async execute(context: ScreenplayExecutionContext, parameters: ListCapabilitiesInput): Promise<CallToolResult> {
-        const structuredContent: Record<string, Record<string, Record<string, Record<string, string>>>> = {};
-
-        const capabilityTypes = {
-            'Activity': 'activities',
-            'Question': 'questions',
-        }
-
-        for (const schematic of this.schematics) {
-            const moduleName = schematic.moduleName;
-            const capabilityType = capabilityTypes[schematic.type] ?? 'unknown';
-
-            if (!structuredContent[moduleName]) {
-                structuredContent[moduleName] = {};
-            }
-            if (!structuredContent[moduleName][capabilityType]) {
-                structuredContent[moduleName][capabilityType] = {};
-            }
-
-            const descriptor = this.asCapabilityDescriptor(schematic);
-
-            if (!structuredContent[moduleName][capabilityType][descriptor.group]) {
-                structuredContent[moduleName][capabilityType][descriptor.group] = {};
-            }
-            structuredContent[moduleName][capabilityType][descriptor.group] = {
-                ...structuredContent[moduleName][capabilityType][descriptor.group],
-                ...descriptor.capabilities,
-            };
-        }
+        const structuredContent = {
+            test_automation: this.testAutomationCapabilities(),
+        };
 
         return {
             content: [{
@@ -51,15 +26,48 @@ export class ListCapabilitiesController implements Controller<typeof ListCapabil
         }
     }
 
+    private testAutomationCapabilities(): Record<string, Record<string, Record<string, Record<string, string>>>> {
+        const capabilities: Record<string, Record<string, Record<string, Record<string, string>>>> = {};
+
+        const capabilityTypes = {
+            'Activity': 'activities',
+            'Question': 'questions',
+        }
+
+        for (const schematic of this.schematics) {
+            const moduleName = schematic.moduleName;
+            const capabilityType = capabilityTypes[schematic.type] ?? 'unknown';
+
+            if (!capabilities[moduleName]) {
+                capabilities[moduleName] = {};
+            }
+            if (!capabilities[moduleName][capabilityType]) {
+                capabilities[moduleName][capabilityType] = {};
+            }
+
+            const descriptor = this.asCapabilityDescriptor(schematic);
+
+            if (!capabilities[moduleName][capabilityType][descriptor.group]) {
+                capabilities[moduleName][capabilityType][descriptor.group] = {};
+            }
+            capabilities[moduleName][capabilityType][descriptor.group] = {
+                ...capabilities[moduleName][capabilityType][descriptor.group],
+                ...descriptor.capabilities,
+            };
+        }
+
+        return capabilities;
+    }
+
     private asCapabilityDescriptor(schematic: ScreenplaySchematic): { group: string, capabilities: Record<string, string> } {
 
         // Match all method names in the chain
         const methods = [...schematic.template.matchAll(/\.(\w+)\s*\(/g)].map(matched => matched[1]);
-        const methodKey = this.deCamelCased(methods.join(' ').trim()).toLocaleLowerCase();
+        const methodKey = this.camelCaseToSnakeCase(methods.join(' ').trim());
 
         // Match the first object/class before the first dot
         const className = (schematic.template.match(/^(\w+)\s*\./) || [])[1];
-        const methodGroupName = this.deCamelCased(className).toLocaleLowerCase();
+        const methodGroupName = this.camelCaseToSnakeCase(className);
 
         // Join them into a phrase
         return {
@@ -70,8 +78,8 @@ export class ListCapabilitiesController implements Controller<typeof ListCapabil
         };
     }
 
-    private deCamelCased(camelCased: string): string {
-        return camelCased.replaceAll(/([a-z])([A-Z])/g, '$1 $2');
+    private camelCaseToSnakeCase(camelCased: string): string {
+        return camelCased.replaceAll(/([a-z])([A-Z])/g, '$1_$2').toLocaleLowerCase();
     }
 
     descriptor(): Tool {
