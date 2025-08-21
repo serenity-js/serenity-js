@@ -33,10 +33,16 @@ export function answerableParameterSchema<Input extends InputSchema>(schema: Inp
     ]).describe(`Either ${ lowercaseDescription } or a Question that returns ${ lowercaseDescription }`);
 }
 
+export interface CapabilityDescriptor {
+    path: string[];
+    description: string;
+}
+
 // todo: move controller schemas to controllers
 
 export const ScreenplayActivityToolOutputSchema = ScreenplayToolOutputSchema.merge(z.object({
     actorName: ActorNameSchema,
     activities: z.array(z.string()).describe('Activities performed by the actor'),
 }));
+
 export type ScreenplayActivityToolOutput = z.infer<typeof ScreenplayActivityToolOutputSchema>;

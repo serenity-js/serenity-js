@@ -63,7 +63,7 @@ export class ListCapabilitiesController implements Controller<typeof ListCapabil
 
         // Match all method names in the chain
         const methods = [...schematic.template.matchAll(/\.(\w+)\s*\(/g)].map(matched => matched[1]);
-        const methodKey = this.camelCaseToSnakeCase(methods.join(' ').trim());
+        const methodKey = this.camelCaseToSnakeCase(methods.join('_').trim());
 
         // Match the first object/class before the first dot
         const className = (schematic.template.match(/^(\w+)\s*\./) || [])[1];
@@ -82,7 +82,7 @@ export class ListCapabilitiesController implements Controller<typeof ListCapabil
         return camelCased.replaceAll(/([a-z])([A-Z])/g, '$1_$2').toLocaleLowerCase();
     }
 
-    descriptor(): Tool {
+    toolDescriptor(): Tool {
         return {
             name: 'serenity_list_capabilities',
             description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions)',

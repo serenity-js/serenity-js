@@ -8,11 +8,7 @@ export interface Controller<ParameterSchema extends InputSchema> {
     execute(
         context: ScreenplayExecutionContext,
         parameters: z.infer<ParameterSchema>,
-    // ): Promise<{
-    //     content?: Array<ImageContent | TextContent>,
-    //     structuredContent?: z.infer<Output>,
-    // }>;
     ): Promise<CallToolResult>;
 
-    descriptor(): Tool;
+    toolDescriptor(): Tool;
 }

@@ -39,12 +39,12 @@ export class McpDispatcher {
 
     private listTools(): z.infer<typeof ListToolsResultSchema> {
         return {
-            tools: this.controllers.map(controller => controller.descriptor()),
+            tools: this.controllers.map(controller => controller.toolDescriptor()),
         }
     }
 
     private async callTool(request: z.infer<typeof CallToolRequestSchema>): Promise<z.infer<typeof CallToolResultSchema>> {
-        const controller = this.controllers.find(controller => controller.descriptor().name === request.params.name);
+        const controller = this.controllers.find(controller => controller.toolDescriptor().name === request.params.name);
 
         if (! controller) {
             return this.errorResult(`Tool "${request.params.name}" not found`);

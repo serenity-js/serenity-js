@@ -49,7 +49,7 @@ export class ScreenplayActivityController<Input extends InputSchema = InputSchem
         }
     }
 
-    descriptor(): Tool {
+    toolDescriptor(): Tool {
         return {
             name: this.schematic.toolName,
             description: this.schematic.description,

@@ -75,7 +75,7 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
         const chunks = this.chunkUp(template);
         const toolName = [ namespace, moduleName, ...chunks ]
             .map(chunk => this.removeParameterTokens(chunk))
-            .map(chunk => this.deCamelCase(chunk))
+            .map(chunk => this.camelCaseToSnakeCase(chunk))
             .join(ScreenplaySchematics.separator)
             .toLocaleLowerCase()
 
@@ -85,7 +85,7 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
         }
     }
 
-    private deCamelCase(templateChunk: string): string {
+    private camelCaseToSnakeCase(templateChunk: string): string {
         return templateChunk.replaceAll(/([^A-Z])([A-Z])/g, '$1_$2');
     }
 
@@ -113,7 +113,7 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
         const newDescription = this.chunkUp(template)
             .map(chunk => this.replaceParameterTokensWithNames(chunk))
             .map(chunk => this.removeParenthesis(chunk))
-            .map(chunk => this.deCamelCase(chunk))
+            .map(chunk => this.camelCaseToSnakeCase(chunk))
             .join(' ')
 
         return newDescription.charAt(0).toLocaleUpperCase() + newDescription.slice(1);
