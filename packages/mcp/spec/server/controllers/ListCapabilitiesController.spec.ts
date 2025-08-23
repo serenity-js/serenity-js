@@ -70,8 +70,6 @@ describe('ListCapabilitiesController', () => {
 
             const controller = createListCapabilitiesController();
 
-            console.log(JSON.stringify(controller.toolDescriptor(), null, 2))
-
             expect(controller.toolDescriptor()).to.deep.equal({
                 name: 'serenity_list_capabilities',
                 description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions)',
@@ -86,20 +84,29 @@ describe('ListCapabilitiesController', () => {
                     type: 'object',
                     description: 'capability group',
                     additionalProperties: {
-                        type: 'object',
-                        description: 'Serenity/JS module',
-                        additionalProperties: {
+                        anyOf: [ {
                             type: 'object',
-                            description: 'capability type',
+                            description: 'Serenity/JS module',
                             additionalProperties: {
                                 type: 'object',
-                                description: 'capability name',
+                                description: 'capability type',
                                 additionalProperties: {
-                                    description: 'capability description',
-                                    type: 'string'
+                                    type: 'object',
+                                    description: 'capability name',
+                                    additionalProperties: {
+                                        description: 'capability description',
+                                        type: 'string'
+                                    }
                                 }
                             }
-                        }
+                        }, {
+                            type: 'object',
+                            description: 'capability name',
+                            additionalProperties: {
+                                description: 'capability description',
+                                type: 'string'
+                            }
+                        } ]
                     },
                     '$schema': 'http://json-schema.org/draft-07/schema#'
                 },

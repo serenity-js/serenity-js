@@ -103,13 +103,20 @@ export class ListCapabilitiesController implements ToolController<typeof ListCap
             inputSchema: zodToJsonSchema(z.object({}).describe('No input parameters required')),
             outputSchema: zodToJsonSchema(
                 z.record(
-                    z.record(
+                    z.union([
+
                         z.record(
                             z.record(
-                                z.string().describe('capability description')
-                            ).describe('capability name')
-                        ).describe('capability type')
-                    ).describe('Serenity/JS module')
+                                z.record(
+                                    z.string().describe('capability description')
+                                ).describe('capability name')
+                            ).describe('capability type')
+                        ).describe('Serenity/JS module'),
+
+                        z.record(
+                            z.string().describe('capability description')
+                        ).describe('capability name')
+                    ]),
                 ).describe('capability group')
             ),
             annotations: {
