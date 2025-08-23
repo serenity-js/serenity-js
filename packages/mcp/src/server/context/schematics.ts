@@ -20,6 +20,7 @@ export interface ScreenplaySchematic<Input extends InputSchema = InputSchema>
     effect: 'destructive' | 'readonly';
     title: string;
     toolName: string;
+    capabilityPath: string[];
     type: 'Activity' | 'Question';
 }
 
@@ -29,7 +30,7 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
     constructor(private defaults: Partial<ScreenplaySchematicConfiguration<Input>>) {
     }
 
-    private chunkUp(template: string): string[] {
+    private static chunkUp(template: string): string[] {
         return template.split('.')
             .map(chunk => chunk.trim());
     }
@@ -50,7 +51,7 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
         }
 
         const { namespace, moduleName, template, type, inputSchema, imports } = definition;
-        const { className, toolName } = this.parseTemplate(namespace, moduleName, template);
+        const { className, toolName, capabilityPath  } = ScreenplaySchematics.parseTemplate(namespace, moduleName, type, template);
 
         const effect = type === 'Activity'
             ? 'destructive'
@@ -61,8 +62,9 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
             moduleName,
             className,
             toolName,
-            title: this.createTitle(definition.template),
-            description: this.createDescription(definition.description, definition.template),
+            capabilityPath,
+            title: ScreenplaySchematics.createTitle(definition.template),
+            description: ScreenplaySchematics.createDescription(definition.description, definition.template),
             inputSchema,
             imports,
             template,
@@ -71,41 +73,48 @@ export class ScreenplaySchematics<Input extends InputSchema = InputSchema> {
         };
     }
 
-    private parseTemplate(namespace: string, moduleName: string, template: string): { className: string; toolName: string; } {
-        const chunks = this.chunkUp(template);
-        const toolName = [ namespace, moduleName, ...chunks ]
-            .map(chunk => this.removeParameterTokens(chunk))
-            .map(chunk => this.camelCaseToSnakeCase(chunk))
+    private static parseTemplate(namespace: string, moduleName: string, type: string, template: string): { className: string; toolName: string; capabilityPath: string[] } {
+        const chunks = ScreenplaySchematics.chunkUp(template).map(chunk => this.removeParameterTokens(chunk));
+
+        const snakeCaseChunks = chunks.map(chunk => this.camelCaseToSnakeCase(chunk));
+
+        const groupName = type === 'Activity'
+            ? 'activities'
+            : 'questions';
+
+        const capabilityPath = [ moduleName, groupName, ...snakeCaseChunks ];
+
+        const toolName = [ namespace, moduleName, ...snakeCaseChunks ]
             .join(ScreenplaySchematics.separator)
-            .toLocaleLowerCase()
 
         return {
             className: chunks[0],
             toolName,
+            capabilityPath,
         }
     }
 
-    private camelCaseToSnakeCase(templateChunk: string): string {
-        return templateChunk.replaceAll(/([^A-Z])([A-Z])/g, '$1_$2');
+    private static camelCaseToSnakeCase(templateChunk: string): string {
+        return templateChunk.replaceAll(/([^A-Z])([A-Z])/g, '$1_$2').toLocaleLowerCase();
     }
 
-    private removeParameterTokens(templateChunk: string): string {
+    private static removeParameterTokens(templateChunk: string): string {
         return templateChunk.replaceAll(/(\(.*?\))/g, '');
     }
 
-    private replaceParameterTokensWithNames(templateChunk: string): string {
+    private static replaceParameterTokensWithNames(templateChunk: string): string {
         return templateChunk.replaceAll(/\$(\w+)/g, '$1');
     }
 
-    private removeParenthesis(templateChunk: string): string {
+    private static removeParenthesis(templateChunk: string): string {
         return templateChunk.replaceAll(/[()]/g, ' ').trim();
     }
 
-    private createTitle(template: string): string {
+    private static createTitle(template: string): string {
         return this.replaceParameterTokensWithNames(template);
     }
 
-    private createDescription(description: string | undefined, template: string): string {
+    private static createDescription(description: string | undefined, template: string): string {
         if (description) {
             return description;
         }

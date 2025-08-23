@@ -3,7 +3,7 @@ import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 
 import type { ScreenplaySchematic } from './context/index.js';
 import { ScreenplayExecutionContext } from './context/index.js';
-import { ListCapabilitiesController, ScreenplayActivityController } from './controllers/index.js';
+import { TestAutomationController } from './controllers/index.js';
 import type { PlaywrightBrowserConnection } from './integration/PlaywrightBrowserConnection.js';
 import { McpDispatcher } from './McpDispatcher.js';
 
@@ -23,7 +23,7 @@ export class SerenityMcpServer {
 
         this.dispatchers.push(dispatcher);
 
-        await dispatcher.server.connect(transport);
+        await dispatcher.connect(transport);
 
         return dispatcher;
     }
@@ -35,10 +35,7 @@ export class SerenityMcpServer {
             this.moduleLoader,
         );
 
-        const controllers = [
-            ... this.schematics.map(schematic => new ScreenplayActivityController(schematic)),
-            new ListCapabilitiesController(this.schematics)
-        ];
+        const controllers = this.schematics.map(schematic => new TestAutomationController(schematic));
 
         return new McpDispatcher(
             controllers,

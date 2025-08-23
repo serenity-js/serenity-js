@@ -1,4 +1,4 @@
-import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
 import type { ScreenplayExecutionContext } from '../context/index.js';
@@ -9,6 +9,4 @@ export interface Controller<ParameterSchema extends InputSchema> {
         context: ScreenplayExecutionContext,
         parameters: z.infer<ParameterSchema>,
     ): Promise<CallToolResult>;
-
-    toolDescriptor(): Tool;
 }

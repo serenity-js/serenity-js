@@ -4,10 +4,10 @@ import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import type { ScreenplayExecutionContext, ScreenplaySchematic } from '../context/index.js';
 import { ScreenplayTemplate } from '../context/index.js';
-import type { InputSchema } from '../schema.js';
-import type { Controller } from './Controller.js';
+import type { CapabilityDescriptor, InputSchema } from '../schema.js';
+import type { CapabilityController } from './CapabilityController.js';
 
-export class ScreenplayActivityController<Input extends InputSchema = InputSchema> implements Controller<Input> {
+export class TestAutomationController<Input extends InputSchema = InputSchema> implements CapabilityController<Input> {
 
     constructor(private readonly schematic: ScreenplaySchematic<Input>) {
     }
@@ -46,6 +46,13 @@ export class ScreenplayActivityController<Input extends InputSchema = InputSchem
                     template.value,
                 ]
             }
+        }
+    }
+
+    capabilityDescriptor(): CapabilityDescriptor {
+        return {
+            path: [ 'test_automation', ...this.schematic.capabilityPath ],
+            description: `${ this.schematic.template } - ${ this.schematic.description }`,
         }
     }
 

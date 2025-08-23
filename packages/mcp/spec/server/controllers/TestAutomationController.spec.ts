@@ -5,36 +5,10 @@ import { fileURLToPath } from 'node:url';
 import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { afterEach, beforeEach, describe, it } from 'mocha';
-import { z } from 'zod';
 
-import { ScreenplayExecutionContext, ScreenplaySchematics } from '../../../src/server/context/index.js';
-import { ScreenplayActivityController } from '../../../src/server/controllers/index.js';
+import { ScreenplayExecutionContext } from '../../../src/server/context/index.js';
 import { PlaywrightBrowserConnection } from '../../../src/server/integration/PlaywrightBrowserConnection.js';
-import { answerableParameterSchema } from '../../../src/server/schema.js';
-
-function createController(): ScreenplayActivityController {
-    const navigateSchematics = new ScreenplaySchematics({
-        namespace: 'serenity',
-        moduleName: 'web',
-        imports: {
-            '@serenity-js/web': [ 'Navigate' ],
-        },
-    });
-
-    const navigateToSchematic = navigateSchematics.create({
-        description: 'Navigate to a specific URL in the browser',
-        template: 'Navigate.to($url)',
-        type: 'Activity',
-        inputSchema: z.object({
-            actorName: z.string().describe('The name of the actor performing the activity'),
-            url: answerableParameterSchema(z.string().describe('The URL to navigate to')),
-        }),
-    });
-
-    return new ScreenplayActivityController(
-        navigateToSchematic,
-    );
-}
+import { createTestAutomationController } from './examples.js';
 
 async function startServer(port = 3123): Promise<{ url: string; close: () => Promise<void> }> {
     const server = http.createServer((request, response) => {
@@ -86,22 +60,22 @@ describe('ScreenplayActivityController', () => {
         await server?.close();
     });
 
-    describe('handling a request', () => {
+    describe('execute', () => {
 
         describe('structured content', () => {
 
             it('substitutes tokens in the template with static parameters', async () => {
 
-                const controller = createController();
+                const controller = createTestAutomationController();
 
                 const parameters = {
                     actorName: 'Alice',
                     url: server.url,
                 };
 
-                const response = await controller.execute(executionContext, parameters);
+                const result = await controller.execute(executionContext, parameters);
 
-                expect(response.structuredContent).to.deep.equal({
+                expect(result.structuredContent).to.deep.equal({
                     dependencies: [ '@serenity-js/web' ],
                     imports: { '@serenity-js/web': [ 'Navigate' ] },
                     actorName: 'Alice',
@@ -113,7 +87,7 @@ describe('ScreenplayActivityController', () => {
 
             it('substitutes tokens in the template with questions', async () => {
 
-                const controller = createController();
+                const controller = createTestAutomationController();
 
                 const parameters = {
                     actorName: 'Alice',
@@ -127,9 +101,9 @@ describe('ScreenplayActivityController', () => {
                     },
                 };
 
-                const response = await controller.execute(executionContext, parameters);
+                const result = await controller.execute(executionContext, parameters);
 
-                expect(response.structuredContent).to.deep.equal({
+                expect(result.structuredContent).to.deep.equal({
                     dependencies: [
                         '@serenity-js/assertions',
                         '@serenity-js/core',
@@ -152,16 +126,16 @@ describe('ScreenplayActivityController', () => {
 
             it('dynamically compiles the template and performs the activity', async () => {
 
-                const controller = createController();
+                const controller = createTestAutomationController();
 
                 const parameters = {
                     actorName: 'Alice',
                     url: server.url,
                 };
 
-                const response = await controller.execute(executionContext, parameters);
+                const result = await controller.execute(executionContext, parameters);
 
-                expect(response.structuredContent).to.deep.equal({
+                expect(result.structuredContent).to.deep.equal({
                     dependencies: [ '@serenity-js/web' ],
                     imports: {
                         '@serenity-js/web': [ 'Navigate' ]
@@ -173,5 +147,25 @@ describe('ScreenplayActivityController', () => {
                 });
             });
         });
+    });
+
+    describe('capabilitiesDescriptor', () => {
+
+        it('describes the capability provided by the controller and its path in the capability map', async () => {
+            const controller = createTestAutomationController();
+
+            const descriptor = controller.capabilityDescriptor();
+
+            expect(descriptor).to.deep.equal({
+                description: `Navigate.to($url) - Navigate to a specific URL in the browser`,
+                path: [
+                    `test_automation`,
+                    `web`,
+                    `activities`,
+                    `navigate`,
+                    `to`,
+                ],
+            });
+        })
     });
 });
