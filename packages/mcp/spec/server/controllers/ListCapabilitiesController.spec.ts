@@ -80,36 +80,6 @@ describe('ListCapabilitiesController', () => {
                     description: 'No input parameters required',
                     '$schema': 'http://json-schema.org/draft-07/schema#'
                 },
-                outputSchema: {
-                    type: 'object',
-                    description: 'capability group',
-                    additionalProperties: {
-                        anyOf: [ {
-                            type: 'object',
-                            description: 'Serenity/JS module',
-                            additionalProperties: {
-                                type: 'object',
-                                description: 'capability type',
-                                additionalProperties: {
-                                    type: 'object',
-                                    description: 'capability name',
-                                    additionalProperties: {
-                                        description: 'capability description',
-                                        type: 'string'
-                                    }
-                                }
-                            }
-                        }, {
-                            type: 'object',
-                            description: 'capability name',
-                            additionalProperties: {
-                                description: 'capability description',
-                                type: 'string'
-                            }
-                        } ]
-                    },
-                    '$schema': 'http://json-schema.org/draft-07/schema#'
-                },
                 annotations: {
                     title: 'List Serenity/JS Capabilities',
                     readOnlyHint: true,

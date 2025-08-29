@@ -3,9 +3,17 @@ import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 
 import type { ScreenplaySchematic } from './context/index.js';
 import { ScreenplayExecutionContext } from './context/index.js';
-import { TestAutomationController } from './controllers/index.js';
-import type { PlaywrightBrowserConnection } from './integration/PlaywrightBrowserConnection.js';
+import {
+    type CapabilityController,
+    ListCapabilitiesController, ProjectAnalyzeDependenciesController,
+    ProjectAnalyzeRuntimeEnvironmentController,
+    TestAutomationController
+} from './controllers/index.js';
+import type { ToolController } from './controllers/ToolController.js';
+import type { SerenityModuleManager } from './integration/index.js';
+import type { PlaywrightBrowserConnection } from './integration/index.js';
 import { McpDispatcher } from './McpDispatcher.js';
+import type { InputSchema } from './schema.js';
 
 export class SerenityMcpServer {
 
@@ -15,6 +23,7 @@ export class SerenityMcpServer {
         private readonly schematics: Array<ScreenplaySchematic>,
         private readonly moduleLoader: ModuleLoader,
         private readonly browserConnection: PlaywrightBrowserConnection,
+        private readonly moduleManager: SerenityModuleManager,
     ) {
     }
 
@@ -35,12 +44,33 @@ export class SerenityMcpServer {
             this.moduleLoader,
         );
 
-        const controllers = this.schematics.map(schematic => new TestAutomationController(schematic));
+        const projectControllers = [
+            new ProjectAnalyzeRuntimeEnvironmentController(this.moduleManager),
+            new ProjectAnalyzeDependenciesController(this.moduleManager),
+        ];
+        const testAutomationControllers = this.schematics.map(schematic => new TestAutomationController(schematic));
+
+        const controllers = [
+            ...projectControllers,
+            ...testAutomationControllers,
+        ];
+
+        const capabilityDescriptors = controllers
+            .filter(controllers => SerenityMcpServer.isCapabilityController(controllers))
+            .map(controller => controller.capabilityDescriptor());
 
         return new McpDispatcher(
-            controllers,
+            [
+                ...controllers,
+                new ListCapabilitiesController(capabilityDescriptors),
+            ],
             context,
         );
+    }
+
+    private static isCapabilityController<Input extends InputSchema>(controller: ToolController<Input>): controller is CapabilityController<Input> {
+        return 'capabilityDescriptor' in controller
+            && typeof controller.capabilityDescriptor === 'function';
     }
 
     registerProcessExitHandler(): void {

@@ -6,9 +6,9 @@ import { expect } from '@integration/testing-tools';
 import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
-import { ScreenplayExecutionContext } from '../../../src/server/context/index.js';
-import { PlaywrightBrowserConnection } from '../../../src/server/integration/PlaywrightBrowserConnection.js';
-import { createTestAutomationController } from './examples.js';
+import { ScreenplayExecutionContext } from '../../../../src/server/context/index.js';
+import { PlaywrightBrowserConnection } from '../../../../src/server/integration/PlaywrightBrowserConnection.js';
+import { createTestAutomationController } from '../examples.js';
 
 async function startServer(port = 3123): Promise<{ url: string; close: () => Promise<void> }> {
     const server = http.createServer((request, response) => {

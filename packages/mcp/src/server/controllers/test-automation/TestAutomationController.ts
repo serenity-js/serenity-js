@@ -2,10 +2,10 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import type { ScreenplayExecutionContext, ScreenplaySchematic } from '../context/index.js';
-import { ScreenplayTemplate } from '../context/index.js';
-import type { CapabilityDescriptor, InputSchema } from '../schema.js';
-import type { CapabilityController } from './CapabilityController.js';
+import type { ScreenplayExecutionContext, ScreenplaySchematic } from '../../context/index.js';
+import { ScreenplayTemplate } from '../../context/index.js';
+import type { CapabilityDescriptor, InputSchema } from '../../schema.js';
+import type { CapabilityController } from '../CapabilityController.js';
 
 export class TestAutomationController<Input extends InputSchema = InputSchema> implements CapabilityController<Input> {
 

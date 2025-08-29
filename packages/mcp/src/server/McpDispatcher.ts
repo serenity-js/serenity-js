@@ -6,31 +6,20 @@ import type { z } from 'zod';
 
 import { packageJSON } from '../package.js';
 import type { ScreenplayExecutionContext } from './context/index.js';
-import { type CapabilityController, ListCapabilitiesController } from './controllers/index.js';
 import type { ToolController } from './controllers/ToolController.js';
 import type { InputSchema } from './schema.js';
 
 export class McpDispatcher {
     private readonly server: McpServer;
-    private readonly controllers: Array<ToolController<InputSchema>> = [];
 
     constructor(
-        controllers: Array<ToolController<InputSchema>>,
+        private readonly controllers: Array<ToolController<InputSchema>>,
         private readonly context: ScreenplayExecutionContext,
     ) {
         this.server = McpDispatcher.createMcpServer({
             name: packageJSON.name,
             version: packageJSON.version,
         });
-
-        const capabilityDescriptors = controllers
-            .filter(controllers => McpDispatcher.isCapabilityController(controllers))
-            .map(controller => controller.capabilityDescriptor());
-
-        this.controllers = [
-            ...controllers,
-            new ListCapabilitiesController(capabilityDescriptors),
-        ];
 
         this.server.setRequestHandler(ListToolsRequestSchema, this.listTools.bind(this));
         this.server.setRequestHandler(CallToolRequestSchema, this.callTool.bind(this));
@@ -39,11 +28,6 @@ export class McpDispatcher {
         // this.server.oninitialized = () => {
         //     this.context.clientVersion = this.server.getClientVersion() as { name: string; version: string };
         // };
-    }
-
-    private static isCapabilityController<Input extends InputSchema>(controller: ToolController<Input>): controller is CapabilityController<Input> {
-        return 'capabilityDescriptor' in controller
-            && typeof controller.capabilityDescriptor === 'function';
     }
 
     private static createMcpServer(options: { name: string; version: string }): McpServer {

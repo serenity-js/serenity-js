@@ -4,13 +4,15 @@ import { fileURLToPath } from 'node:url';
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import { createAxios } from '@serenity-js/rest';
 import { program } from 'commander';
 
 import { packageJSON } from './package.js';
 import schematics from './schematics/index.js';
 import type { Config } from './server/Config.js';
 import { SerenityMcpServer } from './server/index.js';
-import { PlaywrightBrowserConnection } from './server/integration/PlaywrightBrowserConnection.js';
+import { SerenityModuleManager } from './server/integration/index.js';
+import { PlaywrightBrowserConnection } from './server/integration/index.js';
 
 type CliOptions = {
     allowedOrigins?: string[];
@@ -84,11 +86,14 @@ program
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
         const moduleLoader = new ModuleLoader(__dirname);
+        const axios = createAxios();
+        const moduleManager = new SerenityModuleManager(axios);
 
         const server = new SerenityMcpServer(
             schematics,
             moduleLoader,
             browserConnection,
+            moduleManager,
         );
         server.registerProcessExitHandler();
 
