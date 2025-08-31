@@ -15,8 +15,8 @@ importers:
         specifier: 19.8.1
         version: 19.8.1
       '@puppeteer/browsers':
-        specifier: 2.10.6
-        version: 2.10.6
+        specifier: 2.10.8
+        version: 2.10.8
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
@@ -54,8 +54,8 @@ importers:
         specifier: 3.3.0
         version: 3.3.0(@types/node@22.17.2)(typescript@5.9.2)
       cz-customizable:
-        specifier: 7.5.0
-        version: 7.5.0
+        specifier: 7.5.1
+        version: 7.5.1
       eslint:
         specifier: 8.57.1
         version: 8.57.1
@@ -4423,6 +4423,11 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  '@puppeteer/browsers@2.10.8':
+    resolution: {integrity: sha512-f02QYEnBDE0p8cteNoPYHHjbDuwyfbe4cCIVlNi8/MRicIxFW4w4CfgU0LNgWEID6s06P+hRJ1qjpBLMhPRCiQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   '@rollup/rollup-android-arm-eabi@4.40.1':
     resolution: {integrity: sha512-kxz0YeeCrRUHz3zyqvd7n+TVRlNyTifBsmnmNPtk3hQURUyG9eAB+usz6DAwagMusjx/zb3AjvDUvhFGDAexGw==}
     cpu: [arm]
@@ -6188,8 +6193,8 @@ packages:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
     engines: {node: '>= 10'}
 
-  cz-customizable@7.5.0:
-    resolution: {integrity: sha512-FGmGOGDTekmnRv/zNuJTSpIdxDjbcJMlSighyqDtTkQNUO6Mlddc+MypHveQcirChdCcpfIdeMYPU4vQwBHVXA==}
+  cz-customizable@7.5.1:
+    resolution: {integrity: sha512-eGUfpyD6/YdnPomAMMbbwmofeHAR9D4OsXS5Kmr9+uEOxdop32tdmHy6sx4Bhpms6V8HohQ17p/fYvlIllrdmQ==}
     hasBin: true
 
   d@1.0.2:
@@ -10421,9 +10426,6 @@ packages:
   tar-fs@3.0.4:
     resolution: {integrity: sha512-5AFQU8b9qLfZCX9zp2duONhPmZv0hGYiBPJsyUdqMjzq/mqVpy/rEUSeHk1+YitmxugaptgBh5oDGU3VsAJq4w==}
 
-  tar-fs@3.0.8:
-    resolution: {integrity: sha512-ZoROL70jptorGAlgAYiLoBLItEKw/fUxg9BSYK/dF/GAGYFJOJJJMvjPAKDJraCXFwadD456FCuvLWgfhMsPwg==}
-
   tar-fs@3.1.0:
     resolution: {integrity: sha512-5Mty5y/sOF1YWj1J6GiBodjlDc05CUR8PKXrsnFAiSG0xA+GHeWLovaZPYUDXkH/1iKRf2+M5+OrRgzC7O9b7w==}
 
@@ -13194,6 +13196,19 @@ snapshots:
       - bare-buffer
       - supports-color
 
+  '@puppeteer/browsers@2.10.8':
+    dependencies:
+      debug: 4.4.1(supports-color@8.1.1)
+      extract-zip: 2.0.1
+      progress: 2.0.3
+      proxy-agent: 6.5.0
+      semver: 7.7.2
+      tar-fs: 3.1.0
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bare-buffer
+      - supports-color
+
   '@rollup/rollup-android-arm-eabi@4.40.1':
     optional: true
 
@@ -14179,7 +14194,7 @@ snapshots:
 
   '@wdio/utils@9.19.1':
     dependencies:
-      '@puppeteer/browsers': 2.10.6
+      '@puppeteer/browsers': 2.10.8
       '@wdio/logger': 9.18.0
       '@wdio/types': 9.19.1
       decamelize: 6.0.0
@@ -15539,7 +15554,7 @@ snapshots:
       - '@types/node'
       - typescript
 
-  cz-customizable@7.5.0:
+  cz-customizable@7.5.1:
     dependencies:
       editor: 1.0.0
       find-config: 1.0.0
@@ -16797,7 +16812,7 @@ snapshots:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       node-fetch: 3.3.2
-      tar-fs: 3.0.8
+      tar-fs: 3.1.0
       unzipper: 0.10.14
       which: 4.0.0
     transitivePeerDependencies:
@@ -20486,16 +20501,6 @@ snapshots:
       mkdirp-classic: 0.5.3
       pump: 3.0.2
       tar-stream: 3.1.7
-
-  tar-fs@3.0.8:
-    dependencies:
-      pump: 3.0.2
-      tar-stream: 3.1.7
-    optionalDependencies:
-      bare-fs: 4.0.1
-      bare-path: 3.0.0
-    transitivePeerDependencies:
-      - bare-buffer
 
   tar-fs@3.1.0:
     dependencies:
