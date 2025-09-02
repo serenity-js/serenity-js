@@ -5,13 +5,14 @@ import type { ScreenplaySchematic } from './context/index.js';
 import { ScreenplayExecutionContext } from './context/index.js';
 import {
     type CapabilityController,
-    ListCapabilitiesController, ProjectAnalyzeDependenciesController,
+    ListCapabilitiesController,
+    ProjectAnalyzeDependenciesController,
     ProjectAnalyzeRuntimeEnvironmentController,
+    ProjectConfigurePlaywrightTestController,
     TestAutomationController
 } from './controllers/index.js';
 import type { ToolController } from './controllers/ToolController.js';
-import type { SerenityModuleManager } from './integration/index.js';
-import type { PlaywrightBrowserConnection } from './integration/index.js';
+import type { PlaywrightBrowserConnection, SerenityModuleManager } from './integration/index.js';
 import { McpDispatcher } from './McpDispatcher.js';
 import type { InputSchema } from './schema.js';
 
@@ -47,6 +48,7 @@ export class SerenityMcpServer {
         const projectControllers = [
             new ProjectAnalyzeRuntimeEnvironmentController(this.moduleManager),
             new ProjectAnalyzeDependenciesController(this.moduleManager),
+            new ProjectConfigurePlaywrightTestController(),
         ];
         const testAutomationControllers = this.schematics.map(schematic => new TestAutomationController(schematic));
 
