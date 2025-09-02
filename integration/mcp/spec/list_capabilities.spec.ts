@@ -13,6 +13,7 @@ describe('List Capabilities', () => {
                 analyze_runtime_environment: `Analyze a Node.js project in the specified root directory to determine compatibility with Serenity/JS. Detect available command line tools. Check for any runtime issues, explains their causes, and provides recommended fixes.`,
                 analyze_dependencies: `List the Node.js packages used by the project in the specified root directory to determine compatibility with Serenity/JS. Check for compatibility issues and recommend any missing packages that should be installed.`,
                 configure_playwright_test: 'Configure Playwright Test for use with Serenity/JS',
+                configure_package_json_scripts: 'Configure NPM scripts in package.json to include commands for running tests with Serenity/JS',
             },
             test_automation: {
                 web: {

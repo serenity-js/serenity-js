@@ -102,6 +102,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
                 '@wdio/*',
                 'webdriverio',
                 'npm-failsafe',
+                'rimraf',
             ].join(',') }}`,
         }, { json: true, showNotFound: true, console: false, fullTree: true }));
 
@@ -151,6 +152,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
 
         const packages = [
             'npm-failsafe',
+            'rimraf',
             '@serenity-js/assertions',
             '@serenity-js/console-reporter',
             '@serenity-js/core',

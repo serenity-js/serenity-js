@@ -102,37 +102,14 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
                 structuredContent: result as any,
                 isError: false,
                 annotations: {
-                    title: 'List Serenity/JS Capabilities',
+                    title: ProjectConfigurePlaywrightTestController.description,
                     readOnlyHint: true,
                     destructiveHint: false,
                     openWorldHint: true
                 }
             }
-
-            // const rootDirectory = await this.detectRootDirectory(context);
-            //
-            // const detectedDependencies = await this.detectProjectDependencies(rootDirectory);
-            //
-            // const frameworks = this.detectSupportedTestFrameworks(detectedDependencies);
-            //
-
-            // const instructions: string[] = [];
-            // const nextSteps: string[] = [];
-            //
-            // return {
-            // content: [{ type: 'text', text: '' }],
-            // structuredContent: {
-            //     result: {
-            //         patch: '',
-            //     },
-            //     instructions,
-            //     nextSteps,
-            // },
-            // isError: false,
-            // }
         }
         catch (error) {
-            console.error('>> error', error)
             return {
                 content: [{ type: 'text', text: String(error) }],
                 isError: true,
@@ -309,7 +286,7 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
             inputSchema: zodToJsonSchema(ProjectConfigurePlaywrightTestControllerInputSchema),
             // outputSchema
             annotations: {
-                title: 'Configure Playwright Test',
+                title: ProjectConfigurePlaywrightTestController.description,
                 readOnlyHint: true,
                 destructiveHint: false,
                 openWorldHint: true,
@@ -317,87 +294,3 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
         } as Tool;
     }
 }
-
-/*
-import { Project, SyntaxKind, ObjectLiteralExpression, ArrayLiteralExpression, QuoteKind } from 'ts-morph';
-import * as path from 'path';
-
-export function addHtmlReporterToPlaywrightConfig(configFilePath: string): void {
-  const project = new Project({
-    // Use consistent settings similar to a typical TS config
-    manipulationSettings: {
-      quoteKind: QuoteKind.Single,
-    },
-  });
-
-  const sourceFile = project.addSourceFileAtPath(configFilePath);
-
-  // Find the default export statement with defineConfig call
-  const exportAssignment = sourceFile.getExportAssignment(e => !e.isNamespaceExport());
-  if (!exportAssignment) {
-    throw new Error('No default export found in the playwright config file.');
-  }
-
-  const expr = exportAssignment.getExpressionIfKind(SyntaxKind.CallExpression);
-  if (!expr) {
-    throw new Error('Default export is not a function call.');
-  }
-
-  // The argument to defineConfig is usually an object literal expression
-  const configObject = expr.getArguments()[0];
-  if (!configObject || !configObject.isKind(SyntaxKind.ObjectLiteralExpression)) {
-    throw new Error('defineConfig argument is not an object.');
-  }
-
-  const configLiteral = configObject as ObjectLiteralExpression;
-
-  // Find or create 'reporter' property
-  let reporterProp = configLiteral.getProperty('reporter');
-  if (!reporterProp) {
-    // Add reporter property as an array with 'html'
-    configLiteral.addPropertyAssignment({
-      name: 'reporter',
-      initializer: "['html']",
-    });
-  } else {
-    // Reporter exists - check if it's an array or just a string
-    let reporterInitializer = (reporterProp as any).getInitializer();
-
-    // If reporter is a string literal (e.g. 'list'), convert it to array with that string and 'html'
-    if (reporterInitializer?.getKind() === SyntaxKind.StringLiteral) {
-      const val = reporterInitializer.getText().replace(/['"]/g, '');
-      if (val === 'html') {
-        // Already has html reporter configured
-        return;
-      }
-      reporterInitializer.replaceWithText(`['${val}', 'html']`);
-    }
-
-    // If reporter is an array
-    else if (reporterInitializer?.getKind() === SyntaxKind.ArrayLiteralExpression) {
-      const arrayLiteral = reporterInitializer as ArrayLiteralExpression;
-      const elements = arrayLiteral.getElements();
-
-      // Check if 'html' is already in the array, if so no change needed
-      for (const el of elements) {
-        if (el.getText().replace(/['"]/g, '') === 'html') {
-          return;
-        }
-      }
-
-      // Add 'html' reporter to array
-      arrayLiteral.addElement("'html'");
-    }
-
-    // Otherwise, if something else (e.g. function or object), append a new reporter config manually could be complex
-    else {
-      // For now, no modification if complex type
-      console.warn('Reporter property is present with complex initializer, skipping modification.');
-      return;
-    }
-  }
-
-  // Save updated file
-  sourceFile.saveSync();
-}
- */
