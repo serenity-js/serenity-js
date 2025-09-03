@@ -10,6 +10,7 @@ import {
     ProjectAnalyzeRuntimeEnvironmentController,
     ProjectConfigurePackageJsonScriptsController,
     ProjectConfigurePlaywrightTestController,
+    ProjectCreateExampleTestFileController,
     TestAutomationController
 } from './controllers/index.js';
 import type { ToolController } from './controllers/ToolController.js';
@@ -51,6 +52,7 @@ export class SerenityMcpServer {
             new ProjectAnalyzeDependenciesController(this.moduleManager),
             new ProjectConfigurePlaywrightTestController(),
             new ProjectConfigurePackageJsonScriptsController(),
+            new ProjectCreateExampleTestFileController(),
         ];
         const testAutomationControllers = this.schematics.map(schematic => new TestAutomationController(schematic));
 

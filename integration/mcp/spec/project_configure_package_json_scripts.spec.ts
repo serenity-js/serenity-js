@@ -35,7 +35,7 @@ describe('Project Configure package.json scripts', () => {
 +    "clean": "rimraf reports",
 +    "test": "failsafe clean test:playwright [...] test:report",
 +    "test:playwright": "playwright test",
-+    "test:report": "serenity-bdd run"
++    "test:report": "serenity-bdd run --source reports/serenity --destination reports/serenity"
 +  },
    "description": ""
  }
@@ -72,7 +72,7 @@ describe('Project Configure package.json scripts', () => {
 +    "clean": "rimraf reports",
 +    "test": "failsafe clean test:playwright [...] test:report",
 +    "test:playwright": "playwright test",
-+    "test:report": "serenity-bdd run"
++    "test:report": "serenity-bdd run --source reports/serenity --destination reports/serenity"
 +  }
  }
 `);

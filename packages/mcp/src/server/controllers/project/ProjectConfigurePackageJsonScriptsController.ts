@@ -13,6 +13,7 @@ import { type CapabilityController } from '../CapabilityController.js';
 
 const ProjectConfigurePackageJsonScriptsControllerInputSchema = z.object({
     pathToPackageJsonFile: z.string().describe('Absolute path to the package.json file, e.g., `/path/to/project/package.json`'),
+    // testDirectory: z.string().optional().describe('Relative path to the directory containing the test files, e.g., `tests` or `e2e`. Defaults to auto-detected value.'),
     frameworks: z.array(z.enum([
         'cucumber',
         'jasmine',
@@ -139,7 +140,7 @@ export class ProjectConfigurePackageJsonScriptsController implements CapabilityC
         } as Tool;
     }
 
-    private updateScripts(packageJson: JSONObject): JSONObject {
+    private updateScripts(packageJson: JSONObject, testDirectory?: string): JSONObject {
         const scripts = packageJson.scripts as Record<string, string> || {};
 
         packageJson.scripts = {
@@ -147,7 +148,7 @@ export class ProjectConfigurePackageJsonScriptsController implements CapabilityC
             clean: 'rimraf reports',
             test: 'failsafe clean test:playwright [...] test:report',
             'test:playwright': 'playwright test',
-            'test:report': 'serenity-bdd run',
+            'test:report': `serenity-bdd run --source reports/serenity --destination reports/serenity`.replaceAll(/\s+/g, ' '),
         };
 
         return packageJson;
