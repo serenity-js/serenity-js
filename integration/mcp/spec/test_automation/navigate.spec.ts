@@ -1,4 +1,4 @@
-import { describe, expect, it } from '../src/mcp-api.js';
+import { describe, expect, it } from '../../src/mcp-api.js';
 
 describe('Navigate', () => {
 
