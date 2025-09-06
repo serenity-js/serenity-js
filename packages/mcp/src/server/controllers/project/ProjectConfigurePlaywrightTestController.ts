@@ -185,7 +185,7 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
     private updateReporter(configFile: SourceFile) {
         const config = this.getPlaywrightConfigObject(configFile);
 
-        const testDirectory = config.getProperty('testDir')?.getText();
+        const testDirectory = (config.getProperty('testDir') as any)?.getInitializer();
         const serenityBddReporter = testDirectory
             ? [ '@serenity-js/serenity-bdd', { specDirectory: testDirectory } ]
             : '@serenity-js/serenity-bdd';

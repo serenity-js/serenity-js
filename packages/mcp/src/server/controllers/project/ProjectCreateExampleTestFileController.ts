@@ -70,8 +70,8 @@ export class ProjectCreateExampleTestFileController implements CapabilityControl
             |   static path = '/api/';
             |
             |   private readonly articleElement = PageElement.located(By.css('article')).describedAs('article');
-            |   private readonly titleElement = PageElement.located(By.css('header h1')).describedAs('title').of(this.article);
-            |   private readonly moduleNameElements = PageElements.located(By.css('h3>a:first-child).describedAs('module names').of(this.article);
+            |   private readonly titleElement = PageElement.located(By.css('header h1')).describedAs('title').of(this.articleElement);
+            |   private readonly moduleNameElements = PageElements.located(By.css('h3>a:first-child').describedAs('module names').of(this.articleElement);
             |   
             |   open = () =>
             |     Task.where(\`#actor opens the API docs landing page\`,
@@ -79,9 +79,9 @@ export class ProjectCreateExampleTestFileController implements CapabilityControl
             |     );
             |   
             |   title = () =>
-            |     Text.of(this.title);
+            |     Text.of(this.titleElement);
             |   
-            |   moduleNames => () =>
+            |   moduleNames = () =>
             |     Text.ofAll(this.moduleNameElements)
             |       .map(name => name.trim())
             |       .describedAs('module names');
