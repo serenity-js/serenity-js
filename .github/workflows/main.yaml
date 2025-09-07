@@ -345,53 +345,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
-      # TODO: use the official action when the issue is resolved https://github.com/qltysh/qlty-action/issues/119
       - name: Qlty
         uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
         with:
           oidc: true
           command: complete
-
-      # TODO: Qlty issue workaround
-
-#      # Based on https://github.com/qltysh/qlty-action/blob/325e718842513d9e19baf91280cab9bc6db6e17b/install/install_qlty.sh
-#      - name: Install Qlty CLI
-#        run: |
-#          curl -fsSL https://qlty.sh | bash
-#
-#          qlty_bin_dir="$HOME/.qlty/bin"
-#          qlty_path="$qlty_bin_dir/qlty"
-#
-#          echo "${qlty_bin_dir}" >>"${GITHUB_PATH}"
-#
-#          (${qlty_path} version >/dev/null 2>&1) || echo "::warning::${qlty_path} does not exist!"
-#
-#      - name: Qlty Complete
-#        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-#        id: qlty
-#        with:
-#          script: |
-#            const OIDC_AUDIENCE = "https://qlty.sh";
-#            const idToken = await core.getIDToken(OIDC_AUDIENCE);
-#            core.setSecret(idToken);
-#            core.setOutput('id_token', idToken);
-#
-#            const payload = context.payload;
-#
-#            const completeArgs = [ "coverage", "complete" ];
-#
-#            if (payload.pull_request) {
-#                completeArgs.push("--override-commit-sha", payload.pull_request["head"].sha);
-#                completeArgs.push("--override-branch", payload.pull_request["head"].ref);
-#            }
-#
-#            core.setOutput('complete_args', completeArgs.join(' '));
-#      - name: Qlty Execute
-#        run: qlty ${{ steps.qlty.outputs.complete_args }}
-#        env:
-#          QLTY_CI_UPLOADER_TOOL: "qltysh/qlty-action"
-#          QLTY_CI_UPLOADER_VERSION: "1.1.1"
-#          QLTY_COVERAGE_TOKEN: ${{ steps.qlty.outputs.id_token }}
 
   #
   # NPM artifact publishing
