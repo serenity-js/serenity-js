@@ -172,8 +172,8 @@ importers:
   examples/cucumber-domain-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -211,8 +211,8 @@ importers:
   examples/cucumber-reporting:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -247,8 +247,8 @@ importers:
   examples/cucumber-rest-api-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -967,8 +967,8 @@ importers:
   integration/cucumber-12:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@integration/cucumber-specs':
         specifier: workspace:*
         version: link:../cucumber-specs
@@ -1613,8 +1613,8 @@ importers:
   integration/protractor-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -1940,8 +1940,8 @@ importers:
   integration/webdriverio-8-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2165,8 +2165,8 @@ importers:
   integration/webdriverio-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2541,8 +2541,8 @@ importers:
         version: 1.24.1
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.1.0
-        version: 12.1.0
+        specifier: 12.2.0
+        version: 12.2.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -3449,6 +3449,11 @@ packages:
     engines: {node: 20 || 22 || >=24}
     hasBin: true
 
+  '@cucumber/cucumber@12.2.0':
+    resolution: {integrity: sha512-b7W4snvXYi1T2puUjxamASCCNhNzVSzb/fQUuGSkdjm/AFfJ24jo8kOHQyOcaoArCG71sVQci4vkZaITzl/V1w==}
+    engines: {node: 20 || 22 || >=24}
+    hasBin: true
+
   '@cucumber/cucumber@7.3.2':
     resolution: {integrity: sha512-qqptM9w+UqXEYBAkrIGpIVPXDWv+zp0LrS89LiwHZwBp0cJg00su/iPMZ4j8TvCJiKfAwJXsAI1yjrd1POtU+w==}
     engines: {node: '>=10'}
@@ -3524,6 +3529,9 @@ packages:
   '@cucumber/gherkin@32.2.0':
     resolution: {integrity: sha512-X8xuVhSIqlUjxSRifRJ7t0TycVWyX58fygJH3wDNmHINLg9sYEkvQT0SO2G5YlRZnYc11TIFr4YPenscvdlBIw==}
 
+  '@cucumber/gherkin@34.0.0':
+    resolution: {integrity: sha512-659CCFsrsyvuBi/Eix1fnhSheMnojSfnBcqJ3IMPNawx7JlrNJDcXYSSdxcUw3n/nG05P+ptCjmiZY3i14p+tA==}
+
   '@cucumber/html-formatter@15.0.2':
     resolution: {integrity: sha512-j+YGY4ytj78G/v1gZo53D+vuKXlTg/oxNwSCCGvRQo75+AqYDJSkm/vexXJQ5lY1rXAvlbZ9KI6jhg6LDs0YdQ==}
     hasBin: true
@@ -3553,6 +3561,11 @@ packages:
     peerDependencies:
       '@cucumber/messages': '>=18'
 
+  '@cucumber/html-formatter@21.14.0':
+    resolution: {integrity: sha512-vQqbmQZc0QiN4c+cMCffCItpODJlOlYtPG7pH6We096dBOa7u0ttDMjT6KrMAnQlcln54rHL46r408IFpuznAw==}
+    peerDependencies:
+      '@cucumber/messages': '>=18'
+
   '@cucumber/html-formatter@21.6.0':
     resolution: {integrity: sha512-Qw1tdObBJrgXgXwVjKVjB3hFhFPI8WhIFb+ULy8g5lDl5AdnKDiyDXAMvAWRX+pphnRMMNdkPCt6ZXEfWvUuAA==}
     peerDependencies:
@@ -3560,6 +3573,11 @@ packages:
 
   '@cucumber/junit-xml-formatter@0.7.1':
     resolution: {integrity: sha512-AzhX+xFE/3zfoYeqkT7DNq68wAQfBcx4Dk9qS/ocXM2v5tBv6eFQ+w8zaSfsktCjYzu4oYRH/jh4USD1CYHfaQ==}
+    peerDependencies:
+      '@cucumber/messages': '*'
+
+  '@cucumber/junit-xml-formatter@0.8.1':
+    resolution: {integrity: sha512-FT1Y96pyd9/ifbE9I7dbkTCjkwEdW9C0MBobUZoKD13c8EnWAt0xl1Yy/v/WZLTk4XfCLte1DATtLx01jt+YiA==}
     peerDependencies:
       '@cucumber/messages': '*'
 
@@ -3594,6 +3612,15 @@ packages:
 
   '@cucumber/messages@27.2.0':
     resolution: {integrity: sha512-f2o/HqKHgsqzFLdq6fAhfG1FNOQPdBdyMGpKwhb7hZqg0yZtx9BVqkTyuoNk83Fcvk3wjMVfouFXXHNEk4nddA==}
+
+  '@cucumber/messages@28.1.0':
+    resolution: {integrity: sha512-2LzZtOwYKNlCuNf31ajkrekoy2M4z0Z1QGiPH40n4gf5t8VOUFb7m1ojtR4LmGvZxBGvJZP8voOmRqDWzBzYKA==}
+
+  '@cucumber/pretty-formatter@1.0.1':
+    resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
+    peerDependencies:
+      '@cucumber/cucumber': '>=7.0.0'
+      '@cucumber/messages': '*'
 
   '@cucumber/query@13.1.0':
     resolution: {integrity: sha512-QBndVZOjXB3cPBw1tmIGWMIyttSAL1voJY4uveySsP5hMH2mk/mSeUIBNGjMZKvjCyalTTg57/MT4Sk560ZffQ==}
@@ -8491,6 +8518,10 @@ packages:
     resolution: {integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==}
     engines: {node: '>=12'}
 
+  luxon@3.7.1:
+    resolution: {integrity: sha512-RkRWjA926cTvz5rAb1BqyWkKbbjzCGchDUIKMCUvNi17j6f6j8uHGDV82Aqcqtzd+icoYpELmG3ksgGiFNNcNg==}
+    engines: {node: '>=12'}
+
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
@@ -8724,6 +8755,11 @@ packages:
 
   mkdirp@2.1.6:
     resolution: {integrity: sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  mkdirp@3.0.1:
+    resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -10606,6 +10642,10 @@ packages:
     peerDependencies:
       typescript: '>=4.2.0'
 
+  ts-dedent@2.2.0:
+    resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
+    engines: {node: '>=6.10'}
+
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
@@ -10870,6 +10910,10 @@ packages:
 
   uuid@11.0.5:
     resolution: {integrity: sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==}
+    hasBin: true
+
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
   uuid@3.3.2:
@@ -11318,6 +11362,9 @@ packages:
 
   yup@1.6.1:
     resolution: {integrity: sha512-JED8pB50qbA4FOkDol0bYF/p60qSEDQqBD0/qeIrUCG1KbPBIQ776fCUNb9ldbPcSTxA69g/47XTo4TqWiuXOA==}
+
+  yup@1.7.0:
+    resolution: {integrity: sha512-VJce62dBd+JQvoc+fCVq+KZfPHr+hXaxCcVgotfwWvlR0Ja3ffYKaJBT8rptPOSKOGJDCUnW2C2JWpud7aRP6Q==}
 
   zip-stream@6.0.1:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
@@ -11795,6 +11842,49 @@ snapshots:
       yaml: 2.7.0
       yup: 1.6.1
 
+  '@cucumber/cucumber@12.2.0':
+    dependencies:
+      '@cucumber/ci-environment': 10.0.1
+      '@cucumber/cucumber-expressions': 18.0.1
+      '@cucumber/gherkin': 34.0.0
+      '@cucumber/gherkin-streams': 5.0.1(@cucumber/gherkin@34.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@28.1.0))(@cucumber/messages@28.1.0)
+      '@cucumber/gherkin-utils': 9.2.0
+      '@cucumber/html-formatter': 21.14.0(@cucumber/messages@28.1.0)
+      '@cucumber/junit-xml-formatter': 0.8.1(@cucumber/messages@28.1.0)
+      '@cucumber/message-streams': 4.0.1(@cucumber/messages@28.1.0)
+      '@cucumber/messages': 28.1.0
+      '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.2.0)(@cucumber/messages@28.1.0)
+      '@cucumber/tag-expressions': 6.2.0
+      assertion-error-formatter: 3.0.0
+      capital-case: 1.0.4
+      chalk: 4.1.2
+      cli-table3: 0.6.5
+      commander: 14.0.0
+      debug: 4.4.1(supports-color@8.1.1)
+      error-stack-parser: 2.1.4
+      figures: 3.2.0
+      glob: 11.0.1
+      has-ansi: 4.0.1
+      indent-string: 4.0.0
+      is-installed-globally: 0.4.0
+      is-stream: 2.0.1
+      knuth-shuffle-seeded: 1.0.6
+      lodash.merge: 4.6.2
+      lodash.mergewith: 4.6.2
+      luxon: 3.7.1
+      mime: 3.0.0
+      mkdirp: 3.0.1
+      mz: 2.7.0
+      progress: 2.0.3
+      read-package-up: 11.0.0
+      semver: 7.7.2
+      string-argv: 0.3.1
+      supports-color: 8.1.1
+      type-fest: 4.41.0
+      util-arity: 1.1.0
+      yaml: 2.7.0
+      yup: 1.7.0
+
   '@cucumber/cucumber@7.3.2':
     dependencies:
       '@cucumber/create-meta': 5.0.0
@@ -12014,6 +12104,14 @@ snapshots:
       commander: 9.1.0
       source-map-support: 0.5.21
 
+  '@cucumber/gherkin-streams@5.0.1(@cucumber/gherkin@34.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@28.1.0))(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/gherkin': 34.0.0
+      '@cucumber/message-streams': 4.0.1(@cucumber/messages@28.1.0)
+      '@cucumber/messages': 28.1.0
+      commander: 9.1.0
+      source-map-support: 0.5.21
+
   '@cucumber/gherkin-utils@8.0.0':
     dependencies:
       '@cucumber/messages': 19.1.4
@@ -12081,6 +12179,10 @@ snapshots:
     dependencies:
       '@cucumber/messages': 26.0.1
 
+  '@cucumber/gherkin@34.0.0':
+    dependencies:
+      '@cucumber/messages': 26.0.1
+
   '@cucumber/html-formatter@15.0.2':
     dependencies:
       '@cucumber/messages': 16.0.1
@@ -12107,6 +12209,10 @@ snapshots:
     dependencies:
       '@cucumber/messages': 27.2.0
 
+  '@cucumber/html-formatter@21.14.0(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/messages': 28.1.0
+
   '@cucumber/html-formatter@21.6.0(@cucumber/messages@24.1.0)':
     dependencies:
       '@cucumber/messages': 24.1.0
@@ -12117,6 +12223,14 @@ snapshots:
       '@cucumber/query': 13.1.0(@cucumber/messages@27.2.0)
       '@teppeis/multimaps': 3.0.0
       luxon: 3.6.1
+      xmlbuilder: 15.1.1
+
+  '@cucumber/junit-xml-formatter@0.8.1(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/messages': 28.1.0
+      '@cucumber/query': 13.1.0(@cucumber/messages@28.1.0)
+      '@teppeis/multimaps': 3.0.0
+      luxon: 3.7.1
       xmlbuilder: 15.1.1
 
   '@cucumber/message-streams@2.1.0':
@@ -12142,6 +12256,10 @@ snapshots:
   '@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0)':
     dependencies:
       '@cucumber/messages': 27.2.0
+
+  '@cucumber/message-streams@4.0.1(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/messages': 28.1.0
 
   '@cucumber/messages@16.0.1':
     dependencies:
@@ -12199,9 +12317,30 @@ snapshots:
       reflect-metadata: 0.2.2
       uuid: 11.0.5
 
+  '@cucumber/messages@28.1.0':
+    dependencies:
+      '@types/uuid': 10.0.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.2.2
+      uuid: 11.1.0
+
+  '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.2.0)(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/cucumber': 12.2.0
+      '@cucumber/messages': 28.1.0
+      ansi-styles: 5.2.0
+      cli-table3: 0.6.5
+      figures: 3.2.0
+      ts-dedent: 2.2.0
+
   '@cucumber/query@13.1.0(@cucumber/messages@27.2.0)':
     dependencies:
       '@cucumber/messages': 27.2.0
+      '@teppeis/multimaps': 3.0.0
+
+  '@cucumber/query@13.1.0(@cucumber/messages@28.1.0)':
+    dependencies:
+      '@cucumber/messages': 28.1.0
       '@teppeis/multimaps': 3.0.0
 
   '@cucumber/tag-expressions@3.0.1': {}
@@ -18318,6 +18457,8 @@ snapshots:
 
   luxon@3.6.1: {}
 
+  luxon@3.7.1: {}
+
   magic-string@0.30.17:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
@@ -18535,6 +18676,8 @@ snapshots:
   mkdirp@1.0.4: {}
 
   mkdirp@2.1.6: {}
+
+  mkdirp@3.0.1: {}
 
   mocha-multi@1.1.7(mocha@11.7.1):
     dependencies:
@@ -19151,7 +19294,7 @@ snapshots:
 
   parse-json@8.1.0:
     dependencies:
-      '@babel/code-frame': 7.26.2
+      '@babel/code-frame': 7.27.1
       index-to-position: 0.1.2
       type-fest: 4.41.0
 
@@ -19554,7 +19697,7 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.33.0
+      type-fest: 4.41.0
 
   read-pkg-up@10.0.0:
     dependencies:
@@ -20681,6 +20824,8 @@ snapshots:
     dependencies:
       typescript: 5.9.2
 
+  ts-dedent@2.2.0: {}
+
   ts-node@10.9.2(@types/node@22.18.1)(typescript@5.9.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -20945,6 +21090,8 @@ snapshots:
   uuid@10.0.0: {}
 
   uuid@11.0.5: {}
+
+  uuid@11.1.0: {}
 
   uuid@3.3.2: {}
 
@@ -21504,6 +21651,13 @@ snapshots:
       type-fest: 2.19.0
 
   yup@1.6.1:
+    dependencies:
+      property-expr: 2.0.6
+      tiny-case: 1.0.3
+      toposort: 2.0.2
+      type-fest: 2.19.0
+
+  yup@1.7.0:
     dependencies:
       property-expr: 2.0.6
       tiny-case: 1.0.3
