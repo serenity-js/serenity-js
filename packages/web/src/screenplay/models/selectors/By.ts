@@ -14,7 +14,7 @@ import { ByXPath } from './ByXPath';
  * `By` produces a [`Selector`](https://serenity-js.org/api/web/class/Selector/) used to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/) on a web page.
  * Selectors can be defined using a static value or a [`Question`](https://serenity-js.org/api/core/class/Question/) to be resolved at runtime.
  *
- * ## Using a static value
+ * ## Defining a selector using a string
  *
  * Every selector method on this class accepts a static `string` value to define a selector.
  *
