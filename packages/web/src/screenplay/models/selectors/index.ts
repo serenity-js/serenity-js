@@ -3,6 +3,7 @@ export * from './ByCss';
 export * from './ByCssContainingText';
 export * from './ByDeepCss';
 export * from './ById';
+export * from './ByRole';
 export * from './ByTagName';
 export * from './ByXPath';
 export * from './Selector';
