@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.35.0](https://github.com/serenity-js/serenity-js/compare/v3.34.2...v3.35.0) (2025-09-07)
+
+
+### Features
+
+* **web:** support for identifying page elements by their ARIA role ([cf3672a](https://github.com/serenity-js/serenity-js/commit/cf3672a6fe3051eab9c195f2f342ebf55c19e2d6))
+
+
+
+
+
+## [3.34.2](https://github.com/serenity-js/serenity-js/compare/v3.34.1...v3.34.2) (2025-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v12.2.0 ([0162244](https://github.com/serenity-js/serenity-js/commit/016224465f46491c8de9bb60122d107e93a8080b))
+* **deps:** update dependency jasmine to v5.10.0 ([aea8e61](https://github.com/serenity-js/serenity-js/commit/aea8e61cb5866909a0f3e2c8100f9adea7a8ff87))
+* **deps:** update dependency lru-cache to v11.2.1 ([c9e41eb](https://github.com/serenity-js/serenity-js/commit/c9e41ebfd4ab7cd5a9c0d475c0e8f3dd8f9ec466))
+* **deps:** update webdriverio dependencies to ^9.19.2 ([599123d](https://github.com/serenity-js/serenity-js/commit/599123d6047c2c07270b6ad1e2059fae05b632c0))
+
+
+
+
+
 ## [3.34.1](https://github.com/serenity-js/serenity-js/compare/v3.34.0...v3.34.1) (2025-08-20)
 
 

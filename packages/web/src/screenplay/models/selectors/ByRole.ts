@@ -93,9 +93,12 @@ export class ByRole extends Selector {
 export interface ByRoleSelectorOptions {
 
     /**
-     * An attribute that is usually set by `aria-checked` or native `<input type=checkbox>` controls.
+     * An attribute that is usually set by [`aria-checked`](https://www.w3.org/TR/wai-aria-1.2/#aria-checked) or
+     * native `<input type=checkbox>` controls.
      *
-     * Learn more about [`aria-checked`](https://www.w3.org/TR/wai-aria-1.2/#aria-checked).
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     checked?: boolean;
 
@@ -105,14 +108,30 @@ export interface ByRoleSelectorOptions {
      * **NOTE** Unlike most other attributes, `disabled` is inherited through the DOM hierarchy. Learn more about
      * [`aria-disabled`](https://www.w3.org/TR/wai-aria-1.2/#aria-disabled).
      *
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     disabled?: boolean;
 
     /**
-     * Whether [`name`](https://playwright.dev/docs/api/class-page#page-get-by-role-option-name) is matched exactly:
-     * case-sensitive and whole-string. Defaults to false. Ignored when
-     * [`name`](https://playwright.dev/docs/api/class-page#page-get-by-role-option-name) is a regular expression. Note
-     * that exact match still trims whitespace.
+     * Whether [`name`](https://serenity-js.org/api/web/interface/ByRoleSelectorOptions/#name) is matched exactly:
+     * case-sensitive and whole-string.
+     *
+     * :::tip Playwright matching defaults
+     * Playwright defaults to `false` for backwards compatibility, but we recommend setting this property to `true`
+     * to avoid unintentional matches.
+     * :::
+     *
+     * :::tip Playwright and name RegExp
+     * Playwright supports using a `RegExp` to match the name.
+     * When using a `RegExp`, exact matching is not applicable and this option is ignored.
+     * Note that **exact match still trims whitespace**.
+     * :::
+     *
+     * :::tip WebdriverIO
+     * WebdriverIO always performs exact matching, so this option is ignored.
+     * :::
      */
     exact?: boolean;
 
@@ -120,6 +139,10 @@ export interface ByRoleSelectorOptions {
      * An attribute that is usually set by `aria-expanded`.
      *
      * Learn more about [`aria-expanded`](https://www.w3.org/TR/wai-aria-1.2/#aria-expanded).
+     *
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     expanded?: boolean;
 
@@ -128,6 +151,10 @@ export interface ByRoleSelectorOptions {
      * [defined by ARIA](https://www.w3.org/TR/wai-aria-1.2/#tree_exclusion), are matched by role selector.
      *
      * Learn more about [`aria-hidden`](https://www.w3.org/TR/wai-aria-1.2/#aria-hidden).
+     *
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     includeHidden?: boolean;
 
@@ -136,29 +163,43 @@ export interface ByRoleSelectorOptions {
      * for `<h1>-<h6>` elements.
      *
      * Learn more about [`aria-level`](https://www.w3.org/TR/wai-aria-1.2/#aria-level).
+     *
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     level?: number;
 
     /**
-     * Option to match the [accessible name](https://w3c.github.io/accname/#dfn-accessible-name). By default, matching is
-     * case-insensitive and searches for a substring, use
-     * [`exact`](https://playwright.dev/docs/api/class-page#page-get-by-role-option-exact) to control this behavior.
+     * Option to match the [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
      *
-     * Learn more about [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
+     * :::tip Playwright
+     * Only Playwright supports using a `RegExp` to match the name. When using a `string` instead, Playwright performs
+     * a **case-insensitive** match and searches for a **substring**. Use
+     * [`exact`](https://serenity-js.org/api/web/interface/ByRoleSelectorOptions/#exact) to control this behavior.
+     * :::
+     *
+     * :::tip WebdriverIO
+     * WebdriverIO does not support using `RegExp` and performs a **case-sensitive** and **exact** matching.
+     * :::
      */
     name?: string | RegExp;
 
     /**
-     * An attribute that is usually set by `aria-pressed`.
+     * An attribute that is usually set by [`aria-pressed`](https://www.w3.org/TR/wai-aria-1.2/#aria-pressed).
      *
-     * Learn more about [`aria-pressed`](https://www.w3.org/TR/wai-aria-1.2/#aria-pressed).
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     pressed?: boolean;
 
     /**
-     * An attribute that is usually set by `aria-selected`.
+     * An attribute that is usually set by [`aria-selected`](https://www.w3.org/TR/wai-aria-1.2/#aria-selected).
      *
-     * Learn more about [`aria-selected`](https://www.w3.org/TR/wai-aria-1.2/#aria-selected).
+     * :::tip Playwright only
+     * This property is supported only by Playwright.
+     * :::
      */
     selected?: boolean;
 }

@@ -1,4 +1,4 @@
-import type { Answerable } from '@serenity-js/core';
+import type { Answerable, WithAnswerableProperties } from '@serenity-js/core';
 import { f, Question, the } from '@serenity-js/core';
 
 import { ByCss } from './ByCss';
@@ -14,25 +14,27 @@ import { ByXPath } from './ByXPath';
  * `By` produces a [`Selector`](https://serenity-js.org/api/web/class/Selector/) used to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/) on a web page.
  * Selectors can be defined using a static value or a [`Question`](https://serenity-js.org/api/core/class/Question/) to be resolved at runtime.
  *
- * ### Defining a selector using a static value
+ * ## Defining a selector using a string
+ *
+ * Every selector method on this class accepts a static `string` value to define a selector.
  *
  * ```typescript
  * import { PageElement, By } from '@serenity-js/web'
  *
  * class LoginForm {
  *   static usernameField = () =>
- *     PageElement.located(By.id('username'))              // locate element by its id
- *       .describedAs('username field')
+ *     PageElement.located(By.role('textbox', { name: 'Username' }))
+ *       .describedAs('username field'),
  *
  *   static passwordField = () =>
- *     PageElement.located(By.css('[data-test="password"]'))    // locate element using a CSS selector
+ *     PageElement.located(By.css('[data-test-id="password"]'))
  *       .describedAs('password field')
  * }
  * ```
  *
- * ### Defining a selector using a Question
+ * ## Defining a selector using a Question
  *
- * Each method on this class accepts an [`Answerable`](https://serenity-js.org/api/core/#Answerable) to allow for dynamic resolution of the selector.
+ * Each method on this class also accepts an [`Answerable`](https://serenity-js.org/api/core/#Answerable) to allow for dynamic resolution of the selector.
  * This can be useful when the selector is not known at the time of writing the test, or when the selector
  * needs to be calculated based on the state of the system under test.
  *
@@ -50,7 +52,7 @@ import { ByXPath } from './ByXPath';
  *
  * ```
  *
- * ### Learn more
+ * ## Learn more
  * - [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language)
  * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  * - [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
@@ -112,9 +114,94 @@ export class By {
         });
     }
 
-    static role(role: ByRoleSelectorValue, options: ByRoleSelectorOptions = {}): Question<Promise<ByRole>> {
-        return Question.about(the`by role (${ { role, ...options } })`, async actor => {
-            return new ByRole(role, options);
+    /**
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) by its [ARIA role](https://www.w3.org/TR/wai-aria-1.2/#roles),
+     * [ARIA attributes](https://www.w3.org/TR/wai-aria-1.2/#aria-attributes) and [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
+     *
+     * ### Example usage
+     *
+     * Given the following HTML structure:
+     *
+     * ```html
+     * <h3>Sign up</h3>
+     * <label>
+     *   <input type="checkbox" /> Subscribe
+     * </label>
+     * <br/>
+     * <button>Submit</button>
+     * ```
+     *
+     * Each element can be located by its implicit accessibility role:
+     *
+     * ```ts
+     * const heading  = PageElement.located(By.role('heading', { name: 'Sign up' })).describedAs('Sign up heading');
+     * const checkbox = PageElement.located(By.role('checkbox', { name: 'Subscribe' })).describedAs('Subscribe checkbox');
+     * const button   = PageElement.located(By.role('button', { name: 'Submit' })).describedAs('Submit button');
+     * ```
+     *
+     * #### Playwright Test
+     *
+     * ```ts
+     * import { Ensure } from '@serenity-js/assertions'
+     * import { Click, PageElement, By, isVisible } from '@serenity-js/web'
+     *
+     * // ... page element definitions as above
+     *
+     * describe('ARIA role selector', () => {
+     *   it('locates an element by its accessible name', async ({ actor }) => {
+     *     await actor.attemptsTo(
+     *       Ensure.that(heading, isVisible()),
+     *       Click.on(checkbox),
+     *       Click.on(button),
+     *     )
+     *   })
+     * })
+     * ```
+     *
+     * #### WebdriverIO
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Ensure } from '@serenity-js/assertions'
+     * import { Click, PageElement, By, isVisible } from '@serenity-js/web'
+     *
+     * // ... page element definitions as above
+     *
+     * describe('ARIA role selector', () => {
+     *   it('locates an element by its accessible name', async () => {
+     *     await actorCalled('Nick').attemptsTo(
+     *       Ensure.that(heading, isVisible()),
+     *       Click.on(checkbox),
+     *       Click.on(button),
+     *     )
+     *   })
+     * })
+     * ```
+     *
+     * @param role
+     * @param options
+     */
+    static role(role: ByRoleSelectorValue, options: Answerable<WithAnswerableProperties<ByRoleSelectorOptions>> = {}): Question<Promise<ByRole>> {
+        const descriptionOf = (selectorOptions: Answerable<WithAnswerableProperties<ByRoleSelectorOptions>>) => {
+            if (Question.isAQuestion(selectorOptions)) {
+                return the`by role ${ role } (options: ${ options  })`
+            }
+
+            if (Object.keys(selectorOptions).length === 0) {
+                return `by role "${ role }"`;
+            }
+
+            const description = [];
+            for (const [ key, value ] of Object.entries(selectorOptions)) {
+                description.push(key + f`: ${ value }`);
+            }
+
+            return `by role "${ role }" (${ description.join(', ') })`;
+        }
+
+        return Question.about(descriptionOf(options), async actor => {
+            const optionsValue = await actor.answer(Question.fromObject(options)) as ByRoleSelectorOptions;
+            return new ByRole(role, optionsValue);
         });
     }
 
@@ -142,27 +229,3 @@ export class By {
         });
     }
 }
-
-/*
-getByTestId(testId) {
-    return this.locator((0, import_locatorUtils.getByTestIdSelector)(testIdAttributeName(), testId));
-  }
-  getByAltText(text, options) {
-    return this.locator((0, import_locatorUtils.getByAltTextSelector)(text, options));
-  }
-  getByLabel(text, options) {
-    return this.locator((0, import_locatorUtils.getByLabelSelector)(text, options));
-  }
-  getByPlaceholder(text, options) {
-    return this.locator((0, import_locatorUtils.getByPlaceholderSelector)(text, options));
-  }
-  getByText(text, options) {
-    return this.locator((0, import_locatorUtils.getByTextSelector)(text, options));
-  }
-  getByTitle(text, options) {
-    return this.locator((0, import_locatorUtils.getByTitleSelector)(text, options));
-  }
-  getByRole(role, options = {}) {
-    return this.locator((0, import_locatorUtils.getByRoleSelector)(role, options));
-  }
- */

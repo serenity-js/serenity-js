@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.35.0](https://github.com/serenity-js/serenity-js/compare/v3.34.2...v3.35.0) (2025-09-07)
+
+
+### Features
+
+* **web:** support for identifying page elements by their ARIA role ([cf3672a](https://github.com/serenity-js/serenity-js/commit/cf3672a6fe3051eab9c195f2f342ebf55c19e2d6))
+
+
+
+
+
+## [3.34.2](https://github.com/serenity-js/serenity-js/compare/v3.34.1...v3.34.2) (2025-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update webdriverio dependencies to ^9.19.2 ([599123d](https://github.com/serenity-js/serenity-js/commit/599123d6047c2c07270b6ad1e2059fae05b632c0))
+
+
+
+
+
 ## [3.34.1](https://github.com/serenity-js/serenity-js/compare/v3.34.0...v3.34.1) (2025-08-20)
 
 
