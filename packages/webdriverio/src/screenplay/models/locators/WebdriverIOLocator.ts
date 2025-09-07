@@ -2,7 +2,7 @@ import 'webdriverio';
 
 import { f, LogicError } from '@serenity-js/core';
 import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
-import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByRole, ByTagName, ByXPath, Locator } from '@serenity-js/web';
 
 import type { WebdriverIOErrorHandler } from '../WebdriverIOErrorHandler.js';
 import { WebdriverIOPageElement } from '../WebdriverIOPageElement.js';
@@ -39,6 +39,12 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
 
         if (this.selector instanceof ById) {
             return `#${ this.selector.value }`;
+        }
+
+        if (this.selector instanceof ByRole) {
+            return this.selector.options.name
+                ? `aria/${ this.selector.options.name }`
+                : `[role=${ this.selector.value }]`;
         }
 
         if (this.selector instanceof ByTagName) {

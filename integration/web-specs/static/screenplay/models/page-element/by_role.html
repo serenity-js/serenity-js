@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Serenity/JS By.role() examples</title>
+</head>
+<body>
+<header role="banner">
+    <h1>App Demo</h1>
+</header>
+
+<nav role="navigation" aria-label="Main menu">
+    <ul>
+        <li><a href="#home" role="link">Home</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</nav>
+
+<main role="main">
+    <form role="form" aria-label="Signup">
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" role="textbox" aria-label="Email Address"/>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" role="checkbox" aria-checked="false" aria-label="Subscribe" />
+                Subscribe
+            </label>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <h2 role="heading" aria-level="2">
+        Fruits List
+    </h2>
+    <ul role="list">
+        <li role="listitem">Apple</li>
+        <li role="listitem">Banana</li>
+        <li role="listitem">Cherry</li>
+    </ul>
+
+    <img src="logo.png" alt="Company Logo" />
+    <div role="alert">This is an important alert!</div>
+    <progress role="progressbar" value="70" max="100" aria-valuenow="70">70%</progress>
+</main>
+
+<aside>
+    <button aria-labelledby="ref-1">Click Me!</button>
+    <div id="ref-1">Some_button</div>
+</aside>
+
+</body>
+</html>
