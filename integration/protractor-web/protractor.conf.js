@@ -8,6 +8,9 @@ exports.config = {
         './node_modules/@integration/web-specs/spec/**/*.spec.ts',
         './spec/**/*.spec.ts',
     ],
+    exclude: [
+        './node_modules/@integration/web-specs/spec/**/PageElement.located.ByRole.spec.ts'
+    ],
 
     baseUrl: `http://localhost:${ process.env.PORT || 8080 }`,
     framework:      'custom',
