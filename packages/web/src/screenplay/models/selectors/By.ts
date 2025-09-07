@@ -14,25 +14,27 @@ import { ByXPath } from './ByXPath';
  * `By` produces a [`Selector`](https://serenity-js.org/api/web/class/Selector/) used to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/) on a web page.
  * Selectors can be defined using a static value or a [`Question`](https://serenity-js.org/api/core/class/Question/) to be resolved at runtime.
  *
- * ### Defining a selector using a static value
+ * ## Using a static value
+ *
+ * Every selector method on this class accepts a static `string` value to define a selector.
  *
  * ```typescript
  * import { PageElement, By } from '@serenity-js/web'
  *
  * class LoginForm {
  *   static usernameField = () =>
- *     PageElement.located(By.id('username'))              // locate element by its id
- *       .describedAs('username field')
+ *     PageElement.located(By.role('textbox', { name: 'Username' }))
+ *       .describedAs('username field'),
  *
  *   static passwordField = () =>
- *     PageElement.located(By.css('[data-test="password"]'))    // locate element using a CSS selector
+ *     PageElement.located(By.css('[data-test-id="password"]'))
  *       .describedAs('password field')
  * }
  * ```
  *
- * ### Defining a selector using a Question
+ * ## Defining a selector using a Question
  *
- * Each method on this class accepts an [`Answerable`](https://serenity-js.org/api/core/#Answerable) to allow for dynamic resolution of the selector.
+ * Each method on this class also accepts an [`Answerable`](https://serenity-js.org/api/core/#Answerable) to allow for dynamic resolution of the selector.
  * This can be useful when the selector is not known at the time of writing the test, or when the selector
  * needs to be calculated based on the state of the system under test.
  *
@@ -50,7 +52,7 @@ import { ByXPath } from './ByXPath';
  *
  * ```
  *
- * ### Learn more
+ * ## Learn more
  * - [Page Element Query Language](https://serenity-js.org/handbook/web-testing/page-element-query-language)
  * - [`PageElement`](https://serenity-js.org/api/web/class/PageElement/)
  * - [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)
@@ -116,7 +118,7 @@ export class By {
      * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) by its [ARIA role](https://www.w3.org/TR/wai-aria-1.2/#roles),
      * [ARIA attributes](https://www.w3.org/TR/wai-aria-1.2/#aria-attributes) and [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
      *
-     * #### Example usage
+     * ### Example usage
      *
      * Given the following HTML structure:
      *
@@ -137,7 +139,7 @@ export class By {
      * const button   = PageElement.located(By.role('button', { name: 'Submit' })).describedAs('Submit button');
      * ```
      *
-     * ##### Playwright Test
+     * #### Playwright Test
      *
      * ```ts
      * import { Ensure } from '@serenity-js/assertions'
@@ -156,7 +158,7 @@ export class By {
      * })
      * ```
      *
-     * ##### WebdriverIO
+     * #### WebdriverIO
      *
      * ```ts
      * import { actorCalled } from '@serenity-js/core'
