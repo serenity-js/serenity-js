@@ -19,7 +19,7 @@ import { PageElementInteraction } from './PageElementInteraction';
  * ## Lean Page Object describing the widget
  *
  * ```ts
- * import { By, PageElement } from '@serenity-js/webdriverio';
+ * import { By, PageElement } from '@serenity-js/web';
  *
  * class Form {
  *   static exampleInput = () =>

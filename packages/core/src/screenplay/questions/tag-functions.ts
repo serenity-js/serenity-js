@@ -187,7 +187,7 @@ export function the(...args: any[]): any {
  * `q` is a tag function capable of resolving any `Answerable<string>` or `Answerable<number>`
  * you parametrise it with, and returning a `QuestionAdapter<string>`.
  *
- * Use `q` to concatenate `string` and `number` values returned from synchronous an asynchronous sources.
+ * Use `q` to concatenate `string` and `number` values returned from synchronous and asynchronous sources.
  *
  * ## Interpolating questions
  *

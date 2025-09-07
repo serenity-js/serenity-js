@@ -196,8 +196,8 @@ export function engage(actors: Cast): void {
  * ## Usage with Playwright Test
  *
  * When using [Serenity/JS with Playwright Test](https://serenity-js.org/api/playwright-test/), you should use either
- * the default [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled) fixture
- * or the injected [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actorCalled) function
+ * the default [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor) fixture
+ * or the injected [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled) function
  * instead of importing it from `@serenity-js/core`.
  *
  * ```typescript

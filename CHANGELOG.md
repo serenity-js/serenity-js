@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.34.1](https://github.com/serenity-js/serenity-js/compare/v3.34.0...v3.34.1) (2025-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to v1.24.1 ([14c705a](https://github.com/serenity-js/serenity-js/commit/14c705a83bd7b38dec34529fbb7875168dbc7f3c))
+* **deps:** update playwright dependencies to v1.55.0 ([6b501cb](https://github.com/serenity-js/serenity-js/commit/6b501cbf975e6e1bf7729ccf245a858ab586b074))
+* **deps:** update webdriverio dependencies to ^9.19.1 ([d8f26e1](https://github.com/serenity-js/serenity-js/commit/d8f26e120cf1dffb3d100c14bed9676f07c4cb20))
+
+
+
+
+
 # [3.34.0](https://github.com/serenity-js/serenity-js/compare/v3.33.1...v3.34.0) (2025-08-01)
 
 
