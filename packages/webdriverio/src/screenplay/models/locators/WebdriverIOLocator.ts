@@ -42,7 +42,7 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
         }
 
         if (this.selector instanceof ByRole) {
-            return this.selector.options.name
+            return this.selector.options.name && typeof this.selector.options.name === 'string'
                 ? `aria/${ this.selector.options.name }`
                 : `[role=${ this.selector.value }]`;
         }

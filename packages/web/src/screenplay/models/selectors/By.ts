@@ -137,8 +137,6 @@ export class By {
      * const button   = PageElement.located(By.role('button', { name: 'Submit' })).describedAs('Submit button');
      * ```
      *
-     * And then interacted with
-     *
      * ##### Playwright Test
      *
      * ```ts
