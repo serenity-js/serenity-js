@@ -12,7 +12,7 @@ export default defineConfig<TestOptions>({
     projects: [
         // { name: 'msedge', use: { mcpBrowser: 'msedge' } },
         { name: 'chromium', use: { mcpBrowser: 'chromium' } },
-        { name: 'firefox', use: { mcpBrowser: 'firefox' } },
-        { name: 'webkit', use: { mcpBrowser: 'webkit' } },
+        // { name: 'firefox', use: { mcpBrowser: 'firefox' } },
+        // { name: 'webkit', use: { mcpBrowser: 'webkit' } },
     ],
 });

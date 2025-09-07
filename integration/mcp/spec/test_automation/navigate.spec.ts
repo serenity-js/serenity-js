@@ -14,18 +14,16 @@ describe('Navigate', () => {
             });
 
             expect(response.structuredContent).toEqual({
-                dependencies: [
-                    '@serenity-js/web'
-                ],
-                imports: {
-                    '@serenity-js/web': [
-                        'Navigate'
-                    ]
+                result: {
+                    activity: {
+                        imports: {
+                            '@serenity-js/web': [
+                                'Navigate'
+                            ]
+                        },
+                        template: `Navigate.to('${ testServerUrl }')`,
+                    }
                 },
-                actorName: 'Alice',
-                activities: [
-                    `Navigate.to('${ testServerUrl }')`
-                ]
             });
 
             // expect(response.content[0].text).toEqual(trimmed`
@@ -58,18 +56,16 @@ describe('Navigate', () => {
             });
 
             expect(response.structuredContent).toEqual({
-                dependencies: [
-                    '@serenity-js/web'
-                ],
-                imports: {
-                    '@serenity-js/web': [
-                        'Navigate'
-                    ]
+                result: {
+                    activity: {
+                        imports: {
+                            '@serenity-js/web': [
+                                'Navigate'
+                            ]
+                        },
+                        template: `Navigate.back()`,
+                    }
                 },
-                actorName: 'Alice',
-                activities: [
-                    `Navigate.back()`
-                ]
             });
 
             // expect(response.content[0].text).toEqual(trimmed`
@@ -102,18 +98,16 @@ describe('Navigate', () => {
             });
 
             expect(response.structuredContent).toEqual({
-                dependencies: [
-                    '@serenity-js/web'
-                ],
-                imports: {
-                    '@serenity-js/web': [
-                        'Navigate'
-                    ]
+                result: {
+                    activity: {
+                        imports: {
+                            '@serenity-js/web': [
+                                'Navigate'
+                            ]
+                        },
+                        template: `Navigate.forward()`,
+                    }
                 },
-                actorName: 'Alice',
-                activities: [
-                    `Navigate.forward()`
-                ]
             });
 
             // expect(response.content[0].text).toEqual(trimmed`
@@ -146,18 +140,16 @@ describe('Navigate', () => {
             });
 
             expect(response.structuredContent).toEqual({
-                dependencies: [
-                    '@serenity-js/web'
-                ],
-                imports: {
-                    '@serenity-js/web': [
-                        'Navigate'
-                    ]
-                },
-                actorName: 'Alice',
-                activities: [
-                    `Navigate.reloadPage()`
-                ]
+                result: {
+                    activity: {
+                        imports: {
+                            '@serenity-js/web': [
+                                'Navigate'
+                            ]
+                        },
+                        template: `Navigate.reloadPage()`,
+                    }
+                }
             });
 
             // expect(response.content[0].text).toEqual(trimmed`

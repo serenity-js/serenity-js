@@ -11,7 +11,9 @@ import {
     ProjectConfigurePackageJsonScriptsController,
     ProjectConfigurePlaywrightTestController,
     ProjectCreateExampleTestFileController,
-    TestAutomationController
+    TestAutomationController,
+    TestAutomationPageElementResolverController,
+    TestAutomationSnapshotController,
 } from './controllers/index.js';
 import type { ToolController } from './controllers/ToolController.js';
 import type { PlaywrightBrowserConnection, SerenityModuleManager } from './integration/index.js';
@@ -53,6 +55,8 @@ export class SerenityMcpServer {
             new ProjectConfigurePlaywrightTestController(),
             new ProjectConfigurePackageJsonScriptsController(),
             new ProjectCreateExampleTestFileController(),
+            new TestAutomationSnapshotController(),
+            new TestAutomationPageElementResolverController(),
         ];
         const testAutomationControllers = this.schematics.map(schematic => new TestAutomationController(schematic));
 

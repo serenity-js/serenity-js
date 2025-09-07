@@ -186,8 +186,9 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
         const config = this.getPlaywrightConfigObject(configFile);
 
         const testDirectory = (config.getProperty('testDir') as any)?.getInitializer();
+
         const serenityBddReporter = testDirectory
-            ? [ '@serenity-js/serenity-bdd', { specDirectory: testDirectory } ]
+            ? [ '@serenity-js/serenity-bdd', { specDirectory: this.unquouted(testDirectory.getText()) } ]
             : '@serenity-js/serenity-bdd';
 
         const serenityReporter = [ '@serenity-js/playwright-test', {
@@ -227,6 +228,10 @@ export class ProjectConfigurePlaywrightTestController implements CapabilityContr
                 initializer: this.asJsonString([ serenityReporter ]),
             });
         }
+    }
+
+    private unquouted(value: string): string {
+        return value.replaceAll(/^["']|["']$/g, '');
     }
 
     private updateFixtureDefaults(configFile: SourceFile) {

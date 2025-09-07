@@ -52,7 +52,7 @@ describe('Project Configure Playwright Test', () => {
 +                [
 +                  '@serenity-js/serenity-bdd',
 +                  {
-+                    'specDirectory': 'testDir: './tests''
++                    'specDirectory': './tests'
 +                  }
 +                ],
 +                [

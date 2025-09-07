@@ -24,6 +24,22 @@ export class ScreenplayExecutionContext {
     ) {
     }
 
+    async answerAs<T>(actorName: string, template: CompiledTemplate): Promise<T> {
+        if (! this.serenity) {
+            this.serenity = await this.initialiseSerenity();
+        }
+
+        const contextGlobals = {
+            ...await this.createVmContextGlobals(template.imports),
+            actor: this.actorCalled(actorName),
+        };
+
+        const code = `(async () => await actor.answer(${ template.value }))()`
+
+        // todo: catch errors and report them to the user: SyntaxError
+        return await vm.runInNewContext(code, contextGlobals);
+    }
+
     async performAsActivity(actorName: string, template: CompiledTemplate): Promise<void> {
         if (! this.serenity) {
             this.serenity = await this.initialiseSerenity();

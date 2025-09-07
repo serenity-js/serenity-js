@@ -2,7 +2,7 @@ import type { CallToolResult, Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import type { ScreenplayExecutionContext, ScreenplaySchematic } from '../../context/index.js';
+import type { ScreenplayExecutionContext, ScreenplaySchematic} from '../../context/index.js';
 import { ScreenplayTemplate } from '../../context/index.js';
 import type { CapabilityDescriptor, InputSchema } from '../../schema.js';
 import type { CapabilityController } from '../CapabilityController.js';
@@ -17,34 +17,63 @@ export class TestAutomationController<Input extends InputSchema = InputSchema> i
         parameters: z.infer<Input>,
     ): Promise<CallToolResult> {
 
-        const parsedParameters = this.schematic.inputSchema.parse(parameters);
+        try {
+            const parsedParameters = this.schematic.inputSchema.parse(parameters);
 
-        // todo: InputSchema should require the actorName to be present
-        const actorName = parsedParameters['actorName'];
+            // todo: InputSchema should require the actorName to be present
+            const actorName = parsedParameters['actorName'];
 
-        const template = new ScreenplayTemplate(
-            this.schematic.imports,
-            this.schematic.template
-        ).compile(parsedParameters);
+            const template = new ScreenplayTemplate(
+                this.schematic.imports,
+                this.schematic.template,
+            ).compile(parsedParameters);
 
-        // todo: catch errors and report them to the user
-        await context.performAsActivity(actorName, template);
+            // TODO: for questions, return the template
+            if (this.schematic.type === 'Activity') {
+                await context.performAsActivity(actorName, template);
 
-        const imports = template.imports.toJSON();
-        const dependencies = Object.keys(imports).sort();
+                return {
+                    // todo: produce human-readable content
+                    content: [],
+                    structuredContent: {
+                        result: {
+                            activity: {
+                                imports: template.imports.toJSON(),
+                                template: template.value,
+                            }
+                        }
+                    }
+                }
+            }
 
-        // todo: return "view"
+            return {
+                // todo: produce human-readable content
+                content: [],
+                structuredContent: {
+                    result: {
+                        question: {
+                            imports: template.imports.toJSON(),
+                            template: template.value,
+                        }
+                    }
+                }
+            }
+        }
+        catch (error) {
+            console.warn({ error });
 
-        return {
-            // todo: produce human-readable content
-            content: [],
-            structuredContent: {
-                dependencies,
-                imports,
-                actorName,
-                activities: [
-                    template.value,
-                ]
+            return {
+                content: [
+                    { type: 'text', text: error instanceof Error ? error.message : String(error) }
+                ],
+                structuredContent: {
+                    error: error instanceof Error ? {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack,
+                    } : String(error)
+                },
+                isError: true,
             }
         }
     }

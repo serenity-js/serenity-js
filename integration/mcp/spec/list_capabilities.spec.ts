@@ -16,14 +16,28 @@ describe('List Capabilities', () => {
                 configure_package_json_scripts: 'Configure NPM scripts in package.json to include commands for running tests with Serenity/JS',
                 create_example_test_file: 'Create an example test file demonstrating writing Serenity/JS test scenarios',
             },
+            inspection: {
+                selector_resolver: 'Define a selector identifying a page element based on its reference from the accessibility snapshot',
+                snapshot: 'Capture an accessibility snapshot of the website to detect the elements of interest',
+            },
             test_automation: {
                 web: {
                     activities: {
+                        click: {
+                            on: 'Click.on($pageElement) - Click on a page element',
+                        },
                         navigate: {
                             to: 'Navigate.to($url) - Navigate to a specific URL in the browser',
                             back: 'Navigate.back() - Navigate back in the browser history',
                             forward: 'Navigate.forward() - Navigate forward in the browser history',
                             reload_page: 'Navigate.reloadPage() - Reload the current page in the browser',
+                        }
+                    },
+                    questions: {
+                        page_element: {
+                            located: {
+                                described_as: 'PageElement.located($selector).describedAs($description) - Define a page element using a selector and description'
+                            },
                         }
                     }
                 }

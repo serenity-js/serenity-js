@@ -26,11 +26,19 @@ export function answerableParameterSchema<Input extends InputSchema>(schema: Inp
 
     return z.union([
         schema,
-        z.object({
-            imports: ImportManifestSchema,
-            question: z.string().describe(`The question that returns the ${ lowercaseDescription }`),
-        })
+        questionParameterSchema(schema),
     ]).describe(`Either ${ lowercaseDescription } or a Question that returns ${ lowercaseDescription }`);
+}
+
+export function questionParameterSchema<Input extends InputSchema>(schema: Input): QuestionParameter {
+    // todo: avoid duplicating description logic with answerableParameterSchema
+    const customDescription = schema.description || 'parameter';
+    const lowercaseDescription = customDescription.charAt(0).toLowerCase() + customDescription.slice(1);
+
+    return z.object({
+        imports: ImportManifestSchema,
+        question: z.string().describe(`The question that returns the ${ lowercaseDescription }`),
+    });
 }
 
 export interface CapabilityDescriptor {

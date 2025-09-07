@@ -1,10 +1,12 @@
-import type { Answerable} from '@serenity-js/core';
-import { f, Question } from '@serenity-js/core';
+import type { Answerable } from '@serenity-js/core';
+import { f, Question, the } from '@serenity-js/core';
 
 import { ByCss } from './ByCss';
 import { ByCssContainingText } from './ByCssContainingText';
 import { ByDeepCss } from './ByDeepCss';
 import { ById } from './ById';
+import type { ByRoleSelectorOptions, ByRoleSelectorValue } from './ByRole';
+import { ByRole } from './ByRole';
 import { ByTagName } from './ByTagName';
 import { ByXPath } from './ByXPath';
 
@@ -64,7 +66,7 @@ export class By {
      * @param selector
      */
     static css(selector: Answerable<string>): Question<Promise<ByCss>> {
-        return Question.about(f`by css (${selector})`, async actor => {
+        return Question.about(f`by css (${ selector })`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ByCss(bySelector);
         });
@@ -78,7 +80,7 @@ export class By {
      * @param text
      */
     static cssContainingText(selector: Answerable<string>, text: Answerable<string>): Question<Promise<ByCssContainingText>> {
-        return Question.about(f`by css (${selector}) containing text ${ text }`, async actor => {
+        return Question.about(f`by css (${ selector }) containing text ${ text }`, async actor => {
             const bySelector = await actor.answer(selector);
             const textSelector = await actor.answer(text);
             return new ByCssContainingText(bySelector, textSelector);
@@ -92,7 +94,7 @@ export class By {
      * @param selector
      */
     static deepCss(selector: Answerable<string>): Question<Promise<ByCss>> {
-        return Question.about(f`by deep css (${selector})`, async actor => {
+        return Question.about(f`by deep css (${ selector })`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ByDeepCss(bySelector);
         });
@@ -104,9 +106,15 @@ export class By {
      * @param selector
      */
     static id(selector: Answerable<string>): Question<Promise<ById>> {
-        return Question.about(f`by id (${selector})`, async actor => {
+        return Question.about(f`by id (${ selector })`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ById(bySelector);
+        });
+    }
+
+    static role(role: ByRoleSelectorValue, options: ByRoleSelectorOptions = {}): Question<Promise<ByRole>> {
+        return Question.about(the`by role (${ { role, ...options } })`, async actor => {
+            return new ByRole(role, options);
         });
     }
 
@@ -116,7 +124,7 @@ export class By {
      * @param selector
      */
     static tagName(selector: Answerable<string>): Question<Promise<ByTagName>> {
-        return Question.about(f`by tag name (${selector})`, async actor => {
+        return Question.about(f`by tag name (${ selector })`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ByTagName(bySelector);
         });
@@ -128,9 +136,33 @@ export class By {
      * @param selector
      */
     static xpath(selector: Answerable<string>): Question<Promise<ByXPath>> {
-        return Question.about(f`by xpath (${selector})`, async actor => {
+        return Question.about(f`by xpath (${ selector })`, async actor => {
             const bySelector = await actor.answer(selector);
             return new ByXPath(bySelector);
         });
     }
 }
+
+/*
+getByTestId(testId) {
+    return this.locator((0, import_locatorUtils.getByTestIdSelector)(testIdAttributeName(), testId));
+  }
+  getByAltText(text, options) {
+    return this.locator((0, import_locatorUtils.getByAltTextSelector)(text, options));
+  }
+  getByLabel(text, options) {
+    return this.locator((0, import_locatorUtils.getByLabelSelector)(text, options));
+  }
+  getByPlaceholder(text, options) {
+    return this.locator((0, import_locatorUtils.getByPlaceholderSelector)(text, options));
+  }
+  getByText(text, options) {
+    return this.locator((0, import_locatorUtils.getByTextSelector)(text, options));
+  }
+  getByTitle(text, options) {
+    return this.locator((0, import_locatorUtils.getByTitleSelector)(text, options));
+  }
+  getByRole(role, options = {}) {
+    return this.locator((0, import_locatorUtils.getByRoleSelector)(role, options));
+  }
+ */

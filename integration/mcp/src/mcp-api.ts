@@ -134,8 +134,19 @@ export const {
     // eslint-disable-next-line no-empty-pattern
     testServerUrl: [ async ({ }, use) => {
         const server = http.createServer((request, response) => {
-            response.writeHead(200, { 'Content-Type': 'text/plain' });
-            response.end('Hello World\n');
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.end(`
+<html lang="en">
+<head>                        
+  <title>Test Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Hello, World!</h1>
+</body>
+</html>
+            `);
         });
 
         await new Promise<void>((resolve) => {
