@@ -112,6 +112,75 @@ export class By {
         });
     }
 
+    /**
+     * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) by its [ARIA role](https://www.w3.org/TR/wai-aria-1.2/#roles),
+     * [ARIA attributes](https://www.w3.org/TR/wai-aria-1.2/#aria-attributes) and [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
+     *
+     * #### Example usage
+     *
+     * Given the following HTML structure:
+     *
+     * ```html
+     * <h3>Sign up</h3>
+     * <label>
+     *   <input type="checkbox" /> Subscribe
+     * </label>
+     * <br/>
+     * <button>Submit</button>
+     * ```
+     *
+     * Each element can be located by its implicit accessibility role:
+     *
+     * ```ts
+     * const heading  = PageElement.located(By.role('heading', { name: 'Sign up' })).describedAs('Sign up heading');
+     * const checkbox = PageElement.located(By.role('checkbox', { name: 'Subscribe' })).describedAs('Subscribe checkbox');
+     * const button   = PageElement.located(By.role('button', { name: 'Submit' })).describedAs('Submit button');
+     * ```
+     *
+     * And then interacted with
+     *
+     * ##### Playwright Test
+     *
+     * ```ts
+     * import { Ensure } from '@serenity-js/assertions'
+     * import { Click, PageElement, By, isVisible } from '@serenity-js/web'
+     *
+     * // ... page element definitions as above
+     *
+     * describe('ARIA role selector', () => {
+     *   it('locates an element by its accessible name', async ({ actor }) => {
+     *     await actor.attemptsTo(
+     *       Ensure.that(heading, isVisible()),
+     *       Click.on(checkbox),
+     *       Click.on(button),
+     *     )
+     *   })
+     * })
+     * ```
+     *
+     * ##### WebdriverIO
+     *
+     * ```ts
+     * import { actorCalled } from '@serenity-js/core'
+     * import { Ensure } from '@serenity-js/assertions'
+     * import { Click, PageElement, By, isVisible } from '@serenity-js/web'
+     *
+     * // ... page element definitions as above
+     *
+     * describe('ARIA role selector', () => {
+     *   it('locates an element by its accessible name', async () => {
+     *     await actorCalled('Nick').attemptsTo(
+     *       Ensure.that(heading, isVisible()),
+     *       Click.on(checkbox),
+     *       Click.on(button),
+     *     )
+     *   })
+     * })
+     * ```
+     *
+     * @param role
+     * @param options
+     */
     static role(role: ByRoleSelectorValue, options: Answerable<WithAnswerableProperties<ByRoleSelectorOptions>> = {}): Question<Promise<ByRole>> {
         const descriptionOf = (selectorOptions: Answerable<WithAnswerableProperties<ByRoleSelectorOptions>>) => {
             if (Question.isAQuestion(selectorOptions)) {
