@@ -76,12 +76,12 @@ describe('ScreenplayActivityController', () => {
                 const result = await controller.execute(executionContext, parameters);
 
                 expect(result.structuredContent).to.deep.equal({
-                    dependencies: [ '@serenity-js/web' ],
-                    imports: { '@serenity-js/web': [ 'Navigate' ] },
-                    actorName: 'Alice',
-                    activities: [
-                        `Navigate.to('${ server.url }')`
-                    ]
+                    result: {
+                        activity: {
+                            imports: { '@serenity-js/web': [ 'Navigate' ] },
+                            template: `Navigate.to('${ server.url }')`
+                        }
+                    },
                 });
             });
 
@@ -104,20 +104,16 @@ describe('ScreenplayActivityController', () => {
                 const result = await controller.execute(executionContext, parameters);
 
                 expect(result.structuredContent).to.deep.equal({
-                    dependencies: [
-                        '@serenity-js/assertions',
-                        '@serenity-js/core',
-                        '@serenity-js/web',
-                    ],
-                    imports: {
-                        '@serenity-js/assertions': [ 'includes' ],
-                        '@serenity-js/core': [ 'Question', 'the' ],
-                        '@serenity-js/web': [ 'Navigate', 'Page' ],
+                    result: {
+                        activity: {
+                            imports: {
+                                '@serenity-js/assertions': [ 'includes' ],
+                                '@serenity-js/core': [ 'Question', 'the' ],
+                                '@serenity-js/web': [ 'Navigate', 'Page' ],
+                            },
+                            template: 'Navigate.to(Question.about(the`URL of the page`, actor => `' + server.url + '`))'
+                        }
                     },
-                    actorName: 'Alice',
-                    activities: [
-                        'Navigate.to(Question.about(the`URL of the page`, actor => `' + server.url +  '`))'
-                    ]
                 });
             });
         });
@@ -136,14 +132,14 @@ describe('ScreenplayActivityController', () => {
                 const result = await controller.execute(executionContext, parameters);
 
                 expect(result.structuredContent).to.deep.equal({
-                    dependencies: [ '@serenity-js/web' ],
-                    imports: {
-                        '@serenity-js/web': [ 'Navigate' ]
+                    result: {
+                        activity: {
+                            imports: {
+                                '@serenity-js/web': [ 'Navigate' ]
+                            },
+                            template: `Navigate.to('${ server.url }')`
+                        },
                     },
-                    actorName: 'Alice',
-                    activities: [
-                        `Navigate.to('${ server.url }')`,
-                    ]
                 });
             });
         });
