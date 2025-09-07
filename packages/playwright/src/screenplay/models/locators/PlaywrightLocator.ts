@@ -1,6 +1,6 @@
 import { f, LogicError } from '@serenity-js/core';
-import type { PageElement, RootLocator, Selector } from '@serenity-js/web';
-import { ByCss, ByCssContainingText, ByDeepCss, ById, ByTagName, ByXPath, Locator } from '@serenity-js/web';
+import type { ByRoleSelectorOptions, PageElement, RootLocator, Selector } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ByDeepCss, ById, ByRole, ByTagName, ByXPath, Locator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
 import { SerenitySelectorEngines } from '../../../selector-engines';
@@ -38,6 +38,10 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
 
         if (this.selector instanceof ById) {
             return `id=${ this.selector.value }`;
+        }
+
+        if (this.selector instanceof ByRole) {
+            return getByRoleSelector(this.selector.value, this.selector.options)
         }
 
         if (this.selector instanceof ByTagName) {
@@ -160,4 +164,59 @@ class PlaywrightParentElementLocator extends PlaywrightLocator {
     async allNativeElements(): Promise<Array<playwright.Locator>> {
         return [ await this.nativeElement() ];
     }
+}
+
+// Playwright doesn't expose the internal locator utilities, so unfortunately we need to re-implement them here.
+
+// https://github.com/microsoft/playwright/blob/release-1.55/packages/playwright-core/src/utils/isomorphic/locatorUtils.ts#L59
+function getByRoleSelector(role: string, options: ByRoleSelectorOptions = {}): string {
+    const props: string[][] = [];
+    if (options.checked !== undefined) {
+        props.push(['checked', String(options.checked)]);
+    }
+    if (options.disabled !== undefined) {
+        props.push(['disabled', String(options.disabled)]);
+    }
+    if (options.selected !== undefined) {
+        props.push(['selected', String(options.selected)]);
+    }
+    if (options.expanded !== undefined) {
+        props.push(['expanded', String(options.expanded)]);
+    }
+    if (options.includeHidden !== undefined) {
+        props.push(['include-hidden', String(options.includeHidden)]);
+    }
+    if (options.level !== undefined) {
+        props.push(['level', String(options.level)]);
+    }
+    if (options.name !== undefined) {
+        props.push(['name', escapeForAttributeSelector(options.name, !!options.exact)]);
+    }
+    if (options.pressed !== undefined) {
+        props.push(['pressed', String(options.pressed)]);
+    }
+
+    return `role=${role}${props.map(([n, v]) => `[${n}=${v}]`).join('')}`;
+}
+
+// https://github.com/microsoft/playwright/blob/release-1.55/packages/playwright-core/src/utils/isomorphic/stringUtils.ts#L92
+function escapeForAttributeSelector(value: string | RegExp, exact: boolean): string {
+    if (typeof value !== 'string') {
+        return escapeRegexForSelector(value);
+    }
+    // However, Playwright attribute selectors do not conform to CSS parsing spec,
+    // so we escape them differently.
+    return `"${value.replaceAll('\\', '\\\\').replaceAll('"', '\\"')}"${exact ? 's' : 'i'}`;
+}
+
+// https://github.com/microsoft/playwright/blob/release-1.55/packages/playwright-core/src/utils/isomorphic/stringUtils.ts#L75
+function escapeRegexForSelector(re: RegExp): string {
+    // Unicode mode does not allow "identity character escapes", so Playwright does not escape and
+    // hopes that it does not contain quotes and/or >> signs.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Character_escape
+    if (re['unicode'] || re['unicodeSets']) {
+        return String(re);
+    }
+    // Even number of backslashes followed by the quote -> insert a backslash.
+    return String(re).replaceAll(/(^|[^\\])(\\\\)*(["'`])/g, '$1$2\\$3').replaceAll('>>', '\\>\\>');
 }
