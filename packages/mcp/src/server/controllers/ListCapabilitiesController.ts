@@ -45,7 +45,7 @@ export class ListCapabilitiesController implements ToolController<typeof ListCap
     toolDescriptor(): Tool {
         return {
             name: ListCapabilitiesController.toolName,
-            description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions)',
+            description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions). This tool should be called before using any other tools.',
             inputSchema: zodToJsonSchema(z.object({}).describe('No input parameters required')),
             // outputSchema: zodToJsonSchema(
             //     z.record(
