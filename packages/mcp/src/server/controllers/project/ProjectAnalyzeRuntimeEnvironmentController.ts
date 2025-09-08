@@ -21,16 +21,17 @@ const ProjectAnalyzeRuntimeEnvironmentControllerInputSchema = z.object({
 type ProjectAnalyzeRuntimeEnvironmentControllerInput = z.infer<typeof ProjectAnalyzeRuntimeEnvironmentControllerInputSchema>;
 
 const ProjectAnalyzeRuntimeEnvironmentControllerOutputSchema = z.object({
-    runtimeScanResult: z.object({
+    result: z.object({
         commandLineTools: z.array(z.object({
             name: z.string(),
             binary: z.string().optional(),
             version: z.string().optional(),
             status: z.enum([ 'compatible', 'incompatible', 'missing' ]),
         }).describe('A command line tool required to run Serenity/JS tests')),
-        recommendations: z.array(z.string()).describe('Recommended actions to address any detected issues'),
-        nextSteps: z.array(z.string()).describe('Suggested next steps after addressing any detected issues'),
+        environmentVariables: z.record(z.string()).describe('Environment variables to set for the tools to work as expected'),
     }).describe(`The result of scanning the project's runtime environment`),
+    instructions: z.array(z.string()).describe('Recommended actions to address any detected issues'),
+    nextSteps: z.array(z.string()).describe('Suggested next steps after addressing any detected issues'),
 });
 
 // type ProjectAnalyzeRuntimeEnvironmentControllerOutput = z.infer<typeof ProjectAnalyzeRuntimeEnvironmentControllerOutputSchema>;
@@ -46,8 +47,11 @@ interface CommandLineToolInfo {
 
 // todo: is this duplicating the OutputSchema above?
 interface RuntimeScanResult {
-    commandLineTools: CommandLineToolInfo[];
-    recommendations: string[];
+    result: {
+        commandLineTools: CommandLineToolInfo[];
+        environmentVariables: { [name: string]: string }
+    }
+    instructions: string[];
     nextSteps: string[];
 }
 
@@ -102,9 +106,11 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         process.chdir(originalWorkingDirectory);
 
         const commandLineTools = [];
-        const recommendations = [];
+        const instructions = [];
 
         if (scanResult.Binaries?.Node) {
+            console.warn('Detected Node.js', JSON.stringify(scanResult.Binaries.Node));
+
             const supportedNodeVersion = await this.moduleManager.supportedNodeVersion();
             const nodeStatus = this.status(scanResult.Binaries.Node.version, supportedNodeVersion);
 
@@ -116,7 +122,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
             });
 
             if (nodeStatus !== 'compatible') {
-                recommendations.push(trimmed`
+                instructions.push(trimmed`
                     | Incompatible Node.js version detected: ${ scanResult.Binaries.Node.version ?? 'not found' }.
                     | Serenity/JS requires recent Node.js Long-Term Support (LTS) version ${ supportedNodeVersion }.
                     | Install supported Node.js version before proceeding.
@@ -128,6 +134,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         let preferredPackageManager: CommandLineToolInfo;
 
         if (scanResult.Binaries?.pnpm) {
+            console.warn('Detected PNPM', JSON.stringify(scanResult.Binaries?.pnpm));
+
             const pnpm: CommandLineToolInfo = {
                 name: 'pnpm',
                 binary: this.absolute(scanResult.Binaries.pnpm.path),
@@ -143,6 +151,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         if (scanResult.Binaries?.yarn) {
+            console.warn('Detected Yarn', JSON.stringify(scanResult.Binaries?.yarn));
+
             const yarn: CommandLineToolInfo = {
                 name: 'Yarn',
                 binary: this.absolute(scanResult.Binaries.yarn.path),
@@ -158,6 +168,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         if (scanResult.Binaries?.npm) {
+            console.warn('Detected NPM', JSON.stringify(scanResult.Binaries?.npm));
+
             const npm: CommandLineToolInfo = {
                 name: 'npm',
                 binary: this.absolute(scanResult.Binaries.npm.path),
@@ -172,7 +184,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
             }
         }
 
-        recommendations.push(trimmed`
+        instructions.push(trimmed`
         | You are acting as a coding assistant within a JavaScript/TypeScript project.
         | This project uses ${ preferredPackageManager.name } and you should always obey the project’s package manager preference.
         | 
@@ -190,6 +202,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         |`);
 
         if (scanResult.Utilities?.Git) {
+            console.warn('Detected Git', JSON.stringify(scanResult.Utilities?.Git));
+
             commandLineTools.push({
                 name: 'Git',
                 binary: this.absolute(scanResult.Utilities.Git.path),
@@ -197,7 +211,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
                 status: 'compatible',
             });
 
-            recommendations.push(trimmed`
+            instructions.push(trimmed`
             | When proposing or making any code changes, always ensure that:
             | 1. You create and switch to a new, uniquely named Git branch for the changes created off the latest version of the main branch (e.g., \`main\` or \`master\`)
             | 2. If there are any uncommitted changes in the working directory, prompt the user to review and commit their work before proceeding.
@@ -215,8 +229,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         const nextSteps = [];
-        if (recommendations.length > 0) {
-            nextSteps.push('Review the recommendations and address any detected issues.');
+        if (instructions.length > 0) {
+            nextSteps.push('Review the instructions and address any detected issues.');
         }
 
         nextSteps.push(trimmed `
@@ -225,9 +239,19 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
             | - Learn more about available Serenity/JS capabilities by calling ${ ListCapabilitiesController.toolName }
         |`);
 
+        const PATH = commandLineTools.reduce((acc, tool) => tool.binary ? `${ Path.from(tool.binary).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
+        const JAVA_HOME = scanResult.Languages?.Java?.path ? Path.from(scanResult.Languages.Java.path).directory().directory().value : (process.env.JAVA_HOME ?? '');
+
         return {
-            commandLineTools,
-            recommendations,
+            result: {
+                commandLineTools,
+                environmentVariables: {
+                    ...process.env,
+                    PATH,
+                    JAVA_HOME,
+                }
+            },
+            instructions,
             nextSteps,
         }
     }
@@ -245,33 +269,52 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         try {
             const { rootDirectory } = ProjectAnalyzeRuntimeEnvironmentControllerInputSchema.parse(parameters);
 
-            const runtimeEnvironment = await this.scanProjectRuntime(rootDirectory);
+            const structuredContent = await this.scanProjectRuntime(rootDirectory);
 
-            const incompatibleTools = runtimeEnvironment.commandLineTools.filter(tool => tool.status !== 'compatible');
+            const incompatibleTools = structuredContent.result.commandLineTools.filter(tool => tool.status !== 'compatible');
 
-            const summary = trimmed `
-                | # Runtime environment analysis complete
+            const resultText = trimmed `
+                | # Result
                 | 
                 | ${ incompatibleTools.length === 0 ? 'All required command line tools are present and compatible.' : 'Some command line tools are missing or incompatible.' }
                 | 
                 | ## Command line tools
                 |
-                | ${ runtimeEnvironment.commandLineTools.map(tool => `- ${ tool.name }: ${ tool.version ?? 'not found' } (${ tool.status }), binary: ${ tool.binary }`).join('\n') }
+                | Use the following command line tools to interact with the project:
                 |
-                | ## Recommendations
+                | ${ structuredContent.result.commandLineTools.map(tool => `- ${ tool.name }: ${ tool.version ?? 'not found' } (${ tool.status }), binary: ${ tool.binary }`).join('\n') }
+                |
+                | ## Environment variables
                 | 
-                | ${ runtimeEnvironment.recommendations.join('\n') }
+                | Set the following environment variables to ensure the tools work as expected:
+                | ${ Object.entries(structuredContent.result.environmentVariables).map(([ name, value ]) => `- ${ name }=${ value }`).join('\n') }
+                |`
+
+            const instructions = trimmed`
+                | ## Instructions
                 |
+                | Follow these instructions to address any detected issues: 
+                | ${ structuredContent.instructions.map(instruction => `- ${ instruction }`).join('\n') }
+                |`
+
+            const nextSteps = trimmed`
                 | ## Next steps
                 |
-                | ${ runtimeEnvironment.nextSteps.join('\n') }
+                | When you have addressed the issues above, consider these next steps:                
+                | ${ structuredContent.nextSteps.map(nextStep => `- ${ nextStep }`).join('\n') }
                 |`;
 
             return {
                 // todo: produce human-readable content
-                content: [{ type: 'text', text: summary }],
+                content: [
+                    { type: 'text', text: resultText },
+                    { type: 'text', text: instructions },
+                    { type: 'text', text: nextSteps },
+                ],
                 structuredContent: {
-                    runtimeScanResult: runtimeEnvironment
+                    result: structuredContent.result,
+                    instructions: structuredContent.instructions,
+                    nextSteps: structuredContent.nextSteps,
                 },
             }
         }

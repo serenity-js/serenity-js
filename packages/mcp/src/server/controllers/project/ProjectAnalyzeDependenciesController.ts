@@ -22,9 +22,11 @@ type Status = 'compatible' | 'incompatible' | 'missing';
 type DependencyScanResult = Record<string, { currentVersion: string }>;
 
 interface ProjectAnalyzeRuntimeEnvironmentControllerResult {
-    dependencies: string[];
-    recommendations: string[];
-    nextSteps?: string[];
+    result: {
+        dependencies: string[];
+    }
+    instructions: string[];
+    nextSteps: string[];
 }
 
 // const ProjectAnalyzeDependenciesControllerOutputSchema = z.object({
@@ -148,6 +150,13 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
         return [... new Set(frameworks)].sort() as Framework[];
     }
 
+    private async versioned(packageName: string): Promise<string> {
+        const version = await this.moduleManager.versionOf(packageName);
+        return version
+            ? `${ packageName }@${ version }`
+            : packageName;
+    }
+
     private async recommendDependenciesToInstall(frameworks: Framework[], dependencies: DependencyScanResult): Promise<string[]> {
 
         const packages = [
@@ -204,9 +213,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
         //     }
         // }
 
-        return packages;
-
-        // return [...new Set(dependenciesToInstall)].sort();
+        return await Promise.all(packages.map(pkg => this.versioned(pkg)));
     }
 
     private noSupportedTestFrameworkDetected(rootDirectory: string): CallToolResult {
@@ -226,7 +233,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
             ` }],
             isError: false,
             structuredContent: {
-                analysisResult: {
+                result: {
                     status: 'no_framework_detected',
                     rootDirectory,
                     supportedFrameworks: [
@@ -258,7 +265,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
                         benefits: ['Gherkin syntax', 'Business-readable test scenarios', 'Living documentation']
                     }
                 ],
-                recommendations: [
+                instructions: [
                     'Start with Playwright Test if you\'re new to test automation',
                     'Consider your team\'s existing expertise when choosing a framework',
                     'Review Serenity/JS documentation at https://serenity-js.org/handbook/test-runners/ for framework-specific setup guides'
@@ -279,48 +286,50 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
                 return this.noSupportedTestFrameworkDetected(rootDirectory);
             }
 
-            const recommendedDependencies = await this.recommendDependenciesToInstall(frameworks, detectedDependencies);
+            const dependencies = await this.recommendDependenciesToInstall(frameworks, detectedDependencies);
 
-            const recommendations: string[] = [
+            const instructions: string[] = [
                 `Install the following dev packages using the preferred package manager:`,
-                ...recommendedDependencies.map(dependencyName => `- ${ dependencyName }`),
+                ...dependencies.map(dependencyName => `- ${ dependencyName }`),
             ];
 
             const nextSteps: string[] = [
                 trimmed `
-                    | Once the recommended dependencies are installed:
-                    | - Learn more about available Serenity/JS capabilities by calling ${ ListCapabilitiesController.toolName }
+                    | Learn more about available Serenity/JS capabilities by calling ${ ListCapabilitiesController.toolName }
                     |`,
-                // todo: configure the project
             ];
 
             const summary = trimmed `
                 | # Project dependency analysis completed
                 |
-                | ${ recommendedDependencies.length === 0 ? 'All required dependencies are installed and compatible.' : 'Some dependencies are missing or incompatible.' }
+                | ${ dependencies.length === 0 ? 'All required dependencies are installed and compatible.' : 'Some dependencies are missing or incompatible.' }
                 |
                 | ## Detected frameworks
                 |
                 | ${ frameworks.map(f => `- ${ f }`).join('\n') }
                 |
-                | ## Recommendations
-                | 
-                | ${ recommendations.join('\n') }
+                | ## Instructions
+                |
+                | Follow these instructions to address any detected issues: 
+                |
+                | ${ instructions.join('\n') }
                 |
                 | ## Next steps
                 |
-                | ${ nextSteps.join('\n') }|
-            `
+                | When you have followed the instructions above, consider these next steps.
+                |                
+                | ${ nextSteps.map(step => `- ${ step }`).join('\n') }
+            `;
 
             return {
                 // todo: produce human-readable content
                 content: [{ type: 'text', text: summary }],
                 structuredContent: {
-                    dependencyScanResult: {
-                        dependencies: recommendedDependencies,
-                        recommendations,
-                        nextSteps,
-                    } as ProjectAnalyzeRuntimeEnvironmentControllerResult,
+                    result: {
+                        dependencies,
+                    },
+                    instructions,
+                    nextSteps,
                 },
             }
         }
