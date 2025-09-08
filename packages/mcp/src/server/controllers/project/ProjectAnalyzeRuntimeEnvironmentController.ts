@@ -13,6 +13,7 @@ import type { CapabilityDescriptor } from '../../schema.js';
 import { type CapabilityController } from '../CapabilityController.js';
 import { ListCapabilitiesController } from '../ListCapabilitiesController.js';
 import { ProjectAnalyzeDependenciesController } from './ProjectAnalyzeDependenciesController.js';
+import { ProjectConfigurePlaywrightTestController } from './ProjectConfigurePlaywrightTestController.js';
 
 const ProjectAnalyzeRuntimeEnvironmentControllerInputSchema = z.object({
     rootDirectory: z.string().describe('The root directory of the project to analyze'),
@@ -186,19 +187,8 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
         instructions.push(trimmed`
         | You are acting as a coding assistant within a JavaScript/TypeScript project.
-        | This project uses ${ preferredPackageManager.name } and you should always obey the project’s package manager preference.
-        | 
-        | When installing new dependencies or running package scripts, always choose the correct package manager automatically.
-        |
-        | ## Examples 
-        |   - If I ask: "Install Axios"
-        |     - Use: yarn add axios (if Yarn), pnpm add axios (if pnpm), or npm install axios (otherwise).
-        |   - If I ask: "Run the dev script"
-        |     - Use: yarn dev (if Yarn), pnpm dev (if pnpm), or npm run dev (otherwise).
-        |   - If I ask: "Install ESLint as a dev dependency"
-        |     - Use: yarn add -D eslint (if Yarn), pnpm add -D eslint (if pnpm), or npm install --save-dev eslint (otherwise).
-        | 
-        | Always provide the correct command explicitly in your response. Do not mix commands from multiple package managers.
+        | 1. Use: ${ preferredPackageManager.binary } to install any Node.js packages or run npm scripts (${ preferredPackageManager.name } detected at this path).
+        | 2. Always provide the correct command explicitly in your response. Do not mix commands from multiple package managers.
         |`);
 
         if (scanResult.Utilities?.Git) {
@@ -212,7 +202,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
             });
 
             instructions.push(trimmed`
-            | When proposing or making any code changes, always ensure that:
+            | This project uses Git. When making any code changes, always ensure that:
             | 1. You create and switch to a new, uniquely named Git branch for the changes created off the latest version of the main branch (e.g., \`main\` or \`master\`)
             | 2. If there are any uncommitted changes in the working directory, prompt the user to review and commit their work before proceeding.
             | 3. Always describe the branch purpose and your planned actions before starting, then confirm with the user."
@@ -235,21 +225,30 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
         nextSteps.push(trimmed `
             | Once the runtime environment is ready:
-            | - Determine what Serenity/JS packages to install by calling ${ ProjectAnalyzeDependenciesController.toolName }
-            | - Learn more about available Serenity/JS capabilities by calling ${ ListCapabilitiesController.toolName }
+            | - Call ${ ProjectAnalyzeDependenciesController.toolName } to determine what Serenity/JS packages you need to install
+            | - Call ${ ListCapabilitiesController.toolName } to learn about available Serenity/JS capabilities
+            | - Call ${ ProjectConfigurePlaywrightTestController.toolName } to configure Playwright to use Serenity/JS 
         |`);
 
         const PATH = commandLineTools.reduce((acc, tool) => tool.binary ? `${ Path.from(tool.binary).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
         const JAVA_HOME = scanResult.Languages?.Java?.path ? Path.from(scanResult.Languages.Java.path).directory().directory().value : (process.env.JAVA_HOME ?? '');
 
+        const environmentVariables = {
+            ...process.env,
+            PATH,
+            JAVA_HOME,
+        }
+
+        instructions.push(trimmed`
+            | Set the following environment variables when invoking any command line tools:
+            | ${ Object.entries(environmentVariables).map(([ name, value ]) => `- ${ name }=${ value }`).join('\n') }
+            |`
+        );
+
         return {
             result: {
                 commandLineTools,
-                environmentVariables: {
-                    ...process.env,
-                    PATH,
-                    JAVA_HOME,
-                }
+                environmentVariables,
             },
             instructions,
             nextSteps,

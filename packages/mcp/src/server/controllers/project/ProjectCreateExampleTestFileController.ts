@@ -149,7 +149,7 @@ export class ProjectCreateExampleTestFileController implements CapabilityControl
                     title: ProjectCreateExampleTestFileController.description,
                     readOnlyHint: true,
                     destructiveHint: false,
-                    openWorldHint: true
+                    openWorldHint: false
                 }
             }
         }

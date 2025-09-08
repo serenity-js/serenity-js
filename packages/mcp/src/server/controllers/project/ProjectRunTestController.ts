@@ -105,7 +105,7 @@ export class ProjectRunTestController implements CapabilityController<typeof Pro
                     title: ProjectRunTestController.description,
                     readOnlyHint: true,
                     destructiveHint: false,
-                    openWorldHint: true
+                    openWorldHint: false
                 }
             }
         }

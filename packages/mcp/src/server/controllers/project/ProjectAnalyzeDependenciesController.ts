@@ -9,6 +9,7 @@ import type { SerenityModuleManager } from '../../integration/index.js';
 import type { CapabilityDescriptor } from '../../schema.js';
 import { type CapabilityController } from '../CapabilityController.js';
 import { ListCapabilitiesController } from '../ListCapabilitiesController.js';
+import { ProjectCreateExampleTestFileController } from './ProjectCreateExampleTestFileController.js';
 
 const ProjectAnalyzeDependenciesControllerInputSchema = z.object({
     rootDirectory: z.string().describe('The root directory of the project to analyze'),
@@ -295,7 +296,8 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
 
             const nextSteps: string[] = [
                 trimmed `
-                    | Learn more about available Serenity/JS capabilities by calling ${ ListCapabilitiesController.toolName }
+                    | - Call ${ ListCapabilitiesController.toolName } to learn more about available Serenity/JS capabilities
+                    | - Call ${ ProjectCreateExampleTestFileController.toolName } to see an example test file using Serenity/JS and the detected framework
                     |`,
             ];
 
