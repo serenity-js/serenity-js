@@ -73,6 +73,10 @@ export class ProjectConfigurePackageJsonScriptsController implements CapabilityC
                 },
                 instructions: [
                     'Apply the proposed diff to the package.json file',
+                ],
+                nextSteps: [
+                    'If the user is happy with the proposed changes, save the updated configuration file.',
+                    'Run all the tests in the project to ensure everything is working as expected.',
                     'To run all the tests in the project and generate Serenity BDD reports, use the command: npm test',
                     'To run all the tests in the project quickly without generating Serenity BDD reports, use the command: npm run test:playwright -- --reporter=list',
                     'To run a specific test file and generate Serenity BDD reports, use the command: npm run test:playwright -- path/to/test/file',
@@ -80,10 +84,6 @@ export class ProjectConfigurePackageJsonScriptsController implements CapabilityC
                     'To run a specific test by its name and generate Serenity BDD reports, use the command: npm run test:playwright -- -g "test name"',
                     'To quickly run a specific test by its name without generating Serenity BDD reports, use the command: npm run test:playwright -- -g "test name" --reporter=list',
                     'After running the tests, you can find the Serenity BDD reports in the ./reports/serenity directory',
-                ],
-                nextSteps: [
-                    'If the user is happy with the proposed changes, save the updated configuration file.',
-                    'Run all the tests in the project to ensure everything is working as expected.',
                 ],
             };
 

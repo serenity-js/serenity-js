@@ -10,7 +10,7 @@ import {
     ProjectAnalyzeRuntimeEnvironmentController,
     ProjectConfigurePackageJsonScriptsController,
     ProjectConfigurePlaywrightTestController,
-    ProjectCreateExampleTestFileController,
+    ProjectCreateExampleTestFileController, ProjectRunTestController,
     TestAutomationController,
     TestAutomationPageElementResolverController,
     TestAutomationSnapshotController,
@@ -55,6 +55,7 @@ export class SerenityMcpServer {
             new ProjectConfigurePlaywrightTestController(),
             new ProjectConfigurePackageJsonScriptsController(),
             new ProjectCreateExampleTestFileController(),
+            new ProjectRunTestController(),
             new TestAutomationSnapshotController(),
             new TestAutomationPageElementResolverController(),
         ];
