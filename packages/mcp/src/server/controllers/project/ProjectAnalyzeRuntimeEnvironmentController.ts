@@ -12,6 +12,7 @@ import type { SerenityModuleManager } from '../../integration/index.js';
 import type { CapabilityDescriptor } from '../../schema.js';
 import { type CapabilityController } from '../CapabilityController.js';
 import { ListCapabilitiesController } from '../ListCapabilitiesController.js';
+import type { NextStepWithToolCall } from '../NextStep.js';
 import { ProjectAnalyzeDependenciesController } from './ProjectAnalyzeDependenciesController.js';
 import { ProjectConfigurePlaywrightTestController } from './ProjectConfigurePlaywrightTestController.js';
 
@@ -23,16 +24,23 @@ type ProjectAnalyzeRuntimeEnvironmentControllerInput = z.infer<typeof ProjectAna
 
 const ProjectAnalyzeRuntimeEnvironmentControllerOutputSchema = z.object({
     result: z.object({
-        commandLineTools: z.array(z.object({
-            name: z.string(),
-            binary: z.string().optional(),
-            version: z.string().optional(),
+        status: z.enum([ 'compatible', 'incompatible', 'missing' ]).describe('Overall status of the runtime environment'),
+        commands: z.array(z.object({
+            name: z.string().describe('The name of the command line tool'),
+            binary: z.string().optional().describe('Path to the command line tool binary'),
+            version: z.string().optional().describe('The version of the command line tool, if detected'),
             status: z.enum([ 'compatible', 'incompatible', 'missing' ]),
         }).describe('A command line tool required to run Serenity/JS tests')),
         environmentVariables: z.record(z.string()).describe('Environment variables to set for the tools to work as expected'),
     }).describe(`The result of scanning the project's runtime environment`),
     instructions: z.array(z.string()).describe('Recommended actions to address any detected issues'),
-    nextSteps: z.array(z.string()).describe('Suggested next steps after addressing any detected issues'),
+    nextSteps: z.array(
+        z.object({
+            action: z.literal('call_tool'),
+            toolName: z.string().describe('The name of the tool to call'),
+            reason: z.string().describe('The reason to call the tool'),
+        }),
+    ),
 });
 
 // type ProjectAnalyzeRuntimeEnvironmentControllerOutput = z.infer<typeof ProjectAnalyzeRuntimeEnvironmentControllerOutputSchema>;
@@ -49,11 +57,12 @@ interface CommandLineToolInfo {
 // todo: is this duplicating the OutputSchema above?
 interface RuntimeScanResult {
     result: {
-        commandLineTools: CommandLineToolInfo[];
+        status: Status;
+        commands: CommandLineToolInfo[];
         environmentVariables: { [name: string]: string }
     }
     instructions: string[];
-    nextSteps: string[];
+    nextSteps: Array<NextStepWithToolCall>;
 }
 
 export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityController<typeof ProjectAnalyzeRuntimeEnvironmentControllerInputSchema> {
@@ -67,8 +76,13 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
     private absolute(maybeRelativePath: string): string {
         if (maybeRelativePath.startsWith('~')) {
-            return Path.from(os.homedir()).resolve(Path.from(maybeRelativePath.slice(1))).value;
+            return Path.from(os.homedir()).resolve(Path.from('.' + maybeRelativePath.slice(1))).value;
         }
+
+        if (maybeRelativePath.startsWith('.')) {
+            return Path.from(process.cwd()).resolve(Path.from(maybeRelativePath)).value;
+        }
+
         return maybeRelativePath;
     }
 
@@ -106,37 +120,35 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
         process.chdir(originalWorkingDirectory);
 
-        const commandLineTools = [];
+        const commands = [];
         const instructions = [];
 
         if (scanResult.Binaries?.Node) {
-            console.warn('Detected Node.js', JSON.stringify(scanResult.Binaries.Node));
-
             const supportedNodeVersion = await this.moduleManager.supportedNodeVersion();
             const nodeStatus = this.status(scanResult.Binaries.Node.version, supportedNodeVersion);
 
-            commandLineTools.push({
+            const node = {
                 name: 'Node.js',
                 binary: this.absolute(scanResult.Binaries.Node.path),
                 version: scanResult.Binaries.Node.version,
                 status: nodeStatus,
-            });
+            };
+
+            commands.push(node);
+
+            fs.writeFileSync('./serenity-mcp.log', 'Detected Node.js' + JSON.stringify(node) + '\n');
 
             if (nodeStatus !== 'compatible') {
                 instructions.push(trimmed`
                     | Incompatible Node.js version detected: ${ scanResult.Binaries.Node.version ?? 'not found' }.
-                    | Serenity/JS requires recent Node.js Long-Term Support (LTS) version ${ supportedNodeVersion }.
-                    | Install supported Node.js version before proceeding.
-                    |`
-                );
+                    | Before proceeding, install a recent Node.js Long-Term Support (LTS) version, e.g. ${ supportedNodeVersion }.
+                `);
             }
         }
 
         let preferredPackageManager: CommandLineToolInfo;
 
         if (scanResult.Binaries?.pnpm) {
-            console.warn('Detected PNPM', JSON.stringify(scanResult.Binaries?.pnpm));
-
             const pnpm: CommandLineToolInfo = {
                 name: 'pnpm',
                 binary: this.absolute(scanResult.Binaries.pnpm.path),
@@ -144,7 +156,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
                 status: 'compatible',
             };
 
-            commandLineTools.push(pnpm);
+            commands.push(pnpm);
 
             if (this.fileExists(rootDirectory, 'pnpm-lock.yaml')) {
                 preferredPackageManager = pnpm;
@@ -152,8 +164,6 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         if (scanResult.Binaries?.yarn) {
-            console.warn('Detected Yarn', JSON.stringify(scanResult.Binaries?.yarn));
-
             const yarn: CommandLineToolInfo = {
                 name: 'Yarn',
                 binary: this.absolute(scanResult.Binaries.yarn.path),
@@ -161,7 +171,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
                 status: 'compatible',
             };
 
-            commandLineTools.push(yarn);
+            commands.push(yarn);
 
             if (this.fileExists(rootDirectory, 'yarn.lock')) {
                 preferredPackageManager = yarn;
@@ -169,8 +179,6 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         if (scanResult.Binaries?.npm) {
-            console.warn('Detected NPM', JSON.stringify(scanResult.Binaries?.npm));
-
             const npm: CommandLineToolInfo = {
                 name: 'npm',
                 binary: this.absolute(scanResult.Binaries.npm.path),
@@ -178,7 +186,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
                 status: 'compatible',
             };
 
-            commandLineTools.push(npm);
+            commands.push(npm);
 
             if (! preferredPackageManager) {
                 preferredPackageManager = npm;
@@ -188,13 +196,12 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         instructions.push(trimmed`
         | You are acting as a coding assistant within a JavaScript/TypeScript project.
         | 1. Use: ${ preferredPackageManager.binary } to install any Node.js packages or run npm scripts (${ preferredPackageManager.name } detected at this path).
-        | 2. Always provide the correct command explicitly in your response. Do not mix commands from multiple package managers.
+        | 2. Always use the full command, e.g., \`${ preferredPackageManager.binary } install <package-name>\` or \`${ preferredPackageManager.binary } run <script-name>\`.
+        | 3. Always provide the correct command explicitly in your response. Do not mix commands from multiple package managers.
         |`);
 
         if (scanResult.Utilities?.Git) {
-            console.warn('Detected Git', JSON.stringify(scanResult.Utilities?.Git));
-
-            commandLineTools.push({
+            commands.push({
                 name: 'Git',
                 binary: this.absolute(scanResult.Utilities.Git.path),
                 version: scanResult.Utilities.Git.version,
@@ -210,7 +217,7 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         if (scanResult.Languages?.Java) {
-            commandLineTools.push({
+            commands.push({
                 name: 'Java',
                 binary: this.absolute(scanResult.Languages.Java.path),
                 version: scanResult.Languages.Java.version,
@@ -218,19 +225,23 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
             });
         }
 
-        const nextSteps = [];
-        if (instructions.length > 0) {
-            nextSteps.push('Review the instructions and address any detected issues.');
-        }
+        const nextSteps: NextStepWithToolCall[] = [];
 
-        nextSteps.push(trimmed `
-            | Once the runtime environment is ready:
-            | - Call ${ ProjectAnalyzeDependenciesController.toolName } to determine what Serenity/JS packages you need to install
-            | - Call ${ ListCapabilitiesController.toolName } to learn about available Serenity/JS capabilities
-            | - Call ${ ProjectConfigurePlaywrightTestController.toolName } to configure Playwright to use Serenity/JS 
-        |`);
+        nextSteps.push({
+            action: 'call_tool',
+            toolName: ProjectAnalyzeDependenciesController.toolName,
+            reason: 'Determine what Serenity/JS packages you need to install',
+        }, {
+            action: 'call_tool',
+            toolName: ListCapabilitiesController.toolName,
+            reason: 'Learn about available Serenity/JS capabilities',
+        }, {
+            action: 'call_tool',
+            toolName: ProjectConfigurePlaywrightTestController.toolName,
+            reason: 'Configure Playwright to use Serenity/JS',
+        });
 
-        const PATH = commandLineTools.reduce((acc, tool) => tool.binary ? `${ Path.from(tool.binary).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
+        const PATH = commands.reduce((acc, tool) => tool.binary ? `${ Path.from(tool.binary).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
         const JAVA_HOME = scanResult.Languages?.Java?.path ? Path.from(scanResult.Languages.Java.path).directory().directory().value : (process.env.JAVA_HOME ?? '');
 
         const environmentVariables = {
@@ -241,13 +252,16 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
         instructions.push(trimmed`
             | Set the following environment variables when invoking any command line tools:
-            | ${ Object.entries(environmentVariables).map(([ name, value ]) => `- ${ name }=${ value }`).join('\n') }
+            | \`\`\`
+            | ${ Object.entries(environmentVariables).map(([ name, value ]) => `${ name }=${ value }`).join('\n') }
+            | \`\`\`
             |`
         );
 
         return {
             result: {
-                commandLineTools,
+                status: commands.every(tool => tool.status === 'compatible') ? 'compatible' : 'incompatible',
+                commands,
                 environmentVariables,
             },
             instructions,
@@ -270,45 +284,9 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
             const structuredContent = await this.scanProjectRuntime(rootDirectory);
 
-            const incompatibleTools = structuredContent.result.commandLineTools.filter(tool => tool.status !== 'compatible');
-
-            const resultText = trimmed `
-                | # Result
-                | 
-                | ${ incompatibleTools.length === 0 ? 'All required command line tools are present and compatible.' : 'Some command line tools are missing or incompatible.' }
-                | 
-                | ## Command line tools
-                |
-                | Use the following command line tools to interact with the project:
-                |
-                | ${ structuredContent.result.commandLineTools.map(tool => `- ${ tool.name }: ${ tool.version ?? 'not found' } (${ tool.status }), binary: ${ tool.binary }`).join('\n') }
-                |
-                | ## Environment variables
-                | 
-                | Set the following environment variables to ensure the tools work as expected:
-                | ${ Object.entries(structuredContent.result.environmentVariables).map(([ name, value ]) => `- ${ name }=${ value }`).join('\n') }
-                |`
-
-            const instructions = trimmed`
-                | ## Instructions
-                |
-                | Follow these instructions to address any detected issues: 
-                | ${ structuredContent.instructions.map(instruction => `- ${ instruction }`).join('\n') }
-                |`
-
-            const nextSteps = trimmed`
-                | ## Next steps
-                |
-                | When you have addressed the issues above, consider these next steps:                
-                | ${ structuredContent.nextSteps.map(nextStep => `- ${ nextStep }`).join('\n') }
-                |`;
-
             return {
-                // todo: produce human-readable content
                 content: [
-                    { type: 'text', text: resultText },
-                    { type: 'text', text: instructions },
-                    { type: 'text', text: nextSteps },
+                    { type: 'text', text: JSON.stringify(structuredContent, undefined, 0) },
                 ],
                 structuredContent: {
                     result: structuredContent.result,

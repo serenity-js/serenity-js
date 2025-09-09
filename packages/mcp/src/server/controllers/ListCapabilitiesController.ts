@@ -36,7 +36,7 @@ export class ListCapabilitiesController implements ToolController<typeof ListCap
         return {
             content: [{
                 type: 'text',
-                text: JSON.stringify(this.capabilityMap, undefined, 2),
+                text: JSON.stringify(this.capabilityMap, undefined, 0),
             }],
             structuredContent: this.capabilityMap,
         }
