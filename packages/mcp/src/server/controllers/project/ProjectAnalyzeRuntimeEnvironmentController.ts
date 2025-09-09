@@ -136,8 +136,6 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
 
             commands.push(node);
 
-            fs.writeFileSync('./serenity-mcp.log', 'Detected Node.js' + JSON.stringify(node) + '\n');
-
             if (nodeStatus !== 'compatible') {
                 instructions.push(trimmed`
                     | Incompatible Node.js version detected: ${ scanResult.Binaries.Node.version ?? 'not found' }.
@@ -251,9 +249,9 @@ export class ProjectAnalyzeRuntimeEnvironmentController implements CapabilityCon
         }
 
         instructions.push(trimmed`
-            | Set the following environment variables when invoking any command line tools:
+            | When invoking command line tools, set the following environment variables:
             | \`\`\`
-            | ${ Object.entries(environmentVariables).map(([ name, value ]) => `${ name }=${ value }`).join('\n') }
+            | PATH=${PATH}
             | \`\`\`
             |`
         );
