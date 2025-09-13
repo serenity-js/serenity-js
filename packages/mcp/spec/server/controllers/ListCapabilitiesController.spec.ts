@@ -72,7 +72,7 @@ describe('ListCapabilitiesController', () => {
 
             expect(controller.toolDescriptor()).to.deep.equal({
                 name: 'serenity_list_capabilities',
-                description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions)',
+                description: 'List all available Serenity/JS capabilities grouped by module (e.g. web, core, rest, assertions). This tool should be called before using any other tools.',
                 inputSchema: {
                     type: 'object',
                     properties: {},
