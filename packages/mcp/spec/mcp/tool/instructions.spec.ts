@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
 
-import { CallToolInstruction } from '../../src/mcp/instructions.js';
+import { CallToolInstruction } from '../../../src/mcp/index.js';
 
 describe('instructions', () => {
 

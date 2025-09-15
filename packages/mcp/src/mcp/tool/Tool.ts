@@ -8,13 +8,14 @@ import type { ZodSchema } from 'zod';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import type { Context } from './Context.js';
+import type { Context } from '../Context.js';
 import { InstructionSchema } from './instructions.js';
 import { Request } from './Request.js';
 import type { StructuredContent } from './Response.js';
 import { Response } from './Response.js';
 
 export interface ToolConfig<InputSchema extends ZodSchema, ResultSchema extends ZodSchema> {
+    namespace: string;
     name: string;
     description: string;
     inputSchema: InputSchema;
@@ -24,6 +25,7 @@ export interface ToolConfig<InputSchema extends ZodSchema, ResultSchema extends 
 }
 
 interface ToolSchema<InputSchema extends ZodSchema, ResultSchema extends ZodSchema> {
+    namespace: string;
     name: string;
     description: string;
     inputSchema: InputSchema;
@@ -38,11 +40,12 @@ export abstract class Tool<
 > {
     private readonly schema: ToolSchema<InputSchema, ResultSchema>;
 
-    protected constructor(
+    constructor(
         protected readonly context: Context,
         config: Partial<ToolConfig<InputSchema, ResultSchema>>,
     ) {
         this.schema = {
+            namespace: config.namespace ?? 'serenity',
             name: config.name,
             description: config.description,
             inputSchema: config.inputSchema,
@@ -57,10 +60,10 @@ export abstract class Tool<
 
     name(): string {
         if (this.schema.name) {
-            return this.schema.name;
+            return `${ this.schema.namespace }_${ this.schema.name }`;
         }
 
-        return this.constructor.name
+        const derivedName = this.constructor.name
             // Remove "Tool" suffix if present
             .replace(/Tool$/, '')
             // Insert _ before uppercase letters that are followed by lowercase letters
@@ -68,6 +71,8 @@ export abstract class Tool<
             // Insert _ between sequences of uppercase letters and the next lowercase letter
             .replaceAll(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
             .toLowerCase();
+
+        return `${ this.schema.namespace }_${ derivedName }`;
     }
 
     public matches(toolName: z.infer<typeof CallToolRequestSchema>['params']['name']): boolean {

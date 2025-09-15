@@ -15,22 +15,7 @@ describe('Project Analyze Runtime', () => {
             },
         });
 
-        // expect(response.isError).not.toBe(true);
-        expect(response.content[0].text).toMatch(/All required command line tools are present and compatible./);
-        // expect(response.structuredContent.runtimeScanResult).toEqual({
-        //     rootDirectory,
-        //     status: `no_framework_detected`,
-        //     supportedFrameworks: [
-        //         `playwright-test`,
-        //         `webdriverio`,
-        //         `cucumber`,
-        //         `mocha`,
-        //         `jasmine`,
-        //         `protractor`,
-        //     ],
-        // });
-        // expect(json(response.structuredContent.initializationOptions)).toMatchSnapshot();
-        // expect(json(response.structuredContent.recommendations)).toMatchSnapshot();
+        expect(response.isError).not.toBe(true);
     });
 
     it('analyzes the runtime of a node.js project to determine compatibility with Serenity/JS', async ({ client }) => {

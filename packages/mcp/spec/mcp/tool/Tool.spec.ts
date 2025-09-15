@@ -2,7 +2,7 @@ import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
 import type { z } from 'zod';
 
-import { CallToolInstruction, Context } from '../../src/mcp/index.js';
+import { CallToolInstruction, Context } from '../../../src/mcp/index.js';
 import { ExampleNavigateToUrlTool } from './examples/ExampleNavigateToUrlTool.js';
 
 describe('Tool', () => {
@@ -24,14 +24,21 @@ describe('Tool', () => {
             const context = new Context();
             const tool = new ExampleNavigateToUrlTool(context);
 
-            expect(tool.name()).to.equal('example_navigate_to_url');
+            expect(tool.name()).to.equal('serenity_example_navigate_to_url');
         });
 
-        it('returns the tool name as provided in the config', () => {
+        it('returns the namespaced tool name as provided in the config', () => {
             const context = new Context();
             const tool = new ExampleNavigateToUrlTool(context, { name: 'custom_tool_name' });
 
-            expect(tool.name()).to.equal('custom_tool_name');
+            expect(tool.name()).to.equal('serenity_custom_tool_name');
+        });
+
+        it('uses provided namespace if provided', () => {
+            const context = new Context();
+            const tool = new ExampleNavigateToUrlTool(context, { namespace: 'acme', name: 'custom_tool_name' });
+
+            expect(tool.name()).to.equal('acme_custom_tool_name');
         });
     });
 
@@ -40,7 +47,7 @@ describe('Tool', () => {
             const context = new Context();
             const tool = new ExampleNavigateToUrlTool(context);
 
-            expect(tool.matches('example_navigate_to_url')).to.equal(true);
+            expect(tool.matches('serenity_example_navigate_to_url')).to.equal(true);
         });
 
         it('returns false for non-matching tool name', () => {

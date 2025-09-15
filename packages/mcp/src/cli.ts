@@ -34,6 +34,9 @@ type CliOptions = {
     userAgent?: string;
     userDataDir?: string;
     viewportSize?: string;
+
+    // todo: remove before the release
+    experimental?: boolean;
 };
 
 function semicolonSeparatedList(value: string): string[] {
@@ -62,42 +65,54 @@ program
     .option('--user-agent <ua string>', 'specify user agent string')
     .option('--user-data-dir <path>', 'path to the user data directory. If not specified, a temporary directory will be created.')
     .option('--viewport-size <size>', 'specify browser viewport size in pixels, for example "1280, 720"')
+    .option('--experimental', 'enable experimental features') // todo: remove before the release
+
     .action(async (options: CliOptions) => {
 
-        // todo: load the config and merge with CLI options
-        const config: Config = {
-            browser: {
-                browserName: (options.browser as Config['browser']['browserName']) ?? 'chromium',   // todo: add validation
-                launchOptions: {
-                    headless: options.headless || false,
-                },
-                contextOptions: {
-
-                },
-                // todo: proxy
-            }
-        };
-
-        const browserConnection = new PlaywrightBrowserConnection({
-            ...config.browser,
-        });
-
-        // Get the full path of the current file
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        const moduleLoader = new ModuleLoader(__dirname);
-        const axios = createAxios();
-        const moduleManager = new SerenityModuleManager(axios);
-
-        const server = new SerenityMcpServer(
-            schematics,
-            moduleLoader,
-            browserConnection,
-            moduleManager,
-        );
-        server.registerProcessExitHandler();
-
-        await server.connect(new StdioServerTransport());
+        await (options.experimental ? startNewServer(options) : startLegacyServer(options));
     });
 
 void program.parseAsync(process.argv);
+
+// ---
+
+async function startNewServer(options: CliOptions) {
+    console.log('Starting the new MCP server...');
+}
+
+async function startLegacyServer(options: CliOptions) {
+    // todo: load the config and merge with CLI options
+    const config: Config = {
+        browser: {
+            browserName: (options.browser as Config['browser']['browserName']) ?? 'chromium',   // todo: add validation
+            launchOptions: {
+                headless: options.headless || false,
+            },
+            contextOptions: {
+
+            },
+            // todo: proxy
+        }
+    };
+
+    const browserConnection = new PlaywrightBrowserConnection({
+        ...config.browser,
+    });
+
+    // Get the full path of the current file
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const moduleLoader = new ModuleLoader(__dirname);
+    const axios = createAxios();
+    const moduleManager = new SerenityModuleManager(axios);
+
+    const server = new SerenityMcpServer(
+        schematics,
+        moduleLoader,
+        browserConnection,
+        moduleManager,
+    );
+    server.registerProcessExitHandler();
+
+    await server.connect(new StdioServerTransport());
+}

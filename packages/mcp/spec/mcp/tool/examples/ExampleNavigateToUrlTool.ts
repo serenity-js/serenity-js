@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-import type { Context,Instruction, Request, Response, ToolConfig } from '../../../src/mcp/index.js';
-import { Tool } from '../../../src/mcp/index.js';
+import type { Context, Instruction, Request, Response, ToolConfig } from '../../../../src/mcp/index.js';
+import { Tool } from '../../../../src/mcp/index.js';
 
 export class ExampleNavigateToUrlTool extends Tool<typeof ExampleNavigateToUrlTool.inputSchema, typeof ExampleNavigateToUrlTool.resultSchema> {
 
