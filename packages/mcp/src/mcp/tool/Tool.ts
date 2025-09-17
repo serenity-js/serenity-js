@@ -1,4 +1,5 @@
 import type {
+    CallToolRequest,
     CallToolRequestSchema,
     CallToolResultSchema,
     ToolAnnotations,
@@ -89,9 +90,9 @@ export abstract class Tool<
         return this.name() === toolName;
     }
 
-    async callTool(callToolArguments: z.infer<InputSchema>): Promise<z.infer<typeof CallToolResultSchema>> {
+    async callTool(callToolArguments: CallToolRequest): Promise<z.infer<typeof CallToolResultSchema>> {
         try {
-            const parameters = this.schema.inputSchema?.parse(callToolArguments);
+            const parameters = this.schema.inputSchema?.parse(callToolArguments.params.arguments as z.infer<InputSchema>);
 
             const request = new Request<z.infer<InputSchema>>(parameters ?? {});
             const initialResponse = new Response<z.infer<ResultSchema>>(this.schema.outputSchema);

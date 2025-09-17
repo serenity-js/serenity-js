@@ -51,13 +51,19 @@ describe('Tool', () => {
         it('should return structuredContent and matching content for successful operations', async () => {
 
             const context = new Context();
-            const tool = new ExampleNavigateToUrlTool(context);
+            const tool = new ExampleNavigateToUrlTool({ context });
 
-            const response = await tool.callTool({ url: 'https://example.org' });
+            const response = await tool.callTool({
+                method: 'tools/call',
+                params: {
+                    name: tool.name(),
+                    arguments: { url: 'https://example.org' }
+                }
+            });
 
             const expectedResult = exampleNavigateToUrlResult('https://example.org');
 
-            expect(response.isError).to.equal(false);
+            expect(response.isError).to.equal(undefined);
             expect(response.structuredContent.result).to.deep.equal(expectedResult);
             expect(response.content).to.deep.equal([
                 {
@@ -78,11 +84,17 @@ describe('Tool', () => {
             const context = new Context();
             const tool = new ExampleNavigateToUrlTool(context, config, instructions);
 
-            const response = await tool.callTool({ url: 'https://example.org' });
+            const response = await tool.callTool({
+                method: 'tools/call',
+                params: {
+                    name: tool.name(),
+                    arguments: { url: 'https://example.org' }
+                }
+            });
 
             const expectedResult = exampleNavigateToUrlResult('https://example.org');
 
-            expect(response.isError).to.equal(false);
+            expect(response.isError).to.equal(undefined);
             expect(response.structuredContent.result).to.deep.equal(expectedResult);
 
             expect(response.structuredContent.instructions).to.deep.equal([{

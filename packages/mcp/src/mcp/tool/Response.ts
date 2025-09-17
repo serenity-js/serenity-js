@@ -42,7 +42,7 @@ export class Response<Result extends Record<string, unknown>> {
         ].map(text => ({ type: 'text', text }))
 
         return {
-            isError: false,
+            // isError: false,
             content: content ,
             structuredContent: structuredContent as unknown as { [k: string]: unknown },
         };

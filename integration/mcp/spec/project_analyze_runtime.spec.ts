@@ -7,7 +7,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 describe('Project Analyze Runtime', () => {
 
     it('instructs the user to install a test runner first if none is found', async ({ client }) => {
-        const rootDirectory = path.resolve(__dirname, '../examples/empty');
+        const rootDirectory = path.resolve(__dirname, './examples/empty');
         const response = await client.callTool({
             name: 'serenity_project_analyze_runtime_environment',
             arguments: {
@@ -22,7 +22,7 @@ describe('Project Analyze Runtime', () => {
         const response = await client.callTool({
             name: 'serenity_project_analyze_runtime_environment',
             arguments: {
-                rootDirectory: path.resolve(__dirname, '../examples/playwright-test'),
+                rootDirectory: path.resolve(__dirname, './examples/playwright-test'),
             },
         });
 
