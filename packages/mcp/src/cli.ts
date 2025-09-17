@@ -7,12 +7,13 @@ import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { createAxios } from '@serenity-js/rest';
 import { program } from 'commander';
 
+import { Dispatcher, Server } from './mcp/index.js';
 import { packageJSON } from './package.js';
 import schematics from './schematics/index.js';
 import type { Config } from './server/Config.js';
 import { SerenityMcpServer } from './server/index.js';
-import { SerenityModuleManager } from './server/integration/index.js';
-import { PlaywrightBrowserConnection } from './server/integration/index.js';
+import { PlaywrightBrowserConnection, SerenityModuleManager } from './server/integration/index.js';
+import { ProjectAnalyzeTool } from './tools/index.js';
 
 type CliOptions = {
     allowedOrigins?: string[];
@@ -77,7 +78,22 @@ void program.parseAsync(process.argv);
 // ---
 
 async function startNewServer(options: CliOptions) {
-    console.log('Starting the new MCP server...');
+    const tools = [
+        ProjectAnalyzeTool,
+    ];
+
+    const dispatcher = new Dispatcher(tools);
+    const server = new Server(dispatcher);
+
+    const exitWith = (code: number) =>
+        // eslint-disable-next-line unicorn/no-process-exit
+        () => process.exit(code);
+
+    process.stdin.on('close', server.shutdown(exitWith(0)));
+    process.on('SIGINT',      server.shutdown(exitWith(130)));
+    process.on('SIGTERM',     server.shutdown(exitWith(143)));
+
+    await server.connect(new StdioServerTransport());
 }
 
 async function startLegacyServer(options: CliOptions) {

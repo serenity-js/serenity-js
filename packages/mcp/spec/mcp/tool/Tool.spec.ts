@@ -1,22 +1,10 @@
 import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
-import type { z } from 'zod';
 
 import { CallToolInstruction, Context } from '../../../src/mcp/index.js';
-import { ExampleNavigateToUrlTool } from './examples/ExampleNavigateToUrlTool.js';
+import { exampleNavigateToUrlResult, ExampleNavigateToUrlTool } from './examples/ExampleNavigateToUrlTool.js';
 
 describe('Tool', () => {
-
-    const expectedResult: z.infer<typeof ExampleNavigateToUrlTool.resultSchema> = {
-        activity: {
-            imports: {
-                '@serenity-js/web': [
-                    'Navigate',
-                ],
-            },
-            template: `Navigate.to('https://example.org')`,
-        }
-    };
 
     describe('name()', () => {
 
@@ -67,6 +55,8 @@ describe('Tool', () => {
 
             const response = await tool.callTool({ url: 'https://example.org' });
 
+            const expectedResult = exampleNavigateToUrlResult('https://example.org');
+
             expect(response.isError).to.equal(false);
             expect(response.structuredContent.result).to.deep.equal(expectedResult);
             expect(response.content).to.deep.equal([
@@ -89,6 +79,8 @@ describe('Tool', () => {
             const tool = new ExampleNavigateToUrlTool(context, config, instructions);
 
             const response = await tool.callTool({ url: 'https://example.org' });
+
+            const expectedResult = exampleNavigateToUrlResult('https://example.org');
 
             expect(response.isError).to.equal(false);
             expect(response.structuredContent.result).to.deep.equal(expectedResult);

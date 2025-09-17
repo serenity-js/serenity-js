@@ -22,6 +22,7 @@ export interface TestOptions {
 
 export interface TestFixtures {
     client: Client;
+    clientOptions: StartClientOptions;
     startClient: (options?: StartClientOptions) => Promise<{ client: Client, stderr: () => string }>;
     mcpHeadless: boolean;
     createMcpTransport: (args: string[]) => StdioClientTransport;

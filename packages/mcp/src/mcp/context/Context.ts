@@ -15,4 +15,8 @@ export class Context {
     //           "content": "..."       // (optional) new file content
     //       },
     // //
+
+    async close(): Promise<void> {
+
+    }
 }
