@@ -51,7 +51,7 @@ describe('@serenity-js/Jasmine', function () {
                 }));
 
         it('fails when discarding an ability results in Error', () =>
-            jasmine('examples/screenplay/ability-discard-error.spec.js')
+            jasmine('examples/screenplay/ability-close-error.spec.js')
                 .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(3);
@@ -77,7 +77,7 @@ describe('@serenity-js/Jasmine', function () {
                 }));
 
         it(`fails when discarding an ability doesn't complete within a timeout`, () =>
-            jasmine('examples/screenplay/ability-discard-timeout.spec.js')
+            jasmine('examples/screenplay/ability-close-timeout.spec.js')
                 .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(3);
@@ -103,7 +103,7 @@ describe('@serenity-js/Jasmine', function () {
                 }));
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
-            jasmine('examples/screenplay/ability-discard-error-should-not-affect-stage-cue.spec.js')
+            jasmine('examples/screenplay/ability-close-error-should-not-affect-stage-cue.spec.js')
                 .then(ifExitCodeIsOtherThan(3, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(3);
@@ -125,7 +125,7 @@ describe('@serenity-js/Jasmine', function () {
                         .next(SceneFinished,       event => {
                             expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
                         })
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
+                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to close again')))
                         .next(SceneFinished,       event => {
                             const outcome: ProblemIndication = event.outcome as ProblemIndication;
 

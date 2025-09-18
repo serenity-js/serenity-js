@@ -157,7 +157,7 @@ describe('@serenity-js/playwright-test', function () {
         it('fails when discarding of an ability results in Error', async () => {
             const result = await playwrightTest(
                 '--project=default',
-                'screenplay/ability-discard-error.spec.ts'
+                'screenplay/ability-close-error.spec.ts'
             ).then(ifExitCodeIsOtherThan(1, logOutput));
 
             expect(result.exitCode).to.equal(1);
@@ -182,7 +182,7 @@ describe('@serenity-js/playwright-test', function () {
         });
 
         it(`fails when discarding of an ability doesn't complete within a timeout`, async () => {
-            const result = await playwrightTest('--project=default', 'screenplay/ability-discard-timeout.spec.ts')
+            const result = await playwrightTest('--project=default', 'screenplay/ability-close-timeout.spec.ts')
                 .then(ifExitCodeIsOtherThan(1, logOutput));
 
             expect(result.exitCode).to.equal(1);
@@ -210,7 +210,7 @@ describe('@serenity-js/playwright-test', function () {
             const result = await playwrightTest(
                 '--project=default',
                 '--reporter=json:output/screenplay/ability_error.json',
-                'screenplay/ability-discard-error-should-not-affect-stage-cue.spec.ts'
+                'screenplay/ability-close-error-should-not-affect-stage-cue.spec.ts'
             ).then(ifExitCodeIsOtherThan(1, logOutput));
 
             expect(result.exitCode).to.equal(1);
@@ -232,7 +232,7 @@ describe('@serenity-js/playwright-test', function () {
                 .next(SceneFinished,       event => {
                     expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
                 })
-                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
+                .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to close again')))
                 .next(SceneFinished,       event => {
                     const outcome: ProblemIndication = event.outcome as ProblemIndication;
 

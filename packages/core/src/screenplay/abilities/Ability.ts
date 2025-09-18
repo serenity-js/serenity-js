@@ -304,7 +304,7 @@ import type { UsesAbilities } from './UsesAbilities';
  *   // Discards any resources the Ability uses when the Actor is dismissed,
  *   // so when the Stage receives a SceneFinishes event for scenario-scoped actor,
  *   // or TestRunFinishes for cross-scenario-scoped actors
- *   discard(): Promise<void> | void {
+ *   close(): Promise<void> | void {
  *     return this.client.end();
  *   }
  *
@@ -341,7 +341,7 @@ import type { UsesAbilities } from './UsesAbilities';
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * describe('Serenity/JS', () => {
- *   it('can initialise and discard abilities automatically', () =>
+ *   it('can initialise and close abilities automatically', () =>
  *     actorCalled('Debbie')
  *       .whoCan(new QueryPostgresDB(new Client()))
  *       .attemptsTo(

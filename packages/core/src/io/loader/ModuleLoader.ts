@@ -1,6 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Module = require('module'); // No type definitions available
-import path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+import { createRequire } from 'module';
 
 import { Version } from '../Version';
 
@@ -30,9 +31,11 @@ export class ModuleLoader {
      */
     hasAvailable(moduleId: string): boolean {
         try {
-            return !! this.require(moduleId);
-        } catch {
-            return false;
+            void this.require(moduleId);
+            return true;
+        }
+        catch (error) {
+            return error?.code === 'ERR_REQUIRE_ESM';
         }
     }
 
@@ -48,13 +51,45 @@ export class ModuleLoader {
     resolve(moduleId: string): string {
         const fromFile = path.join(this.cwd, 'noop.js');
 
-        return Module._resolveFilename(moduleId, {
-            id: fromFile,
-            filename: fromFile,
-            paths: Module._nodeModulePaths(this.cwd),
-        });
+        const relativeRequire = createRequire(fromFile);
+
+        try {
+            return relativeRequire.resolve(moduleId);
+        }
+        catch {
+            // Fallback for ESM modules, which don't support `require.resolve`
+            if (this.isPathToModule(moduleId)) {
+                return path.resolve(this.cwd, moduleId.replaceAll('/', path.sep));
+            }
+
+            return moduleId;
+        }
     }
 
+    async load(moduleId: string): Promise<any> {
+        try {
+            return this.require(moduleId);
+        }
+        catch (error) {
+            if (error.code === 'ERR_REQUIRE_ESM') {
+                return this.import(moduleId);
+            }
+
+            throw error;
+        }
+    }
+
+    async import(moduleId: string): Promise<any> {
+        const moduleIdOrUrl = this.isPathToModule(moduleId)
+            ? pathToFileURL(this.resolve(moduleId)).href
+            : moduleId;
+
+        return await import(moduleIdOrUrl);
+    }
+
+    private isPathToModule(moduleId: string): boolean {
+        return ['./', '../', '/'].some(prefix => moduleId.startsWith(prefix));
+    }
     /**
      * Works like `require`, but relative to specified current working directory
      *
@@ -64,7 +99,11 @@ export class ModuleLoader {
         try {
             return require(this.cachedIfNeeded(this.resolve(moduleId)));
         }
-        catch {
+        catch (error) {
+            if (error.code === 'ERR_REQUIRE_ESM') {
+                throw error;
+            }
+
             return require(this.cachedIfNeeded(moduleId));
         }
     }
