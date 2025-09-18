@@ -51,7 +51,7 @@ describe('@serenity-js/mocha', function () {
                 }));
 
         it('fails when discarding an ability results in Error', () =>
-            mocha('examples/screenplay/ability-discard-error.spec.js')
+            mocha('examples/screenplay/ability-close-error.spec.js')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -76,7 +76,7 @@ describe('@serenity-js/mocha', function () {
                 }));
 
         it(`fails when discarding an ability doesn't complete within a timeout`, () =>
-            mocha('examples/screenplay/ability-discard-timeout.spec.js')
+            mocha('examples/screenplay/ability-close-timeout.spec.js')
                 .then(ifExitCodeIsOtherThan(1, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(1);
@@ -101,7 +101,7 @@ describe('@serenity-js/mocha', function () {
                 }));
 
         it(`executes all the scenarios in the test suite even when some of them fail because of an error when discarding an ability`, () =>
-            mocha('examples/screenplay/ability-discard-error-should-not-affect-stage-cue.spec.js')
+            mocha('examples/screenplay/ability-close-error-should-not-affect-stage-cue.spec.js')
                 .then(ifExitCodeIsOtherThan(2, logOutput))
                 .then(result => {
                     expect(result.exitCode).to.equal(2);   // 2 failures, so Mocha returns an exit code of 2
@@ -123,7 +123,7 @@ describe('@serenity-js/mocha', function () {
                         .next(SceneFinished,       event => {
                             expect(event.outcome).to.be.instanceOf(ExecutionSuccessful);
                         })
-                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to discard again')))
+                        .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario fails if the ability fails to close again')))
                         .next(SceneFinished,       event => {
                             const outcome: ProblemIndication = event.outcome as ProblemIndication;
 

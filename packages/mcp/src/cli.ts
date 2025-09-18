@@ -6,8 +6,10 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import { createAxios } from '@serenity-js/rest';
 import { program } from 'commander';
+import playwright from 'playwright';
 
-import { Dispatcher, Server } from './mcp/index.js';
+import { BrowserConnection } from './mcp/context/BrowserConnection.js';
+import { Context, Dispatcher, Server } from './mcp/index.js';
 import { packageJSON } from './package.js';
 import schematics from './schematics/index.js';
 import type { Config } from './server/Config.js';
@@ -44,6 +46,9 @@ function semicolonSeparatedList(value: string): string[] {
     return value.split(';').map(v => v.trim());
 }
 
+//
+// https://github.com/microsoft/playwright/blob/8a6a4522e83639a6a8327a5d13876c8869e48717/packages/playwright/src/mcp/program.ts#L30
+
 program
     .version(`Version: ${ packageJSON.version }`)
     .name(packageJSON.name)
@@ -78,12 +83,48 @@ void program.parseAsync(process.argv);
 // ---
 
 async function startNewServer(options: CliOptions) {
+    const browserConnection = new BrowserConnection({
+        browserName: options.browser as 'chromium' | 'firefox' | 'webkit' || 'chromium',
+        isolated: options.isolated || false,
+        userDataDir: options.userDataDir,
+        launchOptions: {
+            channel: options.browser && ['chrome', 'msedge'].includes(options.browser) ? options.browser : undefined,
+            executablePath: options.executablePath,
+            headless: options.headless || false,
+            args: [
+                options.sandbox === false ? '--no-sandbox' : '',
+                options.ignoreHttpsErrors ? '--ignore-certificate-errors' : '',
+                options.blockServiceWorkers ? '--disable-features=ServiceWorker' : '',
+            ].filter(Boolean),
+        },
+        contextOptions: {
+            viewport: options.viewportSize
+                ? {
+                    width: Number(options.viewportSize.split(',')[0].trim()),
+                    height: Number(options.viewportSize.split(',')[1].trim()),
+                }
+                : undefined,
+            userAgent: options.userAgent || undefined,
+            bypassCSP: false,
+            javaScriptEnabled: true,
+            ignoreHTTPSErrors: options.ignoreHttpsErrors || false,
+            storageState: options.storageState || undefined,
+            proxy: options.proxyServer ? {
+                server: options.proxyServer,
+                bypass: options.proxyBypass ? options.proxyBypass.split(',').map(s => s.trim()).join(',') : undefined,
+            } : undefined,
+            ...options.device ? playwright.devices[options.device] : {},
+        },
+    });
+
     const tools = [
         ProjectAnalyzeTool,
     ];
 
-    const dispatcher = new Dispatcher(tools);
-    const server = new Server(dispatcher);
+    const context    = new Context(browserConnection);
+
+    const dispatcher = new Dispatcher(context, tools);
+    const server     = new Server(dispatcher);
 
     const exitWith = (code: number) =>
         // eslint-disable-next-line unicorn/no-process-exit

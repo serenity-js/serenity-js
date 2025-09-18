@@ -6,20 +6,20 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 import type { ZodSchema } from 'zod';
 
 import { packageJSON } from '../../package.js';
-import { Context } from '../context/index.js';
+import type { Context } from '../context/index.js';
 import type { Tool, ToolConfig, ToolDependencies } from '../tool/index.js';
 
 type ToolClass<IS extends ZodSchema, RS extends ZodSchema> =
     (new (dependencies: ToolDependencies, config: Partial<ToolConfig<IS, RS>>) => Tool<IS, RS>);
 
 export class Dispatcher {
-    private readonly context: Context;
     private readonly server: McpServer;
     private readonly tools: Tool<ZodSchema, ZodSchema>[] = [];
 
-    constructor(tools: Array<ToolClass<ZodSchema, ZodSchema>>) {
-        this.context = new Context();
-
+    constructor(
+        private readonly context: Context,
+        tools: Array<ToolClass<ZodSchema, ZodSchema>>,
+    ) {
         this.server = new McpServer({
             name: packageJSON.name,
             version: packageJSON.version,
@@ -57,6 +57,10 @@ export class Dispatcher {
         if (! tool) {
             // todo
             throw new Error('return error result and not throw; generic instruction - start with analyzing the project')
+        }
+
+        if (! this.context.isInitialised()) {
+            await this.context.initialise();
         }
 
         try {
