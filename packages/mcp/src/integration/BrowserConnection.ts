@@ -2,13 +2,44 @@ import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import type { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright';
 
-import type { Config } from './Config.js';
+export interface BrowserConnectionConfig {
+    /**
+     * The type of browser to use.
+     */
+    browserName?: 'chromium' | 'firefox' | 'webkit';
+
+    /**
+     * Keep the browser profile in memory, do not save it to disk.
+     */
+    isolated?: boolean;
+
+    /**
+     * Path to a user data directory for browser profile persistence.
+     * Temporary directory is created by default.
+     */
+    userDataDir?: string;
+
+    /**
+     * Launch options passed to
+     * @see https://playwright.dev/docs/api/class-browsertype#browser-type-launch-persistent-context
+     *
+     * This is useful for settings options like `channel`, `headless`, `executablePath`, etc.
+     */
+    launchOptions?: playwright.LaunchOptions;
+
+    /**
+     * McpSessionContext options for the browser context.
+     *
+     * This is useful for settings options like `viewport`.
+     */
+    contextOptions?: playwright.BrowserContextOptions;
+}
 
 export class BrowserConnection {
 
     private browserInstance: playwright.Browser;
 
-    constructor(private readonly config: Config['browser']) {
+    constructor(private readonly config: BrowserConnectionConfig) {
     }
 
     async browseTheWeb(): Promise<BrowseTheWeb> {

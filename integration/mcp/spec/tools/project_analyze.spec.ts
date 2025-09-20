@@ -6,21 +6,99 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 describe('Project Analyze', () => {
 
-    it('analyzes the project runtime to assess compatibility with Serenity/JS and recommend next steps', async ({ startClient }) => {
-        const { client, stderr } = await startClient({
-            args: ['--experimental'],
+    describe('analyzes the project runtime to assess compatibility with Serenity/JS and recommend next steps', () => {
+
+        it.skip('complains if the root directory is not accessible', async ({ startClient }) => {
+            const { client, stderr } = await startClient({
+                args: [ '--experimental' ],
+            });
+
+            const rootDirectory = path.resolve(__dirname, '../../examples/invalid-path');
+
+            const response = await client.callTool({
+                name: 'serenity_project_analyze',
+                arguments: {
+                    rootDirectory,
+                },
+            });
+
+            expect(response.isError).toBe(true);
+            expect(stderr()).toBe('');
+
+            expect(response.structuredContent.instructions).toEqual([])
+
+            expect(response.structuredContent.result).toEqual({})
         });
 
-        const rootDirectory = path.resolve(__dirname, '../examples/empty');
+        it('detects available command line tools', async ({ startClient }) => {
+            const { client, stderr } = await startClient({
+                args: [ '--experimental' ],
+            });
 
-        const response = await client.callTool({
-            name: 'serenity_project_analyze',
-            arguments: {
-                rootDirectory,
-            },
+            const rootDirectory = path.resolve(__dirname, '../../examples/empty');
+
+            const response = await client.callTool({
+                name: 'serenity_project_analyze',
+                arguments: {
+                    rootDirectory,
+                },
+            });
+
+            expect(response.structuredContent.result.git.status).toEqual('compatible');
+            expect(response.structuredContent.result.java.status).toEqual('compatible');
+            expect(response.structuredContent.result.node.status).toEqual('compatible');
+            expect(response.structuredContent.result.packageManager.status).toEqual('compatible');
+
         });
 
-        expect(response.isError).not.toBe(true);
-        expect(stderr()).toBe('');
+        it('detects available Node modules and suggests Serenity/JS integrations', async ({ startClient }) => {
+            const { client, stderr } = await startClient({
+                args: [ '--experimental' ],
+            });
+
+            const rootDirectory = path.resolve(__dirname, '../../examples/playwright-test');
+
+            const response = await client.callTool({
+                name: 'serenity_project_analyze',
+                arguments: {
+                    rootDirectory,
+                },
+            });
+
+            const compatiblePackages = response.structuredContent.result.packages.filter(({ status }) => status === 'compatible').map(({ name }) => name);
+            const missingPackages = response.structuredContent.result.packages.filter(({ status }) => status === 'missing').map(({ name }) => name);
+
+            expect(compatiblePackages).toEqual([
+                '@playwright/test',
+            ]);
+
+            expect(missingPackages).toEqual([
+                '@serenity-js/assertions',
+                '@serenity-js/console-reporter',
+                '@serenity-js/core',
+                '@serenity-js/playwright',
+                '@serenity-js/playwright-test',
+                '@serenity-js/rest',
+                '@serenity-js/serenity-bdd',
+                '@serenity-js/web',
+                'npm-failsafe',
+                'rimraf',
+            ]);
+
+            expect(response.structuredContent.instructions).toEqual([ {
+                'reason': 'Update outdated and install missing dependencies before proceeding',
+                'target': 'serenity_project_setup',
+                'type': 'callTool',
+            } ]);
+
+            expect(response.content[1]).toEqual({
+                'text': 'Instruction 1: Call tool serenity_project_setup to update outdated and install missing dependencies before proceeding',
+                'type': 'text',
+            })
+
+            expect(response.isError).not.toBe(true);
+            expect(stderr()).toBe('');
+        });
+
     });
 });

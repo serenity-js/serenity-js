@@ -1,10 +1,17 @@
-import type { Actor, Timestamp } from '@serenity-js/core';
+import process from 'node:process';
+
+import type { Ability, Actor, Timestamp } from '@serenity-js/core';
 import { Cast, Clock, Serenity, TakeNotes } from '@serenity-js/core';
 import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events/index.js';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model/index.js';
-import { CallAnApi, createAxios } from '@serenity-js/rest';
+import type { AbilityType, Discardable, Initialisable } from '@serenity-js/core/src/index.js';
+import { CallAnApi } from '@serenity-js/rest';
+import { BrowseTheWeb } from '@serenity-js/web';
+import type { AxiosInstance } from 'axios';
 
-import type { BrowserConnection } from './BrowserConnection.js';
+import type { BrowserConnection } from '../../integration/BrowserConnection.js';
+import { SerenityModuleManager } from '../../integration/SerenityModuleManager.js';
+import { ScanRuntimeEnvironment } from '../../screenplay/abilities/ScanRuntimeEnvironment.js';
 
 export class Context {
     // todo: load env variables upon initialization
@@ -24,8 +31,11 @@ export class Context {
     //       },
     // //
 
+    private readonly abilities = new Map<AbilityType<Ability>, Ability>();
+
     constructor(
         private readonly browserConnection: BrowserConnection,
+        private readonly axios: AxiosInstance,
         private readonly env: NodeJS.ProcessEnv = process.env,
         private readonly serenity: Serenity = new Serenity(new Clock(), process.cwd()),
     ) {
@@ -33,7 +43,20 @@ export class Context {
             // ...
         });
 
-        this.serenity.announce(new TestRunStarts(this.now()))
+        this.abilities.set(
+            CallAnApi,
+            CallAnApi.using(this.axios)
+        );
+        this.abilities.set(
+            TakeNotes,
+            TakeNotes.usingAnEmptyNotepad()
+        );
+        this.abilities.set(
+            ScanRuntimeEnvironment,
+            new ScanRuntimeEnvironment(process.cwd(), new SerenityModuleManager(this.axios))
+        );
+
+        this.serenity.announce(new TestRunStarts(this.now()));
     }
 
     // todo: launch a browser instance and provide an ability to use it
@@ -48,14 +71,32 @@ export class Context {
     }
 
     async initialise(): Promise<void> {
-        const browseTheWeb = await this.browserConnection.browseTheWeb();
+        await this.setAbility(BrowseTheWeb, await this.browserConnection.browseTheWeb());
 
+        this.reengageActors();
+    }
+
+    async setAbility<A extends Ability>(abilityType: AbilityType<A>, ability: Ability): Promise<void> {
+
+        if (this.abilities.has(abilityType)) {
+            const originalAbility = this.abilities.get(abilityType);
+
+            if (this.isDiscardable(originalAbility)) {
+                await originalAbility.discard();
+            }
+        }
+
+        if (this.isInitialisable(ability)) {
+            await ability.initialise();
+        }
+
+        this.abilities.set(abilityType, ability);
+    }
+
+    private reengageActors(): void {
         this.serenity.engage(
             Cast.where(actor => actor.whoCan(
-                TakeNotes.usingAnEmptyNotepad(),
-                CallAnApi.using(createAxios()),
-                browseTheWeb,
-                // todo: add ability to execute CLI commands
+                ...this.abilities.values(),
             )),
         )
     }
@@ -69,5 +110,14 @@ export class Context {
         await this.serenity.waitForNextCue();
         await this.browserConnection.close();
         this.serenity.announce(new TestRunFinished(new ExecutionSuccessful(), this.now()));
+    }
+
+    private isDiscardable(ability: Ability): ability is Ability & Discardable {
+        return ability['discard'] instanceof Function;
+    }
+
+    private isInitialisable(ability: Ability): ability is Ability & Initialisable {
+        return ability['initialise'] instanceof Function
+            && ability['isInitialised'] instanceof Function;
     }
 }

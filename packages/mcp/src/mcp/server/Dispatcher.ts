@@ -1,7 +1,6 @@
 import { Server as McpServer } from '@modelcontextprotocol/sdk/server/index.js';
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
-import type { CallToolResult, ListToolsResult } from '@modelcontextprotocol/sdk/types.js';
-import type { CallToolRequest} from '@modelcontextprotocol/sdk/types.js';
+import type { CallToolRequest, CallToolResult, ListToolsResult } from '@modelcontextprotocol/sdk/types.js';
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import type { ZodSchema } from 'zod';
 

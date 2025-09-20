@@ -7,7 +7,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 describe('Project Configure Playwright Test', () => {
 
     it('shows the agent how to add Serenity/JS reporter to the configuration file', async ({ client }) => {
-        const pathToConfigFile = path.resolve(__dirname, './examples/playwright-test-default-config/playwright.config.ts');
+        const pathToConfigFile = path.resolve(__dirname, '../examples/playwright-test-default-config/playwright.config.ts');
         const response = await client.callTool({
             name: 'serenity_project_configure_playwright_test',
             arguments: {

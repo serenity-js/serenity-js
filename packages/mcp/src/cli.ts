@@ -8,7 +8,7 @@ import { createAxios } from '@serenity-js/rest';
 import { program } from 'commander';
 import playwright from 'playwright';
 
-import { BrowserConnection } from './mcp/context/BrowserConnection.js';
+import { BrowserConnection } from './integration/BrowserConnection.js';
 import { Context, Dispatcher, Server } from './mcp/index.js';
 import { packageJSON } from './package.js';
 import schematics from './schematics/index.js';
@@ -121,7 +121,7 @@ async function startNewServer(options: CliOptions) {
         ProjectAnalyzeTool,
     ];
 
-    const context    = new Context(browserConnection);
+    const context    = new Context(browserConnection, createAxios());
 
     const dispatcher = new Dispatcher(context, tools);
     const server     = new Server(dispatcher);

@@ -49,3 +49,6 @@ export abstract class Instruction {
 
 export class CallToolInstruction extends Instruction {
 }
+
+export class RequestUserActionInstruction extends Instruction {
+}

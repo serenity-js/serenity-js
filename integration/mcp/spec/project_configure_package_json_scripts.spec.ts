@@ -7,7 +7,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 describe('Project Configure package.json scripts', () => {
 
     it('adds scripts to an empty scripts section', async ({ client }) => {
-        const pathToPackageJsonFile = path.resolve(__dirname, './examples/package-json-empty-scripts/package.json');
+        const pathToPackageJsonFile = path.resolve(__dirname, '../examples/package-json-empty-scripts/package.json');
         const response = await client.callTool({
             name: 'serenity_project_configure_package_json_scripts',
             arguments: {
@@ -43,7 +43,7 @@ describe('Project Configure package.json scripts', () => {
     });
 
     it('adds scripts to a package.json with no scripts section', async ({ client }) => {
-        const pathToPackageJsonFile = path.resolve(__dirname, './examples/package-json-no-scripts/package.json');
+        const pathToPackageJsonFile = path.resolve(__dirname, '../examples/package-json-no-scripts/package.json');
         const response = await client.callTool({
             name: 'serenity_project_configure_package_json_scripts',
             arguments: {

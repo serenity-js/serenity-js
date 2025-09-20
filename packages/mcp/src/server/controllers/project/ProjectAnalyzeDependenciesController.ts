@@ -207,7 +207,7 @@ export class ProjectAnalyzeDependenciesController implements CapabilityControlle
         //
         //     const recommendedVersion = dependencyName.startsWith('@serenity-js/')
         //         ? await this.moduleManager.versionOf(dependencyName)
-        //         : await this.moduleManager.supportedVersionOf(dependencyName);
+        //         : await this.moduleManager.supportedVersionRangeOf(dependencyName);
         //
         //     if (this.status(currentVersion, recommendedVersion) !== 'compatible') {
         //         dependenciesToInstall.push(dependencyName);

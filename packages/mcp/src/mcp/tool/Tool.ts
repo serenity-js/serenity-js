@@ -5,6 +5,7 @@ import type {
     ToolAnnotations,
     ToolSchema
 } from '@modelcontextprotocol/sdk/types.js';
+import type { Actor } from '@serenity-js/core';
 import type { ZodSchema } from 'zod';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
@@ -119,6 +120,10 @@ export abstract class Tool<
                 ...this.schema.annotations
             },
         };
+    }
+
+    protected actor(): Actor {
+        return this.context.actor('Serenity/JS MCP');
     }
 
     protected abstract handle(
