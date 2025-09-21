@@ -33,7 +33,7 @@ export abstract class Instruction {
         return [
             type,
             this.target,
-            'to',
+            '—',
             this.transformFirstCharacter(this.reason, String.prototype.toLowerCase)
         ].join(' ');
     }
@@ -51,4 +51,7 @@ export class CallToolInstruction extends Instruction {
 }
 
 export class RequestUserActionInstruction extends Instruction {
+}
+
+export class UpdatePolicyInstruction extends Instruction {
 }

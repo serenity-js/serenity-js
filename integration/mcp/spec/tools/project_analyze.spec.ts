@@ -8,7 +8,7 @@ describe('Project Analyze', () => {
 
     describe('analyzes the project runtime to assess compatibility with Serenity/JS and recommend next steps', () => {
 
-        it.skip('complains if the root directory is not accessible', async ({ startClient }) => {
+        it('complains if the root directory is not accessible', async ({ startClient }) => {
             const { client, stderr } = await startClient({
                 args: [ '--experimental' ],
             });
@@ -25,9 +25,8 @@ describe('Project Analyze', () => {
             expect(response.isError).toBe(true);
             expect(stderr()).toBe('');
 
-            expect(response.structuredContent.instructions).toEqual([])
-
-            expect(response.structuredContent.result).toEqual({})
+            expect(response.structuredContent.error.message).toMatch(/The path .*? is not a directory or cannot be accessed/)
+            expect(response.content[0].text).toMatch(/Error: The path .*? is not a directory or cannot be accessed/)
         });
 
         it('detects available command line tools', async ({ startClient }) => {
@@ -49,6 +48,8 @@ describe('Project Analyze', () => {
             expect(response.structuredContent.result.node.status).toEqual('compatible');
             expect(response.structuredContent.result.packageManager.status).toEqual('compatible');
 
+            expect(response.isError).not.toBe(true);
+            expect(stderr()).toBe('');
         });
 
         it('detects available Node modules and suggests Serenity/JS integrations', async ({ startClient }) => {
@@ -85,16 +86,18 @@ describe('Project Analyze', () => {
                 'rimraf',
             ]);
 
-            expect(response.structuredContent.instructions).toEqual([ {
-                'reason': 'Update outdated and install missing dependencies before proceeding',
-                'target': 'serenity_project_setup',
-                'type': 'callTool',
-            } ]);
+            const callToolInstructions = response.structuredContent.instructions.filter(instruction => instruction.type === 'callTool');
 
-            expect(response.content[1]).toEqual({
-                'text': 'Instruction 1: Call tool serenity_project_setup to update outdated and install missing dependencies before proceeding',
-                'type': 'text',
-            })
+            expect(callToolInstructions).toHaveLength(1);
+            expect(callToolInstructions[0].target).toEqual('serenity_project_install_dependencies');
+            expect(callToolInstructions[0].reason).toMatch(/Install the following packages before proceeding:/);
+
+            expect(response.content[0].text).toEqual(JSON.stringify(response.structuredContent, undefined, 0));
+
+            expect(response.content[1].text).toMatch(/# Project analysis result: dependency-issues/);
+            expect(response.content[2].text).toMatch(/Instruction 1: Call tool serenity_project_install_dependencies — install the following packages before proceeding:/);
+            expect(response.content[3].text).toMatch(/Instruction 2: Update policy rule — you are acting as a coding assistant within a JavaScript\/TypeScript project/);
+            expect(response.content[4].text).toMatch(/Instruction 3: Update policy rule — this project uses Git installed at/);
 
             expect(response.isError).not.toBe(true);
             expect(stderr()).toBe('');

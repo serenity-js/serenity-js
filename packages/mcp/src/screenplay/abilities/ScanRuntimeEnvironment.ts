@@ -11,9 +11,8 @@ import type { SerenityModuleManager } from '../../integration/SerenityModuleMana
 export type OverallCompatibilityStatus = 'compatible' | 'runtime-issues' | 'dependency-issues';
 export type CompatibilityStatus = 'compatible' | 'incompatible' | 'missing';
 
-export interface CommandMetadata {
+export interface DependencyMetadata {
     name: string;
-    path: string;
     status: CompatibilityStatus;  // todo: extract to avoid duplicating the definition; use z.schema instead
     version: {
         current?: string;
@@ -21,13 +20,11 @@ export interface CommandMetadata {
     };
 }
 
-export interface PackageMetadata {
-    name: string;
-    status: CompatibilityStatus;  // todo: extract to avoid duplicating the definition; use z.schema instead
-    version: {
-        current?: string;
-        supported?: string;
-    };
+export interface CommandMetadata extends DependencyMetadata {
+    path: string;
+}
+
+export interface PackageMetadata extends DependencyMetadata {
 }
 
 export interface RuntimeEnvironmentScan {
@@ -44,6 +41,7 @@ export interface RuntimeEnvironmentScan {
     java?: CommandMetadata,
     commands: CommandMetadata[];
     packages: PackageMetadata[];
+    environmentVariables: Record<string, string>;
 }
 
 interface EnvinfoCommandMetadata {
@@ -105,19 +103,32 @@ export class ScanRuntimeEnvironment extends Ability {
     }
 
     async scan(directory: string): Promise<RuntimeEnvironmentScan> {
+        if (! await this.isReadableDirectory(directory)) {
+            throw new Error(`The path ${ directory } is not a directory or cannot be accessed`);
+        }
+
         const scanResult = await this.envinfo(directory);
 
         const { System, Binaries, Utilities, Languages, npmPackages } = scanResult;
 
         const commands: RuntimeEnvironmentScan['commands'] = [];
         const allBinaries = { ...Binaries, ...Utilities, ...Languages };
-        for (const [ name, details ] of Object.entries(allBinaries)) {
+        for (const [ name_, details ] of Object.entries(allBinaries)) {
             commands.push(await this.commandMetadata(details));
         }
 
         const packages: RuntimeEnvironmentScan['packages'] = [];
         for (const [ name, details ] of Object.entries(npmPackages)) {
             packages.push(await this.packageMetadata(name, details));
+        }
+
+        const PATH = commands.reduce((acc, tool) => tool.path ? `${ Path.from(tool.path).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
+        const JAVA_HOME = scanResult.Languages?.Java?.path ? Path.from(scanResult.Languages.Java.path).directory().directory().value : (process.env.JAVA_HOME ?? '');
+
+        const environmentVariables = {
+            ...process.env,
+            PATH,
+            JAVA_HOME,
         }
 
         return {
@@ -134,6 +145,7 @@ export class ScanRuntimeEnvironment extends Ability {
             packageManager: await this.preferredPackageManager(directory, Binaries),
             commands,
             packages,
+            environmentVariables,
         };
     }
 
@@ -173,6 +185,11 @@ export class ScanRuntimeEnvironment extends Ability {
     }
 
     private async envinfo(directory: string): Promise<EnvinfoResult> {
+        const stat = await fs.promises.stat(directory);
+        if (! stat.isDirectory()) {
+            throw new Error(`The path ${ directory } is not a directory or cannot be accessed.`);
+        }
+
         process.chdir(directory);
 
         const integrations = JSON.parse(await envinfo.run({
@@ -198,6 +215,18 @@ export class ScanRuntimeEnvironment extends Ability {
                 ...serenity.npmPackages,
             }
         };
+    }
+
+    private async isReadableDirectory(directory: string): Promise<boolean> {
+        try {
+            await fs.promises.access(directory, fs.constants.R_OK);
+            const stats = await fs.promises.stat(directory);
+
+            return stats.isDirectory();
+        }
+        catch {
+            return false;
+        }
     }
 
     private recommendedSerenityPackages(detectedPackages: string[]): string[] {

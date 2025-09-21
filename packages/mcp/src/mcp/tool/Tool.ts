@@ -54,16 +54,22 @@ export abstract class Tool<
     ) {
         this.context = dependencies.context;
 
+        const name = config.name ?? Tool.deriveNameFromClass(this.constructor.name);
+        const title = name.charAt(0).toUpperCase() + name.replaceAll('_', ' ').slice(1);
+
         this.schema = {
             namespace: config.namespace ?? 'serenity',
-            name: config.name || Tool.deriveNameFromClass(this.constructor.name),
+            name,
             description: config.description,
             inputSchema: config.inputSchema,
             outputSchema: z.object({
                 result: config.resultSchema,
                 instructions: z.array(InstructionSchema).describe('Instructions on how to use the result'),
             }) as z.Schema<StructuredContent<z.infer<ResultSchema>>>,
-            annotations: config.annotations ?? {},
+            annotations: {
+                title,
+                ...config.annotations,
+            },
             _meta: config._meta,
         };
     }

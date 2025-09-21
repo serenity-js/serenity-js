@@ -1,8 +1,4 @@
-import path from 'node:path';
-
 import { describe, expect, it } from '../../src/mcp-api.js';
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 describe('List tools', () => {
 
@@ -13,9 +9,6 @@ describe('List tools', () => {
 
         const response = await client.listTools();
 
-        expect(response.isError).not.toBe(true);
-        expect(stderr()).toBe('')
-
         const toolNames = response.tools.map(tool => ({ name: tool.name, description: tool.description }));
 
         expect(toolNames).toEqual([
@@ -24,5 +17,8 @@ describe('List tools', () => {
                 'Check for any runtime issues, explain their root causes, and provide recommended fixes.'
             ].join(' ') },
         ]);
+
+        expect(response.isError).not.toBe(true);
+        expect(stderr()).toBe('')
     });
 });
