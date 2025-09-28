@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.1](https://github.com/serenity-js/serenity-js/compare/v3.35.0...v3.35.1) (2025-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jasmine to v5.11.0 ([0e6bb9a](https://github.com/serenity-js/serenity-js/commit/0e6bb9a925b0b01c30329e7b0c02592869054577))
+* **deps:** update dependency lru-cache to v11.2.2 ([d306404](https://github.com/serenity-js/serenity-js/commit/d3064047d7efe6e14f73cbe2cec467cd1929c58e))
+* **deps:** update dependency portfinder to v1.0.38 ([f7d85fb](https://github.com/serenity-js/serenity-js/commit/f7d85fbc136dfc2fde0100548edecbabfb25a166))
+* **deps:** update playwright dependencies to v1.55.1 ([53a98fe](https://github.com/serenity-js/serenity-js/commit/53a98fe0d655c12e317e060a2d617e0ceba43206))
+* **deps:** update webdriverio dependencies to ^9.20.0 ([8f712fa](https://github.com/serenity-js/serenity-js/commit/8f712fa6cd1d2b843046d21e1123f7a844a995ff))
+
+
+
+
+
 # [3.35.0](https://github.com/serenity-js/serenity-js/compare/v3.34.2...v3.35.0) (2025-09-07)
 
 
