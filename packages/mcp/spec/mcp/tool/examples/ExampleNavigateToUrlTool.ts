@@ -1,6 +1,13 @@
 import { z } from 'zod';
 
-import type { Instruction, Request, Response, ToolConfig, ToolDependencies } from '../../../../src/mcp/index.js';
+import type {
+    Instruction, InstructionSchema,
+    Request,
+    Response,
+    StructuredContent,
+    ToolConfig,
+    ToolDependencies
+} from '../../../../src/mcp/index.js';
 import { Tool } from '../../../../src/mcp/index.js';
 
 const inputSchema = z.object({
@@ -14,16 +21,19 @@ const resultSchema = z.object({
     }),
 });
 
-export const exampleNavigateToUrlResult = (url: string): z.infer<typeof resultSchema> => {
+export const exampleNavigateToUrlStructuredContent = (url: string, instructions: Array<z.infer<typeof InstructionSchema>> = []): StructuredContent<z.infer<typeof resultSchema>> => {
     return {
-        activity: {
-            imports: {
-                '@serenity-js/web': [
-                    'Navigate',
-                ],
-            },
-            template: `Navigate.to('${ url }')`,
-        }
+        result: {
+            activity: {
+                imports: {
+                    '@serenity-js/web': [
+                        'Navigate',
+                    ],
+                },
+                template: `Navigate.to('${ url }')`,
+            }
+        },
+        instructions,
     }
 };
 

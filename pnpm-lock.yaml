@@ -1427,11 +1427,11 @@ importers:
         specifier: workspace:*
         version: link:../testing-tools
       '@modelcontextprotocol/inspector':
-        specifier: 0.15.0
-        version: 0.15.0(@types/node@24.3.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)))(typescript@5.8.3)
+        specifier: 0.16.8
+        version: 0.16.8(@types/node@24.3.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(typescript@5.8.3)
       '@modelcontextprotocol/sdk':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.18.2
+        version: 1.18.2
       '@playwright/test':
         specifier: 1.55.0
         version: 1.55.0
@@ -4297,24 +4297,29 @@ packages:
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
     engines: {node: '>= 0.4'}
 
-  '@modelcontextprotocol/inspector-cli@0.15.0':
-    resolution: {integrity: sha512-mZxRqxYub6qFi3oypLI63yCm9TAxlTO8asE9FeAU4+HFlvKxQrujcfpckcWjqGKhZ0uVH1YUE+VwDx70nz+I5w==}
+  '@modelcontextprotocol/inspector-cli@0.16.8':
+    resolution: {integrity: sha512-u8x8Dbb8Dos34M7N8p4e4AF++Bi1D+lq+dkRCvLi5Qub/dI75Z7YTIXBezA4LbIISly+Ecn05fdofzZwqyOvpg==}
     hasBin: true
 
-  '@modelcontextprotocol/inspector-client@0.15.0':
-    resolution: {integrity: sha512-zIKxvp5HX1yE+kPOhI42/TVNuM9/RYEizdVmlpov7H38Mg9DeN9DptHYrsVLy8ZEJD1XFAu/eLl+ZtS3ceANNg==}
+  '@modelcontextprotocol/inspector-client@0.16.8':
+    resolution: {integrity: sha512-4sTk/jUnQ1lDv9kbx1nN45SsoApDxW8hjKLKcHnHh9nfRVEN9SW+ylUjNvVCDP74xSNpD8v5p6NJyVWtZYfPWA==}
     hasBin: true
 
-  '@modelcontextprotocol/inspector-server@0.15.0':
-    resolution: {integrity: sha512-x1qtDEUeSHURtBH1/WN30NX7O/Imb3u2IoY+T2YCf4mGiB24eo4hEudiZmnuKSDGwDs4BAj2keiFeL3/EwkH9w==}
+  '@modelcontextprotocol/inspector-server@0.16.8':
+    resolution: {integrity: sha512-plv0SiPgQAT0/LjC0MmGsoo/sdpS6V4TpOUAxO4J3DnvnLLaInnNh9hiU1SlGgCjsRv0nN9TvX9pWRqVnZH9kw==}
     hasBin: true
 
-  '@modelcontextprotocol/inspector@0.15.0':
-    resolution: {integrity: sha512-PN1R7InR48Y6wU8s/vHWc0KOYAjlYQkgCpjUQsNFB078ebdv+empkMI6d1Gg+UIRx8mTrwtbBgv0A6ookGG+0w==}
+  '@modelcontextprotocol/inspector@0.16.8':
+    resolution: {integrity: sha512-7kk6uOGY9ySgCFsRuRplWzvjiEwulG876pfnjQxqaBJAcUlp3N1yrOt7YQMBZsxvop+RGw50IehiPuGs+7oh+w==}
+    engines: {node: '>=22.7.5'}
     hasBin: true
 
   '@modelcontextprotocol/sdk@1.15.0':
     resolution: {integrity: sha512-67hnl/ROKdb03Vuu0YOr+baKTvf1/5YBHBm9KnZdjdAh8hjt4FRCPD5ucwxGB237sBpzlqQsLy1PFu7z/ekZ9Q==}
+    engines: {node: '>=18'}
+
+  '@modelcontextprotocol/sdk@1.18.2':
+    resolution: {integrity: sha512-beedclIvFcCnPrYgHsylqiYJVJ/CI47Vyc4tY8no1/Li/O8U4BTlJfy6ZwxkYwx+Mx10nrgwSVrA7VBbhh4slg==}
     engines: {node: '>=18'}
 
   '@napi-rs/wasm-runtime@0.2.4':
@@ -4836,6 +4841,19 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
+        optional: true
+
+  '@radix-ui/react-switch@1.2.6':
+    resolution: {integrity: sha512-bByzr1+ep1zk4VubeEVViV592vu2lHE2BZY5OnzehZqOOgogN80+mNtCqPkhn2gklJqOpxWgPoYTSnhBCqpOXQ==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
         optional: true
 
   '@radix-ui/react-tabs@1.1.13':
@@ -11249,11 +11267,6 @@ packages:
   tailwind-merge@2.6.0:
     resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
-  tailwindcss-animate@1.0.7:
-    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
-
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
     engines: {node: '>=14.0.0'}
@@ -13778,17 +13791,17 @@ snapshots:
     dependencies:
       call-bind: 1.0.8
 
-  '@modelcontextprotocol/inspector-cli@0.15.0':
+  '@modelcontextprotocol/inspector-cli@0.16.8':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.15.0
+      '@modelcontextprotocol/sdk': 1.18.2
       commander: 13.1.0
       spawn-rx: 5.1.2
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/inspector-client@0.15.0(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)))':
+  '@modelcontextprotocol/inspector-client@0.16.8(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.15.0
+      '@modelcontextprotocol/sdk': 1.18.2
       '@radix-ui/react-checkbox': 1.3.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)
@@ -13796,6 +13809,7 @@ snapshots:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-select': 2.2.6(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.12)(react@18.3.1)
+      '@radix-ui/react-switch': 1.2.6(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-toast': 1.2.15(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-tooltip': 1.2.8(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -13811,19 +13825,19 @@ snapshots:
       react-simple-code-editor: 0.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       serve-handler: 6.1.6
       tailwind-merge: 2.6.0
-      tailwindcss-animate: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)))
       zod: 3.25.76
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - supports-color
-      - tailwindcss
 
-  '@modelcontextprotocol/inspector-server@0.15.0':
+  '@modelcontextprotocol/inspector-server@0.16.8':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.15.0
+      '@modelcontextprotocol/sdk': 1.18.2
       cors: 2.8.5
       express: 5.1.0
+      shell-quote: 1.8.3
+      spawn-rx: 5.1.2
       ws: 8.18.3
       zod: 3.25.76
     transitivePeerDependencies:
@@ -13831,15 +13845,16 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@modelcontextprotocol/inspector@0.15.0(@types/node@24.3.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)))(typescript@5.8.3)':
+  '@modelcontextprotocol/inspector@0.16.8(@types/node@24.3.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(typescript@5.8.3)':
     dependencies:
-      '@modelcontextprotocol/inspector-cli': 0.15.0
-      '@modelcontextprotocol/inspector-client': 0.15.0(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)))
-      '@modelcontextprotocol/inspector-server': 0.15.0
-      '@modelcontextprotocol/sdk': 1.15.0
+      '@modelcontextprotocol/inspector-cli': 0.16.8
+      '@modelcontextprotocol/inspector-client': 0.16.8(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)
+      '@modelcontextprotocol/inspector-server': 0.16.8
+      '@modelcontextprotocol/sdk': 1.18.2
       concurrently: 9.2.1
+      node-fetch: 3.3.2
       open: 10.2.0
-      shell-quote: 1.8.2
+      shell-quote: 1.8.3
       spawn-rx: 5.1.2
       ts-node: 10.9.2(@types/node@24.3.1)(typescript@5.8.3)
       zod: 3.25.76
@@ -13851,11 +13866,27 @@ snapshots:
       - '@types/react-dom'
       - bufferutil
       - supports-color
-      - tailwindcss
       - typescript
       - utf-8-validate
 
   '@modelcontextprotocol/sdk@1.15.0':
+    dependencies:
+      ajv: 6.12.6
+      content-type: 1.0.5
+      cors: 2.8.5
+      cross-spawn: 7.0.6
+      eventsource: 3.0.7
+      eventsource-parser: 3.0.6
+      express: 5.1.0
+      express-rate-limit: 7.5.1(express@5.1.0)
+      pkce-challenge: 5.0.0
+      raw-body: 3.0.0
+      zod: 3.25.76
+      zod-to-json-schema: 3.24.6(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@modelcontextprotocol/sdk@1.18.2':
     dependencies:
       ajv: 6.12.6
       content-type: 1.0.5
@@ -14489,6 +14520,21 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       '@types/react': 19.1.12
+
+  '@radix-ui/react-switch@1.2.6(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.3
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.12)(react@18.3.1)
+      '@radix-ui/react-context': 1.1.2(@types/react@19.1.12)(react@18.3.1)
+      '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@19.1.12)(react@18.3.1)
+      '@radix-ui/react-use-previous': 1.1.1(@types/react@19.1.12)(react@18.3.1)
+      '@radix-ui/react-use-size': 1.1.1(@types/react@19.1.12)(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 19.1.12
+      '@types/react-dom': 19.1.9(@types/react@19.1.12)
 
   '@radix-ui/react-tabs@1.1.13(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -22179,10 +22225,6 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   tailwind-merge@2.6.0: {}
-
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3))):
-    dependencies:
-      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3))
 
   tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.3.1)(typescript@5.8.3)):
     dependencies:

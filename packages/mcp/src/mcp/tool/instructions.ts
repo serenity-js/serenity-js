@@ -22,7 +22,7 @@ export abstract class Instruction {
         return transformation.apply(text.charAt(0)) + text.slice(1);
     }
 
-    description(): string {
+    title(): string {
         const type = this.transformFirstCharacter(
             this.instructionType()
                 .replaceAll(/([a-z])([A-Z])/g, `$1 $2`)
@@ -30,12 +30,11 @@ export abstract class Instruction {
             String.prototype.toUpperCase
         );
 
-        return [
-            type,
-            this.target,
-            '—',
-            this.transformFirstCharacter(this.reason, String.prototype.toLowerCase)
-        ].join(' ');
+        return `${ type } ${ this.target }`;
+    }
+
+    description(): string {
+        return this.transformFirstCharacter(this.reason, String.prototype.toUpperCase);
     }
 
     toJSON(): z.infer<typeof InstructionSchema> {

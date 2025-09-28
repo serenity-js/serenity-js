@@ -15,7 +15,7 @@ import schematics from './schematics/index.js';
 import type { Config } from './server/Config.js';
 import { SerenityMcpServer } from './server/index.js';
 import { PlaywrightBrowserConnection, SerenityModuleManager } from './server/integration/index.js';
-import { ProjectAnalyzeTool } from './tools/index.js';
+import { ProjectAnalyzeTool, ProjectInstallDependenciesTool } from './tools/index.js';
 
 type CliOptions = {
     allowedOrigins?: string[];
@@ -119,6 +119,7 @@ async function startNewServer(options: CliOptions) {
 
     const tools = [
         ProjectAnalyzeTool,
+        ProjectInstallDependenciesTool,
     ];
 
     const context    = new Context(browserConnection, createAxios());

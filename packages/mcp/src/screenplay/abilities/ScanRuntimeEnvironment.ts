@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import process from 'node:process';
 
-import { Ability } from '@serenity-js/core';
+import { Ability, ConfigurationError } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io/index.js';
 import envinfo from 'envinfo';
 
@@ -29,6 +29,7 @@ export interface PackageMetadata extends DependencyMetadata {
 
 export interface RuntimeEnvironmentScan {
     status: OverallCompatibilityStatus;
+    rootDirectory: string;
     os: {
         name: string;
         cpu: string;
@@ -102,12 +103,12 @@ export class ScanRuntimeEnvironment extends Ability {
         super();
     }
 
-    async scan(directory: string): Promise<RuntimeEnvironmentScan> {
-        if (! await this.isReadableDirectory(directory)) {
-            throw new Error(`The path ${ directory } is not a directory or cannot be accessed`);
+    async scan(rootDirectory: string): Promise<RuntimeEnvironmentScan> {
+        if (! await this.isReadableDirectory(rootDirectory)) {
+            throw new Error(`The path ${ rootDirectory } is not a directory or cannot be accessed`);
         }
 
-        const scanResult = await this.envinfo(directory);
+        const scanResult = await this.envinfo(rootDirectory);
 
         const { System, Binaries, Utilities, Languages, npmPackages } = scanResult;
 
@@ -132,6 +133,7 @@ export class ScanRuntimeEnvironment extends Ability {
         }
 
         return {
+            rootDirectory,
             status: this.status(commands, packages),
             os: {
                 name: System.OS,
@@ -142,7 +144,7 @@ export class ScanRuntimeEnvironment extends Ability {
             node: await this.commandMetadata(Binaries.Node),
             git: await this.commandMetadata(Utilities.Git),
             java: await this.commandMetadata(Languages.Java),
-            packageManager: await this.preferredPackageManager(directory, Binaries),
+            packageManager: await this.preferredPackageManager(rootDirectory, Binaries),
             commands,
             packages,
             environmentVariables,
@@ -192,29 +194,43 @@ export class ScanRuntimeEnvironment extends Ability {
 
         process.chdir(directory);
 
-        const integrations = JSON.parse(await envinfo.run({
-            Binaries: [ 'Node', 'npm', 'pnpm', 'yarn' ],
-            Languages: [ 'Java' ],
-            System: [ 'Container', 'CPU', 'Memory', 'OS', 'Shell' ],
-            Utilities: [ 'Git' ],
-            npmPackages: `{${ ScanRuntimeEnvironment.packagesOfInterest.join(',') }}`
-        }, { json: true, showNotFound: false, console: false, fullTree: true }));
+        try {
+            const envinfoResult = await envinfo.run({
+                Binaries: [ 'Node', 'npm', 'pnpm', 'yarn' ],
+                Languages: [ 'Java' ],
+                System: [ 'Container', 'CPU', 'Memory', 'OS', 'Shell' ],
+                Utilities: [ 'Git' ],
+                npmPackages: `{${ ScanRuntimeEnvironment.packagesOfInterest.join(',') }}`
+            }, { json: true, showNotFound: false, console: false, fullTree: true });
 
-        const detectedPackages = Object.keys(integrations.npmPackages || {});
+            const integrations = JSON.parse(envinfoResult);
 
-        const serenity = JSON.parse(await envinfo.run({
-            npmPackages: this.recommendedSerenityPackages(detectedPackages).join(',')
-        }, { json: true, showNotFound: true, console: false, fullTree: true }));
+            const detectedPackages = Object.keys(integrations.npmPackages || {});
 
-        process.chdir(this.cwd);
+            const serenity = JSON.parse(await envinfo.run({
+                npmPackages: this.recommendedSerenityPackages(detectedPackages).join(',')
+            }, { json: true, showNotFound: true, console: false, fullTree: true }));
 
-        return {
-            ...integrations,
-            npmPackages: {
-                ...integrations.npmPackages,
-                ...serenity.npmPackages,
+            return {
+                ...integrations,
+                npmPackages: {
+                    ...integrations.npmPackages,
+                    ...serenity.npmPackages,
+                }
+            };
+        }
+        catch(error) {
+            if (error instanceof SyntaxError) {
+                throw new ConfigurationError([
+                    `Could not analyze the runtime environment of the project at ${ directory }.`,
+                    `Please make sure the project's package.json file is valid JSON.`
+                ].join(' '), error);
             }
-        };
+            throw error;
+        }
+        finally {
+            process.chdir(this.cwd);
+        }
     }
 
     private async isReadableDirectory(directory: string): Promise<boolean> {

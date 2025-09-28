@@ -105,6 +105,10 @@ export const {
             client = new Client({
                 name: options?.clientName ?? 'mcp-client-serenity-js',
                 version: '1.0.0',
+            }, {
+                capabilities: {
+                    elicitation: { },
+                }
             });
 
             const transport = createMcpTransport(args);

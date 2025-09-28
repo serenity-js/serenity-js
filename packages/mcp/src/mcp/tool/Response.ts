@@ -5,12 +5,14 @@ import type { Instruction, InstructionSchema } from './instructions.js';
 
 export interface StructuredContent<Result extends Record<string, any>> {
     instructions: z.infer<typeof InstructionSchema>[];
-    result: Result;
+    result?: Result;
+    error?: { name: string, message: string, stack?: string };
 }
 
 export class Response<Result extends Record<string, unknown>> {
-    private result: Result = {} as Result;
+    private result?: Result;
     private summary?: string;
+    private error?: Error;
     private readonly instructions: Instruction[] = [];
 
     constructor(private readonly outputSchema: z.Schema<StructuredContent<Result>>) {
@@ -34,23 +36,31 @@ export class Response<Result extends Record<string, unknown>> {
         return this;
     }
 
+    withError(error: Error): this {
+        this.error = error;
+        return this;
+    }
+
     toJSON(): z.infer<typeof CallToolResultSchema> {
+
         const structuredContent: StructuredContent<Result> = this.outputSchema.parse({
             result: this.result,
+            error: this.error ? { name: this.error.name, message: this.error.message, stack: this.error.stack } : undefined,
             instructions: this.instructions.map(instruction => instruction.toJSON()),
         });
 
-        const serialisedResult = JSON.stringify(structuredContent, undefined, 0);
-        const humanReadableInstructions = this.instructions.map((instruction, i) => `Instruction ${ i + 1 }: ${ instruction.description() }`);
+        const serialisedStructuredContent = JSON.stringify(structuredContent, undefined, 0);
+        const humanReadableInstructions = this.instructions
+            .map((instruction, i) => `Instruction ${ i + 1 }: ${ instruction.title() }\n\n${ instruction.description() }`);
 
         const content: Array<z.infer<typeof TextContentSchema>> = [
-            serialisedResult,
+            serialisedStructuredContent,
             this.summary,
             ...humanReadableInstructions
         ].filter(Boolean).map(text => ({ type: 'text', text }));
 
         return {
-            // isError: false,
+            isError: Boolean(this.error),
             content: content,
             structuredContent: structuredContent as unknown as { [k: string]: unknown },
         };

@@ -7,6 +7,7 @@ import type { ZodSchema } from 'zod';
 import { packageJSON } from '../../package.js';
 import type { Context } from '../context/index.js';
 import type { Tool, ToolConfig, ToolDependencies } from '../tool/index.js';
+import { ElicitInput } from '../tool/index.js';
 
 type ToolClass<IS extends ZodSchema, RS extends ZodSchema> =
     (new (dependencies: ToolDependencies, config: Partial<ToolConfig<IS, RS>>) => Tool<IS, RS>);
@@ -14,6 +15,7 @@ type ToolClass<IS extends ZodSchema, RS extends ZodSchema> =
 export class Dispatcher {
     private readonly server: McpServer;
     private readonly tools: Tool<ZodSchema, ZodSchema>[] = [];
+    private readonly input: ElicitInput;
 
     constructor(
         private readonly context: Context,
@@ -26,8 +28,10 @@ export class Dispatcher {
             capabilities: { tools: {} }
         });
 
+        this.input = new ElicitInput(this.server)
+
         this.tools = tools.map(toolClass => new toolClass(
-            { context: this.context },
+            { context: this.context, input: this.input },
             { namespace: 'serenity' },
         ));
 

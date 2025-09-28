@@ -1,17 +1,11 @@
 import { z } from 'zod';
 
-import type {
-    Request,
-    Response,
-    ToolConfig,
-    ToolDependencies
-} from '../../mcp/index.js';
-import {
-    CallToolInstruction,
-    RequestUserActionInstruction
-} from '../../mcp/index.js';
+import type { Request, Response, ToolConfig, ToolDependencies } from '../../mcp/index.js';
 import { Tool } from '../../mcp/index.js';
+import type { RuntimeEnvironmentScan } from '../../screenplay/index.js';
 import { ScanRuntimeEnvironment } from '../../screenplay/index.js';
+import type { PackageManager } from '../../server/integration/index.js';
+import { Npm, Pnpm, Yarn } from '../../server/integration/index.js';
 
 const inputSchema = z.object({
     rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
@@ -29,15 +23,10 @@ const packageSchema = z.object({
 });
 
 const resultSchema = z.object({
-    // status: z.enum([ 'compatible', 'runtime-issues', 'dependency-issues' ])
-    //     .describe([
-    //         'The overall compatibility status of the project:',
-    //         '- compatible - means all runtime and node dependencies are present;',
-    //         '- runtime-issues - means system-level runtime issues that must be resolved before proceeding;',
-    //         '- dependency-issues - some required node modules are missing or need to be updated;',
-    //     ].join(' ')),
-
-    packages: z.array(packageSchema),
+    packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status post installation'),
+    command: z.string().describe('The command that was executed to install the dependencies'),
+    stderr: z.string().optional().describe('Standard error output from the package manager, if any'),
+    stdout: z.string().optional().describe('Standard output from the package manager, if any'),
 });
 
 export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typeof resultSchema> {
@@ -46,11 +35,16 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
         super(dependencies, {
             ...config,
             description: [
-                'Analyze a Node.js project in the specified root directory to assess compatibility with Serenity/JS.',
-                'Check for any runtime issues, explain their root causes, and provide recommended fixes.'
+                'Install any missing and update any incompatible Node.js packages in the project located in the specified root directory.',
             ].join(' '),
             inputSchema: inputSchema,
             resultSchema: resultSchema,
+            annotations: {
+                readOnlyHint: false,
+                destructiveHint: true,
+                idempotentHint: false,
+                openWorldHint: false,
+            }
         });
     }
 
@@ -63,19 +57,78 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
 
         const scanner = ScanRuntimeEnvironment.as(this.actor());
 
-        const before = await scanner.scan(rootDirectory);
+        const scanResult = await scanner.scan(rootDirectory);
 
-        // before.packageManager
+        const packageManager = this.packageManager(scanResult);
 
-        // this.actor().whoCan(
-        //  todo: add ability to the current actor to install dependencies
-        // )
+        const packagesToInstall = scanResult.packages.filter(pkg => pkg.status === 'missing' || pkg.status === 'incompatible');
+        const packageDetails = packagesToInstall.map(pkg => `${ pkg.name }@${ pkg.version.supported }`);
+
+        const scope = 'development';
+        const installCommand = packageManager.install(packageDetails, { scope });
+
+        const confirmation = await this.input.confirm([
+            `The project requires ${ packagesToInstall.length } ${ scope } ${ packagesToInstall.length === 1 ? 'package' : 'packages' } to be installed with ${ scanResult.packageManager.name }.`,
+            `Would you like to proceed?`,
+        ].join(' '));
+
+        if (! confirmation) {
+
+            // no packages to install
+            return response.withResult({
+                command: installCommand.toString(),
+                packages: scanResult.packages
+            });
+        }
+
+        const { stdout, stderr, error } = await installCommand.execute();
 
         const after = await scanner.scan(rootDirectory);
-        // todo: scan again
 
-        return response.withResult({
-            packages: after.packages
+        const responseWithResult = response.withResult({
+            command: installCommand.toString(),
+            packages: after.packages,
+            stderr,
+            stdout,
         });
+
+        return error
+            ? responseWithResult.withError(error)
+            : responseWithResult;
+    }
+
+    private packageManager(scanResult: RuntimeEnvironmentScan): PackageManager {
+        const { packageManager, rootDirectory, environmentVariables, shell } = scanResult;
+
+        if (packageManager.status !== 'compatible') {
+            throw new Error([
+                `Cannot install dependencies: incompatible or missing package manager:`,
+                packageManager.name,
+                packageManager.version.current ?? ''
+            ].join(' ').trim());
+        }
+
+        switch (packageManager.name) {
+            case 'pnpm':
+                return new Pnpm(packageManager.path, {
+                    cwd: rootDirectory,
+                    env: environmentVariables,
+                    shell: shell.path,
+                });
+
+            case 'yarn':
+                return new Yarn(packageManager.path, {
+                    cwd: rootDirectory,
+                    env: environmentVariables,
+                    shell: shell.path,
+                });
+
+            default:
+                return new Npm(packageManager.path, {
+                    cwd: rootDirectory,
+                    env: environmentVariables,
+                    shell: shell.path,
+                });
+        }
     }
 }

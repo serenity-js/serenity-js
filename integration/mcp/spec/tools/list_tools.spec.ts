@@ -16,6 +16,9 @@ describe('List tools', () => {
                 'Analyze a Node.js project in the specified root directory to assess compatibility with Serenity/JS.',
                 'Check for any runtime issues, explain their root causes, and provide recommended fixes.'
             ].join(' ') },
+            { name: 'serenity_project_install_dependencies', description: [
+                'Install any missing and update any incompatible Node.js packages in the project located in the specified root directory.'
+            ].join(' ') },
         ]);
 
         expect(response.isError).not.toBe(true);

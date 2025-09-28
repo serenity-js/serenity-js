@@ -29,6 +29,7 @@ const packageSchema = z.object({
 });
 
 const resultSchema = z.object({
+    rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
     status: z.enum([ 'compatible', 'runtime-issues', 'dependency-issues' ])
         .describe([
             'The overall compatibility status of the project:',
@@ -36,12 +37,11 @@ const resultSchema = z.object({
             '- runtime-issues - means system-level runtime issues that must be resolved before proceeding;',
             '- dependency-issues - some required node modules are missing or need to be updated;',
         ].join(' ')),
-
     git: commandSchema,
     java: commandSchema,
     node: commandSchema,
     packageManager: commandSchema,
-    packages: z.array(packageSchema),
+    packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status'),
     environmentVariables: z.record(z.string()).describe('A list of environment variables available in the project'),
 });
 
@@ -91,22 +91,27 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
         const missingOrOutdatedPackages = describeAllIncompatible(result.packages);
 
         return [
-            `# Project analysis result: ${ result.status }`,
-            '',
+            trimmed`
+                | # Project analysis result: ${ result.status }
+                |`,
             compatibleCommandLineTools.length > 0 && trimmed`
                 | ## ✅ Compatible command line tools
+                |
                 | ${ compatibleCommandLineTools.join('\n') }
                 |`,
             problematicCommandLineTools.length > 0 && trimmed`
                 | ## ⚠️ Incompatible command line tools
+                |
                 | ${ problematicCommandLineTools.join('\n') }
                 |`,
             compatiblePackages.length > 0 && trimmed`
                 | ## ✅ Installed compatible Node.js packages
+                |
                 | ${ compatiblePackages.join('\n') }
                 |`,
             missingOrOutdatedPackages.length > 0 && trimmed`
                 | ## ⚠️ Missing or outdated Node.js packages
+                |
                 | ${ missingOrOutdatedPackages.join('\n') }
                 |`,
             `## ➡️️ Next steps`,
@@ -141,14 +146,16 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
         if (result.packageManager) {
             instructions.push(new UpdatePolicyInstruction('rule', trimmed`
                 | You are acting as a coding assistant within a JavaScript/TypeScript project. Always follow these rules:
+                |
                 | 1. Use the detected package manager
                 |   - Use the detected binary for all package installations and script executions: ${ result.packageManager.path }
                 |   - Do not use any other package manager.
+                |
                 | 2. Always write full, copy-ready commands
                 |   - Provide commands in full, exactly as they should be executed.
-                |   - Examples:
-                |     - Install a package → ${ result.packageManager.path } install <package-name>
-                |     - Run a script → ${ result.packageManager.path } run <script-name>
+                |   - Example: Install a package → ${ result.packageManager.path } install <package-name>
+                |   - Example: Run a script → ${ result.packageManager.path } run <script-name>
+                |
                 | 3. Be explicit and consistent
                 |   - Every response must include the exact command(s) required, with no placeholders omitted.
                 |   - Never mix or alternate between package managers.
@@ -163,8 +170,10 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
                 | 1. Branch creation
                 |   - Always start from the latest main (or master) branch.
                 |   - Create and switch to a new branch with a unique, descriptive name (e.g., feature/integrate-serenity-js).
+                |
                 | 2. Working directory check
                 |   - If uncommitted changes exist, stop and prompt the user to review, commit, or stash them before continuing.
+                |
                 | 3. Branch purpose confirmation
                 |   - Before beginning changes, clearly describe the new branch’s purpose and the planned modifications.
                 |   - Confirm with the user before proceeding.

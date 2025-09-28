@@ -25,9 +25,8 @@ describe('instructions', () => {
             it('generates an agent-readable description of the instruction', () => {
                 const callTool = new CallToolInstruction('browser_snapshot', `Understand what's changed on the website`);
 
-                expect(callTool.description()).equal(
-                    `Call tool browser_snapshot to understand what's changed on the website`,
-                );
+                expect(callTool.title()).equal('Call tool browser_snapshot');
+                expect(callTool.description()).equal(`Understand what's changed on the website`);
             });
         });
     });

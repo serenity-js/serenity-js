@@ -95,9 +95,9 @@ describe('Project Analyze', () => {
             expect(response.content[0].text).toEqual(JSON.stringify(response.structuredContent, undefined, 0));
 
             expect(response.content[1].text).toMatch(/# Project analysis result: dependency-issues/);
-            expect(response.content[2].text).toMatch(/Instruction 1: Call tool serenity_project_install_dependencies — install the following packages before proceeding:/);
-            expect(response.content[3].text).toMatch(/Instruction 2: Update policy rule — you are acting as a coding assistant within a JavaScript\/TypeScript project/);
-            expect(response.content[4].text).toMatch(/Instruction 3: Update policy rule — this project uses Git installed at/);
+            expect(response.content[2].text).toMatch(/Instruction 1: Call tool serenity_project_install_dependencies\n\nInstall the following packages before proceeding:/);
+            expect(response.content[3].text).toMatch(/Instruction 2: Update policy rule\n\nYou are acting as a coding assistant within a JavaScript\/TypeScript project/);
+            expect(response.content[4].text).toMatch(/Instruction 3: Update policy rule\n\nThis project uses Git installed at/);
 
             expect(response.isError).not.toBe(true);
             expect(stderr()).toBe('');

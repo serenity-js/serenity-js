@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
 import type { Context } from '../context/index.js';
+import type { ElicitInput } from './ElicitInput.js';
 import { InstructionSchema } from './instructions.js';
 import { Request } from './Request.js';
 import type { StructuredContent } from './Response.js';
@@ -38,6 +39,7 @@ interface ToolSchema<InputSchema extends ZodSchema, ResultSchema extends ZodSche
 
 export interface ToolDependencies {
     context: Context;
+    input: ElicitInput;
 }
 
 export abstract class Tool<
@@ -47,12 +49,14 @@ export abstract class Tool<
     private readonly schema: ToolSchema<InputSchema, ResultSchema>;
 
     protected readonly context: Context;
+    protected readonly input: ElicitInput;
 
     protected constructor(
         dependencies: ToolDependencies,
         config: Partial<ToolConfig<InputSchema, ResultSchema>>,
     ) {
         this.context = dependencies.context;
+        this.input = dependencies.input;
 
         const name = config.name ?? Tool.deriveNameFromClass(this.constructor.name);
         const title = name.charAt(0).toUpperCase() + name.replaceAll('_', ' ').slice(1);
