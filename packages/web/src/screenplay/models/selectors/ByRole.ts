@@ -1,5 +1,8 @@
 import { Selector } from './Selector';
 
+/**
+ * @group Models
+ */
 export type ByRoleSelectorValue =
     | 'alert'
     | 'alertdialog'
@@ -84,12 +87,23 @@ export type ByRoleSelectorValue =
     | 'treegrid'
     | 'treeitem'
 
+/**
+ * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) by its [ARIA role](https://www.w3.org/TR/wai-aria-1.2/#roles),
+ * [ARIA attributes](https://www.w3.org/TR/wai-aria-1.2/#aria-attributes) and [accessible name](https://w3c.github.io/accname/#dfn-accessible-name).
+ *
+ * **Pro tip:** Instantiate using [`By.role`](https://serenity-js.org/api/web/class/By/#role)
+ *
+ * @group Models
+ */
 export class ByRole extends Selector {
     constructor(public readonly value: ByRoleSelectorValue, public readonly options: ByRoleSelectorOptions) {
         super();
     }
 }
 
+/**
+ * @group Models
+ */
 export interface ByRoleSelectorOptions {
 
     /**
