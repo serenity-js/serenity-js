@@ -27,21 +27,30 @@ export interface CommandMetadata extends DependencyMetadata {
 export interface PackageMetadata extends DependencyMetadata {
 }
 
+type TestRunner =
+    | 'cucumber'
+    | 'jasmine'
+    | 'mocha'
+    | 'playwright-test'
+    | 'protractor'
+    | 'webdriverio';
+
 export interface RuntimeEnvironmentScan {
-    status: OverallCompatibilityStatus;
     rootDirectory: string;
+    status: OverallCompatibilityStatus;
     os: {
         name: string;
         cpu: string;
         memory: string;
     };
-    shell: CommandMetadata;
-    packageManager?: CommandMetadata,
-    node?: CommandMetadata,
     git?: CommandMetadata,
     java?: CommandMetadata,
+    node?: CommandMetadata,
+    packageManager?: CommandMetadata,
+    shell: CommandMetadata;
     commands: CommandMetadata[];
     packages: PackageMetadata[];
+    testRunners: TestRunner[];
     environmentVariables: Record<string, string>;
 }
 
@@ -130,7 +139,7 @@ export class ScanRuntimeEnvironment extends Ability {
             ...process.env,
             PATH,
             JAVA_HOME,
-        }
+        };
 
         return {
             rootDirectory,
@@ -145,10 +154,46 @@ export class ScanRuntimeEnvironment extends Ability {
             git: await this.commandMetadata(Utilities.Git),
             java: await this.commandMetadata(Languages.Java),
             packageManager: await this.preferredPackageManager(rootDirectory, Binaries),
+            testRunners: this.testRunners(packages),
             commands,
             packages,
             environmentVariables,
         };
+    }
+
+    private testRunners(packages: PackageMetadata[]): TestRunner[] {
+        const testRunners: TestRunner[] = [];
+
+        const detectedPackages = packages.reduce((acc, metadata) => {
+            acc[metadata.name] = metadata;
+            return acc;
+        }, {});
+
+        if (detectedPackages['cucumber'] || detectedPackages['@cucumber/cucumber']) {
+            testRunners.push('cucumber');
+        }
+
+        if (detectedPackages['jasmine']) {
+            testRunners.push('jasmine');
+        }
+
+        if (detectedPackages['mocha']) {
+            testRunners.push('mocha');
+        }
+
+        if (detectedPackages['@playwright/test']) {
+            testRunners.push('playwright-test');
+        }
+
+        if (detectedPackages['webdriverio'] || detectedPackages['@wdio/cli']) {
+            testRunners.push('webdriverio');
+        }
+
+        if (detectedPackages['protractor']) {
+            testRunners.push('protractor');
+        }
+
+        return testRunners;
     }
 
     private status(commands: CommandMetadata[], packages: PackageMetadata[]): OverallCompatibilityStatus {
@@ -218,8 +263,7 @@ export class ScanRuntimeEnvironment extends Ability {
                     ...serenity.npmPackages,
                 }
             };
-        }
-        catch(error) {
+        } catch (error) {
             if (error instanceof SyntaxError) {
                 throw new ConfigurationError([
                     `Could not analyze the runtime environment of the project at ${ directory }.`,
@@ -227,8 +271,7 @@ export class ScanRuntimeEnvironment extends Ability {
                 ].join(' '), error);
             }
             throw error;
-        }
-        finally {
+        } finally {
             process.chdir(this.cwd);
         }
     }
@@ -239,8 +282,7 @@ export class ScanRuntimeEnvironment extends Ability {
             const stats = await fs.promises.stat(directory);
 
             return stats.isDirectory();
-        }
-        catch {
+        } catch {
             return false;
         }
     }

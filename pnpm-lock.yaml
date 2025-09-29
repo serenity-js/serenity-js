@@ -1433,8 +1433,8 @@ importers:
         specifier: 1.18.2
         version: 1.18.2
       '@playwright/test':
-        specifier: 1.55.0
-        version: 1.55.0
+        specifier: 1.55.1
+        version: 1.55.1
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -1466,7 +1466,7 @@ importers:
   integration/mcp/examples/playwright-test:
     devDependencies:
       '@playwright/test':
-        specifier: ^1.55.0
+        specifier: ^1.55.1
         version: 1.55.1
       '@types/node':
         specifier: ^24.3.0
@@ -2741,11 +2741,11 @@ importers:
         specifier: 7.14.0
         version: 7.14.0
       playwright:
-        specifier: 1.55.0
-        version: 1.55.0
+        specifier: 1.55.1
+        version: 1.55.1
       playwright-core:
-        specifier: 1.55.0
-        version: 1.55.0
+        specifier: 1.55.1
+        version: 1.55.1
       tiny-types:
         specifier: 1.23.0
         version: 1.23.0
@@ -4737,11 +4737,6 @@ packages:
 
   '@playwright/experimental-ct-react@1.55.1':
     resolution: {integrity: sha512-q+qH/J99iV6+99oVT417AA8KsYp3lwxsnxZrLZjIwkEC5+G28QCkr7+UYAOZoNPzelGqHFMLhYMvc6mXuREa2w==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  '@playwright/test@1.55.0':
-    resolution: {integrity: sha512-04IXzPwHrW69XusN/SIdDdKZBzMfOT9UNT/YiJit/xpy2VuAoB8NHc8Aplb96zsWDddLnbkPL3TsmrS04ZU2xQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10363,18 +10358,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.55.0:
-    resolution: {integrity: sha512-GvZs4vU3U5ro2nZpeiwyb0zuFaqb9sUiAJuyrWpcGouD8y9/HLgGbNRjIph7zU9D3hnPaisMl9zG9CgFi/biIg==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.55.1:
     resolution: {integrity: sha512-Z6Mh9mkwX+zxSlHqdr5AOcJnfp+xUWLCt9uKV18fhzA8eyxUd8NUWzAjxUh55RZKSYwDGX0cfaySdhZJGMoJ+w==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.55.0:
-    resolution: {integrity: sha512-sdCWStblvV1YU909Xqx0DhOjPZE4/5lJsIS84IfN9dAZfcl/CIZ5O8l3o0j7hPMjDvqoTF8ZUcc+i/GL5erstA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -14706,10 +14691,6 @@ snapshots:
       - tsx
       - vite
       - yaml
-
-  '@playwright/test@1.55.0':
-    dependencies:
-      playwright: 1.55.0
 
   '@playwright/test@1.55.1':
     dependencies:
@@ -21511,15 +21492,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.55.0: {}
-
   playwright-core@1.55.1: {}
-
-  playwright@1.55.0:
-    dependencies:
-      playwright-core: 1.55.0
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.55.1:
     dependencies:

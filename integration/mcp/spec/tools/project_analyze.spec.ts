@@ -68,6 +68,7 @@ describe('Project Analyze', () => {
 
             const compatiblePackages = response.structuredContent.result.packages.filter(({ status }) => status === 'compatible').map(({ name }) => name);
             const missingPackages = response.structuredContent.result.packages.filter(({ status }) => status === 'missing').map(({ name }) => name);
+            const testRunners = response.structuredContent.result.testRunners;
 
             expect(compatiblePackages).toEqual([
                 '@playwright/test',
@@ -85,6 +86,10 @@ describe('Project Analyze', () => {
                 'npm-failsafe',
                 'rimraf',
             ]);
+
+            expect(testRunners).toEqual([
+                'playwright-test'
+            ])
 
             const callToolInstructions = response.structuredContent.instructions.filter(instruction => instruction.type === 'callTool');
 

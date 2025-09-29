@@ -5,26 +5,16 @@ import type { Instruction, Request, Response, ToolConfig, ToolDependencies } fro
 import { CallToolInstruction, RequestUserActionInstruction, Tool, UpdatePolicyInstruction } from '../../mcp/index.js';
 import type { DependencyMetadata, RuntimeEnvironmentScan } from '../../screenplay/index.js';
 import { ScanRuntimeEnvironment } from '../../screenplay/index.js';
+import { packageSchema, testRunnerSchema, versionSchema } from './schema.js';
 
 const inputSchema = z.object({
     rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
-});
-
-const versionSchema = z.object({
-    current: z.string().optional().describe('Current version, if detected'),
-    supported: z.string().optional().describe('Supported version'),
 });
 
 const commandSchema = z.object({
     name: z.string().describe('The name of the command line tool'),
     status: z.enum([ 'compatible', 'incompatible', 'missing' ]),
     path: z.string().describe('The absolute path to the command line tool binary'),
-    version: versionSchema,
-});
-
-const packageSchema = z.object({
-    name: z.string().describe('The name of the Node.js package'),
-    status: z.enum([ 'compatible', 'incompatible', 'missing' ]),
     version: versionSchema,
 });
 
@@ -41,7 +31,9 @@ const resultSchema = z.object({
     java: commandSchema,
     node: commandSchema,
     packageManager: commandSchema,
+    shell: commandSchema,
     packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status'),
+    testRunners: z.array(testRunnerSchema).describe('Test runners detected in the project'),
     environmentVariables: z.record(z.string()).describe('A list of environment variables available in the project'),
 });
 

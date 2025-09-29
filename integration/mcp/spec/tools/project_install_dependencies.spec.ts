@@ -32,6 +32,9 @@ describe('Project Install Dependencies', () => {
 
         expect(stderr()).toBe('');
         expect(response.isError).toBe(false);
+        expect(response.structuredContent.instructions[0].target).toEqual('runtime');
+        expect(response.structuredContent.instructions[0].type).toEqual('requestUserAction');
+        expect(response.structuredContent.instructions[0].reason).toMatch(/Installation aborted. Install the missing packages using the provided command: .*?npm install --save-dev.*/);
 
         const versionPattern = '\\d+\\.\\d+\\.\\d+';
 

@@ -1,25 +1,15 @@
 import { z } from 'zod';
 
-import type { Request, Response, ToolConfig, ToolDependencies } from '../../mcp/index.js';
-import { Tool } from '../../mcp/index.js';
+import type { Instruction, Request, Response, ToolConfig, ToolDependencies } from '../../mcp/index.js';
+import { CallToolInstruction, RequestUserActionInstruction, Tool } from '../../mcp/index.js';
 import type { RuntimeEnvironmentScan } from '../../screenplay/index.js';
 import { ScanRuntimeEnvironment } from '../../screenplay/index.js';
-import type { PackageManager } from '../../server/integration/index.js';
+import type { CliCommand, PackageManager } from '../../server/integration/index.js';
 import { Npm, Pnpm, Yarn } from '../../server/integration/index.js';
+import { packageSchema } from './schema.js';
 
 const inputSchema = z.object({
     rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
-});
-
-const versionSchema = z.object({
-    current: z.string().optional().describe('Current version, if detected'),
-    supported: z.string().optional().describe('Supported version'),
-});
-
-const packageSchema = z.object({
-    name: z.string().describe('The name of the Node.js package'),
-    status: z.enum([ 'compatible', 'incompatible', 'missing' ]),
-    version: versionSchema,
 });
 
 const resultSchema = z.object({
@@ -68,17 +58,22 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
         const installCommand = packageManager.install(packageDetails, { scope });
 
         const confirmation = await this.input.confirm([
-            `The project requires ${ packagesToInstall.length } ${ scope } ${ packagesToInstall.length === 1 ? 'package' : 'packages' } to be installed with ${ scanResult.packageManager.name }.`,
+            `The project requires ${ packagesToInstall.length } ${ scope } ${ packagesToInstall.length === 1 ? 'package' : 'packages' }`,
+            `to be installed with ${ scanResult.packageManager.name }.`,
             `Would you like to proceed?`,
         ].join(' '));
 
         if (! confirmation) {
 
             // no packages to install
-            return response.withResult({
-                command: installCommand.toString(),
-                packages: scanResult.packages
-            });
+            return response
+                .withResult({
+                    command: installCommand.toString(),
+                    packages: scanResult.packages
+                })
+                .withInstructions(
+                    this.manualInstallationInstruction('Installation aborted', installCommand),
+                );
         }
 
         const { stdout, stderr, error } = await installCommand.execute();
@@ -92,9 +87,23 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
             stdout,
         });
 
-        return error
-            ? responseWithResult.withError(error)
-            : responseWithResult;
+        if (error) {
+            return responseWithResult
+                .withError(error)
+                .withInstructions(this.manualInstallationInstruction('Installation failed', installCommand));
+        }
+
+        return responseWithResult
+            .withInstructions(
+                new CallToolInstruction('serenity_project_configure', 'Configure the project to use Serenity/JS'),
+            )
+    }
+
+    private manualInstallationInstruction(failureReason: string, command: CliCommand): Instruction {
+        return new RequestUserActionInstruction(
+            'runtime',
+            `${ failureReason }. Install the missing packages using the provided command: ${ command.toString() }`
+        );
     }
 
     private packageManager(scanResult: RuntimeEnvironmentScan): PackageManager {
