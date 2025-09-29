@@ -1,3 +1,4 @@
+import { ConfigurationError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io/index.js';
 import { z } from 'zod';
 
@@ -33,7 +34,7 @@ const resultSchema = z.object({
     packageManager: commandSchema,
     shell: commandSchema,
     packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status'),
-    testRunners: z.array(testRunnerSchema).describe('Test runners detected in the project'),
+    testRunner: testRunnerSchema,
     environmentVariables: z.record(z.string()).describe('A list of environment variables available in the project'),
 });
 
@@ -66,12 +67,29 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
 
         const scanner = ScanRuntimeEnvironment.as(this.actor());
 
-        const result = await scanner.scan(rootDirectory.trim());
+        try {
+            const result = await scanner.scan(rootDirectory.trim());
 
-        return response
-            .withResult(result)
-            .withSummary(this.summaryOf(result))
-            .withInstructions(...this.instructionsFor(result));
+            return response
+                .withResult(result)
+                .withSummary(this.summaryOf(result))
+                .withInstructions(...this.instructionsFor(result));
+        }
+        catch(error) {
+            if (error instanceof ConfigurationError) {
+                return response
+                    .withError(error)
+                    .withInstructions(
+                        new RequestUserActionInstruction(
+                            'runtime',
+                            error.message,
+                        ),
+                    );
+            }
+
+            throw error;
+        }
+
     }
 
     private summaryOf(result: RuntimeEnvironmentScan): string {

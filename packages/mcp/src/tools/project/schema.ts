@@ -16,6 +16,10 @@ export const testRunnerSchema = z.enum([
     'jasmine',
     'mocha',
     'playwright-test',
-    'protractor',
-    'webdriverio',
+    'protractor-mocha',
+    'protractor-jasmine',
+    'protractor-cucumber',
+    'webdriverio-mocha',
+    'webdriverio-jasmine',
+    'webdriverio-cucumber',
 ]).describe('Test runner');

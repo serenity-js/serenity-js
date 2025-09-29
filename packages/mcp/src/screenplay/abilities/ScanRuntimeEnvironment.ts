@@ -32,8 +32,12 @@ type TestRunner =
     | 'jasmine'
     | 'mocha'
     | 'playwright-test'
-    | 'protractor'
-    | 'webdriverio';
+    | 'protractor-cucumber'
+    | 'protractor-jasmine'
+    | 'protractor-mocha'
+    | 'webdriverio-cucumber'
+    | 'webdriverio-jasmine'
+    | 'webdriverio-mocha';
 
 export interface RuntimeEnvironmentScan {
     rootDirectory: string;
@@ -50,7 +54,7 @@ export interface RuntimeEnvironmentScan {
     shell: CommandMetadata;
     commands: CommandMetadata[];
     packages: PackageMetadata[];
-    testRunners: TestRunner[];
+    testRunner: TestRunner;
     environmentVariables: Record<string, string>;
 }
 
@@ -154,46 +158,51 @@ export class ScanRuntimeEnvironment extends Ability {
             git: await this.commandMetadata(Utilities.Git),
             java: await this.commandMetadata(Languages.Java),
             packageManager: await this.preferredPackageManager(rootDirectory, Binaries),
-            testRunners: this.testRunners(packages),
+            testRunner: this.testRunner(packages),
             commands,
             packages,
             environmentVariables,
         };
     }
 
-    private testRunners(packages: PackageMetadata[]): TestRunner[] {
-        const testRunners: TestRunner[] = [];
+    private testRunner(packages: PackageMetadata[]): TestRunner {
+        const detectedPackages = new Set(packages.map(metadata => metadata.name));
 
-        const detectedPackages = packages.reduce((acc, metadata) => {
-            acc[metadata.name] = metadata;
-            return acc;
-        }, {});
+        const usesWebdriverIO = (detectedPackages.has('webdriverio') || detectedPackages.has('@wdio/cli'));
+        const usesProtractor = !! detectedPackages.has('protractor');
+        const usesCucumber = !! (detectedPackages.has('cucumber') || detectedPackages.has('@cucumber/cucumber'));
+        const usesJasmine = !! detectedPackages.has('jasmine');
+        const usesMocha = !! detectedPackages.has('mocha');
+        const usesPlaywrightTest = !! detectedPackages.has('@playwright/test');
 
-        if (detectedPackages['cucumber'] || detectedPackages['@cucumber/cucumber']) {
-            testRunners.push('cucumber');
+        switch(true) {
+            case usesWebdriverIO && usesCucumber:
+                return 'webdriverio-cucumber';
+            case usesWebdriverIO && usesJasmine:
+                return 'webdriverio-jasmine';
+            case usesWebdriverIO && usesMocha:
+                return 'webdriverio-mocha';
+            case usesProtractor && usesCucumber:
+                return 'protractor-cucumber';
+            case usesProtractor && usesJasmine:
+                return 'protractor-jasmine';
+            case usesProtractor && usesMocha:
+                return 'protractor-mocha';
+            case usesPlaywrightTest:
+                return 'playwright-test';
+            case usesCucumber:
+                return 'cucumber';
+            case usesJasmine:
+                return 'jasmine';
+            case usesMocha:
+                return 'mocha';
+            default:
+                throw new ConfigurationError([
+                    `Could not determine the test runner used in this project.`,
+                    `Supported test runners are Cucumber, Jasmine, Mocha, Playwright Test, Protractor and WebdriverIO.`,
+                    `Please install one of these test runners and try again.`,
+                ].join(' '));
         }
-
-        if (detectedPackages['jasmine']) {
-            testRunners.push('jasmine');
-        }
-
-        if (detectedPackages['mocha']) {
-            testRunners.push('mocha');
-        }
-
-        if (detectedPackages['@playwright/test']) {
-            testRunners.push('playwright-test');
-        }
-
-        if (detectedPackages['webdriverio'] || detectedPackages['@wdio/cli']) {
-            testRunners.push('webdriverio');
-        }
-
-        if (detectedPackages['protractor']) {
-            testRunners.push('protractor');
-        }
-
-        return testRunners;
     }
 
     private status(commands: CommandMetadata[], packages: PackageMetadata[]): OverallCompatibilityStatus {

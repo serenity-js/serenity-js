@@ -67,7 +67,7 @@ export abstract class Tool<
             description: config.description,
             inputSchema: config.inputSchema,
             outputSchema: z.object({
-                result: config.resultSchema,
+                result: config.resultSchema.optional(),
                 instructions: z.array(InstructionSchema).describe('Instructions on how to use the result'),
             }) as z.Schema<StructuredContent<z.infer<ResultSchema>>>,
             annotations: {

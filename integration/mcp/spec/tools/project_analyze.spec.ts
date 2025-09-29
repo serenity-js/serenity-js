@@ -29,7 +29,7 @@ describe('Project Analyze', () => {
             expect(response.content[0].text).toMatch(/Error: The path .*? is not a directory or cannot be accessed/)
         });
 
-        it('detects available command line tools', async ({ startClient }) => {
+        it('advises the user to install a test framework if none could be found', async ({ startClient }) => {
             const { client, stderr } = await startClient({
                 args: [ '--experimental' ],
             });
@@ -43,12 +43,38 @@ describe('Project Analyze', () => {
                 },
             });
 
+            expect(response.isError).toBe(true);
+            expect(response.structuredContent.instructions).toEqual([ {
+                'reason': 'Could not determine the test runner used in this project. Supported test runners are Cucumber, Jasmine, Mocha, Playwright Test, Protractor and WebdriverIO. Please install one of these test runners and try again.',
+                'target': 'runtime',
+                'type': 'requestUserAction'
+            } ]);
+
+            expect(stderr()).toBe('');
+        });
+
+        it('detects available command line tools', async ({ startClient }) => {
+            const { client, stderr } = await startClient({
+                args: [ '--experimental' ],
+            });
+
+            const rootDirectory = path.resolve(__dirname, '../../examples/playwright-test');
+
+            const response = await client.callTool({
+                name: 'serenity_project_analyze',
+                arguments: {
+                    rootDirectory,
+                },
+            });
+
+            expect(response.isError).not.toBe(true);
+
+            expect(response.structuredContent.result.testRunner).toEqual('playwright-test');
             expect(response.structuredContent.result.git.status).toEqual('compatible');
             expect(response.structuredContent.result.java.status).toEqual('compatible');
             expect(response.structuredContent.result.node.status).toEqual('compatible');
             expect(response.structuredContent.result.packageManager.status).toEqual('compatible');
 
-            expect(response.isError).not.toBe(true);
             expect(stderr()).toBe('');
         });
 
@@ -68,7 +94,7 @@ describe('Project Analyze', () => {
 
             const compatiblePackages = response.structuredContent.result.packages.filter(({ status }) => status === 'compatible').map(({ name }) => name);
             const missingPackages = response.structuredContent.result.packages.filter(({ status }) => status === 'missing').map(({ name }) => name);
-            const testRunners = response.structuredContent.result.testRunners;
+            const testRunner = response.structuredContent.result.testRunner;
 
             expect(compatiblePackages).toEqual([
                 '@playwright/test',
@@ -87,9 +113,7 @@ describe('Project Analyze', () => {
                 'rimraf',
             ]);
 
-            expect(testRunners).toEqual([
-                'playwright-test'
-            ])
+            expect(testRunner).toEqual('playwright-test')
 
             const callToolInstructions = response.structuredContent.instructions.filter(instruction => instruction.type === 'callTool');
 
