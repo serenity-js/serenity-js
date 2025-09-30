@@ -45,11 +45,15 @@ export class ModuleLoader {
      * @param moduleId
      *  NPM module id, for example `cucumber` or `@serenity-js/core`
      *
+     * @param cwd
+     *  Current working directory, relative to which Node modules should be resolved.
+     *  Overrides the `cwd` value provided to the constructor.
+     *
      * @returns
      *  Path to a given Node.js module
      */
-    resolve(moduleId: string): string {
-        const fromFile = path.join(this.cwd, 'noop.js');
+    resolve(moduleId: string, cwd: string = this.cwd): string {
+        const fromFile = path.join(cwd, 'noop.js');
 
         const relativeRequire = createRequire(fromFile);
 
@@ -59,7 +63,7 @@ export class ModuleLoader {
         catch {
             // Fallback for ESM modules, which don't support `require.resolve`
             if (this.isPathToModule(moduleId)) {
-                return path.resolve(this.cwd, moduleId.replaceAll('/', path.sep));
+                return path.resolve(cwd, moduleId.replaceAll('/', path.sep));
             }
 
             return moduleId;

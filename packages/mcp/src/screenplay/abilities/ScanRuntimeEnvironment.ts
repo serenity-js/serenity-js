@@ -1,9 +1,11 @@
 import fs from 'node:fs';
 import os from 'node:os';
+import path from 'node:path';
 import process from 'node:process';
 
 import { Ability, ConfigurationError } from '@serenity-js/core';
 import { Path } from '@serenity-js/core/lib/io/index.js';
+import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
 import envinfo from 'envinfo';
 
 import type { SerenityModuleManager } from '../../integration/SerenityModuleManager.js';
@@ -27,18 +29,6 @@ export interface CommandMetadata extends DependencyMetadata {
 export interface PackageMetadata extends DependencyMetadata {
 }
 
-type TestRunner =
-    | 'cucumber'
-    | 'jasmine'
-    | 'mocha'
-    | 'playwright-test'
-    | 'protractor-cucumber'
-    | 'protractor-jasmine'
-    | 'protractor-mocha'
-    | 'webdriverio-cucumber'
-    | 'webdriverio-jasmine'
-    | 'webdriverio-mocha';
-
 export interface RuntimeEnvironmentScan {
     rootDirectory: string;
     status: OverallCompatibilityStatus;
@@ -54,7 +44,7 @@ export interface RuntimeEnvironmentScan {
     shell: CommandMetadata;
     commands: CommandMetadata[];
     packages: PackageMetadata[];
-    testRunner: TestRunner;
+    testRunner: CommandMetadata;
     environmentVariables: Record<string, string>;
 }
 
@@ -109,11 +99,14 @@ export class ScanRuntimeEnvironment extends Ability {
         'rimraf',
     ];
 
+    private readonly moduleLoader: ModuleLoader;
+
     constructor(
         private readonly cwd: string,
         private readonly moduleManager: SerenityModuleManager,
     ) {
         super();
+        this.moduleLoader = new ModuleLoader(cwd);
     }
 
     async scan(rootDirectory: string): Promise<RuntimeEnvironmentScan> {
@@ -136,6 +129,8 @@ export class ScanRuntimeEnvironment extends Ability {
             packages.push(await this.packageMetadata(name, details));
         }
 
+        const testRunner = this.testRunner(rootDirectory, packages);
+
         const PATH = commands.reduce((acc, tool) => tool.path ? `${ Path.from(tool.path).directory().value }:${ acc }` : acc, process.env.PATH ?? '');
         const JAVA_HOME = scanResult.Languages?.Java?.path ? Path.from(scanResult.Languages.Java.path).directory().directory().value : (process.env.JAVA_HOME ?? '');
 
@@ -147,7 +142,7 @@ export class ScanRuntimeEnvironment extends Ability {
 
         return {
             rootDirectory,
-            status: this.status(commands, packages),
+            status: this.status(testRunner, commands, packages),
             os: {
                 name: System.OS,
                 memory: System.Memory,
@@ -158,55 +153,48 @@ export class ScanRuntimeEnvironment extends Ability {
             git: await this.commandMetadata(Utilities.Git),
             java: await this.commandMetadata(Languages.Java),
             packageManager: await this.preferredPackageManager(rootDirectory, Binaries),
-            testRunner: this.testRunner(packages),
+            testRunner,
             commands,
             packages,
             environmentVariables,
         };
     }
 
-    private testRunner(packages: PackageMetadata[]): TestRunner {
-        const detectedPackages = new Set(packages.map(metadata => metadata.name));
+    private testRunner(rootDirectory: string, packages: PackageMetadata[]): CommandMetadata {
+        const detectedPackages = packages.reduce((acc, pkg) => {
+            acc[pkg.name] = pkg;
+            return acc;
+        }, { });
 
-        const usesWebdriverIO = (detectedPackages.has('webdriverio') || detectedPackages.has('@wdio/cli'));
-        const usesProtractor = !! detectedPackages.has('protractor');
-        const usesCucumber = !! (detectedPackages.has('cucumber') || detectedPackages.has('@cucumber/cucumber'));
-        const usesJasmine = !! detectedPackages.has('jasmine');
-        const usesMocha = !! detectedPackages.has('mocha');
-        const usesPlaywrightTest = !! detectedPackages.has('@playwright/test');
+        const testRunners = {
+            '@wdio/cli': 'bin/wdio.js',
+            'protractor': 'bin/protractor',
+            'cucumber': 'bin/cucumber-js',
+            '@cucumber/cucumber': 'bin/cucumber-js',
+            'jasmine': 'bin/jasmine.js',
+            'mocha': 'bin/mocha.js',
+            '@playwright/test': 'cli.js',
+        }
 
-        switch(true) {
-            case usesWebdriverIO && usesCucumber:
-                return 'webdriverio-cucumber';
-            case usesWebdriverIO && usesJasmine:
-                return 'webdriverio-jasmine';
-            case usesWebdriverIO && usesMocha:
-                return 'webdriverio-mocha';
-            case usesProtractor && usesCucumber:
-                return 'protractor-cucumber';
-            case usesProtractor && usesJasmine:
-                return 'protractor-jasmine';
-            case usesProtractor && usesMocha:
-                return 'protractor-mocha';
-            case usesPlaywrightTest:
-                return 'playwright-test';
-            case usesCucumber:
-                return 'cucumber';
-            case usesJasmine:
-                return 'jasmine';
-            case usesMocha:
-                return 'mocha';
-            default:
-                throw new ConfigurationError([
-                    `Could not determine the test runner used in this project.`,
-                    `Supported test runners are Cucumber, Jasmine, Mocha, Playwright Test, Protractor and WebdriverIO.`,
-                    `Please install one of these test runners and try again.`,
-                ].join(' '));
+        for (const [ pkg, bin ] of Object.entries(testRunners)) {
+            if (detectedPackages[pkg]) {
+                return {
+                    path: path.resolve(this.moduleLoader.resolve(pkg, rootDirectory), '..', bin),
+                    ...detectedPackages[pkg]
+                }
+            }
+        }
+
+        return {
+            status: 'missing',
+            name: 'unknown',
+            path: 'unknown',
+            version: { },
         }
     }
 
-    private status(commands: CommandMetadata[], packages: PackageMetadata[]): OverallCompatibilityStatus {
-        const hasRuntimeIssues = commands.some(cmd => cmd.status !== 'compatible');
+    private status(testRunner: CommandMetadata, commands: CommandMetadata[], packages: PackageMetadata[]): OverallCompatibilityStatus {
+        const hasRuntimeIssues = [ testRunner, ...commands ].some(cmd => cmd.status !== 'compatible');
         if (hasRuntimeIssues) {
             return 'runtime-issues';
         }

@@ -29,7 +29,7 @@ describe('Project Analyze', () => {
             expect(response.content[0].text).toMatch(/Error: The path .*? is not a directory or cannot be accessed/)
         });
 
-        it('advises the user to install a test framework if none could be found', async ({ startClient }) => {
+        it('advises the user to install a test runner if none could be found', async ({ startClient }) => {
             const { client, stderr } = await startClient({
                 args: [ '--experimental' ],
             });
@@ -43,11 +43,18 @@ describe('Project Analyze', () => {
                 },
             });
 
-            expect(response.isError).toBe(true);
-            expect(response.structuredContent.instructions).toEqual([ {
-                'reason': 'Could not determine the test runner used in this project. Supported test runners are Cucumber, Jasmine, Mocha, Playwright Test, Protractor and WebdriverIO. Please install one of these test runners and try again.',
+            expect(response.isError).toBe(false);
+
+            const requestedUserActions = response.structuredContent.instructions.filter(instruction => instruction.type === 'requestUserAction');
+
+            expect(requestedUserActions).toEqual([ {
+                'reason': 'Correct runtime issues before proceeding',
                 'target': 'runtime',
                 'type': 'requestUserAction'
+            }, {
+                'reason': 'Install a supported test runner before proceeding',
+                'target': 'runtime',
+                'type': 'requestUserAction',
             } ]);
 
             expect(stderr()).toBe('');
@@ -69,7 +76,7 @@ describe('Project Analyze', () => {
 
             expect(response.isError).not.toBe(true);
 
-            expect(response.structuredContent.result.testRunner).toEqual('playwright-test');
+            expect(response.structuredContent.result.testRunner.status).toEqual('compatible');
             expect(response.structuredContent.result.git.status).toEqual('compatible');
             expect(response.structuredContent.result.java.status).toEqual('compatible');
             expect(response.structuredContent.result.node.status).toEqual('compatible');
@@ -113,7 +120,11 @@ describe('Project Analyze', () => {
                 'rimraf',
             ]);
 
-            expect(testRunner).toEqual('playwright-test')
+            expect(testRunner.name).toEqual('@playwright/test');
+            expect(testRunner.status).toEqual('compatible');
+            expect(testRunner.version.current).toBeDefined();
+            expect(testRunner.version.supported).toBeDefined();
+            expect(testRunner.path).toMatch(/.*@playwright\/test\/cli.js$/);
 
             const callToolInstructions = response.structuredContent.instructions.filter(instruction => instruction.type === 'callTool');
 

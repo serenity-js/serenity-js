@@ -6,7 +6,7 @@ import type { Instruction, Request, Response, ToolConfig, ToolDependencies } fro
 import { CallToolInstruction, RequestUserActionInstruction, Tool, UpdatePolicyInstruction } from '../../mcp/index.js';
 import type { DependencyMetadata, RuntimeEnvironmentScan } from '../../screenplay/index.js';
 import { ScanRuntimeEnvironment } from '../../screenplay/index.js';
-import { packageSchema, testRunnerSchema, versionSchema } from './schema.js';
+import { packageSchema, versionSchema } from './schema.js';
 
 const inputSchema = z.object({
     rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
@@ -25,7 +25,7 @@ const resultSchema = z.object({
         .describe([
             'The overall compatibility status of the project:',
             '- compatible - means all runtime and node dependencies are present;',
-            '- runtime-issues - means system-level runtime issues that must be resolved before proceeding;',
+            '- runtime-issues - means system- or project-level runtime issues that must be resolved before proceeding;',
             '- dependency-issues - some required node modules are missing or need to be updated;',
         ].join(' ')),
     git: commandSchema,
@@ -34,7 +34,7 @@ const resultSchema = z.object({
     packageManager: commandSchema,
     shell: commandSchema,
     packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status'),
-    testRunner: testRunnerSchema,
+    testRunner: commandSchema,
     environmentVariables: z.record(z.string()).describe('A list of environment variables available in the project'),
 });
 
@@ -100,27 +100,33 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
         const compatiblePackages = describeAllCompatible(result.packages);
         const missingOrOutdatedPackages = describeAllIncompatible(result.packages);
 
+        const testRunner = describeTestRunner(result.testRunner);
+
         return [
             trimmed`
                 | # Project analysis result: ${ result.status }
+                |
+                | ## ${ statusEmoji(result.testRunner.status) } Test runner
+                |
+                | ${ testRunner }
                 |`,
             compatibleCommandLineTools.length > 0 && trimmed`
-                | ## ✅ Compatible command line tools
+                | ## ${ statusEmoji('compatible') } Compatible command line tools
                 |
                 | ${ compatibleCommandLineTools.join('\n') }
                 |`,
             problematicCommandLineTools.length > 0 && trimmed`
-                | ## ⚠️ Incompatible command line tools
+                | ## ${ statusEmoji('incompatible') } Incompatible command line tools
                 |
                 | ${ problematicCommandLineTools.join('\n') }
                 |`,
             compatiblePackages.length > 0 && trimmed`
-                | ## ✅ Installed compatible Node.js packages
+                | ## ${ statusEmoji('compatible') } Installed compatible Node.js packages
                 |
                 | ${ compatiblePackages.join('\n') }
                 |`,
             missingOrOutdatedPackages.length > 0 && trimmed`
-                | ## ⚠️ Missing or outdated Node.js packages
+                | ## ${ statusEmoji('incompatible') } Missing or outdated Node.js packages
                 |
                 | ${ missingOrOutdatedPackages.join('\n') }
                 |`,
@@ -151,6 +157,10 @@ export class ProjectAnalyzeTool extends Tool<typeof inputSchema, typeof resultSc
 
         if (result.status === 'runtime-issues') {
             instructions.push(new RequestUserActionInstruction('runtime', 'Correct runtime issues before proceeding'));
+        }
+
+        if (result.testRunner.status !== 'compatible') {
+            instructions.push(new RequestUserActionInstruction('runtime', 'Install a supported test runner before proceeding'));
         }
 
         if (result.packageManager) {
@@ -205,4 +215,27 @@ function describeAllIncompatible(deps: DependencyMetadata[]): string[] {
     return deps
         .filter(dep => dep.status !== 'compatible')
         .map(dep => `- ${ dep.name }${ dep.version.current ? ' ' + dep.version.current : '' } (status: ${ dep.status }, supported: ${ dep.version.supported })`);
+}
+
+function describeTestRunner(testRunner: DependencyMetadata): string {
+    if (testRunner.status === 'missing') {
+        return '- ⚠️ No test runner detected';
+    }
+
+    if (testRunner.status === 'incompatible') {
+        return `- ⚠️ ${ testRunner.name } ${ testRunner.version.current ?? '' } (status: ${ testRunner.status }, supported: ${ testRunner.version.supported })`;
+    }
+
+    return `- ✅ ${ testRunner.name } ${ testRunner.version.current }`;
+}
+
+function statusEmoji(status: 'compatible' | 'incompatible' | 'missing'): string {
+    switch (status) {
+        case 'incompatible':
+            return '⚠️';
+        case 'missing':
+            return '❌';
+        default:
+            return '✅';
+    }
 }
