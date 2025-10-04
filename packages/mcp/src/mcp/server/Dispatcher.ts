@@ -58,8 +58,7 @@ export class Dispatcher {
         const tool = this.tools.find(tool => tool.matches(request.params.name));
 
         if (! tool) {
-            // todo
-            throw new Error('return error result and not throw; generic instruction - start with analyzing the project')
+            throw new Error(`Tool ${ request.params.name } not found; generic instruction - start with serenity_project_analyze`)
         }
 
         if (! this.context.isInitialised()) {

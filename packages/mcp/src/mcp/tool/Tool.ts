@@ -144,7 +144,7 @@ export abstract class Tool<
     private unhandledErrorResult(error: Error): z.infer<typeof CallToolResultSchema> {
         return {
             isError: true,
-            content: [{ type: 'text', text: String(error.stack) }],
+            content: [ { type: 'text', text: String(error.stack) } ],
             structuredContent: {
                 error: {
                     name: error?.name,

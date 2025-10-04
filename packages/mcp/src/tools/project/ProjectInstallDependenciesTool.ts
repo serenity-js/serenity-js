@@ -6,20 +6,28 @@ import type { RuntimeEnvironmentScan } from '../../screenplay/index.js';
 import { ScanRuntimeEnvironment } from '../../screenplay/index.js';
 import type { CliCommand, PackageManager } from '../../server/integration/index.js';
 import { Npm, Pnpm, Yarn } from '../../server/integration/index.js';
-import { packageSchema } from './schema.js';
+import { DryRunSchema, PackageSchema } from './schema.js';
 
 const inputSchema = z.object({
-    rootDirectory: z.string().describe('The absolute root directory of the project to analyze'),
+    rootDirectory: z.string()
+        .describe('The absolute root directory of the project to analyze'),
+
+    dryRun: DryRunSchema,
 });
 
 const resultSchema = z.object({
-    packages: z.array(packageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status post installation'),
-    command: z.string().describe('The command that was executed to install the dependencies'),
+    packages: z.array(PackageSchema).describe('A list of Node.js packages required by Serenity/JS and their compatibility status post installation'),
+    command: z.string().optional().describe('The command that was executed to install the dependencies'),
     stderr: z.string().optional().describe('Standard error output from the package manager, if any'),
     stdout: z.string().optional().describe('Standard output from the package manager, if any'),
 });
 
 export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typeof resultSchema> {
+
+    private static configureTestRunnerInstruction = new CallToolInstruction(
+        'serenity_project_configure_test_runner',
+        'Configure the test runner to use Serenity/JS Screenplay Pattern APIs and reporting capabilities.'
+    );
 
     constructor(dependencies: ToolDependencies, config: Partial<ToolConfig<typeof inputSchema, typeof resultSchema>> = {}) {
         super(dependencies, {
@@ -43,40 +51,48 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
         response: Response<z.infer<typeof resultSchema>>
     ): Promise<Response<z.infer<typeof resultSchema>>> {
 
-        const { rootDirectory } = request.parameters;
+        const { rootDirectory, dryRun } = request.parameters;
 
         const scanner = ScanRuntimeEnvironment.as(this.actor());
-
         const scanResult = await scanner.scan(rootDirectory);
-
         const packageManager = this.packageManager(scanResult);
 
         const packagesToInstall = scanResult.packages.filter(pkg => pkg.status === 'missing' || pkg.status === 'incompatible');
         const packageDetails = packagesToInstall.map(pkg => `${ pkg.name }@${ pkg.version.supported }`);
 
-        const scope = 'development';
-        const installCommand = packageManager.install(packageDetails, { scope });
-
-        const confirmation = await this.input.confirm([
-            `The project requires ${ packagesToInstall.length } ${ scope } ${ packagesToInstall.length === 1 ? 'package' : 'packages' }`,
-            `to be installed with ${ scanResult.packageManager.name }.`,
-            `Would you like to proceed?`,
-        ].join(' '));
-
-        if (! confirmation) {
-
-            // no packages to install
-            return response
-                .withResult({
-                    command: installCommand.toString(),
-                    packages: scanResult.packages
-                })
-                .withInstructions(
-                    this.manualInstallationInstruction('Installation aborted', installCommand),
-                );
+        if (packagesToInstall.length === 0) {
+            return this.nothingToInstall(response, scanResult);
         }
 
+        const installCommand = packageManager.install(packageDetails, {
+            scope: 'development'
+        });
+
+        if (dryRun) {
+            return this.installDependenciesDryRun(response, installCommand, scanResult);
+        }
+
+        return await this.installDependencies(response, installCommand, rootDirectory);
+    }
+
+    private installDependenciesDryRun(response: Response<z.infer<typeof resultSchema>>, installCommand: CliCommand, scan: RuntimeEnvironmentScan) {
+        return response
+            .withResult({
+                command: installCommand.toString(),
+                packages: scan.packages,
+            })
+            .withInstructions(
+                new CallToolInstruction(
+                    this.name(),
+                    `To run the proposed command, call the ${ this.name() } tool again with dryRun: false`,
+                )
+            );
+    }
+
+    private async installDependencies(response: Response<z.infer<typeof resultSchema>>, installCommand: CliCommand, rootDirectory: string) {
         const { stdout, stderr, error } = await installCommand.execute();
+
+        const scanner = ScanRuntimeEnvironment.as(this.actor());
 
         const after = await scanner.scan(rootDirectory);
 
@@ -94,9 +110,16 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
         }
 
         return responseWithResult
-            .withInstructions(
-                new CallToolInstruction('serenity_project_configure', 'Configure the project to use Serenity/JS'),
-            )
+            .withInstructions(ProjectInstallDependenciesTool.configureTestRunnerInstruction);
+    }
+
+    private nothingToInstall(response: Response<z.infer<typeof resultSchema>>, scan: RuntimeEnvironmentScan): Response<z.infer<typeof resultSchema>> {
+        return response
+            .withResult({
+                packages: scan.packages,
+            })
+            .withSummary('All the required packages are already installed and compatible')
+            .withInstructions(ProjectInstallDependenciesTool.configureTestRunnerInstruction);
     }
 
     private manualInstallationInstruction(failureReason: string, command: CliCommand): Instruction {

@@ -26,7 +26,9 @@ export interface TestFixtures {
     startClient: (options?: StartClientOptions) => Promise<{ client: Client, stderr: () => string }>;
     mcpHeadless: boolean;
     createMcpTransport: (args: string[]) => StdioClientTransport;
+    cwd: string;
     env: typeof process['env'];
+    example: (name: string) => Promise<string>;
 }
 
 export interface WorkerFixtures {
@@ -134,6 +136,28 @@ export const {
         await use(client);
 
         console.log({ stderr: stderr() })
+    },
+
+    // eslint-disable-next-line no-empty-pattern
+    example: async ({ }, use, testInfo) => {
+        await use(async (name: string) => {
+
+            const source = path.resolve(testInfo.project.testDir, '../examples', name);
+
+            const stat = await fs.stat(source);
+            if (! stat.isDirectory()) {
+                throw new Error(`No directory found at ${ source }`);
+            }
+
+            const destination = testInfo.outputPath();
+
+            await fs.cp(source, destination, {
+                recursive: true,
+                dereference: true,
+            });
+
+            return destination;
+        })
     },
 
     // eslint-disable-next-line no-empty-pattern
