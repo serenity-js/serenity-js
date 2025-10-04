@@ -2,7 +2,7 @@
  * An interface to be implemented by any [`Ability`](https://serenity-js.org/api/core/class/Ability/) that needs to free up
  * the resources it uses, e.g. disconnect from a database.
  *
- * This [`Discardable.discard`](https://serenity-js.org/api/core/interface/Discardable/#discard) method is invoked directly by the [actor](https://serenity-js.org/api/core/class/Actor/), and indirectly by the [stage](https://serenity-js.org/api/core/class/Stage/):
+ * This [`Discardable.close`](https://serenity-js.org/api/core/interface/Discardable/#discard) method is invoked directly by the [actor](https://serenity-js.org/api/core/class/Actor/), and indirectly by the [stage](https://serenity-js.org/api/core/class/Stage/):
  * - when [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/), for actors instantiated after [SceneStarts](https://serenity-js.org/api/core-events/class/SceneStarts/) - e.g. within a test scenario or in a "before each" hook
  * - when [`TestRunFinishes`](https://serenity-js.org/api/core-events/class/TestRunFinishes/), for actors instantiated before [SceneStarts](https://serenity-js.org/api/core-events/class/SceneStarts/) - e.g. in a "before all" hook
  *

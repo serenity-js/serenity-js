@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 
-import { Artifact, JSONData, Photo } from '../../src/model';
+import { ArtifactDeserialiser, JSONData, Photo } from '../../src/model';
 import { expect } from '../expect';
 
 describe ('Artifact', () => {
@@ -18,7 +18,7 @@ describe ('Artifact', () => {
         it('can be de-serialised', () => {
             const
                 serialised = photo.toJSON(),
-                deserialised = Artifact.fromJSON(serialised);
+                deserialised = ArtifactDeserialiser.fromJSON(serialised);
 
             expect(deserialised).to.equal(photo);
         });
@@ -49,7 +49,7 @@ describe ('Artifact', () => {
         it('can be de-serialised', () => {
             const
                 serialised = json.toJSON(),
-                deserialised = Artifact.fromJSON(serialised);
+                deserialised = ArtifactDeserialiser.fromJSON(serialised);
 
             expect(deserialised).to.equal(json);
         });
