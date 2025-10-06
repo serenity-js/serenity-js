@@ -1830,7 +1830,7 @@ importers:
         version: link:../../packages/rest
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       proxy:
         specifier: 2.2.0
         version: 2.2.0
@@ -2634,7 +2634,7 @@ importers:
         version: 8.5.12
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -2836,7 +2836,7 @@ importers:
         version: 10.0.10
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       body-parser:
         specifier: 2.2.0
         version: 2.2.0
@@ -2881,7 +2881,7 @@ importers:
         version: 7.1.4
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       http-proxy-agent:
         specifier: 7.0.2
         version: 7.0.2
@@ -2942,7 +2942,7 @@ importers:
         version: 5.0.1
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -3086,7 +3086,7 @@ importers:
         version: 9.20.0
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -3103,8 +3103,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       start-server-and-test:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.2
+        version: 2.1.2
       webdriverio:
         specifier: 9.20.0
         version: 9.20.0(puppeteer-core@24.22.3)
@@ -3165,7 +3165,7 @@ importers:
         version: 8.41.0
       axios:
         specifier: 1.11.0
-        version: 1.11.0(debug@4.4.1)
+        version: 1.11.0
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -10538,11 +10538,6 @@ packages:
   stacktrace-js@2.0.2:
     resolution: {integrity: sha512-Je5vBeY4S1r/RnLydLl0TBTi3F2qdfWmYsGvtfZgEI+SCprPppaIhQf5nGcal4gI4cGpCV/duLcAzT1np6sQqg==}
 
-  start-server-and-test@2.1.0:
-    resolution: {integrity: sha512-yJg/GR9z7+8qxhZqDPmCEKbU/BO/zpyXUZGLmY1Nv4rmJJDC89NnzIEUWXEG4e1J4MRFoDF50eJK8bGHKrSdlg==}
-    engines: {node: '>=16'}
-    hasBin: true
-
   start-server-and-test@2.1.2:
     resolution: {integrity: sha512-OIjfo3G6QV9Sh6IlMqj58oZwVhPVuU/l6uVACG7YNE9kAfDvcYoPThtb0NNT3tZMMC3wOYbXnC15yiCSNFkdRg==}
     engines: {node: '>=16'}
@@ -11258,11 +11253,6 @@ packages:
         optional: true
       yaml:
         optional: true
-
-  wait-on@8.0.4:
-    resolution: {integrity: sha512-8f9LugAGo4PSc0aLbpKVCVtzayd36sSCp4WLpVngkYq6PK87H79zt77/tlCU6eKCLqR46iFvcl0PU5f+DmtkwA==}
-    engines: {node: '>=12.0.0'}
-    hasBin: true
 
   wait-on@8.0.5:
     resolution: {integrity: sha512-J3WlS0txVHkhLRb2FsmRg3dkMTCV1+M6Xra3Ho7HzZDHpE7DCOnoSoCJsZotrmW3uRMhvIJGSKUKrh/MeF4iag==}
@@ -15025,21 +15015,13 @@ snapshots:
 
   axios-mock-adapter@2.1.0(axios@1.11.0):
     dependencies:
-      axios: 1.11.0(debug@4.4.1)
+      axios: 1.11.0
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
-  axios@1.11.0(debug@4.4.1):
+  axios@1.11.0:
     dependencies:
-      follow-redirects: 1.15.9(debug@4.4.1)
-      form-data: 4.0.4
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-
-  axios@1.12.2:
-    dependencies:
-      follow-redirects: 1.15.9(debug@4.4.1)
+      follow-redirects: 1.15.9(debug@4.4.3)
       form-data: 4.0.4
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -15479,7 +15461,7 @@ snapshots:
   chromedriver@140.0.4:
     dependencies:
       '@testim/chrome-version': 1.1.4
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       compare-versions: 6.1.1
       extract-zip: 2.0.1
       proxy-agent: 6.5.0
@@ -17268,10 +17250,6 @@ snapshots:
   flat@5.0.2: {}
 
   flatted@3.3.2: {}
-
-  follow-redirects@1.15.9(debug@4.4.1):
-    optionalDependencies:
-      debug: 4.4.1(supports-color@8.1.1)
 
   follow-redirects@1.15.9(debug@4.4.3):
     optionalDependencies:
@@ -19447,7 +19425,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.11.0(debug@4.4.1)
+      axios: 1.11.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -20990,19 +20968,6 @@ snapshots:
       stack-generator: 2.0.10
       stacktrace-gps: 3.1.2
 
-  start-server-and-test@2.1.0:
-    dependencies:
-      arg: 5.0.2
-      bluebird: 3.7.2
-      check-more-types: 2.24.0
-      debug: 4.4.1(supports-color@8.1.1)
-      execa: 5.1.1
-      lazy-ass: 1.6.0
-      ps-tree: 1.2.0
-      wait-on: 8.0.4(debug@4.4.1)
-    transitivePeerDependencies:
-      - supports-color
-
   start-server-and-test@2.1.2:
     dependencies:
       arg: 5.0.2
@@ -21681,16 +21646,6 @@ snapshots:
       jiti: 2.6.0
       tsx: 4.20.6
       yaml: 2.7.0
-
-  wait-on@8.0.4(debug@4.4.1):
-    dependencies:
-      axios: 1.11.0(debug@4.4.1)
-      joi: 17.13.3
-      lodash: 4.17.21
-      minimist: 1.2.8
-      rxjs: 7.8.2
-    transitivePeerDependencies:
-      - debug
 
   wait-on@8.0.5(debug@4.4.3):
     dependencies:
