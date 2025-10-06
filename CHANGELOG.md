@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.2](https://github.com/serenity-js/serenity-js/compare/v3.35.1...v3.35.2) (2025-10-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jasmine to v5.12.0 ([b8c97e5](https://github.com/serenity-js/serenity-js/commit/b8c97e59a52aae0be8edd79ffe7544785d088fd6))
+* **deps:** update dependency typescript to v5.9.3 ([fb0bbf6](https://github.com/serenity-js/serenity-js/commit/fb0bbf6bd4c59ec559e9b895ca5f4e27d875c64e))
+* **deps:** update playwright dependencies to v1.56.0 ([053db06](https://github.com/serenity-js/serenity-js/commit/053db06755d1f5b6b44739ba698327dcdb06fe32))
+* **deps:** update react monorepo to v19.2.0 ([308f7dc](https://github.com/serenity-js/serenity-js/commit/308f7dc09631267d8528274cfb3170bc41bd4555))
+
+
+
+
+
 ## [3.35.1](https://github.com/serenity-js/serenity-js/compare/v3.35.0...v3.35.1) (2025-09-28)
 
 
