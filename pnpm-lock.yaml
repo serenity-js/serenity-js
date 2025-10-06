@@ -1433,8 +1433,8 @@ importers:
         specifier: 1.18.2
         version: 1.18.2
       '@playwright/test':
-        specifier: 1.55.1
-        version: 1.55.1
+        specifier: 1.56.0
+        version: 1.56.0
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -1466,7 +1466,7 @@ importers:
   integration/mcp/examples/playwright-test:
     devDependencies:
       '@playwright/test':
-        specifier: ^1.55.1
+        specifier: ^1.56.0
         version: 1.56.0
       '@types/node':
         specifier: ^24.3.0
@@ -2741,11 +2741,11 @@ importers:
         specifier: 7.14.0
         version: 7.14.0
       playwright:
-        specifier: 1.55.1
-        version: 1.55.1
+        specifier: 1.56.0
+        version: 1.56.0
       playwright-core:
-        specifier: 1.55.1
-        version: 1.55.1
+        specifier: 1.56.0
+        version: 1.56.0
       tiny-types:
         specifier: 1.23.0
         version: 1.23.0
@@ -4740,11 +4740,6 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@playwright/test@1.55.1':
-    resolution: {integrity: sha512-IVAh/nOJaw6W9g+RJVlIQJ6gSiER+ae6mKQ5CX1bERzQgbC1VSeBlwdvczT7pxb0GWiyrxH4TGKbMfDb4Sq/ig==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   '@playwright/test@1.56.0':
     resolution: {integrity: sha512-Tzh95Twig7hUwwNe381/K3PggZBZblKUe2wv25oIpzWLr6Z0m4KgV1ZVIjnR6GM9ANEqjZD7XsZEa6JL/7YEgg==}
     engines: {node: '>=18'}
@@ -5255,10 +5250,6 @@ packages:
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
-
-  '@serenity-js/core@3.35.2':
-    resolution: {integrity: sha512-Oy/g3PQmyNHR4zo3N1K6f+texVLgW53ZaCzrdm9eYsFDaRZdQ/kKlYb8cAyZtMNUEuERUp2nKgiKWP0Tu1tsiQ==}
-    engines: {node: ^18.12 || ^20 || ^22}
 
   '@serenity-js/cucumber@3.35.2':
     resolution: {integrity: sha512-Urw1LPs/syOGKJh7MFGsCRkvpj93zSL/zd2h0PcaOGYY9G8MEjTenH6vnytQOOYvHWoOSGGZDOy7Vo2R3/QIDw==}
@@ -10387,18 +10378,8 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.55.1:
-    resolution: {integrity: sha512-Z6Mh9mkwX+zxSlHqdr5AOcJnfp+xUWLCt9uKV18fhzA8eyxUd8NUWzAjxUh55RZKSYwDGX0cfaySdhZJGMoJ+w==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.56.0:
     resolution: {integrity: sha512-1SXl7pMfemAMSDn5rkPeZljxOCYAmQnYLBTExuh6E8USHXGSX3dx6lYZN/xPpTz1vimXmPA9CDnILvmJaB8aSQ==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.55.1:
-    resolution: {integrity: sha512-cJW4Xd/G3v5ovXtJJ52MAOclqeac9S/aGGgRzLabuF8TnIb6xHvMzKIa6JmrRzUkeXJgfL1MhukP0NK6l39h3A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -14721,10 +14702,6 @@ snapshots:
       - vite
       - yaml
 
-  '@playwright/test@1.55.1':
-    dependencies:
-      playwright: 1.55.1
-
   '@playwright/test@1.56.0':
     dependencies:
       playwright: 1.56.0
@@ -15212,24 +15189,10 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@serenity-js/core@3.35.2':
-    dependencies:
-      '@paralleldrive/cuid2': 2.2.2
-      chalk: 4.1.2
-      diff: 6.0.0
-      error-stack-parser: 2.1.4
-      fast-glob: 3.3.3
-      filenamify: 4.3.0
-      graceful-fs: 4.2.11
-      semver: 7.7.2
-      tiny-types: 1.24.1
-      upath: 2.0.1
-      validate-npm-package-name: 6.0.2
-
   '@serenity-js/cucumber@3.35.2(@cucumber/cucumber@12.2.0)(cucumber@6.0.7)':
     dependencies:
       '@cucumber/messages': 26.0.1
-      '@serenity-js/core': 3.35.2
+      '@serenity-js/core': link:packages/core
       cli-table3: 0.6.5
       gherkin: 5.1.0
       tiny-types: 1.24.1
@@ -15239,12 +15202,12 @@ snapshots:
 
   '@serenity-js/jasmine@3.35.2(jasmine@5.12.0)':
     dependencies:
-      '@serenity-js/core': 3.35.2
+      '@serenity-js/core': link:packages/core
       jasmine: 5.12.0
 
   '@serenity-js/mocha@3.35.2(mocha@11.7.4)':
     dependencies:
-      '@serenity-js/core': 3.35.2
+      '@serenity-js/core': link:packages/core
       mocha: 11.7.4
 
   '@sideway/address@4.1.5':
@@ -21547,15 +21510,7 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.55.1: {}
-
   playwright-core@1.56.0: {}
-
-  playwright@1.55.1:
-    dependencies:
-      playwright-core: 1.55.1
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.56.0:
     dependencies:
