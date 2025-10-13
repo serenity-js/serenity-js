@@ -15,8 +15,8 @@ importers:
         specifier: 19.8.1
         version: 19.8.1
       '@puppeteer/browsers':
-        specifier: 2.10.10
-        version: 2.10.10
+        specifier: 2.10.12
+        version: 2.10.12
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
@@ -4593,6 +4593,11 @@ packages:
 
   '@puppeteer/browsers@2.10.10':
     resolution: {integrity: sha512-3ZG500+ZeLql8rE0hjfhkycJjDj0pI/btEh3L9IkWUYcOrgP0xCNRq3HbtbqOPbvDhFaAWD88pDFtlLv8ns8gA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@puppeteer/browsers@2.10.12':
+    resolution: {integrity: sha512-mP9iLFZwH+FapKJLeA7/fLqOlSUwYpMwjR1P5J23qd4e7qGJwecJccJqHYrjw33jmIZYV4dtiTHPD/J+1e7cEw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -10275,6 +10280,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.7.3:
+    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   send@0.18.0:
     resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
     engines: {node: '>= 0.8.0'}
@@ -10697,6 +10707,9 @@ packages:
 
   tar-fs@3.1.0:
     resolution: {integrity: sha512-5Mty5y/sOF1YWj1J6GiBodjlDc05CUR8PKXrsnFAiSG0xA+GHeWLovaZPYUDXkH/1iKRf2+M5+OrRgzC7O9b7w==}
+
+  tar-fs@3.1.1:
+    resolution: {integrity: sha512-LZA0oaPOc2fVo82Txf3gw+AkEd38szODlptMYejQUhndHMLQ9M059uXR+AfS7DNo0NpINvSqDsvyaCrBVkptWg==}
 
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
@@ -13693,6 +13706,19 @@ snapshots:
       - bare-buffer
       - supports-color
 
+  '@puppeteer/browsers@2.10.12':
+    dependencies:
+      debug: 4.4.3(supports-color@8.1.1)
+      extract-zip: 2.0.1
+      progress: 2.0.3
+      proxy-agent: 6.5.0
+      semver: 7.7.3
+      tar-fs: 3.1.1
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bare-buffer
+      - supports-color
+
   '@rollup/rollup-android-arm-eabi@4.40.1':
     optional: true
 
@@ -14718,7 +14744,7 @@ snapshots:
 
   '@wdio/utils@9.20.0':
     dependencies:
-      '@puppeteer/browsers': 2.10.10
+      '@puppeteer/browsers': 2.10.12
       '@wdio/logger': 9.18.0
       '@wdio/types': 9.20.0
       decamelize: 6.0.0
@@ -20618,6 +20644,8 @@ snapshots:
 
   semver@7.7.2: {}
 
+  semver@7.7.3: {}
+
   send@0.18.0:
     dependencies:
       debug: 2.6.9
@@ -21126,6 +21154,16 @@ snapshots:
       tar-stream: 3.1.7
 
   tar-fs@3.1.0:
+    dependencies:
+      pump: 3.0.2
+      tar-stream: 3.1.7
+    optionalDependencies:
+      bare-fs: 4.0.1
+      bare-path: 3.0.0
+    transitivePeerDependencies:
+      - bare-buffer
+
+  tar-fs@3.1.1:
     dependencies:
       pump: 3.0.2
       tar-stream: 3.1.7
