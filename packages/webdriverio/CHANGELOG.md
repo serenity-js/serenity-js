@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.3](https://github.com/serenity-js/serenity-js/compare/v3.35.2...v3.35.3) (2025-10-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.12.0 [security] ([640e95f](https://github.com/serenity-js/serenity-js/commit/640e95f9f8ee83640592966f1b5909c0773efde0))
+* **deps:** update dependency axios to v1.12.0 [security] ([343ab7a](https://github.com/serenity-js/serenity-js/commit/343ab7aa371f51d346a1da2b6f11e81d1251b109))
+
+
+
+
+
 ## [3.35.2](https://github.com/serenity-js/serenity-js/compare/v3.35.1...v3.35.2) (2025-10-06)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

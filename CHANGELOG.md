@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.3](https://github.com/serenity-js/serenity-js/compare/v3.35.2...v3.35.3) (2025-10-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.12.0 [security] ([640e95f](https://github.com/serenity-js/serenity-js/commit/640e95f9f8ee83640592966f1b5909c0773efde0))
+* **deps:** update dependency axios to v1.12.0 [security] ([343ab7a](https://github.com/serenity-js/serenity-js/commit/343ab7aa371f51d346a1da2b6f11e81d1251b109))
+* **deps:** update dependency semver to v7.7.3 ([4d73e21](https://github.com/serenity-js/serenity-js/commit/4d73e2127068088d42aa751acf730097a4e3a426))
+* **deps:** update playwright dependencies to v1.56.1 ([fcb5348](https://github.com/serenity-js/serenity-js/commit/fcb5348a7b3e4f09f8f1f9be7bd7dbc35110e701))
+
+
+
+
+
 ## [3.35.2](https://github.com/serenity-js/serenity-js/compare/v3.35.1...v3.35.2) (2025-10-06)
 
 
