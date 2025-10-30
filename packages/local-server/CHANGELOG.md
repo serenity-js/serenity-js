@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.35.2](https://github.com/serenity-js/serenity-js/compare/v3.35.1...v3.35.2) (2025-10-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.9.3 ([fb0bbf6](https://github.com/serenity-js/serenity-js/commit/fb0bbf6bd4c59ec559e9b895ca5f4e27d875c64e))
+
+
+
+
+
+## [3.35.1](https://github.com/serenity-js/serenity-js/compare/v3.35.0...v3.35.1) (2025-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency portfinder to v1.0.38 ([f7d85fb](https://github.com/serenity-js/serenity-js/commit/f7d85fbc136dfc2fde0100548edecbabfb25a166))
+
+
+
+
+
 # [3.35.0](https://github.com/serenity-js/serenity-js/compare/v3.34.2...v3.35.0) (2025-09-07)
 
 **Note:** Version bump only for package @serenity-js/local-server
