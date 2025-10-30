@@ -7,11 +7,19 @@ export class ElicitInput {
     constructor(private readonly server: McpServer) {
     }
 
-    async request<T extends z.Schema>(message: string, schema: T): Promise<z.infer<T>> {
+    async request<T extends z.Schema>(message: string, schema: T, defaults?: z.infer<T>): Promise<z.infer<T>> {
+        if (! this.clientSupports('elicitation') && defaults) {
+            return defaults;
+        }
+
         const response: z.infer<typeof ElicitResultSchema> = await this.server.elicitInput({
             message,
             requestedSchema: zodToJsonSchema(schema, { strictUnions: true }) as z.infer<typeof ElicitRequestSchema>['params']['requestedSchema']
         });
+
+        if (response.action !== 'accept') {
+            throw new Error('User rejected the request for information. Aborting.')
+        }
 
         // Parse the response using the provided schema to ensure type safety
         return schema.parse(response.content);

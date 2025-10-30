@@ -29,6 +29,12 @@ describe('List tools', () => {
                     'This may involve updating the package.json file to ensure it includes scripts for running Serenity/JS with the detected test runner.'
                 ].join(' ')
             },
+            {
+                name: 'serenity_project_configure_test_runner', description: [
+                    'Configure the detected test runner in the project located in the specified root directory.',
+                    'This may involve creating or updating the test runner configuration file to ensure compatibility with Serenity/JS.'
+                ].join(' ')
+            },
         ]);
 
         expect(response.isError).not.toBe(true);

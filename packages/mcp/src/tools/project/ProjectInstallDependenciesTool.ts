@@ -109,8 +109,9 @@ export class ProjectInstallDependenciesTool extends Tool<typeof inputSchema, typ
                 .withInstructions(this.manualInstallationInstruction('Installation failed', installCommand));
         }
 
-        return responseWithResult
-            .withInstructions(ProjectInstallDependenciesTool.configureTestRunnerInstruction);
+        return responseWithResult.withInstructions(
+            ProjectInstallDependenciesTool.configureTestRunnerInstruction
+        );
     }
 
     private nothingToInstall(response: Response<z.infer<typeof resultSchema>>, scan: RuntimeEnvironmentScan): Response<z.infer<typeof resultSchema>> {

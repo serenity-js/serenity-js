@@ -18,6 +18,7 @@ import { PlaywrightBrowserConnection, SerenityModuleManager } from './server/int
 import {
     ProjectAnalyzeTool,
     ProjectConfigurePackageJsonScriptsTool,
+    ProjectConfigureTestRunnerTool,
     ProjectInstallDependenciesTool
 } from './tools/index.js';
 
@@ -125,6 +126,7 @@ async function startNewServer(options: CliOptions) {
         ProjectAnalyzeTool,
         ProjectInstallDependenciesTool,
         ProjectConfigurePackageJsonScriptsTool,
+        ProjectConfigureTestRunnerTool,
     ];
 
     const context    = new Context(browserConnection, createAxios());
