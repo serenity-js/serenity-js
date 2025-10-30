@@ -1829,8 +1829,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/rest
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       proxy:
         specifier: 2.2.0
         version: 2.2.0
@@ -2633,8 +2633,8 @@ importers:
         specifier: 8.5.12
         version: 8.5.12
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -2835,8 +2835,8 @@ importers:
         specifier: 10.0.10
         version: 10.0.10
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       body-parser:
         specifier: 2.2.0
         version: 2.2.0
@@ -2880,8 +2880,8 @@ importers:
         specifier: 7.1.4
         version: 7.1.4
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       http-proxy-agent:
         specifier: 7.0.2
         version: 7.0.2
@@ -2909,7 +2909,7 @@ importers:
         version: 10.0.10
       axios-mock-adapter:
         specifier: 2.1.0
-        version: 2.1.0(axios@1.11.0)
+        version: 2.1.0(axios@1.13.1)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -2941,8 +2941,8 @@ importers:
         specifier: 5.0.1
         version: 5.0.1
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -3085,8 +3085,8 @@ importers:
         specifier: 9.20.0
         version: 9.20.0
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -3164,8 +3164,8 @@ importers:
         specifier: 8.41.0
         version: 8.41.0
       axios:
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.13.1
+        version: 1.13.1(debug@4.4.3)
       c8:
         specifier: 10.1.3
         version: 10.1.3
@@ -5583,11 +5583,8 @@ packages:
     peerDependencies:
       axios: '>= 0.17.0'
 
-  axios@1.11.0:
-    resolution: {integrity: sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==}
-
-  axios@1.12.2:
-    resolution: {integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==}
+  axios@1.13.1:
+    resolution: {integrity: sha512-hU4EGxxt+j7TQijx1oYdAjw4xuIp1wRQSsbMFwSthCWeBQur1eF+qJ5iQ5sN3Tw8YRzQNKb8jszgBdMDVqwJcw==}
 
   b4a@1.6.7:
     resolution: {integrity: sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==}
@@ -9803,7 +9800,6 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.14.0:
@@ -15018,21 +15014,13 @@ snapshots:
 
   axe-core@4.2.3: {}
 
-  axios-mock-adapter@2.1.0(axios@1.11.0):
+  axios-mock-adapter@2.1.0(axios@1.13.1):
     dependencies:
-      axios: 1.11.0
+      axios: 1.13.1(debug@4.4.3)
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
-  axios@1.11.0:
-    dependencies:
-      follow-redirects: 1.15.9(debug@4.4.3)
-      form-data: 4.0.4
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-
-  axios@1.12.2(debug@4.4.3):
+  axios@1.13.1(debug@4.4.3):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.3)
       form-data: 4.0.4
@@ -15466,7 +15454,7 @@ snapshots:
   chromedriver@140.0.4:
     dependencies:
       '@testim/chrome-version': 1.1.4
-      axios: 1.12.2(debug@4.4.3)
+      axios: 1.13.1(debug@4.4.3)
       compare-versions: 6.1.1
       extract-zip: 2.0.1
       proxy-agent: 6.5.0
@@ -19429,7 +19417,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.11.0
+      axios: 1.13.1(debug@4.4.3)
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -21665,7 +21653,7 @@ snapshots:
 
   wait-on@8.0.5(debug@4.4.3):
     dependencies:
-      axios: 1.12.2(debug@4.4.3)
+      axios: 1.13.1(debug@4.4.3)
       joi: 18.0.1
       lodash: 4.17.21
       minimist: 1.2.8
