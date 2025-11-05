@@ -4,7 +4,7 @@ import { URL } from 'node:url';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
-import { actorCalled, Duration, LogicError, Question, Wait } from '@serenity-js/core';
+import { actorCalled, Duration, Interaction, LogicError, Question, Wait } from '@serenity-js/core';
 import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
 
 describe('Page', () => {
@@ -169,6 +169,52 @@ describe('Page', () => {
 
                 Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
             ));
+
+        it('complains when trying to switch to an explicitly closed Page', async () => {
+            const result = actorCalled('Bernie').attemptsTo(
+                Click.on(MainPage.newTabLink()),
+
+                Wait.until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+
+                Page.whichTitle(equals(NewTab.title)).close(),
+
+                Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+
+                Switch.to(Page.whichTitle(equals(NewTab.title))).and(
+                    Interaction.where('#actor throws an error', actor => {
+                        throw new Error('Should not switch to a closed page');
+                    }),
+                ),
+            );
+
+            await expect(result).to.be.eventually.rejectedWith(
+                LogicError,
+                `Couldn't find a page which title does equal "${ NewTab.title }"`
+            );
+        });
+
+        it('complains when trying to switch to a Page closed by JavaScript', async () => {
+            const result = actorCalled('Bernie').attemptsTo(
+                Click.on(MainPage.newTabLink()),
+
+                Wait.upTo(Duration.ofSeconds(10)).until(Page.whichTitle(equals(NewTab.title)), isPresent()),
+
+                Switch.to(Page.whichTitle(equals(NewTab.title))).and(
+                    Click.on(NewTab.closeLink()),
+                ),
+
+                Switch.to(Page.whichTitle(equals(NewTab.title))).and(
+                    Interaction.where('#actor throws an error', actor => {
+                        throw new Error('Should not switch to a closed page');
+                    }),
+                ),
+            );
+
+            await expect(result).to.be.eventually.rejectedWith(
+                LogicError,
+                `Couldn't find a page which title does equal "${ NewTab.title }"`
+            );
+        });
     });
 
     describe('when managing the viewport size', () => {
