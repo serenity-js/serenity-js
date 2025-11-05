@@ -246,7 +246,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
         throw new LogicError(`Couldn't find a page which ${ expectationDescription }`);
     }
 
-    constructor(
+    protected constructor(
         protected readonly session: BrowsingSession<Page<Native_Element_Type>>,
         protected readonly rootLocator: RootLocator<Native_Element_Type>,
         protected modalDialogHandler: ModalDialogHandler,
@@ -475,7 +475,7 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
      * Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.
      *
      * #### Learn more
-     * - [Mozilla Developer Network: Document title](https://developer.mozilla.org/en-US/docs/Web/API/Document/title)
+     * - [Mozilla Developer Network - Document title](https://developer.mozilla.org/en-US/docs/Web/API/Document/title)
      */
     abstract title(): Promise<string>;
 
@@ -486,6 +486,9 @@ export abstract class Page<Native_Element_Type = any> implements Optional, Switc
 
     /**
      * Retrieves the name of the current top-level browsing context.
+     *
+     * #### Learn more
+     * - [Mozilla Developer Network - Window: name property](https://developer.mozilla.org/en-US/docs/Web/API/Window/name)
      */
     abstract name(): Promise<string>;
 
