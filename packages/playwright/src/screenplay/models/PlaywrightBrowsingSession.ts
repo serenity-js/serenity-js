@@ -55,9 +55,13 @@ export abstract class PlaywrightBrowsingSession extends BrowsingSession<Playwrig
             this.currentPlaywrightBrowserContext = await this.createBrowserContext();
 
             this.currentPlaywrightBrowserContext.on('page', async page => {
-                this.register(
-                    new PlaywrightPage(this, page, this.extraBrowserContextOptions, CorrelationId.create())
-                );
+                const playwrightPage = new PlaywrightPage(this, page, this.extraBrowserContextOptions, CorrelationId.create());
+
+                this.register(playwrightPage);
+
+                page.on('close', _closedPage => {
+                    this.deregister(playwrightPage.id);
+                });
             });
 
             if (this.extraBrowserContextOptions?.defaultNavigationTimeout) {
