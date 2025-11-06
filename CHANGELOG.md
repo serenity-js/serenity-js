@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.36.0](https://github.com/serenity-js/serenity-js/compare/v3.35.3...v3.36.0) (2025-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @paralleldrive/cuid2 to v2.3.1 ([e7fb0b5](https://github.com/serenity-js/serenity-js/commit/e7fb0b51dc502942152cdb4a64d347df0520831a))
+* **deps:** update dependency axios to v1.13.2 ([9f8d6cc](https://github.com/serenity-js/serenity-js/commit/9f8d6cc34ecf2cbd121380bd584f509b1416e675))
+* **playwright:** corrected handling of pages closed during the test ([adbd35c](https://github.com/serenity-js/serenity-js/commit/adbd35c9b2ae83b63bd7541461646891f5951b2d)), closes [#3054](https://github.com/serenity-js/serenity-js/issues/3054)
+
+
+### Features
+
+* **core:** introduced support for Node 24, dropped support for Node 18 (EOL) ([9dd5f88](https://github.com/serenity-js/serenity-js/commit/9dd5f885d8e65cd8ff3429a2af94151fbe9134ed))
+
+
+
+
+
 ## [3.35.3](https://github.com/serenity-js/serenity-js/compare/v3.35.2...v3.35.3) (2025-10-30)
 
 
