@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.36.0](https://github.com/serenity-js/serenity-js/compare/v3.35.3...v3.36.0) (2025-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.13.2 ([9f8d6cc](https://github.com/serenity-js/serenity-js/commit/9f8d6cc34ecf2cbd121380bd584f509b1416e675))
+
+
+### Features
+
+* **core:** introduced support for Node 24, dropped support for Node 18 (EOL) ([9dd5f88](https://github.com/serenity-js/serenity-js/commit/9dd5f885d8e65cd8ff3429a2af94151fbe9134ed))
+
+
+
+
+
 ## [3.35.3](https://github.com/serenity-js/serenity-js/compare/v3.35.2...v3.35.3) (2025-10-30)
 
 
