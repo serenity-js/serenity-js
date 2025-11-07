@@ -185,7 +185,7 @@ export class Actor implements PerformsActivities,
     }
 
     /**
-     * Instructs the actor to invoke [`Discardable.discard`](https://serenity-js.org/api/core/interface/Discardable/#discard) method on any
+     * Instructs the actor to invoke [`Discardable.close`](https://serenity-js.org/api/core/interface/Discardable/#discard) method on any
      * [discardable](https://serenity-js.org/api/core/interface/Discardable/) [ability](https://serenity-js.org/api/core/class/Ability/) it's been configured with.
      */
     dismiss(): Promise<void> {

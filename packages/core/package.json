@@ -33,7 +33,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
     "compile": "rimraf lib && tsc --project tsconfig.build.json"
   },
   "dependencies": {

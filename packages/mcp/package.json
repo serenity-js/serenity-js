@@ -1,0 +1,86 @@
+{
+  "name": "@serenity-js/mcp",
+  "version": "3.36.0",
+  "description": "Serenity/JS Model Context Protocol server",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "types": "./esm/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./esm/index.d.ts",
+      "default": "./esm/index.js"
+    }
+  },
+  "bin": {
+    "mcp-server-serenity-js": "./bin/mcp-server-serenity-js"
+  },
+  "keywords": [
+    "automation",
+    "mcp",
+    "integration",
+    "serenity",
+    "serenity-js",
+    "screenplay",
+    "screenplay-pattern",
+    "bdd",
+    "tdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile": "rimraf esm && tsc --project tsconfig.build.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.15.0",
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/playwright": "workspace:*",
+    "@serenity-js/rest": "workspace:*",
+    "axios": "1.11.0",
+    "commander": "14.0.0",
+    "diff": "8.0.2",
+    "envinfo": "7.14.0",
+    "playwright": "1.56.1",
+    "playwright-core": "1.56.1",
+    "tiny-types": "1.23.0",
+    "ts-morph": "26.0.0",
+    "zod": "3.25.76",
+    "zod-to-json-schema": "3.24.6"
+  },
+  "devDependencies": {
+    "@integration/testing-tools": "workspace:*",
+    "@serenity-js/assertions": "workspace:*",
+    "@serenity-js/web": "workspace:*",
+    "@types/envinfo": "7.8.4",
+    "mocha": "11.7.1",
+    "mocha-multi": "1.1.7",
+    "typescript": "5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^18.12 || ^20 || ^22"
+  }
+}

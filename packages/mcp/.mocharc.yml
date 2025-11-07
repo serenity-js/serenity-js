@@ -1,0 +1,11 @@
+check-leaks: false
+color: true
+diff: true
+full-trace: true
+reporter: mocha-multi
+reporter-options: 'mocha-multi=.mocha-reporters.json'
+timeout: 10000
+v8-stack-trace-limit: 100
+node-option:
+  - trace-warnings
+  - import=tsx

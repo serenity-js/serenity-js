@@ -3,6 +3,7 @@
 export * from './ActivityDetails';
 export * from './artifacts';
 export * from './Artifact';
+export * from './ArtifactDeserialiser';
 export * from './BusinessRule';
 export * from './Category';
 export * from './CorrelationId';

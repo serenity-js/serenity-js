@@ -42,6 +42,10 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
 
         const context = await this.browserContext();
         await context.close();
+
+        for (const context of this.browser.contexts()) {
+            await context.close();
+        }
     }
 
     override async browserCapabilities(): Promise<BrowserCapabilities> {
