@@ -126,8 +126,8 @@ importers:
   examples/calculator-app:
     dependencies:
       '@paralleldrive/cuid2':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 3.0.4
+        version: 3.0.4
       body-parser:
         specifier: 2.2.0
         version: 2.2.0
@@ -2446,14 +2446,14 @@ importers:
   packages/core:
     dependencies:
       '@paralleldrive/cuid2':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 3.0.4
+        version: 3.0.4
       chalk:
         specifier: 4.1.2
         version: 4.1.2
       diff:
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 8.0.2
+        version: 8.0.2
       error-stack-parser:
         specifier: 2.1.4
         version: 2.1.4
@@ -2461,8 +2461,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       filenamify:
-        specifier: 4.3.0
-        version: 4.3.0
+        specifier: 7.0.1
+        version: 7.0.1
       graceful-fs:
         specifier: 4.2.11
         version: 4.2.11
@@ -2476,15 +2476,15 @@ importers:
         specifier: 2.0.1
         version: 2.0.1
       validate-npm-package-name:
-        specifier: 6.0.2
-        version: 6.0.2
+        specifier: 7.0.0
+        version: 7.0.0
     devDependencies:
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
       '@types/diff':
-        specifier: 5.2.3
-        version: 5.2.3
+        specifier: 8.0.0
+        version: 8.0.0
       '@types/mocha':
         specifier: 10.0.10
         version: 10.0.10
@@ -4326,9 +4326,9 @@ packages:
   '@netflix/nerror@1.1.3':
     resolution: {integrity: sha512-b+MGNyP9/LXkapreJzNUzcvuzZslj/RGgdVVJ16P2wSlYatfLycPObImqVJSmNAdyeShvNeM/pl3sVZsObFueg==}
 
-  '@noble/hashes@1.7.1':
-    resolution: {integrity: sha512-B8XBPsn4vT/KJAGqDzbwztd+6Yte3P4V7iafm24bxgDe/mlRuK6xmWPuCNrKt2vDafZ8MfJLlchDG/vYafQEjQ==}
-    engines: {node: ^14.21.3 || >=16}
+  '@noble/hashes@2.0.1':
+    resolution: {integrity: sha512-XlOlEbQcE9fmuXxrVTXCTlG2nlRXa9Rj3rr5Ue/+tX+nmkgbX720YHh0VR3hBF9xDvwnb8D2shVGOwNx+ulArw==}
+    engines: {node: '>= 20.19.0'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -4562,8 +4562,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@paralleldrive/cuid2@2.3.1':
-    resolution: {integrity: sha512-XO7cAxhnTZl0Yggq6jOgjiOHhbgcO4NqFqwSmQpjK3b6TEE6Uj/jfSk6wzYyemh3+I0sHirKSetjQwn5cZktFw==}
+  '@paralleldrive/cuid2@3.0.4':
+    resolution: {integrity: sha512-sM6M2PWrByOEpN2QYAdulhEbSZmChwj0e52u4hpwB7u4PznFiNAavtE6m7O8tWUlzX+jT2eKKtc5/ZgX+IHrtg==}
+    hasBin: true
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -4886,8 +4887,9 @@ packages:
   '@types/conventional-commits-parser@5.0.1':
     resolution: {integrity: sha512-7uz5EHdzz2TqoMfV7ee61Egf5y6NkcO4FB/1iCCQnbeiI1F3xzv3vK5dBCXUCLQgGYS+mUeigK1iKQzvED+QnQ==}
 
-  '@types/diff@5.2.3':
-    resolution: {integrity: sha512-K0Oqlrq3kQMaO2RhfrNQX5trmt+XLyom88zS0u84nnIcLvFnRUMRRHmrGny5GSM+kNO9IZLARsdQHDzkhAgmrQ==}
+  '@types/diff@8.0.0':
+    resolution: {integrity: sha512-o7jqJM04gfaYrdCecCVMbZhNdG6T1MHg/oQoRFdERLV+4d+V7FijhiEAbFu0Usww84Yijk9yH58U4Jk4HbtzZw==}
+    deprecated: This is a stub types definition. diff provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -5659,6 +5661,9 @@ packages:
   big-integer@1.6.52:
     resolution: {integrity: sha512-QxD8cf2eVqJOOz63z6JIN9BzvVs/dlySa5HGSBH5xtR8dPteIRQnBxxKqkNTiT6jbDTF6jAfrd4oMcND9RGbQg==}
     engines: {node: '>=0.6'}
+
+  bignumber.js@9.3.1:
+    resolution: {integrity: sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==}
 
   bin-links@5.0.0:
     resolution: {integrity: sha512-sdleLVfCjBtgO5cNjA2HVRvWBJAHs4zwenaCPMNJAJU0yNxpzj80IpjOIimkpkr+mhlA+how5poQtt53PygbHA==}
@@ -6669,10 +6674,6 @@ packages:
     resolution: {integrity: sha512-uIFDxqpRZGZ6ThOk84hEfqWoHx2devRFvpTZcTHur85vImfaxUbTW9Ryh4CpCuDnToOP1CEtXKIgytHBPVff5A==}
     engines: {node: '>=0.3.1'}
 
-  diff@6.0.0:
-    resolution: {integrity: sha512-NbGtgPSw7il+jeajji1H6iKjCk3r/ANQKw3FFUhGV50+MH5MKIMeUmi53piTr7jlkWcq9eS858qbkRzkehwe+w==}
-    engines: {node: '>=0.3.1'}
-
   diff@7.0.0:
     resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
     engines: {node: '>=0.3.1'}
@@ -6828,6 +6829,9 @@ packages:
 
   err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
+
+  error-causes@3.0.2:
+    resolution: {integrity: sha512-i0B8zq1dHL6mM85FGoxaJnVtx6LD5nL2v0hlpGdntg5FOSyzQ46c9lmz5qx0xRS2+PWHGOHcYxGIBC5Le2dRMw==}
 
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
@@ -7235,13 +7239,13 @@ packages:
   filelist@1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
 
-  filename-reserved-regex@2.0.0:
-    resolution: {integrity: sha512-lc1bnsSr4L4Bdif8Xb/qrtokGbq5zlsms/CYH8PP+WtCkGNF65DPiQY8vG3SakEdRn8Dlnm+gW/qWKKjS5sZzQ==}
-    engines: {node: '>=4'}
+  filename-reserved-regex@4.0.0:
+    resolution: {integrity: sha512-9ZT504KxEQDamsOogZImAWGEN24R1uFAxU3ZS4AZqn2ooidmN68Olh7n4/RcA4lLatZztjA0ZSuxeLHVoCc8JA==}
+    engines: {node: '>=20'}
 
-  filenamify@4.3.0:
-    resolution: {integrity: sha512-hcFKyUG57yWGAzu1CMt/dPzYZuv+jAJUT85bL8mrXvNe6hWj6yEHEc4EdcgiA6Z3oi1/9wXJdZPXF2dZNgwgOg==}
-    engines: {node: '>=8'}
+  filenamify@7.0.1:
+    resolution: {integrity: sha512-9b4rfnaX2MkJCgp27wypV6DAMvj4WMOSgJ+TdcpJIO84Dql+Cv6iJjdG4XDTLubOWkfNiBv3joO59sau/TXw+Q==}
+    engines: {node: '>=20'}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -10671,10 +10675,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  strip-outer@1.0.1:
-    resolution: {integrity: sha512-k55yxKHwaXnpYGsOzg4Vl8+tDrWylxDEpknGjhTiZB8dFRU5rTo9CAzeycivxV3s+zlTKwrs6WxMxR95n26kwg==}
-    engines: {node: '>=0.10.0'}
-
   strnum@1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
 
@@ -10878,10 +10878,6 @@ packages:
   trim-newlines@3.0.1:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
-
-  trim-repeated@1.0.0:
-    resolution: {integrity: sha512-pkonvlKk8/ZuR0D5tLW8ljt5I8kmxp2XKymhepUeOdCEfKpZaktSArkLHZt76OB1ZvO9bssUsDty4SWhLvZpLg==}
-    engines: {node: '>=0.10.0'}
 
   ts-api-utils@1.4.3:
     resolution: {integrity: sha512-i3eMG77UTMD0hZhgRS562pv83RC6ukSAC2GMNWc+9dieh/+jDM5u5YG+NHX6VNDRHQcHwmsTHctP9LhbC3WxVw==}
@@ -11205,6 +11201,10 @@ packages:
   validate-npm-package-name@6.0.2:
     resolution: {integrity: sha512-IUoow1YUtvoBBC06dXs8bR8B9vuA3aJfmQNKMoaPG/OFsPmoQvw8xh+6Ye25Gx9DQhoEom3Pcu9MKHerm/NpUQ==}
     engines: {node: ^18.17.0 || >=20.5.0}
+
+  validate-npm-package-name@7.0.0:
+    resolution: {integrity: sha512-bwVk/OK+Qu108aJcMAEiU4yavHUI7aN20TgZNBj9MR2iU1zPUl1Z1Otr7771ExfYTPTvfN8ZJ1pbr5Iklgt4xg==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -13331,7 +13331,7 @@ snapshots:
       extsprintf: 1.4.1
       lodash: 4.17.21
 
-  '@noble/hashes@1.7.1': {}
+  '@noble/hashes@2.0.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -13628,9 +13628,11 @@ snapshots:
   '@oxlint/win32-x64@1.6.0':
     optional: true
 
-  '@paralleldrive/cuid2@2.3.1':
+  '@paralleldrive/cuid2@3.0.4':
     dependencies:
-      '@noble/hashes': 1.7.1
+      '@noble/hashes': 2.0.1
+      bignumber.js: 9.3.1
+      error-causes: 3.0.2
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -13968,7 +13970,9 @@ snapshots:
     dependencies:
       '@types/node': 24.10.0
 
-  '@types/diff@5.2.3': {}
+  '@types/diff@8.0.0':
+    dependencies:
+      diff: 8.0.2
 
   '@types/estree@1.0.7': {}
 
@@ -15114,6 +15118,8 @@ snapshots:
   before-after-hook@2.2.3: {}
 
   big-integer@1.6.52: {}
+
+  bignumber.js@9.3.1: {}
 
   bin-links@5.0.0:
     dependencies:
@@ -16332,8 +16338,6 @@ snapshots:
 
   diff@5.2.0: {}
 
-  diff@6.0.0: {}
-
   diff@7.0.0: {}
 
   diff@8.0.2: {}
@@ -16496,6 +16500,8 @@ snapshots:
   envinfo@7.13.0: {}
 
   err-code@2.0.3: {}
+
+  error-causes@3.0.2: {}
 
   error-ex@1.3.2:
     dependencies:
@@ -17172,13 +17178,11 @@ snapshots:
     dependencies:
       minimatch: 5.1.6
 
-  filename-reserved-regex@2.0.0: {}
+  filename-reserved-regex@4.0.0: {}
 
-  filenamify@4.3.0:
+  filenamify@7.0.1:
     dependencies:
-      filename-reserved-regex: 2.0.0
-      strip-outer: 1.0.1
-      trim-repeated: 1.0.0
+      filename-reserved-regex: 4.0.0
 
   fill-range@7.1.1:
     dependencies:
@@ -21109,10 +21113,6 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  strip-outer@1.0.1:
-    dependencies:
-      escape-string-regexp: 1.0.5
-
   strnum@1.0.5: {}
 
   strnum@2.1.1: {}
@@ -21312,10 +21312,6 @@ snapshots:
   treeverse@3.0.0: {}
 
   trim-newlines@3.0.1: {}
-
-  trim-repeated@1.0.0:
-    dependencies:
-      escape-string-regexp: 1.0.5
 
   ts-api-utils@1.4.3(typescript@5.9.3):
     dependencies:
@@ -21624,6 +21620,8 @@ snapshots:
       spdx-expression-parse: 3.0.1
 
   validate-npm-package-name@6.0.2: {}
+
+  validate-npm-package-name@7.0.0: {}
 
   vary@1.1.2: {}
 
