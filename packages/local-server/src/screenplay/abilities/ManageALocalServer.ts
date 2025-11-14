@@ -14,7 +14,7 @@ import { getPortPromise } from 'portfinder';
  * ```ts
  * import { actorCalled } from '@serenity-js/core'
  * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest'
- * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'
+ * import { ManageALocalServer, LocalTestServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server'
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * import * as axios from 'axios'
@@ -27,15 +27,15 @@ import { getPortPromise } from 'portfinder';
  *
  * await actorCalled('Apisit')
  *   .whoCan(
- *     ManageALocalServer.using(server),
+ *     ManageALocalServer.runningAHttpListener(server),
  *     CallAnApi.using(axios.create()),
  *   )
  *   .attemptsTo(
- *     StartLocalTestServer.onRandomPort(),
+ *     StartLocalServer.onRandomPort(),
  *     Send.a(GetRequest.to(LocalServer.url())),
  *     Ensure.that(LastResponse.status(), equals(200)),
  *     Ensure.that(LastResponse.body<string>(), equals('Hello!')),
- *     StopLocalTestServer.ifRunning(),
+ *     StopLocalServer.ifRunning(),
  *   )
  * ```
  *
@@ -63,13 +63,12 @@ export class ManageALocalServer extends Ability {
     }
 
     /**
-     * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) to manage a Node.js HTTPS server using the provided server `requestListener`.
+     * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) to manage a Node.js HTTPS server
+     * using the provided [`requestListener`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener).
      *
      * @param listener
      * @param options
      *  Accepts an options object from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
-     *
-     * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */
     static runningAHttpsListener(listener: RequestListener | https.Server, options: https.ServerOptions = {}): ManageALocalServer {
         const server = typeof listener === 'function'
@@ -85,8 +84,6 @@ export class ManageALocalServer extends Ability {
      *
      * @param server
      *  A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
-     *
-     * @see https://www.npmjs.com/package/http-shutdown
      */
     constructor(private readonly protocol: SupportedProtocols, server: net.Server) {
         super();
@@ -141,9 +138,8 @@ export class ManageALocalServer extends Ability {
 export type RequestListener = (request: http.IncomingMessage, response: http.ServerResponse) => void;
 
 /**
- * A [`net.Server`](https://nodejs.org/api/net.html#class-netserver) with an added shutdown method.
- *
- * @see https://www.npmjs.com/package/http-shutdown
+ * A [`net.Server`](https://nodejs.org/api/net.html#class-netserver) with
+ * an additional [`shutdown`](https://www.npmjs.com/package/http-shutdown) method.
  */
 export type ServerWithShutdown = net.Server & {
     shutdown: (callback: (error?: Error) => void) => void,
