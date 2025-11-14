@@ -51,8 +51,8 @@ class StartLocalServerOnRandomPort extends Interaction {
         super(`#actor starts local server on a random port`);
     }
 
-    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
-        return ManageALocalServer.as(actor).listen();
+    async performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        await ManageALocalServer.as(actor).listen();
     }
 }
 
@@ -65,9 +65,10 @@ class StartLocalServerOnPort extends Interaction {
         super(`#actor starts local server on port ${ preferredPort }`);
     }
 
-    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
-        return actor.answer(this.preferredPort)
-            .then(port => ManageALocalServer.as(actor).listen(port));
+    async performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        const preferredPort = await actor.answer(this.preferredPort);
+
+        await ManageALocalServer.as(actor).listen(preferredPort);
     }
 }
 
@@ -83,11 +84,10 @@ class StartLocalServerOnRandomPortBetween extends Interaction {
         super(`#actor starts local server on port between ${ lowestPort } and ${ highestPort }`);
     }
 
-    performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
-        return Promise.all([
-            actor.answer(this.lowestPort),
-            actor.answer(this.highestPort),
-        ]).
-        then(([lowestPort, highestPort]) => ManageALocalServer.as(actor).listen(lowestPort, highestPort));
+    async performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): Promise<void> {
+        const lowestPort = await actor.answer(this.lowestPort);
+        const highestPort = await actor.answer(this.highestPort);
+
+        await ManageALocalServer.as(actor).listen(lowestPort, highestPort);
     }
 }
