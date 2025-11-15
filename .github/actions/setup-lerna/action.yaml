@@ -11,9 +11,6 @@ inputs:
   git_username:
     description: 'Git username'
     required: true
-  npm_token:
-    description: 'NPM Token'
-    required: true
 
 runs:
   using: 'composite'
@@ -26,5 +23,4 @@ runs:
       git config --global user.name ${{ inputs.git_username }}
       git config --global user.password ${{ inputs.github_token }}
       git config --global push.default simple
-      npm config set //registry.npmjs.org/:_authToken=${{ inputs.npm_token }} -q
       npm whoami

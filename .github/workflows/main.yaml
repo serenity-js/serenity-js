@@ -380,7 +380,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username: ${{ secrets.RELEASE_GH_USERNAME }}
-          npm_token: ${{ secrets.NPM_TOKEN }}
 
       - name: Download compiled libs
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
@@ -395,7 +394,6 @@ jobs:
       - name: Publish artifacts
         run: pnpm lerna:publish
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print versions
