@@ -25,7 +25,7 @@ of complex software systems faster, more collaborative and easier to scale.
 [`@serenity-js/local-server`](https://serenity-js.org/api/local-server/) enables Serenity/JS Actors to manage local HTTP or HTTPS test servers powered by [Express](https://expressjs.com/),
 [Hapi](https://hapijs.com/),
 [Koa](https://koajs.com/),
-[Restify](http://restify.com/)
+[Restify](http://restify.com/),
 or raw [Node.js](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/).
 
 ### Installation
@@ -42,42 +42,51 @@ npm install --save-dev @serenity-js/core @serenity-js/local-server
 ```typescript
 import { actorCalled } from '@serenity-js/core'
 import {
-    ManageALocalServer, StartLocalTestServer, StopLocalTestServer
+    ManageALocalServer, StartLocalServer, StopLocalServer
 } from '@serenity-js/local-server'
 import { CallAnApi, GetRequest, Send } from '@serenity-js/rest'
 import { Ensure, equals } from '@serenity-js/assertions'
 import axios from 'axios'
 
-import { requestListener } from './listener'                            (1)
+import { requestListener } from './listener'                    // (1)
 
 const actor = actorCalled('Apisit').whoCan(
-    ManageALocalServer.using(requestListener),                          (2)
+    ManageALocalServer.runningAHttpListener(requestListener),   // (2)
     CallAnApi.using(axios.create()),
 )
 
 await actor.attemptsTo(
-    StartLocalTestServer.onRandomPort(),                                (3)
-    Send.a(GetRequest.to(LocalServer.url())),                           (4)
+    StartLocalServer.onRandomPort(),                            // (3)
+    Send.a(GetRequest.to(LocalServer.url())),                   // (4)
     Ensure.that(LastResponse.status(), equals(200)),
     Ensure.that(LastResponse.body(), equals('Hello!')),
-    StopLocalTestServer.ifRunning(),                                    (5)
+    StopLocalServer.ifRunning(),                                // (5)
 )
 ```
 
 In the above example:
 
-1. A `requestListener` to be tested is imported.
-2. The `Actor` is given an `Ability` to `ManageALocalServer`. This enables the `Interaction` to `StartLocalTestServer` and `StopLocalTestServer`, as well as the `LocalServer` `Question`.
-3. The local server is started on a random port, although you can specify a port range if you prefer.
-4. The url of the local server is retrieved and used to test an interaction with its HTTP API.
-5. The local server is stopped when the test is complete. Please note that you probably want to `StopLocalTestServer` in an `afterEach` block of your test (or something equivalent) to make sure that the server is correctly shut down even when the test fails.
+1. Import a [`requestListener`](https://nodejs.org/api/http.html#httpcreateserveroptions-requestlistener) you want to use in your test.
+2. Give the [actor](https://serenity-js.org/handbook/design/screenplay-pattern/#actors) an [ability](https://serenity-js.org/handbook/design/screenplay-pattern/#abilities)
+   to [`ManageALocalServer`](https://serenity-js.org/api/local-server/class/ManageALocalServer/).
+   This enables the interactions to [`StartLocalServer`](https://serenity-js.org/api/local-server/class/StartLocalServer/)
+   and [`StopLocalServer`](https://serenity-js.org/api/local-server/class/StopLocalServer/),
+   as well as the [`LocalServer`](https://serenity-js.org/api/local-server/class/LocalServer/) question.
+3. Start the local server on a [random port](https://serenity-js.org/api/local-server/class/StartLocalServer/#onRandomPort),
+   [specific port](https://serenity-js.org/api/local-server/class/StartLocalServer/#onPort),
+   or a random port within your [preferred port range](https://serenity-js.org/api/local-server/class/StartLocalServer/#onRandomPortBetween).
+4. Use the `LocalServer.url()` question to retrieve the url of the local server and interact with its HTTP API.
+5. Stop the local server is when the test is complete.
+   Please note that you probably want to [`StopLocalServer`](https://serenity-js.org/api/local-server/class/StopLocalServer/)
+   in an `afterEach` block of your test (or something equivalent) 
+   to make sure that the server is correctly shut down even when the test fails.
 
 ### Creating a server
 
-Any `requestListener` that Node's
+Any `requestListener` accepted by Node's
 [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
 or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
-would accept can be used with `ManageALocalServer`.
+can be used with `ManageALocalServer`.
 
 Below are example implementations of a simple HTTP server that would
 satisfy the above test.
