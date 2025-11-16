@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.36.1](https://github.com/serenity-js/serenity-js/compare/v3.36.0...v3.36.1) (2025-11-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tiny-types to v1.24.3 ([952a453](https://github.com/serenity-js/serenity-js/commit/952a453936326d154389b79bfd3b04f4b75d0688))
+
+
+
+
+
 # [3.36.0](https://github.com/serenity-js/serenity-js/compare/v3.35.3...v3.36.0) (2025-11-06)
 
 
