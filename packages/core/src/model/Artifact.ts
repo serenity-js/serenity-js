@@ -11,9 +11,6 @@ export interface SerialisedArtifact extends JSONObject {
 
 export type ArtifactType = new (base64EncodedValue: string) => Artifact;
 
-/**
- * @extends {tiny-types~TinyType}
- */
 export abstract class Artifact extends TinyType {
     static fromJSON(o: SerialisedArtifact): Artifact {
         const
