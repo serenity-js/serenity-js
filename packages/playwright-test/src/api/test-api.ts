@@ -13,7 +13,7 @@ import type {
     TestType,
     WorkerInfo,
 } from '@playwright/test';
-import { test as playwrightBaseTest } from '@playwright/test';
+import { mergeTests, test as playwrightBaseTest } from '@playwright/test';
 import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
@@ -247,7 +247,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 /**
  * Serenity/JS BDD-style test API created by [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/).
  */
-export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any>> =
+export type TestApi<TestArgs extends object, WorkerArgs extends object> =
     Pick<TestType<TestArgs, WorkerArgs>, 'describe' | 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
     {
         /**
@@ -274,7 +274,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
          *
          * Shorthand for [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/)
          */
-        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(
+        useFixtures: <T extends object, W extends object = object>(
             customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>
         ) => TestApi<TestArgs & T, WorkerArgs & W>,
 
@@ -282,7 +282,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
         test: TestType<TestArgs, WorkerArgs>,
     }
 
-function createTestApi<BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions), BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
+function createTestApi<BaseTestFixtures extends object, BaseWorkerFixtures extends object>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
     return {
         useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & T, BaseWorkerFixtures & W> {
             return createTestApi(baseTest.extend(customFixtures));
@@ -426,6 +426,9 @@ export const expect: Expect = api.expect;
 
 export const useFixtures = api.useFixtures;
 
+type MergedT<List> = List extends [TestType<infer T, any>, ...(infer Rest)] ? T & MergedT<Rest> : object;
+type MergedW<List> = List extends [TestType<any, infer W>, ...(infer Rest)] ? W & MergedW<Rest> : object;
+
 /**
  * Creates a Serenity/JS BDD-style test API around the given Playwright [base test](https://playwright.dev/docs/test-fixtures).
  *
@@ -562,15 +565,45 @@ export const useFixtures = api.useFixtures;
  * })
  * ```
  *
- * @param baseTest
+ * ## Merging multiple base tests
+ *
+ * To merge fixtures from multiple files or modules, pass them to `useBase`.
+ *
+ * ```tsx
+ * import { test as componentTest } from '@playwright/experimental-ct-react'
+ * import { test as a11yTest } from 'my-a11y-test-utils';
+ * import { Ensure, contain } from '@serenity-js/assertions'
+ * import { useBase } from '@serenity-js/playwright-test'
+ * import { Enter, PageElement, CssClasses } from '@serenity-js/web'
+ *
+ * import EmailInput from './EmailInput';
+ *
+ * const { it, describe } = useBase(componentTest, a11yTest).useFixtures<{ emailAddress: string }>({
+ *   emailAddress: ({ actor }, use) => {
+ *     use(`${ actor.name }@example.org`)
+ *   }
+ * })
+ *
+ * describe('EmailInput', () => {
+ *
+ *   it('allows valid email addresses', async ({ actor, mount, emailAddress }) => {
+ *     const nativeComponent = await mount(<EmailInput/>);
+ *
+ *     const component = PageElement.from(nativeComponent);
+ *
+ *     await actor.attemptsTo(
+ *       Enter.theValue(emailAddress).into(component),
+ *       Ensure.that(CssClasses.of(component), contain('valid')),
+ *     )
+ *   })
+ * })
+ * ```
+ *
+ * @param baseTests
  */
-export function useBase<
-    BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions),
-    BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)
-> (baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & SerenityFixtures, BaseWorkerFixtures & SerenityWorkerFixtures> {
-    return createTestApi<BaseTestFixtures, BaseWorkerFixtures>(baseTest).useFixtures(
-        fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, BaseTestFixtures, BaseWorkerFixtures>
-    );
+export function useBase<List extends any[]> (...baseTests: List): TestApi<MergedT<List> & SerenityFixtures, MergedW<List> & SerenityWorkerFixtures> {
+    return createTestApi<MergedT<List>, MergedW<List>>(mergeTests(...baseTests))
+        .useFixtures(fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, MergedT<List>, MergedW<List>>);
 }
 
 /**
