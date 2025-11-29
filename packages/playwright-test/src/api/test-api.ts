@@ -70,18 +70,26 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
-            await use(Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
-                TakeNotes.usingAnEmptyNotepad(),
-                CallAnApi.using({
-                    baseURL: baseURL,
-                    headers: extraHTTPHeaders,
-                    proxy: proxy && proxy?.server
-                        ? asProxyConfig(proxy)
-                        : undefined,
-                }),
-            )));
+        async ({ extraAbilities, extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
+            await use(Cast.where(actor => {
+
+                const abilities = Array.isArray(extraAbilities)
+                    ? extraAbilities
+                    : extraAbilities(actor.name);
+
+                return actor.whoCan(
+                    BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
+                    TakeNotes.usingAnEmptyNotepad(),
+                    CallAnApi.using({
+                        baseURL: baseURL,
+                        headers: extraHTTPHeaders,
+                        proxy: proxy && proxy?.server
+                            ? asProxyConfig(proxy)
+                            : undefined,
+                    }),
+                    ... abilities,
+                );
+            }));
         },
         { option: true },
     ],
@@ -225,12 +233,18 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { auto: true, box: true, }
     ],
 
+    extraAbilities: [
+        [],
+        { option: true },
+    ],
+
     actorCalled: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({ serenity }, use) => {
 
             const actorCalled = (name: string) => {
                 const actor = serenity.theActorCalled(name);
+
                 return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
             };
 

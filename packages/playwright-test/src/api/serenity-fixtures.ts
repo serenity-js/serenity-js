@@ -1,4 +1,6 @@
 import type {
+    Ability,
+    Actor,
     Cast,
     ClassDescription,
     Duration,
@@ -6,7 +8,6 @@ import type {
     StageCrewMember,
     StageCrewMemberBuilder
 } from '@serenity-js/core';
-import type { Actor } from '@serenity-js/core';
 import type { ExtraBrowserContextOptions } from '@serenity-js/playwright';
 
 /**
@@ -242,29 +243,96 @@ export interface SerenityFixtures {
     extraContextOptions: Partial<ExtraBrowserContextOptions>;
 
     /**
+     * Extra abilities given to the actors on top of the default ones provided by the [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) fixture.
+     *
+     * #### Extra abilities for all actors
+     *
+     * To give the same set of extra abilities to all the actors, make your `extraAbilities` fixture
+     * return an array of [`Ability`](https://serenity-js.org/api/core/class/Ability/) objects.
+     *
+     * ```typescript
+     * import { type Ability } from '@serenity-js/core';
+     * import { describe, it, test } from '@serenity-js/playwright-test';
+     * import { MyAbility } from './MyAbility';
+     *
+     * describe(`My feature`, () => {
+     *
+     *     test.use({
+     *         extraAbilities: async ({}, use) => {
+     *           const extraAbilities: Ability[] = [
+     *             new MyAbility()
+     *           ];
+     *
+     *           await use(extraAbilities);
+     *         },
+     *     });
+     *
+     *     it(`...`, async({ actor }) => {
+     *       // ...
+     *     });
+     * });
+     * ```
+     *
+     * #### Extra abilities for selected actors
+     *
+     * To give extra abilities only to selected actors, make your `extraAbilities` fixture return a `(actorName: string) => Ability[]` function that maps
+     * the actor name to an array of [`Ability`](https://serenity-js.org/api/core/class/Ability/) objects.
+     *
+     * ```typescript
+     * import { describe, it, test } from '@serenity-js/playwright-test';
+     * import { MyAbility } from './MyAbility';
+     *
+     * describe(`My feature`, () => {
+     *
+     *     test.use({
+     *         extraAbilities: async ({ }, use) => {
+     *             await use((actorName: string) => {
+     *                 // Alice gets the extra abilities, but others don't
+     *                 return actorName === 'Alice'
+     *                     ? [ new MyAbility() ]
+     *                     : [];
+     *             })
+     *         }
+     *     });
+     *
+     *     it(`...`, async({ actor }) => {
+     *       // ...
+     *     });
+     * });
+     * ```
+     */
+    extraAbilities: ((actorName: string) => Ability[]) | Ability[];
+
+    /**
      * A cast of Serenity/JS actors to be used instead of the default cast
      * when instantiating [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
      * and invoking [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled).
      *
      * :::info Did you know?
-     * When you use `@serenity-js/playwright-test` [test APIs](https://serenity-js.org/api/playwright-test/function/it/), Serenity/JS already provides a default cast of actors for you.
-     * Each one of the default actors receives [abilities](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/) and [`TakeNotes.usingAnEmptyNotepad`](https://serenity-js.org/api/core/class/TakeNotes/#usingAnEmptyNotepad).
+     * Serenity/JS [test APIs](https://serenity-js.org/api/playwright-test/function/it/) offer fixtures that set up the default cast of actors for you,
+     * which should be sufficient in most web and HTTP API testing scenarios.
      *
-     * The default abilities should be sufficient in most web testing scenarios. However, you might want to override this default configuration
-     * when you need your actors to [interact with REST APIs](https://serenity-js.org/api/rest/class/CallAnApi/),
-     * [manage local servers](https://serenity-js.org/api/local-server/class/ManageALocalServer/),
-     * start with a notepad that has some [initial state](https://serenity-js.org/api/core/class/TakeNotes/#using),
-     * or receive [custom abilities](https://serenity-js.org/api/core/class/Ability/).
+     * Each one of the default actors receives the following [abilities](https://serenity-js.org/api/core/class/Ability/):
+     * - [`BrowseTheWebWithPlaywright`](https://serenity-js.org/api/playwright/class/BrowseTheWebWithPlaywright/), connected to Playwright [`page`](https://playwright.dev/docs/test-fixtures) fixture
+     * - [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/#usingAnEmptyNotepad)
+     * - [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/), pointing at the [`baseURL`](https://playwright.dev/docs/test-use-options#basic-options)
+     *   and using any `proxy` settings in your Playwright config file.
+     *
+     * The easiest way to give your actors additional abilities is to use the [`extraAbilities`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#extraAbilities) fixture.
      * :::
-     *
      *
      * #### Overriding the default cast of Serenity/JS actors
      *
      * ```typescript
-     * import { Cast, TakeNotes } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
+     * import { Cast, TakeNotes } from '@serenity-js/core'
      * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+     * import { CallAnApi } from '@serenity-js/rest'
      * import { describe, it, test } from '@serenity-js/playwright-test'
+     *
+     * interface MyNotes {
+     *   username: string;
+     * }
      *
      * describe(`Recording items`, () => {
      *
@@ -273,17 +341,27 @@ export interface SerenityFixtures {
      *             defaultNavigationTimeout: 30_000,
      *         },
      *
-     *         defaultActorName: 'Serena',
-     *         actors: async ({ browser, contextOptions, extraContextOptions }, use) => {
-     *             const cast = Cast.where(actor =>
-     *                 actor.whoCan(
-     *                     BrowseTheWebWithPlaywright.using(browser, contextOptions, extraContextOptions),
-     *                     TakeNotes.usingAnEmptyNotepad(),
+     *         actors: async ({ page, extraAbilities, extraContextOptions, extraHTTPHeaders }, use) => {
+     *             const cast = Cast.where(actor => {
+     *                 const abilities = Array.isArray(extraAbilities)
+     *                     ? extraAbilities
+     *                     : extraAbilities(actor.name);
+     *
+     *                 return actor.whoCan(
+     *                     BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
+     *                     TakeNotes.using<MyNotes>(Notepad.with({
+     *                       username: 'example.username'
+     *                     }),
+     *                     CallAnApi.using({
+     *                         baseURL: baseURL,
+     *                         headers: extraHTTPHeaders,
+     *                     }),
+     *                     ...abilities,
      *                 )
-     *             )
+     *             })
      *
      *             // Make sure to pass your custom cast to Playwright `use` callback
-     *             await use(cast)
+     *             await use(cast);
      *         },
      *     })
      *
@@ -370,7 +448,9 @@ export interface SerenityWorkerFixtures {
     serenity: Serenity;
 
     /**
-     * Uses the provided [cast](https://serenity-js.org/api/core/class/Cast/) of [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) to instantiate an [`Actor`](https://serenity-js.org/api/core/class/Actor/) called `name`
+     * Uses the provided [cast](https://serenity-js.org/api/core/class/Cast/) of
+     * [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) to instantiate
+     * an [`Actor`](https://serenity-js.org/api/core/class/Actor/) called `name`
      * and inject it into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
      * Retrieves an existing actor if one has already been instantiated.
