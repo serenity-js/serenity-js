@@ -68,9 +68,19 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { option: true },
     ],
 
+    axios: async ({ baseURL, extraHTTPHeaders, proxy }, use) => {
+        await use({
+            baseURL: baseURL,
+            headers: extraHTTPHeaders,
+            proxy: proxy && proxy?.server
+                ? asProxyConfig(proxy)
+                : undefined,
+        })
+    },
+
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ extraAbilities, extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
+        async ({ axios, extraAbilities, extraContextOptions, page }, use): Promise<void> => {
             await use(Cast.where(actor => {
 
                 const abilities = Array.isArray(extraAbilities)
@@ -80,14 +90,8 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                 return actor.whoCan(
                     BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
                     TakeNotes.usingAnEmptyNotepad(),
-                    CallAnApi.using({
-                        baseURL: baseURL,
-                        headers: extraHTTPHeaders,
-                        proxy: proxy && proxy?.server
-                            ? asProxyConfig(proxy)
-                            : undefined,
-                    }),
-                    ... abilities,
+                    CallAnApi.using(axios),
+                    ...abilities,
                 );
             }));
         },
@@ -117,7 +121,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     sceneIdFactoryInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
-        async ({ }, use) => {
+        async ({}, use) => {
             await use(new PlaywrightTestSceneIdFactory());
         },
         { scope: 'worker', box: true },
@@ -140,7 +144,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     eventStreamWriterInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
-        async ({ }, use, workerInfo) => {
+        async ({}, use, workerInfo) => {
 
             const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');
 
@@ -440,8 +444,8 @@ export const expect: Expect = api.expect;
 
 export const useFixtures = api.useFixtures;
 
-type MergedT<List> = List extends [TestType<infer T, any>, ...(infer Rest)] ? T & MergedT<Rest> : object;
-type MergedW<List> = List extends [TestType<any, infer W>, ...(infer Rest)] ? W & MergedW<Rest> : object;
+type MergedT<List> = List extends [ TestType<infer T, any>, ...(infer Rest) ] ? T & MergedT<Rest> : object;
+type MergedW<List> = List extends [ TestType<any, infer W>, ...(infer Rest) ] ? W & MergedW<Rest> : object;
 
 /**
  * Creates a Serenity/JS BDD-style test API around the given Playwright [base test](https://playwright.dev/docs/test-fixtures).
@@ -615,7 +619,7 @@ type MergedW<List> = List extends [TestType<any, infer W>, ...(infer Rest)] ? W 
  *
  * @param baseTests
  */
-export function useBase<List extends any[]> (...baseTests: List): TestApi<MergedT<List> & SerenityFixtures, MergedW<List> & SerenityWorkerFixtures> {
+export function useBase<List extends any[]>(...baseTests: List): TestApi<MergedT<List> & SerenityFixtures, MergedW<List> & SerenityWorkerFixtures> {
     return createTestApi<MergedT<List>, MergedW<List>>(mergeTests(...baseTests))
         .useFixtures(fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, MergedT<List>, MergedW<List>>);
 }
