@@ -9,6 +9,8 @@ import type {
     StageCrewMemberBuilder
 } from '@serenity-js/core';
 import type { ExtraBrowserContextOptions } from '@serenity-js/playwright';
+import type { AxiosRequestConfigDefaults } from '@serenity-js/rest';
+import { type AxiosInstance } from 'axios';
 
 /**
  * Serenity/JS-specific [Playwright Test fixtures](https://playwright.dev/docs/test-fixtures)
@@ -341,7 +343,7 @@ export interface SerenityFixtures {
      *             defaultNavigationTimeout: 30_000,
      *         },
      *
-     *         actors: async ({ page, extraAbilities, extraContextOptions, extraHTTPHeaders }, use) => {
+     *         actors: async ({ axios, extraAbilities, extraContextOptions, extraHTTPHeaders, page }, use) => {
      *             const cast = Cast.where(actor => {
      *                 const abilities = Array.isArray(extraAbilities)
      *                     ? extraAbilities
@@ -352,10 +354,7 @@ export interface SerenityFixtures {
      *                     TakeNotes.using<MyNotes>(Notepad.with({
      *                       username: 'example.username'
      *                     }),
-     *                     CallAnApi.using({
-     *                         baseURL: baseURL,
-     *                         headers: extraHTTPHeaders,
-     *                     }),
+     *                     CallAnApi.using(axios),
      *                     ...abilities,
      *                 )
      *             })
@@ -400,6 +399,18 @@ export interface SerenityFixtures {
      * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
      */
     actor: Actor;
+
+    /**
+     * An instance of the Axios HTTP client, or default Axios request configurations,
+     * to be used by the [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/) ability,
+     * provided to the actors via the [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) fixture.
+     *
+     * By default, Serenity/JS configures Axios to use the following settings from your Playwright configuration file:
+     * - [`baseURL`](https://playwright.dev/docs/api/class-testoptions#test-options-base-url)
+     * - [`proxy`](https://playwright.dev/docs/api/class-testoptions#test-options-proxy)
+     * - [`extraHTTPHeaders`](https://playwright.dev/docs/api/class-testoptions#test-options-extra-http-headers)
+     */
+    axios: AxiosInstance | AxiosRequestConfigDefaults;
 }
 
 /**
