@@ -653,13 +653,14 @@ function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
     auth?: { username: string, password: string }
     bypass?: string;
 } {
+    const proxyServer = proxy.server.trim();
 
     // Playwright defaults to http when proxy.server does not define the protocol
     // See https://playwright.dev/docs/api/class-testoptions#test-options-proxy
-    const hasProtocol = /[\dA-Za-z]+:\/\//.test(proxy.server);
+    const hasProtocol = /^[\dA-Za-z]+:\/\//.test(proxyServer);
     const proxyUrl = hasProtocol
-        ? new URL(proxy.server)
-        : new URL(`http://${ proxy.server }`);
+        ? new URL(proxyServer)
+        : new URL(`http://${ proxyServer }`);
 
     const host = proxyUrl.hostname;
     const port = proxyUrl.port
