@@ -13,7 +13,7 @@ import type {
     TestType,
     WorkerInfo,
 } from '@playwright/test';
-import { test as playwrightBaseTest } from '@playwright/test';
+import { mergeTests, test as playwrightBaseTest } from '@playwright/test';
 import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
@@ -68,20 +68,32 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { option: true },
     ],
 
+    axios: async ({ baseURL, extraHTTPHeaders, proxy }, use) => {
+        await use({
+            baseURL: baseURL,
+            headers: extraHTTPHeaders,
+            proxy: proxy && proxy?.server
+                ? asProxyConfig(proxy)
+                : undefined,
+        })
+    },
+
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ extraContextOptions, baseURL, extraHTTPHeaders, page, proxy }, use): Promise<void> => {
-            await use(Cast.where(actor => actor.whoCan(
-                BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
-                TakeNotes.usingAnEmptyNotepad(),
-                CallAnApi.using({
-                    baseURL: baseURL,
-                    headers: extraHTTPHeaders,
-                    proxy: proxy && proxy?.server
-                        ? asProxyConfig(proxy)
-                        : undefined,
-                }),
-            )));
+        async ({ axios, extraAbilities, extraContextOptions, page }, use): Promise<void> => {
+            await use(Cast.where(actor => {
+
+                const abilities = Array.isArray(extraAbilities)
+                    ? extraAbilities
+                    : extraAbilities(actor.name);
+
+                return actor.whoCan(
+                    BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
+                    TakeNotes.usingAnEmptyNotepad(),
+                    CallAnApi.using(axios),
+                    ...abilities,
+                );
+            }));
         },
         { option: true },
     ],
@@ -109,7 +121,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     sceneIdFactoryInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
-        async ({ }, use) => {
+        async ({}, use) => {
             await use(new PlaywrightTestSceneIdFactory());
         },
         { scope: 'worker', box: true },
@@ -132,7 +144,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     eventStreamWriterInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
-        async ({ }, use, workerInfo) => {
+        async ({}, use, workerInfo) => {
 
             const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');
 
@@ -225,12 +237,18 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { auto: true, box: true, }
     ],
 
+    extraAbilities: [
+        [],
+        { option: true },
+    ],
+
     actorCalled: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({ serenity }, use) => {
 
             const actorCalled = (name: string) => {
                 const actor = serenity.theActorCalled(name);
+
                 return actor.whoCan(new PerformActivitiesAsPlaywrightSteps(actor, serenity, it));
             };
 
@@ -247,7 +265,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 /**
  * Serenity/JS BDD-style test API created by [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/).
  */
-export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Record<string, any>> =
+export type TestApi<TestArgs extends object, WorkerArgs extends object> =
     Pick<TestType<TestArgs, WorkerArgs>, 'describe' | 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
     {
         /**
@@ -274,7 +292,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
          *
          * Shorthand for [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/)
          */
-        useFixtures: <T extends Record<string, any>, W extends Record<string, any> = object>(
+        useFixtures: <T extends object, W extends object = object>(
             customFixtures: Fixtures<T, W, TestArgs, WorkerArgs>
         ) => TestApi<TestArgs & T, WorkerArgs & W>,
 
@@ -282,7 +300,7 @@ export type TestApi<TestArgs extends Record<string, any>, WorkerArgs extends Rec
         test: TestType<TestArgs, WorkerArgs>,
     }
 
-function createTestApi<BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions), BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
+function createTestApi<BaseTestFixtures extends object, BaseWorkerFixtures extends object>(baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures, BaseWorkerFixtures> {
     return {
         useFixtures<T extends Record<string, any>, W extends Record<string, any> = object>(customFixtures: Fixtures<T, W, BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & T, BaseWorkerFixtures & W> {
             return createTestApi(baseTest.extend(customFixtures));
@@ -426,6 +444,9 @@ export const expect: Expect = api.expect;
 
 export const useFixtures = api.useFixtures;
 
+type MergedT<List> = List extends [ TestType<infer T, any>, ...(infer Rest) ] ? T & MergedT<Rest> : object;
+type MergedW<List> = List extends [ TestType<any, infer W>, ...(infer Rest) ] ? W & MergedW<Rest> : object;
+
 /**
  * Creates a Serenity/JS BDD-style test API around the given Playwright [base test](https://playwright.dev/docs/test-fixtures).
  *
@@ -562,15 +583,45 @@ export const useFixtures = api.useFixtures;
  * })
  * ```
  *
- * @param baseTest
+ * ## Merging multiple base tests
+ *
+ * To merge fixtures from multiple files or modules, pass them to `useBase`.
+ *
+ * ```tsx
+ * import { test as componentTest } from '@playwright/experimental-ct-react'
+ * import { test as a11yTest } from 'my-a11y-test-utils';
+ * import { Ensure, contain } from '@serenity-js/assertions'
+ * import { useBase } from '@serenity-js/playwright-test'
+ * import { Enter, PageElement, CssClasses } from '@serenity-js/web'
+ *
+ * import EmailInput from './EmailInput';
+ *
+ * const { it, describe } = useBase(componentTest, a11yTest).useFixtures<{ emailAddress: string }>({
+ *   emailAddress: ({ actor }, use) => {
+ *     use(`${ actor.name }@example.org`)
+ *   }
+ * })
+ *
+ * describe('EmailInput', () => {
+ *
+ *   it('allows valid email addresses', async ({ actor, mount, emailAddress }) => {
+ *     const nativeComponent = await mount(<EmailInput/>);
+ *
+ *     const component = PageElement.from(nativeComponent);
+ *
+ *     await actor.attemptsTo(
+ *       Enter.theValue(emailAddress).into(component),
+ *       Ensure.that(CssClasses.of(component), contain('valid')),
+ *     )
+ *   })
+ * })
+ * ```
+ *
+ * @param baseTests
  */
-export function useBase<
-    BaseTestFixtures extends (PlaywrightTestArgs & PlaywrightTestOptions),
-    BaseWorkerFixtures extends (PlaywrightWorkerArgs & PlaywrightWorkerOptions)
-> (baseTest: TestType<BaseTestFixtures, BaseWorkerFixtures>): TestApi<BaseTestFixtures & SerenityFixtures, BaseWorkerFixtures & SerenityWorkerFixtures> {
-    return createTestApi<BaseTestFixtures, BaseWorkerFixtures>(baseTest).useFixtures(
-        fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, BaseTestFixtures, BaseWorkerFixtures>
-    );
+export function useBase<List extends any[]>(...baseTests: List): TestApi<MergedT<List> & SerenityFixtures, MergedW<List> & SerenityWorkerFixtures> {
+    return createTestApi<MergedT<List>, MergedW<List>>(mergeTests(...baseTests))
+        .useFixtures(fixtures as Fixtures<SerenityFixtures, SerenityWorkerFixtures, MergedT<List>, MergedW<List>>);
 }
 
 /**
@@ -602,13 +653,14 @@ function asProxyConfig(proxy: PlaywrightTestOptions['proxy']): {
     auth?: { username: string, password: string }
     bypass?: string;
 } {
+    const proxyServer = proxy.server.trim();
 
     // Playwright defaults to http when proxy.server does not define the protocol
     // See https://playwright.dev/docs/api/class-testoptions#test-options-proxy
-    const hasProtocol = /[\dA-Za-z]+:\/\//.test(proxy.server);
+    const hasProtocol = /^[\dA-Za-z]+:\/\//.test(proxyServer);
     const proxyUrl = hasProtocol
-        ? new URL(proxy.server)
-        : new URL(`http://${ proxy.server }`);
+        ? new URL(proxyServer)
+        : new URL(`http://${ proxyServer }`);
 
     const host = proxyUrl.hostname;
     const port = proxyUrl.port
