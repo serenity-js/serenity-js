@@ -260,13 +260,7 @@ export interface SerenityFixtures {
      * describe(`My feature`, () => {
      *
      *     test.use({
-     *         extraAbilities: async ({}, use) => {
-     *           const extraAbilities: Ability[] = [
-     *             new MyAbility()
-     *           ];
-     *
-     *           await use(extraAbilities);
-     *         },
+     *         extraAbilities: [ new MyAbility() ]
      *     });
      *
      *     it(`...`, async({ actor }) => {
