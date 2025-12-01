@@ -1,84 +1,87 @@
-# Serenity/JS
+## Serenity/JS Console Reporter
+
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fconsole-reporter.svg)](https://badge.fury.io/js/%40serenity-js%2Fconsole-reporter)
+[![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/console-reporter/badge.svg)](https://snyk.io/test/npm/@serenity-js/console-reporter)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
 [![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
-of complex software systems faster, more collaborative and easier to scale.
+[`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter/)
+logs test progress and results to the console in a readable format.
 
-⭐️ Get started with Serenity/JS!
-- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook)
-- [API documentation](https://serenity-js.org/api/)
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+## Features
 
-👋 Join the Serenity/JS Community!
-- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
-- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
-- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
+- Colour-coded console output for test results
+- Summaries of test runs and failures
+- Works with all [supported test runners](https://serenity-js.org/handbook/test-runners/)
 
-## Serenity/JS Console Reporter
+See example output in the [Serenity/JS Handbook](https://serenity-js.org/handbook/reporting/console-reporter/).
 
-[`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter/) writes [text-based reports](https://serenity-js.org/handbook/reporting/console-reporter)
-to your computer terminal.
-
-
-### Installation
+## Installation
 
 ```sh
 npm install --save-dev @serenity-js/core @serenity-js/console-reporter
 ```
 
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
 
-#### Windows
+### Windows
 
 If you're on Windows, consider using [Windows Terminal](https://github.com/microsoft/terminal)
 instead of `cmd.exe` to benefit from the colour output.
 
-### Usage
+## Quick Start
 
-To allow Serenity/JS to print the progress report to standard output, assign the `ConsoleReporter` to the `Stage`.
+To use the console reporter in your Serenity/JS project, install the
+[`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter/) package
+and configure the reporter as part of the `Stage` crew using your test runner's configuration file.
 
-This can be done:
-- via `playwright.config.ts`, if you're using Serenity/JS with [Playwright Test](https://serenity-js.org/api/playwright-test)
-- via `wdio.conf.ts`, if you're using Serenity/JS with [WebdriverIO](https://serenity-js.org/api/playwright-test)
-- via `protractor.conf.js`, if you're using Serenity/JS with [Protractor](https://serenity-js.org/api/protractor)
-- or programmatically.
+### Usage with Playwright Test
 
-#### Usage with Playwright Test
-
-Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.org/api/playwright-test).
+When integrating Serenity/JS with Playwright Test,
+use the following configuration in your `playwright.config.ts` file to enable the console reporter:
 
 ```typescript
 // playwright.config.ts
-import type { PlaywrightTestConfig } from '@serenity-js/playwright-test'
+import { defineConfig, devices } from '@playwright/test';
+import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
-const config: PlaywrightTestConfig = {
+export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+
     reporter: [
-        [ '@serenity-js/playwright-test', {
-            crew: [
-                // console reporter with default settings
-                '@serenity-js/console-reporter',
-                
-                // console reporter with a theme for 'dark', 'light' or 'mono' terminals
-                // [ '@serenity-js/console-reporter', { theme: 'auto' } ]                
-            ]
-        }]
+        [
+            path.resolve(__dirname, '../../packages/playwright-test'),    // '@serenity-js/playwright-test'
+            {
+                crew: [
+                    // Use console reporter with default settings
+                    '@serenity-js/console-reporter',
+
+                    // Alternatively, use console reporter
+                    // with a theme for 'dark', 'light' or 'mono' terminals
+                    // [ '@serenity-js/console-reporter', { theme: 'auto' } ]
+                ],
+            },
+        ],
     ],
 
     // Other configuration omitted for brevity
     // For details, see https://playwright.dev/docs/test-configuration    
-}
-
-export default config
+});
 ```
 
-#### Usage with WebdriverIO
+Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/).
 
-Learn more about using [Serenity/JS with WebdriverIO](https://serenity-js.org/api/webdriverio).
+### Usage with WebdriverIO
+
+When integrating Serenity/JS with WebdriverIO,
+use the following configuration in your `wdio.conf.ts` file to enable the console reporter:
 
 ```typescript
 // wdio.conf.ts
@@ -91,11 +94,12 @@ export const config: WebdriverIOConfig = {
 
     serenity: {
         crew: [
-            // console reporter with default settings
+            // Use console reporter with default settings
             '@serenity-js/console-reporter',
 
-            // console reporter with a theme for 'dark', 'light' or 'mono' terminals
-            // [ '@serenity-js/console-reporter', { theme: 'auto' } ]  
+            // Alternatively, use console reporter
+            // with a theme for 'dark', 'light' or 'mono' terminals
+            // [ '@serenity-js/console-reporter', { theme: 'auto' } ]
         ]
     },
 
@@ -104,9 +108,12 @@ export const config: WebdriverIOConfig = {
 }
 ```
 
-#### Usage with Protractor
+Learn more about using [Serenity/JS with WebdriverIO](https://serenity-js.org/api/webdriverio).
 
-Learn more about using [Serenity/JS with Protractor](https://serenity-js.org/api/protractor).
+### Usage with Protractor
+
+When integrating Serenity/JS with Protractor,
+use the following configuration in your `protractor.conf.js` file to enable the console reporter:
 
 ```javascript
 // protractor.conf.js
@@ -118,11 +125,12 @@ exports.config = {
 
     serenity: {
         crew: [
-            // console reporter with default settings
+            // Use console reporter with default settings
             '@serenity-js/console-reporter',
 
-            // console reporter with a theme for 'dark', 'light' or 'mono' terminals
-            // [ '@serenity-js/console-reporter', { theme: 'auto' } ]  
+            // Alternatively, use console reporter
+            // with a theme for 'dark', 'light' or 'mono' terminals
+            // [ '@serenity-js/console-reporter', { theme: 'auto' } ]
         ]
     },
 
@@ -130,9 +138,15 @@ exports.config = {
 }
 ```
 
-#### Programmatic configuration
+Learn more about using [Serenity/JS with Protractor](https://serenity-js.org/api/protractor).
 
-Learn more about [configuring Serenity/JS programmatically](https://serenity-js.org/api/core/class/SerenityConfig).
+### Programmatic configuration
+
+When integrating Serenity/JS with a custom test runner setup, or using it programmatically,
+use the [`Serenity.configure`](https://serenity-js.org/api/core/class/Serenity/#configure) method,
+or the standalone [`configure`](https://serenity-js.org/api/core/function/configure/) function
+to pass the [configuration object](https://serenity-js.org/api/core/class/SerenityConfig/)
+that includes the `ConsoleReporter` as part of the `crew`.
 
 ```typescript
 import { configure } from '@serenity-js/core'
@@ -145,25 +159,43 @@ configure({
 })
 ```
 
-#### Colour Themes
+### Changing the colour theme
 
-Consult the API docs of the [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter) class
-to learn more about the supported colour themes.
+See the [`ConsoleReporter` API docs](https://serenity-js.org/api/console-reporter/class/ConsoleReporter) 
+to learn about the supported colour themes.
 
-## 📣 Stay up to date
+## Documentation
 
-New features, tutorials, and demos are coming soon!
-Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
-subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
-Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+## Contributing
 
-## 💛 Support Serenity/JS
+Contributions of all kinds are welcome! Get started with the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+## Community
 
-[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+    - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to common questions
+
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+## License
+
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
+
+## Support
+
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).

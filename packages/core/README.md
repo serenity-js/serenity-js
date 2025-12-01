@@ -5,7 +5,7 @@
 [![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
 [![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
 [![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
-[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/core/badge.svg)](https://snyk.io/test/npm/@serenity-js/assertions)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/core/badge.svg)](https://snyk.io/test/npm/@serenity-js/core)
 [![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
