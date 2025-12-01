@@ -19,10 +19,10 @@ This package provides APIs and extension points used across all [Serenity/JS mod
 
 ## Features
 
-- Core APIs for implementing the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) in your automated tests
-- Actor lifecycle and abilities management
-- Integration points for various [test runners](https://serenity-js.org/handbook/test-runners/) and [reporting tools](https://serenity-js.org/handbook/reporting/)
-- Strongly typed, TypeScript-first design
+- **Core APIs** for implementing the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) in automated tests.
+- **Actor lifecycle and abilities management** for clear, maintainable test orchestration.
+- **Flexible integration points** with [test runners](https://serenity-js.org/handbook/test-runners/) and [reporting tools](https://serenity-js.org/handbook/reporting/).
+- **TypeScript-first design** with strong typing for safer and more predictable test code.
 
 ## Installation
 
@@ -35,7 +35,7 @@ See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/instal
 ## Quick Start
 
 ```ts
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core'
 
 await actorCalled('Alice')
     .whoCan(
@@ -43,7 +43,7 @@ await actorCalled('Alice')
     )
     .attemptsTo(
         // Add tasks and interactions
-    );
+    )
 ```
 
 Explore practical examples and in-depth explanations in the [Serenity/JS Handbook](https://serenity-js.org/handbook/).
