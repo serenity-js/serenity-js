@@ -23,9 +23,7 @@ provides a rich set of [Screenplay Pattern](https://serenity-js.org/handbook/des
 - **Rich set of built-in matchers** for common scenarios, with easy support for custom matchers.
 - **TypeScript-first design** with strong typing for safer, more predictable test code.
 
-### Installation
-
-To install this module, run the following command in your computer terminal:
+## Installation
 
 ```sh
 npm install --save-dev @serenity-js/core @serenity-js/assertions
