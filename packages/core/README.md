@@ -1,53 +1,85 @@
-# Serenity/JS
+# Serenity/JS Core
+
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fcore.svg)](https://badge.fury.io/js/%40serenity-js%2Fcore)
+[![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/core/badge.svg)](https://snyk.io/test/npm/@serenity-js/assertions)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
 [![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
-of complex software systems faster, more collaborative and easier to scale.
+[`@serenity-js/core`](https://serenity-js.org/api/core/) provides foundational building blocks of the [Serenity/JS](https://serenity-js.org)
+ecosystem, enabling clean, expressive, and highly maintainable test automation based on the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/).
+This package provides APIs and extension points used across all [Serenity/JS modules](https://serenity-js.org/api/).
 
-⭐️ Get started with Serenity/JS!
-- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook)
-- [API documentation](https://serenity-js.org/api/)
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+## Features
 
-👋 Join the Serenity/JS Community!
-- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
-- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
-- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
+- Core APIs for implementing the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) in your automated tests
+- Actor lifecycle and abilities management
+- Integration points for various [test runners](https://serenity-js.org/handbook/test-runners/) and [reporting tools](https://serenity-js.org/handbook/reporting/)
+- Strongly typed, TypeScript-first design
 
-## Serenity/JS Core
+## Installation
 
-[`@serenity-js/core`](https://serenity-js.org/api/core/) is the heart of the [Serenity/JS](https://serenity-js.org) framework.
-It enables you to configure the framework, manage actors, and provides basic building blocks
-to help you design high-quality acceptance tests.
-
-### Installation
-
-To install this module, run the following command in your computer terminal:
-
-```
+```bash
 npm install --save-dev @serenity-js/core
+````
+
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
+
+## Quick Start
+
+```ts
+import { actorCalled } from '@serenity-js/core';
+
+await actorCalled('Alice')
+    .whoCan(
+        // Add abilities
+    )
+    .attemptsTo(
+        // Add tasks and interactions
+    );
 ```
 
-## 📣 Stay up to date
+Explore practical examples and in-depth explanations in the [Serenity/JS Handbook](https://serenity-js.org/handbook/).
 
-New features, tutorials, and demos are coming soon!
-Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
-subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
-Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+## Documentation
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-## 💛 Support Serenity/JS
+## Contributing
 
-If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+Contributions of all kinds are welcome! Get started with the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+## Community
+
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+  - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to common questions
+
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+## License
+
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
+
+## Support
+
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).
