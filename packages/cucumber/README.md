@@ -1,135 +1,165 @@
-# Serenity/JS
+# Serenity/JS Cucumber
+
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fcucumber.svg)](https://badge.fury.io/js/%40serenity-js%2Fcucumber)
+[![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/cucumber/badge.svg)](https://snyk.io/test/npm/@serenity-js/cucumber)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
 [![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
-of complex software systems faster, more collaborative and easier to scale.
+[`@serenity-js/cucumber`](https://serenity-js.org/api/cucumber/) integrates Serenity/JS with [Cucumber](https://github.com/cucumber/cucumber-js/),
+enabling you to run automated, plain-language scenarios with rich reporting and powerful Screenplay-based abstractions.
 
-⭐️ Get started with Serenity/JS!
-- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook)
-- [API documentation](https://serenity-js.org/api/)
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+## Features
 
-👋 Join the Serenity/JS Community!
-- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
-- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
-- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
+- Integrates Serenity/JS with Cucumber.js
+- Supports all Cucumber.js versions from 0.x to 12.x
+- Enriches Serenity reports with Gherkin feature descriptions, scenarios, and steps
+- Supports using Screenplay Pattern APIs in step definitions
 
-## Serenity/JS Cucumber
+## Installation
 
-[`@serenity-js/cucumber`](https://serenity-js.org/api/cucumber/) contains a set of adapters you register with [Cucumber CLI runners](https://github.com/cucumber/cucumber-js/) to enable integration and reporting between Cucumber.js and Serenity/JS.
-
-**Please note:** To use Cucumber and Serenity/JS to execute web-based acceptance tests, you should register Serenity/JS Cucumber adapter using Protractor configuration file. 
-
-Learn more about integrating Serenity/JS Cucumber:
-- with [Protractor and Cucumber.js](https://serenity-js.org/handbook/test-runners/protractor/),
-- with [Cucumber.js](https://serenity-js.org/handbook/test-runners/cucumber/).
-
-### Installation
-
-To install this module, run:
 ```
 npm install --save-dev @serenity-js/cucumber @serenity-js/core
 ```
 
-This module reports test scenarios executed by **any version of Cucumber.js**, from 0.x to 9.x, which you need to install
-separately.
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
 
-To install [Cucumber 9.x](https://www.npmjs.com/package/@cucumber/cucumber), run:
-```
-npm install --save-dev @cucumber/cucumber 
-```
+## Quick Start
 
-To install [Cucumber 6.x](https://www.npmjs.com/package/cucumber) or earlier, run:
-```
-npm install --save-dev cucumber 
-```
+```ts
+import { actorCalled, actorInTheSpotlight } from '@serenity-js/core';
+import { Given, When, Then } from '@cucumber/cucumber';
+import { Ensure, equals } from '@serenity-js/assertions';
 
+Given('{word} has {int} apples', async (actorName: string, count: number) => {
+    // Create or retrieve the actor by name
+    await actorCalled(actorName).attemptsTo(
+        // Add tasks or interactions
+    );
+});
 
-### Command line usage
+When('she adds {int} apples', async (count: number) => {
+    // Retrieve the most recently used actor
+    await actorInTheSpotlight().attemptsTo(
+        // Add tasks or interactions
+    )
+});
 
-#### Cucumber 7.x and newer
-
-```
-cucumber-js --format @serenity-js/cucumber \
-    --require ./features/support/setup.js \
-    --require ./features/step_definitions/sample.steps.js 
-```
-
-```
-'--format-options', `{ "specDirectory": "${ path.resolve(__dirname, '../../cucumber-specs/features') }" }`,
-```
-
-#### Cucumber 3.x to 6.x
-
-```
-cucumber-js --format node_modules/@serenity-js/cucumber \
-    --require ./features/support/setup.js \
-    --require ./features/step_definitions/sample.steps.js 
+Then('she has {int} apples', async (expectedCount: number) => {
+    await actorInTheSpotlight().attemptsTo(
+        Ensure.that(/* actual count */, equals(expectedCount))
+    )
+})
 ```
 
-#### Cucumber 0.x to 2.x
+Explore practical examples and in-depth explanations in the [Serenity/JS Handbook](https://serenity-js.org/handbook/).
 
-```
-cucumber-js --require=node_modules/@serenity-js/cucumber/lib/index.js \
-    --require ./features/support/setup.js \
-    --require ./features/step_definitions/sample.steps.js 
-```
+## Configuration
 
-### Configuration
+When using Serenity/JS with WebdriverIO, follow the official [Serenity/JS WebdriverIO + Cucumber integration guide](https://serenity-js.org/handbook/test-runners/webdriverio/#integrating-serenityjs-reporting). 
 
-When used with a configuration file written in JavaScript:
+To use Serenity/JS with Cucumber and Playwright, follow the steps below, or use one of the available [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/#playwright).
+
+### Configuring Cucumber.js
+
+Use the [`cucumber.js` configuration file](https://github.com/cucumber/cucumber-js/blob/main/docs/profiles.md)
+to set up Cucumber to use Serenity/JS as the "formatter" and load extra `*.config.ts` files.
 
 ```javascript
-// features/support/setup.js
+// cucumber.js
+module.exports = {
+    default: {
+        // Use TypeScript in-memory transpiler, ts-node 
+        // requires `npm install --save-dev ts-node`
+        requireModule: ['ts-node/register'],
 
-const { configure } = require('@serenity-js/core')
-
-configure({
-    // ... configure Serenity/JS 
-})
+        // Use Serenity/JS Cucumber adapter
+        format: ['@serenity-js/cucumber'],
+        // Configure the adapter
+        formatOptions: {
+            specDirectory: 'features'
+        },
+        require: [
+            // Load configuration files
+            './features/**/*.config.ts',
+            // Load step definition libraries
+            './features/**/*.steps.ts'
+        ],
+    }
+}
 ```
 
-When used with a configuration file written in TypeScript:
+### Configuring Serenity/JS
+
+To configure Serenity/JS, create a `serenity.config.ts` file with the following content:
 
 ```typescript
-// features/support/setup.ts
+// features/support/serenity.config.ts
+import { configure, Cast } from '@serenity-js/core'
+import { BeforeAll } from '@cucumber/cucumber'
 
-import { configure } from '@serenity-js/core'
+BeforeAll(async () => {
 
-configure({
-    // ... configure Serenity/JS 
+    // ... start any services or browsers here
+    
+    // Configure Serenity/JS
+    configure({
+        
+        actors: Cast.where(actor => {
+            return actor.whoCan(
+                // ... add abilities here
+            )
+        }),
+        
+        crew: [
+            [ '@serenity-js/console-reporter', { theme: 'auto' } ],
+            // ... add other crew members here
+        ]
+    })
 })
 ```
 
-### Integration
+See the Serenity/JS [configuration options](https://serenity-js.org/api/core/class/SerenityConfig/) and [reporting guide](https://serenity-js.org/handbook/reporting/).
 
-This module can be integrated with:
-- [`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd) to produce HTML reports and living documentation,
-- [`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter) to print test execution reports to your computer terminal,
-- [`@serenity-js/protractor`](https://serenity-js.org/api/protractor) to implement Cucumber scenarios interacting with Web applications.
+## Documentation
 
-Learn more about [Serenity/JS modular architecture](https://serenity-js.org/handbook/about/architecture).
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-## 📣 Stay up to date
+## Contributing
 
-New features, tutorials, and demos are coming soon!
-Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
-subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
-Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+Contributions of all kinds are welcome! Get started with the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+## Community
 
-## 💛 Support Serenity/JS
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+    - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to common questions
 
-If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
 
-[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+## License
+
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
+
+## Support
+
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).
