@@ -17,6 +17,14 @@
 
 Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/)
 
+## Features
+
+- Integrates Serenity/JS with Playwright Test using dedicated test fixtures
+- Supports testing websites, web apps, and HTTP APIs
+- Enables [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) APIs in Playwright Test scenarios
+- Supports all [Serenity/JS reporting features](https://serenity-js.org/handbook/reporting/) and expands native Playwright Test reports
+- TypeScript-first design with strong typing for safer and more predictable test code.
+
 ## Installation
 
 Use an existing [Playwright Test project](https://playwright.dev/docs/intro) or generate a new one by running:
