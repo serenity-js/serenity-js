@@ -15,6 +15,12 @@
 
 [`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) brings full [Serenity reporting](https://serenity-js.org/handbook/reporting/) capabilities to [Playwright](https://playwright.dev/) and enables writing tests using the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/).
 
+## Features
+
+- Integrates Serenity/JS with Playwright providing standardised [Screenplay Web API](https://serenity-js.org/api/web/)
+- Supports all [Serenity/JS reporting features](https://serenity-js.org/handbook/reporting/) and expands native Playwright Test reports
+- TypeScript-first design with strong typing for safer and more predictable test code.
+
 ## Installation
 
 ```bash

@@ -17,6 +17,14 @@
 
 Learn more about [integrating Serenity/JS with Protractor](https://serenity-js.org/handbook/test-runners/protractor/).
 
+## Features
+
+- Integrates Serenity/JS with Protractor providing standardised [Screenplay Web API](https://serenity-js.org/api/web/)
+- Supports Angular and non-Angular apps
+- Enables [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) APIs in Protractor tests
+- Supports all [Serenity/JS reporting features](https://serenity-js.org/handbook/reporting/)
+- TypeScript-first design with strong typing for safer and more predictable test code.
+
 ## Installation
 
 ```sh
