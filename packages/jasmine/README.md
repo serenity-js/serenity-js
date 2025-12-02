@@ -13,7 +13,7 @@
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[`@serenity-js/jasmine`](https://serenity-js.org/api/jasmine) enables your [Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/) test scenarios to use the Screenplay Pattern APIs.
+[`@serenity-js/jasmine`](https://serenity-js.org/api/jasmine) brings full [Serenity reporting](https://serenity-js.org/handbook/reporting/) capabilities to [Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/) and enables writing tests using the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/).
 
 ## Features
 
@@ -24,7 +24,7 @@
 ## Installation
 
 ```sh
-npm install --save-dev @serenity-js/core @serenity-js/jasmine
+npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity-js/jasmine
 ```
 
 See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
