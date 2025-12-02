@@ -1,6 +1,5 @@
 # Serenity/JS WebdriverIO
 
-
 [![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fwebdriverio.svg)](https://badge.fury.io/js/%40serenity-js%2Fwebdriverio)
 [![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
 [![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
