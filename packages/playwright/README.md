@@ -1,88 +1,68 @@
-# Serenity/JS
+## Serenity/JS Playwright
+
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fplaywright.svg)](https://badge.fury.io/js/%40serenity-js%2Fplaywright)
+[![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/playwright/badge.svg)](https://snyk.io/test/npm/@serenity-js/playwright)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
 
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
 [![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
-[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
-of complex software systems faster, more collaborative and easier to scale.
+[`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) brings full [Serenity reporting](https://serenity-js.org/handbook/reporting/) capabilities to [Playwright](https://playwright.dev/) and enables writing tests using the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/).
 
-⭐️ Get started with Serenity/JS!
-- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS + Playwright Test deep dive](https://serenity-js.org/handbook/test-runners/playwright-test/)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook)
-- [API documentation](https://serenity-js.org/api/)
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
-
-👋 Join the Serenity/JS Community!
-- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
-- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
-- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
-
-## Serenity/JS Playwright
-
-[`@serenity-js/playwright`](https://serenity-js.org/api/playwright/) module is a [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/)-style adapter
-for [Playwright](https://playwright.dev/), that helps with testing web-based apps.
-
-### Installation
-
-To install this module, run the following command in your [Playwright project directory](https://playwright.dev/docs/intro):
+## Installation
 
 ```bash
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
 ```
 
-## Usage with `@playwright/test`
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
 
-Follow the [Using Serenity/JS with Playwright Test guide](https://serenity-js.org/handbook/test-runners/playwright-test/)
+## Quick Start
 
-## Usage with Cucumber
+### Usage with Playwright Test
+
+```ts
+import { describe, it } from '@serenity-js/playwright-test'
+import { Navigate, Page } from '@serenity-js/web'
+import { Ensure, startsWith } from '@serenity-js/assertions'
+
+describe('Website', () => {
+    
+    it('should have a title', async ({ actor }) => {
+
+        await actor.attemptsTo(
+            Navigate.to('https://serenity-js.org/'),
+            Ensure.that(Page.current().title(), startsWith('Serenity/JS')),
+        )
+    })
+})
+```
+
+Explore the in-depth Serenity/JS and Playwright Test integration guide in the [Serenity/JS Handbook](https://serenity-js.org/handbook/test-runners/playwright-test/).
+
+### Usage with Cucumber
 
 Follow the [Serenity/JS configuration guide for Cucumber](https://serenity-js.org/handbook/test-runners/cucumber/)
-and review the [Serenity/JS Cucumber and Playwright Project Template](https://github.com/serenity-js/serenity-js-cucumber-playwright-template).
+and the [Serenity/JS Cucumber and Playwright Project Template](https://github.com/serenity-js/serenity-js-cucumber-playwright-template).
 
 ### Usage with Mocha
 
 ```typescript
-import { Ensure, equals } from '@serenity-js/assertions'
-import { actorCalled, Actor, Cast, configure, Duration } from '@serenity-js/core'
-import { BrowseTheWebWithPlaywright, ExtraBrowserContextOptions } from '@serenity-js/playwright'
-import { By, Navigate, PageElement, TakePhotosOfFailures, Text } from '@serenity-js/web'
+import { Ensure, startsWith } from '@serenity-js/assertions'
+import { actorCalled, Cast, configure, Duration } from '@serenity-js/core'
+import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright'
+import { Navigate, Page } from '@serenity-js/web'
 
 import { describe, it, beforeAll, afterAll } from 'mocha'
 import * as playwright from 'playwright'
 
-// example Lean Page Object describing a widget we interact with in the test
-class SerenityJSWebsite {                   
-    static header = () => 
-        PageElement.located(By.css('h1'))   // selector to identify the interactable element
-            .describedAs('header')          // description to be used in reports
-}
-
-// example Actors class, confgures Serenity/JS actors to use Playwright
-class Actors implements Cast {              
-    constructor(                            
-        private readonly browser: playwright.Browser,
-        private readonly contextOptions: playwright.BrowserContextOptions,
-        private readonly extraContextOptions: ExtraBrowserContextOptions,
-    ) {
-    }
-
-    prepare(actor: Actor): Actor {
-        return actor.whoCan(
-            BrowseTheWebWithPlaywright.using(
-                this.browser,
-                this.contextOptions,
-                this.extraContextOptions
-            ),
-            // ... add other abilities as needed, like CallAnApi or TakeNotes
-        )
-    }
-}
-
-describe('Serenity/JS', () => {
+describe('Website', () => {
 
     let browser: playwright.Browser
     
@@ -97,11 +77,16 @@ describe('Serenity/JS', () => {
         // Configure Serenity/JS providing your Actors
         // and required "stage crew memebers" (a.k.a. reporting services)
         configure({
-            actors: new Actors(browser, {
-                    baseURL: `https://serenity-js.org`,
-                    defaultNavigationTimeout:   Duration.ofSeconds(2).inMilliseconds(),
-                    defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
-            }),
+            actors: Cast.where(actor => actor.whoCan(
+                BrowseTheWebWithPlaywright.using(
+                    browser,
+                    { baseURL: `https://serenity-js.org` },
+                    {
+                        defaultNavigationTimeout:   Duration.ofSeconds(2).inMilliseconds(),
+                        defaultTimeout:             Duration.ofMilliseconds(750).inMilliseconds(),
+                    }
+                )
+            )),
             crew: [
                 [ '@serenity-js/console-reporter', { theme: 'auto' } ],
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
@@ -114,17 +99,12 @@ describe('Serenity/JS', () => {
         })
     })
     
-    it('supports Playwright', async () => {
-        // actorCalled(name) instantiates or retrieves an existing actor identified by name
-        // Actors class configures the actors to use Playwright 
-        await actorCalled('William')                                
-            .attemptsTo(
-                Navigate.to('https://serenity-js.org'),
-                Ensure.that(
-                    Text.of(SerenityJSWebsite.header()),
-                    equals('Next generation acceptance testing')
-                ),
-            )
+    it('should have a title', async () => {
+ 
+        await actorCalled('William').attemptsTo(
+            Navigate.to('https://serenity-js.org'),
+            Ensure.that(Page.current().title(), startsWith('Serenity/JS')),        
+        )
     })
 
     afterAll(async () => {
@@ -136,25 +116,39 @@ describe('Serenity/JS', () => {
 })
 ```
 
-Next steps:
-- Add [`@serenity-js/mocha`](https://serenity-js.org/api/mocha/) adapter to produce the reports
-- Learn about the [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern.html)
-- Explore [`@serenity-js/web`](https://serenity-js.org/api/web) and [`@serenity-js/assertions`](https://serenity-js.org/api/assertions) APIs
+## Documentation
 
-## 📣 Stay up to date
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [More examples and reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-New features, tutorials, and demos are coming soon!
-Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
-subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
-Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+## Contributing
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+Contributions of all kinds are welcome! Get started with the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-## 💛 Support Serenity/JS
+## Community
 
-If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+    - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to common questions
 
-[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+
+## License
+
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
+
+## Support
+
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).
