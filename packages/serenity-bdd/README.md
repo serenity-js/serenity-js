@@ -1,47 +1,87 @@
-# Serenity/JS
+# Serenity BDD
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
+[`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/) 
+enables Serenity BDD reports and living documentation for your Serenity/JS test suites.
 
-[Serenity/JS](https://serenity-js.org) is an innovative open-source framework designed to make acceptance and regression testing
-of complex software systems faster, more collaborative and easier to scale.
+## Features
 
-⭐️ Get started with Serenity/JS!
-- [Serenity/JS web testing tutorial](https://serenity-js.org/handbook/web-testing/your-first-web-scenario)
-- [Serenity/JS Handbook](https://serenity-js.org/handbook)
-- [API documentation](https://serenity-js.org/api/)
+- Generates rich HTML and JSON reports
+- Integrates with Cucumber, Mocha, Jasmine, Playwright, and WebdriverIO
+- Supports tags, screenshots, and step-level reporting
+
+## Installation
+
+```sh
+npm install --save-dev @serenity-js/core @serenity-js/serenity-bdd
+```
+
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
+
+## Quick Start
+
+```typescript
+import { configure } from '@serenity-js/core';
+
+configure({
+    crew: [
+        [ '@serenity-js/serenity-bdd', {
+            specDirectory: './spec',
+            reporter: {
+                includeAbilityDetails: true,
+            },
+        } ],
+        [ '@serenity-js/core:ArtifactArchiver', {
+            outputDirectory: './target/site/serenity'
+        } ],
+    ]
+})
+```
+
+Explore practical examples and in-depth explanations in the [Serenity/JS Handbook](https://serenity-js.org/handbook/).
+
+## Configuration
+
+See the [Serenity BDD Reporter Configuration Guide](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/)
+and [best practices](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/#serenity-bdd-best-practices).
+
+## Documentation
+
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [More examples and reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-👋 Join the Serenity/JS Community!
-- Meet other Serenity/JS developers and maintainers on the [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im),
-- Find answers to your Serenity/JS questions on the [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-do-i),
-- Learn how to [contribute to Serenity/JS](https://serenity-js.org/community/contributing/),
-- Support the project and gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks) by becoming a [Serenity/JS GitHub Sponsor](https://github.com/sponsors/serenity-js)!
+## Contributing
 
-## Serenity BDD
+Contributions of all kinds are welcome! Get started with
+the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-[`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/) module integrates Serenity/JS and the Serenity BDD reporting CLI.
+## Community
 
-Learn more about [Serenity/JS reporting with Serenity BDD](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/):
-- [Installation, configuration and usage](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/#installation-and-usage)
-- [Best practices](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/#serenity-bdd-best-practices)
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+    - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to
+      common questions
 
-## 📣 Stay up to date
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js)
+to help others discover the framework!
 
-New features, tutorials, and demos are coming soon!
-Follow [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js),
-subscribe to [Serenity/JS channel on YouTube](https://www.youtube.com/@serenity-js) and join the [Serenity/JS Community Chat](https://matrix.to/#/#serenity-js:gitter.im) to stay up to date!
-Please also make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
+## License
 
-[![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
-[![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
-[![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under
+the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-## 💛 Support Serenity/JS
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
 
-If you appreciate all the effort that goes into making sophisticated tools easy to work with, please support our work and become a Serenity/JS GitHub Sponsor today!
+## Support
 
-[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access
+to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).
