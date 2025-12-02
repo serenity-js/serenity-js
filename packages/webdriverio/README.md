@@ -1,7 +1,17 @@
+# Serenity/JS WebdriverIO
+
+
+[![NPM Version](https://badge.fury.io/js/%40serenity-js%2Fwebdriverio.svg)](https://badge.fury.io/js/%40serenity-js%2Fwebdriverio)
+[![Build Status](https://github.com/serenity-js/serenity-js/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/serenity-js/serenity-js/actions)
+[![Maintainability](https://qlty.sh/gh/serenity-js/projects/serenity-js/maintainability.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Code Coverage](https://qlty.sh/gh/serenity-js/projects/serenity-js/coverage.svg)](https://qlty.sh/gh/serenity-js/projects/serenity-js)
+[![Contributors](https://img.shields.io/github/contributors/serenity-js/serenity-js.svg)](https://github.com/serenity-js/serenity-js/graphs/contributors)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@serenity-js/webdriverio/badge.svg)](https://snyk.io/test/npm/@serenity-js/webdriverio)
+[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?style=flat)](https://github.com/serenity-js/serenity-js)
+
 [![Follow Serenity/JS on LinkedIn](https://img.shields.io/badge/Follow-Serenity%2FJS%20-0077B5?logo=linkedin)](https://www.linkedin.com/company/serenity-js)
 [![Watch Serenity/JS on YouTube](https://img.shields.io/badge/Watch-@serenity--js-E62117?logo=youtube)](https://www.youtube.com/@serenity-js)
 [![Join Serenity/JS Community Chat](https://img.shields.io/badge/Chat-Serenity%2FJS%20Community-FBD30B?logo=matrix)](https://matrix.to/#/#serenity-js:gitter.im)
-[![GitHub stars](https://img.shields.io/github/stars/serenity-js/serenity-js?label=Serenity%2FJS&logo=github&style=badge)](https://github.com/serenity-js/serenity-js)
 [![Support Serenity/JS on GitHub](https://img.shields.io/badge/Support-@serenity--js-703EC8?logo=github)](https://github.com/sponsors/serenity-js)
 
 [Serenity/JS](https://serenity-js.org) revolutionises automated testing by enabling your team to write **expressive**, **maintainable tests** that align
@@ -12,20 +22,20 @@ and [**Jasmine**](https://serenity-js.org/handbook/test-runners/jasmine/),
 Serenity/JS also offers **advanced reporting** that provides clear insights into test results,
 helping both technical teams and business stakeholders understand the quality of the system under test.
 
-## 🚀 Why choose Serenity/JS?
+## Features
 
 - Write **expressive**, **maintainable** tests that align with your unique domain using the [**Serenity/JS Screenplay Pattern**](https://serenity-js.org/handbook/design/screenplay-pattern) APIs.
 - **Leverage advanced reporting** to track progress, detect failures, and share results with both technical and business stakeholders.
 - Build on flexible, modular, and extensible architecture that supports a wide range of test automation needs.
 - Integrate with WebdriverIO and modern test automation tools.
 
-## 🛠️ Get started in 3 steps
+## Quick Start
 
 Serenity/JS integrates with the WebdriverIO command line wizard to help you set up a new project with the required dependencies, configuration and example tests.
 
 If you prefer to review a reference implementation first or use it as a starting point for your project, you can clone a [Serenity/JS Project Template](https://serenity-js.org/handbook/project-templates/) for your preferred test runner.
 
-### 1. Using the WebdriverIO wizard
+### Creating a project
 
 To use the WebdriverIO wizard to create a new project, run the following command in your computer terminal:
 
@@ -50,7 +60,7 @@ To create a Serenity/JS, WebdriverIO and Cucumber project, follow the tutorial:
 
 [![Watch the video](https://img.youtube.com/vi/8mMY6Of4nCw/mqdefault.jpg)](https://youtu.be/8mMY6Of4nCw)
 
-### 2. Writing a test scenario
+### Writing a test scenario
 
 Assuming you've chosen **Mocha with Serenity/JS** and requested the wizard to generate example test files for you,
 you'll find your first test file located at `./test/specs/example.spec.ts`:
@@ -89,7 +99,7 @@ You can learn more about these and other Serenity/JS modules in the [Serenity/JS
 
 The configuration of your project is located in the `wdio.conf.ts` file. Check out the [Serenity/JS WebdriverIO integration guide](https://serenity-js.org/handbook/test-runners/webdriverio/) for more details.
 
-### 3. Running your tests and generating reports
+### Running your tests and generating reports
 
 To run your tests and generate Serenity/JS reports, execute the following command in your terminal:
 
@@ -100,27 +110,39 @@ npm run serenity
 Your test results will be available in the `target/site/serenity` directory.
 To view them, open the `index.html` file in your preferred web browser.
 
-## 💡️ Learn Serenity/JS
+## Documentation
 
-- [Serenity/JS WebdriverIO integration guide](https://serenity-js.org/handbook/test-runners/webdriverio/) - Integrate Serenity/JS with your WebdriverIO test suite, enable Serenity BDD reports, and start using the Screenplay Pattern
-- [Serenity/JS Handbook](https://serenity-js.org/handbook/) - Write high-quality automated acceptance tests with Serenity/JS
-- [Serenity/JS API documentation](https://serenity-js.org/api/) - Explore Serenity/JS modules and features
-- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/) - Kickstart your projects with best practices built right in
+- [API Reference](https://serenity-js.org/api/)
+- [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
+- [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
+- [More examples and reference implementations](https://github.com/serenity-js/serenity-js/tree/main/examples)
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
-## 👋 Join the Serenity/JS Community 
+## Contributing
 
-- [Serenity/JS Community chat channel](https://matrix.to/#/#serenity-js:gitter.im) - Meet Serenity/JS developers and maintainers 
-- [Serenity/JS Forum](https://github.com/orgs/serenity-js/discussions/categories/how-to) - Find answers to your Serenity/JS questions
-- [Contribute to Serenity/JS](https://serenity-js.org/community/contributing/) - Learn how to propose features, report bugs, and contribute to the Serenity/JS codebase
+Contributions of all kinds are welcome! Get started with the [Contributing Guide](https://serenity-js.org/community/contributing/).
 
-## 📣 Stay up to date
+## Community
 
-- [Serenity/JS on YouTube](https://www.youtube.com/@serenity-js) - Subscribe for tutorials, demos, conference talks, and more
-- [Serenity/JS on LinkedIn](https://www.linkedin.com/company/serenity-js) - Follow for release and community event announcements
-- [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) - Star Serenity/JS to help others discover the framework!
- 
-## 💛 Support Serenity/JS
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
+- [Discussions Forum](https://github.com/orgs/serenity-js/discussions)
+    - Visit the [💡How to... ?](https://github.com/orgs/serenity-js/discussions/categories/how-to) section for answers to common questions
 
-Support our mission to make test automation collaborative and easier to scale. Become a Serenity/JS GitHub Sponsor today!
+If you enjoy using Serenity/JS, make sure to star ⭐️ [Serenity/JS on GitHub](https://github.com/serenity-js/serenity-js) to help others discover the framework!
 
-[![GitHub Sponsors](https://img.shields.io/badge/Sponsor%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js)
+## License
+
+The Serenity/JS code base is licensed under the [Apache-2.0](https://opensource.org/license/apache-2-0) license,
+while its documentation and the [Serenity/JS Handbook](https://serenity-js.org/handbook/) are licensed under the [Creative Commons BY-NC-SA 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+See the [Serenity/JS License](https://serenity-js.org/legal/license/).
+
+## Support
+
+Support ongoing development through [GitHub Sponsors](https://github.com/sponsors/serenity-js). Sponsors gain access to [Serenity/JS Playbooks](https://github.com/serenity-js/playbooks)
+and priority help in the [Discussions Forum](https://github.com/orgs/serenity-js/discussions).
+
+For corporate sponsorship or commercial support, please contact [Jan Molak](https://www.linkedin.com/in/janmolak/).
+
+[![GitHub Sponsors](https://img.shields.io/badge/Support%20@serenity%2FJS-703EC8?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/serenity-js).
