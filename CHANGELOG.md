@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.37.0](https://github.com/serenity-js/serenity-js/compare/v3.36.2...v3.37.0) (2025-12-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v12.3.0 ([7056e71](https://github.com/serenity-js/serenity-js/commit/7056e7129928f7e1db57ed6e7657ffa8bfd486ed))
+* **deps:** update dependency body-parser to v2.2.1 [security] ([0738ce8](https://github.com/serenity-js/serenity-js/commit/0738ce8d63428f2d989db40d39f64cb1893cd897))
+* **deps:** update dependency express to v5.2.0 [security] ([99a34b3](https://github.com/serenity-js/serenity-js/commit/99a34b3a555324755ae15ba4ea82245c9057adef))
+* **deps:** update dependency jasmine to v5.13.0 ([9e924c0](https://github.com/serenity-js/serenity-js/commit/9e924c0458b380126245f033c5b95b96ac4ac57b))
+* **deps:** update dependency lru-cache to v11.2.4 ([5325516](https://github.com/serenity-js/serenity-js/commit/53255161e3b3ef77fe26ee72c5d40bbac6a2a5b4))
+
+
+### Features
+
+* **playwright-test:** introduced axios fixture ([a836746](https://github.com/serenity-js/serenity-js/commit/a83674697531622d522c6924db2875188efcc834))
+* **playwright-test:** support for providing extraAbilities without overriding the actors ([5e189ca](https://github.com/serenity-js/serenity-js/commit/5e189caa4f4a0f38287f8586f21d8106c7c7dab3))
+* **playwright-test:** useBase supports merging multiple base fixtures ([e37ed77](https://github.com/serenity-js/serenity-js/commit/e37ed77ae2cc8c18349096cc82668cf522d2e7f1))
+
+
+
+
+
 ## [3.36.2](https://github.com/serenity-js/serenity-js/compare/v3.36.1...v3.36.2) (2025-11-26)
 
 

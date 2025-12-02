@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.37.0](https://github.com/serenity-js/serenity-js/compare/v3.36.2...v3.37.0) (2025-12-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lru-cache to v11.2.4 ([5325516](https://github.com/serenity-js/serenity-js/commit/53255161e3b3ef77fe26ee72c5d40bbac6a2a5b4))
+
+
+
+
+
 ## [3.36.2](https://github.com/serenity-js/serenity-js/compare/v3.36.1...v3.36.2) (2025-11-26)
 
 **Note:** Version bump only for package @serenity-js/rest
