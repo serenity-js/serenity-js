@@ -31,6 +31,8 @@ Install the below Serenity/JS modules in your Playwright Test project directory:
 npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/rest @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test
 ```
 
+See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
+
 ## Quick Start
 
 ```ts
