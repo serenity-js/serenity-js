@@ -15,8 +15,8 @@ importers:
         specifier: 19.8.1
         version: 19.8.1
       '@puppeteer/browsers':
-        specifier: 2.10.13
-        version: 2.10.13
+        specifier: 2.11.0
+        version: 2.11.0
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
@@ -4626,6 +4626,11 @@ packages:
 
   '@puppeteer/browsers@2.10.13':
     resolution: {integrity: sha512-a9Ruw3j3qlnB5a/zHRTkruppynxqaeE4H9WNj5eYGRWqw0ZauZ23f4W2ARf3hghF5doozyD+CRtt7XSYuYRI/Q==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@puppeteer/browsers@2.11.0':
+    resolution: {integrity: sha512-n6oQX6mYkG8TRPuPXmbPidkUbsSRalhmaaVAQxvH1IkQy63cwsH+kOjB3e4cpCDHg0aSvsiX9bQ4s2VB6mGWUQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -13707,6 +13712,19 @@ snapshots:
       - bare-buffer
       - supports-color
 
+  '@puppeteer/browsers@2.11.0':
+    dependencies:
+      debug: 4.4.3(supports-color@5.5.0)
+      extract-zip: 2.0.1
+      progress: 2.0.3
+      proxy-agent: 6.5.0
+      semver: 7.7.3
+      tar-fs: 3.1.1
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bare-buffer
+      - supports-color
+
   '@rollup/rollup-android-arm-eabi@4.40.1':
     optional: true
 
@@ -14701,7 +14719,7 @@ snapshots:
 
   '@wdio/utils@9.21.0':
     dependencies:
-      '@puppeteer/browsers': 2.10.13
+      '@puppeteer/browsers': 2.11.0
       '@wdio/logger': 9.18.0
       '@wdio/types': 9.20.0
       decamelize: 6.0.0
