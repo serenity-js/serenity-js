@@ -373,7 +373,7 @@ export interface SerenityFixtures {
      *         })
      *     })
      * })
-     *
+     * ```
      *
      * #### Learn more
      * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
