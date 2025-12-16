@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.37.1](https://github.com/serenity-js/serenity-js/compare/v3.37.0...v3.37.1) (2025-12-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v12.4.0 ([f6238bb](https://github.com/serenity-js/serenity-js/commit/f6238bb27f185138a53caf2163dbd0c2984475b0))
+* **deps:** update dependency express to v5.2.1 ([485fb4c](https://github.com/serenity-js/serenity-js/commit/485fb4c90fcfd6cc80be9e03f6f7debf0698e278))
+* **deps:** update react monorepo to v19.2.1 ([47734e2](https://github.com/serenity-js/serenity-js/commit/47734e2cbe7166e6f232c0dd154921d59cdd6968))
+* **deps:** update react monorepo to v19.2.3 ([1a95d97](https://github.com/serenity-js/serenity-js/commit/1a95d9770d9f8b8a7ada0db8193b25bdc4dc3a93))
+* **deps:** update webdriverio dependencies ([dc0692a](https://github.com/serenity-js/serenity-js/commit/dc0692a12482f5a6c933db69ebe3b4a6a92d194e))
+
+
+
+
+
 # [3.37.0](https://github.com/serenity-js/serenity-js/compare/v3.36.2...v3.37.0) (2025-12-02)
 
 

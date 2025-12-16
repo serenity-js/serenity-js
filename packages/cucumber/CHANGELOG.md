@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.37.1](https://github.com/serenity-js/serenity-js/compare/v3.37.0...v3.37.1) (2025-12-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v12.4.0 ([f6238bb](https://github.com/serenity-js/serenity-js/commit/f6238bb27f185138a53caf2163dbd0c2984475b0))
+
+
+
+
+
 # [3.37.0](https://github.com/serenity-js/serenity-js/compare/v3.36.2...v3.37.0) (2025-12-02)
 
 
