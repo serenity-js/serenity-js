@@ -1980,8 +1980,8 @@ importers:
         specifier: 10.1.3
         version: 10.1.3
       chromedriver:
-        specifier: 143.0.1
-        version: 143.0.1
+        specifier: 143.0.2
+        version: 143.0.2
       mocha:
         specifier: 11.7.5
         version: 11.7.5
@@ -2129,8 +2129,8 @@ importers:
         specifier: 10.1.3
         version: 10.1.3
       chromedriver:
-        specifier: 143.0.1
-        version: 143.0.1
+        specifier: 143.0.2
+        version: 143.0.2
       ci-info:
         specifier: 4.3.1
         version: 4.3.1
@@ -2157,7 +2157,7 @@ importers:
         version: 5.9.3
       wdio-chromedriver-service:
         specifier: 8.1.1
-        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@143.0.1)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
+        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@143.0.2)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
       webdriverio:
         specifier: 8.42.0
         version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
@@ -5973,8 +5973,8 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
 
-  chromedriver@143.0.1:
-    resolution: {integrity: sha512-qR0DKGV7C3r5Fo6WJD2bqQ1ny9THrJTL4X8JeArBQ6m5Cq6sHXAhIrVgsTZuKi9tL/YUcFoELMI3UTg6dMiKWA==}
+  chromedriver@143.0.2:
+    resolution: {integrity: sha512-pNNEf19M10V04JfJBa+W8aEXHfUqpEXQqebspKYntMxP4nwNACnQSFGnV/L3EDpeR/hZx628mDs5kp6KiGMC5Q==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -12187,7 +12187,7 @@ snapshots:
       '@cucumber/gherkin-utils': 10.0.0
       '@cucumber/html-formatter': 22.2.0(@cucumber/messages@31.0.0)
       '@cucumber/junit-xml-formatter': 0.9.0(@cucumber/messages@31.0.0)
-      '@cucumber/message-streams': 4.0.1(@cucumber/messages@26.0.1)
+      '@cucumber/message-streams': 4.0.1(@cucumber/messages@31.0.0)
       '@cucumber/messages': 31.0.0
       '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.4.0)(@cucumber/messages@31.0.0)
       '@cucumber/tag-expressions': 8.1.0
@@ -12435,7 +12435,7 @@ snapshots:
   '@cucumber/gherkin-streams@6.0.0(@cucumber/gherkin@37.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@31.0.0))(@cucumber/messages@31.0.0)':
     dependencies:
       '@cucumber/gherkin': 37.0.0
-      '@cucumber/message-streams': 4.0.1(@cucumber/messages@26.0.1)
+      '@cucumber/message-streams': 4.0.1(@cucumber/messages@31.0.0)
       '@cucumber/messages': 31.0.0
       commander: 14.0.0
       source-map-support: 0.5.21
@@ -12585,13 +12585,13 @@ snapshots:
     dependencies:
       '@cucumber/messages': 24.1.0
 
-  '@cucumber/message-streams@4.0.1(@cucumber/messages@26.0.1)':
-    dependencies:
-      '@cucumber/messages': 26.0.1
-
   '@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0)':
     dependencies:
       '@cucumber/messages': 27.2.0
+
+  '@cucumber/message-streams@4.0.1(@cucumber/messages@31.0.0)':
+    dependencies:
+      '@cucumber/messages': 31.0.0
 
   '@cucumber/messages@16.0.1':
     dependencies:
@@ -15573,7 +15573,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  chromedriver@143.0.1:
+  chromedriver@143.0.2:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.13.2(debug@4.4.3)
@@ -20164,7 +20164,7 @@ snapshots:
   proxy-agent@6.3.1:
     dependencies:
       agent-base: 7.1.4
-      debug: 4.3.4
+      debug: 4.4.3(supports-color@5.5.0)
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       lru-cache: 7.18.3
@@ -21857,7 +21857,7 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@143.0.1)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
+  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@143.0.2)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
     dependencies:
       '@wdio/logger': 8.38.0
       fs-extra: 11.3.0
@@ -21866,7 +21866,7 @@ snapshots:
       webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     optionalDependencies:
       '@wdio/types': 8.41.0
-      chromedriver: 143.0.1
+      chromedriver: 143.0.2
     transitivePeerDependencies:
       - supports-color
 
