@@ -6,7 +6,7 @@ import { expect } from '../expect';
 describe ('Artifact', () => {
     describe('Photo', () => {
 
-        const photo = Photo.fromBase64('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==');
+        const photo = Photo.fromBase64('iVBORw0KGgoAAA ANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVE\nW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAA\r\nAAABJRU5ErkJggg==');
 
         it('can be serialised', () => {
             const serialised = photo.toJSON();
