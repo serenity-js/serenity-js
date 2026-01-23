@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.37.2](https://github.com/serenity-js/serenity-js/compare/v3.37.1...v3.37.2) (2026-01-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency body-parser to v2.2.2 ([05f2a84](https://github.com/serenity-js/serenity-js/commit/05f2a843d2bf24b3a0afda7a0567500c60129acb))
+
+
+
+
+
 ## [3.37.1](https://github.com/serenity-js/serenity-js/compare/v3.37.0...v3.37.1) (2025-12-16)
 
 

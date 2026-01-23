@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.37.2](https://github.com/serenity-js/serenity-js/compare/v3.37.1...v3.37.2) (2026-01-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v12.6.0 ([376f720](https://github.com/serenity-js/serenity-js/commit/376f720741aedadeaf5ef8709c430ada9dc72a0e))
+* **deps:** update dependency body-parser to v2.2.2 ([05f2a84](https://github.com/serenity-js/serenity-js/commit/05f2a843d2bf24b3a0afda7a0567500c60129acb))
+* **deps:** update dependency diff to v8 [security] ([1b3cd88](https://github.com/serenity-js/serenity-js/commit/1b3cd8801ed3c71486fbdc0ca643870d78597a43))
+* **deps:** update playwright dependencies to v1.58.0 ([45b74d0](https://github.com/serenity-js/serenity-js/commit/45b74d075848935399d46eda7fe24682d01ed90a))
+* **deps:** update webdriverio dependencies ([b928423](https://github.com/serenity-js/serenity-js/commit/b9284233b6bc324e5182fe89373908d802d66b7a))
+* **playwright:** use standard CSS selectors instead of the deprecated :light selector engine ([8d33bf8](https://github.com/serenity-js/serenity-js/commit/8d33bf84d9a9321b97e96a9a477e01543e474e88))
+
+
+
+
+
 ## [3.37.1](https://github.com/serenity-js/serenity-js/compare/v3.37.0...v3.37.1) (2025-12-16)
 
 
