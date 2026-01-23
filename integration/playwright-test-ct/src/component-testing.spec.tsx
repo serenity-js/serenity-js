@@ -59,7 +59,7 @@ describe('Serenity/JS', () => {
             const input = PageElement.located(By.css('input')).of(component);
 
             const nativeInput = await actor.answer(input.nativeElement())
-            expect((nativeInput as any)._selector).toEqual('#root >> internal:control=component >> :light(input)');
+            expect((nativeInput as any)._selector).toEqual('#root >> internal:control=component >> css=input');
         });
 
         it('should find a parent element of a child element using .closestTo()', async ({ actor, mount }) => {
@@ -78,7 +78,7 @@ describe('Serenity/JS', () => {
             const nativeOutput = await actor.answer(outputElement.nativeElement());
 
             // expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> :light(input) >> _sjs_closest=.output');
-            expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> :light(input) >> _sjs_closest=.example-input >> :light(.output)');
+            expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> css=input >> _sjs_closest=.example-input >> css=.output');
 
             await actor.attemptsTo(
                 Ensure.that(Attribute.called('class').of(outputElement), equals('output')),
