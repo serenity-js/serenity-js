@@ -141,7 +141,7 @@ Learn more about:
 a Java program provided by the [`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/) module.
 
 To produce Serenity BDD reports, your test suite must:
-- produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#2-configuring-serenityjs)
+- produce intermediate Serenity BDD `.json` reports, by registering [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/) as per the [configuration instructions](#configuring-serenityjs)
 - invoke the Serenity BDD CLI when you want to produce the report, by calling `serenity-bdd run`
 
 The pattern used by all the [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/) relies
