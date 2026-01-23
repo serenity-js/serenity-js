@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.37.2](https://github.com/serenity-js/serenity-js/compare/v3.37.1...v3.37.2) (2026-01-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency diff to v8 [security] ([1b3cd88](https://github.com/serenity-js/serenity-js/commit/1b3cd8801ed3c71486fbdc0ca643870d78597a43))
+
+
+
+
+
 ## [3.37.1](https://github.com/serenity-js/serenity-js/compare/v3.37.0...v3.37.1) (2025-12-16)
 
 **Note:** Version bump only for package @serenity-js/core
