@@ -25,15 +25,15 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
     // todo: refactor; replace with a map and some more generic lookup mechanism
     protected nativeSelector(): string {
         if (this.selector instanceof ByCss) {
-            return `:light(${ this.selector.value })`;
+            return `css=${ this.selector.value }`;
         }
 
         if (this.selector instanceof ByDeepCss) {
-            return this.selector.value;
+            return `css=${ this.selector.value }`;
         }
 
         if (this.selector instanceof ByCssContainingText) {
-            return `:light(${ this.selector.value }):has-text("${ this.selector.text }")`;
+            return `css=${ this.selector.value }:has-text("${ this.selector.text }")`;
         }
 
         if (this.selector instanceof ById) {
@@ -45,7 +45,7 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
         }
 
         if (this.selector instanceof ByTagName) {
-            return `:light(${ this.selector.value })`;
+            return `css=${ this.selector.value }`;
         }
 
         if (this.selector instanceof ByXPath) {
