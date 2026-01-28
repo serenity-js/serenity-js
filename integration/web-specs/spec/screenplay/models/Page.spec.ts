@@ -203,6 +203,11 @@ describe('Page', () => {
                     Click.on(NewTab.closeLink()),
                 ),
 
+                // Wait for the page to be discarded before attempting to switch to it
+                // to avoid a race condition where the browser throws TargetCloseError
+                // before Serenity/JS can detect the page is gone
+                Wait.until(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
                     Interaction.where('#actor throws an error', actor => {
                         throw new Error('Should not switch to a closed page');
