@@ -73,7 +73,7 @@ describe('isActive', function () {
                 |
                 | Expected boolean:\\s+true
                 | Received Proxy<QuestionStatement>
-                |
+                | 
                 | [A-Za-z]+PageElement {
                 |   locator: [A-Za-z]+Locator {
                 |     parent: [A-Za-z]+RootLocator { }
@@ -81,8 +81,7 @@ describe('isActive', function () {
                 |       value: 'does-not-exist'
                 |     }
                 |   }
-                | }
-                |     at .+`, 'gm')));
+                | }`, 'gm')));
 
         /** @test {isActive} */
         it('does not exist in a list of PageElements', () =>
@@ -95,9 +94,8 @@ describe('isActive', function () {
                 |
                 | Expected boolean:\\s+true
                 | Received Proxy<MetaQuestionStatement>
-                |
-                | Unanswered { }
-                |     at .+`, 'gm')));
+                | 
+                | Unanswered { }`, 'gm')));
     });
 
     /** @test {isActive} */

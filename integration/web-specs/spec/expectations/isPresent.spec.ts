@@ -44,8 +44,7 @@ describe('isPresent', function () {
             |       value: 'h2'
             |     }
             |   }
-            | }
-            |     at .+`, 'gm')));
+            | }`, 'gm')));
 
     /** @test {isPresent} */
     it('breaks the actor flow when element is not present in the DOM', () =>
@@ -66,8 +65,7 @@ describe('isPresent', function () {
             |       value: 'h2'
             |     }
             |   }
-            | }
-            |     at .+`, 'gm')));
+            | }`, 'gm')));
 
     /** @test {isPresent} */
     it(`produces an assertion error that can be serialised with ErrorSerialiser`, () =>
