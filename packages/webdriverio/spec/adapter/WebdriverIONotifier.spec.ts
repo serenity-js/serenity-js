@@ -20,11 +20,14 @@ import {
     implementationPending,
     retryableSceneDetected,
     retryableSceneFinishedWith,
+    retryableSceneFinishesWith,
     retryableSceneStarts,
     scene1FinishedWith,
+    scene1FinishesWith,
     scene1Id,
     scene1Starts,
     scene2FinishedWith,
+    scene2FinishesWith,
     scene2Starts,
     successThreshold,
     testRunFinished,
@@ -109,6 +112,7 @@ describe('WebdriverIONotifier', () => {
             expectedFailureCount: 0,
             events: [
                 scene1Starts,
+                scene1FinishesWith(executionSuccessful),
                 scene1FinishedWith(executionSuccessful)
             ]
         }, {
@@ -116,6 +120,7 @@ describe('WebdriverIONotifier', () => {
             expectedFailureCount: 1,
             events: [
                 scene1Starts,
+                scene1FinishesWith(executionFailedWithError),
                 scene1FinishedWith(executionFailedWithError)
             ]
         }, {
@@ -123,8 +128,10 @@ describe('WebdriverIONotifier', () => {
             expectedFailureCount: 2,
             events: [
                 scene1Starts,
+                scene1FinishesWith(executionFailedWithError),
                 scene1FinishedWith(executionFailedWithError),
                 scene2Starts,
+                scene2FinishesWith(executionFailedWithError),
                 scene2FinishedWith(executionFailedWithError)
             ]
         }, {
@@ -132,8 +139,10 @@ describe('WebdriverIONotifier', () => {
             expectedFailureCount: 1,
             events: [
                 scene1Starts,
+                scene1FinishesWith(executionSuccessful),
                 scene1FinishedWith(executionSuccessful),
                 scene2Starts,
+                scene2FinishesWith(executionFailedWithError),
                 scene2FinishedWith(executionFailedWithError)
             ]
         } ]).it('returns the number of scenarios that failed', ({ events, expectedFailureCount }) => {
@@ -159,6 +168,7 @@ describe('WebdriverIONotifier', () => {
             when(notifier).receives(
                 testRunStarts,
                 scene1Starts,
+                scene1FinishesWith(outcome),
                 scene1FinishedWith(outcome),
                 testRunFinishes,
                 testRunFinished,
@@ -172,14 +182,17 @@ describe('WebdriverIONotifier', () => {
                 testRunStarts,
                 retryableSceneStarts(0),
                 retryableSceneDetected(0),
+                retryableSceneFinishesWith(0, executionIgnored),
                 retryableSceneFinishedWith(0, executionIgnored),
 
                 retryableSceneStarts(1),
                 retryableSceneDetected(1),
+                retryableSceneFinishesWith(1, executionIgnored),
                 retryableSceneFinishedWith(1, executionIgnored),
 
                 retryableSceneStarts(2),
                 retryableSceneDetected(2),
+                retryableSceneFinishesWith(2, executionSuccessful),
                 retryableSceneFinishedWith(2, executionSuccessful),
 
                 testRunFinishes,
@@ -313,6 +326,7 @@ describe('WebdriverIONotifier', () => {
                 testSuiteStarts(0, 'Checkout'),
                 testSuiteStarts(1, 'Credit card payment'),
                 scene1Starts,
+                scene1FinishesWith(executionSuccessful),
                 scene1FinishedWith(executionSuccessful),
                 testSuiteFinished(1, 'Credit card payment', executionSuccessful),
                 testSuiteFinished(0, 'Checkout', executionSuccessful),
@@ -445,6 +459,7 @@ describe('WebdriverIONotifier', () => {
                     testSuiteStarts(0, 'Checkout'),
                     testSuiteStarts(1, 'Credit card payment'),
                     scene1Starts,
+                    scene1FinishesWith(executionSuccessful),
                     scene1FinishedWith(executionSuccessful),
                     testSuiteFinished(1, 'Credit card payment', executionSuccessful),
                     testSuiteFinished(0, 'Checkout', executionSuccessful),
@@ -566,6 +581,7 @@ describe('WebdriverIONotifier', () => {
                     testSuiteStarts(0, 'Checkout'),
                     testSuiteStarts(1, 'Credit card payment'),
                     scene1Starts,
+                    scene1FinishesWith(executionFailedWithAssertionError),
                     scene1FinishedWith(executionFailedWithAssertionError),
                     testSuiteFinished(1, 'Credit card payment', executionFailedWithAssertionError),
                     testSuiteFinished(0, 'Checkout', executionFailedWithAssertionError),

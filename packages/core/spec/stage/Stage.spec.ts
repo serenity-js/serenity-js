@@ -150,7 +150,7 @@ describe('Stage', () => {
 
                 const actor = stage.actor('Bob');
 
-                stage.announce(new SceneFinishes(sceneId, stage.currentTime()));
+                stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()));
 
                 await stage.waitForNextCue();
 
@@ -177,7 +177,7 @@ describe('Stage', () => {
                 stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
                 stage.actor('Bob');
                 stage.announce(
-                    new SceneFinishes(sceneId, stage.currentTime()),
+                    new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()),
                     new SceneFinished(sceneId, scenario, new ExecutionSuccessful(), stage.currentTime()),
                 );
 
@@ -186,7 +186,7 @@ describe('Stage', () => {
                 stage.announce(new SceneStarts(anotherSceneId, scenario, stage.currentTime()));
                 stage.actor('Bob');
                 stage.announce(
-                    new SceneFinishes(anotherSceneId, stage.currentTime()),
+                    new SceneFinishes(anotherSceneId, new ExecutionSuccessful(), stage.currentTime()),
                     new SceneFinished(anotherSceneId, scenario, new ExecutionSuccessful(), stage.currentTime()),
                 );
 
@@ -212,7 +212,7 @@ describe('Stage', () => {
 
                 stage.announce(
                     new SceneStarts(sceneId, scenario, stage.currentTime()),
-                    new SceneFinishes(sceneId, stage.currentTime()),
+                    new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()),
                 );
 
                 expect(actor.dismiss).to.have.not.been.called;

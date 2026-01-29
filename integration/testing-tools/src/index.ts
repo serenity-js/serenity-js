@@ -4,6 +4,7 @@ export * from './contentsOf';
 export * from './EventStreamEmitter';
 export * from './expect';
 export * from './givenFollowingEvents';
+export * from './parseMarkedOutput';
 export * from './PickEvent';
 export * from './spawner';
 export * from './stage';
