@@ -12,7 +12,7 @@ import {
     SceneFinishes,
     SceneStarts
 } from '@serenity-js/core/lib/events';
-import { TextData } from '@serenity-js/core/lib/model';
+import { ExecutionSuccessful, TextData } from '@serenity-js/core/lib/model';
 import {
     By,
     ExecuteScript,
@@ -229,7 +229,7 @@ describe('ExecuteSynchronousScript', function () {
             ExecuteScript.sync(`console.log('hello world');`),
         );
 
-        localSerenity.announce(new SceneFinishes(sceneId));
+        localSerenity.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
         await localSerenity.waitForNextCue();
 
         const events = recorder.events;
