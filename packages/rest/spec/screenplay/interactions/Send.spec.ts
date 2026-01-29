@@ -10,7 +10,7 @@ import {
     SceneStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, CorrelationId, HTTPRequestResponse, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { Category, CorrelationId, ExecutionSuccessful, HTTPRequestResponse, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
@@ -111,7 +111,7 @@ describe('Send', () => {
             Send.a(GetRequest.to('products/2')),
         )
 
-        serenity.announce(new SceneFinishes(sceneId));
+        serenity.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
         await serenity.waitForNextCue();
 
         const events = recorder.events;

@@ -30,7 +30,7 @@ export class SceneFinishes extends DomainEvent {
 
     constructor(
         public readonly sceneId: CorrelationId,
-        public readonly outcome: Outcome = new ExecutionSuccessful(),
+        public readonly outcome: Outcome,
         timestamp?: Timestamp,
     ) {
         super(timestamp);

@@ -3,7 +3,7 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSuccessful, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb, Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/web';
 
@@ -31,7 +31,7 @@ describe('Photographer', function () {
         });
 
         afterEach(async () => {
-            stage.announce(new SceneFinishes(sceneId));
+            stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
             await stage.waitForNextCue();
         });
 
