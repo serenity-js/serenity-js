@@ -338,7 +338,7 @@ describe('ProtractorFrameworkAdapter', () => {
                     // ... an actual test runner would now execute the test and then announce the outcome
 
                     this.serenityInstance.announce(
-                        new SceneFinishes(sceneId, this.serenityInstance.currentTime()),
+                        new SceneFinishes(sceneId, scenario.outcome, this.serenityInstance.currentTime()),
                     );
 
                     return this.serenityInstance.waitForNextCue()

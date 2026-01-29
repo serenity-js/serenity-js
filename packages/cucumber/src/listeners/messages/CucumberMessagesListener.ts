@@ -39,6 +39,7 @@ export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslin
             this.addAfterHook(() => {
                 this.emit(new SceneFinishes(
                     serenity.currentSceneId(),
+                    new ExecutionSuccessful(),
                     serenity.currentTime()
                 ));
 

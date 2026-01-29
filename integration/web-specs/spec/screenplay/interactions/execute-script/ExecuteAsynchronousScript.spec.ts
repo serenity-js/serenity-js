@@ -4,7 +4,7 @@ import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ActorEntersStage, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { TextData } from '@serenity-js/core/lib/model';
+import { ExecutionSuccessful, TextData } from '@serenity-js/core/lib/model';
 import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, PageElements, Switch, Value } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
@@ -270,7 +270,7 @@ describe('ExecuteAsynchronousScript', function () {
             ExecuteScript.async(`arguments[arguments.length - 1]();`),
         );
 
-        localSerenity.announce(new SceneFinishes(sceneId));
+        localSerenity.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
         await localSerenity.waitForNextCue();
 
         const events = recorder.events;
