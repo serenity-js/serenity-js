@@ -1,3 +1,8 @@
+// qlty-ignore: +duplication
+// This file intentionally mirrors packages/webdriverio/src/adapter/WebdriverIONotifier.ts
+// but with different type signatures for WebdriverIO v8 (legacy) vs v9+.
+// The packages are kept separate to allow independent evolution and eventual deprecation.
+
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
