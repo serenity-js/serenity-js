@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.38.0](https://github.com/serenity-js/serenity-js/compare/v3.37.2...v3.38.0) (2026-01-29)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo ([a38b826](https://github.com/serenity-js/serenity-js/commit/a38b826633e73bc1b979802133af880b9cd6fc10))
+* **deps:** update rest dependencies ([6821ab3](https://github.com/serenity-js/serenity-js/commit/6821ab3217c0d3ad0bc5c017ae4214e08226a815))
+
+
+### Features
+
+* **core:** event SceneFinishes includes the outcome of the test scenario ([37cc14e](https://github.com/serenity-js/serenity-js/commit/37cc14ee48a746592e0b9e9f430a2416b150db3e)), closes [#3005](https://github.com/serenity-js/serenity-js/issues/3005)
+* **webdriverio:** support afterTest hooks ([a79c83c](https://github.com/serenity-js/serenity-js/commit/a79c83cf0d2b975f9d7831dbf8cbe6dc1cc4935d)), closes [#3005](https://github.com/serenity-js/serenity-js/issues/3005)
+
+
+### Reverts
+
+* Revert "test(web): update error message regex patterns to include location info" ([9559b6e](https://github.com/serenity-js/serenity-js/commit/9559b6eaafb5faf25af09c80104e7a19a1d031e8))
+
+
+
+
+
 ## [3.37.2](https://github.com/serenity-js/serenity-js/compare/v3.37.1...v3.37.2) (2026-01-23)
 
 
