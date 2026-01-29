@@ -52,7 +52,7 @@ describe('TakeScreenshot', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('TakeScreenshot.spec.ts');
-        expect(location.line).to.equal(50);
+        expect(location.line).to.equal(51);
         expect(location.column).to.equal(41);
     });
 });
