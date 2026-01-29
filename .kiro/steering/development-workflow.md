@@ -70,17 +70,18 @@ Clean up the implementation while ensuring all tests remain green.
 
 For features requiring integration testing (test runner adapters, browser interactions, etc.):
 
-**Important:** Integration tests run against the compiled output in `packages/*/lib/`. You must recompile after making changes to any package:
+**Important:** Integration tests run against the compiled output in `packages/*/lib/`. You must clean and recompile after making changes to any package:
 
 ```bash
-# Recompile all library packages before running integration tests
+# Clean build artifacts and recompile all library packages before running integration tests
+make clean
 make COMPILE_SCOPE=libs compile
 
 # Then run integration tests
 make INTEGRATION_SCOPE=playwright-test integration-test
 ```
 
-If integration tests don't reflect your latest changes, you likely forgot to recompile.
+If integration tests don't reflect your latest changes, or if compilation fails with stale errors after fixing source files, run `make clean` first to remove old build artifacts, then recompile.
 
 ### Step 1: Write the High-Level Integration Test
 
@@ -121,6 +122,7 @@ Remember the compile-test cycle for integration tests:
 
 ```bash
 # After each implementation change:
+make clean
 make COMPILE_SCOPE=libs compile
 make INTEGRATION_SCOPE=<module> integration-test
 ```

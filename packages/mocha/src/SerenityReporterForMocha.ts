@@ -228,6 +228,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
+                outcome,
                 this.serenity.currentTime(),
             ),
         );
@@ -243,10 +244,14 @@ export class SerenityReporterForMocha extends reporters.Base {
 
                 this.recorder.erase(test);
             }, error => {
+                const errorOutcome = new ExecutionFailedWithError(error);
+
                 this.emit(new SceneFinished(
                     this.currentSceneId,
                     scenarioDetails,
-                    new ExecutionFailedWithError(error),
+                    errorOutcome.isWorseThan(outcome)
+                        ? errorOutcome
+                        : outcome,
                     this.serenity.currentTime(),
                 ));
 
@@ -268,6 +273,7 @@ export class SerenityReporterForMocha extends reporters.Base {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
+                outcome,
                 this.serenity.currentTime(),
             ),
             new SceneFinished(

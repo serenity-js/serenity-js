@@ -43,7 +43,7 @@ describe('Photographer', () => {
                 new SceneStarts(sceneId, defaultCardScenario),
                 new TaskStarts(sceneId, activityId, pickACard),
                 new TaskFinished(sceneId, activityId, pickACard, outcome),
-                new SceneFinishes(sceneId),
+                new SceneFinishes(sceneId, outcome),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(new ExecutionSuccessful()),
             ).areSentTo(photographer);
@@ -68,7 +68,7 @@ describe('Photographer', () => {
 
             givenFollowingEvents(
                 new SceneStarts(sceneId, defaultCardScenario),
-                new SceneFinishes(sceneId),
+                new SceneFinishes(sceneId, outcome),
                 new SceneFinished(sceneId, defaultCardScenario, outcome),
                 new TestRunFinished(new ExecutionFailedWithError(outcome.error)),
             ).areSentTo(photographer);

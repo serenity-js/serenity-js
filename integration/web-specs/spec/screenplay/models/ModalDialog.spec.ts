@@ -10,7 +10,7 @@ import {
     SceneFinishes,
     SceneStarts
 } from '@serenity-js/core/lib/events';
-import { CorrelationId, Name } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
 import { Click, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
@@ -76,7 +76,7 @@ describe('ModalDialog', () => {
                 Click.on(ModalDialogInspector.trigger()),
             );
 
-            localSerenity.announce(new SceneFinishes(sceneId));
+            localSerenity.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
             await localSerenity.waitForNextCue();
 
             let asyncOperationId: CorrelationId;

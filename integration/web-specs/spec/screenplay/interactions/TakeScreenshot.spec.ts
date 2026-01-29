@@ -3,6 +3,7 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { Clock, Serenity, serenity } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
 import { Navigate, TakeScreenshot } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
@@ -26,7 +27,7 @@ describe('TakeScreenshot', () => {
     });
 
     afterEach(async () => {
-        localSerenity.announce(new SceneFinishes(sceneId));
+        localSerenity.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
         await localSerenity.waitForNextCue();
     });
 
