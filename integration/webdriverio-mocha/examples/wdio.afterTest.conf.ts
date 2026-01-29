@@ -1,4 +1,4 @@
-import { resolve } from 'node:path';
+import * as path from 'node:path';
 
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration, NoOpDiffFormatter } from '@serenity-js/core';
@@ -31,7 +31,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
         'spec',
     ],
 
-    tsConfigPath: resolve(__dirname, './tsconfig.json'),
+    tsConfigPath: path.resolve(__dirname, './tsconfig.json'),
 
     runner: 'local',
 
