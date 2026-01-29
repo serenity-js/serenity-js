@@ -9,6 +9,7 @@ import {
     SceneFinishes,
     SceneStarts
 } from '@serenity-js/core/lib/events';
+import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
@@ -36,7 +37,7 @@ describe('Photographer', () => {
         });
 
         afterEach(async () => {
-            stage.announce(new SceneFinishes(sceneId));
+            stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
             await stage.waitForNextCue();
         });
 

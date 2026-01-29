@@ -1,10 +1,22 @@
+// qlty-ignore: +duplication
+// This file intentionally mirrors packages/webdriverio/src/adapter/WebdriverIONotifier.ts
+// but with different type signatures for WebdriverIO v8 (legacy) vs v9+.
+// The packages are kept separate to allow independent evolution and eventual deprecation.
+
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events/index.js';
-import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
-import type {
-    Outcome,
-    TestSuiteDetails} from '@serenity-js/core/lib/model/index.js';
+import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
+import {
+    AsyncOperationAttempted,
+    AsyncOperationCompleted,
+    SceneFinished,
+    SceneFinishes,
+    SceneStarts,
+    TestRunFinishes,
+    TestSuiteFinished,
+    TestSuiteStarts
+} from '@serenity-js/core/lib/events/index.js';
+import type { Outcome, TestSuiteDetails } from '@serenity-js/core/lib/model/index.js';
 import {
     CorrelationId,
     Description,
@@ -13,7 +25,8 @@ import {
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ImplementationPending, Name,
+    ImplementationPending,
+    Name,
     ProblemIndication
 } from '@serenity-js/core/lib/model/index.js';
 import type { Test as testStats } from '@wdio/reporter';
@@ -22,31 +35,6 @@ import type { EventEmitter } from 'events';
 import { match } from 'tiny-types';
 
 import type { WebdriverIOConfig } from '../config/index.js';
-
-// interface Argument {
-//     rows?: {
-//         cells: string[];
-//     }[];
-// }
-//
-// export interface testStats {
-//     type: 'test:start' | 'test:pass' | 'test:fail' | 'test:retry' | 'test:pending' | 'test:end' | 'test:skip';
-//     title: string;
-//     parent: string;
-//     fullTitle: string;
-//     pending: boolean;
-//     file?: string;
-//     duration?: number;
-//     cid: string;
-//     specs: string[];
-//     uid: string;
-//     pendingReason?: string;
-//     error?: Error;
-//     errors?: Error[];
-//     retries?: number;
-//     argument?: string | Argument;
-// }
-//
 
 /**
  * @package
@@ -87,6 +75,7 @@ export class WebdriverIONotifier implements StageCrewMember {
             .when(TestSuiteStarts,          WebdriverIONotifier.prototype.onTestSuiteStarts.bind(this))
             .when(TestSuiteFinished,        WebdriverIONotifier.prototype.onTestSuiteFinished.bind(this))
             .when(SceneStarts,              WebdriverIONotifier.prototype.onSceneStarts.bind(this))
+            .when(SceneFinishes,            WebdriverIONotifier.prototype.onSceneFinishes.bind(this))
             .when(SceneFinished,            WebdriverIONotifier.prototype.onSceneFinished.bind(this))
             .when(TestRunFinishes,          WebdriverIONotifier.prototype.onTestRunFinishes.bind(this))
             .else(() => void 0);
@@ -159,36 +148,66 @@ export class WebdriverIONotifier implements StageCrewMember {
         return this.invokeHooks('beforeTest', this.config.beforeTest, [ this.testFrom(started), WebdriverIONotifier.dummmyContext ]);
     }
 
-    private onSceneFinished(finished: SceneFinished) {
+    /**
+     * Invoked when SceneFinishes is received, BEFORE waitForNextCue() is called.
+     * This is the right time to invoke the afterTest hook so that it's awaited
+     * before the test runner moves on to the next test.
+     */
+    private onSceneFinishes(finishes: SceneFinishes) {
+        const started = this.events.getByCorrelationId<SceneStarts>(finishes.sceneId);
 
-        if (finished.outcome.isWorseThan(this.successThreshold)) {
+        // Record SceneFinishes after looking up SceneStarts to avoid overwriting it
+        this.events.record(finishes.sceneId, finishes);
+
+        if (finishes.outcome.isWorseThan(this.successThreshold)) {
             this.failures++;
         }
 
-        const started     = this.events.getByCorrelationId<SceneStarts>(finished.sceneId);
-        let testEnd: testStats;
-
-        if (this.willBeRetried(finished.outcome)) {
-            testEnd  = this.testEndEventFrom(started, finished);
-
+        // Emit test result and end events
+        if (this.willBeRetried(finishes.outcome)) {
+            const testEnd = this.testEndEventFromFinishes(started, finishes);
             const type = 'test:retry';
 
             this.reporter.emit(type, {
                 ...testEnd,
                 type,
-                error:  this.errorFrom(finished.outcome),
+                error: this.errorFrom(finishes.outcome),
             });
-
-        } else {
-
-            const testResultEvent  = this.testResultEventFrom(started, finished);
+        }
+        else {
+            const testResultEvent = this.testResultEventFromSceneFinishes(started, finishes);
             this.reporter.emit(testResultEvent.type, testResultEvent);
 
-            testEnd     = this.testEndEventFrom(started, finished);
+            const testEnd = this.testEndEventFromFinishes(started, finishes);
             this.reporter.emit(testEnd.type, testEnd);
         }
 
-        return this.invokeHooks('afterTest', this.config.afterTest, [ this.testFrom(started), WebdriverIONotifier.dummmyContext, this.testResultFrom(started, finished) ]);
+        // Invoke afterTest hook - this will be awaited by waitForNextCue()
+        return this.invokeHooks(
+            'afterTest',
+            this.config.afterTest,
+            [ this.testFrom(started), WebdriverIONotifier.dummmyContext, this.testResultFromFinishes(started, finishes) ]
+        );
+    }
+
+    /**
+     * Invoked when SceneFinished is received, AFTER waitForNextCue() has returned.
+     * At this point, the afterTest hook has already been invoked and awaited.
+     * We only need to handle any cleanup failures here.
+     */
+    private onSceneFinished(finished: SceneFinished) {
+        const finishes = this.events.getByCorrelationId<SceneFinishes>(finished.sceneId);
+
+        // If the final outcome is worse than what we reported in onSceneFinishes,
+        // it means cleanup failed. We should update the failure count.
+        // Only increment if we didn't already count this as a failure.
+        const cleanupFailed = finished.outcome.isWorseThan(finishes.outcome);
+        const cleanupFailedAboveThreshold = finished.outcome.isWorseThan(this.successThreshold);
+        const originalOutcomeWasSuccess = !finishes.outcome.isWorseThan(this.successThreshold);
+
+        if (cleanupFailed && cleanupFailedAboveThreshold && originalOutcomeWasSuccess) {
+            this.failures++;
+        }
     }
 
     private willBeRetried(outcome: Outcome): outcome is ExecutionIgnored {
@@ -213,7 +232,7 @@ export class WebdriverIONotifier implements StageCrewMember {
             parent:     this.parentSuiteName(),
             pending:    false,
             title,
-            type:       'test'  // I _think_ it's either 'test' or 'hook' - https://github.com/mochajs/mocha/blob/0ea732c1169c678ef116c3eb452cc94758fff150/lib/test.js#L31
+            type:       'test'
         }
     }
 
@@ -242,17 +261,17 @@ export class WebdriverIONotifier implements StageCrewMember {
      *   https://github.com/webdriverio/webdriverio/blob/7415f3126e15a733b51721492e4995ceafae6046/packages/wdio-allure-reporter/src/constants.ts#L3-L9
      *
      * @param started
-     * @param finished
+     * @param finishes
      * @private
      */
-    private testResultFrom(started: SceneStarts, finished: SceneFinished): Frameworks.TestResult {
-        const duration = finished.timestamp.diff(started.timestamp).inMilliseconds();
+    private testResultFromFinishes(started: SceneStarts, finishes: SceneFinishes): Frameworks.TestResult {
+        const duration = finishes.timestamp.diff(started.timestamp).inMilliseconds();
         const defaultRetries = { attempts: 0, limit: 0 };
 
         const passedOrFailed = (outcome: Outcome): boolean =>
             this.whenSuccessful<boolean>(outcome, true, false);
 
-        return match<Outcome, Frameworks.TestResult>(finished.outcome)
+        return match<Outcome, Frameworks.TestResult>(finishes.outcome)
             .when(ExecutionCompromised, (outcome: ExecutionCompromised) => {
                 const error = this.errorFrom(outcome);
                 return {
@@ -324,8 +343,8 @@ export class WebdriverIONotifier implements StageCrewMember {
             }));
     }
 
-    private testEndEventFrom(started: SceneStarts, finished: SceneFinished): testStats {
-        const duration = finished.timestamp.diff(started.timestamp).inMilliseconds();
+    private testEndEventFromFinishes(started: SceneStarts, finishes: SceneFinishes): testStats {
+        const duration = finishes.timestamp.diff(started.timestamp).inMilliseconds();
         return {
             ...this.testStartEventFrom(started),
             type: 'test:end',
@@ -339,13 +358,13 @@ export class WebdriverIONotifier implements StageCrewMember {
             : resultWhenNotSuccessful
     }
 
-    private testResultEventFrom(started: SceneStarts, finished: SceneFinished): testStats {
-        const test = this.testEndEventFrom(started, finished)
+    private testResultEventFromSceneFinishes(started: SceneStarts, finishes: SceneFinishes): testStats {
+        const test = this.testEndEventFromFinishes(started, finishes)
 
         const unlessSuccessful = (outcome: Outcome, type: testStats['type']) =>
             this.whenSuccessful<testStats['type']>(outcome, 'test:pass', type);
 
-        return match<Outcome, testStats>(finished.outcome)
+        return match<Outcome, testStats>(finishes.outcome)
             .when(ExecutionCompromised, (outcome: ExecutionCompromised) => ({
                 ...test,
                 type:   unlessSuccessful(outcome, 'test:fail'),

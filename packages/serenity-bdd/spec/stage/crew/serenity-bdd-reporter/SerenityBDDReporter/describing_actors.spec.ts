@@ -275,7 +275,7 @@ describe('SerenityBDDReporter', () => {
 
         await body({ actorCalled: (name: string) => stage.theActorCalled(name) });
 
-        stage.announce(new SceneFinishes(sceneId));
+        stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
 
         await stage.waitForNextCue();
 

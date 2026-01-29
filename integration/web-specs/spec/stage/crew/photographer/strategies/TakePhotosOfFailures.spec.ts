@@ -4,7 +4,7 @@ import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { isPresent } from '@serenity-js/assertions';
 import { Duration, Wait } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
+import { CorrelationId, ExecutionSuccessful, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
 import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 
@@ -31,7 +31,7 @@ describe('Photographer', () => {
         });
 
         afterEach(async () => {
-            stage.announce(new SceneFinishes(sceneId));
+            stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful()));
             await stage.waitForNextCue();
         });
 

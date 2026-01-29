@@ -2,7 +2,7 @@
 import type { StageCrewMember} from '@serenity-js/core';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import type { DomainEvent} from '@serenity-js/core/lib/events/index.js';
-import { RetryableSceneDetected, SceneFinished, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
+import { RetryableSceneDetected, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import type {
     Outcome} from '@serenity-js/core/lib/model/index.js';
@@ -69,9 +69,13 @@ export const
 
     testRunStarts           = new TestRunStarts(startTime),
     scene1Starts            = new SceneStarts(scene1Id, scenario1Details, startTime),
+    scene1FinishesWith      = (outcome: Outcome) =>
+        new SceneFinishes(scene1Id, outcome, startTime.plus(scene1Duration)),
     scene1FinishedWith      = (outcome: Outcome) =>
         new SceneFinished(scene1Id, scenario1Details, outcome, startTime.plus(scene1Duration)),
     scene2Starts            = new SceneStarts(scene2Id, scenario2Details, startTime.plus(scene1Duration)),
+    scene2FinishesWith      = (outcome: Outcome) =>
+        new SceneFinishes(scene2Id, outcome, startTime.plus(scene1Duration).plus(scene2Duration)),
     scene2FinishedWith      = (outcome: Outcome) =>
         new SceneFinished(scene2Id, scenario2Details, outcome, startTime.plus(scene1Duration).plus(scene2Duration)),
     testRunFinishes         = new TestRunFinishes(startTime.plus(scene1Duration).plus(scene2Duration)),
@@ -81,6 +85,8 @@ export const
         new SceneStarts(new CorrelationId(`${ index }`), scenario1Details, startTime.plus(Duration.ofSeconds(index))),
     retryableSceneDetected      = (index: number) =>
         new RetryableSceneDetected(new CorrelationId(`${ index }`), startTime.plus(Duration.ofSeconds(index))),
+    retryableSceneFinishesWith  = (index: number, outcome: Outcome) =>
+        new SceneFinishes(new CorrelationId(`${ index }`), outcome, startTime.plus(Duration.ofSeconds(index)).plus(scene1Duration)),
     retryableSceneFinishedWith  = (index: number, outcome: Outcome) =>
         new SceneFinished(new CorrelationId(`${ index }`), scenario1Details, outcome, startTime.plus(Duration.ofSeconds(index)).plus(scene1Duration)),
 

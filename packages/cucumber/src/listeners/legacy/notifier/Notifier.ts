@@ -18,7 +18,7 @@ import {
     TestRunStarts,
 } from '@serenity-js/core/lib/events';
 import type { CorrelationId, Outcome} from '@serenity-js/core/lib/model';
-import { ActivityDetails, CapabilityTag, Category, Description, FeatureTag, Name, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ActivityDetails, CapabilityTag, Category, Description, ExecutionSuccessful, FeatureTag, Name, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/lib/model';
 import type { Serenity } from '@serenity-js/core/lib/Serenity';
 
 import type { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } from '../gherkin';
@@ -144,6 +144,7 @@ export class Notifier {
         this.emit(
             new SceneFinishes(
                 this.currentSceneId,
+                new ExecutionSuccessful(),
                 this.serenity.currentTime(),
             ),
         );
