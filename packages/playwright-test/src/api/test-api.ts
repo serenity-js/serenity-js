@@ -17,7 +17,7 @@ import { mergeTests, test as playwrightBaseTest } from '@playwright/test';
 import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, PlatformTag } from '@serenity-js/core/lib/model';
+import { BrowserTag, ExecutionSuccessful, PlatformTag } from '@serenity-js/core/lib/model';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
@@ -225,7 +225,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
             try {
                 serenity.announce(
-                    new SceneFinishes(sceneId, serenity.currentTime()),
+                    new SceneFinishes(sceneId, new ExecutionSuccessful(), serenity.currentTime()),
                 );
 
                 await serenity.waitForNextCue();
