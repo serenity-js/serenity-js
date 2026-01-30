@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.39.0](https://github.com/serenity-js/serenity-js/compare/v3.38.0...v3.39.0) (2026-01-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency jasmine to v5.13.0 ([f0cb621](https://github.com/serenity-js/serenity-js/commit/f0cb6218b41485084c8c177fe1e56558ba7b8fd0))
+* **deps:** update playwright dependencies to v1.58.1 ([e28d298](https://github.com/serenity-js/serenity-js/commit/e28d298e1154fcac0842d1e4bf02267ed6ecf453))
+
+
+### Features
+
+* **jasmine:** add support for Jasmine 6 ([cdd767c](https://github.com/serenity-js/serenity-js/commit/cdd767caca1d273e5c26a0b8e16ff7460d1ffedb))
+
+
+
+
+
 # [3.38.0](https://github.com/serenity-js/serenity-js/compare/v3.37.2...v3.38.0) (2026-01-29)
 
 
