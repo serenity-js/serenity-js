@@ -28,5 +28,15 @@ export interface SuiteResult extends Result {
     /** The time in ms for Suite execution, including any before/afterAll, before/afterEach. */
     duration: number | null;
 
-    location: Location;
+    /**
+     * The file system location of the suite.
+     * Available in Jasmine 5.x and earlier when monkey-patched by Serenity/JS.
+     */
+    location?: Location;
+
+    /**
+     * The filename where the suite is defined.
+     * Available in Jasmine 6.x and later.
+     */
+    filename?: string;
 }

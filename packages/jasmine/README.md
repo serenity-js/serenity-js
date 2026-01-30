@@ -17,6 +17,7 @@
 
 ## Features
 
+- Supports Jasmine 5.x and 6.x
 - Enables [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/) APIs in Jasmine tests
 - Supports all [Serenity/JS reporting features](https://serenity-js.org/handbook/reporting/)
 - TypeScript-first design with strong typing for safer and more predictable test code.

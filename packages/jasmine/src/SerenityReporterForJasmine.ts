@@ -46,6 +46,7 @@ import type {
     JasmineDoneInfo,
     JasmineReporter,
     JasmineStartedInfo,
+    Location,
     SpecResult,
     SuiteResult
 } from './jasmine/index.js';
@@ -62,11 +63,12 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     private currentSceneId: CorrelationId = undefined;
 
     /**
-     * @param {Serenity} serenity
+     * @param serenity - The Serenity instance
+     * @param requirementsHierarchy - The requirements hierarchy for tagging
      */
     constructor(
         private readonly serenity: Serenity,
-        private readonly requirementsHierachy: RequirementsHierarchy
+        private readonly requirementsHierachy: RequirementsHierarchy,
     ) {
     }
 
@@ -112,12 +114,13 @@ export class SerenityReporterForJasmine implements JasmineReporter {
         if (result.failedExpectations.length > 1) {
             result.failedExpectations.forEach(failedExpectation => {
                 const sceneId = this.serenity.currentSceneId();
+                const location = this.locationOf(result);
                 const activityDetails = new ActivityDetails(
                     new Name('Expectation'),
                     new FileSystemLocation(
-                        Path.from(result.location.path),
-                        result.location.line,
-                        result.location.column,
+                        Path.from(location.path),
+                        location.line,
+                        location.column,
                     ),
                 );
 
@@ -186,6 +189,37 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     }
 
     /**
+     * Extracts location information from a spec or suite result.
+     * Supports both Jasmine 5.x and 6.x (location object from monkey-patching).
+     *
+     * @private
+     * @param result - The spec or suite result
+     * @returns Location object with path, line, and column
+     */
+    private locationOf(result: SpecResult | SuiteResult): Location {
+        // Jasmine 5.x and 6.x with monkey-patching provides location object
+        if (result.location) {
+            return result.location;
+        }
+
+        // Fallback: use filename property if available (Jasmine 6.x without monkey-patching)
+        if (result.filename) {
+            return {
+                path: result.filename,
+                line: 0,
+                column: 0,
+            };
+        }
+
+        // Fallback for edge cases
+        return {
+            path: 'unknown',
+            line: 0,
+            column: 0,
+        };
+    }
+
+    /**
      * @private
      * @param {SpecResult} spec
      * @returns {ScenarioDetails}
@@ -193,12 +227,17 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     private scenarioDetailsOf(spec: SpecResult): { scenarioDetails: ScenarioDetails, scenarioTags: Tag[] } {
         const name = this.currentScenarioNameFor(spec.description);
         const featureName = this.currentFeatureNameFor(spec);
+        const location = this.locationOf(spec);
 
         return {
             scenarioDetails: new ScenarioDetails(
                 new Name(Tags.stripFrom(name)),
                 new Category(Tags.stripFrom(featureName)),
-                FileSystemLocation.fromJSON(spec.location as any),
+                new FileSystemLocation(
+                    Path.from(location.path),
+                    location.line,
+                    location.column,
+                ),
             ),
             scenarioTags: Tags.from(`${ featureName } ${ name }`)
         };
@@ -210,9 +249,15 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @returns {TestSuiteDetails}
      */
     private testSuiteDetailsOf(result: SuiteResult): TestSuiteDetails {
+        const location = this.locationOf(result);
+
         return new TestSuiteDetails(
             new Name(result.description),
-            FileSystemLocation.fromJSON(result.location as any),
+            new FileSystemLocation(
+                Path.from(location.path),
+                location.line,
+                location.column,
+            ),
             new CorrelationId(result.id),
         );
     }
@@ -222,7 +267,8 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @returns {string}
      */
     private currentFeatureNameFor(spec: SpecResult): string {
-        const path = new Path(spec.location.path);
+        const location = this.locationOf(spec);
+        const path = new Path(location.path);
 
         return this.describes[0]
             ? this.describes[0].description
