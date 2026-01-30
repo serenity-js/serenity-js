@@ -11,6 +11,7 @@ COMPILE_SCOPE=all
 # protractor-all
 # webdriverio-8-all
 # jasmine
+# jasmine-5
 # mocha
 # playwright-test
 # playwright-web
