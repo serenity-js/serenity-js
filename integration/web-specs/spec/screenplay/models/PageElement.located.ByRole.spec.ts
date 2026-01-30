@@ -9,7 +9,6 @@ import { Attribute } from '@serenity-js/web';
 /** @test {PageElement} */
 describe('PageElement', () => {
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     const question = <T>(name: string, value: T) =>
         Question.about(name, _actor => value);
 

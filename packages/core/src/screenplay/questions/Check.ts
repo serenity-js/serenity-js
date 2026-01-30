@@ -47,7 +47,7 @@ import { ExpectationMet } from './expectations';
  * @group Activities
  */
 export class Check<Actual> extends Task {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
     static whether<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): { andIfSo: (...activities: Activity[]) => Check<Actual_Type> } {
         return {
             andIfSo: (...activities: Activity[]) =>

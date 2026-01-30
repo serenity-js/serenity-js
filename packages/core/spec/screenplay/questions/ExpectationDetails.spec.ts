@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+
 import { describe, it } from 'mocha';
 
 import { ExpectationDetails, Unanswered } from '../../../src';

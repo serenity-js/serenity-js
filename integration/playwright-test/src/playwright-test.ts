@@ -10,12 +10,10 @@ const playwrightExecutable = path.resolve(
 
 export function playwrightTest(...params: string[]): Promise<SpawnResult> {
 
-    /* eslint-disable unicorn/consistent-function-scoping */
     const isReporter = (parameter: string) => parameter.startsWith('--reporter=');
     const reporterNameAndOutputPathFrom = (parameter: string): [ string, string ] => {
         return parameter.split('=')[1].split(':') as [ string, string ];
     }
-    /* eslint-enable unicorn/consistent-function-scoping */
 
     const [ reporters, parameters ] = params.reduce(
         ([ reporters, parameters ], parameter: string) => {

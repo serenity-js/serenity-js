@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+
 import type { EventRecorder } from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage } from '@serenity-js/core';
@@ -49,7 +49,7 @@ describe('SerenityBDDReporter', () => {
     const playwrightWorkspace = {
         [`${ cwd.value }`]: {
             'spec': {
-                'payments': { 
+                'payments': {
                     'express_checkout': {
                         'default_card.spec.ts': 'describe("Default card", () => { /* ... */ })'
                     },

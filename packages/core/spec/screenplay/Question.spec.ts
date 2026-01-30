@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null */
+
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
@@ -291,7 +291,7 @@ describe('Question', () => {
             describe('when used with null-ish values', () => {
 
                 it(`resolves to undefined for undefined`, async () => {
-                    const question: QuestionAdapter<undefined> = Question.fromObject(undefined);    // eslint-disable-line unicorn/no-useless-undefined
+                    const question: QuestionAdapter<undefined> = Question.fromObject(undefined);
                     const answer = await Quentin.answer(question);
 
                     expect(answer).to.equal(undefined);

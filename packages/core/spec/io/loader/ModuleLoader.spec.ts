@@ -9,7 +9,7 @@ describe('ModuleLoader', () => {
     it('returns the version number of a given package', () => {
         const loader = new ModuleLoader(__dirname);
 
-        const expectedVersion = require('../../../package.json').version;  // eslint-disable-line @typescript-eslint/no-var-requires
+        const expectedVersion = require('../../../package.json').version;
 
         expect(loader.versionOf('../../../')).to.equal(new Version(expectedVersion));
     });
@@ -17,7 +17,7 @@ describe('ModuleLoader', () => {
     it('returns the version of the npm-resolved package if the local package could not be found', () => {
         const loader = new ModuleLoader(path.join(__dirname, 'non-existent', 'local', 'directory'));
 
-        const expectedVersion = require('tiny-types/package.json').version; // eslint-disable-line @typescript-eslint/no-var-requires
+        const expectedVersion = require('tiny-types/package.json').version;
 
         expect(loader.versionOf('tiny-types')).to.equal(new Version(expectedVersion));
     });

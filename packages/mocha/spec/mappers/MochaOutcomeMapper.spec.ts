@@ -19,7 +19,7 @@ import { MochaOutcomeMapper } from '../../src/mappers';
 describe('MochaTestMapper', () => {
 
     const mapper = new MochaOutcomeMapper();
-    const someScenario = () => void 0;  // eslint-disable-line unicorn/consistent-function-scoping
+    const someScenario = () => void 0;
 
     it('recognises passing tests', () => {
 

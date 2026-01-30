@@ -14,7 +14,7 @@ describe('FileFinder', () => {
     });
 
     given([
-        null,       // eslint-disable-line unicorn/no-null
+        null,
         undefined
     ]).
     it('returns an empty list when given an undefined pattern', (pattern: any) => {

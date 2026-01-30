@@ -7,7 +7,6 @@ const
     Loose           = () => Interaction.where(`#actor releases the bowstring`, actor => void 0),
     RetrieveArrow   = () => Interaction.where(`#actor retrieves the arrow from the target`, actor => void 0);
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export = function () {
     this.Before(() =>
         serenity.theActorCalled('Lara').attemptsTo(

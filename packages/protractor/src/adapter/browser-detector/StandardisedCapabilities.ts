@@ -61,6 +61,6 @@ export class StandardisedCapabilities {
             }
         }
 
-        return undefined;   // eslint-disable-line unicorn/no-useless-undefined
+        return undefined;
     }
 }

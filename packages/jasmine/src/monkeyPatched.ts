@@ -2,7 +2,7 @@ import { ErrorStackParser } from '@serenity-js/core/lib/errors/index.js';
 
 const parser = new ErrorStackParser();
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * Monkey-patches Jasmine domain model constructors so that they

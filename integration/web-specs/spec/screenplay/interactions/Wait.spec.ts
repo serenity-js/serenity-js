@@ -8,8 +8,8 @@ import { By, Click, Navigate, PageElement, Text } from '@serenity-js/web';
 
 describe('Wait', () => {
 
-    const status = () => PageElement.located(By.id('status')).describedAs('the header');    // eslint-disable-line unicorn/consistent-function-scoping
-    const loadButton = () => PageElement.located(By.id('load')).describedAs('load button'); // eslint-disable-line unicorn/consistent-function-scoping
+    const status = () => PageElement.located(By.id('status')).describedAs('the header');
+    const loadButton = () => PageElement.located(By.id('load')).describedAs('load button');
 
     describe('detecting invocation location', () => {
         it('correctly detects its invocation location', () => {

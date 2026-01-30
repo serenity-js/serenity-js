@@ -1,6 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const Module = require('module'); // No type definitions available
-import path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path';
 
 import { Version } from '../Version';
 

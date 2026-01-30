@@ -10,7 +10,7 @@ import type { OutputDescriptor } from './OutputDescriptor';
  *
  * @group Integration
  */
-export class TempFileOutputDescriptor implements OutputDescriptor {  // eslint-disable-line unicorn/prevent-abbreviations
+export class TempFileOutputDescriptor implements OutputDescriptor {
     private readonly path: Path;
 
     constructor(private readonly fileSystem: FileSystem) {

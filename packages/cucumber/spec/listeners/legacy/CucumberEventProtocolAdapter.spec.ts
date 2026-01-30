@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { ImplementationPendingError, Serenity } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
@@ -14,7 +14,7 @@ import { createListener } from '../../../src/listeners/legacy';
 
 describe('CucumberEventProtocolAdapter', () => {
 
-    type CucumberHook = (event?: object) =>     // eslint-disable-line @typescript-eslint/ban-types
+    type CucumberHook = (event?: object) =>
     Promise<void> | void;
 
     let afterHook: CucumberHook;
@@ -39,7 +39,7 @@ describe('CucumberEventProtocolAdapter', () => {
         moduleLoader = sinon.createStubInstance(ModuleLoader);
         serenity = new Serenity();
         recorder = new EventRecorder();
-        eventBroadcaster = new EventEmitter();  // eslint-disable-line unicorn/prefer-event-target
+        eventBroadcaster = new EventEmitter();
 
         serenity.configure({
             crew: [recorder],
@@ -53,7 +53,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         const listener = createListener(serenity, moduleLoader);
 
-        adapter_ = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars
+        adapter_ = new listener({ eventBroadcaster, log });
     });
 
     it('correctly recognises Cucumber Event Protocol events', () => {
@@ -278,7 +278,6 @@ describe('CucumberEventProtocolAdapter', () => {
 
         emitAllFrom(require('./samples/scenario-outline.json'));
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         const expectedScenarioDetails = (line: number) => new ScenarioDetails(
             new Name('The things I like'),
             new Category('Event Protocol'),

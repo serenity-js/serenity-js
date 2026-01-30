@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-null */
+
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import {

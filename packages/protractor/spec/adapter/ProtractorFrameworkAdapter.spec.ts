@@ -247,7 +247,6 @@ describe('ProtractorFrameworkAdapter', () => {
 
     describe('configuration', () => {
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         function pickOne<T extends StageCrewMember>(type: new (...args: any[]) => T, crew: StageCrewMember[]): T {
             const found = crew.filter(member => member instanceof type);
 

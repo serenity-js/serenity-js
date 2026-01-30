@@ -1,6 +1,6 @@
 import { ValueInspector } from '@serenity-js/core/lib/io';
 
-/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable @stylistic/indent */
 type TransformedArgument<T, U> =
     T extends Array<infer E> ? Array<TransformedArgument<E, U>> :
     T extends object ? { [K in keyof T]: TransformedArgument<T[K], U> }

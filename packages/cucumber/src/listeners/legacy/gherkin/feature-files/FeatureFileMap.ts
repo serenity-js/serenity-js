@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 
 import type { Constructor } from '../constructables';
 import { ItemNotFoundError } from './errors';

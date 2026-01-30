@@ -18,7 +18,7 @@ describe('equals', () => {
         { description: 'boolean', expected: false, actual: false },
         { description: 'object', expected: { k: 'v' }, actual: { k: 'v' } },
         { description: 'TinyType', expected: new Name('Jan'), actual: new Name('Jan') },
-        { description: 'array', expected: [ null, 2, '3' ], actual: [ null, 2, '3' ] },      // eslint-disable-line unicorn/no-null
+        { description: 'array', expected: [ null, 2, '3' ], actual: [ null, 2, '3' ] },
         { description: 'Date', expected: new Date('Jan 27, 2019'), actual: new Date('Jan 27, 2019') },
     ]).
     it('compares the value of "actual" and "expected" and allows for the actor flow to continue when they match', ({ actual, expected }) => {
@@ -42,7 +42,7 @@ describe('equals', () => {
 
     it(`provides details when the actual value is undefined`, () => {
         return expect(actorCalled('Astrid').attemptsTo(
-            Ensure.that(undefined, equals(1)),              // eslint-disable-line unicorn/no-useless-undefined
+            Ensure.that(undefined, equals(1)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected undefined to equal 1
             |
@@ -55,7 +55,7 @@ describe('equals', () => {
 
     it(`provides details when the expected value is undefined`, () => {
         return expect(actorCalled('Astrid').attemptsTo(
-            Ensure.that(1, equals(undefined)),              // eslint-disable-line unicorn/no-useless-undefined
+            Ensure.that(1, equals(undefined)),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected 1 to equal undefined
             |

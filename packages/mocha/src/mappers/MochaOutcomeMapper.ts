@@ -56,7 +56,7 @@ export class MochaOutcomeMapper {
     }
 
     private looksLikeAnAssertionError(error: Error): error is AssertionError {
-        return /^AssertionError/.test(error.name)   // eslint-disable-line unicorn/prefer-string-starts-ends-with
+        return /^AssertionError/.test(error.name)
             && Object.prototype.hasOwnProperty.call(error, 'expected')
             && Object.prototype.hasOwnProperty.call(error, 'actual')
     }

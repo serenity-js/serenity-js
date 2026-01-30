@@ -7,7 +7,7 @@ interface TestFixtures {
 }
 
 const { describe, it } = useBase(baseTest).useFixtures<TestFixtures>({
-    // eslint-disable-next-line no-empty-pattern
+
     marker: async ({  }, use) => {
         await use('my-marker')
     },

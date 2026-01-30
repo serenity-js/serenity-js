@@ -13,7 +13,7 @@ import { Printer } from '../Printer';
 import { DownloadArtifact, FileExists, Notify } from '../screenplay';
 import { NotificationReporter, ProgressReporter, UpdateCommandActors } from '../stage';
 
-const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
+const yargs = require('yargs');
 
 export = {
     command: 'update',

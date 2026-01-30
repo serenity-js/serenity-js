@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+
 import { contentsOf, EventRecorder, EventStreamEmitter, expect } from '@integration/testing-tools';
 import type { Actor, Cast } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
@@ -10,7 +10,6 @@ import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 describe('SerenityBDDReporter', () => {

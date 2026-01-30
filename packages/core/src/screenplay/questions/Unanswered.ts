@@ -28,6 +28,6 @@ export class Unanswered extends TinyType {
     }
 
     toJSON(): JSONValue {
-        return undefined;   // eslint-disable-line unicorn/no-useless-undefined
+        return undefined;
     }
 }

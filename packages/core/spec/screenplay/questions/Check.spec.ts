@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 

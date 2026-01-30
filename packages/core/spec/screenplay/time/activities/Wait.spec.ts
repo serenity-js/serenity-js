@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+
 import { describe, it } from 'mocha';
 import { equal } from 'tiny-types/lib/objects';
 
@@ -269,7 +269,7 @@ describe('Wait', () => {
 });
 
 function brokenExpectationThatThrows(message: string): Expectation<any> {
-    return Expectation.thatActualShould<any, any>('throw an Error', undefined)  // eslint-disable-line unicorn/no-useless-undefined
+    return Expectation.thatActualShould<any, any>('throw an Error', undefined)
         .soThat((actualValue, expectedValue) => {
             throw new Error(message);
         });

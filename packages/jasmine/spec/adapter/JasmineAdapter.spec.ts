@@ -12,7 +12,7 @@ import { FakeJasmineRunner } from './FakeJasmineRunner.js';
 describe('JasmineAdapter', () => {
 
     const emptySuite = { getFullTitle: () => 'Top suite' };
-    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping
+    function specCalled(fullName: string) {
         return {
             getFullName() {
                 return fullName;

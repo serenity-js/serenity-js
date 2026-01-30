@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+
 import { expect } from '@integration/testing-tools';
 import { Cast, Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import type { Capabilities, Frameworks } from '@wdio/types';

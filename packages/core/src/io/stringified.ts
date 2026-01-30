@@ -135,7 +135,7 @@ function hasName(v: any): v is { name: string } {
  *
  * @param v
  */
-function isSerialisableAsJSON(v: any): v is object {    // eslint-disable-line @typescript-eslint/ban-types
+function isSerialisableAsJSON(v: any): v is object {
     try {
         JSON.stringify(v);
 

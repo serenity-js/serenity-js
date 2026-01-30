@@ -75,7 +75,7 @@ describe('Config', () => {
                 });
 
                 it('is null', () => {
-                    const config = new Config({ null: null });      // eslint-disable-line unicorn/no-null
+                    const config = new Config({ null: null });
 
                     expect(config.getAsList('null')).to.deep.equal([]);
                 });

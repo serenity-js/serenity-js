@@ -168,7 +168,7 @@ export class SerenityReporterForMocha extends reporters.Base {
 
         const details = new TestSuiteDetails(
             new Name(suite.title),
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
             new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
             suiteId,
         );
@@ -181,7 +181,7 @@ export class SerenityReporterForMocha extends reporters.Base {
     private announceSuiteFinishedFor(suite: Suite): void {
         const details = new TestSuiteDetails(
             new Name(suite.title),
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
             new FileSystemLocation(Path.from(suite.file!)), // all suites except for the root suite should have .file property set
             this.suiteIds.pop(),
         );

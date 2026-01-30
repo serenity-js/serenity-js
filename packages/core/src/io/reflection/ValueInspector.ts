@@ -15,7 +15,7 @@ export class ValueInspector {
      *
      * @param value
      */
-    static isFunction(value: unknown): value is Function {       // eslint-disable-line @typescript-eslint/ban-types
+    static isFunction(value: unknown): value is Function {
         return Object.prototype.toString.call(value) === '[object Function]';
     }
 
@@ -24,7 +24,7 @@ export class ValueInspector {
      *
      * @param value
      */
-    static isPlainObject(value: unknown): value is object {   // eslint-disable-line @typescript-eslint/ban-types
+    static isPlainObject(value: unknown): value is object {
 
         // Basic check for Type object that's not null
         if (typeof value === 'object' && value !== null) {
@@ -112,7 +112,7 @@ export class ValueInspector {
      *
      * @param value
      */
-    static isNative(value: unknown): value is Function {  // eslint-disable-line @typescript-eslint/ban-types
+    static isNative(value: unknown): value is Function {
 
         const
             toString = Object.prototype.toString,           // Used to resolve the internal `Class` of values
@@ -159,7 +159,7 @@ export class ValueInspector {
      *
      * @param value
      */
-    static hasCustomInspectionFunction(value: unknown): value is object { // eslint-disable-line @typescript-eslint/ban-types
+    static hasCustomInspectionFunction(value: unknown): value is object {
         return value && value[Symbol.for('nodejs.util.inspect.custom')];
     }
 }

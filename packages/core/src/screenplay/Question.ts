@@ -404,7 +404,7 @@ export abstract class Question<T> extends Describable {
                     const answer = await actor.answer(target as Answerable<AT>);
 
                     if (!isDefined(answer)) {
-                        return undefined;       // eslint-disable-line unicorn/no-useless-undefined
+                        return undefined;
                     }
 
                     const field = answer[key];
@@ -526,7 +526,7 @@ declare global {
     }
 }
 
-/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable @stylistic/indent */
 
 /**
  * Describes an object recursively wrapped in [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) proxies, so that:
@@ -549,7 +549,7 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
                 ? QuestionAdapter<Awaited<Original_Type[Field]>>
                 : any;
 };
-/* eslint-enable @typescript-eslint/indent */
+/* eslint-enable @stylistic/indent */
 
 /**
  * A union type representing a proxy object returned by [`Question.about`](https://serenity-js.org/api/core/class/Question/#about).
@@ -626,7 +626,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
             const answer = await actor.answer(this);
 
             if (! isDefined(answer)) {
-                return undefined;   // eslint-disable-line unicorn/no-useless-undefined
+                return undefined;
             }
 
             return mapping(answer);

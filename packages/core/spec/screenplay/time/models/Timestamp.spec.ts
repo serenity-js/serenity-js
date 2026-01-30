@@ -71,7 +71,7 @@ describe('Timestamp', () => {
         given<any>(
             0,
             '',
-            null,       // eslint-disable-line unicorn/no-null
+            null,
             undefined,
             {},
             [],
@@ -170,7 +170,7 @@ describe('Timestamp', () => {
                 { description: 'isAfterOrEqual',    method: now.isAfterOrEqual.bind(now),   expected: 'timestamp should be defined' },
             ]).
             it('complains', ({ method, expected }) => {
-                // eslint-disable-next-line unicorn/no-useless-undefined
+
                 expect(() => method(undefined)).to.throw(Error, expected)
             })
         });

@@ -15,7 +15,7 @@ describe('Playwright Test reporting', () => {
 
         test.use({
             defaultActorName: 'Alice',
-            // eslint-disable-next-line no-empty-pattern
+
             extraAbilities: async ({ }, use) => {
                 await use((actorName: string) => {
                     return actorName === 'Alice'

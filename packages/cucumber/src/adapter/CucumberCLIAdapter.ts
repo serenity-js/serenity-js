@@ -1,4 +1,4 @@
-import path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path';
 
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import type { FileSystem, ModuleLoader } from '@serenity-js/core/lib/io';

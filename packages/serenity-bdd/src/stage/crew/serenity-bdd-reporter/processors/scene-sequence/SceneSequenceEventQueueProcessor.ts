@@ -53,7 +53,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
 
     process(queue: DomainEventQueue): SerenityBDD4ReportSchema {
         return queue.reduce((context, event) =>
-            // eslint-disable-next-line @typescript-eslint/indent
+
             match<DomainEvent, SceneSequenceReportContext>(event)
                 .when(SceneSequenceDetected,            this.onSceneSequenceDetected(context))
                 .when(RetryableSceneDetected,           this.onRetryableSceneDetected(context))
@@ -74,7 +74,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(context))
                 .when(SceneFinished,                    this.onSceneFinished(context))
                 .else(() => context),
-            new SceneSequenceReportContext(this.requirementsHierarchy)    // eslint-disable-line @typescript-eslint/indent
+            new SceneSequenceReportContext(this.requirementsHierarchy)    // eslint-disable-line @stylistic/indent
         ).build();
     }
 

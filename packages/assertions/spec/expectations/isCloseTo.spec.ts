@@ -17,12 +17,12 @@ describe('isCloseTo', () => {
 
         it('allows for the actor flow to continue when the "actual" is close to the "expected"', () => {
             return expect(actorCalled('Astrid').attemptsTo(
-                Ensure.that(2.000_000_000_1, isCloseTo(2.000_000_000_0)),   // eslint-disable-line unicorn/no-zero-fractions
+                Ensure.that(2.000_000_000_1, isCloseTo(2.000_000_000_0)),
             )).to.be.fulfilled;
         });
 
         it('contributes to a human-readable description', () => {
-            expect(Ensure.that(2.00000000, isCloseTo(2.000000001)).toString())  // eslint-disable-line unicorn/no-zero-fractions
+            expect(Ensure.that(2.00000000, isCloseTo(2.000000001)).toString())
                 .to.equal(`#actor ensures that 2 does have value close to 2.000000001 ±1e-9`);
         });
     });

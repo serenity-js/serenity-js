@@ -170,7 +170,7 @@ export class ExecuteScript {
      * @param script
      *  The script to be executed
      */
-    static async(script: string | Function): ExecuteScriptWithArguments {   // eslint-disable-line @typescript-eslint/ban-types
+    static async(script: string | Function): ExecuteScriptWithArguments {
         return new ExecuteAsynchronousScript(
             `#actor executes an asynchronous script`,
             script,
@@ -282,7 +282,7 @@ export class ExecuteScript {
      * @param script
      *  The script to be executed
      */
-    static sync(script: string | Function): ExecuteScriptWithArguments {    // eslint-disable-line @typescript-eslint/ban-types
+    static sync(script: string | Function): ExecuteScriptWithArguments {
         return new ExecuteSynchronousScript(
             `#actor executes a synchronous script`,
             script,
@@ -302,7 +302,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
 
     constructor(
         description: Answerable<string>,
-        protected readonly script: string | Function,           // eslint-disable-line @typescript-eslint/ban-types
+        protected readonly script: string | Function,
         protected readonly args: Array<Answerable<any>> = [],
     ) {
         super(description, Interaction.callerLocation(5));

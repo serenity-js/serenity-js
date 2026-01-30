@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
@@ -105,7 +105,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
     });
 
     // https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-runner/src/reporter.ts#L127
-    // eslint-disable-next-line unicorn/prefer-event-target
+
     class FakeBaseReporter extends EventEmitter implements ProvidesWriteStream, InitialisesReporters {
         public output = '';
         public _reporters = [];

@@ -28,10 +28,10 @@ describe('Question', () => {
                 describe('answeredBy()', () => {
 
                     given([
-                        { description: 'null', actual: null, expected: null },                                     // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
-                        { description: 'Promise<null>', actual: p(null), expected: null },                         // eslint-disable-line unicorn/no-null,unicorn/no-useless-undefined
-                        { description: 'undefined', actual: undefined, expected: undefined },                           // eslint-disable-line unicorn/no-useless-undefined
-                        { description: 'Promise<undefined>', actual: p(undefined), expected: undefined },               // eslint-disable-line unicorn/no-useless-undefined
+                        { description: 'null', actual: null, expected: null },
+                        { description: 'Promise<null>', actual: p(null), expected: null },
+                        { description: 'undefined', actual: undefined, expected: undefined },
+                        { description: 'Promise<undefined>', actual: p(undefined), expected: undefined },
                         { description: 'object', actual: { name: 'Alice' }, expected: { name: 'Alice' } },
                         { description: 'Promise<object>', actual: p({ name: 'Alice' }), expected: { name: 'Alice' } },
                         { description: 'primitive', actual: 42, expected: 42 },
@@ -47,7 +47,7 @@ describe('Question', () => {
 
                     given([
                         undefined,
-                        null,           // eslint-disable-line unicorn/no-null
+                        null,
                     ]).it('resolves to false when the answer is not defined', async (value: any) => {
                         const answer = await actor.answer(Question.about('some value', _actor => value).isPresent());
 
@@ -284,7 +284,6 @@ describe('Question', () => {
                         return [ Jane, Michael ]
                     }
 
-                    // eslint-disable-next-line unicorn/consistent-function-scoping
                     const Value = <T>(value: T) =>
                         Question.about(`some value`, _actor => value);
 

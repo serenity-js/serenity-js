@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-for-loop,unicorn/consistent-function-scoping */
+
 /* c8 ignore start */
 export function isVisible(domNode: HTMLElement): boolean {
 

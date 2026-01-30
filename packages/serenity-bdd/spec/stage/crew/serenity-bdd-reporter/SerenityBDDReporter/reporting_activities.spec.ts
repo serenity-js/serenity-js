@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
+/* eslint-disable @stylistic/indent */
 import type { EventRecorder} from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage} from '@serenity-js/core';

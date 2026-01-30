@@ -12,8 +12,6 @@ import { satisfies } from 'semver';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
 import servers = require('./servers');
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 describe('ManageALocalServer', () => {
 
     describe('when working with HTTP', () => {

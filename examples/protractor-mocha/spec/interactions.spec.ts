@@ -17,7 +17,6 @@ describe('Interactions', () => {
 
     let counter = 1;
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     const FailTheTest = () =>
         Interaction.where(`#actor deliberately fails the test`, actor => {
             throw new Error('Test failed');

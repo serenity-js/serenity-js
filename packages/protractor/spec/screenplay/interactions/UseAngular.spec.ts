@@ -16,7 +16,6 @@ describe('UseAngular', function () {
 
         afterEach(() => protractor.browser.waitForAngularEnabled(false));    // same as protractor.conf.js
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         const IsSynchronisationEnabled = () =>
             Question.about('angular synchronisation',
                 actor => promised(protractor.browser.waitForAngularEnabled()),

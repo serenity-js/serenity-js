@@ -4,7 +4,6 @@ import { given } from 'mocha-testdata';
 import { type Actor, Cast, Question, Serenity } from '../../src';
 import { expect } from '../expect';
 
-/* eslint-disable unicorn/no-null,unicorn/no-useless-undefined */
 describe('Question.value', () => {
 
     let serenity: Serenity,

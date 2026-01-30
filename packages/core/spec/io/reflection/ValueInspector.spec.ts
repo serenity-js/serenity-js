@@ -10,7 +10,7 @@ describe('ValueInspector', () => {
 
         given([
             { description: 'undefined', value: undefined,     expected: true    },
-            { description: 'null',      value: null,          expected: true    },  // eslint-disable-line unicorn/no-null
+            { description: 'null',      value: null,          expected: true    },
             { description: 'number',    value: 42,            expected: true    },
             { description: 'bigint',    value: BigInt(10),    expected: true    },
             { description: 'string',    value: 'example',     expected: true    },
@@ -30,7 +30,6 @@ describe('ValueInspector', () => {
 
     describe('typeOf(value)', () => {
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         function proxy<T extends object>(value: T) {
             return new Proxy(value, {
                 getPrototypeOf(target: T): object | null {
@@ -43,7 +42,7 @@ describe('ValueInspector', () => {
 
         given([
             { description: 'undefined', value: undefined,     expected: 'undefined' },
-            { description: 'null',      value: null,          expected: 'null'      },  // eslint-disable-line unicorn/no-null
+            { description: 'null',      value: null,          expected: 'null'      },
             { description: 'number',    value: 42,            expected: 'number'    },
             { description: 'bigint',    value: BigInt(10),    expected: 'bigint'    },
             { description: 'string',    value: 'example',     expected: `string`    },
@@ -58,10 +57,9 @@ describe('ValueInspector', () => {
             { description: 'Proxy<T>',      value: proxy(new Example()),    expected: `Proxy<Example>`  },
             { description: 'Proxy<Object>', value: new Proxy({}, {}),       expected: `Proxy<Object>`   },
 
-            /* eslint-disable unicorn/new-for-builtins */
             { description: 'String',    value: new String('hi'),    expected: `String`   },
             { description: 'Number',    value: new Number(12),      expected: `Number`   },
-            /* eslint-enable unicorn/new-for-builtins */
+
         ]).
         it('describes the type of', ({ value, expected }) => {
             const result = ValueInspector.typeOf(value);

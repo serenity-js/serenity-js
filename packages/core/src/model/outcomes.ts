@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types,unicorn/prefer-math-trunc */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { JSONObject} from 'tiny-types';
 import { match, TinyType } from 'tiny-types';
 

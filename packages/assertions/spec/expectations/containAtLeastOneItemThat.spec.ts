@@ -54,17 +54,17 @@ describe('containAtLeastOneItemThat', () => {
             | Received Array
             |
             | [
-            |   [ 
-            |     0, 
-            |     1 
+            |   [
+            |     0,
+            |     1
             |   ],
-            |   [ 
-            |     2, 
-            |     3 
+            |   [
+            |     2,
+            |     3
             |   ],
-            |   [ 
-            |     4, 
-            |     5 
+            |   [
+            |     4,
+            |     5
             |   ]
             | ]
             |`);
@@ -86,7 +86,7 @@ describe('containAtLeastOneItemThat', () => {
     });
 
     it('contributes to a human-readable description', () => {
-        // eslint-disable-next-line unicorn/consistent-function-scoping
+
         const numbers = () =>
             Question.about('list of numbers', actor_ => [ 0, 1, 2 ]);
 

@@ -240,7 +240,6 @@ describe('CallAnApi', () => {
         });
     });
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     function mockedAxiosInstance() {
         const
             axiosInstance = axios.create(),

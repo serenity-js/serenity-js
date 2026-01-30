@@ -1,6 +1,6 @@
-const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
+const yargs = require('yargs');
 
-const pkg = require('../../package.json');  // eslint-disable-line @typescript-eslint/no-var-requires
+const pkg = require('../../package.json');
 
 /**
  * Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.

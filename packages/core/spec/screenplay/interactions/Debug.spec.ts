@@ -129,7 +129,7 @@ describe('Debug', () => {
     });
 
     it('correctly detects its invocation location when debugging values', () => {
-        const activity = Debug.values(() => {});   // eslint-disable-line @typescript-eslint/no-empty-function
+        const activity = Debug.values(() => {});
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Debug.spec.ts');

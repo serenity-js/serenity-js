@@ -8,7 +8,7 @@ import { TempFileOutputDescriptor } from './TempFileOutputDescriptor';
 /**
  * @group Integration
  */
-export class TempFileOutput implements SerenityFormatterOutput {    // eslint-disable-line unicorn/prevent-abbreviations
+export class TempFileOutput implements SerenityFormatterOutput {
     constructor(private readonly fs: FileSystem) {
     }
 

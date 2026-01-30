@@ -23,7 +23,7 @@ import { d, Expectation } from '@serenity-js/core';
  */
 export const isCloseTo = Expectation.define(
     'isCloseTo', (expected, absoluteTolerance = 1e-9) => d`have value close to ${ expected } ±${ absoluteTolerance }`,
-    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+
     (actual: number, expected: number, absoluteTolerance: number = 1e-9) => {
         // short-circuit exact equality
         if (actual === expected) {

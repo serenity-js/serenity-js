@@ -210,7 +210,7 @@ describe('FeatureFileMapper', () => {
         it('recognises the different names and descriptions of example sets', parse('scenario_outlines.feature', map => {
             const path = fixtures.join(new Path('scenario_outlines.feature'));
 
-            /* eslint-disable @typescript-eslint/indent */
+            /* eslint-disable @stylistic/indent */
             expect(map.get(ScenarioOutline).onLine(17)).to.equal(
                 new ScenarioOutline(
                     new FileSystemLocation(path, 17, 3),
@@ -317,7 +317,7 @@ describe('FeatureFileMapper', () => {
 
             const mapper = new FeatureFileMapper();
 
-            expect(mapper.map(empty, fixtures).size()).to.equal(0); // eslint-disable-line unicorn/no-array-method-this-argument
+            expect(mapper.map(empty, fixtures).size()).to.equal(0);
         });
     });
 
@@ -340,7 +340,6 @@ describe('FeatureFileMapper', () => {
             mapper = new FeatureFileMapper(),
             loader = new FeatureFileParser(new Gherkin.Parser());
 
-        // eslint-disable-next-line unicorn/no-array-method-this-argument
         return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);
     }
 });

@@ -39,7 +39,6 @@ describe('Expectation', () => {
 
     describe('allows to alias an expectation, so that the alias', () => {
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         function isWithin(lowerBound: number, upperBound: number) {
             return Expectation
                 .to(`have value within ${ lowerBound } and ${ upperBound }`)
@@ -71,7 +70,6 @@ describe('Expectation', () => {
 
     describe('allows to override the description of an expectation, so that the new version', () => {
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         function isWithin(lowerBound: number, upperBound: number) {
             return and(
                 or(isGreaterThan(lowerBound), equals(lowerBound)),

@@ -41,7 +41,7 @@ describe('LastScriptExecution', function () {
                     /* do nothing */
                 `),
 
-                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)), // eslint-disable-line unicorn/no-useless-undefined
+                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)),
             ));
     });
 
@@ -77,7 +77,7 @@ describe('LastScriptExecution', function () {
                     callback();
                 `),
 
-                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)), // eslint-disable-line unicorn/no-useless-undefined
+                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)),
             ));
     });
 

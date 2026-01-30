@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // https://github.com/expressjs/express
 import express from 'express';
 

@@ -27,24 +27,22 @@ interface ExtraWorkerFixtures {
 }
 
 const firstBase = baseTest.extend<FirstTestFixtures, FirstWorkerFixtures>({
-    // eslint-disable-next-line no-empty-pattern
+
     firstTestMarker: async ({}, use) => {
         await use('first test marker')
     },
 
-    // eslint-disable-next-line no-empty-pattern
     firstWorkerMarker: [ async ({}, use) => {
         await use('first worker marker')
     }, { scope: 'worker' } ]
 });
 
 const secondBase = baseTest.extend<SecondTestFixtures, SecondWorkerFixtures>({
-    // eslint-disable-next-line no-empty-pattern
+
     secondTestMarker: async ({}, use) => {
         await use('second test marker')
     },
 
-    // eslint-disable-next-line no-empty-pattern
     secondWorkerMarker: [ async ({}, use) => {
         await use('second worker marker')
     }, { scope: 'worker' } ]

@@ -53,7 +53,7 @@ const webdriverProtocol: Partial<WebdriverIOConfig> = {
     outputDir: 'target/logs',
     services: [
         [ 'chromedriver', {
-            chromedriverCustomPath: require(`chromedriver`).path,   // eslint-disable-line @typescript-eslint/no-var-requires
+            chromedriverCustomPath: require(`chromedriver`).path,
         } ]
     ],
 };

@@ -24,7 +24,6 @@ export class ProtractorPage extends Page<protractor.ElementFinder> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /* eslint-disable unicorn/consistent-function-scoping */
     private dehydrator: ArgumentDehydrator<PageElement<protractor.ElementFinder>, protractor.WebElement> = new ArgumentDehydrator(
         (item: any): item is PageElement<protractor.ElementFinder> => item instanceof PageElement,
         async (item: PageElement<protractor.ElementFinder>) => {
@@ -32,7 +31,6 @@ export class ProtractorPage extends Page<protractor.ElementFinder> {
             return nativeElement.getWebElement();
         },
     );
-    /* eslint-enable */
 
     constructor(
         session: ProtractorBrowsingSession,
@@ -311,7 +309,7 @@ export class ProtractorPage extends Page<protractor.ElementFinder> {
             const desiredWindowSize: { width: number, height: number } = await promised(this.browser.executeScript(`
                 var currentViewportWidth  = Math.max(document.documentElement.clientWidth,  window.innerWidth || 0)
                 var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-                
+
                 return {
                     width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
                     height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),

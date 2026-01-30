@@ -100,7 +100,7 @@ export interface CucumberConfig {
      * #### Learn more
      * - [Cucumber format options](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options)
      */
-    formatOptions?: object | string;    // eslint-disable-line @typescript-eslint/ban-types
+    formatOptions?: object | string;
 
     /**
      * Only execute the scenarios with name matching the expression.
@@ -269,5 +269,5 @@ export interface CucumberConfig {
      *
      * - [Cucumber docs: world parameters](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters)
      */
-    worldParameters?: object | string;  // eslint-disable-line @typescript-eslint/ban-types
+    worldParameters?: object | string;
 }

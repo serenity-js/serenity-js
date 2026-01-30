@@ -60,7 +60,7 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
                 .when(ActivityRelatedArtifactArchived,  this.onActivityRelatedArtifactArchived(context))
                 .when(SceneFinished,                    this.onSceneFinished(context))
                 .else(() => context),
-            new SingleSceneReportContext(this.requirementsHierarchy)  // eslint-disable-line @typescript-eslint/indent
+            new SingleSceneReportContext(this.requirementsHierarchy)  // eslint-disable-line @stylistic/indent
         ).build();
     }
 

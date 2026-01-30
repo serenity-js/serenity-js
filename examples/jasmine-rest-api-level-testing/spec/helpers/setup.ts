@@ -4,7 +4,6 @@ import path from 'node:path';
 
 import { configure } from '@serenity-js/core';
 
-// eslint-disable-next-line mocha/no-top-level-hooks
 beforeAll(() => {
     configure({
         crew: [
