@@ -29,5 +29,15 @@ export interface SpecResult {
     /** The time in ms used by the spec execution, including any before/afterEach. */
     duration: number | null;
 
-    location: Location;
+    /**
+     * The file system location of the spec.
+     * Available in Jasmine 5.x and earlier when monkey-patched by Serenity/JS.
+     */
+    location?: Location;
+
+    /**
+     * The filename where the spec is defined.
+     * Available in Jasmine 6.x and later.
+     */
+    filename?: string;
 }

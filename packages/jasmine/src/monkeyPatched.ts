@@ -10,6 +10,10 @@ const parser = new ErrorStackParser();
  *
  * This helps to make reporting more accurate.
  *
+ * For Jasmine 5.x, the location is stored on instance.result.location.
+ * For Jasmine 6.x, the location is stored on instance._serenityLocation and
+ * injected into the result events via patched startedEvent/doneEvent methods.
+ *
  * @param jasmineConstructor - A Jasmine constructor function to be patched
  * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
  */
@@ -23,7 +27,40 @@ export function monkeyPatched(
         });
 
         const instance = new jasmineConstructor(attrs);
-        instance.result.location = callerLocation();
+        const location = callerLocation();
+
+        // Jasmine 5.x: instance.result exists, store location there
+        if (instance.result) {
+            instance.result.location = location;
+        }
+        // Jasmine 6.x: store location on instance and patch event methods
+        else {
+            instance._serenityLocation = location;
+
+            // Patch startedEvent to include location
+            if (typeof instance.startedEvent === 'function') {
+                const originalStartedEvent = instance.startedEvent.bind(instance);
+                instance.startedEvent = function() {
+                    const event = originalStartedEvent();
+                    if (event && instance._serenityLocation) {
+                        event.location = instance._serenityLocation;
+                    }
+                    return event;
+                };
+            }
+
+            // Patch doneEvent to include location
+            if (typeof instance.doneEvent === 'function') {
+                const originalDoneEvent = instance.doneEvent.bind(instance);
+                instance.doneEvent = function() {
+                    const event = originalDoneEvent();
+                    if (event && instance._serenityLocation) {
+                        event.location = instance._serenityLocation;
+                    }
+                    return event;
+                };
+            }
+        }
 
         return instance;
     };
