@@ -182,6 +182,37 @@
       "allowedVersions": "^9"
     },
     {
+      "groupName": "Jasmine 5 dependencies",
+      "labels": [
+        "@serenity-js/jasmine"
+      ],
+      "matchFileNames": [
+        "integration/jasmine-5/**"
+      ],
+      "matchPackageNames": [
+        "/^jasmine$/",
+        "/^@types/jasmine$/"
+      ],
+      "allowedVersions": "< 6"
+    },
+    {
+      "groupName": "Jasmine dependencies",
+      "labels": [
+        "@serenity-js/jasmine"
+      ],
+      "matchFileNames": [
+        "packages/jasmine/**",
+        "integration/jasmine/**",
+        "integration/protractor-jasmine/**",
+        "integration/webdriverio-jasmine/**",
+        "integration/webdriverio-8-jasmine/**"
+      ],
+      "matchPackageNames": [
+        "/^jasmine$/",
+        "/^@types/jasmine$/"
+      ]
+    },
+    {
       "groupName": "Serenity BDD dependencies",
       "labels": [
         "@serenity-js/serenity-bdd"
