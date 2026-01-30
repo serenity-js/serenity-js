@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 // https://github.com/hapijs/hapi
 
@@ -6,7 +6,7 @@ export = {
     node: '>= 8.12',
     description: 'Hapi app',
     handler: (options?: any) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+
         const hapi = require('@hapi/hapi');   // Requiring Hapi breaks the build on Node 6
         const server = new hapi.Server(options);
 

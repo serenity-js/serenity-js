@@ -5,7 +5,7 @@ import { AssertionError, TimeoutExpiredError } from '../../src/errors';
 import { ErrorSerialiser } from '../../src/errors';
 import { expect } from '../expect';
 
-const { format } = require('assertion-error-formatter');    // eslint-disable-line @typescript-eslint/no-var-requires
+const { format } = require('assertion-error-formatter');
 
 describe ('ErrorSerialiser', () => {
 

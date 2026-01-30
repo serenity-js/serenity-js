@@ -51,7 +51,7 @@ describe('isPresent', () => {
 
     it('breaks the actor flow when "actual" is null', () => {
         return expect(actorCalled('Astrid').attemptsTo(
-            Ensure.that(null, isPresent()),                     // eslint-disable-line unicorn/no-null
+            Ensure.that(null, isPresent()),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected null to become present
             |
@@ -77,7 +77,7 @@ describe('isPresent', () => {
         const value = Question.about('custom type, like a PageElement', actor_ => new CustomType('example'));
 
         return expect(actorCalled('Astrid').attemptsTo(
-            Ensure.that(value, isPresent()),                     // eslint-disable-line unicorn/no-null
+            Ensure.that(value, isPresent()),
         )).to.be.rejectedWith(AssertionError, trimmed`
             | Expected custom type, like a PageElement to become present
             |
@@ -86,8 +86,8 @@ describe('isPresent', () => {
             | Expected boolean:                  true
             | Received Proxy<QuestionStatement>
             |
-            | CustomType { 
-            |   value: 'example' 
+            | CustomType {
+            |   value: 'example'
             | }
             |`);
     });

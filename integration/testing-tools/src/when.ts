@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export function when(condition: boolean) {
     const it = (global as any).test || (global as any).it;
 

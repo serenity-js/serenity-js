@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+
 import { inspect } from 'node:util';
 
 import { ErrorStackParser, RuntimeError } from '@serenity-js/core';

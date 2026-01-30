@@ -18,11 +18,10 @@ ErrorSerialiser.registerErrorTypes(
 export * from './diff';
 export * from './model';
 
-/* eslint-disable simple-import-sort/exports */
+/* eslint-disable simple-import-sort/exports -- Keep this directive: export order matters to avoid circular dependency (ErrorFactory -> io -> screenplay/Question -> errors -> ErrorStackParser). Do not auto-fix. */
 export { ErrorSerialiser } from './ErrorSerialiser';
 export { ErrorStackParser } from './ErrorStackParser';
-/* eslint-enable simple-import-sort/exports */
-
 export { ErrorFactory } from './ErrorFactory';
 export { ErrorOptions } from './ErrorOptions';
-export * from './RaiseErrors'
+export * from './RaiseErrors';
+/* eslint-enable simple-import-sort/exports */

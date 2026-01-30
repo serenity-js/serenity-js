@@ -163,7 +163,7 @@ describe('Calculator', () => {
         }
 
         given<any>(
-            null,   // eslint-disable-line unicorn/no-null
+            null,
             undefined,
             {},
             'string',
@@ -184,7 +184,7 @@ describe('Calculator', () => {
         }
 
         given<any>(
-            null,   // eslint-disable-line unicorn/no-null
+            null,
             undefined,
             {},
             'string',

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 // https://github.com/restify/node-restify
 
@@ -16,7 +16,7 @@ export = {
     description: 'Restify app',
     handler: (options?: any) => {
         // Restify does monkey-patching on load, which breaks on Node 18
-        const restify = require('restify'); // eslint-disable-line @typescript-eslint/no-var-requires
+        const restify = require('restify');
 
         const server = restify.createServer(options);
 

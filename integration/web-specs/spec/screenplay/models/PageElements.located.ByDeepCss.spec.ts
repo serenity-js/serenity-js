@@ -8,7 +8,6 @@ import { By, Hover, Navigate, PageElement, PageElements, Text } from '@serenity-
 /** @test {PageElements} */
 describe('PageElements', () => {
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     const question = <T>(name: string, value: T) =>
         Question.about(name, _actor => value);
 

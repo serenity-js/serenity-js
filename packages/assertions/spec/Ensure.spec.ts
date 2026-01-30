@@ -99,7 +99,7 @@ describe('Ensure', () => {
                     'broken',
                     'broken',
                     (_actor: AnswersQuestions, _actual: Answerable<Actual>) => {
-                        return undefined as any;    // eslint-disable-line unicorn/no-useless-undefined
+                        return undefined as any;
                     },
                 );
             }

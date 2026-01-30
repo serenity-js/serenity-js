@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */
+
 import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integration/testing-tools';
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { ArtifactGenerated } from '@serenity-js/core/lib/events';
@@ -8,7 +8,6 @@ import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 describe('SerenityBDDReporter', () => {

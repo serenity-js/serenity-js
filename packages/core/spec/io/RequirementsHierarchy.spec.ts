@@ -8,7 +8,6 @@ import { RequirementsHierarchy } from '../../src/io/RequirementsHierarchy';
 import { CapabilityTag, FeatureTag, ThemeTag } from '../../src/model/tags';
 import { expect } from '../expect';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 describe('RequirementsHierarchy', () => {

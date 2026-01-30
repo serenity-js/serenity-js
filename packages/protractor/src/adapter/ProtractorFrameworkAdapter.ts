@@ -13,7 +13,7 @@ import { ProtractorReporter } from './reporter';
 import { TestRunnerDetector } from './runner';
 import deepmerge = require('deepmerge');
 
-const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');   // eslint-disable-line @typescript-eslint/no-var-requires
+const querySelectorShadowDomPlugin = require('query-selector-shadow-dom/plugins/protractor');
 
 /**
  * @private

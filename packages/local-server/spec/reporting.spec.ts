@@ -82,7 +82,6 @@ describe('@serenity-js/local-server', () => {
         ]));
     });
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     function hasName(expectedName: string) {
         return (e: ActivityStarts | ActivityFinished) => expect(e.details.name.value).equals(expectedName);
     }

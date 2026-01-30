@@ -32,10 +32,10 @@ describe('List', () => {
 
         const collection = [ 'first', 'second', 'third' ];
 
-        const q = <T>(value: T) =>                              // eslint-disable-line unicorn/consistent-function-scoping
+        const q = <T>(value: T) =>
             Question.about<T>('some items', actor => value);
 
-        const p = <T>(value: T) =>                              // eslint-disable-line unicorn/consistent-function-scoping
+        const p = <T>(value: T) =>
             Promise.resolve(value);
 
         const examples = [ {
@@ -359,7 +359,7 @@ describe('List', () => {
 
         given([ {
             description:        'null',
-            answerable:         null,                           // eslint-disable-line unicorn/no-null
+            answerable:         null,
             expectedMessage:    'null given',
         }, {
             description:        'undefined',

@@ -8,7 +8,6 @@ describe('My feature', { tag: '@feature' }, () => {
             // no-op, passing
         });
 
-        // eslint-disable-next-line mocha/no-skipped-tests
         it.skip('manual test', { tag: '@manual' }, async ({ actorCalled }) => {});
     });
 });

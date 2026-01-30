@@ -29,6 +29,6 @@ export class WebdriverIORootLocator extends RootLocator<WebdriverIO.Browser> {
     }
 
     async switchToMainFrame(): Promise<void> {
-        await this.browser.switchToFrame(null); // eslint-disable-line unicorn/no-null
+        await this.browser.switchToFrame(null);
     }
 }

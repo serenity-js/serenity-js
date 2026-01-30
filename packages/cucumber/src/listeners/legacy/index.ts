@@ -30,7 +30,6 @@ export function createListener(serenity: Serenity, moduleLoader: ModuleLoader): 
                 cache,
             );
 
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         return require(`./cucumber-${ version.major() }`)({
             serenity,
             notifier,

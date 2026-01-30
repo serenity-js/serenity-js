@@ -98,7 +98,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { option: true },
     ],
 
-    // eslint-disable-next-line no-empty-pattern,@typescript-eslint/explicit-module-boundary-types
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     platform: [ async ({}, use) => {
         const platform = os.platform();
 
@@ -111,7 +111,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
     }, { scope: 'worker' } ],
 
     diffFormatterInternal: [
-        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({}, use) => {
             const diffFormatter = new AnsiDiffFormatter();
             await use(diffFormatter);
@@ -120,7 +120,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
     ],
 
     sceneIdFactoryInternal: [
-        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({}, use) => {
             await use(new PlaywrightTestSceneIdFactory());
         },
@@ -143,7 +143,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
     ],
 
     eventStreamWriterInternal: [
-        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,no-empty-pattern
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({}, use, workerInfo) => {
 
             const serenityOutputDirectory = path.join(workerInfo.project.outputDir, 'serenity');

@@ -15,9 +15,9 @@ describe('outcomes', () => {
             assert.strictEqual(false, true);
         });
 
-        it('is pending');   // eslint-disable-line mocha/no-pending-tests
+        it('is pending');
 
-        xit('is skipped', function () { // eslint-disable-line mocha/no-skipped-tests
+        xit('is skipped', function () {
             // no-op
         });
 

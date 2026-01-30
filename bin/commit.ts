@@ -7,13 +7,11 @@
  *  https://github.com/leoforfree/cz-customizable/pull/196
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 const inquirer = require('inquirer');   // transitive dependency of cz-customizable
 
 const app = require('cz-customizable');
 const log = require('cz-customizable/lib/logger');
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 log.info('cz-customizable standalone version');
 

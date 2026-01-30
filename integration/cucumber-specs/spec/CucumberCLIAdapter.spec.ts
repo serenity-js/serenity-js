@@ -28,7 +28,7 @@ import { given } from 'mocha-testdata';
 
 import { cucumberVersion } from '../src';
 
-const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
+const { stdout } = require('test-console');
 
 describe('CucumberCLIAdapter', function () {
 
@@ -207,7 +207,6 @@ describe('CucumberCLIAdapter', function () {
         });
     });
 
-    // eslint-disable-next-line unicorn/consistent-function-scoping
     function clearRequireCache(patterns: string[]) {
         const cachedImports = Object.keys(require.cache);
         const importsToClear = cachedImports.filter(key => patterns.some((pattern: string) => key.includes(pattern)));

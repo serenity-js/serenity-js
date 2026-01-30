@@ -135,7 +135,7 @@ describe('ClassDescriptionParser', () => {
         given([
             {
                 description: 'null',
-                value: null,        // eslint-disable-line unicorn/no-null
+                value: null,
                 expectedError: { type: ConfigurationError, message: 'null is not a valid class description. Valid class description must be a string or an Array with 1-2 items, where the first item is a string.' }
             },
             {

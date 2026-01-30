@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';

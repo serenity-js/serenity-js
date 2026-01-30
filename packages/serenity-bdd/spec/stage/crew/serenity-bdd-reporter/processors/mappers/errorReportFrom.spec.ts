@@ -44,38 +44,38 @@ describe('errorReportFrom', () => {
 
             const report = errorReportFrom(thrown(AssertionError, trimmed`
                 | Expected test users to equal expected users
-                | 
+                |
                 | Expectation: equals([ { age: 36, name: 'Jan' }, { age: 30, name: 'Alice' } ])
-                | 
+                |
                 | [32mExpected Array  - 2[39m
                 | [31mReceived Array  + 2[39m
-                | 
+                |
                 |   [
                 | [32m-   { age: 36, name: 'Jan' }[39m
                 | [32m-   { age: 30, name: 'Alice' }[39m
                 | [31m+   { age: 38, name: 'Jan' }[39m
                 | [31m+   { age: 27, name: 'Alice' }[39m
                 |   ]
-                | 
+                |
                 |     at /fake/path/spec/recording-items.spec.ts:51:24
             `))
 
             expect(report.errorType).to.equal('AssertionError');
             expect(report.message).to.equal(trimmed`
                 | Expected test users to equal expected users
-                | 
+                |
                 | Expectation: equals([ { age: 36, name: 'Jan' }, { age: 30, name: 'Alice' } ])
-                | 
+                |
                 | Expected Array  - 2
                 | Received Array  + 2
-                | 
+                |
                 |   [
                 | -   { age: 36, name: 'Jan' }
                 | -   { age: 30, name: 'Alice' }
                 | +   { age: 38, name: 'Jan' }
                 | +   { age: 27, name: 'Alice' }
                 |   ]
-                | 
+                |
                 |     at /fake/path/spec/recording-items.spec.ts:51:24
             `);
         });
@@ -84,7 +84,7 @@ describe('errorReportFrom', () => {
     describe('when representing non-Error "throwables" as Serenity BDD-standard JSON reports', () => {
 
         it('supports null', () => {
-            const report = errorReportFrom(null);   // eslint-disable-line unicorn/no-null
+            const report = errorReportFrom(null);
 
             expect(report).to.deep.equal({
                 'errorType': 'null',
@@ -94,7 +94,7 @@ describe('errorReportFrom', () => {
         });
 
         it('supports undefined', () => {
-            const report = errorReportFrom(undefined);  // eslint-disable-line unicorn/no-useless-undefined
+            const report = errorReportFrom(undefined);
 
             expect(report).to.deep.equal({
                 'errorType': 'undefined',

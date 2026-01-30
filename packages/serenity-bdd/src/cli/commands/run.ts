@@ -1,4 +1,4 @@
-import path from 'node:path'; // eslint-disable-line unicorn/import-style
+import path from 'node:path';
 
 import { actorCalled, configure } from '@serenity-js/core';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
@@ -12,7 +12,7 @@ import { Printer } from '../Printer';
 import { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } from '../screenplay';
 import { NotificationReporter, ProgressReporter, RunCommandActors } from '../stage';
 
-const yargs = require('yargs'); // eslint-disable-line @typescript-eslint/no-var-requires
+const yargs = require('yargs');
 
 const cwd = new Path(process.cwd());
 

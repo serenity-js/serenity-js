@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-null */
+
 import { expect } from '@integration/testing-tools';
 import { ConfigurationError } from '@serenity-js/core';
 import type { FileSystem } from '@serenity-js/core/lib/io';

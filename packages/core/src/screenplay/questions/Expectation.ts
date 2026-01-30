@@ -12,7 +12,7 @@ import type { ExpectationOutcome } from './expectations';
  * @group Expectations
  */
 export type Predicate<Actual> = (actor: AnswersQuestions, actual: Answerable<Actual>) =>
-    Promise<ExpectationOutcome> | ExpectationOutcome;     // eslint-disable-line @typescript-eslint/indent
+    Promise<ExpectationOutcome> | ExpectationOutcome;
 
 type AnswerableArguments<Arguments extends Array<unknown>> = { [Index in keyof Arguments]: Answerable<Arguments[Index]> };
 

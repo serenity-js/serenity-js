@@ -23,12 +23,10 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /* eslint-disable unicorn/consistent-function-scoping */
     private dehydrator: ArgumentDehydrator<PageElement<WebdriverIO.Element>, WebdriverIO.Element> = new ArgumentDehydrator(
         (item: any): item is PageElement<WebdriverIO.Element> => item instanceof PageElement,
         (item: PageElement<WebdriverIO.Element>) => item.nativeElement(),
     );
-    /* eslint-enable */
 
     constructor(
         session: WebdriverIOBrowsingSession,
@@ -255,7 +253,7 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> {
                 desiredWindowSize = await this.browser.execute(`
                     var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
                     var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-                    
+
                     return {
                         width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
                         height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),

@@ -17,7 +17,7 @@ function tinyTypeEquals(_super) {
             );
         }
 
-        return _super.apply(this, arguments);   // eslint-disable-line prefer-rest-params,unicorn/prefer-reflect-apply
+        return _super.apply(this, arguments);
     };
 }
 

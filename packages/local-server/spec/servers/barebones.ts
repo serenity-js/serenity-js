@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // https://nodejs.org/api/http.html#http_class_http_server
 export = {
     node: '>= 6.9',

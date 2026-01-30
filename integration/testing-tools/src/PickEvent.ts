@@ -8,7 +8,6 @@ export class PickEvent {
     constructor(private events: DomainEvent[]) {
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     next<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void): PickEvent {
 
         const foundIndex = this.events.findIndex(event => event instanceof type);
@@ -16,7 +15,6 @@ export class PickEvent {
         return this.check(type, foundIndex, assertion);
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     last<T extends DomainEvent>(type: Function & { prototype: T }, assertion: (event: T) => void): PickEvent {
 
         const reversedEvents = this.events.slice().reverse();
@@ -25,7 +23,6 @@ export class PickEvent {
         return this.check(type, foundIndex, assertion);
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     private check<T extends DomainEvent>(type: Function & { prototype: T }, index: number, assertion: (event: T) => void) {
         if (index < 0) {
             const found = this.events.map(e => e.constructor.name).join(', ') || 'an empty list';

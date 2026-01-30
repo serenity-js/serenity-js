@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-null */
+
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 

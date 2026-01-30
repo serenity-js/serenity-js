@@ -453,7 +453,7 @@ describe('Notepad', () => {
                     string: 'example',
                     number: 1,
                     boolean: true,
-                    null: null,                                     // eslint-disable-line unicorn/no-null
+                    null: null,
                     object: { key0: { key1: 'value' }},
                     array: [ 'apples', 'bananas', 'cucumbers' ],
                 };

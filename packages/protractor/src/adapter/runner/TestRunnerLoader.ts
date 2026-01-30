@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */
+/* eslint-disable unicorn/prevent-abbreviations */
 import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
 import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import type { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';

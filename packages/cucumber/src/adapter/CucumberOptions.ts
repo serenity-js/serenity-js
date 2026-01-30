@@ -119,7 +119,7 @@ export class CucumberOptions {
         return defaultValue;
     }
 
-    private isObject(value: any): value is object { // eslint-disable-line @typescript-eslint/ban-types
+    private isObject(value: any): value is object {
         return typeof value === 'object'
             && Array.isArray(value) === false
             && Object.prototype.toString.call(value) === '[object Object]';

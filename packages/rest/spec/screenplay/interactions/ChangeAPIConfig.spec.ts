@@ -74,7 +74,7 @@ describe('ChangeApiConfig', () => {
 
         it('complains if the url has not been set prior to attempted port change', async () => {
             const result = actorCalled('Apisitt').attemptsTo(
-                ChangeApiConfig.setUrlTo(undefined),    // eslint-disable-line unicorn/no-useless-undefined
+                ChangeApiConfig.setUrlTo(undefined),
                 ChangeApiConfig.setPortTo(8080),
             );
 
@@ -83,7 +83,7 @@ describe('ChangeApiConfig', () => {
 
         it('complains if the url to be changed is invalid', async () => {
             const result = actorCalled('Apisitt').attemptsTo(
-                ChangeApiConfig.setUrlTo('invalid'),    // eslint-disable-line unicorn/no-useless-undefined
+                ChangeApiConfig.setUrlTo('invalid'),
                 ChangeApiConfig.setPortTo(8080),
             );
 

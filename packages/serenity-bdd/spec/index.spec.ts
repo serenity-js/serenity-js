@@ -7,7 +7,6 @@ import type { JSONObject } from 'tiny-types';
 
 import { SerenityBDDReporter } from '../src';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 describe('SerenityBDDReporter', () => {

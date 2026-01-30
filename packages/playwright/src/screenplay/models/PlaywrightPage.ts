@@ -23,7 +23,6 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
     private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
-    /* eslint-disable unicorn/consistent-function-scoping */
     private dehydrator: ArgumentDehydrator<PageElement<playwright.Locator>, playwright.ElementHandle> = new ArgumentDehydrator(
         (item: any): item is PageElement<playwright.Locator> => item instanceof PageElement,
         async (item: PageElement<playwright.Locator>) => {
@@ -31,7 +30,6 @@ export class PlaywrightPage extends Page<playwright.Locator> {
             return nativeElement.elementHandle();
         },
     );
-    /* eslint-enable */
 
     static override current(): QuestionAdapter<PlaywrightPage> {
         return super.current() as QuestionAdapter<PlaywrightPage>;
@@ -126,7 +124,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
         const executableScript: Parameters<playwright.Frame['evaluate']>[1] = new Function(`
             const parameters = (${ scripts.rehydrate }).apply(null, arguments[0]);
-            return (${ serialisedScript }).apply(null, parameters);        
+            return (${ serialisedScript }).apply(null, parameters);
         `);
 
         const dehydratedArguments = await this.dehydrator.dehydrate(args);
@@ -151,7 +149,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
 
         const executableScript: Parameters<playwright.Frame['evaluate']>[1] = new Function(`
             const parameters = (${ scripts.rehydrate }).apply(null, arguments[0]);
-            
+
             return new Promise((resolve, reject) => {
                 try {
                     return (${ serialisedScript }).apply(null, parameters.concat(resolve));
@@ -214,7 +212,7 @@ export class PlaywrightPage extends Page<playwright.Locator> {
             value:      cookieData.value,
             domain:     cookieData.domain,
             path:       cookieData.path,
-            url:        !(cookieData.domain && cookieData.path)     // eslint-disable-line unicorn/no-negated-condition
+            url:        !(cookieData.domain && cookieData.path)
                 ? url
                 : undefined,
             secure:     cookieData.secure,

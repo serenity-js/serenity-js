@@ -105,7 +105,7 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
 
     async text(): Promise<string> {
         const element = await this.nativeElement();
-        return element.innerText();                     // eslint-disable-line unicorn/prefer-dom-node-text-content
+        return element.innerText();
     }
 
     async value(): Promise<string> {

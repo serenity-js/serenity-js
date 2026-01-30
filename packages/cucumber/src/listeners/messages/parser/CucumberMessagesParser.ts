@@ -339,7 +339,7 @@ export class CucumberMessagesParser {
 
             case Status.UNKNOWN:
                 // ignore
-            case Status.PASSED: // eslint-disable-line no-fallthrough
+            case Status.PASSED:
                 return new ExecutionSuccessful();
         }
     }

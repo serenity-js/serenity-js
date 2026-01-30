@@ -37,7 +37,6 @@ export class ResultCalculator implements QueryHandler<Operand> {
             [DivisionOperator.Symbol]: 2,
         };
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         const peek = <T>(list: T[]): T => list.at(-1);
 
         const stack: Array<Operator | Operand> = [];

@@ -14,7 +14,7 @@ const version = loader.hasAvailable('@cucumber/cucumber')
  * and informs Serenity/JS when test scenarios and Cucumber steps start, finish, and with what result.
  */
 const listener: unknown = version.isAtLeast(new Version('7.0.0'))
-    ? require('./listeners/messages').createListener(serenity, loader)  // eslint-disable-line @typescript-eslint/no-var-requires
-    : require('./listeners/legacy').createListener(serenity, loader, Path.from(cwd))    // eslint-disable-line @typescript-eslint/no-var-requires
+    ? require('./listeners/messages').createListener(serenity, loader)
+    : require('./listeners/legacy').createListener(serenity, loader, Path.from(cwd))
 
 export = listener;

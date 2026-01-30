@@ -23,12 +23,11 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
     }
 
     async clearValue(): Promise<void> {
-        // eslint-disable-next-line unicorn/consistent-function-scoping
+
         function times(length: number, key: string) {
             return Array.from({ length }).map(() => key);
         }
 
-        // eslint-disable-next-line unicorn/consistent-function-scoping
         async function removeCharactersFrom(browser: WebdriverIO.Browser, inputElement: WebdriverIO.Element, numberOfCharacters: number): Promise<void> {
             await browser.execute(
                 /* c8 ignore next */
@@ -179,7 +178,7 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
                         catch {
                             // switchToParentFrame doesn't work on iOS devices, so we need a workaround
                             // https://github.com/appium/appium/issues/14882#issuecomment-1693326102
-                            await locator.switchToFrame(null);  // eslint-disable-line unicorn/no-null
+                            await locator.switchToFrame(null);
                         }
                     }
                 }

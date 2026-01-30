@@ -324,7 +324,7 @@ describe('Stage', () => {
             const
                 name   = 'Alice',
                 actors: Cast = {
-                    prepare: (actor: Actor) => undefined,   // eslint-disable-line unicorn/no-useless-undefined
+                    prepare: (actor: Actor) => undefined,
                 },
                 stage  = new Stage(actors, stageManager as unknown as StageManager, new ErrorFactory(), clock, interactionTimeout);
 

@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping */
+
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';

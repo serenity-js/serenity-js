@@ -8,7 +8,7 @@ describe('Credentials', () => {
     // eslint-disable unicorn/no-useless-undefined
 
     it('defaults to "no credentials" if the credentials are not specified', () => {
-        const credentials = Credentials.fromString(undefined);  // eslint-disable-line unicorn/no-useless-undefined
+        const credentials = Credentials.fromString(undefined);
 
         expect(credentials.username).to.equal(undefined);
         expect(credentials.password).to.equal(undefined);
