@@ -38,6 +38,9 @@ install:
 	corepack enable
 	pnpm install
 
+update-pnpm:
+	corepack use pnpm@latest
+
 cc:
 	pnpm cc
 
