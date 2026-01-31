@@ -12,6 +12,12 @@ test_patterns = [
     "packages/**/spec/**"
 ]
 
+# Ignore duplication issues for webdriverio-8 (legacy module that duplicates webdriverio v9)
+[[triage]]
+match.plugins = ["duplication"]
+match.file_patterns = ["packages/webdriverio-8/**"]
+set.ignored = true
+
 [[source]]
 name = "default"
 default = true
