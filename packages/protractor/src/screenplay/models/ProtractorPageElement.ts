@@ -161,6 +161,15 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
         );
     }
 
+    async dragTo(destination: PageElement<ElementFinder>): Promise<void> {
+        const elementBeingDragged: ElementFinder = await this.nativeElement();
+        const destinationElement: ElementFinder = await destination.nativeElement();
+
+        const browser = elementBeingDragged.browser_;
+
+        await browser.actions().dragAndDrop(elementBeingDragged, destinationElement).perform();
+    }
+
     async attribute(name: string): Promise<string> {
         const element: ElementFinder = await this.nativeElement();
 

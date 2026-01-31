@@ -133,6 +133,26 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
         );
     }
 
+    async dragTo(destination: PageElement<WebdriverIO.Element>): Promise<void> {
+        const elementBeingDragged: WebdriverIO.Element = await this.nativeElement();
+        const destinationElement: WebdriverIO.Element = await destination.nativeElement();
+
+        const browser = await this.browserFor(elementBeingDragged);
+
+        // This solution was borrowed from ipopa: https://github.com/webdriverio/webdriverio/issues/8022#issuecomment-1700919670
+        await browser
+            .action('pointer')
+            .move({ duration: 0, origin: elementBeingDragged, x: 0, y: 0 })
+            .down({ button: 0 })
+            .move({ duration: 0, origin: 'pointer', x: 0, y: 0 })
+            .pause(10)
+            .move({ duration: 0, origin: destinationElement, x: 0, y: 0 })
+            .move({ duration: 0, origin: 'pointer', x: 1, y: 0 })
+            .move({ duration: 0, origin: 'pointer', x: -1, y: 0 })
+            .up({ button: 0 })
+            .perform();
+    }
+
     async attribute(name: string): Promise<string> {
         const element = await this.nativeElement();
         return await element.getAttribute(name);
