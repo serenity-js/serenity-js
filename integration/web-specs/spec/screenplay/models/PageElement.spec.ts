@@ -368,6 +368,23 @@ describe('PageElement', () => {
                 Wait.until(draggable().of(dropzone()), isVisible()),
             );
         });
+
+        it('should successfully drag an element to a dynamically enabled dropzone', async () => {
+            /**
+             * This test demonstrates the scenario where a drop zone has `pointer-events: none` initially,
+             * but dynamically changes to `pointer-events: all` when a drag operation is in progress.
+             */
+            await actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/dynamic_drag_and_drop.html'),
+                Drag.the(draggable()).to(dropzone()),
+                Wait.until(Text.of(dragEventOutput()), and(
+                    includes('dragstart:'),
+                    includes('dragover:'),
+                    includes('drop:')
+                )),
+                Wait.until(draggable().of(dropzone()), isPresent()), // I tried isVisible, but it didn't work. Maybe the pointer-events is messing with that?
+            );
+        });
     });
 });
 

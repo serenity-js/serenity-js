@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drag with Dynamic Pointer Events</title>
+  <style>
+    #organizer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    div, button {
+      padding: 1em;
+    }
+
+    #source {
+      border: 1px solid black;
+      background-color: lightblue;
+      cursor: grab;
+      margin-inline: 1em;
+    }
+
+    #source:active {
+      cursor: grabbing;
+    }
+
+    #target {
+      border: 2px dashed gray;
+      background-color: #f0f0f0;
+      min-height: 100px;
+      /* Initially, pointer events are disabled */
+      pointer-events: none;
+    }
+
+    /* When drag is active, enable pointer events */
+    #target.drag-active {
+      pointer-events: all;
+      border-color: green;
+      background-color: #e0ffe0;
+    }
+
+    #target.drag-over {
+      background-color: #c0ffc0;
+    }
+
+    #output {
+      height: 200px;
+      overflow: scroll;
+      border: 1px solid black;
+      font-family: monospace;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Drag with Dynamic Pointer Events Test</h2>
+  <p>This demonstrates a drop zone that has <code>pointer-events: none</code> initially,
+    but changes to <code>pointer-events: all</code> during drag operations.</p>
+
+  <section id="organizer">
+    <div id="source" draggable="true">
+      Draggable Element
+  </div>
+
+  <div id="target">
+    Drop Zone (pointer-events: <slot id="pointer-events-status">none [until drag starts]</slot>)
+  </div>
+
+  <pre id="output"></pre>
+  <button id="reset">Reset</button>
+  </section>
+
+  <script>
+    const source = document.querySelector("#source");
+    const target = document.querySelector("#target");
+    const pointerEventsStatus = document.querySelector("#pointer-events-status");
+
+    let dragInProgress = false;
+
+    function log(message) {
+      const output = document.querySelector("#output");
+      output.textContent = `${output.textContent}\n${message}`;
+      output.scrollTop = output.scrollHeight;
+    }
+
+    // When drag starts anywhere, activate the drop zone
+    document.addEventListener("dragstart", (ev) => {
+      if (ev.target.id === 'source') {
+        dragInProgress = true;
+        target.classList.add('drag-active');
+        const status = getComputedStyle(target).pointerEvents;
+        log(`dragstart: drop zone pointer-events: ${status}`);
+        pointerEventsStatus.textContent = status;
+
+        ev.dataTransfer.setData("text", ev.target.id);
+        ev.dataTransfer.effectAllowed = "move";
+      }
+    });
+
+    // When drag ends, deactivate the drop zone
+    document.addEventListener("dragend", (ev) => {
+      dragInProgress = false;
+      target.classList.remove('drag-active', 'drag-over');
+      const status = getComputedStyle(target).pointerEvents;
+      log(`dragend: drop zone pointer-events: ${status}`);
+      pointerEventsStatus.textContent = status;
+    });
+
+    target.addEventListener("dragenter", (ev) => {
+      target.classList.add('drag-over');
+      log(`dragenter: target received event`);
+    });
+
+    target.addEventListener("dragleave", (ev) => {
+      target.classList.remove('drag-over');
+      log(`dragleave: target received event`);
+    });
+
+    target.addEventListener("dragover", (ev) => {
+      ev.preventDefault();
+      log(`dragover: drop zone can receive drops`);
+    });
+
+    target.addEventListener("drop", (ev) => {
+      log(`drop: SUCCESS - drop event received`);
+      ev.preventDefault();
+
+      const data = ev.dataTransfer.getData("text");
+      const element = document.getElementById(data);
+      target.appendChild(element);
+
+      target.classList.remove('drag-over');
+    });
+
+    // Log initial state
+    log(`Initial state: drop zone pointer-events: ${getComputedStyle(target).pointerEvents}`);
+
+    const reset = document.querySelector("#reset");
+    reset.addEventListener("click", () => document.location.reload());
+  </script>
+</body>
+
+</html>
