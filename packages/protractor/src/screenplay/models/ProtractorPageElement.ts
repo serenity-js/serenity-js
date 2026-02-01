@@ -162,12 +162,19 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
     }
 
     async dragTo(destination: PageElement<ElementFinder>): Promise<void> {
-        const elementBeingDragged: ElementFinder = await this.nativeElement();
-        const destinationElement: ElementFinder = await destination.nativeElement();
+        const sourceElement: ElementFinder = await this.nativeElement();
+        const targetElement: ElementFinder = await destination.nativeElement();
 
-        const browser = elementBeingDragged.browser_;
+        const sourceWebElement: WebElement = await sourceElement.getWebElement();
+        const targetWebElement: WebElement = await targetElement.getWebElement();
 
-        await browser.actions().dragAndDrop(elementBeingDragged, destinationElement).perform();
+        // Use JavaScript-based drag and drop to properly trigger HTML5 drag events
+        // Selenium 3's ActionChains doesn't properly simulate HTML5 drag events
+        await promised(sourceWebElement.getDriver().executeScript(
+            scripts.dragAndDrop,
+            sourceWebElement,
+            targetWebElement,
+        ));
     }
 
     async attribute(name: string): Promise<string> {
