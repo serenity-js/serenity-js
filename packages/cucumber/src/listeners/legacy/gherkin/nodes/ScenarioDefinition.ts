@@ -10,6 +10,6 @@ export interface ScenarioDefinition extends ASTNode {
     tags: Tag[];
     keyword: string;
     name: string;
-    description: string;
+    description?: string;
     steps: Step[];
 }
