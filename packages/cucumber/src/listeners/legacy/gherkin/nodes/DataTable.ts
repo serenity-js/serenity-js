@@ -5,6 +5,6 @@ import type { TableRow } from './TableRow';
  * @private
  */
 export interface DataTable extends StepArgument {
-    type: 'DocString';
+    type: 'DataTable';
     rows: TableRow[];
 }

@@ -4,8 +4,7 @@ import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@
 import { describe, it } from 'mocha';
 
 import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
-import { Background, Feature, FeatureFileMapper, FeatureFileParser, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
-import Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available
+import { Background, Feature, FeatureFileMapper, FeatureFileParser, GherkinParserAdapter, Scenario, ScenarioOutline, Step } from '../../../../../src/listeners/legacy/gherkin';
 
 describe('FeatureFileMapper', () => {
 
@@ -338,7 +337,7 @@ describe('FeatureFileMapper', () => {
         const
             path = fixtures.join(new Path(featureFileName)),
             mapper = new FeatureFileMapper(),
-            loader = new FeatureFileParser(new Gherkin.Parser());
+            loader = new FeatureFileParser(new GherkinParserAdapter());
 
         return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);
     }
