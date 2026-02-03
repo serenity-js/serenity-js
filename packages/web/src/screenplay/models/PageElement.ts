@@ -167,6 +167,14 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract selectOptions(...options: Array<SelectOption>): Promise<void>;
     abstract selectedOptions(): Promise<Array<SelectOption>>;
 
+    /**
+     * Drags this element and drops it on the `destination` element.
+     *
+     * @param destination
+     *  The element to drop this element on
+     */
+    abstract dragTo(destination: PageElement<Native_Element_Type>): Promise<void>;
+
     abstract attribute(name: string): Promise<string>;
     abstract text(): Promise<string>;
     abstract value(): Promise<string>;

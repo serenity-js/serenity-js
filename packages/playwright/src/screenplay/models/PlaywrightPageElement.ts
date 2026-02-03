@@ -98,6 +98,16 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
         );
     }
 
+    async dragTo(destination: PageElement<playwright.Locator>): Promise<void> {
+        const elementBeingDragged = await this.nativeElement();
+        const destinationElement = await destination.nativeElement();
+
+        // Use force: true to bypass actionability checks on the target element.
+        // This is necessary for drop zones that dynamically enable pointer-events
+        // only when a drag operation is in progress.
+        await elementBeingDragged.dragTo(destinationElement, { force: true });
+    }
+
     async attribute(name: string): Promise<string> {
         const element = await this.nativeElement();
         return element.getAttribute(name);

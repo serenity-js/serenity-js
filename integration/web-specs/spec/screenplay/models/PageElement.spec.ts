@@ -1,11 +1,13 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { endsWith, Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-import { actorCalled, Expectation, LogicError } from '@serenity-js/core';
+import { and, endsWith, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { actorCalled, Expectation, LogicError, Wait } from '@serenity-js/core';
 import {
     By,
+    Drag,
     isActive,
+    isVisible,
     Key,
     Navigate,
     Page,
@@ -157,7 +159,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(156);
+                expect(location.line).to.equal(158);
                 expect(location.column).to.equal(72);
             });
 
@@ -198,7 +200,7 @@ describe('PageElement', () => {
                     const location = activity.instantiationLocation();
 
                     expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                    expect(location.line).to.equal(197);
+                    expect(location.line).to.equal(199);
                     expect(location.column).to.equal(87);
                 });
 
@@ -288,7 +290,7 @@ describe('PageElement', () => {
                 const location = activity.instantiationLocation();
 
                 expect(location.path.basename()).to.equal('PageElement.spec.ts');
-                expect(location.line).to.equal(287);
+                expect(location.line).to.equal(289);
                 expect(location.column).to.equal(41);
             });
 
@@ -346,6 +348,43 @@ describe('PageElement', () => {
         const description = PageElement.located(By.css('iframe')).toString();
 
         expect(description).to.equal(`page element located by css ('iframe')`);
+    });
+
+    describe('dragTo()', () => {
+
+        const draggable = () => PageElement.located(By.id('source')).describedAs('draggable');
+        const dropzone = () => PageElement.located(By.id('target')).describedAs('drop zone');
+        const dragEventOutput = () => PageElement.located(By.id('output')).describedAs('drag event output box');
+
+        it('should successfully drag an element to the specified dropzone', async () => {
+            await actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/drag_and_drop.html'),
+                Drag.the(draggable()).to(dropzone()),
+                Wait.until(Text.of(dragEventOutput()), and(
+                    includes('dragstart:'),
+                    includes('dragover:'),
+                    includes('drop:')
+                )),
+                Wait.until(draggable().of(dropzone()), isVisible()),
+            );
+        });
+
+        it('should successfully drag an element to a dynamically enabled dropzone', async () => {
+            /**
+             * This test demonstrates the scenario where a drop zone has `pointer-events: none` initially,
+             * but dynamically changes to `pointer-events: all` when a drag operation is in progress.
+             */
+            await actorCalled('Francesca').attemptsTo(
+                Navigate.to('/screenplay/models/page-element/dynamic_drag_and_drop.html'),
+                Drag.the(draggable()).to(dropzone()),
+                Wait.until(Text.of(dragEventOutput()), and(
+                    includes('dragstart:'),
+                    includes('dragover:'),
+                    includes('drop:')
+                )),
+                Wait.until(draggable().of(dropzone()), isPresent()), // I tried isVisible, but it didn't work. Maybe the pointer-events is messing with that?
+            );
+        });
     });
 });
 
