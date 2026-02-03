@@ -11,6 +11,6 @@ export interface Feature extends ASTNode {
     language: string;
     keyword: string;
     name: string;
-    description: string;
+    description?: string;
     children: ScenarioDefinition[];
 }

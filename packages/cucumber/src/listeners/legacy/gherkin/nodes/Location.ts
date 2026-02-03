@@ -3,5 +3,5 @@
  */
 export interface Location {
     line: number;
-    column: number;
+    column?: number;
 }

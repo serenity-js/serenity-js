@@ -4,8 +4,7 @@ import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
-import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';
-import Gherkin = require('gherkin');
+import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser, GherkinParserAdapter } from '../../../../../src/listeners/legacy/gherkin';
 
 describe('FeatureFileLoader', () => {
 
@@ -14,7 +13,7 @@ describe('FeatureFileLoader', () => {
     it('caches the feature file map it has loaded', () => {
 
         const
-            parser = new FeatureFileParser(new Gherkin.Parser()),
+            parser = new FeatureFileParser(new GherkinParserAdapter()),
             mapper = new FeatureFileMapper(),
             cache  = new Cache<Path, FeatureFileMap>();
 
