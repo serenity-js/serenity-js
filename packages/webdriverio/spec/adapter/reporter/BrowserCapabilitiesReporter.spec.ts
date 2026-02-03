@@ -186,13 +186,20 @@ describe('BrowserCapabilitiesReporter', () => {
     });
 });
 
-type MultiremoteCapabilities = Record<string, Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities>;
+/**
+ * Capabilities with vendor-specific extensions used in tests
+ */
+type TestCapabilities = WebdriverIO.Capabilities & {
+    os_version?: string;
+    os?: string;
+    deviceName?: string;
+};
 
 /**
  * Fixme: it looks like WDIO RunnerStart 7.4.2 implementation and newer incorrectly define MultiremoteCapabilities
  *  below is the correct representation of what the reporter actually receives
  */
-type RunnerStartEvent = Options.RunnerStart & { capabilities: Capabilities.DesiredCapabilities | Capabilities.W3CCapabilities | MultiremoteCapabilities }
+type RunnerStartEvent = Options.RunnerStart & { capabilities: TestCapabilities | Capabilities.W3CCapabilities | Record<string, TestCapabilities> }
 
 function runnerStart(overrides: Partial<RunnerStartEvent>): RunnerStartEvent {
     return {

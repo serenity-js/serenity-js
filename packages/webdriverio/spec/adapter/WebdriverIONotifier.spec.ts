@@ -58,7 +58,7 @@ describe('WebdriverIONotifier', () => {
     }
 
     let notifier: WebdriverIONotifier,
-        reporter: sinon.SinonStubbedInstance<EventEmitter>,
+        reporter: sinon.SinonStubbedInstance<EventEmitter<any>>,
         stage: Stage;
 
     beforeEach(() => {
