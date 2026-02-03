@@ -165,7 +165,7 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     async value(): Promise<string> {
         const element = await this.nativeElement();
-        return await element.getValue();
+        return await element.getValue() as string;
     }
 
     async html(): Promise<string> {

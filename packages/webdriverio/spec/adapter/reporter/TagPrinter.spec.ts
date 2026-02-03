@@ -20,7 +20,7 @@ describe('TagPrinter', () => {
                 ['appium:platformName']:    'iOS',
                 ['appium:platformVersion']: '9.2',
                 browserName:                'Safari',
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('Safari', 'iPhone 6 Plus'));
@@ -32,7 +32,7 @@ describe('TagPrinter', () => {
                 deviceName:                 'iPhone 6 Plus',
                 ['appium:platformName']:    'iOS',
                 ['appium:platformVersion']: '9.2',
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('unknown', 'iPhone 6 Plus'));
@@ -45,7 +45,7 @@ describe('TagPrinter', () => {
                 ['appium:platformName']:    'iOS',
                 ['appium:platformVersion']: '9.2',
                 ['appium:app']:             'sauce-storage:myApp.app',
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('myApp.app', 'iPhone 6 Plus'));
@@ -61,7 +61,7 @@ describe('TagPrinter', () => {
                 platformName: 'iOS',
                 ['appium:platformVersion']: undefined,
                 ['appium:udid']: undefined,
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('Safari', 'iPhone Simulator'));
@@ -75,7 +75,7 @@ describe('TagPrinter', () => {
             const tags = tagPrinter.tagsFor({
                 browserName:    'chrome',
                 version:        '50',
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('chrome', '50'));
@@ -87,7 +87,7 @@ describe('TagPrinter', () => {
                 browserName:    'chrome',
                 version:        '50',
                 platform:       'Windows 8.1'
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('chrome', '50'));
@@ -100,7 +100,7 @@ describe('TagPrinter', () => {
                 browserVersion:     '90.0.4430.212',
                 platformName:       'darwin',
                 os_version:         '20.4.0',
-            });
+            } as WebdriverIO.Capabilities);
 
             expect(tags).have.lengthOf(2);
             expect(tags[0]).to.equal(new BrowserTag('Chrome Headless', '90.0.4430.212'));
@@ -115,7 +115,7 @@ describe('TagPrinter', () => {
                     browser_version:    '50',
                     os:                 'Windows',
                     os_version:         '10'
-                });
+                } as WebdriverIO.Capabilities);
 
                 expect(tags).have.lengthOf(2);
                 expect(tags[0]).to.equal(new BrowserTag('Chrome', '50'));
@@ -126,7 +126,7 @@ describe('TagPrinter', () => {
                 const tags = tagPrinter.tagsFor({
                     browser:            'Chrome',
                     browser_version:    '50',
-                });
+                } as WebdriverIO.Capabilities);
 
                 expect(tags).have.lengthOf(2);
                 expect(tags[0]).to.equal(new BrowserTag('Chrome', '50'));
@@ -138,7 +138,7 @@ describe('TagPrinter', () => {
                     browser:            'Chrome',
                     browser_version:    '50',
                     os:                 'Windows',
-                });
+                } as WebdriverIO.Capabilities);
 
                 expect(tags).have.lengthOf(2);
                 expect(tags[0]).to.equal(new BrowserTag('Chrome', '50'));
