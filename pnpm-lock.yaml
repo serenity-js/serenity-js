@@ -2555,9 +2555,12 @@ importers:
 
   packages/cucumber:
     dependencies:
+      '@cucumber/gherkin':
+        specifier: 38.0.0
+        version: 38.0.0
       '@cucumber/messages':
-        specifier: 26.0.1
-        version: 26.0.1
+        specifier: 32.0.1
+        version: 32.0.1
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../core
@@ -2567,9 +2570,6 @@ importers:
       cucumber:
         specifier: ^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0
         version: 6.0.7
-      gherkin:
-        specifier: 5.1.0
-        version: 5.1.0
       tiny-types:
         specifier: 1.24.3
         version: 1.24.3
@@ -3570,6 +3570,9 @@ packages:
   '@cucumber/gherkin@37.0.1':
     resolution: {integrity: sha512-VmX+PKa9vqKZiycZoQKYlCsA0N7gAfiOfrcHSjK+suEVUwvKEH2sjO47NznrFFLmVWYTRmw3DLHQnpBAznkYEA==}
 
+  '@cucumber/gherkin@38.0.0':
+    resolution: {integrity: sha512-duEXK+KDfQUzu3vsSzXjkxQ2tirF5PRsc1Xrts6THKHJO6mjw4RjM8RV+vliuDasmhhrmdLcOcM7d9nurNTJKw==}
+
   '@cucumber/html-formatter@15.0.2':
     resolution: {integrity: sha512-j+YGY4ytj78G/v1gZo53D+vuKXlTg/oxNwSCCGvRQo75+AqYDJSkm/vexXJQ5lY1rXAvlbZ9KI6jhg6LDs0YdQ==}
     hasBin: true
@@ -3651,6 +3654,9 @@ packages:
 
   '@cucumber/messages@31.2.0':
     resolution: {integrity: sha512-3urzBNCwmU/YKrKR0b3XdioFcOFNuxlLwEImsxeP8rXnweLs+Ky04QURcbKpFom3T6a6v9zVioLCfHUuSQ72pg==}
+
+  '@cucumber/messages@32.0.1':
+    resolution: {integrity: sha512-1OSoW+GQvFUNAl6tdP2CTBexTXMNJF0094goVUcvugtQeXtJ0K8sCP0xbq7GGoiezs/eJAAOD03+zAPT64orHQ==}
 
   '@cucumber/pretty-formatter@1.0.1':
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
@@ -12386,11 +12392,15 @@ snapshots:
 
   '@cucumber/gherkin@34.0.0':
     dependencies:
-      '@cucumber/messages': 26.0.1
+      '@cucumber/messages': 27.2.0
 
   '@cucumber/gherkin@37.0.1':
     dependencies:
       '@cucumber/messages': 31.2.0
+
+  '@cucumber/gherkin@38.0.0':
+    dependencies:
+      '@cucumber/messages': 32.0.1
 
   '@cucumber/html-formatter@15.0.2':
     dependencies:
@@ -12528,6 +12538,11 @@ snapshots:
       reflect-metadata: 0.2.2
 
   '@cucumber/messages@31.2.0':
+    dependencies:
+      class-transformer: 0.5.1
+      reflect-metadata: 0.2.2
+
+  '@cucumber/messages@32.0.1':
     dependencies:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2

@@ -2,6 +2,7 @@ export * from './Background';
 export * from './Comment';
 export * from './DataTable';
 export * from './DocString';
+export * from './Examples';
 export * from './Feature';
 export * from './GherkinDocument';
 export * from './Location';
