@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
+
+
+### Bug Fixes
+
+* **deps:** update webdriverio dependencies to ^9.23.3 ([89a904c](https://github.com/serenity-js/serenity-js/commit/89a904cd76b1b4d21d5f7d007382d8bd60ef0212))
+* **webdriverio:** adapt to breaking type changes in WebdriverIO 9.23.3 ([48877a2](https://github.com/serenity-js/serenity-js/commit/48877a2997df402936284826d2ff7a56189549e6))
+
+
+### Features
+
+* **web:** introduce Drag interaction to drag and drop page elements ([fdde2c3](https://github.com/serenity-js/serenity-js/commit/fdde2c317074f93527bf67f86bf56dcbf1b6647e)), closes [#2663](https://github.com/serenity-js/serenity-js/issues/2663)
+
+
+
+
+
 # [3.39.0](https://github.com/serenity-js/serenity-js/compare/v3.38.0...v3.39.0) (2026-01-30)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

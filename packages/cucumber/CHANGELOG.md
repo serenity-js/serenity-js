@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
+
+
+### Bug Fixes
+
+* **deps:** update @cucumber/messages to 32.0.1 ([b308f3a](https://github.com/serenity-js/serenity-js/commit/b308f3abb1e7874f9d7aa21a61b3a2b7fe16d3ce))
+
+
+
+
+
 # [3.39.0](https://github.com/serenity-js/serenity-js/compare/v3.38.0...v3.39.0) (2026-01-30)
 
 **Note:** Version bump only for package @serenity-js/cucumber
