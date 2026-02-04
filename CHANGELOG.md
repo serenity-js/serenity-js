@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
+
+
+### Bug Fixes
+
+* **core:** updated validate-npm-package-name to 7.0.2 ([a5cdf79](https://github.com/serenity-js/serenity-js/commit/a5cdf79cc8a9100fcd286618e60ecee4ab13a726))
+* **deps:** update @cucumber/messages to 32.0.1 ([b308f3a](https://github.com/serenity-js/serenity-js/commit/b308f3abb1e7874f9d7aa21a61b3a2b7fe16d3ce))
+* **deps:** update serenity bdd dependencies ([7076fb0](https://github.com/serenity-js/serenity-js/commit/7076fb0df4c2147963c279bd2f3773967ebd11d6))
+* **deps:** update webdriverio dependencies to ^9.23.3 ([89a904c](https://github.com/serenity-js/serenity-js/commit/89a904cd76b1b4d21d5f7d007382d8bd60ef0212))
+* **playwright:** support drop zones with dynamic pointer-events ([232d34f](https://github.com/serenity-js/serenity-js/commit/232d34ffbb5623e2a4cf91d7f8c40a08c665e1b3))
+* **protractor:** use JavaScript-based drag and drop for HTML5 events ([c5fdfca](https://github.com/serenity-js/serenity-js/commit/c5fdfca1788136fb8f69c9dbe5829072181a061f))
+* **webdriverio:** adapt to breaking type changes in WebdriverIO 9.23.3 ([48877a2](https://github.com/serenity-js/serenity-js/commit/48877a2997df402936284826d2ff7a56189549e6))
+
+
+### Features
+
+* **web:** introduce Drag interaction to drag and drop page elements ([fdde2c3](https://github.com/serenity-js/serenity-js/commit/fdde2c317074f93527bf67f86bf56dcbf1b6647e)), closes [#2663](https://github.com/serenity-js/serenity-js/issues/2663)
+
+
+
+
+
 # [3.39.0](https://github.com/serenity-js/serenity-js/compare/v3.38.0...v3.39.0) (2026-01-30)
 
 
