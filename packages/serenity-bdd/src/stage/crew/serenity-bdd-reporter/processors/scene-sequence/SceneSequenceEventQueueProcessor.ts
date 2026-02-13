@@ -6,6 +6,7 @@ import {
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
     ActorEntersStage,
+    ActorSpotlighted,
     ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
@@ -59,6 +60,7 @@ export class SceneSequenceEventQueueProcessor extends EventQueueProcessor {
                 .when(RetryableSceneDetected,           this.onRetryableSceneDetected(context))
                 .when(SceneStarts,                      this.onSceneStarts(context))
                 .when(ActorEntersStage,                 this.onActorEntersStage(context))
+                .when(ActorSpotlighted,                 this.onActorSpotlighted(context))
                 .when(ActorStageExitStarts,             this.onActorStageExitStarts(context))
                 .when(SceneTemplateDetected,            this.onSceneTemplateDetected(context))
                 .when(SceneParametersDetected,          this.onSceneParametersDetected(context))

@@ -6,6 +6,7 @@ import {
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
     ActorEntersStage,
+    ActorSpotlighted,
     ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
@@ -47,6 +48,7 @@ export class SingleSceneEventQueueProcessor extends EventQueueProcessor {
             match<DomainEvent, SingleSceneReportContext>(event)
                 .when(SceneStarts,                      this.onSceneStarts(context))
                 .when(ActorEntersStage,                 this.onActorEntersStage(context))
+                .when(ActorSpotlighted,                 this.onActorSpotlighted(context))
                 .when(ActorStageExitStarts,             this.onActorStageExitStarts(context))
                 .when(FeatureNarrativeDetected,         this.onFeatureNarrativeDetected(context))
                 .when(SceneBackgroundDetected,          this.onSceneBackgroundDetected(context))

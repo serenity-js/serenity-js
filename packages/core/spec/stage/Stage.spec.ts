@@ -428,4 +428,160 @@ describe('Stage', () => {
             `);
         });
     });
+
+    describe('when emitting actor events', () => {
+
+        let manager: StageManager;
+
+        beforeEach(() => {
+            manager = new StageManager(Duration.ofMilliseconds(100), new Clock());
+        });
+
+        class EventCapturingListener {
+            public readonly events: any[] = [];
+
+            notifyOf(event: any): void {
+                this.events.push(event);
+            }
+        }
+
+        it('emits ActorEntersStage on first actor instantiation', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+
+            const enterEvents = listener.events.filter(e => e.constructor.name === 'ActorEntersStage');
+            expect(enterEvents).to.have.lengthOf(1);
+            expect(enterEvents[0].actor.name).to.equal('Alice');
+        });
+
+        it('does NOT emit ActorEntersStage on subsequent retrieval of same actor', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+            stage.actor('Alice');
+            stage.actor('Alice');
+
+            const enterEvents = listener.events.filter(e => e.constructor.name === 'ActorEntersStage');
+            expect(enterEvents).to.have.lengthOf(1);
+        });
+
+        it('does NOT emit ActorEntersStage when retrieving backstage actor within a scene', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            // Create backstage actor (before scene starts)
+            stage.actor('Alice');
+
+            // Clear events to isolate scene behavior
+            listener.events.length = 0;
+
+            // Start a scene
+            const sceneId = new CorrelationId('test-scene');
+            const scenario = new ScenarioDetails(
+                new Name('Test scenario'),
+                new Category('Test'),
+                new FileSystemLocation(new Path('test.feature')),
+            );
+            stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
+
+            // Retrieve backstage actor within scene
+            stage.actor('Alice');
+
+            const enterEvents = listener.events.filter(e => e.constructor.name === 'ActorEntersStage');
+            expect(enterEvents).to.have.lengthOf(0);
+        });
+
+        it('emits ActorSpotlighted when actor first becomes active', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+
+            const spotlightEvents = listener.events.filter(e => e.constructor.name === 'ActorSpotlighted');
+            expect(spotlightEvents).to.have.lengthOf(1);
+            expect(spotlightEvents[0].actor.name).to.equal('Alice');
+        });
+
+        it('does NOT emit ActorSpotlighted on consecutive retrieval of same actor', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+            stage.actor('Alice');
+            stage.actor('Alice');
+
+            const spotlightEvents = listener.events.filter(e => e.constructor.name === 'ActorSpotlighted');
+            expect(spotlightEvents).to.have.lengthOf(1);
+        });
+
+        it('emits ActorSpotlighted when switching between actors', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+            stage.actor('Bob');
+            stage.actor('Alice');
+
+            const spotlightEvents = listener.events.filter(e => e.constructor.name === 'ActorSpotlighted');
+            expect(spotlightEvents).to.have.lengthOf(3);
+            expect(spotlightEvents[0].actor.name).to.equal('Alice');
+            expect(spotlightEvents[1].actor.name).to.equal('Bob');
+            expect(spotlightEvents[2].actor.name).to.equal('Alice');
+        });
+
+        it('emits ActorEntersStage before ActorSpotlighted for new actor', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+
+            const relevantEvents = listener.events.filter(
+                e => e.constructor.name === 'ActorEntersStage' || e.constructor.name === 'ActorSpotlighted'
+            );
+
+            expect(relevantEvents).to.have.lengthOf(2);
+            expect(relevantEvents[0].constructor.name).to.equal('ActorEntersStage');
+            expect(relevantEvents[1].constructor.name).to.equal('ActorSpotlighted');
+        });
+
+        it('emits ActorEntersStage whenever a new actor is instantiated', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+            stage.actor('Bob');
+            stage.actor('Alice');
+            stage.actor('Bob');
+
+            const relevantEvents = listener.events.filter(
+                e => e.constructor.name === 'ActorEntersStage' || e.constructor.name === 'ActorSpotlighted'
+            );
+
+            expect(relevantEvents).to.have.lengthOf(6);
+            // Alice
+            expect(relevantEvents[0].constructor.name).to.equal('ActorEntersStage');
+            expect(relevantEvents[1].constructor.name).to.equal('ActorSpotlighted');
+
+            // Bob
+            expect(relevantEvents[2].constructor.name).to.equal('ActorEntersStage');
+            expect(relevantEvents[3].constructor.name).to.equal('ActorSpotlighted');
+
+            // Back to Alice (no new ActorEntersStage, since Alice is already instantiated)
+            expect(relevantEvents[4].constructor.name).to.equal('ActorSpotlighted');
+
+            // Back to Bob (no new ActorEntersStage, since Bob is already instantiated)
+            expect(relevantEvents[5].constructor.name).to.equal('ActorSpotlighted');
+        });
+    });
 });
