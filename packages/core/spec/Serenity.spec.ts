@@ -4,7 +4,7 @@ import { describe, it } from 'mocha';
 import { ConfigurationError } from '../src';
 import type { OutputStream } from '../src/adapter';
 import type { DomainEvent} from '../src/events';
-import { ActivityFinished, ActivityStarts, ActorEntersStage, TestRunnerDetected } from '../src/events';
+import { ActivityFinished, ActivityStarts, ActorEntersStage, ActorSpotlighted, TestRunnerDetected } from '../src/events';
 import { CorrelationId, Name } from '../src/model';
 import type { Actor } from '../src/screenplay';
 import { Clock, Interaction } from '../src/screenplay';
@@ -167,8 +167,8 @@ describe('Serenity', () => {
             ],
         });
 
-        // backstage actor is retrieved within the scenario scope
-        expect(listener.events[1]).to.be.instanceOf(ActorEntersStage);
+        // actor becomes active (spotlight shifts to them)
+        expect(listener.events[1]).to.be.instanceOf(ActorSpotlighted);
 
         const activityStarts = listener.events[2] as ActivityStarts;
 

@@ -6,11 +6,19 @@ import {
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
     ActorEntersStage,
+    ActorSpotlighted,
     SceneFinishes,
     SceneStarts
 } from '@serenity-js/core/lib/events';
 import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, CorrelationId, ExecutionSuccessful, HTTPRequestResponse, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import {
+    Category,
+    CorrelationId,
+    ExecutionSuccessful,
+    HTTPRequestResponse,
+    Name,
+    ScenarioDetails
+} from '@serenity-js/core/lib/model';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
@@ -42,7 +50,7 @@ describe('Send', () => {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('Send.spec.ts');
-        expect(location.line).to.equal(41);
+        expect(location.line).to.equal(49);
         expect(location.column).to.equal(31);
     });
 
@@ -119,11 +127,12 @@ describe('Send', () => {
         expect(events).to.have.length.greaterThan(5);
         expect(events[ 0 ]).to.be.instanceOf(SceneStarts);
         expect(events[ 1 ]).to.be.instanceOf(ActorEntersStage);
-        expect(events[ 2 ]).to.be.instanceOf(ActivityStarts);
-        expect(events[ 3 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
-        expect(events[ 4 ]).to.be.instanceOf(ActivityFinished);
+        expect(events[ 2 ]).to.be.instanceOf(ActorSpotlighted);
+        expect(events[ 3 ]).to.be.instanceOf(ActivityStarts);
+        expect(events[ 4 ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
+        expect(events[ 5 ]).to.be.instanceOf(ActivityFinished);
 
-        const artifactGenerated = events[ 3 ] as ActivityRelatedArtifactGenerated;
+        const artifactGenerated = events[ 4 ] as ActivityRelatedArtifactGenerated;
 
         expect(artifactGenerated.name.value).to.equal(`GET https://myapp.com/api/products/2`);
         expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({

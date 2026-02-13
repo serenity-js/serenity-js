@@ -11,6 +11,7 @@ import {
 } from '../errors';
 import {
     ActorEntersStage,
+    ActorSpotlighted,
     ActorStageExitAttempted,
     ActorStageExitCompleted,
     ActorStageExitFailed,
@@ -65,6 +66,12 @@ export class Stage implements EmitsDomainEvents {
      * The most recent actor referenced via the [`Actor`](https://serenity-js.org/api/core/class/Actor/) method
      */
     private actorInTheSpotlight: Actor = undefined;
+
+    /**
+     * The scene in which the spotlight was last set.
+     * Used to detect when the spotlight shifts to a different scene context.
+     */
+    private sceneOfSpotlightedActor: CorrelationId = undefined;
 
     private currentActivity: { id: CorrelationId, details: ActivityDetails } = undefined;
 
@@ -155,16 +162,22 @@ export class Stage implements EmitsDomainEvents {
             )
         }
 
-        if (this.actorsOnBackstage.has(name)) {
-            this.announce(
-                new ActorEntersStage(
-                    this.currentScene,
-                    this.actorsOnBackstage.get(name).toJSON(),
-                )
-            )
-        }
-
+        const previousActorInSpotlight = this.actorInTheSpotlight;
+        const previousSceneOfSpotlightedActor = this.sceneOfSpotlightedActor;
         this.actorInTheSpotlight = this.instantiatedActorCalled(name);
+        this.sceneOfSpotlightedActor = this.currentScene;
+
+        const spotlightShifted = this.actorInTheSpotlight !== previousActorInSpotlight
+            || ! this.currentScene.equals(previousSceneOfSpotlightedActor);
+
+        if (spotlightShifted) {
+            this.announce(
+                new ActorSpotlighted(
+                    this.currentScene,
+                    this.actorInTheSpotlight.toJSON(),
+                )
+            );
+        }
 
         return this.actorInTheSpotlight;
     }

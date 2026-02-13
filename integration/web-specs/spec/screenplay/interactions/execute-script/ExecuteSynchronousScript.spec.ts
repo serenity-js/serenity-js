@@ -8,6 +8,7 @@ import {
     ActivityRelatedArtifactGenerated,
     ActivityStarts,
     ActorEntersStage,
+    ActorSpotlighted,
     ArtifactGenerated,
     SceneFinishes,
     SceneStarts
@@ -38,7 +39,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(37);
+            expect(location.line).to.equal(38);
             expect(location.column).to.equal(44);
         });
 
@@ -52,7 +53,7 @@ describe('ExecuteSynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteSynchronousScript.spec.ts');
-            expect(location.line).to.equal(51);
+            expect(location.line).to.equal(52);
             expect(location.column).to.equal(16);
         });
     });
@@ -234,13 +235,14 @@ describe('ExecuteSynchronousScript', function () {
 
         const events = recorder.events;
 
-        expect(events.length).to.be.greaterThan(5);
+        expect(events.length).to.be.greaterThan(6);
         expect(events[1]).to.be.instanceOf(ActorEntersStage);
-        expect(events[2]).to.be.instanceOf(ActivityStarts);
-        expect(events[3]).to.be.instanceOf(ArtifactGenerated);
-        expect(events[4]).to.be.instanceOf(ActivityFinished);
+        expect(events[2]).to.be.instanceOf(ActorSpotlighted);
+        expect(events[3]).to.be.instanceOf(ActivityStarts);
+        expect(events[4]).to.be.instanceOf(ArtifactGenerated);
+        expect(events[5]).to.be.instanceOf(ActivityFinished);
 
-        const artifactGenerated = events[3] as ActivityRelatedArtifactGenerated;
+        const artifactGenerated = events[4] as ActivityRelatedArtifactGenerated;
 
         expect(artifactGenerated.name.value).to.equal(`Script source`);
 

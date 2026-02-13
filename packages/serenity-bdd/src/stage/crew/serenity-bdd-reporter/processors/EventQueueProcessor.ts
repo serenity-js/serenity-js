@@ -2,7 +2,9 @@ import type { DomainEventQueue } from '@serenity-js/core';
 import type {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
-    ActorEntersStage, ActorStageExitStarts,
+    ActorEntersStage,
+    ActorSpotlighted,
+    ActorStageExitStarts,
     BusinessRuleDetected,
     FeatureNarrativeDetected,
     SceneBackgroundDetected,
@@ -42,6 +44,12 @@ export abstract class EventQueueProcessor {
 
     protected onActorEntersStage<Context extends SerenityBDDReportContext>(report: Context) {
         return (event: ActorEntersStage): Context =>
+            report
+                .with(actorDetailsOf(event.actor, this.reporterConfig));
+    }
+
+    protected onActorSpotlighted<Context extends SerenityBDDReportContext>(report: Context) {
+        return (event: ActorSpotlighted): Context =>
             report
                 .with(actorDetailsOf(event.actor, this.reporterConfig));
     }

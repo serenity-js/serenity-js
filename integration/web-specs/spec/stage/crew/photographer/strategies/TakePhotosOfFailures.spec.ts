@@ -39,7 +39,7 @@ describe('Photographer', () => {
             expect(stage.theActorCalled('Betty').attemptsTo(
                 Perform.interactionThatSucceeds(),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
-                expect(recorder.events).to.have.lengthOf(4);    // Scene starts, Actor initialised, Interaction starts and finishes
+                expect(recorder.events).to.have.lengthOf(5);    // Scene starts, Actor initialised, Actor activated, Interaction starts and finishes
             })));
 
         it('takes a photo when a problem occurs', () =>
