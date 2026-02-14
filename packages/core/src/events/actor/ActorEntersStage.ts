@@ -6,8 +6,14 @@ import { type SerialisedActor, Timestamp } from '../../screenplay';
 import { DomainEvent } from '../DomainEvent';
 
 /**
- * Emitted when an [`Actor`](https://serenity-js.org/api/core/class/Actor/) is activated
+ * Emitted when an [`Actor`](https://serenity-js.org/api/core/class/Actor/) is first instantiated
  * as the result of invoking [`actorCalled`](https://serenity-js.org/api/core/function/actorCalled/).
+ *
+ * This event is emitted only once per actor, when they are first created.
+ * Subsequent retrievals of the same actor do not emit this event.
+ *
+ * To track when the spotlight shifts to a different actor, listen for
+ * [`ActorSpotlighted`](https://serenity-js.org/api/core-events/class/ActorSpotlighted/) instead.
  *
  * @group Events
  */

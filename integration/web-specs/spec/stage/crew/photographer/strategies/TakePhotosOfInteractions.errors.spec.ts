@@ -4,6 +4,7 @@ import { EventRecorder, expect } from '@integration/testing-tools';
 import { Cast, Duration } from '@serenity-js/core';
 import {
     ActorEntersStage,
+    ActorSpotlighted,
     InteractionFinished,
     InteractionStarts,
     SceneFinishes,
@@ -46,11 +47,12 @@ describe('Photographer', () => {
                 Perform.interactionThatSucceeds(1),
             )).to.be.fulfilled.then(() => stage.waitForNextCue().then(() => {
 
-                expect(recorder.events.length).to.equal(4);
+                expect(recorder.events.length).to.equal(5);
                 expect(recorder.events[0]).to.be.instanceOf(SceneStarts);
                 expect(recorder.events[1]).to.be.instanceOf(ActorEntersStage);
-                expect(recorder.events[2]).to.be.instanceOf(InteractionStarts);
-                expect(recorder.events[3]).to.be.instanceOf(InteractionFinished);
+                expect(recorder.events[2]).to.be.instanceOf(ActorSpotlighted);
+                expect(recorder.events[3]).to.be.instanceOf(InteractionStarts);
+                expect(recorder.events[4]).to.be.instanceOf(InteractionFinished);
 
                 // no artifacts generated for an actor with no ability to BrowseTheWeb
             })));
