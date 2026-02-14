@@ -3,9 +3,27 @@ import 'mocha';
 import { EventRecorder, expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Clock, Question, Serenity, serenity } from '@serenity-js/core';
-import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ActorEntersStage, ArtifactGenerated, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
+import {
+    ActivityFinished,
+    ActivityRelatedArtifactGenerated,
+    ActivityStarts,
+    ActorEntersStage,
+    ActorSpotlighted,
+    ArtifactGenerated,
+    SceneFinishes,
+    SceneStarts
+} from '@serenity-js/core/lib/events';
 import { ExecutionSuccessful, TextData } from '@serenity-js/core/lib/model';
-import { By, ExecuteScript, LastScriptExecution, Navigate, PageElement, PageElements, Switch, Value } from '@serenity-js/web';
+import {
+    By,
+    ExecuteScript,
+    LastScriptExecution,
+    Navigate,
+    PageElement,
+    PageElements,
+    Switch,
+    Value
+} from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../../stage/crew/photographer/fixtures';
 
@@ -21,7 +39,7 @@ describe('ExecuteAsynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(20);
+            expect(location.line).to.equal(38);
             expect(location.column).to.equal(44);
         });
 
@@ -38,7 +56,7 @@ describe('ExecuteAsynchronousScript', function () {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('ExecuteAsynchronousScript.spec.ts');
-            expect(location.line).to.equal(37);
+            expect(location.line).to.equal(55);
             expect(location.column).to.equal(16);
         });
     });
@@ -275,14 +293,15 @@ describe('ExecuteAsynchronousScript', function () {
 
         const events = recorder.events;
 
-        expect(events.length).to.be.greaterThan(5);
+        expect(events.length).to.be.greaterThan(6);
         expect(events[0]).to.be.instanceOf(SceneStarts);
         expect(events[1]).to.be.instanceOf(ActorEntersStage);
-        expect(events[2]).to.be.instanceOf(ActivityStarts);
-        expect(events[3]).to.be.instanceOf(ArtifactGenerated);
-        expect(events[4]).to.be.instanceOf(ActivityFinished);
+        expect(events[2]).to.be.instanceOf(ActorSpotlighted);
+        expect(events[3]).to.be.instanceOf(ActivityStarts);
+        expect(events[4]).to.be.instanceOf(ArtifactGenerated);
+        expect(events[5]).to.be.instanceOf(ActivityFinished);
 
-        const artifactGenerated = events[3] as ActivityRelatedArtifactGenerated;
+        const artifactGenerated = events[4] as ActivityRelatedArtifactGenerated;
 
         expect(artifactGenerated.name.value).to.equal(`Script source`);
 
