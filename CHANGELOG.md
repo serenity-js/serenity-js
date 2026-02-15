@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.41.0](https://github.com/serenity-js/serenity-js/compare/v3.40.0...v3.41.0) (2026-02-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.13.5 [security] ([61144b0](https://github.com/serenity-js/serenity-js/commit/61144b04c5808820d5cf1411faa1be35417e1abc))
+* **deps:** update dependency lru-cache to v11.2.6 ([c73f79d](https://github.com/serenity-js/serenity-js/commit/c73f79de341c7d76f897ede2144b762f7d080784))
+* **deps:** update dependency semver to v7.7.4 ([e2e2df1](https://github.com/serenity-js/serenity-js/commit/e2e2df1398e6b6fcc7df2e6b413f6345cc0c2e87))
+* **deps:** update dependency which to v6.0.1 ([866cee7](https://github.com/serenity-js/serenity-js/commit/866cee75c08a5c5393fa664f0d8894946f4bcf6b))
+* **deps:** update playwright dependencies to v1.58.2 ([f6306ac](https://github.com/serenity-js/serenity-js/commit/f6306ac67bf0febb6b6054bb4510aeb16fcd079b))
+* **deps:** update webdriverio dependencies to ^9.24.0 ([6811d67](https://github.com/serenity-js/serenity-js/commit/6811d67547977b6747375e5e8df0bcccee0ced18))
+
+
+### Features
+
+* **core:** differentiate between ActorEntersStage and ActorSpotlighted events ([62e8bb4](https://github.com/serenity-js/serenity-js/commit/62e8bb47cbb9aa60bf4da504f0eb92b16ae2c281)), closes [#2855](https://github.com/serenity-js/serenity-js/issues/2855)
+
+
+
+
+
 # [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
 
 

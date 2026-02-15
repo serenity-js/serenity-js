@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.41.0](https://github.com/serenity-js/serenity-js/compare/v3.40.0...v3.41.0) (2026-02-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.13.5 [security] ([61144b0](https://github.com/serenity-js/serenity-js/commit/61144b04c5808820d5cf1411faa1be35417e1abc))
+* **deps:** update dependency which to v6.0.1 ([866cee7](https://github.com/serenity-js/serenity-js/commit/866cee75c08a5c5393fa664f0d8894946f4bcf6b))
+
+
+### Features
+
+* **core:** differentiate between ActorEntersStage and ActorSpotlighted events ([62e8bb4](https://github.com/serenity-js/serenity-js/commit/62e8bb47cbb9aa60bf4da504f0eb92b16ae2c281)), closes [#2855](https://github.com/serenity-js/serenity-js/issues/2855)
+
+
+
+
+
 # [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
 
 

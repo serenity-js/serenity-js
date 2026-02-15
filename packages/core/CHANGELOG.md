@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.41.0](https://github.com/serenity-js/serenity-js/compare/v3.40.0...v3.41.0) (2026-02-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semver to v7.7.4 ([e2e2df1](https://github.com/serenity-js/serenity-js/commit/e2e2df1398e6b6fcc7df2e6b413f6345cc0c2e87))
+
+
+### Features
+
+* **core:** differentiate between ActorEntersStage and ActorSpotlighted events ([62e8bb4](https://github.com/serenity-js/serenity-js/commit/62e8bb47cbb9aa60bf4da504f0eb92b16ae2c281)), closes [#2855](https://github.com/serenity-js/serenity-js/issues/2855)
+
+
+
+
+
 # [3.40.0](https://github.com/serenity-js/serenity-js/compare/v3.39.0...v3.40.0) (2026-02-04)
 
 
