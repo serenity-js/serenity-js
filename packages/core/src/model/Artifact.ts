@@ -52,7 +52,8 @@ export abstract class Artifact extends TinyType {
 }
 
 function looksLikeBase64Encoded(): Predicate<string> {
-    const regex = /^[\d+/=A-Za-z]+$/;
+    // const regex = /^[\d+/=A-Za-z]+$/;
+    const regex = /^[\d\s+/=A-Za-z]+$/;
 
     return Predicate.to(`be base64-encoded`, (value: string) => regex.test(value));
 }
