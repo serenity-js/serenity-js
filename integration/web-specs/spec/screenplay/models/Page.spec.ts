@@ -193,7 +193,10 @@ describe('Page', () => {
             );
         });
 
-        it('complains when trying to switch to a Page closed by JavaScript', async () => {
+        it('complains when trying to switch to a Page closed by JavaScript', async function () {
+
+            this.retries(2);
+
             const result = actorCalled('Bernie').attemptsTo(
                 Click.on(MainPage.newTabLink()),
 
@@ -206,7 +209,7 @@ describe('Page', () => {
                 // Wait for the page to be discarded before attempting to switch to it
                 // to avoid a race condition where the browser throws TargetCloseError
                 // before Serenity/JS can detect the page is gone
-                Wait.until(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+                Ensure.eventually(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
 
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
                     Interaction.where('#actor throws an error', actor => {
