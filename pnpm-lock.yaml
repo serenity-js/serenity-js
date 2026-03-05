@@ -2556,8 +2556,8 @@ importers:
         specifier: 38.0.0
         version: 38.0.0
       '@cucumber/messages':
-        specifier: 32.0.1
-        version: 32.0.1
+        specifier: 32.2.0
+        version: 32.2.0
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../core
@@ -3642,6 +3642,9 @@ packages:
 
   '@cucumber/messages@32.0.1':
     resolution: {integrity: sha512-1OSoW+GQvFUNAl6tdP2CTBexTXMNJF0094goVUcvugtQeXtJ0K8sCP0xbq7GGoiezs/eJAAOD03+zAPT64orHQ==}
+
+  '@cucumber/messages@32.2.0':
+    resolution: {integrity: sha512-oYp1dgL2TByYWL51Z+rNm+/mFtJhiPU9WS03goes9EALb8d9GFcXRbG1JluFLFaChF1YDqIzLac0kkC3tv1DjQ==}
 
   '@cucumber/pretty-formatter@1.0.1':
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
@@ -9826,7 +9829,6 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.14.0:
@@ -12260,7 +12262,7 @@ snapshots:
   '@cucumber/gherkin-utils@11.0.0':
     dependencies:
       '@cucumber/gherkin': 38.0.0
-      '@cucumber/messages': 32.0.1
+      '@cucumber/messages': 32.2.0
       '@teppeis/multimaps': 3.0.0
       commander: 14.0.2
       source-map-support: 0.5.21
@@ -12330,7 +12332,7 @@ snapshots:
 
   '@cucumber/gherkin@38.0.0':
     dependencies:
-      '@cucumber/messages': 32.0.1
+      '@cucumber/messages': 32.2.0
 
   '@cucumber/html-formatter@15.0.2':
     dependencies:
@@ -12463,6 +12465,11 @@ snapshots:
       uuid: 11.0.5
 
   '@cucumber/messages@32.0.1':
+    dependencies:
+      class-transformer: 0.5.1
+      reflect-metadata: 0.2.2
+
+  '@cucumber/messages@32.2.0':
     dependencies:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
