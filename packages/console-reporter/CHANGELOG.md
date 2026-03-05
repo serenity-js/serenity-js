@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
+
+**Note:** Version bump only for package @serenity-js/console-reporter
+
+
+
+
+
 ## [3.41.1](https://github.com/serenity-js/serenity-js/compare/v3.41.0...v3.41.1) (2026-02-27)
 
 **Note:** Version bump only for package @serenity-js/console-reporter
