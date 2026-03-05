@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.13.6 ([6fa771e](https://github.com/serenity-js/serenity-js/commit/6fa771eb2dc2276b99c18d809f21a73df31cb104))
+
+
+
+
+
 ## [3.41.1](https://github.com/serenity-js/serenity-js/compare/v3.41.0...v3.41.1) (2026-02-27)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd

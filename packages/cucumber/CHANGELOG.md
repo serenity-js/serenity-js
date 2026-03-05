@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/gherkin to v39 ([b94373f](https://github.com/serenity-js/serenity-js/commit/b94373fe8c3a824b2a7ebfeed961ce2dca16ed99))
+* **deps:** update dependency @cucumber/messages to v32.2.0 ([d4a1095](https://github.com/serenity-js/serenity-js/commit/d4a109564a92130d1f7c64cf19fe56bedb6b3127))
+
+
+
+
+
 ## [3.41.1](https://github.com/serenity-js/serenity-js/compare/v3.41.0...v3.41.1) (2026-02-27)
 
 
