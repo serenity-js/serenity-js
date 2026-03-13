@@ -2640,8 +2640,8 @@ importers:
         version: 1.0.38
     devDependencies:
       '@hapi/hapi':
-        specifier: 21.4.6
-        version: 21.4.6
+        specifier: 21.4.7
+        version: 21.4.7
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -4087,8 +4087,8 @@ packages:
   '@hapi/formula@3.0.2':
     resolution: {integrity: sha512-hY5YPNXzw1He7s0iqkRQi+uMGh383CGdyyIGYtB+W5N3KHPXoqychklvHhKCC9M3Xtv0OCs/IHw+r4dcHtBYWw==}
 
-  '@hapi/hapi@21.4.6':
-    resolution: {integrity: sha512-T+DKEZrgZZeFJP0wIcmsU2Tr6TZ7LJExLV+qfFiQsBuqzZRxHwNQ9z4SshkFWocvlf3hIu9iyyB2X5bAdiH6tA==}
+  '@hapi/hapi@21.4.7':
+    resolution: {integrity: sha512-BNO7EgGdDPUaNGhkEiaW8xqk7IqzZNDljBPLcAZgyzpAKl72YR5sBlzfQG1ncrS7O1A7NPLHJkJJgd4YYHDHfg==}
     engines: {node: '>=14.15.0'}
 
   '@hapi/heavy@8.0.1':
@@ -4518,6 +4518,7 @@ packages:
   '@lerna/create@9.0.5':
     resolution: {integrity: sha512-Gwd6ooSqXMdkdhiCGvHAfLRstj7W3ttr72WQB3Jf9HPP1A6mWtw0O80D0X+T/2hakqfe7lNLuKrEid4f7C0qbg==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: This package is an implementation detail of Lerna and is no longer published separately.
 
   '@ljharb/through@2.3.13':
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
@@ -12762,7 +12763,7 @@ snapshots:
 
   '@hapi/formula@3.0.2': {}
 
-  '@hapi/hapi@21.4.6':
+  '@hapi/hapi@21.4.7':
     dependencies:
       '@hapi/accept': 6.0.3
       '@hapi/ammo': 6.0.1
