@@ -1,3 +1,3 @@
-export * from './Ensure';
-export * from './EnsureEventually';
-export * from './expectations';
+export * from './Ensure.js';
+export * from './EnsureEventually.js';
+export * from './expectations/index.js';

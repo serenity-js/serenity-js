@@ -1,9 +1,9 @@
 import * as childProcess from 'node:child_process';
 
-import * as events from '@serenity-js/core/lib/events';
+import * as events from '@serenity-js/core/lib/events/index.js';
 
-import { DTO } from '../child-process-reporter';
-import { SpawnResult } from './SpawnResult';
+import { DTO } from '../child-process-reporter/index.js';
+import { SpawnResult } from './SpawnResult.js';
 
 export function spawner(pathToScript: string, options?: childProcess.ForkOptions) {
     return (...args: string[]): Promise<SpawnResult> => {

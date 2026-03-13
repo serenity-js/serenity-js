@@ -1,6 +1,6 @@
 import type { Answerable, AnswersQuestions, UsesAbilities, WithAnswerableProperties } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
-import { d } from '@serenity-js/core/lib/io';
+import { d } from '@serenity-js/core/lib/io/index.js';
 import type { AxiosRequestConfig } from 'axios';
 
 /**

@@ -9,9 +9,9 @@ import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, 
 import { type ActivityDetails, CorrelationId, type CorrelationIdFactory } from './model/index.js';
 import type { Actor, Timestamp } from './screenplay/index.js';
 import { Clock, Duration } from './screenplay/index.js';
-import type { StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
 import type { Cast } from './stage/Cast.js';
 import { Extras } from './stage/Extras.js';
+import type { StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
 import { Stage } from './stage/Stage.js';
 import { StageManager } from './stage/StageManager.js';
 

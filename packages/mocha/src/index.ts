@@ -1,8 +1,8 @@
 import { serenity } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
 import type { MochaOptions, Runner } from 'mocha';
 
-import { SerenityReporterForMocha } from './SerenityReporterForMocha';
+import { SerenityReporterForMocha } from './SerenityReporterForMocha.js';
 
 /**
  * Registers a Mocha reporter that emits [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
@@ -18,4 +18,4 @@ function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForM
     return new SerenityReporterForMocha(serenity, requirementsHierarchy, runner, options);
 }
 
-export = bootstrap;
+export default bootstrap;

@@ -43,22 +43,22 @@ This plan migrates all 12 Serenity/JS packages to produce dual ESM and CommonJS 
 - [x] 2. Checkpoint - Wave 1 Complete
   - Ensure core package compiles and all tests pass, ask the user if questions arise.
 
-- [ ] 3. Wave 2: Migrate core-dependent packages
-  - [ ] 3.1 Migrate @serenity-js/assertions
+- [x] 3. Wave 2: Migrate core-dependent packages
+  - [x] 3.1 Migrate @serenity-js/assertions
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config (no submodules)
     - Update build scripts
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 5.1, 5.2, 5.3, 5.4, 6.1-6.5, 7.1-7.6, 11.5_
   
-  - [ ] 3.2 Migrate @serenity-js/rest
+  - [x] 3.2 Migrate @serenity-js/rest
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config (no submodules)
     - Update build scripts
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 5.1, 5.2, 5.3, 5.4, 6.1-6.5, 7.1-7.6, 11.5_
   
-  - [ ] 3.3 Migrate @serenity-js/cucumber
+  - [x] 3.3 Migrate @serenity-js/cucumber
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config
@@ -66,7 +66,7 @@ This plan migrates all 12 Serenity/JS packages to produce dual ESM and CommonJS 
     - Update build scripts
     - _Requirements: 1.1-1.4, 2.1-2.5, 3.1-3.5, 4.1-4.5, 5.1-5.4, 6.1-6.5, 7.1-7.6, 11.4_
   
-  - [ ] 3.4 Migrate @serenity-js/mocha
+  - [x] 3.4 Migrate @serenity-js/mocha
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config
@@ -74,26 +74,26 @@ This plan migrates all 12 Serenity/JS packages to produce dual ESM and CommonJS 
     - Update build scripts
     - _Requirements: 1.1-1.4, 2.1-2.5, 3.1-3.5, 4.1-4.5, 5.1-5.4, 6.1-6.5, 7.1-7.6, 11.4_
   
-  - [ ] 3.5 Migrate @serenity-js/console-reporter
+  - [x] 3.5 Migrate @serenity-js/console-reporter
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config (no submodules)
     - Update build scripts
     - _Requirements: 1.1-1.4, 2.1-2.5, 3.1-3.5, 5.1-5.4, 6.1-6.5, 7.1-7.6, 11.5_
   
-  - [ ] 3.6 Migrate @serenity-js/local-server
+  - [x] 3.6 Migrate @serenity-js/local-server
     - Create `tsconfig-esm.build.json` and `tsconfig-cjs.build.json`
     - Update `tsconfig.json` for IDE support
     - Update `package.json` with dual-build config (no submodules)
     - Update build scripts
     - _Requirements: 1.1-1.4, 2.1-2.5, 3.1-3.5, 5.1-5.4, 6.1-6.5, 7.1-7.6, 11.5_
   
-  - [ ] 3.7 Verify Wave 2 packages build
+  - [x] 3.7 Verify Wave 2 packages build
     - Run `make COMPILE_SCOPE=libs compile` to compile all packages
     - Run `make test` to verify all unit tests pass
     - _Requirements: 8.2, 9.1, 9.2, 9.3, 9.4_
 
-- [ ] 4. Checkpoint - Wave 2 Complete
+- [x] 4. Checkpoint - Wave 2 Complete
   - Ensure all Wave 2 packages compile and tests pass, ask the user if questions arise.
 
 - [ ] 5. Wave 3: Migrate web and serenity-bdd packages

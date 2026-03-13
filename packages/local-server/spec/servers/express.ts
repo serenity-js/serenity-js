@@ -2,7 +2,7 @@
 // https://github.com/expressjs/express
 import express from 'express';
 
-export = {
+export default {
     node: '>= 6.9',
     description: 'Express app',
     handler: () => express().

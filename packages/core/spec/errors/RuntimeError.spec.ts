@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { beforeEach, describe, it } from 'mocha';

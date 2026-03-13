@@ -1,13 +1,12 @@
-import type { Dependencies } from './Dependencies';
+import cucumber0 from './cucumber-0.js';
+import type { Dependencies } from './Dependencies.js';
 
-export = function ({ serenity, notifier, resultMapper, loader, cucumber, cache }: Dependencies) {
-    const adapter = require('./cucumber-0');
-
+export default function ({ serenity, notifier, resultMapper, loader, cucumber, cache, mapper }: Dependencies) {
     cucumber.defineSupportCode(support =>
-        adapter({ serenity, notifier, resultMapper, loader, cucumber, cache }).call(support)
+        cucumber0({ serenity, notifier, resultMapper, loader, cucumber, cache, mapper }).call(support)
     );
 
     return function (): void {
         // no-op
     };
-};
+}

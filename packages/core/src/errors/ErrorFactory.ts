@@ -6,8 +6,8 @@ import { equal } from 'tiny-types/lib/objects/equal.js';
 
 import { inspected, ValueInspector } from '../io/index.js';
 import { Unanswered } from '../screenplay/questions/Unanswered.js';
-import type { DiffFormatter } from './diff/index.js';
 import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter.js';
+import type { DiffFormatter } from './diff/index.js';
 import type { ErrorOptions } from './ErrorOptions.js';
 import type { RuntimeError } from './model/index.js';
 

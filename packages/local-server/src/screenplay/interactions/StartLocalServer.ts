@@ -1,7 +1,7 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core';
 
-import { ManageALocalServer } from '../abilities';
+import { ManageALocalServer } from '../abilities/index.js';
 
 /**
  * Starts local server so that a test can interact with it.

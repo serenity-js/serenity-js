@@ -1,2 +1,2 @@
-export * from './ChangeApiConfig';
-export * from './Send';
+export * from './ChangeApiConfig.js';
+export * from './Send.js';

@@ -2,13 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { LogicError } from '@serenity-js/core';
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import type { ModuleLoader } from '@serenity-js/core/lib/io';
-import type { Outcome } from '@serenity-js/core/lib/model';
-import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import type { Outcome } from '@serenity-js/core/lib/model/index.js';
+import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model/index.js';
+import type Mocha from 'mocha';
 
-import type { MochaConfig } from './MochaConfig';
-import type Mocha = require('mocha');
+import reporter from '../index.js';
+import type { MochaConfig } from './MochaConfig.js';
 
 /**
  * Allows for programmatic execution of Mocha test scenarios,
@@ -49,7 +50,7 @@ export class MochaAdapter implements TestRunnerAdapter {
 
         this.mocha = new _Mocha({
             ...this.config,
-            reporter: require.resolve('../index'),
+            reporter: reporter,
         });
 
         this.mocha.fullTrace();
@@ -113,7 +114,7 @@ export class MochaAdapter implements TestRunnerAdapter {
                 ? path.resolve(fileOrModule)    // local file
                 : fileOrModule;                 // module
 
-            require(required);
+            this.loader.require(required);
         });
     }
 }

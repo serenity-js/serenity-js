@@ -13,14 +13,31 @@
   "config": {
     "access": "private"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./esm/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "serenity-js",
     "internal"
   ],
   "scripts": {
-    "compile": "rimraf lib && tsc --project tsconfig.json"
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
   },
   "repository": {
     "type": "git",
@@ -44,7 +61,6 @@
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
     "tiny-types": "1.24.3",
-    "ts-node": "10.9.2",
     "typescript": "5.9.3"
   }
 }

@@ -2,7 +2,7 @@ import type { Serenity} from '@serenity-js/core';
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core';
 import type {
     Outcome,
-    ProblemIndication} from '@serenity-js/core/lib/model';
+    ProblemIndication} from '@serenity-js/core/lib/model/index.js';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -10,9 +10,9 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 
-import { AmbiguousStepDefinitionError } from '../../../errors';
+import { AmbiguousStepDefinitionError } from '../../../errors/index.js';
 
 /**
  * @package

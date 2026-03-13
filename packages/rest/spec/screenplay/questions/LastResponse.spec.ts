@@ -47,28 +47,28 @@ describe('LastResponse', () => {
         });
 
         it('enables access to the response status', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('StatusChecker').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.status(), equals(200)),
             )
         });
 
         it('enables access to the response body', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('BodyChecker').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.body<Product>(), equals(apple)),
             );
         });
 
         it('enables access to a specific response header', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('HeaderChecker').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.header('Content-Type'), equals(headers['Content-Type'])),
             );
         });
 
         it('enables access to all response headers', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('AllHeadersChecker').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.headers(), equals(headers)),
             );
@@ -90,21 +90,21 @@ describe('LastResponse', () => {
         });
 
         it('provides an adapter around response status', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('StatusAdapter').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.status().toFixed(2), equals('200.00')),
             );
         });
 
         it('provides an adapter around response body',async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('BodyAdapter').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.body<Product>().name.toLocaleUpperCase(), equals('APPLE')),
             );
         });
 
         it('enables easy access to elements of an array', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('ArrayAccessor').attemptsTo(
                 Send.a(GetRequest.to(productList)),
                 Ensure.that(LastResponse.body<{ products: Product[] }>().products.length, equals(2)),
                 Ensure.that(LastResponse.body<{ products: Product[] }>().products, equals([
@@ -114,7 +114,7 @@ describe('LastResponse', () => {
         });
 
         it('provides an adapter around individual response headers', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('IndividualHeaderAdapter').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(
                     LastResponse.header('Content-Type').slice(0, LastResponse.header('Content-Type').indexOf(';')),
@@ -124,14 +124,14 @@ describe('LastResponse', () => {
         });
 
         it('provides an adapter around all response headers', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('AllHeadersAdapter').attemptsTo(
                 Send.a(GetRequest.to(productDetails)),
                 Ensure.that(LastResponse.headers()['Content-Type'], equals('application/json;charset=utf-8')),
             );
         });
 
         it('allows for an Adapter<Array> to be wrapped in a List', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('ListWrapper').attemptsTo(
                 Send.a(GetRequest.to(`/products`)),
                 List.of<Product>(LastResponse.body<{ products: Product[] }>().products)
                     .forEach(({ item, actor }) =>
@@ -147,7 +147,7 @@ describe('LastResponse', () => {
     describe('when handling errors', () => {
 
         it('complains if the last response is attempted to be retrieved without making a request first', async () => {
-            const result = actorCalled('Apisitt').attemptsTo(
+            const result = actorCalled('ErrorHandler').attemptsTo(
                 Ensure.that(LastResponse.status(), equals(200)),
             );
 

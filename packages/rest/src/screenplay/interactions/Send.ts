@@ -1,11 +1,11 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core';
-import type { Artifact, RequestAndResponse } from '@serenity-js/core/lib/model';
-import { HTTPRequestResponse, Name } from '@serenity-js/core/lib/model';
+import type { Artifact, RequestAndResponse } from '@serenity-js/core/lib/model/index.js';
+import { HTTPRequestResponse, Name } from '@serenity-js/core/lib/model/index.js';
 import type { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
 import { AxiosHeaders } from 'axios';
 
-import { CallAnApi } from '../abilities';
+import { CallAnApi } from '../abilities/index.js';
 
 /**
  * Sends a [`HTTPRequest`](https://serenity-js.org/api/rest/class/HTTPRequest/) to a specified URL.

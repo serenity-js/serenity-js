@@ -1,10 +1,14 @@
+import { fileURLToPath } from 'node:url';
+
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
-import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin';
-import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser, GherkinParserAdapter } from '../../../../../src/listeners/legacy/gherkin';
+import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin/index.js';
+import { Cache, FeatureFileLoader, FeatureFileMapper, FeatureFileParser, GherkinParserAdapter } from '../../../../../src/listeners/legacy/gherkin/index.js';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('FeatureFileLoader', () => {
 

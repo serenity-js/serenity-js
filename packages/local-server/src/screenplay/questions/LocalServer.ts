@@ -4,7 +4,7 @@ import type { QuestionAdapter } from '@serenity-js/core';
 import { LogicError, Question } from '@serenity-js/core';
 import type { AddressInfo } from 'net';
 
-import { ManageALocalServer } from '../abilities';
+import { ManageALocalServer } from '../abilities/index.js';
 
 /**
  * @group Questions

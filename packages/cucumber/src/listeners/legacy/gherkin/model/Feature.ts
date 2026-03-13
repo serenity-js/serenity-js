@@ -1,8 +1,8 @@
-import type { FileSystemLocation } from '@serenity-js/core/lib/io';
-import type { Description, Name } from '@serenity-js/core/lib/model';
+import type { FileSystemLocation } from '@serenity-js/core/lib/io/index.js';
+import type { Description, Name } from '@serenity-js/core/lib/model/index.js';
 
-import type { Background } from './Background';
-import { FeatureFileNode } from './FeatureFileNode';
+import type { Background } from './Background.js';
+import { FeatureFileNode } from './FeatureFileNode.js';
 
 /**
  * @private

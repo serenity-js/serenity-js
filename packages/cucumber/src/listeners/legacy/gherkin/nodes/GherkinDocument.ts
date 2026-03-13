@@ -1,5 +1,5 @@
-import type { Comment } from './Comment';
-import type { Feature } from './Feature';
+import type { Comment } from './Comment.js';
+import type { Feature } from './Feature.js';
 
 /**
  * @private

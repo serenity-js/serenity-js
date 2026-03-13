@@ -1,6 +1,6 @@
 import type { TinyType } from 'tiny-types';
 
-import { UnableToRetrieveFeatureFileMap } from './errors';
+import { UnableToRetrieveFeatureFileMap } from './errors/index.js';
 
 /**
  * @private

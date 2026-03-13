@@ -9,8 +9,13 @@ import { afterEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import { satisfies } from 'semver';
 
-import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
-import servers = require('./servers');
+import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src/index.js';
+import barebones from './servers/barebones.js';
+import expressServer from './servers/express.js';
+import hapiServer from './servers/hapi.js';
+import servers from './servers/index.js';
+import koaServer from './servers/koa.js';
+import restifyServer from './servers/restify.js';
 
 describe('ManageALocalServer', () => {
 
@@ -35,7 +40,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(
+            return expect(actorCalled('Nadia-HTTP').attemptsTo(
                 StartLocalServer.onRandomPort(),
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
                 Send.a(GetRequest.to(LocalServer.url())),
@@ -62,7 +67,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(
+            return expect(actorCalled('Nadia-HTTP-error').attemptsTo(
                 Ensure.that(LocalServer.url(), startsWith('http://127.0.0.1')),
             )).to.be.rejectedWith(LogicError, 'The server has not been started yet');
         });
@@ -81,9 +86,9 @@ describe('ManageALocalServer', () => {
         ];
 
         given(
-            require('./servers/barebones'),
-            require('./servers/express'),
-            require('./servers/koa'),
+            barebones,
+            expressServer,
+            koaServer,
         ).
         it('allows the Actor to start, stop and access the location of a HTTPS', function ({ handler, node }) {
             if (! satisfies(process.versions.node, node)) {
@@ -115,20 +120,18 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
+            return expect(actorCalled('Nadia-HTTPS').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it('allows the Actor to start, stop and access the location of a HTTPS Hapi app', function () {
-            const hapi = require('./servers/hapi');
-
-            if (! satisfies(process.versions.node, hapi.node)) {
+            if (! satisfies(process.versions.node, hapiServer.node)) {
                 return this.skip();
             }
 
             class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
-                        ManageALocalServer.runningAHttpsListener(hapi.handler({
+                        ManageALocalServer.runningAHttpsListener(hapiServer.handler({
                             tls: {
                                 cert:           certificates.cert,
                                 key:            certificates.key,
@@ -152,20 +155,18 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
+            return expect(actorCalled('Nadia-HTTPS-Hapi').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
 
         it('allows the Actor to start, stop and access the location of a Restify app', function () {
-            const restify = require('./servers/restify');
-
-            if (! satisfies(process.versions.node, restify.node)) {
+            if (! satisfies(process.versions.node, restifyServer.node)) {
                 return this.skip();
             }
 
             class Actors implements Cast {
                 prepare(actor: Actor): Actor {
                     return actor.whoCan(
-                        ManageALocalServer.runningAHttpsListener(restify.handler({
+                        ManageALocalServer.runningAHttpsListener(restifyServer.handler({
                             certificate:    certificates.cert,
                             key:            certificates.key,
                         })),
@@ -185,7 +186,7 @@ describe('ManageALocalServer', () => {
                 actors: new Actors(),
             });
 
-            return expect(actorCalled('Nadia').attemptsTo(...testHttpsServer)).to.be.fulfilled;
+            return expect(actorCalled('Nadia-HTTPS-Restify').attemptsTo(...testHttpsServer)).to.be.fulfilled;
         });
     });
 

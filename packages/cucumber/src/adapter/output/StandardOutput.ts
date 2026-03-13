@@ -1,6 +1,6 @@
-import type { OutputDescriptor } from './OutputDescriptor';
-import type { SerenityFormatterOutput } from './SerenityFormatterOutput';
-import { StandardOutputDescriptor } from './StandardOutputDescriptor';
+import type { OutputDescriptor } from './OutputDescriptor.js';
+import type { SerenityFormatterOutput } from './SerenityFormatterOutput.js';
+import { StandardOutputDescriptor } from './StandardOutputDescriptor.js';
 
 /**
  * @group Integration
