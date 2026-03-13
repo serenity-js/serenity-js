@@ -5,9 +5,9 @@ import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { beforeEach, describe, it } from 'mocha';
 
-import { ConsoleReporter } from '../../../../src';
-import { Printer } from '../../../../src/stage/crew/console-reporter/Printer';
-import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
+import { ConsoleReporter } from '../../../../src/index.js';
+import { Printer } from '../../../../src/stage/crew/console-reporter/Printer.js';
+import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes/index.js';
 
 describe('ConsoleReporter', () => {
 

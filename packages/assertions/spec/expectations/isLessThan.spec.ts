@@ -3,7 +3,7 @@ import { actorCalled, AssertionError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
-import { Ensure, isLessThan } from '../../src';
+import { Ensure, isLessThan } from '../../src/index.js';
 
 describe('isLessThan', () => {
 

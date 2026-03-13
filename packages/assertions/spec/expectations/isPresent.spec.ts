@@ -5,7 +5,7 @@ import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Ensure, isPresent } from '../../src';
+import { Ensure, isPresent } from '../../src/index.js';
 
 describe('isPresent', () => {
 

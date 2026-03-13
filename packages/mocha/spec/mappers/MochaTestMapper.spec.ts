@@ -3,8 +3,8 @@ import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import { ArbitraryTag, Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { MochaTestMapper } from '../../src/mappers';
-import { exampleTest } from '../exampleTest';
+import { MochaTestMapper } from '../../src/mappers/index.js';
+import { exampleTest } from '../exampleTest.js';
 
 describe('MochaTestMapper', () => {
 

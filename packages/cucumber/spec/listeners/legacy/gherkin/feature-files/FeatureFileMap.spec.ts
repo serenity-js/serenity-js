@@ -2,7 +2,7 @@ import { expect } from '@integration/testing-tools';
 import { Description, Name } from '@serenity-js/core/lib/model';
 import { describe, it } from 'mocha';
 
-import { FeatureFileMap } from '../../../../../src/listeners/legacy/gherkin';
+import { FeatureFileMap } from '../../../../../src/listeners/legacy/gherkin/index.js';
 
 describe('FeatureFileMap', () => {
 

@@ -3,9 +3,9 @@ import { actorCalled, engage, LogicError } from '@serenity-js/core';
 import type MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
-import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src';
-import { actors } from '../../actors';
-import { expect } from '../../expect';
+import { ChangeApiConfig, GetRequest, LastResponse, Send } from '../../../src/index.js';
+import { actors } from '../../actors.js';
+import { expect } from '../../expect.js';
 
 describe('ChangeApiConfig', () => {
 

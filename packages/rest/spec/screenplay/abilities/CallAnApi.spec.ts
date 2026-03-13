@@ -5,8 +5,8 @@ import MockAdapter from 'axios-mock-adapter';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { CallAnApi } from '../../../src';
-import { expect } from '../../expect';
+import { CallAnApi } from '../../../src/index.js';
+import { expect } from '../../expect.js';
 
 describe('CallAnApi', () => {
 

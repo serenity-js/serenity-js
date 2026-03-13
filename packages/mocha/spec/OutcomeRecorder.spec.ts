@@ -2,9 +2,9 @@ import { expect } from '@integration/testing-tools';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
-import { MochaOutcomeMapper } from '../src/mappers';
-import { OutcomeRecorder } from '../src/OutcomeRecorder';
-import { exampleTest } from './exampleTest';
+import { MochaOutcomeMapper } from '../src/mappers/index.js';
+import { OutcomeRecorder } from '../src/OutcomeRecorder.js';
+import { exampleTest } from './exampleTest.js';
 
 describe('OutcomeRecorder', () => {
     const mapper = new MochaOutcomeMapper();

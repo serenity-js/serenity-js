@@ -23,9 +23,9 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
-import { CallAnApi, GetRequest, LastResponse, Send } from '../../../src';
-import { actors } from '../../actors';
-import { expect } from '../../expect';
+import { CallAnApi, GetRequest, LastResponse, Send } from '../../../src/index.js';
+import { actors } from '../../actors.js';
+import { expect } from '../../expect.js';
 
 describe('Send', () => {
 

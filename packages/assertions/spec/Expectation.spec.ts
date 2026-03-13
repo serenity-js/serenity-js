@@ -5,8 +5,8 @@ import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '../src';
-import { isIdenticalTo, p, q } from './fixtures';
+import { and, Ensure, equals, isGreaterThan, isLessThan, or } from '../src/index.js';
+import { isIdenticalTo, p, q } from './fixtures.js';
 
 describe('Expectation', () => {
 

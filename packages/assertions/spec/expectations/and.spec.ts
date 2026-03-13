@@ -3,7 +3,7 @@ import { actorCalled, AssertionError } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
-import { and, endsWith, Ensure, startsWith } from '../../src';
+import { and, endsWith, Ensure, startsWith } from '../../src/index.js';
 
 describe('and', () => {
 
