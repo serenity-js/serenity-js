@@ -1,2 +1,2 @@
-export * from './ClassDescription';
-export * from './SerenityConfig';
+export * from './ClassDescription.js';
+export * from './SerenityConfig.js';

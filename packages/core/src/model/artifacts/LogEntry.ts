@@ -1,4 +1,4 @@
-import { JSONData } from './JSONData';
+import { JSONData } from './JSONData.js';
 
 export class LogEntry extends JSONData {
     static fromJSON(value: { data: string }): LogEntry {

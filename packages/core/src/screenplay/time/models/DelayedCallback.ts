@@ -1,4 +1,4 @@
-import type { Timestamp } from './Timestamp';
+import type { Timestamp } from './Timestamp.js';
 
 /**
  * @group Time

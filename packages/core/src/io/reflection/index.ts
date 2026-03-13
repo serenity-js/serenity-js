@@ -1,2 +1,2 @@
-export * from './has';
-export * from './ValueInspector';
+export * from './has.js';
+export * from './ValueInspector.js';

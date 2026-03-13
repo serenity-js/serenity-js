@@ -1,4 +1,4 @@
-import type { Answerable } from '../Answerable';
+import type { Answerable } from '../Answerable.js';
 
 /**
  * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can answer a [`Question`](https://serenity-js.org/api/core/class/Question/) about the system under test.

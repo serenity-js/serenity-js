@@ -1,6 +1,6 @@
 import util from 'node:util';
 
-import { ValueInspector } from './reflection';
+import { ValueInspector } from './reflection/index.js';
 
 export function inspectedObject<T>(value: T, allowFields?: Array<keyof T>): (depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect) => string {
     return function (depth: number, options: util.InspectOptionsStylized, inspect: typeof util.inspect = util.inspect): string {

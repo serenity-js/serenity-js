@@ -1,5 +1,5 @@
-import type { Answerable } from '../Answerable';
-import type { Question } from '../Question';
+import type { Answerable } from '../Answerable.js';
+import type { Question } from '../Question.js';
 
 /**
  * A meta-question is a [`Question`](https://serenity-js.org/api/core/class/Question/) that can be answered

@@ -1,10 +1,10 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import type { SerialisedOutcome } from '../model';
-import { CorrelationId, Outcome, ScenarioDetails } from '../model';
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import type { SerialisedOutcome } from '../model/index.js';
+import { CorrelationId, Outcome, ScenarioDetails } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * @group Events

@@ -1,7 +1,7 @@
-import { ConfigurationError } from '../errors';
-import { CapabilityTag, FeatureTag, Tag, ThemeTag } from '../model';
-import type { FileSystem } from './FileSystem';
-import { Path } from './Path';
+import { ConfigurationError } from '../errors/index.js';
+import { CapabilityTag, FeatureTag, Tag, ThemeTag } from '../model/index.js';
+import type { FileSystem } from './FileSystem.js';
+import { Path } from './Path.js';
 
 export class RequirementsHierarchy {
 

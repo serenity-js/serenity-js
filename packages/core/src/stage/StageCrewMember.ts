@@ -1,5 +1,5 @@
-import type { ListensToDomainEvents } from './ListensToDomainEvents';
-import type { Stage } from './Stage';
+import type { ListensToDomainEvents } from './ListensToDomainEvents.js';
+import type { Stage } from './Stage.js';
 
 /**
  * You can think of the [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) as an in-memory microservice that reacts to [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/),

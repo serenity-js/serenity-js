@@ -1,6 +1,6 @@
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
-import { Timestamp } from '../screenplay';
+import { Timestamp } from '../screenplay/index.js';
 
 /**
  * Represents an internal domain event that occurs during test execution.

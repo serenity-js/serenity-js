@@ -1,17 +1,17 @@
 import type { JSONObject, JSONValue } from 'tiny-types';
 import { ensure, isDefined, isString, match } from 'tiny-types';
 
-import { ArbitraryTag } from './ArbitraryTag';
-import { BrowserTag } from './BrowserTag';
-import { CapabilityTag } from './CapabilityTag';
-import { ExecutionRetriedTag } from './ExecutionRetriedTag';
-import { FeatureTag } from './FeatureTag';
-import { IssueTag } from './IssueTag';
-import { ManualTag } from './ManualTag';
-import { PlatformTag } from './PlatformTag';
-import { ProjectTag } from './ProjectTag';
-import type { Tag } from './Tag';
-import { ThemeTag } from './ThemeTag';
+import { ArbitraryTag } from './ArbitraryTag.js';
+import { BrowserTag } from './BrowserTag.js';
+import { CapabilityTag } from './CapabilityTag.js';
+import { ExecutionRetriedTag } from './ExecutionRetriedTag.js';
+import { FeatureTag } from './FeatureTag.js';
+import { IssueTag } from './IssueTag.js';
+import { ManualTag } from './ManualTag.js';
+import { PlatformTag } from './PlatformTag.js';
+import { ProjectTag } from './ProjectTag.js';
+import type { Tag } from './Tag.js';
+import { ThemeTag } from './ThemeTag.js';
 
 interface Deserialiser<Return_Type> {
     fromJSON(o: JSONValue): Return_Type;

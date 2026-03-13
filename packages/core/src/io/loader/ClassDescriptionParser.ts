@@ -1,9 +1,9 @@
 import validate from 'validate-npm-package-name';
 
-import type { ClassDescription } from '../../config';
-import { ConfigurationError } from '../../errors';
-import { d } from '../format';
-import type { ClassDescriptor } from './ClassDescriptor';
+import type { ClassDescription } from '../../config/index.js';
+import { ConfigurationError } from '../../errors/index.js';
+import { d } from '../format.js';
+import type { ClassDescriptor } from './ClassDescriptor.js';
 
 export class ClassDescriptionParser {
     private static validClassNamePattern = /^[A-Za-z]\w+$/;

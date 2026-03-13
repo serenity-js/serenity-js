@@ -1,7 +1,7 @@
 import type { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from '../ErrorSerialiser';
-import { RuntimeError } from './RuntimeError';
+import { ErrorSerialiser } from '../ErrorSerialiser.js';
+import { RuntimeError } from './RuntimeError.js';
 
 /**
  * Thrown to indicate that a [scheduled operation](https://serenity-js.org/api/core/class/Scheduler/)

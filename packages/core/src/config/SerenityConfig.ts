@@ -1,8 +1,8 @@
-import type { OutputStream } from '../adapter';
-import type { DiffFormatter } from '../errors';
-import type { Duration } from '../screenplay';
-import type { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage';
-import type { ClassDescription } from './ClassDescription';
+import type { OutputStream } from '../adapter/index.js';
+import type { DiffFormatter } from '../errors/index.js';
+import type { Duration } from '../screenplay/index.js';
+import type { Cast, StageCrewMember, StageCrewMemberBuilder } from '../stage/index.js';
+import type { ClassDescription } from './ClassDescription.js';
 
 /**
  * Describes the configuration object accepted by the [`configure`](https://serenity-js.org/api/core/function/configure/) function.

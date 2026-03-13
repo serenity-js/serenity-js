@@ -1,1 +1,1 @@
-export * from './ScheduleWork';
+export * from './ScheduleWork.js';

@@ -1,8 +1,8 @@
 import type { JSONObject} from 'tiny-types';
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
-import { Description } from './Description';
-import { Name } from './Name';
+import { Description } from './Description.js';
+import { Name } from './Name.js';
 
 export class ScenarioParameters extends TinyType {
     public static fromJSON(o: JSONObject): ScenarioParameters {

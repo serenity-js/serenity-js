@@ -1,5 +1,5 @@
-import type { ListensToDomainEvents } from './ListensToDomainEvents';
-import type { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies';
+import type { ListensToDomainEvents } from './ListensToDomainEvents.js';
+import type { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilderDependencies.js';
 
 /**
  * Use a [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/) to configure complex [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) objects.

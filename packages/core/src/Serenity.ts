@@ -1,19 +1,19 @@
 import { ensure, isInstanceOf } from 'tiny-types';
 
-import type { OutputStream } from './adapter';
-import type { SerenityConfig } from './config';
-import type { ErrorOptions, RuntimeError } from './errors';
-import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors';
-import type { DomainEvent, EmitsDomainEvents } from './events';
-import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, Path } from './io';
-import { type ActivityDetails, CorrelationId, type CorrelationIdFactory } from './model';
-import type { Actor, Timestamp } from './screenplay';
-import { Clock, Duration } from './screenplay';
-import type { StageCrewMember, StageCrewMemberBuilder } from './stage';
-import type { Cast } from './stage/Cast';
-import { Extras } from './stage/Extras';
-import { Stage } from './stage/Stage';
-import { StageManager } from './stage/StageManager';
+import type { OutputStream } from './adapter/index.js';
+import type { SerenityConfig } from './config/index.js';
+import type { ErrorOptions, RuntimeError } from './errors/index.js';
+import { ConfigurationError, ErrorFactory, NoOpDiffFormatter } from './errors/index.js';
+import type { DomainEvent, EmitsDomainEvents } from './events/index.js';
+import { ClassDescriptionParser, ClassLoader, d, FileSystem, has, ModuleLoader, Path } from './io/index.js';
+import { type ActivityDetails, CorrelationId, type CorrelationIdFactory } from './model/index.js';
+import type { Actor, Timestamp } from './screenplay/index.js';
+import { Clock, Duration } from './screenplay/index.js';
+import type { StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
+import type { Cast } from './stage/Cast.js';
+import { Extras } from './stage/Extras.js';
+import { Stage } from './stage/Stage.js';
+import { StageManager } from './stage/StageManager.js';
 
 /**
  * @group Serenity

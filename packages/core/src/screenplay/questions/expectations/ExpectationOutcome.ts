@@ -1,6 +1,6 @@
 import { TinyType } from 'tiny-types';
 
-import type { ExpectationDetails } from './ExpectationDetails';
+import type { ExpectationDetails } from './ExpectationDetails.js';
 
 /**
  * An outcome of an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/),

@@ -1,18 +1,18 @@
-import { ConfigurationError, TestCompromisedError } from '../errors';
-import { ActivityRelatedArtifactGenerated } from '../events';
-import { ValueInspector } from '../io';
-import type { Artifact } from '../model';
-import { Name, } from '../model';
-import type { Stage } from '../stage';
-import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities';
-import { Ability, AnswerQuestions, PerformActivities } from './abilities';
-import type { PerformsActivities } from './activities';
-import type { Activity } from './Activity';
-import type { Answerable } from './Answerable';
-import type { CollectsArtifacts } from './artifacts';
-import type { AnswersQuestions } from './questions';
-import type { SerialisedActor } from './SerialisedActor';
-import type { TellsTime, Timestamp } from './time';
+import { ConfigurationError, TestCompromisedError } from '../errors/index.js';
+import { ActivityRelatedArtifactGenerated } from '../events/index.js';
+import { ValueInspector } from '../io/index.js';
+import type { Artifact } from '../model/index.js';
+import { Name, } from '../model/index.js';
+import type { Stage } from '../stage/index.js';
+import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities/index.js';
+import { Ability, AnswerQuestions, PerformActivities } from './abilities/index.js';
+import type { PerformsActivities } from './activities/index.js';
+import type { Activity } from './Activity.js';
+import type { Answerable } from './Answerable.js';
+import type { CollectsArtifacts } from './artifacts/index.js';
+import type { AnswersQuestions } from './questions/index.js';
+import type { SerialisedActor } from './SerialisedActor.js';
+import type { TellsTime, Timestamp } from './time/index.js';
 
 /**
  * **Actors** represent **people** and **external systems** interacting with the system under test.

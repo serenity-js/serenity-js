@@ -1,4 +1,4 @@
-import type { Question } from './Question';
+import type { Question } from './Question.js';
 
 /**
  * Describes a recursively resolved plain JavaScript object with [answerable properties](https://serenity-js.org/api/core/#WithAnswerableProperties).

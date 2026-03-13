@@ -1,22 +1,23 @@
 import util from 'node:util';
 
-import { isRecord, significantFieldsOf } from 'tiny-types/lib/objects';
+import { isRecord } from 'tiny-types/lib/objects/isRecord.js';
+import { significantFieldsOf } from 'tiny-types/lib/objects/significantFields.js';
 
-import { LogicError } from '../errors';
-import type { FileSystemLocation } from '../io';
-import { asyncMap, f, inspectedObject, ValueInspector } from '../io';
-import type { UsesAbilities } from './abilities';
-import type { Answerable } from './Answerable';
-import { Interaction } from './Interaction';
-import type { Optional } from './Optional';
-import type { AnswersQuestions } from './questions/AnswersQuestions';
-import { Describable } from './questions/Describable';
-import type { DescriptionFormattingOptions } from './questions/DescriptionFormattingOptions';
-import type { MetaQuestion } from './questions/MetaQuestion';
-import { the } from './questions/tag-functions';
-import { Unanswered } from './questions/Unanswered';
-import type { RecursivelyAnswered } from './RecursivelyAnswered';
-import type { WithAnswerableProperties } from './WithAnswerableProperties';
+import { LogicError } from '../errors/index.js';
+import type { FileSystemLocation } from '../io/index.js';
+import { asyncMap, f, inspectedObject, ValueInspector } from '../io/index.js';
+import type { UsesAbilities } from './abilities/index.js';
+import type { Answerable } from './Answerable.js';
+import { Interaction } from './Interaction.js';
+import type { Optional } from './Optional.js';
+import type { AnswersQuestions } from './questions/AnswersQuestions.js';
+import { Describable } from './questions/Describable.js';
+import type { DescriptionFormattingOptions } from './questions/DescriptionFormattingOptions.js';
+import type { MetaQuestion } from './questions/MetaQuestion.js';
+import { the } from './questions/tag-functions.js';
+import { Unanswered } from './questions/Unanswered.js';
+import type { RecursivelyAnswered } from './RecursivelyAnswered.js';
+import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
 
 /**
  * **Questions** describe how [actors](https://serenity-js.org/api/core/class/Actor/) should query the system under test or the test environment to retrieve some information.

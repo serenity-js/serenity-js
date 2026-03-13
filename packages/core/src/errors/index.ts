@@ -1,6 +1,6 @@
 /* eslint-disable simple-import-sort/imports */
-import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, OperationInterruptedError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model';
-import { ErrorSerialiser } from './ErrorSerialiser';
+import { AssertionError, ConfigurationError, ImplementationPendingError, LogicError, OperationInterruptedError, TestCompromisedError, TimeoutExpiredError, UnknownError } from './model/index.js';
+import { ErrorSerialiser } from './ErrorSerialiser.js';
 /* eslint-enable simple-import-sort/imports */
 
 // todo: export ErrorSerialiser as an instance to avoid static method calls
@@ -15,13 +15,13 @@ ErrorSerialiser.registerErrorTypes(
     UnknownError,
 );
 
-export * from './diff';
-export * from './model';
+export * from './diff/index.js';
+export * from './model/index.js';
 
 /* eslint-disable simple-import-sort/exports -- Keep this directive: export order matters to avoid circular dependency (ErrorFactory -> io -> screenplay/Question -> errors -> ErrorStackParser). Do not auto-fix. */
-export { ErrorSerialiser } from './ErrorSerialiser';
-export { ErrorStackParser } from './ErrorStackParser';
-export { ErrorFactory } from './ErrorFactory';
-export { ErrorOptions } from './ErrorOptions';
-export * from './RaiseErrors';
+export { ErrorSerialiser } from './ErrorSerialiser.js';
+export { ErrorStackParser } from './ErrorStackParser.js';
+export { ErrorFactory } from './ErrorFactory.js';
+export type { ErrorOptions } from './ErrorOptions.js';
+export * from './RaiseErrors.js';
 /* eslint-enable simple-import-sort/exports */

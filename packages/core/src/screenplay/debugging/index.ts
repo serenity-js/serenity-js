@@ -1,3 +1,3 @@
-export * from './Debug';
-export * from './DebuggingResult';
-export * from './Log';
+export * from './Debug.js';
+export * from './DebuggingResult.js';
+export * from './Log.js';

@@ -1,15 +1,15 @@
 import type { JSONObject } from 'tiny-types';
 
-import { asyncMap } from '../../io';
-import type { UsesAbilities } from '../abilities';
-import type { Answerable } from '../Answerable';
-import { Interaction } from '../Interaction';
-import type { QuestionAdapter } from '../Question';
-import { Question } from '../Question';
-import type { AnswersQuestions, DescriptionFormattingOptions} from '../questions';
-import { the } from '../questions';
-import type { ChainableSetter } from './ChainableSetter';
-import { TakeNotes } from './TakeNotes';
+import { asyncMap } from '../../io/index.js';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Answerable } from '../Answerable.js';
+import { Interaction } from '../Interaction.js';
+import type { QuestionAdapter } from '../Question.js';
+import { Question } from '../Question.js';
+import type { AnswersQuestions, DescriptionFormattingOptions} from '../questions/index.js';
+import { the } from '../questions/index.js';
+import type { ChainableSetter } from './ChainableSetter.js';
+import { TakeNotes } from './TakeNotes.js';
 
 /**
  * Serenity/JS Screenplay Pattern-style adapter for the [`Notepad`](https://serenity-js.org/api/core/class/Notepad/),

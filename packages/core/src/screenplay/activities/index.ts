@@ -1,1 +1,1 @@
-export * from './PerformsActivities';
+export * from './PerformsActivities.js';

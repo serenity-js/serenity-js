@@ -1,5 +1,5 @@
-import type { Answerable } from './Answerable';
-import type { Question } from './Question';
+import type { Answerable } from './Answerable.js';
+import type { Question } from './Question.js';
 
 /**
  * Describes a plain JavaScript object with [`Answerable`](https://serenity-js.org/api/core/#Answerable) properties.

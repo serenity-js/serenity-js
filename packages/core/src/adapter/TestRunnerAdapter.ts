@@ -1,4 +1,4 @@
-import type { Outcome } from '../model';
+import type { Outcome } from '../model/index.js';
 
 /**
  * Describes an adapter needed to run a given type of tests programmatically

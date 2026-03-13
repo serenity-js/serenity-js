@@ -1,9 +1,9 @@
 import type { JSONObject} from 'tiny-types';
 import { TinyType } from 'tiny-types';
 
-import { FileSystemLocation } from '../io';
-import { CorrelationId } from './CorrelationId';
-import { Name } from './Name';
+import { FileSystemLocation } from '../io/index.js';
+import { CorrelationId } from './CorrelationId.js';
+import { Name } from './Name.js';
 
 export class TestSuiteDetails extends TinyType {
     static fromJSON(o: JSONObject): TestSuiteDetails {

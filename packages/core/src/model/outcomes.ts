@@ -2,8 +2,8 @@
 import type { JSONObject} from 'tiny-types';
 import { match, TinyType } from 'tiny-types';
 
-import type { AssertionError} from '../errors';
-import { ErrorSerialiser } from '../errors';
+import type { AssertionError} from '../errors/index.js';
+import { ErrorSerialiser } from '../errors/index.js';
 
 export interface SerialisedOutcome extends JSONObject {
     code:    number;

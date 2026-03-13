@@ -1,9 +1,9 @@
-import { ValueInspector } from '../../io';
-import type { Answerable } from '../Answerable';
-import { Question } from '../Question';
-import type { AnswersQuestions } from '../questions';
-import { Ability } from './Ability';
-import type { UsesAbilities } from './UsesAbilities';
+import { ValueInspector } from '../../io/index.js';
+import type { Answerable } from '../Answerable.js';
+import { Question } from '../Question.js';
+import type { AnswersQuestions } from '../questions/index.js';
+import { Ability } from './Ability.js';
+import type { UsesAbilities } from './UsesAbilities.js';
 
 /**
  * This [`Ability`](https://serenity-js.org/api/core/class/Ability/) enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to resolve the value of a given [`Answerable`](https://serenity-js.org/api/core/#Answerable).

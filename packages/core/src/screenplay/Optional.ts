@@ -1,4 +1,4 @@
-import type { Answerable } from './Answerable';
+import type { Answerable } from './Answerable.js';
 
 /**
  * `Optional` is a container object, which holds a value that may or may not be "present",

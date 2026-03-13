@@ -1,1 +1,1 @@
-export * from './ArtifactArchiver';
+export * from './ArtifactArchiver.js';

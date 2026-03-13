@@ -1,7 +1,7 @@
-export * from './config';
-export * from './errors';
-export * from './instance';
-export { d, f, format } from './io';
-export * from './screenplay';
-export * from './Serenity';
-export * from './stage';
+export * from './config/index.js';
+export * from './errors/index.js';
+export * from './instance.js';
+export { d, f, format } from './io/index.js';
+export * from './screenplay/index.js';
+export * from './Serenity.js';
+export * from './stage/index.js';

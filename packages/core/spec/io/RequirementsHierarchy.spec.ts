@@ -1,4 +1,5 @@
 import { describe, it } from 'mocha';
+import { memfs } from 'memfs';
 import { given } from 'mocha-testdata';
 import type { JSONObject } from 'tiny-types';
 
@@ -7,8 +8,6 @@ import { Path } from '../../src/io/Path';
 import { RequirementsHierarchy } from '../../src/io/RequirementsHierarchy';
 import { CapabilityTag, FeatureTag, ThemeTag } from '../../src/model/tags';
 import { expect } from '../expect';
-
-const { memfs } = require('memfs'); // Typings incorrectly assume the presence of "dom" lib
 
 describe('RequirementsHierarchy', () => {
 
