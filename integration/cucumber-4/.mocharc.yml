@@ -5,7 +5,7 @@ full-trace: true
 reporter: mocha-multi
 reporter-options: 'mocha-multi=.mocha-reporters.json'
 require:
-  - 'ts-node/register'
+  - 'tsx'
   - 'src/register-cucumber.ts'
 spec: './node_modules/@integration/cucumber-specs/spec/**/*.spec.ts'
 timeout: 30000
