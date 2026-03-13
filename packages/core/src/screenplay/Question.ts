@@ -64,7 +64,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  *  import { CallAnApi } from '@serenity-js/rest'
  *
  *  const TextOfLastResponseStatus = () =>
- *    Question.about<number>(`the text of the last response status`, actor => {
+ *    Question.about(`the text of the last response status`, actor => {
  *      return CallAnApi.as(actor).mapLastResponse(response => response.statusText)
  *    })
  * ```
@@ -86,7 +86,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * const RequestWasSuccessful = () =>
- *   Question.about<number>(`the text of the last response status`, async actor => {
+ *   Question.about<boolean>(`the request was successful`, async actor => {
  *     const status = await actor.answer(LastResponse.status());
  *
  *     return status === 200;
