@@ -1,4 +1,4 @@
-import type { Activity } from '../Activity';
+import type { Activity } from '../Activity.js';
 
 /**
  * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can perform a sequence of [activities](https://serenity-js.org/api/core/class/Activity/),

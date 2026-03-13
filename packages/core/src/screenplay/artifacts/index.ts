@@ -1,1 +1,1 @@
-export * from './CollectsArtifacts';
+export * from './CollectsArtifacts.js';

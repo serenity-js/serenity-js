@@ -1,10 +1,10 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import type { SerialisedOutcome } from '../model';
-import { CorrelationId, ExecutionSuccessful, Outcome } from '../model';
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import type { SerialisedOutcome } from '../model/index.js';
+import { CorrelationId, ExecutionSuccessful, Outcome } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * Emitted by a Serenity/JS test runner adapter, right before a test and all its associated test hooks finish.

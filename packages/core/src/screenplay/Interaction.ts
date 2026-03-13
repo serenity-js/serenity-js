@@ -1,8 +1,8 @@
-import type { UsesAbilities } from './abilities';
-import { Activity } from './Activity';
-import type { Answerable } from './Answerable';
-import type { CollectsArtifacts } from './artifacts';
-import type { AnswersQuestions } from './questions';
+import type { UsesAbilities } from './abilities/index.js';
+import { Activity } from './Activity.js';
+import type { Answerable } from './Answerable.js';
+import type { CollectsArtifacts } from './artifacts/index.js';
+import type { AnswersQuestions } from './questions/index.js';
 
 /**
  * **Interactions** are low-level [activities](https://serenity-js.org/api/core/class/Activity/) that encapsulate

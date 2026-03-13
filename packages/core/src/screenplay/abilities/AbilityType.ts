@@ -1,5 +1,5 @@
-import type { Ability } from './Ability';
-import type { UsesAbilities } from './UsesAbilities';
+import type { Ability } from './Ability.js';
+import type { UsesAbilities } from './UsesAbilities.js';
 
 /**
  * An interface describing the static access method that every [`Ability`](https://serenity-js.org/api/core/class/Ability/) class

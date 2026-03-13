@@ -1,8 +1,14 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
 import { FileFinder, Path } from '../../src/io';
 import { expect } from '../expect';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe('FileFinder', () => {
 

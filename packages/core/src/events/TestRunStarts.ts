@@ -1,5 +1,5 @@
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * Emitted when the very first test is about to start

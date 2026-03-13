@@ -1,7 +1,7 @@
 import type { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from '../ErrorSerialiser';
-import { RuntimeError } from './RuntimeError';
+import { ErrorSerialiser } from '../ErrorSerialiser.js';
+import { RuntimeError } from './RuntimeError.js';
 
 /**
  * Thrown to indicate that an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/), a [`Task`](https://serenity-js.org/api/core/class/Task/) or a test scenario

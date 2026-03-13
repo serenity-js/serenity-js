@@ -2,7 +2,7 @@ import type { WriteFileOptions } from 'node:fs';
 
 import { ensure, isDefined, isGreaterThan, isString, property } from 'tiny-types';
 
-import type { DomainEvent} from '../../../events';
+import type { DomainEvent} from '../../../events/index.js';
 import {
     ActivityRelatedArtifactArchived,
     ActivityRelatedArtifactGenerated,
@@ -11,13 +11,13 @@ import {
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     AsyncOperationFailed
-} from '../../../events';
-import { FileSystem, Path } from '../../../io';
-import type { Artifact, ArtifactType} from '../../../model';
-import { CorrelationId, Description, Name, Photo, TestReport } from '../../../model';
-import type { Stage } from '../../Stage';
-import type { StageCrewMember } from '../../StageCrewMember';
-import { Hash } from './Hash';
+} from '../../../events/index.js';
+import { FileSystem, Path } from '../../../io/index.js';
+import type { Artifact, ArtifactType} from '../../../model/index.js';
+import { CorrelationId, Description, Name, Photo, TestReport } from '../../../model/index.js';
+import type { Stage } from '../../Stage.js';
+import type { StageCrewMember } from '../../StageCrewMember.js';
+import { Hash } from './Hash.js';
 
 /**
  * Stores any artifacts emitted via [`ArtifactGenerated`](https://serenity-js.org/api/core-events/class/ArtifactGenerated/) events on the file system.

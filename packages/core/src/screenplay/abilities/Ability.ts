@@ -1,6 +1,6 @@
-import type { AbilityType } from './AbilityType';
-import type { SerialisedAbility } from './SerialisedAbility';
-import type { UsesAbilities } from './UsesAbilities';
+import type { AbilityType } from './AbilityType.js';
+import type { SerialisedAbility } from './SerialisedAbility.js';
+import type { UsesAbilities } from './UsesAbilities.js';
 
 /**
  * **Abilities** enable [actors](https://serenity-js.org/api/core/class/Actor/)

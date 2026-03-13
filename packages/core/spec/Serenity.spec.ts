@@ -1,5 +1,6 @@
 
 import { describe, it } from 'mocha';
+import * as sinon from 'sinon';
 
 import { ConfigurationError } from '../src';
 import type { OutputStream } from '../src/adapter';
@@ -13,7 +14,6 @@ import type { Cast, ListensToDomainEvents, StageCrewMember, StageCrewMemberBuild
 import { Stage } from '../src/stage';
 import type { StageCrewMemberBuilderDependencies } from '../src/stage/StageCrewMemberBuilderDependencies';
 import { expect } from './expect';
-import sinon = require('sinon');
 
 describe('Serenity', () => {
 

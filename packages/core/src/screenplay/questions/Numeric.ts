@@ -1,12 +1,12 @@
 import { ensure, isNumber, isString, type Predicate } from 'tiny-types';
 
-import type { UsesAbilities } from '../abilities';
-import type { Answerable } from '../Answerable';
-import type { QuestionAdapter } from '../Question';
-import { Question } from '../Question';
-import type { AnswersQuestions } from './AnswersQuestions';
-import type { MetaQuestion } from './MetaQuestion';
-import { the } from './tag-functions';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Answerable } from '../Answerable.js';
+import type { QuestionAdapter } from '../Question.js';
+import { Question } from '../Question.js';
+import type { AnswersQuestions } from './AnswersQuestions.js';
+import type { MetaQuestion } from './MetaQuestion.js';
+import { the } from './tag-functions.js';
 
 /**
  * Provides methods to perform calculations on numeric values returned by other [questions](https://serenity-js.org/api/core/class/Question/).
@@ -195,7 +195,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -216,7 +216,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -240,7 +240,7 @@ export class Numeric {
      * ```ts
      * import { actorCalled, Expectation, Numeric, the } from '@serenity-js/core'
      * import { Ensure, equals, startsWith } from '@serenity-js/assertions'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * const quantitiesOfItemsWhichName = (expectation: Expectation<string>) =>
      *   PriceList.items()                      // get all the li.item elements
@@ -292,7 +292,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -333,7 +333,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -373,7 +373,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -413,7 +413,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -456,7 +456,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -500,7 +500,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -564,7 +564,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(
@@ -614,7 +614,7 @@ export class Numeric {
      * import { actorCalled, Numeric } from '@serenity-js/core'
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { Text } from '@serenity-js/web'
-     * import { PriceList, PriceListItem } from './ui/price-list'
+     * import { PriceList, PriceListItem } from './ui/price-list.js'
      *
      * await actorCalled('Zoé').attemptsTo(
      *   Ensure.that(

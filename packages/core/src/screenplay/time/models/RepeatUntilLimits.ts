@@ -1,4 +1,4 @@
-import type { Duration } from './Duration';
+import type { Duration } from './Duration.js';
 
 /**
  * @group Time

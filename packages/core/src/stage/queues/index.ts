@@ -1,2 +1,2 @@
-export * from './DomainEventQueue';
-export * from './DomainEventQueues';
+export * from './DomainEventQueue.js';
+export * from './DomainEventQueues.js';

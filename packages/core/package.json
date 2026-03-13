@@ -16,8 +16,105 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./lib/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./adapter": [
+      {
+        "types": "./lib/adapter/index.d.ts",
+        "import": "./esm/adapter/index.js",
+        "require": "./lib/adapter/index.js"
+      },
+      "./lib/adapter/index.js"
+    ],
+    "./config": [
+      {
+        "types": "./lib/config/index.d.ts",
+        "import": "./esm/config/index.js",
+        "require": "./lib/config/index.js"
+      },
+      "./lib/config/index.js"
+    ],
+    "./errors": [
+      {
+        "types": "./lib/errors/index.d.ts",
+        "import": "./esm/errors/index.js",
+        "require": "./lib/errors/index.js"
+      },
+      "./lib/errors/index.js"
+    ],
+    "./events": [
+      {
+        "types": "./lib/events/index.d.ts",
+        "import": "./esm/events/index.js",
+        "require": "./lib/events/index.js"
+      },
+      "./lib/events/index.js"
+    ],
+    "./io": [
+      {
+        "types": "./lib/io/index.d.ts",
+        "import": "./esm/io/index.js",
+        "require": "./lib/io/index.js"
+      },
+      "./lib/io/index.js"
+    ],
+    "./model": [
+      {
+        "types": "./lib/model/index.d.ts",
+        "import": "./esm/model/index.js",
+        "require": "./lib/model/index.js"
+      },
+      "./lib/model/index.js"
+    ],
+    "./screenplay": [
+      {
+        "types": "./lib/screenplay/index.d.ts",
+        "import": "./esm/screenplay/index.js",
+        "require": "./lib/screenplay/index.js"
+      },
+      "./lib/screenplay/index.js"
+    ],
+    "./stage": [
+      {
+        "types": "./lib/stage/index.d.ts",
+        "import": "./esm/stage/index.js",
+        "require": "./lib/stage/index.js"
+      },
+      "./lib/stage/index.js"
+    ],
+    "./lib/adapter": "./lib/adapter/index.js",
+    "./lib/config": "./lib/config/index.js",
+    "./lib/errors": "./lib/errors/index.js",
+    "./lib/events": "./lib/events/index.js",
+    "./lib/io": "./lib/io/index.js",
+    "./lib/model": "./lib/model/index.js",
+    "./lib/screenplay": "./lib/screenplay/index.js",
+    "./lib/stage": "./lib/stage/index.js",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./esm/adapter": "./esm/adapter/index.js",
+    "./esm/config": "./esm/config/index.js",
+    "./esm/errors": "./esm/errors/index.js",
+    "./esm/events": "./esm/events/index.js",
+    "./esm/io": "./esm/io/index.js",
+    "./esm/model": "./esm/model/index.js",
+    "./esm/screenplay": "./esm/screenplay/index.js",
+    "./esm/stage": "./esm/stage/index.js",
+    "./esm/*.js": "./esm/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "integration",
@@ -33,8 +130,12 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
   },
   "dependencies": {
     "@paralleldrive/cuid2": "2.3.1",

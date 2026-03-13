@@ -1,5 +1,5 @@
-import { type Answerable } from '../Answerable';
-import { Question, type QuestionAdapter } from '../Question';
+import { type Answerable } from '../Answerable.js';
+import { Question, type QuestionAdapter } from '../Question.js';
 
 /**
  * This question masks sensitive data handled by the actors and prevents

@@ -1,9 +1,9 @@
 import type { JSONObject } from 'tiny-types';
 
-import type { SerialisedOutcome } from '../model';
-import { ActivityDetails, CorrelationId, Outcome } from '../model';
-import { Timestamp } from '../screenplay';
-import { ActivityFinished } from './ActivityFinished';
+import type { SerialisedOutcome } from '../model/index.js';
+import { ActivityDetails, CorrelationId, Outcome } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { ActivityFinished } from './ActivityFinished.js';
 
 /**
  * @group Events

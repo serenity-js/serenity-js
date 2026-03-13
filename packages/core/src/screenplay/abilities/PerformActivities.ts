@@ -1,10 +1,10 @@
 import { match } from 'tiny-types';
 
-import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors';
-import type { EmitsDomainEvents } from '../../events';
-import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events';
-import { type FileSystemLocation, ValueInspector } from '../../io';
-import { ExecutionSkipped, type Outcome } from '../../model';
+import { AssertionError, ImplementationPendingError, TestCompromisedError } from '../../errors/index.js';
+import type { EmitsDomainEvents } from '../../events/index.js';
+import { InteractionFinished, InteractionStarts, TaskFinished, TaskStarts } from '../../events/index.js';
+import { type FileSystemLocation, ValueInspector } from '../../io/index.js';
+import { ExecutionSkipped, type Outcome } from '../../model/index.js';
 import {
     ActivityDetails,
     ExecutionCompromised,
@@ -13,13 +13,13 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
     Name
-} from '../../model';
-import type { PerformsActivities } from '../activities/PerformsActivities';
-import type { Activity } from '../Activity';
-import { Interaction } from '../Interaction';
-import type { AnswersQuestions } from '../questions';
-import { Ability } from './Ability';
-import type { UsesAbilities } from './UsesAbilities';
+} from '../../model/index.js';
+import type { PerformsActivities } from '../activities/PerformsActivities.js';
+import type { Activity } from '../Activity.js';
+import { Interaction } from '../Interaction.js';
+import type { AnswersQuestions } from '../questions/index.js';
+import { Ability } from './Ability.js';
+import type { UsesAbilities } from './UsesAbilities.js';
 
 /**
  * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to perform a given [`Activity`](https://serenity-js.org/api/core/class/Activity/).

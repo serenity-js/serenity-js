@@ -1,8 +1,8 @@
 import type { JSONObject} from 'tiny-types';
 import { ensure, isDefined, isString, Predicate, TinyType } from 'tiny-types';
 
-import { LogicError } from '../errors';
-import * as artifacts from './artifacts';
+import { LogicError } from '../errors/index.js';
+import * as artifacts from './artifacts/index.js';
 
 export interface SerialisedArtifact extends JSONObject {
     type: string;

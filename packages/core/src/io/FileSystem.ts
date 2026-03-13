@@ -1,9 +1,9 @@
 import type * as NodeFS from 'node:fs';
 import * as nodeOS from 'node:os';
 
-import * as gracefulFS from 'graceful-fs';
+import gracefulFS from 'graceful-fs';
 
-import { Path } from './Path';
+import { Path } from './Path.js';
 
 export class FileSystem {
 

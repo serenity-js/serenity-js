@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
 
-import { Path } from './Path';
+import { Path } from './Path.js';
 
 export class FileFinder {
     constructor(private readonly cwd: Path) {

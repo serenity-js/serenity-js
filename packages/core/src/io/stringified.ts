@@ -1,8 +1,8 @@
 import { inspect } from 'node:util';
 
-import type { Answerable } from '../screenplay/Answerable';
-import { Question } from '../screenplay/Question';
-import { ValueInspector } from './reflection/ValueInspector';
+import type { Answerable } from '../screenplay/Answerable.js';
+import { Question } from '../screenplay/Question.js';
+import { ValueInspector } from './reflection/ValueInspector.js';
 
 const indentationPrefix = '  ';
 

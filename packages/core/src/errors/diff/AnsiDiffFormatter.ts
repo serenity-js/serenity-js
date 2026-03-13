@@ -1,7 +1,9 @@
 import type { Chalk, Options } from 'chalk';    // eslint-disable-line unicorn/import-style
-import { Instance as ChalkInstance } from 'chalk';   // eslint-disable-line unicorn/import-style
+import chalk from 'chalk';   // eslint-disable-line unicorn/import-style
 
-import type { DiffFormatter } from './DiffFormatter';
+const ChalkInstance = chalk.Instance;
+
+import type { DiffFormatter } from './DiffFormatter.js';
 
 /**
  * A [`DiffFormatter`](https://serenity-js.org/api/core/interface/DiffFormatter/) that uses [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)

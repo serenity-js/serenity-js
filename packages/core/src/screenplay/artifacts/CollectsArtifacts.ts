@@ -1,4 +1,4 @@
-import type { Artifact, Name } from '../../model';
+import type { Artifact, Name } from '../../model/index.js';
 
 /**
  * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can collect artifacts, such as photos or `JSON` data.,

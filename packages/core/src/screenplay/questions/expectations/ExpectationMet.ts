@@ -1,4 +1,4 @@
-import { ExpectationOutcome } from './ExpectationOutcome';
+import { ExpectationOutcome } from './ExpectationOutcome.js';
 
 /**
  * Indicates that an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) was met.

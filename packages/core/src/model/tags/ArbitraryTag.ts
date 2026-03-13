@@ -1,4 +1,4 @@
-import { Tag } from './Tag';
+import { Tag } from './Tag.js';
 
 /**
  * Tagged with an arbitrary tag that doesn't have any special interpretation

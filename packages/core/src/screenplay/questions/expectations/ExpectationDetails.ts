@@ -1,9 +1,9 @@
 import type { JSONObject, JSONValue} from 'tiny-types';
 import { ensure, isArray, isDefined, TinyType } from 'tiny-types';
 
-import { inspected, ValueInspector } from '../../../io';
-import { Name } from '../../../model';
-import { Unanswered } from '../Unanswered';
+import { inspected, ValueInspector } from '../../../io/index.js';
+import { Name } from '../../../model/index.js';
+import { Unanswered } from '../Unanswered.js';
 
 /**
  * Used with [`ExpectationOutcome`](https://serenity-js.org/api/core/class/ExpectationOutcome/) to describe an [`Expectation`](https://serenity-js.org/api/core/class/Expectation/) and the arguments it's been executed with.

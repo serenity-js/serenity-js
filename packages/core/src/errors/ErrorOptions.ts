@@ -1,5 +1,5 @@
-import type { FileSystemLocation } from '../io';
-import type { ExpectationDetails } from '../screenplay';
+import type { FileSystemLocation } from '../io/index.js';
+import type { ExpectationDetails } from '../screenplay/index.js';
 
 /**
  * @group Errors

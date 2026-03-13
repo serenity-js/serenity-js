@@ -1,8 +1,8 @@
 import { ensure, isDefined, type JSONObject } from 'tiny-types';
 
-import { CorrelationId, Name } from '../../model';
-import { Timestamp } from '../../screenplay';
-import { AsyncOperationCompleted } from '../AsyncOperationCompleted';
+import { CorrelationId, Name } from '../../model/index.js';
+import { Timestamp } from '../../screenplay/index.js';
+import { AsyncOperationCompleted } from '../AsyncOperationCompleted.js';
 
 /**
  * Emitted when an [`Actor`](https://serenity-js.org/api/core/class/Actor/) and its abilities

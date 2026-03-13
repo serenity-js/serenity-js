@@ -1,4 +1,4 @@
-import type { Actor } from '../screenplay';
+import type { Actor } from '../screenplay/index.js';
 
 /**
  * Serenity/JS uses the concept of a _**cast of actors**_ to centralise the process of configuring the [actors](https://serenity-js.org/api/core/class/Actor/) and assigning their [abilities](https://serenity-js.org/api/core/class/Ability/).

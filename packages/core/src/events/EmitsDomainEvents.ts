@@ -1,6 +1,6 @@
-import type { ActivityDetails, CorrelationId } from '../model';
-import type { TellsTime } from '../screenplay';
-import type { DomainEvent } from './DomainEvent';
+import type { ActivityDetails, CorrelationId } from '../model/index.js';
+import type { TellsTime } from '../screenplay/index.js';
+import type { DomainEvent } from './DomainEvent.js';
 
 export interface EmitsDomainEvents extends TellsTime {
     currentSceneId(): CorrelationId;

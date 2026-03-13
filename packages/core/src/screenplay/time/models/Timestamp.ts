@@ -2,7 +2,7 @@ import { inspect } from 'node:util';
 
 import { ensure, isDefined, isInstanceOf, Predicate, TinyType } from 'tiny-types';
 
-import { Duration } from './Duration';
+import { Duration } from './Duration.js';
 
 /**
  * Represents a point in time.

@@ -1,4 +1,4 @@
-import type { SerialisedAbility } from './abilities';
+import type { SerialisedAbility } from './abilities/index.js';
 
 /**
  * @group Actors

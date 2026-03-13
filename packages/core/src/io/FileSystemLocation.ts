@@ -1,7 +1,7 @@
 import type { JSONObject} from 'tiny-types';
 import { TinyType } from 'tiny-types';
 
-import { Path } from './Path';
+import { Path } from './Path.js';
 
 export class FileSystemLocation extends TinyType {
     static fromJSON(o: JSONObject): FileSystemLocation {
