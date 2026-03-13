@@ -1,4 +1,4 @@
-import type { OutputDescriptor } from './OutputDescriptor';
+import type { OutputDescriptor } from './OutputDescriptor.js';
 
 /**
  * @group Integration

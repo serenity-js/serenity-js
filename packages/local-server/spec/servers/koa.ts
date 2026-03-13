@@ -3,9 +3,9 @@
 
 // https://github.com/koajs/koa
 
-const Koa = require('koa'); // @types/koa cause "Type 'Middleware' is not generic" error
+import Koa from 'koa';
 
-export = {
+export default {
     node: '>= 6.9',
     description: 'Koa app',
     handler: () => new Koa().use(ctx => Promise.resolve(ctx.body = 'Hello World!')).callback(),

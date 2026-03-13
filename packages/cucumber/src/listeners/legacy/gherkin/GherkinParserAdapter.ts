@@ -2,7 +2,7 @@ import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '@cucumber/gherki
 import type * as messages from '@cucumber/messages';
 import { IdGenerator } from '@cucumber/messages';
 
-import type { Background, Comment, DataTable, DocString, Examples, Feature, GherkinDocument, Scenario, ScenarioDefinition, ScenarioOutline, Step, TableRow, Tag } from './nodes';
+import type { Background, Comment, DataTable, DocString, Examples, Feature, GherkinDocument, Scenario, ScenarioDefinition, ScenarioOutline, Step, TableRow, Tag } from './nodes/index.js';
 
 /**
  * Adapts the new @cucumber/gherkin Parser to produce output compatible with the old gherkin 5.x format.

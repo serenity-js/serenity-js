@@ -1,5 +1,5 @@
-import type { ASTNode } from './ASTNode';
-import type { StepArgument } from './StepArgument';
+import type { ASTNode } from './ASTNode.js';
+import type { StepArgument } from './StepArgument.js';
 
 /**
  * @private

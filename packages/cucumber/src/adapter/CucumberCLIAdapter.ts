@@ -1,14 +1,14 @@
 import path from 'node:path';
 
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import type { FileSystem, ModuleLoader } from '@serenity-js/core/lib/io';
-import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
-import type { Outcome } from '@serenity-js/core/lib/model';
-import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model';
+import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
+import type { FileSystem, ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import { FileFinder, Path, Version } from '@serenity-js/core/lib/io/index.js';
+import type { Outcome } from '@serenity-js/core/lib/model/index.js';
+import { ExecutionIgnored, ImplementationPending } from '@serenity-js/core/lib/model/index.js';
 
-import type { CucumberConfig } from './CucumberConfig';
-import { CucumberOptions } from './CucumberOptions';
-import type { OutputDescriptor, SerenityFormatterOutput } from './output';
+import type { CucumberConfig } from './CucumberConfig.js';
+import { CucumberOptions } from './CucumberOptions.js';
+import type { OutputDescriptor, SerenityFormatterOutput } from './output/index.js';
 
 /**
  * Allows for programmatic execution of Cucumber test scenarios.

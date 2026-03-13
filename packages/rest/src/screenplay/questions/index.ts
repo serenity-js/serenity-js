@@ -1,1 +1,1 @@
-export * from './LastResponse';
+export * from './LastResponse.js';

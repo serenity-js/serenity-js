@@ -1,5 +1,5 @@
-import parser from 'error-stack-parser';
 import type { StackFrame } from 'error-stack-parser';
+import parser from 'error-stack-parser';
 
 /**
  * A thin wrapper around error-stack-parser module

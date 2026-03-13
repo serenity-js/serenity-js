@@ -1,6 +1,6 @@
-import type { Outcome } from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/lib/model/index.js';
 
-import { TerminalTheme } from './TerminalTheme';
+import { TerminalTheme } from './TerminalTheme.js';
 
 /**
  * A simple colour theme for terminals with no colour support.

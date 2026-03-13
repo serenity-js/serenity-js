@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 
 import { expect } from '@integration/testing-tools';
 import { ConfigurationError } from '@serenity-js/core';
@@ -6,7 +7,9 @@ import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { CucumberOptions } from '../../src/adapter/CucumberOptions';
+import { CucumberOptions } from '../../src/adapter/CucumberOptions.js';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('CucumberOptions', () => {
 

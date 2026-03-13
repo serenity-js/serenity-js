@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { ModuleLoader, Path, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Path, Version } from '@serenity-js/core/lib/io/index.js';
 import * as process from 'process';
 
 const cwd = process.cwd();
@@ -14,7 +14,9 @@ const version = loader.hasAvailable('@cucumber/cucumber')
  * and informs Serenity/JS when test scenarios and Cucumber steps start, finish, and with what result.
  */
 const listener: unknown = version.isAtLeast(new Version('7.0.0'))
-    ? require('./listeners/messages').createListener(serenity, loader)
-    : require('./listeners/legacy').createListener(serenity, loader, Path.from(cwd))
+     
+    ? require('./listeners/messages/index.js').createListener(serenity, loader)
+     
+    : require('./listeners/legacy/index.js').createListener(serenity, loader, Path.from(cwd))
 
-export = listener;
+export default listener;

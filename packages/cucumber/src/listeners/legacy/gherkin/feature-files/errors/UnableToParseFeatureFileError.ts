@@ -1,4 +1,4 @@
-import { RuntimeError } from '@serenity-js/core/lib/errors';
+import { RuntimeError } from '@serenity-js/core/lib/errors/index.js';
 
 /**
  * @private

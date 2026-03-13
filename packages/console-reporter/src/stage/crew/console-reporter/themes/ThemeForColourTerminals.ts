@@ -1,7 +1,7 @@
-import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/lib/model/index.js';
 import type { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
 
-import { TerminalTheme } from './TerminalTheme';
+import { TerminalTheme } from './TerminalTheme.js';
 
 /**
  * Base class for `TerminalTheme` implementations intended

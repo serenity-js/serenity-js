@@ -1,5 +1,5 @@
-import { describe, it } from 'mocha';
 import { memfs } from 'memfs';
+import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import type { JSONObject } from 'tiny-types';
 

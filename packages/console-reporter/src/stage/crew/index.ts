@@ -1,1 +1,1 @@
-export * from './console-reporter';
+export * from './console-reporter/index.js';

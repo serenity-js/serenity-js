@@ -1,8 +1,8 @@
 import { Duration } from '@serenity-js/core';
 import axios, { Axios, type AxiosInstance, type AxiosRequestConfig } from 'axios';
 
-import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults';
-import { axiosProxyOverridesFor } from './proxy';
+import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults.js';
+import { axiosProxyOverridesFor } from './proxy.js';
 
 /**
  * Creates an Axios instance with desired configuration and proxy support.

@@ -93,14 +93,134 @@
       },
       "./lib/stage/index.js"
     ],
-    "./lib/adapter": "./lib/adapter/index.js",
-    "./lib/config": "./lib/config/index.js",
-    "./lib/errors": "./lib/errors/index.js",
-    "./lib/events": "./lib/events/index.js",
-    "./lib/io": "./lib/io/index.js",
-    "./lib/model": "./lib/model/index.js",
-    "./lib/screenplay": "./lib/screenplay/index.js",
-    "./lib/stage": "./lib/stage/index.js",
+    "./lib/adapter": [
+      {
+        "types": "./lib/adapter/index.d.ts",
+        "import": "./esm/adapter/index.js",
+        "require": "./lib/adapter/index.js"
+      },
+      "./lib/adapter/index.js"
+    ],
+    "./lib/config": [
+      {
+        "types": "./lib/config/index.d.ts",
+        "import": "./esm/config/index.js",
+        "require": "./lib/config/index.js"
+      },
+      "./lib/config/index.js"
+    ],
+    "./lib/errors": [
+      {
+        "types": "./lib/errors/index.d.ts",
+        "import": "./esm/errors/index.js",
+        "require": "./lib/errors/index.js"
+      },
+      "./lib/errors/index.js"
+    ],
+    "./lib/events": [
+      {
+        "types": "./lib/events/index.d.ts",
+        "import": "./esm/events/index.js",
+        "require": "./lib/events/index.js"
+      },
+      "./lib/events/index.js"
+    ],
+    "./lib/io": [
+      {
+        "types": "./lib/io/index.d.ts",
+        "import": "./esm/io/index.js",
+        "require": "./lib/io/index.js"
+      },
+      "./lib/io/index.js"
+    ],
+    "./lib/model": [
+      {
+        "types": "./lib/model/index.d.ts",
+        "import": "./esm/model/index.js",
+        "require": "./lib/model/index.js"
+      },
+      "./lib/model/index.js"
+    ],
+    "./lib/screenplay": [
+      {
+        "types": "./lib/screenplay/index.d.ts",
+        "import": "./esm/screenplay/index.js",
+        "require": "./lib/screenplay/index.js"
+      },
+      "./lib/screenplay/index.js"
+    ],
+    "./lib/stage": [
+      {
+        "types": "./lib/stage/index.d.ts",
+        "import": "./esm/stage/index.js",
+        "require": "./lib/stage/index.js"
+      },
+      "./lib/stage/index.js"
+    ],
+    "./lib/adapter/index.js": [
+      {
+        "types": "./lib/adapter/index.d.ts",
+        "import": "./esm/adapter/index.js",
+        "require": "./lib/adapter/index.js"
+      },
+      "./lib/adapter/index.js"
+    ],
+    "./lib/config/index.js": [
+      {
+        "types": "./lib/config/index.d.ts",
+        "import": "./esm/config/index.js",
+        "require": "./lib/config/index.js"
+      },
+      "./lib/config/index.js"
+    ],
+    "./lib/errors/index.js": [
+      {
+        "types": "./lib/errors/index.d.ts",
+        "import": "./esm/errors/index.js",
+        "require": "./lib/errors/index.js"
+      },
+      "./lib/errors/index.js"
+    ],
+    "./lib/events/index.js": [
+      {
+        "types": "./lib/events/index.d.ts",
+        "import": "./esm/events/index.js",
+        "require": "./lib/events/index.js"
+      },
+      "./lib/events/index.js"
+    ],
+    "./lib/io/index.js": [
+      {
+        "types": "./lib/io/index.d.ts",
+        "import": "./esm/io/index.js",
+        "require": "./lib/io/index.js"
+      },
+      "./lib/io/index.js"
+    ],
+    "./lib/model/index.js": [
+      {
+        "types": "./lib/model/index.d.ts",
+        "import": "./esm/model/index.js",
+        "require": "./lib/model/index.js"
+      },
+      "./lib/model/index.js"
+    ],
+    "./lib/screenplay/index.js": [
+      {
+        "types": "./lib/screenplay/index.d.ts",
+        "import": "./esm/screenplay/index.js",
+        "require": "./lib/screenplay/index.js"
+      },
+      "./lib/screenplay/index.js"
+    ],
+    "./lib/stage/index.js": [
+      {
+        "types": "./lib/stage/index.d.ts",
+        "import": "./esm/stage/index.js",
+        "require": "./lib/stage/index.js"
+      },
+      "./lib/stage/index.js"
+    ],
     "./lib/*.js": "./lib/*.js",
     "./lib/*": "./lib/*.js",
     "./esm/adapter": "./esm/adapter/index.js",

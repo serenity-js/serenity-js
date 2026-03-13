@@ -9,8 +9,8 @@ import {
     ActorSpotlighted,
     SceneFinishes,
     SceneStarts
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
 import {
     Category,
     CorrelationId,
@@ -18,7 +18,7 @@ import {
     HTTPRequestResponse,
     Name,
     ScenarioDetails
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
@@ -59,7 +59,7 @@ describe('Send', () => {
             id: 2,
         });
 
-        await actorCalled('Apisitt').attemptsTo(
+        await actorCalled('HTTPRequestSender').attemptsTo(
             Send.a(GetRequest.to('/products/2')),
             Ensure.that(LastResponse.status(), equals(200)),
             Ensure.that(LastResponse.body<ExampleResponse>(), equals({ id: 2 })),
@@ -71,7 +71,7 @@ describe('Send', () => {
             id: 2,
         });
 
-        await actorCalled('Apisitt').attemptsTo(
+        await actorCalled('AxiosRequestSender').attemptsTo(
             Send.a({
                 method: 'get',
                 url: '/products/2',

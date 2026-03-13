@@ -1,5 +1,5 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import { DomainEvent } from '@serenity-js/core/lib/events';
+import { DomainEvent } from '@serenity-js/core/lib/events/index.js';
 
 export class EventRecorder implements StageCrewMember {
 

@@ -1,8 +1,13 @@
+import barebones from './barebones.js';
+import expressServer from './express.js';
+import hapiServer from './hapi.js';
+import koaServer from './koa.js';
+import restifyServer from './restify.js';
 
-export = [
-    require('./barebones'),
-    require('./express'),
-    require('./hapi'),
-    require('./koa'),
-    require('./restify'),
+export default [
+    barebones,
+    expressServer,
+    hapiServer,
+    koaServer,
+    restifyServer,
 ];

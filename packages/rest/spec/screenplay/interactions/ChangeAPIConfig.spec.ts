@@ -34,7 +34,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('changes the base URL used by any subsequent requests', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('UrlChanger').attemptsTo(
                 Send.a(GetRequest.to('/')),
                 Ensure.that(LastResponse.status(), equals(500)),
 
@@ -62,7 +62,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('changes the base URL used by any subsequent requests', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('PortChanger').attemptsTo(
                 Send.a(GetRequest.to('/')),
                 Ensure.that(LastResponse.status(), equals(500)),
 
@@ -73,7 +73,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('complains if the url has not been set prior to attempted port change', async () => {
-            const result = actorCalled('Apisitt').attemptsTo(
+            const result = actorCalled('PortValidator').attemptsTo(
                 ChangeApiConfig.setUrlTo(undefined),
                 ChangeApiConfig.setPortTo(8080),
             );
@@ -82,7 +82,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('complains if the url to be changed is invalid', async () => {
-            const result = actorCalled('Apisitt').attemptsTo(
+            const result = actorCalled('PortValidator2').attemptsTo(
                 ChangeApiConfig.setUrlTo('invalid'),
                 ChangeApiConfig.setPortTo(8080),
             );
@@ -114,7 +114,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('sets a header to be used by any subsequent requests', async () => {
-            await actorCalled('Apisitt').attemptsTo(
+            await actorCalled('HeaderSetter').attemptsTo(
                 Send.a(GetRequest.to('/')),
                 Ensure.that(LastResponse.status(), equals(401)),
 
@@ -125,7 +125,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('complains if the header name is not a string', async () => {
-            const result = actorCalled('Apisitt').attemptsTo(
+            const result = actorCalled('HeaderValidator').attemptsTo(
                 ChangeApiConfig.setHeader('', 'value'),
             );
 
@@ -133,7 +133,7 @@ describe('ChangeApiConfig', () => {
         });
 
         it('complains if the name of the header is undefined', async () => {
-            const result = actorCalled('Apisitt').attemptsTo(
+            const result = actorCalled('HeaderValidator2').attemptsTo(
                 ChangeApiConfig.setHeader(undefined, 'value'),
             );
 

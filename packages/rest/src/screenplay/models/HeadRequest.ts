@@ -2,7 +2,7 @@ import type { Answerable, WithAnswerableProperties } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import type { AxiosRequestConfig } from 'axios';
 
-import { HTTPRequest } from './HTTPRequest';
+import { HTTPRequest } from './HTTPRequest.js';
 
 /**
  * The HTTP HEAD method requests the headers that are returned if the specified resource

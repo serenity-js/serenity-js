@@ -1,8 +1,12 @@
+import { fileURLToPath } from 'node:url';
+
 import { expect } from '@integration/testing-tools';
 import { Path } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
-import { FeatureFileParser, GherkinParserAdapter } from '../../../../../src/listeners/legacy/gherkin';
+import { FeatureFileParser, GherkinParserAdapter } from '../../../../../src/listeners/legacy/gherkin/index.js';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 describe('FeatureFileParser', () => {
 

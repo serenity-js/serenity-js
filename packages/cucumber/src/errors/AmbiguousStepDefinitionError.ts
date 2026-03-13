@@ -1,4 +1,4 @@
-import { RuntimeError } from '@serenity-js/core/lib/errors';
+import { RuntimeError } from '@serenity-js/core/lib/errors/index.js';
 
 /**
  * Thrown when more than one Cucumber step definition matches

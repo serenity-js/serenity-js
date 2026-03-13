@@ -1,3 +1,3 @@
-export * from './EventRecorder';
-export * from './StdOutReporter';
-export * from './TestRunnerTagger';
+export * from './EventRecorder.js';
+export * from './StdOutReporter.js';
+export * from './TestRunnerTagger.js';

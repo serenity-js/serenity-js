@@ -1,5 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
 import {
     RetryableSceneDetected,
     SceneFinished,
@@ -12,8 +12,8 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/lib/events/index.js';
+import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
 import {
     ArbitraryTag,
     CorrelationId,
@@ -22,12 +22,12 @@ import {
     ExecutionSuccessful,
     Name,
     TestSuiteDetails
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/lib/model/index.js';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
 import { reporters, Runner } from 'mocha';
 
-import { MochaOutcomeMapper, MochaTestMapper } from './mappers';
-import { OutcomeRecorder } from './OutcomeRecorder';
+import { MochaOutcomeMapper, MochaTestMapper } from './mappers/index.js';
+import { OutcomeRecorder } from './OutcomeRecorder.js';
 
 /**
  * @package

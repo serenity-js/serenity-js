@@ -1,1 +1,1 @@
-export = require('./cucumber-4');
+export { default } from './cucumber-4.js';

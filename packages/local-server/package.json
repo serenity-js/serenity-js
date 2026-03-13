@@ -16,8 +16,23 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./esm/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./lib/*": "./lib/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "e2e",
@@ -42,8 +57,12 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
   },
   "repository": {
     "type": "git",
@@ -100,6 +119,7 @@
     "restify": "11.1.0",
     "semver": "7.7.4",
     "ts-node": "10.9.2",
+    "tsx": "4.20.3",
     "typescript": "5.9.3"
   }
 }

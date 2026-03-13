@@ -9,8 +9,15 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import type { JSONObject } from 'tiny-types';
 
-import { AmbiguousStepDefinitionError } from '../../../src/errors';
-import { createListener } from '../../../src/listeners/legacy';
+import { AmbiguousStepDefinitionError } from '../../../src/errors/index.js';
+import { createListener } from '../../../src/listeners/legacy/index.js';
+import pendingScenario from './samples/pending-scenario.json' with { type: 'json' };
+import scenarioOutline from './samples/scenario-outline.json' with { type: 'json' };
+import scenarioWithAmbiguousSteps from './samples/scenario-with-ambiguous-steps.json' with { type: 'json' };
+import scenarioWithErrors from './samples/scenario-with-errors.json' with { type: 'json' };
+import scenarioWithHooks from './samples/scenario-with-hooks.json' with { type: 'json' };
+import scenarioWithPendingSteps from './samples/scenario-with-pending-steps.json' with { type: 'json' };
+import scenarioWithUndefinedSteps from './samples/scenario-with-undefined-steps.json' with { type: 'json' };
 
 describe('CucumberEventProtocolAdapter', () => {
 
@@ -60,7 +67,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 2, status: 'passed' } }));
 
-        emitAllFrom(require('./samples/scenario-with-hooks.json'));
+        emitAllFrom(scenarioWithHooks);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Hooks'),
@@ -99,7 +106,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'undefined' } }));
 
-        emitAllFrom(require('./samples/scenario-with-undefined-steps.json'));
+        emitAllFrom(scenarioWithUndefinedSteps);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Undefined steps'),
@@ -139,7 +146,7 @@ describe('CucumberEventProtocolAdapter', () => {
 
         eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'pending' } }));
 
-        emitAllFrom(require('./samples/scenario-with-pending-steps.json'));
+        emitAllFrom(scenarioWithPendingSteps);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Pending steps'),
@@ -185,7 +192,7 @@ describe('CucumberEventProtocolAdapter', () => {
             },
         }));
 
-        emitAllFrom(require('./samples/scenario-with-ambiguous-steps.json'));
+        emitAllFrom(scenarioWithAmbiguousSteps);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Ambiguous steps'),
@@ -232,7 +239,7 @@ describe('CucumberEventProtocolAdapter', () => {
             },
         }));
 
-        emitAllFrom(require('./samples/scenario-with-errors.json'));
+        emitAllFrom(scenarioWithErrors);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Errors in steps'),
@@ -276,7 +283,7 @@ describe('CucumberEventProtocolAdapter', () => {
             },
         }));
 
-        emitAllFrom(require('./samples/scenario-outline.json'));
+        emitAllFrom(scenarioOutline);
 
         const expectedScenarioDetails = (line: number) => new ScenarioDetails(
             new Name('The things I like'),
@@ -324,7 +331,7 @@ describe('CucumberEventProtocolAdapter', () => {
             },
         }));
 
-        emitAllFrom(require('./samples/pending-scenario.json'));
+        emitAllFrom(pendingScenario);
 
         const expectedScenarioDetails = new ScenarioDetails(
             new Name('Implement me'),

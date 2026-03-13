@@ -1,4 +1,4 @@
-import type { Description, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import type { Description, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model/index.js';
 
 export interface ExtractedScenarioOutline {
     details: ScenarioDetails;

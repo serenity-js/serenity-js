@@ -1,2 +1,2 @@
-export * from './AxiosRequestConfigDefaults';
-export * from './createAxios';
+export * from './AxiosRequestConfigDefaults.js';
+export * from './createAxios.js';
