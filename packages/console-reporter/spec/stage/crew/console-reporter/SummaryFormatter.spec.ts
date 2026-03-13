@@ -4,9 +4,9 @@ import { FileSystemLocation, Path, trimmed } from '@serenity-js/core/lib/io';
 import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { beforeEach, describe, it } from 'mocha';
 
-import { Summary } from '../../../../src/stage/crew/console-reporter/Summary';
-import { SummaryFormatter } from '../../../../src/stage/crew/console-reporter/SummaryFormatter';
-import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes';
+import { Summary } from '../../../../src/stage/crew/console-reporter/Summary.js';
+import { SummaryFormatter } from '../../../../src/stage/crew/console-reporter/SummaryFormatter.js';
+import { ThemeForMonochromaticTerminals } from '../../../../src/stage/crew/console-reporter/themes/index.js';
 
 describe('SummaryFormatter', () => {
     const

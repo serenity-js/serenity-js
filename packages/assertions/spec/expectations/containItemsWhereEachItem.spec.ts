@@ -3,7 +3,7 @@ import { actorCalled, AssertionError, Question } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
-import { containItemsWhereEachItem, Ensure, equals, isGreaterThan, property, startsWith } from '../../src';
+import { containItemsWhereEachItem, Ensure, equals, isGreaterThan, property, startsWith } from '../../src/index.js';
 
 describe('containItemsWhereEachItem', () => {
 

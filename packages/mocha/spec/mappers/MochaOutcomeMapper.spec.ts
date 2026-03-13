@@ -14,7 +14,7 @@ import {
 import { strictEqual } from 'assert';
 import { describe, it, Test } from 'mocha';
 
-import { MochaOutcomeMapper } from '../../src/mappers';
+import { MochaOutcomeMapper } from '../../src/mappers/index.js';
 
 describe('MochaTestMapper', () => {
 

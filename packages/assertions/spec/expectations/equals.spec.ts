@@ -5,7 +5,7 @@ import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import { TinyTypeOf } from 'tiny-types';
 
-import { Ensure, equals } from '../../src';
+import { Ensure, equals } from '../../src/index.js';
 
 describe('equals', () => {
 

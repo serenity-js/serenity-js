@@ -3,7 +3,7 @@ import { actorCalled, AssertionError, Timestamp } from '@serenity-js/core';
 import { trimmed } from '@serenity-js/core/lib/io';
 import { describe, it } from 'mocha';
 
-import { Ensure, isBefore } from '../../src';
+import { Ensure, isBefore } from '../../src/index.js';
 
 describe('isBefore', () => {
 

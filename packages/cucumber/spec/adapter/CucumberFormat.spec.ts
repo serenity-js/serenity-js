@@ -2,7 +2,7 @@ import { expect } from '@integration/testing-tools';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { CucumberFormat } from '../../src/adapter/CucumberFormat';
+import { CucumberFormat } from '../../src/adapter/CucumberFormat.js';
 
 describe('CucumberFormat', () => {
 

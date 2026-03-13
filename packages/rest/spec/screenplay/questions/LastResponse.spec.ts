@@ -3,9 +3,9 @@ import { actorCalled, engage, List, LogicError } from '@serenity-js/core';
 import type MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';
 
-import { GetRequest, LastResponse, Send } from '../../../src';
-import { actors } from '../../actors';
-import { expect } from '../../expect';
+import { GetRequest, LastResponse, Send } from '../../../src/index.js';
+import { actors } from '../../actors.js';
+import { expect } from '../../expect.js';
 
 interface Product {
     id: number;

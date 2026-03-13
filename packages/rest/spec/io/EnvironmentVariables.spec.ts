@@ -1,8 +1,8 @@
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { EnvironmentVariables } from '../../src/io/EnvironmentVariables';
-import { expect } from '../expect';
+import { EnvironmentVariables } from '../../src/io/EnvironmentVariables.js';
+import { expect } from '../expect.js';
 
 describe('EnvironmentVariables', () => {
 

@@ -3,7 +3,7 @@ import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import { CallAnApi } from '../src';
+import { CallAnApi } from '../src/index.js';
 
 export function actors(config: AxiosRequestConfig = {}): { mock: MockAdapter, actors: Cast } {
     const axiosInstance = axios.create(config);
