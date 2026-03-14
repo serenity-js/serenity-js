@@ -3,9 +3,9 @@ import util from 'node:util';
 import { LogicError } from '@serenity-js/core';
 import { inspectedObject } from '@serenity-js/core/lib/io';
 
-import type { PageElement } from './PageElement';
-import { RootLocator } from './RootLocator';
-import { ByCss, ById, ByTagName, type Selector } from './selectors';
+import type { PageElement } from './PageElement.js';
+import { RootLocator } from './RootLocator.js';
+import { ByCss, ById, ByTagName, type Selector } from './selectors/index.js';
 
 /**
  * [`Locator`](https://serenity-js.org/api/web/class/Locator/) uses a [`Selector`](https://serenity-js.org/api/web/class/Selector/) to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/)

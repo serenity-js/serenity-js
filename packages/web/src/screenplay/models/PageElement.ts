@@ -2,12 +2,12 @@ import type { Answerable, MetaQuestion, MetaQuestionAdapter, Optional , Question
 import { Question, the } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
-import { BrowseTheWeb } from '../abilities';
-import type { Locator } from './Locator';
-import type { SelectOption } from './SelectOption';
-import type { Selector } from './selectors';
-import type { Switchable } from './Switchable';
-import type { SwitchableOrigin } from './SwitchableOrigin';
+import { BrowseTheWeb } from '../abilities/index.js';
+import type { Locator } from './Locator.js';
+import type { SelectOption } from './SelectOption.js';
+import type { Selector } from './selectors/index.js';
+import type { Switchable } from './Switchable.js';
+import type { SwitchableOrigin } from './SwitchableOrigin.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to identify

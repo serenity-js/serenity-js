@@ -2,7 +2,7 @@ import type { Answerable, AnswersQuestions} from '@serenity-js/core';
 import { d, Interaction, LogicError } from '@serenity-js/core';
 import type { FileSystemLocation } from '@serenity-js/core/lib/io';
 
-import type { PageElement } from '../models';
+import type { PageElement } from '../models/index.js';
 
 /**
  * A base class for interactions with [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) objects.

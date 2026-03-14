@@ -16,8 +16,30 @@
     "access": "public",
     "provenance": true
   },
+  "type": "module",
   "main": "lib/index.js",
+  "module": "./esm/index.js",
   "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./scripts": {
+      "types": "./lib/scripts/index.d.ts",
+      "import": "./esm/scripts/index.js",
+      "require": "./lib/scripts/index.js"
+    },
+    "./lib/scripts": {
+      "types": "./lib/scripts/index.d.ts",
+      "import": "./esm/scripts/index.js",
+      "require": "./lib/scripts/index.js"
+    },
+    "./lib/*": "./lib/*",
+    "./esm/*": "./esm/*",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "browser",
@@ -38,8 +60,12 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', JSON.stringify({ type: 'commonjs' }))\"",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package"
   },
   "repository": {
     "type": "git",

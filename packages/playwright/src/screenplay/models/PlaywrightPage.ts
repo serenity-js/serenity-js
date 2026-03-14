@@ -7,12 +7,12 @@ import { ArgumentDehydrator, BrowserWindowClosedError, ByDeepCss, Key, Page, Pag
 import * as scripts from '@serenity-js/web/lib/scripts';
 import type * as playwright from 'playwright-core';
 
-import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
-import { promised } from '../promised';
-import { PlaywrightExistingElementLocator, PlaywrightLocator, PlaywrightRootLocator } from './locators';
-import type { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
-import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler';
-import { PlaywrightPageElement } from './PlaywrightPageElement';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
+import { promised } from '../promised.js';
+import { PlaywrightExistingElementLocator, PlaywrightLocator, PlaywrightRootLocator } from './locators/index.js';
+import type { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession.js';
+import { PlaywrightModalDialogHandler } from './PlaywrightModalDialogHandler.js';
+import { PlaywrightPageElement } from './PlaywrightPageElement.js';
 
 /**
  * Playwright-specific implementation of [`Page`](https://serenity-js.org/api/web/class/Page/).

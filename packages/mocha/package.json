@@ -37,8 +37,24 @@
       },
       "./lib/adapter/index.js"
     ],
-    "./lib/*": "./lib/*.js",
-    "./esm/*": "./esm/*.js",
+    "./lib/adapter": {
+      "types": "./lib/adapter/index.d.ts",
+      "default": "./lib/adapter/index.js"
+    },
+    "./lib/adapter/index.js": {
+      "types": "./lib/adapter/index.d.ts",
+      "default": "./lib/adapter/index.js"
+    },
+    "./esm/adapter": {
+      "types": "./esm/adapter/index.d.ts",
+      "default": "./esm/adapter/index.js"
+    },
+    "./esm/adapter/index.js": {
+      "types": "./esm/adapter/index.d.ts",
+      "default": "./esm/adapter/index.js"
+    },
+    "./lib/*": "./lib/*",
+    "./esm/*": "./esm/*",
     "./package.json": "./package.json"
   },
   "keywords": [

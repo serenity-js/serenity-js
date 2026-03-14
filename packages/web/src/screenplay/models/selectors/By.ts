@@ -1,14 +1,14 @@
 import type { Answerable, WithAnswerableProperties } from '@serenity-js/core';
 import { f, Question, the } from '@serenity-js/core';
 
-import { ByCss } from './ByCss';
-import { ByCssContainingText } from './ByCssContainingText';
-import { ByDeepCss } from './ByDeepCss';
-import { ById } from './ById';
-import type { ByRoleSelectorOptions, ByRoleSelectorValue } from './ByRole';
-import { ByRole } from './ByRole';
-import { ByTagName } from './ByTagName';
-import { ByXPath } from './ByXPath';
+import { ByCss } from './ByCss.js';
+import { ByCssContainingText } from './ByCssContainingText.js';
+import { ByDeepCss } from './ByDeepCss.js';
+import { ById } from './ById.js';
+import type { ByRoleSelectorOptions, ByRoleSelectorValue } from './ByRole.js';
+import { ByRole } from './ByRole.js';
+import { ByTagName } from './ByTagName.js';
+import { ByXPath } from './ByXPath.js';
 
 /**
  * `By` produces a [`Selector`](https://serenity-js.org/api/web/class/Selector/) used to locate a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) or [`PageElement`](https://serenity-js.org/api/web/class/PageElements/) on a web page.

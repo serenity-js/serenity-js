@@ -1,1 +1,1 @@
-export * from './BrowseTheWebWithPlaywright';
+export * from './BrowseTheWebWithPlaywright.js';

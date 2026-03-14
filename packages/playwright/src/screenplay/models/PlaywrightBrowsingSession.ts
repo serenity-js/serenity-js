@@ -3,9 +3,10 @@ import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession, type Cookie, type CookieData } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import { type ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
-import { SerenitySelectorEngines } from '../../selector-engines';
-import { PlaywrightCookie, PlaywrightPage } from '../models';
+import { type ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
+import { SerenitySelectorEngines } from '../../selector-engines/index.js';
+import { PlaywrightCookie } from './PlaywrightCookie.js';
+import { PlaywrightPage } from './PlaywrightPage.js';
 
 /**
  * Playwright-specific implementation of [`BrowsingSession`](https://serenity-js.org/api/web/class/BrowsingSession/).

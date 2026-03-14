@@ -1,7 +1,7 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { AbsentModalDialog } from './AbsentModalDialog';
-import type { ModalDialog } from './ModalDialog';
+import { AbsentModalDialog } from './AbsentModalDialog.js';
+import type { ModalDialog } from './ModalDialog.js';
 
 /**
  * Represent the strategy to use with any upcoming [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) windows.

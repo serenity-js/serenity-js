@@ -7,7 +7,7 @@ import type {
 } from '@serenity-js/core';
 import { d, Interaction, PerformActivities } from '@serenity-js/core';
 import type { EmitsDomainEvents } from '@serenity-js/core/lib/events';
-import { significantFieldsOf } from 'tiny-types/lib/objects';
+import { significantFieldsOf } from 'tiny-types/lib/objects/significantFields.js';
 
 export class PerformActivitiesAsPlaywrightSteps extends PerformActivities {
 

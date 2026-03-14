@@ -23,7 +23,7 @@ import {
     Tags
 } from '@serenity-js/core/lib/model';
 
-import { PlaywrightSceneId } from './PlaywrightSceneId';
+import { PlaywrightSceneId } from './PlaywrightSceneId.js';
 
 export class EventFactory {
     private requirementsHierarchy: RequirementsHierarchy;

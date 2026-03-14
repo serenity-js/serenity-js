@@ -1,4 +1,4 @@
-import { Selector } from './Selector';
+import { Selector } from './Selector.js';
 
 /**
  * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) using the name of its [HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).

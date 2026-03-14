@@ -1,3 +1,3 @@
-export * from './PlaywrightTestConfig';
-export * from './serenity-fixtures';
-export * from './test-api';
+export * from './PlaywrightTestConfig.js';
+export * from './serenity-fixtures.js';
+export * from './test-api.js';

@@ -1,9 +1,12 @@
 import { RootLocator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
-import { type PageFunction } from 'playwright-core/types/structs';
 import { ensure, isDefined } from 'tiny-types';
 
-import { promised } from '../../promised';
+import { promised } from '../../promised.js';
+
+// Inline the PageFunction type from playwright-core/types/structs
+// to avoid ESM import issues with internal Playwright types
+type PageFunction<Arg, R> = string | ((arg: Arg) => R | Promise<R>);
 
 /**
  * Playwright-specific implementation of [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/).

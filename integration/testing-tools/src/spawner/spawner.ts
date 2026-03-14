@@ -5,7 +5,11 @@ import * as events from '@serenity-js/core/lib/events/index.js';
 import { DTO } from '../child-process-reporter/index.js';
 import { SpawnResult } from './SpawnResult.js';
 
-export function spawner(pathToScript: string, options?: childProcess.ForkOptions) {
+export interface SpawnerOptions extends childProcess.ForkOptions {
+    execArgv?: string[];
+}
+
+export function spawner(pathToScript: string, options?: SpawnerOptions) {
     return (...args: string[]): Promise<SpawnResult> => {
 
         const result: SpawnResult = {
@@ -18,6 +22,7 @@ export function spawner(pathToScript: string, options?: childProcess.ForkOptions
         return new Promise((resolve, reject) => {
             const spawned = childProcess.fork(pathToScript, args, {
                 ...options,
+                execArgv: options?.execArgv ?? [],
                 silent: true,
             });
 

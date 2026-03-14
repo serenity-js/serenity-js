@@ -3,7 +3,7 @@ import { EventRecorder, EventStreamEmitter, expect, PickEvent } from '@integrati
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
 import { ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { Extras } from '@serenity-js/core/lib/stage/Extras';
+import { Extras } from '@serenity-js/core/lib/stage';
 import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';

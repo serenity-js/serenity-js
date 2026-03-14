@@ -1,4 +1,4 @@
-import { Selector } from './Selector';
+import { Selector } from './Selector.js';
 
 /**
  * Locates a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) with a given [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)

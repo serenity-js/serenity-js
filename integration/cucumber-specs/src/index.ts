@@ -7,9 +7,10 @@ import { CucumberRunner } from './CucumberRunner';
 export function registerRunner(
     pathToCucumberExecutable: string,
     cwd: string,
-    args: string[]
+    args: string[],
+    execArgv: string[] = []
 ): void {
-    (global as any).cucumberRunner = new CucumberRunner(pathToCucumberExecutable, cwd, args);
+    (global as any).cucumberRunner = new CucumberRunner(pathToCucumberExecutable, cwd, args, execArgv);
 }
 
 export async function cucumber(pathToFeatureFile: string, stepDefinitionsFileNames: string | string[], scenarioArguments: string[] = []): Promise<SpawnResult> {

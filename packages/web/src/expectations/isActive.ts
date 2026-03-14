@@ -1,7 +1,7 @@
 import { and, isPresent } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
-import type { PageElement } from '../screenplay';
+import type { PageElement } from '../screenplay/index.js';
 
 const isElementActive = Expectation.define(
     'isActive', 'become active',

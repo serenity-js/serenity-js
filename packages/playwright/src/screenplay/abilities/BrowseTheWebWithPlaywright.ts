@@ -2,11 +2,11 @@ import type { Discardable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
-import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
 import {
     PlaywrightBrowsingSessionWithBrowser,
     PlaywrightBrowsingSessionWithPage
-} from '../models';
+} from '../models/index.js';
 
 /**
  * This implementation of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
