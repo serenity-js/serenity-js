@@ -2,8 +2,8 @@ import { serenity } from '@serenity-js/core';
 import { ModuleLoader, Version } from '@serenity-js/core/lib/io/index.js';
 import * as process from 'process';
 
-import { createListener as createMessagesListener } from './listeners/messages/index.js';
 import { createListener as createLegacyListener } from './listeners/legacy/index.js';
+import { createListener as createMessagesListener } from './listeners/messages/index.js';
 
 const cwd = process.cwd();
 const loader = new ModuleLoader(cwd);
