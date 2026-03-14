@@ -6,7 +6,7 @@ import { promised } from '../../promised.js';
 
 // Inline the PageFunction type from playwright-core/types/structs
 // to avoid ESM import issues with internal Playwright types
-type PageFunction<Arg, R> = string | ((arg: Arg) => R | Promise<R>);
+type PageFunction<Argument, R> = string | ((arg: Argument) => R | Promise<R>);
 
 /**
  * Playwright-specific implementation of [`RootLocator`](https://serenity-js.org/api/web/class/RootLocator/).
