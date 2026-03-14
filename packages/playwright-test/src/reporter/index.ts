@@ -1,2 +1,2 @@
-export * from './PlaywrightStepReporter';
-export * from './SerenityReporterForPlaywrightTest';
+export * from './PlaywrightStepReporter.js';
+export * from './SerenityReporterForPlaywrightTest.js';

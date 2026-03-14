@@ -1,6 +1,6 @@
 import { Ability } from '@serenity-js/core';
 
-import type { BrowserCapabilities, BrowsingSession, Page } from '../models';
+import type { BrowserCapabilities, BrowsingSession, Page } from '../models/index.js';
 
 /**
  * The [ability](https://serenity-js.org/api/core/class/Ability/) to `BrowseTheWeb` enables an [actor](https://serenity-js.org/api/core/class/Actor/)

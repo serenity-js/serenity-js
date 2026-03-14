@@ -16,8 +16,73 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": [
+      {
+        "types": "./esm/index.d.ts",
+        "import": "./esm/index.js",
+        "require": "./lib/index.js"
+      },
+      "./lib/index.js"
+    ],
+    "./events": [
+      {
+        "types": "./lib/events/index.d.ts",
+        "import": "./esm/events/index.js",
+        "require": "./lib/events/index.js"
+      },
+      "./lib/events/index.js"
+    ],
+    "./reporter": [
+      {
+        "types": "./lib/reporter/index.d.ts",
+        "import": "./esm/reporter/index.js",
+        "require": "./lib/reporter/index.js"
+      },
+      "./lib/reporter/index.js"
+    ],
+    "./api": [
+      {
+        "types": "./lib/api/index.d.ts",
+        "import": "./esm/api/index.js",
+        "require": "./lib/api/index.js"
+      },
+      "./lib/api/index.js"
+    ],
+    "./lib/events": [
+      {
+        "types": "./lib/events/index.d.ts",
+        "import": "./esm/events/index.js",
+        "require": "./lib/events/index.js"
+      },
+      "./lib/events/index.js"
+    ],
+    "./lib/reporter": [
+      {
+        "types": "./lib/reporter/index.d.ts",
+        "import": "./esm/reporter/index.js",
+        "require": "./lib/reporter/index.js"
+      },
+      "./lib/reporter/index.js"
+    ],
+    "./lib/api": [
+      {
+        "types": "./lib/api/index.d.ts",
+        "import": "./esm/api/index.js",
+        "require": "./lib/api/index.js"
+      },
+      "./lib/api/index.js"
+    ],
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*",
+    "./esm/*.js": "./esm/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "browser",
@@ -45,7 +110,11 @@
     "clean": "rimraf target",
     "~test": "c8 npm run test:no-coverage",
     "~test:no-coverage": "playwright test",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
+    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
   },
   "repository": {
     "type": "git",

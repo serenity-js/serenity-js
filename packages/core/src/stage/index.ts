@@ -1,5 +1,6 @@
 export * from './Cast.js';
 export * from './crew/index.js';
+export * from './Extras.js';
 export * from './ListensToDomainEvents.js';
 export * from './queues/index.js';
 export * from './Stage.js';

@@ -2,8 +2,8 @@ import type { Answerable, AnswersQuestions, MetaQuestionAdapter, QuestionAdapter
 import { Question, the } from '@serenity-js/core';
 import { asyncMap } from '@serenity-js/core/lib/io';
 
-import type { PageElements } from '../models';
-import { PageElement } from '../models';
+import type { PageElements } from '../models/index.js';
+import { PageElement } from '../models/index.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve

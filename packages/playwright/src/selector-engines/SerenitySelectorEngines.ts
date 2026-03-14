@@ -1,7 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import type { Selectors } from 'playwright-core';
 
-import type { PlaywrightSelectorEngine } from './PlaywrightSelectorEngine';
+import type { PlaywrightSelectorEngine } from './PlaywrightSelectorEngine.js';
 
 /**
  * Utility class responsible for registering custom [Playwright selector engines](https://playwright.dev/docs/extensibility)

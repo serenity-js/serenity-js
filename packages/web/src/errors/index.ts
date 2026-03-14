@@ -1,3 +1,3 @@
-export * from './BrowserWindowClosedError';
-export * from './CookieMissingError';
-export * from './ModalDialogObstructsScreenshotError';
+export * from './BrowserWindowClosedError.js';
+export * from './CookieMissingError.js';
+export * from './ModalDialogObstructsScreenshotError.js';

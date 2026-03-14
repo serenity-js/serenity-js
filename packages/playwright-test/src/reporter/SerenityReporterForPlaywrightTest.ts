@@ -6,9 +6,9 @@ import type { OutputStream } from '@serenity-js/core/lib/adapter';
 import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
 import { ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
 
-import { PlaywrightErrorParser } from './PlaywrightErrorParser';
-import { PlaywrightEventBuffer } from './PlaywrightEventBuffer';
-import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory';
+import { PlaywrightErrorParser } from './PlaywrightErrorParser.js';
+import { PlaywrightEventBuffer } from './PlaywrightEventBuffer.js';
+import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory.js';
 
 type HookType = 'beforeAll' | 'afterAll' | 'beforeEach' | 'afterEach';
 

@@ -4,14 +4,27 @@ import { Clock } from './screenplay/index.js';
 import { Serenity } from './Serenity.js';
 import type { Cast } from './stage/index.js';
 
-const clock = new Clock();
+// Use a global symbol to ensure the same Serenity instance is shared
+// across ESM and CJS module boundaries (dual-package hazard mitigation)
+const SERENITY_INSTANCE_KEY = Symbol.for('@serenity-js/core/serenity');
+
+function getOrCreateSerenity(): Serenity {
+    const globalRegistry = globalThis as { [key: symbol]: Serenity };
+    
+    if (!globalRegistry[SERENITY_INSTANCE_KEY]) {
+        const clock = new Clock();
+        globalRegistry[SERENITY_INSTANCE_KEY] = new Serenity(clock);
+    }
+    
+    return globalRegistry[SERENITY_INSTANCE_KEY];
+}
 
 /**
  * Serenity object is the root object of the Serenity/JS framework.
  *
  * @group Serenity
  */
-export const serenity = new Serenity(clock);
+export const serenity = getOrCreateSerenity();
 
 /**
  * Configures Serenity/JS. Every call to this function replaces the previous configuration provided,

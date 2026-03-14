@@ -22,10 +22,10 @@ import {
 } from '@serenity-js/core/lib/model';
 import { type JSONObject } from 'tiny-types';
 
-import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader';
-import { WorkerEventStreamWriter } from '../api/WorkerEventStreamWriter';
-import { EventFactory, PlaywrightSceneId } from '../events';
-import { PlaywrightErrorParser } from './PlaywrightErrorParser';
+import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader.js';
+import { WorkerEventStreamWriter } from '../api/WorkerEventStreamWriter.js';
+import { EventFactory, PlaywrightSceneId } from '../events/index.js';
+import { PlaywrightErrorParser } from './PlaywrightErrorParser.js';
 
 export class PlaywrightEventBuffer {
     private readonly errorParser = new PlaywrightErrorParser();

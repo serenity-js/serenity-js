@@ -11,5 +11,6 @@ export * from './loader/index.js';
 export * from './Path.js';
 export * from './reflection/index.js';
 export * from './RequirementsHierarchy.js';
+export * from './stringified.js';
 export * from './trimmed.js';
 export * from './Version.js';

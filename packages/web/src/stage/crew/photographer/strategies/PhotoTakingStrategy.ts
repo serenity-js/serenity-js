@@ -4,7 +4,7 @@ import type { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js
 import { ActivityRelatedArtifactGenerated, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 
-import { BrowseTheWeb } from '../../../../screenplay';
+import { BrowseTheWeb } from '../../../../screenplay/index.js';
 
 /**
  * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos, a.k.a. screenshots,

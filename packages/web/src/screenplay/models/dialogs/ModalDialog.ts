@@ -1,7 +1,7 @@
 import type { Answerable, Interaction, Optional, Question, QuestionAdapter } from '@serenity-js/core';
 import { the } from '@serenity-js/core';
 
-import { Page } from '../Page';
+import { Page } from '../Page.js';
 
 /**
  * Manages interactions with JavaScript modal dialog windows,

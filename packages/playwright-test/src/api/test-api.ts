@@ -23,12 +23,12 @@ import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { ensure, isFunction, property } from 'tiny-types';
 
-import { PlaywrightSceneId } from '../events';
-import { PlaywrightStepReporter, } from '../reporter';
-import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory';
-import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps';
-import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
-import { WorkerEventStreamWriter } from './WorkerEventStreamWriter';
+import { PlaywrightSceneId } from '../events/index.js';
+import { PlaywrightStepReporter, } from '../reporter/index.js';
+import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory.js';
+import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps.js';
+import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures.js';
+import { WorkerEventStreamWriter } from './WorkerEventStreamWriter.js';
 
 interface SerenityInternalFixtures {
     configureScenarioInternal: void;

@@ -1,6 +1,6 @@
 import { LogicError } from '@serenity-js/core';
 
-import { ModalDialog } from './ModalDialog';
+import { ModalDialog } from './ModalDialog.js';
 
 /**
  * `AbsentModalDialog` is a [null object](https://en.wikipedia.org/wiki/Null_object_pattern)

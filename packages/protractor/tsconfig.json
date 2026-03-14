@@ -1,9 +1,18 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "lib": [
-      "es2022",
-      "dom"
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "lib": [
+            "es2023",
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "spec/**/*.ts"
+    ],
+    "exclude": [
+        "lib",
+        "node_modules"
     ]
-  }
 }
