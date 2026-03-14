@@ -20,7 +20,7 @@ describe('ExecuteScriptFromUrl', function () {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('ExecuteScriptFromUrl.spec.ts');
-        expect(location.line).to.equal(20);
+        expect(location.line).to.equal(19);
         expect(location.column).to.equal(40);
     });
 
