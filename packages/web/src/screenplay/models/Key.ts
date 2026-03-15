@@ -15,6 +15,19 @@
  * @group Models
  */
 export class Key {
+
+    /**
+     * Custom `instanceof` check that works across module boundaries (ESM/CJS dual-package hazard).
+     * Uses a Symbol-based brand check instead of relying on prototype chain.
+     */
+    static [Symbol.hasInstance](instance: unknown): instance is Key {
+        return !! instance
+            && typeof instance === 'object'
+            && 'devtoolsName' in instance
+            && 'utf16codePoint' in instance
+            && typeof (instance as Key).devtoolsName === 'string'
+            && typeof (instance as Key).utf16codePoint === 'string';
+    }
     public static Alt = new Key('Alt', '\uE00A', true);
     public static ArrowDown = new Key('ArrowDown', '\uE015');
     public static ArrowLeft = new Key('ArrowLeft', '\uE012');
@@ -69,8 +82,7 @@ export class Key {
     public static Tab = new Key('Tab', '\uE004');
 
     public static isKey(maybeKey: unknown): maybeKey is Key {
-        return !! maybeKey
-            && maybeKey instanceof Key;
+        return maybeKey instanceof Key;
     }
 
     constructor(
