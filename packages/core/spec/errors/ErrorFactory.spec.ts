@@ -264,6 +264,7 @@ describe('ErrorFactory', () => {
                     | Received Name
                     |
                     | Name {
+                    |   [Symbol(tiny-types/TinyType)]: true,
                     |   value: 'Bob'
                     | }
                     |`);

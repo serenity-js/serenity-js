@@ -11,7 +11,7 @@ import {
     ThemeTag
 } from '@serenity-js/core/lib/model';
 import { match } from 'tiny-types';
-import { equal } from 'tiny-types/lib/objects';
+import { equal } from 'tiny-types/objects';
 
 import type * as serenitybdd from '../../serenity-bdd-report-schema';
 import { escapeHtml } from '../mappers';

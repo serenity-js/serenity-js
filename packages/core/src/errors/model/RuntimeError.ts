@@ -68,6 +68,49 @@ import { TinyType } from 'tiny-types';
 export abstract class RuntimeError extends Error {
 
     /**
+     * Symbol used to brand RuntimeError instances for cross-module instanceof checks.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     */
+    private static readonly TYPE_BRAND = Symbol.for('@serenity-js/core/RuntimeError');
+
+    /**
+     * Custom instanceof check that works across module boundaries.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     *
+     * The check walks up the prototype chain of the instance and compares
+     * constructor names, which remain consistent across module boundaries.
+     */
+    static [Symbol.hasInstance](instance: unknown): boolean {
+        if (instance === null || typeof instance !== 'object') {
+            return false;
+        }
+
+        // First, verify this is a RuntimeError instance using the brand
+        if ((instance as any)[RuntimeError.TYPE_BRAND] !== true) {
+            return false;
+        }
+
+        // When checking against the base RuntimeError class, any branded instance qualifies
+        if (this.name === 'RuntimeError') {
+            return true;
+        }
+
+        // For subclass checks, walk the prototype chain and compare by name
+        // This works across ESM/CJS boundaries where constructor references differ
+        let proto = Object.getPrototypeOf(instance);
+        while (proto !== null) {
+            if (proto.constructor?.name === this.name) {
+                return true;
+            }
+            proto = Object.getPrototypeOf(proto);
+        }
+
+        return false;
+    }
+
+    /**
      * @param type - Constructor function used to instantiate a subclass of a RuntimeError
      * @param message - Human-readable description of the error
      * @param [cause] - The root cause of this [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/), if any
@@ -89,6 +132,9 @@ export abstract class RuntimeError extends Error {
 
         Object.setPrototypeOf(this, type.prototype);
         this.name = this.constructor.name;
+
+        // Brand the instance for cross-module instanceof checks
+        (this as any)[RuntimeError.TYPE_BRAND] = true;
 
         Error.captureStackTrace(this, type);
 

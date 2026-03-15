@@ -22,7 +22,6 @@ export default bootstrap;
 
 // CommonJS compatibility - assign to module.exports for Mocha reporter loading
 // This is needed because Mocha expects module.exports to be the reporter function
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = bootstrap;
     module.exports.default = bootstrap;
