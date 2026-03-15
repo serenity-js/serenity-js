@@ -3,7 +3,7 @@ import { AnsiDiffFormatter, ArtifactArchiver, Cast, TakeNotes } from '@serenity-
 import { CallAnApi } from '@serenity-js/rest';
 import type { Runner } from 'protractor';
 import { protractor } from 'protractor';
-import { isRecord } from 'tiny-types/lib/objects';
+import { isRecord } from 'tiny-types/objects';
 
 import { BrowseTheWebWithProtractor } from '../screenplay';
 import { BrowserDetector, StandardisedCapabilities } from './browser-detector';

@@ -11,6 +11,50 @@ export interface SerialisedOutcome extends JSONObject {
 }
 
 export abstract class Outcome extends TinyType {
+
+    /**
+     * Symbol used to brand Outcome instances for cross-module instanceof checks.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     */
+    private static readonly TYPE_BRAND = Symbol.for('@serenity-js/core/Outcome');
+
+    /**
+     * Custom instanceof check that works across module boundaries.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     *
+     * The check walks up the prototype chain of the instance and compares
+     * constructor names, which remain consistent across module boundaries.
+     */
+    static [Symbol.hasInstance](instance: unknown): boolean {
+        if (instance === null || typeof instance !== 'object') {
+            return false;
+        }
+
+        // First, verify this is an Outcome instance using the brand
+        if ((instance as any)[Outcome.TYPE_BRAND] !== true) {
+            return false;
+        }
+
+        // When checking against the base Outcome class, any branded instance qualifies
+        if (this.name === 'Outcome') {
+            return true;
+        }
+
+        // For subclass checks, walk the prototype chain and compare by name
+        // This works across ESM/CJS boundaries where constructor references differ
+        let proto = Object.getPrototypeOf(instance);
+        while (proto !== null) {
+            if (proto.constructor?.name === this.name) {
+                return true;
+            }
+            proto = Object.getPrototypeOf(proto);
+        }
+
+        return false;
+    }
+
     static fromJSON = (o: SerialisedOutcome) => match(o.code)
         .when(ExecutionCompromised.Code,                _ => ExecutionCompromised.fromJSON(o))
         .when(ExecutionFailedWithError.Code,            _ => ExecutionFailedWithError.fromJSON(o))
@@ -23,6 +67,8 @@ export abstract class Outcome extends TinyType {
 
     protected constructor(protected readonly code: number) {
         super();
+        // Brand the instance for cross-module instanceof checks
+        (this as any)[Outcome.TYPE_BRAND] = true;
     }
 
     isWorseThan(another: Outcome | { Code: number }): boolean {

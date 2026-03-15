@@ -15,6 +15,11 @@ import { TinyType } from 'tiny-types';
  * @group Questions
  */
 export class Unanswered extends TinyType {
+
+    constructor() {
+        super();
+    }
+
     static isUnanswered(value: unknown): value is Unanswered {
         return value instanceof Unanswered;
     }

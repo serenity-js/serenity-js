@@ -80,7 +80,12 @@ export class Actor implements PerformsActivities,
     CollectsArtifacts,
     TellsTime
 {
-    private readonly abilities: Map<AbilityType<Ability>, Ability> = new Map<AbilityType<Ability>, Ability>();
+    /**
+     * Map of abilities keyed by ability type name.
+     * Using string keys instead of constructor references to work across ESM/CJS module boundaries
+     * where the same class loaded from different module systems creates distinct constructor functions.
+     */
+    private readonly abilities: Map<string, Ability> = new Map<string, Ability>();
 
     constructor(
         public readonly name: string,
@@ -110,7 +115,7 @@ export class Actor implements PerformsActivities,
 
         if (! found) {
             throw new ConfigurationError(
-                `${ this.name } can ${ Array.from(this.abilities.keys()).map(type => type.name).join(', ') }. ` +
+                `${ this.name } can ${ Array.from(this.abilities.values()).map(ability => ability.constructor.name).join(', ') }. ` +
                 `They can't, however, ${ abilityType.name } yet. ` +
                 `Did you give them the ability to do so?`
             );
@@ -236,7 +241,7 @@ export class Actor implements PerformsActivities,
     }
 
     private findAbilitiesOfType<T>(...methodNames: Array<keyof T>): Array<Ability & T> {
-        const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
+        const abilitiesFrom = (map: Map<string, Ability>): Ability[] =>
             Array.from(map.values());
 
         const abilitiesWithDesiredMethods = (ability: Ability & T): boolean =>
@@ -247,7 +252,7 @@ export class Actor implements PerformsActivities,
     }
 
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
-        return this.abilities.get(doSomething.abilityType()) as T;
+        return this.abilities.get(doSomething.abilityType().name) as T;
     }
 
     private acquireAbility(ability: Ability): void {
@@ -255,7 +260,7 @@ export class Actor implements PerformsActivities,
             throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ ValueInspector.typeOf(ability) }`);
         }
 
-        this.abilities.set(ability.abilityType(), ability);
+        this.abilities.set(ability.abilityType().name, ability);
     }
 
     /**

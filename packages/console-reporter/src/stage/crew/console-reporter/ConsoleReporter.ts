@@ -448,22 +448,25 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     private iconFrom(outcome: Outcome): string {
-        switch (outcome.constructor) {
-            case ExecutionCompromised:
-            case ExecutionFailedWithError:
-            case ExecutionFailedWithAssertionError:
-                return '✗ ';
-            case ImplementationPending:
-                return '☕';
-            case ExecutionSkipped:
-                return '⇢ ';
-            case ExecutionIgnored:
-                return '? ';
-            case ExecutionSuccessful:
-                return '✓ ';
-            default:
-                return '';
+        // Use instanceof instead of constructor comparison to work across ESM/CJS boundaries
+        if (outcome instanceof ExecutionCompromised ||
+            outcome instanceof ExecutionFailedWithError ||
+            outcome instanceof ExecutionFailedWithAssertionError) {
+            return '✗ ';
         }
+        if (outcome instanceof ImplementationPending) {
+            return '☕';
+        }
+        if (outcome instanceof ExecutionSkipped) {
+            return '⇢ ';
+        }
+        if (outcome instanceof ExecutionIgnored) {
+            return '? ';
+        }
+        if (outcome instanceof ExecutionSuccessful) {
+            return '✓ ';
+        }
+        return '';
     }
 }
 
