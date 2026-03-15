@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
-          artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
+          artifact-path: 'package.json "integration/*/lib/*" "integration/*/esm/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
 
   #
   # Test
