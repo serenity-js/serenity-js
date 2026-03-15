@@ -257,17 +257,18 @@ describe('ErrorFactory', () => {
 
                     const error = errors.create(AssertionError, { message, diff: { expected, actual } });
 
-                    expect(error.message).to.equal(trimmed`
+                    // Node 24+ formats Symbol properties as [Symbol(...)] while earlier versions use Symbol(...)
+                    expect(error.message).to.match(new RegExp(trimmed`
                     | ${message}
                     |
                     | Expected Unanswered
                     | Received Name
                     |
-                    | Name {
-                    |   [Symbol(tiny-types/TinyType)]: true,
+                    | Name \\{
+                    |   \\[?Symbol\\(tiny-types/TinyType\\)\\]?: true,
                     |   value: 'Bob'
-                    | }
-                    |`);
+                    | \\}
+                    |`.replace(/[|]/g, '\\|')));
                 });
 
                 it('shows the expected value when expected is Unanswered', () => {
