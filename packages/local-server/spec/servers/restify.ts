@@ -2,7 +2,10 @@
 
 // https://github.com/restify/node-restify
 
-import restify from 'restify';
+// Dynamic import to avoid loading restify on Node versions where it's not supported
+// restify uses spdy which uses http-deceiver which uses process.binding('http_parser')
+// that was removed in Node 24
+let restify: any;
 
 export default {
     /*
@@ -13,13 +16,21 @@ export default {
     TypeError: Cannot set property closed of #<Readable> which has only a getter
 
     See https://github.com/restify/node-restify/issues/1888
+
+    Additionally, restify uses spdy which uses http-deceiver which uses
+    process.binding('http_parser') that was removed in Node 24.
      */
     node: '>=10.0 <18',
     description: 'Restify app',
     handler: (options?: any) => {
+        // Lazy load restify only when actually needed
+        if (!restify) {
+            restify = require('restify');
+        }
+
         const server = restify.createServer(options);
 
-        server.get('/', (request, response, next) => {
+        server.get('/', (_request, response, _next) => {
             response.send('Hello World!');
         });
 
