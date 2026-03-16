@@ -21,14 +21,7 @@ exports.config = {
     },
 
     onPrepare: function() {
-        require('ts-node/register');
-
-        /**
-         * If you're interacting with a non-Angular application,
-         * uncomment the below onPrepare section,
-         * which disables Angular-specific test synchronisation.
-         */
-        // browser.waitForAngularEnabled(false);
+        require('tsx');
     },
 
     jasmineNodeOpts: {

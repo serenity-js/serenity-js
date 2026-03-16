@@ -1,6 +1,6 @@
 module.exports = {
     default: [
-        "--require-module 'ts-node/register'",
+        "--require-module 'tsx'",
         "--format '@serenity-js/cucumber'",
         "--require './features/step_definitions/*.steps.ts'",
         "--require './features/support/setup.ts'",
