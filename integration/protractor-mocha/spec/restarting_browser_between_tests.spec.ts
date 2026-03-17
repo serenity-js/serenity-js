@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+import { AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished } from '@serenity-js/core/events';
+import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';

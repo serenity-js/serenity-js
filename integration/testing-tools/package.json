@@ -35,11 +35,11 @@
     "internal"
   ],
   "scripts": {
-    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
-    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
-    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, parseMarkedOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, TestRunFinished } from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithAssertionError, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+import { SceneFinished, SceneStarts, TestRunFinished } from '@serenity-js/core/events';
+import { ExecutionFailedWithAssertionError, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { wdio } from '../src';

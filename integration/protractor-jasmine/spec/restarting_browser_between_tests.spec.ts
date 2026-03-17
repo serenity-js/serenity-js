@@ -8,8 +8,8 @@ import {
     SceneStarts,
     TestRunFinished,
     TestRunStarts
-} from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { CorrelationId, Description, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';

@@ -13,8 +13,8 @@ import {
     TestRunFinished,
     TestRunFinishes,
     TestRunStarts,
-} from '@serenity-js/core/lib/events';
-import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

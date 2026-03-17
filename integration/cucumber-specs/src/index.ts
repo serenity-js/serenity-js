@@ -1,6 +1,6 @@
 import { SpawnResult } from '@integration/testing-tools';
 import { LogicError } from '@serenity-js/core';
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Version } from '@serenity-js/core/io';
 
 import { CucumberRunner } from './CucumberRunner';
 

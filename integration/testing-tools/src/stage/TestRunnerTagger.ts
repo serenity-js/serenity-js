@@ -1,6 +1,6 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import * as events from '@serenity-js/core/lib/events/index.js';
-import { ArbitraryTag } from '@serenity-js/core/lib/model/index.js';
+import * as events from '@serenity-js/core/events';
+import { ArbitraryTag } from '@serenity-js/core/model';
 
 export class TestRunnerTagger implements StageCrewMember {
 

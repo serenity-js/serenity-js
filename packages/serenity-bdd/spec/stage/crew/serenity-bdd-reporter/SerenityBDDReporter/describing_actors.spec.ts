@@ -15,7 +15,7 @@ import {
 } from '@serenity-js/core/lib/events';
 import type { CorrelationId, ScenarioDetails } from '@serenity-js/core/lib/model';
 import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
-import type { SerialisedAbility } from '@serenity-js/core/src';
+import type { SerialisedAbility } from '@serenity-js/core';
 import { beforeEach, describe, it } from 'mocha';
 
 import { authenticationScenario, defaultCardScenario, voucherScenario } from '../../samples';

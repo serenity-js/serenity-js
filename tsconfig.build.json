@@ -1,5 +1,19 @@
 {
   "extends": "./tsconfig.options.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@serenity-js/core/adapter": ["packages/core/lib/adapter/index.d.ts"],
+      "@serenity-js/core/events": ["packages/core/lib/events/index.d.ts"],
+      "@serenity-js/core/io": ["packages/core/lib/io/index.d.ts"],
+      "@serenity-js/core/model": ["packages/core/lib/model/index.d.ts"],
+      "@serenity-js/core/stage": ["packages/core/lib/stage/index.d.ts"],
+      "@serenity-js/cucumber/adapter": ["packages/cucumber/lib/adapter/index.d.ts"],
+      "@serenity-js/mocha/adapter": ["packages/mocha/lib/adapter/index.d.ts"],
+      "@serenity-js/playwright-test/events": ["packages/playwright-test/lib/events/index.d.ts"],
+      "@serenity-js/web/scripts": ["packages/web/lib/scripts/index.d.ts"]
+    }
+  },
   "exclude": [
     "node_modules",
     "lib"
