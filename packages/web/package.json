@@ -22,19 +22,34 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./esm/index.js",
-      "require": "./lib/index.js"
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
     },
     "./scripts": {
-      "types": "./lib/scripts/index.d.ts",
-      "import": "./esm/scripts/index.js",
-      "require": "./lib/scripts/index.js"
+      "import": {
+        "types": "./esm/scripts/index.d.ts",
+        "default": "./esm/scripts/index.js"
+      },
+      "require": {
+        "types": "./lib/scripts/index.d.ts",
+        "default": "./lib/scripts/index.js"
+      }
     },
     "./lib/scripts": {
-      "types": "./lib/scripts/index.d.ts",
-      "import": "./esm/scripts/index.js",
-      "require": "./lib/scripts/index.js"
+      "import": {
+        "types": "./esm/scripts/index.d.ts",
+        "default": "./esm/scripts/index.js"
+      },
+      "require": {
+        "types": "./lib/scripts/index.d.ts",
+        "default": "./lib/scripts/index.js"
+      }
     },
     "./lib/*": "./lib/*",
     "./esm/*": "./esm/*",

@@ -20,7 +20,7 @@ import {
     TestCompromisedError
 } from '@serenity-js/core';
 import type {
-    DomainEvent} from '@serenity-js/core/lib/events/index.js';
+    DomainEvent} from '@serenity-js/core/events';
 import {
     BusinessRuleDetected,
     FeatureNarrativeDetected,
@@ -35,13 +35,13 @@ import {
     TaskFinished,
     TaskStarts,
     TestRunnerDetected,
-} from '@serenity-js/core/lib/events/index.js';
-import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
-import { RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
+} from '@serenity-js/core/events';
+import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/io';
+import { RequirementsHierarchy } from '@serenity-js/core/io';
 import type {
     CorrelationId,
     Outcome,
-    Tag} from '@serenity-js/core/lib/model/index.js';
+    Tag} from '@serenity-js/core/model';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -59,7 +59,7 @@ import {
     ScenarioDetails,
     ScenarioParameters,
     Tags,
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 
 import type { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber.js';
 import { TestStepFormatter } from './TestStepFormatter.js';

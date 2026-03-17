@@ -12,9 +12,9 @@ import {
     TestRunFinished,
     TestRunFinishes,
     TestRunStarts
-} from '@serenity-js/core/lib/events';
-import type { CorrelationId, ScenarioDetails } from '@serenity-js/core/lib/model';
-import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import type { CorrelationId, ScenarioDetails } from '@serenity-js/core/model';
+import { ExecutionSuccessful } from '@serenity-js/core/model';
 import type { SerialisedAbility } from '@serenity-js/core';
 import { beforeEach, describe, it } from 'mocha';
 

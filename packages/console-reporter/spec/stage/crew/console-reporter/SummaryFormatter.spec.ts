@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { Duration, Timestamp } from '@serenity-js/core';
-import { FileSystemLocation, Path, trimmed } from '@serenity-js/core/lib/io';
-import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path, trimmed } from '@serenity-js/core/io';
+import { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { Summary } from '../../../../src/stage/crew/console-reporter/Summary.js';

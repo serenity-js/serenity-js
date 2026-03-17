@@ -1,7 +1,7 @@
 import { EventRecorder, expect } from '@integration/testing-tools';
 import type { Answerable, RuntimeError} from '@serenity-js/core';
 import { actorCalled, AssertionError, configure, Duration, ListItemNotFoundError, Question, TestCompromisedError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 

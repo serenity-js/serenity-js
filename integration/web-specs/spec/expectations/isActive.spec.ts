@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, isPresent, not } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration, Wait } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { By, Click, isActive, Navigate, PageElement, PageElements } from '@serenity-js/web';
 
 describe('isActive', function () {

@@ -1,8 +1,8 @@
 import type { DomainEventQueues } from '@serenity-js/core';
-import { SceneStarts } from '@serenity-js/core/lib/events';
-import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { Artifact, CorrelationId } from '@serenity-js/core/lib/model';
-import { Name, TestReport } from '@serenity-js/core/lib/model';
+import { SceneStarts } from '@serenity-js/core/events';
+import type { RequirementsHierarchy } from '@serenity-js/core/io';
+import type { Artifact, CorrelationId } from '@serenity-js/core/model';
+import { Name, TestReport } from '@serenity-js/core/model';
 import type { JSONObject } from 'tiny-types';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';

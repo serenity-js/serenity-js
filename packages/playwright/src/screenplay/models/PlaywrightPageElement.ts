@@ -1,7 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import type { SwitchableOrigin } from '@serenity-js/web';
 import { PageElement, SelectOption } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts';
+import * as scripts from '@serenity-js/web/scripts';
 import type * as playwright from 'playwright-core';
 import { ensure, isDefined } from 'tiny-types';
 

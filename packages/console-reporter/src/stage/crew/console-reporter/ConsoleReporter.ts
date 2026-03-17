@@ -1,8 +1,8 @@
 import type { Duration, ListensToDomainEvents, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { AssertionError, d, DomainEventQueues, LogicError } from '@serenity-js/core';
-import type { OutputStream } from '@serenity-js/core/lib/adapter/index.js';
+import type { OutputStream } from '@serenity-js/core/adapter';
 import type {
-    DomainEvent} from '@serenity-js/core/lib/events/index.js';
+    DomainEvent} from '@serenity-js/core/events';
 import {
     ActivityRelatedArtifactGenerated,
     InteractionFinished,
@@ -13,11 +13,11 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunStarts,
-} from '@serenity-js/core/lib/events/index.js';
+} from '@serenity-js/core/events';
 import type {
     CorrelationId,
     Name,
-    Outcome} from '@serenity-js/core/lib/model/index.js';
+    Outcome} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -28,7 +28,7 @@ import {
     ImplementationPending,
     LogEntry,
     ProblemIndication,
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import chalk from 'chalk';  
 import { ensure, isDefined, match } from 'tiny-types';
 

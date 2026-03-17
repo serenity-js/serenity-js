@@ -12,9 +12,9 @@ import {
     TaskFinished,
     TaskStarts,
     TestRunFinishes,
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData } from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario, photo } from '../../samples';

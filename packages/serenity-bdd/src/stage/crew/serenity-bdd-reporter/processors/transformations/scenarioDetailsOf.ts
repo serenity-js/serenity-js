@@ -1,4 +1,4 @@
-import type { ScenarioDetails } from '@serenity-js/core/lib/model';
+import type { ScenarioDetails } from '@serenity-js/core/model';
 import { ensure, isNotBlank } from 'tiny-types';
 
 import { dashify, escapeHtml } from '../mappers';

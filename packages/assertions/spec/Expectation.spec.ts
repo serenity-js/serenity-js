@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import type { Answerable} from '@serenity-js/core';
 import { actorCalled, AssertionError, Expectation } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 

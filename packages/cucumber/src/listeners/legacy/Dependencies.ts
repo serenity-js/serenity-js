@@ -1,5 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type { Path } from '@serenity-js/core/lib/io/index.js';
+import type { Path } from '@serenity-js/core/io';
 
 import type { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper } from './gherkin/index.js';
 import type { Notifier, ResultMapper } from './notifier/index.js';

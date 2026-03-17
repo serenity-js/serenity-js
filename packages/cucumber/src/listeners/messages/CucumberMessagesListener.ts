@@ -1,10 +1,10 @@
 import type { Envelope } from '@cucumber/messages';
 import { IdGenerator } from '@cucumber/messages';
 import type { Serenity } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
-import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events/index.js';
-import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model/index.js';
+import type { DomainEvent } from '@serenity-js/core/events';
+import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
+import type { ModuleLoader } from '@serenity-js/core/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
 import { CucumberMessagesParser } from './parser/CucumberMessagesParser.js';
 import type { IParsedTestStep } from './types/cucumber.js';

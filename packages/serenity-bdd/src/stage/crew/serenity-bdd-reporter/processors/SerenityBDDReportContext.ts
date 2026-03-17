@@ -1,6 +1,6 @@
 import type { SerialisedActor } from '@serenity-js/core';
-import type { RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { RequirementsHierarchy } from '@serenity-js/core/io';
+import type { CorrelationId } from '@serenity-js/core/model';
 
 import type { SerenityBDD4ReportSchema } from '../serenity-bdd-report-schema';
 import type { LinkedTestStep } from './LinkedTestStep';

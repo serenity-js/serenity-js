@@ -1,4 +1,4 @@
-import { JSONData } from '@serenity-js/core/lib/model';
+import { JSONData } from '@serenity-js/core/model';
 
 /**
  * An information that the user should be notified about.

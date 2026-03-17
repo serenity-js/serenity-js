@@ -1,7 +1,7 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core';
-import type { Artifact, RequestAndResponse } from '@serenity-js/core/lib/model/index.js';
-import { HTTPRequestResponse, Name } from '@serenity-js/core/lib/model/index.js';
+import type { Artifact, RequestAndResponse } from '@serenity-js/core/model';
+import { HTTPRequestResponse, Name } from '@serenity-js/core/model';
 import type { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios';
 import { AxiosHeaders } from 'axios';
 

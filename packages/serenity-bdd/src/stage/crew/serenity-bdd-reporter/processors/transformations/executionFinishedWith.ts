@@ -1,4 +1,4 @@
-import type { Outcome } from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/model';
 
 import { outcomeReportFrom } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';

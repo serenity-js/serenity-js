@@ -1,4 +1,4 @@
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model/index.js';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
 import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter.js';
 import type { Dependencies } from './Dependencies.js';

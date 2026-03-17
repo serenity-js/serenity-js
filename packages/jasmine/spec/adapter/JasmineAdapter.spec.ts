@@ -1,7 +1,7 @@
 import 'sinon-chai';
 
 import { expect } from '@integration/testing-tools';
-import { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import { ModuleLoader } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 

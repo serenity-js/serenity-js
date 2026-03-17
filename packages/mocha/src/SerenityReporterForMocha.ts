@@ -1,5 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
+import type { DomainEvent } from '@serenity-js/core/events';
 import {
     RetryableSceneDetected,
     SceneFinished,
@@ -12,8 +12,8 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events/index.js';
-import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
+} from '@serenity-js/core/events';
+import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/io';
 import {
     ArbitraryTag,
     CorrelationId,
@@ -22,7 +22,7 @@ import {
     ExecutionSuccessful,
     Name,
     TestSuiteDetails
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
 import { reporters, Runner } from 'mocha';
 

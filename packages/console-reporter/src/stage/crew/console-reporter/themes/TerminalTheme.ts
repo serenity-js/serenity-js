@@ -1,4 +1,4 @@
-import type { Outcome } from '@serenity-js/core/lib/model/index.js';
+import type { Outcome } from '@serenity-js/core/model';
 
 /**
  * Decorates text with control characters to make the terminal

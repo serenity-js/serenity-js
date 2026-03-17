@@ -1,4 +1,4 @@
-import type { Outcome } from '@serenity-js/core/lib/model/index.js';
+import type { Outcome } from '@serenity-js/core/model';
 
 import { TerminalTheme } from './TerminalTheme.js';
 

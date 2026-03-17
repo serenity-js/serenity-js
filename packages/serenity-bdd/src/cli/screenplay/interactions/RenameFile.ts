@@ -1,5 +1,5 @@
 import { Interaction } from '@serenity-js/core';
-import type { Path } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/io';
 
 import { UseFileSystem } from '../abilities';
 

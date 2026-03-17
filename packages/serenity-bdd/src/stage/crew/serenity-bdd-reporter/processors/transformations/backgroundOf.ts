@@ -1,4 +1,4 @@
-import type { Description, Name } from '@serenity-js/core/lib/model';
+import type { Description, Name } from '@serenity-js/core/model';
 
 import { escapeHtml } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';

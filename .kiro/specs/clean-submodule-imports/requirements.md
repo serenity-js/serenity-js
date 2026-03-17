@@ -108,6 +108,27 @@ This document specifies the requirements for migrating all integration tests, ex
 2. WHEN the Example_Project is compiled after migration, THE Build_System SHALL produce output without errors
 3. THE `examples/cucumber-domain-level-testing` project SHALL use Clean_Import_Paths in all source files
 
+### Requirement 16: Migrate Web Specs Integration Tests
+
+**User Story:** As a maintainer, I want the web-specs integration test files to use clean submodule import paths, so that the web testing components are validated against the clean exports.
+
+#### Acceptance Criteria
+
+1. WHEN a `integration/web-specs/spec/` file imports from `@serenity-js/core/lib/events`, THE Migration SHALL replace the import path with `@serenity-js/core/events`
+2. WHEN a `integration/web-specs/spec/` file imports from `@serenity-js/core/lib/model`, THE Migration SHALL replace the import path with `@serenity-js/core/model`
+3. WHEN a `integration/web-specs/spec/` file imports from `@serenity-js/core/lib/io`, THE Migration SHALL replace the import path with `@serenity-js/core/io`
+4. WHEN a `integration/web-specs/spec/` file imports from `@serenity-js/core/lib/stage`, THE Migration SHALL replace the import path with `@serenity-js/core/stage`
+5. WHEN the web-specs integration tests are run after migration, THE Integration_Tests SHALL pass
+
+### Requirement 17: Migrate Legacy Cucumber Integration Tests (cucumber-1, cucumber-2)
+
+**User Story:** As a maintainer, I want the legacy Cucumber integration test registration files to use clean module paths in their `--require` arguments, so that all Cucumber versions are consistent.
+
+#### Acceptance Criteria
+
+1. WHEN a `integration/cucumber-1/src/` or `integration/cucumber-2/src/` file contains a `--require` argument with `node_modules/@serenity-js/cucumber/lib/index.js`, THE Migration SHALL replace the path with `@serenity-js/cucumber`
+2. WHEN the cucumber-1 and cucumber-2 integration tests are run after migration, THE Integration_Tests SHALL pass
+
 ### Requirement 9: Preserve Namespace Import Pattern
 
 **User Story:** As a maintainer, I want namespace imports (`import * as events from '...'`) to continue working with clean submodule paths, so that code relying on dynamic event class lookup by name keeps functioning.

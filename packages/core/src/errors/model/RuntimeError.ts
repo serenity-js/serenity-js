@@ -40,7 +40,7 @@ import { TinyType } from 'tiny-types';
  *
  * ```ts
  * import { RuntimeError } from '@serenity-js/core'
- * import { ErrorSerialiser } from '@serenity-js/core/lib/io'
+ * import { ErrorSerialiser } from '@serenity-js/core/io'
  *
  * export class CustomError extends RuntimeError {
  *

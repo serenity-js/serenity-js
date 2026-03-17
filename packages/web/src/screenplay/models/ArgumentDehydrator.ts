@@ -1,4 +1,4 @@
-import { ValueInspector } from '@serenity-js/core/lib/io';
+import { ValueInspector } from '@serenity-js/core/io';
 
 /* eslint-disable @stylistic/indent */
 type TransformedArgument<T, U> =

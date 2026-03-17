@@ -1,4 +1,4 @@
-import { ExecutionSuccessful, type Outcome } from '@serenity-js/core/lib/model';
+import { ExecutionSuccessful, type Outcome } from '@serenity-js/core/model';
 
 import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';
 import { SerenityBDDReportContext } from '../SerenityBDDReportContext';

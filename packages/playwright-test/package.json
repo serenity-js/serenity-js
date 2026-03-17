@@ -21,62 +21,41 @@
   "type": "module",
   "module": "./esm/index.js",
   "exports": {
-    ".": [
-      {
-        "types": "./esm/index.d.ts",
-        "import": "./esm/index.js",
-        "require": "./lib/index.js"
-      },
-      "./lib/index.js"
-    ],
-    "./events": [
-      {
-        "types": "./lib/events/index.d.ts",
-        "import": "./esm/events/index.js",
-        "require": "./lib/events/index.js"
-      },
-      "./lib/events/index.js"
-    ],
-    "./reporter": [
-      {
-        "types": "./lib/reporter/index.d.ts",
-        "import": "./esm/reporter/index.js",
-        "require": "./lib/reporter/index.js"
-      },
-      "./lib/reporter/index.js"
-    ],
-    "./api": [
-      {
-        "types": "./lib/api/index.d.ts",
-        "import": "./esm/api/index.js",
-        "require": "./lib/api/index.js"
-      },
-      "./lib/api/index.js"
-    ],
-    "./lib/events": [
-      {
-        "types": "./lib/events/index.d.ts",
-        "import": "./esm/events/index.js",
-        "require": "./lib/events/index.js"
-      },
-      "./lib/events/index.js"
-    ],
-    "./lib/reporter": [
-      {
-        "types": "./lib/reporter/index.d.ts",
-        "import": "./esm/reporter/index.js",
-        "require": "./lib/reporter/index.js"
-      },
-      "./lib/reporter/index.js"
-    ],
-    "./lib/api": [
-      {
-        "types": "./lib/api/index.d.ts",
-        "import": "./esm/api/index.js",
-        "require": "./lib/api/index.js"
-      },
-      "./lib/api/index.js"
-    ],
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./events": {
+      "types": "./lib/events/index.d.ts",
+      "import": "./esm/events/index.js",
+      "require": "./lib/events/index.js"
+    },
+    "./reporter": {
+      "types": "./lib/reporter/index.d.ts",
+      "import": "./esm/reporter/index.js",
+      "require": "./lib/reporter/index.js"
+    },
+    "./api": {
+      "types": "./lib/api/index.d.ts",
+      "import": "./esm/api/index.js",
+      "require": "./lib/api/index.js"
+    },
+    "./lib/events": {
+      "types": "./lib/events/index.d.ts",
+      "import": "./esm/events/index.js",
+      "require": "./lib/events/index.js"
+    },
+    "./lib/reporter": {
+      "types": "./lib/reporter/index.d.ts",
+      "import": "./esm/reporter/index.js",
+      "require": "./lib/reporter/index.js"
+    },
+    "./lib/api": {
+      "types": "./lib/api/index.d.ts",
+      "import": "./esm/api/index.js",
+      "require": "./lib/api/index.js"
+    },
     "./lib/*.js": "./lib/*.js",
     "./lib/*": "./lib/*",
     "./esm/*.js": "./esm/*.js",

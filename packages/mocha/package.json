@@ -21,22 +21,26 @@
   "type": "module",
   "module": "./esm/index.js",
   "exports": {
-    ".": [
-      {
+    ".": {
+      "import": {
         "types": "./esm/index.d.ts",
-        "import": "./esm/index.js",
-        "require": "./lib/index.js"
+        "default": "./esm/index.js"
       },
-      "./lib/index.js"
-    ],
-    "./adapter": [
-      {
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./adapter": {
+      "import": {
         "types": "./esm/adapter/index.d.ts",
-        "import": "./esm/adapter/index.js",
-        "require": "./lib/adapter/index.js"
+        "default": "./esm/adapter/index.js"
       },
-      "./lib/adapter/index.js"
-    ],
+      "require": {
+        "types": "./lib/adapter/index.d.ts",
+        "default": "./lib/adapter/index.js"
+      }
+    },
     "./lib/adapter": {
       "types": "./lib/adapter/index.d.ts",
       "default": "./lib/adapter/index.js"

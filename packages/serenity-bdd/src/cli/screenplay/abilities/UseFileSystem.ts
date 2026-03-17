@@ -1,8 +1,8 @@
 import type { ReadStream, Stats, WriteStream } from 'node:fs';
 
 import { Ability } from '@serenity-js/core';
-import type { Path } from '@serenity-js/core/lib/io';
-import { FileSystem } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/io';
+import { FileSystem } from '@serenity-js/core/io';
 
 /**
  * @package

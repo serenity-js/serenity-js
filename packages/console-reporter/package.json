@@ -21,14 +21,16 @@
   "type": "module",
   "module": "./esm/index.js",
   "exports": {
-    ".": [
-      {
+    ".": {
+      "import": {
         "types": "./esm/index.d.ts",
-        "import": "./esm/index.js",
-        "require": "./lib/index.js"
+        "default": "./esm/index.js"
       },
-      "./lib/index.js"
-    ],
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
     "./lib/*": "./lib/*",
     "./esm/*": "./esm/*.js",
     "./package.json": "./package.json"

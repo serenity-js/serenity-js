@@ -1,5 +1,5 @@
 import type { DomainEventQueue } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/events';
 import {
     ActivityFinished,
     ActivityRelatedArtifactArchived,
@@ -20,7 +20,7 @@ import {
     SceneTagged,
     SceneTemplateDetected,
     TestRunnerDetected,
-} from '@serenity-js/core/lib/events';
+} from '@serenity-js/core/events';
 import { match } from 'tiny-types';
 
 import type { SerenityBDD4ReportSchema } from '../../serenity-bdd-report-schema';

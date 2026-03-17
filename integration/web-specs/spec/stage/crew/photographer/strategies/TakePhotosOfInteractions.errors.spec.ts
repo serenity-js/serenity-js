@@ -9,9 +9,9 @@ import {
     InteractionStarts,
     SceneFinishes,
     SceneStarts
-} from '@serenity-js/core/lib/events';
-import { ExecutionSuccessful } from '@serenity-js/core/lib/model';
-import { Stage } from '@serenity-js/core/lib/stage';
+} from '@serenity-js/core/events';
+import { ExecutionSuccessful } from '@serenity-js/core/model';
+import { Stage } from '@serenity-js/core/stage';
 import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 import { create } from '../create';

@@ -19,8 +19,8 @@ export interface CollectsArtifacts {
      * ```ts
      * import fs from 'node:fs';
      * import { Answerable, Interaction, the } from '@serenity-js/core'
-     * import { Path } from '@serenity-js/core/lib/io'
-     * import { Name, TextData } from '@serenity-js/core/lib/model'
+     * import { Path } from '@serenity-js/core/io'
+     * import { Name, TextData } from '@serenity-js/core/model'
      *
      * export class Attach {
      *
@@ -50,7 +50,7 @@ export interface CollectsArtifacts {
      *
      * ```ts
      * import { actorCalled } from '@serenity-js/core'
-     * import { Path } from '@serenity-js/core/lib/io'
+     * import { Path } from '@serenity-js/core/io'
      *
      * actorCalled('Alice').attemptsTo(
      *   Attach.textData('some text', 'some name'),

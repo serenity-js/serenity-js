@@ -2,7 +2,7 @@ import type { URL } from 'node:url';
 
 import type { Expectation, ExpectationOutcome, Optional, QuestionAdapter } from '@serenity-js/core';
 import { ExpectationMet, LogicError, Question } from '@serenity-js/core';
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities/index.js';

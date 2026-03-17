@@ -2,7 +2,7 @@ import type { URL } from 'node:url';
 
 import type { AnswersQuestions, PerformsActivities, UsesAbilities } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 import { GetRequest } from '@serenity-js/rest';
 
 import type { GAV } from '../../model';

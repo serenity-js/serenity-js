@@ -1,4 +1,4 @@
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/model';
 
 import type { TestStepSchema } from '../serenity-bdd-report-schema';
 

@@ -1,10 +1,10 @@
 import { URL } from 'node:url';
 
 import { List, LogicError } from '@serenity-js/core';
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/model';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
 import { ArgumentDehydrator, BrowserWindowClosedError, Key, Page, PageElement, PageElementsLocator } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts';
+import * as scripts from '@serenity-js/web/scripts';
 import type * as protractor from 'protractor';
 
 import { promised } from '../promised';

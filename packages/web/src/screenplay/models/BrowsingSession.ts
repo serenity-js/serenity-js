@@ -1,4 +1,4 @@
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/model';
 
 import type { BrowserCapabilities } from './BrowserCapabilities.js';
 import type { Page } from './Page.js';

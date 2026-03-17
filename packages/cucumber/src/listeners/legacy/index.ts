@@ -1,6 +1,6 @@
 import type { Serenity } from '@serenity-js/core';
 import { ConfigurationError } from '@serenity-js/core';
-import type { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import type { ModuleLoader, Path } from '@serenity-js/core/io';
 
 import cucumber0 from './cucumber-0.js';
 import cucumber1 from './cucumber-1.js';

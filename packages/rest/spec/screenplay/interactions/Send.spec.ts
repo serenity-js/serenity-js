@@ -9,8 +9,8 @@ import {
     ActorSpotlighted,
     SceneFinishes,
     SceneStarts
-} from '@serenity-js/core/lib/events/index.js';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
+} from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import {
     Category,
     CorrelationId,
@@ -18,7 +18,7 @@ import {
     HTTPRequestResponse,
     Name,
     ScenarioDetails
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { afterEach, beforeEach, describe, it } from 'mocha';

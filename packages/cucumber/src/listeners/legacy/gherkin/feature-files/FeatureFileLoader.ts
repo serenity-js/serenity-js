@@ -1,4 +1,4 @@
-import type { Path } from '@serenity-js/core/lib/io/index.js';
+import type { Path } from '@serenity-js/core/io';
 
 import { Cache } from './Cache.js';
 import type { FeatureFileMap } from './FeatureFileMap.js';

@@ -1,5 +1,5 @@
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
-import { Category, Name, ScenarioDetails, type Tag, Tags } from '@serenity-js/core/lib/model/index.js';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { Category, Name, ScenarioDetails, type Tag, Tags } from '@serenity-js/core/model';
 import type { Suite, Test } from 'mocha';
 
 /**

@@ -1,6 +1,6 @@
 import type { Stage, StageCrewMember } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { ArtifactGenerated } from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/events';
+import { ArtifactGenerated } from '@serenity-js/core/events';
 
 import { Complaint, Notification } from '../model';
 import type { Printer } from '../Printer';

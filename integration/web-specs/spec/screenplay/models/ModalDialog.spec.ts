@@ -9,8 +9,8 @@ import {
     InteractionFinished,
     SceneFinishes,
     SceneStarts
-} from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { CorrelationId, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 import { Click, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 import { defaultCardScenario, sceneId } from '../../stage/crew/photographer/fixtures';
