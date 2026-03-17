@@ -2,6 +2,7 @@
 import type { EventRecorder } from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Actor, Stage } from '@serenity-js/core';
+import type { SerialisedAbility } from '@serenity-js/core';
 import { Ability } from '@serenity-js/core';
 import {
     ArtifactGenerated,
@@ -15,7 +16,6 @@ import {
 } from '@serenity-js/core/events';
 import type { CorrelationId, ScenarioDetails } from '@serenity-js/core/model';
 import { ExecutionSuccessful } from '@serenity-js/core/model';
-import type { SerialisedAbility } from '@serenity-js/core';
 import { beforeEach, describe, it } from 'mocha';
 
 import { authenticationScenario, defaultCardScenario, voucherScenario } from '../../samples';

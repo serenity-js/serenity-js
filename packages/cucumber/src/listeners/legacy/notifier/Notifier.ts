@@ -1,3 +1,4 @@
+import type { Serenity } from '@serenity-js/core';
 import type {
     DomainEvent} from '@serenity-js/core/events';
 import {
@@ -19,7 +20,6 @@ import {
 } from '@serenity-js/core/events';
 import type { CorrelationId, Outcome} from '@serenity-js/core/model';
 import { ActivityDetails, CapabilityTag, Category, Description, ExecutionSuccessful, FeatureTag, Name, ScenarioDetails, Tag, ThemeTag } from '@serenity-js/core/model';
-import type { Serenity } from '@serenity-js/core';
 
 import type { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } from '../gherkin/index.js';
 
