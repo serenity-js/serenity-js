@@ -166,10 +166,9 @@ Migrate all `@serenity-js/*/lib/<submodule>` import paths to clean `@serenity-js
   - Compile `integration/web-specs` and ensure no errors. Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 16.5_
 
-- [x] 16. Migrate legacy Cucumber registration files
-  - [x] 16.1 Update `--require` arguments in `integration/cucumber-1/src/register-cucumber.ts` and `integration/cucumber-2/src/register-cucumber.ts`
-    - Replace `node_modules/@serenity-js/cucumber/lib/index.js` → `@serenity-js/cucumber`
-    - _Requirements: 17.1_
+- [ ] 16. ~~Migrate legacy Cucumber registration files~~ (REVERTED)
+  - **Note:** This task was reverted. Legacy Cucumber versions (1.x, 2.x) use simple `require(pathString)` on the `--require` argument rather than Node.js module resolution. The clean import path `@serenity-js/cucumber` doesn't work because these old versions don't support conditional exports. The explicit file path `node_modules/@serenity-js/cucumber/lib/index.js` must be retained.
+  - _Requirements: 17.1 — NOT APPLICABLE for legacy Cucumber versions_
 
 - [x] 17. Checkpoint — Verify cucumber-1 and cucumber-2 compilation
   - Compile `integration/cucumber-1` and `integration/cucumber-2` and ensure no errors. Ensure all tests pass, ask the user if questions arise.

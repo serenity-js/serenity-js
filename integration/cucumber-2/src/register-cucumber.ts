@@ -13,6 +13,6 @@ const cwd = path.resolve(__dirname, '../');
 
 registerRunner(pathToCucumberExecutable, cwd, [
     '--compiler', 'ts:tsx/cjs',
-    '--require', '@serenity-js/cucumber',
+    '--require', 'node_modules/@serenity-js/cucumber/lib/index.js',
     '--require', require.resolve('./support/configure_serenity'),
 ]);
